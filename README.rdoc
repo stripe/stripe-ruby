@@ -1,0 +1,15 @@
+= Stripe Ruby bindings
+
+== Installation
+
+You don't need this source code unless you want to modify the gem. If you just want to use the Stripe Ruby bindings, you should run:
+
+  sudo gem install --source https://gems.stripe.com stripe
+
+If you want to build the gem from source:
+
+  sudo gem build stripe.gemspec
+
+== REQUIREMENTS:
+
+* rest-client, json

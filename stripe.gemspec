@@ -1,0 +1,24 @@
+$:.unshift(File.join(File.dirname(__FILE__), 'lib'))
+
+require 'stripe'
+
+spec = Gem::Specification.new do |s|
+  s.name = 'stripe'
+  s.version = Stripe.version
+  s.summary = 'Ruby bindings for the Stripe API'
+  s.description = 'Stripe is the easiest way to accept payments online.  See https://stripe.com for details.'
+  s.authors = ['Ross Boucher', 'Greg Brockman']
+  s.email = ['boucher@stripe.com', 'gdb@stripe.com']
+  s.homepage = 'https://stripe.com/api'
+  s.executables = 'stripe-console'
+  s.require_paths = %w{lib}
+
+  s.add_dependency('json')
+  s.add_dependency('rest-client')
+
+  s.files = %w{
+    bin/stripe-console
+    lib/stripe.rb
+    lib/data/ca-certificates.crt
+  }
+end

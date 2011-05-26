@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+
+libs =  " -r irb/completion"
+libs <<  " -r #{File.dirname(__FILE__) + '/../lib/stripe'}"
+puts "Loading stripe gem"
+exec "#{irb} #{libs} --simple-prompt"

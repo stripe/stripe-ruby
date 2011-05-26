@@ -1,0 +1,511 @@
+# Stripe Ruby bindings
+# API spec at http://stripe.com/api/spec
+# Authors: Ross Boucher <boucher@stripe.com> and Greg Brockman <gdb@stripe.com>
+require 'set'
+
+require 'rubygems'
+require 'json'
+require 'openssl'
+require 'rest_client'
+
+module Stripe
+  @@version = '1.5.0'
+  @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
+  @@api_key = nil
+  @@api_base = 'https://api.stripe.com/v1'
+
+  module Util
+    def self.objects_to_ids(h)
+      case h
+      when APIResource
+        h.id
+      when Hash
+        res = {}
+        h.each { |k, v| res[k] = objects_to_ids(v) }
+        res
+      else
+        h
+      end
+    end
+
+    def self.convert_to_stripe_object(resp, api_key)
+      types = {
+        'charge' => Charge,
+        'customer' => Customer,
+        'invoice_item' => InvoiceItem,
+        'invoice' => Invoice
+      }
+      case resp
+      when Array
+        resp.map { |i| convert_to_stripe_object(i, api_key) }
+      when Hash
+        # Try converting to a known object class.  If none available, fall back to generic APIResource
+        if klass_name = resp[:object]
+          klass = types[klass_name]
+        end
+        klass ||= StripeObject
+        klass.construct_from(resp, api_key)
+      else
+        resp
+      end
+    end
+  end
+
+  module APIOperations
+    module Create
+      module ClassMethods
+        def create(params={}, api_key=nil)
+          response, api_key = Stripe.request(:post, self.url, api_key, params)
+          Util.convert_to_stripe_object(response, api_key)
+        end
+      end
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
+    end
+
+    module Update
+      def save
+        if @unsaved_values.length > 0
+          values = {}
+          @unsaved_values.each { |k| values[k] = @values[k] }
+          response, api_key = Stripe.request(:post, url, @api_key, values)
+          refresh_from(response, api_key)
+        end
+        self
+      end
+    end
+
+    module Delete
+      def delete
+        response, api_key = Stripe.request(:delete, url, @api_key)
+        refresh_from(response, api_key)
+        self
+      end
+    end
+
+    module List
+      module ClassMethods
+        def all(filters={}, api_key=nil)
+          response, api_key = Stripe.request(:get, url, api_key, filters)
+          Util.convert_to_stripe_object(response, api_key)
+        end
+      end
+
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
+    end
+  end
+
+  class StripeObject
+    attr_accessor :api_key
+    @@permanent_attributes = Set.new([:api_key])
+    @@ignored_attributes = Set.new([:id, :api_key, :object])
+
+    # The default :id method is deprecated and isn't useful to us
+    if method_defined?(:id)
+      undef :id
+    end
+
+    def initialize(id=nil, api_key=nil)
+      @api_key = api_key
+      @values = {}
+      # This really belongs in APIResource, but not putting it there allows us
+      # to have a unified inspect method
+      @unsaved_values = Set.new
+      @transient_values = Set.new
+      self.id = id if id
+    end
+
+    def self.construct_from(values, api_key=nil)
+      obj = self.new(values[:id], api_key)
+      obj.refresh_from(values, api_key)
+      obj
+    end
+
+    def to_s(*args); inspect(*args); end
+    def inspect(verbose=false, nested=false)
+      str = ["#<#{self.class}"]
+      if (desc = ident.compact).length > 0
+        str << "[#{desc.join(', ')}]"
+      end
+
+      if !verbose and nested
+        str << ' ...'
+      else
+        content = @values.keys.sort { |a, b| a.to_s <=> b.to_s }.map do |k|
+          if @@ignored_attributes.include?(k)
+            nil
+          else
+            v = @values[k]
+            v = v.kind_of?(StripeObject) ? v.inspect(verbose, true) : v.inspect
+            v = @unsaved_values.include?(k) ? "#{v} (unsaved)" : v
+            "#{k}=#{v}"
+          end
+        end.compact.join(', ')
+
+        str << ' '
+        if content.length > 0
+          str << content
+        else
+          str << '(no attributes)'
+        end
+      end
+
+      str << ">"
+      str.join
+    end
+
+    def refresh_from(values, api_key, partial=false)
+      @api_key = api_key
+
+      removed = partial ? Set.new : Set.new(@values.keys - values.keys)
+      added = Set.new(values.keys - @values.keys)
+      # Wipe old state before setting new.  This is useful for e.g. updating a
+      # customer, where there is no persistent card parameter.  Mark those values
+      # which don't persist as transient
+
+      instance_eval do
+        remove_accessors(removed)
+        add_accessors(added)
+      end
+      removed.each do |k|
+        @values.delete(k)
+        @transient_values.add(k)
+        @unsaved_values.delete(k)
+      end
+      values.each do |k, v|
+        @values[k] = Util.convert_to_stripe_object(v, api_key)
+        @transient_values.delete(k)
+        @unsaved_values.delete(k)
+      end
+    end
+
+    def [](k)
+      k = k.to_sym if k.kind_of?(String)
+      @values[k]
+    end
+    def []=(k, v)
+      send(:"#{k}=", v)
+    end
+    def keys; @values.keys; end
+    def values; @values.values; end
+    def to_json(*a); @values.to_json(*a); end
+
+    protected
+
+    def ident
+      [@values[:object], @values[:id]]
+    end
+
+    def metaclass
+      class << self; self; end
+    end
+
+    def remove_accessors(keys)
+      metaclass.instance_eval do
+        keys.each do |k|
+          next if @@permanent_attributes.include?(k)
+          k_eq = :"#{k}="
+          remove_method(k) if method_defined?(k)
+          remove_method(k_eq) if method_defined?(k_eq)
+        end
+      end
+    end
+
+    def add_accessors(keys)
+      metaclass.instance_eval do
+        keys.each do |k|
+          next if @@permanent_attributes.include?(k)
+          k_eq = :"#{k}="
+          define_method(k) { @values[k] }
+          define_method(k_eq) do |v|
+            @values[k] = v
+            @unsaved_values.add(k) unless @@ignored_attributes.include?(k)
+          end
+        end
+      end
+    end
+
+    def method_missing(name, *args)
+      # TODO: only allow setting in updateable classes.
+      if name.to_s.end_with?('=')
+        attr = name.to_s[0...-1].to_sym
+        @values[attr] = args[0]
+        @unsaved_values.add(attr)
+        add_accessors([attr])
+        return
+      else
+        return @values[name] if @values.has_key?(name)
+      end
+
+      begin
+        super
+      rescue NoMethodError => e
+        if @transient_values.include?(name)
+          raise NoMethodError.new(e.message + ".  HINT: The '#{name}' attribute was set in the past, however.  It was then wiped when refreshing the object with the result returned by Stripe's API, probably as a result of a save().  The attributes currently available on this object are: #{@values.keys.join(', ')}")
+        else
+          raise
+        end
+      end
+    end
+  end
+
+  class APIResource < StripeObject
+    def self.url
+      if self == APIResource
+        raise NotImplementedError.new("APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)")
+      end
+      shortname = self.name.split('::')[-1]
+      "/#{CGI.escape(shortname.downcase)}s"
+    end
+    def url; "#{self.class.url}/#{CGI.escape(id)}"; end
+
+    def refresh
+      response, api_key = Stripe.request(:get, url, @api_key)
+      refresh_from(response, api_key)
+      self
+    end
+
+    def self.retrieve(id, api_key=nil)
+      instance = self.new(id, api_key)
+      instance.refresh
+      instance
+    end
+
+    protected
+
+    def ident
+      [@values[:id]]
+    end
+  end
+
+  class Customer < APIResource
+    include Stripe::APIOperations::Create
+    include Stripe::APIOperations::Delete
+    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::List
+
+    def add_invoice_item(params)
+      InvoiceItem.create(params.merge(:customer_id => id), @api_key)
+    end
+
+    def invoices
+      Invoice.all({ :customer_id => id }, @api_key)
+    end
+
+    def invoice_items
+      InvoiceItem.all({ :customer_id => id }, @api_key)
+    end
+
+    def charges
+      Charge.all({ :customer_id => id }, @api_key)
+    end
+
+    def cancel_subscription
+      response, api_key = Stripe.request(:delete, subscription_url, @api_key)
+      refresh_from({ :subscription => response }, api_key, true)
+      subscription
+    end
+
+    def update_subscription(params)
+      response, api_key = Stripe.request(:post, subscription_url, @api_key)
+      refresh_from({ :subscription => response }, api_key, true)
+      subscription
+    end
+
+    private
+
+    def subscription_url
+      url + '/subscription'
+    end
+  end
+
+  class Invoice < APIResource
+    include Stripe::APIOperations::List
+
+    def self.upcoming(params)
+      response, api_key = Stripe.request(:get, upcoming_url, @api_key, params)
+      Util.convert_to_stripe_object(response, api_key)
+    end
+
+    private
+
+    def self.upcoming_url
+      url + '/upcoming'
+    end
+  end
+
+  class InvoiceItem < APIResource
+    include Stripe::APIOperations::List
+    include Stripe::APIOperations::Create
+    include Stripe::APIOperations::Delete
+    include Stripe::APIOperations::Update
+  end
+
+  class Charge < APIResource
+    include Stripe::APIOperations::List
+    include Stripe::APIOperations::Create
+
+    def refund
+      response, api_key = Stripe.request(:post, refund_url, @api_key)
+      refresh_from(response, api_key)
+      self
+    end
+
+    private
+
+    def refund_url
+      url + '/refund'
+    end
+  end
+
+  class StripeError < StandardError; end
+  class APIError < StripeError; end
+  class APIConnectionError < StripeError; end
+  class CardError < StripeError
+    attr_reader :param, :code
+
+    def initialize(message, param, code)
+      super(message)
+      @param = param
+      @code = code
+    end
+  end
+  class InvalidRequestError < StripeError
+    attr_accessor :param
+
+    def initialize(message, param)
+      super(message)
+      @param = param
+    end
+  end
+  class AuthenticationError < StripeError; end
+
+  def self.api_url(url=''); @@api_base + url; end
+  def self.api_key=(api_key); @@api_key = api_key; end
+  def self.api_key; @@api_key; end
+  def self.api_base=(api_base); @@api_base = api_base; end
+  def self.api_base; @@api_base; end
+  def self.version; @@version; end
+
+  def self.request(method, url, api_key, params=nil, headers={})
+    api_key ||= @@api_key
+    raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.') unless api_key
+
+    if !File.exists?(@@ssl_bundle_path)
+      unless @no_bundle
+        $stderr.puts "WARNING: Running without SSL cert verification because #{@@ssl_bundle_path} does not exist"
+        @no_bundle = true
+      end
+      ssl_opts = { :verify_ssl => false }
+    else
+      ssl_opts = {
+        :verify_ssl => OpenSSL::SSL::VERIFY_PEER,
+        :ssl_ca_file => @@ssl_bundle_path
+      }
+    end
+    uname = (@@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
+    lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
+    ua = {
+      :bindings_version => Stripe.version,
+      :lang => 'ruby',
+      :lang_version => lang_version,
+      :platform => RUBY_PLATFORM,
+      :publisher => 'stripe',
+      :uname => uname
+    }
+    headers = {
+      :x_stripe_client_user_agent => JSON.dump(ua),
+      :user_agent => "Stripe/v1 RubyBindings/#{Stripe.version}"
+    }.merge(headers)
+    opts = {
+      :method => method,
+      :url => self.api_url(url),
+      :user => api_key,
+      :headers => headers,
+      :payload => Util.objects_to_ids(params),
+      :open_timeout => 30,
+      :timeout => 80
+    }.merge(ssl_opts)
+
+    begin
+      response = execute_request(opts)
+    rescue SocketError => e
+      self.handle_restclient_error(e)
+    rescue NoMethodError => e
+      # Work around RestClient bug
+      if e.message =~ /\WRequestFailed\W/
+        e = APIConnectionError.new('Unexpected HTTP response code')
+        self.handle_restclient_error(e)
+      else
+        raise
+      end
+    rescue RestClient::ExceptionWithResponse => e
+      if rcode = e.http_code and rbody = e.http_body
+        self.handle_api_error(rcode, rbody)
+      else
+        self.handle_restclient_error(e)
+      end
+    rescue RestClient::Exception, Errno::ECONNREFUSED => e
+      self.handle_restclient_error(e)
+    end
+
+    rbody = response.body
+    rcode = response.code
+    begin
+      resp = JSON.parse(rbody, :symbolize_names => true)
+    rescue JSON::ParseError
+      raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})")
+    end
+
+    [resp, api_key]
+  end
+
+  private
+
+  def self.execute_request(opts)
+    RestClient::Request.execute(opts)
+  end
+
+  def self.handle_api_error(rcode, rbody)
+    begin
+      error_obj = JSON.parse(rbody, :symbolize_names => true)
+      error = error_obj[:error] or raise StripeError.new
+    rescue JSON::ParserError, StripeError
+      raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})")
+    end
+
+    case rcode
+    when 400, 404 then
+      raise invalid_request_error(error)
+    when 401
+      raise authentication_error(error)
+    when 402
+      raise card_error(error)
+    else
+      raise api_error(error)
+    end
+  end
+
+  def self.invalid_request_error(error); InvalidRequestError.new(error[:message], error[:param]); end
+  def self.authentication_error(error); AuthenticationError.new(error[:message]); end
+  def self.card_error(error); CardError.new(error[:message], error[:param], error[:code]); end
+  def self.api_error(error); APIError.new(error[:message]); end
+
+  def self.handle_restclient_error(e)
+    case e
+    when RestClient::ServerBrokeConnection, RestClient::RequestTimeout
+      message = "Could not connect to Stripe (#{@@api_base}).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripe, or let us know at support@stripe.com."
+    when RestClient::SSLCertificateNotVerified
+      message = "Could not verify Stripe's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to https://api.stripe.com in your browser.)  If this problem persists, let us know at support@stripe.com."
+    when SocketError
+      message = "Unexpected error communicating when trying to connect to Stripe.  HINT: You may be seeing this message because your DNS is not working.  To check, try running 'host stripe.com' from the command line."
+    else
+      message = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
+    end
+    message += "\n\n(Network error: #{e.message})"
+    raise APIConnectionError.new(message)
+  end
+end

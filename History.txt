@@ -1,0 +1,24 @@
+=== 1.5.0 2011-05-09
+
+* 1 major enhancement:
+  * Update for new RESTful API
+
+=== 1.3.4 2011-01-07
+
+* 1 major enhancement:
+  * Rename to Stripe
+
+=== 1.2 2010-06-06
+
+* 1 major enhancement:
+  * Support for the set_customer_subscription and delete_customer API methods
+
+=== 1.1 2010-03-14
+
+* 1 major enhancement:
+  * Support for recurring billing
+
+=== 1.0 2010-01-05
+
+* 1 major enhancement:
+  * Initial release

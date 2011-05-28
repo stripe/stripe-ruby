@@ -396,7 +396,7 @@ module Stripe
 
   def self.request(method, url, api_key, params=nil, headers={})
     api_key ||= @@api_key
-    raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.') unless api_key
+    raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
 
     if !File.exists?(@@ssl_bundle_path)
       unless @no_bundle

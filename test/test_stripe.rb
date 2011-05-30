@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/test_helper.rb'
 require 'test/unit'
 require 'context'
@@ -73,6 +74,11 @@ class TestStripeRuby < Test::Unit::TestCase
         response = test_response(test_missing_id_error, 404)
         @mock.expects(:get).once.with("https://api.stripe.com/v1/customers/%E2%98%83").raises(RestClient::ExceptionWithResponse.new(response, 404))
         c = Stripe::Customer.new("☃")
+        assert_raises(Stripe::InvalidRequestError) { c.refresh }
+      end
+
+      test "requesting with no ID shuold result in an InvalidRequestError with no request" do
+        c = Stripe::Customer.new
         assert_raises(Stripe::InvalidRequestError) { c.refresh }
       end
 

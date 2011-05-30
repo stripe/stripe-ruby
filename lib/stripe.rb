@@ -260,7 +260,11 @@ module Stripe
       shortname = self.name.split('::')[-1]
       "/#{CGI.escape(shortname.downcase)}s"
     end
-    def url; "#{self.class.url}/#{CGI.escape(id)}"; end
+    def url
+      id = self['id']
+      raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", 'id') unless id
+      "#{self.class.url}/#{CGI.escape(id)}"
+    end
 
     def refresh
       response, api_key = Stripe.request(:get, url, @api_key)

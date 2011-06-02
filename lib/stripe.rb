@@ -32,7 +32,7 @@ module Stripe
       types = {
         'charge' => Charge,
         'customer' => Customer,
-        'invoice_item' => InvoiceItem,
+        'invoiceitem' => InvoiceItem,
         'invoice' => Invoice
       }
       case resp

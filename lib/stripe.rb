@@ -292,19 +292,19 @@ module Stripe
     include Stripe::APIOperations::List
 
     def add_invoice_item(params)
-      InvoiceItem.create(params.merge(:customer_id => id), @api_key)
+      InvoiceItem.create(params.merge(:customer => id), @api_key)
     end
 
     def invoices
-      Invoice.all({ :customer_id => id }, @api_key)
+      Invoice.all({ :customer => id }, @api_key)
     end
 
     def invoice_items
-      InvoiceItem.all({ :customer_id => id }, @api_key)
+      InvoiceItem.all({ :customer => id }, @api_key)
     end
 
     def charges
-      Charge.all({ :customer_id => id }, @api_key)
+      Charge.all({ :customer => id }, @api_key)
     end
 
     def cancel_subscription

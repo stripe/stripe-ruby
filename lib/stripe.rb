@@ -314,7 +314,7 @@ module Stripe
     end
 
     def update_subscription(params)
-      response, api_key = Stripe.request(:post, subscription_url, @api_key)
+      response, api_key = Stripe.request(:post, subscription_url, @api_key, params)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end

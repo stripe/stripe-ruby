@@ -97,6 +97,27 @@ def test_card(params={})
   }.merge(params)
 end
 
+#FIXME nested overrides would be better than hardcoding plan_id
+def test_subscription(plan_id="gold")
+  {
+    :current_period_end => 1308681468,
+    :status => "trialing",
+    :plan => {
+      :interval => "month",
+      :amount => 7500,
+      :trial_period_days => 30,
+      :object => "plan",
+      :identifier => plan_id
+    },
+    :current_period_start => 1308595038,
+    :start => 1308595038,
+    :object => "subscription",
+    :trial_start => 1308595038,
+    :trial_end => 1308681468,
+    :customer => "c_test_customer"
+  }
+end
+
 def test_invalid_api_key_error
   {
     "error" => {

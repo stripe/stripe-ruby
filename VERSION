@@ -1,0 +1,3 @@
+#!/bin/sh
+
+perl -ne 'print $1 if'" /@@version.*'([\d.]+)'/" "$(dirname "$0")/lib/stripe.rb"

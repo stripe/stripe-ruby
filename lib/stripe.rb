@@ -358,10 +358,20 @@ module Stripe
       self
     end
 
+    def capture(params={})
+      response, api_key = Stripe.request(:post, capture_url, @api_key, params)
+      refresh_from(response, api_key)
+      self
+    end
+
     private
 
     def refund_url
       url + '/refund'
+    end
+
+    def capture_url
+      url + '/capture'
     end
   end
 

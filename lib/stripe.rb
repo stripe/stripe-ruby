@@ -9,7 +9,7 @@ require 'openssl'
 require 'rest_client'
 
 module Stripe
-  @@version = '1.5.4'
+  @@version = '1.5.5'
   @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
   @@api_key = nil
   @@api_base = 'https://api.stripe.com/v1'

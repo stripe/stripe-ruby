@@ -14,6 +14,7 @@ module Stripe
   @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
   @@api_key = nil
   @@api_base = 'https://api.stripe.com/v1'
+  @@verify_ssl_certs = true
 
   module Util
     def self.objects_to_ids(h)
@@ -48,6 +49,16 @@ module Stripe
         klass.construct_from(resp, api_key)
       else
         resp
+      end
+    end
+
+    def self.file_readable(file)
+      begin
+        File.open(file) { |f| }
+      rescue
+        false
+      else
+        true
       end
     end
   end
@@ -403,15 +414,23 @@ module Stripe
   def self.api_key; @@api_key; end
   def self.api_base=(api_base); @@api_base = api_base; end
   def self.api_base; @@api_base; end
+  def self.verify_ssl_certs=(verify); @@verify_ssl_certs = verify; end
+  def self.verify_ssl_certs; @@verify_ssl_certs; end
   def self.version; @@version; end
 
   def self.request(method, url, api_key, params=nil, headers={})
     api_key ||= @@api_key
     raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
 
-    if !File.exists?(@@ssl_bundle_path)
+    if !verify_ssl_certs
+      unless @no_verify
+        $stderr.puts "WARNING: Running without SSL cert verification.  Execute 'Stripe.verify_ssl_certs = true' to enable verification."
+        @no_verify = true
+      end
+      ssl_opts = { :verify_ssl => false }
+    elsif !Util.file_readable(@@ssl_bundle_path)
       unless @no_bundle
-        $stderr.puts "WARNING: Running without SSL cert verification because #{@@ssl_bundle_path} does not exist"
+        $stderr.puts "WARNING: Running without SSL cert verification because #{@@ssl_bundle_path} isn't readable"
         @no_bundle = true
       end
       ssl_opts = { :verify_ssl => false }

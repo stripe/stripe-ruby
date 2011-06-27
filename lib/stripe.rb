@@ -1,6 +1,7 @@
 # Stripe Ruby bindings
 # API spec at http://stripe.com/api/spec
 # Authors: Ross Boucher <boucher@stripe.com> and Greg Brockman <gdb@stripe.com>
+require 'cgi'
 require 'set'
 
 require 'rubygems'

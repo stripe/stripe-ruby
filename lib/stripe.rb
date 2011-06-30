@@ -245,7 +245,7 @@ module Stripe
       if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
         @values[attr] = args[0]
-        @unsaved_values.add(attr)
+        @unsaved_values.add(attr) unless @@ignored_attributes.include?(attr)
         add_accessors([attr])
         return
       else

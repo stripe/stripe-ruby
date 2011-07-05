@@ -25,6 +25,8 @@ module Stripe
         res = {}
         h.each { |k, v| res[k] = objects_to_ids(v) }
         res
+      when Array
+        h.map { |v| objects_to_ids(v) }
       else
         h
       end

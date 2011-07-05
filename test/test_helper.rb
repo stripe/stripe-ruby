@@ -14,10 +14,12 @@ module Stripe
   end
 
   def self.execute_request(opts)
+    get_params = (opts[:headers] || {})[:params]
+    post_params = opts[:payload]
     case opts[:method]
-    when :get: @mock_rest_client.get opts[:url]
-    when :post: @mock_rest_client.post opts[:url], opts[:payload]
-    when :delete: @mock_rest_client.delete opts[:url]
+    when :get: @mock_rest_client.get opts[:url], get_params, post_params
+    when :post: @mock_rest_client.post opts[:url], get_params, post_params
+    when :delete: @mock_rest_client.delete opts[:url], get_params, post_params
     end
   end
 end

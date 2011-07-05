@@ -452,6 +452,17 @@ module Stripe
       :publisher => 'stripe',
       :uname => uname
     }
+
+    params = Util.objects_to_ids(params)
+    case method.to_s.downcase.to_sym
+    when :get, :head, :delete
+      # Make params into GET parameters
+      headers = { :params => params }.merge(headers)
+      payload = nil
+    else
+      payload = params
+    end
+
     headers = {
       :x_stripe_client_user_agent => JSON.dump(ua),
       :user_agent => "Stripe/v1 RubyBindings/#{Stripe.version}"
@@ -461,8 +472,8 @@ module Stripe
       :url => self.api_url(url),
       :user => api_key,
       :headers => headers,
-      :payload => Util.objects_to_ids(params),
       :open_timeout => 30,
+      :payload => payload,
       :timeout => 80
     }.merge(ssl_opts)
 

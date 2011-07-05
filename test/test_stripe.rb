@@ -72,14 +72,26 @@ class TestStripeRuby < Test::Unit::TestCase
 
       should "requesting with a unicode ID should result in a request" do
         response = test_response(test_missing_id_error, 404)
-        @mock.expects(:get).once.with("https://api.stripe.com/v1/customers/%E2%98%83").raises(RestClient::ExceptionWithResponse.new(response, 404))
+        @mock.expects(:get).once.with("https://api.stripe.com/v1/customers/%E2%98%83", nil, nil).raises(RestClient::ExceptionWithResponse.new(response, 404))
         c = Stripe::Customer.new("☃")
         assert_raises(Stripe::InvalidRequestError) { c.refresh }
       end
 
-      should "requesting with no ID shuold result in an InvalidRequestError with no request" do
+      should "requesting with no ID should result in an InvalidRequestError with no request" do
         c = Stripe::Customer.new
         assert_raises(Stripe::InvalidRequestError) { c.refresh }
+      end
+
+      should "making a GET request with parameters should have a query string and no body" do
+        params = { :limit => 1 }
+        @mock.expects(:get).once.with { |url, get, post| get == params and post.nil? }.returns(test_response([test_charge]))
+        c = Stripe::Charge.all(params)
+      end
+
+      should "making a POST request with parameters should have a body and no query string" do
+        params = { :amount => 100, :currency => 'usd', :card => 'sc_token' }
+        @mock.expects(:post).once.with { |url, get, post| get.nil? and post == params }.returns(test_response(test_charge))
+        c = Stripe::Charge.create(params)
       end
 
       should "loading an object should issue a GET request" do
@@ -105,7 +117,7 @@ class TestStripeRuby < Test::Unit::TestCase
       end
 
       should "updating an object should issue a POST request with only the changed properties" do
-        @mock.expects(:post).with("https://api.stripe.com/v1/customers/c_test_customer", {:mnemonic => 'another_mn'}).once.returns(test_response(test_customer))
+        @mock.expects(:post).with("https://api.stripe.com/v1/customers/c_test_customer", nil, {:mnemonic => 'another_mn'}).once.returns(test_response(test_customer))
         c = Stripe::Customer.construct_from(test_customer)
         c.mnemonic = "another_mn"
         c.save
@@ -122,7 +134,7 @@ class TestStripeRuby < Test::Unit::TestCase
       should "deleting should send no props and result in an object that has no props other deleted" do
         @mock.expects(:get).never
         @mock.expects(:post).never
-        @mock.expects(:delete).with("https://api.stripe.com/v1/customers/c_test_customer").once.returns(test_response({ "id" => "test_customer", "deleted" => true }))
+        @mock.expects(:delete).with("https://api.stripe.com/v1/customers/c_test_customer", nil, nil).once.returns(test_response({ "id" => "test_customer", "deleted" => true }))
 
         c = Stripe::Customer.construct_from(test_customer)
         c.delete
@@ -188,7 +200,7 @@ class TestStripeRuby < Test::Unit::TestCase
         end
 
         should "execute should return a new, fully executed charge when passed correct parameters" do
-          @mock.expects(:post).with('https://api.stripe.com/v1/charges', {
+          @mock.expects(:post).with('https://api.stripe.com/v1/charges', nil, {
             :currency => 'usd', :amount => 100,
             :card => {:exp_year => 2012, :number => '4242424242424242', :exp_month => 11}
           }).once.returns(test_response(test_charge))
@@ -249,7 +261,7 @@ class TestStripeRuby < Test::Unit::TestCase
           @mock.expects(:get).once.returns(test_response(test_customer))
           c = Stripe::Customer.retrieve("test_customer")
 
-          @mock.expects(:post).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", {:plan => 'silver'}).returns(test_response(test_subscription('silver')))
+          @mock.expects(:post).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", nil, {:plan => 'silver'}).returns(test_response(test_subscription('silver')))
           s = c.update_subscription({:plan => 'silver'})
 
           assert_equal 'subscription', s.object

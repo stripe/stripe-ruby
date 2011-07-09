@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require File.dirname(__FILE__) + '/test_helper.rb'
+require File.expand_path('../test_helper', __FILE__)
 require 'test/unit'
 require 'shoulda'
 require 'mocha'

@@ -8,9 +8,9 @@ require 'rubygems'
 require 'json'
 require 'openssl'
 require 'rest_client'
+require File.expand_path('../stripe/version', __FILE__)
 
 module Stripe
-  @@version = '1.5.8'
   @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
   @@api_key = nil
   @@api_base = 'https://api.stripe.com/v1'
@@ -418,7 +418,6 @@ module Stripe
   def self.api_base; @@api_base; end
   def self.verify_ssl_certs=(verify); @@verify_ssl_certs = verify; end
   def self.verify_ssl_certs; @@verify_ssl_certs; end
-  def self.version; @@version; end
 
   def self.request(method, url, api_key, params=nil, headers={})
     api_key ||= @@api_key
@@ -445,7 +444,7 @@ module Stripe
     uname = (@@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
     ua = {
-      :bindings_version => Stripe.version,
+      :bindings_version => Stripe::VERSION,
       :lang => 'ruby',
       :lang_version => lang_version,
       :platform => RUBY_PLATFORM,
@@ -465,7 +464,7 @@ module Stripe
 
     headers = {
       :x_stripe_client_user_agent => JSON.dump(ua),
-      :user_agent => "Stripe/v1 RubyBindings/#{Stripe.version}"
+      :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
     }.merge(headers)
     opts = {
       :method => method,

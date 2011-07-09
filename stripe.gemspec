@@ -1,10 +1,10 @@
 $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
-require 'stripe'
+require File.expand_path('../lib/stripe/version', __FILE__)
 
 spec = Gem::Specification.new do |s|
   s.name = 'stripe'
-  s.version = Stripe.version
+  s.version = Stripe::VERSION
   s.summary = 'Ruby bindings for the Stripe API'
   s.description = 'Stripe is the easiest way to accept payments online.  See https://stripe.com for details.'
   s.authors = ['Ross Boucher', 'Greg Brockman']
@@ -16,9 +16,14 @@ spec = Gem::Specification.new do |s|
   s.add_dependency('json')
   s.add_dependency('rest-client')
 
+  s.add_development_dependency('mocha')
+  s.add_development_dependency('shoulda')
+  s.add_development_dependency('test-unit')
+
   s.files = %w{
     bin/stripe-console
     lib/stripe.rb
+    lib/stripe/version.rb
     lib/data/ca-certificates.crt
   }
 end

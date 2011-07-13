@@ -5,10 +5,16 @@ require 'cgi'
 require 'set'
 
 require 'rubygems'
-require 'json'
 require 'openssl'
 require 'rest_client'
-require File.expand_path('../stripe/version', __FILE__)
+
+begin
+  require 'json'
+rescue LoadError
+  require File.join(File.dirname(__FILE__), '../vendor/stripe-json/lib/json/pure')
+end
+
+require File.join(File.dirname(__FILE__), 'stripe/version')
 
 module Stripe
   @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')

@@ -13,7 +13,6 @@ spec = Gem::Specification.new do |s|
   s.executables = 'stripe-console'
   s.require_paths = %w{lib}
 
-  s.add_dependency('json')
   s.add_dependency('rest-client')
 
   s.add_development_dependency('mocha')

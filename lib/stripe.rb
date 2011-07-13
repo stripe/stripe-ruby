@@ -11,6 +11,7 @@ require 'rest_client'
 begin
   require 'json'
 rescue LoadError
+  raise if defined?(JSON)
   require File.join(File.dirname(__FILE__), '../vendor/stripe-json/lib/json/pure')
 end
 

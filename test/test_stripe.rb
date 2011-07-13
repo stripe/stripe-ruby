@@ -257,7 +257,7 @@ class TestStripeRuby < Test::Unit::TestCase
           assert_equal "c_test_customer", c.id
         end
 
-        should "be able to update a customers subscription" do
+        should "be able to update a customer's subscription" do
           @mock.expects(:get).once.returns(test_response(test_customer))
           c = Stripe::Customer.retrieve("test_customer")
 
@@ -268,6 +268,17 @@ class TestStripeRuby < Test::Unit::TestCase
           assert_equal 'silver', s.plan.identifier
         end
 
+        should "be able to cancel a customer's subscription" do
+          @mock.expects(:get).once.returns(test_response(test_customer))
+          c = Stripe::Customer.retrieve("test_customer")
+
+          # Not an accurate response, but whatever
+          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", {:at_period_end => 'true'}, nil).returns(test_response(test_subscription('silver')))
+          s = c.cancel_subscription({:at_period_end => 'true'})
+
+          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", {}, nil).returns(test_response(test_subscription('silver')))
+          s = c.cancel_subscription
+        end
       end
 
       context "card tests" do

@@ -13,3 +13,16 @@ module JSON
 
   JSON_LOADED = true unless defined?(::JSON::JSON_LOADED)
 end
+
+## Hacks needed to make to_json work
+class Fixnum
+  def to_json(options=nil)
+    to_s
+  end
+end
+
+class Integer
+  def to_json(options=nil)
+    to_s
+  end
+end

@@ -321,8 +321,8 @@ module Stripe
       Charge.all({ :customer => id }, @api_key)
     end
 
-    def cancel_subscription
-      response, api_key = Stripe.request(:delete, subscription_url, @api_key)
+    def cancel_subscription(params={})
+      response, api_key = Stripe.request(:delete, subscription_url, @api_key, params)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end

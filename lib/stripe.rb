@@ -44,7 +44,8 @@ module Stripe
         'charge' => Charge,
         'customer' => Customer,
         'invoiceitem' => InvoiceItem,
-        'invoice' => Invoice
+        'invoice' => Invoice,
+        'plan' => Plan
       }
       case resp
       when Array
@@ -394,6 +395,10 @@ module Stripe
     def capture_url
       url + '/capture'
     end
+  end
+  
+  class Plan < APIResource
+    include Stripe::APIOperations::Create
   end
 
   class StripeError < StandardError; end

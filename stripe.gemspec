@@ -24,5 +24,10 @@ spec = Gem::Specification.new do |s|
     lib/stripe.rb
     lib/stripe/version.rb
     lib/data/ca-certificates.crt
+    vendor/stripe-json/lib/json/pure.rb
+    vendor/stripe-json/lib/json/common.rb
+    vendor/stripe-json/lib/json/version.rb
+    vendor/stripe-json/lib/json/pure/generator.rb
+    vendor/stripe-json/lib/json/pure/parser.rb
   }
 end

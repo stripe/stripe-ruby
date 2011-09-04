@@ -13,6 +13,12 @@ begin
 rescue LoadError
   raise if defined?(JSON)
   require File.join(File.dirname(__FILE__), '../vendor/stripe-json/lib/json/pure')
+
+  # moderately ugly hack to deal with the clobbering that
+  # ActiveSupport's JSON subjects us to
+  class JSON::Pure::Generator::State
+    attr_reader :encoder, :only, :except
+  end
 end
 
 require File.join(File.dirname(__FILE__), 'stripe/version')

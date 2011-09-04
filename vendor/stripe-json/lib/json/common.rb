@@ -107,7 +107,7 @@ module JSON
   # This exception is raised, if a parser error occurs.
   class ParserError < JSONError; end
 
-  # this is what activesupport excepts :(
+  # this is what activesupport expects :(
   class ParseError < ParserError; end
 
   # This exception is raised, if the nesting of parsed datastructures is too

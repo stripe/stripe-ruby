@@ -15,10 +15,6 @@ spec = Gem::Specification.new do |s|
 
   s.add_dependency('rest-client')
 
-  unless RUBY_VERSION.start_with?('1.9')
-    s.add_dependency('json')
-  end
-
   s.add_development_dependency('mocha')
   s.add_development_dependency('shoulda')
   s.add_development_dependency('test-unit')

@@ -20,6 +20,12 @@ rescue LoadError
   end
 end
 
+# moderately ugly hack to deal with the clobbering that
+# ActiveSupport's JSON may subject us to
+class JSON::Pure::Generator::State
+  attr_reader :encoder, :only, :except
+end
+
 require File.join(File.dirname(__FILE__), 'stripe/version')
 
 module Stripe

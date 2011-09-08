@@ -481,8 +481,18 @@ module Stripe
       payload = params
     end
 
+    # There's a bug in some version of activesupport where JSON.dump
+    # stops working
+    begin
+      headers = { :x_stripe_client_user_agent => JSON.dump(ua) }.merge(headers)
+    rescue => e
+      headers = {
+        :x_stripe_client_raw_user_agent => ua.inspect,
+        :error => "#{e} (#{e.class})"
+      }.merge(headers)
+    end
+
     headers = {
-      :x_stripe_client_user_agent => JSON.dump(ua),
       :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
     }.merge(headers)
     opts = {

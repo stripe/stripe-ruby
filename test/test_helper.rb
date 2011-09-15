@@ -57,7 +57,7 @@ def test_customer(params={})
 end
 
 def test_customer_array
-  [test_customer, test_customer, test_customer]
+  {:data => [test_customer, test_customer, test_customer]}
 end
 
 def test_charge(params={})
@@ -84,7 +84,7 @@ def test_charge(params={})
 end
 
 def test_charge_array
-  [test_charge, test_charge, test_charge]
+  {:data => [test_charge, test_charge, test_charge]}
 end
 
 def test_card(params={})

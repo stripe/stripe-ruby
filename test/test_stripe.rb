@@ -153,7 +153,7 @@ class TestStripeRuby < Test::Unit::TestCase
 
       should "loading all of an APIResource should return an array of recursively instantiated objects" do
         @mock.expects(:get).once.returns(test_response(test_charge_array))
-        c = Stripe::Charge.all
+        c = Stripe::Charge.all.data
         assert c.kind_of? Array
         assert c[0].kind_of? Stripe::Charge
         assert c[0].card.kind_of?(Stripe::StripeObject) && c[0].card.object == 'card'
@@ -163,7 +163,7 @@ class TestStripeRuby < Test::Unit::TestCase
 
         should "charges should be listable" do
           @mock.expects(:get).once.returns(test_response(test_charge_array))
-          c = Stripe::Charge.all
+          c = Stripe::Charge.all.data
           assert c.kind_of? Array
         end
 
@@ -223,7 +223,7 @@ class TestStripeRuby < Test::Unit::TestCase
 
         should "customers should be listable" do
           @mock.expects(:get).once.returns(test_response(test_customer_array))
-          c = Stripe::Customer.all
+          c = Stripe::Customer.all.data
           assert c.kind_of? Array
           assert c[0].kind_of? Stripe::Customer
         end

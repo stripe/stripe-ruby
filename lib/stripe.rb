@@ -401,11 +401,15 @@ module Stripe
       url + '/capture'
     end
   end
-  
+
   class Plan < APIResource
     include Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::List
+  end
+
+  class Token < APIResource
+    include Stripe::APIOperations::Create
   end
 
   class StripeError < StandardError; end

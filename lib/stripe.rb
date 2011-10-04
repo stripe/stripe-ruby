@@ -76,6 +76,22 @@ module Stripe
         true
       end
     end
+
+    def self.symbolize_names(object)
+      case object
+      when Hash
+        new = {}
+        object.each do |key, value|
+          key = key.to_sym rescue key
+          new[key] = symbolize_names(value)
+        end
+        new
+      when Array
+        object.map { |value| symbolize_names(value) }
+      else
+        object
+      end
+    end
   end
 
   module APIOperations
@@ -534,11 +550,14 @@ module Stripe
     rbody = response.body
     rcode = response.code
     begin
-      resp = JSON.parse(rbody, :symbolize_names => true)
+      # Would use :symbolize_names => true, but apparently there is
+      # some library out there that makes symbolize_names not work.
+      resp = JSON.parse(rbody)
     rescue JSON::ParseError
       raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})")
     end
 
+    resp = Util.symbolize_names(resp)
     [resp, api_key]
   end
 
@@ -550,7 +569,8 @@ module Stripe
 
   def self.handle_api_error(rcode, rbody)
     begin
-      error_obj = JSON.parse(rbody, :symbolize_names => true)
+      error_obj = JSON.parse(rbody)
+      error_obj = Util.symbolize_names(error_obj)
       error = error_obj[:error] or raise StripeError.new
     rescue JSON::ParserError, StripeError
       raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})")

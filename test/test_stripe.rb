@@ -9,6 +9,32 @@ require 'rest-client'
 class TestStripeRuby < Test::Unit::TestCase
   include Mocha
 
+  context "Util" do
+    should "symbolize_names should convert names to symbols" do
+      start = {
+        'foo' => 'bar',
+        'array' => [{ 'foo' => 'bar' }],
+        'nested' => {
+          1 => 2,
+          :symbol => 9,
+          'string' => nil
+        }
+      }
+      finish = {
+        :foo => 'bar',
+        :array => [{ :foo => 'bar' }],
+        :nested => {
+          1 => 2,
+          :symbol => 9,
+          :string => nil
+        }
+      }
+
+      symbolized = Stripe::Util.symbolize_names(start)
+      assert_equal(finish, symbolized)
+    end
+  end
+
   context "API Bindings" do
     setup do
       @mock = mock

@@ -35,7 +35,7 @@ module Stripe
         h.id
       when Hash
         res = {}
-        h.each { |k, v| res[k] = objects_to_ids(v) if v }
+        h.each { |k, v| res[k] = objects_to_ids(v) unless v.nil? }
         res
       when Array
         h.map { |v| objects_to_ids(v) }

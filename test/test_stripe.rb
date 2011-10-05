@@ -97,8 +97,8 @@ class TestStripeRuby < Test::Unit::TestCase
       end
 
       should "setting a nil value for a param should exclude that param from the request" do
-        @mock.expects(:get).with('https://api.stripe.com/v1/charges', { :offset => 5 }, nil).returns(test_response({ :count => 1, :data => [test_charge] }))
-        c = Stripe::Charge.all(:count => nil, :offset => 5)
+        @mock.expects(:get).with('https://api.stripe.com/v1/charges', { :offset => 5, :sad => false }, nil).returns(test_response({ :count => 1, :data => [test_charge] }))
+        c = Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with('https://api.stripe.com/v1/charges', nil, { :amount => 50, :currency => 'usd', :card => {} }).returns(test_response({ :count => 1, :data => [test_charge] }))
         c = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })

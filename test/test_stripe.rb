@@ -96,6 +96,14 @@ class TestStripeRuby < Test::Unit::TestCase
         Stripe.api_key=nil
       end
 
+      should "setting a nil value for a param should exclude that param from the request" do
+        @mock.expects(:get).with('https://api.stripe.com/v1/charges', { :offset => 5 }, nil).returns(test_response({ :count => 1, :data => [test_charge] }))
+        c = Stripe::Charge.all(:count => nil, :offset => 5)
+
+        @mock.expects(:post).with('https://api.stripe.com/v1/charges', nil, { :amount => 50, :currency => 'usd', :card => {} }).returns(test_response({ :count => 1, :data => [test_charge] }))
+        c = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+      end
+
       should "requesting with a unicode ID should result in a request" do
         response = test_response(test_missing_id_error, 404)
         @mock.expects(:get).once.with("https://api.stripe.com/v1/customers/%E2%98%83", nil, nil).raises(RestClient::ExceptionWithResponse.new(response, 404))

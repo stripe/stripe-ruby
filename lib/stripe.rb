@@ -82,7 +82,7 @@ module Stripe
       when Hash
         new = {}
         object.each do |key, value|
-          key = key.to_sym rescue key
+          key = (key.to_sym rescue key) || key
           new[key] = symbolize_names(value)
         end
         new

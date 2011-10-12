@@ -99,6 +99,16 @@ def test_card(params={})
   }.merge(params)
 end
 
+def test_coupon(params={})
+  {
+    :duration => 'repeating',
+    :duration_in_months => 3,
+    :percent_off => 25,
+    :id => "co_test_coupon",
+    :object => "coupon"    
+  }.merge(params)
+end
+
 #FIXME nested overrides would be better than hardcoding plan_id
 def test_subscription(plan_id="gold")
   {

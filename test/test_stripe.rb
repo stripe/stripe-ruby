@@ -318,6 +318,13 @@ class TestStripeRuby < Test::Unit::TestCase
       context "card tests" do
       end
 
+      context "coupon tests" do
+        should "create should return a new coupon" do
+          @mock.expects(:post).once.returns(test_response(test_coupon))
+          c = Stripe::Coupon.create
+          assert_equal "co_test_coupon", c.id
+        end
+      end
       context "error checking" do
 
         should "404s should raise an InvalidRequestError" do

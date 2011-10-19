@@ -143,6 +143,8 @@ module Stripe
   end
 
   class StripeObject
+    include Enumerable
+
     attr_accessor :api_key
     @@permanent_attributes = Set.new([:api_key])
     @@ignored_attributes = Set.new([:id, :api_key, :object])
@@ -236,6 +238,8 @@ module Stripe
     def keys; @values.keys; end
     def values; @values.values; end
     def to_json(*a); @values.to_json(*a); end
+    def to_hash; @values; end
+    def each(&blk); @values.each(&blk); end
 
     protected
 

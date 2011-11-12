@@ -5,6 +5,8 @@ require 'set'
 
 require 'rubygems'
 require 'openssl'
+
+gem 'rest-client', '~> 1.4'
 require 'rest_client'
 
 begin

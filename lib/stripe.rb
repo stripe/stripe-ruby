@@ -566,7 +566,7 @@ module Stripe
       # Would use :symbolize_names => true, but apparently there is
       # some library out there that makes symbolize_names not work.
       resp = JSON.parse(rbody)
-    rescue JSON::ParseError
+    rescue JSON::ParserError
       raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})")
     end
 

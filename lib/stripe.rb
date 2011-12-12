@@ -429,6 +429,7 @@ module Stripe
     include Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::List
+    include Stripe::APIOperations::Update
   end
 
   class Coupon < APIResource

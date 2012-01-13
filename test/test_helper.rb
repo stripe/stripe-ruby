@@ -167,3 +167,10 @@ def test_api_error
     }
   }
 end
+
+def test_delete_discount_response
+  {
+    :deleted => true,
+    :id => "di_test_coupon"
+  }
+end

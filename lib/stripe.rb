@@ -442,6 +442,10 @@ module Stripe
     include Stripe::APIOperations::Create
   end
 
+  class Notification < APIResource
+    include Stripe::APIOperations::List
+  end
+
   class StripeError < StandardError; end
   class APIError < StripeError; end
   class APIConnectionError < StripeError; end

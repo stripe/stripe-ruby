@@ -73,17 +73,32 @@ class TestStripeRuby < Test::Unit::TestCase
     end
 
     should "not specifying api credentials should raise an exception" do
+      Stripe.api_key = nil
       assert_raises Stripe::AuthenticationError do
         Stripe::Customer.new("test_customer").refresh
       end
     end
 
     should "specifying invalid api credentials should raise an exception" do
-      Stripe.api_key="invalid"
+      Stripe.api_key = "invalid"
       response = test_response(test_invalid_api_key_error, 401)
       assert_raises Stripe::AuthenticationError do
         @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 401))
         Stripe::Customer.retrieve("failing_customer")
+      end
+    end
+
+    should "AuthenticationErrors should have an http status, http body, and JSON body" do
+      Stripe.api_key = "invalid"
+      response = test_response(test_invalid_api_key_error, 401)
+      begin
+        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 401))
+        Stripe::Customer.retrieve("failing_customer")
+      rescue Stripe::AuthenticationError => e
+        assert_equal(401, e.http_status)
+        assert_equal(true, !!e.http_body)
+        assert_equal(true, !!e.json_body[:error][:message])
+        assert_equal(test_invalid_api_key_error['error']['message'], e.json_body[:error][:message])
       end
     end
 
@@ -94,6 +109,54 @@ class TestStripeRuby < Test::Unit::TestCase
 
       teardown do
         Stripe.api_key=nil
+      end
+
+      should "a 400 should give an InvalidRequestError with http status, body, and JSON body" do
+        response = test_response(test_missing_id_error, 400)
+        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        begin
+          Stripe::Customer.retrieve("foo")
+        rescue Stripe::InvalidRequestError => e
+          assert_equal(400, e.http_status)
+          assert_equal(true, !!e.http_body)
+          assert_equal(true, e.json_body.kind_of?(Hash))
+        end
+      end
+
+      should "a 401 should give an AuthenticationError with http status, body, and JSON body" do
+        response = test_response(test_missing_id_error, 401)
+        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        begin
+          Stripe::Customer.retrieve("foo")
+        rescue Stripe::AuthenticationError => e
+          assert_equal(401, e.http_status)
+          assert_equal(true, !!e.http_body)
+          assert_equal(true, e.json_body.kind_of?(Hash))
+        end
+      end
+
+      should "a 402 should give a CardError with http status, body, and JSON body" do
+        response = test_response(test_missing_id_error, 402)
+        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        begin
+          Stripe::Customer.retrieve("foo")
+        rescue Stripe::CardError => e
+          assert_equal(402, e.http_status)
+          assert_equal(true, !!e.http_body)
+          assert_equal(true, e.json_body.kind_of?(Hash))
+        end
+      end
+
+      should "a 404 should give an InvalidRequestError with http status, body, and JSON body" do
+        response = test_response(test_missing_id_error, 404)
+        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        begin
+          Stripe::Customer.retrieve("foo")
+        rescue Stripe::InvalidRequestError => e
+          assert_equal(404, e.http_status)
+          assert_equal(true, !!e.http_body)
+          assert_equal(true, e.json_body.kind_of?(Hash))
+        end
       end
 
       should "setting a nil value for a param should exclude that param from the request" do

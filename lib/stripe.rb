@@ -442,7 +442,7 @@ module Stripe
     include Stripe::APIOperations::Create
   end
 
-  class Notification < APIResource
+  class Event < APIResource
     include Stripe::APIOperations::List
   end
 

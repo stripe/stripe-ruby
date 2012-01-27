@@ -53,7 +53,8 @@ module Stripe
         'invoiceitem' => InvoiceItem,
         'invoice' => Invoice,
         'plan' => Plan,
-        'coupon' => Coupon
+        'coupon' => Coupon,
+        'event' => Event
       }
       case resp
       when Array
@@ -149,7 +150,6 @@ module Stripe
 
     attr_accessor :api_key
     @@permanent_attributes = Set.new([:api_key])
-    @@ignored_attributes = Set.new([:id, :api_key, :object])
 
     # The default :id method is deprecated and isn't useful to us
     if method_defined?(:id)
@@ -172,37 +172,11 @@ module Stripe
       obj
     end
 
-    def to_s(*args); inspect(*args); end
-    def inspect(verbose=false, nested=false)
-      str = ["#<#{self.class}"]
-      if (desc = ident.compact).length > 0
-        str << "[#{desc.join(', ')}]"
-      end
+    def to_s(*args); JSON.pretty_generate(@values); end
 
-      if !verbose and nested
-        str << ' ...'
-      else
-        content = @values.keys.sort { |a, b| a.to_s <=> b.to_s }.map do |k|
-          if @@ignored_attributes.include?(k)
-            nil
-          else
-            v = @values[k]
-            v = v.kind_of?(StripeObject) ? v.inspect(verbose, true) : v.inspect
-            v = @unsaved_values.include?(k) ? "#{v} (unsaved)" : v
-            "#{k}=#{v}"
-          end
-        end.compact.join(', ')
-
-        str << ' '
-        if content.length > 0
-          str << content
-        else
-          str << '(no attributes)'
-        end
-      end
-
-      str << ">"
-      str.join
+    def inspect()
+      id_string = (self.respond_to?(:id) && !self.id.nil?) ? " id=#{self.id}" : ""
+      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
     end
 
     def refresh_from(values, api_key, partial=false)
@@ -245,10 +219,6 @@ module Stripe
 
     protected
 
-    def ident
-      [@values[:object], @values[:id]]
-    end
-
     def metaclass
       class << self; self; end
     end
@@ -272,7 +242,7 @@ module Stripe
           define_method(k) { @values[k] }
           define_method(k_eq) do |v|
             @values[k] = v
-            @unsaved_values.add(k) unless @@ignored_attributes.include?(k)
+            @unsaved_values.add(k)
           end
         end
       end
@@ -283,7 +253,7 @@ module Stripe
       if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
         @values[attr] = args[0]
-        @unsaved_values.add(attr) unless @@ignored_attributes.include?(attr)
+        @unsaved_values.add(attr)
         add_accessors([attr])
         return
       else
@@ -329,10 +299,6 @@ module Stripe
     end
 
     protected
-
-    def ident
-      [@values[:id]]
-    end
   end
 
   class Customer < APIResource
@@ -401,6 +367,7 @@ module Stripe
   class Charge < APIResource
     include Stripe::APIOperations::List
     include Stripe::APIOperations::Create
+    include Stripe::APIOperations::Update
 
     def refund(params={})
       response, api_key = Stripe.request(:post, refund_url, @api_key, params)
@@ -457,6 +424,11 @@ module Stripe
       @http_status = http_status
       @http_body = http_body
       @json_body = json_body
+    end
+
+    def to_s
+      status_string = @http_status.nil? ? "" : "(Status #{@http_status}) "
+      "#{status_string}#{@message}"
     end
   end
 

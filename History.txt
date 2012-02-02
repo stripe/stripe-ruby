@@ -1,3 +1,11 @@
+=== 1.6.0 2012-02-01
+* A whole bunch of releases between 1.5.0 and 1.6.0, but few changes, mainly the addition of:
+  - plans
+  - coupons
+  - events 
+  - tokens
+* 1.6.0 also contains a new inspect/to_string implementation
+
 === 1.5.0 2011-05-09
 
 * 1 major enhancement:

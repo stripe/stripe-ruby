@@ -214,6 +214,7 @@ module Stripe
     def keys; @values.keys; end
     def values; @values.values; end
     def to_json(*a); @values.to_json(*a); end
+    def as_json(opts=nil); @values.as_json(opts); end
     def to_hash; @values; end
     def each(&blk); @values.each(&blk); end
 

@@ -96,6 +96,39 @@ module Stripe
         object
       end
     end
+
+    def self.encode_key(key)
+      URI.escape(key.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    end
+
+    def self.flatten_params(params, parent_key = nil)
+      result = []
+      params.each do |key, value|
+        calculated_key = parent_key ? "#{parent_key}[#{encode_key(key)}]" : encode_key(key)
+        if value.is_a? Hash
+          result += flatten_params(value, calculated_key)
+        elsif value.is_a? Array
+          result += flatten_params_array(value, calculated_key)
+        else
+          result << [calculated_key, value]
+        end
+      end
+      result
+    end
+
+    def self.flatten_params_array value, calculated_key
+      result = []
+      value.each do |elem|
+        if elem.is_a? Hash
+          result += flatten_params(elem, calculated_key)
+        elsif elem.is_a? Array
+          result += flatten_params_array(elem, calculated_key)
+        else
+          result << ["#{calculated_key}[]", elem]
+        end
+      end
+      result
+    end
   end
 
   module APIOperations
@@ -496,10 +529,14 @@ module Stripe
     }
 
     params = Util.objects_to_ids(params)
+    url = self.api_url(url)
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
       # Make params into GET parameters
-      headers = { :params => params }.merge(headers)
+      if params && params.count
+        query_string = Util.flatten_params(params).collect{|p| "#{p[0]}=#{p[1]}"}.join('&')
+        url += "?#{query_string}"
+      end
       payload = nil
     else
       payload = params
@@ -521,7 +558,7 @@ module Stripe
     }.merge(headers)
     opts = {
       :method => method,
-      :url => self.api_url(url),
+      :url => url,
       :user => api_key,
       :headers => headers,
       :open_timeout => 30,

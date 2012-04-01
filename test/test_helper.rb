@@ -27,7 +27,7 @@ end
 def test_response(body, code=200)
   # When an exception is raised, restclient clobbers method_missing.  Hence we
   # can't just use the stubs interface.
-  body = body.to_json if !(body.kind_of? String)
+  body = MultiJson.encode(body) if !(body.kind_of? String)
   m = mock
   m.instance_variable_set('@stripe_values', { :body => body, :code => code })
   def m.body; @stripe_values[:body]; end

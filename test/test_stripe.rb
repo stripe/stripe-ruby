@@ -280,14 +280,13 @@ class TestStripeRuby < Test::Unit::TestCase
           end
         end
 
-        should "charges should not be updateable" do
-          assert_raises NoMethodError do
-            @mock.expects(:get).once.returns(test_response(test_charge))
-            c = Stripe::Charge.new("test_charge")
-            c.refresh
-            c.mnemonic= "YAY PASSING TEST!"
-            c.save
-          end
+        should "charges should be updateable" do
+          @mock.expects(:get).once.returns(test_response(test_charge))
+          @mock.expects(:post).once.returns(test_response(test_charge))
+          c = Stripe::Charge.new("test_charge")
+          c.refresh
+          c.mnemonic = "New charge description"
+          c.save
         end
 
         should "charges should have Card objects associated with their Card property" do

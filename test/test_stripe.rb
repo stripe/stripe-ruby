@@ -160,7 +160,7 @@ class TestStripeRuby < Test::Unit::TestCase
       end
 
       should "setting a nil value for a param should exclude that param from the request" do
-        @mock.expects(:get).with('https://api.stripe.com/v1/charges', { :offset => 5, :sad => false }, nil).returns(test_response({ :count => 1, :data => [test_charge] }))
+        @mock.expects(:get).with('https://api.stripe.com/v1/charges?offset=5&sad=false', nil, nil).returns(test_response({ :count => 1, :data => [test_charge] }))
         c = Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with('https://api.stripe.com/v1/charges', nil, { :amount => 50, :currency => 'usd', :card => {} }).returns(test_response({ :count => 1, :data => [test_charge] }))
@@ -181,7 +181,7 @@ class TestStripeRuby < Test::Unit::TestCase
 
       should "making a GET request with parameters should have a query string and no body" do
         params = { :limit => 1 }
-        @mock.expects(:get).once.with { |url, get, post| get == params and post.nil? }.returns(test_response([test_charge]))
+        @mock.expects(:get).once.with("https://api.stripe.com/v1/charges?limit=1", nil, nil).returns(test_response([test_charge]))
         c = Stripe::Charge.all(params)
       end
 
@@ -370,10 +370,11 @@ class TestStripeRuby < Test::Unit::TestCase
           c = Stripe::Customer.retrieve("test_customer")
 
           # Not an accurate response, but whatever
-          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", {:at_period_end => 'true'}, nil).returns(test_response(test_subscription('silver')))
+          
+          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(test_response(test_subscription('silver')))
           s = c.cancel_subscription({:at_period_end => 'true'})
 
-          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", {}, nil).returns(test_response(test_subscription('silver')))
+          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription?", nil, nil).returns(test_response(test_subscription('silver')))
           s = c.cancel_subscription
         end
       end

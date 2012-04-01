@@ -401,7 +401,6 @@ module Stripe
   class Charge < APIResource
     include Stripe::APIOperations::List
     include Stripe::APIOperations::Create
-    include Stripe::APIOperations::Update
 
     def refund(params={})
       response, api_key = Stripe.request(:post, refund_url, @api_key, params)

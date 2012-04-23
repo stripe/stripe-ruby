@@ -193,11 +193,11 @@ module Stripe
       obj
     end
 
-    def to_s(*args); MultiJson.encode(@values, :pretty => true); end
+    def to_s(*args); MultiJson.dump(@values, :pretty => true); end
 
     def inspect()
       id_string = (self.respond_to?(:id) && !self.id.nil?) ? " id=#{self.id}" : ""
-      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + MultiJson.encode(@values, :pretty => true)
+      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + MultiJson.dump(@values, :pretty => true)
     end
 
     def refresh_from(values, api_key, partial=false)
@@ -234,7 +234,7 @@ module Stripe
     end
     def keys; @values.keys; end
     def values; @values.values; end
-    def to_json(*a); MultiJson.encode(@values); end
+    def to_json(*a); MultiJson.dump(@values); end
     def to_hash; @values; end
     def each(&blk); @values.each(&blk); end
 
@@ -530,7 +530,7 @@ module Stripe
     end
 
     begin
-      headers = { :x_stripe_client_user_agent => MultiJson.encode(ua) }.merge(headers)
+      headers = { :x_stripe_client_user_agent => MultiJson.dump(ua) }.merge(headers)
     rescue => e
       headers = {
         :x_stripe_client_raw_user_agent => ua.inspect,
@@ -578,7 +578,7 @@ module Stripe
     begin
       # Would use :symbolize_names => true, but apparently there is
       # some library out there that makes symbolize_names not work.
-      resp = MultiJson.decode(rbody)
+      resp = MultiJson.load(rbody)
     rescue MultiJson::DecodeError
       raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})", rcode, rbody)
     end
@@ -595,7 +595,7 @@ module Stripe
 
   def self.handle_api_error(rcode, rbody)
     begin
-      error_obj = MultiJson.decode(rbody)
+      error_obj = MultiJson.load(rbody)
       error_obj = Util.symbolize_names(error_obj)
       error = error_obj[:error] or raise StripeError.new # escape from parsing
     rescue MultiJson::DecodeError, StripeError

@@ -5,6 +5,8 @@ require 'shoulda'
 require 'mocha'
 require 'pp'
 require 'rest-client'
+require 'cgi'
+require 'uri'
 
 class TestStripeRuby < Test::Unit::TestCase
   include Mocha
@@ -160,7 +162,12 @@ class TestStripeRuby < Test::Unit::TestCase
       end
 
       should "setting a nil value for a param should exclude that param from the request" do
-        @mock.expects(:get).with('https://api.stripe.com/v1/charges?offset=5&sad=false', nil, nil).returns(test_response({ :count => 1, :data => [test_charge] }))
+        @mock.expects(:get).with do |url, api_key, params|
+          uri = URI(url)
+          query = CGI.parse(uri.query)
+          (url =~ %r{^https://api.stripe.com/v1/charges?} &&
+           query.keys.sort == ['offset', 'sad'])
+        end.returns(test_response({ :count => 1, :data => [test_charge] }))
         c = Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with('https://api.stripe.com/v1/charges', nil, { :amount => 50, :currency => 'usd', :card => {} }).returns(test_response({ :count => 1, :data => [test_charge] }))
@@ -280,14 +287,13 @@ class TestStripeRuby < Test::Unit::TestCase
           end
         end
 
-        should "charges should not be updateable" do
-          assert_raises NoMethodError do
-            @mock.expects(:get).once.returns(test_response(test_charge))
-            c = Stripe::Charge.new("test_charge")
-            c.refresh
-            c.mnemonic= "YAY PASSING TEST!"
-            c.save
-          end
+        should "charges should be updateable" do
+          @mock.expects(:get).once.returns(test_response(test_charge))
+          @mock.expects(:post).once.returns(test_response(test_charge))
+          c = Stripe::Charge.new("test_charge")
+          c.refresh
+          c.mnemonic = "New charge description"
+          c.save
         end
 
         should "charges should have Card objects associated with their Card property" do

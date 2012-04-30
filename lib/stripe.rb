@@ -554,12 +554,12 @@ module Stripe
     end
 
     headers = {
-      :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
+      :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
+      :authorization => "Bearer #{api_key}"
     }.merge(headers)
     opts = {
       :method => method,
       :url => url,
-      :user => api_key,
       :headers => headers,
       :open_timeout => 30,
       :payload => payload,

@@ -8,19 +8,7 @@ require 'openssl'
 
 gem 'rest-client', '~> 1.4'
 require 'rest_client'
-
-begin
-  require 'json'
-rescue LoadError
-  raise if defined?(JSON)
-  require File.join(File.dirname(__FILE__), '../vendor/stripe-json/lib/json/pure')
-
-  # moderately ugly hack to deal with the clobbering that
-  # ActiveSupport's JSON subjects us to
-  class JSON::Pure::Generator::State
-    attr_reader :encoder, :only, :except
-  end
-end
+require 'multi_json'
 
 require File.join(File.dirname(__FILE__), 'stripe/version')
 
@@ -131,6 +119,24 @@ module Stripe
     end
   end
 
+  module JSON
+    if MultiJson.respond_to?(:dump)
+      def self.dump(*args)
+        MultiJson.dump(*args)
+      end
+      def self.load(*args)
+        MultiJson.load(*args)
+      end
+    else
+      def self.dump(*args)
+        MultiJson.encode(*args)
+      end
+      def self.load(*args)
+        MultiJson.decode(*args)
+      end
+    end
+  end
+
   module APIOperations
     module Create
       module ClassMethods
@@ -205,11 +211,11 @@ module Stripe
       obj
     end
 
-    def to_s(*args); JSON.pretty_generate(@values); end
+    def to_s(*args); Stripe::JSON.dump(@values, :pretty => true); end
 
     def inspect()
       id_string = (self.respond_to?(:id) && !self.id.nil?) ? " id=#{self.id}" : ""
-      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
+      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + Stripe::JSON.dump(@values, :pretty => true)
     end
 
     def refresh_from(values, api_key, partial=false)
@@ -246,8 +252,7 @@ module Stripe
     end
     def keys; @values.keys; end
     def values; @values.values; end
-    def to_json(*a); @values.to_json(*a); end
-    def as_json(*a); @values.as_json(*a); end
+    def to_json(*a); Stripe::JSON.dump(@values); end
     def to_hash; @values; end
     def each(&blk); @values.each(&blk); end
 
@@ -542,10 +547,8 @@ module Stripe
       payload = params
     end
 
-    # There's a bug in some version of activesupport where JSON.dump
-    # stops working
     begin
-      headers = { :x_stripe_client_user_agent => JSON.dump(ua) }.merge(headers)
+      headers = { :x_stripe_client_user_agent => Stripe::JSON.dump(ua) }.merge(headers)
     rescue => e
       headers = {
         :x_stripe_client_raw_user_agent => ua.inspect,
@@ -593,8 +596,8 @@ module Stripe
     begin
       # Would use :symbolize_names => true, but apparently there is
       # some library out there that makes symbolize_names not work.
-      resp = JSON.parse(rbody)
-    rescue JSON::ParserError
+      resp = Stripe::JSON.load(rbody)
+    rescue MultiJson::DecodeError
       raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})", rcode, rbody)
     end
 
@@ -610,10 +613,10 @@ module Stripe
 
   def self.handle_api_error(rcode, rbody)
     begin
-      error_obj = JSON.parse(rbody)
+      error_obj = Stripe::JSON.load(rbody)
       error_obj = Util.symbolize_names(error_obj)
       error = error_obj[:error] or raise StripeError.new # escape from parsing
-    rescue JSON::ParserError, StripeError
+    rescue MultiJson::DecodeError, StripeError
       raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})", rcode, rbody)
     end
 

@@ -14,7 +14,7 @@ spec = Gem::Specification.new do |s|
   s.require_paths = %w{lib}
 
   s.add_dependency('rest-client', '~> 1.4')
-  s.add_dependency('multi_json', '~> 1.0')
+  s.add_dependency('multi_json', '~> 1.1')
 
   s.add_development_dependency('mocha')
   s.add_development_dependency('shoulda')

@@ -19,6 +19,7 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('mocha')
   s.add_development_dependency('shoulda')
   s.add_development_dependency('test-unit')
+  s.add_development_dependency('rake')
 
   s.files = %w{
     bin/stripe-console

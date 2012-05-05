@@ -320,6 +320,7 @@ class TestStripeRuby < Test::Unit::TestCase
 
           @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/discount", nil, nil).returns(test_response(test_delete_discount_response))
           s = c.delete_discount
+          assert_equal nil, c.discount
         end
       end
 

@@ -383,6 +383,15 @@ class TestStripeRuby < Test::Unit::TestCase
           @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription?", nil, nil).returns(test_response(test_subscription('silver')))
           s = c.cancel_subscription
         end
+
+        should "be able to delete a customer's discount" do
+          @mock.expects(:get).once.returns(test_response(test_customer))
+          c = Stripe::Customer.retrieve("test_customer")
+
+          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/discount", nil, nil).returns(test_response(test_delete_discount_response))
+          s = c.delete_discount
+          assert_equal nil, c.discount
+        end
       end
 
       context "card tests" do

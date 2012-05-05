@@ -318,7 +318,7 @@ class TestStripeRuby < Test::Unit::TestCase
           @mock.expects(:get).once.returns(test_response(test_customer))
           c = Stripe::Customer.retrieve("test_customer")
 
-          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/discount", {}, nil).returns(test_response(test_delete_discount_response))
+          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/discount", nil, nil).returns(test_response(test_delete_discount_response))
           s = c.delete_discount
         end
       end

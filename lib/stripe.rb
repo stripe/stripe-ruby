@@ -369,8 +369,8 @@ module Stripe
       subscription
     end
 
-    def delete_discount(params={})
-      Stripe.request(:delete, discount_url, @api_key, params)
+    def delete_discount
+      Stripe.request(:delete, discount_url, @api_key)
       refresh_from({ :discount => nil }, api_key, true)
     end
 

@@ -2,7 +2,6 @@
 # API spec at http://stripe.com/api/spec
 require 'cgi'
 require 'set'
-
 require 'rubygems'
 require 'openssl'
 require 'rest_client'
@@ -11,7 +10,13 @@ require 'multi_json'
 # Version
 require File.join(File.dirname(__FILE__), 'stripe/version')
 
+# API operations
+require "stripe/api_operations/create"
+require "stripe/api_operations/update"
+require "stripe/api_operations/delete"
+require "stripe/api_operations/list"
 
+# Resources
 require "stripe/util"
 require "stripe/json"
 require "stripe/stripe_object"
@@ -25,13 +30,6 @@ require "stripe/coupon"
 require "stripe/token"
 require "stripe/event"
 require "stripe/transfer"
-
-
-# API operations
-require "stripe/api_operations/create"
-require "stripe/api_operations/update"
-require "stripe/api_operations/delete"
-require "stripe/api_operations/list"
 
 
 # Errors

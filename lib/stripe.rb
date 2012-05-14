@@ -10,7 +10,35 @@ gem 'rest-client', '~> 1.4'
 require 'rest_client'
 require 'multi_json'
 
+# Version
 require File.join(File.dirname(__FILE__), 'stripe/version')
+
+
+require "stripe/util"
+require "stripe/json"
+require "stripe/stripe_object"
+require "stripe/api_resource"
+require "stripe/customer"
+require "stripe/invoice"
+require "stripe/invoice_item"
+require "stripe/charge"
+require "stripe/plan"
+require "stripe/coupon"
+require "stripe/token"
+require "stripe/event"
+require "stripe/transfer"
+
+# API operations
+require "stripe/api_operations"
+
+# Errors
+require "stripe/errors/stripe_error"
+require "stripe/errors/api_error"
+require "stripe/errors/api_connection_error"
+require "stripe/errors/card_error"
+require "stripe/errors/invalid_request_error"
+require "stripe/errors/authentication_error"
+
 
 module Stripe
   @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')

@@ -22,3 +22,7 @@ If you want to build the gem from source:
 The stripe gem is mirrored on Rubygems, so you should be able to
 install it via <tt>gem install stripe</tt> if desired. We recommend using 
 the https://code.stripe.com mirror so all code is fetched over SSL.
+
+== Development
+
+Test cases can be run with: `bundle exec rake test`

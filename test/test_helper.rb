@@ -1,7 +1,6 @@
 require 'stringio'
 require 'test/unit'
-require File.expand_path('../../lib/stripe', __FILE__)
-
+require 'stripe'
 require 'mocha'
 include Mocha
 

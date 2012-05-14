@@ -28,8 +28,13 @@ require "stripe/token"
 require "stripe/event"
 require "stripe/transfer"
 
+
 # API operations
-require "stripe/api_operations"
+require "stripe/api_operations/create"
+require "stripe/api_operations/update"
+require "stripe/api_operations/delete"
+require "stripe/api_operations/list"
+
 
 # Errors
 require "stripe/errors/stripe_error"

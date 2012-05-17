@@ -1,3 +1,35 @@
+=== 1.7.0 2012-05-17
+
+* 3 major enhancements:
+  * Switch from vendored stripe-json to multi_json for all JSON
+    parsing and rendering. This should not impact programmatic usage
+    of the library, but may cause small rendering differences from,
+    e.g., StripeObject#inspect (github issue #22)
+  * Add new delete_discount method to Customer objects
+  * Add new Transfer API resource
+
+* 2 minor enhancements:
+  * Switch from HTTP Basic auth to Bearer auth (Note: Stripe will
+    support Basic auth for the indefinite future, but recommends
+    Bearer auth when possible going forward)
+  * Numerous test suite improvements
+
+=== 1.6.3 2012-03-22
+
+* 1 bugfix:
+  * Encode GET query strings ourselves instead of using rest-client to
+    work around a bug
+
+=== 1.6.2 2012-02-24
+
+* 1 bugfix:
+  * Correct argument handling in StripeObject#as_json
+
+=== 1.6.1 2012-02-22
+
+* 1 bugfix:
+  * Fix StripeObject#inspect when ActiveSupport 3.0 is loaded
+
 === 1.6.0 2012-02-01
 * A whole bunch of releases between 1.5.0 and 1.6.0, but few changes, mainly the addition of:
   - plans

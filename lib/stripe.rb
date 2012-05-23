@@ -10,7 +10,7 @@ require 'rest_client'
 require 'multi_json'
 
 # Version
-require File.join(File.dirname(__FILE__), 'stripe/version')
+require 'stripe/version'
 
 # API operations
 require 'stripe/api_operations/create'

@@ -322,7 +322,7 @@ module Stripe
       "/#{CGI.escape(shortname.downcase)}s"
     end
     def url
-      id = self['id']
+      id = self['id'] || self.id
       raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", 'id') unless id
       "#{self.class.url}/#{CGI.escape(id)}"
     end

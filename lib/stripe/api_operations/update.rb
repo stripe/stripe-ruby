@@ -1,7 +1,6 @@
 module Stripe
   module APIOperations
     module Update
-      
       def save
         if @unsaved_values.length > 0
           values = {}
@@ -11,7 +10,6 @@ module Stripe
         end
         self
       end
-
     end
   end
 end

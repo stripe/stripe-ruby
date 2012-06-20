@@ -33,7 +33,6 @@ require 'stripe/token'
 require 'stripe/event'
 require 'stripe/transfer'
 
-
 # Errors
 require 'stripe/errors/stripe_error'
 require 'stripe/errors/api_error'
@@ -48,42 +47,34 @@ module Stripe
   @@api_base = 'https://api.stripe.com/v1'
   @@verify_ssl_certs = true
 
-
   def self.api_url(url='')
     @@api_base + url
   end
-  
-  
+
   def self.api_key=(api_key)
     @@api_key = api_key
   end
-  
-  
+
   def self.api_key
     @@api_key
   end
-  
-  
+
   def self.api_base=(api_base)
     @@api_base = api_base
   end
-  
-  
+
   def self.api_base
     @@api_base
   end
-  
-  
+
   def self.verify_ssl_certs=(verify)
     @@verify_ssl_certs = verify
   end
-  
-  
+
   def self.verify_ssl_certs
     @@verify_ssl_certs
   end
 
-  
   def self.request(method, url, api_key, params=nil, headers={})
     api_key ||= @@api_key
     raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
@@ -189,13 +180,11 @@ module Stripe
     [resp, api_key]
   end
 
-
   private
 
   def self.execute_request(opts)
     RestClient::Request.execute(opts)
   end
-
 
   def self.handle_api_error(rcode, rbody)
     begin
@@ -218,27 +207,22 @@ module Stripe
     end
   end
 
-
   def self.invalid_request_error(error, rcode, rbody, error_obj)
     InvalidRequestError.new(error[:message], error[:param], rcode, rbody, error_obj)
   end
-  
-  
+
   def self.authentication_error(error, rcode, rbody, error_obj)
     AuthenticationError.new(error[:message], rcode, rbody, error_obj)
   end
-  
-  
+
   def self.card_error(error, rcode, rbody, error_obj)
     CardError.new(error[:message], error[:param], error[:code], rcode, rbody, error_obj)
   end
-  
-  
+
   def self.api_error(error, rcode, rbody, error_obj)
     APIError.new(error[:message], rcode, rbody, error_obj)
   end
 
-  
   def self.handle_restclient_error(e)
     case e
     when RestClient::ServerBrokeConnection, RestClient::RequestTimeout
@@ -253,5 +237,4 @@ module Stripe
     message += "\n\n(Network error: #{e.message})"
     raise APIConnectionError.new(message)
   end
-
 end

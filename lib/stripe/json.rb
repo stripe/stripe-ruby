@@ -4,6 +4,7 @@ module Stripe
       def self.dump(*args)
         MultiJson.dump(*args)
       end
+
       def self.load(*args)
         MultiJson.load(*args)
       end
@@ -11,6 +12,7 @@ module Stripe
       def self.dump(*args)
         MultiJson.encode(*args)
       end
+
       def self.load(*args)
         MultiJson.decode(*args)
       end

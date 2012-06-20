@@ -26,7 +26,9 @@ module Stripe
       obj
     end
 
-    def to_s(*args); Stripe::JSON.dump(@values, :pretty => true); end
+    def to_s(*args)
+      Stripe::JSON.dump(@values, :pretty => true)
+    end
 
     def inspect()
       id_string = (self.respond_to?(:id) && !self.id.nil?) ? " id=#{self.id}" : ""
@@ -62,15 +64,34 @@ module Stripe
       k = k.to_sym if k.kind_of?(String)
       @values[k]
     end
+
     def []=(k, v)
       send(:"#{k}=", v)
     end
-    def keys; @values.keys; end
-    def values; @values.values; end
-    def to_json(*a); Stripe::JSON.dump(@values); end
-    def as_json(*a); @values.as_json(*a); end
-    def to_hash; @values; end
-    def each(&blk); @values.each(&blk); end
+
+    def keys
+      @values.keys
+    end
+
+    def values
+      @values.values
+    end
+
+    def to_json(*a)
+      Stripe::JSON.dump(@values)
+    end
+
+    def as_json(*a)
+      @values.as_json(*a)
+    end
+
+    def to_hash
+      @values
+    end
+
+    def each(&blk)
+      @values.each(&blk)
+    end
 
     protected
 

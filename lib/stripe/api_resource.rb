@@ -2,14 +2,15 @@ module Stripe
   class APIResource < StripeObject
     def self.url
       if self == APIResource
-        raise NotImplementedError.new("APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)")
+        raise NotImplementedError.new('APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
       end
       shortname = self.name.split('::')[-1]
       "/#{CGI.escape(shortname.downcase)}s"
     end
     def url
-      id = self['id']
-      raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", 'id') unless id
+      unless id = self['id']
+        raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", 'id')
+      end
       "#{self.class.url}/#{CGI.escape(id)}"
     end
 
@@ -24,7 +25,5 @@ module Stripe
       instance.refresh
       instance
     end
-
-    protected
   end
 end

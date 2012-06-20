@@ -1,6 +1,6 @@
 $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
-require File.expand_path('../lib/stripe/version', __FILE__)
+require 'stripe/version'
 
 spec = Gem::Specification.new do |s|
   s.name = 'stripe'
@@ -21,10 +21,8 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('test-unit')
   s.add_development_dependency('rake')
 
-  s.files = %w{
-    bin/stripe-console
-    lib/stripe.rb
-    lib/stripe/version.rb
-    lib/data/ca-certificates.crt
-  }
+  s.files = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- test/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ['lib']
 end

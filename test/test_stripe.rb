@@ -263,6 +263,17 @@ class TestStripeRuby < Test::Unit::TestCase
         assert c[0].card.kind_of?(Stripe::StripeObject) && c[0].card.object == 'card'
       end
 
+      context "account tests" do
+        should "account should be retrievable" do
+          resp = {:email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
+          @mock.expects(:get).once.returns(test_response(resp))
+          a = Stripe::Account.retrieve
+          assert_equal "test+bindings@stripe.com", a.email
+          assert !a.charge_enabled
+          assert !a.details_submitted
+        end
+      end
+
       context "charge tests" do
 
         should "charges should be listable" do

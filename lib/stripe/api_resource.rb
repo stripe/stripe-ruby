@@ -1,11 +1,14 @@
 module Stripe
   class APIResource < StripeObject
-    def self.url
+    def self.class_name
+      self.name.split('::')[-1]
+    end
+
+    def self.url()
       if self == APIResource
         raise NotImplementedError.new('APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
       end
-      shortname = self.name.split('::')[-1]
-      "/#{CGI.escape(shortname.downcase)}s"
+      "/#{CGI.escape(class_name.downcase)}s"
     end
 
     def url

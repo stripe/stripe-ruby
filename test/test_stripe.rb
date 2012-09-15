@@ -177,7 +177,9 @@ class TestStripeRuby < Test::Unit::TestCase
         end.returns(test_response({ :count => 1, :data => [test_charge] }))
         c = Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
-        @mock.expects(:post).with('https://api.stripe.com/v1/charges', nil, { :amount => 50, :currency => 'usd', :card => {} }).returns(test_response({ :count => 1, :data => [test_charge] }))
+        @mock.expects(:post).with do |url, api_key, params|
+          url == 'https://api.stripe.com/v1/charges' && api_key.nil? && CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
+        end.returns(test_response({ :count => 1, :data => [test_charge] }))
         c = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
 
@@ -201,7 +203,9 @@ class TestStripeRuby < Test::Unit::TestCase
 
       should "making a POST request with parameters should have a body and no query string" do
         params = { :amount => 100, :currency => 'usd', :card => 'sc_token' }
-        @mock.expects(:post).once.with { |url, get, post| get.nil? and post == params }.returns(test_response(test_charge))
+        @mock.expects(:post).once.with do |url, get, post|
+          get.nil? && CGI.parse(post) == {'amount' => ['100'], 'currency' => ['usd'], 'card' => ['sc_token']}
+        end.returns(test_response(test_charge))
         c = Stripe::Charge.create(params)
       end
 
@@ -228,7 +232,9 @@ class TestStripeRuby < Test::Unit::TestCase
       end
 
       should "updating an object should issue a POST request with only the changed properties" do
-        @mock.expects(:post).with("https://api.stripe.com/v1/customers/c_test_customer", nil, {:mnemonic => 'another_mn'}).once.returns(test_response(test_customer))
+        @mock.expects(:post).with do |url, api_key, params|
+          url == "https://api.stripe.com/v1/customers/c_test_customer" && api_key.nil? && CGI.parse(params) == {'mnemonic' => ['another_mn']}
+        end.once.returns(test_response(test_customer))
         c = Stripe::Customer.construct_from(test_customer)
         c.mnemonic = "another_mn"
         c.save
@@ -321,10 +327,14 @@ class TestStripeRuby < Test::Unit::TestCase
         end
 
         should "execute should return a new, fully executed charge when passed correct parameters" do
-          @mock.expects(:post).with('https://api.stripe.com/v1/charges', nil, {
-            :currency => 'usd', :amount => 100,
-            :card => {:exp_year => 2012, :number => '4242424242424242', :exp_month => 11}
-          }).once.returns(test_response(test_charge))
+          @mock.expects(:post).with do |url, api_key, params|
+            url == 'https://api.stripe.com/v1/charges' && api_key.nil? && CGI.parse(params) == {
+              'currency' => ['usd'], 'amount' => ['100'],
+              'card[exp_year]' => ['2012'],
+              'card[number]' => ['4242424242424242'],
+              'card[exp_month]' => ['11']
+            }
+          end.once.returns(test_response(test_charge))
 
           c = Stripe::Charge.create({
             :amount => 100,
@@ -382,7 +392,9 @@ class TestStripeRuby < Test::Unit::TestCase
           @mock.expects(:get).once.returns(test_response(test_customer))
           c = Stripe::Customer.retrieve("test_customer")
 
-          @mock.expects(:post).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", nil, {:plan => 'silver'}).returns(test_response(test_subscription('silver')))
+          @mock.expects(:post).once.with do |url, api_key, params|
+            url == "https://api.stripe.com/v1/customers/c_test_customer/subscription" && api_key.nil? && CGI.parse(params) == {'plan' => ['silver']}
+          end.returns(test_response(test_subscription('silver')))
           s = c.update_subscription({:plan => 'silver'})
 
           assert_equal 'subscription', s.object

@@ -121,7 +121,7 @@ module Stripe
       end
       payload = nil
     else
-      payload = params
+      payload = Util.flatten_params(params).collect{|(key, value)| "#{key}=#{Util.url_encode(value)}"}.join('&')
     end
 
     begin
@@ -135,7 +135,8 @@ module Stripe
 
     headers = {
       :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
-      :authorization => "Bearer #{api_key}"
+      :authorization => "Bearer #{api_key}",
+      :content_type => 'application/x-www-form-urlencoded'
     }.merge(headers)
     opts = {
       :method => method,

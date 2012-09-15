@@ -113,6 +113,13 @@ class TestStripeRuby < Test::Unit::TestCase
         Stripe.api_key=nil
       end
 
+      should "urlencode values in GET params" do
+        response = test_response(test_charge_array)
+        @mock.expects(:get).with('https://api.stripe.com/v1/charges?customer=test%20customer', nil, nil).returns(response)
+        charges = Stripe::Charge.all(:customer => 'test customer').data
+        assert charges.kind_of? Array
+      end
+
       should "a 400 should give an InvalidRequestError with http status, body, and JSON body" do
         response = test_response(test_missing_id_error, 400)
         @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))

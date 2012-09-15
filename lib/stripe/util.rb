@@ -67,14 +67,14 @@ module Stripe
       end
     end
 
-    def self.encode_key(key)
+    def self.url_encode(key)
       URI.escape(key.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
 
     def self.flatten_params(params, parent_key=nil)
       result = []
       params.each do |key, value|
-        calculated_key = parent_key ? "#{parent_key}[#{encode_key(key)}]" : encode_key(key)
+        calculated_key = parent_key ? "#{parent_key}[#{url_encode(key)}]" : url_encode(key)
         if value.is_a?(Hash)
           result += flatten_params(value, calculated_key)
         elsif value.is_a?(Array)

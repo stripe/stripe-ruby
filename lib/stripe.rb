@@ -116,7 +116,7 @@ module Stripe
     when :get, :head, :delete
       # Make params into GET parameters
       if params && params.count
-        query_string = Util.flatten_params(params).collect{|p| "#{p[0]}=#{p[1]}"}.join('&')
+        query_string = Util.flatten_params(params).collect{|key, value| "#{key}=#{Util.url_encode(value)}"}.join('&')
         url += "?#{query_string}"
       end
       payload = nil

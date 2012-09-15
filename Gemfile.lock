@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    stripe (1.7.2)
+    stripe (1.7.3)
       multi_json (~> 1.1)
       rest-client (~> 1.4)
 

@@ -1,3 +1,12 @@
+=== 1.7.3 2012-09-14
+
+* Make sure that both keys and values of GET params are
+  URL-encoded. NOTE: If you were previously URL-encoding values
+  yourself, you may need to adjust your code.
+* URL-encode POST params directly, instead of allowing rest-client to
+  do it to work around an unfortunate interaction with the hashery gem
+  (github issue #38)
+
 === 1.7.2 2012-08-31
 
 * Add support for new pay and update methods for Invoice objects

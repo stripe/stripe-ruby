@@ -43,6 +43,9 @@ require 'stripe/errors/card_error'
 require 'stripe/errors/invalid_request_error'
 require 'stripe/errors/authentication_error'
 
+# Rails
+require 'stripe/railtie' if defined?(Rails) && Rails.version > '3'
+
 module Stripe
   @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
   @@api_key = nil

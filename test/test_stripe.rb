@@ -410,7 +410,7 @@ class TestStripeRuby < Test::Unit::TestCase
           @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(test_response(test_subscription('silver')))
           s = c.cancel_subscription({:at_period_end => 'true'})
 
-          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription?", nil, nil).returns(test_response(test_subscription('silver')))
+          @mock.expects(:delete).once.with("https://api.stripe.com/v1/customers/c_test_customer/subscription", nil, nil).returns(test_response(test_subscription('silver')))
           s = c.cancel_subscription
         end
 

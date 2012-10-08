@@ -77,7 +77,7 @@ module Stripe
     @@verify_ssl_certs
   end
 
-  def self.request(method, url, api_key, params=nil, headers={})
+  def self.request(method, url, api_key, params={}, headers={})
     api_key ||= @@api_key
     raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
 
@@ -115,7 +115,7 @@ module Stripe
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
       # Make params into GET parameters
-      if params && params.count
+      if params && params.count > 0
         query_string = Util.flatten_params(params).collect{|key, value| "#{key}=#{Util.url_encode(value)}"}.join('&')
         url += "?#{query_string}"
       end

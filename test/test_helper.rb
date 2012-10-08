@@ -129,6 +129,58 @@ def test_subscription(plan_id="gold")
   }
 end
 
+def test_invoice
+  {
+    :id => 'in_test_invoice',
+    :object => 'invoice',
+    :livemode => false,
+    :amount_due => 1000,
+    :attempt_count => 0,
+    :attempted => false,
+    :closed => false,
+    :currency => 'usd',
+    :customer => 'c_test_customer',
+    :date => 1349738950,
+    :lines => {
+      "invoiceitems" => [
+        {
+          :id => 'ii_test_invoice_item',
+          :object => '',
+          :livemode => false,
+          :amount => 1000,
+          :currency => 'usd',
+          :customer => 'c_test_customer',
+          :date => 1349738950,
+          :description => "A Test Invoice Item",
+          :invoice => 'in_test_invoice'
+        },
+      ],
+    },
+    :paid => false,
+    :period_end => 1349738950,
+    :period_start => 1349738950,
+    :starting_balance => 0,
+    :subtotal => 1000,
+    :total => 1000,
+    :charge => nil,
+    :discount => nil,
+    :ending_balance => nil,
+    :next_payemnt_attempt => 1349825350,
+  }
+end
+
+def test_paid_invoice
+  test_invoice.merge({
+      :attempt_count => 1,
+      :attempted => true,
+      :closed => true,
+      :paid => true,
+      :charge => 'ch_test_charge',
+      :ending_balance => 0,
+      :next_payment_attempt => nil,
+    })
+end
+
 def test_invalid_api_key_error
   {
     "error" => {

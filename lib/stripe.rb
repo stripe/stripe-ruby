@@ -24,6 +24,7 @@ require 'stripe/json'
 require 'stripe/stripe_object'
 require 'stripe/api_resource'
 require 'stripe/singleton_api_resource'
+require 'stripe/list_object'
 require 'stripe/account'
 require 'stripe/customer'
 require 'stripe/invoice'
@@ -46,7 +47,7 @@ require 'stripe/errors/authentication_error'
 module Stripe
   @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
   @@api_key = nil
-  @@api_base = 'https://api.stripe.com/v1'
+  @@api_base = 'https://api.stripe.com'
   @@verify_ssl_certs = true
 
   def self.api_url(url='')

@@ -24,7 +24,8 @@ module Stripe
         'plan' => Plan,
         'coupon' => Coupon,
         'event' => Event,
-        'transfer' => Transfer
+        'transfer' => Transfer,
+        'list' => ListObject
       }
       case resp
       when Array

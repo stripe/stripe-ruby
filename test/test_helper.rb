@@ -56,7 +56,11 @@ def test_customer(params={})
 end
 
 def test_customer_array
-  {:data => [test_customer, test_customer, test_customer]}
+  {
+    :data => [test_customer, test_customer, test_customer],
+    :object => 'list',
+    :url => '/v1/customers'
+  }
 end
 
 def test_charge(params={})
@@ -83,7 +87,11 @@ def test_charge(params={})
 end
 
 def test_charge_array
-  {:data => [test_charge, test_charge, test_charge]}
+  {
+    :data => [test_charge, test_charge, test_charge], 
+    :object => 'list',
+    :url => '/v1/charges'
+  }
 end
 
 def test_card(params={})

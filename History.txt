@@ -1,3 +1,6 @@
+=== 1.7.7 2012-11-07
+* Add support for updating charge disputes.
+
 === 1.7.6 2012-10-30
 * Add support for creating invoices.
 

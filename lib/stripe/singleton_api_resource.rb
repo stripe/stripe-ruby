@@ -4,7 +4,7 @@ module Stripe
       if self == SingletonAPIResource
         raise NotImplementedError.new('SingletonAPIResource is an abstract class.  You should perform actions on its subclasses (Account, etc.)')
       end
-      "/#{CGI.escape(class_name.downcase)}"
+      "/v1/#{CGI.escape(class_name.downcase)}"
     end
 
     def url

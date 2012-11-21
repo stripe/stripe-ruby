@@ -1,3 +1,6 @@
+=== 1.7.8 2012-11-21
+* Relax the version constraint on multi_json (github issue #44)
+
 === 1.7.7 2012-11-07
 * Add support for updating charge disputes.
 * Fix Account API resource bug.

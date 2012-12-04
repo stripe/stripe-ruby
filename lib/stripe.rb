@@ -80,7 +80,18 @@ module Stripe
 
   def self.request(method, url, api_key, params={}, headers={})
     api_key ||= @@api_key
-    raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
+
+    raise AuthenticationError.new(
+      'No API key provided.  ' +
+      '(HINT: set your API key using "Stripe.api_key = <API-KEY>". ' +
+      'You can generate API keys from the Stripe web interface. ' +
+      'See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)'
+    ) unless api_key
+
+    raise AuthenticationError.new(
+      'Your API key is invalid, as it contains whitespace.  ' +
+      'See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)'
+    ) if api_key =~ /\s/
 
     if !verify_ssl_certs
       unless @no_verify

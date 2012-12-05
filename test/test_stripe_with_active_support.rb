@@ -1,3 +1,2 @@
-require 'active_support'
-ActiveSupport.autoloads.each_key {|sym| ActiveSupport.const_get(sym)}
+require 'active_support/all'
 load File.expand_path(File.join(File.dirname(__FILE__), 'test_stripe.rb'))

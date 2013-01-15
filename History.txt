@@ -1,3 +1,6 @@
+=== 1.7.9 2013-01-15
+* Add support for setting a Stripe API version override.
+
 === 1.7.8 2012-11-21
 * Relax the version constraint on multi_json (github issue #44)
 

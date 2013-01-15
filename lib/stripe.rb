@@ -49,6 +49,7 @@ module Stripe
   @@api_key = nil
   @@api_base = 'https://api.stripe.com'
   @@verify_ssl_certs = true
+  @@api_version = nil
 
   def self.api_url(url='')
     @@api_base + url
@@ -76,6 +77,14 @@ module Stripe
 
   def self.verify_ssl_certs
     @@verify_ssl_certs
+  end
+
+  def self.api_version=(version)
+    @@api_version = version
+  end
+
+  def self.api_version
+    @@api_version
   end
 
   def self.request(method, url, api_key, params={}, headers={})
@@ -139,6 +148,11 @@ module Stripe
       :authorization => "Bearer #{api_key}",
       :content_type => 'application/x-www-form-urlencoded'
     }.merge(headers)
+
+    if self.api_version
+      headers[:stripe_version] = self.api_version
+    end
+
     opts = {
       :method => method,
       :url => url,

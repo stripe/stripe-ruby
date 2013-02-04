@@ -11,6 +11,15 @@ module Stripe
     end
 
     def initialize(id=nil, api_key=nil)
+      # parameter overloading!
+      if id.kind_of?(Hash)
+        @retrieve_options = id.dup
+        @retrieve_options.delete(:id)
+        id = id[:id]
+      else
+        @retrieve_options = {}
+      end
+
       @api_key = api_key
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us

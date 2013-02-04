@@ -19,7 +19,7 @@ module Stripe
     end
 
     def refresh
-      response, api_key = Stripe.request(:get, url, @api_key)
+      response, api_key = Stripe.request(:get, url, @api_key, @retrieve_options)
       refresh_from(response, api_key)
       self
     end

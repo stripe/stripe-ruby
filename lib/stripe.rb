@@ -45,47 +45,17 @@ require 'stripe/errors/invalid_request_error'
 require 'stripe/errors/authentication_error'
 
 module Stripe
-  @api_base    = 'https://api.stripe.com'
-  @api_key     = nil
-  @api_version = nil
+  @api_base = 'https://api.stripe.com'
 
-  @ssl_bundle_path  = File.dirname(__FILE__) + 'data/ca-certificates.crt'
+  @ssl_bundle_path  = File.dirname(__FILE__) + '/data/ca-certificates.crt'
   @verify_ssl_certs = true
 
   def self.api_url(url='')
     @api_base + url
   end
 
-  def self.api_key=(api_key)
-    @api_key = api_key
-  end
-
-  def self.api_key
-    @api_key
-  end
-
-  def self.api_base=(api_base)
-    @api_base = api_base
-  end
-
-  def self.api_base
-    @api_base
-  end
-
-  def self.verify_ssl_certs=(verify)
-    @verify_ssl_certs = verify
-  end
-
-  def self.verify_ssl_certs
-    @verify_ssl_certs
-  end
-
-  def self.api_version=(version)
-    @api_version = version
-  end
-
-  def self.api_version
-    @api_version
+  class << self
+    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
   end
 
   def self.request(method, url, api_key, params={}, headers={})

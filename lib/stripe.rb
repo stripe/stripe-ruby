@@ -45,50 +45,50 @@ require 'stripe/errors/invalid_request_error'
 require 'stripe/errors/authentication_error'
 
 module Stripe
-  @@ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
-  @@api_key = nil
-  @@api_base = 'https://api.stripe.com'
-  @@verify_ssl_certs = true
-  @@api_version = nil
+  @ssl_bundle_path = File.join(File.dirname(__FILE__), 'data/ca-certificates.crt')
+  @api_key = nil
+  @api_base = 'https://api.stripe.com'
+  @verify_ssl_certs = true
+  @api_version = nil
 
   def self.api_url(url='')
-    @@api_base + url
+    @api_base + url
   end
 
   def self.api_key=(api_key)
-    @@api_key = api_key
+    @api_key = api_key
   end
 
   def self.api_key
-    @@api_key
+    @api_key
   end
 
   def self.api_base=(api_base)
-    @@api_base = api_base
+    @api_base = api_base
   end
 
   def self.api_base
-    @@api_base
+    @api_base
   end
 
   def self.verify_ssl_certs=(verify)
-    @@verify_ssl_certs = verify
+    @verify_ssl_certs = verify
   end
 
   def self.verify_ssl_certs
-    @@verify_ssl_certs
+    @verify_ssl_certs
   end
 
   def self.api_version=(version)
-    @@api_version = version
+    @api_version = version
   end
 
   def self.api_version
-    @@api_version
+    @api_version
   end
 
   def self.request(method, url, api_key, params={}, headers={})
-    api_key ||= @@api_key
+    api_key ||= @api_key
     raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
 
     if !verify_ssl_certs
@@ -97,19 +97,19 @@ module Stripe
         @no_verify = true
       end
       ssl_opts = { :verify_ssl => false }
-    elsif !Util.file_readable(@@ssl_bundle_path)
+    elsif !Util.file_readable(@ssl_bundle_path)
       unless @no_bundle
-        $stderr.puts "WARNING: Running without SSL cert verification because #{@@ssl_bundle_path} isn't readable"
+        $stderr.puts "WARNING: Running without SSL cert verification because #{@ssl_bundle_path} isn't readable"
         @no_bundle = true
       end
       ssl_opts = { :verify_ssl => false }
     else
       ssl_opts = {
         :verify_ssl => OpenSSL::SSL::VERIFY_PEER,
-        :ssl_ca_file => @@ssl_bundle_path
+        :ssl_ca_file => @ssl_bundle_path
       }
     end
-    uname = (@@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
+    uname = (@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
     ua = {
       :bindings_version => Stripe::VERSION,
@@ -244,7 +244,7 @@ module Stripe
   def self.handle_restclient_error(e)
     case e
     when RestClient::ServerBrokeConnection, RestClient::RequestTimeout
-      message = "Could not connect to Stripe (#{@@api_base}).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripestatus, or let us know at support@stripe.com."
+      message = "Could not connect to Stripe (#{@api_base}).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripestatus, or let us know at support@stripe.com."
     when RestClient::SSLCertificateNotVerified
       message = "Could not verify Stripe's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to https://api.stripe.com/v1 in your browser.)  If this problem persists, let us know at support@stripe.com."
     when SocketError

@@ -57,27 +57,35 @@ module Stripe
   attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
 
   def request(method, url, api_key, params={}, headers={})
-    api_key ||= @api_key
-    raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
+    unless api_key ||= @api_key
+      raise AuthenticationError.new \
+        'No API key provided.' +
+        'Set your API key using "Stripe.api_key = <API-KEY>". ' +
+        'You can generate API keys from the Stripe web interface. ' +
+        'See https://stripe.com/api for details, or email support@stripe.com ' +
+        'if you have any questions.'
+    end
 
-    if !verify_ssl_certs
-      unless @no_verify
-        STDERR.puts "WARNING: Running without SSL cert verification.  Execute 'Stripe.verify_ssl_certs = true' to enable verification."
-        @no_verify = true
-      end
-      ssl_opts = { :verify_ssl => false }
-    elsif !Util.file_readable(@ssl_bundle_path)
-      unless @no_bundle
-        STDERR.puts "WARNING: Running without SSL cert verification because #{@ssl_bundle_path} isn't readable"
-        @no_bundle = true
-      end
-      ssl_opts = { :verify_ssl => false }
+    if !verify_ssl_certs && !@no_verify
+      STDERR.puts "WARNING: Running without SSL cert verification. " +
+        "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
+
+      @no_verify = true
+      ssl_opts   = { :verify_ssl => false }
+
+    elsif !Util.file_readable(@ssl_bundle_path) && !@no_bundle
+      STDERR.puts "WARNING: Running without SSL cert verification " +
+        "because #{@ssl_bundle_path} isn't readable"
+
+      @no_bundle = true
+      ssl_opts   = { :verify_ssl => false }
+
     else
       ssl_opts = {
-        :verify_ssl => OpenSSL::SSL::VERIFY_PEER,
-        :ssl_ca_file => @ssl_bundle_path
-      }
+        :verify_ssl  => OpenSSL::SSL::VERIFY_PEER,
+        :ssl_ca_file => @ssl_bundle_path }
     end
+
     uname = (@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
     ua = {

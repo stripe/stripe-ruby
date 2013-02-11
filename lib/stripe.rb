@@ -64,13 +64,13 @@ module Stripe
 
     if !verify_ssl_certs
       unless @no_verify
-        $stderr.puts "WARNING: Running without SSL cert verification.  Execute 'Stripe.verify_ssl_certs = true' to enable verification."
+        STDERR.puts "WARNING: Running without SSL cert verification.  Execute 'Stripe.verify_ssl_certs = true' to enable verification."
         @no_verify = true
       end
       ssl_opts = { :verify_ssl => false }
     elsif !Util.file_readable(@ssl_bundle_path)
       unless @no_bundle
-        $stderr.puts "WARNING: Running without SSL cert verification because #{@ssl_bundle_path} isn't readable"
+        STDERR.puts "WARNING: Running without SSL cert verification because #{@ssl_bundle_path} isn't readable"
         @no_bundle = true
       end
       ssl_opts = { :verify_ssl => false }

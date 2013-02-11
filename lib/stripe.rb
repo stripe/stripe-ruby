@@ -50,15 +50,13 @@ module Stripe
   @ssl_bundle_path  = File.dirname(__FILE__) + '/data/ca-certificates.crt'
   @verify_ssl_certs = true
 
-  def self.api_url(url='')
+  def api_url(url='')
     @api_base + url
   end
 
-  class << self
-    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
-  end
+  attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
 
-  def self.request(method, url, api_key, params={}, headers={})
+  def request(method, url, api_key, params={}, headers={})
     api_key ||= @api_key
     raise AuthenticationError.new('No API key provided.  (HINT: set your API key using "Stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.)') unless api_key
 
@@ -92,7 +90,7 @@ module Stripe
     }
 
     params = Util.objects_to_ids(params)
-    url = self.api_url(url)
+    url = api_url(url)
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
       # Make params into GET parameters
@@ -120,8 +118,8 @@ module Stripe
       :content_type => 'application/x-www-form-urlencoded'
     }.merge(headers)
 
-    if self.api_version
-      headers[:stripe_version] = self.api_version
+    if api_version
+      headers[:stripe_version] = api_version
     end
 
     opts = {
@@ -136,23 +134,23 @@ module Stripe
     begin
       response = execute_request(opts)
     rescue SocketError => e
-      self.handle_restclient_error(e)
+      handle_restclient_error(e)
     rescue NoMethodError => e
       # Work around RestClient bug
       if e.message =~ /\WRequestFailed\W/
         e = APIConnectionError.new('Unexpected HTTP response code')
-        self.handle_restclient_error(e)
+        handle_restclient_error(e)
       else
         raise
       end
     rescue RestClient::ExceptionWithResponse => e
       if rcode = e.http_code and rbody = e.http_body
-        self.handle_api_error(rcode, rbody)
+        handle_api_error(rcode, rbody)
       else
-        self.handle_restclient_error(e)
+        handle_restclient_error(e)
       end
     rescue RestClient::Exception, Errno::ECONNREFUSED => e
-      self.handle_restclient_error(e)
+      handle_restclient_error(e)
     end
 
     rbody = response.body
@@ -171,11 +169,11 @@ module Stripe
 
   private
 
-  def self.execute_request(opts)
+  def execute_request(opts)
     RestClient::Request.execute(opts)
   end
 
-  def self.handle_api_error(rcode, rbody)
+  def handle_api_error(rcode, rbody)
     begin
       error_obj = Stripe::JSON.load(rbody)
       error_obj = Util.symbolize_names(error_obj)
@@ -196,23 +194,23 @@ module Stripe
     end
   end
 
-  def self.invalid_request_error(error, rcode, rbody, error_obj)
+  def invalid_request_error(error, rcode, rbody, error_obj)
     InvalidRequestError.new(error[:message], error[:param], rcode, rbody, error_obj)
   end
 
-  def self.authentication_error(error, rcode, rbody, error_obj)
+  def authentication_error(error, rcode, rbody, error_obj)
     AuthenticationError.new(error[:message], rcode, rbody, error_obj)
   end
 
-  def self.card_error(error, rcode, rbody, error_obj)
+  def card_error(error, rcode, rbody, error_obj)
     CardError.new(error[:message], error[:param], error[:code], rcode, rbody, error_obj)
   end
 
-  def self.api_error(error, rcode, rbody, error_obj)
+  def api_error(error, rcode, rbody, error_obj)
     APIError.new(error[:message], rcode, rbody, error_obj)
   end
 
-  def self.handle_restclient_error(e)
+  def handle_restclient_error(e)
     case e
     when RestClient::ServerBrokeConnection, RestClient::RequestTimeout
       message = "Could not connect to Stripe (#{@api_base}).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripestatus, or let us know at support@stripe.com."
@@ -226,4 +224,6 @@ module Stripe
     message += "\n\n(Network error: #{e.message})"
     raise APIConnectionError.new(message)
   end
+
+  extend self
 end

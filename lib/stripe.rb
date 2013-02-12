@@ -66,38 +66,12 @@ module Stripe
         'if you have any questions.'
     end
 
-    request_opts = {}
+    request_opts = { :verify_ssl => false }
 
-    if !verify_ssl_certs && !@no_verify
-      STDERR.puts "WARNING: Running without SSL cert verification. " +
-        "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
-
-      @no_verify = true
-      request_opts[:verify_ssl] = false
-
-    elsif !Util.file_readable(@ssl_bundle_path) && !@no_bundle
-      STDERR.puts "WARNING: Running without SSL cert verification " +
-        "because #{@ssl_bundle_path} isn't readable"
-
-      @no_bundle = true
-      request_opts[:verify_ssl] = false
-
-    else
+    if ssl_preflight_passed?
       request_opts.update :verify_ssl  => OpenSSL::SSL::VERIFY_PEER,
                           :ssl_ca_file => @ssl_bundle_path
     end
-
-    @uname ||= `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
-    lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
-
-    user_agent = {
-      :bindings_version => Stripe::VERSION,
-      :lang             => 'ruby',
-      :lang_version     => lang_version,
-      :platform         => RUBY_PLATFORM,
-      :publisher        => 'stripe',
-      :uname            => @uname
-    }
 
     params = Util.objects_to_ids(params)
     url    = api_url(url)
@@ -105,7 +79,7 @@ module Stripe
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
       # Make params into GET parameters
-      if params && params.count > 0
+      if params && params.any?
         query_string = Util.flatten_params(params).map do |key, value|
           "#{key}=#{Util.url_encode value}"
         end
@@ -120,23 +94,9 @@ module Stripe
       end.join('&')
     end
 
-    begin
-      headers.update :x_stripe_client_user_agent => Stripe::JSON.dump(user_agent)
-    rescue => e
-      headers.update :x_stripe_client_raw_user_agent => user_agent.inspect,
-                     :error => "#{e} (#{e.class})"
-    end
-
-    headers.update :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
-                   :authorization => "Bearer #{api_key}",
-                   :content_type => 'application/x-www-form-urlencoded'
-
-
-    headers[:stripe_version] = api_version if api_version
-
-    request_opts.update :headers => headers, :method => method,
-                        :open_timeout => 30, :payload => payload,
-                        :url => url, :timeout => 80
+    request_opts.update :headers => request_headers.update(headers),
+                        :method => method, :open_timeout => 30,
+                        :payload => payload, :url => url, :timeout => 80
 
     begin
       response = execute_request request_opts
@@ -172,6 +132,53 @@ module Stripe
   end
 
   private
+
+  def ssl_preflight_passed?
+    if not verify_ssl_certs and not @no_verify
+      STDERR.puts "WARNING: Running without SSL cert verification. " +
+        "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
+
+      @no_verify = true
+
+    elsif not Util.file_readable(@ssl_bundle_path) and not @no_bundle
+      STDERR.puts "WARNING: Running without SSL cert verification " +
+        "because #{@ssl_bundle_path} isn't readable"
+
+      @no_bundle = true
+    end
+
+    !(@no_verify || @no_nobundle)
+  end
+
+  def user_agent
+    @uname ||= `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
+    lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
+
+    { :bindings_version => Stripe::VERSION,
+      :lang             => 'ruby',
+      :lang_version     => lang_version,
+      :platform         => RUBY_PLATFORM,
+      :publisher        => 'stripe',
+      :uname            => @uname }
+
+  end
+
+  def request_headers
+    headers = { :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
+                :authorization => "Bearer #{api_key}",
+                :content_type => 'application/x-www-form-urlencoded' }
+
+    headers[:stripe_version] = api_version if api_version
+
+    begin
+      headers.update :x_stripe_client_user_agent => Stripe::JSON.dump(user_agent)
+    rescue => e
+      headers.update :x_stripe_client_raw_user_agent => user_agent.inspect,
+                     :error => "#{e} (#{e.class})"
+    end
+
+  end
+
 
   def general_api_error(rcode, rbody)
     APIError.new "Invalid response object from API: #{rbody.inspect} " +

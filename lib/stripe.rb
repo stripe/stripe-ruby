@@ -78,20 +78,10 @@ module Stripe
 
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
-      # Make params into GET parameters
-      if params && params.any?
-        query_string = Util.flatten_params(params).map do |key, value|
-          "#{key}=#{Util.url_encode value}"
-        end
-
-        url += "?#{query_string.join('&')}"
-      end
-
+      url += "?#{uri_encode params}" if params && params.any?
       payload = nil
     else
-      payload = Util.flatten_params(params).map do |(key, value)|
-        "#{key}=#{Util.url_encode(value)}"
-      end.join('&')
+      payload = uri_encode params
     end
 
     request_opts.update :headers => request_headers.update(headers),
@@ -163,6 +153,11 @@ module Stripe
 
   end
 
+  def uri_encode params
+    Util.flatten_params(params).
+      map { |k,v| "#{k}=#{Util.url_encode v}" }.join '&'
+  end
+
   def request_headers
     headers = { :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
                 :authorization => "Bearer #{api_key}",
@@ -176,17 +171,15 @@ module Stripe
       headers.update :x_stripe_client_raw_user_agent => user_agent.inspect,
                      :error => "#{e} (#{e.class})"
     end
-
-  end
-
-
-  def general_api_error(rcode, rbody)
-    APIError.new "Invalid response object from API: #{rbody.inspect} " +
-                 "(HTTP response code was #{rcode})", rcode, rbody
   end
 
   def execute_request(opts)
     RestClient::Request.execute(opts)
+  end
+
+  def general_api_error(rcode, rbody)
+    APIError.new "Invalid response object from API: #{rbody.inspect} " +
+                 "(HTTP response code was #{rcode})", rcode, rbody
   end
 
   def handle_api_error(rcode, rbody)

@@ -66,24 +66,25 @@ module Stripe
         'if you have any questions.'
     end
 
+    request_opts = {}
+
     if !verify_ssl_certs && !@no_verify
       STDERR.puts "WARNING: Running without SSL cert verification. " +
         "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
 
       @no_verify = true
-      ssl_opts   = { :verify_ssl => false }
+      request_opts[:verify_ssl] = false
 
     elsif !Util.file_readable(@ssl_bundle_path) && !@no_bundle
       STDERR.puts "WARNING: Running without SSL cert verification " +
         "because #{@ssl_bundle_path} isn't readable"
 
       @no_bundle = true
-      ssl_opts   = { :verify_ssl => false }
+      request_opts[:verify_ssl] = false
 
     else
-      ssl_opts = {
-        :verify_ssl  => OpenSSL::SSL::VERIFY_PEER,
-        :ssl_ca_file => @ssl_bundle_path }
+      request_opts.update :verify_ssl  => OpenSSL::SSL::VERIFY_PEER,
+                          :ssl_ca_file => @ssl_bundle_path
     end
 
     @uname ||= `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
@@ -133,17 +134,12 @@ module Stripe
 
     headers[:stripe_version] = api_version if api_version
 
-    opts = {
-      :headers      => headers,
-      :method       => method,
-      :open_timeout => 30,
-      :payload      => payload,
-      :url          => url,
-      :timeout      => 80
-    }.merge(ssl_opts)
+    request_opts.update :headers => headers, :method => method,
+                        :open_timeout => 30, :payload => payload,
+                        :url => url, :timeout => 80
 
     begin
-      response = execute_request(opts)
+      response = execute_request request_opts
     rescue SocketError => e
       handle_restclient_error(e)
     rescue NoMethodError => e
@@ -164,18 +160,15 @@ module Stripe
       handle_restclient_error(e)
     end
 
-    rbody = response.body
-    rcode = response.code
     begin
       # Would use :symbolize_names => true, but apparently there is
       # some library out there that makes symbolize_names not work.
-      resp = Stripe::JSON.load(rbody)
+      response = Stripe::JSON.load response.body
     rescue MultiJson::DecodeError
-      raise general_api_error rcode, rbody
+      raise general_api_error response.code, response.body
     end
 
-    resp = Util.symbolize_names(resp)
-    [resp, api_key]
+    [Util.symbolize_names(response), api_key]
   end
 
   private

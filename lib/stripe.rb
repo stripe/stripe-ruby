@@ -171,7 +171,7 @@ module Stripe
       # some library out there that makes symbolize_names not work.
       resp = Stripe::JSON.load(rbody)
     rescue MultiJson::DecodeError
-      raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})", rcode, rbody)
+      raise general_api_error rcode, rbody
     end
 
     resp = Util.symbolize_names(resp)
@@ -179,6 +179,11 @@ module Stripe
   end
 
   private
+
+  def general_api_error(rcode, rbody)
+    APIError.new "Invalid response object from API: #{rbody.inspect} " +
+                 "(HTTP response code was #{rcode})", rcode, rbody
+  end
 
   def execute_request(opts)
     RestClient::Request.execute(opts)
@@ -188,52 +193,68 @@ module Stripe
     begin
       error_obj = Stripe::JSON.load(rbody)
       error_obj = Util.symbolize_names(error_obj)
-      error = error_obj[:error] or raise StripeError.new # escape from parsing
+      error     = error_obj[:error] or raise StripeError.new # escape from parsing
+
     rescue MultiJson::DecodeError, StripeError
-      raise APIError.new("Invalid response object from API: #{rbody.inspect} (HTTP response code was #{rcode})", rcode, rbody)
+      raise general_api_error rcode, rbody
     end
 
-    case rcode
-    when 400, 404 then
-      raise invalid_request_error(error, rcode, rbody, error_obj)
+    raise case rcode
+    when 400, 404
+      invalid_request_error error, rcode, rbody, error_obj
     when 401
-      raise authentication_error(error, rcode, rbody, error_obj)
+      authentication_error error, rcode, rbody, error_obj
     when 402
-      raise card_error(error, rcode, rbody, error_obj)
+      card_error error, rcode, rbody, error_obj
     else
-      raise api_error(error, rcode, rbody, error_obj)
+      api_error error, rcode, rbody, error_obj
     end
   end
 
   def invalid_request_error(error, rcode, rbody, error_obj)
-    InvalidRequestError.new(error[:message], error[:param], rcode, rbody, error_obj)
+    InvalidRequestError.new error[:message], error[:param], rcode,
+                            rbody, error_obj
   end
 
   def authentication_error(error, rcode, rbody, error_obj)
-    AuthenticationError.new(error[:message], rcode, rbody, error_obj)
+    AuthenticationError.new error[:message], rcode, rbody, error_obj
   end
 
   def card_error(error, rcode, rbody, error_obj)
-    CardError.new(error[:message], error[:param], error[:code], rcode, rbody, error_obj)
+    CardError.new error[:message], error[:param], error[:code],
+                  rcode, rbody, error_obj
   end
 
   def api_error(error, rcode, rbody, error_obj)
-    APIError.new(error[:message], rcode, rbody, error_obj)
+    APIError.new error[:message], rcode, rbody, error_obj
   end
 
   def handle_restclient_error(e)
-    case e
+    message = case e
     when RestClient::ServerBrokeConnection, RestClient::RequestTimeout
-      message = "Could not connect to Stripe (#{@api_base}).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripestatus, or let us know at support@stripe.com."
+      "Could not connect to Stripe (#{@api_base}). " +
+      "Please check your internet connection and try again. " +
+      "If this problem persists, you should check Stripe's service status at " +
+      "https://twitter.com/stripestatus, or let us know at support@stripe.com."
+
     when RestClient::SSLCertificateNotVerified
-      message = "Could not verify Stripe's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to https://api.stripe.com/v1 in your browser.)  If this problem persists, let us know at support@stripe.com."
+      "Could not verify Stripe's SSL certificate. " +
+      "Please make sure that your network is not intercepting certificates. " +
+      "(Try going to https://api.stripe.com/v1 in your browser.) " +
+      "If this problem persists, let us know at support@stripe.com."
+
     when SocketError
-      message = "Unexpected error communicating when trying to connect to Stripe.  HINT: You may be seeing this message because your DNS is not working.  To check, try running 'host stripe.com' from the command line."
+      "Unexpected error communicating when trying to connect to Stripe. " +
+      "You may be seeing this message because your DNS is not working. " +
+      "To check, try running 'host stripe.com' from the command line."
+
     else
-      message = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
+      "Unexpected error communicating with Stripe. " +
+      "If this problem persists, let us know at support@stripe.com."
+
     end
-    message += "\n\n(Network error: #{e.message})"
-    raise APIConnectionError.new(message)
+
+    raise APIConnectionError.new message + "\n\n(Network error: #{e.message})"
   end
 
   extend self

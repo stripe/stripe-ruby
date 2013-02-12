@@ -86,57 +86,60 @@ module Stripe
         :ssl_ca_file => @ssl_bundle_path }
     end
 
-    uname = (@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
+    @uname ||= `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
-    ua = {
+
+    user_agent = {
       :bindings_version => Stripe::VERSION,
-      :lang => 'ruby',
-      :lang_version => lang_version,
-      :platform => RUBY_PLATFORM,
-      :publisher => 'stripe',
-      :uname => uname
+      :lang             => 'ruby',
+      :lang_version     => lang_version,
+      :platform         => RUBY_PLATFORM,
+      :publisher        => 'stripe',
+      :uname            => @uname
     }
 
     params = Util.objects_to_ids(params)
-    url = api_url(url)
+    url    = api_url(url)
+
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
       # Make params into GET parameters
       if params && params.count > 0
-        query_string = Util.flatten_params(params).collect{|key, value| "#{key}=#{Util.url_encode(value)}"}.join('&')
-        url += "?#{query_string}"
+        query_string = Util.flatten_params(params).map do |key, value|
+          "#{key}=#{Util.url_encode value}"
+        end
+
+        url += "?#{query_string.join('&')}"
       end
+
       payload = nil
     else
-      payload = Util.flatten_params(params).collect{|(key, value)| "#{key}=#{Util.url_encode(value)}"}.join('&')
+      payload = Util.flatten_params(params).map do |(key, value)|
+        "#{key}=#{Util.url_encode(value)}"
+      end.join('&')
     end
 
     begin
-      headers = { :x_stripe_client_user_agent => Stripe::JSON.dump(ua) }.merge(headers)
+      headers.update :x_stripe_client_user_agent => Stripe::JSON.dump(user_agent)
     rescue => e
-      headers = {
-        :x_stripe_client_raw_user_agent => ua.inspect,
-        :error => "#{e} (#{e.class})"
-      }.merge(headers)
+      headers.update :x_stripe_client_raw_user_agent => user_agent.inspect,
+                     :error => "#{e} (#{e.class})"
     end
 
-    headers = {
-      :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
-      :authorization => "Bearer #{api_key}",
-      :content_type => 'application/x-www-form-urlencoded'
-    }.merge(headers)
+    headers.update :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
+                   :authorization => "Bearer #{api_key}",
+                   :content_type => 'application/x-www-form-urlencoded'
 
-    if api_version
-      headers[:stripe_version] = api_version
-    end
+
+    headers[:stripe_version] = api_version if api_version
 
     opts = {
-      :method => method,
-      :url => url,
-      :headers => headers,
+      :headers      => headers,
+      :method       => method,
       :open_timeout => 30,
-      :payload => payload,
-      :timeout => 80
+      :payload      => payload,
+      :url          => url,
+      :timeout      => 80
     }.merge(ssl_opts)
 
     begin

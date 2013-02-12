@@ -110,15 +110,7 @@ module Stripe
       handle_restclient_error(e)
     end
 
-    begin
-      # Would use :symbolize_names => true, but apparently there is
-      # some library out there that makes symbolize_names not work.
-      response = Stripe::JSON.load response.body
-    rescue MultiJson::DecodeError
-      raise general_api_error response.code, response.body
-    end
-
-    [Util.symbolize_names(response), api_key]
+    parse response
   end
 
   private
@@ -175,6 +167,18 @@ module Stripe
 
   def execute_request(opts)
     RestClient::Request.execute(opts)
+  end
+
+  def parse response
+    begin
+      # Would use :symbolize_names => true, but apparently there is
+      # some library out there that makes symbolize_names not work.
+      response = Stripe::JSON.load response.body
+    rescue MultiJson::DecodeError
+      raise general_api_error response.code, response.body
+    end
+
+    [Util.symbolize_names(response), api_key]
   end
 
   def general_api_error(rcode, rbody)

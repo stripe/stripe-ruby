@@ -58,12 +58,11 @@ module Stripe
 
   def request(method, url, api_key, params={}, headers={})
     unless api_key ||= @api_key
-      raise AuthenticationError.new \
-        'No API key provided.' +
+      raise AuthenticationError.new('No API key provided.' +
         'Set your API key using "Stripe.api_key = <API-KEY>". ' +
         'You can generate API keys from the Stripe web interface. ' +
         'See https://stripe.com/api for details, or email support@stripe.com ' +
-        'if you have any questions.'
+        'if you have any questions.')
     end
 
     request_opts = { :verify_ssl => false }
@@ -74,7 +73,7 @@ module Stripe
     end
 
     params = Util.objects_to_ids(params)
-    url    = api_url(url)
+    url = api_url(url)
 
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
@@ -110,7 +109,7 @@ module Stripe
       handle_restclient_error(e)
     end
 
-    parse response
+    parse(response)
   end
 
   private
@@ -136,24 +135,24 @@ module Stripe
     @uname ||= `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
 
-    { 
+    {
       :bindings_version => Stripe::VERSION,
-      :lang             => 'ruby',
-      :lang_version     => lang_version,
-      :platform         => RUBY_PLATFORM,
-      :publisher        => 'stripe',
-      :uname            => @uname
+      :lang => 'ruby',
+      :lang_version => lang_version,
+      :platform => RUBY_PLATFORM,
+      :publisher => 'stripe',
+      :uname => @uname
     }
 
   end
 
-  def uri_encode params
+  def uri_encode(params)
     Util.flatten_params(params).
-      map { |k,v| "#{k}=#{Util.url_encode v}" }.join('&')
+      map { |k,v| "#{k}=#{Util.url_encode(v)}" }.join('&')
   end
 
   def request_headers
-    headers = { 
+    headers = {
       :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
       :authorization => "Bearer #{api_key}",
       :content_type => 'application/x-www-form-urlencoded'
@@ -194,7 +193,7 @@ module Stripe
     begin
       error_obj = Stripe::JSON.load(rbody)
       error_obj = Util.symbolize_names(error_obj)
-      error     = error_obj[:error] or raise StripeError.new # escape from parsing
+      error = error_obj[:error] or raise StripeError.new # escape from parsing
 
     rescue MultiJson::DecodeError, StripeError
       raise general_api_error(rcode, rbody)
@@ -210,7 +209,7 @@ module Stripe
     else
       api_error error, rcode, rbody, error_obj
     end
-    
+
     raise exception
   end
 

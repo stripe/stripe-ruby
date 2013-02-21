@@ -77,7 +77,7 @@ module Stripe
 
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
-      url += "?#{uri_encode params}" if params && params.any?
+      url += "?#{uri_encode(params)}" if params && params.any?
       payload = nil
     else
       payload = uri_encode(params)

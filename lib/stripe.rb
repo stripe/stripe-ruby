@@ -199,18 +199,17 @@ module Stripe
       raise general_api_error(rcode, rbody)
     end
 
-    exception = case rcode
+    case rcode
     when 400, 404
-      invalid_request_error error, rcode, rbody, error_obj
+      raise invalid_request_error error, rcode, rbody, error_obj
     when 401
-      authentication_error error, rcode, rbody, error_obj
+      raise authentication_error error, rcode, rbody, error_obj
     when 402
-      card_error error, rcode, rbody, error_obj
+      raise card_error error, rcode, rbody, error_obj
     else
-      api_error error, rcode, rbody, error_obj
+      raise api_error error, rcode, rbody, error_obj
     end
 
-    raise exception
   end
 
   def invalid_request_error(error, rcode, rbody, error_obj)
@@ -232,27 +231,27 @@ module Stripe
   end
 
   def handle_restclient_error(e)
-    message = case e
+    case e
     when RestClient::ServerBrokeConnection, RestClient::RequestTimeout
-      "Could not connect to Stripe (#{@api_base}). " +
-      "Please check your internet connection and try again. " +
-      "If this problem persists, you should check Stripe's service status at " +
-      "https://twitter.com/stripestatus, or let us know at support@stripe.com."
+      message = "Could not connect to Stripe (#{@api_base}). " +
+        "Please check your internet connection and try again. " +
+        "If this problem persists, you should check Stripe's service status at " +
+        "https://twitter.com/stripestatus, or let us know at support@stripe.com."
 
     when RestClient::SSLCertificateNotVerified
-      "Could not verify Stripe's SSL certificate. " +
-      "Please make sure that your network is not intercepting certificates. " +
-      "(Try going to https://api.stripe.com/v1 in your browser.) " +
-      "If this problem persists, let us know at support@stripe.com."
+      message = "Could not verify Stripe's SSL certificate. " +
+        "Please make sure that your network is not intercepting certificates. " +
+        "(Try going to https://api.stripe.com/v1 in your browser.) " +
+        "If this problem persists, let us know at support@stripe.com."
 
     when SocketError
-      "Unexpected error communicating when trying to connect to Stripe. " +
-      "You may be seeing this message because your DNS is not working. " +
-      "To check, try running 'host stripe.com' from the command line."
+      message = "Unexpected error communicating when trying to connect to Stripe. " +
+        "You may be seeing this message because your DNS is not working. " +
+        "To check, try running 'host stripe.com' from the command line."
 
     else
-      "Unexpected error communicating with Stripe. " +
-      "If this problem persists, let us know at support@stripe.com."
+      message = "Unexpected error communicating with Stripe. " +
+        "If this problem persists, let us know at support@stripe.com."
 
     end
 

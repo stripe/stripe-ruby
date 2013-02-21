@@ -68,7 +68,7 @@ module Stripe
     request_opts = { :verify_ssl => false }
 
     if ssl_preflight_passed?
-      request_opts.update(:verify_ssl  => OpenSSL::SSL::VERIFY_PEER,
+      request_opts.update(:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
                           :ssl_ca_file => @ssl_bundle_path)
     end
 
@@ -115,13 +115,13 @@ module Stripe
   private
 
   def ssl_preflight_passed?
-    if not verify_ssl_certs and not @no_verify
+    if !verify_ssl_certs && !@no_verify
       $stderr.puts "WARNING: Running without SSL cert verification. " +
         "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
 
       @no_verify = true
 
-    elsif not Util.file_readable(@ssl_bundle_path) and not @no_bundle
+    elsif !Util.file_readable(@ssl_bundle_path) && !@no_bundle
       $stderr.puts "WARNING: Running without SSL cert verification " +
         "because #{@ssl_bundle_path} isn't readable"
 

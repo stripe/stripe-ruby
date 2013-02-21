@@ -117,13 +117,13 @@ module Stripe
 
   def ssl_preflight_passed?
     if not verify_ssl_certs and not @no_verify
-      STDERR.puts "WARNING: Running without SSL cert verification. " +
+      $stderr.puts "WARNING: Running without SSL cert verification. " +
         "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
 
       @no_verify = true
 
     elsif not Util.file_readable(@ssl_bundle_path) and not @no_bundle
-      STDERR.puts "WARNING: Running without SSL cert verification " +
+      $stderr.puts "WARNING: Running without SSL cert verification " +
         "because #{@ssl_bundle_path} isn't readable"
 
       @no_bundle = true

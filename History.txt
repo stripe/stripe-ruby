@@ -1,3 +1,6 @@
+=== 1.7.11 2013-02-21
+* Add 'id' to the list of permanent attributes
+
 === 1.7.10 2013-02-01
 * Add support for passing options when retrieving Stripe objects
   e.g., Stripe::Charge.retrieve({id:"foo", expand:["customer"]})

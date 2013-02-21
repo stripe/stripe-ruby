@@ -69,8 +69,8 @@ module Stripe
     request_opts = { :verify_ssl => false }
 
     if ssl_preflight_passed?
-      request_opts.update :verify_ssl  => OpenSSL::SSL::VERIFY_PEER,
-                          :ssl_ca_file => @ssl_bundle_path
+      request_opts.update(:verify_ssl  => OpenSSL::SSL::VERIFY_PEER,
+                          :ssl_ca_file => @ssl_bundle_path)
     end
 
     params = Util.objects_to_ids(params)
@@ -81,15 +81,15 @@ module Stripe
       url += "?#{uri_encode params}" if params && params.any?
       payload = nil
     else
-      payload = uri_encode params
+      payload = uri_encode(params)
     end
 
-    request_opts.update :headers => request_headers.update(headers),
+    request_opts.update(:headers => request_headers.update(headers),
                         :method => method, :open_timeout => 30,
-                        :payload => payload, :url => url, :timeout => 80
+                        :payload => payload, :url => url, :timeout => 80)
 
     begin
-      response = execute_request request_opts
+      response = execute_request(request_opts)
     rescue SocketError => e
       handle_restclient_error(e)
     rescue NoMethodError => e
@@ -136,32 +136,36 @@ module Stripe
     @uname ||= `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
 
-    { :bindings_version => Stripe::VERSION,
+    { 
+      :bindings_version => Stripe::VERSION,
       :lang             => 'ruby',
       :lang_version     => lang_version,
       :platform         => RUBY_PLATFORM,
       :publisher        => 'stripe',
-      :uname            => @uname }
+      :uname            => @uname
+    }
 
   end
 
   def uri_encode params
     Util.flatten_params(params).
-      map { |k,v| "#{k}=#{Util.url_encode v}" }.join '&'
+      map { |k,v| "#{k}=#{Util.url_encode v}" }.join('&')
   end
 
   def request_headers
-    headers = { :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
-                :authorization => "Bearer #{api_key}",
-                :content_type => 'application/x-www-form-urlencoded' }
+    headers = { 
+      :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
+      :authorization => "Bearer #{api_key}",
+      :content_type => 'application/x-www-form-urlencoded'
+    }
 
     headers[:stripe_version] = api_version if api_version
 
     begin
-      headers.update :x_stripe_client_user_agent => Stripe::JSON.dump(user_agent)
+      headers.update(:x_stripe_client_user_agent => Stripe::JSON.dump(user_agent))
     rescue => e
-      headers.update :x_stripe_client_raw_user_agent => user_agent.inspect,
-                     :error => "#{e} (#{e.class})"
+      headers.update(:x_stripe_client_raw_user_agent => user_agent.inspect,
+                     :error => "#{e} (#{e.class})")
     end
   end
 
@@ -169,21 +173,21 @@ module Stripe
     RestClient::Request.execute(opts)
   end
 
-  def parse response
+  def parse(response)
     begin
       # Would use :symbolize_names => true, but apparently there is
       # some library out there that makes symbolize_names not work.
-      response = Stripe::JSON.load response.body
+      response = Stripe::JSON.load(response.body)
     rescue MultiJson::DecodeError
-      raise general_api_error response.code, response.body
+      raise general_api_error(response.code, response.body)
     end
 
     [Util.symbolize_names(response), api_key]
   end
 
   def general_api_error(rcode, rbody)
-    APIError.new "Invalid response object from API: #{rbody.inspect} " +
-                 "(HTTP response code was #{rcode})", rcode, rbody
+    APIError.new("Invalid response object from API: #{rbody.inspect} " +
+                 "(HTTP response code was #{rcode})", rcode, rbody)
   end
 
   def handle_api_error(rcode, rbody)
@@ -193,10 +197,10 @@ module Stripe
       error     = error_obj[:error] or raise StripeError.new # escape from parsing
 
     rescue MultiJson::DecodeError, StripeError
-      raise general_api_error rcode, rbody
+      raise general_api_error(rcode, rbody)
     end
 
-    raise case rcode
+    exception = case rcode
     when 400, 404
       invalid_request_error error, rcode, rbody, error_obj
     when 401
@@ -206,24 +210,26 @@ module Stripe
     else
       api_error error, rcode, rbody, error_obj
     end
+    
+    raise exception
   end
 
   def invalid_request_error(error, rcode, rbody, error_obj)
-    InvalidRequestError.new error[:message], error[:param], rcode,
-                            rbody, error_obj
+    InvalidRequestError.new(error[:message], error[:param], rcode,
+                            rbody, error_obj)
   end
 
   def authentication_error(error, rcode, rbody, error_obj)
-    AuthenticationError.new error[:message], rcode, rbody, error_obj
+    AuthenticationError.new(error[:message], rcode, rbody, error_obj)
   end
 
   def card_error(error, rcode, rbody, error_obj)
-    CardError.new error[:message], error[:param], error[:code],
-                  rcode, rbody, error_obj
+    CardError.new(error[:message], error[:param], error[:code],
+                  rcode, rbody, error_obj)
   end
 
   def api_error(error, rcode, rbody, error_obj)
-    APIError.new error[:message], rcode, rbody, error_obj
+    APIError.new(error[:message], rcode, rbody, error_obj)
   end
 
   def handle_restclient_error(e)
@@ -251,7 +257,7 @@ module Stripe
 
     end
 
-    raise APIConnectionError.new message + "\n\n(Network error: #{e.message})"
+    raise APIConnectionError.new(message + "\n\n(Network error: #{e.message})")
   end
 
   extend self

@@ -120,6 +120,15 @@ class TestStripeRuby < Test::Unit::TestCase
         assert charges.kind_of? Array
       end
 
+      should "construct URL properly with base query parameters" do
+        response = test_response(test_invoice_array)
+        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices/upcoming?customer=test_customer", nil, nil).returns(response)
+        invoices = Stripe::Invoice.upcoming(:customer => 'test_customer')
+
+        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices/upcoming?customer=test_customer&paid=true", nil, nil).returns(response)
+        invoices.all(:paid => true)
+      end
+
       should "a 400 should give an InvalidRequestError with http status, body, and JSON body" do
         response = test_response(test_missing_id_error, 400)
         @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))

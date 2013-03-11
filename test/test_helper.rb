@@ -189,6 +189,14 @@ def test_paid_invoice
     })
 end
 
+def test_invoice_array
+  {
+    :data => [test_invoice],
+    :object => 'list',
+    :url => '/v1/invoices/upcoming?customer=test_customer'
+  }
+end
+
 def test_invalid_api_key_error
   {
     "error" => {

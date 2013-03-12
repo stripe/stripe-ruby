@@ -189,11 +189,11 @@ def test_paid_invoice
     })
 end
 
-def test_invoice_array
+def test_invoice_customer_array
   {
     :data => [test_invoice],
     :object => 'list',
-    :url => '/v1/invoices/upcoming?customer=test_customer'
+    :url => '/v1/invoices?customer=test_customer'
   }
 end
 

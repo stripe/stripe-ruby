@@ -121,11 +121,11 @@ class TestStripeRuby < Test::Unit::TestCase
       end
 
       should "construct URL properly with base query parameters" do
-        response = test_response(test_invoice_array)
-        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices/upcoming?customer=test_customer", nil, nil).returns(response)
-        invoices = Stripe::Invoice.upcoming(:customer => 'test_customer')
+        response = test_response(test_invoice_customer_array)
+        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices?customer=test_customer", nil, nil).returns(response)
+        invoices = Stripe::Invoice.all(:customer => 'test_customer')
 
-        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices/upcoming?customer=test_customer&paid=true", nil, nil).returns(response)
+        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices?customer=test_customer&paid=true", nil, nil).returns(response)
         invoices.all(:paid => true)
       end
 

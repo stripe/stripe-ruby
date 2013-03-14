@@ -447,6 +447,15 @@ class TestStripeRuby < Test::Unit::TestCase
           s = c.delete_discount
           assert_equal nil, c.discount
         end
+
+        should "be able to update a customer without refreshing it first" do
+          @mock.expects(:post).once.with("#{Stripe.api_base}/v1/customers/test_customer", nil, 'mnemonic=bar').returns(test_response(test_customer({:mnemonic => "bar"})))
+          c = Stripe::Customer.new("test_customer")
+          c.mnemonic = "bar"
+          c.save
+          assert_equal c.mnemonic, "bar"
+        end
+
       end
 
       context "card tests" do

@@ -5,6 +5,7 @@ module Stripe
         if @unsaved_values.length > 0
           values = {}
           @unsaved_values.each { |k| values[k] = @values[k] }
+          values.delete(:id)
           response, api_key = Stripe.request(:post, url, @api_key, values)
           refresh_from(response, api_key)
         end

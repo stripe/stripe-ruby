@@ -1,11 +1,11 @@
-require 'stringio'
-require 'test/unit'
 require 'stripe'
-require 'mocha'
-include Mocha
+require 'test/unit'
+require 'mocha/setup'
+require 'stringio'
+require 'shoulda'
 
 #monkeypatch request methods
-module Stripe   
+module Stripe
   @mock_rest_client = nil
 
   def self.mock_rest_client=(mock_client)
@@ -88,7 +88,7 @@ end
 
 def test_charge_array
   {
-    :data => [test_charge, test_charge, test_charge], 
+    :data => [test_charge, test_charge, test_charge],
     :object => 'list',
     :url => '/v1/charges'
   }
@@ -102,7 +102,7 @@ def test_card(params={})
     :country => "US",
     :exp_year => 2012,
     :id => "cc_test_card",
-    :object => "card"    
+    :object => "card"
   }.merge(params)
 end
 
@@ -112,7 +112,7 @@ def test_coupon(params={})
     :duration_in_months => 3,
     :percent_off => 25,
     :id => "co_test_coupon",
-    :object => "coupon"    
+    :object => "coupon"
   }.merge(params)
 end
 
@@ -241,3 +241,19 @@ def test_delete_discount_response
     :id => "di_test_coupon"
   }
 end
+
+class Test::Unit::TestCase
+  include Mocha
+
+  setup do
+    @mock = mock
+    Stripe.mock_rest_client = @mock
+    Stripe.api_key="foo"
+  end
+
+  teardown do
+    Stripe.mock_rest_client = nil
+    Stripe.api_key=nil
+  end
+end
+

@@ -23,6 +23,16 @@ The stripe gem is mirrored on Rubygems, so you should be able to
 install it via <tt>gem install stripe</tt> if desired. We recommend using 
 the https://code.stripe.com mirror so all code is fetched over SSL.
 
+Note that if you are installing via bundler, you should be sure to use the https
+rubygems source in your Gemfile, as any gems fetched over http could potentially be
+comprimised in transit and alter the code of gems fetched securely over https:
+
+  source 'https://code.stripe.com'
+  source 'https://rubygems.org'
+  
+  gem 'rails'
+  gem 'stripe'
+
 == Development
 
 Test cases can be run with: `bundle exec rake test`

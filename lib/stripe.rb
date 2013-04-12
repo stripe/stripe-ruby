@@ -32,6 +32,7 @@ require 'stripe/coupon'
 require 'stripe/token'
 require 'stripe/event'
 require 'stripe/transfer'
+require 'stripe/recipient'
 
 # Errors
 require 'stripe/errors/stripe_error'

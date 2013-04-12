@@ -1,3 +1,9 @@
+=== 1.8.0 2013-04-11
+
+* 1 major enhancement:
+  * Add new Recipient API resource
+  * Allow Transfers to be createable
+
 === 1.7.11 2013-02-21
 * Add 'id' to the list of permanent attributes
 

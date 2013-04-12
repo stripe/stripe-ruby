@@ -197,6 +197,61 @@ def test_invoice_customer_array
   }
 end
 
+def test_recipient(params={})
+  {
+    :name => "Stripe User",
+    :type => "individual",
+    :livemode => false,
+    :object => "recipient",
+    :id => "rp_test_recipient",
+    :active_account => {
+      :last4 => "6789",
+      :bank_name => "STRIPE TEST BANK",
+      :country => "US",
+      :object => "bank_account"
+    },
+    :created => 1304114758,
+    :verified => true
+  }.merge(params)
+end
+
+def test_recipient_array
+  {
+    :data => [test_recipient, test_recipient, test_recipient],
+    :object => 'list',
+    :url => '/v1/recipients'
+  }
+end
+
+def test_transfer(params={})
+  {
+    :status => 'pending',
+    :amount => 100,
+    :account => {
+      :object => 'bank_account',
+      :country => 'US',
+      :bank_name => 'STRIPE TEST BANK',
+      :last4 => '6789'
+    },
+    :recipient => 'test_recipient',
+    :fee => 0,
+    :fee_details => [],
+    :id => "tr_test_transfer",
+    :livemode => false,
+    :currency => "usd",
+    :object => "transfer",
+    :date => 1304114826
+  }.merge(params)
+end
+
+def test_transfer_array
+  {
+    :data => [test_transfer, test_transfer, test_transfer],
+    :object => 'list',
+    :url => '/v1/transfers'
+  }
+end
+
 def test_invalid_api_key_error
   {
     "error" => {

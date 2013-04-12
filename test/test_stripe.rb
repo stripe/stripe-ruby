@@ -477,6 +477,89 @@ class TestStripeRuby < Test::Unit::TestCase
         end
       end
 
+      context "transfer tests" do
+
+        should "transfers should be listable" do
+          @mock.expects(:get).once.returns(test_response(test_transfer_array))
+          t = Stripe::Transfer.all
+          assert t.data.kind_of? Array
+          t.each do |transfer|
+            assert transfer.kind_of?(Stripe::Transfer)
+          end
+        end
+
+        should "transfers should not be deletable" do
+          assert_raises NoMethodError do
+            @mock.expects(:get).once.returns(test_response(test_transfer))
+            t = Stripe::Transfer.retrieve("test_transfer")
+            t.delete
+          end
+        end
+
+        should "transfers should have BankAccount objects associated with their account property" do
+          @mock.expects(:get).once.returns(test_response(test_transfer))
+          t = Stripe::Transfer.retrieve("test_transfer")
+          assert t.account.kind_of?(Stripe::StripeObject) && t.account.object == 'bank_account'
+        end
+
+        should "create a transfer should return a new transfer when passed correct parameters" do
+          @mock.expects(:post).with do |url, api_key, params|
+            url == "#{Stripe.api_base}/v1/transfers" && api_key.nil? && CGI.parse(params) == {
+              'currency' => ['usd'], 'amount' => ['100'],
+              'recipient' => ['test_recipient']
+            }
+          end.once.returns(test_response(test_transfer))
+
+          t = Stripe::Transfer.create({
+            :amount => 100,
+            :currency => "usd",
+            :recipient => "test_recipient"
+          })
+
+          assert_equal 'pending', t.status
+        end
+
+      end
+
+      context "recipient tests" do
+
+        should "recipients should be listable" do
+          @mock.expects(:get).once.returns(test_response(test_recipient_array))
+          r = Stripe::Recipient.all.data
+          assert r.kind_of? Array
+          assert r[0].kind_of? Stripe::Recipient
+        end
+
+        should "recipients should be deletable" do
+          @mock.expects(:delete).once.returns(test_response(test_recipient({:deleted => true})))
+          r = Stripe::Recipient.new("test_recipient")
+          r.delete
+          assert r.deleted
+        end
+
+        should "recipients should be updateable" do
+          @mock.expects(:get).once.returns(test_response(test_recipient({:description => "foo"})))
+          @mock.expects(:post).once.returns(test_response(test_recipient({:description => "bar"})))
+          r = Stripe::Recipient.new("test_recipient").refresh
+          assert_equal r.description, "foo"
+          r.description = "bar"
+          r.save
+          assert_equal r.description, "bar"
+        end
+
+        should "recipients should have BankAccount objects associated with their active_account property" do
+          @mock.expects(:get).once.returns(test_response(test_recipient))
+          r = Stripe::Recipient.retrieve("test_recipient")
+          assert r.active_account.kind_of?(Stripe::StripeObject) && r.active_account.object == 'bank_account'
+        end
+
+        should "create should return a new recipient" do
+          @mock.expects(:post).once.returns(test_response(test_recipient))
+          r = Stripe::Recipient.create(:name => 'Stripe User', :type => 'individual')
+          assert_equal "rp_test_recipient", r.id
+        end
+      end
+
       context "error checking" do
 
         should "404s should raise an InvalidRequestError" do

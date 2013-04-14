@@ -17,6 +17,10 @@ module Stripe
       InvoiceItem.all({ :customer => id }, @api_key)
     end
 
+    def upcoming_invoice
+      Invoice.upcoming({ :customer => id })
+    end
+
     def charges
       Charge.all({ :customer => id }, @api_key)
     end

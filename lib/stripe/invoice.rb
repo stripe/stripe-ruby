@@ -4,8 +4,8 @@ module Stripe
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Create
 
-    def self.upcoming(params)
-      response, api_key = Stripe.request(:get, upcoming_url, @api_key, params)
+    def self.upcoming(params, api_key = nil)
+      response, api_key = Stripe.request(:get, upcoming_url, api_key, params)
       Util.convert_to_stripe_object(response, api_key)
     end
 

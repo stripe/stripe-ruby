@@ -1,3 +1,17 @@
+=== 1.8.2 2013-05-01
+
+* 3 minor enhancement:
+  * Use to_sym instead of type checking for minor performance
+    improvement (github issue #59)
+  * Handle low-memory situations without throwing an exception (github
+    issue #61)
+  * Add an Customer#upcoming_invoice convenience method (github issue
+    #65)
+
+* 1 bugfix:
+  * Allow updating resources without first retrieving them (github
+    issue #60)
+
 === 1.8.1 2013-04-19
 
 * 1 minor enhancement:

@@ -81,6 +81,13 @@ class TestStripeRuby < Test::Unit::TestCase
       end
     end
 
+    should "specifying api credentials containing whitespace should raise an exception" do
+      Stripe.api_key = "key "
+      assert_raises Stripe::AuthenticationError do
+        Stripe::Customer.new("test_customer").refresh
+      end
+    end
+
     should "specifying invalid api credentials should raise an exception" do
       Stripe.api_key = "invalid"
       response = test_response(test_invalid_api_key_error, 401)
@@ -431,7 +438,7 @@ class TestStripeRuby < Test::Unit::TestCase
           c = Stripe::Customer.retrieve("test_customer")
 
           # Not an accurate response, but whatever
-          
+
           @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(test_response(test_subscription('silver')))
           s = c.cancel_subscription({:at_period_end => 'true'})
 

@@ -107,7 +107,7 @@ module Stripe
         :ssl_ca_file => @@ssl_bundle_path
       }
     end
-    uname = (@@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
+    uname = get_uname
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
     ua = {
       :bindings_version => Stripe::VERSION,
@@ -197,6 +197,13 @@ module Stripe
   end
 
   private
+
+  def self.get_uname
+    (@@uname ||= RUBY_PLATFORM =~ /linux|darwin/i ? `uname -a 2>/dev/null`.strip : nil)
+  rescue Errno::ENOMEM => ex # couldn't create subprocess
+    "uname lookup died"
+  end
+  
 
   def self.execute_request(opts)
     RestClient::Request.execute(opts)

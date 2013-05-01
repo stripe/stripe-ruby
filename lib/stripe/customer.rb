@@ -18,7 +18,7 @@ module Stripe
     end
 
     def upcoming_invoice
-      Invoice.upcoming({ :customer => id })
+      Invoice.upcoming({ :customer => id }, @api_key)
     end
 
     def charges

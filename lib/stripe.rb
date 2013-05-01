@@ -140,7 +140,7 @@ module Stripe
   end
 
   def self.user_agent
-    @uname ||= `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
+    @uname ||= get_uname
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
 
     {
@@ -152,6 +152,12 @@ module Stripe
       :uname => @uname
     }
 
+  end
+
+  def self.get_uname
+    `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
+  rescue Errno::ENOMEM => ex # couldn't create subprocess
+    "uname lookup failed"
   end
 
   def self.uri_encode(params)

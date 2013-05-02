@@ -68,6 +68,20 @@ class TestStripeRuby < Test::Unit::TestCase
       c.card = {:id => "somecard", :object => "card"}
     end
 
+    should "setting an attribute on a new object should raise an exception for objects that are not updateable" do
+      c = Stripe::Coupon.new('test_coupon')
+      assert_raises NoMethodError do
+        c.percent_off = 50
+      end
+    end
+
+    should "setting an attribute on an object with data should raise an exception for objects that are not updateable" do
+      c = Stripe::Coupon.construct_from(test_coupon)
+      assert_raises NoMethodError do
+        c.percent_off = 50
+      end
+    end
+
     should "accessing id should not issue a fetch" do
       @mock.expects(:get).never
       c = Stripe::Customer.new("test_customer");

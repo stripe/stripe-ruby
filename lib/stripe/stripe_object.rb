@@ -26,7 +26,7 @@ module Stripe
       # to have a unified inspect method
       @unsaved_values = Set.new
       @transient_values = Set.new
-      self.id = id if id
+      @values[:id] = id if id
     end
 
     def self.construct_from(values, api_key=nil)
@@ -124,6 +124,7 @@ module Stripe
           next if @@permanent_attributes.include?(k)
           k_eq = :"#{k}="
           define_method(k) { @values[k] }
+          next unless respond_to?(:save)
           define_method(k_eq) do |v|
             @values[k] = v
             @unsaved_values.add(k)
@@ -133,8 +134,7 @@ module Stripe
     end
 
     def method_missing(name, *args)
-      # TODO: only allow setting in updateable classes.
-      if name.to_s.end_with?('=')
+      if name.to_s.end_with?('=') && respond_to?(:save)
         attr = name.to_s[0...-1].to_sym
         @values[attr] = args[0]
         @unsaved_values.add(attr)

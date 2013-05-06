@@ -1,3 +1,8 @@
+=== 1.8.3 2013-05-06
+
+* 1 bugfix:
+  * Fix handling of per-call API keys (github issue #67)
+
 === 1.8.2 2013-05-01
 
 * 3 minor enhancement:

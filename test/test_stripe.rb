@@ -111,6 +111,52 @@ class TestStripeRuby < Test::Unit::TestCase
       end
     end
 
+    context "when specifying per-object credentials" do
+      context "with no global API key set" do
+        should "use the per-object credential when creating" do
+          Stripe.expects(:execute_request).with do |opts|
+            opts[:headers][:authorization] == 'Bearer sk_test_local'
+          end.returns(test_response(test_charge))
+
+          Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+            'sk_test_local')
+        end
+      end
+
+      context "with a global API key set" do
+        setup do
+          Stripe.api_key = "global"
+        end
+
+        teardown do
+          Stripe.api_key = nil
+        end
+
+        should "use the per-object credential when creating" do
+          Stripe.expects(:execute_request).with do |opts|
+            opts[:headers][:authorization] == 'Bearer local'
+          end.returns(test_response(test_charge))
+
+          Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+            'local')
+        end
+
+        should "use the per-object credential when retrieving and making other calls" do
+          Stripe.expects(:execute_request).with do |opts|
+            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge" &&
+              opts[:headers][:authorization] == 'Bearer local'
+          end.returns(test_response(test_charge))
+          Stripe.expects(:execute_request).with do |opts|
+            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge/refund" &&
+              opts[:headers][:authorization] == 'Bearer local'
+          end.returns(test_response(test_charge))
+
+          ch = Stripe::Charge.retrieve('ch_test_charge', 'local')
+          ch.refund
+        end
+      end
+    end
+
     context "with valid credentials" do
       setup do
         Stripe.api_key="foo"

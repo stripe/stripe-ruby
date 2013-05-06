@@ -91,7 +91,7 @@ module Stripe
       payload = uri_encode(params)
     end
 
-    request_opts.update(:headers => request_headers.update(headers),
+    request_opts.update(:headers => request_headers(api_key).update(headers),
                         :method => method, :open_timeout => 30,
                         :payload => payload, :url => url, :timeout => 80)
 
@@ -117,7 +117,7 @@ module Stripe
       handle_restclient_error(e)
     end
 
-    parse(response)
+    [parse(response), api_key]
   end
 
   private
@@ -165,7 +165,7 @@ module Stripe
       map { |k,v| "#{k}=#{Util.url_encode(v)}" }.join('&')
   end
 
-  def self.request_headers
+  def self.request_headers(api_key)
     headers = {
       :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
       :authorization => "Bearer #{api_key}",
@@ -195,7 +195,7 @@ module Stripe
       raise general_api_error(response.code, response.body)
     end
 
-    [Util.symbolize_names(response), api_key]
+    Util.symbolize_names(response)
   end
 
   def self.general_api_error(rcode, rbody)

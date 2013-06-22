@@ -26,7 +26,8 @@ module Stripe
         'event' => Event,
         'transfer' => Transfer,
         'recipient' => Recipient,
-        'list' => ListObject
+        'list' => ListObject,
+        'application_fee' => ApplicationFee
       }
       case resp
       when Array

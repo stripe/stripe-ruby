@@ -17,6 +17,8 @@ module Stripe
 
     def self.convert_to_stripe_object(resp, api_key)
       types = {
+        'balance' => Balance,
+        'balance_transaction' => BalanceTransaction,
         'charge' => Charge,
         'customer' => Customer,
         'invoiceitem' => InvoiceItem,

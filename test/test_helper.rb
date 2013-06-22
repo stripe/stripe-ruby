@@ -5,7 +5,7 @@ require 'mocha'
 include Mocha
 
 #monkeypatch request methods
-module Stripe   
+module Stripe
   @mock_rest_client = nil
 
   def self.mock_rest_client=(mock_client)
@@ -32,6 +32,42 @@ def test_response(body, code=200)
   def m.body; @stripe_values[:body]; end
   def m.code; @stripe_values[:code]; end
   m
+end
+
+def test_balance(params={})
+  {
+    :pending => [
+      {:amount => 12345, :currency => "usd"}
+    ],
+    :available => [
+      {:amount => 6789, :currency => "usd"}
+    ],
+    :livemode => false,
+    :object => "balance"
+  }.merge(params)
+end
+
+def test_balance_transaction(params={})
+  {
+    :amount => 100,
+    :net => 41,
+    :currency => "usd",
+    :type => "charge",
+    :created => 1371945005,
+    :available_on => 1372549805,
+    :status => "pending",
+    :description => "A test balance transaction",
+    :fee => 59,
+    :object => "balance_transaction"
+  }.merge(params)
+end
+
+def test_balance_transaction_array
+  {
+    :data => [test_balance_transaction, test_balance_transaction, test_balance_transaction],
+    :object => "list",
+    :url => "/v1/balance/history"
+  }
 end
 
 def test_customer(params={})
@@ -88,7 +124,7 @@ end
 
 def test_charge_array
   {
-    :data => [test_charge, test_charge, test_charge], 
+    :data => [test_charge, test_charge, test_charge],
     :object => 'list',
     :url => '/v1/charges'
   }
@@ -102,7 +138,7 @@ def test_card(params={})
     :country => "US",
     :exp_year => 2012,
     :id => "cc_test_card",
-    :object => "card"    
+    :object => "card"
   }.merge(params)
 end
 
@@ -112,7 +148,7 @@ def test_coupon(params={})
     :duration_in_months => 3,
     :percent_off => 25,
     :id => "co_test_coupon",
-    :object => "coupon"    
+    :object => "coupon"
   }.merge(params)
 end
 

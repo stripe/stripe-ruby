@@ -351,6 +351,26 @@ class TestStripeRuby < Test::Unit::TestCase
         end
       end
 
+      context "balance tests" do
+        should "balance should be retrievable" do
+          @mock.expects(:get).once.returns(test_response(test_balance))
+          b = Stripe::Balance.retrieve
+          assert_equal 12345, b.pending.first.amount
+          assert_equal 6789, b.available.first.amount
+        end
+      end
+
+      context "balance transaction tests" do
+        should "balance transactions should be listable" do
+          @mock.expects(:get).once.returns(test_response(test_balance_transaction_array))
+          bt = Stripe::BalanceTransaction.all
+          assert bt.data.kind_of?(Array)
+          bt.each do |balance_transaction|
+            assert balance_transaction.kind_of?(Stripe::BalanceTransaction)
+          end
+        end
+      end
+
       context "list tests" do
         should "be able to retrieve full lists given a listobject" do
           @mock.expects(:get).twice.returns(test_response(test_charge_array))

@@ -34,6 +34,42 @@ def test_response(body, code=200)
   m
 end
 
+def test_balance(params={})
+  {
+    :pending => [
+      {:amount => 12345, :currency => "usd"}
+    ],
+    :available => [
+      {:amount => 6789, :currency => "usd"}
+    ],
+    :livemode => false,
+    :object => "balance"
+  }.merge(params)
+end
+
+def test_balance_transaction(params={})
+  {
+    :amount => 100,
+    :net => 41,
+    :currency => "usd",
+    :type => "charge",
+    :created => 1371945005,
+    :available_on => 1372549805,
+    :status => "pending",
+    :description => "A test balance transaction",
+    :fee => 59,
+    :object => "balance_transaction"
+  }.merge(params)
+end
+
+def test_balance_transaction_array
+  {
+    :data => [test_balance_transaction, test_balance_transaction, test_balance_transaction],
+    :object => "list",
+    :url => "/v1/balance/history"
+  }
+end
+
 def test_customer(params={})
   {
     :subscription_history => [],

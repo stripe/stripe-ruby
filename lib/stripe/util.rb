@@ -17,6 +17,8 @@ module Stripe
 
     def self.object_classes
       @object_classes ||= {
+        'balance' => Balance,
+        'balance_transaction' => BalanceTransaction,
         'charge' => Charge,
         'customer' => Customer,
         'invoiceitem' => InvoiceItem,

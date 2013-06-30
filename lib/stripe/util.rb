@@ -44,6 +44,9 @@ module Stripe
     end
 
     def self.file_readable(file)
+      # This is nominally equivalent to File.readable?, but that can
+      # report incorrect results on some more oddball filesystems
+      # (such as AFS)
       begin
         File.open(file) { |f| }
       rescue

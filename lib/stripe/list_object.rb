@@ -6,7 +6,7 @@ module Stripe
     end
 
     def all(filters={})
-      response, api_key = Stripe.request(:get, url, api_key, filters)
+      response, api_key = Stripe.request(:get, url, @api_key, filters)
       Util.convert_to_stripe_object(response, api_key)
     end
 

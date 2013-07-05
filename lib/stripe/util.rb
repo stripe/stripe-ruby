@@ -35,8 +35,8 @@ module Stripe
       when Array
         resp.map { |i| convert_to_stripe_object(i, api_key) }
       when Hash
-        # Try converting to a known object class.  If none available, fall back to generic APIResource
-        object_classes.fetch(resp[:object]) { StripeObject }.construct_from(resp, api_key)
+        # Try converting to a known object class.  If none available, fall back to generic StripeObject
+        object_classes.fetch(resp[:object], StripeObject).construct_from(resp, api_key)
       else
         resp
       end

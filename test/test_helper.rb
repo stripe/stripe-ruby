@@ -1,7 +1,7 @@
 require 'stringio'
 require 'test/unit'
 require 'stripe'
-require 'mocha'
+require 'mocha/setup'
 include Mocha
 
 #monkeypatch request methods

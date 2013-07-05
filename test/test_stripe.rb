@@ -2,7 +2,7 @@
 require File.expand_path('../test_helper', __FILE__)
 require 'test/unit'
 require 'shoulda'
-require 'mocha'
+require 'mocha/setup'
 require 'pp'
 require 'rest-client'
 require 'cgi'

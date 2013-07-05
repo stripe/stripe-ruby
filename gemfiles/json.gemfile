@@ -1,4 +1,4 @@
 source "https://rubygems.org"
 gemspec :path => File.join(File.dirname(__FILE__), "..")
 gem "json"
-gem "activesupport"
+gem "activesupport", "~> 3.0"

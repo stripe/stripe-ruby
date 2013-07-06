@@ -50,6 +50,16 @@ module Stripe
 
   class << self
     attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
+
+    attr_writer :open_timeout, :timeout
+  end
+
+  def self.open_timeout
+    @open_timeout ||= 30
+  end
+
+  def self.timeout
+    @timeout ||= 80
   end
 
   def self.api_url(url='')
@@ -92,8 +102,8 @@ module Stripe
     end
 
     request_opts.update(:headers => request_headers(api_key).update(headers),
-                        :method => method, :open_timeout => 30,
-                        :payload => payload, :url => url, :timeout => 80)
+                        :method => method, :open_timeout => open_timeout,
+                        :payload => payload, :url => url, :timeout => timeout)
 
     begin
       response = execute_request(request_opts)

@@ -338,6 +338,37 @@ class TestStripeRuby < Test::Unit::TestCase
         assert c[0].card.kind_of?(Stripe::StripeObject) && c[0].card.object == 'card'
       end
 
+      should "specify default timeout values when executing requests" do
+        options = has_entries(:open_timeout => 30, :timeout => 80)
+
+        Stripe.expects(:execute_request).with(options).returns(test_response(test_customer))
+
+        Stripe::Customer.new("test_customer").refresh
+      end
+
+      context "with different timeout values specified" do
+        setup do
+          @default_open_timeout = Stripe.open_timeout
+          @default_timeout = Stripe.timeout
+
+          Stripe.open_timeout = 5
+          Stripe.timeout = 25
+        end
+
+        teardown do
+          Stripe.open_timeout = @default_open_timeout
+          Stripe.timeout = @default_timeout
+        end
+
+        should "specify those timeout values when executing requests" do
+          options = has_entries(:open_timeout => 5, :timeout => 25)
+
+          Stripe.expects(:execute_request).with(options).returns(test_response(test_customer))
+
+          Stripe::Customer.new("test_customer").refresh
+        end
+      end
+
       context "account tests" do
         should "account should be retrievable" do
           resp = {:email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}

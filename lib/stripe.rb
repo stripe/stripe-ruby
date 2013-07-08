@@ -33,6 +33,7 @@ require 'stripe/token'
 require 'stripe/event'
 require 'stripe/transfer'
 require 'stripe/recipient'
+require 'stripe/application_fee'
 
 # Errors
 require 'stripe/errors/stripe_error'

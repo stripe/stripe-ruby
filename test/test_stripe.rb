@@ -454,12 +454,6 @@ class TestStripeRuby < Test::Unit::TestCase
           assert_equal c.mnemonic, "bar"
         end
 
-        should "customers should have Card objects associated with their active_ard property" do
-          @mock.expects(:get).once.returns(test_response(test_customer))
-          c = Stripe::Customer.retrieve("test_customer")
-          assert c.active_card.kind_of?(Stripe::StripeObject) && c.active_card.object == 'card'
-        end
-
         should "create should return a new customer" do
           @mock.expects(:post).once.returns(test_response(test_customer))
           c = Stripe::Customer.create
@@ -512,7 +506,50 @@ class TestStripeRuby < Test::Unit::TestCase
       end
 
       context "card tests" do
+        should "be able to create a new card for a customer" do
+          @mock.expects(:get).once.returns(test_response(test_customer))
+          customer = Stripe::Customer.retrieve("test_customer")
+
+          @mock.expects(:post).once.returns(test_response(test_card))
+          card = customer.cards.create(:card => 'card')
+          assert card.kind_of? Stripe::Card
+        end
+
+        should "be able to retrieve a card for a customer" do
+          @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer", nil, nil).returns(test_response(test_customer))
+          customer = Stripe::Customer.retrieve("c_test_customer")
+
+          @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/cards/cc_test_card", nil, nil).returns(test_response(test_card))
+          card = customer.cards.retrieve("cc_test_card")
+          assert card.kind_of? Stripe::Card
+        end
+
+        should "be able to list all cards for a customer" do
+          @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer", nil, nil).returns(test_response(test_customer))
+          customer = Stripe::Customer.retrieve("c_test_customer")
+
+          @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/cards", nil, nil).returns(test_response(test_card_array("c_test_customer")))
+          cards = customer.cards.all()
+          assert cards.data.kind_of? Array
+          cards.each do |card|
+            assert card.kind_of?(Stripe::Card)
+          end
+        end
+
+        should "be able to update a card for a customer" do
+          @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer", nil, nil).returns(test_response(test_customer))
+          customer = Stripe::Customer.retrieve("c_test_customer")
+          @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/cards/cc_test_card", nil, nil).returns(test_response(test_card))
+          card = customer.cards.retrieve("cc_test_card")
+
+          @mock.expects(:post).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/cards/cc_test_card", nil, "address_zip=zippy").returns(test_response(test_card(:address_zip => 'zippy')))
+          card.address_zip = "zippy"
+          card.save
+
+          assert_equal "zippy", card.address_zip
+        end
       end
+
 
       context "coupon tests" do
         should "create should return a new coupon" do

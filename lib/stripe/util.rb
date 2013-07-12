@@ -26,6 +26,7 @@ module Stripe
         'event' => Event,
         'transfer' => Transfer,
         'recipient' => Recipient,
+        'card' => Card,
         'list' => ListObject
       }
     end

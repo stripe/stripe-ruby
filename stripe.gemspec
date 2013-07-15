@@ -10,8 +10,6 @@ spec = Gem::Specification.new do |s|
   s.authors = ['Ross Boucher', 'Greg Brockman']
   s.email = ['boucher@stripe.com', 'gdb@stripe.com']
   s.homepage = 'https://stripe.com/api'
-  s.executables = 'stripe-console'
-  s.require_paths = %w{lib}
 
   s.add_dependency('rest-client', '~> 1.4')
   s.add_dependency('multi_json', '>= 1.0.4', '< 2')

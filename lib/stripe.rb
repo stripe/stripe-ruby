@@ -137,7 +137,7 @@ module Stripe
       @no_bundle = true
     end
 
-    !(@no_verify || @no_nobundle)
+    !(@no_verify || @no_bundle)
   end
 
   def self.user_agent

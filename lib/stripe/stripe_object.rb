@@ -126,7 +126,12 @@ module Stripe
           define_method(k) { @values[k] }
           define_method(k_eq) do |v|
             if v == ""
-              raise ArgumentError.new("Cannot set properties to an empty string (tried to set #{k})") 
+              raise ArgumentError.new(<<EOF.gsub(/\n/, ' ')
+You cannot set #{k} to an empty string.
+We interpret empty strings as nil in requests.
+You may set #{self}.#{k} = nil to delete the property.
+EOF
+                )
             end
             @values[k] = v
             @unsaved_values.add(k)

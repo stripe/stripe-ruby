@@ -240,7 +240,9 @@ class TestStripeRuby < Test::Unit::TestCase
         c = Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with do |url, api_key, params|
-          url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
+          url == "#{Stripe.api_base}/v1/charges" && 
+            api_key.nil? && 
+            CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
         end.returns(test_response({ :count => 1, :data => [test_charge] }))
         c = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
@@ -395,6 +397,35 @@ class TestStripeRuby < Test::Unit::TestCase
           c = Stripe::Charge.new("test_charge")
           c.refresh
           c.mnemonic = "New charge description"
+          c.save
+        end
+
+        should "charge id should not be changeable" do
+          @mock.expects(:get).once.returns(test_response(test_charge))     
+          c = Stripe::Charge.new("test_charge")
+          c.refresh
+          assert_raises NoMethodError do
+            c.id = "my new id"
+          end
+        end
+
+        should "charge descriptions should not be settable to an empty string" do
+          @mock.expects(:get).once.returns(test_response(test_charge))     
+          c = Stripe::Charge.new("test_charge")
+          c.refresh
+          assert_raises ArgumentError do
+            c.mnemonic = ""
+          end
+        end
+
+        should "charges descriptions should pass nil as an empty string" do
+          @mock.expects(:get).once.returns(test_response(test_charge))
+          @mock.expects(:post).once.with do |url, api_key, params|
+            params == 'mnemonic='
+          end.returns(test_response(test_charge))
+          c = Stripe::Charge.new("test_charge")
+          c.refresh
+          c.mnemonic = nil
           c.save
         end
 

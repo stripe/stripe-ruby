@@ -95,7 +95,6 @@ module Stripe
     request_opts.update(:headers => request_headers(api_key).update(headers),
                         :method => method, :open_timeout => 30,
                         :payload => payload, :url => url, :timeout => 80)
-
     begin
       response = execute_request(request_opts)
     rescue SocketError => e

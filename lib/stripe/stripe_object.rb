@@ -26,7 +26,7 @@ module Stripe
       # to have a unified inspect method
       @unsaved_values = Set.new
       @transient_values = Set.new
-      self.id = id if id
+      @values[:id] = id if id
     end
 
     def self.construct_from(values, api_key=nil)
@@ -125,6 +125,12 @@ module Stripe
           k_eq = :"#{k}="
           define_method(k) { @values[k] }
           define_method(k_eq) do |v|
+            if v == ""
+              raise ArgumentError.new(
+                "You cannot set #{k} to an empty string." +
+                "We interpret empty strings as nil in requests." +
+                "You may set #{self}.#{k} = nil to delete the property.")
+            end
             @values[k] = v
             @unsaved_values.add(k)
           end
@@ -136,10 +142,13 @@ module Stripe
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
-        @values[attr] = args[0]
-        @unsaved_values.add(attr)
         add_accessors([attr])
-        return
+        begin
+          mth = method(name)
+        rescue NameError
+          raise NoMethodError.new("Cannot set #{attr} on this object. HINT: you can't set: #{@@permanent_attributes.to_a.join(', ')}")
+        end
+        return mth.call(args[0])
       else
         return @values[name] if @values.has_key?(name)
       end

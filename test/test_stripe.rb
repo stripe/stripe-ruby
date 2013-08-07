@@ -297,17 +297,17 @@ class TestStripeRuby < Test::Unit::TestCase
 
       should "updating an object should issue a POST request with only the changed properties" do
         @mock.expects(:post).with do |url, api_key, params|
-          url == "#{Stripe.api_base}/v1/customers/c_test_customer" && api_key.nil? && CGI.parse(params) == {'mnemonic' => ['another_mn']}
+          url == "#{Stripe.api_base}/v1/customers/c_test_customer" && api_key.nil? && CGI.parse(params) == {'description' => ['another_mn']}
         end.once.returns(test_response(test_customer))
         c = Stripe::Customer.construct_from(test_customer)
-        c.mnemonic = "another_mn"
+        c.description = "another_mn"
         c.save
       end
 
       should "updating should merge in returned properties" do
         @mock.expects(:post).once.returns(test_response(test_customer))
         c = Stripe::Customer.new("c_test_customer")
-        c.mnemonic = "another_mn"
+        c.description = "another_mn"
         c.save
         assert_equal false, c.livemode
       end
@@ -396,7 +396,7 @@ class TestStripeRuby < Test::Unit::TestCase
           @mock.expects(:post).once.returns(test_response(test_charge))
           c = Stripe::Charge.new("test_charge")
           c.refresh
-          c.mnemonic = "New charge description"
+          c.description = "New charge description"
           c.save
         end
 
@@ -414,18 +414,18 @@ class TestStripeRuby < Test::Unit::TestCase
           c = Stripe::Charge.new("test_charge")
           c.refresh
           assert_raises ArgumentError do
-            c.mnemonic = ""
+            c.description = ""
           end
         end
 
         should "charges descriptions should pass nil as an empty string" do
           @mock.expects(:get).once.returns(test_response(test_charge))
           @mock.expects(:post).once.with do |url, api_key, params|
-            params == 'mnemonic='
+            params == 'description='
           end.returns(test_response(test_charge))
           c = Stripe::Charge.new("test_charge")
           c.refresh
-          c.mnemonic = nil
+          c.description = nil
           c.save
         end
 
@@ -476,13 +476,13 @@ class TestStripeRuby < Test::Unit::TestCase
         end
 
         should "customers should be updateable" do
-          @mock.expects(:get).once.returns(test_response(test_customer({:mnemonic => "foo"})))
-          @mock.expects(:post).once.returns(test_response(test_customer({:mnemonic => "bar"})))
+          @mock.expects(:get).once.returns(test_response(test_customer({:description => "foo"})))
+          @mock.expects(:post).once.returns(test_response(test_customer({:description => "bar"})))
           c = Stripe::Customer.new("test_customer").refresh
-          assert_equal c.mnemonic, "foo"
-          c.mnemonic = "bar"
+          assert_equal c.description, "foo"
+          c.description = "bar"
           c.save
-          assert_equal c.mnemonic, "bar"
+          assert_equal c.description, "bar"
         end
 
         should "create should return a new customer" do
@@ -527,11 +527,11 @@ class TestStripeRuby < Test::Unit::TestCase
         end
 
         should "be able to update a customer without refreshing it first" do
-          @mock.expects(:post).once.with("#{Stripe.api_base}/v1/customers/test_customer", nil, 'mnemonic=bar').returns(test_response(test_customer({:mnemonic => "bar"})))
+          @mock.expects(:post).once.with("#{Stripe.api_base}/v1/customers/test_customer", nil, 'description=bar').returns(test_response(test_customer({:description => "bar"})))
           c = Stripe::Customer.new("test_customer")
-          c.mnemonic = "bar"
+          c.description = "bar"
           c.save
-          assert_equal c.mnemonic, "bar"
+          assert_equal c.description, "bar"
         end
 
       end

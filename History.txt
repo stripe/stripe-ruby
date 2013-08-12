@@ -1,4 +1,11 @@
-=== 1.8.3 2013-07-11
+=== 1.8.5 2013-08-12
+
+* Add support for unsetting attributes by setting to nil.
+  Permits unsetting email and description on customers and description on charges.
+  Setting properties to a blank string is now an error.
+* Attempting to set an object's id is now an error.
+
+=== 1.8.4 2013-07-11
 
 * Add support for new cards API (Stripe API version 2013-07-05)
 

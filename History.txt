@@ -1,3 +1,7 @@
+=== 1.8.6 2013-08-13
+
+* Add Balance and BalanceTransaction API resources
+
 === 1.8.5 2013-08-12
 
 * Add support for unsetting attributes by setting to nil.

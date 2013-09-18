@@ -22,6 +22,12 @@ module Stripe
       dispute
     end
 
+    def close_dispute
+      response, api_key = Stripe.request(:post, close_dispute_url, @api_key)
+      refresh_from(response, api_key)
+      self
+    end
+
     private
 
     def refund_url
@@ -34,6 +40,10 @@ module Stripe
 
     def dispute_url
       url + '/dispute'
+    end
+
+    def close_dispute_url
+      url + '/dispute/close'
     end
   end
 end

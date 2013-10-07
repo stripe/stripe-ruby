@@ -1,3 +1,4 @@
 /stripe-*.gem
 /Gemfile.lock
 .rvmrc
+Gemfile.lock

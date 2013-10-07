@@ -1,8 +1,8 @@
-require 'stringio'
-require 'test/unit'
 require 'stripe'
+require 'test/unit'
 require 'mocha/setup'
-include Mocha
+require 'stringio'
+require 'shoulda'
 
 #monkeypatch request methods
 module Stripe
@@ -334,3 +334,19 @@ def test_delete_discount_response
     :id => "di_test_coupon"
   }
 end
+
+class Test::Unit::TestCase
+  include Mocha
+
+  setup do
+    @mock = mock
+    Stripe.mock_rest_client = @mock
+    Stripe.api_key="foo"
+  end
+
+  teardown do
+    Stripe.mock_rest_client = nil
+    Stripe.api_key=nil
+  end
+end
+

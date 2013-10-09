@@ -24,13 +24,8 @@ module Stripe
     should "update metadata as a whole" do
       update_actions = lambda {|obj| obj.metadata = {'uuid' => '6735'}}
 
-      metadata_updates = {}
-      metadata_updates.update({'uuid' => '6735'})
-      metadata_updates.update({'initial' => ''})
-      curl_args = Stripe.uri_encode({:metadata => metadata_updates})
-
-      check_metadata({:metadata => {'initial' => 'true'}},
-                    'metadata[uuid]=6735&metadata[initial]=',
+      check_metadata({:metadata => {}},
+                    'metadata[uuid]=6735',
                     update_actions)
     end
 
@@ -52,18 +47,6 @@ module Stripe
       update_actions = lambda {|obj| obj.metadata['initial'] = nil}
       check_metadata({:metadata => {'initial' => 'true'}},
                      'metadata[initial]=',
-                     update_actions)
-    end
-
-    should "handle combinations of whole and partial metadata updates" do
-      update_actions = lambda do |obj|
-        obj.metadata = {'type' => 'summer'}
-        obj.metadata['uuid'] = '6735'
-      end
-      params = {:metadata => {'type' => 'summer', 'uuid' => '6735'}}
-      curl_args = Stripe.uri_encode(params)
-      check_metadata({:metadata => {'type' => 'christmas'}},
-                     curl_args,
                      update_actions)
     end
 

@@ -80,7 +80,8 @@ def test_customer(params={})
     :id => "c_test_customer",
     :default_card => "cc_test_card",
     :created => 1304114758,
-    :cards => test_card_array('c_test_customer')
+    :cards => test_card_array('c_test_customer'),
+    :metadata => {}
   }.merge(params)
 end
 
@@ -111,7 +112,8 @@ def test_charge(params={})
     :livemode => false,
     :currency => "usd",
     :object => "charge",
-    :created => 1304114826
+    :created => 1304114826,
+    :metadata => {}
   }.merge(params)
 end
 
@@ -249,7 +251,8 @@ def test_recipient(params={})
       :object => "bank_account"
     },
     :created => 1304114758,
-    :verified => true
+    :verified => true,
+    :metadata => {}
   }.merge(params)
 end
 
@@ -278,7 +281,8 @@ def test_transfer(params={})
     :livemode => false,
     :currency => "usd",
     :object => "transfer",
-    :date => 1304114826
+    :date => 1304114826,
+    :metadata => {}
   }.merge(params)
 end
 

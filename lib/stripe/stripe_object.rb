@@ -85,7 +85,7 @@ module Stripe
       @values.values
     end
 
-    def to_json
+    def to_json(*a)
       Stripe::JSON.dump(@values)
     end
 

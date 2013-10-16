@@ -49,12 +49,12 @@ class TestStripeRuby < Test::Unit::TestCase
 
     should "creating a new APIResource should not fetch over the network" do
       @mock.expects(:get).never
-      c = Stripe::Customer.new("someid")
+      Stripe::Customer.new("someid")
     end
 
     should "creating a new APIResource from a hash should not fetch over the network" do
       @mock.expects(:get).never
-      c = Stripe::Customer.construct_from({
+      Stripe::Customer.construct_from({
         :id => "somecustomer",
         :card => {:id => "somecard", :object => "card"},
         :object => "customer"
@@ -237,14 +237,14 @@ class TestStripeRuby < Test::Unit::TestCase
           (url =~ %r{^#{Stripe.api_base}/v1/charges?} &&
            query.keys.sort == ['offset', 'sad'])
         end.returns(test_response({ :count => 1, :data => [test_charge] }))
-        c = Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
+        Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with do |url, api_key, params|
           url == "#{Stripe.api_base}/v1/charges" && 
             api_key.nil? && 
             CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
         end.returns(test_response({ :count => 1, :data => [test_charge] }))
-        c = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
 
       should "requesting with a unicode ID should result in a request" do
@@ -262,7 +262,7 @@ class TestStripeRuby < Test::Unit::TestCase
       should "making a GET request with parameters should have a query string and no body" do
         params = { :limit => 1 }
         @mock.expects(:get).once.with("#{Stripe.api_base}/v1/charges?limit=1", nil, nil).returns(test_response([test_charge]))
-        c = Stripe::Charge.all(params)
+        Stripe::Charge.all(params)
       end
 
       should "making a POST request with parameters should have a body and no query string" do
@@ -270,7 +270,7 @@ class TestStripeRuby < Test::Unit::TestCase
         @mock.expects(:post).once.with do |url, get, post|
           get.nil? && CGI.parse(post) == {'amount' => ['100'], 'currency' => ['usd'], 'card' => ['sc_token']}
         end.returns(test_response(test_charge))
-        c = Stripe::Charge.create(params)
+        Stripe::Charge.create(params)
       end
 
       should "loading an object should issue a GET request" do
@@ -531,10 +531,10 @@ class TestStripeRuby < Test::Unit::TestCase
           # Not an accurate response, but whatever
 
           @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(test_response(test_subscription('silver')))
-          s = c.cancel_subscription({:at_period_end => 'true'})
+          c.cancel_subscription({:at_period_end => 'true'})
 
           @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription", nil, nil).returns(test_response(test_subscription('silver')))
-          s = c.cancel_subscription
+          c.cancel_subscription
         end
 
         should "be able to delete a customer's discount" do
@@ -542,7 +542,7 @@ class TestStripeRuby < Test::Unit::TestCase
           c = Stripe::Customer.retrieve("test_customer")
 
           @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/discount", nil, nil).returns(test_response(test_delete_discount_response))
-          s = c.delete_discount
+          c.delete_discount
           assert_equal nil, c.discount
         end
 

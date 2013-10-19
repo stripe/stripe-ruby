@@ -41,13 +41,11 @@ module Stripe
         when StripeObject
           unsaved_keys = obj.instance_variable_get(:@unsaved_values)
           obj_values = obj.instance_variable_get(:@values)
-          update_hash = {}
 
-          unsaved_keys.each do |k|
+          unsaved_keys.reduce({}) do |update_hash, k|
             update_hash[k] = serialize_params(obj_values[k])
+            update_hash
           end
-
-          update_hash
         else
           obj
         end

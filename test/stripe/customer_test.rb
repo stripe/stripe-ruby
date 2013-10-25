@@ -52,10 +52,10 @@ module Stripe
       # Not an accurate response, but whatever
 
       @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(test_response(test_subscription('silver')))
-      s = c.cancel_subscription({:at_period_end => 'true'})
+      c.cancel_subscription({:at_period_end => 'true'})
 
       @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription", nil, nil).returns(test_response(test_subscription('silver')))
-      s = c.cancel_subscription
+      c.cancel_subscription
     end
 
     should "be able to delete a customer's discount" do
@@ -63,7 +63,7 @@ module Stripe
       c = Stripe::Customer.retrieve("test_customer")
 
       @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/discount", nil, nil).returns(test_response(test_delete_discount_response))
-      s = c.delete_discount
+      c.delete_discount
       assert_equal nil, c.discount
     end
   end

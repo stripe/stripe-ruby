@@ -1,3 +1,9 @@
+=== 1.8.9 2013-11-14
+
+* 2 bugfixes:
+  * Fix gemspec dependencies so the gem doesn't break for Ruby 1.8 users
+  * Fix api_resource_test to not use returns as a way of testing rescue behavior
+
 === 1.8.8 2013-10-3
 
 * Add support for metadata API

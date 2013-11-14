@@ -5,12 +5,12 @@ module Stripe
   class ApiResourceTest < Test::Unit::TestCase
     should "creating a new APIResource should not fetch over the network" do
       @mock.expects(:get).never
-      c = Stripe::Customer.new("someid")
+      Stripe::Customer.new("someid")
     end
 
     should "creating a new APIResource from a hash should not fetch over the network" do
       @mock.expects(:get).never
-      c = Stripe::Customer.construct_from({
+      Stripe::Customer.construct_from({
         :id => "somecustomer",
         :card => {:id => "somecard", :object => "card"},
         :object => "customer"
@@ -185,14 +185,14 @@ module Stripe
           (url =~ %r{^#{Stripe.api_base}/v1/charges?} &&
            query.keys.sort == ['offset', 'sad'])
         end.returns(test_response({ :count => 1, :data => [test_charge] }))
-        c = Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
+        Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with do |url, api_key, params|
           url == "#{Stripe.api_base}/v1/charges" && 
             api_key.nil? && 
             CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
         end.returns(test_response({ :count => 1, :data => [test_charge] }))
-        c = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
 
       should "requesting with a unicode ID should result in a request" do
@@ -210,7 +210,7 @@ module Stripe
       should "making a GET request with parameters should have a query string and no body" do
         params = { :limit => 1 }
         @mock.expects(:get).once.with("#{Stripe.api_base}/v1/charges?limit=1", nil, nil).returns(test_response([test_charge]))
-        c = Stripe::Charge.all(params)
+        Stripe::Charge.all(params)
       end
 
       should "making a POST request with parameters should have a body and no query string" do
@@ -218,7 +218,7 @@ module Stripe
         @mock.expects(:post).once.with do |url, get, post|
           get.nil? && CGI.parse(post) == {'amount' => ['100'], 'currency' => ['usd'], 'card' => ['sc_token']}
         end.returns(test_response(test_charge))
-        c = Stripe::Charge.create(params)
+        Stripe::Charge.create(params)
       end
 
       should "loading an object should issue a GET request" do

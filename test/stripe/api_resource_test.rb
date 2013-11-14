@@ -294,50 +294,53 @@ module Stripe
           response = test_response(test_missing_id_error, 404)
           @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
 
+          rescued = false
           begin
             Stripe::Customer.new("test_customer").refresh
             assert false #shouldn't get here either
           rescue Stripe::InvalidRequestError => e # we don't use assert_raises because we want to examine e
+            rescued = true
             assert e.kind_of? Stripe::InvalidRequestError
             assert_equal "id", e.param
             assert_equal "Missing id", e.message
-            return
           end
 
-          assert false #shouldn't get here
+          assert_equal true, rescued
         end
 
         should "5XXs should raise an APIError" do
           response = test_response(test_api_error, 500)
           @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
 
+          rescued = false
           begin
             Stripe::Customer.new("test_customer").refresh
             assert false #shouldn't get here either
           rescue Stripe::APIError => e # we don't use assert_raises because we want to examine e
+            rescued = true
             assert e.kind_of? Stripe::APIError
-            return
           end
 
-          assert false #shouldn't get here
+          assert_equal true, rescued
         end
 
         should "402s should raise a CardError" do
           response = test_response(test_invalid_exp_year_error, 402)
           @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 402))
 
+          rescued = false
           begin
             Stripe::Customer.new("test_customer").refresh
             assert false #shouldn't get here either
           rescue Stripe::CardError => e # we don't use assert_raises because we want to examine e
+            rescued = true
             assert e.kind_of? Stripe::CardError
             assert_equal "invalid_expiry_year", e.code
             assert_equal "exp_year", e.param
             assert_equal "Your card's expiration year is invalid", e.message
-            return
           end
 
-          assert false #shouldn't get here
+          assert_equal true, rescued
         end
       end
     end

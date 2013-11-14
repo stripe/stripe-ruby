@@ -188,8 +188,8 @@ module Stripe
         Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with do |url, api_key, params|
-          url == "#{Stripe.api_base}/v1/charges" && 
-            api_key.nil? && 
+          url == "#{Stripe.api_base}/v1/charges" &&
+            api_key.nil? &&
             CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
         end.returns(test_response({ :count => 1, :data => [test_charge] }))
         Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })

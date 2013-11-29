@@ -102,6 +102,10 @@ module Stripe
       @values.each(&blk)
     end
 
+    def respond_to?(symbol)
+      @values.has_key?(symbol) || super
+    end
+
     protected
 
     def metaclass

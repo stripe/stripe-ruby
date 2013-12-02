@@ -70,6 +70,29 @@ def test_balance_transaction_array
   }
 end
 
+def test_application_fee(params={})
+  {
+    :refunded => false,
+    :amount => 100,
+    :application => "ca_test_application",
+    :user => "acct_test_user",
+    :charge => "ch_test_charge",
+    :id => "fee_test_fee",
+    :livemode => false,
+    :currency => "usd",
+    :object => "application_fee",
+    :created => 1304114826
+  }.merge(params)
+end
+
+def test_application_fee_array
+  {
+    :data => [test_application_fee, test_application_fee, test_application_fee],
+    :object => 'list',
+    :url => '/v1/application_fees'
+  }
+end
+
 def test_customer(params={})
   {
     :subscription_history => [],

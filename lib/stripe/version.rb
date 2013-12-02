@@ -1,3 +1,3 @@
 module Stripe
-  VERSION = '1.8.9'
+  VERSION = '1.9.9'
 end

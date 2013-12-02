@@ -1,3 +1,7 @@
+=== 1.9.9 2013-12-02
+
+* Add ApplicationFee API resource
+
 === 1.8.9 2013-11-14
 
 * 2 bugfixes:

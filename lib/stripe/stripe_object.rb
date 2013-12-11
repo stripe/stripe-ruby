@@ -102,7 +102,7 @@ module Stripe
       @values.each(&blk)
     end
 
-    def respond_to?(symbol)
+    def respond_to_missing?(symbol, include_private = false)
       @values.has_key?(symbol) || super
     end
 

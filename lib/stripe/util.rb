@@ -29,6 +29,7 @@ module Stripe
         'transfer' => Transfer,
         'recipient' => Recipient,
         'card' => Card,
+        'subscription' => Subscription,
         'list' => ListObject,
         'application_fee' => ApplicationFee
       }

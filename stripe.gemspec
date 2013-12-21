@@ -10,6 +10,7 @@ spec = Gem::Specification.new do |s|
   s.authors = ['Ross Boucher', 'Greg Brockman']
   s.email = ['boucher@stripe.com', 'gdb@stripe.com']
   s.homepage = 'https://stripe.com/api'
+  s.license = 'MIT'
 
   s.add_dependency('rest-client', '~> 1.4')
   s.add_dependency('mime-types', '~> 1.25')

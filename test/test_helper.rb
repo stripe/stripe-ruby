@@ -94,17 +94,19 @@ def test_application_fee_array
 end
 
 def test_customer(params={})
+  id = params[:id] || 'c_test_customer'
   {
     :subscription_history => [],
     :bills => [],
     :charges => [],
     :livemode => false,
     :object => "customer",
-    :id => "c_test_customer",
+    :id => id,
     :default_card => "cc_test_card",
     :created => 1304114758,
-    :cards => test_card_array('c_test_customer'),
-    :metadata => {}
+    :cards => test_card_array(id),
+    :metadata => {},
+    :subscriptions => test_subscription_array(id)
   }.merge(params)
 end
 
@@ -180,7 +182,8 @@ def test_coupon(params={})
 end
 
 #FIXME nested overrides would be better than hardcoding plan_id
-def test_subscription(plan_id="gold")
+def test_subscription(params = {})
+  plan_id = params.delete(:plan_id) || 'gold'
   {
     :current_period_end => 1308681468,
     :status => "trialing",
@@ -196,7 +199,16 @@ def test_subscription(plan_id="gold")
     :object => "subscription",
     :trial_start => 1308595038,
     :trial_end => 1308681468,
-    :customer => "c_test_customer"
+    :customer => "c_test_customer",
+    :id => 's_test_subscription'
+  }.merge(params)
+end
+
+def test_subscription_array(customer_id)
+  {
+    :data => [test_subscription, test_subscription, test_subscription],
+    :object => 'list',
+    :url => '/v1/customers/' + customer_id + '/subscriptions'
   }
 end
 

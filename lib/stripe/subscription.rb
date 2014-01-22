@@ -10,6 +10,5 @@ module Stripe
     def self.retrieve(id, api_key=nil)
       raise NotImplementedError.new("Subscriptions cannot be retrieved without a customer ID. Retrieve a subscription using customer.subscriptions.retrieve('subscription_id')")
     end
-
   end
 end

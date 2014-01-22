@@ -22,13 +22,14 @@ module Stripe
 
     should "subscriptions should be deletable" do
       @mock.expects(:get).once.returns(test_response(test_customer))
-      @mock.expects(:delete).once.returns(test_response(test_subscription({:deleted => true})))
-
       customer = Stripe::Customer.retrieve('test_customer')
       subscription = customer.subscriptions.first
-      subscription.delete
 
-      assert subscription.deleted
+      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions/#{subscription.id}?at_period_end=true", nil, nil).returns(test_response(test_subscription))
+      subscription.delete :at_period_end => true
+
+      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions/#{subscription.id}", nil, nil).returns(test_response(test_subscription))
+      subscription.delete
     end
 
     should "subscriptions should be updateable" do

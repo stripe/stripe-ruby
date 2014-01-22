@@ -25,18 +25,6 @@ module Stripe
       Charge.all({ :customer => id }, @api_key)
     end
 
-    #def cancel_subscription(params={})
-    #  response, api_key = Stripe.request(:delete, subscription_url, @api_key, params)
-    #  refresh_from({ :subscription => response }, api_key, true)
-    #  subscription
-    #end
-
-    #def update_subscription(params)
-    #  response, api_key = Stripe.request(:post, subscription_url, @api_key, params)
-    #  refresh_from({ :subscription => response }, api_key, true)
-    #  subscription
-    #end
-
     def delete_discount
       Stripe.request(:delete, discount_url, @api_key)
       refresh_from({ :discount => nil }, api_key, true)
@@ -46,10 +34,6 @@ module Stripe
 
     def discount_url
       url + '/discount'
-    end
-
-    def subscription_url
-      url + '/subscription'
     end
   end
 end

@@ -2,6 +2,7 @@ module Stripe
   class Card < APIResource
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
+    include Stripe::APIOperations::List
 
     def url
       "#{Customer.url}/#{CGI.escape(customer)}/cards/#{CGI.escape(id)}"

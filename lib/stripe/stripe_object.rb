@@ -102,6 +102,14 @@ module Stripe
       @values.each(&blk)
     end
 
+    def marshal_dump
+      @values
+    end
+
+    def marshal_load(values)
+      @values = values
+    end
+
     protected
 
     def metaclass

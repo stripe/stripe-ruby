@@ -102,6 +102,12 @@ module Stripe
       @values.each(&blk)
     end
 
+    if RUBY_VERSION < '1.9.2'
+      def respond_to?(symbol)
+        @values.has_key?(symbol) || super
+      end
+    end
+
     protected
 
     def metaclass
@@ -167,12 +173,6 @@ module Stripe
 
     def respond_to_missing?(symbol, include_private = false)
       @values.has_key?(symbol) || super
-    end
-
-    if RUBY_VERSION < '1.9.2'
-      def respond_to?(symbol)
-        @values.has_key?(symbol) || super
-      end
     end
   end
 end

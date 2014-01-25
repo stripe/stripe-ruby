@@ -22,5 +22,31 @@ module Stripe
       i.pay
       assert_equal i.next_payment_attempt, nil
     end
+
+    context "when specifying per-object credentials" do
+      setup do
+        Stripe.api_key = "global"
+        @api_key = 'sk_test_local'
+
+        @mock.expects(:get).once.returns(test_response(test_invoice))
+        @invoice = Stripe::Invoice.retrieve("test_customer")
+
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:authorization] == "Bearer #{@api_key}"
+        end.returns(test_response({}))
+      end
+
+      teardown do
+        Stripe.api_key = "nil"
+      end
+
+      should "use the per-object credentials when getting the upcoming invoice" do
+        Stripe::Invoice.upcoming({}, @api_key)
+      end
+
+      should "use the per-object credentials when paying the invoice" do
+        @invoice.pay(@api_key)
+      end
+    end
   end
 end

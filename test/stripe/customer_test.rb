@@ -91,7 +91,7 @@ module Stripe
       end
 
       should "use the per-object credentials when adding an invoice item" do
-        @customer.add_invoice_item({amount: 50}, @api_key)
+        @customer.add_invoice_item({:amount => 50}, @api_key)
       end
 
       should "use the per-object credentials when geting invoices" do

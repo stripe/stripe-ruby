@@ -4,7 +4,7 @@ require 'cgi'
 require 'set'
 require 'openssl'
 require 'rest_client'
-require 'multi_json'
+require 'json'
 
 # Version
 require 'stripe/version'
@@ -17,7 +17,6 @@ require 'stripe/api_operations/list'
 
 # Resources
 require 'stripe/util'
-require 'stripe/json'
 require 'stripe/stripe_object'
 require 'stripe/api_resource'
 require 'stripe/singleton_api_resource'
@@ -179,7 +178,7 @@ module Stripe
     headers[:stripe_version] = api_version if api_version
 
     begin
-      headers.update(:x_stripe_client_user_agent => Stripe::JSON.dump(user_agent))
+      headers.update(:x_stripe_client_user_agent => JSON.generate(user_agent))
     rescue => e
       headers.update(:x_stripe_client_raw_user_agent => user_agent.inspect,
                      :error => "#{e} (#{e.class})")
@@ -194,8 +193,8 @@ module Stripe
     begin
       # Would use :symbolize_names => true, but apparently there is
       # some library out there that makes symbolize_names not work.
-      response = Stripe::JSON.load(response.body)
-    rescue MultiJson::DecodeError
+      response = JSON.parse(response.body)
+    rescue JSON::ParserError
       raise general_api_error(response.code, response.body)
     end
 
@@ -209,11 +208,11 @@ module Stripe
 
   def self.handle_api_error(rcode, rbody)
     begin
-      error_obj = Stripe::JSON.load(rbody)
+      error_obj = JSON.parse(rbody)
       error_obj = Util.symbolize_names(error_obj)
       error = error_obj[:error] or raise StripeError.new # escape from parsing
 
-    rescue MultiJson::DecodeError, StripeError
+    rescue JSON::ParserError, StripeError
       raise general_api_error(rcode, rbody)
     end
 

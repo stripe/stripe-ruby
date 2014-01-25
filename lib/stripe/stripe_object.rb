@@ -108,6 +108,7 @@ module Stripe
 
     def marshal_load(values)
       @values = values
+    end
 
     if RUBY_VERSION < '1.9.2'
       def respond_to?(symbol)

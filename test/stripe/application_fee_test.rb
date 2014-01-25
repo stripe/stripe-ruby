@@ -18,5 +18,25 @@ module Stripe
       fee.refund
       assert fee.refunded
     end
+
+    context "when specifying per-object credentials" do
+      setup do
+        Stripe.api_key = "global"
+      end
+
+      teardown do
+        Stripe.api_key = nil
+      end
+
+      should "use the per-object credentials when refunding" do
+        fee = Stripe::ApplicationFee.new("test_application_fee")
+
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:authorization] == "Bearer sk_test_local"
+        end.returns(test_response({}))
+
+        fee.refund({}, 'sk_test_local')
+      end
+    end
   end
 end

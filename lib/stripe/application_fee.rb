@@ -6,8 +6,9 @@ module Stripe
       '/v1/application_fees'
     end
 
-    def refund(params={})
-      response, api_key = Stripe.request(:post, refund_url, @api_key, params)
+    def refund(params={}, api_key=nil)
+      api_key ||= @api_key
+      response, api_key = Stripe.request(:post, refund_url, api_key, params)
       refresh_from(response, api_key)
       self
     end

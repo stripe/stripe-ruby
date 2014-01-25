@@ -72,5 +72,55 @@ module Stripe
       c.delete_discount
       assert_equal nil, c.discount
     end
+
+    context "when specifying per-object credentials" do
+      setup do
+        Stripe.api_key = "global"
+        @api_key = 'sk_test_local'
+
+        @mock.expects(:get).once.returns(test_response(test_customer))
+        @customer = Stripe::Customer.retrieve("test_customer")
+
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:authorization] == "Bearer #{@api_key}"
+        end.returns(test_response({}))
+      end
+
+      teardown do
+        Stripe.api_key = "nil"
+      end
+
+      should "use the per-object credentials when adding an invoice item" do
+        @customer.add_invoice_item({amount: 50}, @api_key)
+      end
+
+      should "use the per-object credentials when geting invoices" do
+        @customer.invoices(@api_key)
+      end
+
+      should "use the per-object credentials when getting invoice items" do
+        @customer.invoice_items(@api_key)
+      end
+
+      should "use the per-object credentials when getting the upcoming invoice" do
+        @customer.upcoming_invoice(@api_key)
+      end
+
+      should "use the per-object credentials when creating the upcoming invoice" do
+        @customer.create_upcoming_invoice({}, @api_key)
+      end
+
+      should "use the per-object credentials when canceling subscription" do
+        @customer.cancel_subscription({}, @api_key)
+      end
+
+      should "use the per-object credentials when updating subscription" do
+        @customer.update_subscription({:plan => 'silver'}, @api_key)
+      end
+
+      should "use the per-object credentials when deleting the discount" do
+        @customer.delete_discount(@api_key)
+      end
+    end
   end
 end

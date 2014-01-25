@@ -63,5 +63,39 @@ module Stripe
       })
       assert c.paid
     end
+
+    context "when specifying per-object credentials" do
+      setup do
+        Stripe.api_key = "global"
+        @api_key = 'sk_test_local'
+
+        @mock.expects(:get).once.returns(test_response(test_charge))
+        @charge = Stripe::Charge.retrieve("test_charge")
+
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:authorization] == "Bearer #{@api_key}"
+        end.returns(test_response({}))
+      end
+
+      teardown do
+        Stripe.api_key = "nil"
+      end
+
+      should "use the per-object credentials when refunding" do
+        @charge.refund({}, @api_key)
+      end
+
+      should "use the per-object credentials when capturing" do
+        @charge.capture({}, @api_key)
+      end
+
+      should "use the per-object credentials when updating a dispute" do
+        @charge.update_dispute({}, @api_key)
+      end
+
+      should "use the per-object credentials when closing a dispute" do
+        @charge.close_dispute(@api_key)
+      end
+    end
   end
 end

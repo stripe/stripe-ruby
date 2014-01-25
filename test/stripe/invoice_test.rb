@@ -8,6 +8,12 @@ module Stripe
       assert_equal 'in_test_invoice', i.id
     end
 
+    should "create should create a new invoice" do
+      @mock.expects(:post).once.returns(test_response(test_invoice))
+      i = Stripe::Invoice.create
+      assert_equal "in_test_invoice", i.id
+    end
+
     should "pay should pay an invoice" do
       @mock.expects(:get).once.returns(test_response(test_invoice))
       i = Stripe::Invoice.retrieve('in_test_invoice')

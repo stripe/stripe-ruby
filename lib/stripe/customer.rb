@@ -25,6 +25,10 @@ module Stripe
       Charge.all({ :customer => id }, @api_key)
     end
 
+    def create_upcoming_invoice(params={})
+      Invoice.create(params.merge(:customer => id), @api_key)
+    end
+
     def cancel_subscription(params={})
       response, api_key = Stripe.request(:delete, subscription_url, @api_key, params)
       refresh_from({ :subscription => response }, api_key, true)

@@ -10,10 +10,11 @@ module Stripe
     end
 
     should "marshal a stripe object correctly" do
-      obj = Stripe::StripeObject.construct_from({ :id => 1, :name => 'Stripe' })
+      obj = Stripe::StripeObject.construct_from({ :id => 1, :name => 'Stripe' }, 'apikey')
       m = Marshal.load(Marshal.dump(obj))
       assert_equal m.id, 1
       assert_equal m.name, 'Stripe'
+      assert_equal m.api_key, 'apikey'
     end
   end
 end

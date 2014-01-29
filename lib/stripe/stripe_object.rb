@@ -102,17 +102,18 @@ module Stripe
       @values.each(&blk)
     end
 
-    def marshal_dump
-      @values
+    def _dump(level)
+      [Marshal.dump(@values), @api_key].join("--::--")
     end
 
-    def marshal_load(values)
-      @values = values
+    def self._load(args)
+      hash = args.split("--::--")
+      construct_from(Marshal.load(hash[0]), hash[1])
     end
 
     if RUBY_VERSION < '1.9.2'
       def respond_to?(symbol)
-        @values && @values.has_key?(symbol) || super
+        @values.has_key?(symbol) || super
       end
     end
 

@@ -54,5 +54,19 @@ module Stripe
       subscription = customer.subscriptions.create(:plan => 'silver')
       assert_equal subscription.id, 'test_new_subscription'
     end
+
+    should "be able to delete a subscriptions's discount" do
+      @mock.expects(:get).once.returns(test_response(test_customer))
+      @mock.expects(:post).once.returns(test_response(test_subscription(:id => 'test_new_subscription')))
+
+
+      customer = Stripe::Customer.retrieve("test_customer")
+      subscription = customer.subscriptions.create(:plan => 'silver')
+
+      url = "#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions/test_new_subscription/discount"
+      @mock.expects(:delete).once.with(url, nil, nil).returns(test_response(test_delete_discount_response))
+      subscription.delete_discount
+      assert_equal nil, subscription.discount
+    end
   end
 end

@@ -1,8 +1,8 @@
 module Stripe
   module APIOperations
     module Update
-      def save
-        values = serialize_params(self)
+      def save(opts={})
+        values = serialize_params(self).merge(opts)
 
         if @values[:metadata]
           values[:metadata] = serialize_metadata

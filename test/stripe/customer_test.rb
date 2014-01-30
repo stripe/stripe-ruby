@@ -44,7 +44,7 @@ module Stripe
 
       @mock.expects(:post).once.with do |url, api_key, params|
         url == "#{Stripe.api_base}/v1/customers/c_test_customer/subscription" && api_key.nil? && CGI.parse(params) == {'plan' => ['silver']}
-      end.returns(test_response(test_subscription('silver')))
+      end.returns(test_response(test_subscription(:plan => 'silver')))
       s = c.update_subscription({:plan => 'silver'})
 
       assert_equal 'subscription', s.object
@@ -57,10 +57,10 @@ module Stripe
 
       # Not an accurate response, but whatever
 
-      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(test_response(test_subscription('silver')))
+      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(test_response(test_subscription(:plan => 'silver')))
       c.cancel_subscription({:at_period_end => 'true'})
 
-      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription", nil, nil).returns(test_response(test_subscription('silver')))
+      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription", nil, nil).returns(test_response(test_subscription(:plan => 'silver')))
       c.cancel_subscription
     end
 

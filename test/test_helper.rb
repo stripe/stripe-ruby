@@ -183,7 +183,7 @@ end
 
 #FIXME nested overrides would be better than hardcoding plan_id
 def test_subscription(params = {})
-  plan_id = params.delete(:plan_id) || 'gold'
+  plan = params.delete(:plan) || 'gold'
   {
     :current_period_end => 1308681468,
     :status => "trialing",
@@ -192,7 +192,7 @@ def test_subscription(params = {})
       :amount => 7500,
       :trial_period_days => 30,
       :object => "plan",
-      :identifier => plan_id
+      :identifier => plan
     },
     :current_period_start => 1308595038,
     :start => 1308595038,

@@ -103,12 +103,12 @@ module Stripe
     end
 
     def _dump(level)
-      [Marshal.dump(@values), @api_key].join("--::--")
+      [CGI.escape(Marshal.dump(@values)), @api_key].join(":")
     end
 
     def self._load(args)
-      hash = args.split("--::--")
-      construct_from(Marshal.load(hash[0]), hash[1])
+      hash = args.split(":")
+      construct_from(Marshal.load(CGI.unescape(hash[0])), hash[1])
     end
 
     if RUBY_VERSION < '1.9.2'

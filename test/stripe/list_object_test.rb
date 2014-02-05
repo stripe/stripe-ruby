@@ -12,5 +12,15 @@ module Stripe
       assert_equal('/v1/charges', all.url)
       assert all.data.kind_of?(Array)
     end
+
+    should "provide the data length" do
+      @mock.expects(:get).returns(test_response({
+        :data   => [test_customer, test_customer],
+        :object => 'list',
+        :url    => '/v1/customers'
+      }))
+
+      assert_equal Stripe::Customer.all.length, 2
+    end
   end
 end

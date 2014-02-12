@@ -16,5 +16,12 @@ module Stripe
       assert_equal m.name, 'Stripe'
       assert_equal m.api_key, 'apikey'
     end
+
+    should "recursively call to_hash on its values" do
+      nested = Stripe::StripeObject.construct_from({ :id => 7, :foo => 'bar' })
+      obj = Stripe::StripeObject.construct_from({ :id => 1, :nested => nested })
+      expected_hash = { :id => 1, :nested => { :id => 7, :foo => 'bar' } }
+      assert_equal expected_hash, obj.to_hash
+    end
   end
 end

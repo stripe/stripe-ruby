@@ -41,6 +41,12 @@ module Stripe
       subscription
     end
 
+    def create_subscription(params)
+      response, api_key = Stripe.request(:post, subscriptions_url, @api_key, params)
+      refresh_from({ :subscription => response }, api_key, true)
+      subscription
+    end
+
     def delete_discount
       Stripe.request(:delete, discount_url, @api_key)
       refresh_from({ :discount => nil }, api_key, true)
@@ -54,6 +60,10 @@ module Stripe
 
     def subscription_url
       url + '/subscription'
+    end
+
+    def subscriptions_url
+      url + '/subscriptions'
     end
   end
 end

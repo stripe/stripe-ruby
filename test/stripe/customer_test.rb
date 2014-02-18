@@ -64,6 +64,18 @@ module Stripe
       c.cancel_subscription
     end
 
+    should "be able to create a subscription for a customer" do
+      c = Stripe::Customer.new("test_customer")
+
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/customers/test_customer/subscriptions" && api_key.nil? && CGI.parse(params) == {'plan' => ['silver']}
+      end.returns(test_response(test_subscription(:plan => 'silver')))
+      s = c.create_subscription({:plan => 'silver'})
+
+      assert_equal 'subscription', s.object
+      assert_equal 'silver', s.plan.identifier
+    end
+
     should "be able to delete a customer's discount" do
       @mock.expects(:get).once.returns(test_response(test_customer))
       c = Stripe::Customer.retrieve("test_customer")

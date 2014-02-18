@@ -20,10 +20,10 @@ module Stripe
       @mock.expects(:get).once.returns(test_response(test_customer({:mnemonic => "foo"})))
       @mock.expects(:post).once.returns(test_response(test_customer({:mnemonic => "bar"})))
       c = Stripe::Customer.new("test_customer").refresh
-      assert_equal c.mnemonic, "foo"
+      assert_equal "foo", c.mnemonic
       c.mnemonic = "bar"
       c.save
-      assert_equal c.mnemonic, "bar"
+      assert_equal "bar", c.mnemonic
     end
 
     should "create should return a new customer" do

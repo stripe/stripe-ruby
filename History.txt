@@ -1,3 +1,9 @@
+=== 1.10.2 2014-02-18
+
+* 1 minor enhancement:
+  * Add create_subscription on Customer resources, so you can create
+    subscriptions without needing to retrieve the customer first.
+
 === 1.10.1 2014-02-03
 
 * Fix marshaling of StripeObjects

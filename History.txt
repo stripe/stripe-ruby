@@ -2,23 +2,31 @@
 
 * 1 minor enhancement:
   * Add create_subscription on Customer resources, so you can create
-    subscriptions without needing to retrieve the customer first.
+    subscriptions without needing to retrieve the customer first (github
+    issue #120)
 
 === 1.10.1 2014-02-03
 
-* Fix marshaling of StripeObjects
+* 1 bugfix:
+  * Fix marshaling of StripeObjects
 
 === 1.10.0 2014-01-29
 
-* Support for multiple subscriptions per customer
-* Allow #save to take opts (for :expand)
-* Testing ruby 2.1.0
-* Replace multi_json with json
-* Fix #try and #respond_to? on StripeObjects
+* 2 major enhancements
+  * Support for multiple subscriptions per customer
+  * Testing ruby 2.1.0
+
+* 2 minor enhancements
+  * Replace multi_json with json
+  * Allow #save to take opts (for :expand)
+
+* 1 bugfix
+  * Fix #try and #respond_to? on StripeObjects
 
 === 1.9.9 2013-12-02
 
-* Add ApplicationFee API resource
+* 1 major enhancement
+  * Add ApplicationFee resource
 
 === 1.8.9 2013-11-14
 
@@ -28,26 +36,31 @@
 
 === 1.8.8 2013-10-3
 
-* Add support for metadata API
+* 1 major enhancement
+  * Add support for metadata on resources
 
 === 1.8.7 2013-08-18
 
-* Add support for closing disputes.
+* 1 minor enhancement
+  * Add support for closing disputes.
 
 === 1.8.6 2013-08-13
 
-* Add Balance and BalanceTransaction API resources
+* 1 major enhancement
+  * Add Balance and BalanceTransaction resources
 
 === 1.8.5 2013-08-12
 
-* Add support for unsetting attributes by setting to nil.
-  Permits unsetting email and description on customers and description on charges.
-  Setting properties to a blank string is now an error.
-* Attempting to set an object's id is now an error.
+* 1 major enhancement
+  * Add support for unsetting attributes by setting to nil. This permits
+    unsetting email and description on customers and description on charges.
+    Setting properties to a blank string is now an error.
+  * Attempting to set an object's id is now an error.
 
 === 1.8.4 2013-07-11
 
-* Add support for new cards API (Stripe API version 2013-07-05)
+* 1 major enhancement
+  * Add support for new cards API (Stripe API version 2013-07-05)
 
 === 1.8.3 2013-05-06
 
@@ -56,7 +69,7 @@
 
 === 1.8.2 2013-05-01
 
-* 3 minor enhancement:
+* 3 minor enhancements:
   * Use to_sym instead of type checking for minor performance
     improvement (github issue #59)
   * Handle low-memory situations without throwing an exception (github
@@ -76,54 +89,74 @@
 === 1.8.0 2013-04-11
 
 * 1 major enhancement:
-  * Add new Recipient API resource
+  * Add new Recipient resource
   * Allow Transfers to be createable
 
 === 1.7.11 2013-02-21
-* Add 'id' to the list of permanent attributes
+
+* 1 minor enhancement
+  * Add 'id' to the list of permanent attributes
 
 === 1.7.10 2013-02-01
-* Add support for passing options when retrieving Stripe objects
-  e.g., Stripe::Charge.retrieve({id:"foo", expand:["customer"]})
-  Stripe::Charge("foo") is still supported as well
+
+* 1 major enhancement
+  * Add support for passing options when retrieving Stripe objects
+    e.g., Stripe::Charge.retrieve({id:"foo", expand:["customer"]})
+    Stripe::Charge("foo") is still supported as well
 
 === 1.7.9 2013-01-15
-* Add support for setting a Stripe API version override.
+
+* 1 major enhancement
+  * Add support for setting a Stripe API version override.
 
 === 1.7.8 2012-11-21
-* Relax the version constraint on multi_json (github issue #44)
+
+* 1 bugfix
+  * Relax the version constraint on multi_json (github issue #44)
 
 === 1.7.7 2012-11-07
-* Add support for updating charge disputes.
-* Fix Account API resource bug.
+
+* 1 minor enhancement:
+  * Add support for updating charge disputes
+
+* 1 bugfix
+  * Fix Account API resource bug
 
 === 1.7.6 2012-10-30
-* Add support for creating invoices.
+
+* 1 major enhancement
+  * Add support for creating invoices
 
 === 1.7.5 2012-10-25
-* Add support for new API lists.
+
+* 1 major enhancement
+  * Add support for new API lists
 
 === 1.7.4 2012-10-08
 
-* Fix bug introduced in 1.7.3 calling API methods that take no
-  arguments, like Stripe::Invoice#pay (github issue #42)
+* 1 bugfix
+  * Fix bug introduced in 1.7.3 calling API methods that take no
+    arguments, like Stripe::Invoice#pay (github issue #42)
 
 === 1.7.3 2012-09-14
 
-* Make sure that both keys and values of GET params are
-  URL-encoded. NOTE: If you were previously URL-encoding values
-  yourself, you may need to adjust your code.
-* URL-encode POST params directly, instead of allowing rest-client to
-  do it to work around an unfortunate interaction with the hashery gem
-  (github issue #38)
+* 2 bugfixes
+  * Make sure that both keys and values of GET params are
+    URL-encoded. NOTE: If you were previously URL-encoding values
+    yourself, you may need to adjust your code.
+  * URL-encode POST params directly, instead of allowing rest-client to
+    do it to work around an unfortunate interaction with the hashery gem
+    (github issue #38)
 
 === 1.7.2 2012-08-31
 
-* Add support for new pay and update methods for Invoice objects
+* 1 major enhancement
+  * Add support for new pay and update methods for Invoice objects
 
 === 1.7.1 2012-08-15
 
-* Add new Account API resource
+* 1 major enhancement
+  * Add new Account API resource
 
 === 1.7.0 2012-05-17
 
@@ -158,11 +191,13 @@
   * Fix StripeObject#inspect when ActiveSupport 3.0 is loaded
 
 === 1.6.0 2012-02-01
-* A whole bunch of releases between 1.5.0 and 1.6.0, but few changes, mainly the addition of:
-  - plans
-  - coupons
-  - events
-  - tokens
+
+* A whole bunch of releases between 1.5.0 and 1.6.0, but few changes, mainly
+  the addition of:
+    - plans
+    - coupons
+    - events
+    - tokens
 * 1.6.0 also contains a new inspect/to_string implementation
 
 === 1.5.0 2011-05-09

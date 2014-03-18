@@ -12,9 +12,9 @@ module Stripe
     should "marshal a stripe object correctly" do
       obj = Stripe::StripeObject.construct_from({ :id => 1, :name => 'Stripe' }, 'apikey')
       m = Marshal.load(Marshal.dump(obj))
-      assert_equal m.id, 1
-      assert_equal m.name, 'Stripe'
-      assert_equal m.api_key, 'apikey'
+      assert_equal 1, m.id
+      assert_equal 'Stripe', m.name
+      assert_equal 'apikey', m.api_key
     end
 
     should "recursively call to_hash on its values" do

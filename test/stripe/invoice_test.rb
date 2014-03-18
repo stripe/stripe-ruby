@@ -20,7 +20,7 @@ module Stripe
 
       @mock.expects(:post).once.with('https://api.stripe.com/v1/invoices/in_test_invoice/pay', nil, '').returns(test_response(test_paid_invoice))
       i.pay
-      assert_equal i.next_payment_attempt, nil
+      assert_equal nil, i.next_payment_attempt
     end
   end
 end

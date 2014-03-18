@@ -20,10 +20,10 @@ module Stripe
       @mock.expects(:get).once.returns(test_response(test_customer({:mnemonic => "foo"})))
       @mock.expects(:post).once.returns(test_response(test_customer({:mnemonic => "bar"})))
       c = Stripe::Customer.new("test_customer").refresh
-      assert_equal c.mnemonic, "foo"
+      assert_equal "foo", c.mnemonic
       c.mnemonic = "bar"
       c.save
-      assert_equal c.mnemonic, "bar"
+      assert_equal "bar", c.mnemonic
     end
 
     should "create should return a new customer" do
@@ -62,6 +62,18 @@ module Stripe
 
       @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription", nil, nil).returns(test_response(test_subscription(:plan => 'silver')))
       c.cancel_subscription
+    end
+
+    should "be able to create a subscription for a customer" do
+      c = Stripe::Customer.new("test_customer")
+
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/customers/test_customer/subscriptions" && api_key.nil? && CGI.parse(params) == {'plan' => ['silver']}
+      end.returns(test_response(test_subscription(:plan => 'silver')))
+      s = c.create_subscription({:plan => 'silver'})
+
+      assert_equal 'subscription', s.object
+      assert_equal 'silver', s.plan.identifier
     end
 
     should "be able to delete a customer's discount" do

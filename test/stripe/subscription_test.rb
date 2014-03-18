@@ -17,7 +17,7 @@ module Stripe
       subscription = customer.subscriptions.first
       subscription.refresh
 
-      assert_equal subscription.id, 'refreshed_subscription'
+      assert_equal 'refreshed_subscription', subscription.id
     end
 
     should "subscriptions should be deletable" do
@@ -38,12 +38,12 @@ module Stripe
 
       customer = Stripe::Customer.retrieve('test_customer')
       subscription = customer.subscriptions.first
-      assert_equal subscription.status, 'trialing'
+      assert_equal 'trialing', subscription.status
 
       subscription.status = 'active'
       subscription.save
 
-      assert_equal subscription.status, 'active'
+      assert_equal 'active', subscription.status
     end
 
     should "create should return a new subscription" do
@@ -52,7 +52,7 @@ module Stripe
 
       customer = Stripe::Customer.retrieve('test_customer')
       subscription = customer.subscriptions.create(:plan => 'silver')
-      assert_equal subscription.id, 'test_new_subscription'
+      assert_equal 'test_new_subscription', subscription.id
     end
 
     should "be able to delete a subscriptions's discount" do

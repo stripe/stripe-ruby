@@ -13,6 +13,14 @@ module Stripe
       ]
     }
 
+    # Preflight the SSL certificate presented by the backend. This isn't 100%
+    # bulletproof, in that we're not actually validating the transport used to
+    # communicate with Stripe, merely that the first attempt to does not use a
+    # revoked certificate.
+
+    # Unfortunately the interface to OpenSSL doesn't make it easy to check the
+    # certificate before sending potentially sensitive data on the wire. This
+    # approach raises the bar for an attacker significantly.
 
     def self.check_ssl_cert(uri, ca_file)
       uri = URI.parse(uri)

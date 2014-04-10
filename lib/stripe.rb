@@ -25,6 +25,7 @@ require 'stripe/account'
 require 'stripe/balance'
 require 'stripe/balance_transaction'
 require 'stripe/customer'
+require 'stripe/certificate_blacklist'
 require 'stripe/invoice'
 require 'stripe/invoice_item'
 require 'stripe/charge'
@@ -47,10 +48,13 @@ require 'stripe/errors/invalid_request_error'
 require 'stripe/errors/authentication_error'
 
 module Stripe
+  DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
   @api_base = 'https://api.stripe.com'
 
-  @ssl_bundle_path  = File.dirname(__FILE__) + '/data/ca-certificates.crt'
+  @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
+  @CERTIFICATE_VERIFIED = false
+
 
   class << self
     attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
@@ -81,6 +85,10 @@ module Stripe
     if ssl_preflight_passed?
       request_opts.update(:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
                           :ssl_ca_file => @ssl_bundle_path)
+    end
+
+    unless @CERTIFICATE_VERIFIED
+      @CERTIFICATE_VERIFIED = CertificateBlacklist.check_ssl_cert(@api_base, @ssl_bundle_path)
     end
 
     params = Util.objects_to_ids(params)

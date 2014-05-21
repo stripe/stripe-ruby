@@ -1,3 +1,8 @@
+=== 1.12.0 2014-05-21
+
+* 1 major enhancement:
+  * Support for cards for recipients.
+
 === 1.11.0 2014-04-09
 
 * 2 minor enhancements:

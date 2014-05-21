@@ -273,12 +273,15 @@ def test_invoice_customer_array
 end
 
 def test_recipient(params={})
+  id = params[:id] || 'rp_test_recipient'
   {
     :name => "Stripe User",
     :type => "individual",
     :livemode => false,
     :object => "recipient",
     :id => "rp_test_recipient",
+    :cards => test_card_array(id),
+    :default_card => "debit_test_card",
     :active_account => {
       :last4 => "6789",
       :bank_name => "STRIPE TEST BANK",

@@ -5,7 +5,11 @@ module Stripe
     include Stripe::APIOperations::List
 
     def url
-      "#{Customer.url}/#{CGI.escape(customer)}/cards/#{CGI.escape(id)}"
+      if recipient
+        "#{Recipient.url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
+      elsif customer
+        "#{Customer.url}/#{CGI.escape(customer)}/cards/#{CGI.escape(id)}"
+      end
     end
 
     def self.retrieve(id, api_key=nil)

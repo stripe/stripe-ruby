@@ -5,9 +5,9 @@ module Stripe
     include Stripe::APIOperations::List
 
     def url
-      if recipient
+      if respond_to?(:recipient)
         "#{Recipient.url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
-      elsif customer
+      elsif respond_to?(:customer)
         "#{Customer.url}/#{CGI.escape(customer)}/cards/#{CGI.escape(id)}"
       end
     end

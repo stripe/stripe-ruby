@@ -332,6 +332,12 @@ def test_transfer_array
   }
 end
 
+def test_canceled_transfer
+  test_transfer.merge({
+    :status => 'canceled'
+  })
+end
+
 def test_invalid_api_key_error
   {
     "error" => {

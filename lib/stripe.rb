@@ -87,7 +87,7 @@ module Stripe
                           :ssl_ca_file => @ssl_bundle_path)
     end
 
-    unless @CERTIFICATE_VERIFIED
+    if @verify_ssl_certs and !@CERTIFICATE_VERIFIED
       @CERTIFICATE_VERIFIED = CertificateBlacklist.check_ssl_cert(@api_base, @ssl_bundle_path)
     end
 

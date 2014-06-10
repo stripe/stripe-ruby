@@ -96,6 +96,7 @@ module Stripe
             if CertificateBlacklist.ssl_certificate_blacklisted?(store_ctx.current_cert)
               @blacklist_failure = true
               $stderr.puts("Error: " + CertificateBlacklist::FailureMessage)
+              # can't raise here because ruby swallows the exceptions
               false
             else
               true

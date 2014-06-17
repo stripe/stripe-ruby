@@ -119,6 +119,7 @@ def test_customer_array
 end
 
 def test_charge(params={})
+  id = params[:id] || 'ch_test_charge'
   {
     :refunded => false,
     :paid => true,
@@ -132,12 +133,13 @@ def test_charge(params={})
       :id => "cc_test_card",
       :object => "card"
     },
-    :id => "ch_test_charge",
+    :id => id,
     :reason => "execute_charge",
     :livemode => false,
     :currency => "usd",
     :object => "charge",
     :created => 1304114826,
+    :refunds => test_refund_array(id),
     :metadata => {}
   }.merge(params)
 end
@@ -204,6 +206,18 @@ def test_subscription(params = {})
   }.merge(params)
 end
 
+def test_refund(params = {})
+  {
+    :object => 'refund',
+    :amount => 30,
+    :currency => "usd",
+    :created => 1308595038,
+    :id => "ref_test_refund",
+    :charge => "ch_test_charge",
+    :metadata => {}
+  }.merge(params)
+end
+
 def test_subscription_array(customer_id)
   {
     :data => [test_subscription, test_subscription, test_subscription],
@@ -211,6 +225,15 @@ def test_subscription_array(customer_id)
     :url => '/v1/customers/' + customer_id + '/subscriptions'
   }
 end
+
+def test_refund_array(charge_id)
+  {
+    :data => [test_refund, test_refund, test_refund],
+    :object => 'list',
+    :url => '/v1/charges/' + charge_id + '/refunds'
+  }
+end
+
 
 def test_invoice
   {

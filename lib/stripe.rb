@@ -38,6 +38,7 @@ require 'stripe/recipient'
 require 'stripe/card'
 require 'stripe/subscription'
 require 'stripe/application_fee'
+require 'stripe/refund'
 
 # Errors
 require 'stripe/errors/stripe_error'

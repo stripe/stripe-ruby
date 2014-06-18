@@ -1,3 +1,8 @@
+=== 1.14.0 2014-06-17
+
+* 1 major enhancement:
+  * Add metadata for refunds and disputes
+
 === 1.13.0 2014-05-28
 
 * 1 major enhancement:

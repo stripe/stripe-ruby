@@ -1,6 +1,5 @@
 module Stripe
   class ListObject < StripeObject
-
     def [](k)
       case k
       when String, Symbol
@@ -12,6 +11,10 @@ module Stripe
 
     def each(&blk)
       self.data.each(&blk)
+    end
+
+    def length
+      self.data.length
     end
 
     def retrieve(id, api_key=nil)

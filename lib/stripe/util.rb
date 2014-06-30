@@ -31,6 +31,7 @@ module Stripe
         'card' => Card,
         'subscription' => Subscription,
         'list' => ListObject,
+        'refund' => Refund,
         'application_fee' => ApplicationFee
       }
     end

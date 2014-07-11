@@ -1,15 +1,7 @@
-task :default => [:all]
+require 'rake/testtask'
 
-task :test do
-  ret = true
-  Dir["test/**/*_test.rb"].each do |f|
-    ret = ret && ruby(f, '')
-  end
-end
+task :default => [:test]
 
-task :all do
-  Rake::Task["test"].invoke
-  require 'active_support/all'
-  Rake::Task["test"].reenable
-  Rake::Task["test"].invoke
+Rake::TestTask.new do |t|
+  t.pattern = './test/**/*_test.rb'
 end

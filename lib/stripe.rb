@@ -40,6 +40,12 @@ require 'stripe/subscription'
 require 'stripe/application_fee'
 require 'stripe/refund'
 
+# Bitcoin Resources
+require 'stripe/bitcoin/api_resource'
+require 'stripe/bitcoin/transaction'
+require 'stripe/bitcoin/payment'
+require 'stripe/bitcoin/receiver'
+
 # Errors
 require 'stripe/errors/stripe_error'
 require 'stripe/errors/api_error'

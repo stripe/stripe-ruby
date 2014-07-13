@@ -1,3 +1,9 @@
 source "https://rubygems.org"
 gemspec :path => File.join(File.dirname(__FILE__), "..")
-gem "activesupport", "~> 3.0"
+
+if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('1.9.3')
+  gem 'rest-client', '~> 1.6.8'
+  gem 'activesupport', '~> 3.2'
+else
+  gem 'activesupport'
+end

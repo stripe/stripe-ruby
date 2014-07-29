@@ -71,17 +71,31 @@ def test_balance_transaction_array
 end
 
 def test_application_fee(params={})
+  id = params[:id] || 'fee_test_fee'
   {
     :refunded => false,
     :amount => 100,
     :application => "ca_test_application",
     :user => "acct_test_user",
     :charge => "ch_test_charge",
-    :id => "fee_test_fee",
+    :id => id,
     :livemode => false,
     :currency => "usd",
     :object => "application_fee",
+    :refunds => test_application_fee_refund_array(id),
     :created => 1304114826
+  }.merge(params)
+end
+
+def test_application_fee_refund(params = {})
+  {
+    :object => 'fee_refund',
+    :amount => 30,
+    :currency => "usd",
+    :created => 1308595038,
+    :id => "ref_test_app_fee_refund",
+    :fee => "ca_test_application",
+    :metadata => {}
   }.merge(params)
 end
 
@@ -90,6 +104,14 @@ def test_application_fee_array
     :data => [test_application_fee, test_application_fee, test_application_fee],
     :object => 'list',
     :url => '/v1/application_fees'
+  }
+end
+
+def test_application_fee_refund_array(fee_id)
+  {
+    :data => [test_application_fee_refund, test_application_fee_refund, test_application_fee_refund],
+    :object => 'list',
+    :url => '/v1/application_fees/' + fee_id + '/refunds'
   }
 end
 

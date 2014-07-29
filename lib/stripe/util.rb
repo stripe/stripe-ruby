@@ -32,7 +32,8 @@ module Stripe
         'subscription' => Subscription,
         'list' => ListObject,
         'refund' => Refund,
-        'application_fee' => ApplicationFee
+        'application_fee' => ApplicationFee,
+        'fee_refund' => ApplicationFeeRefund
       }
     end
 

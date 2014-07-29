@@ -1,3 +1,8 @@
+=== 1.15.0 2014-07-26
+
+* 1 major enhacement:
+  * Application Fee refunds now a list instead of array
+
 === 1.14.0 2014-06-17
 
 * 1 major enhancement:

@@ -12,7 +12,6 @@ module Stripe
     def pay
       response, api_key = Stripe.request(:post, pay_url, @api_key)
       refresh_from(response, api_key)
-      self
     end
 
     private

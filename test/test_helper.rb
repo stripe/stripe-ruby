@@ -140,6 +140,24 @@ def test_customer_array
   }
 end
 
+def test_customer_array_page_1
+  {
+    :data => [test_customer(id: 'cus_1'), test_customer(id: 'cus_2'), test_customer(id: 'cus_3')],
+    :object => 'list',
+    :url => '/v1/customers',
+    :has_more => true
+  }
+end
+
+def test_customer_array_page_2
+  {
+    :data => [test_customer(id: 'cus_4')],
+    :object => 'list',
+    :url => '/v1/customers',
+    :has_more => false
+  }
+end
+
 def test_charge(params={})
   id = params[:id] || 'ch_test_charge'
   {

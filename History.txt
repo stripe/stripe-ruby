@@ -1,3 +1,8 @@
+=== 1.16.0 2014-10-08
+
+* 1 minor enhacement:
+  * Coupons now support update operations - useful for manipulating metadata.
+
 === 1.15.0 2014-07-26
 
 * 1 major enhacement:

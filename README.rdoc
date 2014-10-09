@@ -14,7 +14,13 @@ If you want to build the gem from source:
 == Requirements
 
 * Ruby 1.8.7 or above. (Ruby 1.8.6 may work if you load
-  ActiveSupport.)
+  ActiveSupport.) For Ruby versions before 1.9.2, you'll need to add this to your Gemfile:
+
+    if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('1.9.2')
+      gem 'rest-client', '~> 1.6.8'
+    end
+
+
 * rest-client, json
 
 == Mirrors

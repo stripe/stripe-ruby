@@ -25,7 +25,14 @@ module Stripe
     def self.check_ssl_cert(uri, ca_file)
       uri = URI.parse(uri)
 
-      sock = TCPSocket.new(uri.host, uri.port)
+      begin
+        sock = TCPSocket.new(uri.host, uri.port)
+      rescue SocketError => e
+          raise APIConnectionError.new(
+            "Connection failed pre-flighting SSL connection to #{uri.host}. " +
+            "Error was: #{e.to_str}"
+          )
+      end
       ctx = OpenSSL::SSL::SSLContext.new
       ctx.set_params(:verify_mode => OpenSSL::SSL::VERIFY_PEER,
                      :ca_file => ca_file)

@@ -363,20 +363,20 @@ module Stripe
 
     def test_invalid_api_key_error
       {
-        "error" => {
-          "type" => "invalid_request_error",
-          "message" => "Invalid API Key provided: invalid"
+        :error => {
+          :type => "invalid_request_error",
+          :message => "Invalid API Key provided: invalid"
         }
       }
     end
 
     def test_invalid_exp_year_error
       {
-        "error" => {
-          "code" => "invalid_expiry_year",
-          "param" => "exp_year",
-          "type" => "card_error",
-          "message" => "Your card's expiration year is invalid"
+        :error => {
+          :code => "invalid_expiry_year",
+          :param => "exp_year",
+          :type => "card_error",
+          :message => "Your card's expiration year is invalid"
         }
       }
     end

@@ -7,13 +7,11 @@ module Stripe
     def refund(params={})
       response, api_key = Stripe.request(:post, refund_url, @api_key, params)
       refresh_from(response, api_key)
-      self
     end
 
     def capture(params={})
       response, api_key = Stripe.request(:post, capture_url, @api_key, params)
       refresh_from(response, api_key)
-      self
     end
 
     def update_dispute(params)
@@ -25,7 +23,6 @@ module Stripe
     def close_dispute
       response, api_key = Stripe.request(:post, close_dispute_url, @api_key)
       refresh_from(response, api_key)
-      self
     end
 
     private

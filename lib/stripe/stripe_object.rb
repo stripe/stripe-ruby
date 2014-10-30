@@ -30,9 +30,7 @@ module Stripe
     end
 
     def self.construct_from(values, api_key=nil)
-      obj = self.new(values[:id], api_key)
-      obj.refresh_from(values, api_key)
-      obj
+      self.new(values[:id], api_key).refresh_from(values, api_key)
     end
 
     def to_s(*args)
@@ -68,6 +66,8 @@ module Stripe
         @transient_values.delete(k)
         @unsaved_values.delete(k)
       end
+
+      return self
     end
 
     def [](k)

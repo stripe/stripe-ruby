@@ -21,7 +21,6 @@ module Stripe
     def refresh
       response, api_key = Stripe.request(:get, url, @api_key, @retrieve_options)
       refresh_from(response, api_key)
-      self
     end
 
     def self.retrieve(id, api_key=nil)

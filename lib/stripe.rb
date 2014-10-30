@@ -55,8 +55,6 @@ module Stripe
 
   @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
-  @CERTIFICATE_VERIFIED = false
-
 
   class << self
     attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
@@ -82,15 +80,37 @@ module Stripe
         'email support@stripe.com if you have any questions.)')
     end
 
-    request_opts = { :verify_ssl => false }
+    @blacklist_failure = false
 
-    if ssl_preflight_passed?
-      request_opts.update(:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
-                          :ssl_ca_file => @ssl_bundle_path)
-    end
+    if @verify_ssl_certs
 
-    if @verify_ssl_certs and !@CERTIFICATE_VERIFIED
-      @CERTIFICATE_VERIFIED = CertificateBlacklist.check_ssl_cert(@api_base, @ssl_bundle_path)
+      # for platforms like OS X where SSL verify_callback is broken
+      if @blacklist_failure_fail_requests
+        raise APIConnectionError.new(CertificateBlacklist::FailureMessage)
+      end
+
+      request_opts = {
+        :verify_ssl => OpenSSL::SSL::VERIFY_PEER,
+        :ssl_ca_file => @ssl_bundle_path,
+        :ssl_verify_callback => lambda { |preverify_ok, store_ctx|
+          if preverify_ok
+            if CertificateBlacklist.ssl_certificate_blacklisted?(store_ctx.current_cert)
+              @blacklist_failure = true
+              $stderr.puts("Error: " + CertificateBlacklist::FailureMessage)
+              # can't raise here because ruby swallows the exceptions
+              false
+            else
+              true
+            end
+          else
+            # preverify_ok => false
+            false
+          end
+        },
+        :ssl_verify_callback_warnings => false,
+      }
+    else
+      request_opts = {:verify_ssl => false}
     end
 
     params = Util.objects_to_ids(params)
@@ -129,6 +149,18 @@ module Stripe
       end
     rescue RestClient::Exception, Errno::ECONNREFUSED => e
       handle_restclient_error(e)
+    end
+
+    # Handle platforms like OS X that don't respect the SSL verify_callback
+    # return code. If we get here and @blacklist_failure is true, it means that
+    # we really should have bailed out on the last connection. But there's no
+    # point in raising an exception since we already sent the data. Instead
+    # set an instance variable so we fail on the next request.
+    if @blacklist_failure
+      @blacklist_failure_fail_requests = true
+      $stderr.puts "WARNING: SSL verification failed at blacklist check."
+      $stderr.puts "It looks like you're on a platform like OS X where SSL" +
+        " verify_callback doesn't work. The next request will raise an error."
     end
 
     [parse(response), api_key]

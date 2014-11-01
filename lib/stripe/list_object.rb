@@ -11,7 +11,18 @@ module Stripe
     end
 
     def each(&blk)
-      self.data.each(&blk)
+      current_list = self
+      Enumerator.new do |yielder|
+        loop do
+          params = {}
+          current_list.data.each do |obj|
+            yielder.yield obj
+            params[:starting_after] = obj.id
+          end
+          raise StopIteration unless current_list[:has_more]
+          current_list = self.all(params)
+        end
+      end.each(&blk)
     end
 
     def retrieve(id, api_key=nil)

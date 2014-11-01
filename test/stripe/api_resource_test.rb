@@ -288,6 +288,34 @@ module Stripe
         assert c[0].card.kind_of?(Stripe::StripeObject) && c[0].card.object == 'card'
       end
 
+      context "pagination" do
+        should "fetch the first page initially" do
+          @mock.expects(:get).once.returns(test_response(test_customer_array_page_1))
+          customers = Stripe::Customer.all
+        end
+
+        should "not fetch subsequent pages unless necessary" do
+          @mock.expects(:get).once.returns(test_response(test_customer_array_page_1))
+          customers = Stripe::Customer.all
+          total_seen = 0
+          customers.each_with_index do |c, i|
+            total_seen += 1
+            break if i == 2
+          end
+          assert_equal 3, total_seen
+        end
+
+        should "fetch subsequent pages when iterating" do
+          @mock.expects(:get).twice.returns(test_response(test_customer_array_page_1), test_response(test_customer_array_page_2))
+          customers = Stripe::Customer.all
+          total_seen = 0
+          customers.each_with_index do |c, i|
+            total_seen += 1
+          end
+          assert_equal 4, total_seen
+        end
+      end
+
       context "error checking" do
 
         should "404s should raise an InvalidRequestError" do

@@ -37,7 +37,7 @@ module Stripe
       JSON.pretty_generate(@values)
     end
 
-    def inspect()
+    def inspect
       id_string = (self.respond_to?(:id) && !self.id.nil?) ? " id=#{self.id}" : ""
       "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
     end

@@ -1,9 +1,11 @@
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
 require 'cgi'
-require 'set'
 require 'openssl'
-require 'rest_client'
+require 'set'
+require 'socket'
+
+require 'rest-client'
 require 'json'
 
 # Version
@@ -159,15 +161,22 @@ module Stripe
       :lang_version => lang_version,
       :platform => RUBY_PLATFORM,
       :publisher => 'stripe',
-      :uname => @uname
+      :uname => @uname,
+      :hostname => Socket.gethostname,
     }
 
   end
 
   def self.get_uname
-    `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
-  rescue Errno::ENOMEM => ex # couldn't create subprocess
-    "uname lookup failed"
+    begin
+      File.read('/proc/version').strip
+    rescue SystemCallError
+      begin
+        `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
+      rescue Errno::ENOMEM # couldn't create subprocess
+        "uname lookup failed"
+      end
+    end
   end
 
   def self.uri_encode(params)

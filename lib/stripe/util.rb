@@ -17,23 +17,26 @@ module Stripe
 
     def self.object_classes
       @object_classes ||= {
+        # data structures
+        'list' => ListObject,
+        
+        # business objects
+        'application_fee' => ApplicationFee,
         'balance' => Balance,
         'balance_transaction' => BalanceTransaction,
+        'card' => Card,
         'charge' => Charge,
+        'coupon' => Coupon,
         'customer' => Customer,
+        'event' => Event,
+        'fee_refund' => ApplicationFeeRefund,
         'invoiceitem' => InvoiceItem,
         'invoice' => Invoice,
         'plan' => Plan,
-        'coupon' => Coupon,
-        'event' => Event,
-        'transfer' => Transfer,
         'recipient' => Recipient,
-        'card' => Card,
-        'subscription' => Subscription,
-        'list' => ListObject,
         'refund' => Refund,
-        'application_fee' => ApplicationFee,
-        'fee_refund' => ApplicationFeeRefund
+        'subscription' => Subscription,        
+        'transfer' => Transfer
       }
     end
 

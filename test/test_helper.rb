@@ -3,9 +3,7 @@ require 'test/unit'
 require 'mocha/setup'
 require 'stringio'
 require 'shoulda'
-
-# response helpers
-require File.expand_path('../helpers', __FILE__)
+require File.expand_path('../test_data', __FILE__)
 
 # monkeypatch request methods
 module Stripe
@@ -27,7 +25,7 @@ module Stripe
 end
 
 class Test::Unit::TestCase
-  include Helpers
+  include Stripe::TestData
   include Mocha
 
   setup do

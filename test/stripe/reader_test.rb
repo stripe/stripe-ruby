@@ -16,7 +16,7 @@ module Stripe
     end
 
     should "allow Stripe::Reader to pass in CVC" do
-      @parsed = Stripe::Reader.parse(@@example_valid, cvc: "321")
+      @parsed = Stripe::Reader.parse(@@example_valid, { :cvc => "321" })
 
       assert_equal "1234123412341234", @parsed[:number]
       assert_equal "JOHN CARDUSER", @parsed[:name]

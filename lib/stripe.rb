@@ -197,7 +197,7 @@ module Stripe
   end
 
   def self.execute_request(opts)
-    RestClient::Request.execute(opts)
+    RestClient::Request.execute(opts.merge(ssl_version: :SSLv23))
   end
 
   def self.parse(response)

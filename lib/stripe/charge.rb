@@ -25,6 +25,22 @@ module Stripe
       refresh_from(response, api_key)
     end
 
+    def mark_as_fraudulent
+      params = {
+        :fraud_details => { :user_report => 'fraudulent' }
+      }
+      response, api_key = Stripe.request(:post, url, @api_key, params)
+      refresh_from(response, api_key)
+    end
+
+    def mark_as_safe
+      params = {
+        :fraud_details => { :user_report => 'safe' }
+      }
+      response, api_key = Stripe.request(:post, url, @api_key, params)
+      refresh_from(response, api_key)
+    end
+
     private
 
     def refund_url

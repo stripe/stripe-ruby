@@ -36,6 +36,22 @@ module Stripe
       c.save
     end
 
+    should "charges should be able to be marked as fraudulent" do
+      @mock.expects(:get).once.returns(test_response(test_charge))
+      @mock.expects(:post).once.returns(test_response(test_charge))
+      c = Stripe::Charge.new("test_charge")
+      c.refresh
+      c.mark_as_fraudulent
+    end
+
+    should "charges should be able to be marked as safe" do
+      @mock.expects(:get).once.returns(test_response(test_charge))
+      @mock.expects(:post).once.returns(test_response(test_charge))
+      c = Stripe::Charge.new("test_charge")
+      c.refresh
+      c.mark_as_safe
+    end
+
     should "charges should have Card objects associated with their Card property" do
       @mock.expects(:get).once.returns(test_response(test_charge))
       c = Stripe::Charge.retrieve("test_charge")

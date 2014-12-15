@@ -114,6 +114,15 @@ module Stripe
     end
 
     context "with valid credentials" do
+      should "send along additional headers" do
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:foo] == 'bar'
+        end.returns(test_response(test_charge))
+
+        Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+          'local', {:foo => 'bar'})
+      end
+
       should "urlencode values in GET params" do
         response = test_response(test_charge_array)
         @mock.expects(:get).with("#{Stripe.api_base}/v1/charges?customer=test%20customer", nil, nil).returns(response)

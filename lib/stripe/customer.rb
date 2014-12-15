@@ -29,20 +29,20 @@ module Stripe
       Invoice.create(params.merge(:customer => id), @api_key)
     end
 
-    def cancel_subscription(params={})
-      response, api_key = Stripe.request(:delete, subscription_url, @api_key, params)
+    def cancel_subscription(params={}, headers={})
+      response, api_key = Stripe.request(:delete, subscription_url, @api_key, params, headers)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end
 
-    def update_subscription(params)
-      response, api_key = Stripe.request(:post, subscription_url, @api_key, params)
+    def update_subscription(params={}, headers={})
+      response, api_key = Stripe.request(:post, subscription_url, @api_key, params, headers)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end
 
-    def create_subscription(params)
-      response, api_key = Stripe.request(:post, subscriptions_url, @api_key, params)
+    def create_subscription(params={}, headers={})
+      response, api_key = Stripe.request(:post, subscriptions_url, @api_key, params, headers)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end

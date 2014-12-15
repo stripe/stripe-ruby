@@ -183,6 +183,17 @@ module Stripe
       }.merge(params)
     end
 
+    def test_file(params={})
+      {
+        :id => "fil_test_file",
+        :created => 1403047735,
+        :size => 4908,
+        :purpose => params[:purpose] || "dispute_evidence",
+        :url => nil,
+        :mimetype => nil,
+      }
+    end
+
     #FIXME nested overrides would be better than hardcoding plan_id
     def test_subscription(params = {})
       plan = params.delete(:plan) || 'gold'

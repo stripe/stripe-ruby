@@ -20,9 +20,9 @@ module Stripe
       Util.convert_to_stripe_object(response, api_key)
     end
 
-    def create(params={}, api_key=nil)
+    def create(params={}, api_key=nil, headers={})
       api_key ||= @api_key
-      response, api_key = Stripe.request(:post, url, api_key, params)
+      response, api_key = Stripe.request(:post, url, api_key, params, headers)
       Util.convert_to_stripe_object(response, api_key)
     end
 

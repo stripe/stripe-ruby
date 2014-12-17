@@ -381,6 +381,25 @@ module Stripe
       })
     end
 
+    def test_bitcoin_receiver(params={})
+      {
+        :id => 'btcrcv_test_receiver',
+        :amount => 100,
+        :currency => 'usd',
+        :description => 'some details',
+        :metadata => {},
+        :object => 'bitcoin_receiver'
+      }.merge(params)
+    end
+
+    def test_bitcoin_receiver_array
+      {
+        :data => [test_bitcoin_receiver, test_bitcoin_receiver, test_bitcoin_receiver],
+        :object => 'list',
+        :url => '/v1/bitcoin/receivers'
+      }
+    end
+
     def test_invalid_api_key_error
       {
         :error => {

@@ -19,7 +19,7 @@ module Stripe
       @object_classes ||= {
         # data structures
         'list' => ListObject,
-        
+
         # business objects
         'application_fee' => ApplicationFee,
         'balance' => Balance,
@@ -37,7 +37,8 @@ module Stripe
         'refund' => Refund,
         'subscription' => Subscription,
         'file_upload' => FileUpload,
-        'transfer' => Transfer
+        'transfer' => Transfer,
+        'bitcoin_receiver' => BitcoinReceiver
       }
     end
 
@@ -126,7 +127,7 @@ module Stripe
       when Hash
         headers = {}
         if opts[:idempotency_key]
-          headers[:idempotency_key] = opts[:idempotency_key] 
+          headers[:idempotency_key] = opts[:idempotency_key]
         end
         if opts[:stripe_account]
           headers[:stripe_account] = opts[:stripe_account]

@@ -3,7 +3,7 @@ require 'test/unit'
 require 'mocha/setup'
 require 'stringio'
 require 'shoulda'
-require File.expand_path('../test_data', __FILE__)
+require File.expand_path('../fake_data', __FILE__)
 
 # monkeypatch request methods
 module Stripe
@@ -25,7 +25,7 @@ module Stripe
 end
 
 class Test::Unit::TestCase
-  include Stripe::TestData
+  include Stripe::FakeData
   include Mocha
 
   setup do

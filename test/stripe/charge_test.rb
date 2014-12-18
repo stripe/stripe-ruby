@@ -58,7 +58,7 @@ module Stripe
       assert c.card.kind_of?(Stripe::StripeObject) && c.card.object == 'card'
     end
 
-    should "execute should return a new, fully executed charge when passed correct parameters" do
+    should "execute should return a new, fully executed charge when passed correct `card` parameters" do
       @mock.expects(:post).with do |url, api_key, params|
         url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == {
           'currency' => ['usd'], 'amount' => ['100'],
@@ -75,6 +75,22 @@ module Stripe
           :exp_month => 11,
           :exp_year => 2012,
         },
+        :currency => "usd"
+      })
+      assert c.paid
+    end
+
+    should "execute should return a new, fully executed charge when passed correct `source` parameters" do
+      @mock.expects(:post).with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == {
+          'currency' => ['usd'], 'amount' => ['100'],
+          'source' => ['btcrcv_test_receiver']
+        }
+      end.once.returns(test_response(test_charge))
+
+      c = Stripe::Charge.create({
+        :amount => 100,
+        :source => 'btcrcv_test_receiver',
         :currency => "usd"
       })
       assert c.paid

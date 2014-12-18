@@ -388,7 +388,8 @@ module Stripe
         :currency => 'usd',
         :description => 'some details',
         :metadata => {},
-        :object => 'bitcoin_receiver'
+        :object => 'bitcoin_receiver',
+        :transactions => test_bitcoin_transaction_array
       }.merge(params)
     end
 
@@ -397,6 +398,25 @@ module Stripe
         :data => [test_bitcoin_receiver, test_bitcoin_receiver, test_bitcoin_receiver],
         :object => 'list',
         :url => '/v1/bitcoin/receivers'
+      }
+    end
+
+    def test_bitcoin_transaction(params={})
+      {
+        :id => 'btctxn_test_transaction',
+        :object => 'bitcoin_transaction',
+        :amount => 100,
+        :currency => 'usd',
+        :bitcoin_amount => 90,
+        :receiver => 'btcrcv_test_receiver'
+      }.merge(params)
+    end
+
+    def test_bitcoin_transaction_array
+      {
+        :data => [test_bitcoin_transaction, test_bitcoin_transaction, test_bitcoin_transaction],
+        :object => 'list',
+        :url => "/v1/bitcoin/receivers/btcrcv_test_receiver/transactions"
       }
     end
 

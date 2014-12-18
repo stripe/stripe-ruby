@@ -21,7 +21,18 @@ module Stripe
       assert receivers.data.kind_of? Array
       receivers.each do |receiver|
         assert receiver.kind_of?(Stripe::BitcoinReceiver)
+        receiver.transactions.data.each do |transaction|
+          assert transaction.kind_of?(Stripe::BitcoinTransaction)
+        end
       end
+    end
+
+    should "maintain bitcoin transaction sublist" do
+      @mock.expects(:get).with("#{Stripe.api_base}/v1/bitcoin/receivers/btcrcv_test_receiver", nil, nil).once.returns(test_response(test_bitcoin_receiver))
+      receiver = Stripe::BitcoinReceiver.retrieve('btcrcv_test_receiver')
+      @mock.expects(:get).with("#{Stripe.api_base}/v1/bitcoin/receivers/btcrcv_test_receiver/transactions", nil, nil).once.returns(test_response(test_bitcoin_transaction_array))
+      transactions = receiver.transactions.all
+      assert_equal(3, transactions.data.length)
     end
   end
 end

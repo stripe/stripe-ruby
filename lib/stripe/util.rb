@@ -38,7 +38,8 @@ module Stripe
         'subscription' => Subscription,
         'file_upload' => FileUpload,
         'transfer' => Transfer,
-        'bitcoin_receiver' => BitcoinReceiver
+        'bitcoin_receiver' => BitcoinReceiver,
+        'bitcoin_transaction' => BitcoinTransaction
       }
     end
 

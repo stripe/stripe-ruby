@@ -114,13 +114,15 @@ module Stripe
     end
 
     context "with valid credentials" do
-      should "send along additional headers" do
+      should "send along the idempotency-key header" do
         Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:foo] == 'bar'
+          opts[:headers][:idempotency_key] == 'bar'
         end.returns(test_response(test_charge))
 
-        Stripe::Charge.create({:card => {:number => '4242424242424242'}},
-          'local', {:foo => 'bar'})
+        Stripe::Charge.create({:card => {:number => '4242424242424242'}}, {
+          :idempotency_key => 'bar',
+          :api_key => 'local',
+        })
       end
 
       should "urlencode values in GET params" do

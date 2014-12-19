@@ -67,6 +67,25 @@ module Stripe
       end
     end
 
+    should "send stripe account as header when set" do
+      stripe_account = "acct_0000"
+      Stripe.expects(:execute_request).with do |opts|
+        opts[:headers][:stripe_account] == stripe_account
+      end.returns(test_response(test_charge))
+
+      Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+                            {:stripe_account => stripe_account, :api_key => 'sk_test_local'})
+    end
+
+    should "not send stripe account as header when not set" do
+      Stripe.expects(:execute_request).with do |opts|
+        opts[:headers][:stripe_account].nil?
+      end.returns(test_response(test_charge))
+
+      Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+        'sk_test_local')
+    end
+
     context "when specifying per-object credentials" do
       context "with no global API key set" do
         should "use the per-object credential when creating" do

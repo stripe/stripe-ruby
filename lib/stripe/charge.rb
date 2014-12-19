@@ -4,24 +4,32 @@ module Stripe
     include Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
 
-    def refund(params={}, headers={})
-      response, api_key = Stripe.request(:post, refund_url, @api_key, params, headers)
+    def refund(params={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :post, refund_url, api_key || @api_key, params, headers)
       refresh_from(response, api_key)
     end
 
-    def capture(params={}, headers={})
-      response, api_key = Stripe.request(:post, capture_url, @api_key, params, headers)
+    def capture(params={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :post, capture_url, api_key || @api_key, params, headers)
       refresh_from(response, api_key)
     end
 
-    def update_dispute(params={}, headers={})
-      response, api_key = Stripe.request(:post, dispute_url, @api_key, params, headers)
+    def update_dispute(params={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :post, dispute_url, api_key || @api_key, params, headers)
       refresh_from({ :dispute => response }, api_key, true)
       dispute
     end
 
-    def close_dispute
-      response, api_key = Stripe.request(:post, close_dispute_url, @api_key)
+    def close_dispute(params={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :post, close_dispute_url, api_key || @api_key, params, headers)
       refresh_from(response, api_key)
     end
 

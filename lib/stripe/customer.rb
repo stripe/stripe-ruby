@@ -5,8 +5,9 @@ module Stripe
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::List
 
-    def add_invoice_item(params)
-      InvoiceItem.create(params.merge(:customer => id), @api_key)
+    def add_invoice_item(params, opts={})
+      opts[:api_key] = @api_key
+      InvoiceItem.create(params.merge(:customer => id), opts)
     end
 
     def invoices
@@ -25,24 +26,31 @@ module Stripe
       Charge.all({ :customer => id }, @api_key)
     end
 
-    def create_upcoming_invoice(params={})
-      Invoice.create(params.merge(:customer => id), @api_key)
+    def create_upcoming_invoice(params={}, opts={})
+      opts[:api_key] = @api_key
+      Invoice.create(params.merge(:customer => id), opts)
     end
 
-    def cancel_subscription(params={}, headers={})
-      response, api_key = Stripe.request(:delete, subscription_url, @api_key, params, headers)
+    def cancel_subscription(params={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :delete, subscription_url, api_key || @api_key, params, headers)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end
 
-    def update_subscription(params={}, headers={})
-      response, api_key = Stripe.request(:post, subscription_url, @api_key, params, headers)
+    def update_subscription(params={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :post, subscription_url, api_key  || @api_key, params, headers)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end
 
-    def create_subscription(params={}, headers={})
-      response, api_key = Stripe.request(:post, subscriptions_url, @api_key, params, headers)
+    def create_subscription(params={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :post, subscriptions_url, api_key || @api_key, params, headers)
       refresh_from({ :subscription => response }, api_key, true)
       subscription
     end

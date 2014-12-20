@@ -127,6 +127,9 @@ module Stripe
         if opts[:idempotency_key]
           headers[:idempotency_key] = opts[:idempotency_key] 
         end
+        if opts[:stripe_account]
+          headers[:stripe_account] = opts[:stripe_account]
+        end
         return opts[:api_key], headers
       else
         raise TypeError.new("parse_opts expects a string or a hash")

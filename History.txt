@@ -1,3 +1,9 @@
+=== 1.16.1 2014-12-19
+
+* 2 minor enhancements:
+  * Ability to send idempotent requests
+  * Ability to specify stripe account as a header.
+
 === 1.16.0 2014-10-08
 
 * 1 minor enhacement:

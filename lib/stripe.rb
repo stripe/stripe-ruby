@@ -30,6 +30,7 @@ require 'stripe/invoice'
 require 'stripe/invoice_item'
 require 'stripe/charge'
 require 'stripe/plan'
+require 'stripe/file_upload'
 require 'stripe/coupon'
 require 'stripe/token'
 require 'stripe/event'
@@ -62,11 +63,13 @@ module Stripe
     attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
   end
 
-  def self.api_url(url='')
-    @api_base + url
+  def self.api_url(url='', api_base_url=nil)
+    (api_base_url || @api_base) + url
   end
 
-  def self.request(method, url, api_key, params={}, headers={})
+  def self.request(method, url, api_key, params={}, headers={}, api_base_url=nil)
+    api_base_url = api_base_url || @api_base
+
     unless api_key ||= @api_key
       raise AuthenticationError.new('No API key provided. ' +
         'Set your API key using "Stripe.api_key = <API-KEY>". ' +
@@ -90,11 +93,11 @@ module Stripe
     end
 
     if @verify_ssl_certs and !@CERTIFICATE_VERIFIED
-      @CERTIFICATE_VERIFIED = CertificateBlacklist.check_ssl_cert(@api_base, @ssl_bundle_path)
+      @CERTIFICATE_VERIFIED = CertificateBlacklist.check_ssl_cert(api_base_url, @ssl_bundle_path)
     end
 
     params = Util.objects_to_ids(params)
-    url = api_url(url)
+    url = api_url(url, api_base_url)
 
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
@@ -102,7 +105,11 @@ module Stripe
       url += "#{URI.parse(url).query ? '&' : '?'}#{uri_encode(params)}" if params && params.any?
       payload = nil
     else
-      payload = uri_encode(params)
+      if headers[:content_type] && headers[:content_type] == "multipart/form-data"
+        payload = params
+      else
+        payload = uri_encode(params)
+      end
     end
 
     request_opts.update(:headers => request_headers(api_key).update(headers),
@@ -112,12 +119,12 @@ module Stripe
     begin
       response = execute_request(request_opts)
     rescue SocketError => e
-      handle_restclient_error(e)
+      handle_restclient_error(e, api_base_url)
     rescue NoMethodError => e
       # Work around RestClient bug
       if e.message =~ /\WRequestFailed\W/
         e = APIConnectionError.new('Unexpected HTTP response code')
-        handle_restclient_error(e)
+        handle_restclient_error(e, api_base_url)
       else
         raise
       end
@@ -125,10 +132,10 @@ module Stripe
       if rcode = e.http_code and rbody = e.http_body
         handle_api_error(rcode, rbody)
       else
-        handle_restclient_error(e)
+        handle_restclient_error(e, api_base_url)
       end
     rescue RestClient::Exception, Errno::ECONNREFUSED => e
-      handle_restclient_error(e)
+      handle_restclient_error(e, api_base_url)
     end
 
     [parse(response), api_key]
@@ -258,17 +265,18 @@ module Stripe
     APIError.new(error[:message], rcode, rbody, error_obj)
   end
 
-  def self.handle_restclient_error(e)
+  def self.handle_restclient_error(e, api_base_url=nil)
+    api_base_url = @api_base unless api_base_url
     connection_message = "Please check your internet connection and try again. " \
         "If this problem persists, you should check Stripe's service status at " \
         "https://twitter.com/stripestatus, or let us know at support@stripe.com."
 
     case e
     when RestClient::RequestTimeout
-      message = "Could not connect to Stripe (#{@api_base}). #{connection_message}"
+      message = "Could not connect to Stripe (#{api_base_url}). #{connection_message}"
 
     when RestClient::ServerBrokeConnection
-      message = "The connection to the server (#{@api_base}) broke before the " \
+      message = "The connection to the server (#{api_base_url}) broke before the " \
         "request completed. #{connection_message}"
 
     when RestClient::SSLCertificateNotVerified

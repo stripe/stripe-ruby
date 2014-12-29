@@ -13,7 +13,11 @@ module Stripe
     def each(&blk)
       self.data.each(&blk)
     end
-
+    
+    def empty?
+      count == 0
+    end
+  
     def retrieve(id, api_key=nil)
       api_key ||= @api_key
       response, api_key = Stripe.request(:get,"#{url}/#{CGI.escape(id)}", api_key)

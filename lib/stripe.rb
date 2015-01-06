@@ -53,6 +53,7 @@ require 'stripe/errors/authentication_error'
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
   @api_base = 'https://api.stripe.com'
+  @connect_base = 'https://connect.stripe.com'
 
   @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
@@ -60,7 +61,7 @@ module Stripe
 
 
   class << self
-    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version
+    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base
   end
 
   def self.api_url(url='', api_base_url=nil)

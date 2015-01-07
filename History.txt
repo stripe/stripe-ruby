@@ -1,3 +1,9 @@
+=== 1.17.1 2015-01-07
+
+* 2 minor enhacements:
+  * Fixed dependencies for Ruby versions less than 1.9.3
+  * Added deauthorize method to Account object
+
 === 1.17.0 2014-12-15
 
 * 1 major enhacement:

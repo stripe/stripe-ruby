@@ -1,3 +1,8 @@
+=== 1.17.2 2015-01-08
+
+* 1 bugfix:
+  * Fixed API key propagation for child resources
+
 === 1.17.1 2015-01-07
 
 * 2 minor enhacements:

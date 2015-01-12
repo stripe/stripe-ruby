@@ -18,6 +18,13 @@ module Stripe
       Util.convert_to_stripe_object(response, api_key)
     end
 
+    def self.all(filters={}, opts={})
+      api_key, headers = Util.parse_opts(opts)
+      response, api_key = Stripe.request(
+        :get, self.url, api_key, filters, headers, UPLOADS_API_BASE)
+      Util.convert_to_stripe_object(response, api_key)
+    end
+
     def refresh
       response, api_key = Stripe.request(
         :get, url, @api_key, @retrieve_options, self.class.request_headers, UPLOADS_API_BASE)

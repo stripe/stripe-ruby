@@ -35,7 +35,8 @@ module Stripe
         'plan' => Plan,
         'recipient' => Recipient,
         'refund' => Refund,
-        'subscription' => Subscription,        
+        'subscription' => Subscription,
+        'file_upload' => FileUpload,
         'transfer' => Transfer
       }
     end

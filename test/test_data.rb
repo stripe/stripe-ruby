@@ -185,12 +185,21 @@ module Stripe
 
     def test_file(params={})
       {
+        :object => "file_upload",
         :id => "fil_test_file",
         :created => 1403047735,
         :size => 4908,
         :purpose => params[:purpose] || "dispute_evidence",
         :url => nil,
-        :mimetype => nil,
+        :type => nil,
+      }
+    end
+
+    def test_file_array
+      {
+        :data => [test_file, test_file, test_file],
+        :object => 'list',
+        :url => '/v1/files'
       }
     end
 

@@ -26,7 +26,7 @@ module Stripe
 
     should "accessing id should not issue a fetch" do
       @mock.expects(:get).never
-      c = Stripe::Customer.new("test_customer");
+      c = Stripe::Customer.new("test_customer")
       c.id
     end
 

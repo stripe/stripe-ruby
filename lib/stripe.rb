@@ -74,17 +74,17 @@ module Stripe
     api_base_url = api_base_url || @api_base
 
     unless api_key ||= @api_key
-      raise AuthenticationError.new('No API key provided. ' +
-        'Set your API key using "Stripe.api_key = <API-KEY>". ' +
-        'You can generate API keys from the Stripe web interface. ' +
-        'See https://stripe.com/api for details, or email support@stripe.com ' +
+      raise AuthenticationError.new('No API key provided. ' \
+        'Set your API key using "Stripe.api_key = <API-KEY>". ' \
+        'You can generate API keys from the Stripe web interface. ' \
+        'See https://stripe.com/api for details, or email support@stripe.com ' \
         'if you have any questions.')
     end
 
     if api_key =~ /\s/
-      raise AuthenticationError.new('Your API key is invalid, as it contains ' +
-        'whitespace. (HINT: You can double-check your API key from the ' +
-        'Stripe web interface. See https://stripe.com/api for details, or ' +
+      raise AuthenticationError.new('Your API key is invalid, as it contains ' \
+        'whitespace. (HINT: You can double-check your API key from the ' \
+        'Stripe web interface. See https://stripe.com/api for details, or ' \
         'email support@stripe.com if you have any questions.)')
     end
 
@@ -148,13 +148,13 @@ module Stripe
 
   def self.ssl_preflight_passed?
     if !verify_ssl_certs && !@no_verify
-      $stderr.puts "WARNING: Running without SSL cert verification. " +
+      $stderr.puts "WARNING: Running without SSL cert verification. " \
         "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
 
       @no_verify = true
 
     elsif !Util.file_readable(@ssl_bundle_path) && !@no_bundle
-      $stderr.puts "WARNING: Running without SSL cert verification " +
+      $stderr.puts "WARNING: Running without SSL cert verification " \
         "because #{@ssl_bundle_path} isn't readable"
 
       @no_bundle = true

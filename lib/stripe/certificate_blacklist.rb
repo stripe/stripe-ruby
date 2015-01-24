@@ -39,9 +39,9 @@ module Stripe
       if blacklisted_certs = BLACKLIST[uri.host]
         if blacklisted_certs.include?(fingerprint)
           raise APIConnectionError.new(
-            "Invalid server certificate. You tried to connect to a server that" +
-            "has a revoked SSL certificate, which means we cannot securely send" +
-            "data to that server. Please email support@stripe.com if you need" +
+            "Invalid server certificate. You tried to connect to a server that" \
+            "has a revoked SSL certificate, which means we cannot securely send" \
+            "data to that server. Please email support@stripe.com if you need" \
             "help connecting to the correct API server."
           )
         end

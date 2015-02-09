@@ -2,25 +2,24 @@ module Stripe
   class StripeObject
     include Enumerable
 
-    attr_accessor :api_key
-    @@permanent_attributes = Set.new([:api_key, :id])
+    @@permanent_attributes = Set.new([:id])
 
     # The default :id method is deprecated and isn't useful to us
     if method_defined?(:id)
       undef :id
     end
 
-    def initialize(id=nil, api_key=nil)
+    def initialize(id=nil, opts={})
       # parameter overloading!
       if id.kind_of?(Hash)
-        @retrieve_options = id.dup
-        @retrieve_options.delete(:id)
+        @retrieve_params = id.dup
+        @retrieve_params.delete(:id)
         id = id[:id]
       else
-        @retrieve_options = {}
+        @retrieve_params = {}
       end
 
-      @api_key = api_key
+      @opts = opts
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us
       # to have a unified inspect method
@@ -29,8 +28,8 @@ module Stripe
       @values[:id] = id if id
     end
 
-    def self.construct_from(values, api_key=nil)
-      self.new(values[:id], api_key).refresh_from(values, api_key)
+    def self.construct_from(values, opts={})
+      self.new(values[:id]).refresh_from(values, opts)
     end
 
     def to_s(*args)
@@ -42,9 +41,8 @@ module Stripe
       "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
     end
 
-    def refresh_from(values, api_key, partial=false)
-      @api_key = api_key
-
+    def refresh_from(values, opts, partial=false)
+      @opts = opts
       @previous_metadata = values[:metadata]
       removed = partial ? Set.new : Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)
@@ -62,7 +60,7 @@ module Stripe
         @unsaved_values.delete(k)
       end
       values.each do |k, v|
-        @values[k] = Util.convert_to_stripe_object(v, api_key)
+        @values[k] = Util.convert_to_stripe_object(v, @opts)
         @transient_values.delete(k)
         @unsaved_values.delete(k)
       end
@@ -106,12 +104,12 @@ module Stripe
     end
 
     def _dump(level)
-      Marshal.dump([@values, @api_key])
+      Marshal.dump([@values, @opts])
     end
 
     def self._load(args)
-      values, api_key = Marshal.load(args)
-      construct_from(values, api_key)
+      values, opts = Marshal.load(args)
+      construct_from(values, opts)
     end
 
     if RUBY_VERSION < '1.9.2'

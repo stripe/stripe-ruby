@@ -3,9 +3,8 @@ module Stripe
     module Create
       module ClassMethods
         def create(params={}, opts={})
-          api_key, headers = Util.parse_opts(opts)
-          response, api_key = Stripe.request(:post, self.url, api_key, params, headers)
-          Util.convert_to_stripe_object(response, api_key)
+          response, opts = request(:post, url, params, opts)
+          Util.convert_to_stripe_object(response, opts)
         end
       end
 

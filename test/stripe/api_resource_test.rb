@@ -294,7 +294,6 @@ module Stripe
         @mock.expects(:get).never
         @mock.expects(:post).never
         @mock.expects(:delete).with("#{Stripe.api_base}/v1/customers/c_test_customer", nil, nil).once.returns(test_response({ "id" => "test_customer", "deleted" => true }))
-
         c = Stripe::Customer.construct_from(test_customer)
         c.delete
         assert_equal true, c.deleted
@@ -316,6 +315,33 @@ module Stripe
         assert c.kind_of? Array
         assert c[0].kind_of? Stripe::Charge
         assert c[0].card.kind_of?(Stripe::StripeObject) && c[0].card.object == 'card'
+      end
+
+      should "passing in a stripe_account header should pass it through on call" do
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:method] == :get &&
+          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
+          opts[:headers][:stripe_account] == 'acct_abc'
+        end.once.returns(test_response(test_customer))
+        c = Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
+      end
+
+      should "passing in a stripe_account header should pass it through on save" do
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:method] == :get &&
+          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
+          opts[:headers][:stripe_account] == 'acct_abc'
+        end.once.returns(test_response(test_customer))
+        c = Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
+
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:method] == :post &&
+          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
+          opts[:headers][:stripe_account] == 'acct_abc' &&
+          opts[:payload] == 'description=FOO'
+        end.once.returns(test_response(test_customer))
+        c.description = 'FOO'
+        c.save
       end
 
       context "error checking" do

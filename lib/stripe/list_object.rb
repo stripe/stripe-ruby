@@ -1,5 +1,6 @@
 module Stripe
   class ListObject < StripeObject
+    include Stripe::APIOperations::Request
 
     def [](k)
       case k
@@ -14,24 +15,19 @@ module Stripe
       self.data.each(&blk)
     end
 
-    def retrieve(id, api_key=nil)
-      api_key ||= @api_key
-      response, api_key = Stripe.request(:get,"#{url}/#{CGI.escape(id)}", api_key)
-      Util.convert_to_stripe_object(response, api_key)
+    def retrieve(id, opts={})
+      response, opts = request(:get,"#{url}/#{CGI.escape(id)}", {}, opts)
+      Util.convert_to_stripe_object(response, opts)
     end
 
     def create(params={}, opts={})
-      api_key, headers = Util.parse_opts(opts)
-      api_key ||= @api_key
-      response, api_key = Stripe.request(:post, url, api_key, params, headers)
-      Util.convert_to_stripe_object(response, api_key)
+      response, opts = request(:post, url, params, opts)
+      Util.convert_to_stripe_object(response, opts)
     end
 
     def all(params={}, opts={})
-      api_key, headers = Util.parse_opts(opts)
-      api_key ||= @api_key
-      response, api_key = Stripe.request(:get, url, api_key, params, headers)
-      Util.convert_to_stripe_object(response, api_key)
+      response, opts = request(:get, url, params, opts)
+      Util.convert_to_stripe_object(response, opts)
     end
   end
 end

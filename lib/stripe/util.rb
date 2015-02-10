@@ -124,7 +124,7 @@ module Stripe
       when NilClass
         {}
       when String
-        {api_key: opts}
+        {:api_key => opts}
       when Hash
         opts.clone
       else

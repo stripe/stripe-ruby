@@ -13,7 +13,16 @@ module Stripe
           # Assume all remaining opts must be headers
 
           response, opts[:api_key] = Stripe.request(method, url, api_key, params, headers, api_base)
-          [response, opts.select {|k, _| @@opts_to_persist.include?(k)}]
+
+          # Hash#select returns an array before 1.9
+          opts_to_persist = {}
+          opts.each do |k, v|
+            if @@opts_to_persist.include?(k)
+              opts_to_persist[k] = v
+            end
+          end
+
+          [response, opts_to_persist]
         end
       end
 

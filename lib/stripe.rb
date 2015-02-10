@@ -90,12 +90,6 @@ module Stripe
         'email support@stripe.com if you have any questions.)')
     end
 
-    if method == :get && headers.key?(:idempotency_key)
-      raise ArgumentError.new(
-        'Idempotency keys cannot be used for GET requests.'
-      )
-    end
-
     request_opts = { :verify_ssl => false }
 
     if ssl_preflight_passed?

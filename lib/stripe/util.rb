@@ -21,6 +21,7 @@ module Stripe
         'list' => ListObject,
 
         # business objects
+        'account' => Account,
         'application_fee' => ApplicationFee,
         'balance' => Balance,
         'balance_transaction' => BalanceTransaction,

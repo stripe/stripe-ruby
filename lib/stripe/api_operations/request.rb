@@ -2,7 +2,7 @@ module Stripe
   module APIOperations
     module Request
       module ClassMethods
-        @@opts_to_persist = Set.new([:api_key, :api_base, :stripe_account, :stripe_version])
+        OPTS_KEYS_TO_PERSIST = Set[:api_key, :api_base, :stripe_account, :stripe_version]
 
         def request(method, url, params={}, opts={})
           opts = Util.normalize_opts(opts)
@@ -17,7 +17,7 @@ module Stripe
           # Hash#select returns an array before 1.9
           opts_to_persist = {}
           opts.each do |k, v|
-            if @@opts_to_persist.include?(k)
+            if OPTS_KEYS_TO_PERSIST.include?(k)
               opts_to_persist[k] = v
             end
           end

@@ -1,10 +1,10 @@
 module Stripe
   module APIOperations
     module Delete
-      def delete(params = {}, opts={})
-        api_key, headers = Util.parse_opts(opts)
-        response, api_key = Stripe.request(:delete, url, api_key || @api_key, params, headers)
-        refresh_from(response, api_key)
+      def delete(params={}, opts={})
+        opts = Util.normalize_opts(opts)
+        response, opts = request(:delete, url, params, opts)
+        refresh_from(response, opts)
       end
     end
   end

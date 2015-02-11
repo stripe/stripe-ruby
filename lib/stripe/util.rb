@@ -21,6 +21,7 @@ module Stripe
         'list' => ListObject,
 
         # business objects
+        'account' => Account,
         'application_fee' => ApplicationFee,
         'balance' => Balance,
         'balance_transaction' => BalanceTransaction,
@@ -43,13 +44,13 @@ module Stripe
       }
     end
 
-    def self.convert_to_stripe_object(resp, api_key)
+    def self.convert_to_stripe_object(resp, opts)
       case resp
       when Array
-        resp.map { |i| convert_to_stripe_object(i, api_key) }
+        resp.map { |i| convert_to_stripe_object(i, opts) }
       when Hash
         # Try converting to a known object class.  If none available, fall back to generic StripeObject
-        object_classes.fetch(resp[:object], StripeObject).construct_from(resp, api_key)
+        object_classes.fetch(resp[:object], StripeObject).construct_from(resp, opts)
       else
         resp
       end
@@ -119,23 +120,16 @@ module Stripe
 
     # The secondary opts argument can either be a string or hash
     # Turn this value into an api_key and a set of headers
-    def self.parse_opts(opts)
+    def self.normalize_opts(opts)
       case opts
       when NilClass
-        return nil, {}
+        {}
       when String
-        return opts, {}
+        {:api_key => opts}
       when Hash
-        headers = {}
-        if opts[:idempotency_key]
-          headers[:idempotency_key] = opts[:idempotency_key]
-        end
-        if opts[:stripe_account]
-          headers[:stripe_account] = opts[:stripe_account]
-        end
-        return opts[:api_key], headers
+        opts.clone
       else
-        raise TypeError.new("parse_opts expects a string or a hash")
+        raise TypeError.new('normalize_opts expects a string or a hash')
       end
     end
   end

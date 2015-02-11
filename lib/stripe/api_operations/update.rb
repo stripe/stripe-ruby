@@ -1,8 +1,8 @@
 module Stripe
   module APIOperations
     module Update
-      def save(opts={})
-        values = serialize_params(self).merge(opts)
+      def save(params={})
+        values = serialize_params(self).merge(params)
 
         if @values[:metadata]
           values[:metadata] = serialize_metadata
@@ -11,8 +11,8 @@ module Stripe
         if values.length > 0
           values.delete(:id)
 
-          response, api_key = Stripe.request(:post, url, @api_key, values)
-          refresh_from(response, api_key)
+          response, opts = request(:post, url, values)
+          refresh_from(response, opts)
         end
         self
       end

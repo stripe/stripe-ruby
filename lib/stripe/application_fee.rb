@@ -7,9 +7,8 @@ module Stripe
     end
 
     def refund(params={}, opts={})
-      api_key, headers = Util.parse_opts(opts)
-      response, api_key = Stripe.request(:post, refund_url, api_key || @api_key, params, headers)
-      refresh_from(response, api_key)
+      response, opts = request(:post, refund_url, params, opts)
+      refresh_from(response, opts)
     end
 
     private

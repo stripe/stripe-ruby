@@ -3,9 +3,9 @@ module Stripe
     module List
       module ClassMethods
         def all(filters={}, opts={})
-          api_key, headers = Util.parse_opts(opts)
-          response, api_key = Stripe.request(:get, url, api_key, filters, headers)
-          Util.convert_to_stripe_object(response, api_key)
+          opts = Util.normalize_opts(opts)
+          response, opts = request(:get, url, filters, opts)
+          Util.convert_to_stripe_object(response, opts)
         end
       end
 

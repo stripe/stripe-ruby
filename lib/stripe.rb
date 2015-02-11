@@ -14,6 +14,7 @@ require 'stripe/api_operations/create'
 require 'stripe/api_operations/update'
 require 'stripe/api_operations/delete'
 require 'stripe/api_operations/list'
+require 'stripe/api_operations/request'
 
 # Resources
 require 'stripe/util'
@@ -56,6 +57,7 @@ module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
   @api_base = 'https://api.stripe.com'
   @connect_base = 'https://connect.stripe.com'
+  @uploads_base = 'https://uploads.stripe.com'
 
   @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
@@ -63,7 +65,7 @@ module Stripe
 
 
   class << self
-    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base
+    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base
   end
 
   def self.api_url(url='', api_base_url=nil)

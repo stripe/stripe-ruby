@@ -7,13 +7,13 @@ module Stripe
       "#{Customer.url}/#{CGI.escape(customer)}/subscriptions/#{CGI.escape(id)}"
     end
 
-    def self.retrieve(id, api_key=nil)
+    def self.retrieve(id, opts=nil)
       raise NotImplementedError.new("Subscriptions cannot be retrieved without a customer ID. Retrieve a subscription using customer.subscriptions.retrieve('subscription_id')")
     end
 
     def delete_discount
-      Stripe.request(:delete, discount_url, @api_key)
-      refresh_from({ :discount => nil }, api_key, true)
+      response, opts = request(:delete, discount_url)
+      refresh_from({ :discount => nil }, opts, true)
     end
 
     private

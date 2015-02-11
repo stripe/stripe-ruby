@@ -5,48 +5,40 @@ module Stripe
     include Stripe::APIOperations::Update
 
     def refund(params={}, opts={})
-      api_key, headers = Util.parse_opts(opts)
-      response, api_key = Stripe.request(
-        :post, refund_url, api_key || @api_key, params, headers)
-      refresh_from(response, api_key)
+      response, opts = request(:post, refund_url, params, opts)
+      refresh_from(response, opts)
     end
 
     def capture(params={}, opts={})
-      api_key, headers = Util.parse_opts(opts)
-      response, api_key = Stripe.request(
-        :post, capture_url, api_key || @api_key, params, headers)
-      refresh_from(response, api_key)
+      response, opts = request(:post, capture_url, params, opts)
+      refresh_from(response, opts)
     end
 
     def update_dispute(params={}, opts={})
-      api_key, headers = Util.parse_opts(opts)
-      response, api_key = Stripe.request(
-        :post, dispute_url, api_key || @api_key, params, headers)
-      refresh_from({ :dispute => response }, api_key, true)
+      response, opts = request(:post, dispute_url, params, opts)
+      refresh_from({ :dispute => response }, opts, true)
       dispute
     end
 
     def close_dispute(params={}, opts={})
-      api_key, headers = Util.parse_opts(opts)
-      response, api_key = Stripe.request(
-        :post, close_dispute_url, api_key || @api_key, params, headers)
-      refresh_from(response, api_key)
+      response, opts = request(:post, close_dispute_url, params, opts)
+      refresh_from(response, opts)
     end
 
     def mark_as_fraudulent
       params = {
         :fraud_details => { :user_report => 'fraudulent' }
       }
-      response, api_key = Stripe.request(:post, url, @api_key, params)
-      refresh_from(response, api_key)
+      response, opts = request(:post, url, params)
+      refresh_from(response, opts)
     end
 
     def mark_as_safe
       params = {
         :fraud_details => { :user_report => 'safe' }
       }
-      response, api_key = Stripe.request(:post, url, @api_key, params)
-      refresh_from(response, api_key)
+      response, opts = request(:post, url, params)
+      refresh_from(response, opts)
     end
 
     private

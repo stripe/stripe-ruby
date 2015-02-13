@@ -18,6 +18,7 @@ module Stripe
       # For the sake of not breaking folks who pass in an OAuth key in opts, let's lurkily
       # string match for it.
       if opts == {} && id.is_a?(String) && id.start_with?('sk_')
+        # `super` properly assumes a String opts is the apiKey and normalizes as expected.
         opts = id
         id = nil
       end

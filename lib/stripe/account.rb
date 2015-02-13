@@ -14,7 +14,14 @@ module Stripe
 
     # @override To make id optional
     def self.retrieve(id=nil, opts={})
-      super
+      # Account used to be a singleton, where this method's signature was `(opts={})`.
+      # For the sake of not breaking folks who pass in an OAuth key in opts, let's lurkily
+      # string match for it.
+      if opts == {} && id.is_a?(String) && id.start_with?('sk_')
+        opts = id
+        id = nil
+      end
+      super(id, opts)
     end
 
     def deauthorize(client_id, opts={})

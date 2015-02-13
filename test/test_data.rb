@@ -254,6 +254,13 @@ module Stripe
       }
     end
 
+    def test_reversal_array(transfer_id)
+      {
+        :data => [test_reversal, test_reversal, test_reversal],
+        :object => 'list',
+        :url => '/v1/transfers/' + transfer_id + '/reversals'
+      }
+    end
 
     def test_invoice
       {
@@ -359,6 +366,7 @@ module Stripe
         :fee => 0,
         :fee_details => [],
         :id => "tr_test_transfer",
+        :reversals => test_reversal_array('tr_test_transfer'),
         :livemode => false,
         :currency => "usd",
         :object => "transfer",
@@ -379,6 +387,18 @@ module Stripe
       test_transfer.merge({
         :status => 'canceled'
       })
+    end
+
+    def test_reversal(params={})
+      {
+        :object => 'transfer_reversal',
+        :amount => 30,
+        :currency => "usd",
+        :created => 1308595038,
+        :id => "ref_test_reversal",
+        :transfer => "tr_test_transfer",
+        :metadata => {}
+      }.merge(params)
     end
 
     def test_bitcoin_receiver(params={})

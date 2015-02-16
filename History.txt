@@ -1,3 +1,9 @@
+=== 1.19.0 2015-02-15
+
+* Support for new Transfers /reversals endpoint
+* Account retrieval now optionally accepts an account ID
+* Better support for passing custom headers, like Stripe-Account, through requests
+
 === 1.18.0 2015-01-21
 
 * 1 major enhancement:

@@ -67,6 +67,23 @@ module Stripe
       end
     end
 
+    should "send expand on fetch properly" do
+      @mock.expects(:get).once.
+        with("#{Stripe.api_base}/v1/charges/ch_test_charge?expand[]=customer", nil, nil).
+        returns(test_response(test_charge))
+
+      Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => [:customer]})
+    end
+
+    should "preserve expand across refreshes" do
+      @mock.expects(:get).twice.
+        with("#{Stripe.api_base}/v1/charges/ch_test_charge?expand[]=customer", nil, nil).
+        returns(test_response(test_charge))
+
+      ch = Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => [:customer]})
+      ch.refresh
+    end
+
     should "send stripe account as header when set" do
       stripe_account = "acct_0000"
       Stripe.expects(:execute_request).with do |opts|

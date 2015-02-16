@@ -10,7 +10,7 @@ module Stripe
       assert transfer.reversals.first.kind_of?(Stripe::Reversal)
     end
 
-    should "refunds should be refreshable" do
+    should "reversals should be refreshable" do
       @mock.expects(:get).twice.returns(test_response(test_transfer), test_response(test_reversal(:id => 'refreshed_reversal')))
 
       transfer = Stripe::Transfer.retrieve('test_transfer')
@@ -20,7 +20,7 @@ module Stripe
       assert_equal 'refreshed_reversal', reversal.id
     end
 
-    should "refunds should be updateable" do
+    should "reversals should be updateable" do
       @mock.expects(:get).once.returns(test_response(test_transfer))
       @mock.expects(:post).once.returns(test_response(test_reversal(:metadata => {'key' => 'value'})))
 

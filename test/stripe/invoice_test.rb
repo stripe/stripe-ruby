@@ -22,5 +22,19 @@ module Stripe
       i.pay
       assert_equal nil, i.next_payment_attempt
     end
+
+    should "pay with extra opts should pay an invoice" do
+      @mock.expects(:get).once.returns(test_response(test_invoice))
+      i = Stripe::Invoice.retrieve('in_test_invoice', {api_key: 'foobar'})
+
+      Stripe.expects(:execute_request).with do |opts|
+        opts[:url] == "#{Stripe.api_base}/v1/invoices/in_test_invoice/pay" &&
+          opts[:method] == :post &&
+          opts[:headers][:authorization] == 'Bearer foobar'
+      end.returns(test_response(test_paid_invoice))
+
+      i.pay
+      assert_equal nil, i.next_payment_attempt
+    end
   end
 end

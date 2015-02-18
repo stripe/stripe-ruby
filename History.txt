@@ -1,3 +1,7 @@
+=== 1.19.1 2015-02-18
+
+* Fixed fetching upcoming invoice/paying invoice methods
+
 === 1.19.0 2015-02-15
 
 * Support for new Transfers /reversals endpoint

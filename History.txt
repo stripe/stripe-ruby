@@ -1,3 +1,7 @@
+=== 1.20.0 2015-02-19
+
+* Added Update & Delete operations to Bitcoin Receivers
+
 === 1.19.1 2015-02-18
 
 * Fixed fetching upcoming invoice/paying invoice methods

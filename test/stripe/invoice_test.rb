@@ -25,7 +25,7 @@ module Stripe
 
     should "pay with extra opts should pay an invoice" do
       @mock.expects(:get).once.returns(test_response(test_invoice))
-      i = Stripe::Invoice.retrieve('in_test_invoice', {api_key: 'foobar'})
+      i = Stripe::Invoice.retrieve('in_test_invoice', {:api_key => 'foobar'})
 
       Stripe.expects(:execute_request).with do |opts|
         opts[:url] == "#{Stripe.api_base}/v1/invoices/in_test_invoice/pay" &&

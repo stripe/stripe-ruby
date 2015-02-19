@@ -22,14 +22,14 @@ module Stripe
         end
         
         def next(filters={}, opts={})
-          results = all(filters.merge!(starting_after: @list_pointer), opts)
+          results = all(filters.merge!(:starting_after => @list_pointer), opts)
           
           results.data.length > 0 ? @list_pointer = results.data.last.id : nil
           results
         end
         
         def previous(filters={}, opts={})
-          results = all(filters.merge!(ending_before: @list_pointer), opts)
+          results = all(filters.merge!(:ending_before => @list_pointer), opts)
           
           results.data.length > 0 ? @list_pointer = results.data.first.id : @list_pointer = nil
           results

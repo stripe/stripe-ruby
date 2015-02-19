@@ -38,6 +38,11 @@ compromised in transit and alter the code of gems fetched securely over https:
 
   gem 'rails'
   gem 'stripe'
+  
+Bundler 1.7 makes it possible to specify a source for a single gem so alternatively 
+you can now use this in your Gemfile:
+
+  gem 'stripe', source: 'https://code.stripe.com/'
 
 == Development
 

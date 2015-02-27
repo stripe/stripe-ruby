@@ -8,7 +8,7 @@ module Stripe
       if respond_to?(:recipient)
         "#{Recipient.url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
       elsif respond_to?(:customer)
-        "#{Customer.url}/#{CGI.escape(customer)}/cards/#{CGI.escape(id)}"
+        "#{Customer.url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       end
     end
 

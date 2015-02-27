@@ -103,7 +103,7 @@ module Stripe
         :id => id,
         :default_card => "cc_test_card",
         :created => 1304114758,
-        :cards => test_card_array(id),
+        :sources => test_customer_card_array(id),
         :metadata => {},
         :subscriptions => test_subscription_array(id)
       }.merge(params)
@@ -151,11 +151,19 @@ module Stripe
       }
     end
 
-    def test_card_array(customer_id)
+    def test_recipient_card_array(recipient_id)
       {
         :data => [test_card, test_card, test_card],
         :object => 'list',
-        :url => '/v1/customers/' + customer_id + '/cards'
+        :url => '/v1/recipients/' + recipient_id + '/cards'
+      }
+    end
+
+    def test_customer_card_array(customer_id)
+      {
+        :data => [test_card, test_card, test_card],
+        :object => 'list',
+        :url => '/v1/customers/' + customer_id + '/sources'
       }
     end
 
@@ -330,7 +338,7 @@ module Stripe
         :livemode => false,
         :object => "recipient",
         :id => "rp_test_recipient",
-        :cards => test_card_array(id),
+        :cards => test_recipient_card_array(id),
         :default_card => "debit_test_card",
         :active_account => {
           :last4 => "6789",

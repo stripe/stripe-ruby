@@ -11,7 +11,7 @@ module Stripe
 
     should "recipient cards should be listable" do
       c = recipient
-      @mock.expects(:get).once.returns(test_response(test_card_array(recipient.id)))
+      @mock.expects(:get).once.returns(test_response(test_recipient_card_array(recipient.id)))
       cards = c.cards.all.data
       assert cards.kind_of? Array
       assert cards[0].kind_of? Stripe::Card

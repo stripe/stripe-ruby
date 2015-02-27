@@ -1,3 +1,7 @@
+=== 1.20.1 2015-02-26
+
+* Updated Card to point to customer sources endpoint when customer property is set
+
 === 1.20.0 2015-02-19
 
 * Added Update & Delete operations to Bitcoin Receivers

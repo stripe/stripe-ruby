@@ -416,6 +416,102 @@ module Stripe
           assert_equal true, rescued
         end
       end
+
+      should 'add key to nested objects' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :legal_entity => {
+            :size => 'l',
+            :score => 4,
+            :height => 10
+          }
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[first_name]=Bob').returns(test_response({"id" => "myid"}))
+
+        acct.legal_entity.first_name = 'Bob'
+        acct.save
+      end
+
+      should 'save nothing if nothing changes' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :metadata => {
+            :key => 'value'
+          }
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, '').returns(test_response({"id" => "myid"}))
+
+        acct.save
+      end
+
+      should 'correctly handle replaced nested objects' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :legal_entity => {
+            :last_name => 'Smith',
+          }
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[first_name]=Bob&legal_entity[last_name]=').returns(test_response({"id" => "myid"}))
+
+        acct.legal_entity = {:first_name => 'Bob'}
+        acct.save
+      end
+
+      should 'correctly handle array setting' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :legal_entity => {}
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][0][first_name]=Bob').returns(test_response({"id" => "myid"}))
+
+        acct.legal_entity.additional_owners = [{:first_name => 'Bob'}]
+        acct.save
+      end
+
+      should 'correctly handle array insertion' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :legal_entity => {
+            :additional_owners => []
+          }
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][0][first_name]=Bob').returns(test_response({"id" => "myid"}))
+
+        acct.legal_entity.additional_owners << {:first_name => 'Bob'}
+        acct.save
+      end
+
+      should 'correctly handle array updates' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :legal_entity => {
+            :additional_owners => [{:first_name => 'Bob'}, {:first_name => 'Jane'}]
+          }
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][1][first_name]=Janet').returns(test_response({"id" => "myid"}))
+
+        acct.legal_entity.additional_owners[1].first_name = 'Janet'
+        acct.save
+      end
+
+      should 'correctly handle array noops' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :legal_entity => {
+            :additional_owners => [{:first_name => 'Bob'}]
+          }
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, '').returns(test_response({"id" => "myid"}))
+
+        acct.save
+      end
     end
   end
 end

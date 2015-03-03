@@ -27,7 +27,14 @@ module Stripe
     end
 
     should "be updatable" do
-      resp = {:id => 'acct_foo', :email => "test+bindings@stripe.com", :charge_enabled => false, :legal_entity => {}}
+      resp = {
+        :id => 'acct_foo',
+        :legal_entity => {
+          :address => {
+            :line1 => '1 Two Three'
+          }
+        }
+      }
       @mock.expects(:get).
         once.
         with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
@@ -35,11 +42,12 @@ module Stripe
 
       @mock.expects(:post).
         once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob').
+        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2%20Three%20Four').
         returns(test_response(resp))
 
       a = Stripe::Account.retrieve('acct_foo')
       a.legal_entity.first_name = 'Bob'
+      a.legal_entity.address.line1 = '2 Three Four'
       a.save
     end
 

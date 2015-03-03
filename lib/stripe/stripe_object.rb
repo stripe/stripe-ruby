@@ -43,7 +43,7 @@ module Stripe
 
     def refresh_from(values, opts, partial=false)
       @opts = opts
-      @previous_metadata = values[:metadata]
+      @previous = values
       removed = partial ? Set.new : Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)
       # Wipe old state before setting new.  This is useful for e.g. updating a

@@ -26,6 +26,23 @@ module Stripe
       assert !a.details_submitted
     end
 
+    should "be updatable" do
+      resp = {:id => 'acct_foo', :email => "test+bindings@stripe.com", :charge_enabled => false, :legal_entity => {}}
+      @mock.expects(:get).
+        once.
+        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
+        returns(test_response(resp))
+
+      @mock.expects(:post).
+        once.
+        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob').
+        returns(test_response(resp))
+
+      a = Stripe::Account.retrieve('acct_foo')
+      a.legal_entity.first_name = 'Bob'
+      a.save
+    end
+
     should "be able to deauthorize an account" do
       resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
       @mock.expects(:get).once.returns(test_response(resp))

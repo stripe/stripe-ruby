@@ -4,10 +4,6 @@ module Stripe
       def save(params={})
         values = serialize_params(self).merge(params)
 
-        if @values[:metadata]
-          values[:metadata] = serialize_metadata
-        end
-
         if values.length > 0
           values.delete(:id)
 
@@ -17,20 +13,20 @@ module Stripe
         self
       end
 
-      def serialize_metadata
-        if @unsaved_values.include?(:metadata)
+      def serialize_nested(key)
+        if @unsaved_values.include?(key)
           # the metadata object has been reassigned
           # i.e. as object.metadata = {key => val}
-          metadata_update = @values[:metadata]  # new hash
-          new_keys = metadata_update.keys.map(&:to_sym)
+          update = @values[key]  # new hash
+          new_keys = update.keys.map(&:to_sym)
           # remove keys at the server, but not known locally
-          keys_to_unset = @previous_metadata.keys - new_keys
-          keys_to_unset.each {|key| metadata_update[key] = ''}
+          keys_to_unset = @previous[key].keys - new_keys
+          keys_to_unset.each {|key| update[key] = ''}
 
-          metadata_update
+          update
         else
           # metadata is a StripeObject, and can be serialized normally
-          serialize_params(@values[:metadata])
+          serialize_params(@values[key])
         end
       end
 
@@ -45,6 +41,12 @@ module Stripe
 
           unsaved_keys.each do |k|
             update_hash[k] = serialize_params(obj_values[k])
+          end
+
+          obj_values.each do |k, v|
+            if v.is_a?(StripeObject) || v.is_a?(Hash)
+              update_hash[k] = serialize_nested(k)
+            end
           end
 
           update_hash

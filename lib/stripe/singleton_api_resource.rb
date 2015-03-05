@@ -11,8 +11,8 @@ module Stripe
       self.class.url
     end
 
-    def self.retrieve(api_key=nil)
-      instance = self.new(nil, api_key)
+    def self.retrieve(opts={})
+      instance = self.new(nil, opts)
       instance.refresh
       instance
     end

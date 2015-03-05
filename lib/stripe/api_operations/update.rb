@@ -2,7 +2,7 @@ module Stripe
   module APIOperations
     module Update
       def save(params={})
-        values = serialize_params(self).merge(params)
+        values = self.class.serialize_params(self).merge(params)
 
         if values.length > 0
           values.delete(:id)

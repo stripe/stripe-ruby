@@ -118,6 +118,75 @@ module Stripe
       end
     end
 
+
+    def serialize_nested_object(key)
+      new_value = @values[key]
+      if @unsaved_values.include?(key)
+        # the object has been reassigned
+        # e.g. as object.key = {foo => bar}
+        update = new_value
+        new_keys = update.keys.map(&:to_sym)
+        # remove keys at the server, but not known locally
+        keys_to_unset = @original_values[key].keys - new_keys
+        keys_to_unset.each {|key| update[key] = ''}
+
+        update
+      else
+        # can be serialized normally
+        self.class.serialize_params(new_value)
+      end
+    end
+
+    def self.serialize_params(obj)
+      case obj
+      when nil
+        ''
+      when StripeObject
+        unsaved_keys = obj.instance_variable_get(:@unsaved_values)
+        obj_values = obj.instance_variable_get(:@values)
+        update_hash = {}
+
+        unsaved_keys.each do |k|
+          update_hash[k] = serialize_params(obj_values[k])
+        end
+
+        obj_values.each do |k, v|
+          if v.is_a?(StripeObject) || v.is_a?(Hash)
+            update_hash[k] = obj.serialize_nested_object(k)
+          elsif v.is_a?(Array)
+            original_value = obj.instance_variable_get(:@original_values)[k]
+            if original_value && original_value.length > v.length
+              # url params provide no mechanism for deleting an item in an array,
+              # just overwriting the whole array or adding new items. So let's not
+              # allow deleting without a full overwrite until we have a solution.
+              raise ArgumentError.new(
+                "You cannot delete an item from an array, you must instead set a new array"
+              )
+            end
+            update_hash[k] = serialize_params(v)
+          end
+        end
+
+        update_hash
+      when Array
+        update_hash = {}
+        obj.each_with_index do |value, index|
+          update = serialize_params(value)
+          if update != {}
+            update_hash[index] = update
+          end
+        end
+
+        if update_hash == {}
+          nil
+        else
+          update_hash
+        end
+      else
+        obj
+      end
+    end
+
     protected
 
     def metaclass
@@ -183,73 +252,6 @@ module Stripe
 
     def respond_to_missing?(symbol, include_private = false)
       @values && @values.has_key?(symbol) || super
-    end
-
-    protected
-
-    def serialize_nested(key)
-      new_value = @values[key]
-      if @unsaved_values.include?(key)
-        # the object has been reassigned
-        # i.e. as object.key = {foo => bar}
-        update = new_value
-        new_keys = update.keys.map(&:to_sym)
-        # remove keys at the server, but not known locally
-        keys_to_unset = @original_values[key].keys - new_keys
-        keys_to_unset.each {|key| update[key] = ''}
-
-        update
-      else
-        if new_value.is_a?(Array) && @original_values[key].length > @values[key].length
-          raise ArgumentError.new(
-            "You cannot delete an item from an array, you must instead set a new array"
-          )
-        end
-
-        # can be serialized normally
-        serialize_params(new_value)
-      end
-    end
-
-    def serialize_params(obj)
-      case obj
-      when nil
-        ''
-      when StripeObject
-        unsaved_keys = obj.instance_variable_get(:@unsaved_values)
-        obj_values = obj.instance_variable_get(:@values)
-        update_hash = {}
-
-        unsaved_keys.each do |k|
-          update_hash[k] = serialize_params(obj_values[k])
-        end
-
-        obj_values.each do |k, v|
-          if v.is_a?(StripeObject) || v.is_a?(Hash)
-            update_hash[k] = obj.serialize_nested(k)
-          elsif v.is_a?(Array)
-            update_hash[k] = serialize_params(v)
-          end
-        end
-
-        update_hash
-      when Array
-        update_hash = {}
-        obj.each_with_index do |value, index|
-          update = serialize_params(value)
-          if update != {}
-            update_hash[index] = update
-          end
-        end
-
-        if update_hash == {}
-          nil
-        else
-          update_hash
-        end
-      else
-        obj
-      end
     end
   end
 end

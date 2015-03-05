@@ -512,6 +512,19 @@ module Stripe
 
         acct.save
       end
+
+      should 'correctly handle hash noops' do
+        acct = Stripe::Account.construct_from({
+          :id => 'myid',
+          :legal_entity => {
+            :address => {:line1 => '1 Two Three'}
+          }
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, '').returns(test_response({"id" => "myid"}))
+
+        acct.save
+      end
     end
   end
 end

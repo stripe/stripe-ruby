@@ -11,7 +11,8 @@ module Stripe
       self.class.url
     end
 
-    def self.retrieve(api_key=nil)
+    def self.retrieve(*args)
+      api_key = args.length > 0 ? Util.check_bad_api_key!(args.fetch(0)) : nil
       instance = self.new(nil, api_key)
       instance.refresh
       instance

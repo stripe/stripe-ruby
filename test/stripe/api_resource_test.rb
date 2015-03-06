@@ -53,6 +53,11 @@ module Stripe
       end
     end
 
+    should "specifying a nil api_key should raise an exception" do
+      assert_raise { Stripe::Customer.retrive({}, nil) }
+      assert_raise { Stripe::Customer.retrieve({}, { api_key: nil }) }
+    end
+
     should "AuthenticationErrors should have an http status, http body, and JSON body" do
       Stripe.api_key = "invalid"
       response = test_response(test_invalid_api_key_error, 401)
@@ -270,6 +275,7 @@ module Stripe
       should "accessing a property other than id or parent on an unfetched object should fetch it" do
         @mock.expects(:get).once.returns(test_response(test_customer))
         c = Stripe::Customer.new("test_customer")
+        c.api_key = 'foo'
         c.charges
       end
 
@@ -278,6 +284,7 @@ module Stripe
           url == "#{Stripe.api_base}/v1/customers/c_test_customer" && api_key.nil? && CGI.parse(params) == {'description' => ['another_mn']}
         end.once.returns(test_response(test_customer))
         c = Stripe::Customer.construct_from(test_customer)
+        c.api_key = 'foo'
         c.description = "another_mn"
         c.save
       end

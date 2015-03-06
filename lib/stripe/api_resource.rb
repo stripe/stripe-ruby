@@ -23,7 +23,9 @@ module Stripe
       refresh_from(response, api_key)
     end
 
-    def self.retrieve(id, api_key=nil)
+    def self.retrieve(*args)
+      id = args.fetch(0)
+      api_key = args.length > 1 ? Util.check_bad_api_key!(args.fetch(1)) : nil
       instance = self.new(id, api_key)
       instance.refresh
       instance

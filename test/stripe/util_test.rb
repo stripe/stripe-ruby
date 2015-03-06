@@ -26,10 +26,29 @@ module Stripe
       assert_equal(finish, symbolized)
     end
 
-    should "parse a nil opts argument" do
-      api_key, headers = Stripe::Util.parse_opts(nil)
-      assert_equal({}, headers)
-      assert_equal(nil, api_key)
+    should "parse an empty argument list" do
+      assert_equal([{}, {}], Stripe::Util.parse_argument_list([]))
+    end
+
+    should "parse a 1-item argument list" do
+      assert_equal(['foo', {}], Stripe::Util.parse_argument_list(['foo']))
+    end
+
+    should "parse a 2-item argument list" do
+      assert_equal(['foo', 'bar'], Stripe::Util.parse_argument_list(['foo', 'bar']))
+    end
+
+    should "raise on NilClass arguments" do
+      assert_raise { Stripe::Util.parse_opts(nil) }
+    end
+
+    should "raise on NilClass api keys" do
+      assert_raise { Stripe::Util.parse_opts(api_key: nil) }
+    end
+
+    should "check api keys" do
+      assert_raise { Stripe::Util.check_bad_api_key!(nil) }
+      assert_nothing_raised { Stripe::Util.check_bad_api_key!('test-key') }
     end
 
     should "parse a string opts argument" do

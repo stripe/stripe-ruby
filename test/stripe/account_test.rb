@@ -11,6 +11,10 @@ module Stripe
       assert !a.details_submitted
     end
 
+    should "specifying a nil api_key should raise an exception" do
+      assert_raise { Stripe::Account.retrieve(nil) }
+    end
+
     should "be able to deauthorize an account" do
       resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
       @mock.expects(:get).once.returns(test_response(resp))

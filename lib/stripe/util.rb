@@ -19,7 +19,7 @@ module Stripe
       @object_classes ||= {
         # data structures
         'list' => ListObject,
-        
+
         # business objects
         'application_fee' => ApplicationFee,
         'balance' => Balance,
@@ -35,7 +35,7 @@ module Stripe
         'plan' => Plan,
         'recipient' => Recipient,
         'refund' => Refund,
-        'subscription' => Subscription,        
+        'subscription' => Subscription,
         'transfer' => Transfer
       }
     end
@@ -114,26 +114,51 @@ module Stripe
       result
     end
 
+    def self.parse_argument_list(args)
+      case args.length
+      when 0
+        [{}, {}]
+      when 1
+        [args.fetch(0), {}]
+      else
+        [args.fetch(0), args.fetch(1)]
+      end
+    end
+
     # The secondary opts argument can either be a string or hash
     # Turn this value into an api_key and a set of headers
     def self.parse_opts(opts)
       case opts
       when NilClass
-        return nil, {}
+        raise_bad_api_key
       when String
         return opts, {}
       when Hash
         headers = {}
         if opts[:idempotency_key]
-          headers[:idempotency_key] = opts[:idempotency_key] 
+          headers[:idempotency_key] = opts[:idempotency_key]
         end
         if opts[:stripe_account]
           headers[:stripe_account] = opts[:stripe_account]
         end
-        return opts[:api_key], headers
+
+        api_key = if opts.has_key?(:api_key)
+          check_bad_api_key!(opts.fetch(:api_key))
+        end
+
+        return api_key, headers
       else
-        raise TypeError.new("parse_opts expects a string or a hash")
+        raise TypeError.new("parse_opts expects a String or a Hash")
       end
+    end
+
+    def self.check_bad_api_key!(key)
+      raise_bad_api_key unless key.is_a?(String)
+      key
+    end
+
+    def self.raise_bad_api_key
+      raise TypeError.new('api_key must be a String')
     end
   end
 end

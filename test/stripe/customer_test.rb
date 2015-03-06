@@ -34,7 +34,9 @@ module Stripe
 
     should "create_upcoming_invoice should create a new invoice" do
       @mock.expects(:post).once.returns(test_response(test_invoice))
-      i = Stripe::Customer.new("test_customer").create_upcoming_invoice
+      customer = Stripe::Customer.new("test_customer")
+      customer.api_key = 'foo'
+      i = customer.create_upcoming_invoice
       assert_equal "c_test_customer", i.customer
     end
 

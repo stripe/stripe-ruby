@@ -11,11 +11,13 @@ module Stripe
       self.class.url
     end
 
-    def self.retrieve(*args)
-      api_key = args.length > 0 ? Util.check_bad_api_key!(args.fetch(0)) : nil
+    def self.retrieve(api_key=ARGUMENT_NOT_PROVIDED)
+      api_key = api_key.equal?(ARGUMENT_NOT_PROVIDED) ? nil : Util.check_bad_api_key!(api_key)
       instance = self.new(nil, api_key)
       instance.refresh
       instance
     end
+
+    ARGUMENT_NOT_PROVIDED = Object.new
   end
 end

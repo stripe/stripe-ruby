@@ -114,17 +114,6 @@ module Stripe
       result
     end
 
-    def self.parse_argument_list(args)
-      case args.length
-      when 0
-        [{}, {}]
-      when 1
-        [args.fetch(0), {}]
-      else
-        [args.fetch(0), args.fetch(1)]
-      end
-    end
-
     # The secondary opts argument can either be a string or hash
     # Turn this value into an api_key and a set of headers
     def self.parse_opts(opts)

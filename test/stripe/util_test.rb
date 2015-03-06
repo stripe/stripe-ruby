@@ -26,18 +26,6 @@ module Stripe
       assert_equal(finish, symbolized)
     end
 
-    should "parse an empty argument list" do
-      assert_equal([{}, {}], Stripe::Util.parse_argument_list([]))
-    end
-
-    should "parse a 1-item argument list" do
-      assert_equal(['foo', {}], Stripe::Util.parse_argument_list(['foo']))
-    end
-
-    should "parse a 2-item argument list" do
-      assert_equal(['foo', 'bar'], Stripe::Util.parse_argument_list(['foo', 'bar']))
-    end
-
     should "raise on NilClass arguments" do
       assert_raise { Stripe::Util.parse_opts(nil) }
     end

@@ -118,8 +118,6 @@ module Stripe
     # Turn this value into an api_key and a set of headers
     def self.parse_opts(opts)
       case opts
-      when NilClass
-        raise_bad_api_key
       when String
         return opts, {}
       when Hash
@@ -142,12 +140,8 @@ module Stripe
     end
 
     def self.check_bad_api_key!(key)
-      raise_bad_api_key unless key.is_a?(String)
+      raise TypeError.new('api_key must be a String') unless key.is_a?(String)
       key
-    end
-
-    def self.raise_bad_api_key
-      raise TypeError.new('api_key must be a String')
     end
   end
 end

@@ -62,5 +62,14 @@ module Stripe
       end.returns(test_response({ 'stripe_user_id' => a.id }))
       a.deauthorize('ca_1234', 'sk_test_1234')
     end
+
+    should "reject nil api keys" do
+      assert_raise TypeError do
+        Stripe::Account.retrieve(nil)
+      end
+      assert_raise TypeError do
+        Stripe::Account.retrieve(:api_key => nil)
+      end
+    end
   end
 end

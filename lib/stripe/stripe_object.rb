@@ -137,7 +137,7 @@ module Stripe
       end
     end
 
-    def self.serialize_params(obj)
+    def self.serialize_params(obj, original_value=nil)
       case obj
       when nil
         ''
@@ -163,7 +163,7 @@ module Stripe
                 "You cannot delete an item from an array, you must instead set a new array"
               )
             end
-            update_hash[k] = serialize_params(v)
+            update_hash[k] = serialize_params(v, original_value)
           end
         end
 
@@ -172,7 +172,7 @@ module Stripe
         update_hash = {}
         obj.each_with_index do |value, index|
           update = serialize_params(value)
-          if update != {}
+          if update != {} && (!original_value || update != original_value[index])
             update_hash[index] = update
           end
         end

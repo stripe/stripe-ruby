@@ -505,7 +505,8 @@ module Stripe
           :id => 'myid',
           :legal_entity => {
             :additional_owners => [{:first_name => 'Bob'}]
-          }
+          },
+          :currencies_supported => ['usd', 'cad']
         })
 
         @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, '').returns(test_response({"id" => "myid"}))

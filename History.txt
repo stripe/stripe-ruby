@@ -1,3 +1,8 @@
+=== 1.20.2 2015-03-10
+
+* Added support for updating nested hashes besides `metadata` (which was already supported)
+* Fixed bug in balance retrieval
+
 === 1.20.1 2015-02-26
 
 * Updated Card to point to customer sources endpoint when customer property is set

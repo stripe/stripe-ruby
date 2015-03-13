@@ -118,9 +118,12 @@ module Stripe
       end
     end
 
-
     def serialize_nested_object(key)
       new_value = @values[key]
+      if new_value.is_a?(APIResource)
+        return {}
+      end
+
       if @unsaved_values.include?(key)
         # the object has been reassigned
         # e.g. as object.key = {foo => bar}

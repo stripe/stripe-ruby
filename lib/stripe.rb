@@ -15,6 +15,7 @@ require 'stripe/api_operations/update'
 require 'stripe/api_operations/delete'
 require 'stripe/api_operations/list'
 require 'stripe/api_operations/request'
+require 'stripe/api_operations/verify'
 
 # Resources
 require 'stripe/util'
@@ -45,6 +46,7 @@ require 'stripe/reversal'
 require 'stripe/application_fee_refund'
 require 'stripe/bitcoin_receiver'
 require 'stripe/bitcoin_transaction'
+require 'stripe/bank_account'
 
 # Errors
 require 'stripe/errors/stripe_error'

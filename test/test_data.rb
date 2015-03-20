@@ -159,6 +159,18 @@ module Stripe
       }
     end
 
+    def test_bank_account(params={})
+      {:id => "ba_15hQJ2AtGMx7dsfZ98CZVThF", :object => "bank_account", :last4 => "6789", :country => "US", :currency => "usd", :status => "new", :fingerprint => "8nC6Gs75HPmjUnNt", :routing_number => "110000000", :bank_name => "STRIPE TEST BANK", :metadata => {}, :customer => "cus_5tXdQxOF5BBsTc"}.merge(params)
+    end
+
+    def test_bank_account_array(customer_id)
+      {
+          :data => [test_bank_account, test_bank_account, test_bank_account],
+          :object => 'list',
+          :url => '/v1/customers/' + customer_id + '/sources'
+      }
+    end
+
     def test_customer_card_array(customer_id)
       {
         :data => [test_card, test_card, test_card],

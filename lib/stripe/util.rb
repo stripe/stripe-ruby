@@ -26,6 +26,7 @@ module Stripe
         'balance' => Balance,
         'balance_transaction' => BalanceTransaction,
         'card' => Card,
+        'bank_account' => BankAccount,
         'charge' => Charge,
         'coupon' => Coupon,
         'customer' => Customer,

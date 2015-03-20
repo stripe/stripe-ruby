@@ -1,9 +1,9 @@
 module Stripe
   class BankAccount < APIResource
     include Stripe::APIOperations::Update
-    include Stripe::APIOperations::Verify
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::List
+    #include Stripe::APIOperations::Verify
 
     def url
       #if respond_to?(:recipient)
@@ -11,6 +11,11 @@ module Stripe
       #elsif respond_to?(:customer)
         "#{Customer.url}/#{CGI.escape(customer)}/bank_accounts/#{CGI.escape(id)}"
       #end
+    end
+
+    def verify(params={})
+      response, opts = request(:post, verify_url, params)
+      refresh_from(response, opts)
     end
 
     def self.retrieve(id, opts=nil)

@@ -37,6 +37,15 @@ module Stripe
       end
     end
 
+    should "using a nil api key should raise an exception" do
+      assert_raises TypeError do
+        Stripe::Customer.all({}, nil)
+      end
+      assert_raises TypeError do
+        Stripe::Customer.all({}, { :api_key => nil })
+      end
+    end
+
     should "specifying api credentials containing whitespace should raise an exception" do
       Stripe.api_key = "key "
       assert_raises Stripe::AuthenticationError do
@@ -469,7 +478,14 @@ module Stripe
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[first_name]=Bob&legal_entity[last_name]=').returns(test_response({"id" => "myid"}))
+        @mock.expects(:post).once.with(
+          "#{Stripe.api_base}/v1/accounts/myid",
+          nil,
+          any_of(
+            'legal_entity[first_name]=Bob&legal_entity[last_name]=',
+            'legal_entity[last_name]=&legal_entity[first_name]=Bob'
+          )
+        ).returns(test_response({"id" => "myid"}))
 
         acct.legal_entity = {:first_name => 'Bob'}
         acct.save

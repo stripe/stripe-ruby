@@ -123,15 +123,24 @@ module Stripe
     # Turn this value into an api_key and a set of headers
     def self.normalize_opts(opts)
       case opts
-      when NilClass
-        {}
       when String
         {:api_key => opts}
       when Hash
+        check_api_key!(opts.fetch(:api_key)) if opts.has_key?(:api_key)
         opts.clone
       else
         raise TypeError.new('normalize_opts expects a string or a hash')
       end
+    end
+
+    def self.check_string_argument!(key)
+      raise TypeError.new("argument must be a string") unless key.is_a?(String)
+      key
+    end
+
+    def self.check_api_key!(key)
+      raise TypeError.new("api_key must be a string") unless key.is_a?(String)
+      key
     end
   end
 end

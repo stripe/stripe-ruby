@@ -3,7 +3,6 @@ module Stripe
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::List
-    #include Stripe::APIOperations::Verify
 
     def url
       #if respond_to?(:recipient)

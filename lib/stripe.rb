@@ -15,7 +15,6 @@ require 'stripe/api_operations/update'
 require 'stripe/api_operations/delete'
 require 'stripe/api_operations/list'
 require 'stripe/api_operations/request'
-require 'stripe/api_operations/verify'
 
 # Resources
 require 'stripe/util'

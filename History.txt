@@ -1,3 +1,12 @@
+=== 1.20.4 2015-03-26
+
+* Raise an error when explicitly passing nil as the API key on resource methods
+* Fix error when passing an API key to Balance.retrieve (github issue #232)
+
+=== 1.20.3 2015-03-13
+
+* Fixed error when updating certain resources (github issue #224)
+
 === 1.20.2 2015-03-10
 
 * Added support for updating nested hashes besides `metadata` (which was already supported)

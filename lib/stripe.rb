@@ -26,7 +26,6 @@ require 'stripe/account'
 require 'stripe/balance'
 require 'stripe/balance_transaction'
 require 'stripe/customer'
-require 'stripe/certificate_blacklist'
 require 'stripe/invoice'
 require 'stripe/invoice_item'
 require 'stripe/charge'
@@ -62,7 +61,6 @@ module Stripe
 
   @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
-  @CERTIFICATE_VERIFIED = false
 
 
   class << self
@@ -96,10 +94,6 @@ module Stripe
     if ssl_preflight_passed?
       request_opts.update(:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
                           :ssl_ca_file => @ssl_bundle_path)
-    end
-
-    if @verify_ssl_certs and !@CERTIFICATE_VERIFIED
-      @CERTIFICATE_VERIFIED = CertificateBlacklist.check_ssl_cert(api_base_url, @ssl_bundle_path)
     end
 
     params = Util.objects_to_ids(params)

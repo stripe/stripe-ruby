@@ -13,7 +13,7 @@ module Stripe
     end
 
     def self.retrieve(id, opts=nil)
-      raise NotImplementedError.new("Cards cannot be retrieved without a customer ID. Retrieve a card using customer.cards.retrieve('card_id')")
+      raise NotImplementedError.new("Cards cannot be retrieved without a customer ID. Retrieve a card using customer.sources.retrieve('card_id')")
     end
   end
 end

@@ -129,9 +129,12 @@ module Stripe
         # e.g. as object.key = {foo => bar}
         update = new_value
         new_keys = update.keys.map(&:to_sym)
+
         # remove keys at the server, but not known locally
-        keys_to_unset = @original_values[key].keys - new_keys
-        keys_to_unset.each {|key| update[key] = ''}
+        if @original_values.include?(key)
+          keys_to_unset = @original_values[key].keys - new_keys
+          keys_to_unset.each {|key| update[key] = ''}
+        end
 
         update
       else

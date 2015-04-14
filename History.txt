@@ -1,3 +1,8 @@
+=== 1.21.0 2015-04-14
+
+* Remove TLS cert revocation check. (All pre-heartbleed certs have expired.)
+* Bugfix: don't unset keys when they don't exist on StripeObject.
+
 === 1.20.4 2015-03-26
 
 * Raise an error when explicitly passing nil as the API key on resource methods

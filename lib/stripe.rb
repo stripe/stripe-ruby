@@ -186,13 +186,13 @@ module Stripe
 
   def self._uname_uname
     (`uname -a 2>/dev/null` || '').strip
-  rescue Errno::ENOMEM
+  rescue Errno::ENOMEM # couldn't create subprocess
     "uname lookup failed"
   end
 
   def self._uname_ver
     (`ver` || '').strip
-  rescue Errno::ENOMEM
+  rescue Errno::ENOMEM # couldn't create subprocess
     "uname lookup failed"
   end
 

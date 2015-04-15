@@ -96,12 +96,12 @@ module Stripe
       request_opts = {:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
                       :ssl_ca_file => @ssl_bundle_path}
     else
+      request_opts = {:verify_ssl => false}
       unless @verify_ssl_warned
         @verify_ssl_warned = true
         $stderr.puts("WARNING: Running without SSL cert verification. " \
           "You should never do this in production. " \
           "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
-        request_opts = {:verify_ssl => false}
       end
     end
 

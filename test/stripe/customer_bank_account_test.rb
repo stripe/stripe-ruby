@@ -42,5 +42,14 @@ module Stripe
       bank_account = c.bank_accounts.create(:source => "tok_41YJ05ijAaWaFS")
       assert_equal "test_bank_account", bank_account.id
     end
+
+    should "customer bank accounts should be verifiable" do
+      c = customer
+      @mock.expects(:get).once.returns(test_response(test_bank_account))
+      @mock.expects(:post).once.returns(test_response(test_bank_account(:status => "verified")))
+      bank_account = c.bank_accounts.retrieve('bank_account')
+      bank_account.verify({:amounts => [32, 45]})
+      assert_equal "verified", bank_account.status
+    end
   end
 end

@@ -14,4 +14,9 @@ gemfile:
   - gemfiles/json.gemfile
   - gemfiles/yajl.gemfile
 
+matrix:
+  exclude:
+    - rvm: jruby-19mode
+      gemfile: gemfiles/yajl.gemfile
+
 sudo: false

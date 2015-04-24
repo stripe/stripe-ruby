@@ -6,11 +6,17 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1
-  - 2.2  
+  - 2.2
+  - jruby-19mode
 
 gemfile:
   - gemfiles/default-with-activesupport.gemfile
   - gemfiles/json.gemfile
   - gemfiles/yajl.gemfile
+
+matrix:
+  exclude:
+    - rvm: jruby-19mode
+      gemfile: gemfiles/yajl.gemfile
 
 sudo: false

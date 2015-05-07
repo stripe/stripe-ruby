@@ -25,6 +25,7 @@ module Stripe
         'application_fee' => ApplicationFee,
         'balance' => Balance,
         'balance_transaction' => BalanceTransaction,
+        'bank_account' => BankAccount,
         'card' => Card,
         'charge' => Charge,
         'coupon' => Coupon,

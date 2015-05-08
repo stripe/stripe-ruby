@@ -160,7 +160,7 @@ module Stripe
     end
 
     def test_bank_account(params={})
-      {:id => "ba_15hQJ2AtGMx7dsfZ98CZVThF", :object => "bank_account", :last4 => "6789", :country => "US", :currency => "usd", :status => "new", :fingerprint => "8nC6Gs75HPmjUnNt", :routing_number => "110000000", :bank_name => "STRIPE TEST BANK", :metadata => {}, :customer => "c_test_customer"}.merge(params)
+      {:id => "test_bank_account_token", :object => "bank_account", :last4 => "6789", :country => "US", :currency => "usd", :status => "new", :fingerprint => "8nC6Gs75HPmjUnNt", :routing_number => "110000000", :bank_name => "STRIPE TEST BANK", :metadata => {}, :customer => "c_test_customer"}.merge(params)
     end
 
     def test_bank_account_array(customer_id)
@@ -168,12 +168,6 @@ module Stripe
           :data => [test_bank_account, test_bank_account, test_bank_account],
           :object => 'list',
           :url => '/v1/customers/' + customer_id + '/sources'
-      }
-    end
-
-    def test_bank_account_verify(params={})
-      {
-
       }
     end
 

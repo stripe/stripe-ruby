@@ -1,5 +1,4 @@
 require File.expand_path('../../test_helper', __FILE__)
-
 module Stripe
   class CustomerTest < Test::Unit::TestCase
     should "customers should be listable" do
@@ -84,5 +83,6 @@ module Stripe
       c.delete_discount
       assert_equal nil, c.discount
     end
+
   end
 end

@@ -12,7 +12,7 @@ module Stripe
     end
 
     def self.retrieve(opts={})
-      instance = self.new(nil, opts)
+      instance = self.new(nil, Util.normalize_opts(opts))
       instance.refresh
       instance
     end

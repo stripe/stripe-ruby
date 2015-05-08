@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class AccountTest < Test::Unit::TestCase
-    should "account should be retrievable" do
+    should "be retrievable" do
       resp = {:email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
       @mock.expects(:get).
         once.
@@ -14,7 +14,7 @@ module Stripe
       assert !a.details_submitted
     end
 
-    should "account should be retrievable via plural endpoint" do
+    should "be retrievable via plural endpoint" do
       resp = {:email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
       @mock.expects(:get).
         once.
@@ -24,6 +24,13 @@ module Stripe
       assert_equal "test+bindings@stripe.com", a.email
       assert !a.charge_enabled
       assert !a.details_submitted
+    end
+
+    should "be retrievable using an API key as the only argument" do
+      account = mock
+      Stripe::Account.expects(:new).once.with(nil, {:api_key => 'sk_foobar'}).returns(account)
+      account.expects(:refresh).once
+      Stripe::Account.retrieve('sk_foobar')
     end
 
     should "be updatable" do
@@ -61,6 +68,15 @@ module Stripe
         url == "#{Stripe.connect_base}/oauth/deauthorize" && api_key.nil? && CGI.parse(params) == { 'client_id' => [ 'ca_1234' ], 'stripe_user_id' => [ a.id ]}
       end.returns(test_response({ 'stripe_user_id' => a.id }))
       a.deauthorize('ca_1234', 'sk_test_1234')
+    end
+
+    should "reject nil api keys" do
+      assert_raise TypeError do
+        Stripe::Account.retrieve(nil)
+      end
+      assert_raise TypeError do
+        Stripe::Account.retrieve(:api_key => nil)
+      end
     end
   end
 end

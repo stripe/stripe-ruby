@@ -1,9 +1,12 @@
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
 require 'cgi'
-require 'set'
 require 'openssl'
-require 'rest_client'
+require 'rbconfig'
+require 'set'
+require 'socket'
+
+require 'rest-client'
 require 'json'
 
 # Version
@@ -26,7 +29,6 @@ require 'stripe/account'
 require 'stripe/balance'
 require 'stripe/balance_transaction'
 require 'stripe/customer'
-require 'stripe/certificate_blacklist'
 require 'stripe/invoice'
 require 'stripe/invoice_item'
 require 'stripe/charge'
@@ -63,7 +65,6 @@ module Stripe
 
   @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
-  @CERTIFICATE_VERIFIED = false
 
 
   class << self
@@ -92,15 +93,17 @@ module Stripe
         'email support@stripe.com if you have any questions.)')
     end
 
-    request_opts = { :verify_ssl => false }
-
-    if ssl_preflight_passed?
-      request_opts.update(:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
-                          :ssl_ca_file => @ssl_bundle_path)
-    end
-
-    if @verify_ssl_certs and !@CERTIFICATE_VERIFIED
-      @CERTIFICATE_VERIFIED = CertificateBlacklist.check_ssl_cert(api_base_url, @ssl_bundle_path)
+    if verify_ssl_certs
+      request_opts = {:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
+                      :ssl_ca_file => @ssl_bundle_path}
+    else
+      request_opts = {:verify_ssl => false}
+      unless @verify_ssl_warned
+        @verify_ssl_warned = true
+        $stderr.puts("WARNING: Running without SSL cert verification. " \
+          "You should never do this in production. " \
+          "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
+      end
     end
 
     params = Util.objects_to_ids(params)
@@ -150,23 +153,6 @@ module Stripe
 
   private
 
-  def self.ssl_preflight_passed?
-    if !verify_ssl_certs && !@no_verify
-      $stderr.puts "WARNING: Running without SSL cert verification. " \
-        "Execute 'Stripe.verify_ssl_certs = true' to enable verification."
-
-      @no_verify = true
-
-    elsif !Util.file_readable(@ssl_bundle_path) && !@no_bundle
-      $stderr.puts "WARNING: Running without SSL cert verification " \
-        "because #{@ssl_bundle_path} isn't readable"
-
-      @no_bundle = true
-    end
-
-    !(@no_verify || @no_bundle)
-  end
-
   def self.user_agent
     @uname ||= get_uname
     lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
@@ -176,17 +162,41 @@ module Stripe
       :lang => 'ruby',
       :lang_version => lang_version,
       :platform => RUBY_PLATFORM,
+      :engine => defined?(RUBY_ENGINE) ? RUBY_ENGINE : '',
       :publisher => 'stripe',
-      :uname => @uname
+      :uname => @uname,
+      :hostname => Socket.gethostname,
     }
 
   end
 
   def self.get_uname
-    `uname -a 2>/dev/null`.strip if RUBY_PLATFORM =~ /linux|darwin/i
-  rescue Errno::ENOMEM => ex # couldn't create subprocess
+    if File.exist?('/proc/version')
+      File.read('/proc/version').strip
+    else
+      case RbConfig::CONFIG['host_os']
+      when /linux|darwin|bsd|sunos|solaris|cygwin/i
+        _uname_uname
+      when /mswin|mingw/i
+        _uname_ver
+      else
+        "unknown platform"
+      end
+    end
+  end
+
+  def self._uname_uname
+    (`uname -a 2>/dev/null` || '').strip
+  rescue Errno::ENOMEM # couldn't create subprocess
     "uname lookup failed"
   end
+
+  def self._uname_ver
+    (`ver` || '').strip
+  rescue Errno::ENOMEM # couldn't create subprocess
+    "uname lookup failed"
+  end
+
 
   def self.uri_encode(params)
     Util.flatten_params(params).

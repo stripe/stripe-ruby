@@ -25,5 +25,10 @@ module Stripe
       symbolized = Stripe::Util.symbolize_names(start)
       assert_equal(finish, symbolized)
     end
+
+    should "normalize_opts should reject nil keys" do
+      assert_raise { Stripe::Util.normalize_opts(nil) }
+      assert_raise { Stripe::Util.normalize_opts(:api_key => nil) }
+    end
   end
 end

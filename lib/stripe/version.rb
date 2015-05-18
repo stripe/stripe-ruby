@@ -1,3 +1,3 @@
 module Stripe
-  VERSION = '1.21.0'
+  VERSION = '1.21.0.avvo'
 end

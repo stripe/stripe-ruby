@@ -93,8 +93,17 @@ module Stripe
     end
 
     def to_hash
+      maybe_to_hash = lambda do |value|
+        value.respond_to?(:to_hash) ? value.to_hash : value
+      end
+
       @values.inject({}) do |acc, (key, value)|
-        acc[key] = value.respond_to?(:to_hash) ? value.to_hash : value
+        acc[key] = case value
+                   when Array
+                     value.map(&maybe_to_hash)
+                   else
+                     maybe_to_hash.call(value)
+                   end
         acc
       end
     end

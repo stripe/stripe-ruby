@@ -1,13 +1,11 @@
 module Stripe
-  class Card < APIResource
+  class BankAccount < APIResource
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::List
 
     def url
-      if respond_to?(:recipient)
-        "#{Recipient.url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
-      elsif respond_to?(:customer)
+      if respond_to?(:customer)
         "#{Customer.url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       elsif respond_to?(:account)
         "#{Account.url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
@@ -15,7 +13,7 @@ module Stripe
     end
 
     def self.retrieve(id, opts=nil)
-      raise NotImplementedError.new("Cards cannot be retrieved without a customer ID. Retrieve a card using customer.sources.retrieve('card_id')")
+      raise NotImplementedError.new("Bank accounts cannot be retrieved without an account ID. Retrieve a bank account using account.external_accounts.retrieve('card_id')")
     end
   end
 end

@@ -54,6 +54,10 @@ module Stripe
       refresh_from({ :discount => nil }, opts, true)
     end
 
+    def deleted?
+      self.respond_to?(:deleted)
+    end
+
     private
 
     def discount_url

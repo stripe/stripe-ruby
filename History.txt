@@ -1,3 +1,7 @@
+=== 1.22.0 2015-06-10
+
+* Added support for bank accounts and debit cards in managed accounts (via the `external_accounts` param)
+
 === 1.21.0 2015-04-14
 
 * Remove TLS cert revocation check. (All pre-heartbleed certs have expired.)

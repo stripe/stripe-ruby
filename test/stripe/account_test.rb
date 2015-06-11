@@ -93,9 +93,9 @@ module Stripe
 
       @mock.expects(:post).
         once.
-        with('https://api.stripe.com/v1/accounts/acct_1234/external_accounts', nil, 'external_account=batok_1234').
+        with('https://api.stripe.com/v1/accounts/acct_1234/external_accounts', nil, 'external_account=btok_1234').
         returns(test_response(resp))
-      a.external_accounts.create({:external_account => 'batok_1234'})
+      a.external_accounts.create({:external_account => 'btok_1234'})
     end
 
     should "be able to retrieve a bank account" do

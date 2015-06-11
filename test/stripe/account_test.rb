@@ -78,5 +78,41 @@ module Stripe
         Stripe::Account.retrieve(:api_key => nil)
       end
     end
+
+    should "be able to create a bank account" do
+      resp = {
+        :id => 'acct_1234',
+        :external_accounts => {
+          :object => "list",
+          :url => "/v1/accounts/acct_1234/external_accounts",
+          :data => [],
+        }
+      }
+      @mock.expects(:get).once.returns(test_response(resp))
+      a = Stripe::Account.retrieve
+
+      @mock.expects(:post).
+        once.
+        with('https://api.stripe.com/v1/accounts/acct_1234/external_accounts', nil, 'external_account=btok_1234').
+        returns(test_response(resp))
+      a.external_accounts.create({:external_account => 'btok_1234'})
+    end
+
+    should "be able to retrieve a bank account" do
+      resp = {
+        :id => 'acct_1234',
+        :external_accounts => {
+          :object => "list",
+          :url => "/v1/accounts/acct_1234/external_accounts",
+          :data => [{
+            :id => "ba_1234",
+            :object => "bank_account",
+          }],
+        }
+      }
+      @mock.expects(:get).once.returns(test_response(resp))
+      a = Stripe::Account.retrieve
+      assert_equal(BankAccount, a.external_accounts.data[0].class)
+    end
   end
 end

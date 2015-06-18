@@ -95,5 +95,24 @@ module Stripe
       })
       assert c.paid
     end
+
+    should "properly handle an array or dictionaries" do
+      @mock.expects(:post).with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == {
+          'currency' => ['usd'], 'amount' => ['100'],
+          'source' => ['btcrcv_test_receiver'],
+          'level3[][red]' => ['firstred', 'another'],
+          'level3[][one]' => ['fish'],
+        }
+      end.once.returns(make_response(make_charge))
+
+      c = Stripe::Charge.create({
+        :amount => 100,
+        :source => 'btcrcv_test_receiver',
+        :currency => "usd",
+        :level3 => [{:red => 'firstred'}, {:one => 'fish', :red => 'another'}]
+      })
+      assert c.paid
+    end
   end
 end

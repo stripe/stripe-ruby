@@ -139,8 +139,8 @@ module Stripe
         raise
       end
     rescue RestClient::ExceptionWithResponse => e
-      if response = e.response
-        handle_api_error(response)
+      if e.response
+        handle_api_error(e.response)
       else
         handle_restclient_error(e, api_base_url)
       end
@@ -253,33 +253,34 @@ module Stripe
 
     case resp.code
     when 400, 404
-      raise invalid_request_error error, resp.code, resp.body, error_obj
+      raise invalid_request_error(error, resp, error_obj)
     when 401
-      raise authentication_error error, resp.code, resp.body, error_obj
+      raise authentication_error(error, resp, error_obj)
     when 402
-      raise card_error error, resp.code, resp.body, error_obj
+      raise card_error(error, resp, error_obj)
     else
-      raise api_error error, resp.code, resp.body, error_obj
+      raise api_error(error, resp, error_obj)
     end
 
   end
 
-  def self.invalid_request_error(error, rcode, rbody, error_obj)
-    InvalidRequestError.new(error[:message], error[:param], rcode,
-                            rbody, error_obj)
+  def self.invalid_request_error(error, resp, error_obj)
+    InvalidRequestError.new(error[:message], error[:param], resp.code,
+                            resp.body, error_obj, resp.headers)
   end
 
-  def self.authentication_error(error, rcode, rbody, error_obj)
-    AuthenticationError.new(error[:message], rcode, rbody, error_obj)
+  def self.authentication_error(error, resp, error_obj)
+    AuthenticationError.new(error[:message], resp.code, resp.body, error_obj,
+                            resp.headers)
   end
 
-  def self.card_error(error, rcode, rbody, error_obj)
+  def self.card_error(error, resp, error_obj)
     CardError.new(error[:message], error[:param], error[:code],
-                  rcode, rbody, error_obj)
+                  resp.code, resp.body, error_obj, resp.headers)
   end
 
-  def self.api_error(error, rcode, rbody, error_obj)
-    APIError.new(error[:message], rcode, rbody, error_obj)
+  def self.api_error(error, resp, error_obj)
+    APIError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
   end
 
   def self.handle_restclient_error(e, api_base_url=nil)

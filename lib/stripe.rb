@@ -139,8 +139,8 @@ module Stripe
         raise
       end
     rescue RestClient::ExceptionWithResponse => e
-      if rcode = e.http_code and rbody = e.http_body
-        handle_api_error(rcode, rbody)
+      if response = e.response
+        handle_api_error(response)
       else
         handle_restclient_error(e, api_base_url)
       end
@@ -241,25 +241,25 @@ module Stripe
                  "(HTTP response code was #{rcode})", rcode, rbody)
   end
 
-  def self.handle_api_error(rcode, rbody)
+  def self.handle_api_error(resp)
     begin
-      error_obj = JSON.parse(rbody)
+      error_obj = JSON.parse(resp.body)
       error_obj = Util.symbolize_names(error_obj)
       error = error_obj[:error] or raise StripeError.new # escape from parsing
 
     rescue JSON::ParserError, StripeError
-      raise general_api_error(rcode, rbody)
+      raise general_api_error(resp.code, resp.body)
     end
 
-    case rcode
+    case resp.code
     when 400, 404
-      raise invalid_request_error error, rcode, rbody, error_obj
+      raise invalid_request_error error, resp.code, resp.body, error_obj
     when 401
-      raise authentication_error error, rcode, rbody, error_obj
+      raise authentication_error error, resp.code, resp.body, error_obj
     when 402
-      raise card_error error, rcode, rbody, error_obj
+      raise card_error error, resp.code, resp.body, error_obj
     else
-      raise api_error error, rcode, rbody, error_obj
+      raise api_error error, resp.code, resp.body, error_obj
     end
 
   end

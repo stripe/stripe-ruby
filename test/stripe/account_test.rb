@@ -7,7 +7,7 @@ module Stripe
       @mock.expects(:get).
         once.
         with('https://api.stripe.com/v1/account', nil, nil).
-        returns(test_response(resp))
+        returns(make_response(resp))
       a = Stripe::Account.retrieve
       assert_equal "test+bindings@stripe.com", a.email
       assert !a.charge_enabled
@@ -19,7 +19,7 @@ module Stripe
       @mock.expects(:get).
         once.
         with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(test_response(resp))
+        returns(make_response(resp))
       a = Stripe::Account.retrieve('acct_foo')
       assert_equal "test+bindings@stripe.com", a.email
       assert !a.charge_enabled
@@ -45,12 +45,12 @@ module Stripe
       @mock.expects(:get).
         once.
         with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(test_response(resp))
+        returns(make_response(resp))
 
       @mock.expects(:post).
         once.
         with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2%20Three%20Four').
-        returns(test_response(resp))
+        returns(make_response(resp))
 
       a = Stripe::Account.retrieve('acct_foo')
       a.legal_entity.first_name = 'Bob'
@@ -60,13 +60,13 @@ module Stripe
 
     should "be able to deauthorize an account" do
       resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
-      @mock.expects(:get).once.returns(test_response(resp))
+      @mock.expects(:get).once.returns(make_response(resp))
       a = Stripe::Account.retrieve
 
 
       @mock.expects(:post).once.with do |url, api_key, params|
         url == "#{Stripe.connect_base}/oauth/deauthorize" && api_key.nil? && CGI.parse(params) == { 'client_id' => [ 'ca_1234' ], 'stripe_user_id' => [ a.id ]}
-      end.returns(test_response({ 'stripe_user_id' => a.id }))
+      end.returns(make_response({ 'stripe_user_id' => a.id }))
       a.deauthorize('ca_1234', 'sk_test_1234')
     end
 
@@ -88,13 +88,13 @@ module Stripe
           :data => [],
         }
       }
-      @mock.expects(:get).once.returns(test_response(resp))
+      @mock.expects(:get).once.returns(make_response(resp))
       a = Stripe::Account.retrieve
 
       @mock.expects(:post).
         once.
         with('https://api.stripe.com/v1/accounts/acct_1234/external_accounts', nil, 'external_account=btok_1234').
-        returns(test_response(resp))
+        returns(make_response(resp))
       a.external_accounts.create({:external_account => 'btok_1234'})
     end
 
@@ -110,7 +110,7 @@ module Stripe
           }],
         }
       }
-      @mock.expects(:get).once.returns(test_response(resp))
+      @mock.expects(:get).once.returns(make_response(resp))
       a = Stripe::Account.retrieve
       assert_equal(BankAccount, a.external_accounts.data[0].class)
     end

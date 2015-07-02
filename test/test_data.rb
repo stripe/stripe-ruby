@@ -5,9 +5,14 @@ module Stripe
       # can't just use the stubs interface.
       body = JSON.generate(body) if !(body.kind_of? String)
       m = mock
-      m.instance_variable_set('@stripe_values', { :body => body, :code => code })
+      m.instance_variable_set('@stripe_values', {
+        :body => body,
+        :code => code,
+        :headers => {},
+      })
       def m.body; @stripe_values[:body]; end
       def m.code; @stripe_values[:code]; end
+      def m.headers; @stripe_values[:headers]; end
       m
     end
 

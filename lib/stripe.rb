@@ -139,8 +139,8 @@ module Stripe
         raise
       end
     rescue RestClient::ExceptionWithResponse => e
-      if rcode = e.http_code and rbody = e.http_body
-        handle_api_error(rcode, rbody)
+      if e.response
+        handle_api_error(e.response)
       else
         handle_restclient_error(e, api_base_url)
       end
@@ -241,45 +241,46 @@ module Stripe
                  "(HTTP response code was #{rcode})", rcode, rbody)
   end
 
-  def self.handle_api_error(rcode, rbody)
+  def self.handle_api_error(resp)
     begin
-      error_obj = JSON.parse(rbody)
+      error_obj = JSON.parse(resp.body)
       error_obj = Util.symbolize_names(error_obj)
       error = error_obj[:error] or raise StripeError.new # escape from parsing
 
     rescue JSON::ParserError, StripeError
-      raise general_api_error(rcode, rbody)
+      raise general_api_error(resp.code, resp.body)
     end
 
-    case rcode
+    case resp.code
     when 400, 404
-      raise invalid_request_error error, rcode, rbody, error_obj
+      raise invalid_request_error(error, resp, error_obj)
     when 401
-      raise authentication_error error, rcode, rbody, error_obj
+      raise authentication_error(error, resp, error_obj)
     when 402
-      raise card_error error, rcode, rbody, error_obj
+      raise card_error(error, resp, error_obj)
     else
-      raise api_error error, rcode, rbody, error_obj
+      raise api_error(error, resp, error_obj)
     end
 
   end
 
-  def self.invalid_request_error(error, rcode, rbody, error_obj)
-    InvalidRequestError.new(error[:message], error[:param], rcode,
-                            rbody, error_obj)
+  def self.invalid_request_error(error, resp, error_obj)
+    InvalidRequestError.new(error[:message], error[:param], resp.code,
+                            resp.body, error_obj, resp.headers)
   end
 
-  def self.authentication_error(error, rcode, rbody, error_obj)
-    AuthenticationError.new(error[:message], rcode, rbody, error_obj)
+  def self.authentication_error(error, resp, error_obj)
+    AuthenticationError.new(error[:message], resp.code, resp.body, error_obj,
+                            resp.headers)
   end
 
-  def self.card_error(error, rcode, rbody, error_obj)
+  def self.card_error(error, resp, error_obj)
     CardError.new(error[:message], error[:param], error[:code],
-                  rcode, rbody, error_obj)
+                  resp.code, resp.body, error_obj, resp.headers)
   end
 
-  def self.api_error(error, rcode, rbody, error_obj)
-    APIError.new(error[:message], rcode, rbody, error_obj)
+  def self.api_error(error, resp, error_obj)
+    APIError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
   end
 
   def self.handle_restclient_error(e, api_base_url=nil)

@@ -3,7 +3,7 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class ChargeTest < Test::Unit::TestCase
     should "charges should be listable" do
-      @mock.expects(:get).once.returns(test_response(test_charge_array))
+      @mock.expects(:get).once.returns(make_response(make_charge_array))
       c = Stripe::Charge.all
       assert c.data.kind_of? Array
       c.each do |charge|
@@ -13,7 +13,7 @@ module Stripe
 
     should "charges should be refundable" do
       @mock.expects(:get).never
-      @mock.expects(:post).once.returns(test_response({:id => "ch_test_charge", :refunded => true}))
+      @mock.expects(:post).once.returns(make_response({:id => "ch_test_charge", :refunded => true}))
       c = Stripe::Charge.new("test_charge")
       c.refund
       assert c.refunded
@@ -21,15 +21,15 @@ module Stripe
 
     should "charges should not be deletable" do
       assert_raises NoMethodError do
-        @mock.expects(:get).once.returns(test_response(test_charge))
+        @mock.expects(:get).once.returns(make_response(make_charge))
         c = Stripe::Charge.retrieve("test_charge")
         c.delete
       end
     end
 
     should "charges should be updateable" do
-      @mock.expects(:get).once.returns(test_response(test_charge))
-      @mock.expects(:post).once.returns(test_response(test_charge))
+      @mock.expects(:get).once.returns(make_response(make_charge))
+      @mock.expects(:post).once.returns(make_response(make_charge))
       c = Stripe::Charge.new("test_charge")
       c.refresh
       c.mnemonic = "New charge description"
@@ -37,23 +37,23 @@ module Stripe
     end
 
     should "charges should be able to be marked as fraudulent" do
-      @mock.expects(:get).once.returns(test_response(test_charge))
-      @mock.expects(:post).once.returns(test_response(test_charge))
+      @mock.expects(:get).once.returns(make_response(make_charge))
+      @mock.expects(:post).once.returns(make_response(make_charge))
       c = Stripe::Charge.new("test_charge")
       c.refresh
       c.mark_as_fraudulent
     end
 
     should "charges should be able to be marked as safe" do
-      @mock.expects(:get).once.returns(test_response(test_charge))
-      @mock.expects(:post).once.returns(test_response(test_charge))
+      @mock.expects(:get).once.returns(make_response(make_charge))
+      @mock.expects(:post).once.returns(make_response(make_charge))
       c = Stripe::Charge.new("test_charge")
       c.refresh
       c.mark_as_safe
     end
 
     should "charges should have Card objects associated with their Card property" do
-      @mock.expects(:get).once.returns(test_response(test_charge))
+      @mock.expects(:get).once.returns(make_response(make_charge))
       c = Stripe::Charge.retrieve("test_charge")
       assert c.card.kind_of?(Stripe::StripeObject) && c.card.object == 'card'
     end
@@ -66,7 +66,7 @@ module Stripe
           'card[number]' => ['4242424242424242'],
           'card[exp_month]' => ['11']
         }
-      end.once.returns(test_response(test_charge))
+      end.once.returns(make_response(make_charge))
 
       c = Stripe::Charge.create({
         :amount => 100,
@@ -86,7 +86,7 @@ module Stripe
           'currency' => ['usd'], 'amount' => ['100'],
           'source' => ['btcrcv_test_receiver']
         }
-      end.once.returns(test_response(test_charge))
+      end.once.returns(make_response(make_charge))
 
       c = Stripe::Charge.create({
         :amount => 100,

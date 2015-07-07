@@ -1,3 +1,7 @@
+=== 1.23.0 2015-07-06
+
+* Added request IDs and HTTP headers to errors.
+
 === 1.22.0 2015-06-10
 
 * Added support for bank accounts and debit cards in managed accounts (via the `external_accounts` param)

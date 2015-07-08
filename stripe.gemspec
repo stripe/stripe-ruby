@@ -12,7 +12,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'https://stripe.com/api'
   s.license = 'MIT'
 
-  s.add_dependency('rest-client', '~> 1.4')
+  s.add_dependency('rest-client', '~> 1.8.0')
   s.add_dependency('json', '~> 1.8.1')
 
   s.add_development_dependency('mocha', '~> 0.13.2')

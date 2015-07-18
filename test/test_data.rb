@@ -168,7 +168,8 @@ module Stripe
         :livemode => false,
         :currency => 'usd',
         :object => 'dispute',
-        :reason => 'fraudulent'
+        :reason => 'fraudulent',
+        :evidence => {},
       }.merge(params)
     end
 

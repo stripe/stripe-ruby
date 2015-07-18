@@ -19,17 +19,26 @@ module Stripe
 
     should "disputes should be closeable" do
       @mock.expects(:get).never
-      @mock.expects(:post).once.returns(make_response({:id => 'dp_test_dispute', :status => 'lost'}))
+      @mock.expects(:post).with(
+        "#{Stripe.api_base}/v1/disputes/test_dispute/close",
+        nil,
+        ''
+      ).once.returns(make_response({:id => 'dp_test_dispute', :status => 'lost'}))
       d = Stripe::Dispute.new('test_dispute')
       d.close
     end
 
     should "disputes should be updateable" do
       @mock.expects(:get).once.returns(make_response(make_dispute))
-      @mock.expects(:post).once.returns(make_response(make_dispute))
+      @mock.expects(:post).with(
+        "#{Stripe.api_base}/v1/disputes/dp_test_dispute",
+        nil,
+        'evidence[customer_name]=customer'
+      ).once.returns(make_response(make_dispute))
+
       d = Stripe::Dispute.new('test_dispute')
       d.refresh
-      d.metadata = {'dispute_info' => 'abcde'}
+      d.evidence['customer_name'] = 'customer'
       d.save
     end
   end

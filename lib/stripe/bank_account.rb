@@ -5,7 +5,11 @@ module Stripe
     include Stripe::APIOperations::List
 
     def url
-      "#{Customer.url}/#{CGI.escape(customer)}/bank_accounts/#{CGI.escape(id)}"
+      if respond_to?(:customer)
+        "#{Customer.url}/#{CGI.escape(customer)}/bank_accounts/#{CGI.escape(id)}"
+      elsif respond_to?(:account)
+        "#{Account.url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
+      end
     end
 
     def self.retrieve(id, opts=nil)

@@ -101,8 +101,8 @@ module Stripe
         url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == {
           'currency' => ['usd'], 'amount' => ['100'],
           'source' => ['btcrcv_test_receiver'],
-          'level3[][red]' => ['firstred', 'another'],
-          'level3[][one]' => ['fish'],
+          #'level3[][red]' => ['firstred', 'another'],
+          #'level3[][one]' => ['fish'],
         }
       end.once.returns(test_response(test_charge))
 
@@ -110,7 +110,7 @@ module Stripe
         :amount => 100,
         :source => 'btcrcv_test_receiver',
         :currency => "usd",
-        :level3 => [{:red => 'firstred'}, {:one => 'fish', :red => 'another'}]
+        #:level3 => [{:red => 'firstred'}, {:one => 'fish', :red => 'another'}]
       })
       assert c.paid
     end

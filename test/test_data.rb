@@ -118,29 +118,7 @@ module Stripe
     end
 
     def test_charge(params={})
-      id = params[:id] || 'ch_test_charge'
-      {
-        :refunded => false,
-        :paid => true,
-        :amount => 100,
-        :card => {
-          :type => "Visa",
-          :last4 => "4242",
-          :exp_month => 11,
-          :country => "US",
-          :exp_year => 2012,
-          :id => "cc_test_card",
-          :object => "card"
-        },
-        :id => id,
-        :reason => "execute_charge",
-        :livemode => false,
-        :currency => "usd",
-        :object => "charge",
-        :created => 1304114826,
-        :refunds => test_refund_array(id),
-        :metadata => {}
-      }.merge(params)
+      example_charge(params)
     end
 
     def test_charge_array
@@ -493,8 +471,30 @@ module Stripe
       }
     end
 
-    def something_cool(params={})
-      test_charge(params)
+    def example_charge(params={})
+      id = params[:id] || 'ch_test_charge'
+      {
+        :refunded => false,
+        :paid => true,
+        :amount => 100,
+        :card => {
+          :type => "Visa",
+          :last4 => "4242",
+          :exp_month => 11,
+          :country => "US",
+          :exp_year => 2012,
+          :id => "cc_test_card",
+          :object => "card"
+        },
+        :id => id,
+        :reason => "execute_charge",
+        :livemode => false,
+        :currency => "usd",
+        :object => "charge",
+        :created => 1304114826,
+        :refunds => test_refund_array(id),
+        :metadata => {}
+      }.merge(params)
     end
   end
 end

@@ -97,7 +97,19 @@ module Stripe
     end
 
     should "New test" do
-      assert true
+      @mock.stubs(:post).with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == {
+          'currency' => ['usd'], 'amount' => ['100'],
+          'source' => ['btcrcv_test_receiver']
+        }
+      end.returns(test_response(test_charge))
+
+      c = Stripe::Charge.create({
+        :amount => 100,
+        :source => 'btcrcv_test_receiver',
+        :currency => "usd"
+      })
+      assert c.paid
     end
   end
 end

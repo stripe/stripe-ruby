@@ -497,5 +497,9 @@ module Stripe
         :id => "di_test_coupon"
       }
     end
+
+    def something_cool(params={})
+      test_charge(params)
+    end
   end
 end

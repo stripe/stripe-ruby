@@ -95,5 +95,9 @@ module Stripe
       })
       assert c.paid
     end
+
+    should "New test" do
+      assert_equal(something_cool()[:amount], 100)
+    end
   end
 end

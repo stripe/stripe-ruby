@@ -88,16 +88,13 @@ module Stripe
         }
       end.once.returns(test_response(test_charge))
 
+
       c = Stripe::Charge.create({
         :amount => 100,
         :source => 'btcrcv_test_receiver',
         :currency => "usd"
       })
       assert c.paid
-    end
-
-    should "New test" do
-      assert_equal(test_charge[:amount], 100)
     end
   end
 end

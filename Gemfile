@@ -7,5 +7,3 @@ if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('1.9.3')
   gem 'activesupport', '~> 3.2'
 end
 
-gem 'pry'
-

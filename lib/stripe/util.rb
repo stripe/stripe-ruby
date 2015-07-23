@@ -110,7 +110,7 @@ module Stripe
       result = []
       value.each do |elem|
         if elem.is_a?(Hash)
-          result += flatten_params(elem, calculated_key)
+          result += flatten_params(elem, "#{calculated_key}[]")
         elsif elem.is_a?(Array)
           result += flatten_params_array(elem, calculated_key)
         else

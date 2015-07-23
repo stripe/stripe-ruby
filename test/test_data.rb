@@ -493,8 +493,8 @@ module Stripe
       }
     end
 
-    def something_cool
-      100
+    def something_cool(params={})
+      test_charge(params)
     end
   end
 end

@@ -1,4 +1,5 @@
 require File.expand_path('../../test_helper', __FILE__)
+require 'pry'
 
 module Stripe
   class ChargeTest < Test::Unit::TestCase
@@ -97,19 +98,7 @@ module Stripe
     end
 
     should "New test" do
-      @mock.stubs(:post).with do |url, api_key, params|
-        url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == {
-          'currency' => ['usd'], 'amount' => ['100'],
-          'source' => ['btcrcv_test_receiver']
-        }
-      end.returns(test_response(test_charge))
-
-      c = Stripe::Charge.create({
-        :amount => 100,
-        :source => 'btcrcv_test_receiver',
-        :currency => "usd"
-      })
-      assert c.paid
+      assert_equal(test_charge[:amount], 100)
     end
   end
 end

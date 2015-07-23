@@ -492,5 +492,9 @@ module Stripe
         :id => "di_test_coupon"
       }
     end
+
+    def something_cool
+      100
+    end
   end
 end

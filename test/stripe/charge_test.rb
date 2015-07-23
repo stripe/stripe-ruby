@@ -97,7 +97,7 @@ module Stripe
     end
 
     should "New test" do
-      assert_equal(test_charge()[:amount], 100)
+      assert_equal(something_cool(), 100)
     end
   end
 end

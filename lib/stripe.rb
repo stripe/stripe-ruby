@@ -66,9 +66,12 @@ module Stripe
   @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
 
+  @open_timeout = 30
+  @read_timeout = 80
 
   class << self
-    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base
+    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
+                  :open_timeout, :read_timeout
   end
 
   def self.api_url(url='', api_base_url=nil)
@@ -123,8 +126,8 @@ module Stripe
     end
 
     request_opts.update(:headers => request_headers(api_key).update(headers),
-                        :method => method, :open_timeout => 30,
-                        :payload => payload, :url => url, :timeout => 80)
+                        :method => method, :open_timeout => open_timeout,
+                        :payload => payload, :url => url, :timeout => read_timeout)
 
     begin
       response = execute_request(request_opts)

@@ -112,6 +112,29 @@ module Stripe
         'sk_test_local')
     end
 
+    should "have default open and read timeouts" do
+      assert_equal Stripe.open_timeout, 30
+      assert_equal Stripe.read_timeout, 80
+    end
+
+    should "allow configurable open and read timeouts" do
+      original_timeouts = Stripe.open_timeout, Stripe.read_timeout
+
+      begin
+        Stripe.open_timeout = 999
+        Stripe.read_timeout = 998
+
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:open_timeout] == 999 && opts[:timeout] == 998
+        end.returns(make_response(make_charge))
+
+        Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+          'sk_test_local')
+      ensure
+        Stripe.open_timeout, Stripe.read_timeout = original_timeouts
+      end
+    end
+
     context "when specifying per-object credentials" do
       context "with no global API key set" do
         should "use the per-object credential when creating" do

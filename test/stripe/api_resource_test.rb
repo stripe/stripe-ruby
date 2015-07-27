@@ -93,6 +93,19 @@ module Stripe
       ch.refresh
     end
 
+    should "send expand when fetching through ListObject" do
+      @mock.expects(:get).once.
+        with("#{Stripe.api_base}/v1/customers/c_test_customer", nil, nil).
+        returns(make_response(make_customer))
+
+      @mock.expects(:get).once.
+        with("#{Stripe.api_base}/v1/customers/c_test_customer/sources/cc_test_card?expand[]=customer", nil, nil).
+        returns(make_response(make_card))
+
+      customer = Stripe::Customer.retrieve('c_test_customer')
+      customer.sources.retrieve({:id => 'cc_test_card', :expand => [:customer]})
+    end
+
     should "send stripe account as header when set" do
       stripe_account = "acct_0000"
       Stripe.expects(:execute_request).with do |opts|

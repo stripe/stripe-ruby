@@ -133,5 +133,15 @@ module Stripe
         raise TypeError.new('normalize_opts expects a string or a hash')
       end
     end
+
+    def self.normalize_id(id)
+      if id.kind_of?(Hash) # overloaded id
+        params_hash = id.dup
+        id = params_hash.delete(:id)
+      else
+        params_hash = {}
+      end
+      [id, params_hash]
+    end
   end
 end

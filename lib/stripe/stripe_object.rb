@@ -10,15 +10,7 @@ module Stripe
     end
 
     def initialize(id=nil, opts={})
-      # parameter overloading!
-      if id.kind_of?(Hash)
-        @retrieve_params = id.dup
-        @retrieve_params.delete(:id)
-        id = id[:id]
-      else
-        @retrieve_params = {}
-      end
-
+      id, @retrieve_params = Util.normalize_id(id)
       @opts = opts
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us

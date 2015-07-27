@@ -120,6 +120,16 @@ module Stripe
       result
     end
 
+    def self.normalize_id(id)
+      if id.kind_of?(Hash) # overloaded id
+        params_hash = id.dup
+        id = params_hash.delete(:id)
+      else
+        params_hash = {}
+      end
+      [id, params_hash]
+    end
+
     # The secondary opts argument can either be a string or hash
     # Turn this value into an api_key and a set of headers
     def self.normalize_opts(opts)

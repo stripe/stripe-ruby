@@ -225,7 +225,7 @@ module Stripe
     def method_missing(name, *args)
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?('=')
-        attr = name.to_s[0...-1].to_sym
+        attr = chop_symbol(name)
         add_accessors([attr])
         begin
           mth = method(name)
@@ -234,10 +234,8 @@ module Stripe
         end
         return mth.call(args[0])
       elsif name.to_s.end_with?('?')
-        attr = name.to_s[0...-1].to_sym
-        if @values.has_key?(attr) && !!@values[attr] == @values[attr]
-          return @values[attr]
-        end
+        attr = chop_symbol(name)
+        return @values[attr] if has_boolean_value?(attr)
       else
         return @values[name] if @values.has_key?(name)
       end
@@ -255,11 +253,23 @@ module Stripe
 
     def respond_to_missing?(symbol, include_private = false)
       if symbol.to_s.end_with?('?')
-        name = symbol.to_s[0...-1].to_sym
-        @values.has_key?(name) && !!@values[name] == @values[name] || super
+        name = chop_symbol(symbol)
+        has_boolean_value?(name) || super
       else
         @values && @values.has_key?(symbol) || super
       end
     end
+
+    # Returns a new symbol with the last character removed.
+    # e.g. `:foo=` becomes `:foo`.
+    def chop_symbol(symbol)
+      symbol.to_s[0...-1].to_sym
+    end
+
+    # Returns true if the value exists and is a boolean.
+    def has_boolean_value?(symbol)
+      @values.has_key?(symbol) && !!@values[symbol] == @values[symbol]
+    end
+
   end
 end

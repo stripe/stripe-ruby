@@ -233,6 +233,11 @@ module Stripe
           raise NoMethodError.new("Cannot set #{attr} on this object. HINT: you can't set: #{@@permanent_attributes.to_a.join(', ')}")
         end
         return mth.call(args[0])
+      elsif name.to_s.end_with?('?')
+        attr = name.to_s[0...-1].to_sym
+        if @values.has_key?(attr) && !!@values[attr] == @values[attr]
+          return @values[attr]
+        end
       else
         return @values[name] if @values.has_key?(name)
       end
@@ -249,7 +254,12 @@ module Stripe
     end
 
     def respond_to_missing?(symbol, include_private = false)
-      @values && @values.has_key?(symbol) || super
+      if symbol.to_s.end_with?('?')
+        name = symbol.to_s[0...-1].to_sym
+        @values.has_key?(name) && !!@values[name] == @values[name] || super
+      else
+        @values && @values.has_key?(symbol) || super
+      end
     end
   end
 end

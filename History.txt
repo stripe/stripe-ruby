@@ -1,4 +1,4 @@
-=== 1.21.1 2015-07-16
+=== 1.21.2 2015-07-16
 
 * Port fix from main trunk to update BankAccount url generation, in order to support deleting bank accounts
 

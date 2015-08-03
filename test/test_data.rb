@@ -156,6 +156,31 @@ module Stripe
       }
     end
 
+
+    def make_dispute(params={})
+      id = params[:id] || 'dp_test_dispute'
+      {
+        :id => id,
+        :charge => "ch_test_charge",
+        :amount => 500,
+        :created => 1304114758,
+        :status => 'needs_response',
+        :livemode => false,
+        :currency => 'usd',
+        :object => 'dispute',
+        :reason => 'fraudulent',
+        :evidence => {},
+      }.merge(params)
+    end
+
+    def make_dispute_array
+      {
+        :data => [make_dispute, make_dispute, make_dispute],
+        :object => 'list',
+        :url => '/v1/disputes'
+      }
+    end
+
     def make_recipient_card_array(recipient_id)
       {
         :data => [make_card, make_card, make_card],

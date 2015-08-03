@@ -39,6 +39,7 @@ module Stripe
         'refund' => Refund,
         'subscription' => Subscription,
         'file_upload' => FileUpload,
+        'token' => Token,
         'transfer' => Transfer,
         'transfer_reversal' => Reversal,
         'bitcoin_receiver' => BitcoinReceiver,

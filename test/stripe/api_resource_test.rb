@@ -593,6 +593,49 @@ module Stripe
 
         acct.save
       end
+
+    end
+
+    should 'retry failed network requests if specified and raise if error persists' do
+      Stripe.expects(:max_retries_on_network_failure).returns(2).at_least_once
+      @mock.expects(:post).times(3).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(Errno::ECONNREFUSED.new)
+      
+      err = assert_raises Stripe::APIConnectionError do
+        Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+      end   
+      assert_match(/Request was retried 2 times/, err.message)   
+    end
+
+    should 'retry failed network requests if specified and return successful response' do
+      Stripe.expects(:max_retries_on_network_failure).returns(2).at_least_once
+      callback = Proc.new {}
+      Stripe.expects(:on_successful_retry).returns(callback).at_least_once
+      response = make_response({"id" => "myid"})
+      err = Errno::ECONNREFUSED.new
+      callback.expects(:call).with(err, response)
+      @mock.expects(:post).times(2).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(err).then.returns(response)
+      
+      result = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+      assert_equal "myid", result.id
+    end
+
+    should 'ensure there is always an idempotency_key' do
+      Stripe.expects(:generate_random_idempotency_key).at_least_once.returns("random_key")
+      Stripe.expects(:max_retries_on_network_failure).returns(2).at_least_once
+      Stripe.expects(:execute_request).with do |opts|
+        opts[:headers][:idempotency_key] == "random_key"
+      end.returns(make_response({"id" => "myid"}))
+
+      Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+    end
+
+    should 'ensure not override a provided idempotency_key' do
+      Stripe.expects(:max_retries_on_network_failure).returns(2).at_least_once
+      Stripe.expects(:execute_request).with do |opts|
+        opts[:headers][:idempotency_key] == "provided_key"
+      end.returns(make_response({"id" => "myid"}))
+
+      Stripe::Charge.create({:amount => 50, :currency => 'usd', :card => { :number => nil }}, {:idempotency_key => 'provided_key'})
     end
   end
 end

@@ -1,3 +1,4 @@
+
 module Stripe
   class APIResource < StripeObject
     include Stripe::APIOperations::Request

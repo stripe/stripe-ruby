@@ -658,5 +658,119 @@ module Stripe
         account.save(:display_name => 'stripe')
       end
     end
+
+    context "with retries" do
+
+      setup do
+        Stripe.stubs(:max_network_retries).returns(2)
+      end
+
+      should 'retry failed network requests if specified and raise if error persists' do        
+        Stripe.expects(:sleep_time).at_least_once.returns(0)
+        @mock.expects(:post).times(3).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(Errno::ECONNREFUSED.new)
+        
+        err = assert_raises Stripe::APIConnectionError do
+          Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        end   
+        assert_match(/Request was retried 2 times/, err.message)   
+      end
+
+      should 'retry failed network requests if specified and return successful response' do
+        Stripe.expects(:sleep_time).at_least_once.returns(0)
+        response = make_response({"id" => "myid"})
+        err = Errno::ECONNREFUSED.new
+        @mock.expects(:post).times(2).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(err).then.returns(response)
+
+        result = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        assert_equal "myid", result.id
+      end
+
+      should 'not retry a SSLCertificateNotVerified error' do
+        @mock.expects(:post).times(1).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(RestClient::SSLCertificateNotVerified.new('message'))
+        
+        err = assert_raises Stripe::APIConnectionError do
+          Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        end   
+        assert_no_match(/retried/, err.message)   
+      end
+
+      should 'not add an idempotency key to GET requests' do
+        SecureRandom.expects(:uuid).times(0)
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:idempotency_key].nil?
+        end.returns(make_response({"id" => "myid"}))
+
+        Stripe::Charge.list
+      end
+
+      should 'ensure there is always an idempotency_key on POST requests' do
+        SecureRandom.expects(:uuid).at_least_once.returns("random_key")
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:idempotency_key] == "random_key"
+        end.returns(make_response({"id" => "myid"}))
+
+        Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+      end
+
+      should 'ensure there is always an idempotency_key on DELETE requests' do
+        SecureRandom.expects(:uuid).at_least_once.returns("random_key")
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:idempotency_key] == "random_key"
+        end.returns(make_response({"id" => "myid"}))
+
+        c = Stripe::Customer.construct_from(make_customer)
+        c.delete
+      end
+
+      should 'not override a provided idempotency_key' do
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:idempotency_key] == "provided_key"
+        end.returns(make_response({"id" => "myid"}))
+
+        Stripe::Charge.create({:amount => 50, :currency => 'usd', :card => { :number => nil }}, {:idempotency_key => 'provided_key'})
+      end
+
+    end
+
+    context "sleep_time" do
+
+      should "should grow exponentially" do
+        Stripe.stubs(:rand).returns(1)
+        Stripe.stubs(:max_network_retry_delay).returns(999)
+        assert_equal(Stripe.initial_network_retry_delay, Stripe.sleep_time(1))
+        assert_equal(Stripe.initial_network_retry_delay * 2, Stripe.sleep_time(2))
+        assert_equal(Stripe.initial_network_retry_delay * 4, Stripe.sleep_time(3))
+        assert_equal(Stripe.initial_network_retry_delay * 8, Stripe.sleep_time(4))
+      end
+
+      should "enforce the max_network_retry_delay" do
+        Stripe.stubs(:rand).returns(1)
+        Stripe.stubs(:initial_network_retry_delay).returns(1)
+        Stripe.stubs(:max_network_retry_delay).returns(2)
+        assert_equal(1, Stripe.sleep_time(1))
+        assert_equal(2, Stripe.sleep_time(2))
+        assert_equal(2, Stripe.sleep_time(3))
+        assert_equal(2, Stripe.sleep_time(4))
+      end
+
+      should "add some randomness" do
+        random_value = 0.8
+        Stripe.stubs(:rand).returns(random_value)
+        Stripe.stubs(:initial_network_retry_delay).returns(1)
+        Stripe.stubs(:max_network_retry_delay).returns(8)
+
+        base_value = Stripe.initial_network_retry_delay * (0.5 * (1 + random_value))
+
+        # the initial value cannot be smaller than the base,
+        # so the randomness is ignored
+        assert_equal(Stripe.initial_network_retry_delay, Stripe.sleep_time(1))
+
+        # after the first one, the randomness is applied
+        assert_equal(base_value * 2, Stripe.sleep_time(2))
+        assert_equal(base_value * 4, Stripe.sleep_time(3))
+        assert_equal(base_value * 8, Stripe.sleep_time(4))
+      end
+
+    end
   end
 end

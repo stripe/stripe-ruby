@@ -284,11 +284,13 @@ module Stripe
       }
     end
 
-    def make_refund_array(charge_id)
+    def make_refund_array(charge=nil)
+      p = charge ? {:charge => charge} : {}
+
       {
-        :data => [make_refund, make_refund, make_refund],
+        :data => [make_refund(p), make_refund(p), make_refund(p)],
         :object => 'list',
-        :url => '/v1/charges/' + charge_id + '/refunds'
+        :url => charge ? "/v1/charges/#{charge}/refunds" : '/v1/refunds'
       }
     end
 

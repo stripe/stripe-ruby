@@ -10,20 +10,24 @@ module Stripe
       InvoiceItem.create(params.merge(:customer => id), opts)
     end
 
-    def invoices
-      Invoice.all({ :customer => id }, @opts)
+    def invoices(params={}, opts={})
+      opts = @opts.merge(Util.normalize_opts(opts))
+      Invoice.all(params.merge(:customer => id), opts)
     end
 
-    def invoice_items
-      InvoiceItem.all({ :customer => id }, @opts)
+    def invoice_items(params={}, opts={})
+      opts = @opts.merge(Util.normalize_opts(opts))
+      InvoiceItem.all(params.merge(:customer => id), opts)
     end
 
-    def upcoming_invoice
-      Invoice.upcoming({ :customer => id }, @opts)
+    def upcoming_invoice(params={}, opts={})
+      opts = @opts.merge(Util.normalize_opts(opts))
+      Invoice.upcoming(params.merge(:customer => id), opts)
     end
 
-    def charges
-      Charge.all({ :customer => id }, @opts)
+    def charges(params={}, opts={})
+      opts = @opts.merge(Util.normalize_opts(opts))
+      Charge.all(params.merge(:customer => id), opts)
     end
 
     def create_upcoming_invoice(params={}, opts={})

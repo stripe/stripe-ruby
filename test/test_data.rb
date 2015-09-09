@@ -510,6 +510,15 @@ module Stripe
       }
     end
 
+    def make_rate_limit_error
+      {
+        :error => {
+          :type => "invalid_request_error",
+          :message => "Too many requests in a period of time."
+        }
+      }
+    end
+
     def make_api_error
       {
         :error => {

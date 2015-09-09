@@ -270,6 +270,18 @@ module Stripe
         end
       end
 
+      should "a 429 should give a RateLimitError with http status, body, and JSON body" do
+        response = make_response(make_rate_limit_error, 429)
+        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 429))
+        begin
+          Stripe::Customer.retrieve("foo")
+        rescue Stripe::RateLimitError => e
+          assert_equal(429, e.http_status)
+          assert_equal(true, !!e.http_body)
+          assert_equal(true, e.json_body.kind_of?(Hash))
+        end
+      end
+
       should "setting a nil value for a param should exclude that param from the request" do
         @mock.expects(:get).with do |url, api_key, params|
           uri = URI(url)

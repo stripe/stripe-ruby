@@ -57,6 +57,7 @@ require 'stripe/errors/api_connection_error'
 require 'stripe/errors/card_error'
 require 'stripe/errors/invalid_request_error'
 require 'stripe/errors/authentication_error'
+require 'stripe/errors/rate_limit_error'
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
@@ -262,6 +263,8 @@ module Stripe
       raise authentication_error(error, resp, error_obj)
     when 402
       raise card_error(error, resp, error_obj)
+    when 429
+      raise rate_limit_error(error, resp, error_obj)
     else
       raise api_error(error, resp, error_obj)
     end
@@ -276,6 +279,11 @@ module Stripe
   def self.authentication_error(error, resp, error_obj)
     AuthenticationError.new(error[:message], resp.code, resp.body, error_obj,
                             resp.headers)
+  end
+
+  def self.rate_limit_error(error, resp, error_obj)
+    RateLimitError.new(error[:message], resp.code, resp.body, error_obj,
+                       resp.headers)
   end
 
   def self.card_error(error, resp, error_obj)

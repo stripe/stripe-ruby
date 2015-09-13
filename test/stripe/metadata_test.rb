@@ -23,7 +23,12 @@ module Stripe
           :new => Stripe::Transfer.method(:new),
           :test => method(:make_transfer),
           :url => "/v1/transfers/#{make_transfer()[:id]}"
-        }
+        },
+        :product => {
+          :new => Stripe::Product.method(:new),
+          :test => method(:make_product),
+          :url => "/v1/products/#{make_product()[:id]}"
+        },
       }
 
       @base_url = 'https://api.stripe.com'

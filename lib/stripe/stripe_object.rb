@@ -123,7 +123,7 @@ module Stripe
         new_keys = update.keys.map(&:to_sym)
 
         # remove keys at the server, but not known locally
-        if @original_values.include?(key) && !@original_values[key].nil?
+        if @original_values[key]
           keys_to_unset = @original_values[key].keys - new_keys
           keys_to_unset.each {|key| update[key] = ''}
         end

@@ -49,6 +49,9 @@ require 'stripe/application_fee_refund'
 require 'stripe/bitcoin_receiver'
 require 'stripe/bitcoin_transaction'
 require 'stripe/dispute'
+require 'stripe/product'
+require 'stripe/sku'
+require 'stripe/order'
 
 # Errors
 require 'stripe/errors/stripe_error'

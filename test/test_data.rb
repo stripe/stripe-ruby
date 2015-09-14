@@ -533,5 +533,134 @@ module Stripe
         :id => "di_test_coupon"
       }
     end
+
+    def make_product(params={})
+      {
+        :id => "pr_test_product",
+        :created => 1441992477,
+        :updated => 1441992477,
+        :object => "product",
+        :livemode => false,
+        :name => "Test Product",
+        :caption => "Comfy comfu",
+        :description => "Testing",
+        :active => true,
+        :attributes => [],
+        :shippable => true,
+        :metadata => {},
+        :url => "http://example.com/product",
+        :package_dimensions => nil,
+        :images => [],
+        :skus => make_sku_array("pr_test_product")
+      }.merge(params)
+    end
+
+    def make_product_array
+      {
+        :object => "list",
+        :url => "/v1/products",
+        :data => [
+          make_product,
+          make_product,
+          make_product,
+        ],
+      }
+    end
+
+    def make_sku(params={})
+      {
+        :id => "12345",
+        :created => 1441992494,
+        :updated => 1441992494,
+        :object => "sku",
+        :livemode => false,
+        :product => "pr_test_product",
+        :image => nil,
+        :active => true,
+        :price => 999,
+        :currency => "usd",
+        :inventory => {
+          :type => "infinite",
+          :quantity => nil,
+          :value => nil,
+        },
+        :attributes => {},
+        :metadata => {},
+        :package_dimensions => nil,
+      }.merge(params)
+    end
+
+    def make_sku_array(product_id, params={})
+      {
+        :object => "list",
+        :url => "/v1/skus",
+        :data => [
+          make_sku(:product => product_id),
+          make_sku(:product => product_id),
+          make_sku(:product => product_id),
+        ]
+      }
+    end
+
+    def make_order(params={})
+      {
+        :id => "or_16kg0uDAu10Yox5RReNVCthv",
+        :created => 1442171988,
+        :updated => nil,
+        :object => "order",
+        :livemode => false,
+        :status => "created",
+        :metadata => {},
+        :customer => nil,
+        :shipping => {
+          :name => "Jenny Rosen",
+          :address => {
+            :line1 => "1234 Main street",
+            :line2 => nil,
+            :city => "Anytown",
+            :state => nil,
+            :postal_code => "123456",
+            :country => "US"
+          },
+          :phone => nil,
+        },
+        :email => nil,
+        :items => [
+          {
+            :parent => "sk_16bHXrDAu10Yox5RU2007dpU",
+            :object => "order_item",
+            :type => "sku",
+            :description => "T-shirt",
+            :amount => 1500,
+            :currency => "usd",
+            :quantity => nil,
+          }
+        ],
+        :shipping_methods => nil,
+        :selected_shipping_method => nil,
+        :amount => 1500,
+        :currency => "usd",
+        :charge => nil,
+      }.merge(params)
+    end
+
+    def make_order_array(params={})
+      {
+        :object => "list",
+        :url => "/v1/orders",
+        :data => [
+          make_order,
+          make_order,
+          make_order,
+        ]
+      }
+    end
+
+    def make_paid_order(params={})
+      make_order.merge({
+        :status => "paid",
+        :charge => make_charge,
+      }).merge(params)
+    end
   end
 end

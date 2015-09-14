@@ -125,6 +125,28 @@ module Stripe
         'sk_test_local')
     end
 
+    should "handle error response with empty body" do
+      response = make_response('', 500)
+      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+
+      e = assert_raises Stripe::APIError do
+        Stripe::Charge.create
+      end
+
+      assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.message
+    end
+
+    should "handle error response with non-object error value" do
+      response = make_response('{"error": "foo"}', 500)
+      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+
+      e = assert_raises Stripe::APIError do
+        Stripe::Charge.create
+      end
+
+      assert_equal 'Invalid response object from API: "{\"error\": \"foo\"}" (HTTP response code was 500)', e.message
+    end
+
     should "have default open and read timeouts" do
       assert_equal Stripe.open_timeout, 30
       assert_equal Stripe.read_timeout, 80

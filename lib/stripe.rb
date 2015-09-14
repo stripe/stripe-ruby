@@ -250,7 +250,8 @@ module Stripe
     begin
       error_obj = JSON.parse(resp.body)
       error_obj = Util.symbolize_names(error_obj)
-      error = error_obj[:error] or raise StripeError.new # escape from parsing
+      error = error_obj[:error]
+      raise StripeError.new unless error && error.is_a?(Hash)
 
     rescue JSON::ParserError, StripeError
       raise general_api_error(resp.code, resp.body)

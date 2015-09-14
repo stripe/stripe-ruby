@@ -47,6 +47,7 @@ module Stripe
         'dispute' => Dispute,
         'product' => Product,
         'sku' => SKU,
+        'order' => Order,
       }
     end
 

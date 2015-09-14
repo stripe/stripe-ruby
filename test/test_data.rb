@@ -592,5 +592,66 @@ module Stripe
         ]
       }
     end
+
+    def make_order(params={})
+      {
+        :id => "or_16kg0uDAu10Yox5RReNVCthv",
+        :created => 1442171988,
+        :updated => nil,
+        :object => "order",
+        :livemode => false,
+        :status => "created",
+        :metadata => {},
+        :customer => nil,
+        :shipping => {
+          :name => "Jenny Rosen",
+          :address => {
+            :line1 => "1234 Main street",
+            :line2 => nil,
+            :city => "Anytown",
+            :state => nil,
+            :postal_code => "123456",
+            :country => "US"
+          },
+          :phone => nil,
+        },
+        :email => nil,
+        :items => [
+          {
+            :parent => "sk_16bHXrDAu10Yox5RU2007dpU",
+            :object => "order_item",
+            :type => "sku",
+            :description => "T-shirt",
+            :amount => 1500,
+            :currency => "usd",
+            :quantity => nil,
+          }
+        ],
+        :shipping_methods => nil,
+        :selected_shipping_method => nil,
+        :amount => 1500,
+        :currency => "usd",
+        :charge => nil,
+      }.merge(params)
+    end
+
+    def make_order_array(params={})
+      {
+        :object => "list",
+        :url => "/v1/orders",
+        :data => [
+          make_order,
+          make_order,
+          make_order,
+        ]
+      }
+    end
+
+    def make_paid_order(params={})
+      make_order.merge({
+        :status => "paid",
+        :charge => make_charge,
+      }).merge(params)
+    end
   end
 end

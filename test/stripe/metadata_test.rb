@@ -29,6 +29,11 @@ module Stripe
           :test => method(:make_product),
           :url => "/v1/products/#{make_product()[:id]}"
         },
+        :order => {
+          :new => Stripe::Order.method(:new),
+          :test => method(:make_order),
+          :url => "/v1/orders/#{make_order()[:id]}"
+        },
       }
 
       @base_url = 'https://api.stripe.com'

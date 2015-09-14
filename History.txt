@@ -1,3 +1,7 @@
+=== 1.27.0 2015-09-14
+
+* Add Orders, Products, and SKUs for Relay.
+
 === 1.26.0 2015-09-11
 
 * Add support for 429 Rate Limited response

@@ -158,7 +158,7 @@ module Stripe
               # just overwriting the whole array or adding new items. So let's not
               # allow deleting without a full overwrite until we have a solution.
               raise ArgumentError.new(
-                "You cannot delete an item from an array, you must instead set a new array"
+                'You cannot delete an item from an array, you must instead set a new array'
               )
             end
             update_hash[k] = serialize_params(v, original_value)
@@ -209,7 +209,7 @@ module Stripe
           k_eq = :"#{k}="
           define_method(k) { @values[k] }
           define_method(k_eq) do |v|
-            if v == ""
+            if v == ''
               raise ArgumentError.new(
                 "You cannot set #{k} to an empty string." \
                 "We interpret empty strings as nil in requests." \

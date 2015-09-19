@@ -9,7 +9,7 @@ module Stripe
       if self['id']
         super
       else
-        "/v1/account"
+        '/v1/account'
       end
     end
 

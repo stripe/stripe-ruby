@@ -150,12 +150,12 @@ module Stripe
     end
 
     def self.check_string_argument!(key)
-      raise TypeError.new("argument must be a string") unless key.is_a?(String)
+      raise TypeError.new('argument must be a string') unless key.is_a?(String)
       key
     end
 
     def self.check_api_key!(key)
-      raise TypeError.new("api_key must be a string") unless key.is_a?(String)
+      raise TypeError.new('api_key must be a string') unless key.is_a?(String)
       key
     end
   end

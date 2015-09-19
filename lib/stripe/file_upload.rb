@@ -1,7 +1,7 @@
 module Stripe
   class FileUpload < APIResource
     def self.url
-      "/v1/files"
+      '/v1/files'
     end
 
     def self.create(params={}, opts={})

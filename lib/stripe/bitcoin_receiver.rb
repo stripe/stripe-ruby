@@ -6,7 +6,7 @@ module Stripe
     include Stripe::APIOperations::List
 
     def self.url
-      "/v1/bitcoin/receivers"
+      '/v1/bitcoin/receivers'
     end
 
     def url

@@ -123,7 +123,7 @@ module Stripe
       url += "#{URI.parse(url).query ? '&' : '?'}#{uri_encode(params)}" if params && params.any?
       payload = nil
     else
-      if headers[:content_type] && headers[:content_type] == "multipart/form-data"
+      if headers[:content_type] && headers[:content_type] == 'multipart/form-data'
         payload = params
       else
         payload = uri_encode(params)
@@ -188,7 +188,7 @@ module Stripe
       when /mswin|mingw/i
         _uname_ver
       else
-        "unknown platform"
+        'unknown platform'
       end
     end
   end
@@ -196,13 +196,13 @@ module Stripe
   def self._uname_uname
     (`uname -a 2>/dev/null` || '').strip
   rescue Errno::ENOMEM # couldn't create subprocess
-    "uname lookup failed"
+    'uname lookup failed'
   end
 
   def self._uname_ver
     (`ver` || '').strip
   rescue Errno::ENOMEM # couldn't create subprocess
-    "uname lookup failed"
+    'uname lookup failed'
   end
 
 
@@ -325,8 +325,8 @@ module Stripe
         "To check, try running 'host stripe.com' from the command line."
 
     else
-      message = "Unexpected error communicating with Stripe. " \
-        "If this problem persists, let us know at support@stripe.com."
+      message = 'Unexpected error communicating with Stripe. ' \
+        'If this problem persists, let us know at support@stripe.com.'
 
     end
 

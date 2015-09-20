@@ -1,3 +1,7 @@
+=== 1.27.1 2015-09-20
+
+* Use hash rockets for backwards compatibility.
+
 === 1.27.0 2015-09-14
 
 * Add Orders, Products, and SKUs for Relay.

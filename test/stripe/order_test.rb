@@ -45,7 +45,7 @@ module Stripe
       @mock.expects(:post).once.
         with('https://api.stripe.com/v1/orders/or_test_order/pay', nil, 'token=test_token').
         returns(make_response(make_paid_order))
-      order.pay(token: 'test_token')
+      order.pay(:token => 'test_token')
       assert_equal "paid", order.status
     end
   end

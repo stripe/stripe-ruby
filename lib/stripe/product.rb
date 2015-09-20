@@ -10,7 +10,7 @@ module Stripe
 
     # Override Stripe::APIOperations::Update#save to explicitly pass URL.
     def save
-      super(req_url: api_url)
+      super(:req_url => api_url)
     end
   end
 end

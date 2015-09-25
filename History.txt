@@ -1,3 +1,7 @@
+=== 1.27.2 2015-09-25
+
+* Correct the URLs used to fetch Bitcoin transactions.
+
 === 1.27.1 2015-09-20
 
 * Use hash rockets for backwards compatibility.

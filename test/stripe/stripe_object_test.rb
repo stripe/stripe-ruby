@@ -19,9 +19,10 @@ module Stripe
     end
 
     should "recursively call to_hash on its values" do
-      nested = Stripe::StripeObject.construct_from({ :id => 7, :foo => 'bar' })
-      obj = Stripe::StripeObject.construct_from({ :id => 1, :nested => nested })
-      expected_hash = { :id => 1, :nested => { :id => 7, :foo => 'bar' } }
+      nested_hash = { :id => 7, :foo => 'bar' }
+      nested = Stripe::StripeObject.construct_from(nested_hash)
+      obj = Stripe::StripeObject.construct_from({ :id => 1, :nested => nested, :list => [nested] })
+      expected_hash = { :id => 1, :nested => nested_hash, :list => [nested_hash] }
       assert_equal expected_hash, obj.to_hash
     end
   end

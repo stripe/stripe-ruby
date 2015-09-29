@@ -3,26 +3,34 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class AccountTest < Test::Unit::TestCase
     should "be retrievable" do
-      resp = {:email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
+      resp = make_account({
+        :charges_enabled => false,
+        :details_submitted => false,
+        :email => "test+bindings@stripe.com",
+      })
       @mock.expects(:get).
         once.
         with('https://api.stripe.com/v1/account', nil, nil).
         returns(make_response(resp))
       a = Stripe::Account.retrieve
       assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charge_enabled
+      assert !a.charges_enabled
       assert !a.details_submitted
     end
 
     should "be retrievable via plural endpoint" do
-      resp = {:email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
+      resp = make_account({
+        :charges_enabled => false,
+        :details_submitted => false,
+        :email => "test+bindings@stripe.com",
+      })
       @mock.expects(:get).
         once.
         with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
         returns(make_response(resp))
       a = Stripe::Account.retrieve('acct_foo')
       assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charge_enabled
+      assert !a.charges_enabled
       assert !a.details_submitted
     end
 
@@ -31,6 +39,17 @@ module Stripe
       Stripe::Account.expects(:new).once.with(nil, {:api_key => 'sk_foobar'}).returns(account)
       account.expects(:refresh).once
       Stripe::Account.retrieve('sk_foobar')
+    end
+
+    should "allow access to keys by method" do
+      account = Stripe::Account.construct_from(make_account({
+        :keys => {
+          :publishable => 'publishable-key',
+          :secret => 'secret-key',
+        }
+      }))
+      assert_equal 'publishable-key', account.keys.publishable
+      assert_equal 'secret-key', account.keys.secret
     end
 
     should "be updatable" do

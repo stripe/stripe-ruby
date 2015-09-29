@@ -16,6 +16,14 @@ module Stripe
       m
     end
 
+    def make_account(params={})
+      {
+        :charges_enabled => false,
+        :details_submitted => false,
+        :email => "test+bindings@stripe.com",
+      }.merge(params)
+    end
+
     def make_balance(params={})
       {
         :pending => [

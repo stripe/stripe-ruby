@@ -16,6 +16,11 @@ module Stripe
       self.data.each(&blk)
     end
 
+    # Returns true if the page object contains no elements.
+    def empty?
+      self.data.empty?
+    end
+
     def retrieve(id, opts={})
       id, retrieve_params = Util.normalize_id(id)
       response, opts = request(:get,"#{url}/#{CGI.escape(id)}", retrieve_params, opts)

@@ -1,5 +1,6 @@
 module Stripe
   class ListObject < StripeObject
+    include Enumerable
     include Stripe::APIOperations::Request
 
     def [](k)

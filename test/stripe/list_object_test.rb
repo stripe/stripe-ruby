@@ -12,5 +12,12 @@ module Stripe
       assert_equal('/v1/charges', all.url)
       assert all.data.kind_of?(Array)
     end
+
+    should "provide enumerable functionality" do
+      @mock.expects(:get).once.returns(make_response(make_charge_array))
+      c = Stripe::Charge.all
+      assert c.kind_of?(Stripe::ListObject)
+      assert_equal 3, c.count
+    end
   end
 end

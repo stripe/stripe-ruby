@@ -31,5 +31,12 @@ module Stripe
       expected_hash = { :id => 1, :nested => nested_hash, :list => [nested_hash] }
       assert_equal expected_hash, obj.to_hash
     end
+
+    should "assign question mark accessors for booleans" do
+      obj = Stripe::StripeObject.construct_from({ :id => 1, :bool => true, :not_bool => 'bar' })
+      assert obj.respond_to?(:bool?)
+      assert obj.bool?
+      refute obj.respond_to?(:not_bool?)
+    end
   end
 end

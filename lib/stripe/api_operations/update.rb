@@ -1,6 +1,18 @@
 module Stripe
   module APIOperations
     module Update
+      # Creates or updates an API resource.
+      #
+      # If the resource doesn't yet have an assigned ID and the resource is one
+      # that can be created, then the method attempts to create the resource.
+      # The resource is updated otherwise.
+      #
+      # ==== Attributes
+      #
+      # * +params+ - Overrides any parameters in the resource's serialized data
+      #   and includes them in the create or update. If +:req_url:+ is included
+      #   in the list, it overrides the update URL used for the create or
+      #   update.
       def save(params={})
         # Let the caller override the URL but avoid serializing it.
         req_url = params.delete(:req_url) || save_url

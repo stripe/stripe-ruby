@@ -9,6 +9,12 @@ module Stripe
       assert !obj.respond_to?(:baz)
     end
 
+    should "marshal be insensitive to strings vs. symbols when constructin" do
+      obj = Stripe::StripeObject.construct_from({ :id => 1, 'name' => 'Stripe' })
+      assert_equal 1, obj[:id]
+      assert_equal 'Stripe', obj[:name]
+    end
+
     should "marshal a stripe object correctly" do
       obj = Stripe::StripeObject.construct_from({ :id => 1, :name => 'Stripe' }, {:api_key => 'apikey'})
       m = Marshal.load(Marshal.dump(obj))

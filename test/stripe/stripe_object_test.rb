@@ -3,10 +3,13 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class StripeObjectTest < Test::Unit::TestCase
     should "implement #respond_to correctly" do
-      obj = Stripe::StripeObject.construct_from({ :id => 1, :foo => 'bar' })
+      obj = Stripe::StripeObject.construct_from({ :id => 1, :foo => 'bar', :qux => true })
       assert obj.respond_to?(:id)
       assert obj.respond_to?(:foo)
       assert !obj.respond_to?(:baz)
+      assert obj.respond_to?(:qux)
+      assert obj.respond_to?(:qux?)
+      assert !obj.respond_to?(:foo?)
     end
 
     should "marshal be insensitive to strings vs. symbols when constructin" do

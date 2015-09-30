@@ -19,4 +19,8 @@ matrix:
     - rvm: jruby-19mode
       gemfile: gemfiles/yajl.gemfile
 
+notifications:
+  email:
+    on_success: never
+
 sudo: false

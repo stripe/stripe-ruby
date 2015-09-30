@@ -13,6 +13,13 @@ module Stripe
       assert all.data.kind_of?(Array)
     end
 
+    should "provide #empty?" do
+      object = Stripe::ListObject.construct_from({ :data => [] })
+      assert object.empty?
+      object = Stripe::ListObject.construct_from({ :data => [{}] })
+      refute object.empty?
+    end
+
     should "provide enumerable functionality" do
       @mock.expects(:get).once.returns(make_response(make_charge_array))
       c = Stripe::Charge.all

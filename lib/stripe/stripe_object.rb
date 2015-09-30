@@ -11,7 +11,7 @@ module Stripe
 
     def initialize(id=nil, opts={})
       id, @retrieve_params = Util.normalize_id(id)
-      @opts = opts
+      @opts = Util.normalize_opts(opts)
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us
       # to have a unified inspect method
@@ -35,7 +35,7 @@ module Stripe
     end
 
     def refresh_from(values, opts, partial=false)
-      @opts = opts
+      @opts = Util.normalize_opts(opts)
       @original_values = Marshal.load(Marshal.dump(values)) # deep copy
 
       removed = partial ? Set.new : Set.new(@values.keys - values.keys)

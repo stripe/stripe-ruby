@@ -84,5 +84,14 @@ module Stripe
       c.delete_discount
       assert_equal nil, c.discount
     end
+
+    should 'be able to determine if a customer is deleted' do
+      @mock.expects(:delete).once.returns(test_response(test_customer({:deleted => true})))
+      c = Stripe::Customer.new("test_customer")
+      assert !c.deleted?
+
+      c.delete
+      assert c.deleted
+    end
   end
 end

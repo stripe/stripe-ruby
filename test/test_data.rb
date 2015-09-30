@@ -323,10 +323,11 @@ module Stripe
         :customer => 'c_test_customer',
         :date => 1349738950,
         :lines => {
-          "invoiceitems" => [
+          :object => 'list',
+          :data => [
             {
               :id => 'ii_test_invoice_item',
-              :object => '',
+              :object => 'invoiceitem',
               :livemode => false,
               :amount => 1000,
               :currency => 'usd',
@@ -346,7 +347,7 @@ module Stripe
         :charge => nil,
         :discount => nil,
         :ending_balance => nil,
-        :next_payemnt_attempt => 1349825350,
+        :next_payment_attempt => 1349825350,
       }
     end
 

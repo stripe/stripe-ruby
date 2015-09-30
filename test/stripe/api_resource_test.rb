@@ -627,6 +627,18 @@ module Stripe
 
         acct.save
       end
+
+      should 'should create a new resource when an object without an id is saved' do
+        account = Stripe::Account.construct_from({
+          :id => nil,
+          :display_name => nil,
+        })
+
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts", nil, 'display_name=stripe').returns(make_response({"id" => "charge_id"}))
+
+        account.display_name = 'stripe'
+        account.save
+      end
     end
   end
 end

@@ -47,7 +47,7 @@ module Stripe
 
       instance_eval do
         remove_accessors(removed)
-        add_accessors(added)
+        add_accessors(added, values)
       end
 
       removed.each do |k|
@@ -216,7 +216,7 @@ module Stripe
       end
     end
 
-    def add_accessors(keys)
+    def add_accessors(keys, values)
       metaclass.instance_eval do
         keys.each do |k|
           next if @@permanent_attributes.include?(k)
@@ -232,6 +232,11 @@ module Stripe
             @values[k] = v
             @unsaved_values.add(k)
           end
+
+          if [FalseClass, TrueClass].include?(values[k].class)
+            k_bool = :"#{k}?"
+            define_method(k_bool) { @values[k] }
+          end
         end
       end
     end
@@ -240,7 +245,10 @@ module Stripe
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
-        add_accessors([attr])
+
+        # the second argument is only required when adding boolean accessors
+        add_accessors([attr], {})
+
         begin
           mth = method(name)
         rescue NameError

@@ -77,6 +77,24 @@ module Stripe
       a.save
     end
 
+    should 'disallow direct overrides of legal_entity' do
+      account = Stripe::Account.construct_from(make_account({
+        :keys => {
+          :publishable => 'publishable-key',
+          :secret => 'secret-key',
+        },
+        :legal_entity => {
+          :first_name => 'Bling'
+        }
+      }))
+
+      assert_raise NoMethodError do
+        account.legal_entity = {:first_name => 'Blah'}
+      end
+
+      account.legal_entity.first_name = 'Blah'
+    end
+
     should "be able to deauthorize an account" do
       resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
       @mock.expects(:get).once.returns(make_response(resp))

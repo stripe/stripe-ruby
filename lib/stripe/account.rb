@@ -27,6 +27,18 @@ module Stripe
       super(id, opts)
     end
 
+    def overridden_fields
+      [:legal_entity]
+    end
+
+    def legal_entity
+      self['legal_entity']
+    end
+
+    def legal_entity=(_)
+      raise NoMethodError.new('Overridding legal_entity can cause cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = \'Blah\'')
+    end
+
     def deauthorize(client_id, opts={})
       opts = {:api_base => Stripe.connect_base}.merge(Util.normalize_opts(opts))
       response, opts = request(:post, '/oauth/deauthorize', { 'client_id' => client_id, 'stripe_user_id' => self.id }, opts)

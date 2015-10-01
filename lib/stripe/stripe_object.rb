@@ -205,9 +205,15 @@ module Stripe
       class << self; self; end
     end
 
+    def overridden_fields
+      []
+    end
+
     def remove_accessors(keys)
+      f = overridden_fields
       metaclass.instance_eval do
         keys.each do |k|
+          next if f.include?(k)
           next if @@permanent_attributes.include?(k)
           k_eq = :"#{k}="
           remove_method(k) if method_defined?(k)
@@ -217,8 +223,10 @@ module Stripe
     end
 
     def add_accessors(keys, values)
+      f = overridden_fields
       metaclass.instance_eval do
         keys.each do |k|
+          next if f.include?(k)
           next if @@permanent_attributes.include?(k)
           k_eq = :"#{k}="
           define_method(k) { @values[k] }

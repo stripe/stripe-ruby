@@ -38,5 +38,16 @@ module Stripe
       assert obj.bool?
       refute obj.respond_to?(:not_bool?)
     end
+
+    should "mass assign values with #update_attributes" do
+      obj = Stripe::StripeObject.construct_from({ :id => 1, :name => 'Stripe' })
+      obj.update_attributes(:name => 'STRIPE')
+      assert_equal "STRIPE", obj.name
+
+      e = assert_raises(ArgumentError) do
+        obj.update_attributes(:foo => 'bar')
+      end
+      assert_equal "foo is not an attribute that can be assigned on this object", e.message
+    end
   end
 end

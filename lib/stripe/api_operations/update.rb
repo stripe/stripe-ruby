@@ -20,7 +20,7 @@ module Stripe
         # We started unintentionally (sort of) allowing attributes send to
         # +save+ to override values used during the update. So as not to break
         # the API, this makes that official here.
-        update_attributes_with_options(params, raise_error: false)
+        update_attributes_with_options(params, :raise_error => false)
 
         # Now remove any parameters that look like object attributes.
         params = params.reject { |k, _| respond_to?(k) }

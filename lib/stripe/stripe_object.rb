@@ -56,7 +56,7 @@ module Stripe
         @unsaved_values.delete(k)
       end
 
-      update_attributes_with_options(values, opts: opts)
+      update_attributes_with_options(values, :opts => opts)
       values.each do |k, _|
         @transient_values.delete(k)
         @unsaved_values.delete(k)

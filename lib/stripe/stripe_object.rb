@@ -70,37 +70,6 @@ module Stripe
       update_attributes_with_options(values, {})
     end
 
-    # Mass assigns attributes on the model.
-    #
-    # This is a version of +update_attributes+ that takes some extra options
-    # for internal use.
-    #
-    # ==== Options
-    #
-    # * +:opts:+ Options for StripeObject like an API key.
-    # * +:raise_error:+ Set to false to suppress ArgumentErrors on keys that
-    #   don't exist.
-    def update_attributes_with_options(values, options={})
-      # `opts` are StripeObject options
-      opts        = options.fetch(:opts, {})
-      raise_error = options.fetch(:raise_error, true)
-
-      values.each do |k, v|
-        if !@@permanent_attributes.include?(k) && !self.respond_to?(:"#{k}=")
-          if raise_error
-            raise ArgumentError,
-              "#{k} is not an attribute that can be assigned on this object"
-          else
-            next
-          end
-        end
-
-        @values[k] = Util.convert_to_stripe_object(v, opts)
-        @unsaved_values.add(k)
-      end
-      self
-    end
-
     def [](k)
       @values[k.to_sym]
     end
@@ -308,6 +277,37 @@ module Stripe
 
     def respond_to_missing?(symbol, include_private = false)
       @values && @values.has_key?(symbol) || super
+    end
+
+    # Mass assigns attributes on the model.
+    #
+    # This is a version of +update_attributes+ that takes some extra options
+    # for internal use.
+    #
+    # ==== Options
+    #
+    # * +:opts:+ Options for StripeObject like an API key.
+    # * +:raise_error:+ Set to false to suppress ArgumentErrors on keys that
+    #   don't exist.
+    def update_attributes_with_options(values, options={})
+      # `opts` are StripeObject options
+      opts        = options.fetch(:opts, {})
+      raise_error = options.fetch(:raise_error, true)
+
+      values.each do |k, v|
+        if !@@permanent_attributes.include?(k) && !self.respond_to?(:"#{k}=")
+          if raise_error
+            raise ArgumentError,
+              "#{k} is not an attribute that can be assigned on this object"
+          else
+            next
+          end
+        end
+
+        @values[k] = Util.convert_to_stripe_object(v, opts)
+        @unsaved_values.add(k)
+      end
+      self
     end
   end
 end

@@ -27,7 +27,7 @@ module Stripe
       super(id, opts)
     end
 
-    def overridden_fields
+    def protected_fields
       [:legal_entity]
     end
 

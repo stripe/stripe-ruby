@@ -205,12 +205,12 @@ module Stripe
       class << self; self; end
     end
 
-    def overridden_fields
+    def protected_fields
       []
     end
 
     def remove_accessors(keys)
-      f = overridden_fields
+      f = protected_fields
       metaclass.instance_eval do
         keys.each do |k|
           next if f.include?(k)
@@ -223,7 +223,7 @@ module Stripe
     end
 
     def add_accessors(keys, values)
-      f = overridden_fields
+      f = protected_fields
       metaclass.instance_eval do
         keys.each do |k|
           next if f.include?(k)

@@ -545,6 +545,10 @@ module Stripe
           :id => 'myid',
           :legal_entity => {
             :last_name => 'Smith',
+            :address => {
+              :line1 => "test",
+              :city => "San Francisco"
+            }
           }
         })
 
@@ -552,12 +556,12 @@ module Stripe
           "#{Stripe.api_base}/v1/accounts/myid",
           nil,
           any_of(
-            'legal_entity[first_name]=Bob&legal_entity[last_name]=',
-            'legal_entity[last_name]=&legal_entity[first_name]=Bob'
+            'legal_entity[address][line1]=Test2&legal_entity[address][city]=',
+            'legal_entity[address][city]=&legal_entity[address][line1]=Test2'
           )
         ).returns(make_response({"id" => "myid"}))
 
-        acct.legal_entity = {:first_name => 'Bob'}
+        acct.legal_entity.address = {:line1 => 'Test2'}
         acct.save
       end
 

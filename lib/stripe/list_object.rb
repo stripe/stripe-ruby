@@ -34,7 +34,37 @@ module Stripe
 
     def all(params={}, opts={})
       response, opts = request(:get, url, params, opts)
-      Util.convert_to_stripe_object(response, opts)
+      Util.convert_to_stripe_object(response.merge({ filters: params }), opts)
+    end
+
+    def each_in_batches(&blk)
+      list = self
+
+      loop do
+        list.each(&blk)
+
+        break unless list = list.next
+      end
+    end
+
+    def next(params={}, opts={})
+      return nil unless self[:has_more]
+
+      filters[:limit] -= self.data.size
+
+      return nil if filters[:limit] <= 0
+
+      all(filters.to_hash.merge(params).merge(:starting_after => data.last.id), @opts.merge(opts))
+    end
+
+    def previous(params={}, opts={})
+      return nil unless self[:has_more]
+
+      filters[:limit] -= self.data.size
+
+      return nil if filters[:limit] <= 0
+
+      all(filters.to_hash.merge(params).merge(:ending_before => data.first.id), @opts.merge(opts))
     end
   end
 end

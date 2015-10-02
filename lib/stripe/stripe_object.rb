@@ -25,6 +25,13 @@ module Stripe
       self.new(values[:id]).refresh_from(values, opts)
     end
 
+    # Determines the equality of two Stripe objects. Stripe objects are
+    # considered to be equal if they have the same set of values and each one
+    # of those values is the same.
+    def ==(other)
+      @values == other.instance_variable_get(:@values)
+    end
+
     def to_s(*args)
       JSON.pretty_generate(@values)
     end

@@ -4,7 +4,7 @@ module Stripe
   class OrderTest < Test::Unit::TestCase
     should "orders should be listable" do
       @mock.expects(:get).once.returns(make_response(make_order_array))
-      orders = Stripe::Order.all
+      orders = Stripe::Order.list
       assert orders.data.kind_of?(Array)
       orders.each do |order|
         assert order.kind_of?(Stripe::Order)

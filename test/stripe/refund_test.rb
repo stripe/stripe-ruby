@@ -7,7 +7,7 @@ module Stripe
         with("#{Stripe.api_base}/v1/refunds", nil, nil).
         once.returns(make_response(make_refund_array))
 
-      refunds = Stripe::Refund.all
+      refunds = Stripe::Refund.list
 
       assert refunds.first.kind_of?(Stripe::Refund)
     end

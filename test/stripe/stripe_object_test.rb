@@ -2,7 +2,16 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class StripeObjectTest < Test::Unit::TestCase
-    should "implement #respond_to correctly" do
+    should "implement #==" do
+      obj1 = Stripe::StripeObject.construct_from({ :id => 1, :foo => "bar" })
+      obj2 = Stripe::StripeObject.construct_from({ :id => 1, :foo => "bar" })
+      obj3 = Stripe::StripeObject.construct_from({ :id => 1, :foo => "rab" })
+
+      assert obj1 == obj2
+      refute obj1 == obj3
+    end
+
+    should "implement #respond_to" do
       obj = Stripe::StripeObject.construct_from({ :id => 1, :foo => 'bar' })
       assert obj.respond_to?(:id)
       assert obj.respond_to?(:foo)

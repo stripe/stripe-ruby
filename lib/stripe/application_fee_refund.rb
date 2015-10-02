@@ -1,7 +1,7 @@
 module Stripe
   class ApplicationFeeRefund < APIResource
     include Stripe::APIOperations::Update
-    include Stripe::APIOperations::List
+    extend Stripe::APIOperations::List
 
     def url
       "#{ApplicationFee.url}/#{CGI.escape(fee)}/refunds/#{CGI.escape(id)}"

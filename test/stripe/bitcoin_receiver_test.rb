@@ -16,7 +16,7 @@ module Stripe
 
     should "all should list bitcoin receivers" do
       @mock.expects(:get).once.returns(make_response(make_bitcoin_receiver_array))
-      receivers = Stripe::BitcoinReceiver.all
+      receivers = Stripe::BitcoinReceiver.list
       assert_equal 3, receivers.data.length
       assert receivers.data.kind_of? Array
       receivers.each do |receiver|
@@ -31,7 +31,7 @@ module Stripe
       @mock.expects(:get).with("#{Stripe.api_base}/v1/bitcoin/receivers/btcrcv_test_receiver", nil, nil).once.returns(make_response(make_bitcoin_receiver))
       receiver = Stripe::BitcoinReceiver.retrieve('btcrcv_test_receiver')
       @mock.expects(:get).with("#{Stripe.api_base}/v1/bitcoin/receivers/btcrcv_test_receiver/transactions", nil, nil).once.returns(make_response(make_bitcoin_transaction_array))
-      transactions = receiver.transactions.all
+      transactions = receiver.transactions.list
       assert_equal(3, transactions.data.length)
     end
 

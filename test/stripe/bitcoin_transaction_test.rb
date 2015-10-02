@@ -18,7 +18,7 @@ module Stripe
         with("#{Stripe.api_base}/v1/bitcoin/transactions", nil, nil).
         once.
         returns(make_response(make_bitcoin_transaction_array))
-      transactions = Stripe::BitcoinTransaction.all
+      transactions = Stripe::BitcoinTransaction.list
       assert_equal 3, transactions.data.length
       assert transactions.data.kind_of? Array
       transactions.each do |transaction|

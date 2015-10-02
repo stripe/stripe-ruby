@@ -1,7 +1,7 @@
 module Stripe
   class FileUpload < APIResource
     include Stripe::APIOperations::Create
-    include Stripe::APIOperations::List
+    extend Stripe::APIOperations::List
 
     def self.url
       "/v1/files"

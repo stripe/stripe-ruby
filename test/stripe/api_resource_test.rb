@@ -39,10 +39,10 @@ module Stripe
 
     should "using a nil api key should raise an exception" do
       assert_raises TypeError do
-        Stripe::Customer.all({}, nil)
+        Stripe::Customer.list({}, nil)
       end
       assert_raises TypeError do
-        Stripe::Customer.all({}, { :api_key => nil })
+        Stripe::Customer.list({}, { :api_key => nil })
       end
     end
 
@@ -231,17 +231,17 @@ module Stripe
       should "urlencode values in GET params" do
         response = make_response(make_charge_array)
         @mock.expects(:get).with("#{Stripe.api_base}/v1/charges?customer=test%20customer", nil, nil).returns(response)
-        charges = Stripe::Charge.all(:customer => 'test customer').data
+        charges = Stripe::Charge.list(:customer => 'test customer').data
         assert charges.kind_of? Array
       end
 
       should "construct URL properly with base query parameters" do
         response = make_response(make_invoice_customer_array)
         @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices?customer=test_customer", nil, nil).returns(response)
-        invoices = Stripe::Invoice.all(:customer => 'test_customer')
+        invoices = Stripe::Invoice.list(:customer => 'test_customer')
 
         @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices?customer=test_customer&paid=true", nil, nil).returns(response)
-        invoices.all(:paid => true)
+        invoices.list(:paid => true)
       end
 
       should "a 400 should give an InvalidRequestError with http status, body, and JSON body" do
@@ -311,7 +311,7 @@ module Stripe
           (url =~ %r{^#{Stripe.api_base}/v1/charges?} &&
            query.keys.sort == ['offset', 'sad'])
         end.returns(make_response({ :count => 1, :data => [make_charge] }))
-        Stripe::Charge.all(:count => nil, :offset => 5, :sad => false)
+        Stripe::Charge.list(:count => nil, :offset => 5, :sad => false)
 
         @mock.expects(:post).with do |url, api_key, params|
           url == "#{Stripe.api_base}/v1/charges" &&
@@ -335,8 +335,9 @@ module Stripe
 
       should "making a GET request with parameters should have a query string and no body" do
         params = { :limit => 1 }
-        @mock.expects(:get).once.with("#{Stripe.api_base}/v1/charges?limit=1", nil, nil).returns(make_response([make_charge]))
-        Stripe::Charge.all(params)
+        @mock.expects(:get).once.with("#{Stripe.api_base}/v1/charges?limit=1", nil, nil).
+          returns(make_response({ :data => [make_charge] }))
+        Stripe::Charge.list(params)
       end
 
       should "making a POST request with parameters should have a body and no query string" do
@@ -407,7 +408,7 @@ module Stripe
 
       should "loading all of an APIResource should return an array of recursively instantiated objects" do
         @mock.expects(:get).once.returns(make_response(make_charge_array))
-        c = Stripe::Charge.all.data
+        c = Stripe::Charge.list.data
         assert c.kind_of? Array
         assert c[0].kind_of? Stripe::Charge
         assert c[0].card.kind_of?(Stripe::StripeObject) && c[0].card.object == 'card'

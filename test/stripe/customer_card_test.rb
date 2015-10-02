@@ -12,7 +12,7 @@ module Stripe
     should "customer cards should be listable" do
       c = customer
       @mock.expects(:get).once.returns(make_response(make_customer_card_array(customer.id)))
-      cards = c.sources.all(:object => "card").data
+      cards = c.sources.list(:object => "card").data
       assert cards.kind_of? Array
       assert cards[0].kind_of? Stripe::Card
     end

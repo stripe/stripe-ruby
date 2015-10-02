@@ -4,7 +4,7 @@ module Stripe
   class ApplicationFeeTest < Test::Unit::TestCase
     should "application fees should be listable" do
       @mock.expects(:get).once.returns(make_response(make_application_fee_array))
-      fees = Stripe::ApplicationFee.all
+      fees = Stripe::ApplicationFee.list
       assert fees.data.kind_of? Array
       fees.each do |fee|
         assert fee.kind_of?(Stripe::ApplicationFee)

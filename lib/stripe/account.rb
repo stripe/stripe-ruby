@@ -2,7 +2,7 @@ module Stripe
   class Account < APIResource
     include Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
-    include Stripe::APIOperations::List
+    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Update
 
     def url

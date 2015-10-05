@@ -1,6 +1,6 @@
 module Stripe
   class Recipient < APIResource
-    include Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Update
     extend Stripe::APIOperations::List

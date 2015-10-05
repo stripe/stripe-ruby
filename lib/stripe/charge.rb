@@ -1,7 +1,7 @@
 module Stripe
   class Charge < APIResource
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
 
     def refund(params={}, opts={})

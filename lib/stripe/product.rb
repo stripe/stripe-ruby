@@ -1,7 +1,7 @@
 module Stripe
   class Product < APIResource
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
 
     # Keep APIResource#url as `api_url` to avoid letting the external URL

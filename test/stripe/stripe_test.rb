@@ -1,4 +1,3 @@
-require 'pry'
 require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe

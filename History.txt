@@ -1,3 +1,7 @@
+=== 1.29.0 2015-10-05
+
+* Add pagination helpers `#auto_paging_each`, `#previous_page`, and `#next_page`
+
 === 1.28.1 2015-10-05
 
 * Fix URI being referenced by file upload resources

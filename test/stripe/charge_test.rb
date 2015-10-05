@@ -4,7 +4,7 @@ module Stripe
   class ChargeTest < Test::Unit::TestCase
     should "charges should be listable" do
       @mock.expects(:get).once.returns(make_response(make_charge_array))
-      c = Stripe::Charge.all
+      c = Stripe::Charge.list
       assert c.data.kind_of? Array
       c.each do |charge|
         assert charge.kind_of?(Stripe::Charge)

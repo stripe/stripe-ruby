@@ -3,7 +3,7 @@ module Stripe
     include Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Update
-    include Stripe::APIOperations::List
+    extend Stripe::APIOperations::List
 
     def add_invoice_item(params, opts={})
       opts = @opts.merge(Util.normalize_opts(opts))

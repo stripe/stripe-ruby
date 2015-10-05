@@ -1,7 +1,7 @@
 module Stripe
   class Reversal < APIResource
     include Stripe::APIOperations::Update
-    include Stripe::APIOperations::List
+    extend Stripe::APIOperations::List
 
     def url
       "#{Transfer.url}/#{CGI.escape(transfer)}/reversals/#{CGI.escape(id)}"

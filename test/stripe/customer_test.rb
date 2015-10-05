@@ -4,7 +4,7 @@ module Stripe
   class CustomerTest < Test::Unit::TestCase
     should "customers should be listable" do
       @mock.expects(:get).once.returns(make_response(make_customer_array))
-      c = Stripe::Customer.all.data
+      c = Stripe::Customer.list.data
       assert c.kind_of? Array
       assert c[0].kind_of? Stripe::Customer
     end

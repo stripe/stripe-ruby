@@ -10,7 +10,7 @@ module Stripe
 
     should "disputes should be listable" do
       @mock.expects(:get).once.returns(make_response(make_dispute_array))
-      d = Stripe::Dispute.all
+      d = Stripe::Dispute.list
       assert d.data.kind_of? Array
       d.each do |dispute|
         assert dispute.kind_of?(Stripe::Dispute)

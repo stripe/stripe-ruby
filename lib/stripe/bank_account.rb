@@ -2,7 +2,7 @@ module Stripe
   class BankAccount < APIResource
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
-    include Stripe::APIOperations::List
+    extend Stripe::APIOperations::List
 
     def url
       if respond_to?(:customer)

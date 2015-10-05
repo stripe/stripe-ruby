@@ -5,7 +5,7 @@ module Stripe
     should "SKUs should be listable" do
       @mock.expects(:get).once.
         returns(make_response(make_sku_array("test_product")))
-      skus = Stripe::SKU.all
+      skus = Stripe::SKU.list
       assert skus.data.kind_of? Array
       skus.each do |sku|
         assert sku.kind_of?(Stripe::SKU)

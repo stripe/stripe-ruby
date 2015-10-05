@@ -31,7 +31,7 @@ module Stripe
         with("#{Stripe.uploads_base}/v1/files", nil, nil).
         returns(make_response(make_file_array))
 
-      c = Stripe::FileUpload.all.data
+      c = Stripe::FileUpload.list.data
       assert c.kind_of? Array
       assert c[0].kind_of? Stripe::FileUpload
     end

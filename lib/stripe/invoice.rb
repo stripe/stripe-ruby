@@ -2,7 +2,7 @@ module Stripe
   class Invoice < APIResource
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Update
-    include Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Create
 
     def self.upcoming(params, opts={})
       response, opts = request(:get, upcoming_url, params, opts)

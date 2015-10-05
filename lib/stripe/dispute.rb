@@ -1,7 +1,7 @@
 module Stripe
   class Dispute < APIResource
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
 
     def close(params={}, opts={})

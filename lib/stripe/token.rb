@@ -1,5 +1,5 @@
 module Stripe
   class Token < APIResource
-    include Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Create
   end
 end

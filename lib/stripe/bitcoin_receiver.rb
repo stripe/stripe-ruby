@@ -1,6 +1,6 @@
 module Stripe
   class BitcoinReceiver < APIResource
-    include Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List

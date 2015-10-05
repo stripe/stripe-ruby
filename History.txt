@@ -1,3 +1,7 @@
+=== 1.28.1 2015-10-05
+
+* Fix URI being referenced by file upload resources
+
 === 1.28.0 2015-10-05
 
 * Make StripeObject's #save "upsert"-like; creates an object if new

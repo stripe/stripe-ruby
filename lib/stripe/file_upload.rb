@@ -1,22 +1,24 @@
 module Stripe
   class FileUpload < APIResource
+    include Stripe::APIOperations::Create
+    include Stripe::APIOperations::List
+
     def self.url
       "/v1/files"
+    end
+
+    def self.request(method, url, params={}, opts={})
+      opts = {
+        :api_base => Stripe::uploads_base
+      }.merge(Util.normalize_opts(opts))
+      super
     end
 
     def self.create(params={}, opts={})
       opts = {
         :content_type => 'multipart/form-data',
-        :api_base => Stripe::uploads_base
-      }.merge(opts)
-      response, opts = request(:post, url, params, opts)
-      Util.convert_to_stripe_object(response, opts)
-    end
-
-    def self.all(filters={}, opts={})
-      opts = {:api_base => Stripe::uploads_base}.merge(opts)
-      response, opts = request(:get, url, filters, opts)
-      Util.convert_to_stripe_object(response, opts)
+      }.merge(Util.normalize_opts(opts))
+      super
     end
   end
 end

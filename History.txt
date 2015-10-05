@@ -1,3 +1,12 @@
+=== 1.28.0 2015-10-05
+
+* Make StripeObject's #save "upsert"-like; creates an object if new
+* Add #update_attributes to StripeObject for safe mass assignment
+* Properly mass assign attributes on calls to #save
+* Add question mark helpers for boolean fields (e.g. #paid? as well as old #paid)
+* Fix a bug that broke the API for StripeObject initialization
+* Remove use of deprecated URI.escape
+
 === 1.27.2 2015-09-25
 
 * Correct the URLs used to fetch Bitcoin transactions.

@@ -74,27 +74,43 @@ module Stripe
   @open_timeout = 30
   @read_timeout = 80
 
+  STRIPE_KEY = "Stripe".freeze
+
   class << self
-    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
-                  :open_timeout, :read_timeout
+    attr_accessor :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
+                  :open_timeout, :read_timeout, :api_key_override
+
+    attr_writer   :api_key
+
+    def api_key_override=(api_key)
+      Thread.current[STRIPE_KEY] ||= {}
+      Thread.current[STRIPE_KEY][:api_key_override] = api_key
+    end
+
+    def api_key_override
+      Thread.current[STRIPE_KEY] && Thread.current[STRIPE_KEY][:api_key_override]
+    end
+
+    def api_key
+      api_key_override || @api_key
+    end
   end
 
   def self.api_url(url='', api_base_url=nil)
     (api_base_url || @api_base) + url
   end
 
-  def self.request(method, url, api_key, params={}, headers={}, api_base_url=nil)
+  def self.request(method, url, override_key, params={}, headers={}, api_base_url=nil)
     api_base_url = api_base_url || @api_base
 
-    unless api_key ||= @api_key
+    unless override_key ||= @api_key
       raise AuthenticationError.new('No API key provided. ' \
         'Set your API key using "Stripe.api_key = <API-KEY>". ' \
         'You can generate API keys from the Stripe web interface. ' \
         'See https://stripe.com/api for details, or email support@stripe.com ' \
         'if you have any questions.')
     end
-
-    if api_key =~ /\s/
+    if override_key =~ /\s/
       raise AuthenticationError.new('Your API key is invalid, as it contains ' \
         'whitespace. (HINT: You can double-check your API key from the ' \
         'Stripe web interface. See https://stripe.com/api for details, or ' \
@@ -130,7 +146,7 @@ module Stripe
       end
     end
 
-    request_opts.update(:headers => request_headers(api_key).update(headers),
+    request_opts.update(:headers => request_headers(override_key).update(headers),
                         :method => method, :open_timeout => open_timeout,
                         :payload => payload, :url => url, :timeout => read_timeout)
 
@@ -156,7 +172,7 @@ module Stripe
       handle_restclient_error(e, api_base_url)
     end
 
-    [parse(response), api_key]
+    [parse(response), override_key]
   end
 
   private
@@ -211,10 +227,10 @@ module Stripe
       map { |k,v| "#{k}=#{Util.url_encode(v)}" }.join('&')
   end
 
-  def self.request_headers(api_key)
+  def self.request_headers(override_key)
     headers = {
       :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
-      :authorization => "Bearer #{api_key}",
+      :authorization => "Bearer #{override_key}",
       :content_type => 'application/x-www-form-urlencoded'
     }
 

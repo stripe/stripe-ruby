@@ -74,16 +74,21 @@ module Stripe
   @open_timeout = 30
   @read_timeout = 80
 
+  STRIPE_KEY = "Stripe".freeze
+
   class << self
-    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
+    attr_accessor :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
                   :open_timeout, :read_timeout, :api_key_override
 
+    attr_writer   :api_key
+
     def api_key_override=(api_key)
-      Thread.current["Stripe"] ||= { api_key_override: api_key }
+      Thread.current[STRIPE_KEY] ||= {}
+      Thread.current[STRIPE_KEY][:api_key_override] = api_key
     end
 
     def api_key_override
-      Thread.current["Stripe"] && Thread.current["Stripe"][:api_key_override]
+      Thread.current[STRIPE_KEY] && Thread.current[STRIPE_KEY][:api_key_override]
     end
 
     def api_key

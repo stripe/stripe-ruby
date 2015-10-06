@@ -1,5 +1,3 @@
-require "webrick"
-
 module Stripe
   module Util
     def self.objects_to_ids(h)
@@ -95,10 +93,7 @@ module Stripe
     end
 
     def self.url_encode(key)
-      # Unfortunately, URI.escape was deprecated. Here we use a method from
-      # WEBrick instead given that it's a fairly close approximation (credit to
-      # the AWS Ruby SDK for coming up with the technique).
-      WEBrick::HTTPUtils.escape(key.to_s).gsub('%5B', '[').gsub('%5D', ']')
+      URI.escape(key.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
 
     def self.flatten_params(params, parent_key=nil)

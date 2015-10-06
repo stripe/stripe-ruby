@@ -92,6 +92,15 @@ module Stripe
       end
     end
 
+    # Encodes a hash of parameters in a way that's suitable for use as query
+    # parameters in a URI or as form parameters in a request body. This mainly
+    # involves escaping special characters from parameter keys and values (e.g.
+    # `&`).
+    def self.encode_parameters(params)
+      Util.flatten_params(params).
+        map { |k,v| "#{k}=#{Util.url_encode(v)}" }.join('&')
+    end
+
     def self.url_encode(key)
       URI.escape(key.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
@@ -108,7 +117,12 @@ module Stripe
           result << [calculated_key, value]
         end
       end
-      result
+
+      # The #sort_by call here is mostly so that we can get some stability in
+      # our 1.8.7 test suite where Hash key order is not preserved.
+      #
+      # https://www.igvita.com/2009/02/04/ruby-19-internals-ordered-hash/
+      result.sort_by { |(k, _)| k }
     end
 
     def self.flatten_params_array(value, calculated_key)

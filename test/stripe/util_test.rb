@@ -5,13 +5,13 @@ module Stripe
     should "#encode_parameters should prepare parameters for an HTTP request" do
       params = {
         :a => 3,
-        :b => "foo?",
+        :b => "+foo?",
         :c => "bar&baz",
         :d => { :a => "a", :b => "b" },
         :e => [0, 1],
       }
       assert_equal(
-        "a=3&b=foo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1",
+        "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1",
         Stripe::Util.encode_parameters(params)
       )
     end

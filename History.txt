@@ -1,3 +1,7 @@
+=== 1.29.1 2015-10-06
+
+* Fix bug where ampersands were not being properly encoded
+
 === 1.29.0 2015-10-05
 
 * Add pagination helpers `#auto_paging_each`, `#previous_page`, and `#next_page`

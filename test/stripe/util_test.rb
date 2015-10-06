@@ -16,6 +16,16 @@ module Stripe
       )
     end
 
+    should "#url_encode should prepare strings for HTTP" do
+      assert_equal "foo",      Stripe::Util.url_encode("foo")
+      assert_equal "foo",      Stripe::Util.url_encode(:foo)
+      assert_equal "foo%2B",   Stripe::Util.url_encode("foo+")
+      assert_equal "foo%26",   Stripe::Util.url_encode("foo&")
+    # Actually, we're going to alter the behavior of #url_encode slightly to
+    # simplify the form encoding path. This does not yet succeed.
+    # assert_equal "foo[bar]", Stripe::Util.url_encode("foo[bar]")
+    end
+
     should "#flatten_params should encode parameters according to Rails convention" do
       params = {
         :a => 3,

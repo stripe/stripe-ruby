@@ -230,7 +230,7 @@ module Stripe
 
       should "urlencode values in GET params" do
         response = make_response(make_charge_array)
-        @mock.expects(:get).with("#{Stripe.api_base}/v1/charges?customer=test%20customer", nil, nil).returns(response)
+        @mock.expects(:get).with("#{Stripe.api_base}/v1/charges?customer=test+customer", nil, nil).returns(response)
         charges = Stripe::Charge.list(:customer => 'test customer').data
         assert charges.kind_of? Array
       end

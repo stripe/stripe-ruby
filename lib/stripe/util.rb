@@ -1,4 +1,4 @@
-require "webrick"
+require "uri"
 
 module Stripe
   module Util
@@ -94,17 +94,15 @@ module Stripe
       end
     end
 
-    def self.url_encode(key)
-      # Unfortunately, URI.escape was deprecated. Here we use a method from
-      # WEBrick instead given that it's a fairly close approximation (credit to
-      # the AWS Ruby SDK for coming up with the technique).
-      WEBrick::HTTPUtils.escape(key.to_s).gsub('%5B', '[').gsub('%5D', ']')
+    def self.encode_parameters(params)
+      URI.encode_www_form(Util.flatten_params(params)).
+        gsub('%5B', '[').gsub('%5D', ']')
     end
 
     def self.flatten_params(params, parent_key=nil)
       result = []
       params.each do |key, value|
-        calculated_key = parent_key ? "#{parent_key}[#{url_encode(key)}]" : url_encode(key)
+        calculated_key = parent_key ? "#{parent_key}[#{key}]" : key.to_s
         if value.is_a?(Hash)
           result += flatten_params(value, calculated_key)
         elsif value.is_a?(Array)

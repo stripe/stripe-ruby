@@ -2,7 +2,40 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class UtilTest < Test::Unit::TestCase
-    should "symbolize_names should convert names to symbols" do
+    should "#encode_parameters should prepare parameters for an HTTP request" do
+      params = {
+        :a => 3,
+        :b => "+foo?",
+        :c => "bar&baz",
+        :d => { :a => "a", :b => "b" },
+        :e => [0, 1],
+      }
+      assert_equal(
+        "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1",
+        Stripe::Util.encode_parameters(params)
+      )
+    end
+
+    should "#flatten_params should encode parameters according to Rails convention" do
+      params = {
+        :a => 3,
+        :b => "foo?",
+        :c => "bar&baz",
+        :d => { :a => "a", :b => "b" },
+        :e => [0, 1],
+      }
+      assert_equal([
+        ["a",    3],
+        ["b",    "foo?"],
+        ["c",    "bar&baz"],
+        ["d[a]", "a"],
+        ["d[b]", "b"],
+        ["e[]",  0],
+        ["e[]",  1],
+      ], Stripe::Util.flatten_params(params))
+    end
+
+    should "#symbolize_names should convert names to symbols" do
       start = {
         'foo' => 'bar',
         'array' => [{ 'foo' => 'bar' }],
@@ -26,7 +59,7 @@ module Stripe
       assert_equal(finish, symbolized)
     end
 
-    should "normalize_opts should reject nil keys" do
+    should "#normalize_opts should reject nil keys" do
       assert_raise { Stripe::Util.normalize_opts(nil) }
       assert_raise { Stripe::Util.normalize_opts(:api_key => nil) }
     end

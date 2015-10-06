@@ -120,13 +120,13 @@ module Stripe
     case method.to_s.downcase.to_sym
     when :get, :head, :delete
       # Make params into GET parameters
-      url += "#{URI.parse(url).query ? '&' : '?'}#{uri_encode(params)}" if params && params.any?
+      url += "#{URI.parse(url).query ? '&' : '?'}#{Util.encode_parameters(params)}" if params && params.any?
       payload = nil
     else
       if headers[:content_type] && headers[:content_type] == "multipart/form-data"
         payload = params
       else
-        payload = uri_encode(params)
+        payload = Util.encode_parameters(params)
       end
     end
 
@@ -205,10 +205,9 @@ module Stripe
     "uname lookup failed"
   end
 
-
+  # DEPRECATED. Use `Util#encode_parameters` instead.
   def self.uri_encode(params)
-    Util.flatten_params(params).
-      map { |k,v| "#{k}=#{Util.url_encode(v)}" }.join('&')
+    Util.encode_parameters(params)
   end
 
   def self.request_headers(api_key)

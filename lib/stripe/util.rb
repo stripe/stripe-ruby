@@ -92,6 +92,15 @@ module Stripe
       end
     end
 
+    # Encodes a hash of parameters in a way that's suitable for use as query
+    # parameters in a URI or as form parameters in a request body. This mainly
+    # involves escaping special characters from parameter keys and values (e.g.
+    # `&`).
+    def self.encode_parameters(params)
+      Util.flatten_params(params).
+        map { |k,v| "#{k}=#{Util.url_encode(v)}" }.join('&')
+    end
+
     def self.url_encode(key)
       URI.escape(key.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end

@@ -117,7 +117,12 @@ module Stripe
           result << [calculated_key, value]
         end
       end
-      result
+
+      # The #sort_by call here is mostly so that we can get some stability in
+      # our 1.8.7 test suite where Hash key order is not preserved.
+      #
+      # https://www.igvita.com/2009/02/04/ruby-19-internals-ordered-hash/
+      result.sort_by { |(k, _)| k }
     end
 
     def self.flatten_params_array(value, calculated_key)

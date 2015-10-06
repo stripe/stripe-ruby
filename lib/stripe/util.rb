@@ -95,8 +95,8 @@ module Stripe
     end
 
     def self.encode_parameters(params)
-      URI.encode_www_form(Util.flatten_params(params))
-        .gsub('%5B', '[').gsub('%5D', ']')
+      URI.encode_www_form(Util.flatten_params(params)).
+        gsub('%5B', '[').gsub('%5D', ']')
     end
 
     def self.flatten_params(params, parent_key=nil)

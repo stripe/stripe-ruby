@@ -1,3 +1,5 @@
+require "cgi"
+
 module Stripe
   module Util
     def self.objects_to_ids(h)
@@ -98,17 +100,24 @@ module Stripe
     # `&`).
     def self.encode_parameters(params)
       Util.flatten_params(params).
-        map { |k,v| "#{k}=#{Util.url_encode(v)}" }.join('&')
+        map { |k,v| "#{url_encode(k)}=#{url_encode(v)}" }.join('&')
     end
 
+    # Encodes a string in a way that makes it suitable for use in a set of
+    # query parameters in a URI or in a set of form parameters in a request
+    # body.
     def self.url_encode(key)
-      URI.escape(key.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+      CGI.escape(key.to_s).
+        # Don't use strict form encoding by changing the square bracket control
+        # characters back to their literals. This is fine by the server, and
+        # makes these parameter strings easier to read.
+        gsub('%5B', '[').gsub('%5D', ']')
     end
 
     def self.flatten_params(params, parent_key=nil)
       result = []
       params.each do |key, value|
-        calculated_key = parent_key ? "#{parent_key}[#{url_encode(key)}]" : url_encode(key)
+        calculated_key = parent_key ? "#{parent_key}[#{key}]" : "#{key}"
         if value.is_a?(Hash)
           result += flatten_params(value, calculated_key)
         elsif value.is_a?(Array)

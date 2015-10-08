@@ -33,7 +33,7 @@ module Stripe
           values.delete(:id)
 
           response, opts = request(:post, req_url, values)
-          refresh_from(response, opts)
+          initialize_from(response, opts)
         end
         self
       end

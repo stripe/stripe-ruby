@@ -6,7 +6,7 @@ module Stripe
 
     def close(params={}, opts={})
       response, opts = request(:post, close_url, params, opts)
-      refresh_from(response, opts)
+      initialize_from(response, opts)
     end
 
     def close_url

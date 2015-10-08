@@ -13,7 +13,7 @@ module Stripe
 
     def delete_discount
       response, opts = request(:delete, discount_url)
-      refresh_from({ :discount => nil }, opts, true)
+      initialize_from({ :discount => nil }, opts, true)
     end
 
     private

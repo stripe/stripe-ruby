@@ -22,7 +22,9 @@ module Stripe
 
     def self.construct_from(values, opts={})
       values = Stripe::Util.symbolize_names(values)
-      self.new(values[:id]).refresh_from(values, opts)
+
+      # work around protected #initialize_from for now
+      self.new(values[:id]).send(:initialize_from, values, opts)
     end
 
     # Determines the equality of two Stripe objects. Stripe objects are
@@ -41,35 +43,17 @@ module Stripe
       "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
     end
 
+    # Re-initializes the object based on a hash of values (usually one that's
+    # come back from an API call). Adds or removes value accessors as necessary
+    # and updates the state of internal data.
+    #
+    # Please don't use this method. If you're trying to do mass assignment, try
+    # #initialize_from instead.
     def refresh_from(values, opts, partial=false)
-      @opts = Util.normalize_opts(opts)
-      @original_values = Marshal.load(Marshal.dump(values)) # deep copy
-
-      removed = partial ? Set.new : Set.new(@values.keys - values.keys)
-      added = Set.new(values.keys - @values.keys)
-
-      # Wipe old state before setting new.  This is useful for e.g. updating a
-      # customer, where there is no persistent card parameter.  Mark those values
-      # which don't persist as transient
-
-      instance_eval do
-        remove_accessors(removed)
-        add_accessors(added, values)
-      end
-
-      removed.each do |k|
-        @values.delete(k)
-        @transient_values.add(k)
-        @unsaved_values.delete(k)
-      end
-
-      update_attributes_with_options(values, :opts => opts)
-      values.each do |k, _|
-        @transient_values.delete(k)
-        @unsaved_values.delete(k)
-      end
-
-      return self
+      Stripe::Util.warn_deprecated("#refresh_from",
+        extra: "If you're trying to perform mass-assignment, please consider " +
+          "using #update_attributes instead.")
+      initialize_from(values, opts, partial)
     end
 
     # Mass assigns attributes on the model.
@@ -292,6 +276,49 @@ module Stripe
 
     def respond_to_missing?(symbol, include_private = false)
       @values && @values.has_key?(symbol) || super
+    end
+
+    # Re-initializes the object based on a hash of values (usually one that's
+    # come back from an API call). Adds or removes value accessors as necessary
+    # and updates the state of internal data.
+    #
+    # Protected on purpose! Please do not expose.
+    #
+    # ==== Options
+    #
+    # * +:values:+ Hash used to update accessors and values.
+    # * +:opts:+ Options for StripeObject like an API key.
+    # * +:partial:+ Indicates that the re-initialization should not attempt to
+    #   remove accessors.
+    def initialize_from(values, opts, partial=false)
+      @opts = Util.normalize_opts(opts)
+      @original_values = Marshal.load(Marshal.dump(values)) # deep copy
+
+      removed = partial ? Set.new : Set.new(@values.keys - values.keys)
+      added = Set.new(values.keys - @values.keys)
+
+      # Wipe old state before setting new.  This is useful for e.g. updating a
+      # customer, where there is no persistent card parameter.  Mark those values
+      # which don't persist as transient
+
+      instance_eval do
+        remove_accessors(removed)
+        add_accessors(added, values)
+      end
+
+      removed.each do |k|
+        @values.delete(k)
+        @transient_values.add(k)
+        @unsaved_values.delete(k)
+      end
+
+      update_attributes_with_options(values, :opts => opts)
+      values.each do |k, _|
+        @transient_values.delete(k)
+        @unsaved_values.delete(k)
+      end
+
+      self
     end
 
     # Mass assigns attributes on the model.

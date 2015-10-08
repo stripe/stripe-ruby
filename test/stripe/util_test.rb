@@ -71,5 +71,32 @@ module Stripe
       assert_raise { Stripe::Util.normalize_opts(nil) }
       assert_raise { Stripe::Util.normalize_opts(:api_key => nil) }
     end
+
+    should "#warn_deprecated produces a deprecation warning" do
+      old_stderr = $stderr
+      $stderr = StringIO.new
+      begin
+        Stripe::Util.warn_deprecated("#refresh_from", extra: "Don't use it.")
+        message = "Warning (stripe): #refresh_from is deprecated and will be " +
+          "removed in a future version. Don't use it.\n"
+        assert_equal message, $stderr.string
+      ensure
+        $stderr = old_stderr
+      end
+    end
+
+    should "#warn_deprecated is silent on $VERBOSE = nil" do
+      old_stderr = $stderr
+      old_verbose = $VERBOSE
+      $stderr = StringIO.new
+      $VERBOSE = nil
+      begin
+        Stripe::Util.warn_deprecated("#refresh_from", extra: "Don't use it.")
+        assert_equal "", $stderr.string
+      ensure
+        $stderr = old_stderr
+        $VERBOSE = old_verbose
+      end
+    end
   end
 end

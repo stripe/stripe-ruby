@@ -207,6 +207,8 @@ module Stripe
 
   # DEPRECATED. Use `Util#encode_parameters` instead.
   def self.uri_encode(params)
+    Stripe::Util.warn_deprecated("Stripe.uri_encode",
+      extra: "Use Stripe::Util#encode_parameters instead.")
     Util.encode_parameters(params)
   end
 

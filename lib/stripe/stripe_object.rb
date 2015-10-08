@@ -85,8 +85,6 @@ module Stripe
     # ==== Options
     #
     # * +:opts+ Options for StripeObject like an API key.
-    # * +:raise_error+ Set to false to suppress ArgumentErrors on keys that
-    #   don't exist.
     def update_attributes(values, opts = {})
       values.each do |k, v|
         @values[k] = Util.convert_to_stripe_object(v, opts)

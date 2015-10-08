@@ -76,7 +76,7 @@ module Stripe
       old_stderr = $stderr
       $stderr = StringIO.new
       begin
-        Stripe::Util.warn_deprecated("#refresh_from", extra: "Don't use it.")
+        Stripe::Util.warn_deprecated("#refresh_from", :extra => "Don't use it.")
         message = "Warning (stripe): #refresh_from is deprecated and will be " +
           "removed in a future version. Don't use it.\n"
         assert_equal message, $stderr.string
@@ -91,7 +91,7 @@ module Stripe
       $stderr = StringIO.new
       $VERBOSE = nil
       begin
-        Stripe::Util.warn_deprecated("#refresh_from", extra: "Don't use it.")
+        Stripe::Util.warn_deprecated("#refresh_from", :extra => "Don't use it.")
         assert_equal "", $stderr.string
       ensure
         $stderr = old_stderr

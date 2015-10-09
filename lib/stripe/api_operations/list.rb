@@ -8,9 +8,13 @@ module Stripe
         response, opts = request(:get, url, filters, opts)
         obj = ListObject.construct_from(response, opts)
 
-        # set a limit so that we can fetch the same number when accessing the
-        # next and previous pages
-        obj.limit = filters[:limit]
+        # set filters so that we can fetch the same limit, expansions, and
+        # predicates when accessing the next and previous pages
+        #
+        # just for general cleanliness, remove any paging options
+        obj.filters = filters.dup
+        obj.filters.delete(:ending_before)
+        obj.filters.delete(:starting_after)
 
         obj
       end

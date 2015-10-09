@@ -4,16 +4,21 @@ module Stripe
     include Stripe::APIOperations::List
     include Stripe::APIOperations::Request
 
-    # This accessor allows a `ListObject` to inherit a limit that was given to
-    # a predecessor. This allows consistent limits as a user pages through
-    # resources.
-    attr_accessor :limit
+    # This accessor allows a `ListObject` to inherit various filters that were
+    # given to a predecessor. This allows for things like consistent limits,
+    # expansions, and predicates as a user pages through resources.
+    attr_accessor :filters
 
     # An empty list object. This is returned from +next+ when we know that
     # there isn't a next page in order to replicate the behavior of the API
     # when it attempts to return a page beyond the last.
     def self.empty_list(opts={})
       ListObject.construct_from({ :data => [] }, opts)
+    end
+
+    def initialize(*args)
+      super
+      self.filters = {}
     end
 
     def [](k)
@@ -75,10 +80,9 @@ module Stripe
       return self.class.empty_list(opts) if !has_more
       last_id = data.last.id
 
-      params = {
-        :limit          => limit, # may be nil
+      params = filters.merge({
         :starting_after => last_id,
-      }.merge(params)
+      }).merge(params)
 
       list(params, opts)
     end
@@ -90,10 +94,9 @@ module Stripe
     def previous_page(params={}, opts={})
       first_id = data.first.id
 
-      params = {
+      params = filters.merge({
         :ending_before => first_id,
-        :limit         => limit, # may be nil
-      }.merge(params)
+      }).merge(params)
 
       list(params, opts)
     end

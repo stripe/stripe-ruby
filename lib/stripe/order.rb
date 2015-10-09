@@ -6,7 +6,7 @@ module Stripe
 
     def pay(params, opts={})
       response, opts = request(:post, pay_url, params, opts)
-      refresh_from(response, opts)
+      initialize_from(response, opts)
     end
 
     private

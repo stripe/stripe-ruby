@@ -93,7 +93,7 @@ module Stripe
           obj.metadata['uuid'] = '6735'
         end
         params = {:metadata => {'type' => 'summer', 'uuid' => '6735'}}
-        curl_args = Stripe.uri_encode(params)
+        curl_args = Stripe::Util.encode_parameters(params)
         check_metadata({:metadata => {'type' => 'christmas'}},
                        curl_args,
                        update_actions)

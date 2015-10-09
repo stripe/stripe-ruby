@@ -22,7 +22,9 @@ module Stripe
 
     def self.construct_from(values, opts={})
       values = Stripe::Util.symbolize_names(values)
-      self.new(values[:id]).refresh_from(values, opts)
+
+      # work around protected #initialize_from for now
+      self.new(values[:id]).send(:initialize_from, values, opts)
     end
 
     # Determines the equality of two Stripe objects. Stripe objects are
@@ -41,36 +43,17 @@ module Stripe
       "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
     end
 
+    # Re-initializes the object based on a hash of values (usually one that's
+    # come back from an API call). Adds or removes value accessors as necessary
+    # and updates the state of internal data.
+    #
+    # Please don't use this method. If you're trying to do mass assignment, try
+    # #initialize_from instead.
     def refresh_from(values, opts, partial=false)
-      @opts = Util.normalize_opts(opts)
-      @original_values = Marshal.load(Marshal.dump(values)) # deep copy
-
-      removed = partial ? Set.new : Set.new(@values.keys - values.keys)
-      added = Set.new(values.keys - @values.keys)
-
-      # Wipe old state before setting new.  This is useful for e.g. updating a
-      # customer, where there is no persistent card parameter.  Mark those values
-      # which don't persist as transient
-
-      instance_eval do
-        remove_accessors(removed)
-        add_accessors(added, values)
-      end
-
-      removed.each do |k|
-        @values.delete(k)
-        @transient_values.add(k)
-        @unsaved_values.delete(k)
-      end
-
-      update_attributes(values, :opts => opts)
-      values.each do |k, _|
-        @transient_values.delete(k)
-        @unsaved_values.delete(k)
-      end
-
-      return self
+      initialize_from(values, opts, partial)
     end
+    extend Gem::Deprecate
+    deprecate :refresh_from, "#update_attributes", 2016, 01
 
     # Mass assigns attributes on the model.
     #
@@ -307,6 +290,80 @@ module Stripe
 
     def respond_to_missing?(symbol, include_private = false)
       @values && @values.has_key?(symbol) || super
+    end
+
+    # Re-initializes the object based on a hash of values (usually one that's
+    # come back from an API call). Adds or removes value accessors as necessary
+    # and updates the state of internal data.
+    #
+    # Protected on purpose! Please do not expose.
+    #
+    # ==== Options
+    #
+    # * +:values:+ Hash used to update accessors and values.
+    # * +:opts:+ Options for StripeObject like an API key.
+    # * +:partial:+ Indicates that the re-initialization should not attempt to
+    #   remove accessors.
+    def initialize_from(values, opts, partial=false)
+      @opts = Util.normalize_opts(opts)
+      @original_values = Marshal.load(Marshal.dump(values)) # deep copy
+
+      removed = partial ? Set.new : Set.new(@values.keys - values.keys)
+      added = Set.new(values.keys - @values.keys)
+
+      # Wipe old state before setting new.  This is useful for e.g. updating a
+      # customer, where there is no persistent card parameter.  Mark those values
+      # which don't persist as transient
+
+      instance_eval do
+        remove_accessors(removed)
+        add_accessors(added, values)
+      end
+
+      removed.each do |k|
+        @values.delete(k)
+        @transient_values.add(k)
+        @unsaved_values.delete(k)
+      end
+
+      update_attributes(values, :opts => opts)
+      values.each do |k, _|
+        @transient_values.delete(k)
+        @unsaved_values.delete(k)
+      end
+
+      self
+    end
+
+    # Mass assigns attributes on the model.
+    #
+    # This is a version of +update_attributes+ that takes some extra options
+    # for internal use.
+    #
+    # ==== Options
+    #
+    # * +:opts:+ Options for StripeObject like an API key.
+    # * +:raise_error:+ Set to false to suppress ArgumentErrors on keys that
+    #   don't exist.
+    def update_attributes_with_options(values, options={})
+      # `opts` are StripeObject options
+      opts        = options.fetch(:opts, {})
+      raise_error = options.fetch(:raise_error, true)
+
+      values.each do |k, v|
+        if !@@permanent_attributes.include?(k) && !self.respond_to?(:"#{k}=")
+          if raise_error
+            raise ArgumentError,
+              "#{k} is not an attribute that can be assigned on this object"
+          else
+            next
+          end
+        end
+
+        @values[k] = Util.convert_to_stripe_object(v, opts)
+        @unsaved_values.add(k)
+      end
+      self
     end
   end
 end

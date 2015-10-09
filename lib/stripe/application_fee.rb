@@ -8,7 +8,7 @@ module Stripe
 
     def refund(params={}, opts={})
       response, opts = request(:post, refund_url, params, opts)
-      refresh_from(response, opts)
+      initialize_from(response, opts)
     end
 
     private

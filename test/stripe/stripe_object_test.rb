@@ -11,6 +11,17 @@ module Stripe
       refute obj1 == obj3
     end
 
+    should "implement #deleted?" do
+      obj = Stripe::StripeObject.construct_from({})
+      refute obj.deleted?
+
+      obj = Stripe::StripeObject.construct_from({ :deleted => false })
+      refute obj.deleted?
+
+      obj = Stripe::StripeObject.construct_from({ :deleted => true })
+      assert obj.deleted?
+    end
+
     should "implement #respond_to" do
       obj = Stripe::StripeObject.construct_from({ :id => 1, :foo => 'bar' })
       assert obj.respond_to?(:id)

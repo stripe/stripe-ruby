@@ -58,5 +58,19 @@ module Stripe
       end
       assert_equal "foo is not an attribute that can be assigned on this object", e.message
     end
+
+    should "warn that #refresh_from is deprecated" do
+      old_stderr = $stderr
+      $stderr = StringIO.new
+      begin
+        obj = Stripe::StripeObject.construct_from({})
+        obj.refresh_from({}, {})
+        message = "NOTE: Stripe::StripeObject#refresh_from is " +
+          "deprecated; use #update_attributes instead"
+        assert_match Regexp.new(message), $stderr.string
+      ensure
+        $stderr = old_stderr
+      end
+    end
   end
 end

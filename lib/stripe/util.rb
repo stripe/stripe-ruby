@@ -181,16 +181,5 @@ module Stripe
       raise TypeError.new("api_key must be a string") unless key.is_a?(String)
       key
     end
-
-    def self.warn_deprecated(name, options = {})
-      # should not trigger on $VERBOSE = nil (false is "level 1", true is
-      # "level 2")
-      if $VERBOSE != nil
-        message = "Warning (stripe): #{name} is deprecated and will be " +
-          "removed in a future version."
-        message += " " + options[:extra] if options[:extra]
-        $stderr.puts(message)
-      end
-    end
   end
 end

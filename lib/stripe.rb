@@ -64,6 +64,7 @@ require 'stripe/errors/rate_limit_error'
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
+
   @api_base = 'https://api.stripe.com'
   @connect_base = 'https://connect.stripe.com'
   @uploads_base = 'https://uploads.stripe.com'
@@ -207,9 +208,11 @@ module Stripe
 
   # DEPRECATED. Use `Util#encode_parameters` instead.
   def self.uri_encode(params)
-    Stripe::Util.warn_deprecated("Stripe.uri_encode",
-      :extra => "Use Stripe::Util#encode_parameters instead.")
     Util.encode_parameters(params)
+  end
+  class << self
+    extend Gem::Deprecate
+    deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 01
   end
 
   def self.request_headers(api_key)

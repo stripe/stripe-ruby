@@ -50,11 +50,10 @@ module Stripe
     # Please don't use this method. If you're trying to do mass assignment, try
     # #initialize_from instead.
     def refresh_from(values, opts, partial=false)
-      Stripe::Util.warn_deprecated("#refresh_from",
-        :extra => "If you're trying to perform mass-assignment, please consider " +
-          "using #update_attributes instead.")
       initialize_from(values, opts, partial)
     end
+    extend Gem::Deprecate
+    deprecate :refresh_from, "#update_attributes", 2016, 01
 
     # Mass assigns attributes on the model.
     def update_attributes(values)

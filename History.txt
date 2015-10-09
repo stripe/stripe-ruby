@@ -1,3 +1,9 @@
+=== 1.30.0 2015-10-09
+
+* Add `StripeObject#deleted?` for a reliable way to check whether an object is alive
+* Deprecate `StripeObject#refresh_from`
+* New parameter encoding scheme that doesn't use `URI.escape`
+
 === 1.29.1 2015-10-06
 
 * Fix bug where ampersands were not being properly encoded

@@ -53,10 +53,11 @@ module Stripe
       obj.update_attributes(:name => 'STRIPE')
       assert_equal "STRIPE", obj.name
 
-      e = assert_raises(ArgumentError) do
-        obj.update_attributes(:foo => 'bar')
-      end
-      assert_equal "foo is not an attribute that can be assigned on this object", e.message
+      # unfortunately, we even assign unknown properties to duplicate the
+      # behavior that we currently have via magic accessors with
+      # method_missing
+      obj.update_attributes(:unknown => 'foo')
+      assert_equal "foo", obj.unknown
     end
   end
 end

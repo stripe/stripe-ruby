@@ -34,6 +34,13 @@ module Stripe
       @values == other.instance_variable_get(:@values)
     end
 
+    # Indicates whether or not the resource has been deleted on the server.
+    # Note that some, but not all, resources can indicate whether they have
+    # been deleted.
+    def deleted?
+      @values.fetch(:deleted, false)
+    end
+
     def to_s(*args)
       JSON.pretty_generate(@values)
     end

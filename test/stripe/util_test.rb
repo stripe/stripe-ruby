@@ -3,13 +3,14 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class UtilTest < Test::Unit::TestCase
     should "#encode_parameters should prepare parameters for an HTTP request" do
-      params = {
-        :a => 3,
-        :b => "+foo?",
-        :c => "bar&baz",
-        :d => { :a => "a", :b => "b" },
-        :e => [0, 1],
-      }
+      # use array instead of hash for 1.8.7 ordering
+      params = [
+        [:a, 3],
+        [:b, "+foo?"],
+        [:c, "bar&baz"],
+        [:d, { :a => "a", :b => "b" }],
+        [:e, [0, 1]],
+      ]
       assert_equal(
         "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1",
         Stripe::Util.encode_parameters(params)
@@ -25,17 +26,17 @@ module Stripe
     end
 
     should "#flatten_params should encode parameters according to Rails convention" do
-      params = {
-        :a => 3,
-        :b => "foo?",
-        :c => "bar&baz",
-        :d => { :a => "a", :b => "b" },
-        :e => [0, 1],
-        :f => [
+      params = [
+        [:a, 3],
+        [:b, "foo?"],
+        [:c, "bar&baz"],
+        [:d, { :a => "a", :b => "b" }],
+        [:e, [0, 1]],
+        [:f, [
           { :foo => "1", :bar => "2" },
           { :foo => "3", :baz => "4" },
-        ],
-      }
+        ]],
+      ]
       assert_equal([
         ["a",        3],
         ["b",        "foo?"],

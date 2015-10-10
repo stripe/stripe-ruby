@@ -131,7 +131,7 @@ module Stripe
       # our 1.8.7 test suite where Hash key order is not preserved.
       #
       # https://www.igvita.com/2009/02/04/ruby-19-internals-ordered-hash/
-      result.sort_by { |(k, _)| k }
+      result
     end
 
     def self.flatten_params_array(value, calculated_key)

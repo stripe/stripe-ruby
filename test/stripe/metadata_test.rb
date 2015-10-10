@@ -60,7 +60,7 @@ module Stripe
 
       if is_greater_than_ruby_1_9?
         check_metadata({:metadata => {:initial => 'true'}},
-                      'metadata[initial]=&metadata[uuid]=6735',
+                      'metadata[uuid]=6735&metadata[initial]=',
                       update_actions)
       end
     end

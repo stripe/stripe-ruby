@@ -31,15 +31,27 @@ module Stripe
         :c => "bar&baz",
         :d => { :a => "a", :b => "b" },
         :e => [0, 1],
+        :f => [
+          { :foo => "1", :bar => "2" },
+          { :foo => "3", :baz => "4" },
+        ],
       }
       assert_equal([
-        ["a",    3],
-        ["b",    "foo?"],
-        ["c",    "bar&baz"],
-        ["d[a]", "a"],
-        ["d[b]", "b"],
-        ["e[]",  0],
-        ["e[]",  1],
+        ["a",        3],
+        ["b",        "foo?"],
+        ["c",        "bar&baz"],
+        ["d[a]",     "a"],
+        ["d[b]",     "b"],
+        ["e[]",      0],
+        ["e[]",      1],
+
+        # *The key here is the order*. In order to be properly interpreted as
+        # an array of hashes on the server, everything from a single hash must
+        # come in at once. A duplicate key in an array triggers a new element.
+        ["f[][foo]", "1"],
+        ["f[][bar]", "2"],
+        ["f[][foo]", "3"],
+        ["f[][baz]", "4"],
       ], Stripe::Util.flatten_params(params))
     end
 

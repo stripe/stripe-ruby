@@ -80,8 +80,17 @@ module Stripe
     should "fetch a next page through #next_page and respect limit" do
       list = TestListObject.construct_from({ :data => [{ :id => 1 }], :has_more => true })
       list.filters = { :expand => ['data.source'], :limit => 3 }
-      @mock.expects(:get).once.with("#{Stripe.api_base}/things?expand[]=data.source&limit=3&starting_after=1", nil, nil).
-        returns(make_response({ :data => [{ :id => 2 }], :has_more => false }))
+      @mock.expects(:get).with do |url, _, _|
+        # apparently URI.parse in 1.8.7 doesn't support query parameters ...
+        url, query = url.split("?")
+        u = URI.parse(url)
+        params = CGI.parse(query)
+        u.host == URI.parse(Stripe.api_base).host && u.path == "/things" && params == {
+          "expand[]"       => ["data.source"],
+          "limit"          => ["3"],
+          "starting_after" => ["1"],
+        }
+      end.returns(make_response({ :data => [{ :id => 2 }], :has_more => false }))
       next_list = list.next_page
       assert_equal({ :expand => ['data.source'], :limit => 3 }, next_list.filters)
     end
@@ -107,8 +116,17 @@ module Stripe
     should "fetch a next page through #previous_page and respect limit" do
       list = TestListObject.construct_from({ :data => [{ :id => 2 }] })
       list.filters = { :expand => ['data.source'], :limit => 3 }
-      @mock.expects(:get).once.with("#{Stripe.api_base}/things?ending_before=2&expand[]=data.source&limit=3", nil, nil).
-        returns(make_response({ :data => [{ :id => 1 }] }))
+      @mock.expects(:get).with do |url, _, _|
+        # apparently URI.parse in 1.8.7 doesn't support query parameters ...
+        url, query = url.split("?")
+        u = URI.parse(url)
+        params = CGI.parse(query)
+        u.host == URI.parse(Stripe.api_base).host && u.path == "/things" && params == {
+          "ending_before" => ["2"],
+          "expand[]"      => ["data.source"],
+          "limit"         => ["3"],
+        }
+      end.returns(make_response({ :data => [{ :id => 1 }] }))
       next_list = list.previous_page
       assert_equal({ :expand => ['data.source'], :limit => 3 }, next_list.filters)
     end

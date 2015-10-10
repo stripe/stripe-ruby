@@ -127,10 +127,6 @@ module Stripe
         end
       end
 
-      # The #sort_by call here is mostly so that we can get some stability in
-      # our 1.8.7 test suite where Hash key order is not preserved.
-      #
-      # https://www.igvita.com/2009/02/04/ruby-19-internals-ordered-hash/
       result
     end
 

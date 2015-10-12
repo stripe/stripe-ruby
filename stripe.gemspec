@@ -20,6 +20,14 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('test-unit')
   s.add_development_dependency('rake')
 
+  # to avoid problems, bring Byebug in on just versions of Ruby under which
+  # it's known to work well
+  if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.0.0')
+    s.add_development_dependency("byebug")
+    s.add_development_dependency("pry")
+    s.add_development_dependency("pry-byebug")
+  end
+
   s.files = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

@@ -84,5 +84,20 @@ module Stripe
         $stderr = old_stderr
       end
     end
+
+    should "pass opts down to children when initializing" do
+      opts = { :custom => "opts" }
+
+      # customer comes with a `sources` list that makes a convenient object to
+      # perform tests on
+      customer = Stripe::Customer.construct_from(make_customer, opts)
+
+      source = customer.sources.first
+      # Pulling `@opts` as an instance variable here is not ideal, but it's
+      # important enough argument that the test here is worth it. we should
+      # consider exposing it publicly on a future pull (and possibly renaming
+      # it to something more useful).
+      assert_equal opts, source.instance_variable_get(:@opts)
+    end
   end
 end

@@ -99,5 +99,84 @@ module Stripe
       # it to something more useful).
       assert_equal opts, source.instance_variable_get(:@opts)
     end
+
+    should "#serialize_params on an empty object" do
+      obj = Stripe::StripeObject.construct_from({})
+      assert_equal({}, Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params on a basic object" do
+      obj = Stripe::StripeObject.construct_from({ :foo => nil })
+      obj.update_attributes(:foo => "bar")
+      assert_equal({ :foo => "bar" }, Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params on a more complex object" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => Stripe::StripeObject.construct_from({
+          :bar => nil,
+          :baz => nil,
+        }),
+      })
+      obj.foo.bar = "newbar"
+      assert_equal({ :foo => { :bar => "newbar" } },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params on an array as an update if possible" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => ["0-index", "1-index", "2-index"],
+      })
+      obj.foo[1] = "new-value"
+      obj.foo[2] = "new-value"
+      assert_equal({ :foo => { "1" => "new-value", "2" => "new-value" } },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params on an array as a replace for a new array" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => nil,
+      })
+      obj.foo = ["new-value"]
+      assert_equal({ :foo => ["new-value"] },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params on an array as a replace for an array that shortens" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => ["0-index", "1-index", "2-index"],
+      })
+      obj.foo = ["new-value"]
+      assert_equal({ :foo => ["new-value"] },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params on an array as a replace for an array that lengthens" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => ["0-index", "1-index", "2-index"],
+      })
+      obj.foo = ["new-value"] * 4
+      assert_equal({ :foo => ["new-value"] * 4 },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params can handle an array of hashes" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => nil,
+      })
+      obj.foo = [
+        Stripe::StripeObject.construct_from({
+          :bar => nil
+        })
+      ]
+      obj.foo[0].bar = "baz"
+      assert_equal({ :foo => [{ :bar => "baz" }] },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params doesn't include unchanged values" do
+      obj = Stripe::StripeObject.construct_from({ :foo => nil })
+      assert_equal({}, Stripe::StripeObject.serialize_params(obj))
+    end
   end
 end

@@ -184,32 +184,42 @@ module Stripe
             update_hash[k] = obj.serialize_nested_object(k)
           elsif v.is_a?(Array)
             original_value = obj.instance_variable_get(:@original_values)[k]
-            if original_value && original_value.length > v.length
-              # url params provide no mechanism for deleting an item in an array,
-              # just overwriting the whole array or adding new items. So let's not
-              # allow deleting without a full overwrite until we have a solution.
-              raise ArgumentError.new(
-                "You cannot delete an item from an array, you must instead set a new array"
-              )
-            end
             update_hash[k] = serialize_params(v, original_value)
           end
         end
 
         update_hash
       when Array
-        update_hash = {}
-        obj.each_with_index do |value, index|
-          update = serialize_params(value)
-          if update != {} && (!original_value || update != original_value[index])
-            update_hash[index] = update
+        # Arrays are a special case. The server supports an integer-indexing
+        # syntax that looks like this:
+        #
+        #     arr[0]=a&arr[1]=b
+        #
+        # This syntax can be used to update individual array elements without
+        # sending the entire array. However, because it can ambiguous when seen
+        # from the server side, the server must only interpret updates with
+        # this syntax as updates to individual elements. So if we want to
+        # replace, shortern, or lengthen an array, we must send the whole thing
+        # with the more traditional form syntax:
+        #
+        #     arr[]=a&arr[]=b
+        #
+        if original_value && original_value.length == obj.length
+          update_hash = {}
+          obj.each_with_index do |value, index|
+            update = serialize_params(value)
+            if update != original_value[index]
+              update_hash[index.to_s] = update
+            end
           end
-        end
 
-        if update_hash == {}
-          nil
+          if update_hash == {}
+            nil
+          else
+            update_hash
+          end
         else
-          update_hash
+          obj.map { |v| serialize_params(v) }
         end
       else
         obj

@@ -123,17 +123,7 @@ module Stripe
         Stripe::StripeObject.serialize_params(obj))
     end
 
-    should "#serialize_params on an array as an update if possible" do
-      obj = Stripe::StripeObject.construct_from({
-        :foo => ["0-index", "1-index", "2-index"],
-      })
-      obj.foo[1] = "new-value"
-      obj.foo[2] = "new-value"
-      assert_equal({ :foo => { "1" => "new-value", "2" => "new-value" } },
-        Stripe::StripeObject.serialize_params(obj))
-    end
-
-    should "#serialize_params on an array as a replace for a new array" do
+    should "#serialize_params on an array" do
       obj = Stripe::StripeObject.construct_from({
         :foo => nil,
       })
@@ -142,7 +132,7 @@ module Stripe
         Stripe::StripeObject.serialize_params(obj))
     end
 
-    should "#serialize_params on an array as a replace for an array that shortens" do
+    should "#serialize_params on an array that shortens" do
       obj = Stripe::StripeObject.construct_from({
         :foo => ["0-index", "1-index", "2-index"],
       })
@@ -151,7 +141,7 @@ module Stripe
         Stripe::StripeObject.serialize_params(obj))
     end
 
-    should "#serialize_params on an array as a replace for an array that lengthens" do
+    should "#serialize_params on an array that lengthens" do
       obj = Stripe::StripeObject.construct_from({
         :foo => ["0-index", "1-index", "2-index"],
       })
@@ -176,6 +166,14 @@ module Stripe
 
     should "#serialize_params doesn't include unchanged values" do
       obj = Stripe::StripeObject.construct_from({ :foo => nil })
+      assert_equal({}, Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params on an array that is unchanged" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => ["0-index", "1-index", "2-index"],
+      })
+      obj.foo = ["0-index", "1-index", "2-index"]
       assert_equal({}, Stripe::StripeObject.serialize_params(obj))
     end
   end

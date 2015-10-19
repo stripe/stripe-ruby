@@ -170,6 +170,13 @@ module Stripe
       case obj
       when nil
         ''
+      when Array
+        update = obj.map { |v| serialize_params(v) }
+        if original_value != update
+          update
+        else
+          nil
+        end
       when StripeObject
         unsaved_keys = obj.instance_variable_get(:@unsaved_values)
         obj_values = obj.instance_variable_get(:@values)
@@ -180,47 +187,20 @@ module Stripe
         end
 
         obj_values.each do |k, v|
-          if v.is_a?(StripeObject) || v.is_a?(Hash)
-            update_hash[k] = obj.serialize_nested_object(k)
-          elsif v.is_a?(Array)
+          if v.is_a?(Array)
             original_value = obj.instance_variable_get(:@original_values)[k]
-            update_hash[k] = serialize_params(v, original_value)
+            if updated = serialize_params(v, original_value)
+              update_hash[k] = updated
+            else
+              # arrays are the same, so don't perform this update
+              update_hash.delete(k)
+            end
+          elsif v.is_a?(StripeObject) || v.is_a?(Hash)
+            update_hash[k] = obj.serialize_nested_object(k)
           end
         end
 
         update_hash
-      when Array
-        # Arrays are a special case. The server supports an integer-indexing
-        # syntax that looks like this:
-        #
-        #     arr[0]=a&arr[1]=b
-        #
-        # This syntax can be used to update individual array elements without
-        # sending the entire array. However, because it can ambiguous when seen
-        # from the server side, the server must only interpret updates with
-        # this syntax as updates to individual elements. So if we want to
-        # replace, shortern, or lengthen an array, we must send the whole thing
-        # with the more traditional form syntax:
-        #
-        #     arr[]=a&arr[]=b
-        #
-        if original_value && original_value.length == obj.length
-          update_hash = {}
-          obj.each_with_index do |value, index|
-            update = serialize_params(value)
-            if update != original_value[index]
-              update_hash[index.to_s] = update
-            end
-          end
-
-          if update_hash == {}
-            nil
-          else
-            update_hash
-          end
-        else
-          obj.map { |v| serialize_params(v) }
-        end
       else
         obj
       end

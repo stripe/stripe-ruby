@@ -53,13 +53,27 @@ module Stripe
       }
     end
 
-    def self.convert_to_stripe_object(resp, opts)
+    def self.convert_to_stripe_object(resp, opts, options={})
       case resp
       when Array
-        resp.map { |i| convert_to_stripe_object(i, opts) }
+        # Send a signal back into our recursive method to freeze any non-API
+        # resources that are marshaled from within the array (also see comment
+        # below).
+        resp.map { |i| convert_to_stripe_object(i, opts, :freeze_plain_objects => true) }
       when Hash
-        # Try converting to a known object class.  If none available, fall back to generic StripeObject
-        object_classes.fetch(resp[:object], StripeObject).construct_from(resp, opts)
+        # Try converting to a known object class. If none available, fall back
+        # to generic StripeObject.
+        obj = object_classes.fetch(resp[:object], StripeObject).construct_from(resp, opts)
+
+        # If the object is nested inside of an array and is *not* an API
+        # resource (meaning that it does not have its own URL from which it can
+        # be updated and must rely on its parent's) then freeze it to help
+        # indicate to the user that it should be replaced instead of modified.
+        if options[:freeze_plain_objects] && !obj.is_a?(APIResource)
+          obj.freeze
+        end
+
+        obj
       else
         resp
       end

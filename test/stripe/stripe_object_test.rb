@@ -71,6 +71,30 @@ module Stripe
       assert_equal "foo", obj.unknown
     end
 
+    should "raise on #update_attributes on a frozen object" do
+      obj = Stripe::StripeObject.construct_from({ :id => 1, :name => 'Stripe' })
+      obj.freeze
+      assert_raises Stripe::StripeObject::FrozenError do
+        obj.update_attributes(:name => 'STRIPE')
+      end
+    end
+
+    should "raise on index write on a frozen object" do
+      obj = Stripe::StripeObject.construct_from({})
+      obj.freeze
+      assert_raises Stripe::StripeObject::FrozenError do
+        obj[:name] = "Stripe"
+      end
+    end
+
+    should "raise on attribute write on a frozen object" do
+      obj = Stripe::StripeObject.construct_from({})
+      obj.freeze
+      assert_raises Stripe::StripeObject::FrozenError do
+        obj.name = "Stripe"
+      end
+    end
+
     should "warn that #refresh_from is deprecated" do
       old_stderr = $stderr
       $stderr = StringIO.new
@@ -150,7 +174,7 @@ module Stripe
         Stripe::StripeObject.serialize_params(obj))
     end
 
-    should "#serialize_params can handle an array of hashes" do
+    should "#serialize_params an array of hashes" do
       obj = Stripe::StripeObject.construct_from({
         :foo => nil,
       })
@@ -161,6 +185,22 @@ module Stripe
       ]
       obj.foo[0].bar = "baz"
       assert_equal({ :foo => [{ :bar => "baz" }] },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params an partially changed array of hashes" do
+      obj = Stripe::StripeObject.construct_from({
+        :foo => [
+          Stripe::StripeObject.construct_from({
+            :bar => nil
+          }),
+          Stripe::StripeObject.construct_from({
+            :bar => nil
+          }),
+        ]
+      })
+      obj.foo[1].bar = "baz"
+      assert_equal({ :foo => [{}, { :bar => "baz" }] },
         Stripe::StripeObject.serialize_params(obj))
     end
 

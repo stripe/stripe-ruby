@@ -84,5 +84,53 @@ module Stripe
       assert_raise { Stripe::Util.normalize_opts(nil) }
       assert_raise { Stripe::Util.normalize_opts(:api_key => nil) }
     end
+
+    should "#convert_to_stripe_object should pass through unknown types" do
+      obj = Util.convert_to_stripe_object(7, {})
+      assert_equal 7, obj
+    end
+
+    should "#convert_to_stripe_object should turn hashes into StripeObjects" do
+      obj = Util.convert_to_stripe_object({ :foo => "bar" }, {})
+      assert obj.is_a?(StripeObject)
+      assert_equal "bar", obj.foo
+    end
+
+    should "#convert_to_stripe_object should turn lists into ListObjects" do
+      obj = Util.convert_to_stripe_object({ :object => "list" }, {})
+      assert obj.is_a?(ListObject)
+    end
+
+    should "#convert_to_stripe_object should marshal other classes" do
+      obj = Util.convert_to_stripe_object({ :object => "account" }, {})
+      assert obj.is_a?(Account)
+    end
+
+    should "#convert_to_stripe_object should marshal arrays" do
+      obj = Util.convert_to_stripe_object([1, 2, 3], {})
+      assert_equal [1, 2, 3], obj
+    end
+
+    should "#convert_to_stripe_object should not freeze StripeObjects" do
+      obj = Util.convert_to_stripe_object({ :foo => "bar" }, {})
+      assert obj.is_a?(StripeObject)
+      refute obj.frozen?
+    end
+
+    should "#convert_to_stripe_object should freeze StripeObjects within arrays" do
+      arr = Util.convert_to_stripe_object([{ :foo => "bar" }], {})
+      obj = arr.first
+      assert obj.is_a?(StripeObject)
+      refute obj.is_a?(APIResource)
+      assert obj.frozen?
+    end
+
+    should "#convert_to_stripe_object should not freeze StripeObjects within arrays if they are APIResources" do
+      arr = Util.convert_to_stripe_object([{ :object => "account" }], {})
+      obj = arr.first
+      assert obj.is_a?(StripeObject)
+      assert obj.is_a?(APIResource)
+      refute obj.frozen?
+    end
   end
 end

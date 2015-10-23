@@ -572,23 +572,11 @@ module Stripe
           :legal_entity => {}
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][0][first_name]=Bob').returns(make_response({"id" => "myid"}))
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil,
+          'legal_entity[additional_owners][][first_name]=Bob').
+          returns(make_response({"id" => "myid"}))
 
         acct.legal_entity.additional_owners = [{:first_name => 'Bob'}]
-        acct.save
-      end
-
-      should 'correctly handle array insertion' do
-        acct = Stripe::Account.construct_from({
-          :id => 'myid',
-          :legal_entity => {
-            :additional_owners => []
-          }
-        })
-
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][0][first_name]=Bob').returns(make_response({"id" => "myid"}))
-
-        acct.legal_entity.additional_owners << {:first_name => 'Bob'}
         acct.save
       end
 
@@ -600,7 +588,9 @@ module Stripe
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][1][first_name]=Janet').returns(make_response({"id" => "myid"}))
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil,
+          'legal_entity[additional_owners][][first_name]=Janet').
+          returns(make_response({"id" => "myid"}))
 
         acct.legal_entity.additional_owners[1].first_name = 'Janet'
         acct.save

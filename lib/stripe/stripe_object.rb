@@ -2,6 +2,18 @@ module Stripe
   class StripeObject
     include Enumerable
 
+    # We use freezing when initialize objects under certain conditions (e.g.
+    # when they're nested in an array of another resource) so we use a custom
+    # error class.
+    class FrozenError < RuntimeError
+      def initialize
+        super("This object is frozen and cannot be modified. If you are " +
+          "attempting to update an object nested in another resource's " +
+          "array then try replacing the array with a new set of objects " +
+          "instead.")
+      end
+    end
+
     @@permanent_attributes = Set.new([:id])
 
     # The default :id method is deprecated and isn't useful to us
@@ -76,6 +88,8 @@ module Stripe
     #
     # * +:opts+ Options for StripeObject like an API key.
     def update_attributes(values, opts = {})
+      raise FrozenError if frozen?
+
       values.each do |k, v|
         @values[k] = Util.convert_to_stripe_object(v, opts)
         @unsaved_values.add(k)
@@ -87,6 +101,7 @@ module Stripe
     end
 
     def []=(k, v)
+      raise FrozenError if frozen?
       send(:"#{k}=", v)
     end
 
@@ -170,6 +185,13 @@ module Stripe
       case obj
       when nil
         ''
+      when Array
+        update = obj.map { |v| serialize_params(v) }
+        if original_value != update
+          update
+        else
+          nil
+        end
       when StripeObject
         unsaved_keys = obj.instance_variable_get(:@unsaved_values)
         obj_values = obj.instance_variable_get(:@values)
@@ -180,37 +202,23 @@ module Stripe
         end
 
         obj_values.each do |k, v|
-          if v.is_a?(StripeObject) || v.is_a?(Hash)
-            update_hash[k] = obj.serialize_nested_object(k)
-          elsif v.is_a?(Array)
+          if v.is_a?(Array)
             original_value = obj.instance_variable_get(:@original_values)[k]
-            if original_value && original_value.length > v.length
-              # url params provide no mechanism for deleting an item in an array,
-              # just overwriting the whole array or adding new items. So let's not
-              # allow deleting without a full overwrite until we have a solution.
-              raise ArgumentError.new(
-                "You cannot delete an item from an array, you must instead set a new array"
-              )
+
+            # the conditional here tests whether the old and new values are
+            # different (and therefore needs an update), or the same (meaning
+            # we can leave it out of the request)
+            if updated = serialize_params(v, original_value)
+              update_hash[k] = updated
+            else
+              update_hash.delete(k)
             end
-            update_hash[k] = serialize_params(v, original_value)
+          elsif v.is_a?(StripeObject) || v.is_a?(Hash)
+            update_hash[k] = obj.serialize_nested_object(k)
           end
         end
 
         update_hash
-      when Array
-        update_hash = {}
-        obj.each_with_index do |value, index|
-          update = serialize_params(value)
-          if update != {} && (!original_value || update != original_value[index])
-            update_hash[index] = update
-          end
-        end
-
-        if update_hash == {}
-          nil
-        else
-          update_hash
-        end
       else
         obj
       end
@@ -270,6 +278,8 @@ module Stripe
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
+
+        raise FrozenError if frozen?
 
         # the second argument is only required when adding boolean accessors
         add_accessors([attr], {})

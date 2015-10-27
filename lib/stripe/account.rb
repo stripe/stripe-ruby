@@ -29,6 +29,43 @@ module Stripe
       super(id, opts)
     end
 
+    # Somewhat unfortunately, we attempt to do a special encoding trick when
+    # serializing `additional_owners` under an account: when updating a value,
+    # we actually send the update parameters up as an integer-indexed hash
+    # rather than an array. So instead of this:
+    #
+    #     field[]=item1&field[]=item2&field[]=item3
+    #
+    # We send this:
+    #
+    #     field[0]=item1&field[1]=item2&field[2]=item3
+    #
+    # There are two major problems with this technique:
+    #
+    #     * Entities are addressed by array index, which is not stable and can
+    #       easily result in unexpected results between two different requests.
+    #
+    #     * A replacement of the array's contents is ambiguous with setting a
+    #       subset of the array. Because of this, the only way to shorten an
+    #       array is to unset it completely by making sure it goes into the
+    #       server as an empty string, then setting its contents again.
+    #
+    # We're trying to get this overturned on the server side, but for now,
+    # patch in a special allowance.
+    def self.serialize_params(obj, original_value=nil)
+      update_hash = StripeObject.serialize_params(obj, original_value)
+      case obj
+      when StripeObject
+        obj_values = obj.instance_variable_get(:@values)
+        obj_values.each do |k, v|
+          if k == :additional_owners && v.is_a?(Array)
+            update_hash[k] = serialize_additional_owners(obj, v)
+          end
+        end
+      end
+      update_hash
+    end
+
     def protected_fields
       [:legal_entity]
     end
@@ -49,5 +86,28 @@ module Stripe
     end
 
     ARGUMENT_NOT_PROVIDED = Object.new
+
+    private
+
+    def self.serialize_additional_owners(obj, value)
+      original_value = obj.instance_variable_get(:@original_values)[:additional_owners]
+      if original_value && original_value.length > value.length
+        # url params provide no mechanism for deleting an item in an array,
+        # just overwriting the whole array or adding new items. So let's not
+        # allow deleting without a full overwrite until we have a solution.
+        raise ArgumentError.new(
+          "You cannot delete an item from an array, you must instead set a new array"
+        )
+      end
+
+      update_hash = {}
+      value.each_with_index do |v, i|
+        update = StripeObject.serialize_params(v)
+        if update != {} && (!original_value || update != original_value[i])
+          update_hash[i.to_s] = update
+        end
+      end
+      update_hash
+    end
   end
 end

@@ -151,5 +151,102 @@ module Stripe
       a = Stripe::Account.retrieve
       assert_equal(BankAccount, a.external_accounts.data[0].class)
     end
+
+    should "#serialize_params an a new additional_owners" do
+      obj = Stripe::Util.convert_to_stripe_object({
+        :object => "account",
+        :legal_entity => {
+        },
+      }, {})
+      obj.legal_entity.additional_owners = [
+        { :first_name => "Joe" },
+        { :first_name => "Jane" },
+      ]
+
+      expected = {
+        :legal_entity => {
+          :additional_owners => {
+            "0" => { :first_name => "Joe" },
+            "1" => { :first_name => "Jane" },
+          }
+        }
+      }
+      assert_equal(expected, obj.class.serialize_params(obj))
+    end
+
+    should "#serialize_params on an partially changed additional_owners" do
+      obj = Stripe::Util.convert_to_stripe_object({
+        :object => "account",
+        :legal_entity => {
+          :additional_owners => [
+            Stripe::StripeObject.construct_from({
+              :first_name => "Joe"
+            }),
+            Stripe::StripeObject.construct_from({
+              :first_name => "Jane"
+            }),
+          ]
+        }
+      }, {})
+      obj.legal_entity.additional_owners[1].first_name = "Stripe"
+
+      expected = {
+        :legal_entity => {
+          :additional_owners => {
+            "1" => { :first_name => "Stripe" }
+          }
+        }
+      }
+      assert_equal(expected, obj.class.serialize_params(obj))
+    end
+
+    should "#serialize_params on an unchanged additional_owners" do
+      obj = Stripe::Util.convert_to_stripe_object({
+        :object => "account",
+        :legal_entity => {
+          :additional_owners => [
+            Stripe::StripeObject.construct_from({
+              :first_name => "Joe"
+            }),
+            Stripe::StripeObject.construct_from({
+              :first_name => "Jane"
+            }),
+          ]
+        }
+      }, {})
+
+      expected = {
+        :legal_entity => {
+          :additional_owners => {}
+        }
+      }
+      assert_equal(expected, obj.class.serialize_params(obj))
+    end
+
+    # Note that the empty string that we send for this one has a special
+    # meaning for the server, which interprets it as an array unset.
+    should "#serialize_params on an unset additional_owners" do
+      obj = Stripe::Util.convert_to_stripe_object({
+        :object => "account",
+        :legal_entity => {
+          :additional_owners => [
+            Stripe::StripeObject.construct_from({
+              :first_name => "Joe"
+            }),
+            Stripe::StripeObject.construct_from({
+              :first_name => "Jane"
+            }),
+          ]
+        }
+      }, {})
+      obj.legal_entity.additional_owners = nil
+
+      expected = {
+        :legal_entity => {
+          :additional_owners => ""
+        }
+      }
+      assert_equal(expected, obj.class.serialize_params(obj))
+    end
   end
 end

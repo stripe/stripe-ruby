@@ -164,22 +164,6 @@ module Stripe
         Stripe::StripeObject.serialize_params(obj))
     end
 
-    should "#serialize_params on an partially changed array of hashes" do
-      obj = Stripe::StripeObject.construct_from({
-        :foo => [
-          Stripe::StripeObject.construct_from({
-            :bar => nil
-          }),
-          Stripe::StripeObject.construct_from({
-            :bar => nil
-          }),
-        ]
-      })
-      obj.foo[1].bar = "baz"
-      assert_equal({ :foo => [{}, { :bar => "baz" }] },
-        Stripe::StripeObject.serialize_params(obj))
-    end
-
     should "#serialize_params doesn't include unchanged values" do
       obj = Stripe::StripeObject.construct_from({ :foo => nil })
       assert_equal({}, Stripe::StripeObject.serialize_params(obj))

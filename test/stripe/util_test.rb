@@ -10,6 +10,9 @@ module Stripe
         [:c, "bar&baz"],
         [:d, { :a => "a", :b => "b" }],
         [:e, [0, 1]],
+
+        # note the empty hash won't even show up in the request
+        [:f, []]
       ]
       assert_equal(
         "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1",
@@ -83,6 +86,32 @@ module Stripe
     should "#normalize_opts should reject nil keys" do
       assert_raise { Stripe::Util.normalize_opts(nil) }
       assert_raise { Stripe::Util.normalize_opts(:api_key => nil) }
+    end
+
+    should "#convert_to_stripe_object should pass through unknown types" do
+      obj = Util.convert_to_stripe_object(7, {})
+      assert_equal 7, obj
+    end
+
+    should "#convert_to_stripe_object should turn hashes into StripeObjects" do
+      obj = Util.convert_to_stripe_object({ :foo => "bar" }, {})
+      assert obj.is_a?(StripeObject)
+      assert_equal "bar", obj.foo
+    end
+
+    should "#convert_to_stripe_object should turn lists into ListObjects" do
+      obj = Util.convert_to_stripe_object({ :object => "list" }, {})
+      assert obj.is_a?(ListObject)
+    end
+
+    should "#convert_to_stripe_object should marshal other classes" do
+      obj = Util.convert_to_stripe_object({ :object => "account" }, {})
+      assert obj.is_a?(Account)
+    end
+
+    should "#convert_to_stripe_object should marshal arrays" do
+      obj = Util.convert_to_stripe_object([1, 2, 3], {})
+      assert_equal [1, 2, 3], obj
     end
   end
 end

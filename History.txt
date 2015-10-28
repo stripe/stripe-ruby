@@ -1,3 +1,7 @@
+=== 1.30.3 2015-10-28
+
+* Fix bug where arrays that were not `additional_owners` were not properly encoded for requests
+
 === 1.30.2 2015-10-12
 
 * Fix bug where `opts` didn't properly propagate to descendant `StripeObjects`

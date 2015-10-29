@@ -1,3 +1,7 @@
+=== 1.31.0 2015-10-29
+
+* Add BankAccount#verify convenience method
+
 === 1.30.3 2015-10-28
 
 * Fix bug where arrays that were not `additional_owners` were not properly encoded for requests

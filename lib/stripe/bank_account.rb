@@ -4,6 +4,11 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
+    def verify(params={}, opts={})
+      response, opts = request(:post, url + '/verify', params, opts)
+      initialize_from(response, opts)
+    end
+
     def url
       if respond_to?(:customer)
         "#{Customer.url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"

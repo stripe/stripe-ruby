@@ -187,19 +187,19 @@ module Stripe
         end
 
         obj_values.each do |k, v|
-           if v.is_a?(Array)
-             original_value = obj.instance_variable_get(:@original_values)[k]
+          if v.is_a?(Array)
+            original_value = obj.instance_variable_get(:@original_values)[k]
 
-             # the conditional here tests whether the old and new values are
-             # different (and therefore needs an update), or the same (meaning
-             # we can leave it out of the request)
-             if updated = serialize_params(v, original_value)
-               update_hash[k] = updated
-             else
-               update_hash.delete(k)
-             end
+            # the conditional here tests whether the old and new values are
+            # different (and therefore needs an update), or the same (meaning
+            # we can leave it out of the request)
+            if updated = serialize_params(v, original_value)
+              update_hash[k] = updated
+            else
+              update_hash.delete(k)
+            end
           elsif v.is_a?(StripeObject) || v.is_a?(Hash)
-             update_hash[k] = obj.serialize_nested_object(k)
+            update_hash[k] = obj.serialize_nested_object(k)
           end
         end
 

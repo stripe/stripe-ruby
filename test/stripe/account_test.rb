@@ -243,7 +243,7 @@ module Stripe
 
       expected = {
         :legal_entity => {
-          :additional_owners => ""
+          :additional_owners => nil
         }
       }
       assert_equal(expected, obj.class.serialize_params(obj))

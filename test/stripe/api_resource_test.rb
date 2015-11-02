@@ -304,23 +304,6 @@ module Stripe
         end
       end
 
-      should "setting a nil value for a param should exclude that param from the request" do
-        @mock.expects(:get).with do |url, api_key, params|
-          uri = URI(url)
-          query = CGI.parse(uri.query)
-          (url =~ %r{^#{Stripe.api_base}/v1/charges?} &&
-           query.keys.sort == ['offset', 'sad'])
-        end.returns(make_response({ :count => 1, :data => [make_charge] }))
-        Stripe::Charge.list(:count => nil, :offset => 5, :sad => false)
-
-        @mock.expects(:post).with do |url, api_key, params|
-          url == "#{Stripe.api_base}/v1/charges" &&
-            api_key.nil? &&
-            CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
-        end.returns(make_response({ :count => 1, :data => [make_charge] }))
-        Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
-      end
-
       should "requesting with a unicode ID should result in a request" do
         response = make_response(make_missing_id_error, 404)
         @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/%E2%98%83", nil, nil).raises(RestClient::ExceptionWithResponse.new(response, 404))

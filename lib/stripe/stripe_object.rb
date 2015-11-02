@@ -243,8 +243,8 @@ module Stripe
           define_method(k_eq) do |v|
             if v == ""
               raise ArgumentError.new(
-                "You cannot set #{k} to an empty string." \
-                "We interpret empty strings as nil in requests." \
+                "You cannot set #{k} to an empty string. " \
+                "We interpret empty strings as nil in requests. " \
                 "You may set #{self}.#{k} = nil to delete the property.")
             end
             @values[k] = v

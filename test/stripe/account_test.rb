@@ -2,20 +2,38 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class AccountTest < Test::Unit::TestCase
-    should "be retrievable" do
-      resp = make_account({
-        :charges_enabled => false,
-        :details_submitted => false,
-        :email => "test+bindings@stripe.com",
-      })
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/account', nil, nil).
-        returns(make_response(resp))
-      a = Stripe::Account.retrieve
-      assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charges_enabled
-      assert !a.details_submitted
+    should "be retrievable with generated responses" do
+      without_legacy_stubs do
+        stub_api do
+          get "/v1/account" do
+            generated_response.merge!({
+              :charges_enabled => false,
+              :details_submitted => false,
+              :email => "test+bindings@stripe.com",
+            })
+          end
+        end
+
+        a = Stripe::Account.retrieve
+        assert_equal "test+bindings@stripe.com", a.email
+        assert !a.charges_enabled
+        assert !a.details_submitted
+
+        assert_requested :get, "#{Stripe.api_url}/v1/account"
+      end
+    end
+
+    # This test is made to demonstrate that we could offer a potential route
+    # for very easy-to-build tests that provide a very basic check that a
+    # method hits an API endpoint and responds with something. The idea here is
+    # that it could help our situation where tests are hard to write
+    # (especially for new resources that need new `TestData`, and are therefore
+    # not written).
+    should "be retrievable with generated responses (easy edition)" do
+      without_legacy_stubs do
+        Stripe::Account.retrieve
+        assert_requested :get, "#{Stripe.api_url}/v1/account"
+      end
     end
 
     should "be retrievable via plural endpoint" do

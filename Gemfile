@@ -3,11 +3,14 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  gem 'committee', path: "../../Documents/projects/committee"
   gem 'mocha', '~> 0.13.2'
   gem 'pry'
   gem 'rake'
   gem 'shoulda-context'
+  gem 'sinatra'
   gem 'test-unit'
+  gem 'webmock'
 
   # mime-types has become only compatible with Ruby versions > 2 and we're
   # still supporting 1.9 for the time being. Lock to old versions of

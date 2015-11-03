@@ -31,11 +31,11 @@ class Test::Unit::TestCase
   setup do
     @mock = mock
     Stripe.mock_rest_client = @mock
-    Stripe.api_key="foo"
+    Stripe.api_key = "foo"
   end
 
   teardown do
     Stripe.mock_rest_client = nil
-    Stripe.api_key=nil
+    Stripe.api_key = nil
   end
 end

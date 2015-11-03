@@ -8,7 +8,7 @@ module Stripe
         h.id
       when Hash
         res = {}
-        h.each { |k, v| res[k] = objects_to_ids(v) unless v.nil? }
+        h.each { |k, v| res[k] = v ? objects_to_ids(v) : nil }
         res
       when Array
         h.map { |v| objects_to_ids(v) }
@@ -106,12 +106,16 @@ module Stripe
     # Encodes a string in a way that makes it suitable for use in a set of
     # query parameters in a URI or in a set of form parameters in a request
     # body.
-    def self.url_encode(key)
-      CGI.escape(key.to_s).
-        # Don't use strict form encoding by changing the square bracket control
-        # characters back to their literals. This is fine by the server, and
-        # makes these parameter strings easier to read.
-        gsub('%5B', '[').gsub('%5D', ']')
+    def self.url_encode(val)
+      if val
+        CGI.escape(val.to_s).
+          # Don't use strict form encoding by changing the square bracket control
+          # characters back to their literals. This is fine by the server, and
+          # makes these parameter strings easier to read.
+          gsub('%5B', '[').gsub('%5D', ']')
+      else
+        ""
+      end
     end
 
     def self.flatten_params(params, parent_key=nil)

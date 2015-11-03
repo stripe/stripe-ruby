@@ -168,8 +168,6 @@ module Stripe
 
     def self.serialize_params(obj, original_value=nil)
       case obj
-      when nil
-        ''
       when Array
         update = obj.map { |v| serialize_params(v) }
         if original_value != update

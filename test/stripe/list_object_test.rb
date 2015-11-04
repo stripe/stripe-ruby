@@ -81,10 +81,8 @@ module Stripe
       list = TestListObject.construct_from({ :data => [{ :id => 1 }], :has_more => true })
       list.filters = { :expand => ['data.source'], :limit => 3 }
       @mock.expects(:get).with do |url, _, _|
-        # apparently URI.parse in 1.8.7 doesn't support query parameters ...
-        url, query = url.split("?")
         u = URI.parse(url)
-        params = CGI.parse(query)
+        params = CGI.parse(u.query)
         u.host == URI.parse(Stripe.api_base).host && u.path == "/things" && params == {
           "expand[]"       => ["data.source"],
           "limit"          => ["3"],

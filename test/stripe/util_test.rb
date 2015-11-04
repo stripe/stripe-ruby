@@ -3,18 +3,17 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class UtilTest < Test::Unit::TestCase
     should "#encode_parameters should prepare parameters for an HTTP request" do
-      # use array instead of hash for 1.8.7 ordering
-      params = [
-        [:a, 3],
-        [:b, "+foo?"],
-        [:c, "bar&baz"],
-        [:d, { :a => "a", :b => "b" }],
-        [:e, [0, 1]],
-        [:f, ""],
+      params = {
+        :a => 3,
+        :b => "+foo?",
+        :c => "bar&baz",
+        :d => { :a => "a", :b => "b" },
+        :e => [0, 1],
+        :f => "",
 
         # note the empty hash won't even show up in the request
-        [:g, []]
-      ]
+        :g => [],
+      }
       assert_equal(
         "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1&f=",
         Stripe::Util.encode_parameters(params)

@@ -5,6 +5,7 @@ require 'stripe/version'
 spec = Gem::Specification.new do |s|
   s.name = 'stripe'
   s.version = Stripe::VERSION
+  s.required_ruby_version = '>= 1.9.3'
   s.summary = 'Ruby bindings for the Stripe API'
   s.description = 'Stripe is the easiest way to accept payments online.  See https://stripe.com for details.'
   s.authors = ['Ross Boucher', 'Greg Brockman']

@@ -11,8 +11,6 @@ require 'webmock/test_unit'
 
 require File.expand_path('../test_data', __FILE__)
 
-$execute_request_stub = true
-
 # monkeypatch request methods
 module Stripe
   @mock_rest_client = nil
@@ -29,12 +27,18 @@ module Stripe
   # sophisticated techniques so we don't want these monkey patches applied.
   # This introduces some testing infrastructure that allows them to be disabled
   # conditionally using a helper that takes a block. Unfortunately the mechanic
-  # uses a global variable to work, but should be a short-lived measure.
+  # uses a pseudo-global variable to work, but should be a short-lived measure.
   class << self
     alias :execute_request_regular :execute_request
 
+    # Enables legacy stubs. They can still be disabled on an individual basis
+    # using the `without_legacy_stubs` helper.
+    def enable_legacy_stubs!
+      @execute_request_stub = true
+    end
+
     def execute_request(opts)
-      if $execute_request_stub
+      if @execute_request_stub
         execute_request_stub(opts)
       else
         execute_request_regular(opts)

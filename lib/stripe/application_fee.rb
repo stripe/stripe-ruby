@@ -14,7 +14,7 @@ module Stripe
     private
 
     def refund_url
-      url + '/refund'
+      url + '/refunds'
     end
   end
 end

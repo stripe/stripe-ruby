@@ -8,7 +8,7 @@ module Stripe
 
     def refund(params={}, opts={})
       response, opts = request(:post, refund_url, params, opts)
-      initialize_from(response, opts)
+      Util.convert_to_stripe_object(response, opts)
     end
 
     private

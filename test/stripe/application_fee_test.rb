@@ -15,10 +15,10 @@ module Stripe
       @mock.expects(:get).never
       @mock.expects(:post).once.
         with("#{Stripe.api_base}/v1/application_fees/test_application_fee/refunds", nil, '').
-        returns(make_response({:id => "fee_test_fee", :refunded => true}))
+        returns(make_response(make_application_fee_refund))
       fee = Stripe::ApplicationFee.new("test_application_fee")
-      fee.refund
-      assert fee.refunded
+      refund = fee.refund
+      assert refund.kind_of?(Stripe::ApplicationFeeRefund)
     end
   end
 end

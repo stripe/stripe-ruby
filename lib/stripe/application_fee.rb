@@ -7,14 +7,12 @@ module Stripe
     end
 
     def refund(params={}, opts={})
-      response, opts = request(:post, refund_url, params, opts)
-      Util.convert_to_stripe_object(response, opts)
-    end
+      self.refunds.create
 
-    private
-
-    def refund_url
-      url + '/refunds'
+      # now that a refund has been created, we expect the state of this object
+      # to change as well (i.e. `refunded` will now be `true`) so refresh it
+      # from the server
+      refresh
     end
   end
 end

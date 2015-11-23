@@ -59,3 +59,16 @@ Run a single test suite:
 Run a single test:
 
     bundle exec ruby -Ilib/ test/stripe/util_test.rb -n /should.convert.names.to.symbols/
+
+== Configuration
+
+=== max_network_retries
+
+When `max_network_retries` is set to a positive integer, stripe will retry requests that 
+fail on a network error.  Idempotency keys will be added to post and get requests to ensure the 
+safety of retrying.  There will be a short delay between each retry, with an exponential backoff
+algorithm used to determine the length of the delay.  Default value is 0.
+
+Example:
+
+    Stripe.max_network_retries = 2

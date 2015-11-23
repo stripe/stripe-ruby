@@ -69,6 +69,9 @@ module Stripe
   @connect_base = 'https://connect.stripe.com'
   @uploads_base = 'https://uploads.stripe.com'
 
+  @max_network_retry_delay = 2
+  @initial_network_retry_delay = 0.5
+
   @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
 
@@ -78,6 +81,8 @@ module Stripe
   class << self
     attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
                   :open_timeout, :read_timeout
+
+    attr_reader :max_network_retry_delay, :initial_network_retry_delay
   end
 
   def self.api_url(url='', api_base_url=nil)
@@ -131,19 +136,35 @@ module Stripe
       end
     end
 
-    request_opts.update(:headers => request_headers(api_key).update(headers),
+    request_opts.update(:headers => request_headers(api_key, method).update(headers),
                         :method => method, :open_timeout => open_timeout,
                         :payload => payload, :url => url, :timeout => read_timeout)
 
+    response = execute_request_with_rescues(request_opts, api_base_url)
+
+    [parse(response), api_key]
+  end
+
+  def self.max_network_retries
+    @max_network_retries || 0
+  end
+
+  def self.max_network_retries=(val)
+    @max_network_retries = val.to_i
+  end
+
+  private
+
+  def self.execute_request_with_rescues(request_opts, api_base_url, retry_count = 0)
     begin
       response = execute_request(request_opts)
     rescue SocketError => e
-      handle_restclient_error(e, api_base_url)
+      response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
     rescue NoMethodError => e
       # Work around RestClient bug
       if e.message =~ /\WRequestFailed\W/
         e = APIConnectionError.new('Unexpected HTTP response code')
-        handle_restclient_error(e, api_base_url)
+        response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
       else
         raise
       end
@@ -151,16 +172,14 @@ module Stripe
       if e.response
         handle_api_error(e.response)
       else
-        handle_restclient_error(e, api_base_url)
+        response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
       end
     rescue RestClient::Exception, Errno::ECONNREFUSED => e
-      handle_restclient_error(e, api_base_url)
+      response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
     end
 
-    [parse(response), api_key]
+    response
   end
-
-  private
 
   def self.user_agent
     @uname ||= get_uname
@@ -215,12 +234,18 @@ module Stripe
     deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 01
   end
 
-  def self.request_headers(api_key)
+  def self.request_headers(api_key, method)
     headers = {
       :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
       :authorization => "Bearer #{api_key}",
       :content_type => 'application/x-www-form-urlencoded'
     }
+
+    # It is only safe to retry network failures on post and delete
+    # requests if we add an Idempotency-Key header
+    if [:post, :delete].include?(method) && self.max_network_retries > 0
+      headers[:idempotency_key] ||= SecureRandom.uuid 
+    end
 
     headers[:stripe_version] = api_version if api_version
 
@@ -303,7 +328,15 @@ module Stripe
     APIError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
   end
 
-  def self.handle_restclient_error(e, api_base_url=nil)
+  def self.handle_restclient_error(e, request_opts, retry_count, api_base_url=nil)
+
+    if should_retry?(e, retry_count)
+      retry_count = retry_count + 1
+      sleep sleep_time(retry_count)
+      response = execute_request_with_rescues(request_opts, api_base_url, retry_count)
+      return response
+    end
+
     api_base_url = @api_base unless api_base_url
     connection_message = "Please check your internet connection and try again. " \
         "If this problem persists, you should check Stripe's service status at " \
@@ -334,6 +367,31 @@ module Stripe
 
     end
 
+    if retry_count > 0
+      message += " Request was retried #{retry_count} times."
+    end
+
     raise APIConnectionError.new(message + "\n\n(Network error: #{e.message})")
+  end
+
+  def self.should_retry?(e, retry_count)
+    return false if retry_count >= self.max_network_retries
+    return false if e.is_a?(RestClient::SSLCertificateNotVerified)
+    return true
+  end
+
+  def self.sleep_time(retry_count)
+    # This method was adapted from https://github.com/ooyala/retries/blob/master/lib/retries.rb
+
+    # The sleep time is an exponentially-increasing function of base_sleep_seconds. But, it never exceeds
+    # max_sleep_seconds.
+    sleep_seconds = [initial_network_retry_delay * (2 ** (retry_count - 1)), max_network_retry_delay].min
+    # Randomize to a random value in the range sleep_seconds/2 .. sleep_seconds
+
+    sleep_seconds = sleep_seconds * (0.5 * (1 + rand()))
+    # But never sleep less than base_sleep_seconds
+    sleep_seconds = [initial_network_retry_delay, sleep_seconds].max
+
+    sleep_seconds
   end
 end

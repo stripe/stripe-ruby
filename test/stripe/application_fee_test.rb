@@ -12,11 +12,18 @@ module Stripe
     end
 
     should "application fees should be refundable" do
-      @mock.expects(:get).never
+      fee = Stripe::ApplicationFee.construct_from(make_application_fee)
+
+      # first a post to create a refund
       @mock.expects(:post).once.
-        with("#{Stripe.api_base}/v1/application_fees/test_application_fee/refunds", nil, '').
+        with("#{Stripe.api_base}/v1/application_fees/#{fee.id}/refunds", nil, '').
+        returns(make_response(make_application_fee_refund))
+
+      # then a get to refresh the current object
+      @mock.expects(:get).once.
+        with("#{Stripe.api_base}/v1/application_fees/#{fee.id}", nil, nil).
         returns(make_response({:id => "fee_test_fee", :refunded => true}))
-      fee = Stripe::ApplicationFee.new("test_application_fee")
+
       fee.refund
       assert fee.refunded
     end

@@ -6,15 +6,15 @@ module Stripe
       '/v1/application_fees'
     end
 
+    # If you don't need access to an updated fee object after the refund, it's
+    # more performant to just call `fee.refunds.create` directly.
     def refund(params={}, opts={})
-      response, opts = request(:post, refund_url, params, opts)
-      initialize_from(response, opts)
-    end
+      self.refunds.create
 
-    private
-
-    def refund_url
-      url + '/refunds'
+      # now that a refund has been created, we expect the state of this object
+      # to change as well (i.e. `refunded` will now be `true`) so refresh it
+      # from the server
+      self.refresh
     end
   end
 end

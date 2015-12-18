@@ -31,14 +31,12 @@ module Stripe
   class << self
     alias :execute_request_regular :execute_request
 
-    # Enables legacy stubs. They can still be disabled on an individual basis
-    # using the `without_legacy_stubs` helper.
-    def enable_legacy_stubs!
-      @execute_request_stub = true
-    end
+    # Enables or disables legacy stubs. They can still be disabled on an
+    # individual basis using the `without_legacy_stubs` helper.
+    attr_accessor :enable_legacy_stubs
 
     def execute_request(opts)
-      if @execute_request_stub
+      if self.enable_legacy_stubs
         execute_request_stub(opts)
       else
         execute_request_regular(opts)
@@ -79,11 +77,84 @@ module StubHelpers
     stub_request(:any, /^#{Stripe.api_url}/).to_rack(new_api_stub(override_app))
   end
 
+  def stub_connect
+    stub_request(:any, /^#{Stripe.connect_base}/).to_return(:body => "{}")
+  end
+
   private
 
   # A descendant of the standard `Sinatra::Base` with some added helpers to
   # make working with generated responses more convenient.
   class OverrideSinatra < Sinatra::Base
+    # A simple hash-like class that doesn't allow any keys to be accessed or
+    # defined that were not present on its initialization.
+    #
+    # Its secondary function is allowing indifferent access regardless of
+    # whether a stirng or symbol is used as a key.
+    #
+    # The purpose of the class is to make modifying API responses safer by
+    # disallowing the setting of keys that were not in the original response.
+    class TempermentalHash
+      # Initializes a TempermentalHash from a standard Hash. Note that
+      # initialization is performed recursively so any hashes included as
+      # values of the top-level hash will also be concerted.
+      def initialize(hash)
+        @hash = hash.dup
+        @hash.each do |k, v|
+          @hash[k] = TempermentalHash.new(v) if v.is_a?(Hash)
+        end
+      end
+
+      def [](key)
+        key = key.to_s
+        check_key!(key)
+        @hash[key]
+      end
+
+      def []=(key, val)
+        key = key.to_s
+        check_key!(key)
+        @hash[key] = val
+      end
+
+      def deep_merge!(hash)
+        hash.each do |k, v|
+          if v.is_a?(Hash)
+            if !@hash[k].is_a?(Hash)
+              raise ArgumentError, "'#{key}' in stub response is not a hash " +
+                "and cannot be deep merged"
+            end
+            self[k].deep_merge!(v)
+          else
+            self[k] = v
+          end
+        end
+      end
+
+      def to_h
+        h = {}
+        @hash.each do |k, v|
+          h[k] = v.is_a?(TempermentalHash) ? v.to_h : v
+        end
+        h
+      end
+
+      private
+
+      def check_key!(key)
+        unless @hash.key?(key)
+require "pry" ; binding.pry
+          raise ArgumentError, "'#{key}' is not defined in stub response"
+        end
+      end
+    end
+
+    def modify_generated_response
+      safe_hash = TempermentalHash.new(env["committee.response"])
+      yield(safe_hash)
+      env["committee.response"] = safe_hash.to_h
+    end
+
     # The hash of data generated based on hyper-schema information for the
     # requested route of the API.
     #
@@ -98,6 +169,10 @@ module StubHelpers
     # wholly given over to the override method.
     def override_response!
       env["committee.suppress"] = true
+    end
+
+    not_found do
+      "endpoint not found in API stub: #{request.request_method} #{request.path_info}"
     end
   end
 
@@ -143,6 +218,8 @@ class Test::Unit::TestCase
     # called again in test bodies in order to override responses on particular
     # endpoints.
     stub_api
+
+    stub_connect
   end
 
   teardown do
@@ -154,12 +231,35 @@ class Test::Unit::TestCase
   # the duration of the given block. Useful for the move over from
   # manually-generated responses to those generated from a hyper-schema.
   def without_legacy_stubs
-    old = $execute_request_stub
-    $execute_request_stub = false
+    old = Stripe.enable_legacy_stubs
+    Stripe.enable_legacy_stubs = false
     yield
   ensure
-    $execute_request_stub = old
+    Stripe.enable_legacy_stubs = old
+  end
+
+  def with_legacy_stubs
+    old = Stripe.enable_legacy_stubs
+    Stripe.enable_legacy_stubs = true
+    yield
+  ensure
+    Stripe.enable_legacy_stubs = old
   end
 end
 
-Stripe.enable_legacy_stubs!
+# A mix-in to include on a test class that will force all test cases to use
+# modern stubs (i.e. without monkey patches).
+module WithoutLegacyStubs
+  def self.included(suite)
+    suite.setup do
+      @old_execute_request_stub = Stripe.enable_legacy_stubs
+      Stripe.enable_legacy_stubs = false
+    end
+
+    suite.teardown do
+      Stripe.enable_legacy_stubs = @old_execute_request_stub
+    end
+  end
+end
+
+Stripe.enable_legacy_stubs = true

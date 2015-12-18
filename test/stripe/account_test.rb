@@ -2,15 +2,19 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class AccountTest < Test::Unit::TestCase
-    should "be retrievable with generated responses" do
+    include WithoutLegacyStubs
+
+    should "be retrievable with generated responses (example)" do
       without_legacy_stubs do
         stub_api do
           get "/v1/account" do
-            generated_response.merge!({
-              :charges_enabled => false,
-              :details_submitted => false,
-              :email => "test+bindings@stripe.com",
-            })
+            modify_generated_response do |response|
+              response.deep_merge!({
+                :charges_enabled => false,
+                :details_submitted => false,
+                :email => "test+bindings@stripe.com",
+              })
+            end
           end
         end
 
@@ -23,33 +27,14 @@ module Stripe
       end
     end
 
-    # This test is made to demonstrate that we could offer a potential route
-    # for very easy-to-build tests that provide a very basic check that a
-    # method hits an API endpoint and responds with something. The idea here is
-    # that it could help our situation where tests are hard to write
-    # (especially for new resources that need new `TestData`, and are therefore
-    # not written).
-    should "be retrievable with generated responses (easy edition)" do
-      without_legacy_stubs do
-        Stripe::Account.retrieve
-        assert_requested :get, "#{Stripe.api_url}/v1/account"
-      end
+    should "be retrievable with generated responses" do
+      Stripe::Account.retrieve
+      assert_requested :get, "#{Stripe.api_url}/v1/account"
     end
 
     should "be retrievable via plural endpoint" do
-      resp = make_account({
-        :charges_enabled => false,
-        :details_submitted => false,
-        :email => "test+bindings@stripe.com",
-      })
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(make_response(resp))
-      a = Stripe::Account.retrieve('acct_foo')
-      assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charges_enabled
-      assert !a.details_submitted
+      Stripe::Account.retrieve('acct_foo')
+      assert_requested :get, "#{Stripe.api_url}/v1/accounts/acct_foo"
     end
 
     should "be retrievable using an API key as the only argument" do
@@ -105,10 +90,14 @@ module Stripe
         with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob').
         returns(make_response(resp))
 
+    should "be updatable" do
       a = Stripe::Account.retrieve('acct_foo')
       a.legal_entity.first_name = 'Bob'
       a.legal_entity.address.line1 = '2 Three Four'
       a.save
+
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{a.id}",
+        body: 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob'
     end
 
     should "be updatable" do
@@ -155,15 +144,23 @@ module Stripe
     end
 
     should "be able to deauthorize an account" do
-      resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
-      @mock.expects(:get).once.returns(make_response(resp))
+      stub_api do
+        get "/v1/account" do
+          generated_response.merge!({
+            charge_enabled:    false,
+            details_submitted: false,
+            id:                'acct_1234',
+            email:             'test+bindings@stripe.com',
+          })
+        end
+      end
+
       a = Stripe::Account.retrieve
-
-
-      @mock.expects(:post).once.with do |url, api_key, params|
-        url == "#{Stripe.connect_base}/oauth/deauthorize" && api_key.nil? && CGI.parse(params) == { 'client_id' => [ 'ca_1234' ], 'stripe_user_id' => [ a.id ]}
-      end.returns(make_response({ 'stripe_user_id' => a.id }))
       a.deauthorize('ca_1234', 'sk_test_1234')
+
+      assert_requested :post, "#{Stripe.connect_base}/oauth/deauthorize" do |req|
+        CGI.parse(req.body) == { 'client_id' => [ 'ca_1234' ], 'stripe_user_id' => [ a.id ]}
+      end
     end
 
     should "reject nil api keys" do
@@ -176,37 +173,43 @@ module Stripe
     end
 
     should "be able to create a bank account" do
-      resp = {
-        :id => 'acct_1234',
-        :external_accounts => {
-          :object => "list",
-          :resource_url => "/v1/accounts/acct_1234/external_accounts",
-          :data => [],
-        }
-      }
-      @mock.expects(:get).once.returns(make_response(resp))
-      a = Stripe::Account.retrieve
+      stub_api do
+        get "/v1/account" do
+          generated_response.merge!({
+            :id => 'acct_1234',
+            :external_accounts => {
+              :object => "list",
+              :url => "/v1/accounts/acct_1234/external_accounts",
+              :data => [],
+            }
+          })
+        end
+      end
 
-      @mock.expects(:post).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_1234/external_accounts', nil, 'external_account=btok_1234').
-        returns(make_response(resp))
+      a = Stripe::Account.retrieve
       a.external_accounts.create({:external_account => 'btok_1234'})
+
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/acct_1234/external_accounts",
+        body: 'external_account=btok_1234'
     end
 
     should "be able to retrieve a bank account" do
-      resp = {
-        :id => 'acct_1234',
-        :external_accounts => {
-          :object => "list",
-          :resource_url => "/v1/accounts/acct_1234/external_accounts",
-          :data => [{
-            :id => "ba_1234",
-            :object => "bank_account",
-          }],
-        }
-      }
-      @mock.expects(:get).once.returns(make_response(resp))
+      stub_api do
+        get "/v1/account" do
+          generated_response.merge!({
+            :id => 'acct_1234',
+            :external_accounts => {
+              :object => "list",
+              :resource_url => "/v1/accounts/acct_1234/external_accounts",
+              :data => [{
+                :id => "ba_1234",
+                :object => "bank_account",
+              }],
+            }
+          })
+        end
+      end
+
       a = Stripe::Account.retrieve
       assert_equal(BankAccount, a.external_accounts.data[0].class)
     end

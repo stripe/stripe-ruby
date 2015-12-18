@@ -83,12 +83,12 @@ definitions:
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/accounts/acct_173u6sIw57t4eNNv/external_accounts"
+          url: "/v1/accounts/acct_17J7nAIjIC7jQxoZ/external_accounts"
         type:
         - object
       id:
         description: A unique identifier for the account
-        example: acct_173u6sIw57t4eNNv
+        example: acct_17J7nAIjIC7jQxoZ
         type:
         - string
       legal_entity:
@@ -523,22 +523,7 @@ definitions:
       rel: self
       href: "/v1/accounts"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/account"
-          url:
-            example: "/v1/accounts"
-            type:
-            - string
+        "$ref": "#/definitions/account"
       description: Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>.
         If you’re not a platform, the list will be empty.
       encType: application/x-www-form-urlencoded
@@ -1080,6 +1065,22 @@ definitions:
             - string
         required:
         - from_recipient
+    - title: LightAccountTokenClaimMethod
+      method: POST
+      rel: self
+      href: "/v1/account_tokens/{token}/claim"
+      targetSchema:
+        "$ref": "#/definitions/account-with-keys"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          challenge:
+            example: ''
+            type:
+            - string
+        required:
+        - challenge
     properties:
       business_name:
         "$ref": "#/definitions/account-with-keys/definitions/business_name"
@@ -1233,22 +1234,7 @@ definitions:
       rel: self
       href: "/v1/customers/{customer}/alipay_accounts"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/alipay-account"
-          url:
-            example: "/v1/customers/{customer}/alipay_accounts"
-            type:
-            - string
+        "$ref": "#/definitions/alipay-account"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -1277,6 +1263,44 @@ definitions:
               list request and receive 100 objects, starting with `obj_bar`, your
               subsequent call can include `ending_before=obj_bar` in order to fetch
               the previous page of the list.
+    - title: CreateCustomerSourceMethod
+      method: POST
+      rel: self
+      href: "/v1/customers/{customer}/alipay_accounts"
+      targetSchema:
+        "$ref": "#/definitions/alipay-account"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          source:
+            example: {}
+            type:
+            - object
+            - string
+            description: When adding a card to a customer, the parameter name is `source`.
+              When adding      to an account, the parameter name is `external_account`.
+              The value can either be a token, like      the ones returned by our
+              [Stripe.js](/docs/stripe.js), or a dictionary containing a user's      credit
+              card details (with the options shown below). Stripe will automatically
+              validate the      card.
+          validate:
+            example: false
+            type:
+            - boolean
+            description: Only applicable on accounts (not customers or recipients).
+              If you set this to `true` (or if this is the first external account
+              being added in this currency) this card will become the default external
+              account for its currency.
+          metadata:
+            example: {}
+            type:
+            - object
+            description: A set of key/value pairs that you can attach to a card object.      It
+              can be useful for storing additional information about the card in a
+              structured format.
+        required:
+        - source
     - title: RetrieveCustomerAlipayAccountMethod
       method: GET
       rel: self
@@ -1328,8 +1352,10 @@ definitions:
         description: Funds that are available to be paid out automatically by Stripe
           or explicitly via the <a href='#transfers'>transfers API</a>.
         example:
-        - amount: 0
-          currency: usd
+        - currency: usd
+          amount: 0
+          source_types:
+            card: 0
         type:
         - array
       livemode:
@@ -1344,8 +1370,10 @@ definitions:
         description: Funds that are not available in the balance yet, due to the 7-day
           rolling pay cycle.
         example:
-        - amount: 0
-          currency: usd
+        - currency: usd
+          amount: 0
+          source_types:
+            card: 0
         type:
         - array
     links:
@@ -1441,8 +1469,8 @@ definitions:
         - string
       type:
         description: 'Type of the transaction, one of: `charge`, `refund`, `adjustment`,
-          `application_fee`, `application_fee_refund`, `transfer`, `transfer_cancel`
-          or `transfer_failure`.'
+          `application_fee`, `application_fee_refund`, `transfer`, `transfer_cancel`,
+          `transfer_refund`, or `transfer_failure`.'
         example: ''
         type:
         - string
@@ -1454,22 +1482,7 @@ definitions:
       rel: self
       href: "/v1/balance/history"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/balance-transaction"
-          url:
-            example: "/v1/balance/history"
-            type:
-            - string
+        "$ref": "#/definitions/balance-transaction"
       description: Returns a list of transactions that have contributed to the Stripe
         account balance (e.g., charges, transfers, and so forth). The transactions
         are returned in sorted order, with the most recent transactions appearing
@@ -1774,22 +1787,7 @@ definitions:
       rel: self
       href: "/v1/bitcoin/receivers"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/bitcoin-receiver"
-          url:
-            example: "/v1/bitcoin/receivers"
-            type:
-            - string
+        "$ref": "#/definitions/bitcoin-receiver"
       description: Returns a list of your receivers. Receivers are returned sorted
         by creation date, with the most recently created receivers appearing first.
       encType: application/x-www-form-urlencoded
@@ -1993,22 +1991,7 @@ definitions:
       rel: self
       href: "/v1/bitcoin/receivers/{receiver}/transactions"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/bitcoin-transaction"
-          url:
-            example: "/v1/bitcoin/receivers/{receiver}/transactions"
-            type:
-            - string
+        "$ref": "#/definitions/bitcoin-transaction"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -2048,22 +2031,7 @@ definitions:
       rel: self
       href: "/v1/bitcoin/transactions"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/bitcoin-transaction"
-          url:
-            example: "/v1/bitcoin/transactions"
-            type:
-            - string
+        "$ref": "#/definitions/bitcoin-transaction"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -2159,7 +2127,7 @@ definitions:
       balance_transaction:
         description: ID of the balance transaction that describes the impact of this
           charge on your account balance (not including refunds or disputes).
-        example: txn_173zDIIw57t4eNNvXMCPHWEE
+        example: txn_17JAzWIjIC7jQxoZZBP4Mj0B
         type:
         - string
       captured:
@@ -2169,7 +2137,7 @@ definitions:
         type:
         - boolean
       created:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       currency:
@@ -2220,7 +2188,7 @@ definitions:
         type:
         - object
       id:
-        example: ch_173zDIIw57t4eNNvjJ1ECQp4
+        example: ch_17JAzWIjIC7jQxoZ3a4nAvII
         type:
         - string
       invoice:
@@ -2274,7 +2242,7 @@ definitions:
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/charges/ch_173zDIIw57t4eNNvjJ1ECQp4/refunds"
+          url: "/v1/charges/ch_17JAzWIjIC7jQxoZ3a4nAvII/refunds"
         type:
         - object
       shipping:
@@ -2307,22 +2275,7 @@ definitions:
       rel: self
       href: "/v1/payments"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/charge"
-          url:
-            example: "/v1/payments"
-            type:
-            - string
+        "$ref": "#/definitions/charge"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -2490,6 +2443,10 @@ definitions:
             example: ''
             type:
             - string
+          directive:
+            example: ''
+            type:
+            - string
           payment:
             example: ''
             type:
@@ -2536,6 +2493,10 @@ definitions:
             example: ''
             type:
             - string
+          directive:
+            example: ''
+            type:
+            - string
         required:
         - charge
     - title: List all charges
@@ -2543,22 +2504,7 @@ definitions:
       rel: self
       href: "/v1/charges"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/charge"
-          url:
-            example: "/v1/charges"
-            type:
-            - string
+        "$ref": "#/definitions/charge"
       description: Returns a list of charges you’ve previously created. The charges
         are returned in sorted order, with the most recent charges appearing first.
       encType: application/x-www-form-urlencoded
@@ -2744,7 +2690,7 @@ definitions:
         type:
         - integer
       created:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       currency:
@@ -2909,22 +2855,7 @@ definitions:
       rel: self
       href: "/v1/coupons"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/coupon"
-          url:
-            example: "/v1/coupons"
-            type:
-            - string
+        "$ref": "#/definitions/coupon"
       description: Returns a list of your coupons.
       encType: application/x-www-form-urlencoded
       schema:
@@ -3040,7 +2971,7 @@ definitions:
         type:
         - integer
       created:
-        example: 1446754408
+        example: 1450381920
         type:
         - integer
       currency:
@@ -3075,7 +3006,7 @@ definitions:
         type:
         - string
       id:
-        example: cus_7IV7zteF9TaFBj
+        example: cus_7YEFvZNbR2gYYs
         type:
         - string
       livemode:
@@ -3105,7 +3036,7 @@ definitions:
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/customers/cus_7IV7zteF9TaFBj/sources"
+          url: "/v1/customers/cus_7YEFvZNbR2gYYs/sources"
         type:
         - object
       subscriptions:
@@ -3115,7 +3046,7 @@ definitions:
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/customers/cus_7IV7zteF9TaFBj/subscriptions"
+          url: "/v1/customers/cus_7YEFvZNbR2gYYs/subscriptions"
         type:
         - object
     identity:
@@ -3327,22 +3258,7 @@ definitions:
       rel: self
       href: "/v1/customers"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/customer"
-          url:
-            example: "/v1/customers"
-            type:
-            - string
+        "$ref": "#/definitions/customer"
       description: Returns a list of your customers. The customers are returned sorted
         by creation date, with the most recent customers appearing first.
       encType: application/x-www-form-urlencoded
@@ -3436,7 +3352,7 @@ definitions:
         description: Hash describing the coupon applied to create this discount.
         example:
           amount_off: 
-          created: 1446774024
+          created: 1450394218
           currency: usd
           duration: repeating
           duration_in_months: 3
@@ -3452,14 +3368,14 @@ definitions:
         type:
         - object
       customer:
-        example: cus_7IV7zteF9TaFBj
+        example: cus_7YEFvZNbR2gYYs
         type:
         - string
       end:
         description: If the coupon has a duration of `once` or `repeating`, the date
           that this discount will end. If the coupon used has a `forever` duration,
           this attribute will be null.
-        example: 1454722824
+        example: 1458256618
         type:
         - integer
       object:
@@ -3468,7 +3384,7 @@ definitions:
         - string
       start:
         description: Date that the coupon was applied.
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       subscription:
@@ -3542,12 +3458,12 @@ definitions:
         - array
       charge:
         description: ID of the charge that was disputed
-        example: ch_173zDIIw57t4eNNvjJ1ECQp4
+        example: ch_17JAzWIjIC7jQxoZ3a4nAvII
         type:
         - string
       created:
         description: Date dispute was opened
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       currency:
@@ -3592,14 +3508,14 @@ definitions:
       evidence_details:
         description: Information about the evidence submission.
         example:
-          due_by: 1448495999
+          due_by: 1452038399
           has_evidence: false
           past_due: false
           submission_count: 0
         type:
         - object
       id:
-        example: dp_173zDIIw57t4eNNv1HQDc9Ks
+        example: dp_17JAzWIjIC7jQxoZuslz7oT3
         type:
         - string
       is_charge_refundable:
@@ -3664,22 +3580,7 @@ definitions:
       rel: self
       href: "/v1/disputes"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/dispute"
-          url:
-            example: "/v1/disputes"
-            type:
-            - string
+        "$ref": "#/definitions/dispute"
       description: Returns a list of your disputes.
       encType: application/x-www-form-urlencoded
       schema:
@@ -3834,7 +3735,7 @@ definitions:
         type:
         - string
       created:
-        example: 1446754408
+        example: 1450381920
         type:
         - integer
       data:
@@ -3842,14 +3743,14 @@ definitions:
         example:
           object:
             account_balance: 0
-            created: 1446754408
+            created: 1450381920
             currency: usd
             default_source: 
             delinquent: false
             description: 
             discount: 
             email: 
-            id: cus_7IV7zteF9TaFBj
+            id: cus_7YEFvZNbR2gYYs
             livemode: false
             metadata: {}
             object: customer
@@ -3859,17 +3760,17 @@ definitions:
               has_more: false
               object: list
               total_count: 0
-              url: "/v1/customers/cus_7IV7zteF9TaFBj/sources"
+              url: "/v1/customers/cus_7YEFvZNbR2gYYs/sources"
             subscriptions:
               data: []
               has_more: false
               object: list
               total_count: 0
-              url: "/v1/customers/cus_7IV7zteF9TaFBj/subscriptions"
+              url: "/v1/customers/cus_7YEFvZNbR2gYYs/subscriptions"
         type:
         - object
       id:
-        example: evt_173u6uIw57t4eNNvPU2kN0dc
+        example: evt_17J7nAIjIC7jQxoZo153eA6I
         type:
         - string
       livemode:
@@ -3909,22 +3810,7 @@ definitions:
       rel: self
       href: "/v1/events"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/event"
-          url:
-            example: "/v1/events"
-            type:
-            - string
+        "$ref": "#/definitions/event"
       description: List events, going back up to 30 days.
       encType: application/x-www-form-urlencoded
       schema:
@@ -4061,22 +3947,7 @@ definitions:
       rel: self
       href: "/v1/application_fees/{%23%2Fdefinitions%2Ffee-refund%2Fdefinitions%2Fidentity}/refunds"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/fee-refund"
-          url:
-            example: "/v1/application_fees/{%23%2Fdefinitions%2Ffee-refund%2Fdefinitions%2Fidentity}/refunds"
-            type:
-            - string
+        "$ref": "#/definitions/fee-refund"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -4229,11 +4100,11 @@ definitions:
         type:
         - string
       customer:
-        example: cus_7IV7zteF9TaFBj
+        example: cus_7YEFvZNbR2gYYs
         type:
         - string
       date:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       description:
@@ -4258,7 +4129,7 @@ definitions:
         type:
         - boolean
       id:
-        example: in_173zDIIw57t4eNNvL01nNwlJ
+        example: in_17JAzWIjIC7jQxoZ5au8EeOM
         type:
         - string
       lines:
@@ -4267,7 +4138,7 @@ definitions:
           by the subscription, if any.'
         example:
           data:
-          - id: sub_7IaOY6OeGFY8vB
+          - id: sub_7YHYKm6DF4QaE5
             object: line_item
             amount: 2000
             currency: usd
@@ -4276,13 +4147,13 @@ definitions:
             livemode: true
             metadata: {}
             period:
-              start: 1449366024
-              end: 1452044424
+              start: 1453072618
+              end: 1455751018
             plan:
               id: gold
               object: plan
               amount: 2000
-              created: 1446754408
+              created: 1450381920
               currency: usd
               interval: month
               interval_count: 1
@@ -4297,7 +4168,7 @@ definitions:
             type: subscription
           object: list
           total_count: 1
-          url: "/v1/invoices/in_173zDIIw57t4eNNvL01nNwlJ/lines"
+          url: "/v1/invoices/in_17JAzWIjIC7jQxoZ5au8EeOM/lines"
         type:
         - object
       livemode:
@@ -4313,7 +4184,7 @@ definitions:
         - object
       next_payment_attempt:
         description: The time at which payment will next be attempted.
-        example: 1446777624
+        example: 1450397818
         type:
         - integer
       object:
@@ -4330,13 +4201,13 @@ definitions:
       period_end:
         description: End of the usage period during which invoice items were added
           to this invoice
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       period_start:
         description: Start of the usage period during which invoice items were added
           to this invoice
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       receipt_number:
@@ -4466,22 +4337,7 @@ definitions:
       rel: self
       href: "/v1/invoices"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/invoice"
-          url:
-            example: "/v1/invoices"
-            type:
-            - string
+        "$ref": "#/definitions/invoice"
       description: You can list all invoices, or list the invoices for a specific
         customer. The invoices are returned sorted by creation date, with the most
         recently created invoices appearing first.
@@ -4855,22 +4711,7 @@ definitions:
       rel: self
       href: "/v1/invoiceitems"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/invoice-item"
-          url:
-            example: "/v1/invoiceitems"
-            type:
-            - string
+        "$ref": "#/definitions/invoice-item"
       description: Returns a list of your invoice items. Invoice items are returned
         sorted by creation date, with the most recently created invoice items appearing
         first.
@@ -5036,8 +4877,8 @@ definitions:
         type:
         - boolean
       metadata:
-        description: Key-value pairs attached to the line item, if the line item is
-          an invoice item
+        description: Key-value pairs attached to object that underlies this line item
+          (either subscription or invoice item)
         example: {}
         type:
         - object
@@ -5093,22 +4934,7 @@ definitions:
       rel: self
       href: "/v1/invoices/{invoice}/lines"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/invoice-line-item"
-          url:
-            example: "/v1/invoices/{invoice}/lines"
-            type:
-            - string
+        "$ref": "#/definitions/invoice-line-item"
       description: When retrieving an invoice, you’ll get a lines property containing
         the total count of line items and the first handful of those items. There
         is also a URL where you can retrieve the full (paginated) list of line items.
@@ -5214,6 +5040,172 @@ definitions:
     title: InvoiceLineItem
     type:
     - object
+  light-account-token:
+    "$schema": http://json-schema.org/draft-04/hyper-schema
+    definitions:
+      id:
+        example: ''
+        type:
+        - string
+    identity:
+      "$ref": "#/definitions/light-account-token/definitions/resource_id"
+    links:
+    - title: LightAccountTokenCreateMethod
+      method: POST
+      rel: self
+      href: "/v1/account_tokens"
+      targetSchema:
+        "$ref": "#/definitions/light-account-token"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          default_currency:
+            example: ''
+            type:
+            - string
+            description: Three-letter ISO currency code representing the default currency
+              for the account. This must be a currency that [Stripe supports in the
+              account's country](http://127.0.0.1:8080/questions/which-currencies-does-stripe-support).
+          statement_descriptor:
+            example: ''
+            type:
+            - string
+            description: The text that will appear on credit card statements by default
+              if a charge is being made [directly on the account](/docs/connect/payments-fees#charging-directly).
+          email:
+            example: ''
+            type:
+            - string
+            description: 'Email address of the account holder. For standalone accounts,
+              this is used to email them asking them to claim their Stripe account.
+              For managed accounts, this is only to make the account easier to identify
+              to you: Stripe will not email the account holder.'
+          product_description:
+            example: ''
+            type:
+            - string
+            description: Internal-only description of the product being sold or service
+              being provided by this account. It's used by Stripe for risk and underwriting
+              purposes.
+          external_account:
+            example: {}
+            type:
+            - object
+            - string
+            description: A card or bank account to attach to the account. You can
+              provide either a token, like the ones returned by [Stripe.js](/docs/stripe.js),
+              or a dictionary as documented in the external_account parameter for
+              either [card](/docs/api#create_card) or [bank account](/docs/api#create_bank_account)
+              creation. <br><br>This will create a new external account object, make
+              it the new default external account for its currency, and delete the
+              old default if one exists. If you want to add additional external accounts
+              instead of replacing the existing default for this currency, use the
+              bank account or card creation API.
+          debit_negative_balances:
+            example: false
+            type:
+            - boolean
+            description: A boolean for whether or not Stripe should try to reclaim
+              negative balances from the account holder's bank account. See our [managed
+              account bank transfer guide](/docs/connect/bank-transfers#negative-balances)
+              for more information
+          decline_charge_on:
+            example: {}
+            type:
+            - object
+            description: Account-level settings to automatically decline certain types
+              of charges regardless of the bank's decision.
+          legal_entity:
+            example: {}
+            type:
+            - object
+            description: Information about the holder of this account, i.e. the user
+              receiving funds from this account
+          tos_acceptance:
+            example: {}
+            type:
+            - object
+            description: Details on who accepted the Stripe terms of service, and
+              when they accepted it. See our [updating managed accounts guide](/docs/connect/updating-accounts#tos_acceptance)
+              for more information
+          transfer_schedule:
+            example: {}
+            type:
+            - object
+            description: Details on when this account will make funds from charges
+              available, and when they will be paid out to the account holder's bank
+              account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information)
+              for more information
+          business_name:
+            example: ''
+            type:
+            - string
+            description: The publicly sharable name for this account
+          business_logo:
+            example: ''
+            type:
+            - string
+          business_primary_color:
+            example: ''
+            type:
+            - string
+            description: A CSS hex color value representing the primary branding color
+              for this account
+          business_url:
+            example: ''
+            type:
+            - string
+            description: The URL that best shows the service or product provided for
+              this account
+          support_url:
+            example: ''
+            type:
+            - string
+            description: A publicly shareable URL that can be reached for support
+              for this account
+          support_email:
+            example: ''
+            type:
+            - string
+            description: A publicly shareable email address that can be reached for
+              support for this account
+          support_phone:
+            example: ''
+            type:
+            - string
+            description: A publicly shareable phone number that can be reached for
+              support for this account
+          metadata:
+            example: {}
+            type:
+            - object
+            description: A set of key/value pairs that you can attach to an account
+              object. It can be useful for storing additional information about the
+              account in a structured format.
+          client_type:
+            example: ''
+            type:
+            - string
+          phone_number:
+            example: ''
+            type:
+            - string
+          country:
+            example: ''
+            type:
+            - string
+        required:
+        - client_type
+        - phone_number
+    properties:
+      id:
+        "$ref": "#/definitions/light-account-token/definitions/id"
+    required:
+    - id
+    title: LightAccountToken
+    type:
+    - object
   order:
     "$schema": http://json-schema.org/draft-04/hyper-schema
     definitions:
@@ -5240,7 +5232,7 @@ definitions:
         type:
         - string
       created:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       currency:
@@ -5260,7 +5252,7 @@ definitions:
         type:
         - string
       id:
-        example: or_173zDIIw57t4eNNvTmLeal08
+        example: or_17JAzWIjIC7jQxoZ1Vx20fLM
         type:
         - string
       items:
@@ -5270,7 +5262,7 @@ definitions:
           amount: 1500
           currency: usd
           description: T-shirt
-          parent: sk_173u6uIw57t4eNNv9V6k1Hb4
+          parent: sk_17J7nAIjIC7jQxoZ42SCFOq4
           quantity: 
           type: sku
         type:
@@ -5327,7 +5319,7 @@ definitions:
         type:
         - string
       updated:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
     identity:
@@ -5392,22 +5384,7 @@ definitions:
       rel: self
       href: "/v1/orders"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/order"
-          url:
-            example: "/v1/orders"
-            type:
-            - string
+        "$ref": "#/definitions/order"
       description: Returns a list of your orders. The orders are returned sorted by
         creation date, with the most recently created orders appearing first.
       encType: application/x-www-form-urlencoded
@@ -5425,6 +5402,11 @@ definitions:
             type:
             - array
             description: Only return orders with the given IDs
+          customer:
+            example: ''
+            type:
+            - string
+            description: Only return orders for the given customer
           limit:
             example: 0
             type:
@@ -5599,6 +5581,10 @@ definitions:
   payment-bank-account:
     "$schema": http://json-schema.org/draft-04/hyper-schema
     definitions:
+      account_holder_type:
+        example: ''
+        type:
+        - string
       bank_name:
         description: Name of the bank associated with the routing number, e.g. `WELLS
           FARGO`.
@@ -5639,6 +5625,10 @@ definitions:
         example: {}
         type:
         - object
+      name:
+        example: ''
+        type:
+        - string
       object:
         example: ''
         type:
@@ -5667,22 +5657,7 @@ definitions:
       rel: self
       href: "/v1/customers/{customer}/bank_accounts"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/payment-bank-account"
-          url:
-            example: "/v1/customers/{customer}/bank_accounts"
-            type:
-            - string
+        "$ref": "#/definitions/payment-bank-account"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -5711,30 +5686,118 @@ definitions:
               list request and receive 100 objects, starting with `obj_bar`, your
               subsequent call can include `ending_before=obj_bar` in order to fetch
               the previous page of the list.
-    - title: RetrieveCustomerBankAccountMethod
-      method: GET
-      rel: self
-      href: "/v1/customers/{customer}/bank_accounts/{%23%2Fdefinitions%2Fpayment-bank-account%2Fdefinitions%2Fidentity}"
-      targetSchema:
-        "$ref": "#/definitions/payment-bank-account"
-    - title: VerifyCustomerSourceMethod
+    - title: CreateAccountExternalAccountMethod
       method: POST
       rel: self
-      href: "/v1/customers/{customer}/sources/{%23%2Fdefinitions%2Fpayment-bank-account%2Fdefinitions%2Fidentity}/verify"
+      href: "/v1/accounts/{account}/bank_accounts"
       targetSchema:
         "$ref": "#/definitions/payment-bank-account"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
         properties:
-          verification_method:
-            example: ''
+          external_account:
+            example: {}
             type:
+            - object
             - string
-          amounts:
-            example: []
+            description: This can either be a token, like the ones returned by our
+              [Stripe.js](/docs/stripe.js), or a dictionary containing a user's bank
+              account details (with the options shown below).
+          default_for_currency:
+            example: false
             type:
-            - array
+            - boolean
+            description: If you set this to true (or if this is the first external
+              account being added in this currency) this bank account will become
+              the default external account for its currency.
+          metadata:
+            example: {}
+            type:
+            - object
+            description: A set of key/value pairs that you can attach to an external
+              account object.      It can be useful for storing additional information
+              about the external account in a structured format.
+        required:
+        - external_account
+    - title: CreateAccountExternalAccountMethod
+      method: POST
+      rel: self
+      href: "/v1/accounts/{account}/external_accounts"
+      targetSchema:
+        "$ref": "#/definitions/payment-bank-account"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          external_account:
+            example: {}
+            type:
+            - object
+            - string
+            description: This can either be a token, like the ones returned by our
+              [Stripe.js](/docs/stripe.js), or a dictionary containing a user's bank
+              account details (with the options shown below).
+          default_for_currency:
+            example: false
+            type:
+            - boolean
+            description: If you set this to true (or if this is the first external
+              account being added in this currency) this bank account will become
+              the default external account for its currency.
+          metadata:
+            example: {}
+            type:
+            - object
+            description: A set of key/value pairs that you can attach to an external
+              account object.      It can be useful for storing additional information
+              about the external account in a structured format.
+        required:
+        - external_account
+    - title: CreateCustomerSourceMethod
+      method: POST
+      rel: self
+      href: "/v1/customers/{customer}/bank_accounts"
+      targetSchema:
+        "$ref": "#/definitions/payment-bank-account"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          source:
+            example: {}
+            type:
+            - object
+            - string
+            description: When adding a card to a customer, the parameter name is `source`.
+              When adding      to an account, the parameter name is `external_account`.
+              The value can either be a token, like      the ones returned by our
+              [Stripe.js](/docs/stripe.js), or a dictionary containing a user's      credit
+              card details (with the options shown below). Stripe will automatically
+              validate the      card.
+          validate:
+            example: false
+            type:
+            - boolean
+            description: Only applicable on accounts (not customers or recipients).
+              If you set this to `true` (or if this is the first external account
+              being added in this currency) this card will become the default external
+              account for its currency.
+          metadata:
+            example: {}
+            type:
+            - object
+            description: A set of key/value pairs that you can attach to a card object.      It
+              can be useful for storing additional information about the card in a
+              structured format.
+        required:
+        - source
+    - title: RetrieveCustomerBankAccountMethod
+      method: GET
+      rel: self
+      href: "/v1/customers/{customer}/bank_accounts/{%23%2Fdefinitions%2Fpayment-bank-account%2Fdefinitions%2Fidentity}"
+      targetSchema:
+        "$ref": "#/definitions/payment-bank-account"
     - title: VerifyCustomerSourceMethod
       method: POST
       rel: self
@@ -5753,7 +5816,27 @@ definitions:
             example: []
             type:
             - array
+    - title: VerifyCustomerSourceMethod
+      method: POST
+      rel: self
+      href: "/v1/customers/{customer}/sources/{%23%2Fdefinitions%2Fpayment-bank-account%2Fdefinitions%2Fidentity}/verify"
+      targetSchema:
+        "$ref": "#/definitions/payment-bank-account"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          verification_method:
+            example: ''
+            type:
+            - string
+          amounts:
+            example: []
+            type:
+            - array
     properties:
+      account_holder_type:
+        "$ref": "#/definitions/payment-bank-account/definitions/account_holder_type"
       bank_name:
         "$ref": "#/definitions/payment-bank-account/definitions/bank_name"
       country:
@@ -5770,6 +5853,8 @@ definitions:
         "$ref": "#/definitions/payment-bank-account/definitions/last4"
       metadata:
         "$ref": "#/definitions/payment-bank-account/definitions/metadata"
+      name:
+        "$ref": "#/definitions/payment-bank-account/definitions/name"
       object:
         "$ref": "#/definitions/payment-bank-account/definitions/object"
       routing_number:
@@ -5916,22 +6001,7 @@ definitions:
       rel: self
       href: "/v1/customers/{customer}/cards"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/payment-card"
-          url:
-            example: "/v1/customers/{customer}/cards"
-            type:
-            - string
+        "$ref": "#/definitions/payment-card"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -5960,6 +6030,44 @@ definitions:
               list request and receive 100 objects, starting with `obj_bar`, your
               subsequent call can include `ending_before=obj_bar` in order to fetch
               the previous page of the list.
+    - title: CreateCustomerSourceMethod
+      method: POST
+      rel: self
+      href: "/v1/customers/{customer}/cards"
+      targetSchema:
+        "$ref": "#/definitions/payment-card"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          source:
+            example: {}
+            type:
+            - object
+            - string
+            description: When adding a card to a customer, the parameter name is `source`.
+              When adding      to an account, the parameter name is `external_account`.
+              The value can either be a token, like      the ones returned by our
+              [Stripe.js](/docs/stripe.js), or a dictionary containing a user's      credit
+              card details (with the options shown below). Stripe will automatically
+              validate the      card.
+          validate:
+            example: false
+            type:
+            - boolean
+            description: Only applicable on accounts (not customers or recipients).
+              If you set this to `true` (or if this is the first external account
+              being added in this currency) this card will become the default external
+              account for its currency.
+          metadata:
+            example: {}
+            type:
+            - object
+            description: A set of key/value pairs that you can attach to a card object.      It
+              can be useful for storing additional information about the card in a
+              structured format.
+        required:
+        - source
     - title: RetrieveCustomerCardMethod
       method: GET
       rel: self
@@ -6184,7 +6292,7 @@ definitions:
         type:
         - integer
       created:
-        example: 1446754408
+        example: 1450381920
         type:
         - integer
       currency:
@@ -6342,22 +6450,7 @@ definitions:
       rel: self
       href: "/v1/plans"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/plan"
-          url:
-            example: "/v1/plans"
-            type:
-            - string
+        "$ref": "#/definitions/plan"
       description: Returns a list of your plans.
       encType: application/x-www-form-urlencoded
       schema:
@@ -6530,6 +6623,12 @@ definitions:
         example: ''
         type:
         - string
+      originating_transaction:
+        description: ID of the corresponding charge on the platform account, if this
+          fee was the result of a charge using the <code>destination</code> parameter.
+        example: ''
+        type:
+        - string
       refunded:
         description: Whether or not the fee has been fully refunded.  If the fee is
           only partially refunded,        this attribute will still be false.
@@ -6549,22 +6648,7 @@ definitions:
       rel: self
       href: "/v1/application_fees"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/platform-earning"
-          url:
-            example: "/v1/application_fees"
-            type:
-            - string
+        "$ref": "#/definitions/platform-earning"
       description: Returns a list of application fees you’ve previously collected.
         The application fees are returned in sorted order, with the most recent fees
         appearing first.
@@ -6657,6 +6741,8 @@ definitions:
         "$ref": "#/definitions/platform-earning/definitions/livemode"
       object:
         "$ref": "#/definitions/platform-earning/definitions/object"
+      originating_transaction:
+        "$ref": "#/definitions/platform-earning/definitions/originating_transaction"
       refunded:
         "$ref": "#/definitions/platform-earning/definitions/refunded"
       refunds:
@@ -6701,7 +6787,7 @@ definitions:
         type:
         - string
       created:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       description:
@@ -6710,7 +6796,7 @@ definitions:
         type:
         - string
       id:
-        example: prod_7IaOt0RZoSrcDU
+        example: prod_7YHYcCfNnhg62Y
         type:
         - string
       images:
@@ -6757,11 +6843,11 @@ definitions:
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/skus?product=prod_7IaOt0RZoSrcDU&active=true"
+          url: "/v1/skus?product=prod_7YHYcCfNnhg62Y&active=true"
         type:
         - object
       updated:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       url:
@@ -6854,22 +6940,7 @@ definitions:
       rel: self
       href: "/v1/products"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/product"
-          url:
-            example: "/v1/products"
-            type:
-            - string
+        "$ref": "#/definitions/product"
       description: Returns a list of your products. The products are returned sorted
         by creation date, with the most recently created products appearing first.
       encType: application/x-www-form-urlencoded
@@ -6993,6 +7064,7 @@ definitions:
             example: []
             type:
             - array
+            - string
             description: A list of up to 8 URLs of images for this product, meant
               to be displayable to the customer.
     properties:
@@ -7172,22 +7244,7 @@ definitions:
       rel: self
       href: "/v1/recipients/{%23%2Fdefinitions%2Frecipient-payout-card%2Fdefinitions%2Fidentity}/cards"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/recipient-payout-card"
-          url:
-            example: "/v1/recipients/{%23%2Fdefinitions%2Frecipient-payout-card%2Fdefinitions%2Fidentity}/cards"
-            type:
-            - string
+        "$ref": "#/definitions/recipient-payout-card"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -7371,11 +7428,11 @@ definitions:
         - string
       charge:
         description: ID of the charge that was refunded.
-        example: ch_173zDIIw57t4eNNvjJ1ECQp4
+        example: ch_17JAzWIjIC7jQxoZ3a4nAvII
         type:
         - string
       created:
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       currency:
@@ -7388,7 +7445,7 @@ definitions:
         type:
         - string
       id:
-        example: re_173zDIIw57t4eNNvM5bqrzVp
+        example: re_17JAzWIjIC7jQxoZ3t6qhcuG
         type:
         - string
       metadata:
@@ -7495,22 +7552,7 @@ definitions:
       rel: self
       href: "/v1/charges/{charge}/refunds"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/refund"
-          url:
-            example: "/v1/charges/{charge}/refunds"
-            type:
-            - string
+        "$ref": "#/definitions/refund"
       description: You can see a list of the refunds belonging to a specific charge.
         Note that the 10 most recent refunds are always available by default on the
         charge object. If you need more than those 10, you can use this API method
@@ -7549,22 +7591,7 @@ definitions:
       rel: self
       href: "/v1/refunds"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/refund"
-          url:
-            example: "/v1/refunds"
-            type:
-            - string
+        "$ref": "#/definitions/refund"
       description: Returns a list of all refunds you’ve previously created. The refunds
         are returned in sorted order, with the most recent refunds appearing first.
         For convenience, the 10 most recent refunds are always available by default
@@ -7838,22 +7865,7 @@ definitions:
       rel: self
       href: "/v1/skus"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/sku"
-          url:
-            example: "/v1/skus"
-            type:
-            - string
+        "$ref": "#/definitions/sku"
       description: Returns a list of your SKUs. The SKUs are returned sorted by creation
         date, with the most recently created SKUs appearing first.
       encType: application/x-www-form-urlencoded
@@ -7976,6 +7988,13 @@ definitions:
             - string
             description: The URL of an image for this SKU, meant to be displayable
               to the customer.
+          product:
+            example: ''
+            type:
+            - string
+            description: The ID of the product that this SKU should belong to. The
+              product must exist and have the same set of attribute names as the SKU's
+              current product.
     properties:
       active:
         "$ref": "#/definitions/sku/definitions/active"
@@ -8021,6 +8040,177 @@ definitions:
     title: SKU
     type:
     - object
+  source:
+    "$schema": http://json-schema.org/draft-04/hyper-schema
+    definitions:
+      amount:
+        example: 0
+        type:
+        - integer
+      created:
+        example: 0
+        type:
+        - integer
+      currency:
+        example: ''
+        type:
+        - string
+      customer:
+        example: ''
+        type:
+        - string
+      flow:
+        example: ''
+        type:
+        - string
+      id:
+        example: card_17JAzWIjIC7jQxoZ6YEzL3YS
+        type:
+        - string
+      livemode:
+        example: false
+        type:
+        - boolean
+      object:
+        example: card
+        type:
+        - string
+      order:
+        example: ''
+        type:
+        - string
+      owner:
+        example: {}
+        type:
+        - object
+      redirect:
+        example: {}
+        type:
+        - object
+      status:
+        example: ''
+        type:
+        - string
+      type:
+        example: ''
+        type:
+        - string
+      usage:
+        example: ''
+        type:
+        - string
+    identity:
+      "$ref": "#/definitions/source/definitions/resource_id"
+    links:
+    - title: CreateSourceMethod
+      method: POST
+      rel: self
+      href: "/v1/sources"
+      targetSchema:
+        "$ref": "#/definitions/source"
+      encType: application/x-www-form-urlencoded
+      schema:
+        type: object
+        properties:
+          type:
+            example: ''
+            type:
+            - string
+            description: The `type` of the source to create. `type` must be one of
+              the type returned by the `/v1/source_types` endpoint.
+          usage:
+            example: ''
+            type:
+            - string
+            description: One of `reusable`, `single-use`. Whether this source should
+              be reusable or not. Some source types may or may not be reusable by
+              construction, while other may leave the option at creation. If an incompatible
+              value is passed, an error will be returned.
+          amount:
+            example: 0
+            type:
+            - integer
+            description: Amount associated with the source. This is the amount for
+              which the source will be chargeable once ready. Required for non reusable
+              sources.
+          currency:
+            example: ''
+            type:
+            - string
+            description: The currency associated with the source. This is the currency
+              for which the source will be chargeable once ready. Required for non
+              reusable sources.
+          owner:
+            example: {}
+            type:
+            - object
+            description: Information about the owner of the payment instrument that
+              may be used or required by particular source types.
+          redirect:
+            example: {}
+            type:
+            - object
+            description: Parameters required for a redirect authentication flow. Required
+              if `type` is set to `redirect`
+          mobile_confirmation:
+            example: {}
+            type:
+            - object
+            description: Parameters required for a mobile confirmation authentication
+              flow. Required if `type` is set to `mobile_confirmation`
+          ideal:
+            example: {}
+            type:
+            - object
+        required:
+        - type
+    - title: RetrieveSourceMethod
+      method: GET
+      rel: self
+      href: "/v1/sources/{source}"
+      targetSchema:
+        "$ref": "#/definitions/source"
+    properties:
+      amount:
+        "$ref": "#/definitions/source/definitions/amount"
+      created:
+        "$ref": "#/definitions/source/definitions/created"
+      currency:
+        "$ref": "#/definitions/source/definitions/currency"
+      customer:
+        "$ref": "#/definitions/source/definitions/customer"
+      flow:
+        "$ref": "#/definitions/source/definitions/flow"
+      id:
+        "$ref": "#/definitions/source/definitions/id"
+      livemode:
+        "$ref": "#/definitions/source/definitions/livemode"
+      object:
+        "$ref": "#/definitions/source/definitions/object"
+      order:
+        "$ref": "#/definitions/source/definitions/order"
+      owner:
+        "$ref": "#/definitions/source/definitions/owner"
+      redirect:
+        "$ref": "#/definitions/source/definitions/redirect"
+      status:
+        "$ref": "#/definitions/source/definitions/status"
+      type:
+        "$ref": "#/definitions/source/definitions/type"
+      usage:
+        "$ref": "#/definitions/source/definitions/usage"
+    required:
+    - created
+    - flow
+    - id
+    - livemode
+    - object
+    - status
+    - type
+    - usage
+    title: Source
+    type:
+    - object
   subscription:
     "$schema": http://json-schema.org/draft-04/hyper-schema
     definitions:
@@ -8051,17 +8241,17 @@ definitions:
       current_period_end:
         description: End of the current period that the subscription has been invoiced
           for.  At the end of this period, a new invoice will be created.
-        example: 1449366024
+        example: 1453072618
         type:
         - integer
       current_period_start:
         description: Start of the current period that the subscription has been invoiced
           for
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       customer:
-        example: cus_7IV7zteF9TaFBj
+        example: cus_7YEFvZNbR2gYYs
         type:
         - string
       discount:
@@ -8079,7 +8269,7 @@ definitions:
         type:
         - integer
       id:
-        example: sub_7IaOY6OeGFY8vB
+        example: sub_7YHYKm6DF4QaE5
         type:
         - string
       metadata:
@@ -8097,7 +8287,7 @@ definitions:
         description: Hash describing the plan the customer is subscribed to
         example:
           amount: 2000
-          created: 1446754408
+          created: 1450381920
           currency: usd
           id: gold
           interval: month
@@ -8116,7 +8306,7 @@ definitions:
         - integer
       start:
         description: Date the subscription started
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       status:
@@ -8233,22 +8423,7 @@ definitions:
       rel: self
       href: "/v1/customers/{customer}/subscriptions"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/subscription"
-          url:
-            example: "/v1/customers/{customer}/subscriptions"
-            type:
-            - string
+        "$ref": "#/definitions/subscription"
       description: You can see a list of the customer’s active subscriptions. Note
         that the 10 most recent active subscriptions are always available by default
         on the customer object. If you need more than those 10, you can use the limit
@@ -8510,7 +8685,7 @@ definitions:
           exp_month: 8
           exp_year: 2016
           funding: unknown
-          id: card_173u6sIw57t4eNNv3YoFzsPh
+          id: card_17JAzWIjIC7jQxoZ6YEzL3YS
           last4: '4242'
           metadata: {}
           name: 
@@ -8524,11 +8699,11 @@ definitions:
         type:
         - string
       created:
-        example: 1446754406
+        example: 1450394218
         type:
         - integer
       id:
-        example: tok_173u6sIw57t4eNNvYQSD2Yhy
+        example: tok_17JAzWIjIC7jQxoZipoiCbAm
         type:
         - string
       livemode:
@@ -8647,12 +8822,12 @@ definitions:
       balance_transaction:
         description: Balance transaction that describes the impact of this transfer
           on your account balance.
-        example: txn_173zDIIw57t4eNNvXMCPHWEE
+        example: txn_17JAzWIjIC7jQxoZZBP4Mj0B
         type:
         - string
       created:
         description: Time that this record of the transfer was first created.
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       currency:
@@ -8662,7 +8837,7 @@ definitions:
       date:
         description: Date the transfer is scheduled to arrive in the bank. This doesn't
           factor in delays like weekends or bank holidays.
-        example: 1446774024
+        example: 1450394218
         type:
         - integer
       description:
@@ -8673,7 +8848,7 @@ definitions:
       destination:
         description: ID of the bank account, card, or Stripe account the transfer
           was sent to.
-        example: ba_173zDIIw57t4eNNvPDZ9uLPq
+        example: ba_17JAzWIjIC7jQxoZ9fK3uOG7
         type:
         - string
       destination_payment:
@@ -8696,7 +8871,7 @@ definitions:
         type:
         - string
       id:
-        example: tr_173zDIIw57t4eNNvmKpLXDrx
+        example: tr_17JAzWIjIC7jQxoZvCawzwok
         type:
         - string
       livemode:
@@ -8721,7 +8896,7 @@ definitions:
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/transfers/tr_173zDIIw57t4eNNvmKpLXDrx/reversals"
+          url: "/v1/transfers/tr_17JAzWIjIC7jQxoZvCawzwok/reversals"
         type:
         - object
       reversed:
@@ -8825,22 +9000,7 @@ definitions:
       rel: self
       href: "/v1/transfers"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/transfer"
-          url:
-            example: "/v1/transfers"
-            type:
-            - string
+        "$ref": "#/definitions/transfer"
       description: Returns a list of existing transfers sent to third-party bank accounts
         or that Stripe has sent you. The transfers are returned in sorted order, with
         the most recently created transfers appearing first.
@@ -9070,22 +9230,7 @@ definitions:
       rel: self
       href: "/v1/recipients"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/transfer-recipient"
-          url:
-            example: "/v1/recipients"
-            type:
-            - string
+        "$ref": "#/definitions/transfer-recipient"
       description: Returns a list of your recipients. The recipients are returned
         sorted by creation date, with the most recently created recipients appearing
         first.
@@ -9347,22 +9492,7 @@ definitions:
       rel: self
       href: "/v1/transfers/{%23%2Fdefinitions%2Ftransfer-reversal%2Fdefinitions%2Fidentity}/reversals"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/transfer-reversal"
-          url:
-            example: "/v1/transfers/{%23%2Fdefinitions%2Ftransfer-reversal%2Fdefinitions%2Fidentity}/reversals"
-            type:
-            - string
+        "$ref": "#/definitions/transfer-reversal"
       description: You can see a list of the reversals belonging to a specific transfer.
         Note that the 10 most recent reversals are always available by default on
         the transfer object. If you need more than those 10, you can use this API
@@ -9495,22 +9625,7 @@ definitions:
       rel: self
       href: "/v1/transfers/{%23%2Fdefinitions%2Ftransfer-transaction%2Fdefinitions%2Fidentity}/transactions"
       targetSchema:
-        type:
-        - object
-        properties:
-          has_more:
-            example: false
-            type:
-            - boolean
-          data:
-            type:
-            - array
-            items:
-              "$ref": "#/definitions/transfer-transaction"
-          url:
-            example: "/v1/transfers/{%23%2Fdefinitions%2Ftransfer-transaction%2Fdefinitions%2Fidentity}/transactions"
-            type:
-            - string
+        "$ref": "#/definitions/transfer-transaction"
       encType: application/x-www-form-urlencoded
       schema:
         type: object
@@ -9973,6 +10088,8 @@ properties:
     "$ref": "#/definitions/invoice-item"
   invoice-line-item:
     "$ref": "#/definitions/invoice-line-item"
+  light-account-token:
+    "$ref": "#/definitions/light-account-token"
   order:
     "$ref": "#/definitions/order"
   payment-bank-account:
@@ -9991,6 +10108,8 @@ properties:
     "$ref": "#/definitions/refund"
   sku:
     "$ref": "#/definitions/sku"
+  source:
+    "$ref": "#/definitions/source"
   subscription:
     "$ref": "#/definitions/subscription"
   system-refund:

@@ -1,3 +1,8 @@
+=== 1.32.0 2016-01-05
+
+* Add configuration to optionally retry network failures
+* Use modern API endpoint for producing application fee refunds
+
 === 1.31.0 2015-10-29
 
 * Add BankAccount#verify convenience method

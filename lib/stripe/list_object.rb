@@ -3,6 +3,7 @@ module Stripe
     include Enumerable
     include Stripe::APIOperations::List
     include Stripe::APIOperations::Request
+    include Stripe::APIOperations::Create
 
     # This accessor allows a `ListObject` to inherit various filters that were
     # given to a predecessor. This allows for things like consistent limits,
@@ -64,11 +65,6 @@ module Stripe
     def retrieve(id, opts={})
       id, retrieve_params = Util.normalize_id(id)
       response, opts = request(:get,"#{url}/#{CGI.escape(id)}", retrieve_params, opts)
-      Util.convert_to_stripe_object(response, opts)
-    end
-
-    def create(params={}, opts={})
-      response, opts = request(:post, url, params, opts)
       Util.convert_to_stripe_object(response, opts)
     end
 

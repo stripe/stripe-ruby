@@ -105,6 +105,13 @@ module Stripe
       assert_equal({}, Stripe::StripeObject.serialize_params(obj))
     end
 
+    should "#serialize_params on a new object with a subobject" do
+      obj = Stripe::StripeObject.new
+      obj.metadata = { :foo => "bar" }
+      assert_equal({ :metadata => { :foo => "bar" } },
+        Stripe::StripeObject.serialize_params(obj))
+    end
+
     should "#serialize_params on a basic object" do
       obj = Stripe::StripeObject.construct_from({ :foo => nil })
       obj.update_attributes(:foo => "bar")

@@ -12,6 +12,7 @@ module Stripe
     def initialize(id=nil, opts={})
       id, @retrieve_params = Util.normalize_id(id)
       @opts = Util.normalize_opts(opts)
+      @original_values = {}
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us
       # to have a unified inspect method

@@ -1,3 +1,8 @@
+=== 1.32.1 2016-01-07
+
+* Fix bug where ivar left uninitialized in StripeObject could error on serialization
+* Fix bug where a nil customer from API could error Bitcoin model on refresh
+
 === 1.32.0 2016-01-05
 
 * Add configuration to optionally retry network failures

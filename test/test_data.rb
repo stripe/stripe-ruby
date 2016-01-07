@@ -458,6 +458,7 @@ module Stripe
         :description => 'some details',
         :metadata => {},
         :object => 'bitcoin_receiver',
+        :customer => nil,
         :transactions => make_bitcoin_transaction_array
       }.merge(params)
     end

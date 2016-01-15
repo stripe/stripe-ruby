@@ -16,5 +16,7 @@ module Stripe
       # from the server
       self.refresh
     end
+    extend Gem::Deprecate
+    deprecate :refund, "application_fee.refunds.create", 2016, 07
   end
 end

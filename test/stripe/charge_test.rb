@@ -12,11 +12,11 @@ module Stripe
     end
 
     should "charges should be refundable" do
+      c = Stripe::Charge.construct_from(make_charge)
       @mock.expects(:get).never
-      @mock.expects(:post).once.returns(make_response({:id => "ch_test_charge", :refunded => true}))
-      c = Stripe::Charge.new("test_charge")
-      c.refund
-      assert c.refunded
+      @mock.expects(:post).once.returns(make_response(make_refund(:charge => c)))
+      r = c.refunds.create
+      assert r.is_a?(Stripe::Refund)
     end
 
     should "charges should not be deletable" do
@@ -113,6 +113,23 @@ module Stripe
         :level3 => [{:red => 'firstred'}, {:one => 'fish', :red => 'another'}]
       })
       assert c.paid
+    end
+
+    should "warn that #refund is deprecated" do
+      old_stderr = $stderr
+      $stderr = StringIO.new
+      begin
+        charge = Stripe::Charge.construct_from(make_charge)
+        @mock.expects(:post).once.
+          with("#{Stripe.api_base}/v1/charges/#{charge.id}/refund", nil, '').
+          returns(make_response({:id => charge.id, :refunded => true}))
+        charge.refund
+        message = "NOTE: Stripe::Charge#refund is deprecated; use " +
+          "charge.refunds.create instead"
+        assert_match Regexp.new(message), $stderr.string
+      ensure
+        $stderr = old_stderr
+      end
     end
   end
 end

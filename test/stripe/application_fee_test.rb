@@ -14,18 +14,37 @@ module Stripe
     should "application fees should be refundable" do
       fee = Stripe::ApplicationFee.construct_from(make_application_fee)
 
-      # first a post to create a refund
       @mock.expects(:post).once.
         with("#{Stripe.api_base}/v1/application_fees/#{fee.id}/refunds", nil, '').
         returns(make_response(make_application_fee_refund))
 
-      # then a get to refresh the current object
-      @mock.expects(:get).once.
-        with("#{Stripe.api_base}/v1/application_fees/#{fee.id}", nil, nil).
-        returns(make_response({:id => "fee_test_fee", :refunded => true}))
+      refund = fee.refunds.create
+      assert refund.is_a?(Stripe::ApplicationFeeRefund)
+    end
 
-      fee.refund
-      assert fee.refunded
+    should "warn that #refund is deprecated" do
+      old_stderr = $stderr
+      $stderr = StringIO.new
+      begin
+        fee = Stripe::ApplicationFee.construct_from(make_application_fee)
+
+        # creates the refund
+        @mock.expects(:post).once.
+          with("#{Stripe.api_base}/v1/application_fees/#{fee.id}/refunds", nil, '').
+          returns(make_response({}))
+
+        # reloads the application fee to get the field updates
+        @mock.expects(:get).once.
+          with("#{Stripe.api_base}/v1/application_fees/#{fee.id}", nil, nil).
+          returns(make_response({:id => fee.id, :refunded => true}))
+
+        fee.refund
+        message = "NOTE: Stripe::ApplicationFee#refund is deprecated; use " +
+          "application_fee.refunds.create instead"
+        assert_match Regexp.new(message), $stderr.string
+      ensure
+        $stderr = old_stderr
+      end
     end
   end
 end

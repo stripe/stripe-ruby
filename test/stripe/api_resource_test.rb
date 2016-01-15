@@ -206,12 +206,12 @@ module Stripe
               opts[:headers][:authorization] == 'Bearer local'
           end.returns(make_response(make_charge))
           Stripe.expects(:execute_request).with do |opts|
-            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge/refund" &&
+            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge/refunds" &&
               opts[:headers][:authorization] == 'Bearer local'
-          end.returns(make_response(make_charge))
+          end.returns(make_response(make_refund))
 
           ch = Stripe::Charge.retrieve('ch_test_charge', 'local')
-          ch.refund
+          ch.refunds.create
         end
       end
     end

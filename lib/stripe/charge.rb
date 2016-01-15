@@ -8,6 +8,8 @@ module Stripe
       response, opts = request(:post, refund_url, params, opts)
       initialize_from(response, opts)
     end
+    extend Gem::Deprecate
+    deprecate :refund, "charge.refunds.create", 2016, 07
 
     def capture(params={}, opts={})
       response, opts = request(:post, capture_url, params, opts)

@@ -1,5 +1,6 @@
 module Stripe
   class Charge < APIResource
+    extend Gem::Deprecate
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
@@ -12,7 +13,6 @@ module Stripe
       # from the server
       self.refresh
     end
-    extend Gem::Deprecate
     deprecate :refund, "charge.refunds.create", 2016, 07
 
     def capture(params={}, opts={})

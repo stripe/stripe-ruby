@@ -1,5 +1,6 @@
 module Stripe
   class ApplicationFee < APIResource
+    extend Gem::Deprecate
     extend Stripe::APIOperations::List
 
     def self.url
@@ -16,7 +17,6 @@ module Stripe
       # from the server
       self.refresh
     end
-    extend Gem::Deprecate
     deprecate :refund, "application_fee.refunds.create", 2016, 07
   end
 end

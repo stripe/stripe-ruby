@@ -28,7 +28,8 @@ module Stripe
       begin
         fee = Stripe::ApplicationFee.construct_from(make_application_fee)
 
-        # creates the refund
+        # creates the refund (this is not how the endpoint would actually
+        # respond, but we discard the result anyway)
         @mock.expects(:post).once.
           with("#{Stripe.api_base}/v1/application_fees/#{fee.id}/refunds", nil, '').
           returns(make_response({}))

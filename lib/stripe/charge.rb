@@ -5,8 +5,12 @@ module Stripe
     include Stripe::APIOperations::Update
 
     def refund(params={}, opts={})
-      response, opts = request(:post, refund_url, params, opts)
-      initialize_from(response, opts)
+      self.refunds.create
+
+      # now that a refund has been created, we expect the state of this object
+      # to change as well (i.e. `refunded` will now be `true`) so refresh it
+      # from the server
+      self.refresh
     end
     extend Gem::Deprecate
     deprecate :refund, "charge.refunds.create", 2016, 07

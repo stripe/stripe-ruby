@@ -120,9 +120,18 @@ module Stripe
       $stderr = StringIO.new
       begin
         charge = Stripe::Charge.construct_from(make_charge)
+
+        # creates the refund (this is not how the endpoint would actually
+        # respond, but we discard the result anyway)
         @mock.expects(:post).once.
-          with("#{Stripe.api_base}/v1/charges/#{charge.id}/refund", nil, '').
+          with("#{Stripe.api_base}/v1/charges/#{charge.id}/refunds", nil, '').
+          returns(make_response({}))
+
+        # reloads the charge to get the field updates
+        @mock.expects(:get).once.
+          with("#{Stripe.api_base}/v1/charges/#{charge.id}", nil, nil).
           returns(make_response({:id => charge.id, :refunded => true}))
+
         charge.refund
         message = "NOTE: Stripe::Charge#refund is deprecated; use " +
           "charge.refunds.create instead"

@@ -12,11 +12,11 @@ module Stripe
     end
 
     should "charges should be refundable" do
+      c = Stripe::Charge.construct_from(make_charge)
       @mock.expects(:get).never
-      @mock.expects(:post).once.returns(make_response({:id => "ch_test_charge", :refunded => true}))
-      c = Stripe::Charge.new("test_charge")
-      c.refund
-      assert c.refunded
+      @mock.expects(:post).once.returns(make_response(make_refund(:charge => c)))
+      r = c.refunds.create
+      assert r.is_a?(Stripe::Refund)
     end
 
     should "charges should not be deletable" do

@@ -5,7 +5,7 @@ module Stripe
     include Stripe::APIOperations::Update
 
     def refund(params={}, opts={})
-      self.refunds.create
+      self.refunds.create(params, opts)
 
       # now that a refund has been created, we expect the state of this object
       # to change as well (i.e. `refunded` will now be `true`) so refresh it
@@ -46,10 +46,6 @@ module Stripe
     end
 
     private
-
-    def refund_url
-      url + '/refund'
-    end
 
     def capture_url
       url + '/capture'

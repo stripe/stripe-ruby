@@ -51,5 +51,17 @@ module Stripe
       refund = charge.refunds.create(:amount => 20)
       assert_equal 'test_new_refund', refund.id
     end
+
+    should "should refund a charge with given amount" do
+      @mock.expects(:get).
+        with("#{Stripe.api_base}/v1/charges/test_charge", nil, nil).
+        twice.returns(make_response(make_charge(:id => 'test_charge')))
+      @mock.expects(:post).
+        with("#{Stripe.api_base}/v1/charges/test_charge/refunds", nil, 'amount=20').
+        once.returns(make_response(make_refund(:amount => 20)))
+
+      charge = Stripe::Charge.retrieve('test_charge')
+      charge.refund(:amount => 20)
+    end
   end
 end

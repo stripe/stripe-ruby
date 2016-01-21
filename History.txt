@@ -1,3 +1,7 @@
+=== 1.33.1 2016-01-21
+
+* Pass through arguments of `Charge#refund`
+
 === 1.33.0 2016-01-19
 
 * Re-implement `Charge#refund` helper to use the modern endpoint suggested by docs

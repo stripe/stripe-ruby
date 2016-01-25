@@ -3,6 +3,7 @@ module Stripe
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Delete
 
     # Keep APIResource#url as `api_url` to avoid letting the external URL
     # replace the Stripe URL.

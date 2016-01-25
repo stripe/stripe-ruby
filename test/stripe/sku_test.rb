@@ -12,12 +12,13 @@ module Stripe
       end
     end
 
-    should "SKUs should not be deletable" do
-      assert_raises NoMethodError do
-        @mock.expects(:get).once.returns(make_response(make_sku))
-        p = Stripe::SKU.retrieve("test_product")
-        p.delete
-      end
+    should "SKUs should be deletable" do
+      @mock.expects(:get).once.returns(make_response(make_sku))
+      @mock.expects(:delete).once.returns(make_response(make_sku(:deleted => true)))
+
+      s = Stripe::SKU.retrieve("test_sku")
+      s.delete
+      assert s.deleted
     end
 
   end

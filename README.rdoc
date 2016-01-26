@@ -62,6 +62,12 @@ Run a single test:
 
 == Configuration
 
+=== ca_bundle_path
+
+The location of a file containing a bundle of CA certificates. By default the
+library will use an included bundle that can successfully validate Stripe
+certificates.
+
 === max_network_retries
 
 When `max_network_retries` is set to a positive integer, stripe will retry requests that 

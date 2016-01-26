@@ -60,6 +60,10 @@ Run a single test:
 
     bundle exec ruby -Ilib/ test/stripe/util_test.rb -n /should.convert.names.to.symbols/
 
+Update bundled CA certificates from the [Mozilla cURL release][curl]:
+
+    bundle exec rake update_certs
+
 == Configuration
 
 === max_network_retries
@@ -72,3 +76,5 @@ algorithm used to determine the length of the delay.  Default value is 0.
 Example:
 
     Stripe.max_network_retries = 2
+
+[curl]: http://curl.haxx.se/docs/caextract.html

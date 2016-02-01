@@ -72,7 +72,7 @@ module Stripe
   @max_network_retry_delay = 2
   @initial_network_retry_delay = 0.5
 
-  @ssl_bundle_path  = DEFAULT_CA_BUNDLE_PATH
+  @ca_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @verify_ssl_certs = true
 
   @open_timeout = 30
@@ -109,7 +109,7 @@ module Stripe
 
     if verify_ssl_certs
       request_opts = {:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
-                      :ssl_ca_file => @ssl_bundle_path}
+                      :ssl_ca_file => @ca_bundle_path}
     else
       request_opts = {:verify_ssl => false}
       unless @verify_ssl_warned
@@ -143,6 +143,17 @@ module Stripe
     response = execute_request_with_rescues(request_opts, api_base_url)
 
     [parse(response), api_key]
+  end
+
+  # The location of a file containing a bundle of CA certificates. By default
+  # the library will use an included bundle that can successfully validate
+  # Stripe certificates.
+  def self.ca_bundle_path
+    @ca_bundle_path
+  end
+
+  def self.ca_bundle_path=(path)
+    @ca_bundle_path = path
   end
 
   def self.max_network_retries

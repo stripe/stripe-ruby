@@ -13,4 +13,24 @@ class StripeTest < Test::Unit::TestCase
       $stderr = old_stderr
     end
   end
+
+  should "allow ca_bundle_path to be configured" do
+    begin
+      old = Stripe.ca_bundle_path
+      Stripe.ca_bundle_path = "path/to/ca/bundle"
+      assert_equal "path/to/ca/bundle", Stripe.ca_bundle_path
+    ensure
+      Stripe.ca_bundle_path = old
+    end
+  end
+
+  should "allow max_network_retries to be configured" do
+    begin
+      old = Stripe.max_network_retries
+      Stripe.max_network_retries = 99
+      assert_equal 99, Stripe.max_network_retries
+    ensure
+      Stripe.max_network_retries = old
+    end
+  end
 end

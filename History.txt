@@ -1,3 +1,7 @@
+=== 1.35.1 2016-02-03
+
+* Add compatibility layer for old API versions on `Charge#refund`
+
 === 1.35.0 2016-02-01
 
 * Allow CA cert bundle location to be configured

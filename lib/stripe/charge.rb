@@ -5,12 +5,24 @@ module Stripe
     include Stripe::APIOperations::Update
 
     def refund(params={}, opts={})
-      self.refunds.create(params, opts)
+      # Old versions of charge objects included a `refunds` field that was just
+      # a vanilla array instead of a Stripe list object.
+      #
+      # Where possible, we'd still like to use the new refund endpoint (thus
+      # `self.refunds.create`), but detect the old API version by looking for
+      # an `Array` and fall back to the old refund URL if necessary so as to
+      # maintain internal compatibility.
+      unless self.refunds.is_a?(Array)
+        refund = self.refunds.create(params, opts)
 
-      # now that a refund has been created, we expect the state of this object
-      # to change as well (i.e. `refunded` will now be `true`) so refresh it
-      # from the server
-      self.refresh
+        # now that a refund has been created, we expect the state of this object
+        # to change as well (i.e. `refunded` will now be `true`) so refresh it
+        # from the server
+        self.refresh
+      else
+        response, opts = request(:post, refund_url, params, opts)
+        initialize_from(response, opts)
+      end
     end
 
     def capture(params={}, opts={})
@@ -57,6 +69,12 @@ module Stripe
 
     def close_dispute_url
       url + '/dispute/close'
+    end
+
+    # Note that this is actually the *old* refund URL and its use is no longer
+    # preferred.
+    def refund_url
+      url + '/refund'
     end
   end
 end

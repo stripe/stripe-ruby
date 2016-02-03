@@ -19,6 +19,20 @@ module Stripe
       assert r.is_a?(Stripe::Refund)
     end
 
+    should "charges should be refundable for old API versions" do
+      # "refunds" was a plain array in old API versions but is not a Stripe
+      # list (see the implementation of `make_charge` for a current example)
+      data = make_charge.merge!(:refunds => [])
+      c = Stripe::Charge.construct_from(data)
+      @mock.expects(:get).never
+      @mock.expects(:post).once.
+        with("#{Stripe.api_base}/v1/charges/#{c.id}/refund", nil, '').
+        returns(make_response(data.merge(:refunded => true)))
+      c = c.refund
+      assert c.is_a?(Stripe::Charge)
+      assert c.refunded
+    end
+
     should "charges should not be deletable" do
       assert_raises NoMethodError do
         @mock.expects(:get).once.returns(make_response(make_charge))

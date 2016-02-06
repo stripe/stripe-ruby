@@ -30,6 +30,7 @@ module Stripe
         'bank_account' => BankAccount,
         'card' => Card,
         'charge' => Charge,
+        'country_spec' => CountrySpec,
         'coupon' => Coupon,
         'customer' => Customer,
         'event' => Event,

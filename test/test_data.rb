@@ -671,7 +671,7 @@ module Stripe
         :charge => make_charge,
       }).merge(params)
     end
-    
+
     def country_spec_array
       {
         :object => "list",
@@ -683,56 +683,50 @@ module Stripe
         ]
       }
     end
-    
+
     def make_country_spec(params={})
       {
-        :id=> "US",
-        :object=> "country_spec",
-        :supported_bank_account_currencies=> {
+        :id => "US",
+        :object => "country_spec",
+        :supported_bank_account_currencies => {
           :usd => ["US"]
         },
-        :supported_payment_currencies=>
-        [
+        :supported_payment_currencies => [
           "usd", "aed", "afn", "all"
         ],
-          :supported_payment_methods=>
-          [
-            "alipay", "card", "stripe"
-          ],
-          :verification_fields=>
-          {
-            :individual=> 
-            {
-              :minimum=>
-              [
-                "external_account",
-                "legal_entity.address.city",
-                "tos_acceptance.date",
-                "tos_acceptance.ip"
-              ],
-                :additional=>
-                [
-                  "legal_entity.personal_id_number", 
-                  "legal_entity.verification.document"
-                ]
-              },
-              :company=> 
-              {
-                :minimum=>
-                [
-                  "external_account",
-                  "legal_entity.address.city",
-                  "legal_entity.address.line1",
-                  "tos_acceptance.ip"
-                ],
-                  :additional=>
-                  [
-                    "legal_entity.personal_id_number", 
-                    "legal_entity.verification.document"
-                  ]
-                }
-              }
-              }.merge(params)
+        :supported_payment_methods => [
+          "alipay",
+          "card",
+          "stripe"
+        ],
+        :verification_fields =>
+        {
+          :individual => {
+            :minimum => [
+              "external_account",
+              "legal_entity.address.city",
+              "tos_acceptance.date",
+              "tos_acceptance.ip"
+            ],
+            :additional => [
+              "legal_entity.personal_id_number", 
+              "legal_entity.verification.document"
+            ]
+          },
+          :company => {
+            :minimum => [
+              "external_account",
+              "legal_entity.address.city",
+              "legal_entity.address.line1",
+              "tos_acceptance.ip"
+            ],
+            :additional => [
+              "legal_entity.personal_id_number",
+              "legal_entity.verification.document"
+            ]
+          }
+        }
+      }.merge(params)
     end
   end
 end

@@ -164,7 +164,6 @@ module Stripe
       }
     end
 
-
     def make_dispute(params={})
       id = params[:id] || 'dp_test_dispute'
       {
@@ -671,6 +670,69 @@ module Stripe
         :status => "paid",
         :charge => make_charge,
       }).merge(params)
+    end
+    
+    def country_spec_array
+      {
+        :object => "list",
+        :url => "/v1/country_specs",
+        :data => [
+          make_country_spec,
+          make_country_spec,
+          make_country_spec,
+        ]
+      }
+    end
+    
+    def make_country_spec(params={})
+      {
+        :id=> "US",
+        :object=> "country_spec",
+        :supported_bank_account_currencies=> {
+          :usd => ["US"]
+        },
+        :supported_payment_currencies=>
+        [
+          "usd", "aed", "afn", "all"
+        ],
+          :supported_payment_methods=>
+          [
+            "alipay", "card", "stripe"
+          ],
+          :verification_fields=>
+          {
+            :individual=> 
+            {
+              :minimum=>
+              [
+                "external_account",
+                "legal_entity.address.city",
+                "tos_acceptance.date",
+                "tos_acceptance.ip"
+              ],
+                :additional=>
+                [
+                  "legal_entity.personal_id_number", 
+                  "legal_entity.verification.document"
+                ]
+              },
+              :company=> 
+              {
+                :minimum=>
+                [
+                  "external_account",
+                  "legal_entity.address.city",
+                  "legal_entity.address.line1",
+                  "tos_acceptance.ip"
+                ],
+                  :additional=>
+                  [
+                    "legal_entity.personal_id_number", 
+                    "legal_entity.verification.document"
+                  ]
+                }
+              }
+              }.merge(params)
     end
   end
 end

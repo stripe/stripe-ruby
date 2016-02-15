@@ -9,6 +9,6 @@ require "#{File.dirname(__FILE__)}/../lib/stripe"
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 IRB.conf[:AUTO_INDENT] = true
 
-puts "Loading stripe gem"
+puts "Loaded gem 'stripe'"
 
 IRB.start

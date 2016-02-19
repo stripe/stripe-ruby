@@ -17,7 +17,7 @@ module Stripe
         # Let the caller override the URL but avoid serializing it.
         req_url = params.delete(:req_url) || save_url
 
-        # We started unintentionally (sort of) allowing attributes send to
+        # We started unintentionally (sort of) allowing attributes sent to
         # +save+ to override values used during the update. So as not to break
         # the API, this makes that official here.
         update_attributes(params)

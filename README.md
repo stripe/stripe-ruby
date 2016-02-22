@@ -1,4 +1,4 @@
-= Stripe Ruby bindings {<img src="https://travis-ci.org/stripe/stripe-ruby.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/stripe/stripe-ruby]
+# Stripe Ruby Bindings [![Build Status](https://travis-ci.org/stripe/stripe-ruby.png?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
 
 The Stripe Ruby bindings provide a small SDK for convenient access to the
 Stripe API from applications written in the Ruby language. It provides a
@@ -15,38 +15,40 @@ The bindings also provide other features. For example:
 * Built-in mechanisms for the serialization of parameters according to the
   expectations of Stripe's API.
 
-== Documentation
+## Documentation
 
-{Ruby API Docs}[https://stripe.com/docs/api/ruby#intro]
+See the [Ruby API docs](https://stripe.com/docs/api/ruby#intro).
 
-== Installation
+## Installation
 
-You don't need this source code unless you want to modify the gem. If
-you just want to use the Stripe Ruby bindings, you should run:
+You don't need this source code unless you want to modify the gem. If you just
+want to use the Stripe Ruby bindings, you should run:
 
-  gem install stripe
+    gem install stripe
 
 If you want to build the gem from source:
 
-  gem build stripe.gemspec
+    gem build stripe.gemspec
 
-== Requirements
+## Requirements
 
 * Ruby 1.9.3 or above.
 * rest-client
 
-== Bundler
+## Bundler
 
-If you are installing via bundler, you should be sure to use the https
-rubygems source in your Gemfile, as any gems fetched over http could potentially be
+If you are installing via bundler, you should be sure to use the https rubygems
+source in your Gemfile, as any gems fetched over http could potentially be
 compromised in transit and alter the code of gems fetched securely over https:
 
-  source 'https://rubygems.org'
+``` ruby
+source 'https://rubygems.org'
 
-  gem 'rails'
-  gem 'stripe'
+gem 'rails'
+gem 'stripe'
+```
 
-== Development
+## Development
 
 Run all tests:
 
@@ -64,20 +66,21 @@ Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
     bundle exec rake update_certs
 
-== Configuration
+## Configuration
 
-=== ca_bundle_path
+### ca_bundle_path
 
 The location of a file containing a bundle of CA certificates. By default the
 library will use an included bundle that can successfully validate Stripe
 certificates.
 
-=== max_network_retries
+### max_network_retries
 
-When `max_network_retries` is set to a positive integer, stripe will retry requests that 
-fail on a network error.  Idempotency keys will be added to post and get requests to ensure the 
-safety of retrying.  There will be a short delay between each retry, with an exponential backoff
-algorithm used to determine the length of the delay.  Default value is 0.
+When `max_network_retries` is set to a positive integer, stripe will retry
+requests that fail on a network error. Idempotency keys will be added to post
+and get requests to ensure the safety of retrying. There will be a short delay
+between each retry, with an exponential backoff algorithm used to determine the
+length of the delay. Default value is 0.
 
 Example:
 

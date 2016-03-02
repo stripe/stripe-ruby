@@ -152,6 +152,7 @@ module Stripe
         # the object has been reassigned
         # e.g. as object.key = {foo => bar}
         update = new_value
+        update = update.to_hash if update.is_a?(StripeObject)
         new_keys = update.keys.map(&:to_sym)
 
         # remove keys at the server, but not known locally

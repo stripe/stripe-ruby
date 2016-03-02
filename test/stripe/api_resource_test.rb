@@ -652,10 +652,10 @@ module Stripe
           :display_name => nil,
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts", nil, 'display_name=stripe').
+        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts", nil, 'display_name=stripe&metadata[key]=value').
           returns(make_response({"id" => "charge_id"}))
 
-        account.save(:display_name => 'stripe')
+        account.save(:display_name => 'stripe', :metadata => {:key => 'value' })
       end
     end
 

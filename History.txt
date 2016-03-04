@@ -1,3 +1,7 @@
+=== 1.36.1 2016-03-04
+
+* Fix serialization when subhash given to `#save` or `#update_attributes`
+
 === 1.36.0 2016-02-08
 
 * Add `CountrySpec` model for looking up country payment information

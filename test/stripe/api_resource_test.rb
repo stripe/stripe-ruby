@@ -665,14 +665,14 @@ module Stripe
         Stripe.stubs(:max_network_retries).returns(2)
       end
 
-      should 'retry failed network requests if specified and raise if error persists' do        
+      should 'retry failed network requests if specified and raise if error persists' do
         Stripe.expects(:sleep_time).at_least_once.returns(0)
         @mock.expects(:post).times(3).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(Errno::ECONNREFUSED.new)
-        
+
         err = assert_raises Stripe::APIConnectionError do
           Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
         end   
-        assert_match(/Request was retried 2 times/, err.message)   
+        assert_match(/Request was retried 2 times/, err.message)
       end
 
       should 'retry failed network requests if specified and return successful response' do
@@ -687,11 +687,11 @@ module Stripe
 
       should 'not retry a SSLCertificateNotVerified error' do
         @mock.expects(:post).times(1).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(RestClient::SSLCertificateNotVerified.new('message'))
-        
+
         err = assert_raises Stripe::APIConnectionError do
           Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
-        end   
-        assert_no_match(/retried/, err.message)   
+        end
+        assert_no_match(/retried/, err.message)
       end
 
       should 'not add an idempotency key to GET requests' do

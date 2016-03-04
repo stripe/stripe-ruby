@@ -45,10 +45,23 @@ module Stripe
     end
 
     should "recursively call to_hash on its values" do
+      # deep nested hash (when contained in an array) or StripeObject
       nested_hash = { :id => 7, :foo => 'bar' }
       nested = Stripe::StripeObject.construct_from(nested_hash)
-      obj = Stripe::StripeObject.construct_from({ :id => 1, :nested => nested, :list => [nested] })
-      expected_hash = { :id => 1, :nested => nested_hash, :list => [nested_hash] }
+
+      obj = Stripe::StripeObject.construct_from({
+        :id     => 1,
+        # simple hash that contains a StripeObject to help us test deep
+        # recursion
+        :nested => { :object => 'list', :data => [nested] },
+        :list   => [nested]
+      })
+
+      expected_hash = {
+        :id     => 1,
+        :nested => { :object => 'list', :data => [nested_hash] },
+        :list   => [nested_hash]
+      }
       assert_equal expected_hash, obj.to_hash
     end
 
@@ -69,6 +82,12 @@ module Stripe
       # method_missing
       obj.update_attributes(:unknown => 'foo')
       assert_equal "foo", obj.unknown
+    end
+
+    should "#update_attributes with a hash" do
+      obj = Stripe::StripeObject.construct_from({})
+      obj.update_attributes(:metadata => { :foo => 'bar' })
+      assert_equal Stripe::StripeObject, obj.metadata.class
     end
 
     should "warn that #refresh_from is deprecated" do
@@ -182,6 +201,18 @@ module Stripe
       })
       obj.foo = ["0-index", "1-index", "2-index"]
       assert_equal({}, Stripe::StripeObject.serialize_params(obj))
+    end
+
+    should "#serialize_params with a StripeObject" do
+      obj = Stripe::StripeObject.construct_from({})
+
+      # using an #update_attributes will end up converting a Hash into a
+      # StripeObject
+      obj.metadata =
+        Stripe::StripeObject.construct_from({ :foo => 'bar' })
+
+      serialized = Stripe::StripeObject.serialize_params(obj)
+      assert_equal({ :foo => "bar" }, serialized[:metadata])
     end
   end
 end

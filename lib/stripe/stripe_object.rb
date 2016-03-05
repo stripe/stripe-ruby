@@ -182,8 +182,14 @@ module Stripe
       update_hash
     end
 
-    def self.serialize_params(obj, options = {})
-      obj.serialize_params(options)
+    class << self
+      # This class method has been deprecated in favor of the instance method
+      # of the same name.
+      def serialize_params(obj, options = {})
+        obj.serialize_params(options)
+      end
+      extend Gem::Deprecate
+      deprecate :serialize_params, "#serialize_params", 2016, 9
     end
 
     protected

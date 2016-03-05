@@ -121,20 +121,20 @@ module Stripe
 
     should "#serialize_params on an empty object" do
       obj = Stripe::StripeObject.construct_from({})
-      assert_equal({}, Stripe::StripeObject.serialize_params(obj))
+      assert_equal({}, obj.serialize_params)
     end
 
     should "#serialize_params on a new object with a subobject" do
       obj = Stripe::StripeObject.new
       obj.metadata = { :foo => "bar" }
       assert_equal({ :metadata => { :foo => "bar" } },
-        Stripe::StripeObject.serialize_params(obj))
+        obj.serialize_params)
     end
 
     should "#serialize_params on a basic object" do
       obj = Stripe::StripeObject.construct_from({ :foo => nil })
       obj.update_attributes(:foo => "bar")
-      assert_equal({ :foo => "bar" }, Stripe::StripeObject.serialize_params(obj))
+      assert_equal({ :foo => "bar" }, obj.serialize_params)
     end
 
     should "#serialize_params on a more complex object" do
@@ -146,7 +146,7 @@ module Stripe
       })
       obj.foo.bar = "newbar"
       assert_equal({ :foo => { :bar => "newbar" } },
-        Stripe::StripeObject.serialize_params(obj))
+        obj.serialize_params)
     end
 
     should "#serialize_params on an array" do
@@ -155,7 +155,7 @@ module Stripe
       })
       obj.foo = ["new-value"]
       assert_equal({ :foo => ["new-value"] },
-        Stripe::StripeObject.serialize_params(obj))
+        obj.serialize_params)
     end
 
     should "#serialize_params on an array that shortens" do
@@ -164,7 +164,7 @@ module Stripe
       })
       obj.foo = ["new-value"]
       assert_equal({ :foo => ["new-value"] },
-        Stripe::StripeObject.serialize_params(obj))
+        obj.serialize_params)
     end
 
     should "#serialize_params on an array that lengthens" do
@@ -173,7 +173,7 @@ module Stripe
       })
       obj.foo = ["new-value"] * 4
       assert_equal({ :foo => ["new-value"] * 4 },
-        Stripe::StripeObject.serialize_params(obj))
+        obj.serialize_params)
     end
 
     should "#serialize_params on an array of hashes" do
@@ -187,12 +187,12 @@ module Stripe
       ]
       obj.foo[0].bar = "baz"
       assert_equal({ :foo => [{ :bar => "baz" }] },
-        Stripe::StripeObject.serialize_params(obj))
+        obj.serialize_params)
     end
 
     should "#serialize_params doesn't include unchanged values" do
       obj = Stripe::StripeObject.construct_from({ :foo => nil })
-      assert_equal({}, Stripe::StripeObject.serialize_params(obj))
+      assert_equal({}, obj.serialize_params)
     end
 
     should "#serialize_params on an array that is unchanged" do
@@ -200,7 +200,7 @@ module Stripe
         :foo => ["0-index", "1-index", "2-index"],
       })
       obj.foo = ["0-index", "1-index", "2-index"]
-      assert_equal({}, Stripe::StripeObject.serialize_params(obj))
+      assert_equal({}, obj.serialize_params)
     end
 
     should "#serialize_params with a StripeObject" do
@@ -211,7 +211,7 @@ module Stripe
       obj.metadata =
         Stripe::StripeObject.construct_from({ :foo => 'bar' })
 
-      serialized = Stripe::StripeObject.serialize_params(obj)
+      serialized = obj.serialize_params
       assert_equal({ :foo => "bar" }, serialized[:metadata])
     end
 
@@ -226,7 +226,7 @@ module Stripe
       obj.metadata =
         Stripe::StripeObject.construct_from({ :baz => 'foo' })
 
-      serialized = Stripe::StripeObject.serialize_params(obj)
+      serialized = obj.serialize_params
       assert_equal({ :bar => "", :baz => 'foo' }, serialized[:metadata])
     end
 
@@ -236,7 +236,7 @@ module Stripe
         Stripe::StripeObject.construct_from({ :foo => 'bar' })
       ]
 
-      serialized = Stripe::StripeObject.serialize_params(obj)
+      serialized = obj.serialize_params
       assert_equal([{ :foo => "bar" }], serialized[:metadata])
     end
 
@@ -245,7 +245,7 @@ module Stripe
         :customer => Customer.construct_from({})
       })
 
-      serialized = Stripe::StripeObject.serialize_params(obj)
+      serialized = obj.serialize_params
       assert_equal({}, serialized)
     end
 
@@ -255,7 +255,7 @@ module Stripe
         :metadata => Stripe::StripeObject.construct_from({ :foo => 'bar' })
       })
 
-      serialized = Stripe::StripeObject.serialize_params(obj, :force => true)
+      serialized = obj.serialize_params(:force => true)
       assert_equal({ :id => 'id', :metadata => { :foo => 'bar' } }, serialized)
     end
 
@@ -269,7 +269,7 @@ module Stripe
       # functionally equivalent
       obj.dirty!
 
-      serialized = Stripe::StripeObject.serialize_params(obj)
+      serialized = obj.serialize_params
       assert_equal({ :id => 'id', :metadata => { :foo => 'bar' } }, serialized)
     end
   end

@@ -258,5 +258,19 @@ module Stripe
       serialized = Stripe::StripeObject.serialize_params(obj, :force => true)
       assert_equal({ :id => 'id', :metadata => { :foo => 'bar' } }, serialized)
     end
+
+    should "#dirty! forces an object and its subobjects to be saved" do
+      obj = Stripe::StripeObject.construct_from({
+        :id => 'id',
+        :metadata => Stripe::StripeObject.construct_from({ :foo => 'bar' })
+      })
+
+      # note that `force` and `dirty!` are for different things, but are
+      # functionally equivalent
+      obj.dirty!
+
+      serialized = Stripe::StripeObject.serialize_params(obj)
+      assert_equal({ :id => 'id', :metadata => { :foo => 'bar' } }, serialized)
+    end
   end
 end

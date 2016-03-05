@@ -214,5 +214,49 @@ module Stripe
       serialized = Stripe::StripeObject.serialize_params(obj)
       assert_equal({ :foo => "bar" }, serialized[:metadata])
     end
+
+    should "#serialize_params with a StripeObject that's been replaced" do
+      obj = Stripe::StripeObject.construct_from({
+        :metadata => Stripe::StripeObject.construct_from({ :bar => 'foo' })
+      })
+
+      # Here we replace the object wholesale which means that the client must
+      # be able to blank out the values that were in the old object, but which
+      # are no longer present in the new one.
+      obj.metadata =
+        Stripe::StripeObject.construct_from({ :baz => 'foo' })
+
+      serialized = Stripe::StripeObject.serialize_params(obj)
+      assert_equal({ :bar => "", :baz => 'foo' }, serialized[:metadata])
+    end
+
+    should "#serialize_params with an array of StripeObjects" do
+      obj = Stripe::StripeObject.construct_from({})
+      obj.metadata = [
+        Stripe::StripeObject.construct_from({ :foo => 'bar' })
+      ]
+
+      serialized = Stripe::StripeObject.serialize_params(obj)
+      assert_equal([{ :foo => "bar" }], serialized[:metadata])
+    end
+
+    should "#serialize_params and remove embedded APIResources" do
+      obj = Stripe::StripeObject.construct_from({
+        :customer => Customer.construct_from({})
+      })
+
+      serialized = Stripe::StripeObject.serialize_params(obj)
+      assert_equal({}, serialized)
+    end
+
+    should "#serialize_params takes a force option" do
+      obj = Stripe::StripeObject.construct_from({
+        :id => 'id',
+        :metadata => Stripe::StripeObject.construct_from({ :foo => 'bar' })
+      })
+
+      serialized = Stripe::StripeObject.serialize_params(obj, :force => true)
+      assert_equal({ :id => 'id', :metadata => { :foo => 'bar' } }, serialized)
+    end
   end
 end

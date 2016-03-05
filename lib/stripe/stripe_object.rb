@@ -72,13 +72,17 @@ module Stripe
     #
     # * +values+ - Hash of values to use to update the current attributes of
     #   the object.
+    # * +:opts+ Options for StripeObject like an API key.
     #
     # ==== Options
     #
-    # * +:opts+ Options for StripeObject like an API key.
-    def update_attributes(values, opts = {})
+    # * +:dirty+ Whether values should be initiated as "dirty" (unsaved).
+    #   Defaults to true.
+    def update_attributes(values, opts = nil, options = {})
+      dirty = options[:dirty]
       values.each do |k, v|
-        @values[k] = Util.convert_to_stripe_object(v, opts)
+        @values[k] = Util.convert_to_stripe_object(v, opts || {})
+        dirty_value!(@values[k]) unless dirty == false
         @unsaved_values.add(k)
       end
     end
@@ -142,73 +146,44 @@ module Stripe
       end
     end
 
-    def serialize_nested_object(key)
-      new_value = @values[key]
-      if new_value.is_a?(APIResource)
-        return {}
-      end
-
-      if @unsaved_values.include?(key)
-        # the object has been reassigned
-        # e.g. as object.key = {foo => bar}
-        update = new_value
-        update = update.to_hash if update.is_a?(StripeObject)
-        new_keys = update.keys.map(&:to_sym)
-
-        # remove keys at the server, but not known locally
-        if @original_values[key]
-          keys_to_unset = @original_values[key].keys - new_keys
-          keys_to_unset.each {|key| update[key] = ''}
-        end
-
-        update
-      else
-        # can be serialized normally
-        self.class.serialize_params(new_value)
+    # Sets all keys within the StripeObject as unsaved so that they will be
+    # included with an update when #serialize_params is called. This method is
+    # also recursive, so any StripeObjects contained as values or which are
+    # values in a tenant array are also marked as dirty.
+    def dirty!
+      @unsaved_values = Set.new(@values.keys)
+      @values.each do |k, v|
+        dirty_value!(v)
       end
     end
 
-    def self.serialize_params(obj, original_value=nil)
-      case obj
-      when nil
-        ''
-      when Array
-        update = obj.map { |v| serialize_params(v) }
-        if original_value != update
-          update
-        else
-          nil
+    def serialize_params(options = {})
+      update_hash = {}
+
+      @values.each do |k, v|
+        # There are two reasons we may want to add in a parameter for update:
+        #
+        #   1. The `force` option has been set.
+        #   2. We know that it was modified.
+        #   3. Its value is a StripeObject. A StripeObject may contain modified
+        #      values within in that its parent StripeObject doesn't know about.
+        #
+        unsaved = @unsaved_values.include?(k)
+        if options[:force] || unsaved || v.is_a?(StripeObject)
+          update_hash[k.to_sym] =
+            serialize_params_value(@values[k], @original_values[k], unsaved, options[:force])
         end
-      when StripeObject
-        unsaved_keys = obj.instance_variable_get(:@unsaved_values)
-        obj_values = obj.instance_variable_get(:@values)
-        update_hash = {}
-
-        unsaved_keys.each do |k|
-          update_hash[k] = serialize_params(obj_values[k])
-        end
-
-        obj_values.each do |k, v|
-          if v.is_a?(Array)
-            original_value = obj.instance_variable_get(:@original_values)[k]
-
-            # the conditional here tests whether the old and new values are
-            # different (and therefore needs an update), or the same (meaning
-            # we can leave it out of the request)
-            if updated = serialize_params(v, original_value)
-              update_hash[k] = updated
-            else
-              update_hash.delete(k)
-            end
-          elsif v.is_a?(StripeObject) || v.is_a?(Hash)
-            update_hash[k] = obj.serialize_nested_object(k)
-          end
-        end
-
-        update_hash
-      else
-        obj
       end
+
+      # a `nil` that makes it out of `#serialize_params_value` signals an empty
+      # value that we shouldn't appear in the serialized form of the object
+      update_hash.reject! { |_, v| v == nil }
+
+      update_hash
+    end
+
+    def self.serialize_params(obj, options = {})
+      obj.serialize_params(options)
     end
 
     protected
@@ -249,7 +224,8 @@ module Stripe
                 "We interpret empty strings as nil in requests. " \
                 "You may set #{self}.#{k} = nil to delete the property.")
             end
-            @values[k] = v
+            @values[k] = Util.convert_to_stripe_object(v, @opts)
+            dirty_value!(@values[k])
             @unsaved_values.add(k)
           end
 
@@ -328,13 +304,81 @@ module Stripe
         @unsaved_values.delete(k)
       end
 
-      update_attributes(values, opts)
+      update_attributes(values, opts, :dirty => false)
       values.each do |k, _|
         @transient_values.delete(k)
         @unsaved_values.delete(k)
       end
 
       self
+    end
+
+    def serialize_params_value(value, original, unsaved, force)
+      case value
+      when nil
+        ''
+
+      when APIResource
+        nil
+
+      when Array
+        update = value.map { |v| serialize_params_value(v, nil, true, force) }
+
+        # This prevents an array that's unchanged from being resent.
+        if update != serialize_params_value(original, nil, true, force)
+          update
+        else
+          nil
+        end
+
+      # Handle a Hash for now, but in the long run we should be able to
+      # eliminate all places where hashes are stored as values internally by
+      # making sure any time one is set, we convert it to a StripeObject. This
+      # will simplify our model by making data within an object more
+      # consistent.
+      when Hash
+        Util.convert_to_stripe_object(value, @opts).serialize_params
+
+      when StripeObject
+        update = value.serialize_params(:force => force)
+
+        # If the entire object was replaced, then we need blank each field of
+        # the old object that held a value. The new serialized values will
+        # override an of these empties.
+        update = empty_values(original).merge(update) if original && unsaved
+
+        update
+
+      else
+        value
+      end
+    end
+
+    private
+
+    def dirty_value!(value)
+      case value
+      when Array
+        value.map { |v| dirty_value!(v) }
+      when StripeObject
+        value.dirty!
+      end
+    end
+
+    # Returns a hash of empty values for all the values that are in the given
+    # StripeObject.
+    def empty_values(obj)
+      values = case obj
+      when Hash         then obj
+      when StripeObject then obj.instance_variable_get(:@values)
+      else
+        raise ArgumentError, "#empty_values got unexpected object type: #{obj.class.name}"
+      end
+
+      values.inject({}) do |update, (k, _)|
+        update[k] = ''
+        update
+      end
     end
   end
 end

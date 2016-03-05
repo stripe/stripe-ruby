@@ -52,15 +52,17 @@ module Stripe
     #
     # We're trying to get this overturned on the server side, but for now,
     # patch in a special allowance.
-    def self.serialize_params(obj, original_value=nil)
-      update_hash = StripeObject.serialize_params(obj, original_value)
-      case obj
-      when StripeObject
-        obj_values = obj.instance_variable_get(:@values)
-        obj_values.each do |k, v|
-          if k == :additional_owners && v.is_a?(Array)
-            update_hash[k] = serialize_additional_owners(obj, v)
-          end
+    def serialize_params(options = {})
+      serialize_params_account(self, super)
+    end
+
+    def serialize_params_account(obj, update_hash)
+      obj.instance_variable_get(:@values).each do |k, v|
+        k = k.to_sym
+        if k == :additional_owners && v.is_a?(Array)
+          update_hash[k] = serialize_additional_owners(obj, v)
+        elsif v.is_a?(StripeObject) && update_hash[k]
+          serialize_params_account(v, update_hash[k])
         end
       end
       update_hash
@@ -89,7 +91,7 @@ module Stripe
 
     private
 
-    def self.serialize_additional_owners(obj, value)
+    def serialize_additional_owners(obj, value)
       original_value = obj.instance_variable_get(:@original_values)[:additional_owners]
       if original_value && original_value.length > value.length
         # url params provide no mechanism for deleting an item in an array,
@@ -102,8 +104,14 @@ module Stripe
 
       update_hash = {}
       value.each_with_index do |v, i|
-        update = StripeObject.serialize_params(v)
-        if update != {} && (!original_value || update != original_value[i])
+        # We will almost always see a StripeObject except in the case of a Hash
+        # that's been appended to an array of `additional_owners`. We may be
+        # able to normalize that ugliness by using an array proxy object with
+        # StripeObjects that can detect appends and replace a hash with a
+        # StripeObject.
+        update = v.is_a?(StripeObject) ? v.serialize_params : v
+
+        if update != {} && (!original_value || update != obj.serialize_params_value(original_value[i], nil, false, true))
           update_hash[i.to_s] = update
         end
       end

@@ -272,5 +272,19 @@ module Stripe
       serialized = obj.serialize_params
       assert_equal({ :id => 'id', :metadata => { :foo => 'bar' } }, serialized)
     end
+
+    should "warn that .serialize_params is deprecated" do
+      old_stderr = $stderr
+      $stderr = StringIO.new
+      begin
+        obj = Stripe::StripeObject.construct_from({})
+        Stripe::StripeObject.serialize_params(obj)
+        message = "NOTE: Stripe::StripeObject.serialize_params is " +
+          "deprecated; use #serialize_params instead"
+        assert_match Regexp.new(message), $stderr.string
+      ensure
+        $stderr = old_stderr
+      end
+    end
   end
 end

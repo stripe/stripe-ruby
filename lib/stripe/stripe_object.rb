@@ -347,6 +347,11 @@ module Stripe
       # making sure any time one is set, we convert it to a StripeObject. This
       # will simplify our model by making data within an object more
       # consistent.
+      #
+      # For now, you can still run into a hash if someone appends one to an
+      # existing array being held by a StripeObject. This could happen for
+      # example by appending a new hash onto `additional_owners` for an
+      # account.
       when Hash
         Util.convert_to_stripe_object(value, @opts).serialize_params
 

@@ -161,7 +161,8 @@ module Stripe
       update_hash = {}
 
       @values.each do |k, v|
-        # There are two reasons we may want to add in a parameter for update:
+        # There are a few reasons that we may want to add in a parameter for
+        # update:
         #
         #   1. The `force` option has been set.
         #   2. We know that it was modified.

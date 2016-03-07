@@ -155,8 +155,8 @@ module Stripe
     should "#serialize_params an a new additional_owners" do
       obj = Stripe::Util.convert_to_stripe_object({
         :object => "account",
-        :legal_entity => {
-        },
+        :legal_entity => Stripe::StripeObject.construct_from({
+        }),
       }, {})
       obj.legal_entity.additional_owners = [
         { :first_name => "Joe" },
@@ -171,7 +171,7 @@ module Stripe
           }
         }
       }
-      assert_equal(expected, obj.class.serialize_params(obj))
+      assert_equal(expected, obj.serialize_params)
     end
 
     should "#serialize_params on an partially changed additional_owners" do
@@ -197,7 +197,7 @@ module Stripe
           }
         }
       }
-      assert_equal(expected, obj.class.serialize_params(obj))
+      assert_equal(expected, obj.serialize_params)
     end
 
     should "#serialize_params on an unchanged additional_owners" do
@@ -220,7 +220,7 @@ module Stripe
           :additional_owners => {}
         }
       }
-      assert_equal(expected, obj.class.serialize_params(obj))
+      assert_equal(expected, obj.serialize_params)
     end
 
     # Note that the empty string that we send for this one has a special
@@ -246,7 +246,7 @@ module Stripe
           :additional_owners => ""
         }
       }
-      assert_equal(expected, obj.class.serialize_params(obj))
+      assert_equal(expected, obj.serialize_params)
     end
   end
 end

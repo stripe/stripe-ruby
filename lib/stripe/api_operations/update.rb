@@ -25,16 +25,15 @@ module Stripe
         # Now remove any parameters that look like object attributes.
         params = params.reject { |k, _| respond_to?(k) }
 
-        values = self.class.serialize_params(self).merge(params)
+        values = self.serialize_params(self).merge(params)
 
-        if values.length > 0
-          # note that id gets removed here our call to #url above has already
-          # generated a uri for this object with an identifier baked in
-          values.delete(:id)
+        # note that id gets removed here our call to #url above has already
+        # generated a uri for this object with an identifier baked in
+        values.delete(:id)
 
-          response, opts = request(:post, req_url, values)
-          initialize_from(response, opts)
-        end
+        response, opts = request(:post, req_url, values)
+        initialize_from(response, opts)
+
         self
       end
 

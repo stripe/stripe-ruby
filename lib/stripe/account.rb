@@ -52,15 +52,16 @@ module Stripe
     #
     # We're trying to get this overturned on the server side, but for now,
     # patch in a special allowance.
-    def self.serialize_params(obj, original_value=nil)
-      update_hash = StripeObject.serialize_params(obj, original_value)
-      case obj
-      when StripeObject
-        obj_values = obj.instance_variable_get(:@values)
-        obj_values.each do |k, v|
-          if k == :additional_owners && v.is_a?(Array)
-            update_hash[k] = serialize_additional_owners(obj, v)
-          end
+    def serialize_params(options = {})
+      serialize_params_account(self, super)
+    end
+
+    def serialize_params_account(obj, update_hash)
+      if entity = @values[:legal_entity]
+        if owners = entity[:additional_owners]
+          entity_update = update_hash[:legal_entity] ||= {}
+          entity_update[:additional_owners] =
+            serialize_additional_owners(entity, owners)
         end
       end
       update_hash
@@ -89,9 +90,9 @@ module Stripe
 
     private
 
-    def self.serialize_additional_owners(obj, value)
-      original_value = obj.instance_variable_get(:@original_values)[:additional_owners]
-      if original_value && original_value.length > value.length
+    def serialize_additional_owners(legal_entity, additional_owners)
+      original_value = legal_entity.instance_variable_get(:@original_values)[:additional_owners]
+      if original_value && original_value.length > additional_owners.length
         # url params provide no mechanism for deleting an item in an array,
         # just overwriting the whole array or adding new items. So let's not
         # allow deleting without a full overwrite until we have a solution.
@@ -101,10 +102,17 @@ module Stripe
       end
 
       update_hash = {}
-      value.each_with_index do |v, i|
-        update = StripeObject.serialize_params(v)
-        if update != {} && (!original_value || update != original_value[i])
-          update_hash[i.to_s] = update
+      additional_owners.each_with_index do |v, i|
+        # We will almost always see a StripeObject except in the case of a Hash
+        # that's been appended to an array of `additional_owners`. We may be
+        # able to normalize that ugliness by using an array proxy object with
+        # StripeObjects that can detect appends and replace a hash with a
+        # StripeObject.
+        update = v.is_a?(StripeObject) ? v.serialize_params : v
+
+        if update != {} && (!original_value ||
+          update != legal_entity.serialize_params_value(original_value[i], nil, false, true))
+            update_hash[i.to_s] = update
         end
       end
       update_hash

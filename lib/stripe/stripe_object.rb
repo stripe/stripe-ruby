@@ -365,7 +365,7 @@ module Stripe
 
         # If the entire object was replaced, then we need blank each field of
         # the old object that held a value. The new serialized values will
-        # override an of these empties.
+        # override any of these empty values.
         update = empty_values(original).merge(update) if original && unsaved
 
         update

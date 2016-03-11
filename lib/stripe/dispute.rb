@@ -10,7 +10,7 @@ module Stripe
     end
 
     def close_url
-      url + '/close'
+      resource_url + '/close'
     end
   end
 end

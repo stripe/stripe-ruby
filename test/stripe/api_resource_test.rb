@@ -671,7 +671,7 @@ module Stripe
 
         err = assert_raises Stripe::APIConnectionError do
           Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
-        end   
+        end
         assert_match(/Request was retried 2 times/, err.message)
       end
 

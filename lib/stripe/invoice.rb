@@ -17,11 +17,11 @@ module Stripe
     private
 
     def self.upcoming_url
-      url + '/upcoming'
+      resource_url + '/upcoming'
     end
 
     def pay_url
-      url + '/pay'
+      resource_url + '/pay'
     end
   end
 end

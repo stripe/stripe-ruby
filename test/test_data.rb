@@ -56,7 +56,7 @@ module Stripe
       {
         :data => [make_balance_transaction, make_balance_transaction, make_balance_transaction],
         :object => "list",
-        :url => "/v1/balance/history"
+        :resource_url => "/v1/balance/history"
       }
     end
 
@@ -93,7 +93,7 @@ module Stripe
       {
         :data => [make_application_fee, make_application_fee, make_application_fee],
         :object => 'list',
-        :url => '/v1/application_fees'
+        :resource_url => '/v1/application_fees'
       }
     end
 
@@ -101,7 +101,7 @@ module Stripe
       {
         :data => [make_application_fee_refund, make_application_fee_refund, make_application_fee_refund],
         :object => 'list',
-        :url => '/v1/application_fees/' + fee_id + '/refunds'
+        :resource_url => '/v1/application_fees/' + fee_id + '/refunds'
       }
     end
 
@@ -126,7 +126,7 @@ module Stripe
       {
         :data => [make_customer, make_customer, make_customer],
         :object => 'list',
-        :url => '/v1/customers'
+        :resource_url => '/v1/customers'
       }
     end
 
@@ -160,7 +160,7 @@ module Stripe
       {
         :data => [make_charge, make_charge, make_charge],
         :object => 'list',
-        :url => '/v1/charges'
+        :resource_url => '/v1/charges'
       }
     end
 
@@ -184,7 +184,7 @@ module Stripe
       {
         :data => [make_dispute, make_dispute, make_dispute],
         :object => 'list',
-        :url => '/v1/disputes'
+        :resource_url => '/v1/disputes'
       }
     end
 
@@ -192,7 +192,7 @@ module Stripe
       {
         :data => [make_card, make_card, make_card],
         :object => 'list',
-        :url => '/v1/recipients/' + recipient_id + '/cards'
+        :resource_url => '/v1/recipients/' + recipient_id + '/cards'
       }
     end
 
@@ -200,7 +200,7 @@ module Stripe
       {
         :data => [make_card, make_card, make_card],
         :object => 'list',
-        :url => '/v1/customers/' + customer_id + '/sources'
+        :resource_url => '/v1/customers/' + customer_id + '/sources'
       }
     end
 
@@ -235,7 +235,7 @@ module Stripe
         :created => 1403047735,
         :size => 4908,
         :purpose => params[:purpose] || "dispute_evidence",
-        :url => nil,
+        :resource_url => nil,
         :type => nil,
       }
     end
@@ -244,7 +244,7 @@ module Stripe
       {
         :data => [make_file, make_file, make_file],
         :object => 'list',
-        :url => '/v1/files'
+        :resource_url => '/v1/files'
       }
     end
 
@@ -287,7 +287,7 @@ module Stripe
       {
         :data => [make_subscription, make_subscription, make_subscription],
         :object => 'list',
-        :url => '/v1/customers/' + customer_id + '/subscriptions'
+        :resource_url => '/v1/customers/' + customer_id + '/subscriptions'
       }
     end
 
@@ -297,7 +297,7 @@ module Stripe
       {
         :data => [make_refund(p), make_refund(p), make_refund(p)],
         :object => 'list',
-        :url => charge ? "/v1/charges/#{charge}/refunds" : '/v1/refunds'
+        :resource_url => charge ? "/v1/charges/#{charge}/refunds" : '/v1/refunds'
       }
     end
 
@@ -305,7 +305,7 @@ module Stripe
       {
         :data => [make_reversal, make_reversal, make_reversal],
         :object => 'list',
-        :url => '/v1/transfers/' + transfer_id + '/reversals'
+        :resource_url => '/v1/transfers/' + transfer_id + '/reversals'
       }
     end
 
@@ -366,7 +366,7 @@ module Stripe
       {
         :data => [make_invoice],
         :object => 'list',
-        :url => '/v1/invoices?customer=test_customer'
+        :resource_url => '/v1/invoices?customer=test_customer'
       }
     end
 
@@ -396,7 +396,7 @@ module Stripe
       {
         :data => [make_recipient, make_recipient, make_recipient],
         :object => 'list',
-        :url => '/v1/recipients'
+        :resource_url => '/v1/recipients'
       }
     end
 
@@ -427,7 +427,7 @@ module Stripe
       {
         :data => [make_transfer, make_transfer, make_transfer],
         :object => 'list',
-        :url => '/v1/transfers'
+        :resource_url => '/v1/transfers'
       }
     end
 
@@ -466,7 +466,7 @@ module Stripe
       {
         :data => [make_bitcoin_receiver, make_bitcoin_receiver, make_bitcoin_receiver],
         :object => 'list',
-        :url => '/v1/bitcoin/receivers'
+        :resource_url => '/v1/bitcoin/receivers'
       }
     end
 
@@ -485,7 +485,7 @@ module Stripe
       {
         :data => [make_bitcoin_transaction, make_bitcoin_transaction, make_bitcoin_transaction],
         :object => 'list',
-        :url => "/v1/bitcoin/receivers/btcrcv_test_receiver/transactions"
+        :resource_url => "/v1/bitcoin/receivers/btcrcv_test_receiver/transactions"
       }
     end
 
@@ -567,7 +567,7 @@ module Stripe
     def make_product_array
       {
         :object => "list",
-        :url => "/v1/products",
+        :resource_url => "/v1/products",
         :data => [
           make_product,
           make_product,
@@ -602,7 +602,7 @@ module Stripe
     def make_sku_array(product_id, params={})
       {
         :object => "list",
-        :url => "/v1/skus",
+        :resource_url => "/v1/skus",
         :data => [
           make_sku(:product => product_id),
           make_sku(:product => product_id),
@@ -656,7 +656,7 @@ module Stripe
     def make_order_array(params={})
       {
         :object => "list",
-        :url => "/v1/orders",
+        :resource_url => "/v1/orders",
         :data => [
           make_order,
           make_order,
@@ -675,7 +675,7 @@ module Stripe
     def country_spec_array
       {
         :object => "list",
-        :url => "/v1/country_specs",
+        :resource_url => "/v1/country_specs",
         :data => [
           make_country_spec,
           make_country_spec,
@@ -709,7 +709,7 @@ module Stripe
               "tos_acceptance.ip"
             ],
             :additional => [
-              "legal_entity.personal_id_number", 
+              "legal_entity.personal_id_number",
               "legal_entity.verification.document"
             ]
           },

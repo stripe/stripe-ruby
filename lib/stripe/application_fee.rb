@@ -2,7 +2,7 @@ module Stripe
   class ApplicationFee < APIResource
     extend Stripe::APIOperations::List
 
-    def self.url
+    def self.resource_url
       '/v1/application_fees'
     end
 

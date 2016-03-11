@@ -14,9 +14,6 @@ module Stripe
       #   in the list, it overrides the update URL used for the create or
       #   update.
       def save(params={})
-        # Let the caller override the URL but avoid serializing it.
-        req_url = params.delete(:req_url) || save_url
-
         # We started unintentionally (sort of) allowing attributes sent to
         # +save+ to override values used during the update. So as not to break
         # the API, this makes that official here.
@@ -31,7 +28,7 @@ module Stripe
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
 
-        response, opts = request(:post, req_url, values)
+        response, opts = request(:post, save_url, values)
         initialize_from(response, opts)
 
         self
@@ -47,9 +44,9 @@ module Stripe
         # resource. Otherwise, generate a URL based on the object's identifier
         # for a normal update.
         if self[:id] == nil && self.class.respond_to?(:create)
-          self.class.url
+          self.class.resource_url
         else
-          url
+          resource_url
         end
       end
     end

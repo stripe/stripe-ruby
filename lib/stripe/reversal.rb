@@ -3,8 +3,8 @@ module Stripe
     include Stripe::APIOperations::Update
     extend Stripe::APIOperations::List
 
-    def url
-      "#{Transfer.url}/#{CGI.escape(transfer)}/reversals/#{CGI.escape(id)}"
+    def resource_url
+      "#{Transfer.resource_url}/#{CGI.escape(transfer)}/reversals/#{CGI.escape(id)}"
     end
 
     def self.retrieve(id, opts={})

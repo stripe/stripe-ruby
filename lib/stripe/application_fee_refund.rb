@@ -3,8 +3,8 @@ module Stripe
     include Stripe::APIOperations::Update
     extend Stripe::APIOperations::List
 
-    def url
-      "#{ApplicationFee.url}/#{CGI.escape(fee)}/refunds/#{CGI.escape(id)}"
+    def resource_url
+      "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds/#{CGI.escape(id)}"
     end
 
     def self.retrieve(id, api_key=nil)

@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Update
 
-    def url
+    def resource_url
       if self['id']
         super
       else
@@ -25,7 +25,6 @@ module Stripe
         opts = id
         id = nil
       end
-
       super(id, opts)
     end
 

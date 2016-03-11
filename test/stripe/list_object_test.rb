@@ -139,10 +139,10 @@ module Stripe
       @mock.expects(:get).twice.returns(make_response(make_charge_array))
       c = Stripe::Charge.all
       assert c.kind_of?(Stripe::ListObject)
-      assert_equal('/v1/charges', c.url)
+      assert_equal('/v1/charges', c.resource_url)
       all = c.all
       assert all.kind_of?(Stripe::ListObject)
-      assert_equal('/v1/charges', all.url)
+      assert_equal('/v1/charges', all.resource_url)
       assert all.data.kind_of?(Array)
     end
   end
@@ -150,7 +150,7 @@ end
 
 # A helper class with a URL that allows us to try out pagination.
 class TestListObject < Stripe::ListObject
-  def url
+  def resource_url
     "/things"
   end
 end

@@ -4,13 +4,13 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    def url
+    def resource_url
       if respond_to?(:recipient)
-        "#{Recipient.url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
+        "#{Recipient.resource_url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
       elsif respond_to?(:customer)
-        "#{Customer.url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
+        "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       elsif respond_to?(:account)
-        "#{Account.url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
+        "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
       end
     end
 

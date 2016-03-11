@@ -3,8 +3,8 @@ module Stripe
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
 
-    def url
-      "#{Customer.url}/#{CGI.escape(customer)}/subscriptions/#{CGI.escape(id)}"
+    def resource_url
+      "#{Customer.resource_url}/#{CGI.escape(customer)}/subscriptions/#{CGI.escape(id)}"
     end
 
     def self.retrieve(id, opts=nil)
@@ -19,7 +19,7 @@ module Stripe
     private
 
     def discount_url
-      url + '/discount'
+      resource_url + '/discount'
     end
   end
 end

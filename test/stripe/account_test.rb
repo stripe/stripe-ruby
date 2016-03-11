@@ -121,7 +121,7 @@ module Stripe
         :id => 'acct_1234',
         :external_accounts => {
           :object => "list",
-          :url => "/v1/accounts/acct_1234/external_accounts",
+          :resource_url => "/v1/accounts/acct_1234/external_accounts",
           :data => [],
         }
       }
@@ -140,7 +140,7 @@ module Stripe
         :id => 'acct_1234',
         :external_accounts => {
           :object => "list",
-          :url => "/v1/accounts/acct_1234/external_accounts",
+          :resource_url => "/v1/accounts/acct_1234/external_accounts",
           :data => [{
             :id => "ba_1234",
             :object => "bank_account",

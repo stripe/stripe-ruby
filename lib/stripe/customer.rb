@@ -61,15 +61,15 @@ module Stripe
     private
 
     def discount_url
-      url + '/discount'
+      resource_url + '/discount'
     end
 
     def subscription_url
-      url + '/subscription'
+      resource_url + '/subscription'
     end
 
     def subscriptions_url
-      url + '/subscriptions'
+      resource_url + '/subscriptions'
     end
   end
 end

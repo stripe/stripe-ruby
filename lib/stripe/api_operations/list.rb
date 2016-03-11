@@ -5,7 +5,7 @@ module Stripe
         opts = Util.normalize_opts(opts)
         opts = @opts.merge(opts) if @opts
 
-        response, opts = request(:get, url, filters, opts)
+        response, opts = request(:get, resource_url, filters, opts)
         obj = ListObject.construct_from(response, opts)
 
         # set filters so that we can fetch the same limit, expansions, and

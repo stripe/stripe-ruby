@@ -12,7 +12,7 @@ module Stripe
     private
 
     def pay_url
-      url + "/pay"
+      resource_url + "/pay"
     end
 
   end

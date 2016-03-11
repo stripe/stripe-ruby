@@ -17,14 +17,14 @@ module Stripe
       assert cards[0].kind_of? Stripe::Card
     end
 
-    should "customer cards should have the correct url" do
+    should "customer cards should have the correct resource url" do
       c = customer
       @mock.expects(:get).once.returns(make_response(make_card(
         :id => 'test_card',
         :customer => 'test_customer'
       )))
       card = c.sources.retrieve('card')
-      assert_equal CUSTOMER_CARD_URL, card.url
+      assert_equal CUSTOMER_CARD_URL, card.resource_url
     end
 
     should "customer cards should be deletable" do

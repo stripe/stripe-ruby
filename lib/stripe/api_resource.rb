@@ -6,22 +6,22 @@ module Stripe
       self.name.split('::')[-1]
     end
 
-    def self.url
+    def self.resource_url
       if self == APIResource
         raise NotImplementedError.new('APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
       end
       "/v1/#{CGI.escape(class_name.downcase)}s"
     end
 
-    def url
+    def resource_url
       unless id = self['id']
         raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", 'id')
       end
-      "#{self.class.url}/#{CGI.escape(id)}"
+      "#{self.class.resource_url}/#{CGI.escape(id)}"
     end
 
     def refresh
-      response, opts = request(:get, url, @retrieve_params)
+      response, opts = request(:get, resource_url, @retrieve_params)
       initialize_from(response, opts)
     end
 

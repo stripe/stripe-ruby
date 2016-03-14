@@ -1,3 +1,7 @@
+=== 1.37.0 2016-03-14
+
+* Add `Account#reject` to support the new API feature
+
 === 1.36.2 2016-03-14
 
 * Fix reference to non-existent `#url` in `ListObject`

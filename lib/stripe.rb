@@ -70,6 +70,7 @@ module Stripe
   @connect_base = 'https://connect.stripe.com'
   @uploads_base = 'https://uploads.stripe.com'
 
+  @max_network_retries = 0
   @max_network_retry_delay = 2
   @initial_network_retry_delay = 0.5
 
@@ -158,7 +159,7 @@ module Stripe
   end
 
   def self.max_network_retries
-    @max_network_retries || 0
+    @max_network_retries
   end
 
   def self.max_network_retries=(val)

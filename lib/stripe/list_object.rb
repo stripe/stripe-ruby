@@ -96,5 +96,10 @@ module Stripe
 
       list(params, opts)
     end
+
+    def resource_url
+      self.url ||
+        raise(ArgumentError, "List object does not contain a 'url' field.")
+    end
   end
 end

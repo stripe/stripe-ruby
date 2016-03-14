@@ -28,6 +28,12 @@ module Stripe
       super(id, opts)
     end
 
+    def reject(params={}, opts={})
+      opts = Util.normalize_opts(opts)
+      response, opts = request(:post, resource_url + '/reject', params, opts)
+      initialize_from(response, opts)
+    end
+
     # Somewhat unfortunately, we attempt to do a special encoding trick when
     # serializing `additional_owners` under an account: when updating a value,
     # we actually send the update parameters up as an integer-indexed hash

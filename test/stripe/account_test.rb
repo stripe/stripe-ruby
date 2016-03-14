@@ -52,6 +52,22 @@ module Stripe
       assert_equal 'secret-key', account.keys.secret
     end
 
+    should "be rejectable" do
+      account_data = {:id => 'acct_foo'}
+      @mock.expects(:get).
+        once.
+        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
+        returns(make_response(account_data))
+
+      @mock.expects(:post).
+        once.
+        with("https://api.stripe.com/v1/accounts/acct_foo/reject", nil, 'reason=fraud').
+        returns(make_response(account_data))
+
+      account = Stripe::Account.retrieve('acct_foo')
+      account.reject(:reason => 'fraud')
+    end
+
     should "be updatable" do
       resp = {
         :id => 'acct_foo',

@@ -1,3 +1,7 @@
+=== 1.36.2 2016-03-14
+
+* Fix reference to non-existent `#url` in `ListObject`
+
 === 1.36.1 2016-03-04
 
 * Fix serialization when subhash given to `#save` or `#update_attributes`

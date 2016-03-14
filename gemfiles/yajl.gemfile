@@ -1,5 +1,0 @@
-source "https://rubygems.org"
-gemspec :path => File.join(File.dirname(__FILE__), "..")
-
-gem 'activesupport'
-gem 'yajl-ruby'

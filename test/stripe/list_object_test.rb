@@ -31,7 +31,11 @@ module Stripe
       ]
       expected = Util.convert_to_stripe_object(arr, {})
 
-      list = TestListObject.construct_from({ :data => [{ :id => 1 }], :has_more => true })
+      list = TestListObject.construct_from({
+        :data => [{ :id => 1 }],
+        :has_more => true,
+        :url => "/things",
+      })
       @mock.expects(:get).once.with("#{Stripe.api_base}/things?starting_after=1", nil, nil).
         returns(make_response({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
 
@@ -46,7 +50,11 @@ module Stripe
       ]
       expected = Util.convert_to_stripe_object(arr, {})
 
-      list = TestListObject.construct_from({ :data => [{ :id => 1 }], :has_more => true })
+      list = TestListObject.construct_from({
+        :data => [{ :id => 1 }],
+        :has_more => true,
+        :url => "/things",
+      })
       @mock.expects(:get).once.with("#{Stripe.api_base}/things?starting_after=1", nil, nil).
         returns(make_response({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
 
@@ -70,7 +78,11 @@ module Stripe
     #
 
     should "fetch a next page through #next_page" do
-      list = TestListObject.construct_from({ :data => [{ :id => 1 }], :has_more => true })
+      list = TestListObject.construct_from({
+        :data => [{ :id => 1 }],
+        :has_more => true,
+        :url => "/things",
+      })
       @mock.expects(:get).once.with("#{Stripe.api_base}/things?starting_after=1", nil, nil).
         returns(make_response({ :data => [{ :id => 2 }], :has_more => false }))
       next_list = list.next_page
@@ -78,7 +90,11 @@ module Stripe
     end
 
     should "fetch a next page through #next_page and respect limit" do
-      list = TestListObject.construct_from({ :data => [{ :id => 1 }], :has_more => true })
+      list = TestListObject.construct_from({
+        :data => [{ :id => 1 }],
+        :has_more => true,
+        :url => "/things",
+      })
       list.filters = { :expand => ['data.source'], :limit => 3 }
       @mock.expects(:get).with do |url, _, _|
         u = URI.parse(url)
@@ -94,7 +110,11 @@ module Stripe
     end
 
     should "fetch an empty page through #next_page" do
-      list = TestListObject.construct_from({ :data => [{ :id => 1 }], :has_more => false })
+      list = TestListObject.construct_from({
+        :data => [{ :id => 1 }],
+        :has_more => false,
+        :url => "/things",
+      })
       next_list = list.next_page
       assert_equal Stripe::ListObject.empty_list, next_list
     end
@@ -104,7 +124,10 @@ module Stripe
     #
 
     should "fetch a next page through #previous_page" do
-      list = TestListObject.construct_from({ :data => [{ :id => 2 }] })
+      list = TestListObject.construct_from({
+        :data => [{ :id => 2 }],
+        :url => "/things",
+      })
       @mock.expects(:get).once.with("#{Stripe.api_base}/things?ending_before=2", nil, nil).
         returns(make_response({ :data => [{ :id => 1 }] }))
       next_list = list.previous_page
@@ -112,7 +135,10 @@ module Stripe
     end
 
     should "fetch a next page through #previous_page and respect limit" do
-      list = TestListObject.construct_from({ :data => [{ :id => 2 }] })
+      list = TestListObject.construct_from({
+        :data => [{ :id => 2 }],
+        :url => "/things",
+      })
       list.filters = { :expand => ['data.source'], :limit => 3 }
       @mock.expects(:get).with do |url, _, _|
         # apparently URI.parse in 1.8.7 doesn't support query parameters ...
@@ -150,7 +176,4 @@ end
 
 # A helper class with a URL that allows us to try out pagination.
 class TestListObject < Stripe::ListObject
-  def resource_url
-    "/things"
-  end
 end

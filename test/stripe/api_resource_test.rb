@@ -387,6 +387,31 @@ module Stripe
         assert_equal false, c.livemode
       end
 
+      should "updating should send along the idempotency-key header" do
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:idempotency_key] == 'bar'
+        end.returns(make_response(make_customer))
+        c = Stripe::Customer.new
+        c.save({}, { :idempotency_key => 'bar' })
+        assert_equal false, c.livemode
+      end
+
+      should "updating should fail if api_key is overwritten with nil" do
+        c = Stripe::Customer.new
+        assert_raises TypeError do
+          c.save({}, { :api_key => nil })
+        end
+      end
+
+      should "updating should use the supplied api_key" do
+        Stripe.expects(:execute_request).with do |opts|
+          opts[:headers][:authorization] == 'Bearer sk_test_local'
+        end.returns(make_response(make_customer))
+        c = Stripe::Customer.new
+        c.save({}, { :api_key => 'sk_test_local' })
+        assert_equal false, c.livemode
+      end
+
       should "deleting should send no props and result in an object that has no props other deleted" do
         @mock.expects(:get).never
         @mock.expects(:post).never

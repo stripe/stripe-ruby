@@ -13,7 +13,11 @@ module Stripe
       #   and includes them in the create or update. If +:req_url:+ is included
       #   in the list, it overrides the update URL used for the create or
       #   update.
-      def save(params={})
+      # * +opts+ - A Hash of additional options (separate from the params /
+      #   object values) to be added to the request. E.g. to allow for an
+      #   idempotency_key to be passed in the request headers, or for the
+      #   api_key to be overwritten. See {APIOperations::Request.request}.
+      def save(params={}, opts={})
         # We started unintentionally (sort of) allowing attributes sent to
         # +save+ to override values used during the update. So as not to break
         # the API, this makes that official here.
@@ -28,7 +32,7 @@ module Stripe
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
 
-        response, opts = request(:post, save_url, values)
+        response, opts = request(:post, save_url, values, opts)
         initialize_from(response, opts)
 
         self

@@ -233,7 +233,7 @@ module Stripe
               raise ArgumentError.new(
                 "You cannot set #{k} to an empty string. " \
                 "We interpret empty strings as nil in requests. " \
-                "You may set #{self}.#{k} = nil to delete the property.")
+                "You may set (object).#{k} = nil to delete the property.")
             end
             @values[k] = Util.convert_to_stripe_object(v, @opts)
             dirty_value!(@values[k])

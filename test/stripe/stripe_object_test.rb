@@ -286,5 +286,13 @@ module Stripe
         $stderr = old_stderr
       end
     end
+
+    should "error on setting a property to an empty string" do
+      obj = Stripe::StripeObject.construct_from({ :foo => 'bar' })
+      e = assert_raises ArgumentError do
+        obj.foo = ""
+      end
+      assert_match /\(object\).foo = nil/, e.message
+    end
   end
 end

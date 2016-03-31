@@ -1,3 +1,7 @@
+=== 1.39.0 2016-03-31
+
+* Update CA cert bundle for compatibility with OpenSSL versions below 1.0.1
+
 === 1.38.0 2016-03-18
 
 * Allow `opts` to be passed to an API resource's `#save` method

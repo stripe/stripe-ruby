@@ -75,6 +75,7 @@ module Stripe
   @initial_network_retry_delay = 0.5
 
   @ca_bundle_path  = DEFAULT_CA_BUNDLE_PATH
+  @ca_store = nil
   @verify_ssl_certs = true
 
   @open_timeout = 30
@@ -111,7 +112,7 @@ module Stripe
 
     if verify_ssl_certs
       request_opts = {:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
-                      :ssl_ca_file => @ca_bundle_path}
+                      :ssl_cert_store => ca_store}
     else
       request_opts = {:verify_ssl => false}
       unless @verify_ssl_warned
@@ -156,6 +157,26 @@ module Stripe
 
   def self.ca_bundle_path=(path)
     @ca_bundle_path = path
+
+    # empty this field so a new store is initialized
+    @ca_store = nil
+  end
+
+  # A certificate store initialized from the the bundle in #ca_bundle_path and
+  # which is used to validate TLS on every request.
+  #
+  # This was added to the give the gem "pseudo thread safety" in that it seems
+  # when initiating many parallel requests marshaling the certificate store is
+  # the most likely point of failure (see issue #382). Any program attempting
+  # to leverage this pseudo safety should make a call to this method (i.e.
+  # `Stripe.ca_store`) in their initialization code because it marshals lazily
+  # and is itself not thread safe.
+  def self.ca_store
+    @ca_store ||= begin
+      store = OpenSSL::X509::Store.new
+      store.add_file(ca_bundle_path)
+      store
+    end
   end
 
   def self.max_network_retries

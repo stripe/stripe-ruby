@@ -1,3 +1,7 @@
+=== 1.40.0 2016-04-06
+
+* Fix bug that omitted subresources from serialization
+
 === 1.39.0 2016-03-31
 
 * Update CA cert bundle for compatibility with OpenSSL versions below 1.0.1

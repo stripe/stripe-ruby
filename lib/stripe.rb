@@ -208,7 +208,7 @@ module Stripe
       else
         response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
       end
-    rescue RestClient::Exception, Errno::ECONNREFUSED => e
+    rescue RestClient::Exception, Errno::ECONNREFUSED, OpenSSL::SSL::SSLError => e
       response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
     end
 
@@ -383,6 +383,12 @@ module Stripe
     when RestClient::ServerBrokeConnection
       message = "The connection to the server (#{api_base_url}) broke before the " \
         "request completed. #{connection_message}"
+
+    when OpenSSL::SSL::SSLError
+      message = "Could not establish a secure connection to Stripe, you may " \
+                "need to upgrade your OpenSSL version. To check, try running " \
+                "'openssl s_client -connect api.stripe.com:443' from the " \
+                "command line."
 
     when RestClient::SSLCertificateNotVerified
       message = "Could not verify Stripe's SSL certificate. " \

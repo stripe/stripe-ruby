@@ -72,6 +72,12 @@ module Stripe
       assert c.card.kind_of?(Stripe::StripeObject) && c.card.object == 'card'
     end
 
+    should "charges should have Outcome objects associated with their outcome property" do
+      @mock.expects(:get).once.returns(make_response(make_charge))
+      c = Stripe::Charge.retrieve("test_charge")
+      assert c.outcome.kind_of?(Stripe::StripeObject) && c.outcome.type == 'authorized'
+    end
+
     should "execute should return a new, fully executed charge when passed correct `card` parameters" do
       @mock.expects(:post).with do |url, api_key, params|
         url == "#{Stripe.api_base}/v1/charges" && api_key.nil? && CGI.parse(params) == {

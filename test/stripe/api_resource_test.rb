@@ -695,6 +695,19 @@ module Stripe
         assert_equal "myid", result.id
       end
 
+      # We retry the request if we receive SSL errors, since these can be caused
+      # by transient network issues, in addition to compatibility issues between
+      # the client and server.
+      should 'retry failed network requests if they fail with OpenSSL::SSL::SSLError' do
+        Stripe.expects(:sleep_time).at_least_once.returns(0)
+        @mock.expects(:post).times(3).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(OpenSSL::SSL::SSLError.new('message'))
+
+        err = assert_raises Stripe::APIConnectionError do
+          Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        end
+        assert_match(/Request was retried 2 times/, err.message)
+      end
+
       should 'not retry a SSLCertificateNotVerified error' do
         @mock.expects(:post).times(1).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(RestClient::SSLCertificateNotVerified.new('message'))
 

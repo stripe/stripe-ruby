@@ -13,6 +13,10 @@ module Stripe
     @mock_rest_client = mock_client
   end
 
+  class << self
+    remove_method :execute_request
+  end
+
   def self.execute_request(opts)
     get_params = (opts[:headers] || {})[:params]
     post_params = opts[:payload]

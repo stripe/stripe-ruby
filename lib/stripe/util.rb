@@ -120,7 +120,7 @@ module Stripe
 
       # do not sort the final output because arrays (and arrays of hashes
       # especially) can be order sensitive, but do sort incoming parameters
-      params.sort_by { |(k, v)| k.to_s }.each do |key, value|
+      params.sort_by { |(k, _)| k.to_s }.each do |key, value|
         calculated_key = parent_key ? "#{parent_key}[#{key}]" : "#{key}"
         if value.is_a?(Hash)
           result += flatten_params(value, calculated_key)

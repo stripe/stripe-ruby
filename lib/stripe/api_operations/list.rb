@@ -3,7 +3,6 @@ module Stripe
     module List
       def list(filters={}, opts={})
         opts = Util.normalize_opts(opts)
-        opts = @opts.merge(opts) if @opts
 
         response, opts = request(:get, resource_url, filters, opts)
         obj = ListObject.construct_from(response, opts)

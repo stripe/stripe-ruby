@@ -32,7 +32,7 @@ module Stripe
     # considered to be equal if they have the same set of values and each one
     # of those values is the same.
     def ==(other)
-      @values == other.instance_variable_get(:@values)
+      other.is_a?(StripeObject) && @values == other.instance_variable_get(:@values)
     end
 
     # Indicates whether or not the resource has been deleted on the server.

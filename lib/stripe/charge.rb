@@ -13,7 +13,7 @@ module Stripe
       # an `Array` and fall back to the old refund URL if necessary so as to
       # maintain internal compatibility.
       unless self.refunds.is_a?(Array)
-        refund = self.refunds.create(params, opts)
+        self.refunds.create(params, opts)
 
         # now that a refund has been created, we expect the state of this object
         # to change as well (i.e. `refunded` will now be `true`) so refresh it

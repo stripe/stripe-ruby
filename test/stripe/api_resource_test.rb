@@ -445,7 +445,7 @@ module Stripe
           opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
           opts[:headers][:stripe_account] == 'acct_abc'
         end.once.returns(make_response(make_customer))
-        c = Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
+        Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
       end
 
       should "passing in a stripe_account header should pass it through on save" do

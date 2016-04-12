@@ -82,7 +82,7 @@ module Stripe
   @read_timeout = 80
 
   class << self
-    attr_accessor :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
+    attr_accessor :stripe_account, :api_key, :api_base, :verify_ssl_certs, :api_version, :connect_base, :uploads_base,
                   :open_timeout, :read_timeout
 
     attr_reader :max_network_retry_delay, :initial_network_retry_delay
@@ -278,10 +278,11 @@ module Stripe
     # It is only safe to retry network failures on post and delete
     # requests if we add an Idempotency-Key header
     if [:post, :delete].include?(method) && self.max_network_retries > 0
-      headers[:idempotency_key] ||= SecureRandom.uuid 
+      headers[:idempotency_key] ||= SecureRandom.uuid
     end
 
     headers[:stripe_version] = api_version if api_version
+    headers[:stripe_account] = stripe_account if stripe_account
 
     begin
       headers.update(:x_stripe_client_user_agent => JSON.generate(user_agent))

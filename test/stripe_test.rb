@@ -33,4 +33,19 @@ class StripeTest < Test::Unit::TestCase
       Stripe.max_network_retries = old
     end
   end
+
+  should "makes requests with the Stripe-Account header" do
+    response = make_account(
+      charges_enabled: false,
+      details_submitted: false,
+      email: "test+bindings@stripe.com"
+    )
+    Stripe.stripe_account = 'acct_1234'
+
+    Stripe.expects(:execute_request).with(
+      has_entry(:headers, has_entry(:stripe_account, 'acct_1234')),
+    ).returns(make_response(response))
+
+    Stripe.request(:post, '/v1/account', 'sk_live12334566')
+  end
 end

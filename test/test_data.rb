@@ -287,7 +287,7 @@ module Stripe
       {
         :data => [make_subscription, make_subscription, make_subscription],
         :object => 'list',
-        :resource_url => '/v1/customers/' + customer_id + '/subscriptions'
+        :resource_url => '/v1/subscriptions'
       }
     end
 

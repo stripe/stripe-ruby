@@ -14,7 +14,7 @@ module Stripe
       @mock.expects(:get).once.returns(make_response(make_customer))
       customer = Stripe::Customer.retrieve('test_customer')
 
-      @mock.expects(:get).once.returns(make_response(make_subscription_array('test_customer')))
+      @mock.expects(:get).once.with("#{Stripe.api_base}/v1/subscriptions", nil, nil).returns(make_response(make_subscription_array('test_customer')))
       subs = customer.subscriptions.all()
 
       assert subs.kind_of? (Stripe::ListObject)
@@ -22,18 +22,8 @@ module Stripe
       assert subs.data[0].kind_of? Stripe::Subscription
     end
 
-    should "subscriptions should be creatable by customer" do
-      @mock.expects(:get).once.returns(make_response(make_customer))
-      @mock.expects(:post).once.returns(make_response(make_subscription(:id => 'test_new_subscription')))
-
-      customer = Stripe::Customer.retrieve('test_customer')
-
-      sub = customer.subscriptions.create(:plan => 'silver')
-      assert_equal 'test_new_subscription', sub.id
-    end
-
     should "subscriptions should be retrievable" do
-      @mock.expects(:get).once.returns(make_response(make_subscription))
+      @mock.expects(:get).once.with("#{Stripe.api_base}/v1/subscriptions/test_sub", nil, nil).returns(make_response(make_subscription))
 
       sub = Stripe::Subscription.retrieve('test_sub')
 
@@ -68,7 +58,6 @@ module Stripe
 
     should "subscriptions should be deletable" do
       @mock.expects(:get).once.returns(make_response(make_subscription))
-
       sub = Stripe::Subscription.retrieve('test_sub')
 
       @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/subscriptions/#{sub.id}?at_period_end=true", nil, nil).returns(make_response(make_subscription))
@@ -80,10 +69,12 @@ module Stripe
 
     should "subscriptions should be updateable" do
       @mock.expects(:get).once.returns(make_response(make_subscription))
-      @mock.expects(:post).once.returns(make_response(make_subscription({:status => 'active'})))
-
-      sub = Stripe::Subscription.retrieve('test_sub')
+      sub = Stripe::Subscription.retrieve('s_test_subscription')
       assert_equal 'trialing', sub.status
+
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/subscriptions/s_test_subscription" && api_key.nil? && CGI.parse(params) == {'status' => ['active']}
+      end.returns(make_response(make_subscription(:status => 'active')))
 
       sub.status = 'active'
       sub.save
@@ -92,23 +83,21 @@ module Stripe
     end
 
     should "create should return a new subscription" do
-      @mock.expects(:get).once.returns(make_response(make_customer))
-      @mock.expects(:post).once.returns(make_response(make_subscription(:id => 'test_new_subscription')))
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/subscriptions" && api_key.nil? && CGI.parse(params) == {'customer' => ['test_customer'], 'plan' => ['gold']}
+      end.returns(make_response(make_subscription(:plan => 'gold', :id => 'test_new_subscription')))
 
-      customer = Stripe::Customer.retrieve('test_customer')
-      sub = Stripe::Subscription.create(:plan => 'gold', :customer => customer['id'])
+      sub = Stripe::Subscription.create(:plan => 'gold', :customer => 'test_customer')
 
       assert_equal 'test_new_subscription', sub.id
+      assert_equal 'gold', sub.plan.identifier
     end
 
     should "be able to delete a subscriptions's discount" do
-      @mock.expects(:get).once.returns(make_response(make_customer))
-      @mock.expects(:post).once.returns(make_response(make_subscription(:id => 'test_new_subscription')))
+      @mock.expects(:post).once.returns(make_response(make_subscription))
+      sub = Stripe::Subscription.create(:plan => 'gold', :customer => 'test_customer', coupon: 'forever')
 
-      customer = Stripe::Customer.retrieve('test_customer')
-      sub = Stripe::Subscription.create(:plan => 'gold', :customer => customer['id'])
-
-      url = "#{Stripe.api_base}/v1/subscriptions/test_new_subscription/discount"
+      url = "#{Stripe.api_base}/v1/subscriptions/s_test_subscription/discount"
       @mock.expects(:delete).once.with(url, nil, nil).returns(make_response(make_delete_discount_response))
       sub.delete_discount
       assert_equal nil, sub.discount

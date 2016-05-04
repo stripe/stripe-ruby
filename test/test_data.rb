@@ -118,7 +118,7 @@ module Stripe
         :created => 1304114758,
         :sources => make_customer_card_array(id),
         :metadata => {},
-        :subscriptions => make_subscription_array(id)
+        :subscriptions => make_customer_subscription_array(id)
       }.merge(params)
     end
 
@@ -289,7 +289,15 @@ module Stripe
       }.merge(params)
     end
 
-    def make_subscription_array(customer_id)
+    def make_subscription_array
+      {
+        :data => [make_subscription, make_subscription, make_subscription],
+        :object => 'list',
+        :resource_url => '/v1/subscriptions'
+      }
+    end
+
+    def make_customer_subscription_array(customer_id)
       {
         :data => [make_subscription, make_subscription, make_subscription],
         :object => 'list',

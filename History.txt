@@ -1,3 +1,12 @@
+=== 1.42.0 2016-05-04
+
+* Add support for the new /v1/subscriptions endpoint
+  * Stripe::Subscription.retrieve
+  * Stripe::Subscription.list
+  * Stripe::Subscription.create
+  * Stripe::Subscription.update
+  * Stripe::Subscription.delete
+
 === 1.41.0 2016-04-13
 
 * Add global `stripe_account` option that adds a `Stripe-Account` header to all requests

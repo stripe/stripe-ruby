@@ -24,6 +24,7 @@ module Stripe
 
         # business objects
         'account' => Account,
+        'alipay_account' => AlipayAccount,
         'application_fee' => ApplicationFee,
         'balance' => Balance,
         'balance_transaction' => BalanceTransaction,

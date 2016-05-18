@@ -53,6 +53,7 @@ require 'stripe/dispute'
 require 'stripe/product'
 require 'stripe/sku'
 require 'stripe/order'
+require 'stripe/alipay_account'
 
 # Errors
 require 'stripe/errors/stripe_error'

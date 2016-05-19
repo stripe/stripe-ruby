@@ -52,6 +52,7 @@ module Stripe
         'product' => Product,
         'sku' => SKU,
         'order' => Order,
+        'order_return' => OrderReturn,
       }
     end
 

@@ -9,11 +9,19 @@ module Stripe
       initialize_from(response, opts)
     end
 
+    def return_order(params, opts={})
+      response, opts = request(:post, returns_url, params, opts)
+      initialize_from(response, opts)
+    end
+
     private
 
     def pay_url
-      resource_url + "/pay"
+      resource_url + '/pay'
     end
 
+    def returns_url
+      resource_url + '/returns'
+    end
   end
 end

@@ -686,6 +686,57 @@ module Stripe
       }).merge(params)
     end
 
+    def make_partially_returned_order(params={})
+      make_paid_order.merge({
+          :returns => make_order_return_array,
+        }).merge(params)
+    end
+
+    def make_order_return
+      {
+        :id => "orret_18CI1jDAu10Yox5R5kGPgbLN",
+        :object => "order_return",
+        :amount => 1220,
+        :created => 1463529303,
+        :currency => "usd",
+        :items => [
+          {
+            :object => "order_item",
+            :amount => 200,
+            :currency => "usd",
+            :description => "Just a SKU",
+            :parent => "sku_80NAUPJ9dpYtck",
+            :quantity => 2,
+            :type => "sku"
+          },
+          {
+            :object => "order_item",
+            :amount => 20,
+            :currency => "usd",
+            :description => "Fair enough",
+            :parent => nil,
+            :quantity => nil,
+            :type => "tax"
+          },
+        ],
+        :livemode => false,
+        :order => "or_189jaGDAu10Yox5R0F6LoH6K",
+        :refund => nil,
+      }
+    end
+
+    def make_order_return_array
+      {
+        :object => "list",
+        :resource_url => "/v1/order_returns",
+        :data => [
+          make_order_return,
+          make_order_return,
+          make_order_return,
+        ]
+      }
+    end
+
     def country_spec_array
       {
         :object => "list",

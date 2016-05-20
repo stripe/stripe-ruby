@@ -48,5 +48,17 @@ module Stripe
       order.pay(:token => 'test_token')
       assert_equal "paid", order.status
     end
+
+    should "return an order" do
+      @mock.expects(:get).once.
+        returns(make_response(make_order(:id => 'or_test_order')))
+      order = Stripe::Order.retrieve('or_test_order')
+
+      @mock.expects(:post).once.
+        with('https://api.stripe.com/v1/orders/or_test_order/returns', nil, 'items[][parent]=sku_foo').
+        returns(make_response(make_paid_order))
+      order.return_order(:items => [{:parent => 'sku_foo'}])
+      assert_equal "paid", order.status
+    end
   end
 end

@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class OrderReturnTest < Test::Unit::TestCase
-    should "return_order should be listable" do
+    should "returns should be listable" do
       @mock.expects(:get).once.returns(make_response(make_order_return_array))
       returns = Stripe::OrderReturn.list
       assert returns.data.kind_of?(Array)
@@ -11,14 +11,15 @@ module Stripe
       end
     end
 
-    should "returns should not be updateable" do
-      assert_raises NoMethodError do
-        @mock.expects(:get).once.returns(make_response(make_order_return))
-        p = Stripe::OrderReturn.new("test_order")
-        p.refresh
-        p.items = []
-        p.save
-      end
+    should "returns should not be deletable" do
+      p = Stripe::OrderReturn.new("test_order")
+      assert_raises(NoMethodError) { p.delete }
+    end
+
+    should "returns should be immutable" do
+      p = Stripe::OrderReturn.new("test_order")
+      p.items = []
+      assert_raises(NoMethodError) { p.save }
     end
   end
 end

@@ -1,3 +1,8 @@
+=== 1.43.0 2016-05-20
+
+* Allow Relay orders to be returned and add associated types
+* Support Alipay account retrieval and deletion
+
 === 1.42.0 2016-05-04
 
 * Add support for the new /v1/subscriptions endpoint

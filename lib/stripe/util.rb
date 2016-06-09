@@ -56,6 +56,18 @@ module Stripe
       }
     end
 
+    # Converts a hash of fields or an array of hashes into a +StripeObject+ or
+    # array of +StripeObject+s. These new objects will be created as a concrete
+    # type as dictated by their `object` field (e.g. an `object` value of
+    # `charge` would create an instance of +Charge+), but if `object` is not
+    # present or of an unkown type, the newly created instance will fall back
+    # to being a +StripeObject+.
+    #
+    # ==== Attributes
+    #
+    # * +resp+ - Hash of fields and values to be converted into a StripeObject.
+    # * +opts+ - Options for +StripeObject+ like an API key that will be reused
+    #   on subsequent API calls.
     def self.convert_to_stripe_object(resp, opts)
       case resp
       when Array

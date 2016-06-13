@@ -10,7 +10,7 @@ spec = Gem::Specification.new do |s|
   s.description = 'Stripe is the easiest way to accept payments online.  See https://stripe.com for details.'
   s.author = 'Stripe'
   s.email = 'support@stripe.com'
-  s.homepage = 'https://stripe.com/api'
+  s.homepage = 'https://stripe.com/docs/api/ruby'
   s.license = 'MIT'
 
   s.add_dependency('rest-client', '~> 1.4')

@@ -1,9 +1,10 @@
 module Stripe
   class Subscription < APIResource
-    extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Modify
 
     def delete_discount
       _, opts = request(:delete, discount_url)

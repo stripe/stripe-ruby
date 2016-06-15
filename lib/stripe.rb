@@ -15,8 +15,8 @@ require 'stripe/version'
 # API operations
 require 'stripe/api_operations/create'
 require 'stripe/api_operations/update'
+require 'stripe/api_operations/save'
 require 'stripe/api_operations/delete'
-require 'stripe/api_operations/modify'
 require 'stripe/api_operations/list'
 require 'stripe/api_operations/request'
 

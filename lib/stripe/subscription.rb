@@ -1,6 +1,6 @@
 module Stripe
   class Subscription < APIResource
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create

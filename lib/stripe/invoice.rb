@@ -1,7 +1,7 @@
 module Stripe
   class Invoice < APIResource
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::Create
 
     def self.upcoming(params, opts={})

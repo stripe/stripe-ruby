@@ -1,6 +1,6 @@
 module Stripe
   class Card < APIResource
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 

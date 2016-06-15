@@ -2,7 +2,7 @@ module Stripe
   class Order < APIResource
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
 
     def pay(params, opts={})
       response, opts = request(:post, pay_url, params, opts)

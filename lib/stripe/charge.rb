@@ -2,7 +2,7 @@ module Stripe
   class Charge < APIResource
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
 
     def refund(params={}, opts={})
       # Old versions of charge objects included a `refunds` field that was just

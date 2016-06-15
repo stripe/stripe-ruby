@@ -1,6 +1,6 @@
 module Stripe
   class AlipayAccount < APIResource
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
     def resource_url

@@ -1,9 +1,9 @@
 module Stripe
   class Account < APIResource
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Delete
+    include Stripe::APIOperations::Save
 
     def resource_url
       if self['id']

@@ -1,6 +1,6 @@
 module Stripe
   class ApplicationFeeRefund < APIResource
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
     def resource_url

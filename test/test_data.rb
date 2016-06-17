@@ -692,7 +692,7 @@ module Stripe
         }).merge(params)
     end
 
-    def make_order_return
+    def make_order_return(params={})
       {
         :id => "orret_18CI1jDAu10Yox5R5kGPgbLN",
         :object => "order_return",
@@ -722,7 +722,7 @@ module Stripe
         :livemode => false,
         :order => "or_189jaGDAu10Yox5R0F6LoH6K",
         :refund => nil,
-      }
+      }.merge(params)
     end
 
     def make_order_return_array

@@ -11,7 +11,7 @@ module Stripe
 
     def return_order(params, opts={})
       response, opts = request(:post, returns_url, params, opts)
-      initialize_from(response, opts)
+      Util.convert_to_stripe_object(response, opts)
     end
 
     private

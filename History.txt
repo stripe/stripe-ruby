@@ -1,3 +1,7 @@
+=== 1.43.1 2016-06-17
+
+* Fix type of resource returned from `Order#return_order`
+
 === 1.43.0 2016-05-20
 
 * Allow Relay orders to be returned and add associated types

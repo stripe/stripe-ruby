@@ -1,16 +1,6 @@
 module Stripe
   module APIOperations
     module Update
-      # Creates or updates an API resource.
-      #
-      # If the resource doesn't yet have an assigned ID and the resource is one
-      # that can be created, then the method attempts to create the resource.
-      # The resource is updated otherwise.
-      #
-      # ==== Attributes
-      #
-      # * +params+ - Overrides any parameters in the resource's serialized data
-      #   and includes them in the create or update.
       # * +opts+ - A Hash of additional options (separate from the params /
       #   object values) to be added to the request. E.g. to allow for an
       #   idempotency_key to be passed in the request headers, or for the
@@ -34,7 +24,7 @@ module Stripe
         initialize_from(response, opts)
 
         self
-      end
+      en
 
       private
 

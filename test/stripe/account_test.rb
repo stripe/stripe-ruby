@@ -68,7 +68,7 @@ module Stripe
       account.reject(:reason => 'fraud')
     end
 
-    should "be updatable" do
+    should "be saveable" do
       resp = {
         :id => 'acct_foo',
         :legal_entity => {
@@ -91,6 +91,31 @@ module Stripe
       a.legal_entity.first_name = 'Bob'
       a.legal_entity.address.line1 = '2 Three Four'
       a.save
+    end
+
+    should "be updatable" do
+      resp = {
+        :id => 'acct_foo',
+        :legal_entity => {
+          :first_name => 'Bob',
+          :address => {
+            :line1 => '2 Three Four'
+          }
+        }
+      }
+      @mock.expects(:post).
+        once.
+        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob').
+        returns(make_response(resp))
+
+      a = Stripe::Account.update('acct_foo', :legal_entity => {
+        :first_name => 'Bob',
+        :address => {
+          :line1 => '2 Three Four'
+        }
+      })
+      assert_equal('Bob', a.legal_entity.first_name)
+      assert_equal('2 Three Four', a.legal_entity.address.line1)
     end
 
     should 'disallow direct overrides of legal_entity' do

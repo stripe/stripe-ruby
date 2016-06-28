@@ -2,6 +2,7 @@ module Stripe
   class Order < APIResource
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
+    extend Stripe::APIOperations::Update
     include Stripe::APIOperations::Save
 
     def pay(params, opts={})

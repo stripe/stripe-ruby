@@ -323,7 +323,7 @@ module Stripe
       }
     end
 
-    def make_invoice
+    def make_invoice(params={})
       {
         :id => 'in_test_invoice',
         :object => 'invoice',
@@ -361,7 +361,7 @@ module Stripe
         :discount => nil,
         :ending_balance => nil,
         :next_payment_attempt => 1349825350,
-      }
+      }.merge(params)
     end
 
     def make_paid_invoice
@@ -374,6 +374,17 @@ module Stripe
           :ending_balance => 0,
           :next_payment_attempt => nil,
         })
+    end
+
+    def make_invoice_item(params={})
+      {
+        id: "ii_test_invoice_item",
+        object: "invoiceitem",
+        date: 1466982411,
+        invoice: "in_test_invoice",
+        livemode: false,
+        metadata: {},
+      }.merge(params)
     end
 
     def make_invoice_customer_array
@@ -792,6 +803,35 @@ module Stripe
           }
         }
       }.merge(params)
+    end
+
+    def make_plan(params={})
+      {
+        id: "silver",
+        object: "plan",
+        amount: 1000,
+        created: 1463962497,
+        currency: "usd",
+        interval: "year",
+        interval_count: 1,
+        livemode: false,
+        metadata: {},
+        name: "Silver",
+        statement_descriptor: nil,
+        trial_period_days: nil,
+      }.merge(params)
+    end
+
+    def make_plan_array
+      {
+        :object => "list",
+        :resource_url => "/v1/plans",
+        :data => [
+          make_plan,
+          make_plan,
+          make_plan,
+        ]
+      }
     end
   end
 end

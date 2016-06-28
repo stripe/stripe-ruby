@@ -29,6 +29,14 @@ module Stripe
     end
 
     should "disputes should be updateable" do
+      @mock.expects(:post).once.
+        with("https://api.stripe.com/v1/disputes/test_dispute", nil, "metadata[foo]=bar").
+        returns(make_response(make_dispute(metadata: {foo: 'bar'})))
+      d = Stripe::Dispute.update("test_dispute", metadata: {foo: 'bar'})
+      assert_equal('bar', d.metadata['foo'])
+    end
+
+    should "disputes should be saveable" do
       @mock.expects(:get).once.returns(make_response(make_dispute))
       @mock.expects(:post).with(
         "#{Stripe.api_base}/v1/disputes/dp_test_dispute",

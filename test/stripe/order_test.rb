@@ -19,13 +19,21 @@ module Stripe
       end
     end
 
-    should "orders should be updateable" do
+    should "orders should be saveable" do
       @mock.expects(:get).once.returns(make_response(make_order))
       @mock.expects(:post).once.returns(make_response(make_order))
       p = Stripe::Order.new("test_order")
       p.refresh
       p.status = "fulfilled"
       p.save
+    end
+
+    should "orders should be updateable" do
+      @mock.expects(:post).once.
+        with('https://api.stripe.com/v1/orders/test_order', nil, 'status=fulfilled').
+        returns(make_response(make_order(status: 'fulfilled')))
+      ii = Stripe::Order.update("test_order", status: 'fulfilled')
+      assert_equal('fulfilled', ii.status)
     end
 
     should "orders should allow metadata updates" do

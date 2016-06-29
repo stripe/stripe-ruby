@@ -14,6 +14,14 @@ module Stripe
       assert_equal "tr_test_transfer", transfer.id
     end
 
+    should "create should update a transfer" do
+      @mock.expects(:post).once.
+        with("#{Stripe.api_base}/v1/transfers/test_transfer", nil, "metadata[foo]=bar").
+        returns(make_response(make_transfer(metadata: {foo: 'bar'})))
+      transfer = Stripe::Transfer.update("test_transfer", metadata: {foo: 'bar'})
+      assert_equal "bar", transfer.metadata['foo']
+    end
+
     should "cancel should cancel a transfer" do
       @mock.expects(:get).once.returns(make_response(make_transfer))
       transfer = Stripe::Transfer.retrieve('tr_test_transfer')

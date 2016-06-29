@@ -1,6 +1,6 @@
 module Stripe
   class BankAccount < APIResource
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
@@ -15,6 +15,10 @@ module Stripe
       elsif respond_to?(:account)
         "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
       end
+    end
+
+    def self.update(id, params=nil, opts=nil)
+      raise NotImplementedError.new("Bank accounts cannot be updated without an account ID. Update a bank account by using `a = account.external_accounts.retrieve('card_id'); a.save`")
     end
 
     def self.retrieve(id, opts=nil)

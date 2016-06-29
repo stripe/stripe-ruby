@@ -1,6 +1,6 @@
 module Stripe
   class Card < APIResource
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
@@ -12,6 +12,10 @@ module Stripe
       elsif respond_to?(:account)
         "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
       end
+    end
+
+    def self.update(id, params=nil, opts=nil)
+      raise NotImplementedError.new("Cards cannot be updated without a customer ID. Update a card using `c = customer.sources.retrieve('card_id'); c.save`")
     end
 
     def self.retrieve(id, opts=nil)

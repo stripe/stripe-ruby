@@ -23,6 +23,14 @@ module Stripe
       assert_equal nil, i.next_payment_attempt
     end
 
+    should "invoices should be updateable" do
+      @mock.expects(:post).once.
+        with("https://api.stripe.com/v1/invoices/test_invoice", nil, "metadata[foo]=bar").
+        returns(make_response(make_invoice(metadata: {foo: 'bar'})))
+      i = Stripe::Invoice.update("test_invoice", metadata: {foo: 'bar'})
+      assert_equal('bar', i.metadata['foo'])
+    end
+
     should "pay with extra opts should pay an invoice" do
       @mock.expects(:get).once.returns(make_response(make_invoice))
       i = Stripe::Invoice.retrieve('in_test_invoice', {:api_key => 'foobar'})

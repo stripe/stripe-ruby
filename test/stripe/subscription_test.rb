@@ -77,6 +77,17 @@ module Stripe
     end
 
     should "subscriptions should be updateable" do
+      sid = 's_test_subscription'
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/subscriptions/#{sid}" && api_key.nil? && CGI.parse(params) == {'status' => ['active']}
+      end.returns(make_response(make_subscription(:status => 'active')))
+
+      sub = Stripe::Subscription.update(sid, :status => 'active')
+
+      assert_equal 'active', sub.status
+    end
+
+    should "subscriptions should be saveable" do
       @mock.expects(:get).once.returns(make_response(make_subscription))
       sub = Stripe::Subscription.retrieve('s_test_subscription')
       assert_equal 'trialing', sub.status

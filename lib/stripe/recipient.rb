@@ -2,7 +2,7 @@ module Stripe
   class Recipient < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
     def transfers

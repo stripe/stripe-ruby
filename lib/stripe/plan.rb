@@ -3,6 +3,6 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Update
+    include Stripe::APIOperations::Save
   end
 end

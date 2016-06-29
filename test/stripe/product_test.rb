@@ -21,13 +21,21 @@ module Stripe
       assert p.deleted
     end
 
-    should "products should be updateable" do
+    should "products should be saveable" do
       @mock.expects(:get).once.returns(make_response(make_product))
       @mock.expects(:post).once.returns(make_response(make_product))
       p = Stripe::Product.new("test_product")
       p.refresh
       p.description = "New product description"
       p.save
+    end
+
+    should "products should be updateable" do
+      @mock.expects(:post).once.
+        with('https://api.stripe.com/v1/products/test_product', nil, 'description=update').
+        returns(make_response(make_product(description: 'update')))
+      p = Stripe::Product.update("test_product", description: 'update')
+      assert_equal('update', p.description)
     end
 
     should "products should allow metadata updates" do

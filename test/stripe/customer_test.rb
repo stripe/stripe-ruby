@@ -16,7 +16,7 @@ module Stripe
       assert c.deleted
     end
 
-    should "customers should be updateable" do
+    should "customers should be saveable" do
       @mock.expects(:get).once.returns(make_response(make_customer({:mnemonic => "foo"})))
       @mock.expects(:post).once.returns(make_response(make_customer({:mnemonic => "bar"})))
       c = Stripe::Customer.new("test_customer").refresh
@@ -24,6 +24,14 @@ module Stripe
       c.mnemonic = "bar"
       c.save
       assert_equal "bar", c.mnemonic
+    end
+
+    should "customers should be updateable" do
+      @mock.expects(:post).once.
+        with("https://api.stripe.com/v1/customers/test_customer", nil, "metadata[foo]=bar").
+        returns(make_response(make_customer(metadata: {foo: 'bar'})))
+      c = Stripe::Customer.update("test_customer", metadata: {foo: 'bar'})
+      assert_equal('bar', c.metadata['foo'])
     end
 
     should "create should return a new customer" do

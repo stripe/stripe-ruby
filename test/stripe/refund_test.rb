@@ -24,7 +24,7 @@ module Stripe
       assert_equal 'refreshed_refund', refund.id
     end
 
-    should "refunds should be updateable" do
+    should "refunds should be saveable" do
       @mock.expects(:get).
         with("#{Stripe.api_base}/v1/refunds/get_refund", nil, nil).
         once.returns(make_response(make_refund(:id => 'save_refund')))
@@ -40,6 +40,15 @@ module Stripe
       refund.metadata['key'] = 'value'
       refund.save
 
+      assert_equal 'value', refund.metadata['key']
+    end
+
+    should "refunds should be updateable" do
+      @mock.expects(:post).
+        with("#{Stripe.api_base}/v1/refunds/update_refund", nil, 'metadata[key]=value').
+        once.returns(make_response(make_refund(:metadata => {'key' => 'value'})))
+
+      refund = Stripe::Refund.update('update_refund', metadata: {key: 'value'})
       assert_equal 'value', refund.metadata['key']
     end
 

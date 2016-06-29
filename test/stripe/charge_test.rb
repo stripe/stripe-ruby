@@ -42,6 +42,14 @@ module Stripe
     end
 
     should "charges should be updateable" do
+      @mock.expects(:post).once.
+        with('https://api.stripe.com/v1/charges/test_charge', nil, 'metadata[foo]=bar').
+        returns(make_response(make_charge(metadata: {'foo' => 'bar'})))
+      c = Stripe::Charge.update("test_charge", metadata: {foo: 'bar'})
+      assert_equal('bar', c.metadata['foo'])
+    end
+
+    should "charges should be saveable" do
       @mock.expects(:get).once.returns(make_response(make_charge))
       @mock.expects(:post).once.returns(make_response(make_charge))
       c = Stripe::Charge.new("test_charge")

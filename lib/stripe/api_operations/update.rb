@@ -10,9 +10,7 @@ module Stripe
       # ==== Attributes
       #
       # * +params+ - Overrides any parameters in the resource's serialized data
-      #   and includes them in the create or update. If +:req_url:+ is included
-      #   in the list, it overrides the update URL used for the create or
-      #   update.
+      #   and includes them in the create or update.
       # * +opts+ - A Hash of additional options (separate from the params /
       #   object values) to be added to the request. E.g. to allow for an
       #   idempotency_key to be passed in the request headers, or for the

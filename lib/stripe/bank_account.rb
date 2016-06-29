@@ -17,6 +17,10 @@ module Stripe
       end
     end
 
+    def self.update(id, params=nil, opts=nil)
+      raise NotImplementedError.new("Bank accounts cannot be updated without an account ID. Update a bank account by using `a = account.external_accounts.retrieve('card_id'); a.save`")
+    end
+
     def self.retrieve(id, opts=nil)
       raise NotImplementedError.new("Bank accounts cannot be retrieved without an account ID. Retrieve a bank account using account.external_accounts.retrieve('card_id')")
     end

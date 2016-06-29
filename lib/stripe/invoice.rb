@@ -1,7 +1,6 @@
 module Stripe
   class Invoice < APIResource
     extend Stripe::APIOperations::List
-    extend Stripe::APIOperations::Update
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::Create
 

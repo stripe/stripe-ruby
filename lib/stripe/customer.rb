@@ -1,7 +1,6 @@
 module Stripe
   class Customer < APIResource
     extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List

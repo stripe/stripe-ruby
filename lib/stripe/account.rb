@@ -2,7 +2,6 @@ module Stripe
   class Account < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
-    extend Stripe::APIOperations::Update
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
 

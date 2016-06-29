@@ -2,7 +2,6 @@ module Stripe
   class Transfer < APIResource
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::Update
     include Stripe::APIOperations::Save
 
     def cancel
@@ -13,6 +12,5 @@ module Stripe
     def cancel_url
       resource_url + '/cancel'
     end
-
   end
 end

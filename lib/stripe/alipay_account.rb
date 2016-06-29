@@ -9,6 +9,10 @@ module Stripe
       end
     end
 
+    def self.update(id, params=nil, opts=nil)
+      raise NotImplementedError.new("Alipay accounts cannot be updated without a customer ID. Update an Alipay account by `a = customer.sources.retrieve('alipay_account_id'); a.save`")
+    end
+
     def self.retrieve(id, opts=nil)
       raise NotImplementedError.new("Alipay accounts cannot be retrieved without a customer ID. Retrieve an Alipay account using customer.sources.retrieve('alipay_account_id')")
     end

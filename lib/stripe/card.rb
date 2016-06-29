@@ -14,6 +14,10 @@ module Stripe
       end
     end
 
+    def self.update(id, params=nil, opts=nil)
+      raise NotImplementedError.new("Cards cannot be updated without a customer ID. Update a card using `c = customer.sources.retrieve('card_id'); c.save`")
+    end
+
     def self.retrieve(id, opts=nil)
       raise NotImplementedError.new("Cards cannot be retrieved without a customer ID. Retrieve a card using customer.sources.retrieve('card_id')")
     end

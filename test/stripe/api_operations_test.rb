@@ -4,7 +4,7 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class ApiOperationsTest < Test::Unit::TestCase
     class Updater < APIResource
-      extend Stripe::APIOperations::Update
+      include Stripe::APIOperations::Save
     end
 
     should "the Update API operation should post the correct parameters to the resource URL" do

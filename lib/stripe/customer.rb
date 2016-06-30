@@ -5,6 +5,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
+    # Set or replace a customer's default source.
     def source=(value)
       super
 
@@ -12,6 +13,8 @@ module Stripe
       # converting to an APIResource if appropriate.
       value = self.source
 
+      # Note that source may be a card, but could also be a tokenized card's ID
+      # (which is a string), and so we check its type here.
       if value.is_a?(APIResource)
         value.save_with_parent = true
       end

@@ -5,8 +5,8 @@ module Stripe
     # A flag that can be set a behavior that will cause this resource to be
     # encoded and sent up along with an update of its parent resource. This is
     # usually not desirable because resources are updated individually on their
-    # own endpoints, but there are certain cases, changing a customer's default
-    # source for example, where this is allowed.
+    # own endpoints, but there are certain cases, replacing a customer's source
+    # for example, where this is allowed.
     attr_accessor :save_with_parent
 
     def self.class_name

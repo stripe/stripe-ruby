@@ -330,6 +330,14 @@ module Stripe
       when nil
         ''
 
+      # The logic here is that essentially any object embedded in another
+      # object that had a `type` is actually an API resource of a different
+      # type that's been included in the response. These other resources must
+      # be updated from their proper endpoints, and therefore they are not
+      # included when serializing even if they've been modified.
+      when APIResource
+        nil
+
       when Array
         update = value.map { |v| serialize_params_value(v, nil, true, force) }
 

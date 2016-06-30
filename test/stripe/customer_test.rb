@@ -92,5 +92,20 @@ module Stripe
       c.delete_discount
       assert_equal nil, c.discount
     end
+
+    should "can have a token source set" do
+      c = Stripe::Customer.new("test_customer")
+      c.source = "tok_123"
+      assert_equal "tok_123", c.source
+    end
+
+    should "set a flag if given an object source" do
+      c = Stripe::Customer.new("test_customer")
+      c.source = {
+        :object => 'card'
+      }
+      assert_equal true, c.source.save_with_parent
+    end
   end
 end
+

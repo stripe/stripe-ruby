@@ -326,8 +326,8 @@ module Stripe
     end
 
     def serialize_params_value(value, original, unsaved, force)
-      case value
-      when nil
+      case true
+      when value == nil
         ''
 
       # The logic here is that essentially any object embedded in another
@@ -335,10 +335,16 @@ module Stripe
       # type that's been included in the response. These other resources must
       # be updated from their proper endpoints, and therefore they are not
       # included when serializing even if they've been modified.
-      when APIResource
+      #
+      # There are _some_ known exceptions though. For example, to save on API
+      # calls it's sometimes desirable to update a customer's default source by
+      # setting a new card (or other) object with `#source=` and then saving
+      # the customer. The `#save_with_parent` flag to override the default
+      # behavior allows us to handle these exceptions.
+      when value.is_a?(APIResource) && !value.save_with_parent
         nil
 
-      when Array
+      when value.is_a?(Array)
         update = value.map { |v| serialize_params_value(v, nil, true, force) }
 
         # This prevents an array that's unchanged from being resent.
@@ -358,10 +364,10 @@ module Stripe
       # existing array being held by a StripeObject. This could happen for
       # example by appending a new hash onto `additional_owners` for an
       # account.
-      when Hash
+      when value.is_a?(Hash)
         Util.convert_to_stripe_object(value, @opts).serialize_params
 
-      when StripeObject
+      when value.is_a?(StripeObject)
         update = value.serialize_params(:force => force)
 
         # If the entire object was replaced, then we need blank each field of

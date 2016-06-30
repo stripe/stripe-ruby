@@ -5,6 +5,20 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
+    def source=(value)
+      super
+
+      # The parent setter will perform certain useful operations like
+      # converting to an APIResource if appropriate.
+      value = self.source
+
+      if value.is_a?(APIResource)
+        value.save_with_parent = true
+      end
+
+      value
+    end
+
     def add_invoice_item(params, opts={})
       opts = @opts.merge(Util.normalize_opts(opts))
       InvoiceItem.create(params.merge(:customer => id), opts)

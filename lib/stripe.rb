@@ -424,15 +424,16 @@ module Stripe
   end
 
   def self.sleep_time(retry_count)
-    # This method was adapted from https://github.com/ooyala/retries/blob/master/lib/retries.rb
-
-    # The sleep time is an exponentially-increasing function of base_sleep_seconds. But, it never exceeds
-    # max_sleep_seconds.
+    # Apply exponential backoff with initial_network_retry_delay on the number
+    # of attempts so far as inputs. Do not allow the number to exceed
+    # max_network_retry_delay.
     sleep_seconds = [initial_network_retry_delay * (2 ** (retry_count - 1)), max_network_retry_delay].min
-    # Randomize to a random value in the range sleep_seconds/2 .. sleep_seconds
 
+    # Apply some jitter by randomizing the value in the range of (sleep_seconds
+    # / 2) to (sleep_seconds).
     sleep_seconds = sleep_seconds * (0.5 * (1 + rand()))
-    # But never sleep less than base_sleep_seconds
+
+    # But never sleep less than the base sleep seconds.
     sleep_seconds = [initial_network_retry_delay, sleep_seconds].max
 
     sleep_seconds

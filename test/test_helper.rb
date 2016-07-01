@@ -2,7 +2,7 @@ require 'stripe'
 require 'test/unit'
 require 'mocha/setup'
 require 'stringio'
-require 'shoulda'
+require 'shoulda/context'
 require File.expand_path('../test_data', __FILE__)
 
 # monkeypatch request methods

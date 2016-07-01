@@ -6,7 +6,7 @@ group :development do
   gem 'mocha', '~> 0.13.2'
   gem 'pry'
   gem 'rake'
-  gem 'shoulda', '~> 3.4.0'
+  gem 'shoulda-context'
   gem 'test-unit'
 
   platforms :mri do

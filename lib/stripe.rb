@@ -205,10 +205,10 @@ module Stripe
         raise
       end
     rescue RestClient::ExceptionWithResponse => e
-      if e.response
-        handle_api_error(e.response)
-      else
+      if e.response.code == 409
         response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
+      else
+        handle_api_error(e.response)
       end
     rescue RestClient::Exception, Errno::ECONNREFUSED, OpenSSL::SSL::SSLError => e
       response = handle_restclient_error(e, request_opts, retry_count, api_base_url)

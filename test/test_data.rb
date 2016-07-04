@@ -523,6 +523,15 @@ module Stripe
       }
     end
 
+    def make_duplicate_idempotency_key_request_error
+      {
+        error: {
+          type: "invalid_request_error",
+          message: "There is currently another in-progress request using this Idempotent Key (that probably means you submitted twice, and the other request is still going through): `request_id`. Please try again later."
+        }
+      }
+    end
+
     def make_invalid_exp_year_error
       {
         :error => {

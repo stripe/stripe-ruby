@@ -708,6 +708,17 @@ module Stripe
         assert_match(/Request was retried 2 times/, err.message)
       end
 
+      should 'retry network requests if response is an idempotency-key based 409' do
+        response = make_response(make_duplicate_idempotency_key_request_error, 409)
+        Stripe.expects(:sleep_time).at_least_once.returns(0)
+        @mock.expects(:post).times(3).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(RestClient::ExceptionWithResponse.new(response, 409))
+
+        err = assert_raises Stripe::APIConnectionError do
+          Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        end
+        assert_match(/Request was retried 2 times/, err.message)
+      end
+
       should 'not retry a SSLCertificateNotVerified error' do
         @mock.expects(:post).times(1).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').raises(RestClient::SSLCertificateNotVerified.new('message'))
 

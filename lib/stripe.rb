@@ -68,6 +68,23 @@ require 'stripe/errors/rate_limit_error'
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
 
+  # HTTP status exceptions which we'd like to retry. Most HTTP status
+  # exceptions are from a Stripe API server response, so we generally _don't_
+  # retry because doing so would have the same result as the original request.
+  RETRY_HTTP_EXCEPTIONS = [
+    # A server may respond with a 409 to indicate that there is a concurrent
+    # request executing with the same idempotency key. In the case that a
+    # request failed due to a connection problem and the client has retried too
+    # early, but the server is still executing the old request, we would like
+    # the client to continue retrying until getting a "real" response status
+    # back.
+    RestClient::Conflict,
+
+    # Retry on timeout-related problems. This shouldn't be lumped in with HTTP
+    # exceptions, but with RestClient it is.
+    RestClient::RequestTimeout,
+  ].freeze
+
   @api_base = 'https://api.stripe.com'
   @connect_base = 'https://connect.stripe.com'
   @uploads_base = 'https://uploads.stripe.com'
@@ -194,24 +211,45 @@ module Stripe
   def self.execute_request_with_rescues(request_opts, api_base_url, retry_count = 0)
     begin
       response = execute_request(request_opts)
-    rescue SocketError => e
-      response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
-    rescue NoMethodError => e
-      # Work around RestClient bug
-      if e.message =~ /\WRequestFailed\W/
-        e = APIConnectionError.new('Unexpected HTTP response code')
+
+    # We rescue all exceptions from a request so that we have an easy spot to
+    # implement our retry logic across the board. We'll re-raise if it's a type
+    # of exception that we didn't expect to handle.
+    rescue => e
+      if should_retry?(e, retry_count)
+        retry_count = retry_count + 1
+        sleep sleep_time(retry_count)
+        retry
+      end
+
+      case e
+      when SocketError
         response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
+
+      when NoMethodError
+        # Work around RestClient bug
+        if e.message =~ /\WRequestFailed\W/
+          e = APIConnectionError.new('Unexpected HTTP response code')
+          response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
+        else
+          raise
+        end
+
+      when RestClient::ExceptionWithResponse
+        if e.response
+          handle_api_error(e.response)
+        else
+          response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
+        end
+
+      when RestClient::Exception, Errno::ECONNREFUSED, OpenSSL::SSL::SSLError
+        response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
+
+      # Only handle errors when we know we can do so, and re-raise otherwise.
+      # This should be pretty infrequent.
       else
         raise
       end
-    rescue RestClient::ExceptionWithResponse => e
-      if e.response
-        handle_api_error(e.response)
-      else
-        response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
-      end
-    rescue RestClient::Exception, Errno::ECONNREFUSED, OpenSSL::SSL::SSLError => e
-      response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
     end
 
     response
@@ -367,13 +405,6 @@ module Stripe
 
   def self.handle_restclient_error(e, request_opts, retry_count, api_base_url=nil)
 
-    if should_retry?(e, retry_count)
-      retry_count = retry_count + 1
-      sleep sleep_time(retry_count)
-      response = execute_request_with_rescues(request_opts, api_base_url, retry_count)
-      return response
-    end
-
     api_base_url = @api_base unless api_base_url
     connection_message = "Please check your internet connection and try again. " \
         "If this problem persists, you should check Stripe's service status at " \
@@ -419,7 +450,16 @@ module Stripe
 
   def self.should_retry?(e, retry_count)
     return false if retry_count >= self.max_network_retries
+
+    # Certificate validation problem: do not retry.
     return false if e.is_a?(RestClient::SSLCertificateNotVerified)
+
+    # Generally don't retry when we got a successful response back from the
+    # Stripe API server, but with some exceptions (for more details, see notes
+    # on RETRY_HTTP_EXCEPTIONS).
+    return false if e.is_a?(RestClient::ExceptionWithResponse) &&
+      !RETRY_HTTP_EXCEPTIONS.any? { |klass| e.is_a?(klass) }
+
     return true
   end
 

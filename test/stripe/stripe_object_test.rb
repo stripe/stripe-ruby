@@ -240,6 +240,27 @@ module Stripe
       assert_equal([{ :foo => "bar" }], serialized[:metadata])
     end
 
+    should "#serialize_params and remove embedded APIResources" do
+      obj = Stripe::StripeObject.construct_from({
+        :customer => Customer.construct_from({})
+      })
+
+      serialized = obj.serialize_params
+      assert_equal({}, serialized)
+    end
+
+    should "#serialize_params and remove embedded APIResources unless flagged with save_with_parent" do
+      c = Customer.construct_from({})
+      c.save_with_parent = true
+
+      obj = Stripe::StripeObject.construct_from({
+        :customer => c,
+      })
+
+      serialized = obj.serialize_params
+      assert_equal({ :customer => {} }, serialized)
+    end
+
     should "#serialize_params takes a force option" do
       obj = Stripe::StripeObject.construct_from({
         :id => 'id',

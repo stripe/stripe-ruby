@@ -226,15 +226,6 @@ module Stripe
       when SocketError
         response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
 
-      when NoMethodError
-        # Work around RestClient bug
-        if e.message =~ /\WRequestFailed\W/
-          e = APIConnectionError.new('Unexpected HTTP response code')
-          response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
-        else
-          raise
-        end
-
       when RestClient::ExceptionWithResponse
         if e.response
           handle_api_error(e.response)

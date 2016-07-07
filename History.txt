@@ -1,3 +1,7 @@
+=== 1.46.0 2016-07-07
+
+* Allow retry when a 409 conflict is encountered
+
 === 1.45.0 2016-07-07
 
 * Do not send subresources when updating except when explicitly told to do so (see #433)

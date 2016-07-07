@@ -1,3 +1,7 @@
+=== 1.45.0 2016-07-07
+
+* Do not send subresources when updating except when explicitly told to do so (see #433)
+
 === 1.44.0 2016-06-29
 
 * Add `update` class method to all resources that can be updated

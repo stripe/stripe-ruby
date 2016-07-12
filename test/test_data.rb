@@ -833,5 +833,20 @@ module Stripe
         ]
       }
     end
+
+    def make_three_d_secure(params={})
+      {
+        :id => 'tdsrc_test',
+        :object => 'three_d_secure',
+        :amount => 1500,
+        :authenticate => true,
+        :card => make_card,
+        :created => 1456908210,
+        :currency => 'usd',
+        :livemode => false,
+        :redirect_url => nil,
+        :status => 'succeeded',
+      }.merge(params)
+    end
   end
 end

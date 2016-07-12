@@ -53,6 +53,7 @@ module Stripe
         'sku' => SKU,
         'order' => Order,
         'order_return' => OrderReturn,
+        'three_d_secure' => ThreeDSecure,
       }
     end
 

@@ -1,3 +1,7 @@
+=== 1.48.0 2016-07-12
+
+* Add `ThreeDSecure` model for 3-D secure payments
+
 === 1.47.0 2016-07-11
 
 * Allow rest-client version 2.0+ to be used with the gem

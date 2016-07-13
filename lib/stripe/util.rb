@@ -2,6 +2,24 @@ require "cgi"
 
 module Stripe
   module Util
+    # Request options that can be used between requests. This should also be a
+    # strict subset of VALID_OPTS.
+    PERSIST_OPTS = Set[
+      :api_key,
+      :api_base,
+      :stripe_account,
+      :stripe_version,
+    ].freeze
+
+    VALID_OPTS = Set[
+      :api_key,
+      :api_base,
+      :content_type,
+      :idempotency_key,
+      :stripe_account,
+      :stripe_version,
+    ].freeze
+
     def self.objects_to_ids(h)
       case h
       when APIResource
@@ -161,6 +179,15 @@ module Stripe
         end
       end
       result
+    end
+
+    # Given a Hash, extracts any keys that are known to be valid request
+    # options and returns them as a new Hash. All other keys are returned as a
+    # second Hash as well.
+    def self.extract_valid_opts(hash)
+      hash = Util.normalize_opts(hash)
+      opts, other = hash.partition { |k, _| Util::VALID_OPTS.include?(k) }
+      [Hash[opts], Hash[other]]
     end
 
     def self.normalize_id(id)

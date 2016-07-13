@@ -2,10 +2,8 @@ module Stripe
   module APIOperations
     module Request
       module ClassMethods
-        OPTS_KEYS_TO_PERSIST = Set[:api_key, :api_base, :stripe_account, :stripe_version]
-
         def request(method, url, params={}, opts={})
-          opts = Util.normalize_opts(opts)
+          opts, _ = Util.extract_valid_opts(opts)
 
           headers = opts.clone
           api_key = headers.delete(:api_key)
@@ -14,15 +12,11 @@ module Stripe
 
           response, opts[:api_key] = Stripe.request(method, url, api_key, params, headers, api_base)
 
-          # Hash#select returns an array before 1.9
-          opts_to_persist = {}
-          opts.each do |k, v|
-            if OPTS_KEYS_TO_PERSIST.include?(k)
-              opts_to_persist[k] = v
-            end
-          end
+          # Only keep request options that are suitable for re-use in another
+          # request.
+          new_opts = opts.select { |k, _| Util::PERSIST_OPTS.include?(k) }
 
-          [response, opts_to_persist]
+          [response, new_opts]
         end
       end
 

@@ -33,8 +33,17 @@ module Stripe
     end
 
     def self.retrieve(id, opts={})
+      # A note here because this is code is subtly complicated: due to some
+      # very bad legacy choices, both `id` and `opts` here can either be a
+      # string _or_ a Hash. To compensate for this, we normalize them as much
+      # as possible by passing them to some specialized utility methods.
+      #
+      # Parameters are always forwarded to the `StripeObject` constructor with
+      # `id` as a string and `opts` as a Hash.
+      id, params = Util.normalize_id(id)
       opts = Util.normalize_opts(opts)
-      instance = self.new(id, opts)
+
+      instance = self.new(id, params.merge(opts))
       instance.refresh
       instance
     end

@@ -10,8 +10,18 @@ module Stripe
     end
 
     def initialize(id=nil, opts={})
-      id, @retrieve_params = Util.normalize_id(id)
-      @opts = Util.normalize_opts(opts)
+      # A note here because this is code is subtly complicated: due to some
+      # very bad legacy choices, both `id` and `opts` here can either be a
+      # string _or_ a Hash. To compensate for this, we normalize them as much
+      # as possible by passing them to some specialized utility methods.
+      #
+      # The result of these operations will leave `id` as a String, `@opts` as
+      # a Hash with only valid request options in it, and `@retrieve_params` as
+      # a Hash will all other miscellaneous keys that were passed in. This
+      # should be keys that are understood by the Stripe API like `expand`.
+      id, params = Util.normalize_id(id)
+      @opts, @retrieve_params = Util.extract_valid_opts(opts.merge(params))
+
       @original_values = {}
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us

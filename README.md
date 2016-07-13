@@ -1,4 +1,4 @@
-# Stripe Ruby Bindings [![Build Status](https://travis-ci.org/stripe/stripe-ruby.png?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
+# Stripe Ruby Bindings [![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
 
 The Stripe Ruby bindings provide a small SDK for convenient access to the
 Stripe API from applications written in the Ruby language. It provides a

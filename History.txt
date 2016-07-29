@@ -1,3 +1,7 @@
+=== 1.49.0 2016-07-28
+
+* Add top-level `Source` model
+
 === 1.48.0 2016-07-12
 
 * Add `ThreeDSecure` model for 3-D secure payments

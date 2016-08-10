@@ -30,12 +30,12 @@ If you want to build the gem from source:
 
     gem build stripe.gemspec
 
-## Requirements
+### Requirements
 
 * Ruby 1.9.3 or above.
 * rest-client
 
-## Bundler
+### Bundler
 
 If you are installing via bundler, you should be sure to use the https rubygems
 source in your Gemfile, as any gems fetched over http could potentially be
@@ -46,6 +46,39 @@ source 'https://rubygems.org'
 
 gem 'rails'
 gem 'stripe'
+```
+
+## Usage
+
+The library needs to be configured with your account's secret key which is
+available in the [Dashboard][dashboard]. Assign its value to `Stripe.api_key`
+and the library will send it along automatically with every request:
+
+``` ruby
+require "stripe"
+Stripe.api_key = "sk_test_..."
+
+Stripe::Charge.retrieve(
+  "ch_18atAXCdGbJFKhCuBAa4532Z",
+)
+```
+
+You can also set a per-request key like in the example below. This is often
+useful for Connect applications that use multiple API keys during the lifetime
+of a process.
+
+Authentication is transparently handled for you in subsequent method calls on
+the returned object.
+
+For example:
+
+``` ruby
+require "stripe"
+
+Stripe::Charge.retrieve(
+  "ch_18atAXCdGbJFKhCuBAa4532Z",
+  :api_key => "sk_test_..."
+)
 ```
 
 ## Development
@@ -87,3 +120,4 @@ Example:
     Stripe.max_network_retries = 2
 
 [curl]: http://curl.haxx.se/docs/caextract.html
+[dashboard]: https://dashboard.stripe.com/account

@@ -58,6 +58,10 @@ and the library will send it along automatically with every request:
 require "stripe"
 Stripe.api_key = "sk_test_..."
 
+# list charges
+Stripe::Charge.list()
+
+# retrieve single charge
 Stripe::Charge.retrieve(
   "ch_18atAXCdGbJFKhCuBAa4532Z",
 )
@@ -74,6 +78,11 @@ For example:
 
 ``` ruby
 require "stripe"
+
+Stripe::Charge.list(
+  {},
+  :api_key => "sk_test_..."
+)
 
 Stripe::Charge.retrieve(
   "ch_18atAXCdGbJFKhCuBAa4532Z",

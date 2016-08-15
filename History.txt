@@ -1,3 +1,7 @@
+=== 1.50.0 2016-08-15
+
+* Allow sources to be created
+
 === 1.49.0 2016-07-28
 
 * Add top-level `Source` model

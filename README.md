@@ -67,9 +67,9 @@ Stripe::Charge.retrieve(
 )
 ```
 
-You can also set a per-request key like in the example below. This is often
-useful for Connect applications that use multiple API keys during the lifetime
-of a process.
+You can also set a per-request key and/or account like in the examples below.
+This is often useful for Connect applications that use multiple API keys during
+the lifetime of a process.
 
 Authentication is transparently handled for you in subsequent method calls on
 the returned object.
@@ -81,12 +81,14 @@ require "stripe"
 
 Stripe::Charge.list(
   {},
-  :api_key => "sk_test_..."
+  :api_key => "sk_test_...",
+  :stripe_account => "acct_..."
 )
 
 Stripe::Charge.retrieve(
   "ch_18atAXCdGbJFKhCuBAa4532Z",
-  :api_key => "sk_test_..."
+  :api_key => "sk_test_...",
+  :stripe_account => "acct_..."
 )
 ```
 

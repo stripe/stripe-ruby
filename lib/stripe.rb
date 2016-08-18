@@ -97,6 +97,7 @@ module Stripe
 
   @ca_bundle_path  = DEFAULT_CA_BUNDLE_PATH
   @ca_store = nil
+  @ciphers = nil
   @verify_ssl_certs = true
 
   @open_timeout = 30
@@ -162,7 +163,8 @@ module Stripe
 
     request_opts.update(:headers => request_headers(api_key, method).update(headers),
                         :method => method, :open_timeout => open_timeout,
-                        :payload => payload, :url => url, :timeout => read_timeout)
+                        :payload => payload, :url => url, :timeout => read_timeout,
+                        :ciphers => ciphers)
 
     response = execute_request_with_rescues(request_opts, api_base_url)
 
@@ -209,6 +211,38 @@ module Stripe
   end
 
   private
+
+  # A "cipher list" to be passed down to OpenSSL. We use defaults mostly, but
+  # explicitly disallow old secure protocols.
+  #
+  #     https://wiki.openssl.org/index.php/Manual:Ciphers(1)#CIPHER_STRINGS
+  def self.ciphers
+    @ciphers ||= begin
+      # This code has been duplicated from rest-client, which is the underlying
+      # library we're using to make HTTP requests. Ruby >= 2.0 is considered to
+      # have a pretty good cipher list, but older versions may have had a weak
+      # default cipher list, and we can't guarantee those aren't out of use
+      # yet. For now, look for one of those weak default lists and if found,
+      # replace it with a good one that's bundled within rest-client.
+      #
+      # All of this can be removed once this library is no longer compatible
+      # with Ruby 1.9.
+      ciphers = OpenSSL::SSL::SSLContext::DEFAULT_PARAMS.fetch(:ciphers)
+      if RestClient::Request::WeakDefaultCiphers.include?(ciphers)
+        ciphers = RestClient::Request::DefaultCiphers
+      end
+
+      # We mutate the default list a bit so that we can disallow old versions
+      # of TLS. We (the payments space) is a little ahead of the curve here in
+      # that even though TLS 1.0/1.1 haven't been retired yet, we want to make
+      # sure we deprecate them by June 2018 for reasons of PCI compliance.
+      ciphers = ciphers.split(":")
+      ciphers = ["!SSLv2", "!SSLv3", "!TLSv1"]
+      ciphers = ciphers.join(":")
+
+      ciphers
+    end
+  end
 
   def self.execute_request_with_rescues(request_opts, api_base_url, retry_count = 0)
     begin

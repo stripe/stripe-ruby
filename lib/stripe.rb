@@ -236,11 +236,9 @@ module Stripe
       # of TLS. We (the payments space) is a little ahead of the curve here in
       # that even though TLS 1.0/1.1 haven't been retired yet, we want to make
       # sure we deprecate them by June 2018 for reasons of PCI compliance.
-      ciphers = ciphers.split(":")
-      ciphers = ["!SSLv2", "!SSLv3", "!TLSv1"]
-      ciphers = ciphers.join(":")
-
-      ciphers
+      ciphers_list = ciphers.split(":")
+      ciphers_list += ["!SSLv2", "!SSLv3", "!TLSv1"]
+      ciphers_list.join(":")
     end
   end
 

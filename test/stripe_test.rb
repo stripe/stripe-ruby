@@ -48,4 +48,17 @@ class StripeTest < Test::Unit::TestCase
 
     Stripe.request(:post, '/v1/account', 'sk_live12334566')
   end
+
+  context ".ciphers" do
+    should "produce a cipher list disallowing TLS 1.2" do
+      assert_includes Stripe.ciphers.split(":"), "!TLSv1"
+    end
+
+    should "produce a cipher list with sane length do" do
+      # The list should be longer than the elements that we've added. This is
+      # here to protect against a bug that I almost introduced one whereby I
+      # set a new array instead of appending to the existing one.
+      assert(Stripe.ciphers.split(":").count > 3)
+    end
+  end
 end

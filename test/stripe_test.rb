@@ -50,7 +50,7 @@ class StripeTest < Test::Unit::TestCase
   end
 
   context ".ciphers" do
-    should "produce a cipher list disallowing TLS 1.2" do
+    should "produce a cipher list disallowing TLS 1.0" do
       assert_includes Stripe.ciphers.split(":"), "!TLSv1"
     end
 

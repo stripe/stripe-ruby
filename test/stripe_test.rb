@@ -54,7 +54,7 @@ class StripeTest < Test::Unit::TestCase
       assert_includes Stripe.ciphers.split(":"), "!TLSv1"
     end
 
-    should "produce a cipher list with sane length do" do
+    should "produce a cipher list with sane length" do
       # The list should be longer than the elements that we've added. This is
       # here to protect against a bug that I almost introduced one whereby I
       # set a new array instead of appending to the existing one.

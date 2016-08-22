@@ -219,11 +219,11 @@ module Stripe
   def self.ciphers
     @ciphers ||= begin
       # This code has been duplicated from rest-client, which is the underlying
-      # library we're using to make HTTP requests. Ruby >= 2.0 is considered to
-      # have a pretty good cipher list, but older versions may have had a weak
-      # default cipher list, and we can't guarantee those aren't out of use
-      # yet. For now, look for one of those weak default lists and if found,
-      # replace it with a good one that's bundled within rest-client.
+      # library we're using to make HTTP requests. Ruby >= 2.1.4 is considered
+      # to have a pretty good cipher list, but older versions may have had a
+      # weak default cipher list, and we can't guarantee those aren't out of
+      # use yet. For now, look for one of those weak default lists and if
+      # found, replace it with a good one that's bundled within rest-client.
       #
       # All of this can be removed once this library is no longer compatible
       # with Ruby 1.9.

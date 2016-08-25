@@ -36,8 +36,8 @@ module Stripe
         [:d, { :a => "a", :b => "b" }],
         [:e, [0, 1]],
         [:f, [
-          { :bar => "1", :foo => "2" },
-          { :baz => "3", :foo => "4" },
+          { :foo => "1", :ghi => "2" },
+          { :foo => "3", :bar => "4" },
         ]],
       ]
       assert_equal([
@@ -52,10 +52,10 @@ module Stripe
         # *The key here is the order*. In order to be properly interpreted as
         # an array of hashes on the server, everything from a single hash must
         # come in at once. A duplicate key in an array triggers a new element.
-        ["f[][bar]", "1"],
-        ["f[][foo]", "2"],
-        ["f[][baz]", "3"],
-        ["f[][foo]", "4"],
+        ["f[][foo]", "1"],
+        ["f[][ghi]", "2"],
+        ["f[][foo]", "3"],
+        ["f[][bar]", "4"],
       ], Stripe::Util.flatten_params(params))
     end
 

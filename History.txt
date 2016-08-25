@@ -1,3 +1,7 @@
+=== 1.50.1 2016-08-25
+
+* Fix encoding of arrays of maps where maps unequal sets of keys
+
 === 1.50.0 2016-08-15
 
 * Allow sources to be created

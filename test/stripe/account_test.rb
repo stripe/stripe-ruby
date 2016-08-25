@@ -105,7 +105,7 @@ module Stripe
       }
       @mock.expects(:post).
         once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob').
+        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2+Three+Four').
         returns(make_response(resp))
 
       a = Stripe::Account.update('acct_foo', :legal_entity => {

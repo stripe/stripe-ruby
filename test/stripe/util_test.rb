@@ -20,6 +20,21 @@ module Stripe
       )
     end
 
+    should "#encode_params should throw an error an on array of maps that cannot be encoded" do
+      params = {
+        :a => [
+          { :a => 1, :b => 2 },
+          { :c => 3, :a => 4 },
+        ]
+      }
+      e = assert_raises(ArgumentError) do
+        Stripe::Util.encode_parameters(params)
+      end
+      expected = "All maps nested in an array should start with the same key " +
+        "(expected starting key 'a', got 'c')"
+      assert_equal expected, e.message
+    end
+
     should "#url_encode should prepare strings for HTTP" do
       assert_equal "foo",      Stripe::Util.url_encode("foo")
       assert_equal "foo",      Stripe::Util.url_encode(:foo)

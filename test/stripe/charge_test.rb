@@ -138,7 +138,7 @@ module Stripe
         :amount => 100,
         :source => 'btcrcv_test_receiver',
         :currency => "usd",
-        :level3 => [{:red => 'firstred'}, {:one => 'fish', :red => 'another'}]
+        :level3 => [{:red => 'firstred'}, {:red => 'another', :one => 'fish'}]
       })
       assert c.paid
     end

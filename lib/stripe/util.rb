@@ -140,6 +140,7 @@ module Stripe
         if value.is_a?(Hash)
           result += flatten_params(value, calculated_key)
         elsif value.is_a?(Array)
+          check_array_of_maps_start_keys!(value)
           result += flatten_params_array(value, calculated_key)
         else
           result << [calculated_key, value]
@@ -195,6 +196,45 @@ module Stripe
     def self.check_api_key!(key)
       raise TypeError.new("api_key must be a string") unless key.is_a?(String)
       key
+    end
+
+    private
+
+    # We use a pretty janky version of form encoding (Rack's) that supports
+    # more complex data structures like maps and arrays through the use of
+    # specialized syntax. To encode an array of maps like:
+    #
+    #     [{a: 1, b: 2}, {a: 3, b: 4}]
+    #
+    # We have to produce something that looks like this:
+    #
+    #     arr[][a]=1&arr[][b]=2&arr[][a]=3&arr[][b]=4
+    #
+    # The only way for the server to recognize that this is a two item array is
+    # that it notices the repetition of element "a", so it's key that these
+    # repeated elements are encoded first.
+    #
+    # This method is invoked for any arrays being encoded and checks that if
+    # the array contains all non-empty maps, that each of those maps must start
+    # with the same key so that their boundaries can be properly encoded.
+    def self.check_array_of_maps_start_keys!(arr)
+      expected_key = nil
+      arr.each do |item|
+        return if !item.is_a?(Hash)
+        return if item.count == 0
+
+        first_key = item.first[0]
+
+        if expected_key
+          if expected_key != first_key
+            raise ArgumentError,
+              "All maps nested in an array should start with the same key " +
+              "(expected starting key '#{expected_key}', got '#{first_key}')"
+          end
+        else
+          expected_key = first_key
+        end
+      end
     end
   end
 end

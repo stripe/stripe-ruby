@@ -1,3 +1,8 @@
+=== 1.51.0 2016-08-26
+
+* Error when an array of maps is detected that cannot be accurately encoded
+* Start using strings for header names instead of symbols for better clarity
+
 === 1.50.1 2016-08-25
 
 * Fix encoding of arrays of maps where maps unequal sets of keys

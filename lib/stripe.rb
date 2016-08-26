@@ -303,24 +303,24 @@ module Stripe
 
   def self.request_headers(api_key, method)
     headers = {
-      :user_agent => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
-      :authorization => "Bearer #{api_key}",
-      :content_type => 'application/x-www-form-urlencoded'
+      'User-Agent' => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
+      'Authorization' => "Bearer #{api_key}",
+      'Content-Type' => 'application/x-www-form-urlencoded'
     }
 
     # It is only safe to retry network failures on post and delete
     # requests if we add an Idempotency-Key header
     if [:post, :delete].include?(method) && self.max_network_retries > 0
-      headers[:idempotency_key] ||= SecureRandom.uuid
+      headers['Idempotency-Key'] ||= SecureRandom.uuid
     end
 
-    headers[:stripe_version] = api_version if api_version
-    headers[:stripe_account] = stripe_account if stripe_account
+    headers['Stripe-Version'] = api_version if api_version
+    headers['Stripe-Account'] = stripe_account if stripe_account
 
     begin
-      headers.update(:x_stripe_client_user_agent => JSON.generate(user_agent))
+      headers.update('X-Stripe-Client-User-Agent' => JSON.generate(user_agent))
     rescue => e
-      headers.update(:x_stripe_client_raw_user_agent => user_agent.inspect,
+      headers.update('X-Stripe-Client-Raw-User-Agent' => user_agent.inspect,
                      :error => "#{e} (#{e.class})")
     end
   end

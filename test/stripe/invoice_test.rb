@@ -38,7 +38,7 @@ module Stripe
       Stripe.expects(:execute_request).with do |opts|
         opts[:url] == "#{Stripe.api_base}/v1/invoices/in_test_invoice/pay" &&
           opts[:method] == :post &&
-          opts[:headers][:authorization] == 'Bearer foobar'
+          opts[:headers]['Authorization'] == 'Bearer foobar'
       end.returns(make_response(make_paid_invoice))
 
       i.pay

@@ -174,7 +174,7 @@ module Stripe
       context "with no global API key set" do
         should "use the per-object credential when creating" do
           Stripe.expects(:execute_request).with do |opts|
-            opts[:headers][:authorization] == 'Bearer sk_test_local'
+            opts[:headers]['Authorization'] == 'Bearer sk_test_local'
           end.returns(make_response(make_charge))
 
           Stripe::Charge.create({:card => {:number => '4242424242424242'}},
@@ -193,7 +193,7 @@ module Stripe
 
         should "use the per-object credential when creating" do
           Stripe.expects(:execute_request).with do |opts|
-            opts[:headers][:authorization] == 'Bearer local'
+            opts[:headers]['Authorization'] == 'Bearer local'
           end.returns(make_response(make_charge))
 
           Stripe::Charge.create({:card => {:number => '4242424242424242'}},
@@ -203,11 +203,11 @@ module Stripe
         should "use the per-object credential when retrieving and making other calls" do
           Stripe.expects(:execute_request).with do |opts|
             opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge" &&
-              opts[:headers][:authorization] == 'Bearer local'
+              opts[:headers]['Authorization'] == 'Bearer local'
           end.returns(make_response(make_charge))
           Stripe.expects(:execute_request).with do |opts|
             opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge/refunds" &&
-              opts[:headers][:authorization] == 'Bearer local'
+              opts[:headers]['Authorization'] == 'Bearer local'
           end.returns(make_response(make_refund))
 
           ch = Stripe::Charge.retrieve('ch_test_charge', 'local')
@@ -405,7 +405,7 @@ module Stripe
 
       should "updating should use the supplied api_key" do
         Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:authorization] == 'Bearer sk_test_local'
+          opts[:headers]['Authorization'] == 'Bearer sk_test_local'
         end.returns(make_response(make_customer))
         c = Stripe::Customer.new
         c.save({}, { :api_key => 'sk_test_local' })
@@ -725,7 +725,7 @@ module Stripe
       should 'ensure there is always an idempotency_key on POST requests' do
         SecureRandom.expects(:uuid).at_least_once.returns("random_key")
         Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == "random_key"
+          opts[:headers]['Idempotency-Key'] == "random_key"
         end.returns(make_response({"id" => "myid"}))
 
         Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
@@ -734,7 +734,7 @@ module Stripe
       should 'ensure there is always an idempotency_key on DELETE requests' do
         SecureRandom.expects(:uuid).at_least_once.returns("random_key")
         Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == "random_key"
+          opts[:headers]['Idempotency-Key'] == "random_key"
         end.returns(make_response({"id" => "myid"}))
 
         c = Stripe::Customer.construct_from(make_customer)
@@ -742,6 +742,12 @@ module Stripe
       end
 
       should 'not override a provided idempotency_key' do
+        # Note that this expectation looks like `:idempotency_key` instead of
+        # the header `Idempotency-Key` because it's user provided as seen
+        # below. The ones injected by the library itself look like headers
+        # (`Idempotency-Key`), but rest-client does allow this symbol
+        # formatting and will properly override the system generated one as
+        # expected.
         Stripe.expects(:execute_request).with do |opts|
           opts[:headers][:idempotency_key] == "provided_key"
         end.returns(make_response({"id" => "myid"}))

@@ -33,6 +33,19 @@ module Stripe
       expected = "All maps nested in an array should start with the same key " +
         "(expected starting key 'a', got 'c')"
       assert_equal expected, e.message
+
+      # Make sure the check is recursive by taking our original params and
+      # nesting it into yet another map and array. Should throw exactly the
+      # same error because it's still the in inner array of maps that's wrong.
+      params = {
+        :x => [
+          params
+        ]
+      }
+      e = assert_raises(ArgumentError) do
+        Stripe::Util.encode_parameters(params)
+      end
+      assert_equal expected, e.message
     end
 
     should "#url_encode should prepare strings for HTTP" do

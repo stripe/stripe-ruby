@@ -20,7 +20,7 @@ module Stripe
       )
     end
 
-    should "#encode_params should throw an error an on array of maps that cannot be encoded" do
+    should "#encode_params should throw an error on an array of maps that cannot be encoded" do
       params = {
         :a => [
           { :a => 1, :b => 2 },

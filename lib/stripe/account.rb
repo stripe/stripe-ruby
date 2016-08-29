@@ -110,6 +110,22 @@ module Stripe
 
     ARGUMENT_NOT_PROVIDED = Object.new
 
+    # Set or replace an account's bank account.
+    #
+    # This method is deprecated. Please use #external_account instead.
+    def bank_account=(value)
+      super
+      value = self.bank_account
+
+      if value.is_a?(APIResource)
+        value.save_with_parent = true
+      end
+
+      value
+    end
+    extend Gem::Deprecate
+    deprecate :bank_account=, "#external_account=", 2017, 8
+
     private
 
     def serialize_additional_owners(legal_entity, additional_owners)

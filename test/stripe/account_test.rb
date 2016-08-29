@@ -290,18 +290,62 @@ module Stripe
       assert_equal(expected, obj.serialize_params)
     end
 
-    should "can have a token source set" do
-      a = Stripe::Account.new("test_account")
-      a.external_account = "tok_123"
-      assert_equal "tok_123", a.external_account
+    context "#external_source=" do
+      should "can have a token source set" do
+        a = Stripe::Account.new("test_account")
+        a.external_account = "tok_123"
+        assert_equal "tok_123", a.external_account
+      end
+
+      should "set a flag if given an object source" do
+        a = Stripe::Account.new("test_account")
+        a.external_account = {
+          :object => 'card'
+        }
+        assert_equal true, a.external_account.save_with_parent
+      end
     end
 
-    should "set a flag if given an object source" do
-      a = Stripe::Account.new("test_account")
-      a.external_account = {
-        :object => 'card'
-      }
-      assert_equal true, a.external_account.save_with_parent
+    context "#bank_account=" do
+      should "can have a token source set" do
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        begin
+          a = Stripe::Account.new("test_account")
+          a.bank_account = "tok_123"
+          assert_equal "tok_123", a.bank_account
+        ensure
+          $stderr = old_stderr
+        end
+      end
+
+      should "set a flag if given an object source" do
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        begin
+          a = Stripe::Account.new("test_account")
+          a.bank_account = {
+            :object => 'bank_account'
+          }
+          assert_equal true, a.bank_account.save_with_parent
+        ensure
+          $stderr = old_stderr
+        end
+      end
+
+      should "warn that #bank_account= is deprecated" do
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        begin
+          a = Stripe::Account.new("test_account")
+          a.bank_account = "tok_123"
+          message = "NOTE: Stripe::Account#bank_account= is " +
+            "deprecated; use #external_account= instead"
+          assert_match Regexp.new(message), $stderr.string
+        ensure
+          $stderr = old_stderr
+        end
+      end
     end
   end
 end

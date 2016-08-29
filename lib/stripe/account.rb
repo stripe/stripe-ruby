@@ -28,6 +28,23 @@ module Stripe
       super(id, opts)
     end
 
+    # Set or replace an account's external account.
+    def external_account=(value)
+      super
+
+      # The parent setter will perform certain useful operations like
+      # converting to an APIResource if appropriate.
+      value = self.external_account
+
+      # Note that external_account may be a card, but could also be a tokenized
+      # card's ID (which is a string), and so we check its type here.
+      if value.is_a?(APIResource)
+        value.save_with_parent = true
+      end
+
+      value
+    end
+
     def reject(params={}, opts={})
       opts = Util.normalize_opts(opts)
       response, opts = request(:post, resource_url + '/reject', params, opts)

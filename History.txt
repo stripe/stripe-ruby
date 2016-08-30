@@ -1,3 +1,7 @@
+=== 1.52.0 2016-08-30
+
+* Make sure `Subscription`'s `source` is saved with its parent
+
 === 1.51.1 2016-08-30
 
 * Make sure `Account`'s `external_account` is saved with its parent

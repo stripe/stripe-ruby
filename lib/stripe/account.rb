@@ -5,6 +5,12 @@ module Stripe
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
 
+    save_nested_resource :external_account
+
+    save_nested_resource :bank_account
+    extend Gem::Deprecate
+    deprecate :bank_account=, "#external_account=", 2017, 8
+
     def resource_url
       if self['id']
         super
@@ -26,23 +32,6 @@ module Stripe
         id = nil
       end
       super(id, opts)
-    end
-
-    # Set or replace an account's external account.
-    def external_account=(value)
-      super
-
-      # The parent setter will perform certain useful operations like
-      # converting to an APIResource if appropriate.
-      value = self.external_account
-
-      # Note that external_account may be a card, but could also be a tokenized
-      # card's ID (which is a string), and so we check its type here.
-      if value.is_a?(APIResource)
-        value.save_with_parent = true
-      end
-
-      value
     end
 
     def reject(params={}, opts={})
@@ -109,22 +98,6 @@ module Stripe
     end
 
     ARGUMENT_NOT_PROVIDED = Object.new
-
-    # Set or replace an account's bank account.
-    #
-    # This method is deprecated. Please use #external_account instead.
-    def bank_account=(value)
-      super
-      value = self.bank_account
-
-      if value.is_a?(APIResource)
-        value.save_with_parent = true
-      end
-
-      value
-    end
-    extend Gem::Deprecate
-    deprecate :bank_account=, "#external_account=", 2017, 8
 
     private
 

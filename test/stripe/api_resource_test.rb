@@ -3,6 +3,26 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ApiResourceTest < Test::Unit::TestCase
+    class NestedTestAPIResource < Stripe::APIResource
+      save_nested_resource :external_account
+    end
+
+    context ".save_nested_resource" do
+      should "can have a scalar set" do
+        r = NestedTestAPIResource.new("test_resource")
+        r.external_account = "tok_123"
+        assert_equal "tok_123", r.external_account
+      end
+
+      should "set a flag if given an object source" do
+        r = NestedTestAPIResource.new("test_resource")
+        r.external_account = {
+          :object => 'card'
+        }
+        assert_equal true, r.external_account.save_with_parent
+      end
+    end
+
     should "creating a new APIResource should not fetch over the network" do
       @mock.expects(:get).never
       Stripe::Customer.new("someid")

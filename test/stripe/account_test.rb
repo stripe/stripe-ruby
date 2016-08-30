@@ -290,7 +290,7 @@ module Stripe
       assert_equal(expected, obj.serialize_params)
     end
 
-    context "#external_source=" do
+    context "#external_account=" do
       should "can have a token source set" do
         a = Stripe::Account.new("test_account")
         a.external_account = "tok_123"

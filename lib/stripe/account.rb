@@ -1,5 +1,6 @@
 module Stripe
   class Account < APIResource
+    extend Gem::Deprecate
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Delete
@@ -7,8 +8,8 @@ module Stripe
 
     save_nested_resource :external_account
 
+    # This method is deprecated. Please use `#external_account=` instead.
     save_nested_resource :bank_account
-    extend Gem::Deprecate
     deprecate :bank_account=, "#external_account=", 2017, 8
 
     def resource_url

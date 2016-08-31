@@ -13,7 +13,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'https://stripe.com/docs/api/ruby'
   s.license = 'MIT'
 
-  s.add_dependency('rest-client', '>= 1.4', '< 3.0')
+  s.add_dependency('rest-client', '>= 1.4', '< 4.0')
 
   s.files = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")

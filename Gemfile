@@ -17,8 +17,10 @@ group :development do
   #
   #     https://github.com/travis-ci/travis-ci/issues/5145
   #
-  gem 'mime-types', '2.6.2'
-  gem 'rest-client', '1.8.0'
+  if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0.0')
+    gem 'mime-types', '2.6.2'
+    gem 'rest-client', '1.8.0'
+  end
 
   platforms :mri do
     # to avoid problems, bring Byebug in on just versions of Ruby under which

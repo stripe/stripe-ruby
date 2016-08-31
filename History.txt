@@ -1,3 +1,7 @@
+=== 1.53.0 2016-08-31
+
+* Relax version constraint on rest-client (and by extension mime-types) for users on Ruby 2+
+
 === 1.52.0 2016-08-30
 
 * Make sure `Subscription`'s `source` is saved with its parent

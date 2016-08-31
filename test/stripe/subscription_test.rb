@@ -7,7 +7,7 @@ module Stripe
       customer = Stripe::Customer.retrieve('c_test_customer')
 
       @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions/s_test_subscription", nil, nil).returns(make_response(make_subscription(:id => 's_test_subscription')))
-      subscription = customer.subscriptions.retrieve('s_test_subscription')
+      _ = customer.subscriptions.retrieve('s_test_subscription')
     end
 
     should "subscriptions should be listable by customer" do
@@ -17,7 +17,7 @@ module Stripe
       @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions", nil, nil).returns(make_response(make_customer_subscription_array('c_test_customer')))
       subs = customer.subscriptions.all()
 
-      assert subs.kind_of? (Stripe::ListObject)
+      assert subs.kind_of?(Stripe::ListObject)
       assert subs.data.kind_of?(Array)
       assert subs.data[0].kind_of? Stripe::Subscription
     end
@@ -51,7 +51,7 @@ module Stripe
       @mock.expects(:get).once.with("#{Stripe.api_base}/v1/subscriptions?customer=c_test_customer&limit=3&plan=gold", nil, nil).returns(make_response(make_subscription_array))
       subs = Stripe::Subscription.all(:customer => 'c_test_customer', :limit => 3, :plan => 'gold')
 
-      assert subs.kind_of? (Stripe::ListObject)
+      assert subs.kind_of?(Stripe::ListObject)
       assert subs.data.kind_of?(Array)
       assert subs.data[0].kind_of? Stripe::Subscription
     end

@@ -723,7 +723,6 @@ module Stripe
       should 'retry failed network requests if specified and return successful response' do
         Stripe.expects(:sleep_time).at_least_once.returns(0)
         response = make_response({"id" => "myid"})
-        err = Errno::ECONNREFUSED.new
         @mock.expects(:post).times(2).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').
           raises(Errno::ECONNREFUSED.new).
           then.

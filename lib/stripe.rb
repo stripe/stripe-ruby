@@ -70,10 +70,22 @@ require 'stripe/errors/rate_limit_error'
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
 
-  # HTTP status exceptions which we'd like to retry. Most HTTP status
-  # exceptions are from a Stripe API server response, so we generally _don't_
-  # retry because doing so would have the same result as the original request.
-  RETRY_HTTP_EXCEPTIONS = [
+  # Exceptions which we'd like to retry. This includes both socket errors that
+  # may represent an intermittent problem and some special HTTP statuses.
+  RETRY_EXCEPTIONS = [
+    # Destination refused the connection. This could occur from a single
+    # saturated server, so retry in case it's intermittent.
+    Errno::ECONNREFUSED,
+
+    # Connection reset. This occasionally occurs on a server problem, and
+    # deserves a retry because the server should terminate all requests
+    # properly even if they were invalid.
+    Errno::ECONNRESET,
+
+    # Timed out making the connection. It's worth retrying under this
+    # circumstance.
+    Errno::ETIMEDOUT,
+
     # A server may respond with a 409 to indicate that there is a concurrent
     # request executing with the same idempotency key. In the case that a
     # request failed due to a connection problem and the client has retried too
@@ -442,18 +454,8 @@ module Stripe
   end
 
   def self.should_retry?(e, retry_count)
-    return false if retry_count >= self.max_network_retries
-
-    # Certificate validation problem: do not retry.
-    return false if e.is_a?(RestClient::SSLCertificateNotVerified)
-
-    # Generally don't retry when we got a successful response back from the
-    # Stripe API server, but with some exceptions (for more details, see notes
-    # on RETRY_HTTP_EXCEPTIONS).
-    return false if e.is_a?(RestClient::ExceptionWithResponse) &&
-      !RETRY_HTTP_EXCEPTIONS.any? { |klass| e.is_a?(klass) }
-
-    return true
+    retry_count < self.max_network_retries &&
+      RETRY_EXCEPTIONS.any? { |klass| e.is_a?(klass) }
   end
 
   def self.sleep_time(retry_count)

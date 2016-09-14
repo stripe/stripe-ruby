@@ -42,6 +42,7 @@ module Stripe
         'recipient' => Recipient,
         'refund' => Refund,
         'subscription' => Subscription,
+        'subscription_item' => SubscriptionItem,
         'file_upload' => FileUpload,
         'token' => Token,
         'transfer' => Transfer,
@@ -235,6 +236,17 @@ module Stripe
           expected_key = first_key
         end
       end
+    end
+
+    # Takes an array and returns a hash with integer keys
+    # Input [{:a => 0}, {:b => 1}]
+    # Output {0 => {:a => 0}, 1 => {:b => 1}}
+    def self.serialize_indexed_array(array)
+      hash = {}
+      array.each_with_index do |v, i|
+        hash[i] = v
+      end
+      hash
     end
   end
 end

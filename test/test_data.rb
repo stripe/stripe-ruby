@@ -277,6 +277,24 @@ module Stripe
       }.merge(params)
     end
 
+    def make_subscription_item(params = {})
+      plan = params.delete(:plan) || 'gold'
+      {
+        :id => "si_test_subscription_item",
+        :object => "subscription_item",
+        :created => 1473875521,
+        :plan => {
+          :id => plan,
+          :object => "plan",
+          :amount => 1000,
+          :created => 1468349629,
+          :currency => "usd",
+          :interval => "month",
+        },
+        :quantity => 1
+      }.merge(params)
+    end
+
     def make_refund(params = {})
       {
         :object => 'refund',
@@ -294,6 +312,14 @@ module Stripe
         :data => [make_subscription, make_subscription, make_subscription],
         :object => 'list',
         :resource_url => '/v1/subscriptions'
+      }
+    end
+
+    def make_subscription_item_array
+      {
+        :data => [make_subscription_item, make_subscription_item, make_subscription_item],
+        :object => 'list',
+        :resource_url => '/v1/subscription_items'
       }
     end
 

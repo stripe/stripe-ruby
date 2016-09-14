@@ -5,6 +5,10 @@ module Stripe
     extend Stripe::APIOperations::Create
 
     def self.upcoming(params, opts={})
+      if params[:subscription_items].respond_to?(:each)
+        params[:subscription_items] = Util.serialize_indexed_array(params[:subscription_items])
+      end
+
       response, opts = request(:get, upcoming_url, params, opts)
       Util.convert_to_stripe_object(response, opts)
     end

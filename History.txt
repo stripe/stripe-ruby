@@ -1,3 +1,7 @@
+=== 1.55.0 2016-09-15
+
+* Add support for Apple Pay domains
+
 === 1.54.0 2016-09-01
 
 * Whitelist errors that should be retried; scope to known socket and HTTP errors

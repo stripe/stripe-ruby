@@ -54,6 +54,7 @@ module Stripe
         'order' => Order,
         'order_return' => OrderReturn,
         'three_d_secure' => ThreeDSecure,
+        'apple_pay_domain' => ApplePay::Domain,
       }
     end
 

@@ -57,6 +57,7 @@ require 'stripe/order_return'
 require 'stripe/alipay_account'
 require 'stripe/three_d_secure'
 require 'stripe/source'
+require 'stripe/apple_pay_domain'
 
 # Errors
 require 'stripe/errors/stripe_error'

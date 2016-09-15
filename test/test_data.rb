@@ -848,5 +848,26 @@ module Stripe
         :status => 'succeeded',
       }.merge(params)
     end
+
+    def make_apple_pay_domain(params={})
+      {
+        :id => "apwc_test_domain",
+        :object => "apple_pay_domain",
+        :domain_name => "test.com",
+        :livemode => false
+      }.merge(params)
+    end
+
+    def make_apple_pay_domain_array
+      {
+        :object => "list",
+        :resource_url => "/v1/apple_pay/domains",
+        :data => [
+          make_apple_pay_domain,
+          make_apple_pay_domain,
+          make_apple_pay_domain
+        ]
+      }
+    end
   end
 end

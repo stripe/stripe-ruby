@@ -7,11 +7,11 @@ module Stripe
         @mock.expects(:post).once
              .with('https://api.stripe.com/v1/apple_pay/domains', nil, '')
              .returns(make_response(make_apple_pay_domain))
-        c = Stripe::ApplePay::Domain.create
-        assert_equal "apwc_test_domain", c.id
+        d = Stripe::ApplePay::Domain.create
+        assert_equal "apwc_test_domain", d.id
       end
 
-      should "customer cards should be deletable" do
+      should "domains should be deletable" do
         @mock.expects(:get).once
              .with('https://api.stripe.com/v1/apple_pay/domains/apwc_test_domain', nil, nil)
              .returns(make_response(make_apple_pay_domain))

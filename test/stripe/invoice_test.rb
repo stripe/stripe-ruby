@@ -48,8 +48,8 @@ module Stripe
     should "be able to retrieve upcoming invoices" do
       base = "#{Stripe.api_base}/v1/invoices/upcoming?"
       cus_sub = "customer=c_test_customer&subscription=s_test_subscription&"
-      item0 = "subscription_items[0][plan]=gold&subscription_items[0][quantity]=1&"
-      item1 = "subscription_items[1][plan]=silver&subscription_items[1][quantity]=2"
+      item0 = "subscription_items[][plan]=gold&subscription_items[][quantity]=1&"
+      item1 = "subscription_items[][plan]=silver&subscription_items[][quantity]=2"
       @mock.expects(:get).once.with(base + cus_sub + item0 + item1, nil, nil).
         returns(make_response(make_invoice(:customer => 'c_test_customer', :subscription => 's_test_subscription')))
 

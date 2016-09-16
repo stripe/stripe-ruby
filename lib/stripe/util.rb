@@ -237,16 +237,5 @@ module Stripe
         end
       end
     end
-
-    # Takes an array and returns a hash with integer keys
-    # Input [{:a => 0}, {:b => 1}]
-    # Output {0 => {:a => 0}, 1 => {:b => 1}}
-    def self.serialize_indexed_array(array)
-      hash = {}
-      array.each_with_index do |v, i|
-        hash[i] = v
-      end
-      hash
-    end
   end
 end

@@ -42,6 +42,7 @@ module Stripe
         'recipient' => Recipient,
         'refund' => Refund,
         'subscription' => Subscription,
+        'subscription_item' => SubscriptionItem,
         'file_upload' => FileUpload,
         'token' => Token,
         'transfer' => Transfer,

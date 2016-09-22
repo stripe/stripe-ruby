@@ -87,6 +87,27 @@ module Stripe
       assert_equal 'active', sub.status
     end
 
+    should "subscription items should be updateable" do
+      sid = 's_test_subscription'
+      items = {:data => [{:plan => {:id =>'gold'}, :quantity => 1}, {:plan => {:id =>'silver'}, :quantity => 2}]}
+
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/subscriptions/#{sid}" &&
+          api_key.nil? &&
+          CGI.parse(params) == {
+            'items[][plan]'=>['gold', 'silver'],
+            'items[][quantity]'=>['1', '2'],
+          }
+      end.returns(make_response(make_subscription(:items => items)))
+
+      sub = Stripe::Subscription.update(sid, :items => [{:plan => 'gold', :quantity =>1}, {:plan => 'silver', :quantity =>2}])
+
+      assert_equal 'gold', sub.items.data[0].plan.id
+      assert_equal 1, sub.items.data[0].quantity
+      assert_equal 'silver', sub.items.data[1].plan.id
+      assert_equal 2, sub.items.data[1].quantity
+    end
+
     should "subscriptions should be saveable" do
       @mock.expects(:get).once.returns(make_response(make_subscription))
       sub = Stripe::Subscription.retrieve('s_test_subscription')
@@ -111,6 +132,28 @@ module Stripe
 
       assert_equal 'test_new_subscription', sub.id
       assert_equal 'gold', sub.plan.identifier
+    end
+
+    should "create with items should return a new subscription" do
+      items = {:data => [{:plan => {:id =>'gold'}, :quantity => 1}, {:plan => {:id =>'silver'}, :quantity => 2}]}
+
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/subscriptions" &&
+          api_key.nil? &&
+          CGI.parse(params) == {
+            'customer' => ['c_test_customer'],
+            'items[][plan]'=>['gold', 'silver'],
+            'items[][quantity]'=>['1', '2'],
+          }
+      end.returns(make_response(make_subscription(:items => items, :id => 'test_new_subscription')))
+
+      sub = Stripe::Subscription.create(:customer => 'c_test_customer', :items => [{:plan => 'gold', :quantity =>1}, {:plan => 'silver', :quantity =>2}])
+
+      assert_equal 'test_new_subscription', sub.id
+      assert_equal 'gold', sub.items.data[0].plan.id
+      assert_equal 1, sub.items.data[0].quantity
+      assert_equal 'silver', sub.items.data[1].plan.id
+      assert_equal 2, sub.items.data[1].quantity
     end
 
     should "be able to delete a subscriptions's discount" do

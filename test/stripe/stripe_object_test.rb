@@ -105,7 +105,7 @@ module Stripe
     end
 
     should "pass opts down to children when initializing" do
-      opts = { :custom => "opts" }
+      opts = { :api_key => "sk_test_xxx" }
 
       # customer comes with a `sources` list that makes a convenient object to
       # perform tests on

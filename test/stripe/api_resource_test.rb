@@ -104,6 +104,14 @@ module Stripe
       Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => [:customer]})
     end
 
+    should "send expand on fetch properly with more modern usage" do
+      @mock.expects(:get).once.
+        with("#{Stripe.api_base}/v1/charges/ch_test_charge?expand[]=customer", nil, nil).
+        returns(make_response(make_charge))
+
+      Stripe::Charge.retrieve('ch_test_charge', :api_key => "sk_test_xxx", :expand => [:customer])
+    end
+
     should "preserve expand across refreshes" do
       @mock.expects(:get).twice.
         with("#{Stripe.api_base}/v1/charges/ch_test_charge?expand[]=customer", nil, nil).

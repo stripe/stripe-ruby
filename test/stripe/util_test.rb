@@ -112,8 +112,8 @@ module Stripe
     end
 
     should "#normalize_opts should reject nil keys" do
-      assert_raise { Stripe::Util.normalize_opts(nil) }
-      assert_raise { Stripe::Util.normalize_opts(:api_key => nil) }
+      assert_raise(TypeError) { Stripe::Util.normalize_opts(nil) }
+      assert_raise(TypeError) { Stripe::Util.normalize_opts(:api_key => nil) }
     end
 
     should "#convert_to_stripe_object should pass through unknown types" do
@@ -140,6 +140,33 @@ module Stripe
     should "#convert_to_stripe_object should marshal arrays" do
       obj = Util.convert_to_stripe_object([1, 2, 3], {})
       assert_equal [1, 2, 3], obj
+    end
+
+    context ".extract_valid_opts" do
+      should "extract valid opts" do
+        opts, other = Util.extract_valid_opts({
+          :api_key => "sk_test_xxx",
+          :idempotency_key => "uuid",
+          :foo => "bar"
+        })
+        assert_equal({
+          :api_key => "sk_test_xxx",
+          :idempotency_key => "uuid"
+        }, opts)
+        assert_equal({ :foo => "bar" }, other)
+      end
+
+      should "handle no valid opts" do
+        opts, other = Util.extract_valid_opts({ :foo => "bar" })
+        assert_equal({}, opts)
+        assert_equal({ :foo => "bar" }, other)
+      end
+
+      should "handle all valid opts" do
+        opts, other = Util.extract_valid_opts({ :api_key => "sk_test_xxx" })
+        assert_equal({ :api_key => "sk_test_xxx" }, opts)
+        assert_equal({}, other)
+      end
     end
   end
 end

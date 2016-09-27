@@ -122,12 +122,17 @@ module Stripe
     end
 
     # Transforms an array into a hash with integer keys. Used for a small
-    # number of API endpoints.
-    # [{foo: 'bar'}] => {"0" => {foo: "bar"}}
+    # number of API endpoints. If the argument is not an Array, return it
+    # unchanged. Example: [{foo: 'bar'}] => {"0" => {foo: "bar"}}
     def self.array_to_hash(array)
-      hash = {}
-      array.each_with_index { |v,i| hash[i.to_s] = v }
-      hash
+      case array
+      when Array
+        hash = {}
+        array.each_with_index { |v,i| hash[i.to_s] = v }
+        hash
+      else
+        array
+      end
     end
 
     # Encodes a string in a way that makes it suitable for use in a set of

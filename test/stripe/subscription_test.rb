@@ -95,12 +95,37 @@ module Stripe
         url == "#{Stripe.api_base}/v1/subscriptions/#{sid}" &&
           api_key.nil? &&
           CGI.parse(params) == {
-            'items[][plan]'=>['gold', 'silver'],
-            'items[][quantity]'=>['1', '2'],
+            'items[0][plan]' => ['gold'],
+            'items[0][quantity]' => ['1'],
+            'items[1][plan]' => ['silver'],
+            'items[1][quantity]' => ['2'],
           }
       end.returns(make_response(make_subscription(:items => items)))
 
       sub = Stripe::Subscription.update(sid, :items => [{:plan => 'gold', :quantity =>1}, {:plan => 'silver', :quantity =>2}])
+
+      assert_equal 'gold', sub.items.data[0].plan.id
+      assert_equal 1, sub.items.data[0].quantity
+      assert_equal 'silver', sub.items.data[1].plan.id
+      assert_equal 2, sub.items.data[1].quantity
+    end
+
+    should "subscription items should be updateable with hash" do
+      sid = 's_test_subscription'
+      items = {:data => [{:plan => {:id =>'gold'}, :quantity => 1}, {:plan => {:id =>'silver'}, :quantity => 2}]}
+
+      @mock.expects(:post).once.with do |url, api_key, params|
+        url == "#{Stripe.api_base}/v1/subscriptions/#{sid}" &&
+          api_key.nil? &&
+          CGI.parse(params) == {
+            'items[0][plan]' => ['gold'],
+            'items[0][quantity]' => ['1'],
+            'items[1][plan]' => ['silver'],
+            'items[1][quantity]' => ['2'],
+          }
+      end.returns(make_response(make_subscription(:items => items)))
+
+      sub = Stripe::Subscription.update(sid, :items => {'0' => {:plan => 'gold', :quantity =>1}, '1' => {:plan => 'silver', :quantity =>2}})
 
       assert_equal 'gold', sub.items.data[0].plan.id
       assert_equal 1, sub.items.data[0].quantity
@@ -142,8 +167,10 @@ module Stripe
           api_key.nil? &&
           CGI.parse(params) == {
             'customer' => ['c_test_customer'],
-            'items[][plan]'=>['gold', 'silver'],
-            'items[][quantity]'=>['1', '2'],
+            'items[0][plan]' => ['gold'],
+            'items[0][quantity]' => ['1'],
+            'items[1][plan]' => ['silver'],
+            'items[1][quantity]' => ['2'],
           }
       end.returns(make_response(make_subscription(:items => items, :id => 'test_new_subscription')))
 

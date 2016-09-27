@@ -121,6 +121,20 @@ module Stripe
         map { |k,v| "#{url_encode(k)}=#{url_encode(v)}" }.join('&')
     end
 
+    # Transforms an array into a hash with integer keys. Used for a small
+    # number of API endpoints. If the argument is not an Array, return it
+    # unchanged. Example: [{foo: 'bar'}] => {"0" => {foo: "bar"}}
+    def self.array_to_hash(array)
+      case array
+      when Array
+        hash = {}
+        array.each_with_index { |v,i| hash[i.to_s] = v }
+        hash
+      else
+        array
+      end
+    end
+
     # Encodes a string in a way that makes it suitable for use in a set of
     # query parameters in a URI or in a set of form parameters in a request
     # body.

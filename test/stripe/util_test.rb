@@ -141,5 +141,9 @@ module Stripe
       obj = Util.convert_to_stripe_object([1, 2, 3], {})
       assert_equal [1, 2, 3], obj
     end
+
+    should "#array_to_hash should convert an array into a hash with integer keys" do
+      assert_equal({"0" => 1, "1" => 2, "2" => 3}, Util.array_to_hash([1, 2, 3]))
+    end
   end
 end

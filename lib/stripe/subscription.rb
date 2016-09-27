@@ -14,8 +14,7 @@ module Stripe
 
     def self.update(id, params={}, opts={})
       params[:items] = Util.array_to_hash(params[:items]) if params[:items]
-      response, opts = request(:post, "#{resource_url}/#{id}", params, opts)
-      Util.convert_to_stripe_object(response, opts)
+      super(id, params, opts)
     end
 
     private

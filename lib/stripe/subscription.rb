@@ -12,6 +12,12 @@ module Stripe
       initialize_from({ :discount => nil }, opts, true)
     end
 
+    def self.update(id, params={}, opts={})
+      params[:items] = Util.array_to_hash(params[:items]) if params[:items]
+      response, opts = request(:post, "#{resource_url}/#{id}", params, opts)
+      Util.convert_to_stripe_object(response, opts)
+    end
+
     private
 
     def discount_url

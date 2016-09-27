@@ -95,8 +95,10 @@ module Stripe
         url == "#{Stripe.api_base}/v1/subscriptions/#{sid}" &&
           api_key.nil? &&
           CGI.parse(params) == {
-            'items[][plan]'=>['gold', 'silver'],
-            'items[][quantity]'=>['1', '2'],
+            'items[0][plan]' => ['gold'],
+            'items[0][quantity]' => ['1'],
+            'items[1][plan]' => ['silver'],
+            'items[1][quantity]' => ['2'],
           }
       end.returns(make_response(make_subscription(:items => items)))
 

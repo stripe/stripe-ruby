@@ -17,6 +17,11 @@ module Stripe
       super(id, params, opts)
     end
 
+    def self.create(params={}, opts={})
+      params[:items] = Util.array_to_hash(params[:items]) if params[:items]
+      super(params, opts)
+    end
+
     private
 
     def discount_url

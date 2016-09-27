@@ -167,8 +167,10 @@ module Stripe
           api_key.nil? &&
           CGI.parse(params) == {
             'customer' => ['c_test_customer'],
-            'items[][plan]'=>['gold', 'silver'],
-            'items[][quantity]'=>['1', '2'],
+            'items[0][plan]' => ['gold'],
+            'items[0][quantity]' => ['1'],
+            'items[1][plan]' => ['silver'],
+            'items[1][quantity]' => ['2'],
           }
       end.returns(make_response(make_subscription(:items => items, :id => 'test_new_subscription')))
 

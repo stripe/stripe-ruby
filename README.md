@@ -121,8 +121,8 @@ certificates.
 ### max_network_retries
 
 When `max_network_retries` is set to a positive integer, stripe will retry
-requests that fail on a network error. Idempotency keys will be added to post
-and get requests to ensure the safety of retrying. There will be a short delay
+requests that fail on a network error. Idempotency keys will be added to `POST`
+and `DELETE` requests to ensure the safety of retrying. There will be a short delay
 between each retry, with an exponential backoff algorithm used to determine the
 length of the delay. Default value is 0.
 

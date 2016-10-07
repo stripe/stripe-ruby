@@ -1,6 +1,5 @@
 require 'stripe'
 require 'committee'
-require 'json_schema'
 require 'test/unit'
 require 'mocha/setup'
 require 'stringio'
@@ -176,22 +175,22 @@ require "pry" ; binding.pry
     end
   end
 
-  # Finds the latest schema in ROOT/schema/ and parses it for use with
-  # Committee.
+  # Finds the latest OpenAPI specification in ROOT/schema/ and parses it for
+  # use with Committee.
   def self.initialize_schema
     path = File.expand_path("../../schema/", __FILE__)
     file = Dir["#{path}/*.yaml"].last
-    schema_str = ::YAML.load(File.read(file))
-    schema = JsonSchema.parse!(schema_str)
-    schema.expand_references!
-    schema
+    schema_data = ::YAML.load(File.read(file))
+
+    driver = Committee::Drivers::OpenAPI2.new
+    driver.parse(schema_data)
   end
 
   # Creates a new Rack app with Committee middleware wrapping an internal app.
   def new_api_stub(override_app)
     Rack::Builder.new {
-      use Committee::Middleware::RequestValidation, :schema => @@schema
-      use Committee::Middleware::Stub, :call => true, :schema => @@schema
+      use Committee::Middleware::RequestValidation, schema: @@schema
+      use Committee::Middleware::Stub, :call => true, schema: @@schema
       run override_app
     }
   end

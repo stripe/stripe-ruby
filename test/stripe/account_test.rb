@@ -56,73 +56,78 @@ module Stripe
     end
 
     should "be rejectable" do
-      account_data = {:id => 'acct_foo'}
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(make_response(account_data))
+      # TODO: 
+      with_legacy_stubs do
+        account_data = {:id => 'acct_foo'}
+        @mock.expects(:get).
+          once.
+          with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
+          returns(make_response(account_data))
 
-      @mock.expects(:post).
-        once.
-        with("https://api.stripe.com/v1/accounts/acct_foo/reject", nil, 'reason=fraud').
-        returns(make_response(account_data))
+        @mock.expects(:post).
+          once.
+          with("https://api.stripe.com/v1/accounts/acct_foo/reject", nil, 'reason=fraud').
+          returns(make_response(account_data))
 
-      account = Stripe::Account.retrieve('acct_foo')
-      account.reject(:reason => 'fraud')
+        account = Stripe::Account.retrieve('acct_foo')
+        account.reject(:reason => 'fraud')
+      end
     end
 
     should "be saveable" do
-      resp = {
-        :id => 'acct_foo',
-        :legal_entity => {
-          :address => {
-            :line1 => '1 Two Three'
+      # TODO: 
+      with_legacy_stubs do
+        resp = {
+          :id => 'acct_foo',
+          :legal_entity => {
+            :address => {
+              :line1 => '1 Two Three'
+            }
           }
         }
-      }
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(make_response(resp))
+        @mock.expects(:get).
+          once.
+          with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
+          returns(make_response(resp))
 
-      @mock.expects(:post).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob').
-        returns(make_response(resp))
+        @mock.expects(:post).
+          once.
+          with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob').
+          returns(make_response(resp))
 
-    should "be updatable" do
-      a = Stripe::Account.retrieve('acct_foo')
-      a.legal_entity.first_name = 'Bob'
-      a.legal_entity.address.line1 = '2 Three Four'
-      a.save
-
-      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{a.id}",
-        body: 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob'
+        a = Stripe::Account.retrieve('acct_foo')
+        a.legal_entity.first_name = 'Bob'
+        a.legal_entity.address.line1 = '2 Three Four'
+        a.save
+      end
     end
 
     should "be updatable" do
-      resp = {
-        :id => 'acct_foo',
-        :legal_entity => {
+      # TODO: 
+      with_legacy_stubs do
+        resp = {
+          :id => 'acct_foo',
+          :legal_entity => {
+            :first_name => 'Bob',
+            :address => {
+              :line1 => '2 Three Four'
+            }
+          }
+        }
+        @mock.expects(:post).
+          once.
+          with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2+Three+Four').
+          returns(make_response(resp))
+
+        a = Stripe::Account.update('acct_foo', :legal_entity => {
           :first_name => 'Bob',
           :address => {
             :line1 => '2 Three Four'
           }
-        }
-      }
-      @mock.expects(:post).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2+Three+Four').
-        returns(make_response(resp))
-
-      a = Stripe::Account.update('acct_foo', :legal_entity => {
-        :first_name => 'Bob',
-        :address => {
-          :line1 => '2 Three Four'
-        }
-      })
-      assert_equal('Bob', a.legal_entity.first_name)
-      assert_equal('2 Three Four', a.legal_entity.address.line1)
+        })
+        assert_equal('Bob', a.legal_entity.first_name)
+        assert_equal('2 Three Four', a.legal_entity.address.line1)
+      end
     end
 
     should 'disallow direct overrides of legal_entity' do

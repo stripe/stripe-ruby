@@ -67,7 +67,7 @@ require 'stripe/errors/api_connection_error'
 require 'stripe/errors/card_error'
 require 'stripe/errors/invalid_request_error'
 require 'stripe/errors/authentication_error'
-require 'stripe/errors/permissions_error'
+require 'stripe/errors/permission_error'
 require 'stripe/errors/rate_limit_error'
 
 module Stripe
@@ -380,7 +380,7 @@ module Stripe
     when 402
       raise card_error(error, resp, error_obj)
     when 403
-      raise permissions_error(error, resp, error_obj)
+      raise permission_error(error, resp, error_obj)
     when 429
       raise rate_limit_error(error, resp, error_obj)
     else
@@ -409,8 +409,8 @@ module Stripe
                   resp.code, resp.body, error_obj, resp.headers)
   end
 
-  def self.permissions_error(error, resp, error_obj)
-    PermissionsError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
+  def self.permission_error(error, resp, error_obj)
+    PermissionError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
   end
 
   def self.api_error(error, resp, error_obj)

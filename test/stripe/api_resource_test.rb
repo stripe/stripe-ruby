@@ -300,12 +300,12 @@ module Stripe
         end
       end
 
-      should "a 403 should give a PermissionsError with http status, body, and JSON body" do
+      should "a 403 should give a PermissionError with http status, body, and JSON body" do
         response = make_response(make_missing_id_error, 403)
         @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 403))
         begin
           Stripe::Customer.retrieve("foo")
-        rescue Stripe::PermissionsError => e
+        rescue Stripe::PermissionError => e
           assert_equal(403, e.http_status)
           assert_equal(true, !!e.http_body)
           assert_equal(true, e.json_body.kind_of?(Hash))

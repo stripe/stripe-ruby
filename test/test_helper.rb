@@ -189,8 +189,10 @@ require "pry" ; binding.pry
   # Creates a new Rack app with Committee middleware wrapping an internal app.
   def new_api_stub(override_app)
     Rack::Builder.new {
-      use Committee::Middleware::RequestValidation, schema: @@schema
-      use Committee::Middleware::Stub, :call => true, schema: @@schema
+      use Committee::Middleware::RequestValidation, schema: @@schema,
+        params_response: true, strict: true
+      use Committee::Middleware::Stub, schema: @@schema,
+        call: true
       run override_app
     }
   end

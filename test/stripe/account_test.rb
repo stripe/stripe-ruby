@@ -56,49 +56,27 @@ module Stripe
     end
 
     should "be rejectable" do
-      # TODO: 
-      with_legacy_stubs do
-        account_data = {:id => 'acct_foo'}
-        @mock.expects(:get).
-          once.
-          with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-          returns(make_response(account_data))
+      account = Stripe::Account.list.first
+      account.reject(:reason => 'fraud')
 
-        @mock.expects(:post).
-          once.
-          with("https://api.stripe.com/v1/accounts/acct_foo/reject", nil, 'reason=fraud').
-          returns(make_response(account_data))
-
-        account = Stripe::Account.retrieve('acct_foo')
-        account.reject(:reason => 'fraud')
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}/reject" do |req|
+        Rack::Utils.parse_nested_query(req.body) == { 'reason' => 'fraud' }
       end
     end
 
     should "be saveable" do
-      # TODO: 
-      with_legacy_stubs do
-        resp = {
-          :id => 'acct_foo',
-          :legal_entity => {
-            :address => {
-              :line1 => '1 Two Three'
-            }
+      account = Stripe::Account.list.first
+      account.legal_entity.first_name = 'Bob'
+      account.legal_entity.address.line1 = '2 Three Four'
+      account.save
+
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}" do |req|
+        Rack::Utils.parse_nested_query(req.body) == {
+          'legal_entity' => {
+            'first_name' => 'Bob',
+            'address' => { 'line1' => '2 Three Four' },
           }
         }
-        @mock.expects(:get).
-          once.
-          with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-          returns(make_response(resp))
-
-        @mock.expects(:post).
-          once.
-          with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob').
-          returns(make_response(resp))
-
-        a = Stripe::Account.retrieve('acct_foo')
-        a.legal_entity.first_name = 'Bob'
-        a.legal_entity.address.line1 = '2 Three Four'
-        a.save
       end
     end
 
@@ -164,7 +142,10 @@ module Stripe
       a.deauthorize('ca_1234', 'sk_test_1234')
 
       assert_requested :post, "#{Stripe.connect_base}/oauth/deauthorize" do |req|
-        CGI.parse(req.body) == { 'client_id' => [ 'ca_1234' ], 'stripe_user_id' => [ a.id ]}
+        Rack::Utils.parse_nested_query(req.body) == {
+          'client_id'      => 'ca_1234',
+          'stripe_user_id' => a.id,
+        }
       end
     end
 

@@ -81,30 +81,23 @@ module Stripe
     end
 
     should "be updatable" do
-      # TODO: 
-      with_legacy_stubs do
-        resp = {
-          :id => 'acct_foo',
-          :legal_entity => {
-            :first_name => 'Bob',
-            :address => {
-              :line1 => '2 Three Four'
-            }
-          }
-        }
-        @mock.expects(:post).
-          once.
-          with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2+Three+Four').
-          returns(make_response(resp))
-
-        a = Stripe::Account.update('acct_foo', :legal_entity => {
+      account = Stripe::Account.list.first
+      Stripe::Account.update(account.id,
+        :legal_entity => {
           :first_name => 'Bob',
           :address => {
             :line1 => '2 Three Four'
           }
-        })
-        assert_equal('Bob', a.legal_entity.first_name)
-        assert_equal('2 Three Four', a.legal_entity.address.line1)
+        }
+      )
+
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}" do |req|
+        Rack::Utils.parse_nested_query(req.body) == {
+          'legal_entity' => {
+            'first_name' => 'Bob',
+            'address' => { 'line1' => '2 Three Four' },
+          }
+        }
       end
     end
 

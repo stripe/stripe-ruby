@@ -89,7 +89,7 @@ module StubHelpers
     # defined that were not present on its initialization.
     #
     # Its secondary function is allowing indifferent access regardless of
-    # whether a stirng or symbol is used as a key.
+    # whether a string or symbol is used as a key.
     #
     # The purpose of the class is to make modifying API responses safer by
     # disallowing the setting of keys that were not in the original response.
@@ -105,29 +105,54 @@ module StubHelpers
       end
 
       def [](key)
-        key = key.to_s
-        check_key!(key)
-        @hash[key]
+        get(key)
       end
 
       def []=(key, val)
-        key = key.to_s
-        check_key!(key)
-        @hash[key] = val
+        set(key, val)
       end
 
-      def deep_merge!(hash)
+      def deep_merge!(hash, options = {})
         hash.each do |k, v|
           if v.is_a?(Hash)
             if !@hash[k].is_a?(Hash)
-              raise ArgumentError, "'#{key}' in stub response is not a hash " +
-                "and cannot be deep merged"
+              unless options[:allow_undefined_keys]
+                raise ArgumentError, "'#{k}' in stub response is not a hash " +
+                  "and cannot be deep merged"
+              end
             end
-            self[k].deep_merge!(v)
+            val = self.get(
+               k,
+              :allow_undefined_keys => options[:allow_undefined_keys]
+            )
+
+            if val
+              val.deep_merge!(v)
+            else
+              self.set(
+                k, v,
+                :allow_undefined_keys => options[:allow_undefined_keys]
+              )
+            end
           else
-            self[k] = v
+            self.set(
+              k, v,
+              :allow_undefined_keys => options[:allow_undefined_keys]
+            )
           end
         end
+      end
+
+      def get(key, options = {})
+        key = key.to_s
+        check_key!(key) unless options[:allow_undefined_keys]
+        @hash[key]
+      end
+
+      def set(key, val, options = {})
+        key = key.to_s
+        check_key!(key) unless options[:allow_undefined_keys]
+        @hash[key] = val
       end
 
       def to_h
@@ -142,7 +167,6 @@ module StubHelpers
 
       def check_key!(key)
         unless @hash.key?(key)
-require "pry" ; binding.pry
           raise ArgumentError, "'#{key}' is not defined in stub response"
         end
       end

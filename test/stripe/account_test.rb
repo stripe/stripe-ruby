@@ -4,30 +4,7 @@ module Stripe
   class AccountTest < Test::Unit::TestCase
     include WithoutLegacyStubs
 
-    should "be retrievable with generated responses (example)" do
-      without_legacy_stubs do
-        stub_api do
-          get "/v1/account" do
-            modify_generated_response do |response|
-              response.deep_merge!({
-                :charges_enabled => false,
-                :details_submitted => false,
-                :email => "test+bindings@stripe.com",
-              })
-            end
-          end
-        end
-
-        a = Stripe::Account.retrieve
-        assert_equal "test+bindings@stripe.com", a.email
-        assert !a.charges_enabled
-        assert !a.details_submitted
-
-        assert_requested :get, "#{Stripe.api_url}/v1/account"
-      end
-    end
-
-    should "be retrievable with generated responses" do
+    should "be retrievable" do
       Stripe::Account.retrieve
       assert_requested :get, "#{Stripe.api_url}/v1/account"
     end
@@ -45,18 +22,26 @@ module Stripe
     end
 
     should "allow access to keys by method" do
-      account = Stripe::Account.construct_from(make_account({
-        :keys => {
-          :publishable => 'publishable-key',
-          :secret => 'secret-key',
-        }
-      }))
+      stub_api do
+        get "/v1/account" do
+          modify_generated_response do |response|
+            response.deep_merge!({
+              :keys => {
+                :publishable => 'publishable-key',
+                :secret => 'secret-key',
+              }
+            }, :allow_undefined_keys => true)
+          end
+        end
+      end
+
+      account = Stripe::Account.retrieve
       assert_equal 'publishable-key', account.keys.publishable
       assert_equal 'secret-key', account.keys.secret
     end
 
     should "be rejectable" do
-      account = Stripe::Account.list.first
+      account = Stripe::Account.retrieve
       account.reject(:reason => 'fraud')
 
       assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}/reject" do |req|
@@ -65,7 +50,7 @@ module Stripe
     end
 
     should "be saveable" do
-      account = Stripe::Account.list.first
+      account = Stripe::Account.retrieve
       account.legal_entity.first_name = 'Bob'
       account.legal_entity.address.line1 = '2 Three Four'
       account.save
@@ -81,7 +66,7 @@ module Stripe
     end
 
     should "be updatable" do
-      account = Stripe::Account.list.first
+      account = Stripe::Account.retrieve
       Stripe::Account.update(account.id,
         :legal_entity => {
           :first_name => 'Bob',
@@ -102,15 +87,7 @@ module Stripe
     end
 
     should 'disallow direct overrides of legal_entity' do
-      account = Stripe::Account.construct_from(make_account({
-        :keys => {
-          :publishable => 'publishable-key',
-          :secret => 'secret-key',
-        },
-        :legal_entity => {
-          :first_name => 'Bling'
-        }
-      }))
+      account = Stripe::Account.retrieve
 
       assert_raise NoMethodError do
         account.legal_entity = {:first_name => 'Blah'}
@@ -120,17 +97,6 @@ module Stripe
     end
 
     should "be able to deauthorize an account" do
-      stub_api do
-        get "/v1/account" do
-          generated_response.merge!({
-            charge_enabled:    false,
-            details_submitted: false,
-            id:                'acct_1234',
-            email:             'test+bindings@stripe.com',
-          })
-        end
-      end
-
       a = Stripe::Account.retrieve
       a.deauthorize('ca_1234', 'sk_test_1234')
 
@@ -152,23 +118,10 @@ module Stripe
     end
 
     should "be able to create a bank account" do
-      stub_api do
-        get "/v1/account" do
-          generated_response.merge!({
-            :id => 'acct_1234',
-            :external_accounts => {
-              :object => "list",
-              :url => "/v1/accounts/acct_1234/external_accounts",
-              :data => [],
-            }
-          })
-        end
-      end
+      account = Stripe::Account.retrieve
+      account.external_accounts.create({:external_account => 'btok_1234'})
 
-      a = Stripe::Account.retrieve
-      a.external_accounts.create({:external_account => 'btok_1234'})
-
-      assert_requested :post, "#{Stripe.api_url}/v1/accounts/acct_1234/external_accounts",
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}/external_accounts",
         body: 'external_account=btok_1234'
     end
 
@@ -176,7 +129,6 @@ module Stripe
       stub_api do
         get "/v1/account" do
           generated_response.merge!({
-            :id => 'acct_1234',
             :external_accounts => {
               :object => "list",
               :resource_url => "/v1/accounts/acct_1234/external_accounts",

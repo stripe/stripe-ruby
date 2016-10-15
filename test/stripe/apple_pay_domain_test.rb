@@ -4,25 +4,28 @@ module Stripe
   class ApplePayDomainTest < Test::Unit::TestCase
     include WithoutLegacyStubs
 
-    should "create should return a new Apple Pay domain" do
-      Stripe::ApplePayDomain.create(domain_name: "example.com")
+    should "be creatable" do
+      domain = Stripe::ApplePayDomain.create(domain_name: "example.com")
+      assert_kind_of Stripe::ApplePayDomain, domain
       assert_requested :post, "#{Stripe.api_url}/v1/apple_pay/domains"
     end
 
-    should "domains should be listable" do
-      Stripe::ApplePayDomain.list
+    should "be listable" do
+      domains = Stripe::ApplePayDomain.list
+      assert_kind_of Stripe::ApplePayDomain, domains.first
       assert_requested :get, "#{Stripe.api_url}/v1/apple_pay/domains"
     end
 
-    should "domains should be retrievable" do
-      domain = Stripe::ApplePayDomain.list.first
-      domain = Stripe::ApplePayDomain.retrieve(domain.id)
-      assert_requested :get, "#{Stripe.api_url}/v1/apple_pay/domains/#{domain.id}"
+    should "be retrievable" do
+      domain = Stripe::ApplePayDomain.retrieve("apwc_123")
+      assert_kind_of Stripe::ApplePayDomain, domain
+      assert_requested :get, "#{Stripe.api_url}/v1/apple_pay/domains/apwc_123"
     end
 
-    should "domains should be deletable" do
+    should "be deletable" do
       domain = Stripe::ApplePayDomain.list.first
-      domain.delete
+      domain = domain.delete
+      assert_kind_of Stripe::ApplePayDomain, domain
       assert_requested :delete, "#{Stripe.api_url}/v1/apple_pay/domains/#{domain.id}"
     end
   end

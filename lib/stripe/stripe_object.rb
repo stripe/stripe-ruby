@@ -84,8 +84,8 @@ module Stripe
       # Default to true. TODO: Convert to optional arguments after we're off
       # 1.9 which will make this quite a bit more clear.
       dirty = method_options.fetch(:dirty, true)
-
       values.each do |k, v|
+        add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
         @values[k] = Util.convert_to_stripe_object(v, opts)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)

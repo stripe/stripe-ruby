@@ -90,6 +90,13 @@ module Stripe
       assert_equal Stripe::StripeObject, obj.metadata.class
     end
 
+    should "create accessors when #update_attributes is called" do
+      obj = Stripe::StripeObject.construct_from({})
+      assert_equal false, obj.send(:metaclass).method_defined?(:foo)
+      obj.update_attributes(:foo => 'bar')
+      assert_equal true, obj.send(:metaclass).method_defined?(:foo)
+    end
+    
     should "warn that #refresh_from is deprecated" do
       old_stderr = $stderr
       $stderr = StringIO.new

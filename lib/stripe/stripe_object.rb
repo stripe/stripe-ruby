@@ -145,12 +145,6 @@ module Stripe
       construct_from(values, opts)
     end
 
-    if RUBY_VERSION < '1.9.2'
-      def respond_to?(symbol)
-        @values.has_key?(symbol) || super
-      end
-    end
-
     # Sets all keys within the StripeObject as unsaved so that they will be
     # included with an update when #serialize_params is called. This method is
     # also recursive, so any StripeObjects contained as values or which are

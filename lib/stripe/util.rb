@@ -63,7 +63,7 @@ module Stripe
     # array of +StripeObject+s. These new objects will be created as a concrete
     # type as dictated by their `object` field (e.g. an `object` value of
     # `charge` would create an instance of +Charge+), but if `object` is not
-    # present or of an unkown type, the newly created instance will fall back
+    # present or of an unknown type, the newly created instance will fall back
     # to being a +StripeObject+.
     #
     # ==== Attributes

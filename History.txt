@@ -1,3 +1,7 @@
+=== 1.56.1 2016-11-09
+
+* Fix (fairly serious) memory like in `StripeObject`
+
 === 1.56.0 2016-10-24
 
 * Add accessors for new fields added in `#update_attributes`

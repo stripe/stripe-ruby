@@ -208,9 +208,13 @@ module Stripe
         keys.each do |k|
           next if f.include?(k)
           next if @@permanent_attributes.include?(k)
-          k_eq = :"#{k}="
-          remove_method(k) if method_defined?(k)
-          remove_method(k_eq) if method_defined?(k_eq)
+
+          # Remove methods for the accessor's reader and writer.
+          [k, :"#{k}=", :"#{k}?"].each do |method_name|
+            if method_defined?(method_name)
+              remove_method(method_name)
+            end
+          end
         end
       end
     end
@@ -221,9 +225,9 @@ module Stripe
         keys.each do |k|
           next if f.include?(k)
           next if @@permanent_attributes.include?(k)
-          k_eq = :"#{k}="
+
           define_method(k) { @values[k] }
-          define_method(k_eq) do |v|
+          define_method(:"#{k}=") do |v|
             if v == ""
               raise ArgumentError.new(
                 "You cannot set #{k} to an empty string. " \
@@ -236,8 +240,7 @@ module Stripe
           end
 
           if [FalseClass, TrueClass].include?(values[k].class)
-            k_bool = :"#{k}?"
-            define_method(k_bool) { @values[k] }
+            define_method(:"#{k}?") { @values[k] }
           end
         end
       end
@@ -299,10 +302,8 @@ module Stripe
       # customer, where there is no persistent card parameter.  Mark those values
       # which don't persist as transient
 
-      instance_eval do
-        remove_accessors(removed)
-        add_accessors(added, values)
-      end
+      remove_accessors(removed)
+      add_accessors(added, values)
 
       removed.each do |k|
         @values.delete(k)

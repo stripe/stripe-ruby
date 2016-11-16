@@ -43,7 +43,7 @@ module Stripe
     end
 
     def to_s(*args)
-      JSON.pretty_generate(@values)
+      JSON.pretty_generate(to_hash)
     end
 
     def inspect

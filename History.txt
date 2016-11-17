@@ -1,3 +1,7 @@
+=== 1.56.2 2016-11-17
+
+* Improve `StripeObject`'s `#to_s` to better handle how embedded objects are displayed
+
 === 1.56.1 2016-11-09
 
 * Fix (fairly serious) memory like in `StripeObject`

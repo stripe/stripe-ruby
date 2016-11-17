@@ -96,7 +96,7 @@ module Stripe
       obj.update_attributes(:foo => 'bar')
       assert_equal true, obj.send(:metaclass).method_defined?(:foo)
     end
-    
+
     should "warn that #refresh_from is deprecated" do
       old_stderr = $stderr
       $stderr = StringIO.new
@@ -290,6 +290,38 @@ module Stripe
 
       serialized = obj.serialize_params
       assert_equal({ :id => 'id', :metadata => { :foo => 'bar' } }, serialized)
+    end
+
+    should "#to_s will call to_s for all embedded stripe objects" do
+      obj = Stripe::StripeObject.construct_from({
+        id: 'id',
+        #embeded list object
+        refunds: Stripe::ListObject.construct_from({ data: [
+          #embedded object in list
+          Stripe::StripeObject.construct_from({
+            id: 'id',
+            #embedded object in an object in a list object
+            metadata: Stripe::StripeObject.construct_from({
+              foo: 'bar',
+            })
+          })
+        ]}),
+        # embeded stripe object
+        metadata: Stripe::StripeObject.construct_from({
+          foo: 'bar',
+        })
+      })
+      expected = JSON.pretty_generate({
+        id: 'id',
+        refunds: {
+          data: [
+            {id: 'id', metadata: {foo: 'bar'}}
+          ]
+        },
+        metadata: { foo: 'bar' }
+      })
+
+      assert_equal(expected, obj.to_s)
     end
 
     should "warn that .serialize_params is deprecated" do

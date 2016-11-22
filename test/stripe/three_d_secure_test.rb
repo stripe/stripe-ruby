@@ -2,6 +2,12 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ThreeDSecureTest < Test::Unit::TestCase
+    should "retrieve an existing 3D Secure object" do
+      @mock.expects(:get).once.returns(make_response(make_three_d_secure))
+      tds = Stripe::ThreeDSecure.retrieve("tdsrc_test")
+      assert_equal "tdsrc_test", tds.id
+    end
+
     should "create should return a new 3D Secure object" do
       @mock.expects(:post).once.returns(make_response(make_three_d_secure))
       tds = Stripe::ThreeDSecure.create(

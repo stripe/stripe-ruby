@@ -1,3 +1,7 @@
+=== 1.57.0 2016-11-21
+
+* Add retrieve method for 3-D Secure resources
+
 === 1.56.2 2016-11-17
 
 * Improve `StripeObject`'s `#to_s` to better handle how embedded objects are displayed

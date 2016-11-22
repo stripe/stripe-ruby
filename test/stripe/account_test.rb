@@ -2,36 +2,16 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class AccountTest < Test::Unit::TestCase
+    include WithoutLegacyStubs
+
     should "be retrievable" do
-      resp = make_account({
-        :charges_enabled => false,
-        :details_submitted => false,
-        :email => "test+bindings@stripe.com",
-      })
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/account', nil, nil).
-        returns(make_response(resp))
-      a = Stripe::Account.retrieve
-      assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charges_enabled
-      assert !a.details_submitted
+      Stripe::Account.retrieve
+      assert_requested :get, "#{Stripe.api_url}/v1/account"
     end
 
     should "be retrievable via plural endpoint" do
-      resp = make_account({
-        :charges_enabled => false,
-        :details_submitted => false,
-        :email => "test+bindings@stripe.com",
-      })
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(make_response(resp))
-      a = Stripe::Account.retrieve('acct_foo')
-      assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charges_enabled
-      assert !a.details_submitted
+      Stripe::Account.retrieve('acct_foo')
+      assert_requested :get, "#{Stripe.api_url}/v1/accounts/acct_foo"
     end
 
     should "be retrievable using an API key as the only argument" do
@@ -42,92 +22,72 @@ module Stripe
     end
 
     should "allow access to keys by method" do
-      account = Stripe::Account.construct_from(make_account({
-        :keys => {
-          :publishable => 'publishable-key',
-          :secret => 'secret-key',
-        }
-      }))
+      stub_api do
+        get "/v1/account" do
+          modify_generated_response do |response|
+            response.deep_merge!({
+              :keys => {
+                :publishable => 'publishable-key',
+                :secret => 'secret-key',
+              }
+            }, :allow_undefined_keys => true)
+          end
+        end
+      end
+
+      account = Stripe::Account.retrieve
       assert_equal 'publishable-key', account.keys.publishable
       assert_equal 'secret-key', account.keys.secret
     end
 
     should "be rejectable" do
-      account_data = {:id => 'acct_foo'}
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(make_response(account_data))
-
-      @mock.expects(:post).
-        once.
-        with("https://api.stripe.com/v1/accounts/acct_foo/reject", nil, 'reason=fraud').
-        returns(make_response(account_data))
-
-      account = Stripe::Account.retrieve('acct_foo')
+      account = Stripe::Account.retrieve
       account.reject(:reason => 'fraud')
+
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}/reject" do |req|
+        Rack::Utils.parse_nested_query(req.body) == { 'reason' => 'fraud' }
+      end
     end
 
     should "be saveable" do
-      resp = {
-        :id => 'acct_foo',
-        :legal_entity => {
-          :address => {
-            :line1 => '1 Two Three'
+      account = Stripe::Account.retrieve
+      account.legal_entity.first_name = 'Bob'
+      account.legal_entity.address.line1 = '2 Three Four'
+      account.save
+
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}" do |req|
+        Rack::Utils.parse_nested_query(req.body) == {
+          'legal_entity' => {
+            'first_name' => 'Bob',
+            'address' => { 'line1' => '2 Three Four' },
           }
         }
-      }
-      @mock.expects(:get).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, nil).
-        returns(make_response(resp))
-
-      @mock.expects(:post).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[address][line1]=2+Three+Four&legal_entity[first_name]=Bob').
-        returns(make_response(resp))
-
-      a = Stripe::Account.retrieve('acct_foo')
-      a.legal_entity.first_name = 'Bob'
-      a.legal_entity.address.line1 = '2 Three Four'
-      a.save
+      end
     end
 
     should "be updatable" do
-      resp = {
-        :id => 'acct_foo',
+      account = Stripe::Account.retrieve
+      Stripe::Account.update(account.id,
         :legal_entity => {
           :first_name => 'Bob',
           :address => {
             :line1 => '2 Three Four'
           }
         }
-      }
-      @mock.expects(:post).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2+Three+Four').
-        returns(make_response(resp))
+      )
 
-      a = Stripe::Account.update('acct_foo', :legal_entity => {
-        :first_name => 'Bob',
-        :address => {
-          :line1 => '2 Three Four'
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}" do |req|
+        Rack::Utils.parse_nested_query(req.body) == {
+          'legal_entity' => {
+            'first_name' => 'Bob',
+            'address' => { 'line1' => '2 Three Four' },
+          }
         }
-      })
-      assert_equal('Bob', a.legal_entity.first_name)
-      assert_equal('2 Three Four', a.legal_entity.address.line1)
+      end
     end
 
     should 'disallow direct overrides of legal_entity' do
-      account = Stripe::Account.construct_from(make_account({
-        :keys => {
-          :publishable => 'publishable-key',
-          :secret => 'secret-key',
-        },
-        :legal_entity => {
-          :first_name => 'Bling'
-        }
-      }))
+      account = Stripe::Account.retrieve
 
       assert_raise NoMethodError do
         account.legal_entity = {:first_name => 'Blah'}
@@ -137,15 +97,15 @@ module Stripe
     end
 
     should "be able to deauthorize an account" do
-      resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
-      @mock.expects(:get).once.returns(make_response(resp))
       a = Stripe::Account.retrieve
-
-
-      @mock.expects(:post).once.with do |url, api_key, params|
-        url == "#{Stripe.connect_base}/oauth/deauthorize" && api_key.nil? && CGI.parse(params) == { 'client_id' => [ 'ca_1234' ], 'stripe_user_id' => [ a.id ]}
-      end.returns(make_response({ 'stripe_user_id' => a.id }))
       a.deauthorize('ca_1234', 'sk_test_1234')
+
+      assert_requested :post, "#{Stripe.connect_base}/oauth/deauthorize" do |req|
+        Rack::Utils.parse_nested_query(req.body) == {
+          'client_id'      => 'ca_1234',
+          'stripe_user_id' => a.id,
+        }
+      end
     end
 
     should "reject nil api keys" do
@@ -158,37 +118,29 @@ module Stripe
     end
 
     should "be able to create a bank account" do
-      resp = {
-        :id => 'acct_1234',
-        :external_accounts => {
-          :object => "list",
-          :resource_url => "/v1/accounts/acct_1234/external_accounts",
-          :data => [],
-        }
-      }
-      @mock.expects(:get).once.returns(make_response(resp))
-      a = Stripe::Account.retrieve
+      account = Stripe::Account.retrieve
+      account.external_accounts.create({:external_account => 'btok_1234'})
 
-      @mock.expects(:post).
-        once.
-        with('https://api.stripe.com/v1/accounts/acct_1234/external_accounts', nil, 'external_account=btok_1234').
-        returns(make_response(resp))
-      a.external_accounts.create({:external_account => 'btok_1234'})
+      assert_requested :post, "#{Stripe.api_url}/v1/accounts/#{account.id}/external_accounts",
+        body: 'external_account=btok_1234'
     end
 
     should "be able to retrieve a bank account" do
-      resp = {
-        :id => 'acct_1234',
-        :external_accounts => {
-          :object => "list",
-          :resource_url => "/v1/accounts/acct_1234/external_accounts",
-          :data => [{
-            :id => "ba_1234",
-            :object => "bank_account",
-          }],
-        }
-      }
-      @mock.expects(:get).once.returns(make_response(resp))
+      stub_api do
+        get "/v1/account" do
+          generated_response.merge!({
+            :external_accounts => {
+              :object => "list",
+              :resource_url => "/v1/accounts/acct_1234/external_accounts",
+              :data => [{
+                :id => "ba_1234",
+                :object => "bank_account",
+              }],
+            }
+          })
+        end
+      end
+
       a = Stripe::Account.retrieve
       assert_equal(BankAccount, a.external_accounts.data[0].class)
     end

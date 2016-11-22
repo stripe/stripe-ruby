@@ -2,46 +2,28 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ApplicationFeeRefundTest < Test::Unit::TestCase
-    should "refunds should be listable" do
-      @mock.expects(:get).once.returns(make_response(make_application_fee))
+    include WithoutLegacyStubs
 
-      application_fee = Stripe::ApplicationFee.retrieve('test_application_fee')
-
-      assert application_fee.refunds.first.kind_of?(Stripe::ApplicationFeeRefund)
+    should "be creatable" do
+      fee = Stripe::ApplicationFee.list.first
+      refund = fee.refunds.create(:amount => 20)
+      assert_kind_of Stripe::ApplicationFeeRefund, refund
+      assert_requested :post, "#{Stripe.api_url}/v1/application_fees/#{fee.id}/refunds"
     end
 
-    should "refunds should be refreshable" do
-      @mock.expects(:get).twice.returns(make_response(make_application_fee), make_response(make_application_fee_refund(:id => 'refreshed_refund')))
-
-      application_fee = Stripe::ApplicationFee.retrieve('test_application_fee')
-      refund = application_fee.refunds.first
-      refund.refresh
-
-      assert_equal 'refreshed_refund', refund.id
+    should "be retrievable" do
+      fee = Stripe::ApplicationFee.list.first
+      refund = fee.refunds.retrieve("ref_123")
+      assert_kind_of Stripe::ApplicationFeeRefund, refund
+      assert_requested :get, "#{Stripe.api_url}/v1/application_fees/#{fee.id}/refunds/ref_123"
     end
 
-    should "refunds should be updateable" do
-      @mock.expects(:get).once.returns(make_response(make_application_fee))
-      @mock.expects(:post).once.returns(make_response(make_application_fee_refund(:metadata => {'key' => 'value'})))
-
-      application_fee = Stripe::ApplicationFee.retrieve('test_application_fee')
-      refund = application_fee.refunds.first
-
-      assert_equal nil, refund.metadata['key']
-
-      refund.metadata['key'] = 'valu'
+    should "be updateable" do
+      fee = Stripe::ApplicationFee.list.first
+      refund = fee.refunds.retrieve("ref_123")
+      refund.metadata['key'] = 'val'
       refund.save
-
-      assert_equal 'value', refund.metadata['key']
-    end
-
-    should "create should return a new refund" do
-      @mock.expects(:get).once.returns(make_response(make_application_fee))
-      @mock.expects(:post).once.returns(make_response(make_application_fee_refund(:id => 'test_new_refund')))
-
-      application_fee = Stripe::ApplicationFee.retrieve('test_application_fee')
-      refund = application_fee.refunds.create(:amount => 20)
-      assert_equal 'test_new_refund', refund.id
+      assert_requested :post, "#{Stripe.api_url}/v1/application_fees/#{fee.id}/refunds/#{refund.id}"
     end
   end
 end

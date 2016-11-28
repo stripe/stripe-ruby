@@ -96,26 +96,15 @@ module Stripe
     should "be updatable" do
       resp = {
         :id => 'acct_foo',
-        :legal_entity => {
-          :first_name => 'Bob',
-          :address => {
-            :line1 => '2 Three Four'
-          }
-        }
+        :business_name => 'ACME Corp',
       }
       @mock.expects(:post).
         once.
-        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'legal_entity[first_name]=Bob&legal_entity[address][line1]=2+Three+Four').
+        with('https://api.stripe.com/v1/accounts/acct_foo', nil, 'business_name=ACME+Corp').
         returns(make_response(resp))
 
-      a = Stripe::Account.update('acct_foo', :legal_entity => {
-        :first_name => 'Bob',
-        :address => {
-          :line1 => '2 Three Four'
-        }
-      })
-      assert_equal('Bob', a.legal_entity.first_name)
-      assert_equal('2 Three Four', a.legal_entity.address.line1)
+      a = Stripe::Account.update('acct_foo', :business_name => "ACME Corp")
+      assert_equal('ACME Corp', a.business_name)
     end
 
     should 'disallow direct overrides of legal_entity' do

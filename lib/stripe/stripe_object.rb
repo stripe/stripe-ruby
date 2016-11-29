@@ -194,19 +194,24 @@ module Stripe
 
     protected
 
+    # A protected field is one that doesn't get an accessor assigned to it
+    # (i.e. `obj.public = ...`) and one which is not allowed to be updated via
+    # the class level `Model.update(id, { ... })`.
+    def self.protected_fields
+      []
+    end
+
     def metaclass
       class << self; self; end
     end
 
-    def protected_fields
-      []
-    end
-
     def remove_accessors(keys)
-      f = protected_fields
+      # not available in the #instance_eval below
+      protected_fields = self.class.protected_fields
+
       metaclass.instance_eval do
         keys.each do |k|
-          next if f.include?(k)
+          next if protected_fields.include?(k)
           next if @@permanent_attributes.include?(k)
 
           # Remove methods for the accessor's reader and writer.
@@ -220,10 +225,12 @@ module Stripe
     end
 
     def add_accessors(keys, values)
-      f = protected_fields
+      # not available in the #instance_eval below
+      protected_fields = self.class.protected_fields
+
       metaclass.instance_eval do
         keys.each do |k|
-          next if f.include?(k)
+          next if protected_fields.include?(k)
           next if @@permanent_attributes.include?(k)
 
           define_method(k) { @values[k] }

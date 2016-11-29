@@ -79,7 +79,7 @@ module Stripe
       update_hash
     end
 
-    def protected_fields
+    def self.protected_fields
       [:legal_entity]
     end
 

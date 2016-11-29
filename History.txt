@@ -1,3 +1,7 @@
+=== 1.57.1 2016-11-28
+
+* Disallow sending protected fields along with API resource `.update`
+
 === 1.57.0 2016-11-21
 
 * Add retrieve method for 3-D Secure resources

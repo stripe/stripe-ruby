@@ -28,6 +28,7 @@ module Stripe
       resp.http_body = http_resp.body
       resp.http_headers = http_resp.headers
       resp.http_status = http_resp.code
+      resp.request_id = http_resp.headers[:request_id]
       resp
     end
   end

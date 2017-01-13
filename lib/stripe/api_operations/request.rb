@@ -12,7 +12,7 @@ module Stripe
           api_base = headers.delete(:api_base)
           # Assume all remaining opts must be headers
 
-          response, opts[:api_key] = Stripe.request(method, url, api_key, params, headers, api_base)
+          resp, opts[:api_key] = Stripe.request(method, url, api_key, params, headers, api_base)
 
           # Hash#select returns an array before 1.9
           opts_to_persist = {}
@@ -22,7 +22,7 @@ module Stripe
             end
           end
 
-          [response, opts_to_persist]
+          [resp, opts_to_persist]
         end
       end
 

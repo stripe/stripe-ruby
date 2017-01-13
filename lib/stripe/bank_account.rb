@@ -5,8 +5,8 @@ module Stripe
     extend Stripe::APIOperations::List
 
     def verify(params={}, opts={})
-      response, opts = request(:post, resource_url + '/verify', params, opts)
-      initialize_from(response, opts)
+      self.response, opts = request(:post, resource_url + '/verify', params, opts)
+      initialize_from(response.data, opts)
     end
 
     def resource_url

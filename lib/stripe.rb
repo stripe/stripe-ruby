@@ -23,6 +23,7 @@ require 'stripe/api_operations/request'
 require 'stripe/errors'
 require 'stripe/util'
 require 'stripe/stripe_object'
+require 'stripe/stripe_response'
 require 'stripe/list_object'
 require 'stripe/api_resource'
 require 'stripe/singleton_api_resource'
@@ -203,9 +204,15 @@ module Stripe
                         :method => method, :open_timeout => open_timeout,
                         :payload => payload, :url => url, :timeout => read_timeout)
 
-    response = execute_request_with_rescues(request_opts, api_base_url)
+    http_resp = execute_request_with_rescues(request_opts, api_base_url)
 
-    [parse(response), api_key]
+    begin
+      resp = StripeResponse.from_rest_client_response(http_resp)
+    rescue JSON::ParserError
+      raise general_api_error(http_resp.code, http_resp.body)
+    end
+
+    [resp, api_key]
   end
 
   def self.max_network_retries
@@ -217,20 +224,6 @@ module Stripe
   end
 
   private
-
-  def self.api_error(error, resp, error_obj)
-    APIError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
-  end
-
-  def self.authentication_error(error, resp, error_obj)
-    AuthenticationError.new(error[:message], resp.code, resp.body, error_obj,
-                            resp.headers)
-  end
-
-  def self.card_error(error, resp, error_obj)
-    CardError.new(error[:message], error[:param], error[:code],
-                  resp.code, resp.body, error_obj, resp.headers)
-  end
 
   def self.execute_request(opts)
     RestClient::Request.execute(opts)
@@ -274,9 +267,9 @@ module Stripe
     response
   end
 
-  def self.general_api_error(rcode, rbody)
-    APIError.new("Invalid response object from API: #{rbody.inspect} " +
-                 "(HTTP response code was #{rcode})", rcode, rbody)
+  def self.general_api_error(status, body)
+    APIError.new("Invalid response object from API: #{body.inspect} " +
+                 "(HTTP response code was #{status})", status, body)
   end
 
   def self.get_uname
@@ -310,32 +303,45 @@ module Stripe
     "uname lookup failed"
   end
 
-  def self.handle_api_error(resp)
+  def self.handle_api_error(http_resp)
     begin
-      error_obj = JSON.parse(resp.body)
-      error_obj = Util.symbolize_names(error_obj)
-      error = error_obj[:error]
+      resp = StripeResponse.from_rest_client_response(http_resp)
+      error = resp.data[:error]
       raise StripeError.new unless error && error.is_a?(Hash)
 
     rescue JSON::ParserError, StripeError
-      raise general_api_error(resp.code, resp.body)
+      raise general_api_error(http_resp.code, http_resp.body)
     end
 
-    case resp.code
+    case resp.http_status
     when 400, 404
-      raise invalid_request_error(error, resp, error_obj)
+      error = InvalidRequestError.new(
+        error[:message], error[:param],
+        resp.http_status, resp.http_body, resp.data, resp.http_headers)
     when 401
-      raise authentication_error(error, resp, error_obj)
+      error = AuthenticationError.new(
+        error[:message],
+        resp.http_status, resp.http_body, resp.data, resp.http_headers)
     when 402
-      raise card_error(error, resp, error_obj)
+      error = CardError.new(
+        error[:message], error[:param], error[:code],
+        resp.http_status, resp.http_body, resp.data, resp.http_headers)
     when 403
-      raise permission_error(error, resp, error_obj)
+      error = PermissionError.new(
+        error[:message],
+        resp.http_status, resp.http_body, resp.data, resp.http_headers)
     when 429
-      raise rate_limit_error(error, resp, error_obj)
+      error = RateLimitError.new(
+        error[:message],
+        resp.http_status, resp.http_body, resp.data, resp.http_headers)
     else
-      raise api_error(error, resp, error_obj)
+      error = APIError.new(
+        error[:message],
+        resp.http_status, resp.http_body, resp.data, resp.http_headers)
     end
 
+    error.response = resp
+    raise(error)
   end
 
   def self.handle_restclient_error(e, request_opts, retry_count, api_base_url=nil)
@@ -381,32 +387,6 @@ module Stripe
     end
 
     raise APIConnectionError.new(message + "\n\n(Network error: #{e.message})")
-  end
-
-  def self.invalid_request_error(error, resp, error_obj)
-    InvalidRequestError.new(error[:message], error[:param], resp.code,
-                            resp.body, error_obj, resp.headers)
-  end
-
-  def self.parse(response)
-    begin
-      # Would use :symbolize_names => true, but apparently there is
-      # some library out there that makes symbolize_names not work.
-      response = JSON.parse(response.body)
-    rescue JSON::ParserError
-      raise general_api_error(response.code, response.body)
-    end
-
-    Util.symbolize_names(response)
-  end
-
-  def self.permission_error(error, resp, error_obj)
-    PermissionError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
-  end
-
-  def self.rate_limit_error(error, resp, error_obj)
-    RateLimitError.new(error[:message], resp.code, resp.body, error_obj,
-                       resp.headers)
   end
 
   def self.request_headers(api_key, method)

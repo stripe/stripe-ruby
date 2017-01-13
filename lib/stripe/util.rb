@@ -52,10 +52,10 @@ module Stripe
         'sku'                     => SKU,
         'subscription'            => Subscription,
         'subscription_item'       => SubscriptionItem,
+        'three_d_secure'          => ThreeDSecure,
         'token'                   => Token,
         'transfer'                => Transfer,
         'transfer_reversal'       => Reversal,
-        'three_d_secure'          => ThreeDSecure,
       }
     end
 

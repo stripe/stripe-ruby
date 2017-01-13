@@ -3,12 +3,24 @@ module Stripe
   # errors derive.
   class StripeError < StandardError
     attr_reader :message
-    attr_reader :http_status
+
+    # Response contains a structure that has some basic information about the
+    # response that conveyed the error.
+    attr_accessor :response
+
+    # These fields are now available as part of #response and that usage should
+    # be preferred.
     attr_reader :http_body
     attr_reader :http_headers
+    attr_reader :http_status
+    attr_reader :json_body # equivalent to #data
     attr_reader :request_id
-    attr_reader :json_body
 
+    # Initializes a StripeError.
+    #
+    # Note: We should try to move away from the very heavy constructors ordered
+    # parameters to each just setting accessor values directly or optional
+    # arguments.
     def initialize(message=nil, http_status=nil, http_body=nil, json_body=nil,
                    http_headers=nil)
       @message = message

@@ -218,18 +218,6 @@ module Stripe
 
   private
 
-  def self._uname_uname
-    (`uname -a 2>/dev/null` || '').strip
-  rescue Errno::ENOMEM # couldn't create subprocess
-    "uname lookup failed"
-  end
-
-  def self._uname_ver
-    (`ver` || '').strip
-  rescue Errno::ENOMEM # couldn't create subprocess
-    "uname lookup failed"
-  end
-
   def self.api_error(error, resp, error_obj)
     APIError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
   end
@@ -297,13 +285,29 @@ module Stripe
     else
       case RbConfig::CONFIG['host_os']
       when /linux|darwin|bsd|sunos|solaris|cygwin/i
-        _uname_uname
+        get_uname_from_system
       when /mswin|mingw/i
-        _uname_ver
+        get_uname_from_system_ver
       else
         "unknown platform"
       end
     end
+  end
+
+  def self.get_uname_from_system
+    (`uname -a 2>/dev/null` || '').strip
+  rescue Errno::ENOENT
+    "uname executable not found"
+  rescue Errno::ENOMEM # couldn't create subprocess
+    "uname lookup failed"
+  end
+
+  def self.get_uname_from_system_ver
+    (`ver` || '').strip
+  rescue Errno::ENOENT
+    "ver executable not found"
+  rescue Errno::ENOMEM # couldn't create subprocess
+    "uname lookup failed"
   end
 
   def self.handle_api_error(resp)

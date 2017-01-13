@@ -142,6 +142,24 @@ module Stripe
       assert_equal [1, 2, 3], obj
     end
 
+    should "#convert_to_stripe_object should add a response to APIResource" do
+      resp = StripeResponse.new
+      obj = Util.convert_to_stripe_object({ :object => "account" }, {}, response: resp)
+      assert_equal resp, obj.response
+    end
+
+    should "#convert_to_stripe_object should add a response to ListObject" do
+      resp = StripeResponse.new
+      obj = Util.convert_to_stripe_object({ :object => "list" }, {}, response: resp)
+      assert_equal resp, obj.response
+    end
+
+    should "#convert_to_stripe_object should not add a response to other types" do
+      resp = StripeResponse.new
+      obj = Util.convert_to_stripe_object({ :foo => "bar" }, {}, response: resp)
+      refute obj.respond_to?(:response)
+    end
+
     should "#array_to_hash should convert an array into a hash with integer keys" do
       assert_equal({"0" => 1, "1" => 2, "2" => 3}, Util.array_to_hash([1, 2, 3]))
     end

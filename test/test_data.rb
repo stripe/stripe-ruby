@@ -1,7 +1,8 @@
 module Stripe
   module TestData
-    def make_response(body, code=200, headers: nil)
-      headers = {} if headers.nil?
+    def make_response(body, code = 200, opts = {})
+      # Change this to an optional parameter when we drop 1.9 support.
+      headers = opts[:headers] || {}
 
       # When an exception is raised, restclient clobbers method_missing.  Hence we
       # can't just use the stubs interface.

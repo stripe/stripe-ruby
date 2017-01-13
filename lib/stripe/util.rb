@@ -73,7 +73,7 @@ module Stripe
     #   on subsequent API calls.
     # * +response+ - An object containing information about the API response
     #   that produced the data which is hydrating the StripeObject.
-    def self.convert_to_stripe_object(data, opts, response: nil)
+    def self.convert_to_stripe_object(data, opts, other_opts = {})
       obj = case data
       when Array
         data.map { |i| convert_to_stripe_object(i, opts) }
@@ -86,7 +86,8 @@ module Stripe
 
       case obj
       when APIResource, ListObject
-        obj.response = response
+        # Change this to an optional parameter when we drop 1.9 support.
+        obj.response = other_opts[:response]
       end
 
       obj

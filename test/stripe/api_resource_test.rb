@@ -167,6 +167,17 @@ module Stripe
       assert_equal 'Invalid response object from API: "{\"error\":\"foo\"}" (HTTP response code was 500)', e.message
     end
 
+    should "set response on error" do
+      response = make_response('{"error": { "message": "foo"}}', 500)
+      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+
+      e = assert_raises Stripe::APIError do
+        Stripe::Charge.create
+      end
+
+      assert_equal 500, e.response.http_status
+    end
+
     should "have default open and read timeouts" do
       assert_equal Stripe.open_timeout, 30
       assert_equal Stripe.read_timeout, 80
@@ -364,6 +375,12 @@ module Stripe
           to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new("test_customer")
         c.refresh
+      end
+
+      should "set response on success" do
+        @mock.expects(:post).once.returns(make_response(make_charge, 200))
+        charge = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+        assert_equal 200, charge.response.http_status
       end
 
       should "using array accessors should be the same as the method interface" do

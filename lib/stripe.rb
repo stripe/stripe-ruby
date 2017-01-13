@@ -128,6 +128,37 @@ module Stripe
     (api_base_url || @api_base) + url
   end
 
+  # The location of a file containing a bundle of CA certificates. By default
+  # the library will use an included bundle that can successfully validate
+  # Stripe certificates.
+  def self.ca_bundle_path
+    @ca_bundle_path
+  end
+
+  def self.ca_bundle_path=(path)
+    @ca_bundle_path = path
+
+    # empty this field so a new store is initialized
+    @ca_store = nil
+  end
+
+  # A certificate store initialized from the the bundle in #ca_bundle_path and
+  # which is used to validate TLS on every request.
+  #
+  # This was added to the give the gem "pseudo thread safety" in that it seems
+  # when initiating many parallel requests marshaling the certificate store is
+  # the most likely point of failure (see issue #382). Any program attempting
+  # to leverage this pseudo safety should make a call to this method (i.e.
+  # `Stripe.ca_store`) in their initialization code because it marshals lazily
+  # and is itself not thread safe.
+  def self.ca_store
+    @ca_store ||= begin
+      store = OpenSSL::X509::Store.new
+      store.add_file(ca_bundle_path)
+      store
+    end
+  end
+
   def self.request(method, url, api_key, params={}, headers={}, api_base_url=nil)
     api_base_url = api_base_url || @api_base
 
@@ -184,37 +215,6 @@ module Stripe
     [parse(response), api_key]
   end
 
-  # The location of a file containing a bundle of CA certificates. By default
-  # the library will use an included bundle that can successfully validate
-  # Stripe certificates.
-  def self.ca_bundle_path
-    @ca_bundle_path
-  end
-
-  def self.ca_bundle_path=(path)
-    @ca_bundle_path = path
-
-    # empty this field so a new store is initialized
-    @ca_store = nil
-  end
-
-  # A certificate store initialized from the the bundle in #ca_bundle_path and
-  # which is used to validate TLS on every request.
-  #
-  # This was added to the give the gem "pseudo thread safety" in that it seems
-  # when initiating many parallel requests marshaling the certificate store is
-  # the most likely point of failure (see issue #382). Any program attempting
-  # to leverage this pseudo safety should make a call to this method (i.e.
-  # `Stripe.ca_store`) in their initialization code because it marshals lazily
-  # and is itself not thread safe.
-  def self.ca_store
-    @ca_store ||= begin
-      store = OpenSSL::X509::Store.new
-      store.add_file(ca_bundle_path)
-      store
-    end
-  end
-
   def self.max_network_retries
     @max_network_retries
   end
@@ -224,6 +224,36 @@ module Stripe
   end
 
   private
+
+  def self._uname_uname
+    (`uname -a 2>/dev/null` || '').strip
+  rescue Errno::ENOMEM # couldn't create subprocess
+    "uname lookup failed"
+  end
+
+  def self._uname_ver
+    (`ver` || '').strip
+  rescue Errno::ENOMEM # couldn't create subprocess
+    "uname lookup failed"
+  end
+
+  def self.api_error(error, resp, error_obj)
+    APIError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
+  end
+
+  def self.authentication_error(error, resp, error_obj)
+    AuthenticationError.new(error[:message], resp.code, resp.body, error_obj,
+                            resp.headers)
+  end
+
+  def self.card_error(error, resp, error_obj)
+    CardError.new(error[:message], error[:param], error[:code],
+                  resp.code, resp.body, error_obj, resp.headers)
+  end
+
+  def self.execute_request(opts)
+    RestClient::Request.execute(opts)
+  end
 
   def self.execute_request_with_rescues(request_opts, api_base_url, retry_count = 0)
     begin
@@ -263,21 +293,9 @@ module Stripe
     response
   end
 
-  def self.user_agent
-    @uname ||= get_uname
-    lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
-
-    {
-      :bindings_version => Stripe::VERSION,
-      :lang => 'ruby',
-      :lang_version => lang_version,
-      :platform => RUBY_PLATFORM,
-      :engine => defined?(RUBY_ENGINE) ? RUBY_ENGINE : '',
-      :publisher => 'stripe',
-      :uname => @uname,
-      :hostname => Socket.gethostname,
-    }
-
+  def self.general_api_error(rcode, rbody)
+    APIError.new("Invalid response object from API: #{rbody.inspect} " +
+                 "(HTTP response code was #{rcode})", rcode, rbody)
   end
 
   def self.get_uname
@@ -293,72 +311,6 @@ module Stripe
         "unknown platform"
       end
     end
-  end
-
-  def self._uname_uname
-    (`uname -a 2>/dev/null` || '').strip
-  rescue Errno::ENOMEM # couldn't create subprocess
-    "uname lookup failed"
-  end
-
-  def self._uname_ver
-    (`ver` || '').strip
-  rescue Errno::ENOMEM # couldn't create subprocess
-    "uname lookup failed"
-  end
-
-  # DEPRECATED. Use `Util#encode_parameters` instead.
-  def self.uri_encode(params)
-    Util.encode_parameters(params)
-  end
-  class << self
-    extend Gem::Deprecate
-    deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 01
-  end
-
-  def self.request_headers(api_key, method)
-    headers = {
-      'User-Agent' => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
-      'Authorization' => "Bearer #{api_key}",
-      'Content-Type' => 'application/x-www-form-urlencoded'
-    }
-
-    # It is only safe to retry network failures on post and delete
-    # requests if we add an Idempotency-Key header
-    if [:post, :delete].include?(method) && self.max_network_retries > 0
-      headers['Idempotency-Key'] ||= SecureRandom.uuid
-    end
-
-    headers['Stripe-Version'] = api_version if api_version
-    headers['Stripe-Account'] = stripe_account if stripe_account
-
-    begin
-      headers.update('X-Stripe-Client-User-Agent' => JSON.generate(user_agent))
-    rescue => e
-      headers.update('X-Stripe-Client-Raw-User-Agent' => user_agent.inspect,
-                     :error => "#{e} (#{e.class})")
-    end
-  end
-
-  def self.execute_request(opts)
-    RestClient::Request.execute(opts)
-  end
-
-  def self.parse(response)
-    begin
-      # Would use :symbolize_names => true, but apparently there is
-      # some library out there that makes symbolize_names not work.
-      response = JSON.parse(response.body)
-    rescue JSON::ParserError
-      raise general_api_error(response.code, response.body)
-    end
-
-    Util.symbolize_names(response)
-  end
-
-  def self.general_api_error(rcode, rbody)
-    APIError.new("Invalid response object from API: #{rbody.inspect} " +
-                 "(HTTP response code was #{rcode})", rcode, rbody)
   end
 
   def self.handle_api_error(resp)
@@ -387,34 +339,6 @@ module Stripe
       raise api_error(error, resp, error_obj)
     end
 
-  end
-
-  def self.invalid_request_error(error, resp, error_obj)
-    InvalidRequestError.new(error[:message], error[:param], resp.code,
-                            resp.body, error_obj, resp.headers)
-  end
-
-  def self.authentication_error(error, resp, error_obj)
-    AuthenticationError.new(error[:message], resp.code, resp.body, error_obj,
-                            resp.headers)
-  end
-
-  def self.rate_limit_error(error, resp, error_obj)
-    RateLimitError.new(error[:message], resp.code, resp.body, error_obj,
-                       resp.headers)
-  end
-
-  def self.card_error(error, resp, error_obj)
-    CardError.new(error[:message], error[:param], error[:code],
-                  resp.code, resp.body, error_obj, resp.headers)
-  end
-
-  def self.permission_error(error, resp, error_obj)
-    PermissionError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
-  end
-
-  def self.api_error(error, resp, error_obj)
-    APIError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
   end
 
   def self.handle_restclient_error(e, request_opts, retry_count, api_base_url=nil)
@@ -462,6 +386,56 @@ module Stripe
     raise APIConnectionError.new(message + "\n\n(Network error: #{e.message})")
   end
 
+  def self.invalid_request_error(error, resp, error_obj)
+    InvalidRequestError.new(error[:message], error[:param], resp.code,
+                            resp.body, error_obj, resp.headers)
+  end
+
+  def self.parse(response)
+    begin
+      # Would use :symbolize_names => true, but apparently there is
+      # some library out there that makes symbolize_names not work.
+      response = JSON.parse(response.body)
+    rescue JSON::ParserError
+      raise general_api_error(response.code, response.body)
+    end
+
+    Util.symbolize_names(response)
+  end
+
+  def self.permission_error(error, resp, error_obj)
+    PermissionError.new(error[:message], resp.code, resp.body, error_obj, resp.headers)
+  end
+
+  def self.rate_limit_error(error, resp, error_obj)
+    RateLimitError.new(error[:message], resp.code, resp.body, error_obj,
+                       resp.headers)
+  end
+
+  def self.request_headers(api_key, method)
+    headers = {
+      'User-Agent' => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
+      'Authorization' => "Bearer #{api_key}",
+      'Content-Type' => 'application/x-www-form-urlencoded'
+    }
+
+    # It is only safe to retry network failures on post and delete
+    # requests if we add an Idempotency-Key header
+    if [:post, :delete].include?(method) && self.max_network_retries > 0
+      headers['Idempotency-Key'] ||= SecureRandom.uuid
+    end
+
+    headers['Stripe-Version'] = api_version if api_version
+    headers['Stripe-Account'] = stripe_account if stripe_account
+
+    begin
+      headers.update('X-Stripe-Client-User-Agent' => JSON.generate(user_agent))
+    rescue => e
+      headers.update('X-Stripe-Client-Raw-User-Agent' => user_agent.inspect,
+                     :error => "#{e} (#{e.class})")
+    end
+  end
+
   def self.should_retry?(e, retry_count)
     retry_count < self.max_network_retries &&
       RETRY_EXCEPTIONS.any? { |klass| e.is_a?(klass) }
@@ -481,5 +455,31 @@ module Stripe
     sleep_seconds = [initial_network_retry_delay, sleep_seconds].max
 
     sleep_seconds
+  end
+
+  # DEPRECATED. Use `Util#encode_parameters` instead.
+  def self.uri_encode(params)
+    Util.encode_parameters(params)
+  end
+  class << self
+    extend Gem::Deprecate
+    deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 01
+  end
+
+  def self.user_agent
+    @uname ||= get_uname
+    lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
+
+    {
+      :bindings_version => Stripe::VERSION,
+      :lang => 'ruby',
+      :lang_version => lang_version,
+      :platform => RUBY_PLATFORM,
+      :engine => defined?(RUBY_ENGINE) ? RUBY_ENGINE : '',
+      :publisher => 'stripe',
+      :uname => @uname,
+      :hostname => Socket.gethostname,
+    }
+
   end
 end

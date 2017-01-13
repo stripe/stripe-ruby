@@ -20,6 +20,7 @@ require 'stripe/api_operations/list'
 require 'stripe/api_operations/request'
 
 # API resource support classes
+require 'stripe/errors'
 require 'stripe/util'
 require 'stripe/stripe_object'
 require 'stripe/list_object'
@@ -61,16 +62,6 @@ require 'stripe/subscription_item'
 require 'stripe/three_d_secure'
 require 'stripe/token'
 require 'stripe/transfer'
-
-# Errors
-require 'stripe/errors/stripe_error'
-require 'stripe/errors/api_error'
-require 'stripe/errors/api_connection_error'
-require 'stripe/errors/card_error'
-require 'stripe/errors/invalid_request_error'
-require 'stripe/errors/authentication_error'
-require 'stripe/errors/permission_error'
-require 'stripe/errors/rate_limit_error'
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'

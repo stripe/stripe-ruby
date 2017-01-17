@@ -2,8 +2,8 @@ module Stripe
   class APIResource < StripeObject
     include Stripe::APIOperations::Request
 
-    # Response contains a structure that has some basic information about the
-    # response that conveyed the API resource.
+    # Response contains a StripeResponse object that has some basic information
+    # about the response that conveyed the API resource.
     #
     # Note that this is only set on the top-level API resource returned by an
     # API operation. It will hold a nil value on all others.

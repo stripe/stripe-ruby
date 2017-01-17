@@ -75,18 +75,24 @@ module Stripe
 
     should "specifying invalid api credentials should raise an exception" do
       Stripe.api_key = "invalid"
-      response = make_response(make_invalid_api_key_error, 401)
+      error = make_invalid_api_key_error
+      response = make_response(error, 401)
       assert_raises Stripe::AuthenticationError do
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 401))
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         Stripe::Customer.retrieve("failing_customer")
       end
     end
 
     should "AuthenticationErrors should have an http status, http body, and JSON body" do
       Stripe.api_key = "invalid"
-      response = make_response(make_invalid_api_key_error, 401)
+      error = make_invalid_api_key_error
+      response = make_response(error, 401)
       begin
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 401))
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         Stripe::Customer.retrieve("failing_customer")
       rescue Stripe::AuthenticationError => e
         assert_equal(401, e.http_status)
@@ -146,8 +152,11 @@ module Stripe
     end
 
     should "handle error response with empty body" do
-      response = make_response('', 500)
-      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+      error = make_error('internal_error', 'Internal error.')
+      response = make_response(error, 500)
+      @mock.expects(:post).once.raises(
+        Faraday::ClientError.new(error[:error][:message], response)
+      )
 
       e = assert_raises Stripe::APIError do
         Stripe::Charge.create
@@ -157,25 +166,17 @@ module Stripe
     end
 
     should "handle error response with non-object error value" do
-      response = make_response('{"error": "foo"}', 500)
-      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+      error = make_error('internal_error', 'Internal error.')
+      response = make_response(error, 500)
+      @mock.expects(:post).once.raises(
+        Faraday::ClientError.new(error[:error][:message], response)
+      )
 
       e = assert_raises Stripe::APIError do
         Stripe::Charge.create
       end
 
       assert_equal 'Invalid response object from API: "{\"error\": \"foo\"}" (HTTP response code was 500)', e.message
-    end
-
-    should "set response on error" do
-      response = make_response('{"error": { "message": "foo"}}', 500)
-      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
-
-      e = assert_raises Stripe::APIError do
-        Stripe::Charge.create
-      end
-
-      assert_equal 500, e.response.http_status
     end
 
     should "have default open and read timeouts" do
@@ -276,8 +277,11 @@ module Stripe
       end
 
       should "a 400 should give an InvalidRequestError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 400)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        error = make_missing_id_error
+        response = make_response(error, 400)
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         begin
           Stripe::Customer.retrieve("foo")
         rescue Stripe::InvalidRequestError => e
@@ -288,8 +292,11 @@ module Stripe
       end
 
       should "a 401 should give an AuthenticationError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 401)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        error = make_missing_id_error
+        response = make_response(error, 401)
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         begin
           Stripe::Customer.retrieve("foo")
         rescue Stripe::AuthenticationError => e
@@ -300,8 +307,11 @@ module Stripe
       end
 
       should "a 402 should give a CardError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 402)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        error = make_missing_id_error
+        response = make_response(error, 402)
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         begin
           Stripe::Customer.retrieve("foo")
         rescue Stripe::CardError => e
@@ -312,8 +322,11 @@ module Stripe
       end
 
       should "a 403 should give a PermissionError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 403)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 403))
+        error = make_missing_id_error
+        response = make_response(error, 403)
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         begin
           Stripe::Customer.retrieve("foo")
         rescue Stripe::PermissionError => e
@@ -324,8 +337,11 @@ module Stripe
       end
 
       should "a 404 should give an InvalidRequestError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 404)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        error = make_missing_id_error
+        response = make_response(error, 404)
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         begin
           Stripe::Customer.retrieve("foo")
         rescue Stripe::InvalidRequestError => e
@@ -336,8 +352,11 @@ module Stripe
       end
 
       should "a 429 should give a RateLimitError with http status, body, and JSON body" do
-        response = make_response(make_rate_limit_error, 429)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 429))
+        error = make_rate_limit_error
+        response = make_response(error, 429)
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         begin
           Stripe::Customer.retrieve("foo")
         rescue Stripe::RateLimitError => e
@@ -365,8 +384,11 @@ module Stripe
       end
 
       should "requesting with a unicode ID should result in a request" do
-        response = make_response(make_missing_id_error, 404)
-        @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/%E2%98%83", nil, nil).raises(RestClient::ExceptionWithResponse.new(response, 404))
+      error = make_missing_id_error
+      response = make_response(error, 404)
+        @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/%E2%98%83", nil, nil).raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         c = Stripe::Customer.new("☃")
         assert_raises(Stripe::InvalidRequestError) { c.refresh }
       end
@@ -518,8 +540,11 @@ module Stripe
       context "error checking" do
 
         should "404s should raise an InvalidRequestError" do
-          response = make_response(make_missing_id_error, 404)
-          @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+          error = make_missing_id_error
+          response = make_response(error, 404)
+          @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
 
           rescued = false
           begin
@@ -536,8 +561,11 @@ module Stripe
         end
 
         should "5XXs should raise an APIError" do
-          response = make_response(make_api_error, 500)
-          @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+          error = make_api_error
+          response = make_response(error, 500)
+          @mock.expects(:get).once.raises(
+            Faraday::ClientError.new(error[:error][:message], response)
+          )
 
           rescued = false
           begin
@@ -552,8 +580,11 @@ module Stripe
         end
 
         should "402s should raise a CardError" do
-          response = make_response(make_invalid_exp_year_error, 402)
-          @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 402))
+          error = make_invalid_exp_year_error
+          response = make_response(error, 402)
+          @mock.expects(:get).once.raises(
+            Faraday::ClientError.new(error[:error][:message], response)
+          )
 
           rescued = false
           begin
@@ -810,16 +841,19 @@ module Stripe
         Stripe.stubs(:max_network_retries).returns(2)
       end
 
-      should 'retry on a low-level network error' do
-        assert Stripe.should_retry?(Errno::ECONNREFUSED.new, 0)
+      should 'retry on timeout' do
+        assert Stripe.should_retry?(Faraday::TimeoutError.new(""), 0)
       end
 
-      should 'retry on timeout' do
-        assert Stripe.should_retry?(RestClient::RequestTimeout.new, 0)
+      should 'retry on a failed connection' do
+        assert Stripe.should_retry?(Faraday::ConnectionFailed.new(""), 0)
       end
 
       should 'retry on a conflict' do
-        assert Stripe.should_retry?(RestClient::Conflict.new, 0)
+        error = make_rate_limit_error
+        response = make_response(error, 429)
+        e = Faraday::ClientError.new(error[:error][:message], response)
+        assert Stripe.should_retry?(e, 0)
       end
 
       should 'not retry at maximum count' do
@@ -827,7 +861,7 @@ module Stripe
       end
 
       should 'not retry on a certificate validation error' do
-        refute Stripe.should_retry?(RestClient::SSLCertificateNotVerified.new('message'), 0)
+        refute Stripe.should_retry?(Faraday::SSLError.new(""), 0)
       end
     end
 

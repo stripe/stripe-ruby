@@ -6,12 +6,12 @@ module Stripe
 
     def self.upcoming(params, opts={})
       resp, opts = request(:get, upcoming_url, params, opts)
-      Util.convert_to_stripe_object(resp.data, opts, response: resp)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def pay(opts={})
-      self.response, opts = request(:post, pay_url, {}, opts)
-      initialize_from(response.data, opts)
+      resp, opts = request(:post, pay_url, {}, opts)
+      initialize_from(resp.data, opts)
     end
 
     private

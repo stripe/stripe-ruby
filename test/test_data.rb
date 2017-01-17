@@ -1,20 +1,23 @@
 module Stripe
   module TestData
-    def make_response(body, code = 200, opts = {})
+    def make_response(body, status = 200, opts = {})
       # Change this to an optional parameter when we drop 1.9 support.
       headers = opts[:headers] || {}
 
       # When an exception is raised, restclient clobbers method_missing.  Hence we
       # can't just use the stubs interface.
       body = JSON.generate(body) if !(body.kind_of? String)
+
+      # This mock approximates a Faraday response. Using something like webmock
+      # would be less prone to eror.
       m = mock
       m.instance_variable_set('@stripe_values', {
         :body => body,
-        :code => code,
+        :status => status,
         :headers => headers,
       })
       def m.body; @stripe_values[:body]; end
-      def m.code; @stripe_values[:code]; end
+      def m.status; @stripe_values[:status]; end
       def m.headers; @stripe_values[:headers]; end
       m
     end
@@ -540,6 +543,15 @@ module Stripe
         :data => [make_bitcoin_transaction, make_bitcoin_transaction, make_bitcoin_transaction],
         :object => 'list',
         :resource_url => "/v1/bitcoin/receivers/btcrcv_test_receiver/transactions"
+      }
+    end
+
+    def make_error(type, message)
+      {
+        :error => {
+          :type => type,
+          :message => message,
+        }
       }
     end
 

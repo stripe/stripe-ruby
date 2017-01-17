@@ -6,7 +6,6 @@ module Stripe
 
         resp, opts = request(:get, resource_url, filters, opts)
         obj = ListObject.construct_from(resp.data, opts)
-        obj.response = resp
 
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages

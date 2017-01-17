@@ -4,8 +4,8 @@ module Stripe
   class StripeError < StandardError
     attr_reader :message
 
-    # Response contains a structure that has some basic information about the
-    # response that conveyed the error.
+    # Response contains a StripeResponse object that has some basic information
+    # about the response that conveyed the error.
     attr_accessor :response
 
     # These fields are now available as part of #response and that usage should

@@ -6,7 +6,7 @@ require 'rbconfig'
 require 'set'
 require 'socket'
 
-require 'rest-client'
+require 'faraday'
 require 'json'
 
 # Version
@@ -22,6 +22,7 @@ require 'stripe/api_operations/request'
 # API resource support classes
 require 'stripe/errors'
 require 'stripe/util'
+require 'stripe/stripe_client'
 require 'stripe/stripe_object'
 require 'stripe/stripe_response'
 require 'stripe/list_object'
@@ -66,35 +67,6 @@ require 'stripe/transfer'
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
-
-  # Exceptions which we'd like to retry. This includes both socket errors that
-  # may represent an intermittent problem and some special HTTP statuses.
-  RETRY_EXCEPTIONS = [
-    # Destination refused the connection. This could occur from a single
-    # saturated server, so retry in case it's intermittent.
-    Errno::ECONNREFUSED,
-
-    # Connection reset. This occasionally occurs on a server problem, and
-    # deserves a retry because the server should terminate all requests
-    # properly even if they were invalid.
-    Errno::ECONNRESET,
-
-    # Timed out making the connection. It's worth retrying under this
-    # circumstance.
-    Errno::ETIMEDOUT,
-
-    # A server may respond with a 409 to indicate that there is a concurrent
-    # request executing with the same idempotency key. In the case that a
-    # request failed due to a connection problem and the client has retried too
-    # early, but the server is still executing the old request, we would like
-    # the client to continue retrying until getting a "real" response status
-    # back.
-    RestClient::Conflict,
-
-    # Retry on timeout-related problems. This shouldn't be lumped in with HTTP
-    # exceptions, but with RestClient it is.
-    RestClient::RequestTimeout,
-  ].freeze
 
   @api_base = 'https://api.stripe.com'
   @connect_base = 'https://connect.stripe.com'
@@ -153,7 +125,18 @@ module Stripe
     end
   end
 
-  def self.request(method, url, api_key, params={}, headers={}, api_base_url=nil)
+  # A default Faraday connection to be used when one isn't configured. This
+  # object should never be mutated, and instead instantiating your own
+  # connection and wrapping it in a StripeClient object should be preferred.
+  def self.default_conn
+    @default_conn ||= Faraday.new do |conn|
+      faraday.request  :raise_error
+      faraday.request  :url_encoded
+      farday.adapter Faraday.default_adapter
+    end
+  end
+
+  def self.request(conn, method, url, api_key, params, headers, api_base_url)
     api_base_url = api_base_url || @api_base
 
     unless api_key ||= @api_key
@@ -169,19 +152,6 @@ module Stripe
         'whitespace. (HINT: You can double-check your API key from the ' \
         'Stripe web interface. See https://stripe.com/api for details, or ' \
         'email support@stripe.com if you have any questions.)')
-    end
-
-    if verify_ssl_certs
-      request_opts = {:verify_ssl => OpenSSL::SSL::VERIFY_PEER,
-                      :ssl_cert_store => ca_store}
-    else
-      request_opts = {:verify_ssl => false}
-      unless @verify_ssl_warned
-        @verify_ssl_warned = true
-        $stderr.puts("WARNING: Running without SSL cert verification. " \
-          "You should never do this in production. " \
-          "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
-      end
     end
 
     params = Util.objects_to_ids(params)
@@ -200,17 +170,41 @@ module Stripe
       end
     end
 
-    request_opts.update(:headers => request_headers(api_key, method).update(headers),
-                        :method => method, :open_timeout => open_timeout,
-                        :payload => payload, :url => url, :timeout => read_timeout)
+    http_resp = execute_request_with_rescues(api_base_url, 0) do
+      conn.run_request(
+        method,
+        url,
+        payload,
+        # TODO: Convert RestClient-style parameters.
+        request_headers(api_key, method).update(headers)
+      ) do |req|
+        req.options.open_timeout = open_timeout
+        req.options.timeout = read_timeout
 
-    http_resp = execute_request_with_rescues(request_opts, api_base_url)
+        if verify_ssl_Certs
+          req.ssl.verify = true
+          req.ssl.cert_store = ca_store
+        else
+          req.ssl.verify = false
+
+          unless @verify_ssl_warned
+            @verify_ssl_warned = true
+            $stderr.puts("WARNING: Running without SSL cert verification. " \
+              "You should never do this in production. " \
+              "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
+          end
+        end
+      end
+    end
 
     begin
-      resp = StripeResponse.from_rest_client_response(http_resp)
+      resp = StripeResponse.from_faraday_response(http_resp)
     rescue JSON::ParserError
       raise general_api_error(http_resp.code, http_resp.body)
     end
+
+    # Allows StripeClient#request to return a response object to a caller.
+    StripeClient.set_last_response(resp)
 
     [resp, api_key]
   end
@@ -225,13 +219,9 @@ module Stripe
 
   private
 
-  def self.execute_request(opts)
-    RestClient::Request.execute(opts)
-  end
-
-  def self.execute_request_with_rescues(request_opts, api_base_url, retry_count = 0)
+  def self.execute_request_with_rescues(api_base_url, retry_count, &block)
     begin
-      response = execute_request(request_opts)
+      block.call
 
     # We rescue all exceptions from a request so that we have an easy spot to
     # implement our retry logic across the board. We'll re-raise if it's a type
@@ -244,18 +234,8 @@ module Stripe
       end
 
       case e
-      when SocketError
-        response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
-
-      when RestClient::ExceptionWithResponse
-        if e.response
-          handle_api_error(e.response)
-        else
-          response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
-        end
-
-      when RestClient::Exception, Errno::ECONNREFUSED, OpenSSL::SSL::SSLError
-        response = handle_restclient_error(e, request_opts, retry_count, api_base_url)
+      when Faraday::ClientError
+        response = handle_faraday_error(e, retry_count, api_base_url)
 
       # Only handle errors when we know we can do so, and re-raise otherwise.
       # This should be pretty infrequent.
@@ -305,7 +285,7 @@ module Stripe
 
   def self.handle_api_error(http_resp)
     begin
-      resp = StripeResponse.from_rest_client_response(http_resp)
+      resp = StripeResponse.from_faraday_response(http_resp)
       error = resp.data[:error]
       raise StripeError.new unless error && error.is_a?(Hash)
 
@@ -344,37 +324,25 @@ module Stripe
     raise(error)
   end
 
-  def self.handle_restclient_error(e, request_opts, retry_count, api_base_url=nil)
-
-    api_base_url = @api_base unless api_base_url
-    connection_message = "Please check your internet connection and try again. " \
-        "If this problem persists, you should check Stripe's service status at " \
-        "https://twitter.com/stripestatus, or let us know at support@stripe.com."
-
+  def self.handle_faraday_error(e, retry_count, api_base_url=nil)
     case e
-    when RestClient::RequestTimeout
-      message = "Could not connect to Stripe (#{api_base_url}). #{connection_message}"
+    when Faraday::ConnectFailed
+      message = "Unexpected error communicating when trying to connect to Stripe. " \
+        "You may be seeing this message because your DNS is not working. " \
+        "To check, try running 'host stripe.com' from the command line."
 
-    when RestClient::ServerBrokeConnection
-      message = "The connection to the server (#{api_base_url}) broke before the " \
-        "request completed. #{connection_message}"
-
-    when OpenSSL::SSL::SSLError
+    when Faraday::SSLError
       message = "Could not establish a secure connection to Stripe, you may " \
                 "need to upgrade your OpenSSL version. To check, try running " \
                 "'openssl s_client -connect api.stripe.com:443' from the " \
                 "command line."
 
-    when RestClient::SSLCertificateNotVerified
-      message = "Could not verify Stripe's SSL certificate. " \
-        "Please make sure that your network is not intercepting certificates. " \
-        "(Try going to https://api.stripe.com/v1 in your browser.) " \
-        "If this problem persists, let us know at support@stripe.com."
-
-    when SocketError
-      message = "Unexpected error communicating when trying to connect to Stripe. " \
-        "You may be seeing this message because your DNS is not working. " \
-        "To check, try running 'host stripe.com' from the command line."
+    when Faraday::TimeoutError
+      api_base_url = @api_base unless api_base_url
+      message = "Could not connect to Stripe (#{api_base_url}). " \
+        "Please check your internet connection and try again. " \
+        "If this problem persists, you should check Stripe's service status at " \
+        "https://twitter.com/stripestatus, or let us know at support@stripe.com."
 
     else
       message = "Unexpected error communicating with Stripe. " \
@@ -413,9 +381,26 @@ module Stripe
     end
   end
 
+  # Checks if an error is a problem that we should retry on. This includes both
+  # socket errors that may represent an intermittent problem and some special
+  # HTTP statuses.
   def self.should_retry?(e, retry_count)
-    retry_count < self.max_network_retries &&
-      RETRY_EXCEPTIONS.any? { |klass| e.is_a?(klass) }
+    return false if retry_count >= self.max_network_retries
+
+    # Retry on timeout-related problems (either on open or read).
+    return true if e.is_a?(Faraday::TimeoutError)
+
+    # Destination refused the connection, the connection was reset, or a
+    # variety of other connection failures. This could occur from a single
+    # saturated server, so retry in case it's intermittent.
+    return true if e.is_a?(Faraday::ConnectionFailed)
+
+    if e.is_a?(Faraday::ClientError) && e.response
+      # 409 conflict
+      return true if e.response.status == 409
+    end
+
+    false
   end
 
   def self.sleep_time(retry_count)

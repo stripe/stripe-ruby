@@ -10,8 +10,8 @@ module Stripe
     # expansions, and predicates as a user pages through resources.
     attr_accessor :filters
 
-    # Response contains a structure that has some basic information about the
-    # response that conveyed the list resource.
+    # Response contains a StripeResponse object that has some basic information
+    # about the response that conveyed the list resource.
     attr_accessor :response
 
     # An empty list object. This is returned from +next+ when we know that

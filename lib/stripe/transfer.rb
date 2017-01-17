@@ -5,8 +5,8 @@ module Stripe
     include Stripe::APIOperations::Save
 
     def cancel
-      self.response, api_key = self.request(:post, cancel_url)
-      initialize_from(response.data, api_key)
+      resp, api_key = self.request(:post, cancel_url)
+      initialize_from(resp.data, api_key)
     end
 
     def cancel_url

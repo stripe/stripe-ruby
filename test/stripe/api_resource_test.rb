@@ -167,17 +167,6 @@ module Stripe
       assert_equal 'Invalid response object from API: "{\"error\":\"foo\"}" (HTTP response code was 500)', e.message
     end
 
-    should "set response on error" do
-      response = make_response('{"error": { "message": "foo"}}', 500)
-      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
-
-      e = assert_raises Stripe::APIError do
-        Stripe::Charge.create
-      end
-
-      assert_equal 500, e.response.http_status
-    end
-
     should "have default open and read timeouts" do
       assert_equal Stripe.open_timeout, 30
       assert_equal Stripe.read_timeout, 80
@@ -321,8 +310,11 @@ module Stripe
       end
 
       should "a 429 should give a RateLimitError with http status, body, and JSON body" do
-        stub_request(:post, "#{Stripe.api_base}/v1/charges").
-          to_return(body: JSON.generate(make_missing_id_error), status: 429)
+        error = make_rate_limit_error
+        response = make_response(error, 429)
+        @mock.expects(:get).once.raises(
+          Faraday::ClientError.new(error[:error][:message], response)
+        )
         begin
           Stripe::Charge.create
         rescue Stripe::RateLimitError => e
@@ -815,16 +807,19 @@ module Stripe
         Stripe.stubs(:max_network_retries).returns(2)
       end
 
-      should 'retry on a low-level network error' do
-        assert Stripe.should_retry?(Errno::ECONNREFUSED.new, 0)
+      should 'retry on timeout' do
+        assert Stripe.should_retry?(Faraday::TimeoutError.new(""), 0)
       end
 
-      should 'retry on timeout' do
-        assert Stripe.should_retry?(RestClient::RequestTimeout.new, 0)
+      should 'retry on a failed connection' do
+        assert Stripe.should_retry?(Faraday::ConnectionFailed.new(""), 0)
       end
 
       should 'retry on a conflict' do
-        assert Stripe.should_retry?(RestClient::Conflict.new, 0)
+        error = make_rate_limit_error
+        response = make_response(error, 429)
+        e = Faraday::ClientError.new(error[:error][:message], response)
+        assert Stripe.should_retry?(e, 0)
       end
 
       should 'not retry at maximum count' do
@@ -832,7 +827,7 @@ module Stripe
       end
 
       should 'not retry on a certificate validation error' do
-        refute Stripe.should_retry?(RestClient::SSLCertificateNotVerified.new('message'), 0)
+        refute Stripe.should_retry?(Faraday::SSLError.new(""), 0)
       end
     end
 

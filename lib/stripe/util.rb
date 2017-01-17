@@ -71,10 +71,8 @@ module Stripe
     # * +data+ - Hash of fields and values to be converted into a StripeObject.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
-    # * +response+ - An object containing information about the API response
-    #   that produced the data which is hydrating the StripeObject.
-    def self.convert_to_stripe_object(data, opts, other_opts = {})
-      obj = case data
+    def self.convert_to_stripe_object(data, opts)
+      case data
       when Array
         data.map { |i| convert_to_stripe_object(i, opts) }
       when Hash
@@ -83,14 +81,6 @@ module Stripe
       else
         data
       end
-
-      case obj
-      when APIResource, ListObject
-        # Change this to an optional parameter when we drop 1.9 support.
-        obj.response = other_opts[:response]
-      end
-
-      obj
     end
 
     def self.file_readable(file)

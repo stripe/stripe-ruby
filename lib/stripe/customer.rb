@@ -38,25 +38,25 @@ module Stripe
     end
 
     def cancel_subscription(params={}, opts={})
-      self.response, opts = request(:delete, subscription_url, params, opts)
-      initialize_from({ :subscription => response.data }, opts, true)
+      resp, opts = request(:delete, subscription_url, params, opts)
+      initialize_from({ :subscription => resp.data }, opts, true)
       subscription
     end
 
     def update_subscription(params={}, opts={})
-      self.response, opts = request(:post, subscription_url, params, opts)
-      initialize_from({ :subscription => response.data }, opts, true)
+      resp, opts = request(:post, subscription_url, params, opts)
+      initialize_from({ :subscription => resp.data }, opts, true)
       subscription
     end
 
     def create_subscription(params={}, opts={})
-      self.response, opts = request(:post, subscriptions_url, params, opts)
-      initialize_from({ :subscription => response.data }, opts, true)
+      resp, opts = request(:post, subscriptions_url, params, opts)
+      initialize_from({ :subscription => resp.data }, opts, true)
       subscription
     end
 
     def delete_discount
-      self.response, opts = request(:delete, discount_url)
+      resp, opts = request(:delete, discount_url)
       initialize_from({ :discount => nil }, opts, true)
     end
 

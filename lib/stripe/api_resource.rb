@@ -2,13 +2,6 @@ module Stripe
   class APIResource < StripeObject
     include Stripe::APIOperations::Request
 
-    # Response contains a StripeResponse object that has some basic information
-    # about the response that conveyed the API resource.
-    #
-    # Note that this is only set on the top-level API resource returned by an
-    # API operation. It will hold a nil value on all others.
-    attr_accessor :response
-
     # A flag that can be set a behavior that will cause this resource to be
     # encoded and sent up along with an update of its parent resource. This is
     # usually not desirable because resources are updated individually on their
@@ -61,8 +54,8 @@ module Stripe
     end
 
     def refresh
-      self.response, opts = request(:get, resource_url, @retrieve_params)
-      initialize_from(response.data, opts)
+      resp, opts = request(:get, resource_url, @retrieve_params)
+      initialize_from(resp.data, opts)
     end
 
     def self.retrieve(id, opts={})

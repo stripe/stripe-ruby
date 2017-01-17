@@ -10,10 +10,6 @@ module Stripe
     # expansions, and predicates as a user pages through resources.
     attr_accessor :filters
 
-    # Response contains a StripeResponse object that has some basic information
-    # about the response that conveyed the list resource.
-    attr_accessor :response
-
     # An empty list object. This is returned from +next+ when we know that
     # there isn't a next page in order to replicate the behavior of the API
     # when it attempts to return a page beyond the last.
@@ -69,7 +65,7 @@ module Stripe
     def retrieve(id, opts={})
       id, retrieve_params = Util.normalize_id(id)
       resp, opts = request(:get,"#{resource_url}/#{CGI.escape(id)}", retrieve_params, opts)
-      Util.convert_to_stripe_object(resp.data, opts, response: resp)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     # Fetches the next page in the resource list (if there is one).

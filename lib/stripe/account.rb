@@ -37,8 +37,8 @@ module Stripe
 
     def reject(params={}, opts={})
       opts = Util.normalize_opts(opts)
-      self.response, opts = request(:post, resource_url + '/reject', params, opts)
-      initialize_from(response.data, opts)
+      resp, opts = request(:post, resource_url + '/reject', params, opts)
+      initialize_from(resp.data, opts)
     end
 
     # Somewhat unfortunately, we attempt to do a special encoding trick when
@@ -95,7 +95,7 @@ module Stripe
       opts = {:api_base => Stripe.connect_base}.merge(Util.normalize_opts(opts))
       resp, opts = request(:post, '/oauth/deauthorize', { 'client_id' => client_id, 'stripe_user_id' => self.id }, opts)
       opts.delete(:api_base) # the api_base here is a one-off, don't persist it
-      Util.convert_to_stripe_object(resp.data, opts, response: resp)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     ARGUMENT_NOT_PROVIDED = Object.new

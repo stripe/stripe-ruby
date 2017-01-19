@@ -895,5 +895,91 @@ module Stripe
         ]
       }
     end
+
+    def make_source_card(params={})
+      id = params[:id] || 'src_test_card'
+      {
+        :id => id,
+        :object => 'source',
+        :type => 'card',
+        :amount => nil,
+        :card => {
+          :address_line1_check => nil,
+          :address_zip_check => nil,
+          :brand => 'Visa',
+          :country => 'US',
+          :cvc_check => 'unchecked',
+          :description => nil,
+          :dynamic_last4 => nil,
+          :exp_month => 1,
+          :exp_year => 2020,
+          :fingerprint => 'NrVafqTONZfbLkQK',
+          :funding => 'credit',
+          :google_reference => nil,
+          :iin => nil,
+          :issuer => nil,
+          :last4 => '4242',
+          :three_d_secure => 'optional',
+          :tokenization_method => 'nil',
+        },
+        :client_secret => 'src_client_secret_test',
+        :created => 1484841032,
+        :currency => nil,
+        :flow => 'none',
+        :livemode => false,
+        :metadata => {},
+        :owner => {
+          :address => nil,
+          :email => nil,
+          :name => nil,
+          :phone => nil,
+          :verified_address => nil,
+          :verified_email => nil,
+          :verified_name => nil,
+          :verified_phone => nil,
+        },
+        :status => 'chargeable',
+        :usage => 'reusable',
+      }.merge(params)
+    end
+
+    def make_source_ach_debit(params={})
+      id = params[:id] || 'src_test_ach_debit'
+      {
+        :id => id,
+        :object => 'source',
+        :type => 'ach_debit',
+        :ach_debit => {
+          :country => 'US',
+          :fingerprint => 'yY5BWKwnW98uydOa',
+          :last4 => '6789',
+          :routing_number => '110000000',
+          :type => 'individual',
+        },
+        :amount => nil,
+        :client_secret => 'src_client_secret_test',
+        :created => 1484842122,
+        :currency => 'usd',
+        :flow => 'verification',
+        :livemode => false,
+        :metadata => {},
+        :owner => {
+          :address => nil,
+          :email => nil,
+          :name => 'Jenny Rosen',
+          :phone => nil,
+          :verified_address => nil,
+          :verified_email => nil,
+          :verified_name => nil,
+          :verified_phone => nil,
+        },
+        :status => 'pending',
+        :usage => 'reusable',
+        :verification => {
+          :attempts_remaining => 10,
+          :status => 'pending',
+        },
+      }.merge(params)
+    end
   end
 end

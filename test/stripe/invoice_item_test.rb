@@ -3,17 +3,16 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class InvoiceItemTest < Test::Unit::TestCase
     should "retrieve should retrieve invoice items" do
-      @mock.expects(:get).once.returns(make_response(make_invoice_item))
-      ii = Stripe::InvoiceItem.retrieve('in_test_invoice_item')
-      assert_equal 'ii_test_invoice_item', ii.id
+      stub_request(:get, "#{Stripe.api_base}/v1/invoiceitems/ii_test_invoice_item").
+        to_return(body: make_response(make_invoice_item))
+      _ = Stripe::InvoiceItem.retrieve('ii_test_invoice_item')
     end
 
     should "invoice items should be updateable" do
-      @mock.expects(:post).once.
-        with('https://api.stripe.com/v1/invoiceitems/test_invoice_item', nil, 'metadata[foo]=bar').
-        returns(make_response(make_charge(metadata: {'foo' => 'bar'})))
-      ii = Stripe::InvoiceItem.update("test_invoice_item", metadata: {foo: 'bar'})
-      assert_equal('bar', ii.metadata['foo'])
+      stub_request(:post, "#{Stripe.api_base}/v1/invoiceitems/ii_test_invoice_item").
+        with(body: { metadata: { foo: "bar" } }).
+        to_return(body: make_response(make_invoice_item))
+      _ = Stripe::InvoiceItem.update("ii_test_invoice_item", metadata: {foo: 'bar'})
     end
   end
 end

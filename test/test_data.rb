@@ -378,18 +378,6 @@ module Stripe
       }.merge(params)
     end
 
-    def make_paid_invoice
-      make_invoice.merge({
-          :attempt_count => 1,
-          :attempted => true,
-          :closed => true,
-          :paid => true,
-          :charge => 'ch_test_charge',
-          :ending_balance => 0,
-          :next_payment_attempt => nil,
-        })
-    end
-
     def make_invoice_item(params={})
       {
         id: "ii_test_invoice_item",

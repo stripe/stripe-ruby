@@ -3,7 +3,8 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class OrderReturnTest < Test::Unit::TestCase
     should "returns should be listable" do
-      @mock.expects(:get).once.returns(make_response(make_order_return_array))
+      stub_request(:get, "#{Stripe.api_base}/v1/order_returns").
+        to_return(body: make_response(make_order_return_array))
       returns = Stripe::OrderReturn.list
       assert returns.data.kind_of?(Array)
       returns.each do |ret|

@@ -1,3 +1,7 @@
+=== 1.58.0 2017-01-19
+
+* Remove erroneously added list methods for `Source` model
+
 === 1.57.1 2016-11-28
 
 * Disallow sending protected fields along with API resource `.update`

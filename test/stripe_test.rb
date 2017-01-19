@@ -42,7 +42,7 @@ class StripeTest < Test::Unit::TestCase
     )
     Stripe.stripe_account = 'acct_1234'
 
-    stub_request(:post, "/v1/account").
+    stub_request(:post, "#{Stripe.api_base}/v1/account").
       with(headers: {"Stripe-Account" => Stripe.stripe_account}).
       to_return(body: make_response(make_account))
 

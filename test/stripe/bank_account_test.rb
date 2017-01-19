@@ -9,10 +9,9 @@ module Stripe
         :customer => 'cus_bar'
       })
 
-      @mock.expects(:post).
-        once.
-        with('https://api.stripe.com/v1/customers/cus_bar/sources/ba_foo/verify', nil, 'amounts[]=1&amounts[]=2').
-        returns(make_response(:status => 'verified'))
+      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{bank.customer}/sources/#{bank.id}/verify").
+        with(body: { 'amounts' => ['1', '2'] }).
+        to_return(body: make_response(:status => 'verified'))
 
       bank.verify(:amounts => [1,2])
     end

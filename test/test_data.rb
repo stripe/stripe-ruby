@@ -1,19 +1,7 @@
 module Stripe
   module TestData
-    def make_response(body, code=200)
-      # When an exception is raised, restclient clobbers method_missing.  Hence we
-      # can't just use the stubs interface.
-      body = JSON.generate(body) if !(body.kind_of? String)
-      m = mock
-      m.instance_variable_set('@stripe_values', {
-        :body => body,
-        :code => code,
-        :headers => {},
-      })
-      def m.body; @stripe_values[:body]; end
-      def m.code; @stripe_values[:code]; end
-      def m.headers; @stripe_values[:headers]; end
-      m
+    def make_response(body)
+      JSON.generate(body)
     end
 
     def make_account(params={})

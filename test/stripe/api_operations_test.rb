@@ -13,9 +13,9 @@ module Stripe
 
     context ".update" do
       should "post the correct parameters to the resource URL" do
-        @mock.expects(:post).once.
-          with("#{Stripe.api_base}/v1/updateableresources/id", nil, 'foo=bar').
-          returns(make_response({foo: 'bar'}))
+        stub_request(:post, "#{Stripe.api_base}/v1/updateableresources/id").
+          with(body: { foo: "bar" }).
+          to_return(body: make_response({ foo: "bar" }))
         resource = UpdateableResource::update("id", { foo: "bar" })
         assert_equal('bar', resource.foo)
       end

@@ -3,8 +3,8 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class SKUTest < Test::Unit::TestCase
     should "SKUs should be listable" do
-      @mock.expects(:get).once.
-        returns(make_response(make_sku_array("test_product")))
+      stub_request(:get, "#{Stripe.api_base}/v1/skus").
+        to_return(body: make_response(make_sku_array("test_product")))
       skus = Stripe::SKU.list
       assert skus.data.kind_of? Array
       skus.each do |sku|
@@ -13,20 +13,20 @@ module Stripe
     end
 
     should "SKUs should be updateable" do
-      @mock.expects(:post).once.
-        with("#{Stripe.api_base}/v1/skus/test_sku", nil, 'metadata[foo]=bar').
-        returns(make_response(make_sku(:metadata => {foo: 'bar'})))
-      s = Stripe::SKU.update("test_sku", metadata: {foo: 'bar'})
-      assert_equal 'bar', s.metadata['foo']
+      stub_request(:post, "#{Stripe.api_base}/v1/skus/test_sku").
+        with(body: { metadata: { foo: "bar" } }).
+        to_return(body: make_response(make_sku))
+      _ = Stripe::SKU.update("test_sku", metadata: {foo: 'bar'})
     end
 
     should "SKUs should be deletable" do
-      @mock.expects(:get).once.returns(make_response(make_sku))
-      @mock.expects(:delete).once.returns(make_response(make_sku(:deleted => true)))
-
+      stub_request(:get, "#{Stripe.api_base}/v1/skus/test_sku").
+        to_return(body: make_response(make_sku))
       s = Stripe::SKU.retrieve("test_sku")
+
+      stub_request(:delete, "#{Stripe.api_base}/v1/skus/#{s.id}").
+        to_return(body: make_response(make_sku(:deleted => true)))
       s.delete
-      assert s.deleted
     end
 
   end

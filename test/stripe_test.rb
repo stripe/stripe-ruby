@@ -41,7 +41,7 @@ class StripeTest < Test::Unit::TestCase
       with(headers: {"Stripe-Account" => Stripe.stripe_account}).
       to_return(body: JSON.generate(make_account))
 
-    Stripe.request(:post, '/v1/account', 'sk_live12334566')
+    Stripe.request(Stripe.default_conn, :post, '/v1/account', 'sk_live12334566', {}, {}, nil)
   end
 
   context "#get_uname" do

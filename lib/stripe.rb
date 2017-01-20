@@ -130,12 +130,13 @@ module Stripe
   # connection and wrapping it in a StripeClient object should be preferred.
   def self.default_conn
     @default_conn ||= Faraday.new do |conn|
-      faraday.request  :raise_error
-      faraday.request  :url_encoded
-      farday.adapter Faraday.default_adapter
+      conn.use Faraday::Request::UrlEncoded
+      conn.use Faraday::Response::RaiseError
+      conn.adapter Faraday.default_adapter
     end
   end
 
+  # TODO: 
   def self.request(conn, method, url, api_key, params, headers, api_base_url)
     api_base_url = api_base_url || @api_base
 
@@ -170,6 +171,20 @@ module Stripe
       end
     end
 
+    if verify_ssl_certs
+      conn.ssl.verify = true
+      conn.ssl.cert_store = ca_store
+    else
+      conn.ssl.verify = false
+
+      unless @verify_ssl_warned
+        @verify_ssl_warned = true
+        $stderr.puts("WARNING: Running without SSL cert verification. " \
+          "You should never do this in production. " \
+          "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
+      end
+    end
+
     http_resp = execute_request_with_rescues(api_base_url, 0) do
       conn.run_request(
         method,
@@ -180,20 +195,6 @@ module Stripe
       ) do |req|
         req.options.open_timeout = open_timeout
         req.options.timeout = read_timeout
-
-        if verify_ssl_Certs
-          req.ssl.verify = true
-          req.ssl.cert_store = ca_store
-        else
-          req.ssl.verify = false
-
-          unless @verify_ssl_warned
-            @verify_ssl_warned = true
-            $stderr.puts("WARNING: Running without SSL cert verification. " \
-              "You should never do this in production. " \
-              "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
-          end
-        end
       end
     end
 
@@ -221,7 +222,7 @@ module Stripe
 
   def self.execute_request_with_rescues(api_base_url, retry_count, &block)
     begin
-      block.call
+      resp = block.call
 
     # We rescue all exceptions from a request so that we have an easy spot to
     # implement our retry logic across the board. We'll re-raise if it's a type
@@ -235,7 +236,11 @@ module Stripe
 
       case e
       when Faraday::ClientError
-        response = handle_faraday_error(e, retry_count, api_base_url)
+        if e.response
+          handle_api_error(e.response)
+        else
+          handle_network_error(e, retry_count, api_base_url)
+        end
 
       # Only handle errors when we know we can do so, and re-raise otherwise.
       # This should be pretty infrequent.
@@ -244,7 +249,7 @@ module Stripe
       end
     end
 
-    response
+    resp
   end
 
   def self.general_api_error(status, body)
@@ -285,12 +290,12 @@ module Stripe
 
   def self.handle_api_error(http_resp)
     begin
-      resp = StripeResponse.from_faraday_response(http_resp)
+      resp = StripeResponse.from_faraday_hash(http_resp)
       error = resp.data[:error]
       raise StripeError.new unless error && error.is_a?(Hash)
 
     rescue JSON::ParserError, StripeError
-      raise general_api_error(http_resp.code, http_resp.body)
+      raise general_api_error(http_resp[:status], http_resp[:body])
     end
 
     case resp.http_status
@@ -324,9 +329,9 @@ module Stripe
     raise(error)
   end
 
-  def self.handle_faraday_error(e, retry_count, api_base_url=nil)
+  def self.handle_network_error(e, retry_count, api_base_url=nil)
     case e
-    when Faraday::ConnectFailed
+    when Faraday::ConnectionFailed
       message = "Unexpected error communicating when trying to connect to Stripe. " \
         "You may be seeing this message because your DNS is not working. " \
         "To check, try running 'host stripe.com' from the command line."
@@ -397,7 +402,7 @@ module Stripe
 
     if e.is_a?(Faraday::ClientError) && e.response
       # 409 conflict
-      return true if e.response.status == 409
+      return true if e.response[:status] == 409
     end
 
     false

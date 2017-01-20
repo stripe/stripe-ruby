@@ -11,7 +11,7 @@ module Stripe
           headers = opts.clone
           api_key = headers.delete(:api_key)
           api_base = headers.delete(:api_base)
-          conn = headers.delete[:conn]
+          conn = headers.delete(:conn)
           # Assume all remaining opts must be headers
 
           resp, opts[:api_key] = Stripe.request(conn, method, url, api_key, params, headers, api_base)

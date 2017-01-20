@@ -310,11 +310,8 @@ module Stripe
       end
 
       should "a 429 should give a RateLimitError with http status, body, and JSON body" do
-        error = make_rate_limit_error
-        response = make_response(error, 429)
-        @mock.expects(:get).once.raises(
-          Faraday::ClientError.new(error[:error][:message], response)
-        )
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_rate_limit_error), status: 429)
         begin
           Stripe::Charge.create
         rescue Stripe::RateLimitError => e
@@ -367,12 +364,6 @@ module Stripe
           to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new("test_customer")
         c.refresh
-      end
-
-      should "set response on success" do
-        @mock.expects(:post).once.returns(make_response(make_charge, 200))
-        charge = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
-        assert_equal 200, charge.response.http_status
       end
 
       should "using array accessors should be the same as the method interface" do
@@ -817,8 +808,7 @@ module Stripe
 
       should 'retry on a conflict' do
         error = make_rate_limit_error
-        response = make_response(error, 429)
-        e = Faraday::ClientError.new(error[:error][:message], response)
+        e = Faraday::ClientError.new(error[:error][:message], { status: 409 })
         assert Stripe.should_retry?(e, 0)
       end
 

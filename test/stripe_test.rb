@@ -42,9 +42,9 @@ class StripeTest < Test::Unit::TestCase
     )
     Stripe.stripe_account = 'acct_1234'
 
-    Stripe.expects(:execute_request).with(
-      has_entry(:headers, has_entry('Stripe-Account', 'acct_1234')),
-    ).returns(make_response(response))
+    stub_request(:post, "/v1/account").
+      with(headers: {"Stripe-Account" => Stripe.stripe_account}).
+      to_return(body: make_response(make_account))
 
     Stripe.request(:post, '/v1/account', 'sk_live12334566')
   end

@@ -750,7 +750,7 @@ module Stripe
       }
     end
 
-    def country_spec_array
+    def make_country_spec_array
       {
         :object => "list",
         :resource_url => "/v1/country_specs",

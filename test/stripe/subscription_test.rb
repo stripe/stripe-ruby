@@ -97,7 +97,6 @@ module Stripe
 
     should "subscription items should be updateable" do
       sid = 's_test_subscription'
-      items = {:data => [{:plan => {:id =>'gold'}, :quantity => 1}, {:plan => {:id =>'silver'}, :quantity => 2}]}
 
       stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/#{sid}").
         with(body: { items: [{plan: "gold", quantity: "1"}, {plan: "silver", quantity: "2" }] }).

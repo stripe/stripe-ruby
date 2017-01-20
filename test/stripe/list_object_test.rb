@@ -38,7 +38,7 @@ module Stripe
       })
       stub_request(:get, "#{Stripe.api_base}/things").
         with(query: { starting_after: "1" }).
-        to_return(body: make_response({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
 
       assert_equal expected, list.auto_paging_each.to_a
     end
@@ -58,7 +58,7 @@ module Stripe
       })
       stub_request(:get, "#{Stripe.api_base}/things").
         with(query: { starting_after: "1" }).
-        to_return(body: make_response({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
 
       actual = []
       list.auto_paging_each do |obj|
@@ -87,7 +87,7 @@ module Stripe
       })
       stub_request(:get, "#{Stripe.api_base}/things").
         with(query: { starting_after: "1" }).
-        to_return(body: make_response({ :data => [{ :id => 2 }], :has_more => false }))
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }], :has_more => false }))
       next_list = list.next_page
       refute next_list.empty?
     end
@@ -101,7 +101,7 @@ module Stripe
       list.filters = { :expand => ['data.source'], :limit => 3 }
       stub_request(:get, "#{Stripe.api_base}/things").
         with(query: { "expand[]" => "data.source", "limit" => "3", "starting_after" => "1" }).
-        to_return(body: make_response({ :data => [{ :id => 2 }], :has_more => false }))
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }], :has_more => false }))
       next_list = list.next_page
       assert_equal({ :expand => ['data.source'], :limit => 3 }, next_list.filters)
     end
@@ -127,7 +127,7 @@ module Stripe
       })
       stub_request(:get, "#{Stripe.api_base}/things").
         with(query: { ending_before: "2" }).
-        to_return(body: make_response({ :data => [{ :id => 1 }] }))
+        to_return(body: JSON.generate({ :data => [{ :id => 1 }] }))
       next_list = list.previous_page
       refute next_list.empty?
     end
@@ -140,7 +140,7 @@ module Stripe
       list.filters = { :expand => ['data.source'], :limit => 3 }
       stub_request(:get, "#{Stripe.api_base}/things").
         with(query: { "expand[]" => "data.source", "limit" => "3", "ending_before" => "2" }).
-        to_return(body: make_response({ :data => [{ :id => 1 }] }))
+        to_return(body: JSON.generate({ :data => [{ :id => 1 }] }))
       next_list = list.previous_page
       assert_equal({ :expand => ['data.source'], :limit => 3 }, next_list.filters)
     end
@@ -153,7 +153,7 @@ module Stripe
     # in a list
     should "be able to retrieve full lists given a listobject" do
       stub_request(:get, "#{Stripe.api_base}/v1/charges").
-        to_return(body: make_response(make_charge_array))
+        to_return(body: JSON.generate(make_charge_array))
       c = Stripe::Charge.all
       assert c.kind_of?(Stripe::ListObject)
       assert_equal('/v1/charges', c.resource_url)

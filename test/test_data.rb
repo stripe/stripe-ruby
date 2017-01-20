@@ -1,9 +1,5 @@
 module Stripe
   module TestData
-    def make_response(body)
-      JSON.generate(body)
-    end
-
     def make_account(params={})
       {
         :charges_enabled => false,

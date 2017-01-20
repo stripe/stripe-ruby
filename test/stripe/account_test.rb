@@ -9,7 +9,7 @@ module Stripe
         :email => "test+bindings@stripe.com",
       })
       stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
       a = Stripe::Account.retrieve
       assert_equal "test+bindings@stripe.com", a.email
       assert !a.charges_enabled
@@ -23,7 +23,7 @@ module Stripe
         :email => "test+bindings@stripe.com",
       })
       stub_request(:get, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
       a = Stripe::Account.retrieve('acct_foo')
       assert_equal "test+bindings@stripe.com", a.email
       assert !a.charges_enabled
@@ -51,10 +51,10 @@ module Stripe
     should "be rejectable" do
       account_data = {:id => 'acct_foo'}
       stub_request(:get, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: make_response(account_data))
+        to_return(body: JSON.generate(account_data))
 
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_foo/reject").
-        to_return(body: make_response(account_data))
+        to_return(body: JSON.generate(account_data))
 
       account = Stripe::Account.retrieve('acct_foo')
       account.reject(:reason => 'fraud')
@@ -70,10 +70,10 @@ module Stripe
         }
       }
       stub_request(:get, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
 
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
 
       a = Stripe::Account.retrieve('acct_foo')
       a.legal_entity.first_name = 'Bob'
@@ -87,7 +87,7 @@ module Stripe
         :business_name => 'ACME Corp',
       }
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
 
       a = Stripe::Account.update('acct_foo', :business_name => "ACME Corp")
       assert_equal('ACME Corp', a.business_name)
@@ -114,12 +114,12 @@ module Stripe
     should "be able to deauthorize an account" do
       resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
       stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
       a = Stripe::Account.retrieve
 
       stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize").
         with(body: { 'client_id' => 'ca_1234', 'stripe_user_id' => a.id}).
-        to_return(body: make_response({ 'stripe_user_id' => a.id }))
+        to_return(body: JSON.generate({ 'stripe_user_id' => a.id }))
       a.deauthorize('ca_1234', 'sk_test_1234')
     end
 
@@ -142,12 +142,12 @@ module Stripe
         }
       }
       stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
       a = Stripe::Account.retrieve
 
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_1234/external_accounts").
         with(body: { :external_account => 'btok_1234' }).
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
       a.external_accounts.create({:external_account => 'btok_1234'})
     end
 
@@ -164,7 +164,7 @@ module Stripe
         }
       }
       stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: make_response(resp))
+        to_return(body: JSON.generate(resp))
       a = Stripe::Account.retrieve
       assert_equal(BankAccount, a.external_accounts.data[0].class)
     end

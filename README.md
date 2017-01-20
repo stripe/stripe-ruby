@@ -32,8 +32,7 @@ If you want to build the gem from source:
 
 ### Requirements
 
-* Ruby 1.9.3 or above.
-* rest-client
+* Ruby 2.0+.
 
 ### Bundler
 

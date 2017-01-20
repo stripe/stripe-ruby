@@ -128,21 +128,22 @@ module Stripe
 
     should "send stripe account as header when set" do
       stripe_account = "acct_0000"
-      Stripe.expects(:execute_request).with do |opts|
-        opts[:headers][:stripe_account] == stripe_account
-      end.returns(make_response(make_charge))
+      stub_request(:post, "/v1/charges").
+        with(headers: {"Stripe-Account" => stripe_account}).
+        to_return(body: make_response(make_charge))
 
       Stripe::Charge.create({:card => {:number => '4242424242424242'}},
                             {:stripe_account => stripe_account, :api_key => 'sk_test_local'})
     end
 
     should "not send stripe account as header when not set" do
-      Stripe.expects(:execute_request).with do |opts|
-        opts[:headers][:stripe_account].nil?
-      end.returns(make_response(make_charge))
+      create_charge_stub = stub_request(:post, "/v1/charges").
+        with(headers: {"Stripe-Account" => stripe_account}).
+        to_return(body: make_response(make_charge))
 
       Stripe::Charge.create({:card => {:number => '4242424242424242'}},
         'sk_test_local')
+      assert_not_request(created_charge_stub)
     end
 
     should "handle error response with empty body" do
@@ -179,9 +180,10 @@ module Stripe
         Stripe.open_timeout = 999
         Stripe.read_timeout = 998
 
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:open_timeout] == 999 && opts[:timeout] == 998
-        end.returns(make_response(make_charge))
+        RestClient::Request.expects(:execute).once.with(has_entry(
+          :open_timeout => 999,
+          :timeout => 998
+        ))
 
         Stripe::Charge.create({:card => {:number => '4242424242424242'}},
           'sk_test_local')
@@ -193,9 +195,9 @@ module Stripe
     context "when specifying per-object credentials" do
       context "with no global API key set" do
         should "use the per-object credential when creating" do
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:headers]['Authorization'] == 'Bearer sk_test_local'
-          end.returns(make_response(make_charge))
+          stub_request(:post, "/v1/charges").
+            with(headers: {"Authorization" => "Bearer sk_test_local"}).
+            to_return(body: make_response(make_charge))
 
           Stripe::Charge.create({:card => {:number => '4242424242424242'}},
             'sk_test_local')
@@ -212,23 +214,21 @@ module Stripe
         end
 
         should "use the per-object credential when creating" do
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:headers]['Authorization'] == 'Bearer local'
-          end.returns(make_response(make_charge))
+          stub_request(:post, "/v1/charges").
+            with(headers: {"Authorization" => "Bearer local"}).
+            to_return(body: make_response(make_charge))
 
           Stripe::Charge.create({:card => {:number => '4242424242424242'}},
             'local')
         end
 
         should "use the per-object credential when retrieving and making other calls" do
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge" &&
-              opts[:headers]['Authorization'] == 'Bearer local'
-          end.returns(make_response(make_charge))
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge/refunds" &&
-              opts[:headers]['Authorization'] == 'Bearer local'
-          end.returns(make_response(make_refund))
+          stub_request(:get, "/v1/charges/ch_test_charge").
+            with(headers: {"Authorization" => "Bearer local"}).
+            to_return(body: make_response(make_charge))
+          stub_request(:post, "/v1/charges/ch_test_charge/refunds").
+            with(headers: {"Authorization" => "Bearer local"}).
+            to_return(body: make_response(make_refund))
 
           ch = Stripe::Charge.retrieve('ch_test_charge', 'local')
           ch.refunds.create
@@ -238,9 +238,9 @@ module Stripe
 
     context "with valid credentials" do
       should "send along the idempotency-key header" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == 'bar'
-        end.returns(make_response(make_charge))
+        stub_request(:post, "/v1/charges").
+          with(headers: {"Idempotency-Key" => "bar"}).
+          to_return(body: make_response(make_charge))
 
         Stripe::Charge.create({:card => {:number => '4242424242424242'}}, {
           :idempotency_key => 'bar',
@@ -420,9 +420,9 @@ module Stripe
       end
 
       should "updating should send along the idempotency-key header" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == 'bar'
-        end.returns(make_response(make_customer))
+        stub_request(:post, "/v1/customers").
+          with(headers: {"Idempotency-Key" => "bar"}).
+          to_return(body: make_response(make_customer))
         c = Stripe::Customer.new
         c.save({}, { :idempotency_key => 'bar' })
         assert_equal false, c.livemode
@@ -436,9 +436,9 @@ module Stripe
       end
 
       should "updating should use the supplied api_key" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers]['Authorization'] == 'Bearer sk_test_local'
-        end.returns(make_response(make_customer))
+        stub_request(:post, "/v1/customers").
+          with(headers: {"Authorization" => "Bearer sk_test_local"}).
+          to_return(body: make_response(make_customer))
         c = Stripe::Customer.new
         c.save({}, { :api_key => 'sk_test_local' })
         assert_equal false, c.livemode
@@ -472,27 +472,22 @@ module Stripe
       end
 
       should "passing in a stripe_account header should pass it through on call" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:method] == :get &&
-          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
-          opts[:headers][:stripe_account] == 'acct_abc'
-        end.once.returns(make_response(make_customer))
+        stub_request(:get, "/v1/customers/c_test_customer").
+          with(headers: {"Stripe-Account" => "acct_abc"}).
+          to_return(body: make_response(make_customer))
         Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
       end
 
       should "passing in a stripe_account header should pass it through on save" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:method] == :get &&
-          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
-          opts[:headers][:stripe_account] == 'acct_abc'
+        stub_request(:get, "/v1/customers/c_test_customer").
+          with(headers: {"Stripe-Account" => "acct_abc"}).
+          to_return(body: make_response(make_customer))
         end.once.returns(make_response(make_customer))
         c = Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
 
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:method] == :post &&
-          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
-          opts[:headers][:stripe_account] == 'acct_abc' &&
-          opts[:payload] == 'description=FOO'
+        stub_request(:post, "/v1/customers/c_test_customer").
+          with(headers: {"Stripe-Account" => "acct_abc"}).
+          to_return(body: make_response(make_customer))
         end.once.returns(make_response(make_customer))
         c.description = 'FOO'
         c.save
@@ -746,27 +741,27 @@ module Stripe
 
       should 'not add an idempotency key to GET requests' do
         SecureRandom.expects(:uuid).times(0)
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key].nil?
-        end.returns(make_response({"id" => "myid"}))
-
+        stub_request(:get, "/v1/charges").
+          with do |req|
+            req.headers['Idempotency-Key'].nil?
+          end.to_return(to_return(body: make_response(make_charge_array))
         Stripe::Charge.list
       end
 
       should 'ensure there is always an idempotency_key on POST requests' do
         SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers]['Idempotency-Key'] == "random_key"
-        end.returns(make_response({"id" => "myid"}))
+        stub_request(:post, "/v1/charges").
+          with(headers: {"Idempotency-Key" => "random_key"}).
+          to_return(body: make_response(make_charge))
 
         Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
 
       should 'ensure there is always an idempotency_key on DELETE requests' do
         SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers]['Idempotency-Key'] == "random_key"
-        end.returns(make_response({"id" => "myid"}))
+        stub_request(:post, "/v1/charges").
+          with(headers: {"Idempotency-Key" => "random_key"}).
+          to_return(body: make_response(make_charge))
 
         c = Stripe::Customer.construct_from(make_customer)
         c.delete
@@ -779,9 +774,9 @@ module Stripe
         # (`Idempotency-Key`), but rest-client does allow this symbol
         # formatting and will properly override the system generated one as
         # expected.
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == "provided_key"
-        end.returns(make_response({"id" => "myid"}))
+        stub_request(:post, "/v1/charges").
+          with(headers: {"Idempotency-Key" => "provided_key"}).
+          to_return(body: make_response(make_charge))
 
         Stripe::Charge.create({:amount => 50, :currency => 'usd', :card => { :number => nil }}, {:idempotency_key => 'provided_key'})
       end

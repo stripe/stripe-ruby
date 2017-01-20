@@ -35,10 +35,8 @@ module Stripe
       @mock.expects(:get).once.returns(make_response(make_invoice))
       i = Stripe::Invoice.retrieve('in_test_invoice', {:api_key => 'foobar'})
 
-      Stripe.expects(:execute_request).with do |opts|
-        opts[:url] == "#{Stripe.api_base}/v1/invoices/in_test_invoice/pay" &&
-          opts[:method] == :post &&
-          opts[:headers]['Authorization'] == 'Bearer foobar'
+      @mock.expects(:post).once.width do |url, _, _|
+        url == "#{Stripe.api_base}/v1/invoices/in_test_invoice/pay"
       end.returns(make_response(make_paid_invoice))
 
       i.pay

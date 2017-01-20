@@ -136,7 +136,7 @@ module Stripe
     end
   end
 
-  # TODO: 
+  # TODO: Fix parameters.
   def self.request(conn, method, url, api_key, params, headers, api_base_url)
     api_base_url = api_base_url || @api_base
 

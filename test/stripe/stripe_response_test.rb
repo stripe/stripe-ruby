@@ -22,6 +22,7 @@ module Stripe
         assert_equal "request-id", resp.request_id
       end
     end
+
     context ".from_faraday_response" do
       should "converts to StripeResponse" do
         body = '{"foo": "bar"}'

@@ -11,7 +11,7 @@ module Stripe
 
       stub_request(:post, "#{Stripe.api_base}/v1/customers/#{bank.customer}/sources/#{bank.id}/verify").
         with(body: { 'amounts' => ['1', '2'] }).
-        to_return(body: make_response(:status => 'verified'))
+        to_return(body: JSON.generate(:status => 'verified'))
 
       bank.verify(:amounts => [1,2])
     end

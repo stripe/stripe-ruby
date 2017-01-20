@@ -4,7 +4,7 @@ module Stripe
   class ApplicationFeeTest < Test::Unit::TestCase
     should "application fees should be listable" do
       stub_request(:get, "#{Stripe.api_base}/v1/application_fees").
-        to_return(body: make_response(make_application_fee_array))
+        to_return(body: JSON.generate(make_application_fee_array))
       fees = Stripe::ApplicationFee.list
       assert fees.data.kind_of? Array
       fees.each do |fee|
@@ -16,7 +16,7 @@ module Stripe
       fee = Stripe::ApplicationFee.construct_from(make_application_fee)
 
       stub_request(:post, "#{Stripe.api_base}/v1/application_fees/#{fee.id}/refunds").
-        to_return(body: make_response(make_application_fee_refund))
+        to_return(body: JSON.generate(make_application_fee_refund))
 
       refund = fee.refunds.create
       assert refund.is_a?(Stripe::ApplicationFeeRefund)

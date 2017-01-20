@@ -6,14 +6,14 @@ module Stripe
 
     should "retrieve should retrieve bitcoin receiver" do
       stub_request(:get, "#{Stripe.api_base}/v1/bitcoin/transactions/#{TEST_ID}").
-        to_return(body: make_response(make_bitcoin_transaction))
+        to_return(body: JSON.generate(make_bitcoin_transaction))
       receiver = Stripe::BitcoinTransaction.retrieve(TEST_ID)
       assert_equal TEST_ID, receiver.id
     end
 
     should "all should list bitcoin transactions" do
       stub_request(:get, "#{Stripe.api_base}/v1/bitcoin/transactions").
-        to_return(body: make_response(make_bitcoin_transaction_array))
+        to_return(body: JSON.generate(make_bitcoin_transaction_array))
       transactions = Stripe::BitcoinTransaction.list
 
       assert transactions.data.kind_of? Array

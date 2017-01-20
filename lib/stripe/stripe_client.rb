@@ -4,13 +4,23 @@ module Stripe
       self.conn = conn
     end
 
-    def request(&block)
-      res = block.call
-      [res, Thread.local[:stripe_last_response]]
+    def self.set_last_response(resp)
+      if Thread.current[:stripe_client]
+        Thread.current[:stripe_last_response] = resp
+      end
     end
 
-    def set_last_response(resp)
-      Thread.local[:stripe_last_response] = resp
+    def request(&block)
+      old_stripe_client = Thread.current[:stripe_client]
+      Thread.current[:stripe_client] = self
+
+      begin
+        res = block.call
+        [res, Thread.current[:stripe_last_response]]
+      ensure
+        Thread.current[:stripe_client] = old_stripe_client
+        Thread.current[:stripe_last_response] = nil
+      end
     end
 
     private

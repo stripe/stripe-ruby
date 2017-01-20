@@ -56,7 +56,7 @@ module Stripe
     end
 
     def delete_discount
-      resp, opts = request(:delete, discount_url)
+      _, opts = request(:delete, discount_url)
       initialize_from({ :discount => nil }, opts, true)
     end
 

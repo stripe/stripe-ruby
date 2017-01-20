@@ -35,11 +35,6 @@ class StripeTest < Test::Unit::TestCase
   end
 
   should "makes requests with the Stripe-Account header" do
-    response = make_account(
-      charges_enabled: false,
-      details_submitted: false,
-      email: "test+bindings@stripe.com"
-    )
     Stripe.stripe_account = 'acct_1234'
 
     stub_request(:post, "#{Stripe.api_base}/v1/account").

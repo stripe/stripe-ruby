@@ -210,7 +210,8 @@ module Stripe
 
     def general_api_error(status, body)
       APIError.new("Invalid response object from API: #{body.inspect} " +
-                   "(HTTP response code was #{status})", status, body)
+                   "(HTTP response code was #{status})",
+                   http_status: status, http_body: body)
     end
 
 
@@ -218,7 +219,10 @@ module Stripe
       begin
         resp = StripeResponse.from_faraday_hash(http_resp)
         error = resp.data[:error]
-        raise StripeError.new unless error && error.is_a?(Hash)
+
+        unless error && error.is_a?(Hash)
+          raise StripeError.new("Indeterminate error")
+        end
 
       rescue JSON::ParserError, StripeError
         raise general_api_error(http_resp[:status], http_resp[:body])
@@ -228,27 +232,39 @@ module Stripe
       when 400, 404
         error = InvalidRequestError.new(
           error[:message], error[:param],
-          resp.http_status, resp.http_body, resp.data, resp.http_headers)
+          http_status: resp.http_status, http_body: resp.http_body,
+          json_body: resp.data, http_headers: resp.http_headers
+        )
       when 401
         error = AuthenticationError.new(
           error[:message],
-          resp.http_status, resp.http_body, resp.data, resp.http_headers)
+          http_status: resp.http_status, http_body: resp.http_body,
+          json_body: resp.data, http_headers: resp.http_headers
+        )
       when 402
         error = CardError.new(
           error[:message], error[:param], error[:code],
-          resp.http_status, resp.http_body, resp.data, resp.http_headers)
+          http_status: resp.http_status, http_body: resp.http_body,
+          json_body: resp.data, http_headers: resp.http_headers
+        )
       when 403
         error = PermissionError.new(
           error[:message],
-          resp.http_status, resp.http_body, resp.data, resp.http_headers)
+          http_status: resp.http_status, http_body: resp.http_body,
+          json_body: resp.data, http_headers: resp.http_headers
+        )
       when 429
         error = RateLimitError.new(
           error[:message],
-          resp.http_status, resp.http_body, resp.data, resp.http_headers)
+          http_status: resp.http_status, http_body: resp.http_body,
+          json_body: resp.data, http_headers: resp.http_headers
+        )
       else
         error = APIError.new(
           error[:message],
-          resp.http_status, resp.http_body, resp.data, resp.http_headers)
+          http_status: resp.http_status, http_body: resp.http_body,
+          json_body: resp.data, http_headers: resp.http_headers
+        )
       end
 
       error.response = resp

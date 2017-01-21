@@ -50,6 +50,7 @@ module Stripe
         'recipient'               => Recipient,
         'refund'                  => Refund,
         'sku'                     => SKU,
+        'source'                  => Source,
         'subscription'            => Subscription,
         'subscription_item'       => SubscriptionItem,
         'three_d_secure'          => ThreeDSecure,

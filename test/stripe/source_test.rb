@@ -16,7 +16,7 @@ module Stripe
         token: API_FIXTURES.fetch(:token)[:id]
       )
       assert_requested :post, "#{Stripe.api_base}/v1/sources"
-      assert source.kind_of?(Stripe::Card)
+      assert source.kind_of?(Stripe::Source)
     end
 
     should "be saveable" do
@@ -29,7 +29,29 @@ module Stripe
     should "be updateable" do
       source = Stripe::Source.update(FIXTURE[:id], metadata: {foo: 'bar'})
       assert_requested :post, "#{Stripe.api_base}/v1/sources/#{FIXTURE[:id]}"
-      assert source.kind_of?(Stripe::Card)
+      assert source.kind_of?(Stripe::Source)
+    end
+
+    should "not be deletable when unattached" do
+      source = Stripe::Source.retrieve(FIXTURE[:id])
+
+      assert_raises NotImplementedError do
+        source.delete
+      end
+    end
+
+    should "be deletable when attached to a customer" do
+      customer = Stripe::Customer.retrieve(API_FIXTURES.fetch(:customer)[:id])
+      source = Stripe::Card.construct_from(FIXTURE.merge(customer: customer.id))
+      source = source.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/#{FIXTURE[:id]}"
+      assert source.kind_of?(Stripe::Source)
+    end
+
+    should 'not be listable' do
+      assert_raises NoMethodError do
+        Stripe::Source.list
+      end
     end
 
     context "#verify" do

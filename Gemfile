@@ -4,7 +4,6 @@ gemspec
 
 group :development do
   gem 'mocha', '~> 0.13.2'
-  gem 'pry'
   gem 'rake'
   gem 'shoulda-context'
   gem 'test-unit'
@@ -15,6 +14,7 @@ group :development do
     # it's known to work well
     if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.0.0')
       gem 'byebug'
+      gem 'pry'
       gem 'pry-byebug'
     end
   end

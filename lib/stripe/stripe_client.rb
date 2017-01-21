@@ -9,6 +9,7 @@ module Stripe
     # uses a default connection unless one is passed.
     def initialize(conn = nil)
       self.conn = conn || self.class.default_conn
+      @system_profiler = SystemProfiler.new
     end
 
     def self.active_client
@@ -23,10 +24,28 @@ module Stripe
     # object should never be mutated, and instead instantiating your own
     # connection and wrapping it in a StripeClient object should be preferred.
     def self.default_conn
-      @default_conn ||= Faraday.new do |conn|
-        conn.use Faraday::Request::UrlEncoded
-        conn.use Faraday::Response::RaiseError
-        conn.adapter Faraday.default_adapter
+      @default_conn ||= begin
+        conn = Faraday.new do |conn|
+          conn.use Faraday::Request::UrlEncoded
+          conn.use Faraday::Response::RaiseError
+          conn.adapter Faraday.default_adapter
+        end
+
+        if Stripe.verify_ssl_certs
+          conn.ssl.verify = true
+          conn.ssl.cert_store = Stripe.ca_store
+        else
+          conn.ssl.verify = false
+
+          unless @verify_ssl_warned
+            @verify_ssl_warned = true
+            $stderr.puts("WARNING: Running without SSL cert verification. " \
+              "You should never do this in production. " \
+              "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
+          end
+        end
+
+        conn
       end
     end
 
@@ -80,20 +99,6 @@ module Stripe
           payload = params
         else
           payload = Util.encode_parameters(params)
-        end
-      end
-
-      if Stripe.verify_ssl_certs
-        conn.ssl.verify = true
-        conn.ssl.cert_store = Stripe.ca_store
-      else
-        conn.ssl.verify = false
-
-        unless @verify_ssl_warned
-          @verify_ssl_warned = true
-          $stderr.puts("WARNING: Running without SSL cert verification. " \
-            "You should never do this in production. " \
-            "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
         end
       end
 
@@ -164,36 +169,6 @@ module Stripe
                    "(HTTP response code was #{status})", status, body)
     end
 
-    def get_uname
-      if File.exist?('/proc/version')
-        File.read('/proc/version').strip
-      else
-        case RbConfig::CONFIG['host_os']
-        when /linux|darwin|bsd|sunos|solaris|cygwin/i
-          get_uname_from_system
-        when /mswin|mingw/i
-          get_uname_from_system_ver
-        else
-          "unknown platform"
-        end
-      end
-    end
-
-    def get_uname_from_system
-      (`uname -a 2>/dev/null` || '').strip
-    rescue Errno::ENOENT
-      "uname executable not found"
-    rescue Errno::ENOMEM # couldn't create subprocess
-      "uname lookup failed"
-    end
-
-    def get_uname_from_system_ver
-      (`ver` || '').strip
-    rescue Errno::ENOENT
-      "ver executable not found"
-    rescue Errno::ENOMEM # couldn't create subprocess
-      "uname lookup failed"
-    end
 
     def handle_api_error(http_resp)
       begin
@@ -307,11 +282,16 @@ module Stripe
       headers['Stripe-Version'] = Stripe.api_version if Stripe.api_version
       headers['Stripe-Account'] = Stripe.stripe_account if Stripe.stripe_account
 
+      user_agent = @system_profiler.user_agent
       begin
-        headers.update('X-Stripe-Client-User-Agent' => JSON.generate(user_agent))
+        headers.update(
+          'X-Stripe-Client-User-Agent' => JSON.generate(user_agent)
+        )
       rescue => e
-        headers.update('X-Stripe-Client-Raw-User-Agent' => user_agent.inspect,
-                       :error => "#{e} (#{e.class})")
+        headers.update(
+          'X-Stripe-Client-Raw-User-Agent' => user_agent.inspect,
+          :error => "#{e} (#{e.class})"
+        )
       end
     end
 
@@ -331,20 +311,59 @@ module Stripe
       sleep_seconds
     end
 
-    def user_agent
-      @uname ||= get_uname
-      lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
+    # SystemProfiler extracts information about the system that we're running
+    # in so that we can generate a rich user agent header to help debug
+    # integrations.
+    class SystemProfiler
+      def self.get_uname
+        if File.exist?('/proc/version')
+          File.read('/proc/version').strip
+        else
+          case RbConfig::CONFIG['host_os']
+          when /linux|darwin|bsd|sunos|solaris|cygwin/i
+            get_uname_from_system
+          when /mswin|mingw/i
+            get_uname_from_system_ver
+          else
+            "unknown platform"
+          end
+        end
+      end
 
-      {
-        :bindings_version => Stripe::VERSION,
-        :lang => 'ruby',
-        :lang_version => lang_version,
-        :platform => RUBY_PLATFORM,
-        :engine => defined?(RUBY_ENGINE) ? RUBY_ENGINE : '',
-        :publisher => 'stripe',
-        :uname => @uname,
-        :hostname => Socket.gethostname,
-      }
+      def self.get_uname_from_system
+        (`uname -a 2>/dev/null` || '').strip
+      rescue Errno::ENOENT
+        "uname executable not found"
+      rescue Errno::ENOMEM # couldn't create subprocess
+        "uname lookup failed"
+      end
+
+      def self.get_uname_from_system_ver
+        (`ver` || '').strip
+      rescue Errno::ENOENT
+        "ver executable not found"
+      rescue Errno::ENOMEM # couldn't create subprocess
+        "uname lookup failed"
+      end
+
+      def initialize
+        @uname = self.class.get_uname
+      end
+
+      def user_agent
+        lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
+
+        {
+          :bindings_version => Stripe::VERSION,
+          :lang => 'ruby',
+          :lang_version => lang_version,
+          :platform => RUBY_PLATFORM,
+          :engine => defined?(RUBY_ENGINE) ? RUBY_ENGINE : '',
+          :publisher => 'stripe',
+          :uname => @uname,
+          :hostname => Socket.gethostname,
+        }
+      end
     end
   end
 end

@@ -108,6 +108,30 @@ module Stripe
     end
 
     context "#execute_request" do
+      context "headers" do
+        should "support literal headers" do
+          stub_request(:post, "#{Stripe.api_base}/v1/account").
+            with(headers: { "Stripe-Account" => "bar" }).
+            to_return(body: JSON.generate(make_account))
+
+          client = StripeClient.new
+          client.execute_request(:post, '/v1/account',
+            headers: { "Stripe-Account" => "bar" }
+          )
+        end
+
+        should "support RestClient-style header keys" do
+          stub_request(:post, "#{Stripe.api_base}/v1/account").
+            with(headers: { "Stripe-Account" => "bar" }).
+            to_return(body: JSON.generate(make_account))
+
+          client = StripeClient.new
+          client.execute_request(:post, '/v1/account',
+            headers: { :stripe_account => "bar" }
+          )
+        end
+      end
+
       context "Stripe-Account header" do
         should "use a globally set header" do
           Stripe.stripe_account = 'acct_1234'

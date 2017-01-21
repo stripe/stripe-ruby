@@ -15,7 +15,10 @@ module Stripe
           # Assume all remaining opts must be headers
 
           resp, opts[:api_key] = client.execute_request(
-            method, url, api_key, params, headers, api_base)
+            method, url,
+            api_base: api_base, api_key: api_key,
+            headers: headers, params: params
+          )
 
           # Hash#select returns an array before 1.9
           opts_to_persist = {}

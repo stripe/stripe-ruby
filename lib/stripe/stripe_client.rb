@@ -49,6 +49,44 @@ module Stripe
       end
     end
 
+    # Checks if an error is a problem that we should retry on. This includes both
+    # socket errors that may represent an intermittent problem and some special
+    # HTTP statuses.
+    def self.should_retry?(e, retry_count)
+      return false if retry_count >= Stripe.max_network_retries
+
+      # Retry on timeout-related problems (either on open or read).
+      return true if e.is_a?(Faraday::TimeoutError)
+
+      # Destination refused the connection, the connection was reset, or a
+      # variety of other connection failures. This could occur from a single
+      # saturated server, so retry in case it's intermittent.
+      return true if e.is_a?(Faraday::ConnectionFailed)
+
+      if e.is_a?(Faraday::ClientError) && e.response
+        # 409 conflict
+        return true if e.response[:status] == 409
+      end
+
+      false
+    end
+
+    def self.sleep_time(retry_count)
+      # Apply exponential backoff with initial_network_retry_delay on the
+      # number of attempts so far as inputs. Do not allow the number to exceed
+      # max_network_retry_delay.
+      sleep_seconds = [Stripe.initial_network_retry_delay * (2 ** (retry_count - 1)), Stripe.max_network_retry_delay].min
+
+      # Apply some jitter by randomizing the value in the range of (sleep_seconds
+      # / 2) to (sleep_seconds).
+      sleep_seconds = sleep_seconds * (0.5 * (1 + rand()))
+
+      # But never sleep less than the base sleep seconds.
+      sleep_seconds = [Stripe.initial_network_retry_delay, sleep_seconds].max
+
+      sleep_seconds
+    end
+
     # Executes the API call within the given block. Usage looks like:
     #
     #     client = StripeClient.new
@@ -67,27 +105,16 @@ module Stripe
       end
     end
 
-    # TODO: Fix parameters.
-    def execute_request(method, url, api_key, params, headers, api_base_url)
-      api_base_url = api_base_url || @api_base
+    def execute_request(method, url,
+        api_base: nil, api_key: nil, headers: {}, params: {})
 
-      unless api_key ||= Stripe.api_key
-        raise AuthenticationError.new('No API key provided. ' \
-          'Set your API key using "Stripe.api_key = <API-KEY>". ' \
-          'You can generate API keys from the Stripe web interface. ' \
-          'See https://stripe.com/api for details, or email support@stripe.com ' \
-          'if you have any questions.')
-      end
+      api_base ||= Stripe.api_base
+      api_key ||= Stripe.api_key
 
-      if api_key =~ /\s/
-        raise AuthenticationError.new('Your API key is invalid, as it contains ' \
-          'whitespace. (HINT: You can double-check your API key from the ' \
-          'Stripe web interface. See https://stripe.com/api for details, or ' \
-          'email support@stripe.com if you have any questions.)')
-      end
+      check_api_key!(api_key)
 
       params = Util.objects_to_ids(params)
-      url = api_url(url, api_base_url)
+      url = api_url(url, api_base)
 
       case method.to_s.downcase.to_sym
       when :get, :head, :delete
@@ -102,7 +129,7 @@ module Stripe
         end
       end
 
-      http_resp = execute_request_with_rescues(api_base_url, 0) do
+      http_resp = execute_request_with_rescues(api_base, 0) do
         conn.run_request(
           method,
           url,
@@ -128,11 +155,28 @@ module Stripe
 
     private
 
-    def api_url(url='', api_base_url=nil)
-      (api_base_url || Stripe.api_base) + url
+    def api_url(url='', api_base=nil)
+      (api_base || Stripe.api_base) + url
     end
 
-    def execute_request_with_rescues(api_base_url, retry_count, &block)
+    def check_api_key!(api_key)
+      unless api_key
+        raise AuthenticationError.new('No API key provided. ' \
+          'Set your API key using "Stripe.api_key = <API-KEY>". ' \
+          'You can generate API keys from the Stripe web interface. ' \
+          'See https://stripe.com/api for details, or email support@stripe.com ' \
+          'if you have any questions.')
+      end
+
+      if api_key =~ /\s/
+        raise AuthenticationError.new('Your API key is invalid, as it contains ' \
+          'whitespace. (HINT: You can double-check your API key from the ' \
+          'Stripe web interface. See https://stripe.com/api for details, or ' \
+          'email support@stripe.com if you have any questions.)')
+      end
+    end
+
+    def execute_request_with_rescues(api_base, retry_count, &block)
       begin
         resp = block.call
 
@@ -140,9 +184,9 @@ module Stripe
       # implement our retry logic across the board. We'll re-raise if it's a type
       # of exception that we didn't expect to handle.
       rescue => e
-        if should_retry?(e, retry_count)
+        if self.class.should_retry?(e, retry_count)
           retry_count = retry_count + 1
-          sleep sleep_time(retry_count)
+          sleep self.class.sleep_time(retry_count)
           retry
         end
 
@@ -151,7 +195,7 @@ module Stripe
           if e.response
             handle_api_error(e.response)
           else
-            handle_network_error(e, retry_count, api_base_url)
+            handle_network_error(e, retry_count, api_base)
           end
 
         # Only handle errors when we know we can do so, and re-raise otherwise.
@@ -211,7 +255,7 @@ module Stripe
       raise(error)
     end
 
-    def handle_network_error(e, retry_count, api_base_url=nil)
+    def handle_network_error(e, retry_count, api_base=nil)
       case e
       when Faraday::ConnectionFailed
         message = "Unexpected error communicating when trying to connect to Stripe. " \
@@ -225,8 +269,8 @@ module Stripe
                   "command line."
 
       when Faraday::TimeoutError
-        api_base_url = @api_base unless api_base_url
-        message = "Could not connect to Stripe (#{api_base_url}). " \
+        api_base = Stripe.api_base unless api_base
+        message = "Could not connect to Stripe (#{api_base}). " \
           "Please check your internet connection and try again. " \
           "If this problem persists, you should check Stripe's service status at " \
           "https://twitter.com/stripestatus, or let us know at support@stripe.com."
@@ -242,28 +286,6 @@ module Stripe
       end
 
       raise APIConnectionError.new(message + "\n\n(Network error: #{e.message})")
-    end
-
-    # Checks if an error is a problem that we should retry on. This includes both
-    # socket errors that may represent an intermittent problem and some special
-    # HTTP statuses.
-    def should_retry?(e, retry_count)
-      return false if retry_count >= Stripe.max_network_retries
-
-      # Retry on timeout-related problems (either on open or read).
-      return true if e.is_a?(Faraday::TimeoutError)
-
-      # Destination refused the connection, the connection was reset, or a
-      # variety of other connection failures. This could occur from a single
-      # saturated server, so retry in case it's intermittent.
-      return true if e.is_a?(Faraday::ConnectionFailed)
-
-      if e.is_a?(Faraday::ClientError) && e.response
-        # 409 conflict
-        return true if e.response[:status] == 409
-      end
-
-      false
     end
 
     def request_headers(api_key, method)
@@ -293,22 +315,8 @@ module Stripe
           :error => "#{e} (#{e.class})"
         )
       end
-    end
 
-    def sleep_time(retry_count)
-      # Apply exponential backoff with initial_network_retry_delay on the number
-      # of attempts so far as inputs. Do not allow the number to exceed
-      # max_network_retry_delay.
-      sleep_seconds = [Stripe.initial_network_retry_delay * (2 ** (retry_count - 1)), Stripe.max_network_retry_delay].min
-
-      # Apply some jitter by randomizing the value in the range of (sleep_seconds
-      # / 2) to (sleep_seconds).
-      sleep_seconds = sleep_seconds * (0.5 * (1 + rand()))
-
-      # But never sleep less than the base sleep seconds.
-      sleep_seconds = [Stripe.initial_network_retry_delay, sleep_seconds].max
-
-      sleep_seconds
+      headers
     end
 
     # SystemProfiler extracts information about the system that we're running

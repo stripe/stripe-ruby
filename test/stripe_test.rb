@@ -33,4 +33,9 @@ class StripeTest < Test::Unit::TestCase
       Stripe.max_network_retries = old
     end
   end
+
+  should "have default open and read timeouts" do
+    assert_equal Stripe.open_timeout, 30
+    assert_equal Stripe.read_timeout, 80
+  end
 end

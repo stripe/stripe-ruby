@@ -25,6 +25,15 @@ module Stripe
       should "be a Faraday::Connection" do
         assert_kind_of Faraday::Connection, StripeClient.default_conn
       end
+
+      should "be a different connection on each thread" do
+        other_thread_conn = nil
+        thread = Thread.new do
+          other_thread_conn = StripeClient.default_conn
+        end
+        thread.join
+        refute_equal StripeClient.default_conn, other_thread_conn
+      end
     end
 
     context ".should_retry?" do

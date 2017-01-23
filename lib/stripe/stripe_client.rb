@@ -24,7 +24,10 @@ module Stripe
     # object should never be mutated, and instead instantiating your own
     # connection and wrapping it in a StripeClient object should be preferred.
     def self.default_conn
-      @default_conn ||= begin
+      # We're going to keep connections around so that we can take advantage
+      # of connection re-use, so make sure that we have a separate connection
+      # object per thread.
+      Thread.current[:stripe_client_default_conn] ||= begin
         conn = Faraday.new do |conn|
           conn.use Faraday::Request::UrlEncoded
           conn.use Faraday::Response::RaiseError

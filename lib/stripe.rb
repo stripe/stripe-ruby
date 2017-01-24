@@ -203,6 +203,18 @@ module Stripe
                         :method => method, :open_timeout => open_timeout,
                         :payload => payload, :url => url, :timeout => read_timeout)
 
+    # Explicitly set a TLS version to use now that we're starting to block 1.0
+    # and 1.1 requests.
+    #
+    # If users are on OpenSSL >= 1.0.1, we know that they support TLS 1.2, so
+    # set that explicitly because on some older Linux distros, clients may
+    # default to TLS 1.0 or 1.1 even when they have TLS 1.2 available.
+    #
+    # Note: The int on the right is pulled from the source of OpenSSL 1.0.1a.
+    if OpenSSL::OPENSSL_VERSION_NUMBER >= 0x1000100f
+      request_opts[:ssl_version] = :TLSv1_2
+    end
+
     response = execute_request_with_rescues(request_opts, api_base_url)
 
     [parse(response), api_key]

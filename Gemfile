@@ -3,9 +3,11 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  gem 'committee', path: "../../Documents/projects/committee"
   gem 'mocha', '~> 0.13.2'
   gem 'rake'
   gem 'shoulda-context'
+  gem 'sinatra'
   gem 'test-unit'
   gem 'webmock'
 

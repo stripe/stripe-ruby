@@ -3,8 +3,10 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class ChargeRefundTest < Test::Unit::TestCase
     should "refunds should be listable" do
+=begin
       stub_request(:get, "#{Stripe.api_base}/v1/charges/test_charge").
         to_return(body: JSON.generate(make_charge))
+=end
       charge = Stripe::Charge.retrieve('test_charge')
 
       assert charge.refunds.first.kind_of?(Stripe::Refund)

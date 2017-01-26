@@ -30,17 +30,28 @@ module APIStubHelpers
 
   class APIStubMiddleware
     @@fixtures = ::YAML.load(File.read("#{SPEC_PATH}/fixtures.yaml"))
+    @@list_properties = Set.new(["has_more", "data", "url"])
 
     def initialize(app)
       @app = app
     end
 
     def call(env)
-      resource_id = env["committee.response_schema"].data["x-resourceId"]
+      schema = env["committee.response_schema"]
+      resource_id = schema.data["x-resourceId"]
       if data = @@fixtures[resource_id]
         env["committee.response"] = data
       else
-        raise "no fixture for: #{resource_id}"
+        if @@list_properties.subset?(Set.new(schema.properties.keys))
+          resource_id = schema.properties["data"].items.data["x-resourceId"]
+          if data = @@fixtures[resource_id]
+            env["committee.response"]["data"] = [data]
+          else
+            raise "no suitable fixture for list resource: #{resource_id}"
+          end
+        else
+          raise "no fixture for: #{resource_id}"
+        end
       end
       @app.call(env)
     end

@@ -7,6 +7,9 @@ require 'stringio'
 require 'shoulda/context'
 require 'webmock/test_unit'
 
+PROJECT_ROOT = File.expand_path("../../", __FILE__)
+
+require File.expand_path('../api_fixtures', __FILE__)
 require File.expand_path('../api_stub_helpers', __FILE__)
 require File.expand_path('../test_data', __FILE__)
 
@@ -14,6 +17,8 @@ class Test::Unit::TestCase
   include APIStubHelpers
   include Stripe::TestData
   include Mocha
+
+  API_FIXTURES = APIFixtures.new
 
   setup do
     Stripe.api_key = "foo"

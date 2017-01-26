@@ -28,12 +28,9 @@ module APIStubHelpers
 
   private
 
-  SPEC_PATH = File.expand_path("../../spec/", __FILE__)
-
   class APIStubMiddleware
-    @@fixtures = ::JSON.parse(File.read("#{SPEC_PATH}/fixtures.json"),
-      symbolize_names: true)
-    @@list_properties = Set.new(["has_more", "data", "url"])
+    API_FIXTURES = APIFixtures.new
+    LIST_PROPERTIES = Set.new(["has_more", "data", "url"]).freeze
 
     def initialize(app)
       @app = app
@@ -42,12 +39,12 @@ module APIStubHelpers
     def call(env)
       schema = env["committee.response_schema"]
       resource_id = schema.data["x-resourceId"] || ""
-      if data = @@fixtures[resource_id.to_sym]
+      if data = API_FIXTURES[resource_id.to_sym]
         env["committee.response"] = data
       else
-        if @@list_properties.subset?(Set.new(schema.properties.keys))
+        if LIST_PROPERTIES.subset?(Set.new(schema.properties.keys))
           resource_id = schema.properties["data"].items.data["x-resourceId"] || ""
-          if data = @@fixtures[resource_id.to_sym]
+          if data = API_FIXTURES[resource_id.to_sym]
             env["committee.response"]["data"] = [data]
           else
             raise "no suitable fixture for list resource: #{resource_id}"
@@ -180,7 +177,7 @@ module APIStubHelpers
   # Finds the latest OpenAPI specification in ROOT/spec/ and parses it for
   # use with Committee.
   def self.initialize_spec
-    schema_data = ::JSON.parse(File.read("#{SPEC_PATH}/spec.json"))
+    schema_data = ::JSON.parse(File.read("#{PROJECT_ROOT}/spec/spec.json"))
 
     driver = Committee::Drivers::OpenAPI2.new
     driver.parse(schema_data)

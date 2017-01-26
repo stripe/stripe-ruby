@@ -30,7 +30,6 @@ module APIStubHelpers
 
   class APIStubMiddleware
     API_FIXTURES = APIFixtures.new
-    LIST_PROPERTIES = Set.new(["has_more", "data", "url"]).freeze
 
     def initialize(app)
       @app = app
@@ -42,7 +41,7 @@ module APIStubHelpers
       if data = API_FIXTURES[resource_id.to_sym]
         env["committee.response"] = data
       else
-        if LIST_PROPERTIES.subset?(Set.new(schema.properties.keys))
+        if schema.properties["object"].enum == ["list"]
           resource_id = schema.properties["data"].items.data["x-resourceId"] || ""
           if data = API_FIXTURES[resource_id.to_sym]
             env["committee.response"]["data"] = [data]

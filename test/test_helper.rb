@@ -18,6 +18,10 @@ class Test::Unit::TestCase
   include Stripe::TestData
   include Mocha
 
+  # Fixtures are available in tests using something like:
+  #
+  #   API_FIXTURES[:charge][:id]
+  #
   API_FIXTURES = APIFixtures.new
 
   setup do

@@ -12,6 +12,10 @@ class APIFixtures
     @fixtures[name]
   end
 
+  def fetch(*args)
+    @fixtures.fetch(*args)
+  end
+
   private
 
   def freeze_recursively(data)

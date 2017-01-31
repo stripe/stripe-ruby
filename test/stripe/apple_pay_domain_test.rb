@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ApplePayDomainTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES[:apple_pay_domain]
+    FIXTURE = API_FIXTURES.fetch(:apple_pay_domain)
 
     should "be listable" do
       domains = Stripe::ApplePayDomain.list

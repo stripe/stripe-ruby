@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class RefundTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES[:refund]
+    FIXTURE = API_FIXTURES.fetch(:refund)
 
     should "be listable" do
       refunds = Stripe::Refund.list

@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class CountrySpecTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES[:country_spec]
+    FIXTURE = API_FIXTURES.fetch(:country_spec)
 
     should "be listable" do
       c = Stripe::CountrySpec.list

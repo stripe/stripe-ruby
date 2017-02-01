@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
-  gem 'committee', path: "../../Documents/projects/committee"
+  gem 'committee', '2.0.0.pre6'
   gem 'mocha', '~> 0.13.2'
   gem 'rake'
   gem 'shoulda-context'

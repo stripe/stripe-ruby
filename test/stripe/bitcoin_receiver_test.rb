@@ -13,7 +13,8 @@ module Stripe
 
     should "be retrievable" do
       receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+      assert_requested :get,
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
       assert receiver.kind_of?(Stripe::BitcoinReceiver)
     end
 
@@ -27,12 +28,14 @@ module Stripe
       receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
       receiver.metadata['key'] = 'value'
       receiver.save
-      assert_requested :post, "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+      assert_requested :post,
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
     end
 
     should "be updateable" do
       receiver = Stripe::BitcoinReceiver.update(FIXTURE[:id], metadata: { key: 'value' })
-      assert_requested :post, "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+      assert_requested :post,
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
       assert receiver.kind_of?(Stripe::BitcoinReceiver)
     end
 

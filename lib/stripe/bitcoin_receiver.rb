@@ -10,7 +10,7 @@ module Stripe
     end
 
     def resource_url
-      if respond_to?(:customer) && !self.customer.nil?
+      if respond_to?(:customer) && !self.customer.nil? && self.customer != ""
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       else
         "#{self.class.resource_url}/#{CGI.escape(id)}"

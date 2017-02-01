@@ -10,13 +10,5 @@ module Stripe
       assert fees.data.kind_of?(Array)
       assert fees.data[0].kind_of?(Stripe::ApplicationFee)
     end
-
-    context "#refund" do
-      should "run" do
-        fee = Stripe::ApplicationFee.retrieve(FIXTURE[:id])
-        refund = fee.refunds.create
-        assert refund.is_a?(Stripe::ApplicationFeeRefund)
-      end
-    end
   end
 end

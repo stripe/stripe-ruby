@@ -30,24 +30,6 @@ module Stripe
       assert !a.details_submitted
     end
 
-    should "be retrievable using an API key as the only argument" do
-      account = mock
-      Stripe::Account.expects(:new).once.with(nil, {:api_key => 'sk_foobar'}).returns(account)
-      account.expects(:refresh).once
-      Stripe::Account.retrieve('sk_foobar')
-    end
-
-    should "allow access to keys by method" do
-      account = Stripe::Account.construct_from(make_account({
-        :keys => {
-          :publishable => 'publishable-key',
-          :secret => 'secret-key',
-        }
-      }))
-      assert_equal 'publishable-key', account.keys.publishable
-      assert_equal 'secret-key', account.keys.secret
-    end
-
     should "be rejectable" do
       account_data = {:id => 'acct_foo'}
       stub_request(:get, "#{Stripe.api_base}/v1/accounts/acct_foo").
@@ -121,15 +103,6 @@ module Stripe
         with(body: { 'client_id' => 'ca_1234', 'stripe_user_id' => a.id}).
         to_return(body: JSON.generate({ 'stripe_user_id' => a.id }))
       a.deauthorize('ca_1234', 'sk_test_1234')
-    end
-
-    should "reject nil api keys" do
-      assert_raise TypeError do
-        Stripe::Account.retrieve(nil)
-      end
-      assert_raise TypeError do
-        Stripe::Account.retrieve(:api_key => nil)
-      end
     end
 
     should "be able to create a bank account" do

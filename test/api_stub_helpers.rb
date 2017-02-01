@@ -46,25 +46,50 @@ module APIStubHelpers
       # response.
       schema = env["committee.response_schema"]
       resource_id = schema.data["x-resourceId"] || ""
+
       if data = API_FIXTURES[resource_id.to_sym]
+        # standard top-level API resource
+        data = fixturize_lists_recursively(schema, data)
+        env["committee.response"] = data
+      elsif schema.properties["object"].enum == ["list"]
+        # top level list (like from a list endpoint)
+        data = fixturize_list(schema, env["committee.response"])
         env["committee.response"] = data
       else
-        # If no fixtures is immediately available, then we might be looking at
-        # a list response. Instead of extract a top level resource identifier,
-        # look for a nested version, and inject that fixture into our sample
-        # list response.
-        if schema.properties["object"].enum == ["list"]
-          resource_id = schema.properties["data"].items.data["x-resourceId"] || ""
-          if data = API_FIXTURES[resource_id.to_sym]
-            env["committee.response"]["data"] = [data]
-          else
-            raise "no suitable fixture for list resource: #{resource_id}"
-          end
-        else
-          raise "no fixture for: #{resource_id}"
-        end
+        raise "no fixture for: #{resource_id}"
       end
       @app.call(env)
+    end
+
+    private
+
+    # If schema looks like a Stripe list object, then we look up the resource
+    # that the list is supposed to include and inject it into `data` as a
+    # fixture. Also calls into that other schema recursively so that sublists
+    # within it will also be assigned a fixture.
+    def fixturize_list(schema, data)
+      object_schema = schema.properties["object"]
+      if object_schema && object_schema.enum == ["list"]
+        subschema = schema.properties["data"].items
+        resource_id = subschema.data["x-resourceId"] || ""
+        if subdata = API_FIXTURES[resource_id.to_sym]
+          subdata = fixturize_lists_recursively(subschema, subdata)
+
+          data = data ? data.dup : {}
+          data[:data] = [subdata]
+        end
+      end
+      data
+    end
+
+    # Examines each of the given schema's properties and calls #fixturize_list
+    # on them so that any sublists will be populated with sample fixture data.
+    def fixturize_lists_recursively(schema, data)
+      data = data.dup
+      schema.properties.each do |key, subschema|
+        data[key.to_sym] = fixturize_list(subschema, data[key.to_sym])
+      end
+      data
     end
   end
 

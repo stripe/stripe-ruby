@@ -18,8 +18,9 @@ module Stripe
     end
 
     should "be creatable" do
-      _ = Stripe::Plan.create(:metadata => {})
+      plan = Stripe::Plan.create(:metadata => {})
       assert_requested :post, "#{Stripe.api_base}/v1/plans"
+      assert plan.kind_of?(Stripe::Plan)
     end
 
     should "be saveable" do

@@ -1,4 +1,4 @@
-require File.expand_path('../../../test_helper', __FILE__)
+require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class StripeResponseTest < Test::Unit::TestCase

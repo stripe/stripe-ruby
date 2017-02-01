@@ -18,14 +18,16 @@ module Stripe
     end
 
     should "be creatable" do
-      _ = Stripe::ApplePayDomain.create(:domain_name => "example.com")
+      domain = Stripe::ApplePayDomain.create(:domain_name => "example.com")
       assert_requested :post, "#{Stripe.api_base}/v1/apple_pay/domains"
+      assert domain.kind_of?(Stripe::ApplePayDomain)
     end
 
     should "be deletable" do
       domain = Stripe::ApplePayDomain.retrieve(FIXTURE[:id])
-      domain.delete
+      domain = domain.delete
       assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{FIXTURE[:id]}"
+      assert domain.kind_of?(Stripe::ApplePayDomain)
     end
   end
 end

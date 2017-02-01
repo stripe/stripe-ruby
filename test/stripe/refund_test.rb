@@ -18,8 +18,9 @@ module Stripe
     end
 
     should "be creatable" do
-      _ = Stripe::Refund.create(:charge => API_FIXTURES[:charge][:id])
+      refund = Stripe::Refund.create(:charge => API_FIXTURES[:charge][:id])
       assert_requested :post, "#{Stripe.api_base}/v1/refunds"
+      assert refund.kind_of?(Stripe::Refund)
     end
 
     should "be saveable" do
@@ -30,8 +31,9 @@ module Stripe
     end
 
     should "be updateable" do
-      _ = Stripe::Refund.update(FIXTURE[:id], metadata: { key: 'value' })
+      refund = Stripe::Refund.update(FIXTURE[:id], metadata: { key: 'value' })
       assert_requested :post, "#{Stripe.api_base}/v1/refunds/#{FIXTURE[:id]}"
+      assert refund.kind_of?(Stripe::Refund)
     end
   end
 end

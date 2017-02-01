@@ -30,14 +30,16 @@ module Stripe
     end
 
     should "be updateable" do
-      _ = Stripe::Plan.update(FIXTURE[:id], metadata: {foo: 'bar'})
+      plan = Stripe::Plan.update(FIXTURE[:id], metadata: {foo: 'bar'})
       assert_requested :post, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      assert plan.kind_of?(Stripe::Plan)
     end
 
     should "be deletable" do
       plan = Stripe::Plan.retrieve(FIXTURE[:id])
-      plan.delete
+      plan = plan.delete
       assert_requested :delete, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      assert plan.kind_of?(Stripe::Plan)
     end
   end
 end

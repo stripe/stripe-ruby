@@ -1,4 +1,4 @@
-require File.expand_path('../../../test_helper', __FILE__)
+require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class StripeObjectTest < Test::Unit::TestCase
@@ -116,9 +116,13 @@ module Stripe
 
       # customer comes with a `sources` list that makes a convenient object to
       # perform tests on
-      customer = Stripe::Customer.construct_from(make_customer, opts)
+      obj = Stripe::StripeObject.construct_from({
+        sources: [
+          {}
+        ]
+      }, opts)
 
-      source = customer.sources.first
+      source = obj.sources.first
       # Pulling `@opts` as an instance variable here is not ideal, but it's
       # important enough argument that the test here is worth it. we should
       # consider exposing it publicly on a future pull (and possibly renaming

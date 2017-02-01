@@ -1,4 +1,4 @@
-require File.expand_path('../../../test_helper', __FILE__)
+require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class StripeClientTest < Test::Unit::TestCase
@@ -121,7 +121,7 @@ module Stripe
         should "support literal headers" do
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with(headers: { "Stripe-Account" => "bar" }).
-            to_return(body: JSON.generate(make_account))
+            to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account',
@@ -132,7 +132,7 @@ module Stripe
         should "support RestClient-style header keys" do
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with(headers: { "Stripe-Account" => "bar" }).
-            to_return(body: JSON.generate(make_account))
+            to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account',
@@ -147,7 +147,7 @@ module Stripe
 
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with(headers: {"Stripe-Account" => Stripe.stripe_account}).
-            to_return(body: JSON.generate(make_account))
+            to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account')
@@ -157,7 +157,7 @@ module Stripe
           stripe_account = "acct_0000"
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with(headers: {"Stripe-Account" => stripe_account}).
-            to_return(body: JSON.generate(make_account))
+            to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account',
@@ -169,7 +169,7 @@ module Stripe
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with { |req|
               req.headers["Stripe-Account"].nil?
-            }.to_return(body: JSON.generate(make_charge))
+            }.to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account')

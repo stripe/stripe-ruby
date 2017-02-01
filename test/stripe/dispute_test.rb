@@ -30,11 +30,13 @@ module Stripe
       assert dispute.kind_of?(Stripe::Dispute)
     end
 
-    should "be closeable" do
-      dispute = Stripe::Dispute.retrieve(FIXTURE[:id])
-      dispute.close
-      assert_requested :post,
-        "#{Stripe.api_base}/v1/disputes/#{FIXTURE[:id]}/close"
+    context "#close" do
+      should "be closeable" do
+        dispute = Stripe::Dispute.retrieve(FIXTURE[:id])
+        dispute.close
+        assert_requested :post,
+          "#{Stripe.api_base}/v1/disputes/#{FIXTURE[:id]}/close"
+      end
     end
   end
 end

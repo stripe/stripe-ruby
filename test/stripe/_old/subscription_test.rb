@@ -2,41 +2,6 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 module Stripe
   class SubscriptionTest < Test::Unit::TestCase
-    should "subscriptions should be retrievable by customer" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
-        to_return(body: JSON.generate(make_customer))
-      customer = Stripe::Customer.retrieve('c_test_customer')
-
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions/s_test_subscription").
-        to_return(body: JSON.generate(make_subscription))
-      _ = customer.subscriptions.retrieve('s_test_subscription')
-    end
-
-    should "subscriptions should be listable by customer" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
-        to_return(body: JSON.generate(make_customer))
-      customer = Stripe::Customer.retrieve('c_test_customer')
-
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions").
-        to_return(body: JSON.generate(make_customer_subscription_array('c_test_customer')))
-      subs = customer.subscriptions.list
-
-      assert subs.kind_of?(Stripe::ListObject)
-      assert subs.data.kind_of?(Array)
-      assert subs.data[0].kind_of? Stripe::Subscription
-    end
-
-    should "subscriptions should be creatable by customer" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
-        to_return(body: JSON.generate(make_customer))
-      customer = Stripe::Customer.retrieve('c_test_customer')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/c_test_customer/subscriptions").
-        with(body: { plan: "silver" }).
-        to_return(body: JSON.generate(make_subscription))
-      _ = customer.subscriptions.create(:plan => 'silver')
-    end
-
     should "subscriptions should be retrievable" do
       stub_request(:get, "#{Stripe.api_base}/v1/subscriptions/s_test_subscription").
         to_return(body: JSON.generate(make_subscription))

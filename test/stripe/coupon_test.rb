@@ -2,29 +2,38 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class CouponTest < Test::Unit::TestCase
-    should "create should return a new coupon" do
-      stub_request(:post, "#{Stripe.api_base}/v1/coupons").
-        to_return(body: JSON.generate(make_coupon))
-      _ = Stripe::Coupon.create
+    FIXTURE = API_FIXTURES.fetch(:coupon)
+
+    should "be listable" do
+      coupons = Stripe::Coupon.list
+      assert_requested :get, "#{Stripe.api_base}/v1/coupons"
+      assert coupons.data.kind_of?(Array)
+      assert coupons.first.kind_of?(Stripe::Coupon)
     end
 
-    should "coupons should be saveable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/coupons/test_coupon").
-        to_return(body: JSON.generate(make_coupon))
-      c = Stripe::Coupon.retrieve("test_coupon")
-
-      stub_request(:post, "#{Stripe.api_base}/v1/coupons/#{c.id}").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_customer))
-      c.metadata['foo'] = 'bar'
-      c.save
+    should "be retrievable" do
+      coupon = Stripe::Coupon.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/coupons/#{FIXTURE[:id]}"
+      assert coupon.kind_of?(Stripe::Coupon)
     end
 
-    should "coupons should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/coupons/test_coupon").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_customer))
-      _ = Stripe::Coupon.update("test_coupon", metadata: {foo: 'bar'})
+    should "be creatable" do
+      coupon = Stripe::Coupon.create(:charge => API_FIXTURES[:charge][:id])
+      assert_requested :post, "#{Stripe.api_base}/v1/coupons"
+      assert coupon.kind_of?(Stripe::Coupon)
+    end
+
+    should "be saveable" do
+      coupon = Stripe::Coupon.retrieve(FIXTURE[:id])
+      coupon.metadata['key'] = 'value'
+      coupon.save
+      assert_requested :post, "#{Stripe.api_base}/v1/coupons/#{FIXTURE[:id]}"
+    end
+
+    should "be updateable" do
+      coupon = Stripe::Coupon.update(FIXTURE[:id], metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/coupons/#{FIXTURE[:id]}"
+      assert coupon.kind_of?(Stripe::Coupon)
     end
   end
 end

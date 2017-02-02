@@ -2,65 +2,58 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class OrderTest < Test::Unit::TestCase
-    should "orders should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/orders").
-        to_return(body: JSON.generate(make_order_array))
+    FIXTURE = API_FIXTURES.fetch(:order)
+
+    should "be listable" do
       orders = Stripe::Order.list
+      assert_requested :get, "#{Stripe.api_base}/v1/orders"
       assert orders.data.kind_of?(Array)
-      orders.each do |order|
+      assert orders.first.kind_of?(Stripe::Order)
+    end
+
+    should "be retrievable" do
+      order = Stripe::Order.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/orders/#{FIXTURE[:id]}"
+      assert order.kind_of?(Stripe::Order)
+    end
+
+    should "be creatable" do
+      order = Stripe::Order.create(
+        currency: "USD"
+      )
+      assert_requested :post, "#{Stripe.api_base}/v1/orders"
+      assert order.kind_of?(Stripe::Order)
+    end
+
+    should "be saveable" do
+      order = Stripe::Order.retrieve(FIXTURE[:id])
+      order.metadata['key'] = 'value'
+      order.save
+      assert_requested :post, "#{Stripe.api_base}/v1/orders/#{FIXTURE[:id]}"
+    end
+
+    should "be updateable" do
+      order = Stripe::Order.update(FIXTURE[:id], metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/orders/#{FIXTURE[:id]}"
+      assert order.kind_of?(Stripe::Order)
+    end
+
+    context "#pay" do
+      should "pay an order" do
+        order = Stripe::Order.retrieve(FIXTURE[:id])
+        order = order.pay(token: API_FIXTURES.fetch(:token)[:id])
         assert order.kind_of?(Stripe::Order)
       end
     end
 
-    should "orders should not be deletable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/orders/or_test_order").
-        to_return(body: JSON.generate(make_order))
-      p = Stripe::Order.retrieve("or_test_order")
-
-      assert_raises NoMethodError do
-        p.delete
+    context "#return_order" do
+      should "return an order" do
+        order = Stripe::Order.retrieve(FIXTURE[:id])
+        order = order.return_order(:orders => [
+          { parent: API_FIXTURES.fetch(:sku)[:id] }
+        ])
+        assert order.kind_of?(Stripe::OrderReturn)
       end
-    end
-
-    should "orders should be saveable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/orders/or_test_order").
-        to_return(body: JSON.generate(make_order))
-      p = Stripe::Order.retrieve("or_test_order")
-
-      stub_request(:post, "#{Stripe.api_base}/v1/orders/#{p.id}").
-        with(body: { status: "fulfilled" }).
-        to_return(body: JSON.generate(make_order))
-      p.status = "fulfilled"
-      p.save
-    end
-
-    should "orders should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/orders/or_test_order").
-        with(body: { status: "fulfilled" }).
-        to_return(body: JSON.generate(make_order))
-      _ = Stripe::Order.update("or_test_order", status: 'fulfilled')
-    end
-
-    should "pay should pay an order" do
-      stub_request(:get, "#{Stripe.api_base}/v1/orders/or_test_order").
-        to_return(body: JSON.generate(make_order))
-      order = Stripe::Order.retrieve('or_test_order')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/orders/#{order.id}/pay").
-        with(body: { token: "test_token" }).
-        to_return(body: JSON.generate(make_order))
-      order.pay(:token => 'test_token')
-    end
-
-    should "return an order" do
-      stub_request(:get, "#{Stripe.api_base}/v1/orders/or_test_order").
-        to_return(body: JSON.generate(make_order))
-      order = Stripe::Order.retrieve('or_test_order')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/orders/#{order.id}/returns").
-        with(body: { items: [{ parent: "sku_foo" }] }).
-        to_return(body: JSON.generate(make_order))
-      _ = order.return_order(:items => [{:parent => 'sku_foo'}])
     end
   end
 end

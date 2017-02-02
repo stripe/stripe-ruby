@@ -2,66 +2,42 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class SourceTest < Test::Unit::TestCase
-    should 'be creatable' do
-      stub_request(:post, "#{Stripe.api_base}/v1/sources").
-        with(body: { type: 'card', token: 'tok_test' }).
-        to_return(body: JSON.generate(make_source_card))
-      _ = Stripe::Source.create(
+    FIXTURE = API_FIXTURES.fetch(:source)
+
+    should "be retrievable" do
+      source = Stripe::Source.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/sources/#{FIXTURE[:id]}"
+      assert source.kind_of?(Stripe::Source)
+    end
+
+    should "be creatable" do
+      source = Stripe::Source.create(
         type: 'card',
-        token: 'tok_test',
+        token: API_FIXTURES.fetch(:token)[:id]
       )
+      assert_requested :post, "#{Stripe.api_base}/v1/sources"
+      assert source.kind_of?(Stripe::Card)
     end
 
-    should 'be retrievable' do
-      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
-        to_return(body: JSON.generate(make_source_card))
-      _ = Stripe::Source.retrieve('source_test_card')
-    end
-
-    should 'be updatable' do
-      stub_request(:post, "#{Stripe.api_base}/v1/sources/source_test_card").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_source_card))
-      _ = Stripe::Source.update('source_test_card', metadata: {foo: 'bar'})
-    end
-
-    should 'be saveable' do
-      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
-        to_return(body: JSON.generate(make_source_card))
-      source = Stripe::Source.retrieve('source_test_card')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/sources/#{source.id}").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_source_card))
-      source.metadata['foo'] = 'bar'
+    should "be saveable" do
+      source = Stripe::Source.retrieve(FIXTURE[:id])
+      source.metadata['key'] = 'value'
       source.save
+      assert_requested :post, "#{Stripe.api_base}/v1/sources/#{FIXTURE[:id]}"
     end
 
-    should 'not be deletable' do
-      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
-        to_return(body: JSON.generate(make_source_card))
-      source = Stripe::Source.retrieve('source_test_card')
+    should "be updateable" do
+      source = Stripe::Source.update(FIXTURE[:id], metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/sources/#{FIXTURE[:id]}"
+      assert source.kind_of?(Stripe::Card)
+    end
 
-      assert_raises NoMethodError do
-        source.delete
+    context "#verify" do
+      should "verify the source" do
+        source = Stripe::Source.retrieve(FIXTURE[:id])
+        source = source.verify(:values => [1,2])
+        assert source.kind_of?(Stripe::Source)
       end
-    end
-
-    should 'not be listable' do
-      assert_raises NoMethodError do
-        Stripe::Source.list
-      end
-    end
-
-    should 'be verifiable' do
-      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
-        to_return(body: JSON.generate(make_source_card))
-      source = Stripe::Source.retrieve('source_test_card')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/sources/#{source.id}/verify").
-        with(body: { amounts: ["1", "2"] }).
-        to_return(body: JSON.generate(make_source_card))
-      source.verify(:amounts => [1,2])
     end
   end
 end

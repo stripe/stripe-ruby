@@ -2,32 +2,32 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ApplePayDomainTest < Test::Unit::TestCase
-    should "create should return a new Apple Pay domain" do
-      stub_request(:post, "#{Stripe.api_base}/v1/apple_pay/domains").
-        to_return(body: JSON.generate(make_apple_pay_domain))
-      d = Stripe::ApplePayDomain.create
-      assert_equal "apwc_test_domain", d.id
-    end
+    FIXTURE = API_FIXTURES.fetch(:apple_pay_domain)
 
-    should "domains should be deletable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/apple_pay/domains/apwc_test_domain").
-        to_return(body: JSON.generate(make_apple_pay_domain))
-      stub_request(:delete, "#{Stripe.api_base}/v1/apple_pay/domains/apwc_test_domain").
-        to_return(body: JSON.generate(make_apple_pay_domain(:deleted => true)))
-      domain = Stripe::ApplePayDomain.retrieve('apwc_test_domain')
-      domain.delete
-      assert domain.deleted
-    end
-
-    should "domains should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/apple_pay/domains").
-        to_return(body: JSON.generate(make_apple_pay_domain_array))
+    should "be listable" do
       domains = Stripe::ApplePayDomain.list
+      assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains"
       assert domains.data.kind_of?(Array)
-      assert_equal 3, domains.data.length
-      domains.each do |domain|
-        assert domain.kind_of?(Stripe::ApplePayDomain)
-      end
+      assert domains.data[0].kind_of?(Stripe::ApplePayDomain)
+    end
+
+    should "be retrievable" do
+      domain = Stripe::ApplePayDomain.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains/#{FIXTURE[:id]}"
+      assert domain.kind_of?(Stripe::ApplePayDomain)
+    end
+
+    should "be creatable" do
+      domain = Stripe::ApplePayDomain.create(:domain_name => "example.com")
+      assert_requested :post, "#{Stripe.api_base}/v1/apple_pay/domains"
+      assert domain.kind_of?(Stripe::ApplePayDomain)
+    end
+
+    should "be deletable" do
+      domain = Stripe::ApplePayDomain.retrieve(FIXTURE[:id])
+      domain = domain.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{FIXTURE[:id]}"
+      assert domain.kind_of?(Stripe::ApplePayDomain)
     end
   end
 end

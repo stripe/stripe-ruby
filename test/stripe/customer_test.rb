@@ -2,112 +2,114 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class CustomerTest < Test::Unit::TestCase
-    should "customers should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers").
-        to_return(body: JSON.generate(make_customer_array))
-      c = Stripe::Customer.list.data
-      assert c.kind_of? Array
-      assert c[0].kind_of? Stripe::Customer
+    FIXTURE = API_FIXTURES.fetch(:customer)
+
+    should "be listable" do
+      customers = Stripe::Customer.list
+      assert_requested :get, "#{Stripe.api_base}/v1/customers"
+      assert customers.data.kind_of?(Array)
+      assert customers.first.kind_of?(Stripe::Customer)
     end
 
-    should "customers should be deletable" do
-      stub_request(:delete, "#{Stripe.api_base}/v1/customers/test_customer").
-        to_return(body: JSON.generate(make_customer))
-      c = Stripe::Customer.new("test_customer")
-      c.delete
+    should "be retrievable" do
+      customer = Stripe::Customer.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/#{FIXTURE[:id]}"
+      assert customer.kind_of?(Stripe::Customer)
     end
 
-    should "customers should be saveable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
-        to_return(body: JSON.generate(make_customer))
-      c = Stripe::Customer.retrieve("test_customer")
-
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}").
-        with(body: { mnemonic: "bar" }).
-        to_return(body: JSON.generate(make_customer))
-      c.mnemonic = "bar"
-      c.save
+    should "be creatable" do
+      customer = Stripe::Customer.create
+      assert_requested :post, "#{Stripe.api_base}/v1/customers"
+      assert customer.kind_of?(Stripe::Customer)
     end
 
-    should "customers should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/test_customer").
-        with(body: { mnemonic: "bar" }).
-        to_return(body: JSON.generate(make_customer))
-      _ = Stripe::Customer.update("test_customer", mnemonic: "bar")
+    should "be saveable" do
+      customer = Stripe::Customer.retrieve(FIXTURE[:id])
+      customer.metadata['key'] = 'value'
+      customer.save
+      assert_requested :post, "#{Stripe.api_base}/v1/customers/#{FIXTURE[:id]}"
     end
 
-    should "create should return a new customer" do
-      stub_request(:post, "#{Stripe.api_base}/v1/customers").
-        to_return(body: JSON.generate(make_customer))
-      _ = Stripe::Customer.create
+    should "be updateable" do
+      customer = Stripe::Customer.update(FIXTURE[:id], metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/customers/#{FIXTURE[:id]}"
+      assert customer.kind_of?(Stripe::Customer)
     end
 
-    should "create_upcoming_invoice should create a new invoice" do
-      stub_request(:post, "#{Stripe.api_base}/v1/invoices").
-        with(body: { customer: "test_customer" }).
-        to_return(body: JSON.generate(make_customer))
-      _ = Stripe::Customer.new("test_customer").create_upcoming_invoice
+    should "be deletable" do
+      customer = Stripe::Customer.retrieve(FIXTURE[:id])
+      customer = customer.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{FIXTURE[:id]}"
+      assert customer.kind_of?(Stripe::Customer)
     end
 
-    should "be able to update a customer's subscription" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
-        to_return(body: JSON.generate(make_customer))
-      c = Stripe::Customer.retrieve("test_customer")
-
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}/subscription").
-        with(body: { plan: "silver" }).
-        to_return(body: JSON.generate(make_subscription))
-      _ = c.update_subscription({:plan => 'silver'})
+    context "#create_subscription" do
+      should "create a new subscription" do
+        customer = Stripe::Customer.retrieve(FIXTURE[:id])
+        subscription = customer.create_subscription({:plan => 'silver'})
+        assert subscription.kind_of?(Stripe::Subscription)
+      end
     end
 
-    should "be able to cancel a customer's subscription" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
-        to_return(body: JSON.generate(make_customer))
-      c = Stripe::Customer.retrieve("test_customer")
-
-      # Not an accurate response, but whatever
-
-      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{c.id}/subscription").
-        with(query: { at_period_end: "true" }).
-        to_return(body: JSON.generate(make_subscription))
-      c.cancel_subscription({:at_period_end => 'true'})
-
-      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{c.id}/subscription").
-        to_return(body: JSON.generate(make_subscription))
-      c.cancel_subscription
+    context "#create_upcoming_invoice" do
+      should "create a new invoice" do
+        customer = Stripe::Customer.retrieve(FIXTURE[:id])
+        invoice = customer.create_upcoming_invoice
+        assert invoice.kind_of?(Stripe::Invoice)
+      end
     end
 
-    should "be able to create a subscription for a customer" do
-      c = Stripe::Customer.new("test_customer")
+    context "#update_subscription" do
+      should "update a subscription" do
+        customer = Stripe::Customer.retrieve(FIXTURE[:id])
 
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}/subscriptions").
-        with(body: { plan: "silver" }).
-        to_return(body: JSON.generate(make_subscription))
-      _ = c.create_subscription({:plan => 'silver'})
+        # deprecated API and not in schema
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscription").
+          with(body: { plan: "silver" }).
+          to_return(body: JSON.generate(API_FIXTURES[:subscription]))
+        subscription = customer.update_subscription({:plan => 'silver'})
+        assert subscription.kind_of?(Stripe::Subscription)
+      end
     end
 
-    should "be able to delete a customer's discount" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
-        to_return(body: JSON.generate(make_customer))
-      c = Stripe::Customer.retrieve("test_customer")
+    context "#cancel_subscription" do
+      should "cancel a subscription" do
+        customer = Stripe::Customer.retrieve(FIXTURE[:id])
 
-      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{c.id}/discount").
-        to_return(body: JSON.generate(make_delete_discount_response))
-      c.delete_discount
+        # deprecated API and not in schema
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscription").
+          with(query: { at_period_end: "true" }).
+          to_return(body: JSON.generate(API_FIXTURES[:subscription]))
+        subscription = customer.cancel_subscription({:at_period_end => 'true'})
+        assert subscription.kind_of?(Stripe::Subscription)
+      end
     end
 
-    should "can have a token source set" do
-      c = Stripe::Customer.new("test_customer")
-      c.source = "tok_123"
-      assert_equal "tok_123", c.source
+    context "#delete_discount" do
+      should "delete a discount" do
+        customer = Stripe::Customer.retrieve(FIXTURE[:id])
+
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{customer.id}/discount").
+          to_return(body: JSON.generate(API_FIXTURES[:discount]))
+        discount = customer.delete_discount
+        assert discount.kind_of?(Stripe::Customer)
+      end
     end
 
-    should "set a flag if given an object source" do
-      c = Stripe::Customer.new("test_customer")
-      c.source = {
-        :object => 'card'
-      }
-      assert_equal true, c.source.save_with_parent
+    context "source field" do
+      should "allow setting source with token" do
+        c = Stripe::Customer.new("test_customer")
+        c.source = "tok_123"
+        assert_equal "tok_123", c.source
+      end
+
+      should "allow setting source with hash and set flag" do
+        c = Stripe::Customer.new("test_customer")
+        c.source = {
+          :object => 'card'
+        }
+        assert_equal true, c.source.save_with_parent
+      end
     end
   end
 end

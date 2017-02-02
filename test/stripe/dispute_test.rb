@@ -2,47 +2,41 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class DisputeTest < Test::Unit::TestCase
-    should "disputes should be retrievable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/disputes/dp_test_dispute").
-        to_return(body: JSON.generate(make_dispute))
-      d = Stripe::Dispute.retrieve('dp_test_dispute')
-      assert d.kind_of?(Stripe::Dispute)
+    FIXTURE = API_FIXTURES.fetch(:dispute)
+
+    should "be listable" do
+      disputes = Stripe::Dispute.list
+      assert_requested :get, "#{Stripe.api_base}/v1/disputes"
+      assert disputes.data.kind_of?(Array)
+      assert disputes.first.kind_of?(Stripe::Dispute)
     end
 
-    should "disputes should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/disputes").
-        to_return(body: JSON.generate(make_dispute_array))
-      d = Stripe::Dispute.list
-      assert d.data.kind_of? Array
-      d.each do |dispute|
-        assert dispute.kind_of?(Stripe::Dispute)
+    should "be retrievable" do
+      dispute = Stripe::Dispute.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/disputes/#{FIXTURE[:id]}"
+      assert dispute.kind_of?(Stripe::Dispute)
+    end
+
+    should "be saveable" do
+      dispute = Stripe::Dispute.retrieve(FIXTURE[:id])
+      dispute.metadata['key'] = 'value'
+      dispute.save
+      assert_requested :post, "#{Stripe.api_base}/v1/disputes/#{FIXTURE[:id]}"
+    end
+
+    should "be updateable" do
+      dispute = Stripe::Dispute.update(FIXTURE[:id], metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/disputes/#{FIXTURE[:id]}"
+      assert dispute.kind_of?(Stripe::Dispute)
+    end
+
+    context "#close" do
+      should "be closeable" do
+        dispute = Stripe::Dispute.retrieve(FIXTURE[:id])
+        dispute.close
+        assert_requested :post,
+          "#{Stripe.api_base}/v1/disputes/#{FIXTURE[:id]}/close"
       end
-    end
-
-    should "disputes should be closeable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/disputes/dp_test_dispute/close").
-        to_return(body: JSON.generate(make_dispute))
-      d = Stripe::Dispute.new('dp_test_dispute')
-      d.close
-    end
-
-    should "disputes should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/disputes/dp_test_dispute").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_dispute))
-      _ = Stripe::Dispute.update("dp_test_dispute", metadata: {foo: 'bar'})
-    end
-
-    should "disputes should be saveable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/disputes/dp_test_dispute").
-        to_return(body: JSON.generate(make_dispute))
-      d = Stripe::Dispute.retrieve('dp_test_dispute')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/disputes/dp_test_dispute").
-        with(body: { evidence: { customer_name: "customer" } }).
-        to_return(body: JSON.generate(make_dispute))
-      d.evidence['customer_name'] = 'customer'
-      d.save
     end
   end
 end

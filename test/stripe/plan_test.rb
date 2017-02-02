@@ -2,33 +2,45 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class PlanTest < Test::Unit::TestCase
-    should "plans should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/plans").
-        to_return(body: JSON.generate(make_plan_array))
+    FIXTURE = API_FIXTURES.fetch(:plan)
+
+    should "be listable" do
       plans = Stripe::Plan.list
+      assert_requested :get, "#{Stripe.api_base}/v1/plans"
       assert plans.data.kind_of?(Array)
-      plans.each do |plan|
-        assert plan.kind_of?(Stripe::Plan)
-      end
+      assert plans.data[0].kind_of?(Stripe::Plan)
     end
 
-    should "plans should be saveable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/plans/test_plan").
-        to_return(body: JSON.generate(make_plan))
-      p = Stripe::Plan.retrieve("test_plan")
-
-      stub_request(:post, "#{Stripe.api_base}/v1/plans/#{p.id}").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_plan))
-      p.metadata['foo'] = 'bar'
-      p.save
+    should "be retrievable" do
+      plan = Stripe::Plan.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      assert plan.kind_of?(Stripe::Plan)
     end
 
-    should "plans should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/plans/test_plan").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_plan))
-      _ = Stripe::Plan.update("test_plan", metadata: {foo: 'bar'})
+    should "be creatable" do
+      plan = Stripe::Plan.create(:metadata => {})
+      assert_requested :post, "#{Stripe.api_base}/v1/plans"
+      assert plan.kind_of?(Stripe::Plan)
+    end
+
+    should "be saveable" do
+      plan = Stripe::Plan.retrieve(FIXTURE[:id])
+      plan.metadata['key'] = 'value'
+      plan.save
+      assert_requested :post, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+    end
+
+    should "be updateable" do
+      plan = Stripe::Plan.update(FIXTURE[:id], metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      assert plan.kind_of?(Stripe::Plan)
+    end
+
+    should "be deletable" do
+      plan = Stripe::Plan.retrieve(FIXTURE[:id])
+      plan = plan.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      assert plan.kind_of?(Stripe::Plan)
     end
   end
 end

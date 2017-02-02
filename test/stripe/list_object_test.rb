@@ -8,8 +8,10 @@ module Stripe
     end
 
     should "provide #count via enumerable" do
-      list = Stripe::ListObject.construct_from(make_charge_array)
-      assert_equal 3, list.count
+      list = Stripe::ListObject.construct_from({
+        data: [API_FIXTURES.fetch(:charge)]
+      })
+      assert_equal 1, list.count
     end
 
     should "provide #each" do
@@ -152,8 +154,6 @@ module Stripe
     # note that the name #all is deprecated, as is using it fetch the next page
     # in a list
     should "be able to retrieve full lists given a listobject" do
-      stub_request(:get, "#{Stripe.api_base}/v1/charges").
-        to_return(body: JSON.generate(make_charge_array))
       c = Stripe::Charge.all
       assert c.kind_of?(Stripe::ListObject)
       assert_equal('/v1/charges', c.resource_url)

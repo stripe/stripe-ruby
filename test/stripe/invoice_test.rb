@@ -2,47 +2,65 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class InvoiceTest < Test::Unit::TestCase
-    should "retrieve should retrieve invoices" do
-      stub_request(:get, "#{Stripe.api_base}/v1/invoices/in_test_invoice").
-        to_return(body: JSON.generate(make_invoice))
-      i = Stripe::Invoice.retrieve('in_test_invoice')
-      assert_equal 'in_test_invoice', i.id
+    FIXTURE = API_FIXTURES.fetch(:invoice)
+
+    should "be listable" do
+      invoices = Stripe::Invoice.list
+      assert_requested :get, "#{Stripe.api_base}/v1/invoices"
+      assert invoices.data.kind_of?(Array)
+      assert invoices.first.kind_of?(Stripe::Invoice)
     end
 
-    should "create should create a new invoice" do
-      stub_request(:post, "#{Stripe.api_base}/v1/invoices").
-        to_return(body: JSON.generate(make_invoice))
-      _ = Stripe::Invoice.create
+    should "be retrievable" do
+      invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}"
+      assert invoice.kind_of?(Stripe::Invoice)
     end
 
-    should "pay should pay an invoice" do
-      stub_request(:get, "#{Stripe.api_base}/v1/invoices/in_test_invoice").
-        to_return(body: JSON.generate(make_invoice))
-      i = Stripe::Invoice.retrieve('in_test_invoice')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/invoices/#{i.id}/pay").
-        to_return(body: JSON.generate(make_invoice))
-      i.pay
-    end
-
-    should "invoices should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/invoices/test_invoice").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_invoice))
-      _ = Stripe::Invoice.update("test_invoice", metadata: {foo: 'bar'})
-    end
-
-    should "be able to retrieve upcoming invoices" do
-      stub_request(:get, "#{Stripe.api_base}/v1/invoices/upcoming").
-        with(query: {
-          :customer => 'c_test_customer',
-          :subscription => 's_test_subscription',
-        }).
-        to_return(body: JSON.generate(make_invoice))
-      _ = Stripe::Invoice.upcoming(
-        :customer => 'c_test_customer',
-        :subscription => 's_test_subscription',
+    should "be creatable" do
+      invoice = Stripe::Invoice.create(
+        :customer => API_FIXTURES[:customer][:id]
       )
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices"
+      assert invoice.kind_of?(Stripe::Invoice)
+    end
+
+    should "be saveable" do
+      invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
+      invoice.metadata['key'] = 'value'
+      invoice.save
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}"
+    end
+
+    should "be updateable" do
+      invoice = Stripe::Invoice.update(FIXTURE[:id], metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}"
+      assert invoice.kind_of?(Stripe::Invoice)
+    end
+
+    context "#pay" do
+      should "pay invoice" do
+        invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
+        invoice = invoice.pay
+        assert_requested :post,
+          "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}/pay"
+        assert invoice.kind_of?(Stripe::Invoice)
+      end
+    end
+
+    context "#upcoming" do
+      should "retrieve upcoming invoices" do
+        invoice = Stripe::Invoice.upcoming(
+          customer: API_FIXTURES[:customer][:id],
+          subscription: API_FIXTURES[:subscription][:id]
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming",
+          query: {
+            customer: API_FIXTURES[:customer][:id],
+            subscription: API_FIXTURES[:subscription][:id]
+          }
+        assert invoice.kind_of?(Stripe::Invoice)
+      end
     end
   end
 end

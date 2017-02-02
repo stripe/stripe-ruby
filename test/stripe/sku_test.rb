@@ -2,32 +2,49 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class SKUTest < Test::Unit::TestCase
-    should "SKUs should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/skus").
-        to_return(body: JSON.generate(make_sku_array("test_product")))
+    FIXTURE = API_FIXTURES.fetch(:sku)
+
+    should "be listable" do
       skus = Stripe::SKU.list
-      assert skus.data.kind_of? Array
-      skus.each do |sku|
-        assert sku.kind_of?(Stripe::SKU)
-      end
+      assert_requested :get, "#{Stripe.api_base}/v1/skus"
+      assert skus.data.kind_of?(Array)
+      assert skus.data[0].kind_of?(Stripe::SKU)
     end
 
-    should "SKUs should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/skus/test_sku").
-        with(body: { metadata: { foo: "bar" } }).
-        to_return(body: JSON.generate(make_sku))
-      _ = Stripe::SKU.update("test_sku", metadata: {foo: 'bar'})
+    should "be retrievable" do
+      sku = Stripe::SKU.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/skus/#{FIXTURE[:id]}"
+      assert sku.kind_of?(Stripe::SKU)
     end
 
-    should "SKUs should be deletable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/skus/test_sku").
-        to_return(body: JSON.generate(make_sku))
-      s = Stripe::SKU.retrieve("test_sku")
-
-      stub_request(:delete, "#{Stripe.api_base}/v1/skus/#{s.id}").
-        to_return(body: JSON.generate(make_sku(:deleted => true)))
-      s.delete
+    should "be creatable" do
+      _ = Stripe::SKU.create(
+        currency: "USD",
+        inventory: { type: "finite", quantity: 500 },
+        price: 100,
+        product: API_FIXTURES.fetch(:product)[:id]
+      )
+      assert_requested :post, "#{Stripe.api_base}/v1/skus"
     end
 
+    should "be saveable" do
+      sku = Stripe::SKU.retrieve(FIXTURE[:id])
+      sku.metadata['key'] = 'value'
+      sku.save
+      assert_requested :post, "#{Stripe.api_base}/v1/skus/#{FIXTURE[:id]}"
+    end
+
+    should "be updateable" do
+      sku = Stripe::SKU.update(FIXTURE[:id], metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/skus/#{FIXTURE[:id]}"
+      assert sku.kind_of?(Stripe::SKU)
+    end
+
+    should "be deletable" do
+      sku = Stripe::SKU.retrieve(FIXTURE[:id])
+      sku = sku.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/skus/#{FIXTURE[:id]}"
+      assert sku.kind_of?(Stripe::SKU)
+    end
   end
 end

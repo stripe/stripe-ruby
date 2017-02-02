@@ -2,62 +2,53 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class SubscriptionItemTest < Test::Unit::TestCase
-    should "subscription items should be retrievable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/subscription_items/si_test_subscription_item").
-        to_return(body: JSON.generate(make_subscription_item))
-      sub_item = Stripe::SubscriptionItem.retrieve('si_test_subscription_item')
+    FIXTURE = API_FIXTURES.fetch(:subscription_item)
 
-      assert sub_item.kind_of?(Stripe::SubscriptionItem)
+    should "be listable" do
+      items = Stripe::SubscriptionItem.list(
+        subscription: API_FIXTURES.fetch(:subscription)[:id]
+      )
+      assert_requested :get, "#{Stripe.api_base}/v1/subscription_items",
+        query: { subscription: API_FIXTURES.fetch(:subscription)[:id] }
+      assert items.data.kind_of?(Array)
+      assert items.data[0].kind_of?(Stripe::SubscriptionItem)
     end
 
-    should "subscription items should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/subscription_items").
-        with(query: { subscription: "s_test_subscription", limit: "3" }).
-        to_return(body: JSON.generate(make_subscription_item_array))
-      sub_items = Stripe::SubscriptionItem.list(:subscription => 's_test_subscription', :limit => 3).data
-
-      assert sub_items.kind_of? Array
-      assert sub_items[0].kind_of? Stripe::SubscriptionItem
+    should "be retrievable" do
+      item = Stripe::SubscriptionItem.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/subscription_items/#{FIXTURE[:id]}"
+      assert item.kind_of?(Stripe::SubscriptionItem)
     end
 
-    should "subscription items should be deletable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/subscription_items/si_test_subscription_item").
-        to_return(body: JSON.generate(make_subscription_item))
-      sub_item = Stripe::SubscriptionItem.retrieve('si_test_subscription_item')
-
-      stub_request(:delete, "#{Stripe.api_base}/v1/subscription_items/#{sub_item.id}").
-        to_return(body: JSON.generate(make_subscription_item))
-      sub_item.delete
+    should "be creatable" do
+      item = Stripe::SubscriptionItem.create(
+        item: 'silver',
+        plan: API_FIXTURES.fetch(:plan)[:id],
+        quantity: 3,
+        subscription: API_FIXTURES.fetch(:subscription)[:id]
+      )
+      assert_requested :post, "#{Stripe.api_base}/v1/subscription_items"
+      assert item.kind_of?(Stripe::SubscriptionItem)
     end
 
-    should "subscription items should be updateable" do
-      sid = 'si_test_subscription_item'
-      stub_request(:post, "#{Stripe.api_base}/v1/subscription_items/#{sid}").
-        with(body: { plan: "silver", quantity: "3" }).
-        to_return(body: JSON.generate(make_subscription_item))
-
-      _ = Stripe::SubscriptionItem.update(sid, {:plan => 'silver', :quantity => 3})
+    should "be saveable" do
+      item = Stripe::SubscriptionItem.retrieve(FIXTURE[:id])
+      item.quantity = 4
+      item.save
+      assert_requested :post, "#{Stripe.api_base}/v1/subscription_items/#{FIXTURE[:id]}"
     end
 
-    should "subscription items should be saveable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/subscription_items/si_test_subscription_item").
-        to_return(body: JSON.generate(make_subscription_item))
-      sub_item = Stripe::SubscriptionItem.retrieve('si_test_subscription_item')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/subscription_items/#{sub_item.id}").
-        with(body: { plan: "silver", quantity: "3" }).
-        to_return(body: JSON.generate(make_subscription_item))
-      sub_item.plan = 'silver'
-      sub_item.quantity = 3
-      sub_item.save
+    should "be updateable" do
+      item = Stripe::SubscriptionItem.update(FIXTURE[:id], metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/subscription_items/#{FIXTURE[:id]}"
+      assert item.kind_of?(Stripe::SubscriptionItem)
     end
 
-    should "create should return a new subscription item" do
-      stub_request(:post, "#{Stripe.api_base}/v1/subscription_items").
-        with(body: { plan: "silver", quantity: "3" }).
-        to_return(body: JSON.generate(make_subscription_item))
-
-      _ = Stripe::SubscriptionItem.create(:plan => 'silver', :quantity => 3)
+    should "be deletable" do
+      item = Stripe::SubscriptionItem.retrieve(FIXTURE[:id])
+      item = item.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/subscription_items/#{FIXTURE[:id]}"
+      assert item.kind_of?(Stripe::SubscriptionItem)
     end
   end
 end

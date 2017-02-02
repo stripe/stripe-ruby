@@ -6,8 +6,8 @@ module APIStubHelpers
   protected
 
   # Uses Webmock to stub out the Stripe API for testing purposes. The stub will
-  # by default respond on any routes that are defined in the bundled
-  # hyper-schema with generated response data.
+  # by default respond on any routes that are defined in the bundled OpenAPI
+  # spec with generated response data.
   #
   # An `override_app` can be specified to get finer grain control over how a
   # stubbed endpoint responds. It can be used to modify generated responses,
@@ -231,7 +231,7 @@ module APIStubHelpers
     }
   end
 
-  # Parse and initialize the hyper-schema only once for the entire test suite.
+  # Parse and initialize the OpenAPI spec only once for the entire test suite.
   @@spec = initialize_spec
 
   # The default override app. Doesn't respond on any route so generated

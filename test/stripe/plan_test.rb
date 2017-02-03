@@ -18,7 +18,13 @@ module Stripe
     end
 
     should "be creatable" do
-      plan = Stripe::Plan.create(:metadata => {})
+      plan = Stripe::Plan.create(
+        amount: 5000,
+        interval: "month",
+        name: "Sapphire elite",
+        currency: "usd",
+        id: "sapphire-elite"
+      )
       assert_requested :post, "#{Stripe.api_base}/v1/plans"
       assert plan.kind_of?(Stripe::Plan)
     end

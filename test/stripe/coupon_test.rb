@@ -18,7 +18,12 @@ module Stripe
     end
 
     should "be creatable" do
-      coupon = Stripe::Coupon.create(:charge => API_FIXTURES[:charge][:id])
+      coupon = Stripe::Coupon.create(
+        percent_off: 25,
+        duration: 'repeating',
+        duration_in_months: 3,
+        id: '25OFF'
+      )
       assert_requested :post, "#{Stripe.api_base}/v1/coupons"
       assert coupon.kind_of?(Stripe::Coupon)
     end

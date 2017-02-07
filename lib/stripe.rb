@@ -232,8 +232,36 @@ module Stripe
                   resp.code, resp.body, error_obj, resp.headers)
   end
 
+  options = OpenSSL::SSL::OP_ALL | OpenSSL::SSL::OP_NO_SSLv2
+  if defined?(OpenSSL::SSL::OP_DONT_INSERT_EMPTY_FRAGMENTS)
+    options &= ~OpenSSL::SSL::OP_DONT_INSERT_EMPTY_FRAGMENTS
+  end
+  if defined?(OpenSSL::SSL::OP_NO_COMPRESSION)
+    options |= OpenSSL::SSL::OP_NO_COMPRESSION
+  end
+  IMPROVED_SSL_DEFAULT_PARAMS = OpenSSL::SSL::SSLContext::DEFAULT_PARAMS.merge(
+    :ciphers => "DEFAULT:!aNULL:!eNULL:!LOW:!EXPORT:!SSLv2",
+    :options => options
+    )
+
+  def self.with_better_ssl
+    # Ruby's default SSL configuration is ridiculously bad. Let's make
+    # it better
+    orig_default_params = OpenSSL::SSL::SSLContext.send(:const_get, :DEFAULT_PARAMS)
+    begin
+      OpenSSL::SSL::SSLContext.send(:remove_const, :DEFAULT_PARAMS)
+      OpenSSL::SSL::SSLContext.send(:const_set, :DEFAULT_PARAMS, IMPROVED_SSL_DEFAULT_PARAMS)
+      yield
+    ensure
+      OpenSSL::SSL::SSLContext.send(:remove_const, :DEFAULT_PARAMS)
+      OpenSSL::SSL::SSLContext.send(:const_set, :DEFAULT_PARAMS, orig_default_params)
+    end
+  end
+
   def self.execute_request(opts)
-    RestClient::Request.execute(opts)
+    with_better_ssl do
+      RestClient::Request.execute(opts)
+    end
   end
 
   def self.execute_request_with_rescues(request_opts, api_base_url, retry_count = 0)

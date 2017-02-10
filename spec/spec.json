@@ -81,21 +81,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "ExternalAccountList",
           "type": [
             "object"
           ]
@@ -372,21 +391,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "ExternalAccountList",
           "type": [
             "object"
           ]
@@ -992,21 +1030,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "BitcoinTransactionList",
           "type": [
             "object"
           ]
@@ -1108,211 +1165,6 @@
       ],
       "x-resourceId": "bitcoin_transaction"
     },
-    "card": {
-      "properties": {
-        "account": {
-          "description": "The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead.",
-          "type": [
-            "string"
-          ]
-        },
-        "address_city": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "address_country": {
-          "description": "Billing address country, if provided when creating card.",
-          "type": [
-            "string"
-          ]
-        },
-        "address_line1": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "address_line1_check": {
-          "description": "If `address_line1` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
-          "type": [
-            "string"
-          ]
-        },
-        "address_line2": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "address_state": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "address_zip": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "address_zip_check": {
-          "description": "If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
-          "type": [
-            "string"
-          ]
-        },
-        "available_payout_methods": {
-          "description": "A set of available payout methods for this card. Will be either `[\"standard\"]` or `[\"standard\", \"instant\"]`. Only values from this set should be passed as the `method` when creating a transfer.",
-          "type": [
-            "array"
-          ]
-        },
-        "brand": {
-          "description": "Card brand. Can be `Visa`, `American Express`, `MasterCard`, `Discover`, `JCB`, `Diners Club`, or `Unknown`.",
-          "type": [
-            "string"
-          ]
-        },
-        "country": {
-          "description": "Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.",
-          "type": [
-            "string"
-          ]
-        },
-        "currency": {
-          "description": "Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency.",
-          "type": [
-            "string"
-          ]
-        },
-        "customer": {
-          "description": "The customer that this card belongs to. This attribute will be null if the card belongs to an account or recipient instead.",
-          "type": [
-            "string"
-          ]
-        },
-        "cvc_check": {
-          "description": "If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
-          "type": [
-            "string"
-          ]
-        },
-        "default_for_currency": {
-          "description": "Only applicable on accounts (not customers or recipients). This indicates whether or not this card is the default external account for its currency.",
-          "type": [
-            "boolean"
-          ]
-        },
-        "dynamic_last4": {
-          "description": "(For tokenized numbers only.) The last four digits of the device account number.",
-          "type": [
-            "string"
-          ]
-        },
-        "estimated_availability": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "exp_month": {
-          "description": "",
-          "type": [
-            "integer"
-          ]
-        },
-        "exp_year": {
-          "description": "",
-          "type": [
-            "integer"
-          ]
-        },
-        "fingerprint": {
-          "description": "Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example.",
-          "type": [
-            "string"
-          ]
-        },
-        "funding": {
-          "description": "Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.",
-          "type": [
-            "string"
-          ]
-        },
-        "google_reference": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "id": {
-          "description": "ID of card (used in conjunction with a customer or recipient ID).",
-          "type": [
-            "string"
-          ]
-        },
-        "last4": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "metadata": {
-          "description": "A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format.",
-          "type": [
-            "object"
-          ]
-        },
-        "name": {
-          "description": "Cardholder name.",
-          "type": [
-            "string"
-          ]
-        },
-        "object": {
-          "description": "",
-          "type": [
-            "string"
-          ]
-        },
-        "recipient": {
-          "description": "The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead.",
-          "type": [
-            "string"
-          ]
-        },
-        "three_d_secure": {
-          "description": "",
-          "type": [
-            "object"
-          ]
-        },
-        "tokenization_method": {
-          "description": "If the card number is tokenized, this is the method that was used. Can be `apple_pay` or `android_pay`.",
-          "type": [
-            "string"
-          ]
-        }
-      },
-      "required": [
-        "brand",
-        "exp_month",
-        "exp_year",
-        "funding",
-        "id",
-        "last4",
-        "metadata",
-        "object"
-      ],
-      "title": "Card",
-      "type": [
-        "object"
-      ],
-      "x-resourceId": "card"
-    },
     "channel_settings": {
       "properties": {
         "twitter": {
@@ -1376,7 +1228,7 @@
           ]
         },
         "card": {
-          "$ref": "#/definitions/card"
+          "$ref": "#/definitions/payment_card"
         },
         "created": {
           "description": "",
@@ -1512,21 +1364,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "RefundList",
           "type": [
             "object"
           ]
@@ -1823,21 +1694,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "AlipayAccountList",
           "type": [
             "object"
           ]
@@ -1853,21 +1743,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "PaymentBankAccountList",
           "type": [
             "object"
           ]
@@ -1882,28 +1791,47 @@
           "properties": {
             "data": {
               "items": {
-                "$ref": "#/definitions/card"
+                "$ref": "#/definitions/payment_card"
               },
               "type": [
                 "array"
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "PaymentCardList",
           "type": [
             "object"
           ]
@@ -1999,21 +1927,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "SourceList",
           "type": [
             "object"
           ]
@@ -2029,21 +1976,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "SubscriptionList",
           "type": [
             "object"
           ]
@@ -2812,21 +2778,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "InvoiceLines",
           "type": [
             "object"
           ]
@@ -3315,21 +3300,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "TransferReversalList",
           "type": [
             "object"
           ]
@@ -3840,21 +3844,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "OrderReturnList",
           "type": [
             "object"
           ]
@@ -4244,6 +4267,175 @@
       ],
       "x-resourceId": "payment_bank_account"
     },
+    "payment_card": {
+      "properties": {
+        "address_city": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_country": {
+          "description": "Billing address country, if provided when creating card.",
+          "type": [
+            "string"
+          ]
+        },
+        "address_line1": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_line1_check": {
+          "description": "If `address_line1` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+          "type": [
+            "string"
+          ]
+        },
+        "address_line2": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_state": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_zip": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_zip_check": {
+          "description": "If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+          "type": [
+            "string"
+          ]
+        },
+        "brand": {
+          "description": "Card brand. Can be `Visa`, `American Express`, `MasterCard`, `Discover`, `JCB`, `Diners Club`, or `Unknown`.",
+          "type": [
+            "string"
+          ]
+        },
+        "country": {
+          "description": "Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.",
+          "type": [
+            "string"
+          ]
+        },
+        "customer": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "cvc_check": {
+          "description": "If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+          "type": [
+            "string"
+          ]
+        },
+        "dynamic_last4": {
+          "description": "(For tokenized numbers only.) The last four digits of the device account number.",
+          "type": [
+            "string"
+          ]
+        },
+        "exp_month": {
+          "description": "",
+          "type": [
+            "integer"
+          ]
+        },
+        "exp_year": {
+          "description": "",
+          "type": [
+            "integer"
+          ]
+        },
+        "fingerprint": {
+          "description": "Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example.",
+          "type": [
+            "string"
+          ]
+        },
+        "funding": {
+          "description": "Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.",
+          "type": [
+            "string"
+          ]
+        },
+        "google_reference": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "id": {
+          "description": "ID of card (used in conjunction with a customer or recipient ID).",
+          "type": [
+            "string"
+          ]
+        },
+        "last4": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "metadata": {
+          "description": "A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format.",
+          "type": [
+            "object"
+          ]
+        },
+        "name": {
+          "description": "Cardholder name.",
+          "type": [
+            "string"
+          ]
+        },
+        "object": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "three_d_secure": {
+          "description": "",
+          "type": [
+            "object"
+          ]
+        },
+        "tokenization_method": {
+          "description": "If the card number is tokenized, this is the method that was used. Can be `apple_pay` or `android_pay`.",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "brand",
+        "exp_month",
+        "exp_year",
+        "funding",
+        "id",
+        "last4",
+        "metadata",
+        "object"
+      ],
+      "title": "PaymentCard",
+      "type": [
+        "object"
+      ],
+      "x-resourceId": "payment_card"
+    },
     "plan": {
       "properties": {
         "amount": {
@@ -4428,21 +4620,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "FeeRefundList",
           "type": [
             "object"
           ]
@@ -4563,21 +4774,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "SKUList",
           "type": [
             "object"
           ]
@@ -4744,6 +4974,181 @@
         "object"
       ],
       "x-resourceId": "recipient_payout_bank_account"
+    },
+    "recipient_payout_card": {
+      "properties": {
+        "address_city": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_country": {
+          "description": "Billing address country, if provided when creating card.",
+          "type": [
+            "string"
+          ]
+        },
+        "address_line1": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_line1_check": {
+          "description": "If `address_line1` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+          "type": [
+            "string"
+          ]
+        },
+        "address_line2": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_state": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_zip": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "address_zip_check": {
+          "description": "If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+          "type": [
+            "string"
+          ]
+        },
+        "brand": {
+          "description": "Card brand. Can be `Visa`, `American Express`, `MasterCard`, `Discover`, `JCB`, `Diners Club`, or `Unknown`.",
+          "type": [
+            "string"
+          ]
+        },
+        "country": {
+          "description": "Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.",
+          "type": [
+            "string"
+          ]
+        },
+        "cvc_check": {
+          "description": "If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+          "type": [
+            "string"
+          ]
+        },
+        "dynamic_last4": {
+          "description": "(For tokenized numbers only.) The last four digits of the device account number.",
+          "type": [
+            "string"
+          ]
+        },
+        "estimated_availability": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "exp_month": {
+          "description": "",
+          "type": [
+            "integer"
+          ]
+        },
+        "exp_year": {
+          "description": "",
+          "type": [
+            "integer"
+          ]
+        },
+        "fingerprint": {
+          "description": "Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example.",
+          "type": [
+            "string"
+          ]
+        },
+        "funding": {
+          "description": "Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.",
+          "type": [
+            "string"
+          ]
+        },
+        "google_reference": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "id": {
+          "description": "ID of card (used in conjunction with a customer or recipient ID).",
+          "type": [
+            "string"
+          ]
+        },
+        "last4": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "metadata": {
+          "description": "A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format.",
+          "type": [
+            "object"
+          ]
+        },
+        "name": {
+          "description": "Cardholder name.",
+          "type": [
+            "string"
+          ]
+        },
+        "object": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "recipient": {
+          "description": "",
+          "type": [
+            "string"
+          ]
+        },
+        "three_d_secure": {
+          "description": "",
+          "type": [
+            "object"
+          ]
+        },
+        "tokenization_method": {
+          "description": "If the card number is tokenized, this is the method that was used. Can be `apple_pay` or `android_pay`.",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "brand",
+        "exp_month",
+        "exp_year",
+        "funding",
+        "id",
+        "last4",
+        "metadata",
+        "object"
+      ],
+      "title": "RecipientPayoutCard",
+      "type": [
+        "object"
+      ],
+      "x-resourceId": "recipient_payout_card"
     },
     "refund": {
       "properties": {
@@ -5528,21 +5933,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "SubscriptionItemList",
           "type": [
             "object"
           ]
@@ -5734,7 +6158,7 @@
           ]
         },
         "card": {
-          "$ref": "#/definitions/card"
+          "$ref": "#/definitions/payment_card"
         },
         "created": {
           "description": "",
@@ -6246,21 +6670,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "TransferReversalList",
           "type": [
             "object"
           ]
@@ -6305,28 +6748,47 @@
           "properties": {
             "data": {
               "items": {
-                "$ref": "#/definitions/card"
+                "$ref": "#/definitions/recipient_payout_card"
               },
               "type": [
                 "array"
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "RecipientPayoutCardList",
           "type": [
             "object"
           ]
@@ -6703,21 +7165,40 @@
               ]
             },
             "has_more": {
+              "description": "",
               "type": [
                 "boolean"
               ]
             },
             "object": {
+              "description": "The type of object. Always has the value \"list\".",
               "enum": [
                 "list"
+              ],
+              "type": [
+                "string"
+              ]
+            },
+            "total_count": {
+              "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+              "type": [
+                "integer"
               ]
             },
             "url": {
+              "description": "The URL where this list can be accessed.",
               "type": [
                 "string"
               ]
             }
           },
+          "required": [
+            "data",
+            "has_more",
+            "object",
+            "url"
+          ],
+          "title": "InvoiceLines",
           "type": [
             "object"
           ]
@@ -7395,21 +7876,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "ExternalAccountList",
               "type": [
                 "object"
               ]
@@ -7600,16 +8100,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/accounts"
                   ],
@@ -7618,6 +8130,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -8245,21 +8763,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "ExternalAccountList",
               "type": [
                 "object"
               ]
@@ -8506,16 +9043,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/apple_pay/domains"
                   ],
@@ -8524,6 +9073,13 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "ApplePayDomainList",
               "type": [
                 "object"
               ]
@@ -8689,16 +9245,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/application_fees"
                   ],
@@ -8707,6 +9275,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -8924,21 +9498,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "FeeRefundList",
               "type": [
                 "object"
               ]
@@ -9117,16 +9710,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/balance/history"
                   ],
@@ -9135,6 +9740,13 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "BalanceTransactionsList",
               "type": [
                 "object"
               ]
@@ -9345,16 +9957,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/bitcoin/receivers"
                   ],
@@ -9363,6 +9987,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -9675,21 +10305,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "BitcoinTransactionList",
               "type": [
                 "object"
               ]
@@ -9759,21 +10408,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "BitcoinTransactionList",
               "type": [
                 "object"
               ]
@@ -9886,16 +10554,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/charges"
                   ],
@@ -9904,6 +10584,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -10584,21 +11270,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "RefundList",
               "type": [
                 "object"
               ]
@@ -10862,16 +11567,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/country_specs"
                   ],
@@ -10880,6 +11597,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -10971,16 +11694,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/coupons"
                   ],
@@ -10989,6 +11724,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -11254,16 +11995,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/customers"
                   ],
@@ -11272,6 +12025,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -11613,21 +12372,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "AlipayAccountList",
               "type": [
                 "object"
               ]
@@ -11794,21 +12572,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "PaymentBankAccountList",
               "type": [
                 "object"
               ]
@@ -12043,7 +12840,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/payment_card"
             }
           },
           "default": {
@@ -12156,28 +12953,47 @@
               "properties": {
                 "data": {
                   "items": {
-                    "$ref": "#/definitions/card"
+                    "$ref": "#/definitions/payment_card"
                   },
                   "type": [
                     "array"
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "PaymentCardList",
               "type": [
                 "object"
               ]
@@ -12284,7 +13100,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/payment_card"
             }
           },
           "default": {
@@ -12405,7 +13221,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/payment_card"
             }
           },
           "default": {
@@ -12517,21 +13333,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "SourceList",
               "type": [
                 "object"
               ]
@@ -12759,7 +13594,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/payment_card"
             }
           },
           "default": {
@@ -12902,21 +13737,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "SubscriptionList",
               "type": [
                 "object"
               ]
@@ -13384,16 +14238,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/disputes"
                   ],
@@ -13402,6 +14268,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -13587,16 +14459,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/events"
                   ],
@@ -13605,6 +14489,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -13732,16 +14622,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/invoiceitems"
                   ],
@@ -13750,6 +14652,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -14031,16 +14939,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/invoices"
                   ],
@@ -14049,6 +14969,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -14477,21 +15403,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "InvoiceLines",
               "type": [
                 "object"
               ]
@@ -14590,16 +15535,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/order_returns"
                   ],
@@ -14608,6 +15565,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -14734,16 +15697,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/orders"
                   ],
@@ -14752,6 +15727,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -15132,16 +16113,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/payments"
                   ],
@@ -15150,6 +16143,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -15241,16 +16240,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/plans"
                   ],
@@ -15259,6 +16270,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -15563,16 +16580,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/products"
                   ],
@@ -15581,6 +16610,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -15940,16 +16975,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/recipients"
                   ],
@@ -15958,6 +17005,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -16389,28 +17442,47 @@
               "properties": {
                 "data": {
                   "items": {
-                    "$ref": "#/definitions/card"
+                    "$ref": "#/definitions/recipient_payout_card"
                   },
                   "type": [
                     "array"
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "RecipientPayoutCardList",
               "type": [
                 "object"
               ]
@@ -16454,7 +17526,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/recipient_payout_card"
             }
           },
           "default": {
@@ -16490,7 +17562,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/recipient_payout_card"
             }
           },
           "default": {
@@ -16524,7 +17596,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/recipient_payout_card"
             }
           },
           "default": {
@@ -16617,7 +17689,7 @@
           "200": {
             "description": "Successful response.",
             "schema": {
-              "$ref": "#/definitions/card"
+              "$ref": "#/definitions/recipient_payout_card"
             }
           },
           "default": {
@@ -16677,16 +17749,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/refunds"
                   ],
@@ -16695,6 +17779,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -16933,16 +18023,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/skus"
                   ],
@@ -16951,6 +18053,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -17509,16 +18617,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/subscription_items"
                   ],
@@ -17527,6 +18647,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -17824,16 +18950,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/subscriptions"
                   ],
@@ -17842,6 +18980,12 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
               "type": [
                 "object"
               ]
@@ -18396,16 +19540,28 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "enum": [
                     "/v1/transfers"
                   ],
@@ -18414,6 +19570,13 @@
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "TransferList",
               "type": [
                 "object"
               ]
@@ -18647,21 +19810,40 @@
                   ]
                 },
                 "has_more": {
+                  "description": "",
                   "type": [
                     "boolean"
                   ]
                 },
                 "object": {
+                  "description": "The type of object. Always has the value \"list\".",
                   "enum": [
                     "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
                   ]
                 },
                 "url": {
+                  "description": "The URL where this list can be accessed.",
                   "type": [
                     "string"
                   ]
                 }
               },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "TransferReversalList",
               "type": [
                 "object"
               ]

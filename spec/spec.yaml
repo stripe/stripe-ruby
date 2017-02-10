@@ -58,7 +58,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -299,7 +300,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -783,7 +785,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -1039,7 +1042,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -1311,7 +1315,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -1345,7 +1350,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -1383,7 +1389,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -1474,7 +1481,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -1508,7 +1516,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -2131,7 +2140,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -2543,7 +2553,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -2947,7 +2958,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -3533,7 +3545,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -3647,7 +3660,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -4545,7 +4559,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -5104,7 +5119,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -5165,7 +5181,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -5477,7 +5494,8 @@ definitions:
             type:
             - array
           has_more:
-            description: ''
+            description: True if this list has another page of items after this one
+              that can be fetched.
             type:
             - boolean
           object:
@@ -6053,7 +6071,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -6222,7 +6241,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -6774,7 +6794,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -6982,7 +7003,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -7130,7 +7152,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -7321,7 +7344,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -7481,7 +7505,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -7661,7 +7686,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -7915,7 +7941,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -7997,7 +8024,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -8108,7 +8136,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -8653,7 +8682,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -8864,7 +8894,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -8962,7 +8993,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -9202,7 +9234,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -9498,7 +9531,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -9648,7 +9682,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -9926,7 +9961,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -10189,7 +10225,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -10477,7 +10514,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -10931,7 +10969,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -11102,7 +11141,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -11225,7 +11265,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -11481,7 +11522,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -11893,7 +11935,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -11997,7 +12040,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -12122,7 +12166,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -12453,7 +12498,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -12550,7 +12596,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -12837,7 +12884,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -13151,7 +13199,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -13490,7 +13539,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -13710,7 +13760,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -13918,7 +13969,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -14383,7 +14435,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -14639,7 +14692,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -15153,7 +15207,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:
@@ -15348,7 +15403,8 @@ paths:
                 type:
                 - array
               has_more:
-                description: ''
+                description: True if this list has another page of items after this
+                  one that can be fetched.
                 type:
                 - boolean
               object:

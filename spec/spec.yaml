@@ -8822,38 +8822,6 @@ paths:
           description: Error response.
           schema:
             "$ref": "#/definitions/error"
-  "/v1/charges/{charge}/settle":
-    post:
-      description: ''
-      operationId: ChargeSettleSystem
-      parameters:
-      - description: ''
-        in: path
-        name: charge
-        required: true
-        type: string
-      - description: Body parameters for the request.
-        in: body
-        name: payload
-        required: false
-        schema:
-          properties:
-            amount:
-              description: ''
-              title: amount
-              type:
-              - integer
-          required:
-          - amount
-      responses:
-        '200':
-          description: Successful response.
-          schema:
-            "$ref": "#/definitions/charge"
-        default:
-          description: Error response.
-          schema:
-            "$ref": "#/definitions/error"
   "/v1/country_specs":
     get:
       description: "<p>Lists all Country Spec objects available in the API.</p>"
@@ -10448,20 +10416,6 @@ paths:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_bank_account"
-        default:
-          description: Error response.
-          schema:
-            "$ref": "#/definitions/error"
-  "/v1/customers/{customer}/subscription":
-    get:
-      description: ''
-      operationId: DeprecatedRetrieveCustomerSubscription
-      parameters: []
-      responses:
-        '200':
-          description: Successful response.
-          schema:
-            "$ref": "#/definitions/subscription"
         default:
           description: Error response.
           schema:
@@ -12099,38 +12053,6 @@ paths:
         by creation date, with the most recently created orders appearing first.</p>"
       operationId: AllOrders
       parameters:
-      - description: Only return orders that have the given status. One of `created`,
-          `paid`, `fulfilled`, or `refunded`.
-        in: query
-        name: status
-        required: false
-        type: string
-      - description: Only return orders with the given IDs.
-        in: query
-        name: ids
-        required: false
-        type: array
-      - description: Only return orders for the given customer.
-        in: query
-        name: customer
-        required: false
-        type: string
-      - description: Date this order was created.
-        in: query
-        name: created
-        required: false
-        type: integer
-      - description: Only return orders with the given upstream order IDs.
-        in: query
-        name: upstream_ids
-        required: false
-        type: array
-      - description: Filter orders based on when they were paid, fulfilled, canceled,
-          or returned.
-        in: query
-        name: status_transitions
-        required: false
-        type: string
       - description: A limit on the number of objects to be returned. Limit can range
           between 1 and 100 items.
         in: query
@@ -12153,6 +12075,38 @@ paths:
           page of the list.
         in: query
         name: ending_before
+        required: false
+        type: string
+      - description: Only return orders that have the given status. One of `created`,
+          `paid`, `fulfilled`, or `refunded`.
+        in: query
+        name: status
+        required: false
+        type: string
+      - description: Only return orders with the given IDs.
+        in: query
+        name: ids
+        required: false
+        type: array
+      - description: Only return orders for the given customer.
+        in: query
+        name: customer
+        required: false
+        type: string
+      - description: Date this order was created.
+        in: query
+        name: created
+        required: false
+        type: string
+      - description: Only return orders with the given upstream order IDs.
+        in: query
+        name: upstream_ids
+        required: false
+        type: array
+      - description: Filter orders based on when they were paid, fulfilled, canceled,
+          or returned.
+        in: query
+        name: status_transitions
         required: false
         type: string
       responses:

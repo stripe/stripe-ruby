@@ -11477,55 +11477,6 @@
         }
       }
     },
-    "/v1/charges/{charge}/settle": {
-      "post": {
-        "description": "",
-        "operationId": "ChargeSettleSystem",
-        "parameters": [
-          {
-            "description": "",
-            "in": "path",
-            "name": "charge",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "description": "Body parameters for the request.",
-            "in": "body",
-            "name": "payload",
-            "required": false,
-            "schema": {
-              "properties": {
-                "amount": {
-                  "description": "",
-                  "title": "amount",
-                  "type": [
-                    "integer"
-                  ]
-                }
-              },
-              "required": [
-                "amount"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response.",
-            "schema": {
-              "$ref": "#/definitions/charge"
-            }
-          },
-          "default": {
-            "description": "Error response.",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          }
-        }
-      }
-    },
     "/v1/country_specs": {
       "get": {
         "description": "\u003Cp\u003ELists all Country Spec objects available in the API.\u003C/p\u003E",
@@ -13666,29 +13617,6 @@
         }
       }
     },
-    "/v1/customers/{customer}/subscription": {
-      "get": {
-        "description": "",
-        "operationId": "DeprecatedRetrieveCustomerSubscription",
-        "parameters": [
-
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response.",
-            "schema": {
-              "$ref": "#/definitions/subscription"
-            }
-          },
-          "default": {
-            "description": "Error response.",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          }
-        }
-      }
-    },
     "/v1/customers/{customer}/subscriptions": {
       "get": {
         "description": "\u003Cp\u003EYou can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions.\u003C/p\u003E",
@@ -15620,6 +15548,27 @@
         "operationId": "AllOrders",
         "parameters": [
           {
+            "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100 items.",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+            "in": "query",
+            "name": "starting_after",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+            "in": "query",
+            "name": "ending_before",
+            "required": false,
+            "type": "string"
+          },
+          {
             "description": "Only return orders that have the given status. One of `created`, `paid`, `fulfilled`, or `refunded`.",
             "in": "query",
             "name": "status",
@@ -15645,7 +15594,7 @@
             "in": "query",
             "name": "created",
             "required": false,
-            "type": "integer"
+            "type": "string"
           },
           {
             "description": "Only return orders with the given upstream order IDs.",
@@ -15658,27 +15607,6 @@
             "description": "Filter orders based on when they were paid, fulfilled, canceled, or returned.",
             "in": "query",
             "name": "status_transitions",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100 items.",
-            "in": "query",
-            "name": "limit",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
-            "in": "query",
-            "name": "starting_after",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
-            "in": "query",
-            "name": "ending_before",
             "required": false,
             "type": "string"
           }

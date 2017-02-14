@@ -1,3 +1,11 @@
+=== 2.0.0 2017-02-14
+
+* Drop support for Ruby 1.9
+* Allow HTTP client that makes Stripe calls to be configured via Faraday
+* Drop RestClient
+* Switch to OpenAPI 2.0 spec and generated fixtures in test suite
+* Switch to Webmock in test suite
+
 === 1.58.0 2017-01-19
 
 * Remove erroneously added list methods for `Source` model

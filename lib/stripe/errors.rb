@@ -3,14 +3,22 @@ module Stripe
   # errors derive.
   class StripeError < StandardError
     attr_reader :message
-    attr_reader :http_status
+
+    # Response contains a StripeResponse object that has some basic information
+    # about the response that conveyed the error.
+    attr_accessor :response
+
+    # These fields are now available as part of #response and that usage should
+    # be preferred.
     attr_reader :http_body
     attr_reader :http_headers
+    attr_reader :http_status
+    attr_reader :json_body # equivalent to #data
     attr_reader :request_id
-    attr_reader :json_body
 
-    def initialize(message=nil, http_status=nil, http_body=nil, json_body=nil,
-                   http_headers=nil)
+    # Initializes a StripeError.
+    def initialize(message=nil, http_status: nil, http_body: nil, json_body: nil,
+                   http_headers: nil)
       @message = message
       @http_status = http_status
       @http_body = http_body
@@ -49,9 +57,10 @@ module Stripe
   class CardError < StripeError
     attr_reader :param, :code
 
-    def initialize(message, param, code, http_status=nil, http_body=nil, json_body=nil,
-                   http_headers=nil)
-      super(message, http_status, http_body, json_body, http_headers)
+    def initialize(message, param, code, http_status: nil, http_body: nil, json_body: nil,
+                   http_headers: nil)
+      super(message, http_status: http_status, http_body: http_body,
+        json_body: json_body, http_headers: http_headers)
       @param = param
       @code = code
     end
@@ -62,9 +71,10 @@ module Stripe
   class InvalidRequestError < StripeError
     attr_accessor :param
 
-    def initialize(message, param, http_status=nil, http_body=nil, json_body=nil,
-                   http_headers=nil)
-      super(message, http_status, http_body, json_body, http_headers)
+    def initialize(message, param, http_status: nil, http_body: nil, json_body: nil,
+                   http_headers: nil)
+      super(message, http_status: http_status, http_body: http_body,
+        json_body: json_body, http_headers: http_headers)
       @param = param
     end
   end

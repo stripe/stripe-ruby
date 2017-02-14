@@ -4,8 +4,8 @@ module Stripe
       def list(filters={}, opts={})
         opts = Util.normalize_opts(opts)
 
-        response, opts = request(:get, resource_url, filters, opts)
-        obj = ListObject.construct_from(response, opts)
+        resp, opts = request(:get, resource_url, filters, opts)
+        obj = ListObject.construct_from(resp.data, opts)
 
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages

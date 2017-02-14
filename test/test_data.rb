@@ -512,6 +512,15 @@ module Stripe
       }
     end
 
+    def make_error(type, message)
+      {
+        :error => {
+          :type => type,
+          :message => message,
+        }
+      }
+    end
+
     def make_invalid_api_key_error
       {
         :error => {

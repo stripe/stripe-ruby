@@ -2,11 +2,10 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class BalanceTest < Test::Unit::TestCase
-    should "balance should be retrievable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/balance").
-        to_return(body: JSON.generate(make_balance))
+    should "be retrievable" do
       balance = Stripe::Balance.retrieve
-      assert_equal('balance', balance['object'])
+      assert_requested :get, "#{Stripe.api_base}/v1/balance"
+      assert balance.kind_of?(Stripe::Balance)
     end
   end
 end

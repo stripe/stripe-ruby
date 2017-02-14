@@ -2,62 +2,69 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class BitcoinReceiverTest < Test::Unit::TestCase
-    should "retrieve should retrieve bitcoin receiver" do
-      stub_request(:get, "#{Stripe.api_base}/v1/bitcoin/receivers/btcrcv_test_receiver").
-        to_return(body: JSON.generate(make_bitcoin_receiver))
-      receiver = Stripe::BitcoinReceiver.retrieve('btcrcv_test_receiver')
-      assert_equal 'btcrcv_test_receiver', receiver.id
-    end
+    FIXTURE = API_FIXTURES.fetch(:bitcoin_receiver)
 
-    should "create should create a bitcoin receiver" do
-      stub_request(:post, "#{Stripe.api_base}/v1/bitcoin/receivers").
-        to_return(body: JSON.generate(make_bitcoin_receiver))
-      receiver = Stripe::BitcoinReceiver.create
-      assert_equal "btcrcv_test_receiver", receiver.id
-    end
-
-    should "all should list bitcoin receivers" do
-      stub_request(:get, "#{Stripe.api_base}/v1/bitcoin/receivers").
-        to_return(body: JSON.generate(make_bitcoin_receiver_array))
+    should "be listable" do
       receivers = Stripe::BitcoinReceiver.list
-      assert_equal 3, receivers.data.length
-      assert receivers.data.kind_of? Array
-      receivers.each do |receiver|
-        assert receiver.kind_of?(Stripe::BitcoinReceiver)
-        receiver.transactions.data.each do |transaction|
-          assert transaction.kind_of?(Stripe::BitcoinTransaction)
-        end
-      end
+      assert_requested :get, "#{Stripe.api_base}/v1/bitcoin/receivers"
+      assert receivers.data.kind_of?(Array)
+      assert receivers.first.kind_of?(Stripe::BitcoinReceiver)
     end
 
-    should "update should update a bitcoin receiver" do
-      receiver = Stripe::BitcoinReceiver.construct_from(make_bitcoin_receiver)
+    should "be retrievable" do
+      receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
+      assert_requested :get,
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+      assert receiver.kind_of?(Stripe::BitcoinReceiver)
+    end
 
-      stub_request(:get, "#{Stripe.api_base}/v1/bitcoin/receivers/#{receiver.id}").
-        to_return(body: JSON.generate(make_bitcoin_receiver))
-      receiver.refresh
+    should "be creatable" do
+      receiver = Stripe::BitcoinReceiver.create(amount: 100, currency: "USD")
+      assert_requested :post, "#{Stripe.api_base}/v1/bitcoin/receivers"
+      assert receiver.kind_of?(Stripe::BitcoinReceiver)
+    end
 
-      stub_request(:post, "#{Stripe.api_base}/v1/bitcoin/receivers/#{receiver.id}").
-        with(body: { description: "details" }).
-        to_return(body: JSON.generate(make_bitcoin_receiver))
-      receiver.description = "details"
+    should "be saveable" do
+      receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
+      receiver.metadata['key'] = 'value'
       receiver.save
+      assert_requested :post,
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
     end
 
-    should "delete a bitcoin receiver with no customer through top-level API" do
-      receiver = Stripe::BitcoinReceiver.construct_from(make_bitcoin_receiver)
-      stub_request(:delete, "#{Stripe.api_base}/v1/bitcoin/receivers/#{receiver.id}").
-        to_return(body: JSON.generate({:deleted => true, :id => "btcrcv_test_receiver"}))
-      receiver.delete
-      assert(receiver.deleted)
+    should "be updateable" do
+      receiver = Stripe::BitcoinReceiver.update(FIXTURE[:id], metadata: { key: 'value' })
+      assert_requested :post,
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+      assert receiver.kind_of?(Stripe::BitcoinReceiver)
     end
 
-    should "delete a bitcoin receiver with a customer through customer's subresource API" do
-      receiver = Stripe::BitcoinReceiver.construct_from(make_bitcoin_receiver(:customer => 'customer_foo'))
-      stub_request(:delete, "#{Stripe.api_base}/v1/customers/customer_foo/sources/#{receiver.id}").
-        to_return(body: JSON.generate({:deleted => true, :id => "btcrcv_test_receiver"}))
-      receiver.delete
-      assert(receiver.deleted)
+    should "be deletable" do
+      receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
+      receiver = receiver.delete
+      assert_requested :delete,
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+      assert receiver.kind_of?(Stripe::BitcoinReceiver)
+    end
+
+    context "#resource_url" do
+      should "return a customer URL" do
+        customer_id = API_FIXTURES.fetch(:customer)[:id]
+        receiver = Stripe::BitcoinReceiver.construct_from(
+          customer: customer_id,
+          id: FIXTURE[:id]
+        )
+        assert_equal "/v1/customers/#{customer_id}/sources/#{FIXTURE[:id]}",
+          receiver.resource_url
+      end
+
+      should "return an absolute URL" do
+        receiver = Stripe::BitcoinReceiver.construct_from(
+          id: FIXTURE[:id]
+        )
+        assert_equal "/v1/bitcoin/receivers/#{FIXTURE[:id]}",
+          receiver.resource_url
+      end
     end
   end
 end

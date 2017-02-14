@@ -2,62 +2,41 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class CustomerCardTest < Test::Unit::TestCase
-    def customer
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
-        to_return(body: JSON.generate(make_customer))
-      Stripe::Customer.retrieve('test_customer')
+    FIXTURE = API_FIXTURES.fetch(:source)
+
+    setup do
+      @customer =
+        Stripe::Customer.retrieve(API_FIXTURES.fetch(:customer)[:id])
     end
 
-    should "customer cards should be listable" do
-      c = customer
-
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/#{c.id}/sources").
-        with(query: { object: "card" }).
-        to_return(body: JSON.generate(make_customer_card_array(customer.id)))
-      cards = c.sources.list(:object => "card").data
-      assert cards.kind_of? Array
-      assert cards[0].kind_of? Stripe::Card
+    should "be listable" do
+      sources = @customer.sources.list
+      assert sources.data.kind_of?(Array)
+      # because of the terrible :wildcard nature of sources, the API stub
+      # cannot currently replace this response with anything meaningful so we
+      # don't assert on the type of individual items like we do in other tests
     end
 
-    should "customer cards should be deletable" do
-      c = customer
-
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/#{c.id}/sources/card").
-        to_return(body: JSON.generate(make_card))
-      card = c.sources.retrieve('card')
-
-      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{card.customer}/sources/#{card.id}").
-        to_return(body: JSON.generate(make_card(:deleted => true)))
-      _ =  card.delete
+    should "be creatable" do
+      card = @customer.sources.create(
+        source: API_FIXTURES.fetch(:token)[:id]
+      )
+      assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources"
+      assert card.kind_of?(Stripe::BankAccount)
     end
 
-    should "customer cards should be updateable" do
-      c = customer
+    should "be deletable" do
+      card = Stripe::Card.construct_from(FIXTURE.merge(customer: @customer.id))
+      card = card.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/#{FIXTURE[:id]}"
+      assert card.kind_of?(Stripe::Card)
+    end
 
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/#{c.id}/sources/card").
-        to_return(body: JSON.generate(make_card))
-      card = c.sources.retrieve('card')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{card.customer}/sources/#{card.id}").
-        with(body: { exp_year: "2100" }).
-        to_return(body: JSON.generate(make_card))
-      card.exp_year = "2100"
+    should "be saveable" do
+      card = Stripe::Card.construct_from(FIXTURE.merge(customer: @customer.id))
+      card.metadata['key'] = 'value'
       card.save
-    end
-
-    should "create should return a new customer card" do
-      c = customer
-
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}/sources").
-        with(body: { source: "tok_41YJ05ijAaWaFS" }).
-        to_return(body: JSON.generate(make_card))
-      _ = c.sources.create(:source => "tok_41YJ05ijAaWaFS")
-    end
-
-    should "raise if accessing Stripe::Card.retrieve directly" do
-      assert_raises NotImplementedError do
-        Stripe::Card.retrieve "card_12345"
-      end
+      assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/#{FIXTURE[:id]}"
     end
   end
 end

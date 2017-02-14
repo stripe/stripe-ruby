@@ -34,36 +34,8 @@ class StripeTest < Test::Unit::TestCase
     end
   end
 
-  should "makes requests with the Stripe-Account header" do
-    Stripe.stripe_account = 'acct_1234'
-
-    stub_request(:post, "#{Stripe.api_base}/v1/account").
-      with(headers: {"Stripe-Account" => Stripe.stripe_account}).
-      to_return(body: JSON.generate(make_account))
-
-    Stripe.request(:post, '/v1/account', 'sk_live12334566')
-  end
-
-  context "#get_uname" do
-    should "run without failure" do
-      # Don't actually check the result because we try a variety of different
-      # strategies that will have different results depending on where this
-      # test and running. We're mostly making sure that no exception is thrown.
-      _ = Stripe.get_uname
-    end
-  end
-
-  context "#get_uname_from_system" do
-    should "run without failure" do
-      # as above, just verify that an exception is not thrown
-      _ = Stripe.get_uname_from_system
-    end
-  end
-
-  context "#get_uname_from_system_ver" do
-    should "run without failure" do
-      # as above, just verify that an exception is not thrown
-      _ = Stripe.get_uname_from_system_ver
-    end
+  should "have default open and read timeouts" do
+    assert_equal Stripe.open_timeout, 30
+    assert_equal Stripe.read_timeout, 80
   end
 end

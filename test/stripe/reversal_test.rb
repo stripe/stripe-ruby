@@ -2,35 +2,42 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ReversalTest < Test::Unit::TestCase
-    should "reversals should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/transfers/test_transfer").
-        to_return(body: JSON.generate(make_transfer))
-      transfer = Stripe::Transfer.retrieve('test_transfer')
-      assert transfer.reversals.first.kind_of?(Stripe::Reversal)
+    FIXTURE = API_FIXTURES.fetch(:transfer_reversal)
+
+    setup do
+      @transfer = Stripe::Transfer.retrieve(API_FIXTURES.fetch(:transfer)[:id])
     end
 
-    should "reversals should be updateable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/transfers/test_transfer").
-        to_return(body: JSON.generate(make_transfer))
-      transfer = Stripe::Transfer.retrieve('test_transfer')
-      reversal = transfer.reversals.first
+    should "be listable" do
+      reversals = @transfer.reversals.list
+      assert_requested :get,
+        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals"
+      assert reversals.data.kind_of?(Array)
+      assert reversals.data[0].kind_of?(Stripe::Reversal)
+    end
 
-      stub_request(:post, "#{Stripe.api_base}/v1/transfers/#{transfer.id}/reversals/#{reversal.id}").
-        with(body: { metadata: { key: "value" } }).
-        to_return(body: JSON.generate(make_reversal))
+    should "be retrievable" do
+      reversal = @transfer.reversals.retrieve(FIXTURE[:id])
+      assert_requested :get,
+        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/#{FIXTURE[:id]}"
+      assert reversal.kind_of?(Stripe::Reversal)
+    end
+
+    should "be creatable" do
+      reversal = @transfer.reversals.create(
+        amount: 100
+      )
+      assert_requested :post,
+        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals"
+      assert reversal.kind_of?(Stripe::Reversal)
+    end
+
+    should "be saveable" do
+      reversal = @transfer.reversals.retrieve(FIXTURE[:id])
       reversal.metadata['key'] = 'value'
       reversal.save
-    end
-
-    should "create should return a new reversal" do
-      stub_request(:get, "#{Stripe.api_base}/v1/transfers/test_transfer").
-        to_return(body: JSON.generate(make_transfer))
-      transfer = Stripe::Transfer.retrieve('test_transfer')
-
-      stub_request(:post, "#{Stripe.api_base}/v1/transfers/#{transfer.id}/reversals").
-        with(body: { amount: "20" }).
-        to_return(body: JSON.generate(make_reversal))
-      _ = transfer.reversals.create(:amount => 20)
+      assert_requested :post,
+        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/#{FIXTURE[:id]}"
     end
   end
 end

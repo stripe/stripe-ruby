@@ -2,50 +2,25 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class AccountTest < Test::Unit::TestCase
-    should "be retrievable" do
-      resp = make_account({
-        :charges_enabled => false,
-        :details_submitted => false,
-        :email => "test+bindings@stripe.com",
-      })
-      stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: JSON.generate(resp))
-      a = Stripe::Account.retrieve
-      assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charges_enabled
-      assert !a.details_submitted
+    FIXTURE = API_FIXTURES.fetch(:account)
+
+    should "be listable" do
+      accounts = Stripe::Account.list
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts"
+      assert accounts.data.kind_of?(Array)
+      assert accounts.data[0].kind_of?(Stripe::Account)
     end
 
-    should "be retrievable via plural endpoint" do
-      resp = make_account({
-        :charges_enabled => false,
-        :details_submitted => false,
-        :email => "test+bindings@stripe.com",
-      })
-      stub_request(:get, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: JSON.generate(resp))
-      a = Stripe::Account.retrieve('acct_foo')
-      assert_equal "test+bindings@stripe.com", a.email
-      assert !a.charges_enabled
-      assert !a.details_submitted
+    should "be retrievable using singular endpoint" do
+      account = Stripe::Account.retrieve
+      assert_requested :get, "#{Stripe.api_base}/v1/account"
+      assert account.kind_of?(Stripe::Account)
     end
 
-    should "be retrievable using an API key as the only argument" do
-      account = mock
-      Stripe::Account.expects(:new).once.with(nil, {:api_key => 'sk_foobar'}).returns(account)
-      account.expects(:refresh).once
-      Stripe::Account.retrieve('sk_foobar')
-    end
-
-    should "allow access to keys by method" do
-      account = Stripe::Account.construct_from(make_account({
-        :keys => {
-          :publishable => 'publishable-key',
-          :secret => 'secret-key',
-        }
-      }))
-      assert_equal 'publishable-key', account.keys.publishable
-      assert_equal 'secret-key', account.keys.secret
+    should "be retrievable using plural endpoint" do
+      account = Stripe::Account.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
+      assert account.kind_of?(Stripe::Account)
     end
 
     should "be rejectable" do
@@ -60,210 +35,30 @@ module Stripe
       account.reject(:reason => 'fraud')
     end
 
+    should "be creatable" do
+      account = Stripe::Account.create(:metadata => {})
+      assert_requested :post, "#{Stripe.api_base}/v1/accounts"
+      assert account.kind_of?(Stripe::Account)
+    end
+
     should "be saveable" do
-      resp = {
-        :id => 'acct_foo',
-        :legal_entity => {
-          :address => {
-            :line1 => '1 Two Three'
-          }
-        }
-      }
-      stub_request(:get, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: JSON.generate(resp))
-
-      stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: JSON.generate(resp))
-
-      a = Stripe::Account.retrieve('acct_foo')
-      a.legal_entity.first_name = 'Bob'
-      a.legal_entity.address.line1 = '2 Three Four'
-      a.save
+      account = Stripe::Account.retrieve(FIXTURE[:id])
+      account.metadata['key'] = 'value'
+      account.save
+      assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
     end
 
-    should "be updatable" do
-      resp = {
-        :id => 'acct_foo',
-        :business_name => 'ACME Corp',
-      }
-      stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_foo").
-        to_return(body: JSON.generate(resp))
-
-      a = Stripe::Account.update('acct_foo', :business_name => "ACME Corp")
-      assert_equal('ACME Corp', a.business_name)
+    should "be updateable" do
+      account = Stripe::Account.update(FIXTURE[:id], metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
+      assert account.kind_of?(Stripe::Account)
     end
 
-    should 'disallow direct overrides of legal_entity' do
-      account = Stripe::Account.construct_from(make_account({
-        :keys => {
-          :publishable => 'publishable-key',
-          :secret => 'secret-key',
-        },
-        :legal_entity => {
-          :first_name => 'Bling'
-        }
-      }))
-
-      assert_raise NoMethodError do
-        account.legal_entity = {:first_name => 'Blah'}
-      end
-
-      account.legal_entity.first_name = 'Blah'
-    end
-
-    should "be able to deauthorize an account" do
-      resp = {:id => 'acct_1234', :email => "test+bindings@stripe.com", :charge_enabled => false, :details_submitted => false}
-      stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: JSON.generate(resp))
-      a = Stripe::Account.retrieve
-
-      stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize").
-        with(body: { 'client_id' => 'ca_1234', 'stripe_user_id' => a.id}).
-        to_return(body: JSON.generate({ 'stripe_user_id' => a.id }))
-      a.deauthorize('ca_1234', 'sk_test_1234')
-    end
-
-    should "reject nil api keys" do
-      assert_raise TypeError do
-        Stripe::Account.retrieve(nil)
-      end
-      assert_raise TypeError do
-        Stripe::Account.retrieve(:api_key => nil)
-      end
-    end
-
-    should "be able to create a bank account" do
-      resp = {
-        :id => 'acct_1234',
-        :external_accounts => {
-          :object => "list",
-          :resource_url => "/v1/accounts/acct_1234/external_accounts",
-          :data => [],
-        }
-      }
-      stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: JSON.generate(resp))
-      a = Stripe::Account.retrieve
-
-      stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_1234/external_accounts").
-        with(body: { :external_account => 'btok_1234' }).
-        to_return(body: JSON.generate(resp))
-      a.external_accounts.create({:external_account => 'btok_1234'})
-    end
-
-    should "be able to retrieve a bank account" do
-      resp = {
-        :id => 'acct_1234',
-        :external_accounts => {
-          :object => "list",
-          :resource_url => "/v1/accounts/acct_1234/external_accounts",
-          :data => [{
-            :id => "ba_1234",
-            :object => "bank_account",
-          }],
-        }
-      }
-      stub_request(:get, "#{Stripe.api_base}/v1/account").
-        to_return(body: JSON.generate(resp))
-      a = Stripe::Account.retrieve
-      assert_equal(BankAccount, a.external_accounts.data[0].class)
-    end
-
-    should "#serialize_params an a new additional_owners" do
-      obj = Stripe::Util.convert_to_stripe_object({
-        :object => "account",
-        :legal_entity => Stripe::StripeObject.construct_from({
-        }),
-      }, {})
-      obj.legal_entity.additional_owners = [
-        { :first_name => "Joe" },
-        { :first_name => "Jane" },
-      ]
-
-      expected = {
-        :legal_entity => {
-          :additional_owners => {
-            "0" => { :first_name => "Joe" },
-            "1" => { :first_name => "Jane" },
-          }
-        }
-      }
-      assert_equal(expected, obj.serialize_params)
-    end
-
-    should "#serialize_params on an partially changed additional_owners" do
-      obj = Stripe::Util.convert_to_stripe_object({
-        :object => "account",
-        :legal_entity => {
-          :additional_owners => [
-            Stripe::StripeObject.construct_from({
-              :first_name => "Joe"
-            }),
-            Stripe::StripeObject.construct_from({
-              :first_name => "Jane"
-            }),
-          ]
-        }
-      }, {})
-      obj.legal_entity.additional_owners[1].first_name = "Stripe"
-
-      expected = {
-        :legal_entity => {
-          :additional_owners => {
-            "1" => { :first_name => "Stripe" }
-          }
-        }
-      }
-      assert_equal(expected, obj.serialize_params)
-    end
-
-    should "#serialize_params on an unchanged additional_owners" do
-      obj = Stripe::Util.convert_to_stripe_object({
-        :object => "account",
-        :legal_entity => {
-          :additional_owners => [
-            Stripe::StripeObject.construct_from({
-              :first_name => "Joe"
-            }),
-            Stripe::StripeObject.construct_from({
-              :first_name => "Jane"
-            }),
-          ]
-        }
-      }, {})
-
-      expected = {
-        :legal_entity => {
-          :additional_owners => {}
-        }
-      }
-      assert_equal(expected, obj.serialize_params)
-    end
-
-    # Note that the empty string that we send for this one has a special
-    # meaning for the server, which interprets it as an array unset.
-    should "#serialize_params on an unset additional_owners" do
-      obj = Stripe::Util.convert_to_stripe_object({
-        :object => "account",
-        :legal_entity => {
-          :additional_owners => [
-            Stripe::StripeObject.construct_from({
-              :first_name => "Joe"
-            }),
-            Stripe::StripeObject.construct_from({
-              :first_name => "Jane"
-            }),
-          ]
-        }
-      }, {})
-      obj.legal_entity.additional_owners = nil
-
-      expected = {
-        :legal_entity => {
-          :additional_owners => ""
-        }
-      }
-      assert_equal(expected, obj.serialize_params)
+    should "be deletable" do
+      account = Stripe::Account.retrieve(FIXTURE[:id])
+      account = account.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
+      assert account.kind_of?(Stripe::Account)
     end
 
     context "#bank_account=" do
@@ -271,14 +66,138 @@ module Stripe
         old_stderr = $stderr
         $stderr = StringIO.new
         begin
-          a = Stripe::Account.new("test_account")
-          a.bank_account = "tok_123"
+          account = Stripe::Account.retrieve(FIXTURE[:id])
+          account.bank_account = "tok_123"
           message = "NOTE: Stripe::Account#bank_account= is " +
             "deprecated; use #external_account= instead"
           assert_match Regexp.new(message), $stderr.string
         ensure
           $stderr = old_stderr
         end
+      end
+    end
+
+    context "#deauthorize" do
+      should "deauthorize an account" do
+        account = Stripe::Account.retrieve(FIXTURE[:id])
+
+        # Unfortunately, the OpenAPI spec doesn't yet cover anything under the
+        # Connect endpoints, so for just stub this out with Webmock.
+        stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize").
+          with(body: { 'client_id' => 'ca_1234', 'stripe_user_id' => account.id}).
+          to_return(body: JSON.generate({ 'stripe_user_id' => account.id }))
+        account.deauthorize('ca_1234', 'sk_test_1234')
+      end
+    end
+
+    context "#legal_entity=" do
+      should 'disallow direct overrides' do
+        account = Stripe::Account.retrieve(FIXTURE[:id])
+
+        assert_raise NoMethodError do
+          account.legal_entity = {:first_name => 'Blah'}
+        end
+
+        account.legal_entity.first_name = 'Blah'
+      end
+    end
+
+    context "#serialize_params" do
+      should "serialize an a new additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          :object => "account",
+          :legal_entity => Stripe::StripeObject.construct_from({
+          }),
+        }, {})
+        obj.legal_entity.additional_owners = [
+          { :first_name => "Joe" },
+          { :first_name => "Jane" },
+        ]
+
+        expected = {
+          :legal_entity => {
+            :additional_owners => {
+              "0" => { :first_name => "Joe" },
+              "1" => { :first_name => "Jane" },
+            }
+          }
+        }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      should "serialize on an partially changed additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          :object => "account",
+          :legal_entity => {
+            :additional_owners => [
+              Stripe::StripeObject.construct_from({
+                :first_name => "Joe"
+              }),
+              Stripe::StripeObject.construct_from({
+                :first_name => "Jane"
+              }),
+            ]
+          }
+        }, {})
+        obj.legal_entity.additional_owners[1].first_name = "Stripe"
+
+        expected = {
+          :legal_entity => {
+            :additional_owners => {
+              "1" => { :first_name => "Stripe" }
+            }
+          }
+        }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      should "serialize on an unchanged additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          :object => "account",
+          :legal_entity => {
+            :additional_owners => [
+              Stripe::StripeObject.construct_from({
+                :first_name => "Joe"
+              }),
+              Stripe::StripeObject.construct_from({
+                :first_name => "Jane"
+              }),
+            ]
+          }
+        }, {})
+
+        expected = {
+          :legal_entity => {
+            :additional_owners => {}
+          }
+        }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      # Note that the empty string that we send for this one has a special
+      # meaning for the server, which interprets it as an array unset.
+      should "serialize on an unset additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          :object => "account",
+          :legal_entity => {
+            :additional_owners => [
+              Stripe::StripeObject.construct_from({
+                :first_name => "Joe"
+              }),
+              Stripe::StripeObject.construct_from({
+                :first_name => "Jane"
+              }),
+            ]
+          }
+        }, {})
+        obj.legal_entity.additional_owners = nil
+
+        expected = {
+          :legal_entity => {
+            :additional_owners => ""
+          }
+        }
+        assert_equal(expected, obj.serialize_params)
       end
     end
   end

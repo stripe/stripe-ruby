@@ -2,19 +2,40 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class BankAccountTest < Test::Unit::TestCase
+    FIXTURE = API_FIXTURES.fetch(:external_account_source)
 
-    should 'be verifiable' do
-      bank = Stripe::BankAccount.construct_from({
-        :id => 'ba_foo',
-        :customer => 'cus_bar'
-      })
+    context "#resource_url" do
+      should "return an external account URL" do
+        account_id = API_FIXTURES.fetch(:account)[:id]
+        bank_account = Stripe::BankAccount.construct_from(
+          account: account_id,
+          id: FIXTURE[:id]
+        )
+        assert_equal "/v1/accounts/#{account_id}/external_accounts/#{FIXTURE[:id]}",
+          bank_account.resource_url
+      end
 
-      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{bank.customer}/sources/#{bank.id}/verify").
-        with(body: { 'amounts' => ['1', '2'] }).
-        to_return(body: JSON.generate(:status => 'verified'))
-
-      bank.verify(:amounts => [1,2])
+      should "return a customer URL" do
+        customer_id = API_FIXTURES.fetch(:customer)[:id]
+        bank_account = Stripe::BankAccount.construct_from(
+          customer: customer_id,
+          id: FIXTURE[:id]
+        )
+        assert_equal "/v1/customers/#{customer_id}/sources/#{FIXTURE[:id]}",
+          bank_account.resource_url
+      end
     end
 
+    context "#verify" do
+      should 'verify the account' do
+        customer_id = API_FIXTURES.fetch(:customer)[:id]
+        bank_account = Stripe::BankAccount.construct_from({
+          customer: customer_id,
+          id: FIXTURE[:id]
+        })
+        bank_account = bank_account.verify(amounts: [1,2])
+        assert bank_account.kind_of?(Stripe::BankAccount)
+      end
+    end
   end
 end

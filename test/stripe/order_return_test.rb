@@ -2,25 +2,20 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class OrderReturnTest < Test::Unit::TestCase
-    should "returns should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/order_returns").
-        to_return(body: JSON.generate(make_order_return_array))
-      returns = Stripe::OrderReturn.list
-      assert returns.data.kind_of?(Array)
-      returns.each do |ret|
-        assert ret.kind_of?(Stripe::OrderReturn)
-      end
+    FIXTURE = API_FIXTURES.fetch(:order_return)
+
+    should "be listable" do
+      order_returns = Stripe::OrderReturn.list
+      assert_requested :get, "#{Stripe.api_base}/v1/order_returns"
+      assert order_returns.data.kind_of?(Array)
+      assert order_returns.data[0].kind_of?(Stripe::OrderReturn)
     end
 
-    should "returns should not be deletable" do
-      p = Stripe::OrderReturn.new("test_order")
-      assert_raises(NoMethodError) { p.delete }
-    end
-
-    should "returns should be immutable" do
-      p = Stripe::OrderReturn.new("test_order")
-      p.items = []
-      assert_raises(NoMethodError) { p.save }
+    should "be retrievable" do
+      order_return = Stripe::OrderReturn.retrieve(FIXTURE[:id])
+      assert_requested :get,
+        "#{Stripe.api_base}/v1/order_returns/#{FIXTURE[:id]}"
+      assert order_return.kind_of?(Stripe::OrderReturn)
     end
   end
 end

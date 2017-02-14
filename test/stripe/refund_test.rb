@@ -2,37 +2,38 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class RefundTest < Test::Unit::TestCase
-    should "refunds should be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/refunds").
-        to_return(body: JSON.generate(make_refund_array))
+    FIXTURE = API_FIXTURES.fetch(:refund)
+
+    should "be listable" do
       refunds = Stripe::Refund.list
+      assert_requested :get, "#{Stripe.api_base}/v1/refunds"
+      assert refunds.data.kind_of?(Array)
       assert refunds.first.kind_of?(Stripe::Refund)
     end
 
-    should "refunds should be saveable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/refunds/get_refund").
-        to_return(body: JSON.generate(make_refund))
-      refund = Stripe::Refund.retrieve('get_refund')
+    should "be retrievable" do
+      refund = Stripe::Refund.retrieve(FIXTURE[:id])
+      assert_requested :get, "#{Stripe.api_base}/v1/refunds/#{FIXTURE[:id]}"
+      assert refund.kind_of?(Stripe::Refund)
+    end
 
-      stub_request(:post, "#{Stripe.api_base}/v1/refunds/#{refund.id}").
-        with(body: { metadata: { key: "value" } }).
-        to_return(body: JSON.generate(make_refund))
+    should "be creatable" do
+      refund = Stripe::Refund.create(:charge => API_FIXTURES[:charge][:id])
+      assert_requested :post, "#{Stripe.api_base}/v1/refunds"
+      assert refund.kind_of?(Stripe::Refund)
+    end
+
+    should "be saveable" do
+      refund = Stripe::Refund.retrieve(FIXTURE[:id])
       refund.metadata['key'] = 'value'
       refund.save
+      assert_requested :post, "#{Stripe.api_base}/v1/refunds/#{FIXTURE[:id]}"
     end
 
-    should "refunds should be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/refunds/update_refund").
-        with(body: { metadata: { key: "value" } }).
-        to_return(body: JSON.generate(make_refund))
-      _ = Stripe::Refund.update('update_refund', metadata: { key: 'value' })
-    end
-
-    should "create should return a new refund" do
-      stub_request(:post, "#{Stripe.api_base}/v1/refunds").
-        with(body: { charge: "test_charge" }).
-        to_return(body: JSON.generate(make_refund))
-      _ = Stripe::Refund.create(:charge => 'test_charge')
+    should "be updateable" do
+      refund = Stripe::Refund.update(FIXTURE[:id], metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/refunds/#{FIXTURE[:id]}"
+      assert refund.kind_of?(Stripe::Refund)
     end
   end
 end

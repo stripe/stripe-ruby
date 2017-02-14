@@ -5,13 +5,13 @@ module Stripe
     include Stripe::APIOperations::Save
 
     def pay(params, opts={})
-      response, opts = request(:post, pay_url, params, opts)
-      initialize_from(response, opts)
+      resp, opts = request(:post, pay_url, params, opts)
+      initialize_from(resp.data, opts)
     end
 
     def return_order(params, opts={})
-      response, opts = request(:post, returns_url, params, opts)
-      Util.convert_to_stripe_object(response, opts)
+      resp, opts = request(:post, returns_url, params, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     private

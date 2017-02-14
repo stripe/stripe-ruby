@@ -435,7 +435,10 @@ module Stripe
 
   def self.should_retry?(e, retry_count)
     retry_count < self.max_network_retries &&
-      RETRY_EXCEPTIONS.any? { |klass| e.is_a?(klass) }
+      (
+        RETRY_EXCEPTIONS.any? { |klass| e.is_a?(klass) } ||
+        (e.is_a?(RestClient::ExceptionWithResponse) && e.response.include?('Error while communicating with one of our backends.'))
+      )
   end
 
   def self.sleep_time(retry_count)

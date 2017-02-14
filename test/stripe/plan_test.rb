@@ -3,7 +3,8 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class PlanTest < Test::Unit::TestCase
     should "plans should be listable" do
-      @mock.expects(:get).once.returns(make_response(make_plan_array))
+      stub_request(:get, "#{Stripe.api_base}/v1/plans").
+        to_return(body: JSON.generate(make_plan_array))
       plans = Stripe::Plan.list
       assert plans.data.kind_of?(Array)
       plans.each do |plan|
@@ -12,20 +13,22 @@ module Stripe
     end
 
     should "plans should be saveable" do
-      @mock.expects(:get).once.returns(make_response(make_plan))
-      @mock.expects(:post).once.returns(make_response(make_plan))
-      p = Stripe::Plan.new("test_plan")
-      p.refresh
+      stub_request(:get, "#{Stripe.api_base}/v1/plans/test_plan").
+        to_return(body: JSON.generate(make_plan))
+      p = Stripe::Plan.retrieve("test_plan")
+
+      stub_request(:post, "#{Stripe.api_base}/v1/plans/#{p.id}").
+        with(body: { metadata: { foo: "bar" } }).
+        to_return(body: JSON.generate(make_plan))
       p.metadata['foo'] = 'bar'
       p.save
     end
 
     should "plans should be updateable" do
-      @mock.expects(:post).once.
-        with('https://api.stripe.com/v1/plans/test_plan', nil, 'metadata[foo]=bar').
-        returns(make_response(make_plan(metadata: {foo: 'bar'})))
-      p = Stripe::Plan.update("test_plan", metadata: {foo: 'bar'})
-      assert_equal('bar', p.metadata['foo'])
+      stub_request(:post, "#{Stripe.api_base}/v1/plans/test_plan").
+        with(body: { metadata: { foo: "bar" } }).
+        to_return(body: JSON.generate(make_plan))
+      _ = Stripe::Plan.update("test_plan", metadata: {foo: 'bar'})
     end
   end
 end

@@ -36,8 +36,9 @@ module Stripe
         :has_more => true,
         :url => "/things",
       })
-      @mock.expects(:get).once.with("#{Stripe.api_base}/things?starting_after=1", nil, nil).
-        returns(make_response({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
+      stub_request(:get, "#{Stripe.api_base}/things").
+        with(query: { starting_after: "1" }).
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
 
       assert_equal expected, list.auto_paging_each.to_a
     end
@@ -55,8 +56,9 @@ module Stripe
         :has_more => true,
         :url => "/things",
       })
-      @mock.expects(:get).once.with("#{Stripe.api_base}/things?starting_after=1", nil, nil).
-        returns(make_response({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
+      stub_request(:get, "#{Stripe.api_base}/things").
+        with(query: { starting_after: "1" }).
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }, { :id => 3}], :has_more => false }))
 
       actual = []
       list.auto_paging_each do |obj|
@@ -83,8 +85,9 @@ module Stripe
         :has_more => true,
         :url => "/things",
       })
-      @mock.expects(:get).once.with("#{Stripe.api_base}/things?starting_after=1", nil, nil).
-        returns(make_response({ :data => [{ :id => 2 }], :has_more => false }))
+      stub_request(:get, "#{Stripe.api_base}/things").
+        with(query: { starting_after: "1" }).
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }], :has_more => false }))
       next_list = list.next_page
       refute next_list.empty?
     end
@@ -96,15 +99,9 @@ module Stripe
         :url => "/things",
       })
       list.filters = { :expand => ['data.source'], :limit => 3 }
-      @mock.expects(:get).with do |url, _, _|
-        u = URI.parse(url)
-        params = CGI.parse(u.query)
-        u.host == URI.parse(Stripe.api_base).host && u.path == "/things" && params == {
-          "expand[]"       => ["data.source"],
-          "limit"          => ["3"],
-          "starting_after" => ["1"],
-        }
-      end.returns(make_response({ :data => [{ :id => 2 }], :has_more => false }))
+      stub_request(:get, "#{Stripe.api_base}/things").
+        with(query: { "expand[]" => "data.source", "limit" => "3", "starting_after" => "1" }).
+        to_return(body: JSON.generate({ :data => [{ :id => 2 }], :has_more => false }))
       next_list = list.next_page
       assert_equal({ :expand => ['data.source'], :limit => 3 }, next_list.filters)
     end
@@ -128,8 +125,9 @@ module Stripe
         :data => [{ :id => 2 }],
         :url => "/things",
       })
-      @mock.expects(:get).once.with("#{Stripe.api_base}/things?ending_before=2", nil, nil).
-        returns(make_response({ :data => [{ :id => 1 }] }))
+      stub_request(:get, "#{Stripe.api_base}/things").
+        with(query: { ending_before: "2" }).
+        to_return(body: JSON.generate({ :data => [{ :id => 1 }] }))
       next_list = list.previous_page
       refute next_list.empty?
     end
@@ -140,17 +138,9 @@ module Stripe
         :url => "/things",
       })
       list.filters = { :expand => ['data.source'], :limit => 3 }
-      @mock.expects(:get).with do |url, _, _|
-        # apparently URI.parse in 1.8.7 doesn't support query parameters ...
-        url, query = url.split("?")
-        u = URI.parse(url)
-        params = CGI.parse(query)
-        u.host == URI.parse(Stripe.api_base).host && u.path == "/things" && params == {
-          "ending_before" => ["2"],
-          "expand[]"      => ["data.source"],
-          "limit"         => ["3"],
-        }
-      end.returns(make_response({ :data => [{ :id => 1 }] }))
+      stub_request(:get, "#{Stripe.api_base}/things").
+        with(query: { "expand[]" => "data.source", "limit" => "3", "ending_before" => "2" }).
+        to_return(body: JSON.generate({ :data => [{ :id => 1 }] }))
       next_list = list.previous_page
       assert_equal({ :expand => ['data.source'], :limit => 3 }, next_list.filters)
     end
@@ -162,7 +152,8 @@ module Stripe
     # note that the name #all is deprecated, as is using it fetch the next page
     # in a list
     should "be able to retrieve full lists given a listobject" do
-      @mock.expects(:get).twice.returns(make_response(make_charge_array))
+      stub_request(:get, "#{Stripe.api_base}/v1/charges").
+        to_return(body: JSON.generate(make_charge_array))
       c = Stripe::Charge.all
       assert c.kind_of?(Stripe::ListObject)
       assert_equal('/v1/charges', c.resource_url)

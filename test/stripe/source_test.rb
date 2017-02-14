@@ -3,54 +3,47 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class SourceTest < Test::Unit::TestCase
     should 'be creatable' do
-      @mock.expects(:post).once.returns(make_response(make_source_card))
-      src = Stripe::Source.create(
+      stub_request(:post, "#{Stripe.api_base}/v1/sources").
+        with(body: { type: 'card', token: 'tok_test' }).
+        to_return(body: JSON.generate(make_source_card))
+      _ = Stripe::Source.create(
         type: 'card',
         token: 'tok_test',
       )
-      assert_equal 'src_test_card', src.id
     end
 
     should 'be retrievable' do
-      @mock.expects(:get).once.returns(make_response(make_source_card))
-      src = Stripe::Source.retrieve('src_test_card')
-      assert_equal 'src_test_card', src.id
+      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
+        to_return(body: JSON.generate(make_source_card))
+      _ = Stripe::Source.retrieve('source_test_card')
     end
 
     should 'be updatable' do
-      @mock.expects(:post).once
-        .with(
-          "#{Stripe.api_base}/v1/sources/src_test_card",
-          nil,
-          'metadata[foo]=bar'
-        )
-        .returns(make_response(make_source_card(metadata: {foo: 'bar'})))
-      src = Stripe::Source.update('src_test_card', metadata: {foo: 'bar'})
-      assert_equal 'bar', src.metadata['foo']
+      stub_request(:post, "#{Stripe.api_base}/v1/sources/source_test_card").
+        with(body: { metadata: { foo: "bar" } }).
+        to_return(body: JSON.generate(make_source_card))
+      _ = Stripe::Source.update('source_test_card', metadata: {foo: 'bar'})
     end
 
     should 'be saveable' do
-      @mock.expects(:get).once.returns(make_response(make_source_card))
-      src = Stripe::Source.retrieve('src_test_card')
+      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
+        to_return(body: JSON.generate(make_source_card))
+      source = Stripe::Source.retrieve('source_test_card')
 
-      @mock.expects(:post).once
-        .with(
-          "#{Stripe.api_base}/v1/sources/src_test_card",
-          nil,
-          'metadata[foo]=bar'
-        )
-        .returns(make_response(make_source_card(metadata: {foo: 'bar'})))
-      src.metadata['foo'] = 'bar'
-      src.save
-      assert_equal 'bar', src.metadata['foo']
+      stub_request(:post, "#{Stripe.api_base}/v1/sources/#{source.id}").
+        with(body: { metadata: { foo: "bar" } }).
+        to_return(body: JSON.generate(make_source_card))
+      source.metadata['foo'] = 'bar'
+      source.save
     end
 
     should 'not be deletable' do
-      @mock.expects(:get).once.returns(make_response(make_source_card))
-      src = Stripe::Source.retrieve('src_test_card')
+      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
+        to_return(body: JSON.generate(make_source_card))
+      source = Stripe::Source.retrieve('source_test_card')
 
       assert_raises NoMethodError do
-        src.delete
+        source.delete
       end
     end
 
@@ -61,23 +54,14 @@ module Stripe
     end
 
     should 'be verifiable' do
-      @mock.expects(:get).once.returns(make_response(make_source_ach_debit))
-      src = Stripe::Source.retrieve('src_test_ach_debit')
+      stub_request(:get, "#{Stripe.api_base}/v1/sources/source_test_card").
+        to_return(body: JSON.generate(make_source_card))
+      source = Stripe::Source.retrieve('source_test_card')
 
-      @mock.expects(:post).once
-        .with(
-          'https://api.stripe.com/v1/sources/src_test_ach_debit/verify',
-          nil,
-          'values[]=32&values[]=45'
-        )
-        .returns(make_response(make_source_ach_debit(
-          verification: {
-            attempts_remaining: 0,
-            status: 'succeeded',
-          }
-        )))
-      src.verify(values: [32, 45])
-      assert_equal 'succeeded', src.verification.status
+      stub_request(:post, "#{Stripe.api_base}/v1/sources/#{source.id}/verify").
+        with(body: { amounts: ["1", "2"] }).
+        to_return(body: JSON.generate(make_source_card))
+      source.verify(:amounts => [1,2])
     end
   end
 end

@@ -2,56 +2,56 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class CustomerCardTest < Test::Unit::TestCase
-    CUSTOMER_CARD_URL = '/v1/customers/test_customer/sources/test_card'
-
     def customer
-      @mock.expects(:get).once.returns(make_response(make_customer))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+        to_return(body: JSON.generate(make_customer))
       Stripe::Customer.retrieve('test_customer')
     end
 
     should "customer cards should be listable" do
       c = customer
-      @mock.expects(:get).once.returns(make_response(make_customer_card_array(customer.id)))
+
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/#{c.id}/sources").
+        with(query: { object: "card" }).
+        to_return(body: JSON.generate(make_customer_card_array(customer.id)))
       cards = c.sources.list(:object => "card").data
       assert cards.kind_of? Array
       assert cards[0].kind_of? Stripe::Card
     end
 
-    should "customer cards should have the correct resource url" do
-      c = customer
-      @mock.expects(:get).once.returns(make_response(make_card(
-        :id => 'test_card',
-        :customer => 'test_customer'
-      )))
-      card = c.sources.retrieve('card')
-      assert_equal CUSTOMER_CARD_URL, card.resource_url
-    end
-
     should "customer cards should be deletable" do
       c = customer
-      @mock.expects(:get).once.returns(make_response(make_card))
-      @mock.expects(:delete).once.returns(make_response(make_card(:deleted => true)))
+
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/#{c.id}/sources/card").
+        to_return(body: JSON.generate(make_card))
       card = c.sources.retrieve('card')
-      card.delete
-      assert card.deleted
+
+      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{card.customer}/sources/#{card.id}").
+        to_return(body: JSON.generate(make_card(:deleted => true)))
+      _ =  card.delete
     end
 
     should "customer cards should be updateable" do
       c = customer
-      @mock.expects(:get).once.returns(make_response(make_card(:exp_year => "2000")))
-      @mock.expects(:post).once.returns(make_response(make_card(:exp_year => "2100")))
+
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/#{c.id}/sources/card").
+        to_return(body: JSON.generate(make_card))
       card = c.sources.retrieve('card')
-      assert_equal "2000", card.exp_year
+
+      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{card.customer}/sources/#{card.id}").
+        with(body: { exp_year: "2100" }).
+        to_return(body: JSON.generate(make_card))
       card.exp_year = "2100"
       card.save
-      assert_equal "2100", card.exp_year
     end
 
     should "create should return a new customer card" do
       c = customer
-      @mock.expects(:post).once.returns(make_response(make_card(:id => "test_card")))
-      card = c.sources.create(:source => "tok_41YJ05ijAaWaFS")
-      assert_equal "test_card", card.id
+
+      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}/sources").
+        with(body: { source: "tok_41YJ05ijAaWaFS" }).
+        to_return(body: JSON.generate(make_card))
+      _ = c.sources.create(:source => "tok_41YJ05ijAaWaFS")
     end
 
     should "raise if accessing Stripe::Card.retrieve directly" do

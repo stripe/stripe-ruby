@@ -3,94 +3,97 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class CustomerTest < Test::Unit::TestCase
     should "customers should be listable" do
-      @mock.expects(:get).once.returns(make_response(make_customer_array))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers").
+        to_return(body: JSON.generate(make_customer_array))
       c = Stripe::Customer.list.data
       assert c.kind_of? Array
       assert c[0].kind_of? Stripe::Customer
     end
 
     should "customers should be deletable" do
-      @mock.expects(:delete).once.returns(make_response(make_customer({:deleted => true})))
+      stub_request(:delete, "#{Stripe.api_base}/v1/customers/test_customer").
+        to_return(body: JSON.generate(make_customer))
       c = Stripe::Customer.new("test_customer")
       c.delete
-      assert c.deleted
     end
 
     should "customers should be saveable" do
-      @mock.expects(:get).once.returns(make_response(make_customer({:mnemonic => "foo"})))
-      @mock.expects(:post).once.returns(make_response(make_customer({:mnemonic => "bar"})))
-      c = Stripe::Customer.new("test_customer").refresh
-      assert_equal "foo", c.mnemonic
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+        to_return(body: JSON.generate(make_customer))
+      c = Stripe::Customer.retrieve("test_customer")
+
+      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}").
+        with(body: { mnemonic: "bar" }).
+        to_return(body: JSON.generate(make_customer))
       c.mnemonic = "bar"
       c.save
-      assert_equal "bar", c.mnemonic
     end
 
     should "customers should be updateable" do
-      @mock.expects(:post).once.
-        with("https://api.stripe.com/v1/customers/test_customer", nil, "metadata[foo]=bar").
-        returns(make_response(make_customer(metadata: {foo: 'bar'})))
-      c = Stripe::Customer.update("test_customer", metadata: {foo: 'bar'})
-      assert_equal('bar', c.metadata['foo'])
+      stub_request(:post, "#{Stripe.api_base}/v1/customers/test_customer").
+        with(body: { mnemonic: "bar" }).
+        to_return(body: JSON.generate(make_customer))
+      _ = Stripe::Customer.update("test_customer", mnemonic: "bar")
     end
 
     should "create should return a new customer" do
-      @mock.expects(:post).once.returns(make_response(make_customer))
-      c = Stripe::Customer.create
-      assert_equal "c_test_customer", c.id
+      stub_request(:post, "#{Stripe.api_base}/v1/customers").
+        to_return(body: JSON.generate(make_customer))
+      _ = Stripe::Customer.create
     end
 
     should "create_upcoming_invoice should create a new invoice" do
-      @mock.expects(:post).once.returns(make_response(make_invoice))
-      i = Stripe::Customer.new("test_customer").create_upcoming_invoice
-      assert_equal "c_test_customer", i.customer
+      stub_request(:post, "#{Stripe.api_base}/v1/invoices").
+        with(body: { customer: "test_customer" }).
+        to_return(body: JSON.generate(make_customer))
+      _ = Stripe::Customer.new("test_customer").create_upcoming_invoice
     end
 
     should "be able to update a customer's subscription" do
-      @mock.expects(:get).once.returns(make_response(make_customer))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+        to_return(body: JSON.generate(make_customer))
       c = Stripe::Customer.retrieve("test_customer")
 
-      @mock.expects(:post).once.with do |url, api_key, params|
-        url == "#{Stripe.api_base}/v1/customers/c_test_customer/subscription" && api_key.nil? && CGI.parse(params) == {'plan' => ['silver']}
-      end.returns(make_response(make_subscription(:plan => 'silver')))
-      s = c.update_subscription({:plan => 'silver'})
-
-      assert_equal 'subscription', s.object
-      assert_equal 'silver', s.plan.identifier
+      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}/subscription").
+        with(body: { plan: "silver" }).
+        to_return(body: JSON.generate(make_subscription))
+      _ = c.update_subscription({:plan => 'silver'})
     end
 
     should "be able to cancel a customer's subscription" do
-      @mock.expects(:get).once.returns(make_response(make_customer))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+        to_return(body: JSON.generate(make_customer))
       c = Stripe::Customer.retrieve("test_customer")
 
       # Not an accurate response, but whatever
 
-      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription?at_period_end=true", nil, nil).returns(make_response(make_subscription(:plan => 'silver')))
+      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{c.id}/subscription").
+        with(query: { at_period_end: "true" }).
+        to_return(body: JSON.generate(make_subscription))
       c.cancel_subscription({:at_period_end => 'true'})
 
-      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/subscription", nil, nil).returns(make_response(make_subscription(:plan => 'silver')))
+      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{c.id}/subscription").
+        to_return(body: JSON.generate(make_subscription))
       c.cancel_subscription
     end
 
     should "be able to create a subscription for a customer" do
       c = Stripe::Customer.new("test_customer")
 
-      @mock.expects(:post).once.with do |url, api_key, params|
-        url == "#{Stripe.api_base}/v1/customers/test_customer/subscriptions" && api_key.nil? && CGI.parse(params) == {'plan' => ['silver']}
-      end.returns(make_response(make_subscription(:plan => 'silver')))
-      s = c.create_subscription({:plan => 'silver'})
-
-      assert_equal 'subscription', s.object
-      assert_equal 'silver', s.plan.identifier
+      stub_request(:post, "#{Stripe.api_base}/v1/customers/#{c.id}/subscriptions").
+        with(body: { plan: "silver" }).
+        to_return(body: JSON.generate(make_subscription))
+      _ = c.create_subscription({:plan => 'silver'})
     end
 
     should "be able to delete a customer's discount" do
-      @mock.expects(:get).once.returns(make_response(make_customer))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+        to_return(body: JSON.generate(make_customer))
       c = Stripe::Customer.retrieve("test_customer")
 
-      @mock.expects(:delete).once.with("#{Stripe.api_base}/v1/customers/c_test_customer/discount", nil, nil).returns(make_response(make_delete_discount_response))
+      stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{c.id}/discount").
+        to_return(body: JSON.generate(make_delete_discount_response))
       c.delete_discount
-      assert_equal nil, c.discount
     end
 
     should "can have a token source set" do

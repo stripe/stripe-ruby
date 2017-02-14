@@ -1,21 +1,5 @@
 module Stripe
   module TestData
-    def make_response(body, code=200)
-      # When an exception is raised, restclient clobbers method_missing.  Hence we
-      # can't just use the stubs interface.
-      body = JSON.generate(body) if !(body.kind_of? String)
-      m = mock
-      m.instance_variable_set('@stripe_values', {
-        :body => body,
-        :code => code,
-        :headers => {},
-      })
-      def m.body; @stripe_values[:body]; end
-      def m.code; @stripe_values[:code]; end
-      def m.headers; @stripe_values[:headers]; end
-      m
-    end
-
     def make_account(params={})
       {
         :charges_enabled => false,
@@ -390,18 +374,6 @@ module Stripe
       }.merge(params)
     end
 
-    def make_paid_invoice
-      make_invoice.merge({
-          :attempt_count => 1,
-          :attempted => true,
-          :closed => true,
-          :paid => true,
-          :charge => 'ch_test_charge',
-          :ending_balance => 0,
-          :next_payment_attempt => nil,
-        })
-    end
-
     def make_invoice_item(params={})
       {
         id: "ii_test_invoice_item",
@@ -774,7 +746,7 @@ module Stripe
       }
     end
 
-    def country_spec_array
+    def make_country_spec_array
       {
         :object => "list",
         :resource_url => "/v1/country_specs",

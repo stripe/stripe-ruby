@@ -24,30 +24,30 @@ module Stripe
     end
 
     should "creating a new APIResource should not fetch over the network" do
-      @mock.expects(:get).never
       Stripe::Customer.new("someid")
+      assert_not_requested :get, %r{#{Stripe.api_base}/.*}
     end
 
     should "creating a new APIResource from a hash should not fetch over the network" do
-      @mock.expects(:get).never
       Stripe::Customer.construct_from({
         :id => "somecustomer",
         :card => {:id => "somecard", :object => "card"},
         :object => "customer"
       })
+      assert_not_requested :get, %r{#{Stripe.api_base}/.*}
     end
 
     should "setting an attribute should not cause a network request" do
-      @mock.expects(:get).never
-      @mock.expects(:post).never
       c = Stripe::Customer.new("test_customer");
       c.card = {:id => "somecard", :object => "card"}
+      assert_not_requested :get, %r{#{Stripe.api_base}/.*}
+      assert_not_requested :post, %r{#{Stripe.api_base}/.*}
     end
 
     should "accessing id should not issue a fetch" do
-      @mock.expects(:get).never
       c = Stripe::Customer.new("test_customer")
       c.id
+      assert_not_requested :get, %r{#{Stripe.api_base}/.*}
     end
 
     should "not specifying api credentials should raise an exception" do
@@ -75,18 +75,18 @@ module Stripe
 
     should "specifying invalid api credentials should raise an exception" do
       Stripe.api_key = "invalid"
-      response = make_response(make_invalid_api_key_error, 401)
       assert_raises Stripe::AuthenticationError do
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 401))
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/failing_customer").
+          to_return(body: JSON.generate(make_invalid_api_key_error), status: 401)
         Stripe::Customer.retrieve("failing_customer")
       end
     end
 
     should "AuthenticationErrors should have an http status, http body, and JSON body" do
       Stripe.api_key = "invalid"
-      response = make_response(make_invalid_api_key_error, 401)
       begin
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 401))
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/failing_customer").
+          to_return(body: JSON.generate(make_invalid_api_key_error), status: 401)
         Stripe::Customer.retrieve("failing_customer")
       rescue Stripe::AuthenticationError => e
         assert_equal(401, e.http_status)
@@ -97,30 +97,29 @@ module Stripe
     end
 
     should "send expand on fetch properly" do
-      @mock.expects(:get).once.
-        with("#{Stripe.api_base}/v1/charges/ch_test_charge?expand[]=customer", nil, nil).
-        returns(make_response(make_charge))
+      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_test_charge").
+        with(query: { "expand" => ["customer"] }).
+        to_return(body: JSON.generate(make_charge))
 
       Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => [:customer]})
     end
 
     should "preserve expand across refreshes" do
-      @mock.expects(:get).twice.
-        with("#{Stripe.api_base}/v1/charges/ch_test_charge?expand[]=customer", nil, nil).
-        returns(make_response(make_charge))
+      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_test_charge").
+        with(query: { "expand" => ["customer"] }).
+        to_return(body: JSON.generate(make_charge))
 
       ch = Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => [:customer]})
       ch.refresh
     end
 
     should "send expand when fetching through ListObject" do
-      @mock.expects(:get).once.
-        with("#{Stripe.api_base}/v1/customers/c_test_customer", nil, nil).
-        returns(make_response(make_customer))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
+        to_return(body: JSON.generate(make_customer))
 
-      @mock.expects(:get).once.
-        with("#{Stripe.api_base}/v1/customers/c_test_customer/sources/cc_test_card?expand[]=customer", nil, nil).
-        returns(make_response(make_card))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer/sources/cc_test_card").
+        with(query: { "expand" => ["customer"] }).
+        to_return(body: JSON.generate(make_customer))
 
       customer = Stripe::Customer.retrieve('c_test_customer')
       customer.sources.retrieve({:id => 'cc_test_card', :expand => [:customer]})
@@ -128,26 +127,27 @@ module Stripe
 
     should "send stripe account as header when set" do
       stripe_account = "acct_0000"
-      Stripe.expects(:execute_request).with do |opts|
-        opts[:headers][:stripe_account] == stripe_account
-      end.returns(make_response(make_charge))
+      stub_request(:post, "#{Stripe.api_base}/v1/charges").
+        with(headers: {"Stripe-Account" => stripe_account}).
+        to_return(body: JSON.generate(make_customer))
 
       Stripe::Charge.create({:card => {:number => '4242424242424242'}},
                             {:stripe_account => stripe_account, :api_key => 'sk_test_local'})
     end
 
     should "not send stripe account as header when not set" do
-      Stripe.expects(:execute_request).with do |opts|
-        opts[:headers][:stripe_account].nil?
-      end.returns(make_response(make_charge))
+      stub_request(:post, "#{Stripe.api_base}/v1/charges").
+        with { |req|
+          req.headers["Stripe-Account"].nil?
+        }.to_return(body: JSON.generate(make_charge))
 
       Stripe::Charge.create({:card => {:number => '4242424242424242'}},
         'sk_test_local')
     end
 
     should "handle error response with empty body" do
-      response = make_response('', 500)
-      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+      stub_request(:post, "#{Stripe.api_base}/v1/charges").
+        to_return(body: '', status: 500)
 
       e = assert_raises Stripe::APIError do
         Stripe::Charge.create
@@ -157,14 +157,14 @@ module Stripe
     end
 
     should "handle error response with non-object error value" do
-      response = make_response('{"error": "foo"}', 500)
-      @mock.expects(:post).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+      stub_request(:post, "#{Stripe.api_base}/v1/charges").
+        to_return(body: JSON.generate({ error: "foo" }), status: 500)
 
       e = assert_raises Stripe::APIError do
         Stripe::Charge.create
       end
 
-      assert_equal 'Invalid response object from API: "{\"error\": \"foo\"}" (HTTP response code was 500)', e.message
+      assert_equal 'Invalid response object from API: "{\"error\":\"foo\"}" (HTTP response code was 500)', e.message
     end
 
     should "have default open and read timeouts" do
@@ -172,30 +172,12 @@ module Stripe
       assert_equal Stripe.read_timeout, 80
     end
 
-    should "allow configurable open and read timeouts" do
-      original_timeouts = Stripe.open_timeout, Stripe.read_timeout
-
-      begin
-        Stripe.open_timeout = 999
-        Stripe.read_timeout = 998
-
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:open_timeout] == 999 && opts[:timeout] == 998
-        end.returns(make_response(make_charge))
-
-        Stripe::Charge.create({:card => {:number => '4242424242424242'}},
-          'sk_test_local')
-      ensure
-        Stripe.open_timeout, Stripe.read_timeout = original_timeouts
-      end
-    end
-
     context "when specifying per-object credentials" do
       context "with no global API key set" do
         should "use the per-object credential when creating" do
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:headers]['Authorization'] == 'Bearer sk_test_local'
-          end.returns(make_response(make_charge))
+          stub_request(:post, "#{Stripe.api_base}/v1/charges").
+            with(headers: {"Authorization" => "Bearer sk_test_local"}).
+            to_return(body: JSON.generate(make_charge))
 
           Stripe::Charge.create({:card => {:number => '4242424242424242'}},
             'sk_test_local')
@@ -212,23 +194,21 @@ module Stripe
         end
 
         should "use the per-object credential when creating" do
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:headers]['Authorization'] == 'Bearer local'
-          end.returns(make_response(make_charge))
+          stub_request(:post, "#{Stripe.api_base}/v1/charges").
+            with(headers: {"Authorization" => "Bearer local"}).
+            to_return(body: JSON.generate(make_charge))
 
           Stripe::Charge.create({:card => {:number => '4242424242424242'}},
             'local')
         end
 
         should "use the per-object credential when retrieving and making other calls" do
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge" &&
-              opts[:headers]['Authorization'] == 'Bearer local'
-          end.returns(make_response(make_charge))
-          Stripe.expects(:execute_request).with do |opts|
-            opts[:url] == "#{Stripe.api_base}/v1/charges/ch_test_charge/refunds" &&
-              opts[:headers]['Authorization'] == 'Bearer local'
-          end.returns(make_response(make_refund))
+          stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_test_charge").
+            with(headers: {"Authorization" => "Bearer local"}).
+            to_return(body: JSON.generate(make_charge))
+          stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_test_charge/refunds").
+            with(headers: {"Authorization" => "Bearer local"}).
+            to_return(body: JSON.generate(make_refund))
 
           ch = Stripe::Charge.retrieve('ch_test_charge', 'local')
           ch.refunds.create
@@ -238,9 +218,9 @@ module Stripe
 
     context "with valid credentials" do
       should "send along the idempotency-key header" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == 'bar'
-        end.returns(make_response(make_charge))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          with(headers: {"Idempotency-Key" => "bar"}).
+          to_return(body: JSON.generate(make_charge))
 
         Stripe::Charge.create({:card => {:number => '4242424242424242'}}, {
           :idempotency_key => 'bar',
@@ -249,26 +229,31 @@ module Stripe
       end
 
       should "urlencode values in GET params" do
-        response = make_response(make_charge_array)
-        @mock.expects(:get).with("#{Stripe.api_base}/v1/charges?customer=test+customer", nil, nil).returns(response)
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          with(query: { customer: "test customer" }).
+          to_return(body: JSON.generate(make_charge_array))
         charges = Stripe::Charge.list(:customer => 'test customer').data
         assert charges.kind_of? Array
       end
 
       should "construct URL properly with base query parameters" do
-        response = make_response(make_invoice_customer_array)
-        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices?customer=test_customer", nil, nil).returns(response)
+        response = JSON.generate(make_invoice_customer_array)
+        stub_request(:get, "#{Stripe.api_base}/v1/invoices").
+          with(query: { customer: "test_customer" }).
+          to_return(body: response)
         invoices = Stripe::Invoice.list(:customer => 'test_customer')
 
-        @mock.expects(:get).with("#{Stripe.api_base}/v1/invoices?customer=test_customer&paid=true", nil, nil).returns(response)
+        stub_request(:get, "#{Stripe.api_base}/v1/invoices").
+          with(query: { customer: "test_customer", paid: "true" }).
+          to_return(body: response)
         invoices.list(:paid => true)
       end
 
       should "a 400 should give an InvalidRequestError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 400)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_missing_id_error), status: 400)
         begin
-          Stripe::Customer.retrieve("foo")
+          Stripe::Charge.create
         rescue Stripe::InvalidRequestError => e
           assert_equal(400, e.http_status)
           assert_equal(true, !!e.http_body)
@@ -277,10 +262,10 @@ module Stripe
       end
 
       should "a 401 should give an AuthenticationError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 401)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_missing_id_error), status: 401)
         begin
-          Stripe::Customer.retrieve("foo")
+          Stripe::Charge.create
         rescue Stripe::AuthenticationError => e
           assert_equal(401, e.http_status)
           assert_equal(true, !!e.http_body)
@@ -289,10 +274,10 @@ module Stripe
       end
 
       should "a 402 should give a CardError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 402)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_missing_id_error), status: 402)
         begin
-          Stripe::Customer.retrieve("foo")
+          Stripe::Charge.create
         rescue Stripe::CardError => e
           assert_equal(402, e.http_status)
           assert_equal(true, !!e.http_body)
@@ -301,10 +286,10 @@ module Stripe
       end
 
       should "a 403 should give a PermissionError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 403)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 403))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_missing_id_error), status: 403)
         begin
-          Stripe::Customer.retrieve("foo")
+          Stripe::Charge.create
         rescue Stripe::PermissionError => e
           assert_equal(403, e.http_status)
           assert_equal(true, !!e.http_body)
@@ -313,10 +298,10 @@ module Stripe
       end
 
       should "a 404 should give an InvalidRequestError with http status, body, and JSON body" do
-        response = make_response(make_missing_id_error, 404)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_missing_id_error), status: 404)
         begin
-          Stripe::Customer.retrieve("foo")
+          Stripe::Charge.create
         rescue Stripe::InvalidRequestError => e
           assert_equal(404, e.http_status)
           assert_equal(true, !!e.http_body)
@@ -325,10 +310,10 @@ module Stripe
       end
 
       should "a 429 should give a RateLimitError with http status, body, and JSON body" do
-        response = make_response(make_rate_limit_error, 429)
-        @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 429))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_missing_id_error), status: 429)
         begin
-          Stripe::Customer.retrieve("foo")
+          Stripe::Charge.create
         rescue Stripe::RateLimitError => e
           assert_equal(429, e.http_status)
           assert_equal(true, !!e.http_body)
@@ -337,25 +322,20 @@ module Stripe
       end
 
       should "setting a nil value for a param should exclude that param from the request" do
-        @mock.expects(:get).with do |url, api_key, params|
-          uri = URI(url)
-          query = CGI.parse(uri.query)
-          (url =~ %r{^#{Stripe.api_base}/v1/charges?} &&
-           query.keys.sort == ['offset', 'sad'])
-        end.returns(make_response({ :count => 1, :data => [make_charge] }))
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          with(query: { offset: 5, sad: false }).
+          to_return(body: JSON.generate({ :count => 1, :data => [make_charge] }))
         Stripe::Charge.list(:count => nil, :offset => 5, :sad => false)
 
-        @mock.expects(:post).with do |url, api_key, params|
-          url == "#{Stripe.api_base}/v1/charges" &&
-            api_key.nil? &&
-            CGI.parse(params) == { 'amount' => ['50'], 'currency' => ['usd'] }
-        end.returns(make_response({ :count => 1, :data => [make_charge] }))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          with(body: {  'amount' => '50', 'currency' => 'usd' }).
+          to_return(body: JSON.generate({ :count => 1, :data => [make_charge] }))
         Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
 
       should "requesting with a unicode ID should result in a request" do
-        response = make_response(make_missing_id_error, 404)
-        @mock.expects(:get).once.with("#{Stripe.api_base}/v1/customers/%E2%98%83", nil, nil).raises(RestClient::ExceptionWithResponse.new(response, 404))
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/%E2%98%83").
+          to_return(body: JSON.generate(make_missing_id_error), status: 404)
         c = Stripe::Customer.new("☃")
         assert_raises(Stripe::InvalidRequestError) { c.refresh }
       end
@@ -366,28 +346,29 @@ module Stripe
       end
 
       should "making a GET request with parameters should have a query string and no body" do
-        params = { :limit => 1 }
-        @mock.expects(:get).once.with("#{Stripe.api_base}/v1/charges?limit=1", nil, nil).
-          returns(make_response({ :data => [make_charge] }))
-        Stripe::Charge.list(params)
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          with(query: { limit: 1 }).
+          to_return(body: JSON.generate({ :data => [make_charge] }))
+        Stripe::Charge.list({ :limit => 1 })
       end
 
       should "making a POST request with parameters should have a body and no query string" do
-        params = { :amount => 100, :currency => 'usd', :card => 'sc_token' }
-        @mock.expects(:post).once.with do |url, get, post|
-          get.nil? && CGI.parse(post) == {'amount' => ['100'], 'currency' => ['usd'], 'card' => ['sc_token']}
-        end.returns(make_response(make_charge))
-        Stripe::Charge.create(params)
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          with(body: {'amount' => '100', 'currency' => 'usd', 'card' => 'sc_token'}).
+          to_return(body: JSON.generate(make_charge))
+        Stripe::Charge.create({ :amount => 100, :currency => 'usd', :card => 'sc_token' })
       end
 
       should "loading an object should issue a GET request" do
-        @mock.expects(:get).once.returns(make_response(make_customer))
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new("test_customer")
         c.refresh
       end
 
       should "using array accessors should be the same as the method interface" do
-        @mock.expects(:get).once.returns(make_response(make_customer))
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new("test_customer")
         c.refresh
         assert_equal c.created, c[:created]
@@ -397,22 +378,26 @@ module Stripe
       end
 
       should "accessing a property other than id or parent on an unfetched object should fetch it" do
-        @mock.expects(:get).once.returns(make_response(make_customer))
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          with(query: { customer: "test_customer" }).
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new("test_customer")
         c.charges
       end
 
       should "updating an object should issue a POST request with only the changed properties" do
-        @mock.expects(:post).with do |url, api_key, params|
-          url == "#{Stripe.api_base}/v1/customers/c_test_customer" && api_key.nil? && CGI.parse(params) == {'description' => ['another_mn']}
-        end.once.returns(make_response(make_customer))
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/c_test_customer").
+          with(body: { 'description' => 'another_mn' }).
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.construct_from(make_customer)
         c.description = "another_mn"
         c.save
       end
 
       should "updating should merge in returned properties" do
-        @mock.expects(:post).once.returns(make_response(make_customer))
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/c_test_customer").
+          with(body: { 'description' => 'another_mn' }).
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new("c_test_customer")
         c.description = "another_mn"
         c.save
@@ -420,9 +405,9 @@ module Stripe
       end
 
       should "updating should send along the idempotency-key header" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == 'bar'
-        end.returns(make_response(make_customer))
+        stub_request(:post, "#{Stripe.api_base}/v1/customers").
+          with(headers: {"Idempotency-Key" => "bar"}).
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new
         c.save({}, { :idempotency_key => 'bar' })
         assert_equal false, c.livemode
@@ -436,18 +421,17 @@ module Stripe
       end
 
       should "updating should use the supplied api_key" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers]['Authorization'] == 'Bearer sk_test_local'
-        end.returns(make_response(make_customer))
+        stub_request(:post, "#{Stripe.api_base}/v1/customers").
+          with(headers: {"Authorization" => "Bearer sk_test_local"}).
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.new
         c.save({}, { :api_key => 'sk_test_local' })
         assert_equal false, c.livemode
       end
 
       should "deleting should send no props and result in an object that has no props other deleted" do
-        @mock.expects(:get).never
-        @mock.expects(:post).never
-        @mock.expects(:delete).with("#{Stripe.api_base}/v1/customers/c_test_customer", nil, nil).once.returns(make_response({ "id" => "test_customer", "deleted" => true }))
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/c_test_customer").
+          to_return(body: JSON.generate({ "id" => "test_customer", "deleted" => true }))
         c = Stripe::Customer.construct_from(make_customer)
         c.delete
         assert_equal true, c.deleted
@@ -458,13 +442,15 @@ module Stripe
       end
 
       should "loading an object with properties that have specific types should instantiate those classes" do
-        @mock.expects(:get).once.returns(make_response(make_charge))
+        stub_request(:get, "#{Stripe.api_base}/v1/charges/test_charge").
+          to_return(body: JSON.generate(make_charge))
         c = Stripe::Charge.retrieve("test_charge")
         assert c.card.kind_of?(Stripe::StripeObject) && c.card.object == 'card'
       end
 
       should "loading all of an APIResource should return an array of recursively instantiated objects" do
-        @mock.expects(:get).once.returns(make_response(make_charge_array))
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(make_charge_array))
         c = Stripe::Charge.list.data
         assert c.kind_of? Array
         assert c[0].kind_of? Stripe::Charge
@@ -472,28 +458,21 @@ module Stripe
       end
 
       should "passing in a stripe_account header should pass it through on call" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:method] == :get &&
-          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
-          opts[:headers][:stripe_account] == 'acct_abc'
-        end.once.returns(make_response(make_customer))
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
+          with(headers: {"Stripe-Account" => "acct_abc"}).
+          to_return(body: JSON.generate(make_customer))
         Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
       end
 
       should "passing in a stripe_account header should pass it through on save" do
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:method] == :get &&
-          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
-          opts[:headers][:stripe_account] == 'acct_abc'
-        end.once.returns(make_response(make_customer))
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
+          with(headers: {"Stripe-Account" => "acct_abc"}).
+          to_return(body: JSON.generate(make_customer))
         c = Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
 
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:method] == :post &&
-          opts[:url] == "#{Stripe.api_base}/v1/customers/c_test_customer" &&
-          opts[:headers][:stripe_account] == 'acct_abc' &&
-          opts[:payload] == 'description=FOO'
-        end.once.returns(make_response(make_customer))
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/c_test_customer").
+          with(headers: {"Stripe-Account" => "acct_abc"}).
+          to_return(body: JSON.generate(make_customer))
         c.description = 'FOO'
         c.save
       end
@@ -501,8 +480,8 @@ module Stripe
       context "error checking" do
 
         should "404s should raise an InvalidRequestError" do
-          response = make_response(make_missing_id_error, 404)
-          @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
+          stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+            to_return(body: JSON.generate(make_missing_id_error), status: 404)
 
           rescued = false
           begin
@@ -519,8 +498,8 @@ module Stripe
         end
 
         should "5XXs should raise an APIError" do
-          response = make_response(make_api_error, 500)
-          @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
+          stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+            to_return(body: JSON.generate(make_api_error), status: 500)
 
           rescued = false
           begin
@@ -535,8 +514,8 @@ module Stripe
         end
 
         should "402s should raise a CardError" do
-          response = make_response(make_invalid_exp_year_error, 402)
-          @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 402))
+          stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
+            to_return(body: JSON.generate(make_invalid_exp_year_error), status: 402)
 
           rescued = false
           begin
@@ -564,7 +543,9 @@ module Stripe
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[first_name]=Bob').returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid").
+          with(body: { legal_entity: { first_name: "Bob" } }).
+          to_return(body: JSON.generate({ "id" => "myid" }))
 
         acct.legal_entity.first_name = 'Bob'
         acct.save
@@ -572,27 +553,31 @@ module Stripe
 
       should 'save nothing if nothing changes' do
         acct = Stripe::Account.construct_from({
-          :id => 'myid',
+          :id => 'acct_id',
           :metadata => {
             :key => 'value'
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, '').returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_id").
+          with(body: {}).
+          to_return(body: JSON.generate({ "id" => "acct_id" }))
 
         acct.save
       end
 
       should 'not save nested API resources' do
         ch = Stripe::Charge.construct_from({
-          :id => 'charge_id',
+          :id => 'ch_id',
           :customer => {
             :object => 'customer',
             :id => 'customer_id'
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/charges/charge_id", nil, '').returns(make_response({"id" => "charge_id"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_id").
+          with(body: {}).
+          to_return(body: JSON.generate({ "id" => "ch_id" }))
 
         ch.customer.description = 'Bob'
         ch.save
@@ -610,14 +595,9 @@ module Stripe
           }
         })
 
-        @mock.expects(:post).once.with(
-          "#{Stripe.api_base}/v1/accounts/myid",
-          nil,
-          any_of(
-            'legal_entity[address][line1]=Test2&legal_entity[address][city]=',
-            'legal_entity[address][city]=&legal_entity[address][line1]=Test2'
-          )
-        ).returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid").
+          with(body: { legal_entity: { address: { line1: "Test2", city: "" } } }).
+          to_return(body: JSON.generate({ "id" => "my_id" }))
 
         acct.legal_entity.address = {:line1 => 'Test2'}
         acct.save
@@ -629,7 +609,9 @@ module Stripe
           :legal_entity => {}
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][0][first_name]=Bob').returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid").
+          with(body: { legal_entity: { additional_owners: [{ first_name: "Bob" }] } }).
+          to_return(body: JSON.generate({ "id" => "myid" }))
 
         acct.legal_entity.additional_owners = [{:first_name => 'Bob'}]
         acct.save
@@ -643,7 +625,12 @@ module Stripe
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][0][first_name]=Bob').returns(make_response({"id" => "myid"}))
+        # Note that this isn't a perfect check because we're using webmock's
+        # data decoding, which isn't aware of the Stripe array encoding that we
+        # use here.
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid").
+          with(body: { legal_entity: { additional_owners: [{ first_name: "Bob" }] } }).
+          to_return(body: JSON.generate({ "id" => "myid" }))
 
         acct.legal_entity.additional_owners << {:first_name => 'Bob'}
         acct.save
@@ -657,7 +644,12 @@ module Stripe
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, 'legal_entity[additional_owners][1][first_name]=Janet').returns(make_response({"id" => "myid"}))
+        # Note that this isn't a perfect check because we're using webmock's
+        # data decoding, which isn't aware of the Stripe array encoding that we
+        # use here.
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid").
+          with(body: { legal_entity: { additional_owners: [{ first_name: "Janet" }] } }).
+          to_return(body: JSON.generate({ "id" => "myid" }))
 
         acct.legal_entity.additional_owners[1].first_name = 'Janet'
         acct.save
@@ -672,7 +664,9 @@ module Stripe
           :currencies_supported => ['usd', 'cad']
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, '').returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid").
+          with(body: {}).
+          to_return(body: JSON.generate({ "id" => "myid" }))
 
         acct.save
       end
@@ -685,7 +679,9 @@ module Stripe
           }
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts/myid", nil, '').returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid").
+          with(body: {}).
+          to_return(body: JSON.generate({ "id" => "myid" }))
 
         acct.save
       end
@@ -696,8 +692,9 @@ module Stripe
           :display_name => nil,
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts", nil, 'display_name=stripe').
-          returns(make_response({"id" => "charge_id"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts").
+          with(body: { display_name: "stripe" }).
+          to_return(body: JSON.generate({ "id" => "acct_123" }))
 
         account.display_name = 'stripe'
         account.save
@@ -709,8 +706,9 @@ module Stripe
           :display_name => nil,
         })
 
-        @mock.expects(:post).once.with("#{Stripe.api_base}/v1/accounts", nil, 'display_name=stripe&metadata[key]=value').
-          returns(make_response({"id" => "charge_id"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts").
+          with(body: { display_name: "stripe", metadata: { key: "value" } }).
+          to_return(body: JSON.generate({ "id" => "acct_123" }))
 
         account.save(:display_name => 'stripe', :metadata => {:key => 'value' })
       end
@@ -723,8 +721,8 @@ module Stripe
 
       should 'retry failed network requests if specified and raise if error persists' do
         Stripe.expects(:sleep_time).at_least_once.returns(0)
-        @mock.expects(:post).times(3).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').
-          raises(Errno::ECONNREFUSED.new)
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_raise(Errno::ECONNREFUSED.new)
 
         err = assert_raises Stripe::APIConnectionError do
           Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
@@ -734,11 +732,17 @@ module Stripe
 
       should 'retry failed network requests if specified and return successful response' do
         Stripe.expects(:sleep_time).at_least_once.returns(0)
-        response = make_response({"id" => "myid"})
-        @mock.expects(:post).times(2).with('https://api.stripe.com/v1/charges', nil, 'amount=50&currency=usd').
-          raises(Errno::ECONNREFUSED.new).
-          then.
-          returns(response)
+
+        i = 0
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return { |_|
+            if i < 2
+              i += 1
+              raise Errno::ECONNREFUSED.new
+            else
+              { body: JSON.generate({"id" => "myid"}) }
+            end
+          }
 
         result = Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
         assert_equal "myid", result.id
@@ -746,29 +750,30 @@ module Stripe
 
       should 'not add an idempotency key to GET requests' do
         SecureRandom.expects(:uuid).times(0)
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key].nil?
-        end.returns(make_response({"id" => "myid"}))
-
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          with { |req|
+            req.headers['Idempotency-Key'].nil?
+          }.to_return(body: JSON.generate(make_charge_array))
         Stripe::Charge.list
       end
 
       should 'ensure there is always an idempotency_key on POST requests' do
         SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers]['Idempotency-Key'] == "random_key"
-        end.returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          with(headers: {"Idempotency-Key" => "random_key"}).
+          to_return(body: JSON.generate(make_charge))
 
         Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
 
       should 'ensure there is always an idempotency_key on DELETE requests' do
         SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers]['Idempotency-Key'] == "random_key"
-        end.returns(make_response({"id" => "myid"}))
 
         c = Stripe::Customer.construct_from(make_customer)
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{c.id}").
+          with(headers: {"Idempotency-Key" => "random_key"}).
+          to_return(body: JSON.generate(make_charge))
+
         c.delete
       end
 
@@ -779,9 +784,9 @@ module Stripe
         # (`Idempotency-Key`), but rest-client does allow this symbol
         # formatting and will properly override the system generated one as
         # expected.
-        Stripe.expects(:execute_request).with do |opts|
-          opts[:headers][:idempotency_key] == "provided_key"
-        end.returns(make_response({"id" => "myid"}))
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          with(headers: {"Idempotency-Key" => "provided_key"}).
+          to_return(body: JSON.generate(make_charge))
 
         Stripe::Charge.create({:amount => 50, :currency => 'usd', :card => { :number => nil }}, {:idempotency_key => 'provided_key'})
       end

@@ -50,8 +50,8 @@ gem 'stripe'
 ## Usage
 
 The library needs to be configured with your account's secret key which is
-available in the [Dashboard][dashboard]. Assign its value to `Stripe.api_key`
-and the library will send it along automatically with every request:
+available in your [Stripe Dashboard][dashboard]. Set `Stripe.api_key` to its
+value:
 
 ``` ruby
 require "stripe"
@@ -66,14 +66,11 @@ Stripe::Charge.retrieve(
 )
 ```
 
-You can also set a per-request key and/or account like in the examples below.
-This is often useful for Connect applications that use multiple API keys during
-the lifetime of a process.
+### Per-request Configuration
 
-Authentication is transparently handled for you in subsequent method calls on
-the returned object.
-
-For example:
+For apps that need to use multiple keys during the lifetime of a process, like
+one that uses [Stripe Connect][connect], it's also possible to set a
+per-request key and/or account:
 
 ``` ruby
 require "stripe"
@@ -90,6 +87,40 @@ Stripe::Charge.retrieve(
   :stripe_account => "acct_..."
 )
 ```
+
+### Configuring a Client
+
+While a default HTTP client is used by default, it's also possible to have the
+library use any client supported by [Faraday][faraday] by initializing a
+`Stripe::StripeClient` object and giving it a connection:
+
+``` ruby
+conn = Faraday.new
+client = Stripe::StripeClient.new(conn)
+client.request do
+  charge, resp = Stripe::Charge.retrieve(
+    "ch_18atAXCdGbJFKhCuBAa4532Z",
+  )
+end
+puts resp.request_id
+```
+
+### Configuring CA Bundles
+
+By default, the library will use its own internal bundle of known CA
+certificates, but it's possible to configure your own:
+
+    Stripe.ca_bundle_path = "path/to/ca/bundle"
+
+### Configuring Automatic Retries
+
+The library can be configured to automatically retry requests that fail due to
+an intermittent network problem:
+
+    Stripe.max_network_retries = 2
+
+[Idempotency keys][idempotency-keys] are added to requests to guarantee that
+retries are safe.
 
 ## Development
 
@@ -109,25 +140,8 @@ Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
     bundle exec rake update_certs
 
-## Configuration
-
-### ca_bundle_path
-
-The location of a file containing a bundle of CA certificates. By default the
-library will use an included bundle that can successfully validate Stripe
-certificates.
-
-### max_network_retries
-
-When `max_network_retries` is set to a positive integer, stripe will retry
-requests that fail on a network error. Idempotency keys will be added to `POST`
-and `DELETE` requests to ensure the safety of retrying. There will be a short delay
-between each retry, with an exponential backoff algorithm used to determine the
-length of the delay. Default value is 0.
-
-Example:
-
-    Stripe.max_network_retries = 2
-
+[connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
+[faraday]: https://github.com/lostisland/faraday
+[idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
 [dashboard]: https://dashboard.stripe.com/account

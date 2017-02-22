@@ -29,6 +29,7 @@ module Stripe
       # object per thread.
       Thread.current[:stripe_client_default_conn] ||= begin
         conn = Faraday.new do |c|
+          c.use Faraday::Request::Multipart
           c.use Faraday::Request::UrlEncoded
           c.use Faraday::Response::RaiseError
           c.adapter Faraday.default_adapter

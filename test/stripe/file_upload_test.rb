@@ -35,11 +35,30 @@ module Stripe
 
     should "be creatable" do
       stub_request(:post, "#{Stripe.uploads_base}/v1/files").
-        to_return(body: JSON.generate(FIXTURE))
+        with(:headers => {
+          "Content-Type" => %r|\A#{Faraday::Request::Multipart.mime_type}|
+        }) { |request|
+          request.body =~ /FileUploadTest/
+        }.to_return(body: JSON.generate(FIXTURE))
 
       file = Stripe::FileUpload.create(
         purpose: "dispute_evidence",
         file: File.new(__FILE__),
+      )
+      assert file.kind_of?(Stripe::FileUpload)
+    end
+
+    should "be creatable with Faraday::UploadIO" do
+      stub_request(:post, "#{Stripe.uploads_base}/v1/files").
+        with(:headers => {
+          "Content-Type" => %r|\A#{Faraday::Request::Multipart.mime_type}|
+        }) { |request|
+          request.body =~ /FileUploadTest/
+        }.to_return(body: JSON.generate(FIXTURE))
+
+      file = Stripe::FileUpload.create(
+        purpose: "dispute_evidence",
+        file: Faraday::UploadIO.new(File.new(__FILE__), nil),
       )
       assert file.kind_of?(Stripe::FileUpload)
     end

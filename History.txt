@@ -1,3 +1,7 @@
+=== 2.0.1 2017-02-22
+
+* Fix multipart parameter encoding to repair broken file uploads
+
 === 2.0.0 2017-02-14
 
 * Drop support for Ruby 1.9

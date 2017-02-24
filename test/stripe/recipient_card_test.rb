@@ -12,7 +12,7 @@ module Stripe
     should "be listable" do
       cards = @recipient.cards.list
       assert cards.data.kind_of?(Array)
-      assert cards.data[0].kind_of?(Stripe::Token)
+      assert cards.data[0].kind_of?(Stripe::Card)
     end
 
     should "be creatable" do
@@ -20,7 +20,7 @@ module Stripe
         card: API_FIXTURES.fetch(:token)[:id]
       )
       assert_requested :post, "#{Stripe.api_base}/v1/recipients/#{@recipient.id}/cards"
-      assert card.kind_of?(Stripe::Token)
+      assert card.kind_of?(Stripe::Card)
     end
 
     should "be deletable" do

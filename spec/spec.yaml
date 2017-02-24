@@ -579,7 +579,7 @@ definitions:
     properties:
       available:
         description: Funds that are available to be paid out automatically by Stripe
-          or explicitly via the [transfers AP](#transfers). The available balance
+          or explicitly via the [transfers API](#transfers). The available balance
           for each currency and payment type can be found in the `source_types` property.
         type:
         - array
@@ -685,6 +685,132 @@ definitions:
     type:
     - object
     x-resourceId: balance_transaction
+  bank_account:
+    properties:
+      account:
+        description: ''
+        type:
+        - string
+      account_holder_name:
+        description: The name of the person or business that owns the bank account.
+        type:
+        - string
+      account_holder_type:
+        description: The type of entity that holds the account. This can be either
+          `individual` or `company`.
+        type:
+        - string
+      address_city:
+        description: ''
+        type:
+        - string
+      address_line1:
+        description: ''
+        type:
+        - string
+      address_line2:
+        description: ''
+        type:
+        - string
+      address_state:
+        description: ''
+        type:
+        - string
+      address_zip:
+        description: ''
+        type:
+        - string
+      allows_debits:
+        description: ''
+        type:
+        - boolean
+      bank_name:
+        description: Name of the bank associated with the routing number, e.g. `WELLS
+          FARGO`.
+        type:
+        - string
+      country:
+        description: Two-letter ISO code representing the country the bank account
+          is located in.
+        type:
+        - string
+      currency:
+        description: Three-letter ISO currency code representing the currency paid
+          out to the bank account.
+        type:
+        - string
+      customer:
+        description: ''
+        type:
+        - string
+      customer_reference:
+        description: ''
+        type:
+        - string
+      default_for_currency:
+        description: Whether this external account is the default account for its
+          currency.
+        type:
+        - boolean
+      fingerprint:
+        description: Uniquely identifies this particular bank account. You can use
+          this attribute to check whether two bank accounts are the same.
+        type:
+        - string
+      id:
+        description: ''
+        type:
+        - string
+      last4:
+        description: ''
+        type:
+        - string
+      metadata:
+        description: A set of key/value pairs that you can attach to a bank account
+          object. It can be useful for storing additional information about the bank
+          account in a structured format.
+        type:
+        - object
+      object:
+        description: ''
+        type:
+        - string
+      reusable:
+        description: ''
+        type:
+        - boolean
+      routing_number:
+        description: The routing transit number for the bank account.
+        type:
+        - string
+      status:
+        description: Possible values are `new`, `validated`, `verified`, `verification_failed`,
+          or `errored`. A bank account that hasn't had any activity or validation
+          performed is `new`. If Stripe can determine that the bank account exists,
+          its status will be `validated`. Note that there often isn’t enough information
+          to know (e.g. for smaller credit unions), and the validation is not always
+          run. If customer bank account verification has succeeded, the bank account
+          status will be `verified`. If the verification failed for any reason, such
+          as microdeposit failure, the status will be `verification_failed`. If a
+          transfer sent to this bank account fails, we'll set the status to `errored`
+          and will not continue to send transfers until the bank details are updated.
+        type:
+        - string
+      used:
+        description: ''
+        type:
+        - boolean
+    required:
+    - country
+    - currency
+    - id
+    - last4
+    - object
+    - status
+    title: BankAccount
+    type:
+    - object
+    x-resourceId: bank_account
   bitcoin_receiver:
     properties:
       active:
@@ -885,6 +1011,166 @@ definitions:
     type:
     - object
     x-resourceId: bitcoin_transaction
+  card:
+    properties:
+      account:
+        description: The account this card belongs to. This attribute will not be
+          in the card object if the card belongs to a customer or recipient instead.
+        type:
+        - string
+      address_city:
+        description: ''
+        type:
+        - string
+      address_country:
+        description: Billing address country, if provided when creating card.
+        type:
+        - string
+      address_line1:
+        description: ''
+        type:
+        - string
+      address_line1_check:
+        description: 'If `address_line1` was provided, results of the check: `pass`,
+          `fail`, `unavailable`, or `unchecked`.'
+        type:
+        - string
+      address_line2:
+        description: ''
+        type:
+        - string
+      address_state:
+        description: ''
+        type:
+        - string
+      address_zip:
+        description: ''
+        type:
+        - string
+      address_zip_check:
+        description: 'If `address_zip` was provided, results of the check: `pass`,
+          `fail`, `unavailable`, or `unchecked`.'
+        type:
+        - string
+      available_payout_methods:
+        description: A set of available payout methods for this card. Will be either
+          `["standard"]` or `["standard", "instant"]`. Only values from this set should
+          be passed as the `method` when creating a transfer.
+        type:
+        - array
+      brand:
+        description: Card brand. Can be `Visa`, `American Express`, `MasterCard`,
+          `Discover`, `JCB`, `Diners Club`, or `Unknown`.
+        type:
+        - string
+      country:
+        description: Two-letter ISO code representing the country of the card. You
+          could use this attribute to get a sense of the international breakdown of
+          cards you've collected.
+        type:
+        - string
+      currency:
+        description: Only applicable on accounts (not customers or recipients). The
+          card can be used as a transfer destination for funds in this currency.
+        type:
+        - string
+      customer:
+        description: The customer that this card belongs to. This attribute will not
+          be in the card object if the card belongs to an account or recipient instead.
+        type:
+        - string
+      cvc_check:
+        description: 'If a CVC was provided, results of the check: `pass`, `fail`,
+          `unavailable`, or `unchecked`.'
+        type:
+        - string
+      default_for_currency:
+        description: Only applicable on accounts (not customers or recipients). This
+          indicates whether or not this card is the default external account for its
+          currency.
+        type:
+        - boolean
+      dynamic_last4:
+        description: "(For tokenized numbers only.) The last four digits of the device
+          account number."
+        type:
+        - string
+      estimated_availability:
+        description: ''
+        type:
+        - string
+      exp_month:
+        description: ''
+        type:
+        - integer
+      exp_year:
+        description: ''
+        type:
+        - integer
+      fingerprint:
+        description: Uniquely identifies this particular card number. You can use
+          this attribute to check whether two customers who've signed up with you
+          are using the same card number, for example.
+        type:
+        - string
+      funding:
+        description: Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+        type:
+        - string
+      google_reference:
+        description: ''
+        type:
+        - string
+      id:
+        description: ID of card (used in conjunction with a customer or recipient
+          ID).
+        type:
+        - string
+      last4:
+        description: ''
+        type:
+        - string
+      metadata:
+        description: A set of key/value pairs that you can attach to a card object.
+          It can be useful for storing additional information about the card in a
+          structured format.
+        type:
+        - object
+      name:
+        description: Cardholder name.
+        type:
+        - string
+      object:
+        description: ''
+        type:
+        - string
+      recipient:
+        description: The recipient that this card belongs to. This attribute will
+          not be in the card object if the card belongs to a customer or account instead.
+        type:
+        - string
+      three_d_secure:
+        description: ''
+        type:
+        - object
+      tokenization_method:
+        description: If the card number is tokenized, this is the method that was
+          used. Can be `apple_pay` or `android_pay`.
+        type:
+        - string
+    required:
+    - brand
+    - exp_month
+    - exp_year
+    - funding
+    - id
+    - last4
+    - metadata
+    - object
+    title: Card
+    type:
+    - object
+    x-resourceId: card
   channel_settings:
     properties:
       twitter:
@@ -921,7 +1207,7 @@ definitions:
         - string
       application_fee:
         description: The application fee (if any) for the charge. [See the Connect
-          documentation](/docs/connect/payments-fees#collecting-fees) for details.
+          documentation](/docs/connect/direct-charges#collecting-fees) for details.
         type:
         - string
       balance_transaction:
@@ -935,7 +1221,7 @@ definitions:
         type:
         - boolean
       card:
-        "$ref": "#/definitions/payment_card"
+        "$ref": "#/definitions/card"
       created:
         description: ''
         type:
@@ -955,7 +1241,7 @@ definitions:
         - string
       destination:
         description: The account (if any) the charge was made on behalf of, with an
-          automatic transfer. [See the Connect documentation](/docs/connect/payments-fees#charging-through-the-platform)
+          automatic transfer. [See the Connect documentation](/docs/connect/destination-charges)
           for details.
         type:
         - string
@@ -1004,7 +1290,7 @@ definitions:
         - string
       on_behalf_of:
         description: The account (if any) the charge was made on behalf of without
-          triggering an automatic transfer. [See the Connect documentation](/docs/connect/payments-fees#charging-through-the-platform)
+          triggering an automatic transfer. See the [Connect documentation](/docs/connect/charges-transfers)
           for details.
         type:
         - string
@@ -1077,7 +1363,7 @@ definitions:
         "$ref": "#/definitions/shipping"
       source_transfer:
         description: The transfer ID which created this charge. Only present if the
-          charge came from another Stripe account. [See the Connect documentation](/docs/connect/payments-fees#charging-through-the-platform)
+          charge came from another Stripe account. [See the Connect documentation](/docs/connect/destination-charges)
           for details.
         type:
         - string
@@ -1098,7 +1384,8 @@ definitions:
         - string
       transfer_group:
         description: A string that identifies this transaction as part of a group.
-          [See the Connect documentation](/docs/connect/transfer-group) for details.
+          See the [Connect documentation](/docs/connect/charges-transfers#grouping-transactions)
+          for details.
         type:
         - string
     required:
@@ -1153,8 +1440,9 @@ definitions:
         type:
         - string
       type:
-        description: Possible values are `authorized`, `issuer_declined`, `blocked`,
-          and `invalid`. See [understanding declines](/docs/declines) for details.
+        description: Possible values are `authorized`, `manual_review`, `issuer_declined`,
+          `blocked`, and `invalid`. See [understanding declines](/docs/declines) and
+          [Radar reviews](radar/review) for details.
         type:
         - string
     required:
@@ -1193,7 +1481,7 @@ definitions:
           need to [enable bitcoin](https://dashboard.stripe.com/account/bitcoin/enable)
           and [ACH](https://stripe.com/docs/guides/ach) payments on your account for
           those methods to appear in this list. The `stripe` payment method refers
-          to [charging through your platform](https://stripe.com/docs/connect/payments-fees#charging-through-the-platform).
+          to [charging through your platform](https://stripe.com/docs/connect/destination-charges).
         type:
         - array
       verification_fields:
@@ -1346,7 +1634,7 @@ definitions:
         properties:
           data:
             items:
-              "$ref": "#/definitions/payment_bank_account"
+              "$ref": "#/definitions/bank_account"
             type:
             - array
           has_more:
@@ -1374,7 +1662,7 @@ definitions:
         - has_more
         - object
         - url
-        title: PaymentBankAccountList
+        title: BankAccountList
         type:
         - object
       business_vat_id:
@@ -1385,7 +1673,7 @@ definitions:
         properties:
           data:
             items:
-              "$ref": "#/definitions/payment_card"
+              "$ref": "#/definitions/card"
             type:
             - array
           has_more:
@@ -1413,7 +1701,7 @@ definitions:
         - has_more
         - object
         - url
-        title: PaymentCardList
+        title: CardList
         type:
         - object
       created:
@@ -1578,6 +1866,10 @@ definitions:
     x-resourceId: customer_shipping
   customer_source:
     properties:
+      customer:
+        description: ''
+        type:
+        - string
       id:
         description: ''
         type:
@@ -1594,7 +1886,6 @@ definitions:
         - string
     required:
     - id
-    - metadata
     - object
     title: Polymorphic
     type:
@@ -1902,6 +2193,10 @@ definitions:
           out to the bank account.
         type:
         - string
+      customer:
+        description: ''
+        type:
+        - string
       default_for_currency:
         description: Whether this external account is the default account for its
           currency.
@@ -1931,13 +2226,10 @@ definitions:
         type:
         - string
     required:
-    - account
     - country
     - currency
-    - default_for_currency
     - id
     - last4
-    - metadata
     - object
     title: Polymorphic
     type:
@@ -2610,7 +2902,8 @@ definitions:
         - string
       transfer_group:
         description: A string that identifies this transaction as part of a group.
-          [See the Connect documentation](/docs/connect/transfer-group) for details.
+          See the [Connect documentation](/docs/connect/charges-transfers#grouping-transactions)
+          for details.
         type:
         - string
       type:
@@ -3167,246 +3460,6 @@ definitions:
     type:
     - object
     x-resourceId: package_dimensions
-  payment_bank_account:
-    properties:
-      account_holder_name:
-        description: The name of the person or business that owns the bank account.
-        type:
-        - string
-      account_holder_type:
-        description: The type of entity that holds the account. This can be either
-          `individual` or `company`.
-        type:
-        - string
-      address_city:
-        description: ''
-        type:
-        - string
-      address_line1:
-        description: ''
-        type:
-        - string
-      address_line2:
-        description: ''
-        type:
-        - string
-      address_state:
-        description: ''
-        type:
-        - string
-      address_zip:
-        description: ''
-        type:
-        - string
-      bank_name:
-        description: Name of the bank associated with the routing number, e.g. `WELLS
-          FARGO`.
-        type:
-        - string
-      country:
-        description: Two-letter ISO code representing the country the bank account
-          is located in.
-        type:
-        - string
-      currency:
-        description: Three-letter ISO currency code representing the currency paid
-          out to the bank account.
-        type:
-        - string
-      customer:
-        description: ''
-        type:
-        - string
-      customer_reference:
-        description: ''
-        type:
-        - string
-      fingerprint:
-        description: Uniquely identifies this particular bank account. You can use
-          this attribute to check whether two bank accounts are the same.
-        type:
-        - string
-      id:
-        description: ''
-        type:
-        - string
-      last4:
-        description: ''
-        type:
-        - string
-      metadata:
-        description: ''
-        type:
-        - object
-      object:
-        description: ''
-        type:
-        - string
-      reusable:
-        description: ''
-        type:
-        - boolean
-      routing_number:
-        description: The routing transit number for the bank account.
-        type:
-        - string
-      status:
-        description: Possible values are `new`, `validated`, `verified`, `verification_failed`,
-          or `errored`. A bank account that hasn't had any activity or validation
-          performed is `new`. If Stripe can determine that the bank account exists,
-          its status will be `validated`. Note that there often isn’t enough information
-          to know (e.g. for smaller credit unions), and the validation is not always
-          run. If customer bank account verification has succeeded, the bank account
-          status will be `verified`. If the verification failed for any reason, such
-          as microdeposit failure, the status will be `verification_failed`. If a
-          transfer sent to this bank account fails, we'll set the status to `errored`
-          and will not continue to send transfers until the bank details are updated.
-        type:
-        - string
-      used:
-        description: ''
-        type:
-        - boolean
-    required:
-    - country
-    - currency
-    - id
-    - last4
-    - metadata
-    - object
-    - status
-    title: PaymentBankAccount
-    type:
-    - object
-    x-resourceId: payment_bank_account
-  payment_card:
-    properties:
-      address_city:
-        description: ''
-        type:
-        - string
-      address_country:
-        description: Billing address country, if provided when creating card.
-        type:
-        - string
-      address_line1:
-        description: ''
-        type:
-        - string
-      address_line1_check:
-        description: 'If `address_line1` was provided, results of the check: `pass`,
-          `fail`, `unavailable`, or `unchecked`.'
-        type:
-        - string
-      address_line2:
-        description: ''
-        type:
-        - string
-      address_state:
-        description: ''
-        type:
-        - string
-      address_zip:
-        description: ''
-        type:
-        - string
-      address_zip_check:
-        description: 'If `address_zip` was provided, results of the check: `pass`,
-          `fail`, `unavailable`, or `unchecked`.'
-        type:
-        - string
-      brand:
-        description: Card brand. Can be `Visa`, `American Express`, `MasterCard`,
-          `Discover`, `JCB`, `Diners Club`, or `Unknown`.
-        type:
-        - string
-      country:
-        description: Two-letter ISO code representing the country of the card. You
-          could use this attribute to get a sense of the international breakdown of
-          cards you've collected.
-        type:
-        - string
-      customer:
-        description: ''
-        type:
-        - string
-      cvc_check:
-        description: 'If a CVC was provided, results of the check: `pass`, `fail`,
-          `unavailable`, or `unchecked`.'
-        type:
-        - string
-      dynamic_last4:
-        description: "(For tokenized numbers only.) The last four digits of the device
-          account number."
-        type:
-        - string
-      exp_month:
-        description: ''
-        type:
-        - integer
-      exp_year:
-        description: ''
-        type:
-        - integer
-      fingerprint:
-        description: Uniquely identifies this particular card number. You can use
-          this attribute to check whether two customers who've signed up with you
-          are using the same card number, for example.
-        type:
-        - string
-      funding:
-        description: Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-        type:
-        - string
-      google_reference:
-        description: ''
-        type:
-        - string
-      id:
-        description: ID of card (used in conjunction with a customer or recipient
-          ID).
-        type:
-        - string
-      last4:
-        description: ''
-        type:
-        - string
-      metadata:
-        description: A set of key/value pairs that you can attach to a card object.
-          It can be useful for storing additional information about the card in a
-          structured format.
-        type:
-        - object
-      name:
-        description: Cardholder name.
-        type:
-        - string
-      object:
-        description: ''
-        type:
-        - string
-      three_d_secure:
-        description: ''
-        type:
-        - object
-      tokenization_method:
-        description: If the card number is tokenized, this is the method that was
-          used. Can be `apple_pay` or `android_pay`.
-        type:
-        - string
-    required:
-    - brand
-    - exp_month
-    - exp_year
-    - funding
-    - id
-    - last4
-    - metadata
-    - object
-    title: PaymentCard
-    type:
-    - object
-    x-resourceId: payment_card
   plan:
     properties:
       amount:
@@ -3711,241 +3764,6 @@ definitions:
     type:
     - object
     x-resourceId: product
-  recipient_payout_bank_account:
-    properties:
-      account_holder_name:
-        description: The name of the person or business that owns the bank account.
-        type:
-        - string
-      account_holder_type:
-        description: The type of entity that holds the account. This can be either
-          `individual` or `company`.
-        type:
-        - string
-      address_city:
-        description: ''
-        type:
-        - string
-      address_line1:
-        description: ''
-        type:
-        - string
-      address_line2:
-        description: ''
-        type:
-        - string
-      address_state:
-        description: ''
-        type:
-        - string
-      address_zip:
-        description: ''
-        type:
-        - string
-      allows_debits:
-        description: ''
-        type:
-        - boolean
-      bank_name:
-        description: Name of the bank associated with the routing number, e.g. `WELLS
-          FARGO`.
-        type:
-        - string
-      country:
-        description: Two-letter ISO code representing the country the bank account
-          is located in.
-        type:
-        - string
-      currency:
-        description: Three-letter ISO currency code representing the currency paid
-          out to the bank account.
-        type:
-        - string
-      fingerprint:
-        description: Uniquely identifies this particular bank account. You can use
-          this attribute to check whether two bank accounts are the same.
-        type:
-        - string
-      id:
-        description: ''
-        type:
-        - string
-      last4:
-        description: ''
-        type:
-        - string
-      object:
-        description: ''
-        type:
-        - string
-      reusable:
-        description: ''
-        type:
-        - boolean
-      routing_number:
-        description: The routing transit number for the bank account.
-        type:
-        - string
-      status:
-        description: Possible values are `new`, `validated`, `verified`, `verification_failed`,
-          or `errored`. A bank account that hasn't had any activity or validation
-          performed is `new`. If Stripe can determine that the bank account exists,
-          its status will be `validated`. Note that there often isn’t enough information
-          to know (e.g. for smaller credit unions), and the validation is not always
-          run. If customer bank account verification has succeeded, the bank account
-          status will be `verified`. If the verification failed for any reason, such
-          as microdeposit failure, the status will be `verification_failed`. If a
-          transfer sent to this bank account fails, we'll set the status to `errored`
-          and will not continue to send transfers until the bank details are updated.
-        type:
-        - string
-      used:
-        description: ''
-        type:
-        - boolean
-    required:
-    - country
-    - currency
-    - id
-    - last4
-    - object
-    - status
-    title: RecipientPayoutBankAccount
-    type:
-    - object
-    x-resourceId: recipient_payout_bank_account
-  recipient_payout_card:
-    properties:
-      address_city:
-        description: ''
-        type:
-        - string
-      address_country:
-        description: Billing address country, if provided when creating card.
-        type:
-        - string
-      address_line1:
-        description: ''
-        type:
-        - string
-      address_line1_check:
-        description: 'If `address_line1` was provided, results of the check: `pass`,
-          `fail`, `unavailable`, or `unchecked`.'
-        type:
-        - string
-      address_line2:
-        description: ''
-        type:
-        - string
-      address_state:
-        description: ''
-        type:
-        - string
-      address_zip:
-        description: ''
-        type:
-        - string
-      address_zip_check:
-        description: 'If `address_zip` was provided, results of the check: `pass`,
-          `fail`, `unavailable`, or `unchecked`.'
-        type:
-        - string
-      brand:
-        description: Card brand. Can be `Visa`, `American Express`, `MasterCard`,
-          `Discover`, `JCB`, `Diners Club`, or `Unknown`.
-        type:
-        - string
-      country:
-        description: Two-letter ISO code representing the country of the card. You
-          could use this attribute to get a sense of the international breakdown of
-          cards you've collected.
-        type:
-        - string
-      cvc_check:
-        description: 'If a CVC was provided, results of the check: `pass`, `fail`,
-          `unavailable`, or `unchecked`.'
-        type:
-        - string
-      dynamic_last4:
-        description: "(For tokenized numbers only.) The last four digits of the device
-          account number."
-        type:
-        - string
-      estimated_availability:
-        description: ''
-        type:
-        - string
-      exp_month:
-        description: ''
-        type:
-        - integer
-      exp_year:
-        description: ''
-        type:
-        - integer
-      fingerprint:
-        description: Uniquely identifies this particular card number. You can use
-          this attribute to check whether two customers who've signed up with you
-          are using the same card number, for example.
-        type:
-        - string
-      funding:
-        description: Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-        type:
-        - string
-      google_reference:
-        description: ''
-        type:
-        - string
-      id:
-        description: ID of card (used in conjunction with a customer or recipient
-          ID).
-        type:
-        - string
-      last4:
-        description: ''
-        type:
-        - string
-      metadata:
-        description: A set of key/value pairs that you can attach to a card object.
-          It can be useful for storing additional information about the card in a
-          structured format.
-        type:
-        - object
-      name:
-        description: Cardholder name.
-        type:
-        - string
-      object:
-        description: ''
-        type:
-        - string
-      recipient:
-        description: ''
-        type:
-        - string
-      three_d_secure:
-        description: ''
-        type:
-        - object
-      tokenization_method:
-        description: If the card number is tokenized, this is the method that was
-          used. Can be `apple_pay` or `android_pay`.
-        type:
-        - string
-    required:
-    - brand
-    - exp_month
-    - exp_year
-    - funding
-    - id
-    - last4
-    - metadata
-    - object
-    title: RecipientPayoutCard
-    type:
-    - object
-    x-resourceId: recipient_payout_card
   refund:
     properties:
       amount:
@@ -4734,7 +4552,7 @@ definitions:
         type:
         - boolean
       card:
-        "$ref": "#/definitions/payment_card"
+        "$ref": "#/definitions/card"
       created:
         description: ''
         type:
@@ -5172,12 +4990,12 @@ definitions:
   transfer_recipient:
     properties:
       active_account:
-        "$ref": "#/definitions/recipient_payout_bank_account"
+        "$ref": "#/definitions/bank_account"
       cards:
         properties:
           data:
             items:
-              "$ref": "#/definitions/recipient_payout_card"
+              "$ref": "#/definitions/card"
             type:
             - array
           has_more:
@@ -5205,7 +5023,7 @@ definitions:
         - has_more
         - object
         - url
-        title: RecipientPayoutCardList
+        title: CardList
         type:
         - object
       created:
@@ -5645,7 +5463,7 @@ info:
     details.
   termsOfService: https://stripe.com/us/terms/
   title: Stripe API
-  version: '2017-01-27'
+  version: '2017-02-14'
 paths:
   "/v1/3d_secure":
     post:
@@ -5879,7 +5697,7 @@ paths:
               - string
             statement_descriptor:
               description: The text that will appear on credit card statements by
-                default if a charge is being made [directly on the account](/docs/connect/payments-fees#charging-directly).
+                default if a charge is being made [directly on the account](/docs/connect/direct-charges).
               title: statement_descriptor
               type:
               - string
@@ -6395,7 +6213,7 @@ paths:
               - string
             statement_descriptor:
               description: The text that will appear on credit card statements by
-                default if a charge is being made [directly on the account](/docs/connect/payments-fees#charging-directly).
+                default if a charge is being made [directly on the account](/docs/connect/direct-charges).
               title: statement_descriptor
               type:
               - string
@@ -6602,7 +6420,7 @@ paths:
               - string
             statement_descriptor:
               description: The text that will appear on credit card statements by
-                default if a charge is being made [directly on the account](/docs/connect/payments-fees#charging-directly).
+                default if a charge is being made [directly on the account](/docs/connect/direct-charges).
               title: statement_descriptor
               type:
               - string
@@ -7558,14 +7376,14 @@ paths:
           description: Error response.
           schema:
             "$ref": "#/definitions/error"
-  "/v1/bitcoin/payments/{payment}/refund":
+  "/v1/bitcoin/payments/{charge}/refund":
     post:
       description: ''
       operationId: CreatePaymentRefundWithPaymentResponse
       parameters:
       - description: ''
         in: path
-        name: payment
+        name: charge
         required: true
         type: string
       - description: Body parameters for the request.
@@ -7579,11 +7397,6 @@ paths:
               title: amount
               type:
               - integer
-            charge:
-              description: ''
-              title: charge
-              type:
-              - string
             description:
               description: ''
               title: description
@@ -7619,8 +7432,6 @@ paths:
               title: reverse_transfer
               type:
               - boolean
-          required:
-          - charge
       responses:
         '200':
           description: Successful response.
@@ -8203,11 +8014,6 @@ paths:
               title: capture
               type:
               - boolean
-            card:
-              description: ''
-              title: card
-              type:
-              - string
             currency:
               description: ''
               title: currency
@@ -8417,6 +8223,14 @@ paths:
               title: shipping
               type:
               - object
+            transfer_group:
+              description: A string that identifies this transaction as part of a
+                group. `transfer_group` may only be provided if it has not been set.
+                See the [Connect documentation](/docs/connect/charges-transfers#grouping-transactions)
+                for details.
+              title: transfer_group
+              type:
+              - string
       responses:
         '200':
           description: Successful response.
@@ -8599,11 +8413,6 @@ paths:
               title: metadata
               type:
               - object
-            payment:
-              description: ''
-              title: payment
-              type:
-              - string
             reason:
               description: ''
               title: reason
@@ -9646,7 +9455,7 @@ paths:
             properties:
               data:
                 items:
-                  "$ref": "#/definitions/payment_bank_account"
+                  "$ref": "#/definitions/bank_account"
                 type:
                 - array
               has_more:
@@ -9674,7 +9483,7 @@ paths:
             - has_more
             - object
             - url
-            title: PaymentBankAccountList
+            title: BankAccountList
             type:
             - object
         default:
@@ -9754,7 +9563,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/payment_bank_account"
+            "$ref": "#/definitions/bank_account"
         default:
           description: Error response.
           schema:
@@ -9838,7 +9647,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/payment_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -9879,7 +9688,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/payment_bank_account"
+            "$ref": "#/definitions/bank_account"
         default:
           description: Error response.
           schema:
@@ -9925,7 +9734,7 @@ paths:
             properties:
               data:
                 items:
-                  "$ref": "#/definitions/payment_card"
+                  "$ref": "#/definitions/card"
                 type:
                 - array
               has_more:
@@ -9953,7 +9762,7 @@ paths:
             - has_more
             - object
             - url
-            title: PaymentCardList
+            title: CardList
             type:
             - object
         default:
@@ -10026,7 +9835,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/payment_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -10110,7 +9919,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/payment_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -10374,7 +10183,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/payment_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -10415,7 +10224,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/payment_bank_account"
+            "$ref": "#/definitions/bank_account"
         default:
           description: Error response.
           schema:
@@ -11449,13 +11258,12 @@ paths:
         name: ending_before
         required: false
         type: string
-      - description: The identifier of the customer whose invoices to return. If none
-          is provided, all invoices will be returned.
+      - description: The identifier of the customer whose invoices to return.
         in: query
         name: customer
         required: false
         type: string
-      - description: ''
+      - description: The identifier of the subscription whose invoices to return.
         in: query
         name: subscription
         required: false
@@ -11659,6 +11467,13 @@ paths:
         name: subscription_trial_end
         required: false
         type: integer
+      - description: If provided, the invoice returned will preview updating or creating
+          a subscription with that tax percent. If set, one of `subscription_plan`
+          or `subscription` is required.
+        in: query
+        name: subscription_tax_percent
+        required: false
+        type: number
       - description: The code of the coupon to apply. If a `subscription` or `subscription_plan`
           is provided, the invoice returned will preview updating or creating a subscription
           with that coupon. Otherwise, it will preview applying that coupon to the
@@ -11862,6 +11677,11 @@ paths:
         name: subscription_trial_end
         required: false
         type: integer
+      - description: ''
+        in: query
+        name: subscription_tax_percent
+        required: false
+        type: number
       - description: For upcoming invoices, preview applying this coupon to the invoice.
           If a `subscription` or `subscription_plan` is provided, the invoice returned
           will preview updating or creating a subscription with that coupon. Otherwise,
@@ -13489,7 +13309,7 @@ paths:
             properties:
               data:
                 items:
-                  "$ref": "#/definitions/recipient_payout_card"
+                  "$ref": "#/definitions/card"
                 type:
                 - array
               has_more:
@@ -13517,7 +13337,7 @@ paths:
             - has_more
             - object
             - url
-            title: RecipientPayoutCardList
+            title: CardList
             type:
             - object
         default:
@@ -13550,7 +13370,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/recipient_payout_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -13574,7 +13394,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/recipient_payout_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -13597,7 +13417,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/recipient_payout_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -13661,7 +13481,7 @@ paths:
         '200':
           description: Successful response.
           schema:
-            "$ref": "#/definitions/recipient_payout_card"
+            "$ref": "#/definitions/card"
         default:
           description: Error response.
           schema:
@@ -14181,6 +14001,11 @@ paths:
         required: false
         schema:
           properties:
+            alipay:
+              description: ''
+              title: alipay
+              type:
+              - object
             amount:
               description: Amount associated with the source. This is the amount for
                 which the source will be chargeable once ready. Required for `single-use`
@@ -15224,6 +15049,11 @@ paths:
               title: metadata
               type:
               - object
+            source_transaction:
+              description: ''
+              title: source_transaction
+              type:
+              - string
             transfer_group:
               description: ''
               title: transfer_group

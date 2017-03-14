@@ -98,10 +98,10 @@ module APIStubHelpers
   # Finds the latest OpenAPI specification in ROOT/openapi/ and parses it for
   # use with Committee.
   def self.initialize_spec
-    schema_data = ::JSON.parse(File.read("#{PROJECT_ROOT}/openapi/spec.json"))
+    spec_data = ::JSON.parse(File.read("#{PROJECT_ROOT}/openapi/spec.json"))
 
     driver = Committee::Drivers::OpenAPI2.new
-    driver.parse(schema_data)
+    driver.parse(spec_data)
   end
 
   # Creates a new Rack app with Committee middleware it.

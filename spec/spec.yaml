@@ -425,7 +425,7 @@ definitions:
   address:
     properties:
       city:
-        description: City/Suburb/Town/Village.
+        description: City/District/Suburb/Town/Village.
         type:
         - string
       country:
@@ -445,7 +445,7 @@ definitions:
         type:
         - string
       state:
-        description: State/Province/County.
+        description: State/County/Province/Region.
         type:
         - string
     title: Address
@@ -2013,14 +2013,14 @@ definitions:
         description: Reason given by cardholder for dispute. Possible values are `duplicate`,
           `fraudulent`, `subscription_canceled`, `product_unacceptable`, `product_not_received`,
           `unrecognized`, `credit_not_processed`, `general`, `incorrect_account_details`,
-          `insufficient_funds`, `bank_cannot_process`, `debit_not_authorized`, `customer_initiated`.
-          Read more about [dispute reasons](https://stripe.com/help/disputes#reasons).
+          `insufficient_funds`, `bank_cannot_process`, `debit_not_authorized`, or
+          `customer_initiated`. Read more about [dispute reasons](https://stripe.com/help/disputes#reasons).
         type:
         - string
       status:
         description: Current status of dispute. Possible values are `warning_needs_response`,
           `warning_under_review`, `warning_closed`, `needs_response`, `under_review`,
-          `charge_refunded`, `won`, `lost`.
+          `charge_refunded`, `won`, or `lost`.
         type:
         - string
     required:
@@ -2456,7 +2456,7 @@ definitions:
         - has_more
         - object
         - url
-        title: InvoiceLines
+        title: InvoiceLinesList
         type:
         - object
       livemode:
@@ -3065,7 +3065,7 @@ definitions:
   legal_entity_address:
     properties:
       city:
-        description: City/Suburb/Town/Village.
+        description: City/District/Suburb/Town/Village.
         type:
         - string
       country:
@@ -3085,7 +3085,7 @@ definitions:
         type:
         - string
       state:
-        description: State/Province/County.
+        description: State/County/Province/Region.
         type:
         - string
     title: LegalEntityAddress
@@ -4137,8 +4137,8 @@ definitions:
       redirect:
         "$ref": "#/definitions/source_redirect_flow"
       status:
-        description: The status of the charge. `status` is one of `pending`, `chargeable`,
-          `consumed`, `canceled`. Only `chargeable` source objects can be used to
+        description: The status of the charge, one of `canceled`, `chargeable`, `consumed`,
+          `failed`, or `pending`. Only `chargeable` source objects can be used to
           create a charge.
         type:
         - string
@@ -4306,9 +4306,9 @@ definitions:
         type:
         - integer
       application_fee_percent:
-        description: A positive decimal that represents the fee percentage of the
-          subscription invoice amount that will be transferred to the application
-          owner's Stripe account each billing period.
+        description: A non-negative decimal (with at most two decimal places) between
+          0 and 100. This represents the percentage of the subscription invoice subtotal
+          that will be transferred to the application owner's Stripe account.
         type:
         - number
       billing:
@@ -4420,6 +4420,11 @@ definitions:
         - object
       object:
         description: ''
+        type:
+        - string
+      on_behalf_of:
+        description: The account (if any) the charge was made on behalf of for charges
+          associated with this subscription. See the Connect documentation for details.
         type:
         - string
       plan:
@@ -5336,7 +5341,7 @@ definitions:
         - has_more
         - object
         - url
-        title: InvoiceLines
+        title: InvoiceLinesList
         type:
         - object
       livemode:
@@ -9099,6 +9104,11 @@ paths:
               title: metadata
               type:
               - object
+            on_behalf_of:
+              description: ''
+              title: on_behalf_of
+              type:
+              - string
             pay_immediately:
               description: ''
               title: pay_immediately
@@ -9116,8 +9126,8 @@ paths:
               - object
             source:
               description: The source can either be a token, like the ones returned
-                by our [Stripe.js](/docs/stripe.js), or a dictionary containing a
-                user's credit card details (with the options shown below).
+                by [Elements](/docs/elements), or a dictionary containing a user's
+                credit card details (with the options shown below).
               title: source
               type:
               - object
@@ -9231,6 +9241,11 @@ paths:
               title: metadata
               type:
               - object
+            on_behalf_of:
+              description: ''
+              title: on_behalf_of
+              type:
+              - string
             pay_immediately:
               description: ''
               title: pay_immediately
@@ -9248,8 +9263,8 @@ paths:
               - object
             source:
               description: The source can either be a token, like the ones returned
-                by our [Stripe.js](/docs/stripe.js), or a dictionary containing a
-                user's credit card details (with the options shown below).
+                by [Elements](/docs/elements), or a dictionary containing a user's
+                credit card details (with the options shown below).
               title: source
               type:
               - object
@@ -10329,12 +10344,12 @@ paths:
               type:
               - integer
             application_fee_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be transferred to the application owner's Stripe
-                account. The request must be made with an OAuth key in order to set
-                an application fee percentage. For more information, see the application
-                fees [documentation](http://127.0.0.1:6040/docs/connect/collecting-fees#subscriptions).
+              description: A non-negative decimal (with at most two decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be transferred to the application owner's
+                Stripe account. The request must be made with an OAuth key in order
+                to set an application fee percentage. For more information, see the
+                application fees [documentation](http://127.0.0.1:6040/docs/connect/collecting-fees#subscriptions).
               title: application_fee_percent
               type:
               - number
@@ -10372,6 +10387,11 @@ paths:
               title: metadata
               type:
               - object
+            on_behalf_of:
+              description: ''
+              title: on_behalf_of
+              type:
+              - string
             plan:
               description: The identifier of the plan to subscribe the customer to.
               title: plan
@@ -10403,7 +10423,7 @@ paths:
               - boolean
             source:
               description: The source can either be a token, like the ones returned
-                by our [Stripe.js](http://127.0.0.1:6040/docs/stripe.js), or a dictionary
+                by [Elements](http://127.0.0.1:6040/docs/elements), or a dictionary
                 containing a user's credit card details (with the options shown below).
                 You must provide a source if the customer does not already have a
                 valid source attached, and you are subscribing the customer for a
@@ -10419,11 +10439,11 @@ paths:
               - object
               - string
             tax_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be calculated and added as tax to the final amount
-                each billing period. For example, a plan which charges $10/month with
-                a `tax_percent` of 20.0 will charge $12 per invoice.
+              description: A non-negative decimal (with at most four decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be calculated and added as tax to the final
+                amount each billing period. For example, a plan which charges $10/month
+                with a `tax_percent` of 20.0 will charge $12 per invoice.
               title: tax_percent
               type:
               - number
@@ -10516,12 +10536,12 @@ paths:
               type:
               - integer
             application_fee_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be transferred to the application owner's Stripe
-                account. The request must be made with an OAuth key in order to set
-                an application fee percentage. For more information, see the application
-                fees [documentation]('/docs/connect/collecting-fees#subscriptions').
+              description: A non-negative decimal (with at most two decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be transferred to the application owner's
+                Stripe account. The request must be made with an OAuth key in order
+                to set an application fee percentage. For more information, see the
+                application fees [documentation](http://127.0.0.1:6040/docs/connect/collecting-fees#subscriptions).
               title: application_fee_percent
               type:
               - number
@@ -10612,7 +10632,7 @@ paths:
               - boolean
             source:
               description: The source can either be a token, like the ones returned
-                by our [Stripe.js](http://127.0.0.1:6040/docs/stripe.js), or a dictionary
+                by [Elements](http://127.0.0.1:6040/docs/elements), or a dictionary
                 containing a user's credit card details (with the options shown below).
                 You must provide a source if the customer does not already have a
                 valid source attached, and you are subscribing the customer for a
@@ -10628,11 +10648,11 @@ paths:
               - object
               - string
             tax_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be calculated and added as tax to the final amount
-                each billing period. For example, a plan which charges $10/month with
-                a `tax_percent` of 20.0 will charge $12 per invoice.
+              description: A non-negative decimal (with at most four decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be calculated and added as tax to the final
+                amount each billing period. For example, a plan which charges $10/month
+                with a `tax_percent` of 20.0 will charge $12 per invoice.
               title: tax_percent
               type:
               - number
@@ -11733,7 +11753,7 @@ paths:
             - has_more
             - object
             - url
-            title: InvoiceLines
+            title: InvoiceLinesList
             type:
             - object
         default:
@@ -12169,10 +12189,10 @@ paths:
               - string
             source:
               description: The source can either be a token, like the ones returned
-                by our [Stripe.js](/docs/stripe.js), or a dictionary containing a
-                user's credit card details (with the options shown below). Whenever
-                you create a new card for a customer, Stripe will automatically validate
-                the card. If no customer was attached to the order at creation, either
+                by [Elements](/docs/elements), or a dictionary containing a user's
+                credit card details (with the options shown below). Whenever you create
+                a new card for a customer, Stripe will automatically validate the
+                card. If no customer was attached to the order at creation, either
                 `source` or `customer is required. Otherwise, the specified source
                 will be charged intead of the customer attached to the order.
               title: source
@@ -13356,10 +13376,10 @@ paths:
           properties:
             card:
               description: The card can either be a token, like the ones returned
-                by our [Stripe.js](/docs/stripe.js), or a dictionary containing a
-                user's credit card details (with the options shown below). Whenever
-                you create a new card for a recipient, Stripe will automatically validate
-                the card.
+                by [Elements](/docs/elements), or a dictionary containing a user's
+                credit card details (with the options shown below). Whenever you create
+                a new card for a recipient, Stripe will automatically validate the
+                card.
               title: card
               type:
               - object
@@ -14519,12 +14539,12 @@ paths:
               type:
               - integer
             application_fee_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be transferred to the application owner's Stripe
-                account. The request must be made with an OAuth key in order to set
-                an application fee percentage. For more information, see the application
-                fees [documentation](http://127.0.0.1:6040/docs/connect/collecting-fees#subscriptions).
+              description: A non-negative decimal (with at most two decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be transferred to the application owner's
+                Stripe account. The request must be made with an OAuth key in order
+                to set an application fee percentage. For more information, see the
+                application fees [documentation](http://127.0.0.1:6040/docs/connect/collecting-fees#subscriptions).
               title: application_fee_percent
               type:
               - number
@@ -14567,6 +14587,11 @@ paths:
               title: metadata
               type:
               - object
+            on_behalf_of:
+              description: ''
+              title: on_behalf_of
+              type:
+              - string
             plan:
               description: The identifier of the plan to subscribe the customer to.
               title: plan
@@ -14598,7 +14623,7 @@ paths:
               - boolean
             source:
               description: The source can either be a token, like the ones returned
-                by our [Stripe.js](http://127.0.0.1:6040/docs/stripe.js), or a dictionary
+                by [Elements](http://127.0.0.1:6040/docs/elements), or a dictionary
                 containing a user's credit card details (with the options shown below).
                 You must provide a source if the customer does not already have a
                 valid source attached, and you are subscribing the customer for a
@@ -14614,11 +14639,11 @@ paths:
               - object
               - string
             tax_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be calculated and added as tax to the final amount
-                each billing period. For example, a plan which charges $10/month with
-                a `tax_percent` of 20.0 will charge $12 per invoice.
+              description: A non-negative decimal (with at most four decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be calculated and added as tax to the final
+                amount each billing period. For example, a plan which charges $10/month
+                with a `tax_percent` of 20.0 will charge $12 per invoice.
               title: tax_percent
               type:
               - number
@@ -14713,12 +14738,12 @@ paths:
               type:
               - integer
             application_fee_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be transferred to the application owner's Stripe
-                account. The request must be made with an OAuth key in order to set
-                an application fee percentage. For more information, see the application
-                fees [documentation]('/docs/connect/collecting-fees#subscriptions').
+              description: A non-negative decimal (with at most two decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be transferred to the application owner's
+                Stripe account. The request must be made with an OAuth key in order
+                to set an application fee percentage. For more information, see the
+                application fees [documentation](http://127.0.0.1:6040/docs/connect/collecting-fees#subscriptions).
               title: application_fee_percent
               type:
               - number
@@ -14809,7 +14834,7 @@ paths:
               - boolean
             source:
               description: The source can either be a token, like the ones returned
-                by our [Stripe.js](http://127.0.0.1:6040/docs/stripe.js), or a dictionary
+                by [Elements](http://127.0.0.1:6040/docs/elements), or a dictionary
                 containing a user's credit card details (with the options shown below).
                 You must provide a source if the customer does not already have a
                 valid source attached, and you are subscribing the customer for a
@@ -14825,11 +14850,11 @@ paths:
               - object
               - string
             tax_percent:
-              description: A positive decimal (with at most four decimal places) between
-                1 and 100. This represents the percentage of the subscription invoice
-                subtotal that will be calculated and added as tax to the final amount
-                each billing period. For example, a plan which charges $10/month with
-                a `tax_percent` of 20.0 will charge $12 per invoice.
+              description: A non-negative decimal (with at most four decimal places)
+                between 0 and 100. This represents the percentage of the subscription
+                invoice subtotal that will be calculated and added as tax to the final
+                amount each billing period. For example, a plan which charges $10/month
+                with a `tax_percent` of 20.0 will charge $12 per invoice.
               title: tax_percent
               type:
               - number

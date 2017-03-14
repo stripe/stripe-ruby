@@ -140,6 +140,10 @@ Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
     bundle exec rake update_certs
 
+Update bundled OpenAPI specification from the canonical repository:
+
+    bundle exec rake update_spec
+
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html

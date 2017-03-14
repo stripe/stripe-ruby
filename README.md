@@ -50,7 +50,7 @@ gem 'stripe'
 ## Usage
 
 The library needs to be configured with your account's secret key which is
-available in your [Stripe Dashboard][dashboard]. Set `Stripe.api_key` to its
+available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
 value:
 
 ``` ruby
@@ -140,8 +140,8 @@ Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
     bundle exec rake update_certs
 
+[api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
 [faraday]: https://github.com/lostisland/faraday
 [idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
-[dashboard]: https://dashboard.stripe.com/account

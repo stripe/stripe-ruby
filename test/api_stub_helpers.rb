@@ -95,10 +95,10 @@ module APIStubHelpers
     end
   end
 
-  # Finds the latest OpenAPI specification in ROOT/spec/ and parses it for
+  # Finds the latest OpenAPI specification in ROOT/openapi/ and parses it for
   # use with Committee.
   def self.initialize_spec
-    schema_data = ::JSON.parse(File.read("#{PROJECT_ROOT}/spec/spec.json"))
+    schema_data = ::JSON.parse(File.read("#{PROJECT_ROOT}/openapi/spec.json"))
 
     driver = Committee::Drivers::OpenAPI2.new
     driver.parse(schema_data)

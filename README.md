@@ -1,12 +1,12 @@
-# Stripe Ruby Bindings [![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
+# Stripe Ruby Library [![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
 
-The Stripe Ruby bindings provide a small SDK for convenient access to the
-Stripe API from applications written in the Ruby language. It provides a
-pre-defined set of classes for API resources that initialize themselves
-dynamically from API responses which allows the bindings to tolerate a number
-of different versions of the API.
+The Stripe Ruby library provides convenient access to the Stripe API from
+applications written in the Ruby language. It includes a pre-defined set of
+classes for API resources that initialize themselves dynamically from API
+responses. This allows it to operate on a number of different versions of the
+API.
 
-The bindings also provide other features. For example:
+The library also provides other features. For example:
 
 * Easy configuration path for fast setup and use.
 * Helpers for pagination.
@@ -22,7 +22,7 @@ See the [Ruby API docs](https://stripe.com/docs/api/ruby#intro).
 ## Installation
 
 You don't need this source code unless you want to modify the gem. If you just
-want to use the Stripe Ruby bindings, you should run:
+want to use the package, just run:
 
     gem install stripe
 
@@ -50,7 +50,7 @@ gem 'stripe'
 ## Usage
 
 The library needs to be configured with your account's secret key which is
-available in your [Stripe Dashboard][dashboard]. Set `Stripe.api_key` to its
+available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
 value:
 
 ``` ruby
@@ -140,8 +140,8 @@ Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
     bundle exec rake update_certs
 
+[api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
 [faraday]: https://github.com/lostisland/faraday
 [idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
-[dashboard]: https://dashboard.stripe.com/account

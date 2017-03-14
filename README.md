@@ -1,12 +1,12 @@
-# Stripe Ruby SDK [![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
+# Stripe Ruby Library [![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
 
-The Stripe Ruby SDK provides a small package for convenient access to the
-Stripe API from applications written in the Ruby language. It includes a
-pre-defined set of classes for API resources that initialize themselves
-dynamically from API responses. This allows it to operate on a number of
-different versions of the API.
+The Stripe Ruby library provides convenient access to the Stripe API from
+applications written in the Ruby language. It includes a pre-defined set of
+classes for API resources that initialize themselves dynamically from API
+responses. This allows it to operate on a number of different versions of the
+API.
 
-The SDK also provides other features. For example:
+The library also provides other features. For example:
 
 * Easy configuration path for fast setup and use.
 * Helpers for pagination.

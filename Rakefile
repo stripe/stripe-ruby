@@ -10,7 +10,7 @@ desc "Update bundled certs"
 task :update_certs do
   require "faraday"
 
-  fetch_file "https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt",
+  fetch_file "https://curl.haxx.se/ca/cacert.pem",
     File.expand_path("../lib/data/ca-certificates.crt", __FILE__)
 end
 

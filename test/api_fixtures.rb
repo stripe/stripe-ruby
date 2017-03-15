@@ -3,7 +3,7 @@
 # tests.
 class APIFixtures
   def initialize
-    @fixtures = ::JSON.parse(File.read("#{PROJECT_ROOT}/spec/fixtures.json"),
+    @fixtures = ::JSON.parse(File.read("#{PROJECT_ROOT}/openapi/fixtures.json"),
       symbolize_names: true)
     freeze_recursively(@fixtures)
   end

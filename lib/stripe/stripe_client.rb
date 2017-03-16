@@ -149,7 +149,7 @@ module Stripe
       begin
         resp = StripeResponse.from_faraday_response(http_resp)
       rescue JSON::ParserError
-        raise general_api_error(http_resp.code, http_resp.body)
+        raise general_api_error(http_resp.status, http_resp.body)
       end
 
       # Allows StripeClient#request to return a response object to a caller.

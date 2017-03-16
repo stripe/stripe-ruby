@@ -137,7 +137,12 @@ module Stripe
     end
 
     def _dump(level)
-      Marshal.dump([@values, @opts])
+      # The StripeClient instance in @opts is not serializable and is not
+      # really a property of the StripeObject, so we exclude it when
+      # dumping
+      opts = @opts.clone
+      opts.delete(:client)
+      Marshal.dump([@values, opts])
     end
 
     def self._load(args)

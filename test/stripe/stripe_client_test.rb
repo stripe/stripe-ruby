@@ -189,6 +189,18 @@ module Stripe
           assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.message
         end
 
+        should "handle success response with empty body" do
+          stub_request(:post, "#{Stripe.api_base}/v1/charges").
+            to_return(body: '', status: 200)
+
+          client = StripeClient.new
+          e = assert_raises Stripe::APIError do
+            client.execute_request(:post, '/v1/charges')
+          end
+
+          assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
+        end
+
         should "handle error response with non-object error value" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges").
             to_return(body: JSON.generate({ error: "foo" }), status: 500)

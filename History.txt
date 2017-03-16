@@ -1,3 +1,7 @@
+=== 2.0.2 2017-03-16
+
+* Fix bad field reference when recovering from a JSON parsing problem
+
 === 2.0.1 2017-02-22
 
 * Fix multipart parameter encoding to repair broken file uploads

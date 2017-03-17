@@ -32,20 +32,22 @@ module Stripe
       assert source.kind_of?(Stripe::Source)
     end
 
-    should "not be deletable when unattached" do
-      source = Stripe::Source.retrieve(FIXTURE[:id])
+    context "#delete" do
+      should "not be deletable when unattached" do
+        source = Stripe::Source.retrieve(FIXTURE[:id])
 
-      assert_raises NotImplementedError do
-        source.delete
+        assert_raises NotImplementedError do
+          source.delete
+        end
       end
-    end
 
-    should "be deletable when attached to a customer" do
-      customer = Stripe::Customer.retrieve(API_FIXTURES.fetch(:customer)[:id])
-      source = Stripe::Card.construct_from(FIXTURE.merge(customer: customer.id))
-      source = source.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/#{FIXTURE[:id]}"
-      assert source.kind_of?(Stripe::Source)
+      should "be deletable when attached to a customer" do
+        customer_id = API_FIXTURES.fetch(:customer)[:id]
+        source = Stripe::Source.construct_from(FIXTURE.merge(customer: customer_id))
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{customer_id}/sources/#{FIXTURE[:id]}").
+          to_return(body: JSON.generate(FIXTURE))
+        assert source.kind_of?(Stripe::Source)
+      end
     end
 
     should 'not be listable' do

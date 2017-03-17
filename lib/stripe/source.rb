@@ -4,7 +4,7 @@ module Stripe
     include Stripe::APIOperations::Save
 
     def delete(params={}, opts={})
-      if respond_to?(:customer) && !customer.nil?
+      if respond_to?(:customer) && !customer.nil? && !customer.empty?
         url = "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
         resp, opts = request(:delete, url, params, Util.normalize_opts(opts))
         initialize_from(resp.data, opts)

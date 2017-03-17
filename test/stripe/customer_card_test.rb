@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class CustomerCardTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:source)
+    FIXTURE = API_FIXTURES.fetch(:card)
 
     setup do
       @customer =

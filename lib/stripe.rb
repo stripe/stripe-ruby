@@ -28,6 +28,7 @@ require 'stripe/stripe_response'
 require 'stripe/list_object'
 require 'stripe/api_resource'
 require 'stripe/singleton_api_resource'
+require 'stripe/webhook'
 
 # Named API resources
 require 'stripe/account'

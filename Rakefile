@@ -18,9 +18,9 @@ desc "Update OpenAPI specification"
 task :update_openapi do
   require "faraday"
 
-  ["fixtures.json", "fixtures.yaml", "spec.json", "spec.yaml"].map { |file|
+  ["fixtures.json", "fixtures.yaml", "spec2.json", "spec2.yaml"].map { |file|
     Thread.new do
-      fetch_file "https://raw.githubusercontent.com/stripe/openapi/master/spec/#{file}",
+      fetch_file "https://raw.githubusercontent.com/stripe/openapi/master/openapi/#{file}",
         File.expand_path("../openapi/#{file}", __FILE__)
     end
   }.map { |t| t.join }

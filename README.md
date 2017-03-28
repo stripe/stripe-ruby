@@ -3,7 +3,7 @@
 The Stripe Ruby library provides convenient access to the Stripe API from
 applications written in the Ruby language. It includes a pre-defined set of
 classes for API resources that initialize themselves dynamically from API
-responses. This allows it to operate on a number of different versions of the
+responses which makes it compatible with a wide range of versions of the Stripe
 API.
 
 The library also provides other features. For example:
@@ -149,3 +149,7 @@ Update bundled OpenAPI specification from the canonical repository:
 [curl]: http://curl.haxx.se/docs/caextract.html
 [faraday]: https://github.com/lostisland/faraday
 [idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
+
+<!--
+# vim: set tw=79:
+-->

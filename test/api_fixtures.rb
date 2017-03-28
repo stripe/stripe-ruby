@@ -5,6 +5,7 @@ class APIFixtures
   def initialize
     @fixtures = ::JSON.parse(File.read("#{PROJECT_ROOT}/openapi/fixtures.json"),
       symbolize_names: true)[:resources]
+    @fixtures.merge!(PrereleaseFixtures.fixtures)
     freeze_recursively(@fixtures)
   end
 
@@ -17,6 +18,22 @@ class APIFixtures
   end
 
   private
+
+  # This is a special module reserved for resources that are either prototypes
+  # or otherwise private and not yet available in the OpenAPI spec. Please aim
+  # to remove them and replace them with OpenAPI fixtures as soon as those are
+  # available.
+  module PrereleaseFixtures
+    def self.fixtures
+      {
+        :payout => payout,
+      }
+    end
+
+    def self.payout
+      {}
+    end
+  end
 
   def freeze_recursively(data)
     data.each do |k, v|

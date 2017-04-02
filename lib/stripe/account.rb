@@ -93,11 +93,12 @@ module Stripe
       raise NoMethodError.new('Overridding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = \'Blah\'')
     end
 
-    def deauthorize(client_id, opts={})
-      opts = {:api_base => Stripe.connect_base}.merge(Util.normalize_opts(opts))
-      resp, opts = request(:post, '/oauth/deauthorize', { 'client_id' => client_id, 'stripe_user_id' => self.id }, opts)
-      opts.delete(:api_base) # the api_base here is a one-off, don't persist it
-      Util.convert_to_stripe_object(resp.data, opts)
+    def deauthorize(client_id=nil, opts={})
+      params = {
+        client_id: client_id,
+        stripe_user_id: self.id,
+      }
+      OAuth.deauthorize(params, opts)
     end
 
     ARGUMENT_NOT_PROVIDED = Object.new

@@ -243,16 +243,16 @@ module Stripe
           assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
         end
 
-        should "handle error response with non-object error value" do
+        should "handle error response with unknown value" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges").
-            to_return(body: JSON.generate({ error: "foo" }), status: 500)
+            to_return(body: JSON.generate({ bar: "foo" }), status: 500)
 
           client = StripeClient.new
           e = assert_raises Stripe::APIError do
             client.execute_request(:post, '/v1/charges')
           end
 
-          assert_equal 'Invalid response object from API: "{\"error\":\"foo\"}" (HTTP response code was 500)', e.message
+          assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.message
         end
 
         should "raise InvalidRequestError on 400" do
@@ -331,6 +331,42 @@ module Stripe
             assert_equal(true, !!e.http_body)
             assert_equal(true, e.json_body.kind_of?(Hash))
           end
+        end
+
+        should "raise OAuth::InvalidRequestError when error is a string with value 'invalid_request'" do
+          stub_request(:post, "#{Stripe.connect_base}/oauth/token").
+            to_return(body: JSON.generate({
+              error: "invalid_request",
+              error_description: "No grant type specified",
+            }), status: 400)
+
+          client = StripeClient.new
+          opts = {api_base: Stripe.connect_base}
+          e = assert_raises Stripe::OAuth::InvalidRequestError do
+            client.execute_request(:post, '/oauth/token', opts)
+          end
+
+          assert_equal(400, e.http_status)
+          assert_equal(true, !!e.http_body)
+          assert_equal('No grant type specified', e.message)
+        end
+
+        should "raise OAuth::InvalidGrantError when error is a string with value 'invalid_grant'" do
+          stub_request(:post, "#{Stripe.connect_base}/oauth/token").
+            to_return(body: JSON.generate({
+              error: "invalid_grant",
+              error_description: "This authorization code has already been used. All tokens issued with this code have been revoked.",
+            }), status: 400)
+
+          client = StripeClient.new
+          opts = {api_base: Stripe.connect_base}
+          e = assert_raises Stripe::OAuth::InvalidGrantError do
+            client.execute_request(:post, '/oauth/token', opts)
+          end
+
+          assert_equal(400, e.http_status)
+          assert_equal('invalid_grant', e.code)
+          assert_equal('This authorization code has already been used. All tokens issued with this code have been revoked.', e.message)
         end
       end
 

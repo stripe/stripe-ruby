@@ -61,6 +61,11 @@ resources:
     metadata: {}
     object: account
     orders: {}
+    payout_schedule:
+      delay_days: 2
+      interval: daily
+    payout_statement_descriptor: ''
+    payouts_enabled: false
     product_description: ''
     risk_details: {}
     statement_descriptor: ''
@@ -73,11 +78,6 @@ resources:
       date: 
       ip: 
       user_agent: 
-    transfer_schedule:
-      delay_days: 2
-      interval: daily
-    transfer_statement_descriptor: ''
-    transfers_enabled: false
     verification:
       disabled_reason: fields_needed
       due_by: 
@@ -114,6 +114,9 @@ resources:
     metadata: {}
     object: account
     orders: {}
+    payout_schedule: {}
+    payout_statement_descriptor: ''
+    payouts_enabled: false
     product_description: ''
     risk_details: {}
     statement_descriptor: ''
@@ -123,9 +126,6 @@ resources:
     support_url: ''
     timezone: Etc/UTC
     tos_acceptance: {}
-    transfer_schedule: {}
-    transfer_statement_descriptor: ''
-    transfers_enabled: false
     verification: {}
   alipay_account:
     created: 1234567890
@@ -282,6 +282,7 @@ resources:
     authorization_code: ''
     balance_transaction: txn_19zuuhDSlTMT26Mk2gJnG0ti
     captured: true
+    captured_at: 1234567890
     card: {}
     created: 1234567890
     currency: usd
@@ -778,7 +779,11 @@ resources:
     shipping_methods: {}
     signature: ''
     status: created
-    status_transitions: {}
+    status_transitions:
+      canceled: 
+      fulfiled: 
+      paid: 
+      returned: 
     updated: 1234567890
     upstream_id: ''
   order_return:
@@ -798,6 +803,28 @@ resources:
     object: order_return
     order: or_19zuukDSlTMT26MkL38GRWYx
     refund: re_19zuukDSlTMT26MkKx6aokup
+  payout:
+    amount: 1100
+    arrival_date: 1234567890
+    auto: false
+    balance_transaction: txn_1A5hBeDSlTMT26MkXlw0Jzki
+    bank_account: {}
+    card: {}
+    created: 1234567890
+    currency: usd
+    destination: acct_19tLK7DSlTMT26Mk
+    failure_balance_transaction: ''
+    failure_code: ''
+    failure_message: ''
+    id: tr_1A5hBfDSlTMT26MkB9QceCEw
+    livemode: false
+    metadata: {}
+    method: standard
+    object: payout
+    source_type: card
+    statement_descriptor: ''
+    status: in_transit
+    type: stripe_account
   plan:
     amount: 2000
     created: 1234567890
@@ -1095,6 +1122,7 @@ resources:
       total_count: 0
       url: "/v1/transfers/tr_19zuujDSlTMT26Mk81npuLjT/reversals"
     reversed: false
+    source_type: card
     transfer_group: ''
   transfer_recipient:
     active_account: {}

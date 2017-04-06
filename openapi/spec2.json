@@ -155,6 +155,21 @@
         "orders": {
           "$ref": "#/definitions/settings"
         },
+        "payout_schedule": {
+          "$ref": "#/definitions/transfer_schedule"
+        },
+        "payout_statement_descriptor": {
+          "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
+          "type": [
+            "string"
+          ]
+        },
+        "payouts_enabled": {
+          "description": "Whether or not Stripe will send automatic transfers for this account. This is only false when Stripe is waiting for additional information from the account holder.",
+          "type": [
+            "boolean"
+          ]
+        },
         "product_description": {
           "description": "An internal-only description of the product or service provided. This is used by Stripe in the event the account gets flagged for potential fraud.",
           "type": [
@@ -188,21 +203,6 @@
         "tos_acceptance": {
           "$ref": "#/definitions/account_tos_acceptance"
         },
-        "transfer_schedule": {
-          "$ref": "#/definitions/transfer_schedule"
-        },
-        "transfer_statement_descriptor": {
-          "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
-          "type": [
-            "string"
-          ]
-        },
-        "transfers_enabled": {
-          "description": "Whether or not Stripe will send automatic transfers for this account. This is only false when Stripe is waiting for additional information from the account holder.",
-          "type": [
-            "boolean"
-          ]
-        },
         "verification": {
           "$ref": "#/definitions/account_verification"
         }
@@ -220,9 +220,9 @@
         "legal_entity",
         "managed",
         "object",
+        "payout_schedule",
+        "payouts_enabled",
         "tos_acceptance",
-        "transfer_schedule",
-        "transfers_enabled",
         "verification"
       ],
       "title": "Account",
@@ -471,6 +471,21 @@
         "orders": {
           "$ref": "#/definitions/settings"
         },
+        "payout_schedule": {
+          "$ref": "#/definitions/transfer_schedule"
+        },
+        "payout_statement_descriptor": {
+          "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
+          "type": [
+            "string"
+          ]
+        },
+        "payouts_enabled": {
+          "description": "Whether or not Stripe will send automatic transfers for this account. This is only false when Stripe is waiting for additional information from the account holder.",
+          "type": [
+            "boolean"
+          ]
+        },
         "product_description": {
           "description": "An internal-only description of the product or service provided. This is used by Stripe in the event the account gets flagged for potential fraud.",
           "type": [
@@ -504,21 +519,6 @@
         "tos_acceptance": {
           "$ref": "#/definitions/account_tos_acceptance"
         },
-        "transfer_schedule": {
-          "$ref": "#/definitions/transfer_schedule"
-        },
-        "transfer_statement_descriptor": {
-          "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
-          "type": [
-            "string"
-          ]
-        },
-        "transfers_enabled": {
-          "description": "Whether or not Stripe will send automatic transfers for this account. This is only false when Stripe is waiting for additional information from the account holder.",
-          "type": [
-            "boolean"
-          ]
-        },
         "verification": {
           "$ref": "#/definitions/account_verification"
         }
@@ -537,9 +537,9 @@
         "legal_entity",
         "managed",
         "object",
+        "payout_schedule",
+        "payouts_enabled",
         "tos_acceptance",
-        "transfer_schedule",
-        "transfers_enabled",
         "verification"
       ],
       "title": "AccountWithKeys",
@@ -827,7 +827,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -1603,7 +1603,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -2570,7 +2570,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -2921,7 +2921,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -2971,7 +2971,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -3091,7 +3091,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -3334,7 +3334,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -3454,7 +3454,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -3586,7 +3586,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -4157,7 +4157,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -4316,7 +4316,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -4404,7 +4404,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -4497,6 +4497,138 @@
       ],
       "x-resourceId": "package_dimensions"
     },
+    "payout": {
+      "properties": {
+        "amount": {
+          "description": "Amount (in %s) to be transferred to your bank account or debit card.",
+          "type": [
+            "integer"
+          ]
+        },
+        "arrival_date": {
+          "description": "Date the payout is expected to arrive in the bank. This factors in delays like weekends or bank holidays.",
+          "type": [
+            "integer"
+          ]
+        },
+        "balance_transaction": {
+          "description": "ID of the balance transaction that describes the impact of this payout on your account balance.",
+          "type": [
+            "string"
+          ]
+        },
+        "created": {
+          "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+          "type": [
+            "integer"
+          ]
+        },
+        "currency": {
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "type": [
+            "string"
+          ]
+        },
+        "destination": {
+          "description": "ID of the bank account or card the payout was sent to.",
+          "type": [
+            "string"
+          ]
+        },
+        "failure_balance_transaction": {
+          "description": "If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance.",
+          "type": [
+            "string"
+          ]
+        },
+        "failure_code": {
+          "description": "Error code explaining reason for payout failure if available. See [Types of payout failures](/docs/api#payout_failures) for a list of failure codes.",
+          "type": [
+            "string"
+          ]
+        },
+        "failure_message": {
+          "description": "Message to user further explaining reason for payout failure if available.",
+          "type": [
+            "string"
+          ]
+        },
+        "id": {
+          "description": "Unique identifier for the object.",
+          "type": [
+            "string"
+          ]
+        },
+        "livemode": {
+          "description": "Flag indicating whether the object exists in live mode or test mode.",
+          "type": [
+            "boolean"
+          ]
+        },
+        "metadata": {
+          "description": "Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about the object in a structured format.",
+          "type": [
+            "object"
+          ]
+        },
+        "method": {
+          "description": "The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](/blog/instant-payouts-for-marketplaces) for more information.)",
+          "type": [
+            "string"
+          ]
+        },
+        "object": {
+          "description": "String representing the object's type. Objects of the same type share the same value.",
+          "type": [
+            "string"
+          ]
+        },
+        "source_type": {
+          "description": "The source balance this payout came from. One of `card`, `bank_account`, `bitcoin_receiver`, or `alipay_account`.",
+          "type": [
+            "string"
+          ]
+        },
+        "statement_descriptor": {
+          "description": "Extra information about a payout to be displayed on the user's bank statement.",
+          "type": [
+            "string"
+          ]
+        },
+        "status": {
+          "description": "Current status of the payout (`paid`, `pending`, `in_transit`, `canceled` or `failed`). A payout will be `pending` until it is submitted to the bank, at which point it becomes `in_transit`. It will then change to `paid` if the transaction goes through. If it does not go through successfully, its status will change to `failed` or `canceled`.",
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "Can be `bank_account` or `card`.",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "arrival_date",
+        "created",
+        "currency",
+        "destination",
+        "id",
+        "livemode",
+        "metadata",
+        "method",
+        "object",
+        "source_type",
+        "status",
+        "type"
+      ],
+      "title": "Payout",
+      "type": [
+        "object"
+      ],
+      "x-resourceId": "payout"
+    },
     "plan": {
       "properties": {
         "amount": {
@@ -4512,7 +4644,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -4635,7 +4767,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -4932,7 +5064,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -5086,7 +5218,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -5194,7 +5326,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -5238,7 +5370,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -5928,7 +6060,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -6246,7 +6378,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -6355,43 +6487,43 @@
     "transfer": {
       "properties": {
         "amount": {
-          "description": "",
+          "description": "Amount in %s to be transferred.",
           "type": [
             "integer"
           ]
         },
         "amount_reversed": {
-          "description": "",
+          "description": "Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued).",
           "type": [
             "integer"
           ]
         },
         "balance_transaction": {
-          "description": "",
+          "description": "Balance transaction that describes the impact of this transfer on your account balance.",
           "type": [
             "string"
           ]
         },
         "created": {
-          "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+          "description": "Time that this record of the transfer was first created.",
           "type": [
             "integer"
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
         },
         "destination": {
-          "description": "",
+          "description": "ID of the Stripe account the transfer was sent to.",
           "type": [
             "string"
           ]
         },
         "destination_payment": {
-          "description": "",
+          "description": "If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.",
           "type": [
             "string"
           ]
@@ -6409,7 +6541,7 @@
           ]
         },
         "metadata": {
-          "description": "Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about the object in a structured format.",
+          "description": "A set of key/value pairs that you can attach to a transfer object. It can be useful for storing additional information about the transfer in a structured format.",
           "type": [
             "object"
           ]
@@ -6470,7 +6602,7 @@
           ]
         },
         "reversed": {
-          "description": "",
+          "description": "Whether or not the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false.",
           "type": [
             "boolean"
           ]
@@ -6482,7 +6614,7 @@
           ]
         },
         "transfer_group": {
-          "description": "",
+          "description": "A string that identifies this transaction as part of a group. See the [Connect documentation](/docs/connect/charges-transfers#grouping-transactions) for details.",
           "type": [
             "string"
           ]
@@ -6675,7 +6807,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -6877,7 +7009,7 @@
           ]
         },
         "currency": {
-          "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
           "type": [
             "string"
           ]
@@ -7115,7 +7247,7 @@
     "description": "The Stripe REST API. Please see https://stripe.com/docs/api for more details.",
     "termsOfService": "https://stripe.com/us/terms/",
     "title": "Stripe API",
-    "version": "2017-02-14"
+    "version": "2017-04-06"
   },
   "paths": {
     "/v1/3d_secure": {
@@ -7145,7 +7277,7 @@
                   ]
                 },
                 "currency": {
-                  "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+                  "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
                   "title": "currency",
                   "type": [
                     "string"
@@ -7387,6 +7519,20 @@
                     "object"
                   ]
                 },
+                "payout_schedule": {
+                  "description": "Details on when this account will make funds from charges available, and when they will be paid out to the account holder's bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information) for more information.",
+                  "title": "payout_schedule",
+                  "type": [
+                    "object"
+                  ]
+                },
+                "payout_statement_descriptor": {
+                  "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
+                  "title": "payout_statement_descriptor",
+                  "type": [
+                    "string"
+                  ]
+                },
                 "product_description": {
                   "description": "Internal-only description of the product being sold or service being provided by this account. It's used by Stripe for risk and underwriting purposes.",
                   "title": "product_description",
@@ -7427,20 +7573,6 @@
                   "title": "tos_acceptance",
                   "type": [
                     "object"
-                  ]
-                },
-                "transfer_schedule": {
-                  "description": "Details on when this account will make funds from charges available, and when they will be paid out to the account holder's bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information) for more information.",
-                  "title": "transfer_schedule",
-                  "type": [
-                    "object"
-                  ]
-                },
-                "transfer_statement_descriptor": {
-                  "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
-                  "title": "transfer_statement_descriptor",
-                  "type": [
-                    "string"
                   ]
                 }
               }
@@ -8033,6 +8165,20 @@
                     "object"
                   ]
                 },
+                "payout_schedule": {
+                  "description": "Details on when this account will make funds from charges available, and when they will be paid out to the account holder's bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information) for more information.",
+                  "title": "payout_schedule",
+                  "type": [
+                    "object"
+                  ]
+                },
+                "payout_statement_descriptor": {
+                  "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
+                  "title": "payout_statement_descriptor",
+                  "type": [
+                    "string"
+                  ]
+                },
                 "platform_account": {
                   "description": "",
                   "title": "platform_account",
@@ -8080,20 +8226,6 @@
                   "title": "tos_acceptance",
                   "type": [
                     "object"
-                  ]
-                },
-                "transfer_schedule": {
-                  "description": "Details on when this account will make funds from charges available, and when they will be paid out to the account holder's bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information) for more information.",
-                  "title": "transfer_schedule",
-                  "type": [
-                    "object"
-                  ]
-                },
-                "transfer_statement_descriptor": {
-                  "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
-                  "title": "transfer_statement_descriptor",
-                  "type": [
-                    "string"
                   ]
                 }
               }
@@ -8274,6 +8406,20 @@
                     "object"
                   ]
                 },
+                "payout_schedule": {
+                  "description": "Details on when this account will make funds from charges available, and when they will be paid out to the account holder's bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information) for more information.",
+                  "title": "payout_schedule",
+                  "type": [
+                    "object"
+                  ]
+                },
+                "payout_statement_descriptor": {
+                  "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
+                  "title": "payout_statement_descriptor",
+                  "type": [
+                    "string"
+                  ]
+                },
                 "product_description": {
                   "description": "Internal-only description of the product being sold or service being provided by this account. It's used by Stripe for risk and underwriting purposes.",
                   "title": "product_description",
@@ -8314,20 +8460,6 @@
                   "title": "tos_acceptance",
                   "type": [
                     "object"
-                  ]
-                },
-                "transfer_schedule": {
-                  "description": "Details on when this account will make funds from charges available, and when they will be paid out to the account holder's bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information) for more information.",
-                  "title": "transfer_schedule",
-                  "type": [
-                    "object"
-                  ]
-                },
-                "transfer_statement_descriptor": {
-                  "description": "The text that will appear on the account's bank account statement for payouts. If not set, this will default to your platform's bank descriptor set on the Dashboard.",
-                  "title": "transfer_statement_descriptor",
-                  "type": [
-                    "string"
                   ]
                 }
               }
@@ -9421,9 +9553,9 @@
             "type": "string"
           },
           {
-            "description": "For automatic Stripe transfers only, only returns transactions that were transferred out on the specified transfer ID.",
+            "description": "For automatic Stripe payouts only, only returns transactions that were payed out on the specified payout ID.",
             "in": "query",
-            "name": "transfer",
+            "name": "payout",
             "required": false,
             "type": "string"
           },
@@ -9442,7 +9574,7 @@
             "type": "integer"
           },
           {
-            "description": "Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `payment`, `transfer`, or `transfer_failure`.",
+            "description": "Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, or `payout_failure`.",
             "in": "query",
             "name": "type",
             "required": false,
@@ -14389,7 +14521,7 @@
                   ]
                 },
                 "currency": {
-                  "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+                  "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
                   "title": "currency",
                   "type": [
                     "string"
@@ -15478,7 +15610,7 @@
                   ]
                 },
                 "currency": {
-                  "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+                  "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
                   "title": "currency",
                   "type": [
                     "string"
@@ -15905,6 +16037,311 @@
         }
       }
     },
+    "/v1/payouts": {
+      "get": {
+        "description": "<p>Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.</p>",
+        "operationId": "PayoutAll",
+        "parameters": [
+          {
+            "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100 items.",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+            "in": "query",
+            "name": "starting_after",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+            "in": "query",
+            "name": "ending_before",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "arrival_date",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "created",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "The ID of an external account - only return payouts sent to this external account.",
+            "in": "query",
+            "name": "destination",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Only return payouts that have the given status: `pending`, `paid`, `failed`, `in_transit`, or `canceled`.",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "$ref": "#/definitions/payout"
+                  },
+                  "type": [
+                    "array"
+                  ]
+                },
+                "has_more": {
+                  "description": "True if this list has another page of items after this one that can be fetched.",
+                  "type": [
+                    "boolean"
+                  ]
+                },
+                "object": {
+                  "description": "String representing the object's type. Objects of the same type share the same value. Always has the value \"list\".",
+                  "enum": [
+                    "list"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                },
+                "total_count": {
+                  "description": "The total number of items available. This value is not included by default, but you can request it by specifying ?include[]=total_count.",
+                  "type": [
+                    "integer"
+                  ]
+                },
+                "url": {
+                  "description": "The URL where this list can be accessed.",
+                  "enum": [
+                    "/v1/payouts"
+                  ],
+                  "type": [
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "data",
+                "has_more",
+                "object",
+                "url"
+              ],
+              "title": "PayoutList",
+              "type": [
+                "object"
+              ]
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "<p>To send funds to your own bank account, you create a new payout object. Your <a href=\"#balance\">Stripe balance</a> must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.</p><p>If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.</p><p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href=\"#balance_object\">balance object</a> details available and pending amounts by source type.</p>",
+        "operationId": "PayoutCreate",
+        "parameters": [
+          {
+            "description": "Body parameters for the request.",
+            "in": "body",
+            "name": "payload",
+            "required": true,
+            "schema": {
+              "properties": {
+                "amount": {
+                  "description": "A positive integer in cents representing how much to payout.",
+                  "title": "amount",
+                  "type": [
+                    "integer"
+                  ]
+                },
+                "currency": {
+                  "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+                  "title": "currency",
+                  "type": [
+                    "string"
+                  ]
+                },
+                "destination": {
+                  "description": "The id of a bank account or a card to send the payout to. If no destination is supplied, the default external account for the specified currency will be used.",
+                  "title": "destination",
+                  "type": [
+                    "string"
+                  ]
+                },
+                "metadata": {
+                  "description": "A set of key/value pairs that you can attach to a payout object. It can be useful for storing additional information about the payout in a structured format.",
+                  "title": "metadata",
+                  "type": [
+                    "object"
+                  ]
+                },
+                "method": {
+                  "description": "The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).)",
+                  "title": "method",
+                  "type": [
+                    "string"
+                  ]
+                },
+                "source_type": {
+                  "description": "The source balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. Valid options are: `alipay_account`, `bank_account`, `bitcoin_receiver`, and `card`.",
+                  "title": "source_type",
+                  "type": [
+                    "string"
+                  ]
+                },
+                "statement_descriptor": {
+                  "description": "A string to be displayed on the recipient's bank or card statement. This may be at most 22 characters. Attempting to use a `statement_descriptor` longer than 22 characters will return an error. Note: Most banks will truncate this information and/or display it inconsistently. Some may not display it at all.",
+                  "title": "statement_descriptor",
+                  "type": [
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "amount",
+                "currency"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "schema": {
+              "$ref": "#/definitions/payout"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/payouts/{id}": {
+      "get": {
+        "description": "<p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information.</p>",
+        "operationId": "PayoutRetrieve",
+        "parameters": [
+          {
+            "description": "The identifier of the payout to be retrieved.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "schema": {
+              "$ref": "#/definitions/payout"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "<p>Updates the specified payout by setting the values of the parameters passed. Any parameters not provided will be left unchanged. This request accepts only the metadata as arguments.</p>",
+        "operationId": "PayoutUpdate",
+        "parameters": [
+          {
+            "description": "The identifier of the payout to be updated.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Body parameters for the request.",
+            "in": "body",
+            "name": "payload",
+            "required": false,
+            "schema": {
+              "properties": {
+                "metadata": {
+                  "description": "A set of key/value pairs that you can attach to a payout object. It can be useful for storing additional information about the payout in a structured format.",
+                  "title": "metadata",
+                  "type": [
+                    "object"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "schema": {
+              "$ref": "#/definitions/payout"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/payouts/{id}/cancel": {
+      "post": {
+        "description": "<p>A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance, and the fees you were originally charged on the payout will be refunded. You may not cancel automatic Stripe payouts.</p>",
+        "operationId": "PayoutCancel",
+        "parameters": [
+          {
+            "description": "The identifier of the payout to be canceled.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "schema": {
+              "$ref": "#/definitions/payout"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
     "/v1/plans": {
       "get": {
         "description": "<p>Returns a list of your plans.</p>",
@@ -16021,7 +16458,7 @@
                   ]
                 },
                 "currency": {
-                  "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+                  "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
                   "title": "currency",
                   "type": [
                     "string"
@@ -17811,7 +18248,7 @@
                   ]
                 },
                 "currency": {
-                  "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+                  "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
                   "title": "currency",
                   "type": [
                     "string"
@@ -17980,7 +18417,7 @@
                   ]
                 },
                 "currency": {
-                  "description": "Three-letter [ISO currency code](https://support.stripe.com/questions/which-currencies-does-stripe-support#currencygroup1), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
+                  "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).",
                   "title": "currency",
                   "type": [
                     "string"
@@ -19186,7 +19623,7 @@
     },
     "/v1/transfers": {
       "get": {
-        "description": "",
+        "description": "<p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p>",
         "operationId": "AllTransfers",
         "parameters": [
           {
@@ -19213,35 +19650,21 @@
           {
             "description": "",
             "in": "query",
-            "name": "amount",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "",
-            "in": "query",
             "name": "created",
             "required": false,
             "type": "integer"
           },
           {
-            "description": "",
+            "description": "Only return transfers for the destination specified by this account ID.",
             "in": "query",
             "name": "destination",
             "required": false,
             "type": "string"
           },
           {
-            "description": "",
+            "description": "Only return transfers with the specified transfer group.",
             "in": "query",
             "name": "transfer_group",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "description": "",
-            "in": "query",
-            "name": "currency",
             "required": false,
             "type": "string"
           }
@@ -19396,11 +19819,11 @@
     },
     "/v1/transfers/{id}": {
       "get": {
-        "description": "",
+        "description": "<p>Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.</p>",
         "operationId": "RetrieveTransfer",
         "parameters": [
           {
-            "description": "",
+            "description": "The identifier of the transfer to be retrieved.",
             "in": "path",
             "name": "id",
             "required": true,

@@ -1,3 +1,7 @@
+=== 2.2.0 2017-04-06
+
+* Add support for payouts and recipient transfers
+
 === 2.1.0 2017-03-17
 
 * Support for detaching sources from customers

@@ -92,6 +92,16 @@ module Stripe
     attr_reader :max_network_retry_delay, :initial_network_retry_delay
   end
 
+  # Gets the application for a plugin that's identified some. See
+  # #set_app_info.
+  def self.app_info
+    @app_info
+  end
+
+  def self.app_info=(info)
+    @app_info = info
+  end
+
   # The location of a file containing a bundle of CA certificates. By default
   # the library will use an included bundle that can successfully validate
   # Stripe certificates.
@@ -129,6 +139,19 @@ module Stripe
 
   def self.max_network_retries=(val)
     @max_network_retries = val.to_i
+  end
+
+  # Sets some basic information about the running application that's sent along
+  # with API requests. Useful for plugin authors to identify their plugin when
+  # communicating with Stripe.
+  #
+  # Takes a name and optional version and plugin URL.
+  def self.set_app_info(name, version: nil, url: nil)
+    @app_info = {
+      name: name,
+      url: url,
+      version: version,
+    }
   end
 
   private

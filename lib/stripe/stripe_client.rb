@@ -382,6 +382,7 @@ module Stripe
         lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
 
         {
+          :application => Stripe.app_info,
           :bindings_version => Stripe::VERSION,
           :lang => 'ruby',
           :lang_version => lang_version,
@@ -390,7 +391,7 @@ module Stripe
           :publisher => 'stripe',
           :uname => @uname,
           :hostname => Socket.gethostname,
-        }
+        }.delete_if { |k, v| v.nil? }
       end
     end
   end

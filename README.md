@@ -122,6 +122,16 @@ an intermittent network problem:
 [Idempotency keys][idempotency-keys] are added to requests to guarantee that
 retries are safe.
 
+### Writing a Plugin
+
+If you're writing a plugin that uses the library, we'd appreciate it if you
+identified using `#set_app_info`:
+
+    Stripe.set_app_info("MyAwesomePlugin", version: "1.2.34", url: "https://myawesomeplugin.info");
+
+This information is passed along when the library makes calls to the Stripe
+API.
+
 ## Development
 
 Run all tests:

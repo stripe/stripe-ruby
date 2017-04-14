@@ -1,3 +1,7 @@
+=== 2.3.0 2017-04-14
+
+* Add question mark accessor when assigning boolean value to undefined field
+
 === 2.2.1 2017-04-07
 
 * Declare minimum required Faraday as 0.9

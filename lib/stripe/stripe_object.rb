@@ -262,6 +262,10 @@ module Stripe
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
+
+        # Pull out the assigned value. This is only used in the case of a
+        # boolean value to add a question mark accessor (i.e. `foo?`) for
+        # convenience.
         val = args.first
 
         # the second argument is only required when adding boolean accessors

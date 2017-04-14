@@ -262,9 +262,10 @@ module Stripe
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
+        val = args.first
 
         # the second argument is only required when adding boolean accessors
-        add_accessors([attr], {})
+        add_accessors([attr], { attr => val })
 
         begin
           mth = method(name)

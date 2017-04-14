@@ -80,6 +80,13 @@ module Stripe
       refute obj.respond_to?(:not_bool?)
     end
 
+    should "assign question mark accessors for booleans added after initialization" do
+      obj = Stripe::StripeObject.new
+      obj.bool = true
+      assert obj.respond_to?(:bool?)
+      assert obj.bool?
+    end
+
     should "mass assign values with #update_attributes" do
       obj = Stripe::StripeObject.construct_from({ :id => 1, :name => 'Stripe' })
       obj.update_attributes(:name => 'STRIPE')

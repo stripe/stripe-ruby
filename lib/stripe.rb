@@ -70,6 +70,8 @@ require 'stripe/transfer'
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
 
+  @app_info = nil
+
   @api_base = 'https://api.stripe.com'
   @connect_base = 'https://connect.stripe.com'
   @uploads_base = 'https://uploads.stripe.com'

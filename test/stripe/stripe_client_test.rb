@@ -193,14 +193,21 @@ module Stripe
 
             stub_request(:post, "#{Stripe.api_base}/v1/account").
               with { |req|
+                assert_equal \
+                  "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
+                  "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
+                  req.headers["User-Agent"]
+
                 data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"],
                   symbolize_names: true)
 
-                data["application"] == {
+                assert_equal({
                   name: "MyAwesomePlugin",
                   url: "https://myawesomeplugin.info",
                   version: "1.2.34"
-                }
+                }, data[:application])
+
+                true
               }.to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
 
             client = StripeClient.new

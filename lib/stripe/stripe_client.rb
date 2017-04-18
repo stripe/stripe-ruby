@@ -218,6 +218,16 @@ module Stripe
                    http_status: status, http_body: body)
     end
 
+    # Formats a plugin "app info" hash into a string that we can tack onto the
+    # end of a User-Agent string where it'll be fairly prominant in places like
+    # the Dashboard. Note that this formatting has been implemented to match
+    # other libraries, and shouldn't be changed without universal consensus.
+    def format_app_info(info)
+      str = info[:name]
+      str = "#{str}/#{info[:version]}" unless info[:version].nil?
+      str = "#{str} (#{info[:url]})" unless info[:url].nil?
+      str
+    end
 
     def handle_api_error(http_resp)
       begin
@@ -309,8 +319,13 @@ module Stripe
     end
 
     def request_headers(api_key, method)
+      user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
+      unless Stripe.app_info.nil?
+        user_agent += " " + format_app_info(Stripe.app_info)
+      end
+
       headers = {
-        'User-Agent' => "Stripe/v1 RubyBindings/#{Stripe::VERSION}",
+        'User-Agent' => user_agent,
         'Authorization' => "Bearer #{api_key}",
         'Content-Type' => 'application/x-www-form-urlencoded'
       }
@@ -382,6 +397,7 @@ module Stripe
         lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
 
         {
+          :application => Stripe.app_info,
           :bindings_version => Stripe::VERSION,
           :lang => 'ruby',
           :lang_version => lang_version,
@@ -390,7 +406,7 @@ module Stripe
           :publisher => 'stripe',
           :uname => @uname,
           :hostname => Socket.gethostname,
-        }
+        }.delete_if { |k, v| v.nil? }
       end
     end
   end

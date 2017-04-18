@@ -222,7 +222,7 @@ module Stripe
     # end of a User-Agent string where it'll be fairly prominant in places like
     # the Dashboard. Note that this formatting has been implemented to match
     # other libraries, and shouldn't be changed without universal consensus.
-    private def format_app_info(info)
+    def format_app_info(info)
       str = info[:name]
       str = "#{str}/#{info[:version]}" unless info[:version].nil?
       str = "#{str} (#{info[:url]})" unless info[:url].nil?

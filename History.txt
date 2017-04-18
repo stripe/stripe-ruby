@@ -1,3 +1,7 @@
+=== 2.4.0 2017-04-18
+
+* Add `Stripe.set_app_info` for use by plugin creators
+
 === 2.3.0 2017-04-14
 
 * Add question mark accessor when assigning boolean value to undefined field

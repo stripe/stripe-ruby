@@ -1,3 +1,7 @@
+=== 2.5.0 2017-04-24
+
+* Make `opts` argument in `Util.convert_to_stripe_object` optional
+
 === 2.4.0 2017-04-18
 
 * Add `Stripe.set_app_info` for use by plugin creators

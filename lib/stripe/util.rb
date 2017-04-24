@@ -74,7 +74,7 @@ module Stripe
     # * +data+ - Hash of fields and values to be converted into a StripeObject.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
-    def self.convert_to_stripe_object(data, opts)
+    def self.convert_to_stripe_object(data, opts = {})
       case data
       when Array
         data.map { |i| convert_to_stripe_object(i, opts) }

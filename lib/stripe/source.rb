@@ -3,6 +3,8 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
+    OBJECT_NAME = 'source'
+
     def delete(params={}, opts={})
       if respond_to?(:customer) && !customer.nil? && !customer.empty?
         url = "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"

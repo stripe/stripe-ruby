@@ -5,6 +5,8 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
+    OBJECT_NAME = 'apple_pay_domain'
+
     def self.resource_url
       '/v1/apple_pay/domains'
     end

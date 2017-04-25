@@ -4,6 +4,8 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
+    OBJECT_NAME = 'transfer'
+
     def cancel
       resp, api_key = self.request(:post, cancel_url)
       initialize_from(resp.data, api_key)

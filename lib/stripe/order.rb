@@ -4,6 +4,8 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
+    OBJECT_NAME = 'order'
+
     def pay(params, opts={})
       resp, opts = request(:post, pay_url, params, opts)
       initialize_from(resp.data, opts)

@@ -1,3 +1,7 @@
+=== 2.6.0 2017-04-26
+
+* Add `OBJECT_NAME` constants to all API resources
+
 === 2.5.0 2017-04-24
 
 * Make `opts` argument in `Util.convert_to_stripe_object` optional

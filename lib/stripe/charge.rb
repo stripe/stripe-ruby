@@ -4,6 +4,8 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
+    OBJECT_NAME = 'charge'
+
     def refund(params={}, opts={})
       # Old versions of charge objects included a `refunds` field that was just
       # a vanilla array instead of a Stripe list object.

@@ -6,6 +6,8 @@ module Stripe
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
 
+    OBJECT_NAME = 'account'
+
     save_nested_resource :external_account
 
     # This method is deprecated. Please use `#external_account=` instead.

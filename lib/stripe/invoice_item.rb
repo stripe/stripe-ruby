@@ -4,5 +4,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
+
+    OBJECT_NAME = 'invoiceitem'
   end
 end

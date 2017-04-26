@@ -3,6 +3,8 @@ module Stripe
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
+    OBJECT_NAME = 'alipay_account'
+
     def resource_url
       if respond_to?(:customer) && !self.customer.nil?
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"

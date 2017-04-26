@@ -3,6 +3,8 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
+    OBJECT_NAME = 'dispute'
+
     def close(params={}, opts={})
       resp, opts = request(:post, close_url, params, opts)
       initialize_from(resp.data, opts)

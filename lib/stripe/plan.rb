@@ -4,5 +4,7 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
+
+    OBJECT_NAME = 'plan'
   end
 end

@@ -4,5 +4,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
+
+    OBJECT_NAME = 'sku'
   end
 end

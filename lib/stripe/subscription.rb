@@ -5,6 +5,8 @@ module Stripe
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
+    OBJECT_NAME = 'subscription'
+
     save_nested_resource :source
 
     def delete_discount

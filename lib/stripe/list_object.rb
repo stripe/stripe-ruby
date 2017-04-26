@@ -5,6 +5,8 @@ module Stripe
     include Stripe::APIOperations::Request
     include Stripe::APIOperations::Create
 
+    OBJECT_NAME = 'list'
+
     # This accessor allows a `ListObject` to inherit various filters that were
     # given to a predecessor. This allows for things like consistent limits,
     # expansions, and predicates as a user pages through resources.

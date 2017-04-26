@@ -5,6 +5,8 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
+    OBJECT_NAME = 'customer'
+
     save_nested_resource :source
 
     def add_invoice_item(params, opts={})

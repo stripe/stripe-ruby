@@ -1,3 +1,7 @@
+=== 2.8.0 2017-04-28
+
+* Support for checking webhook signatures
+
 === 2.7.0 2017-04-26
 
 * Add model `InvoiceLineItem`

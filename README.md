@@ -122,6 +122,19 @@ an intermittent network problem:
 [Idempotency keys][idempotency-keys] are added to requests to guarantee that
 retries are safe.
 
+### Configuring Timeouts
+
+Open and read timeouts are configurable:
+
+```java
+Stripe.open_timeout = 30 // in seconds
+Stripe.read_timeout = 80
+```
+
+Please take care to set conservative read timeouts. Some API requests can take
+some time, and a short timeout increases the likelihood of a problem within our
+servers.
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you

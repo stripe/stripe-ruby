@@ -86,7 +86,7 @@ module Stripe
         with(query: { "expand" => ["customer"] }).
         to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
 
-      ch = Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => [:customer]})
+      ch = Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => :customer})
       ch.refresh
     end
 
@@ -99,7 +99,7 @@ module Stripe
         to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
 
       customer = Stripe::Customer.retrieve('c_test_customer')
-      customer.sources.retrieve({:id => 'cc_test_card', :expand => [:customer]})
+      customer.sources.retrieve({:id => 'cc_test_card', :expand => :customer})
     end
 
     context "when specifying per-object credentials" do
@@ -289,7 +289,7 @@ module Stripe
         charges = Stripe::Charge.list.data
         assert charges.kind_of? Array
         assert charges[0].kind_of? Stripe::Charge
-        assert charges[0].card.kind_of?(Stripe::StripeObject)
+        assert charges[0].source.kind_of?(Stripe::StripeObject)
       end
 
       should "passing in a stripe_account header should pass it through on call" do

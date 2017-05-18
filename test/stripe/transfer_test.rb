@@ -20,7 +20,8 @@ module Stripe
     should "be creatable" do
       transfer = Stripe::Transfer.create(
         amount: 100,
-        currency: "USD"
+        currency: "USD",
+        destination: API_FIXTURES.fetch(:account)[:id],
       )
       assert_requested :post, "#{Stripe.api_base}/v1/transfers"
       assert transfer.kind_of?(Stripe::Transfer)

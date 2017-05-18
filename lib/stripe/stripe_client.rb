@@ -197,7 +197,7 @@ module Stripe
         case e
         when Faraday::ClientError
           if e.response
-            handle_api_error(e.response)
+            handle_error_response(e.response)
           else
             handle_network_error(e, retry_count, api_base)
           end
@@ -229,12 +229,12 @@ module Stripe
       str
     end
 
-    def handle_api_error(http_resp)
+    def handle_error_response(http_resp)
       begin
         resp = StripeResponse.from_faraday_hash(http_resp)
-        error = resp.data[:error]
+        error_data = resp.data[:error]
 
-        unless error && error.is_a?(Hash)
+        unless error_data
           raise StripeError.new("Indeterminate error")
         end
 
@@ -242,47 +242,79 @@ module Stripe
         raise general_api_error(http_resp[:status], http_resp[:body])
       end
 
+      if error_data.is_a?(String)
+        error = specific_oauth_error(resp, error_data)
+      end
+      if error.nil?
+        error = specific_api_error(resp, error_data)
+      end
+
+      error.response = resp
+      raise(error)
+    end
+
+    def specific_api_error(resp, error_data)
       case resp.http_status
       when 400, 404
         error = InvalidRequestError.new(
-          error[:message], error[:param],
+          error_data[:message], error_data[:param],
           http_status: resp.http_status, http_body: resp.http_body,
           json_body: resp.data, http_headers: resp.http_headers
         )
       when 401
         error = AuthenticationError.new(
-          error[:message],
+          error_data[:message],
           http_status: resp.http_status, http_body: resp.http_body,
           json_body: resp.data, http_headers: resp.http_headers
         )
       when 402
         error = CardError.new(
-          error[:message], error[:param], error[:code],
+          error_data[:message], error_data[:param], error_data[:code],
           http_status: resp.http_status, http_body: resp.http_body,
           json_body: resp.data, http_headers: resp.http_headers
         )
       when 403
         error = PermissionError.new(
-          error[:message],
+          error_data[:message],
           http_status: resp.http_status, http_body: resp.http_body,
           json_body: resp.data, http_headers: resp.http_headers
         )
       when 429
         error = RateLimitError.new(
-          error[:message],
+          error_data[:message],
           http_status: resp.http_status, http_body: resp.http_body,
           json_body: resp.data, http_headers: resp.http_headers
         )
       else
         error = APIError.new(
-          error[:message],
+          error_data[:message],
           http_status: resp.http_status, http_body: resp.http_body,
           json_body: resp.data, http_headers: resp.http_headers
         )
       end
 
-      error.response = resp
-      raise(error)
+      error
+    end
+
+    # Attempts to look at a response's error code and return an OAuth error if
+    # one matches. Will return `nil` if the code isn't recognized.
+    def specific_oauth_error(resp, error_code)
+      description = resp.data[:error_description] || error_code
+
+      args = [error_code, description, {
+        http_status: resp.http_status, http_body: resp.http_body,
+        json_body: resp.data, http_headers: resp.http_headers
+      }]
+
+      case error_code
+      when 'invalid_grant'             then OAuth::InvalidGrantError.new(*args)
+      when 'invalid_request'           then OAuth::InvalidRequestError.new(*args)
+      when 'invalid_scope'             then OAuth::InvalidScopeError.new(*args)
+      when 'unsupported_grant_type'    then OAuth::UnsupportedGrantTypeError.new(*args)
+      when 'unsupported_response_type' then OAuth::UnsupportedResponseTypeError.new(*args)
+      else
+        nil
+      end
     end
 
     def handle_network_error(e, retry_count, api_base=nil)

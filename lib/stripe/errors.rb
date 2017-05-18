@@ -100,4 +100,44 @@ module Stripe
       @sig_header = sig_header
     end
   end
+
+  module OAuth
+    # OAuthError is raised when the OAuth API returns an error.
+    class OAuthError < StripeError
+      attr_accessor :code
+
+      def initialize(code, description, http_status: nil, http_body: nil, json_body: nil,
+                     http_headers: nil)
+        super(description, http_status: http_status, http_body: http_body,
+          json_body: json_body, http_headers: http_headers)
+        @code = code
+      end
+    end
+
+    # InvalidGrantError is raised when a specified code doesn't exist, is
+    # expired, has been used, or doesn't belong to you; a refresh token doesn't
+    # exist, or doesn't belong to you; or if an API key's mode (live or test)
+    # doesn't match the mode of a code or refresh token.
+    class InvalidGrantError < OAuthError
+    end
+
+    # InvalidRequestError is raised when a code, refresh token, or grant type
+    # parameter is not provided, but was required.
+    class InvalidRequestError < OAuthError
+    end
+
+    # InvalidScopeError is raised when an invalid scope parameter is provided.
+    class InvalidScopeError < OAuthError
+    end
+
+    # UnsupportedGrantTypeError is raised when an unuspported grant type
+    # parameter is specified.
+    class UnsupportedGrantTypeError < OAuthError
+    end
+
+    # UnsupportedResponseTypeError is raised when an unsupported response type
+    # parameter is specified.
+    class UnsupportedResponseTypeError < OAuthError
+    end
+  end
 end

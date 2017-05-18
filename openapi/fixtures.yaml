@@ -2,7 +2,6 @@
 resources:
   account:
     active_payment_methods: []
-    bank_accounts: {}
     business_logo: ''
     business_name: ''
     business_primary_color: ''
@@ -12,7 +11,7 @@ resources:
     debit_negative_balances: true
     decline_charge_on:
       avs_failure: true
-      cvc_failure: true
+      cvc_failure: false
     default_currency: usd
     details_submitted: false
     display_name: ''
@@ -78,6 +77,7 @@ resources:
       date: 
       ip: 
       user_agent: 
+    type: ''
     verification:
       disabled_reason: fields_needed
       due_by: 
@@ -88,9 +88,11 @@ resources:
       - support_phone
       - tos_acceptance.date
       - tos_acceptance.ip
+  account_debit_account:
+    id: acct_1A7AbkBbzgiusCZl
+    object: account
   account_with_keys:
     active_payment_methods: []
-    bank_accounts: {}
     business_logo: ''
     business_name: ''
     business_primary_color: ''
@@ -126,6 +128,7 @@ resources:
     support_url: ''
     timezone: Etc/UTC
     tos_acceptance: {}
+    type: ''
     verification: {}
   alipay_account:
     created: 1234567890
@@ -137,14 +140,14 @@ resources:
     object: alipay_account
     payment_amount: 1000
     payment_currency: usd
-    reusable: false
+    reusable: true
     used: false
     username: test@example.com
   apple_pay_domain:
     created: 1234567890
     domain_name: example.com
     id: apwc_19zuugDSlTMT26MkaEqesPjq
-    livemode: true
+    livemode: false
     object: apple_pay_domain
   balance:
     available:
@@ -203,7 +206,7 @@ resources:
     status: new
     used: false
   bitcoin_receiver:
-    active: false
+    active: true
     amount: 100
     amount_received: 0
     bitcoin_amount: 1757908
@@ -214,7 +217,7 @@ resources:
     customer: ''
     description: Receiver for John Doe
     email: test@example.com
-    filled: false
+    filled: true
     id: btcrcv_19zYqFDSlTMT26Mk31J1pMex
     inbound_address: test_7i9Fo4b5wXcUAuoVBFrc7nc9HDxD1
     livemode: false
@@ -222,8 +225,13 @@ resources:
     object: bitcoin_receiver
     payment: ''
     refund_address: ''
-    transactions: {}
-    uncaptured_funds: false
+    transactions:
+      data: []
+      has_more: false
+      object: list
+      total_count: 1
+      url: "/v1/bitcoin/receivers/btcrcv_1AGMTU2eZvKYlo2CK7mXHmc8/transactions"
+    uncaptured_funds: true
     used_for_payment: false
   bitcoin_transaction:
     amount: 100
@@ -281,9 +289,8 @@ resources:
     application_fees_refunded: 0
     authorization_code: ''
     balance_transaction: txn_19zuuhDSlTMT26Mk2gJnG0ti
-    captured: true
+    captured: false
     captured_at: 1234567890
-    card: {}
     created: 1234567890
     currency: usd
     customer: ''
@@ -303,7 +310,7 @@ resources:
     on_behalf_of: ''
     order: ''
     outcome: {}
-    paid: true
+    paid: false
     receipt_email: ''
     receipt_number: ''
     refunded: false
@@ -331,6 +338,7 @@ resources:
       dynamic_last4: 
       exp_month: 8
       exp_year: 2018
+      fingerprint: Xt5EWLLDS7FJjR1c
       funding: unknown
       id: card_19tLKYDSlTMT26Mkl7bixGYc
       last4: '4242'
@@ -420,18 +428,16 @@ resources:
     alipay_accounts: {}
     bank_accounts: {}
     business_vat_id: ''
-    cards: {}
     created: 1234567890
     currency: usd
     default_bank_account: ''
-    default_card: ''
     default_source: ''
-    default_source_type: ''
     delinquent: false
     description: ''
     discount: {}
     email: ''
     id: cus_ADmuABetLS15eF
+    invoicing: {}
     livemode: false
     metadata: {}
     object: customer
@@ -443,7 +449,12 @@ resources:
       total_count: 0
       url: "/v1/customers/cus_ADmuABetLS15eF/sources"
     subscription: {}
-    subscriptions: {}
+    subscriptions:
+      data: []
+      has_more: false
+      object: list
+      total_count: 0
+      url: "/v1/customers/cus_AcaooY7ydINUy4/subscriptions"
     trust: {}
   customer_source:
     customer: ''
@@ -476,6 +487,7 @@ resources:
     amount: 1000
     balance_transaction: ''
     balance_transactions: []
+    case_details: {}
     charge: ch_19zuuhDSlTMT26MkKLSiekJ9
     closed_at: 1234567890
     created: 1234567890
@@ -531,14 +543,14 @@ resources:
     data:
       object:
         account_balance: 0
-        created: 1488566449
+        created: 1494264431
         currency: usd
         default_source: 
         delinquent: false
         description: 
         discount: 
         email: 
-        id: cus_ADmuABetLS15eF
+        id: sub_3dyJJwVHzv2Xya
         livemode: false
         metadata: {}
         object: customer
@@ -548,13 +560,13 @@ resources:
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/customers/cus_ADmuABetLS15eF/sources"
+          url: "/v1/customers/cus_AcUc8AEn2iJ2jE/sources"
         subscriptions:
           data: []
           has_more: false
           object: list
           total_count: 0
-          url: "/v1/customers/cus_ADmuABetLS15eF/subscriptions"
+          url: "/v1/customers/cus_AcUc8AEn2iJ2jE/subscriptions"
     id: evt_19tLKfDSlTMT26MkKD3pohqX
     livemode: false
     object: event
@@ -591,10 +603,10 @@ resources:
     amount_due: 0
     application_fee: 0
     attempt_count: 0
-    attempted: false
+    attempted: true
     billing: ''
     charge: ''
-    closed: false
+    closed: true
     currency: usd
     customer: cus_ADmuABetLS15eF
     date: 1234567890
@@ -643,7 +655,7 @@ resources:
     next_payment_attempt: 1234567890
     number: ''
     object: invoice
-    paid: false
+    paid: true
     period_end: 1234567890
     period_start: 1234567890
     receipt_number: ''
@@ -733,6 +745,10 @@ resources:
     transfer_group: ''
     type: bank_account
     user_visible_date: 1234567890
+  login_link:
+    created: 1234567890
+    object: login_link
+    url: http://127.0.0.1:6090/express/xmkx6tsLZvoZ
   order:
     amount: 1500
     amount_returned: 0
@@ -817,6 +833,7 @@ resources:
     failure_code: ''
     failure_message: ''
     id: tr_1A5hBfDSlTMT26MkB9QceCEw
+    legacy_date: 1234567890
     livemode: false
     metadata: {}
     method: standard
@@ -1053,6 +1070,7 @@ resources:
       dynamic_last4: 
       exp_month: 8
       exp_year: 2018
+      fingerprint: TUSZPuJK6frwQold
       funding: unknown
       id: card_19tLKYDSlTMT26Mkl7bixGYc
       last4: '4242'
@@ -1086,6 +1104,7 @@ resources:
       dynamic_last4: 
       exp_month: 8
       exp_year: 2018
+      fingerprint: Xt5EWLLDS7FJjR1c
       funding: unknown
       id: card_19tLKYDSlTMT26MkxAeJBsQn
       last4: '4242'
@@ -1122,6 +1141,7 @@ resources:
       total_count: 0
       url: "/v1/transfers/tr_19zuujDSlTMT26Mk81npuLjT/reversals"
     reversed: false
+    source_transaction: ch_164xRv2eZvKYlo2Clu1sIJWB
     source_type: card
     transfer_group: ''
   transfer_recipient:
@@ -1169,10 +1189,10 @@ resources:
     amount_due: 0
     application_fee: 0
     attempt_count: 0
-    attempted: false
+    attempted: true
     billing: ''
     charge: ''
-    closed: false
+    closed: true
     currency: usd
     customer: cus_ADmuABetLS15eF
     date: 1234567890
@@ -1192,7 +1212,7 @@ resources:
     next_payment_attempt: 1234567890
     number: ''
     object: invoice
-    paid: false
+    paid: true
     period_end: 1234567890
     period_start: 1234567890
     receipt_number: ''

@@ -44,6 +44,7 @@ module Stripe
         Invoice::OBJECT_NAME              => Invoice,
         InvoiceItem::OBJECT_NAME          => InvoiceItem,
         InvoiceLineItem::OBJECT_NAME      => InvoiceLineItem,
+        LoginLink::OBJECT_NAME            => LoginLink,
         Order::OBJECT_NAME                => Order,
         OrderReturn::OBJECT_NAME          => OrderReturn,
         Payout::OBJECT_NAME               => Payout,

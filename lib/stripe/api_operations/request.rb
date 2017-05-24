@@ -5,6 +5,8 @@ module Stripe
         OPTS_KEYS_TO_PERSIST = Set[:api_key, :api_base, :client, :stripe_account, :stripe_version]
 
         def request(method, url, params={}, opts={})
+          warn_on_opts_in_params(params)
+
           opts = Util.normalize_opts(opts)
           opts[:client] ||= StripeClient.active_client
 
@@ -29,6 +31,19 @@ module Stripe
           end
 
           [resp, opts_to_persist]
+        end
+
+        private
+
+        KNOWN_OPTS = Set[:api_key, :idempotency_key, :stripe_account, :stripe_version]
+        private_constant :KNOWN_OPTS
+
+        def warn_on_opts_in_params(params)
+          KNOWN_OPTS.each do |opt|
+            if params.has_key?(opt)
+              $stderr.puts("WARNING: #{opt} should be in opts instead of params.")
+            end
+          end
         end
       end
 

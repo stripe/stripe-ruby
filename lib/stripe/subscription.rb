@@ -24,6 +24,12 @@ module Stripe
       super(params, opts)
     end
 
+    def invoices(params={}, opts={})
+      opts = @opts.merge(Util.normalize_opts(opts))
+      invoices = Invoice.all(params.merge(:customer => customer), opts)
+      invoices.select {|i| i['subscription'] == id }
+    end
+
     private
 
     def discount_url

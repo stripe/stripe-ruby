@@ -182,9 +182,35 @@ module Stripe
         Stripe::Charge.list(:count => nil, :offset => 5, :sad => false)
 
         stub_request(:post, "#{Stripe.api_base}/v1/charges").
-          with(body: {  'amount' => '50', 'currency' => 'usd' }).
+          with(body: { 'amount' => '50', 'currency' => 'usd' }).
           to_return(body: JSON.generate({ :count => 1, :data => [API_FIXTURES.fetch(:charge)] }))
         Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
+      end
+
+      should "not trigger a warning if a known opt, such as idempotency_key, is in opts" do
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        begin
+          Stripe::Charge.create({ :amount => 100, :currency => 'usd', :card => 'sc_token' }, { :idempotency_key => '12345' })
+          assert $stderr.string.empty?
+        ensure
+          $stderr = old_stderr
+        end
+      end
+
+      should "trigger a warning if a known opt, such as idempotency_key, is in params" do
+        stub_request(:post, "#{Stripe.api_base}/v1/charges").
+          to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        begin
+          Stripe::Charge.create({ :amount => 100, :currency => 'usd', :card => 'sc_token', :idempotency_key => '12345' })
+          assert_match Regexp.new('WARNING:'), $stderr.string
+        ensure
+          $stderr = old_stderr
+        end
       end
 
       should "requesting with a unicode ID should result in a request" do

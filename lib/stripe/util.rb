@@ -39,6 +39,7 @@ module Stripe
         Coupon::OBJECT_NAME               => Coupon,
         Customer::OBJECT_NAME             => Customer,
         Dispute::OBJECT_NAME              => Dispute,
+        EphemeralKey::OBJECT_NAME         => EphemeralKey,
         Event::OBJECT_NAME                => Event,
         FileUpload::OBJECT_NAME           => FileUpload,
         Invoice::OBJECT_NAME              => Invoice,

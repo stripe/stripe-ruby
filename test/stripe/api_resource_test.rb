@@ -109,7 +109,7 @@ module Stripe
             with(headers: {"Authorization" => "Bearer sk_test_local"}).
             to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
 
-          Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+          Stripe::Charge.create({:source => 'tok_visa'},
             'sk_test_local')
         end
       end
@@ -128,7 +128,7 @@ module Stripe
             with(headers: {"Authorization" => "Bearer local"}).
             to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
 
-          Stripe::Charge.create({:card => {:number => '4242424242424242'}},
+          Stripe::Charge.create({:source => 'tok_visa'},
             'local')
         end
 

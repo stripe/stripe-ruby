@@ -11,7 +11,7 @@ module Stripe
 
     def self.create(params={}, opts={})
       opts = Util.normalize_opts(opts)
-      raise ArgumentError.new('stripe_version must be provided to create an ephemeral key') if !opts[:stripe_version]
+      raise ArgumentError.new('stripe_version must be specified to create an ephemeral key') if !opts[:stripe_version]
       super
     end
   end

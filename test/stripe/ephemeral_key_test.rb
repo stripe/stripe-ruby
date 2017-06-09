@@ -3,8 +3,8 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class EphemeralKeyTest < Test::Unit::TestCase
     FIXTURE = {
-      'id': 'ephkey_123',
-      'object': 'ephemeral_key',
+      'id' => 'ephkey_123',
+      'object' => 'ephemeral_key',
     }
 
     context "#create" do
@@ -13,14 +13,14 @@ module Stripe
           to_return(body: JSON.generate(FIXTURE))
 
         key = Stripe::EphemeralKey.create(
-          {customer: "cus_123"},
-          {stripe_version: "2017-05-25"}
+          {customer:"cus_123"},
+          {stripe_version:"2017-05-25"}
         )
 
         assert_requested(
           :post,
           "#{Stripe.api_base}/v1/ephemeral_keys",
-          headers: {'Stripe-Version': '2017-05-25'}
+          headers: {'Stripe-Version' => '2017-05-25'}
         )
 
         assert key.kind_of?(Stripe::EphemeralKey)
@@ -39,7 +39,7 @@ module Stripe
           assert_requested(
             :post,
             "#{Stripe.api_base}/v1/ephemeral_keys",
-            headers: {'Stripe-Version': '2017-06-05'}
+            headers: {'Stripe-Version' => '2017-06-05'}
           )
 
           assert key.kind_of?(Stripe::EphemeralKey)

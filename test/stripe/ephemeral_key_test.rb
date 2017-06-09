@@ -93,10 +93,10 @@ module Stripe
           {stripe_version: '2017-05-25'}
         )
 
-        stub_request(:delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{FIXTURE[:id]}").
+        stub_request(:delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{FIXTURE['id']}").
           to_return(body: JSON.generate(FIXTURE))
         key.delete
-        assert_requested :delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{FIXTURE[:id]}"
+        assert_requested :delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{FIXTURE['id']}"
       end
     end
   end

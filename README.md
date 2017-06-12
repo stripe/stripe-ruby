@@ -97,8 +97,8 @@ library use any client supported by [Faraday][faraday] by initializing a
 ``` ruby
 conn = Faraday.new
 client = Stripe::StripeClient.new(conn)
-client.request do
-  charge, resp = Stripe::Charge.retrieve(
+charge, resp = client.request do
+  Stripe::Charge.retrieve(
     "ch_18atAXCdGbJFKhCuBAa4532Z",
   )
 end

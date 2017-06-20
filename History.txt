@@ -1,3 +1,7 @@
+=== 2.11.0 2017-05-26
+
+* Warn when keys that look like opts are included as parameters
+
 === 2.10.0 2017-05-25
 
 * Add support for account login links

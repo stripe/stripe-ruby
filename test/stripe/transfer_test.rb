@@ -39,13 +39,5 @@ module Stripe
       assert_requested :post, "#{Stripe.api_base}/v1/transfers/#{FIXTURE[:id]}"
       assert transfer.kind_of?(Stripe::Transfer)
     end
-
-    context "#cancel" do
-      should "cancel a transfer" do
-        transfer = Stripe::Transfer.retrieve(FIXTURE[:id])
-        transfer = transfer.cancel
-        assert transfer.kind_of?(Stripe::Transfer)
-      end
-    end
   end
 end

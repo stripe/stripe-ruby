@@ -36,7 +36,7 @@ module Stripe
     end
 
     should "be creatable" do
-      account = Stripe::Account.create(:metadata => {})
+      account = Stripe::Account.create(:metadata => {}, :type => 'standard')
       assert_requested :post, "#{Stripe.api_base}/v1/accounts"
       assert account.kind_of?(Stripe::Account)
     end

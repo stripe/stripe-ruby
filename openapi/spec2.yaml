@@ -32,7 +32,7 @@ definitions:
         type:
         - string
       details_submitted:
-        description: Whether or not account details have been submitted yet. Standalone
+        description: Whether or not account details have been submitted yet. Standard
           accounts cannot receive transfers before this is true.
         type:
         - boolean
@@ -89,11 +89,6 @@ definitions:
         - string
       legal_entity:
         "$ref": "#/definitions/legal_entity"
-      managed:
-        description: Whether or not the account is [managed](/docs/connect/managed-accounts)
-          by your platform. Returns null if the account was not created by a platform.
-        type:
-        - boolean
       metadata:
         description: Set of key/value pairs that you can attach to an object. It can
           be useful for storing additional information about the object in a structured
@@ -146,6 +141,11 @@ definitions:
         - string
       tos_acceptance:
         "$ref": "#/definitions/account_tos_acceptance"
+      type:
+        description: The type of the Stripe account. Can be 'standard', 'express',
+          or 'custom'.
+        type:
+        - string
       verification:
         "$ref": "#/definitions/account_verification"
     required:
@@ -158,11 +158,11 @@ definitions:
     - external_accounts
     - id
     - legal_entity
-    - managed
     - object
     - payout_schedule
     - payouts_enabled
     - tos_acceptance
+    - type
     - verification
     title: Account
     type:
@@ -237,7 +237,7 @@ definitions:
         description: A string describing the reason for this account being unable
           to charge and/or transfer, if that is the case. Possible values are `rejected.fraud`,
           `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`,
-          `listed`, or `other`.
+          `listed`, `under_review`, or `other`.
         type:
         - string
       due_by:
@@ -290,7 +290,7 @@ definitions:
         type:
         - string
       details_submitted:
-        description: Whether or not account details have been submitted yet. Standalone
+        description: Whether or not account details have been submitted yet. Standard
           accounts cannot receive transfers before this is true.
         type:
         - boolean
@@ -351,11 +351,6 @@ definitions:
         - object
       legal_entity:
         "$ref": "#/definitions/legal_entity"
-      managed:
-        description: Whether or not the account is [managed](/docs/connect/managed-accounts)
-          by your platform. Returns null if the account was not created by a platform.
-        type:
-        - boolean
       metadata:
         description: Set of key/value pairs that you can attach to an object. It can
           be useful for storing additional information about the object in a structured
@@ -408,6 +403,11 @@ definitions:
         - string
       tos_acceptance:
         "$ref": "#/definitions/account_tos_acceptance"
+      type:
+        description: The type of the Stripe account. Can be 'standard', 'express',
+          or 'custom'.
+        type:
+        - string
       verification:
         "$ref": "#/definitions/account_verification"
     required:
@@ -421,11 +421,11 @@ definitions:
     - id
     - keys
     - legal_entity
-    - managed
     - object
     - payout_schedule
     - payouts_enabled
     - tos_acceptance
+    - type
     - verification
     title: AccountWithKeys
     type:
@@ -618,10 +618,15 @@ definitions:
         - string
         x-expansionResources:
           oneOf:
-          - "$ref": "#/definitions/issued_card"
+          - "$ref": "#/definitions/card"
+      created:
+        description: Time at which the object was created. Measured in seconds since
+          the Unix epoch.
+        type:
+        - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       held_amount:
@@ -653,6 +658,7 @@ definitions:
     - amount
     - balance_transactions
     - card
+    - created
     - currency
     - held_amount
     - held_currency
@@ -713,7 +719,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -814,7 +820,7 @@ definitions:
         type:
         - array
       connect_reserved:
-        description: Funds held due to negative balances on connected Managed Accounts.
+        description: Funds held due to negative balances on connected Custom accounts.
           The connect reserve balance for each currency and payment type can be found
           in the `source_types` property.
         type:
@@ -863,7 +869,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       description:
@@ -905,7 +911,6 @@ definitions:
           - "$ref": "#/definitions/fee_refund"
           - "$ref": "#/definitions/authorization"
           - "$ref": "#/definitions/transaction"
-          - "$ref": "#/definitions/legacy_transfer"
           - "$ref": "#/definitions/payout"
           - "$ref": "#/definitions/platform_fee"
           - "$ref": "#/definitions/refund"
@@ -972,7 +977,7 @@ definitions:
         type:
         - string
       currency:
-        description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+        description: Three-letter [ISO code for the currency](https://stripe.com/docs/payouts)
           paid out to the bank account.
         type:
         - string
@@ -1081,7 +1086,7 @@ definitions:
         type:
         - integer
       currency:
-        description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+        description: Three-letter [ISO code for the currency](https://stripe.com/docs/currencies)
           to which the bitcoin will be converted.
         type:
         - string
@@ -1223,7 +1228,7 @@ definitions:
         type:
         - integer
       currency:
-        description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+        description: Three-letter [ISO code for the currency](https://stripe.com/docs/currencies)
           to which this transaction was converted.
         type:
         - string
@@ -1315,7 +1320,7 @@ definitions:
         type:
         - string
       currency:
-        description: Three-letter [ISO code for currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+        description: Three-letter [ISO code for currency](https://stripe.com/docs/payouts).
           Only applicable on accounts (not customers or recipients). The card can
           be used as a transfer destination for funds in this currency.
         type:
@@ -1418,8 +1423,8 @@ definitions:
   charge:
     properties:
       amount:
-        description: A positive integer in the [smallest currency unit](https://support.stripe.com/questions/which-zero-decimal-currencies-does-stripe-support)
-          (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a 0-decimal currency)
+        description: A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal)
+          (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency)
           representing how much to charge. The minimum amount is $0.50 US or [equivalent
           in charge currency](https://support.stripe.com/questions/what-is-the-minimum-amount-i-can-charge-with-stripe).
         type:
@@ -1465,7 +1470,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       customer:
@@ -1570,7 +1575,8 @@ definitions:
         - string
       receipt_number:
         description: This is the transaction number that appears on email receipts
-          sent for this charge.
+          sent for this charge. This attribute will be `null` until a receipt has
+          been sent.
         type:
         - string
       refunded:
@@ -1805,8 +1811,8 @@ definitions:
         - integer
       currency:
         description: If `amount_off` has been set, the three-letter [ISO code for
-          the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
-          of the amount to take off.
+          the currency](https://stripe.com/docs/currencies) of the amount to take
+          off.
         type:
         - string
       duration:
@@ -1899,7 +1905,7 @@ definitions:
         type:
         - integer
       currency:
-        description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+        description: Three-letter [ISO code for the currency](https://stripe.com/docs/currencies)
           the customer can be charged in for recurring billing purposes.
         type:
         - string
@@ -2143,8 +2149,8 @@ definitions:
           oneOf:
           - "$ref": "#/definitions/customer"
       end:
-        description: If the coupon has a duration of `once` or `repeating`, the date
-          that this discount will end. If the coupon used has a `forever` duration,
+        description: If the coupon has a duration of `repeating`, the date that this
+          discount will end. If the coupon has a duration of `once` or `forever`,
           this attribute will be null.
         type:
         - integer
@@ -2199,18 +2205,13 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       evidence:
-        description: Evidence provided to respond to a dispute. Updating any field
-          in the hash will submit all fields in the hash for review.
-        type:
-        - object
+        "$ref": "#/definitions/dispute_evidence"
       evidence_details:
-        description: Information about the evidence submission.
-        type:
-        - object
+        "$ref": "#/definitions/dispute_evidence_details"
       id:
         description: Unique identifier for the object.
         type:
@@ -2272,6 +2273,301 @@ definitions:
     x-expandableFields:
     - charge
     x-resourceId: dispute
+  dispute_evidence:
+    properties:
+      access_activity_log:
+        description: Any server or activity logs showing proof that the customer accessed
+          or downloaded the purchased digital product. This information should include
+          IP addresses, corresponding timestamps, and any detailed recorded activity.
+        type:
+        - string
+      billing_address:
+        description: The billing address provided by the customer.
+        type:
+        - string
+      cancellation_policy:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Your subscription cancellation policy, as shown to the customer."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      cancellation_policy_disclosure:
+        description: An explanation of how and when the customer was shown your refund
+          policy prior to purchase.
+        type:
+        - string
+      cancellation_rebuttal:
+        description: A justification for why the customer's subscription was not canceled.
+        type:
+        - string
+      customer_communication:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Any communication with the customer that you feel is relevant to your case
+          (for example emails proving that they received the product or service, or
+          demonstrating their use of or satisfaction with the product or service)."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      customer_email_address:
+        description: The email address of the customer.
+        type:
+        - string
+      customer_name:
+        description: The name of the customer.
+        type:
+        - string
+      customer_purchase_ip:
+        description: The IP address that the customer used when making the purchase.
+        type:
+        - string
+      customer_signature:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          A relevant document or contract showing the customer's signature."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      duplicate_charge_documentation:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Documentation for the prior charge that can uniquely identify the charge,
+          such as a receipt, shipping label, work order, etc. This document should
+          be paired with a similar document from the disputed payment that proves
+          the two payments are separate."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      duplicate_charge_explanation:
+        description: An explanation of the difference between the disputed charge
+          and the prior charge that appears to be a duplicate.
+        type:
+        - string
+      duplicate_charge_id:
+        description: The Stripe ID for the prior charge which appears to be a duplicate
+          of the disputed charge.
+        type:
+        - string
+      product_description:
+        description: A description of the product or service which was sold.
+        type:
+        - string
+      receipt:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Any receipt or message sent to the customer notifying them of the charge."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      refund_policy:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Your refund policy, as shown to the customer."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      refund_policy_disclosure:
+        description: Documentation demonstrating that the customer was shown your
+          refund policy prior to purchase.
+        type:
+        - string
+      refund_refusal_explanation:
+        description: A justification for why the customer is not entitled to a refund.
+        type:
+        - string
+      service_date:
+        description: The date on which the customer received or began receiving the
+          purchased service, in a clear human-readable format.
+        type:
+        - string
+      service_documentation:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Documentation showing proof that a service was provided to the customer.
+          This could include a copy of a signed contract, work order, or other form
+          of written agreement."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      shipping_address:
+        description: The address to which a physical product was shipped. You should
+          try to include as much complete address information as possible.
+        type:
+        - string
+      shipping_carrier:
+        description: The delivery service that shipped a physical product, such as
+          Fedex, UPS, USPS, etc. If multiple carriers were used for this purchase,
+          please separate them with commas.
+        type:
+        - string
+      shipping_date:
+        description: The date on which a physical product began its route to the shipping
+          address, in a clear human-readable format.
+        type:
+        - string
+      shipping_documentation:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Documentation showing proof that a product was shipped to the customer at
+          the same address the customer provided to you. This could include a copy
+          of the shipment receipt, shipping label, etc, and should show the full shipping
+          address of the customer, if possible."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      shipping_tracking_number:
+        description: The tracking number for a physical product, obtained from the
+          delivery service. If multiple tracking numbers were generated for this purchase,
+          please separate them with commas.
+        type:
+        - string
+      uncategorized_file:
+        description: "(ID of a [file upload](https://stripe.com/docs/guides/file-upload))
+          Any additional evidence or statements."
+        type:
+        - string
+        x-expansionResources:
+          oneOf:
+          - "$ref": "#/definitions/file"
+      uncategorized_text:
+        description: Any additional evidence or statements.
+        type:
+        - string
+    title: DisputeEvidence
+    type:
+    - object
+    x-expandableFields:
+    - cancellation_policy
+    - customer_communication
+    - customer_signature
+    - duplicate_charge_documentation
+    - receipt
+    - refund_policy
+    - service_documentation
+    - shipping_documentation
+    - uncategorized_file
+    x-resourceId: dispute_evidence
+  dispute_evidence_details:
+    properties:
+      due_by:
+        description: Date by which evidence must be submitted in order to successfully
+          challenge dispute. Will be null if the customer's bank or credit card company
+          doesn't allow a response for this particular dispute.
+        type:
+        - integer
+      has_evidence:
+        description: Whether or not evidence has been staged for this dispute.
+        type:
+        - boolean
+      past_due:
+        description: Whether or not the last evidence submission was submitted past
+          the due date. Defaults to `false` if no evidence submissions have occurred.
+          If true, then delivery of the latest evidence is not guaranteed.
+        type:
+        - boolean
+      submission_count:
+        description: The number of times evidence has been submitted. Typically, you
+          may only submit evidence once.
+        type:
+        - integer
+    required:
+    - has_evidence
+    - past_due
+    - submission_count
+    title: DisputeEvidenceDetails
+    type:
+    - object
+    x-expandableFields: []
+    x-resourceId: dispute_evidence_details
+  ephemeral_key:
+    properties:
+      created:
+        description: Time at which the object was created. Measured in seconds since
+          the Unix epoch.
+        type:
+        - integer
+      expires:
+        description: Time at which the key will expire. Measured in seconds since
+          the Unix epoch.
+        type:
+        - integer
+      id:
+        description: Unique identifier for the object.
+        type:
+        - string
+      livemode:
+        description: Flag indicating whether the object exists in live mode or test
+          mode.
+        type:
+        - boolean
+      object:
+        description: String representing the object's type. Objects of the same type
+          share the same value.
+        type:
+        - string
+    required:
+    - created
+    - expires
+    - id
+    - livemode
+    - object
+    title: EphemeralKey
+    type:
+    - object
+    x-expandableFields: []
+    x-resourceId: ephemeral_key
+  ephemeral_key_with_secret:
+    properties:
+      created:
+        description: Time at which the object was created. Measured in seconds since
+          the Unix epoch.
+        type:
+        - integer
+      expires:
+        description: Time at which the key will expire. Measured in seconds since
+          the Unix epoch.
+        type:
+        - integer
+      id:
+        description: Unique identifier for the object.
+        type:
+        - string
+      livemode:
+        description: Flag indicating whether the object exists in live mode or test
+          mode.
+        type:
+        - boolean
+      object:
+        description: String representing the object's type. Objects of the same type
+          share the same value.
+        type:
+        - string
+      secret:
+        description: The key's secret. You can use this value to make authorized requests
+          to the Stripe API.
+        type:
+        - string
+    required:
+    - created
+    - expires
+    - id
+    - livemode
+    - object
+    - secret
+    title: EphemeralKeyWithSecret
+    type:
+    - object
+    x-expandableFields: []
+    x-resourceId: ephemeral_key_with_secret
   error:
     description: An error response from the Stripe API.
     properties:
@@ -2348,13 +2644,7 @@ definitions:
         type:
         - integer
       request:
-        description: 'ID of the API request that caused the event. If null, the event
-          was automatic (e.g. Stripe''s automatic subscription handling). Request
-          logs are available in the [dashboard](https://dashboard.stripe.com/logs)
-          but currently not in the API. *Note: this property is populated for events
-          on or after April 23, 2013*.'
-        type:
-        - string
+        "$ref": "#/definitions/event_request"
       type:
         description: 'Description of the event: e.g. `invoice.created`, `charge.refunded`,
           etc.'
@@ -2376,13 +2666,13 @@ definitions:
   event_data:
     properties:
       object:
-        description: Static string describing the type of the object described by
-          this change. For example, an `invoice.created` event will have a full invoice
-          object as the value of the object key.
+        description: Object containing the API resource relevant to the event. For
+          example, an `invoice.created` event will have a full [invoice object](#invoice_object)
+          as the value of the object key.
         type:
         - object
       previous_attributes:
-        description: Hash containing the names of the attributes that have changed
+        description: Object containing the names of the attributes that have changed
           and their previous values (only sent along with *.updated events)
         type:
         - object
@@ -2393,6 +2683,25 @@ definitions:
     - object
     x-expandableFields: []
     x-resourceId: event_data
+  event_request:
+    properties:
+      id:
+        description: ID of the API request that caused the event. If null, the event
+          was automatic (e.g. Stripe's automatic subscription handling). Request logs
+          are available in the [dashboard](https://dashboard.stripe.com/logs) but
+          currently not in the API.
+        type:
+        - string
+      idempotency_key:
+        description: 'The idempotency key transmitted during the request, if any.
+          *Note: this proprety is only populated for events on or after May 23, 2017*.'
+        type:
+        - string
+    title: EventRequest
+    type:
+    - object
+    x-expandableFields: []
+    x-resourceId: event_request
   external_account_source:
     properties:
       account:
@@ -2408,7 +2717,7 @@ definitions:
         type:
         - string
       currency:
-        description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+        description: Three-letter [ISO code for the currency](https://stripe.com/docs/payouts)
           paid out to the bank account.
         type:
         - string
@@ -2477,7 +2786,7 @@ definitions:
         - string
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       description:
@@ -2520,7 +2829,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       fee:
@@ -2681,7 +2990,7 @@ definitions:
         - boolean
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       customer:
@@ -2882,7 +3191,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       customer:
@@ -2989,7 +3298,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       description:
@@ -3071,255 +3380,6 @@ definitions:
     - object
     x-expandableFields: []
     x-resourceId: invoice_line_item
-  issued_card:
-    properties:
-      available_balance:
-        description: ''
-        type:
-        - integer
-      card:
-        description: ''
-        type:
-        - string
-        x-expansionResources:
-          oneOf:
-          - "$ref": "#/definitions/card"
-      currency:
-        description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
-        type:
-        - string
-      id:
-        description: Unique identifier for the object.
-        type:
-        - string
-      object:
-        description: String representing the object's type. Objects of the same type
-          share the same value.
-        type:
-        - string
-      status:
-        description: ''
-        type:
-        - string
-    required:
-    - available_balance
-    - card
-    - currency
-    - id
-    - object
-    - status
-    title: IssuedCard
-    type:
-    - object
-    x-expandableFields:
-    - card
-    x-resourceId: issued_card
-  legacy_transfer:
-    properties:
-      amount:
-        description: Amount (in %s) to be transferred to your bank account.
-        type:
-        - integer
-      amount_reversed:
-        description: Amount in %s reversed (can be less than the amount attribute
-          on the transfer if a partial reversal was issued).
-        type:
-        - integer
-      application_fee:
-        description: ''
-        type:
-        - string
-        x-expansionResources:
-          oneOf:
-          - "$ref": "#/definitions/backwards_compatible_platform_earning"
-      balance_transaction:
-        description: Balance transaction that describes the impact of this transfer
-          on your account balance.
-        type:
-        - string
-        x-expansionResources:
-          oneOf:
-          - "$ref": "#/definitions/balance_transaction"
-      created:
-        description: Time at which the object was created. Measured in seconds since
-          the Unix epoch.
-        type:
-        - integer
-      currency:
-        description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
-        type:
-        - string
-      date:
-        description: Date the transfer is scheduled to arrive in the bank. This factors
-          in delays like weekends or bank holidays.
-        type:
-        - integer
-      description:
-        description: Internal-only description of the transfer.
-        type:
-        - string
-      destination:
-        description: ID of the bank account, card, or Stripe account the transfer
-          was sent to.
-        type:
-        - string
-        x-expansionResources:
-          oneOf:
-          - "$ref": "#/definitions/account"
-          - "$ref": "#/definitions/bank_account"
-          - "$ref": "#/definitions/card"
-      destination_payment:
-        description: If the destination is a Stripe account, this will be the ID of
-          the payment that the destination account received for the transfer.
-        type:
-        - string
-        x-expansionResources:
-          oneOf:
-          - "$ref": "#/definitions/charge"
-      failure_code:
-        description: Error code explaining reason for transfer failure if available.
-          See [Types of transfer failures](/docs/api#transfer_failures) for a list
-          of failure codes.
-        type:
-        - string
-      failure_message:
-        description: Message to user further explaining reason for transfer failure
-          if available.
-        type:
-        - string
-      id:
-        description: Unique identifier for the object.
-        type:
-        - string
-      livemode:
-        description: Flag indicating whether the object exists in live mode or test
-          mode.
-        type:
-        - boolean
-      metadata:
-        description: Set of key/value pairs that you can attach to an object. It can
-          be useful for storing additional information about the object in a structured
-          format.
-        type:
-        - object
-      method:
-        description: The method used to send this transfer, which can be `standard`
-          or `instant`. `instant` is only supported for transfers to debit cards.
-          (See [Instant payouts for marketplaces](/blog/instant-payouts-for-marketplaces)
-          for more information.)
-        type:
-        - string
-      object:
-        description: String representing the object's type. Objects of the same type
-          share the same value.
-        type:
-        - string
-      reversals:
-        properties:
-          data:
-            items:
-              "$ref": "#/definitions/transfer_reversal"
-            type:
-            - array
-          has_more:
-            description: True if this list has another page of items after this one
-              that can be fetched.
-            type:
-            - boolean
-          object:
-            description: String representing the object's type. Objects of the same
-              type share the same value. Always has the value "list".
-            enum:
-            - list
-            type:
-            - string
-          total_count:
-            description: The total number of items available. This value is not included
-              by default, but you can request it by specifying ?include[]=total_count.
-            type:
-            - integer
-          url:
-            description: The URL where this list can be accessed.
-            type:
-            - string
-        required:
-        - data
-        - has_more
-        - object
-        - url
-        title: TransferReversalList
-        type:
-        - object
-        x-expandableFields: []
-      reversed:
-        description: Whether or not the transfer has been fully reversed. If the transfer
-          is only partially reversed, this attribute will still be false.
-        type:
-        - boolean
-      source_transaction:
-        description: ID of the charge (or other transaction) that was used to fund
-          the transfer. If null, the transfer was funded from the available balance.
-        type:
-        - string
-        x-expansionResources:
-          oneOf:
-          - "$ref": "#/definitions/charge"
-          - "$ref": "#/definitions/platform_fee"
-          - "$ref": "#/definitions/transfer_reversal"
-      source_type:
-        description: The source balance this transfer came from. One of `card`, `bank_account`,
-          `bitcoin_receiver`, or `alipay_account`.
-        type:
-        - string
-      statement_descriptor:
-        description: Extra information about a transfer to be displayed on the user's
-          bank statement.
-        type:
-        - string
-      status:
-        description: Current status of the transfer (`paid`, `pending`, `in_transit`,
-          `canceled` or `failed`). A transfer will be `pending` until it is submitted
-          to the bank, at which point it becomes `in_transit`. It will then change
-          to `paid` if the transaction goes through. If it does not go through successfully,
-          its status will change to `failed` or `canceled`.
-        type:
-        - string
-      transfer_group:
-        description: A string that identifies this transaction as part of a group.
-          See the [Connect documentation](/docs/connect/charges-transfers#grouping-transactions)
-          for details.
-        type:
-        - string
-      type:
-        description: Can be `card`, `bank_account`, or `stripe_account`.
-        type:
-        - string
-    required:
-    - amount
-    - amount_reversed
-    - created
-    - currency
-    - date
-    - id
-    - livemode
-    - metadata
-    - object
-    - reversals
-    - reversed
-    - status
-    - type
-    title: LegacyTransfer
-    type:
-    - object
-    x-expandableFields:
-    - application_fee
-    - balance_transaction
-    - destination
-    - destination_payment
-    - source_transaction
-    x-resourceId: legacy_transfer
   legal_entity:
     properties:
       additional_owners:
@@ -3413,6 +3473,10 @@ definitions:
           the account have been provided.
         type:
         - boolean
+      tax_id_registrar:
+        description: ''
+        type:
+        - string
       type:
         description: Either "individual" or "company", for what kind of legal entity
           the account owner is for.
@@ -3640,8 +3704,8 @@ definitions:
     properties:
       amount:
         description: A positive integer in the smallest currency unit (that is, 100
-          cents for $1.00, or 1 for ¥1, Japanese Yen being a 0-decimal currency) representing
-          the total amount for the order.
+          cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency)
+          representing the total amount for the order.
         type:
         - integer
       amount_returned:
@@ -3671,7 +3735,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       customer:
@@ -3796,13 +3860,13 @@ definitions:
     properties:
       amount:
         description: A positive integer in the smallest currency unit (that is, 100
-          cents for $1.00, or 1 for ¥1, Japanese Yen being a 0-decimal currency) representing
-          the total amount for the line item.
+          cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency)
+          representing the total amount for the line item.
         type:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       description:
@@ -3850,8 +3914,8 @@ definitions:
     properties:
       amount:
         description: A positive integer in the smallest currency unit (that is, 100
-          cents for $1.00, or 1 for ¥1, Japanese Yen being a 0-decimal currency) representing
-          the total amount for the returned line item.
+          cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency)
+          representing the total amount for the returned line item.
         type:
         - integer
       created:
@@ -3861,7 +3925,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -3964,7 +4028,12 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        type:
+        - string
+      description:
+        description: An arbitrary string attached to the object. Often useful for
+          displaying to users.
         type:
         - string
       destination:
@@ -4079,7 +4148,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -4190,7 +4259,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -4328,7 +4397,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -4575,7 +4644,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       description:
@@ -4636,7 +4705,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       description:
@@ -4773,13 +4842,13 @@ definitions:
     properties:
       amount:
         description: A positive integer in the smallest currency unit (that is, 100
-          cents for $1.00, or 1 for ¥1, Japanese Yen being a 0-decimal currency) representing
-          the total amount for the line item.
+          cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency)
+          representing the total amount for the line item.
         type:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       delivery_estimate:
@@ -4823,7 +4892,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -4858,7 +4927,7 @@ definitions:
       price:
         description: The cost of the item as a positive integer in the smallest currency
           unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese
-          Yen being a 0-decimal currency).
+          Yen being a zero-decimal currency).
         type:
         - integer
       product:
@@ -4900,7 +4969,7 @@ definitions:
         type:
         - integer
       client_secret:
-        description: The client secret of the source. Used for client-side polling
+        description: The client secret of the source. Used for client-side retrieval
           using a publishable key.
         type:
         - string
@@ -4912,7 +4981,7 @@ definitions:
         type:
         - integer
       currency:
-        description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+        description: Three-letter [ISO code for the currency](https://stripe.com/docs/currencies)
           associated with the source. This is the currency for which the source will
           be chargeable once ready. Required for `single_use` sources.
         type:
@@ -5338,7 +5407,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -5457,7 +5526,7 @@ definitions:
         type:
         - string
       currency:
-        description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+        description: Three-letter [ISO code for the currency](https://stripe.com/docs/payouts)
           paid out to the bank account.
         type:
         - string
@@ -5557,7 +5626,7 @@ definitions:
         - string
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       cvc_check:
@@ -5656,10 +5725,15 @@ definitions:
         - string
         x-expansionResources:
           oneOf:
-          - "$ref": "#/definitions/issued_card"
+          - "$ref": "#/definitions/card"
+      created:
+        description: Time at which the object was created. Measured in seconds since
+          the Unix epoch.
+        type:
+        - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -5681,6 +5755,7 @@ definitions:
     - amount
     - balance_transaction
     - card
+    - created
     - currency
     - id
     - merchant_data
@@ -5719,7 +5794,12 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        type:
+        - string
+      description:
+        description: An arbitrary string attached to the object. Often useful for
+          displaying to users.
         type:
         - string
       destination:
@@ -5915,9 +5995,9 @@ definitions:
         type:
         - object
       migrated_to:
-        description: 'The ID of the [managed account](/docs/connect/managed-accounts)
+        description: 'The ID of the [Custom account](/docs/connect/custom-accounts)
           this recipient was migrated to. If set, the recipient can no longer be updated,
-          nor can transfers be made to it: use the managed account instead.'
+          nor can transfers be made to it: use the Custom account instead.'
         type:
         - string
         x-expansionResources:
@@ -5983,7 +6063,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       date:
@@ -6176,7 +6256,7 @@ definitions:
         - integer
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       id:
@@ -6200,7 +6280,6 @@ definitions:
         - string
         x-expansionResources:
           oneOf:
-          - "$ref": "#/definitions/legacy_transfer"
           - "$ref": "#/definitions/transfer"
     required:
     - amount
@@ -6294,7 +6373,7 @@ definitions:
         - boolean
       currency:
         description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-          in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+          in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         type:
         - string
       customer:
@@ -6492,7 +6571,7 @@ info:
     details.
   termsOfService: https://stripe.com/us/terms/
   title: Stripe API
-  version: '2017-04-06'
+  version: '2017-06-05'
 paths:
   "/v1/3d_secure":
     post:
@@ -6519,7 +6598,7 @@ paths:
               - string
             currency:
               description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-                in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               title: currency
               type:
               - string
@@ -6582,11 +6661,11 @@ paths:
             "$ref": "#/definitions/error"
   "/v1/account":
     delete:
-      description: <p>With <a href="/docs/connect">Connect</a>, you may delete Stripe
-        accounts you manage.</p><p>Managed accounts created using test-mode keys can
-        be deleted at any time. Managed accounts created using live-mode keys may
-        only be deleted once all balances are zero.</p><p>If you are looking to close
-        your own account, use the <a href="https://dashboard.stripe.com/account/data">data
+      description: <p>With <a href="/docs/connect">Connect</a>, you may delete Custom
+        accounts you manage.</p><p>Custom accounts created using test-mode keys can
+        be deleted at any time. Custom accounts created using live-mode keys may only
+        be deleted once all balances are zero.</p><p>If you are looking to close your
+        own account, use the <a href="https://dashboard.stripe.com/account/data">data
         tab in your account settings</a> instead.</p>
       operationId: AccountDelete
       parameters:
@@ -6647,10 +6726,9 @@ paths:
     post:
       description: <p>Updates an account by setting the values of the parameters passed.
         Any parameters not provided will be left unchanged.</p><p><strong>You may
-        only update accounts that you <a href="/docs/connect/managed-accounts">manage</a></strong>.
-        To update your own account, you can currently only do so via the <a href="https://dashboard.stripe.com/account">dashboard</a>.
-        For more information on updating Managed Accounts, see <a href="/docs/connect/updating-accounts">our
-        guide</a>.</p>
+        only update <a href="/docs/connect/updating-accounts">Custom and Express accounts
+        that you manage</a></strong>. To update your own account, you can currently
+        only do so via the <a href="https://dashboard.stripe.com/account">dashboard</a>.</p>
       operationId: AccountUpdate
       parameters:
       - description: Body parameters for the request.
@@ -6684,7 +6762,7 @@ paths:
             debit_negative_balances:
               description: A boolean for whether or not Stripe should try to reclaim
                 negative balances from the account holder's bank account. See our
-                [managed account bank transfer guide](/docs/connect/account-balances)
+                [Connect account bank transfer guide](/docs/connect/account-balances)
                 for more information.
               title: debit_negative_balances
               type:
@@ -6698,14 +6776,14 @@ paths:
             default_currency:
               description: Three-letter ISO currency code representing the default
                 currency for the account. This must be a currency that [Stripe supports
-                in the account's country](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in the account's country](https://stripe.com/docs/payouts).
               title: default_currency
               type:
               - string
             email:
-              description: 'Email address of the account holder. For standalone accounts,
+              description: 'Email address of the account holder. For Standard accounts,
                 this is used to email them asking them to claim their Stripe account.
-                For managed accounts, this is only to make the account easier to identify
+                For Custom accounts, this is only to make the account easier to identify
                 to you: Stripe will not email the account holder.'
               title: email
               type:
@@ -6749,7 +6827,7 @@ paths:
             payout_schedule:
               description: Details on when this account will make funds from charges
                 available, and when they will be paid out to the account holder's
-                bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information)
+                bank account. See our [Connect account bank transfer guide](/docs/connect/bank-transfers#payout-information)
                 for more information.
               title: payout_schedule
               type:
@@ -6794,7 +6872,7 @@ paths:
               - string
             tos_acceptance:
               description: Details on who accepted the Stripe terms of service, and
-                when they accepted it. See our [updating managed accounts guide](/docs/connect/updating-accounts#tos-acceptance)
+                when they accepted it. See our [updating accounts guide](/docs/connect/updating-accounts#tos-acceptance)
                 for more information.
               title: tos_acceptance
               type:
@@ -6917,9 +6995,11 @@ paths:
           schema:
             "$ref": "#/definitions/error"
     post:
-      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/managed-accounts">managed
-        accounts</a>, and optionally sets it as the default for its currency. Other
-        bank account details are not editable by design.</p>
+      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom
+        account</a>, and optionally sets it as the default for its currency. Other
+        bank account details are not editable by design.</p><p>You can re-enable a
+        disabled bank account by performing an update call without providing any arguments
+        or changes.</p>
       operationId: UpdateAccountBankAccount
       parameters:
       - description: The ID of the bank account to be updated.
@@ -6973,7 +7053,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -7149,9 +7229,11 @@ paths:
           schema:
             "$ref": "#/definitions/error"
     post:
-      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/managed-accounts">managed
-        accounts</a>, and optionally sets it as the default for its currency. Other
-        bank account details are not editable by design.</p>
+      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom
+        account</a>, and optionally sets it as the default for its currency. Other
+        bank account details are not editable by design.</p><p>You can re-enable a
+        disabled bank account by performing an update call without providing any arguments
+        or changes.</p>
       operationId: UpdateAccountBankAccount
       parameters:
       - description: The ID of the bank account to be updated.
@@ -7196,7 +7278,10 @@ paths:
             "$ref": "#/definitions/error"
   "/v1/account/login_links":
     post:
-      description: ''
+      description: <p>Creates a single-use login link for an Express account to access
+        their Stripe dashboard.</p><p><strong>You may only create login links for
+        <a href="/docs/connect/express-accounts">Express accounts</a> connected to
+        your platform</strong>.</p>
       operationId: LoginLinkCreate
       parameters:
       - description: Body parameters for the request.
@@ -7219,16 +7304,6 @@ paths:
               type:
               - array
               - string
-            id:
-              description: ''
-              title: id
-              type:
-              - string
-            percent_off:
-              description: ''
-              title: percent_off
-              type:
-              - integer
           required:
           - account
       responses:
@@ -7253,7 +7328,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -7328,7 +7403,7 @@ paths:
       - description: Body parameters for the request.
         in: body
         name: payload
-        required: false
+        required: true
         schema:
           properties:
             business_logo:
@@ -7361,7 +7436,7 @@ paths:
             debit_negative_balances:
               description: A boolean for whether or not Stripe should try to reclaim
                 negative balances from the account holder's bank account. See our
-                [managed account bank transfer guide](/docs/connect/account-balances)
+                [Connect account bank transfer guide](/docs/connect/account-balances)
                 for more information.
               title: debit_negative_balances
               type:
@@ -7375,14 +7450,14 @@ paths:
             default_currency:
               description: Three-letter ISO currency code representing the default
                 currency for the account. This must be a currency that [Stripe supports
-                in the account's country](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in the account's country](https://stripe.com/docs/payouts).
               title: default_currency
               type:
               - string
             email:
-              description: 'Email address of the account holder. For standalone accounts,
+              description: 'Email address of the account holder. For Standard accounts,
                 this is used to email them asking them to claim their Stripe account.
-                For managed accounts, this is only to make the account easier to identify
+                For Custom accounts, this is only to make the account easier to identify
                 to you: Stripe will not email the account holder.'
               title: email
               type:
@@ -7416,11 +7491,6 @@ paths:
               title: legal_entity
               type:
               - object
-            managed:
-              description: ''
-              title: managed
-              type:
-              - boolean
             metadata:
               description: A set of key/value pairs that you can attach to an account
                 object. It can be useful for storing additional information about
@@ -7431,7 +7501,7 @@ paths:
             payout_schedule:
               description: Details on when this account will make funds from charges
                 available, and when they will be paid out to the account holder's
-                bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information)
+                bank account. See our [Connect account bank transfer guide](/docs/connect/bank-transfers#payout-information)
                 for more information.
               title: payout_schedule
               type:
@@ -7476,11 +7546,18 @@ paths:
               - string
             tos_acceptance:
               description: Details on who accepted the Stripe terms of service, and
-                when they accepted it. See our [updating managed accounts guide](/docs/connect/updating-accounts#tos-acceptance)
+                when they accepted it. See our [updating accounts guide](/docs/connect/updating-accounts#tos-acceptance)
                 for more information.
               title: tos_acceptance
               type:
               - object
+            type:
+              description: ''
+              title: type
+              type:
+              - string
+          required:
+          - type
       responses:
         '200':
           description: Successful response.
@@ -7492,11 +7569,11 @@ paths:
             "$ref": "#/definitions/error"
   "/v1/accounts/{account}":
     delete:
-      description: <p>With <a href="/docs/connect">Connect</a>, you may delete Stripe
-        accounts you manage.</p><p>Managed accounts created using test-mode keys can
-        be deleted at any time. Managed accounts created using live-mode keys may
-        only be deleted once all balances are zero.</p><p>If you are looking to close
-        your own account, use the <a href="https://dashboard.stripe.com/account/data">data
+      description: <p>With <a href="/docs/connect">Connect</a>, you may delete Custom
+        accounts you manage.</p><p>Custom accounts created using test-mode keys can
+        be deleted at any time. Custom accounts created using live-mode keys may only
+        be deleted once all balances are zero.</p><p>If you are looking to close your
+        own account, use the <a href="https://dashboard.stripe.com/account/data">data
         tab in your account settings</a> instead.</p>
       operationId: AccountDelete
       parameters:
@@ -7557,10 +7634,9 @@ paths:
     post:
       description: <p>Updates an account by setting the values of the parameters passed.
         Any parameters not provided will be left unchanged.</p><p><strong>You may
-        only update accounts that you <a href="/docs/connect/managed-accounts">manage</a></strong>.
-        To update your own account, you can currently only do so via the <a href="https://dashboard.stripe.com/account">dashboard</a>.
-        For more information on updating Managed Accounts, see <a href="/docs/connect/updating-accounts">our
-        guide</a>.</p>
+        only update <a href="/docs/connect/updating-accounts">Custom and Express accounts
+        that you manage</a></strong>. To update your own account, you can currently
+        only do so via the <a href="https://dashboard.stripe.com/account">dashboard</a>.</p>
       operationId: AccountUpdate
       parameters:
       - description: Body parameters for the request.
@@ -7594,7 +7670,7 @@ paths:
             debit_negative_balances:
               description: A boolean for whether or not Stripe should try to reclaim
                 negative balances from the account holder's bank account. See our
-                [managed account bank transfer guide](/docs/connect/account-balances)
+                [Connect account bank transfer guide](/docs/connect/account-balances)
                 for more information.
               title: debit_negative_balances
               type:
@@ -7608,14 +7684,14 @@ paths:
             default_currency:
               description: Three-letter ISO currency code representing the default
                 currency for the account. This must be a currency that [Stripe supports
-                in the account's country](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in the account's country](https://stripe.com/docs/payouts).
               title: default_currency
               type:
               - string
             email:
-              description: 'Email address of the account holder. For standalone accounts,
+              description: 'Email address of the account holder. For Standard accounts,
                 this is used to email them asking them to claim their Stripe account.
-                For managed accounts, this is only to make the account easier to identify
+                For Custom accounts, this is only to make the account easier to identify
                 to you: Stripe will not email the account holder.'
               title: email
               type:
@@ -7659,7 +7735,7 @@ paths:
             payout_schedule:
               description: Details on when this account will make funds from charges
                 available, and when they will be paid out to the account holder's
-                bank account. See our [managed account bank transfer guide](/docs/connect/bank-transfers#payout-information)
+                bank account. See our [Connect account bank transfer guide](/docs/connect/bank-transfers#payout-information)
                 for more information.
               title: payout_schedule
               type:
@@ -7704,7 +7780,7 @@ paths:
               - string
             tos_acceptance:
               description: Details on who accepted the Stripe terms of service, and
-                when they accepted it. See our [updating managed accounts guide](/docs/connect/updating-accounts#tos-acceptance)
+                when they accepted it. See our [updating accounts guide](/docs/connect/updating-accounts#tos-acceptance)
                 for more information.
               title: tos_acceptance
               type:
@@ -7827,9 +7903,11 @@ paths:
           schema:
             "$ref": "#/definitions/error"
     post:
-      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/managed-accounts">managed
-        accounts</a>, and optionally sets it as the default for its currency. Other
-        bank account details are not editable by design.</p>
+      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom
+        account</a>, and optionally sets it as the default for its currency. Other
+        bank account details are not editable by design.</p><p>You can re-enable a
+        disabled bank account by performing an update call without providing any arguments
+        or changes.</p>
       operationId: UpdateAccountBankAccount
       parameters:
       - description: The ID of the bank account to be updated.
@@ -7883,7 +7961,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -8059,9 +8137,11 @@ paths:
           schema:
             "$ref": "#/definitions/error"
     post:
-      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/managed-accounts">managed
-        accounts</a>, and optionally sets it as the default for its currency. Other
-        bank account details are not editable by design.</p>
+      description: <p>Updates the metadata of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom
+        account</a>, and optionally sets it as the default for its currency. Other
+        bank account details are not editable by design.</p><p>You can re-enable a
+        disabled bank account by performing an update call without providing any arguments
+        or changes.</p>
       operationId: UpdateAccountBankAccount
       parameters:
       - description: The ID of the bank account to be updated.
@@ -8106,7 +8186,10 @@ paths:
             "$ref": "#/definitions/error"
   "/v1/accounts/{account}/login_links":
     post:
-      description: ''
+      description: <p>Creates a single-use login link for an Express account to access
+        their Stripe dashboard.</p><p><strong>You may only create login links for
+        <a href="/docs/connect/express-accounts">Express accounts</a> connected to
+        your platform</strong>.</p>
       operationId: LoginLinkCreate
       parameters:
       - description: The identifier of the account to create a login link for.
@@ -8129,16 +8212,6 @@ paths:
               type:
               - array
               - string
-            id:
-              description: ''
-              title: id
-              type:
-              - string
-            percent_off:
-              description: ''
-              title: percent_off
-              type:
-              - integer
       responses:
         '200':
           description: Successful response.
@@ -8150,10 +8223,10 @@ paths:
             "$ref": "#/definitions/error"
   "/v1/accounts/{account}/reject":
     post:
-      description: <p>With <a href="/docs/connect">Connect</a>, you may flag managed
-        accounts as suspicious.</p><p>Managed accounts created using test-mode keys
-        can be rejected at any time. Managed accounts created using live-mode keys
-        may only be rejected once all balances are zero.</p>
+      description: <p>With <a href="/docs/connect">Connect</a>, you may flag accounts
+        as suspicious.</p><p>Test-mode Custom and Express accounts can be rejected
+        at any time. Accounts created using live-mode keys may only be rejected once
+        all balances are zero.</p>
       operationId: AccountReject
       parameters:
       - description: The identifier of the account to be rejected.
@@ -8204,7 +8277,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -8383,7 +8456,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -8615,7 +8688,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -8769,7 +8842,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -8899,7 +8972,7 @@ paths:
   "/v1/bitcoin/payments":
     get:
       description: ''
-      operationId: AllPayments
+      operationId: AllBitcoinPayments
       parameters:
       - description: Specifies which fields in the response should be expanded.
         in: query
@@ -8907,7 +8980,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -9125,6 +9198,11 @@ paths:
               title: source
               type:
               - string
+            statement_address:
+              description: ''
+              title: statement_address
+              type:
+              - object
             statement_descriptor:
               description: ''
               title: statement_descriptor
@@ -9244,7 +9322,7 @@ paths:
   "/v1/bitcoin/payments/{id}":
     get:
       description: ''
-      operationId: RetrievePayment
+      operationId: RetrieveBitcoinPayment
       parameters:
       - description: Specifies which fields in the response should be expanded.
         in: query
@@ -9277,7 +9355,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -9378,7 +9456,7 @@ paths:
               type:
               - integer
             currency:
-              description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+              description: Three-letter [ISO code for the currency](https://stripe.com/docs/currencies)
                 to which the bitcoin will be converted. You will be paid out in this
                 currency. Only USD is currently supported.
               title: currency
@@ -9590,7 +9668,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -9680,7 +9758,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -9795,7 +9873,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -10300,6 +10378,14 @@ paths:
               title: metadata
               type:
               - object
+            submit:
+              description: Whether or not to immediately submit evidence to the bank.
+                If `false`, evidence is staged on the dispute. Staged evidence is
+                visible in the API and Dashboard, and can be submitted to the bank
+                by making another request with this attribute set to `true` (the default).
+              title: submit
+              type:
+              - boolean
       responses:
         '200':
           description: Successful response.
@@ -10432,7 +10518,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -10647,7 +10733,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -10751,7 +10837,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -10853,7 +10939,7 @@ paths:
               type:
               - integer
             currency:
-              description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+              description: Three-letter [ISO code for the currency](https://stripe.com/docs/currencies)
                 of the `amount_off` parameter (required if `amount_off` is passed).
               title: currency
               type:
@@ -11041,7 +11127,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -11146,6 +11232,11 @@ paths:
               title: coupon
               type:
               - string
+            default_source:
+              description: ''
+              title: default_source
+              type:
+              - string
             description:
               description: An arbitrary string that you can attach to a customer object.
                 It is displayed alongside the customer in the dashboard.
@@ -11180,9 +11271,10 @@ paths:
               type:
               - object
             source:
-              description: The source can either be a token, like the ones returned
-                by [Elements](/docs/elements), or a dictionary containing a user's
-                credit card details (with the options shown below).
+              description: The source can either be a [Token](/docs/api#tokens)'s
+                or a [Source](/docs/api#sources)'s ID, as returned by [Elements](/docs/elements),
+                or a dictionary containing a user's credit card details (with the
+                options shown below).
               title: source
               type:
               - object
@@ -11292,6 +11384,11 @@ paths:
               title: coupon
               type:
               - string
+            default_source:
+              description: ''
+              title: default_source
+              type:
+              - string
             description:
               description: An arbitrary string that you can attach to a customer object.
                 It is displayed alongside the customer in the dashboard.
@@ -11326,9 +11423,10 @@ paths:
               type:
               - object
             source:
-              description: The source can either be a token, like the ones returned
-                by [Elements](/docs/elements), or a dictionary containing a user's
-                credit card details (with the options shown below).
+              description: The source can either be a [Token](/docs/api#tokens)'s
+                or a [Source](/docs/api#sources)'s ID, as returned by [Elements](/docs/elements),
+                or a dictionary containing a user's credit card details (with the
+                options shown below).
               title: source
               type:
               - object
@@ -11353,7 +11451,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -11540,7 +11638,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -11863,7 +11961,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -12181,7 +12279,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -12506,7 +12604,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -12651,15 +12749,15 @@ paths:
               type:
               - integer
             source:
-              description: The source can either be a token, like the ones returned
-                by [Elements](https://stripe.com/docs/elements), or a dictionary containing
-                a user's credit card details (with the options shown below). You must
-                provide a source if the customer does not already have a valid source
-                attached, and you are subscribing the customer for a plan that is
-                not free. Passing `source` will create a new source object, make it
-                the customer default source, and delete the old customer default if
-                one exists. If you want to add an additional source to use with subscriptions,
-                instead use the [card creation API](https://stripe.com/docs/api#create_card)
+              description: The source can either be a [Token](/docs/api#tokens)'s
+                or a [Source](/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements),
+                or a dictionary containing a user's credit card details (with the
+                options shown below). You must provide a source if the customer does
+                not already have a valid source attached, and you are subscribing
+                the customer for a plan that is not free. Passing `source` will create
+                a new source object, make it the customer default source, and delete
+                the old customer default if one exists. If you want to add an additional
+                source to use with subscriptions, instead use the [card creation API](https://stripe.com/docs/api#create_card)
                 to add the card and then the [customer update API](https://stripe.com/docs/api#update
                 customer) to set it as the default. Whenever you attach a card to
                 a customer, Stripe will automatically validate the card.
@@ -12860,15 +12958,15 @@ paths:
               type:
               - integer
             source:
-              description: The source can either be a token, like the ones returned
-                by [Elements](https://stripe.com/docs/elements), or a dictionary containing
-                a user's credit card details (with the options shown below). You must
-                provide a source if the customer does not already have a valid source
-                attached, and you are subscribing the customer for a plan that is
-                not free. Passing `source` will create a new source object, make it
-                the customer default source, and delete the old customer default if
-                one exists. If you want to add an additional source to use with subscriptions,
-                instead use the [card creation API](https://stripe.com/docs/api#create_card)
+              description: The source can either be a [Token](/docs/api#tokens)'s
+                or a [Source](/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements),
+                or a dictionary containing a user's credit card details (with the
+                options shown below). You must provide a source if the customer does
+                not already have a valid source attached, and you are subscribing
+                the customer for a plan that is not free. Passing `source` will create
+                a new source object, make it the customer default source, and delete
+                the old customer default if one exists. If you want to add an additional
+                source to use with subscriptions, instead use the [card creation API](https://stripe.com/docs/api#create_card)
                 to add the card and then the [customer update API](https://stripe.com/docs/api#update
                 customer) to set it as the default. Whenever you attach a card to
                 a customer, Stripe will automatically validate the card.
@@ -12967,7 +13065,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -13107,6 +13205,14 @@ paths:
               title: metadata
               type:
               - object
+            submit:
+              description: Whether or not to immediately submit evidence to the bank.
+                If `false`, evidence is staged on the dispute. Staged evidence is
+                visible in the API and Dashboard, and can be submitted to the bank
+                by making another request with this attribute set to `true` (the default).
+              title: submit
+              type:
+              - boolean
       responses:
         '200':
           description: Successful response.
@@ -13154,6 +13260,77 @@ paths:
           description: Error response.
           schema:
             "$ref": "#/definitions/error"
+  "/v1/ephemeral_keys":
+    post:
+      description: "<p>Creates a short-lived API key for a given resource.</p>"
+      operationId: CreateEphemeralKey
+      parameters:
+      - description: Body parameters for the request.
+        in: body
+        name: payload
+        required: true
+        schema:
+          properties:
+            customer:
+              description: The ID of the Customer you'd like to modify using the resulting
+                ephemeral key.
+              title: customer
+              type:
+              - string
+            expand:
+              description: Specifies which fields in the response should be expanded.
+              items:
+                type:
+                - string
+              title: expand
+              type:
+              - array
+              - string
+          required:
+          - customer
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            "$ref": "#/definitions/ephemeral_key_with_secret"
+        default:
+          description: Error response.
+          schema:
+            "$ref": "#/definitions/error"
+  "/v1/ephemeral_keys/{key}":
+    delete:
+      description: "<p>Invalidates a short-lived API key for a given resource.</p>"
+      operationId: DeleteEphemeralKey
+      parameters:
+      - description: The ID of the key you'd like to invalidate.
+        in: path
+        name: key
+        required: true
+        type: string
+      - description: Body parameters for the request.
+        in: body
+        name: payload
+        required: false
+        schema:
+          properties:
+            expand:
+              description: Specifies which fields in the response should be expanded.
+              items:
+                type:
+                - string
+              title: expand
+              type:
+              - array
+              - string
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            "$ref": "#/definitions/ephemeral_key"
+        default:
+          description: Error response.
+          schema:
+            "$ref": "#/definitions/error"
   "/v1/events":
     get:
       description: "<p>List events, going back up to 30 days.</p>"
@@ -13165,7 +13342,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -13206,7 +13383,7 @@ paths:
         in: query
         name: created
         required: false
-        type: integer
+        type: string
       responses:
         '200':
           description: Successful response.
@@ -13324,7 +13501,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -13423,7 +13600,7 @@ paths:
               - integer
             currency:
               description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-                in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               title: currency
               type:
               - string
@@ -13622,7 +13799,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -14033,7 +14210,8 @@ paths:
         name: ending_before
         required: false
         type: string
-      - description: The id of the invoice containing the lines to be retrieved.
+      - description: The ID of the invoice containing the lines to be retrieved. Use
+          a value of **upcoming** to retrieve the upcoming invoice.
         in: path
         name: invoice
         required: true
@@ -14184,6 +14362,13 @@ paths:
               type:
               - array
               - string
+            source:
+              description: A payment source to be charged. The source must be the
+                ID of a source belonging to the customer associated with the invoice
+                being paid.
+              title: source
+              type:
+              - string
       responses:
         '200':
           description: Successful response.
@@ -14215,7 +14400,7 @@ paths:
         required: false
         type: integer
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -14321,7 +14506,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -14440,7 +14625,7 @@ paths:
               - string
             currency:
               description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-                in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               title: currency
               type:
               - string
@@ -14647,13 +14832,13 @@ paths:
               type:
               - string
             source:
-              description: The source can either be a token, like the ones returned
-                by [Elements](/docs/elements), or a dictionary containing a user's
-                credit card details (with the options shown below). Whenever you create
-                a new card for a customer, Stripe will automatically validate the
-                card. If no customer was attached to the order at creation, either
-                `source` or `customer is required. Otherwise, the specified source
-                will be charged intead of the customer attached to the order.
+              description: The source can either be a [Token](/docs/api#tokens)'s
+                or a [Source](/docs/api#sources)'s ID, as returned by [Elements](/docs/elements),
+                or a dictionary containing a user's credit card details (with the
+                options shown below). If no customer was attached to the order at
+                creation, either `source` or `customer is required. Otherwise, the
+                specified source will be charged intead of the customer attached to
+                the order.
               title: source
               type:
               - object
@@ -14720,7 +14905,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -14943,6 +15128,11 @@ paths:
               title: source
               type:
               - string
+            statement_address:
+              description: ''
+              title: statement_address
+              type:
+              - object
             statement_descriptor:
               description: ''
               title: statement_descriptor
@@ -15022,7 +15212,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -15049,12 +15239,12 @@ paths:
         in: query
         name: arrival_date
         required: false
-        type: integer
+        type: string
       - description: ''
         in: query
         name: created
         required: false
-        type: integer
+        type: string
       - description: The ID of an external account - only return payouts sent to this
           external account.
         in: query
@@ -15062,7 +15252,7 @@ paths:
         required: false
         type: string
       - description: 'Only return payouts that have the given status: `pending`, `paid`,
-          `failed`, `in_transit`, or `canceled`.'
+          `failed`, or `canceled`.'
         in: query
         name: status
         required: false
@@ -15137,8 +15327,14 @@ paths:
               - integer
             currency:
               description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-                in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               title: currency
+              type:
+              - string
+            description:
+              description: An arbitrary string attached to the object. Often useful
+                for displaying to users.
+              title: description
               type:
               - string
             destination:
@@ -15174,8 +15370,8 @@ paths:
             source_type:
               description: 'The source balance to draw this payout from. Balances
                 for different payment sources are kept separately. You can find the
-                amounts with the balances API. Valid options are: `alipay_account`,
-                `bank_account`, `bitcoin_receiver`, and `card`.'
+                amounts with the balances API. Valid options are: **alipay_account**,
+                **bank_account**, and **card**.'
               title: source_type
               type:
               - string
@@ -15316,7 +15512,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -15411,7 +15607,7 @@ paths:
               - integer
             currency:
               description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-                in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               title: currency
               type:
               - string
@@ -15657,7 +15853,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -16003,7 +16199,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -16308,7 +16504,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -16574,7 +16770,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -16785,7 +16981,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -16911,7 +17107,7 @@ paths:
               - object
             currency:
               description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-                in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               title: currency
               type:
               - string
@@ -16956,7 +17152,7 @@ paths:
             price:
               description: The cost of the item as a nonnegative integer in the smallest
                 currency unit (that is, 100 cents to charge $1.00, or 100 to charge
-                ¥100, Japanese Yen being a 0-decimal currency).
+                ¥100, Japanese Yen being a zero-decimal currency).
               title: price
               type:
               - integer
@@ -17070,7 +17266,7 @@ paths:
               - object
             currency:
               description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
-                in lowercase. Must be a [supported currency](https://support.stripe.com/questions/which-currencies-does-stripe-support).
+                in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
               title: currency
               type:
               - string
@@ -17109,7 +17305,7 @@ paths:
             price:
               description: The cost of the item as a positive integer in the smallest
                 currency unit (that is, 100 cents to charge $1.00, or 100 to charge
-                ¥100, Japanese Yen being a 0-decimal currency).
+                ¥100, Japanese Yen being a zero-decimal currency).
               title: price
               type:
               - integer
@@ -17148,7 +17344,7 @@ paths:
               type:
               - integer
             currency:
-              description: Three-letter [ISO code for the currency](https://support.stripe.com/questions/which-currencies-does-stripe-support)
+              description: Three-letter [ISO code for the currency](https://stripe.com/docs/currencies)
                 associated with the source. This is the currency for which the source
                 will be chargeable once ready.
               title: currency
@@ -17346,7 +17542,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -17623,7 +17819,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -17788,15 +17984,15 @@ paths:
               type:
               - integer
             source:
-              description: The source can either be a token, like the ones returned
-                by [Elements](https://stripe.com/docs/elements), or a dictionary containing
-                a user's credit card details (with the options shown below). You must
-                provide a source if the customer does not already have a valid source
-                attached, and you are subscribing the customer for a plan that is
-                not free. Passing `source` will create a new source object, make it
-                the customer default source, and delete the old customer default if
-                one exists. If you want to add an additional source to use with subscriptions,
-                instead use the [card creation API](https://stripe.com/docs/api#create_card)
+              description: The source can either be a [Token](/docs/api#tokens)'s
+                or a [Source](/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements),
+                or a dictionary containing a user's credit card details (with the
+                options shown below). You must provide a source if the customer does
+                not already have a valid source attached, and you are subscribing
+                the customer for a plan that is not free. Passing `source` will create
+                a new source object, make it the customer default source, and delete
+                the old customer default if one exists. If you want to add an additional
+                source to use with subscriptions, instead use the [card creation API](https://stripe.com/docs/api#create_card)
                 to add the card and then the [customer update API](https://stripe.com/docs/api#update
                 customer) to set it as the default. Whenever you attach a card to
                 a customer, Stripe will automatically validate the card.
@@ -17999,15 +18195,15 @@ paths:
               type:
               - integer
             source:
-              description: The source can either be a token, like the ones returned
-                by [Elements](https://stripe.com/docs/elements), or a dictionary containing
-                a user's credit card details (with the options shown below). You must
-                provide a source if the customer does not already have a valid source
-                attached, and you are subscribing the customer for a plan that is
-                not free. Passing `source` will create a new source object, make it
-                the customer default source, and delete the old customer default if
-                one exists. If you want to add an additional source to use with subscriptions,
-                instead use the [card creation API](https://stripe.com/docs/api#create_card)
+              description: The source can either be a [Token](/docs/api#tokens)'s
+                or a [Source](/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements),
+                or a dictionary containing a user's credit card details (with the
+                options shown below). You must provide a source if the customer does
+                not already have a valid source attached, and you are subscribing
+                the customer for a plan that is not free. Passing `source` will create
+                a new source object, make it the customer default source, and delete
+                the old customer default if one exists. If you want to add an additional
+                source to use with subscriptions, instead use the [card creation API](https://stripe.com/docs/api#create_card)
                 to add the card and then the [customer update API](https://stripe.com/docs/api#update
                 customer) to set it as the default. Whenever you attach a card to
                 a customer, Stripe will automatically validate the card.
@@ -18103,6 +18299,11 @@ paths:
               title: payment_user_agent
               type:
               - string
+            referrer:
+              description: ''
+              title: referrer
+              type:
+              - string
             request_id:
               description: ''
               title: request_id
@@ -18154,7 +18355,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false
@@ -18181,7 +18382,7 @@ paths:
         in: query
         name: created
         required: false
-        type: integer
+        type: string
       - description: Only return transfers for the destination specified by this account
           ID.
         in: query
@@ -18241,7 +18442,7 @@ paths:
             "$ref": "#/definitions/error"
     post:
       description: ''
-      operationId: CreateTransfer
+      operationId: TransferCreate
       parameters:
       - description: Body parameters for the request.
         in: body
@@ -18257,6 +18458,11 @@ paths:
             currency:
               description: ''
               title: currency
+              type:
+              - string
+            description:
+              description: ''
+              title: description
               type:
               - string
             destination:
@@ -18370,40 +18576,6 @@ paths:
           description: Error response.
           schema:
             "$ref": "#/definitions/error"
-  "/v1/transfers/{id}/cancel":
-    post:
-      description: ''
-      operationId: ReverseNonStripeTransferOnSlashCancel
-      parameters:
-      - description: ''
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Body parameters for the request.
-        in: body
-        name: payload
-        required: false
-        schema:
-          properties:
-            expand:
-              description: Specifies which fields in the response should be expanded.
-              items:
-                type:
-                - string
-              title: expand
-              type:
-              - array
-              - string
-      responses:
-        '200':
-          description: Successful response.
-          schema:
-            "$ref": "#/definitions/legacy_transfer"
-        default:
-          description: Error response.
-          schema:
-            "$ref": "#/definitions/error"
   "/v1/transfers/{id}/reversals":
     get:
       description: "<p>You can see a list of the reversals belonging to a specific
@@ -18419,7 +18591,7 @@ paths:
         required: false
         type: string
       - description: A limit on the number of objects to be returned. Limit can range
-          between 1 and 100 items.
+          between 1 and 100 items, and the default is 10 items.
         in: query
         name: limit
         required: false

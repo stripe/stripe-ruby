@@ -51,11 +51,10 @@ resources:
       type: 
       verification:
         details: 
-        details_code: 
+        details_code: failed_other
         document: 
         status: unverified
-    light: false
-    managed: true
+    login_links: {}
     mcc: ''
     metadata: {}
     object: account
@@ -110,8 +109,7 @@ resources:
     id: acct_19tLK7DSlTMT26Mk
     keys: {}
     legal_entity: {}
-    light: false
-    managed: false
+    login_links: {}
     mcc: ''
     metadata: {}
     object: account
@@ -155,7 +153,41 @@ resources:
       currency: usd
       source_types:
         card: 0
-    connect_reserved: []
+    - amount: 0
+      currency: eur
+      source_types:
+        card: 0
+    - amount: -102
+      currency: gbp
+      source_types:
+        card: -102
+    - amount: -40320
+      currency: jpy
+      source_types:
+        card: -40320
+    - amount: 0
+      currency: nzd
+      source_types:
+        card: 0
+    - amount: 17550857311
+      currency: usd
+      source_types:
+        bank_account: 107213388
+        bitcoin_receiver: 1545182
+        card: 17442098741
+    connect_reserved:
+    - amount: 0
+      currency: aud
+    - amount: 0
+      currency: eur
+    - amount: 0
+      currency: gbp
+    - amount: 0
+      currency: jpy
+    - amount: 0
+      currency: nzd
+    - amount: 0
+      currency: usd
     livemode: false
     object: balance
     pending:
@@ -163,6 +195,28 @@ resources:
       currency: usd
       source_types:
         card: 0
+    - amount: -17109
+      currency: eur
+      source_types:
+        card: -17109
+    - amount: -81045
+      currency: gbp
+      source_types:
+        card: -81045
+    - amount: 0
+      currency: jpy
+      source_types:
+        card: 0
+    - amount: 1060
+      currency: nzd
+      source_types:
+        card: 1060
+    - amount: 11940215798
+      currency: usd
+      source_types:
+        bank_account: 0
+        bitcoin_receiver: 6944
+        card: 11940208854
   balance_transaction:
     amount: 100
     automatic_transfer: {}
@@ -171,7 +225,12 @@ resources:
     currency: usd
     description: ''
     fee: 0
-    fee_details: []
+    fee_details:
+    - amount: 90
+      application: 
+      currency: usd
+      description: Stripe processing fees
+      type: stripe_fee
     id: txn_19zuuhDSlTMT26Mk2gJnG0ti
     net: 100
     object: balance_transaction
@@ -226,7 +285,14 @@ resources:
     payment: ''
     refund_address: ''
     transactions:
-      data: []
+      data:
+      - amount: 300
+        bitcoin_amount: 3000000
+        created: 1497681357
+        currency: usd
+        id: btctxn_1AVaXJ2eZvKYlo2C5VpM5f5l
+        object: bitcoin_transaction
+        receiver: btcrcv_1AVaXF2eZvKYlo2CKSplb16t
       has_more: false
       object: list
       total_count: 1
@@ -309,7 +375,12 @@ resources:
     object: charge
     on_behalf_of: ''
     order: ''
-    outcome: {}
+    outcome:
+      network_status: approved_by_network
+      reason: 
+      risk_level: normal
+      seller_message: Payment complete.
+      type: authorized
     paid: false
     receipt_email: ''
     receipt_number: ''
@@ -332,8 +403,8 @@ resources:
       address_zip: 
       address_zip_check: 
       brand: Visa
-      country: 
-      customer: 
+      country: US
+      customer: cus_9OO7KuH8wgmdfa
       cvc_check: 
       dynamic_last4: 
       exp_month: 8
@@ -343,7 +414,7 @@ resources:
       id: card_19tLKYDSlTMT26Mkl7bixGYc
       last4: '4242'
       metadata: {}
-      name: 
+      name: nandkishor.webnware@gmail.com
       object: card
       tokenization_method: 
     source_transfer: ''
@@ -373,6 +444,7 @@ resources:
       company:
         additional:
         - legal_entity.verification.document
+        - legal_entity.verification.document
         minimum:
         - external_account
         - legal_entity.address.city
@@ -392,6 +464,7 @@ resources:
         - tos_acceptance.ip
       individual:
         additional:
+        - legal_entity.verification.document
         - legal_entity.verification.document
         minimum:
         - external_account
@@ -443,7 +516,30 @@ resources:
     object: customer
     shipping: {}
     sources:
-      data: []
+      data:
+      - address_city: 
+        address_country: 
+        address_line1: 
+        address_line1_check: 
+        address_line2: 
+        address_state: 
+        address_zip: 
+        address_zip_check: 
+        brand: Visa
+        country: US
+        customer: cus_ArMWAboqL9MUMd
+        cvc_check: pass
+        dynamic_last4: 
+        exp_month: 10
+        exp_year: 2017
+        fingerprint: Xt5EWLLDS7FJjR1c
+        funding: credit
+        id: card_1AVdnB2eZvKYlo2CWAH5jK8Z
+        last4: '4242'
+        metadata: {}
+        name: 
+        object: card
+        tokenization_method: 
       has_more: false
       object: list
       total_count: 0
@@ -465,9 +561,9 @@ resources:
     coupon:
       amount_off: 
       created: 1490133192
-      currency: usd
+      currency: 
       duration: repeating
-      duration_in_months: 3
+      duration_in_months: 
       id: 25OFF
       livemode: false
       max_redemptions: 
@@ -486,7 +582,25 @@ resources:
     accepted_at: 1234567890
     amount: 1000
     balance_transaction: ''
-    balance_transactions: []
+    balance_transactions:
+    - amount: -1500
+      available_on: 1497484800
+      created: 1496903761
+      currency: usd
+      description: Chargeback withdrawal for ch_1ASKFR2eZvKYlo2CDLlVsM52
+      fee: 1500
+      fee_details:
+      - amount: 1500
+        application: 
+        currency: usd
+        description: Dispute fee
+        type: stripe_fee
+      id: txn_1ASKFR2eZvKYlo2C1wu8o4hC
+      net: -3000
+      object: balance_transaction
+      source: dp_1ASKFR2eZvKYlo2CErSdTh43
+      status: pending
+      type: adjustment
     case_details: {}
     charge: ch_19zuuhDSlTMT26MkKLSiekJ9
     closed_at: 1234567890
@@ -530,49 +644,116 @@ resources:
     id: dp_19zuuhDSlTMT26Mkp7PHaa4O
     is_charge_refundable: false
     is_protected: false
+    issuer: ''
     livemode: false
+    loss_reason: ''
     metadata: {}
     network_reason_code: ''
     object: dispute
     reason: general
     status: needs_response
+  ephemeral_key:
+    associated_objects:
+    - id: cu_1AVdnC2eZvKYlo2C397mApcW
+      type: customer
+    created: 1234567890
+    expires: 1234567890
+    id: ephkey_1AWsWs2eZvKYlo2ChEEYmF12
+    livemode: false
+    object: ephemeral_key
+  ephemeral_key_with_secret:
+    associated_objects:
+    - id: cu_1AVdnC2eZvKYlo2C397mApcW
+      type: customer
+    created: 1234567890
+    expires: 1234567890
+    id: ephkey_1AWsWs2eZvKYlo2ChEEYmF12
+    livemode: false
+    object: ephemeral_key
+    secret: ''
   event:
     api_version: '2017-02-14'
     created: 1234567890
     customer_email: ''
     data:
       object:
-        account_balance: 0
-        created: 1494264431
-        currency: usd
-        default_source: 
-        delinquent: false
-        description: 
-        discount: 
-        email: 
-        id: sub_3dyJJwVHzv2Xya
+        available:
+        - amount: -88
+          currency: aud
+          source_types:
+            card: -88
+        - amount: 0
+          currency: eur
+          source_types:
+            card: 0
+        - amount: -102
+          currency: gbp
+          source_types:
+            card: -102
+        - amount: -40320
+          currency: jpy
+          source_types:
+            card: -40320
+        - amount: 0
+          currency: nzd
+          source_types:
+            card: 0
+        - amount: 17550857811
+          currency: usd
+          source_types:
+            bank_account: 107213388
+            bitcoin_receiver: 1545182
+            card: 17442099241
+        connect_reserved:
+        - amount: 0
+          currency: aud
+        - amount: 0
+          currency: eur
+        - amount: 0
+          currency: gbp
+        - amount: 0
+          currency: jpy
+        - amount: 0
+          currency: nzd
+        - amount: 0
+          currency: usd
         livemode: false
-        metadata: {}
         object: customer
-        shipping: 
-        sources:
-          data: []
-          has_more: false
-          object: list
-          total_count: 0
-          url: "/v1/customers/cus_AcUc8AEn2iJ2jE/sources"
-        subscriptions:
-          data: []
-          has_more: false
-          object: list
-          total_count: 0
-          url: "/v1/customers/cus_AcUc8AEn2iJ2jE/subscriptions"
+        pending:
+        - amount: 0
+          currency: aud
+          source_types:
+            card: 0
+        - amount: -17109
+          currency: eur
+          source_types:
+            card: -17109
+        - amount: -81045
+          currency: gbp
+          source_types:
+            card: -81045
+        - amount: 0
+          currency: jpy
+          source_types:
+            card: 0
+        - amount: 1060
+          currency: nzd
+          source_types:
+            card: 1060
+        - amount: 11939932938
+          currency: usd
+          source_types:
+            bank_account: 0
+            bitcoin_receiver: 6944
+            card: 11939925994
     id: evt_19tLKfDSlTMT26MkKD3pohqX
     livemode: false
     object: event
     pending_webhooks: 0
     recipient_best_description: ''
-    request: ''
+    request:
+      id: req_ArJ9y3DcEShbw2
+      idempotency_key: 
     type: customer.created
   external_account_source:
     account: acct_19tLK7DSlTMT26Mk
@@ -707,44 +888,6 @@ resources:
     subscription: ''
     subscription_item: ''
     type: invoiceitem
-  legacy_transfer:
-    amount: 1100
-    amount_reversed: 0
-    application_fee: ''
-    auto: false
-    balance_transaction: ''
-    bank_account: {}
-    card: {}
-    created: 1234567890
-    currency: usd
-    date: 1234567890
-    delay_reason: ''
-    description: Transfer to test@example.com
-    destination: ba_19zuujDSlTMT26MkRkpqv9Ud
-    destination_payment: ''
-    failure_code: ''
-    failure_message: ''
-    id: tr_19zuujDSlTMT26Mk81npuLjT
-    legacy_date: 1234567890
-    livemode: false
-    metadata: {}
-    method: standard
-    object: transfer
-    recipient: ''
-    reversals:
-      data: []
-      has_more: false
-      object: list
-      total_count: 0
-      url: "/v1/transfers/tr_19zuujDSlTMT26Mk81npuLjT/reversals"
-    reversed: false
-    source_transaction: ''
-    source_type: card
-    statement_descriptor: ''
-    status: in_transit
-    transfer_group: ''
-    type: bank_account
-    user_visible_date: 1234567890
   login_link:
     created: 1234567890
     object: login_link
@@ -768,13 +911,57 @@ resources:
       description: T-shirt
       object: order_item
       parent: sk_19tLKeDSlTMT26MkWafeCAS4
-      quantity: 
+      quantity: 1
       type: sku
+    - amount: 0
+      currency: usd
+      description: Taxes (included)
+      object: order_item
+      parent: 
+      quantity: 
+      type: tax
+    - amount: 0
+      currency: usd
+      description: Free shipping
+      object: order_item
+      parent: ship_free-shipping
+      quantity: 
+      type: shipping
     livemode: false
     metadata: {}
     object: order
     returns:
-      data: []
+      data:
+      - amount: 1500
+        created: 1497681376
+        currency: usd
+        id: orret_1AVaXc2eZvKYlo2CtcXu3BxE
+        items:
+        - amount: 1500
+          currency: usd
+          description: T-shirt
+          object: order_item
+          parent: sku_ArJ9yltVsdN8Wb
+          quantity: 1
+          type: sku
+        - amount: 0
+          currency: usd
+          description: Taxes (included)
+          object: order_item
+          parent: 
+          quantity: 
+          type: tax
+        - amount: 0
+          currency: usd
+          description: Free shipping
+          object: order_item
+          parent: ship_free-shipping
+          quantity: 
+          type: shipping
+        livemode: false
+        object: order_return
+        order: or_1AVaXR2eZvKYlo2CTES1kJ6N
+        refund: 
       has_more: false
       object: list
       total_count: 0
@@ -792,13 +979,18 @@ resources:
       name: Jenny Rosen
       phone: 
       tracking_number: 
-    shipping_methods: {}
+    shipping_methods:
+    - amount: 0
+      currency: usd
+      delivery_estimate: 
+      description: Free shipping
+      id: ship_free-shipping
     signature: ''
     status: created
     status_transitions:
-      canceled: 
+      canceled: 1497681377
       fulfiled: 
-      paid: 
+      paid: 1497681372
       returned: 
     updated: 1234567890
     upstream_id: ''
@@ -813,8 +1005,22 @@ resources:
       description: T-shirt
       object: order_item
       parent: sk_19zuukDSlTMT26MkepWkJtmm
-      quantity: 
+      quantity: 1
       type: sku
+    - amount: 0
+      currency: usd
+      description: Taxes (included)
+      object: order_item
+      parent: 
+      quantity: 
+      type: tax
+    - amount: 0
+      currency: usd
+      description: Free shipping
+      object: order_item
+      parent: ship_free-shipping
+      quantity: 
+      type: shipping
     livemode: false
     object: order_return
     order: or_19zuukDSlTMT26MkL38GRWYx
@@ -828,6 +1034,7 @@ resources:
     card: {}
     created: 1234567890
     currency: usd
+    description: ''
     destination: acct_19tLK7DSlTMT26Mk
     failure_balance_transaction: ''
     failure_code: ''
@@ -895,7 +1102,26 @@ resources:
     reason_product_not_tweetable: ''
     shippable: true
     skus:
-      data: []
+      data:
+      - active: true
+        attributes:
+          gender: Unisex
+          size: Medium
+        created: 1489796923
+        currency: usd
+        id: sku_AJ7g98gPhCjas3
+        image: 
+        inventory:
+          quantity: 499
+          type: finite
+          value: 
+        livemode: false
+        metadata: {}
+        object: sku
+        package_dimensions: 
+        price: 1500
+        product: prod_AJ7gAXvktPRvvh
+        updated: 1489796941
       has_more: false
       object: list
       total_count: 0
@@ -912,7 +1138,8 @@ resources:
     description: ''
     fee_balance_transactions: {}
     id: re_19zuuhDSlTMT26MkpLosorvD
-    metadata: {}
+    metadata:
+      reason: '2'
     object: refund
     reason: ''
     receipt_number: ''
@@ -1064,9 +1291,9 @@ resources:
       address_zip: 
       address_zip_check: 
       brand: Visa
-      country: 
+      country: US
       customer: 
-      cvc_check: 
+      cvc_check: unchecked
       dynamic_last4: 
       exp_month: 8
       exp_year: 2018
@@ -1099,7 +1326,7 @@ resources:
       address_zip: 
       address_zip_check: 
       brand: Visa
-      country: 
+      country: US
       cvc_check: 
       dynamic_last4: 
       exp_month: 8
@@ -1128,6 +1355,7 @@ resources:
     balance_transaction: txn_19zuuhDSlTMT26Mk2gJnG0ti
     created: 1234567890
     currency: usd
+    description: ''
     destination: ba_19zuujDSlTMT26MkRkpqv9Ud
     destination_payment: ''
     id: tr_19zuujDSlTMT26Mk81npuLjT
@@ -1135,7 +1363,15 @@ resources:
     metadata: {}
     object: transfer
     reversals:
-      data: []
+      data:
+      - amount: 100
+        balance_transaction: txn_1AF3y32eZvKYlo2CSgDInbEk
+        created: 1493742915
+        currency: usd
+        id: trr_1AF3y32eZvKYlo2CtkDXeobp
+        metadata: {}
+        object: transfer_reversal
+        transfer: tr_164xRv2eZvKYlo2CZxJZWm1E
       has_more: false
       object: list
       total_count: 0
@@ -1145,7 +1381,20 @@ resources:
     source_type: card
     transfer_group: ''
   transfer_recipient:
-    active_account: {}
+    active_account:
+      account_holder_name: 
+      account_holder_type: 
+      bank_name: STRIPE TEST BANK
+      country: US
+      currency: usd
+      customer: 
+      fingerprint: 1JWtPxqbdX5Gamtc
+      id: ba_19p5Ze2eZvKYlo2C1fs6Ar4u
+      last4: '6789'
+      metadata: {}
+      object: bank_account
+      routing_number: '110000000'
+      status: new
     address_city: ''
     address_country: ''
     address_line1: ''
@@ -1202,7 +1451,35 @@ resources:
     ending_balance: 0
     forgiven: false
     lines:
-      data: []
+      data:
+      - amount: 1000
+        currency: usd
+        description: 
+        discountable: true
+        id: sub_3jtkr4OHgFoV5k
+        livemode: false
+        metadata: {}
+        object: line_item
+        period:
+          end: 1430089038
+          start: 1427410638
+        plan:
+          amount: 1000
+          created: 1391206393
+          currency: usd
+          id: monthly
+          interval: month
+          interval_count: 1
+          livemode: false
+          metadata: {}
+          name: Monthly Plan
+          object: plan
+          statement_descriptor: 
+          trial_period_days: 
+        proration: false
+        quantity: 1
+        subscription: 
+        type: subscription
       has_more: false
       object: list
       total_count: 0

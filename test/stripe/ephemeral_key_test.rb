@@ -2,16 +2,10 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class EphemeralKeyTest < Test::Unit::TestCase
-    FIXTURE = {
-      'id' => 'ephkey_123',
-      'object' => 'ephemeral_key',
-    }
-
     context "#create" do
-      should "succeed" do
-        stub_request(:post, "#{Stripe.api_base}/v1/ephemeral_keys").
-          to_return(body: JSON.generate(FIXTURE))
+      FIXTURE = API_FIXTURES.fetch(:ephemeral_key_with_secret)
 
+      should "succeed" do
         key = Stripe::EphemeralKey.create(
           {customer:"cus_123"},
           {stripe_version:"2017-05-25"}
@@ -28,9 +22,6 @@ module Stripe
 
       context "#no global version" do
         should "use the correct api version" do
-          stub_request(:post, "#{Stripe.api_base}/v1/ephemeral_keys").
-            to_return(body: JSON.generate(FIXTURE))
-
           key = Stripe::EphemeralKey.create(
             {customer: "cus_123"},
             {stripe_version: "2017-06-05"}
@@ -63,9 +54,6 @@ module Stripe
         end
 
         should "use the correct api version" do
-          stub_request(:post, "#{Stripe.api_base}/v1/ephemeral_keys").
-            to_return(body: JSON.generate(FIXTURE))
-
           key = Stripe::EphemeralKey.create(
             {customer: "cus_123"},
             {stripe_version: "2017-05-25"}
@@ -84,19 +72,16 @@ module Stripe
     end
 
     context "#delete" do
-      should "succeed" do
-        stub_request(:post, "#{Stripe.api_base}/v1/ephemeral_keys").
-          to_return(body: JSON.generate(FIXTURE))
+      FIXTURE = API_FIXTURES.fetch(:ephemeral_key)
 
+      should "succeed" do
         key = Stripe::EphemeralKey.create(
           {customer: 'cus_123'},
           {stripe_version: '2017-05-25'}
         )
 
-        stub_request(:delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{FIXTURE['id']}").
-          to_return(body: JSON.generate(FIXTURE))
         key.delete
-        assert_requested :delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{FIXTURE['id']}"
+        assert_requested :delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{key.id}"
       end
     end
   end

@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class InvoiceItemTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:invoice_item)
-
     should "be listable" do
       invoiceitems = Stripe::InvoiceItem.list
       assert_requested :get, "#{Stripe.api_base}/v1/invoiceitems"
@@ -12,9 +10,9 @@ module Stripe
     end
 
     should "be retrievable" do
-      item = Stripe::InvoiceItem.retrieve(FIXTURE[:id])
+      item = Stripe::InvoiceItem.retrieve("ii_123")
       assert_requested :get,
-        "#{Stripe.api_base}/v1/invoiceitems/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/invoiceitems/ii_123"
       assert item.kind_of?(Stripe::InvoiceItem)
     end
 
@@ -22,7 +20,7 @@ module Stripe
       item = Stripe::InvoiceItem.create(
         amount: 100,
         currency: "USD",
-        customer: API_FIXTURES[:customer][:id]
+        customer: "cus_123"
       )
       assert_requested :post,
         "#{Stripe.api_base}/v1/invoiceitems"
@@ -30,25 +28,25 @@ module Stripe
     end
 
     should "be saveable" do
-      item = Stripe::InvoiceItem.retrieve(FIXTURE[:id])
+      item = Stripe::InvoiceItem.retrieve("ii_123")
       item.metadata['key'] = 'value'
       item.save
       assert_requested :post,
-        "#{Stripe.api_base}/v1/invoiceitems/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/invoiceitems/#{item.id}"
     end
 
     should "be updateable" do
-      item = Stripe::InvoiceItem.update(FIXTURE[:id], metadata: { key: 'value' })
+      item = Stripe::InvoiceItem.update("ii_123", metadata: { key: 'value' })
       assert_requested :post,
-        "#{Stripe.api_base}/v1/invoiceitems/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/invoiceitems/ii_123"
       assert item.kind_of?(Stripe::InvoiceItem)
     end
 
     should "be deletable" do
-      item = Stripe::InvoiceItem.retrieve(FIXTURE[:id])
+      item = Stripe::InvoiceItem.retrieve("ii_123")
       item = item.delete
       assert_requested :delete,
-        "#{Stripe.api_base}/v1/invoiceitems/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/invoiceitems/#{item.id}"
       assert item.kind_of?(Stripe::InvoiceItem)
     end
   end

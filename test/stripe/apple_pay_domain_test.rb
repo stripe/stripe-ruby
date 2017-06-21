@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ApplePayDomainTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:apple_pay_domain)
-
     should "be listable" do
       domains = Stripe::ApplePayDomain.list
       assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains"
@@ -12,8 +10,8 @@ module Stripe
     end
 
     should "be retrievable" do
-      domain = Stripe::ApplePayDomain.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains/#{FIXTURE[:id]}"
+      domain = Stripe::ApplePayDomain.retrieve("apwc_123")
+    assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains/apwc_123"
       assert domain.kind_of?(Stripe::ApplePayDomain)
     end
 
@@ -24,9 +22,9 @@ module Stripe
     end
 
     should "be deletable" do
-      domain = Stripe::ApplePayDomain.retrieve(FIXTURE[:id])
+      domain = Stripe::ApplePayDomain.retrieve("apwc_123")
       domain = domain.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{FIXTURE[:id]}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{domain.id}"
       assert domain.kind_of?(Stripe::ApplePayDomain)
     end
   end

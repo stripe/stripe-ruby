@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class PlanTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:plan)
-
     should "be listable" do
       plans = Stripe::Plan.list
       assert_requested :get, "#{Stripe.api_base}/v1/plans"
@@ -12,8 +10,8 @@ module Stripe
     end
 
     should "be retrievable" do
-      plan = Stripe::Plan.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      plan = Stripe::Plan.retrieve("sapphire-elite")
+      assert_requested :get, "#{Stripe.api_base}/v1/plans/sapphire-elite"
       assert plan.kind_of?(Stripe::Plan)
     end
 
@@ -30,22 +28,22 @@ module Stripe
     end
 
     should "be saveable" do
-      plan = Stripe::Plan.retrieve(FIXTURE[:id])
+      plan = Stripe::Plan.retrieve("sapphire-elite")
       plan.metadata['key'] = 'value'
       plan.save
-      assert_requested :post, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      assert_requested :post, "#{Stripe.api_base}/v1/plans/#{plan.id}"
     end
 
     should "be updateable" do
-      plan = Stripe::Plan.update(FIXTURE[:id], metadata: {foo: 'bar'})
-      assert_requested :post, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      plan = Stripe::Plan.update("sapphire-elite", metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/plans/sapphire-elite"
       assert plan.kind_of?(Stripe::Plan)
     end
 
     should "be deletable" do
-      plan = Stripe::Plan.retrieve(FIXTURE[:id])
+      plan = Stripe::Plan.retrieve("sapphire-elite")
       plan = plan.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/plans/#{FIXTURE[:id]}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/plans/#{plan.id}"
       assert plan.kind_of?(Stripe::Plan)
     end
   end

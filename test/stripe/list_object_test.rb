@@ -9,7 +9,7 @@ module Stripe
 
     should "provide #count via enumerable" do
       list = Stripe::ListObject.construct_from({
-        data: [API_FIXTURES.fetch(:charge)]
+        data: [{ object: "charge" }]
       })
       assert_equal 1, list.count
     end

@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class RefundTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:refund)
-
     should "be listable" do
       refunds = Stripe::Refund.list
       assert_requested :get, "#{Stripe.api_base}/v1/refunds"
@@ -12,27 +10,27 @@ module Stripe
     end
 
     should "be retrievable" do
-      refund = Stripe::Refund.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/refunds/#{FIXTURE[:id]}"
+      refund = Stripe::Refund.retrieve("re_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/refunds/re_123"
       assert refund.kind_of?(Stripe::Refund)
     end
 
     should "be creatable" do
-      refund = Stripe::Refund.create(:charge => API_FIXTURES[:charge][:id])
+      refund = Stripe::Refund.create(:charge => "ch_123")
       assert_requested :post, "#{Stripe.api_base}/v1/refunds"
       assert refund.kind_of?(Stripe::Refund)
     end
 
     should "be saveable" do
-      refund = Stripe::Refund.retrieve(FIXTURE[:id])
+      refund = Stripe::Refund.retrieve("re_123")
       refund.metadata['key'] = 'value'
       refund.save
-      assert_requested :post, "#{Stripe.api_base}/v1/refunds/#{FIXTURE[:id]}"
+      assert_requested :post, "#{Stripe.api_base}/v1/refunds/#{refund.id}"
     end
 
     should "be updateable" do
-      refund = Stripe::Refund.update(FIXTURE[:id], metadata: { key: 'value' })
-      assert_requested :post, "#{Stripe.api_base}/v1/refunds/#{FIXTURE[:id]}"
+      refund = Stripe::Refund.update("re_123", metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/refunds/re_123"
       assert refund.kind_of?(Stripe::Refund)
     end
   end

@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class AccountTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:account)
-
     should "be listable" do
       accounts = Stripe::Account.list
       assert_requested :get, "#{Stripe.api_base}/v1/accounts"
@@ -18,8 +16,8 @@ module Stripe
     end
 
     should "be retrievable using plural endpoint" do
-      account = Stripe::Account.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
+      account = Stripe::Account.retrieve("acct_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123"
       assert account.kind_of?(Stripe::Account)
     end
 
@@ -42,22 +40,22 @@ module Stripe
     end
 
     should "be saveable" do
-      account = Stripe::Account.retrieve(FIXTURE[:id])
+      account = Stripe::Account.retrieve("acct_123")
       account.metadata['key'] = 'value'
       account.save
-      assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
+      assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}"
     end
 
     should "be updateable" do
-      account = Stripe::Account.update(FIXTURE[:id], metadata: {foo: 'bar'})
-      assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
+      account = Stripe::Account.update("acct_123", metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123"
       assert account.kind_of?(Stripe::Account)
     end
 
     should "be deletable" do
-      account = Stripe::Account.retrieve(FIXTURE[:id])
+      account = Stripe::Account.retrieve("acct_123")
       account = account.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{FIXTURE[:id]}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{account.id}"
       assert account.kind_of?(Stripe::Account)
     end
 
@@ -66,7 +64,7 @@ module Stripe
         old_stderr = $stderr
         $stderr = StringIO.new
         begin
-          account = Stripe::Account.retrieve(FIXTURE[:id])
+          account = Stripe::Account.retrieve("acct_123")
           account.bank_account = "tok_123"
           message = "NOTE: Stripe::Account#bank_account= is " +
             "deprecated; use #external_account= instead"
@@ -79,7 +77,7 @@ module Stripe
 
     context "#deauthorize" do
       should "deauthorize an account" do
-        account = Stripe::Account.retrieve(FIXTURE[:id])
+        account = Stripe::Account.retrieve("acct_123")
 
         # Unfortunately, the OpenAPI spec doesn't yet cover anything under the
         # Connect endpoints, so for just stub this out with Webmock.
@@ -92,7 +90,7 @@ module Stripe
 
     context "#legal_entity=" do
       should 'disallow direct overrides' do
-        account = Stripe::Account.retrieve(FIXTURE[:id])
+        account = Stripe::Account.retrieve("acct_123")
 
         assert_raise NoMethodError do
           account.legal_entity = {:first_name => 'Blah'}

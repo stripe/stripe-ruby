@@ -121,7 +121,7 @@ module Stripe
         should "support literal headers" do
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with(headers: { "Stripe-Account" => "bar" }).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
+            to_return(body: JSON.generate({ object: "account" }))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account',
@@ -132,7 +132,7 @@ module Stripe
         should "support RestClient-style header keys" do
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with(headers: { "Stripe-Account" => "bar" }).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
+            to_return(body: JSON.generate({ object: "account" }))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account',
@@ -149,7 +149,7 @@ module Stripe
 
             stub_request(:post, "#{Stripe.api_base}/v1/account").
               with(headers: {"Stripe-Account" => Stripe.stripe_account}).
-              to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
+              to_return(body: JSON.generate({ object: "account" }))
 
             client = StripeClient.new
             client.execute_request(:post, '/v1/account')
@@ -162,7 +162,7 @@ module Stripe
           stripe_account = "acct_0000"
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with(headers: {"Stripe-Account" => stripe_account}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
+            to_return(body: JSON.generate({ object: "account" }))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account',
@@ -174,7 +174,7 @@ module Stripe
           stub_request(:post, "#{Stripe.api_base}/v1/account").
             with { |req|
               req.headers["Stripe-Account"].nil?
-            }.to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
+            }.to_return(body: JSON.generate({ object: "account" }))
 
           client = StripeClient.new
           client.execute_request(:post, '/v1/account')
@@ -208,7 +208,7 @@ module Stripe
                 }, data[:application])
 
                 true
-              }.to_return(body: JSON.generate(API_FIXTURES.fetch(:account)))
+              }.to_return(body: JSON.generate({ object: "account" }))
 
             client = StripeClient.new
             client.execute_request(:post, '/v1/account')
@@ -413,30 +413,30 @@ module Stripe
 
         should 'not add an idempotency key to GET requests' do
           SecureRandom.expects(:uuid).times(0)
-          stub_request(:get, "#{Stripe.api_base}/v1/charges/#{API_FIXTURES.fetch(:charge)[:id]}").
+          stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123").
             with { |req|
               req.headers['Idempotency-Key'].nil?
-            }.to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+            }.to_return(body: JSON.generate({ object: "charge" }))
           client = StripeClient.new
-          client.execute_request(:get, "/v1/charges/#{API_FIXTURES.fetch(:charge)[:id]}")
+          client.execute_request(:get, "/v1/charges/ch_123")
         end
 
         should 'ensure there is always an idempotency_key on POST requests' do
           SecureRandom.expects(:uuid).at_least_once.returns("random_key")
           stub_request(:post, "#{Stripe.api_base}/v1/charges").
             with(headers: {"Idempotency-Key" => "random_key"}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+            to_return(body: JSON.generate({ object: "charge" }))
           client = StripeClient.new
           client.execute_request(:post, "/v1/charges")
         end
 
         should 'ensure there is always an idempotency_key on DELETE requests' do
           SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-          stub_request(:delete, "#{Stripe.api_base}/v1/charges/#{API_FIXTURES.fetch(:charge)[:id]}").
+          stub_request(:delete, "#{Stripe.api_base}/v1/charges/ch_123").
             with(headers: {"Idempotency-Key" => "random_key"}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+            to_return(body: JSON.generate({ object: "charge" }))
           client = StripeClient.new
-          client.execute_request(:delete, "/v1/charges/#{API_FIXTURES.fetch(:charge)[:id]}")
+          client.execute_request(:delete, "/v1/charges/ch_123")
         end
 
         should 'not override a provided idempotency_key' do
@@ -448,7 +448,7 @@ module Stripe
           # expected.
           stub_request(:post, "#{Stripe.api_base}/v1/charges").
             with(headers: {"Idempotency-Key" => "provided_key"}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+            to_return(body: JSON.generate({ object: "charge" }))
 
           client = StripeClient.new
           client.execute_request(:post, "/v1/charges",
@@ -495,21 +495,33 @@ module Stripe
       context "params serialization" do
         should 'allows empty strings in params' do
           client = StripeClient.new
-          client.execute_request(:get, '/v1/invoices/upcoming',
-                                 params: { customer: API_FIXTURES[:customer][:id],
-                                           coupon: '' })
-          assert_requested(:get, "#{Stripe.api_base}/v1/invoices/upcoming?",
-                           query: { customer: API_FIXTURES[:customer][:id],
-                                    coupon: '' })
+          client.execute_request(:get, '/v1/invoices/upcoming', params: {
+             customer: 'cus_123',
+             coupon: ''
+          })
+          assert_requested(
+            :get,
+            "#{Stripe.api_base}/v1/invoices/upcoming?",
+            query: {
+              customer: 'cus_123',
+              coupon: ''
+            }
+          )
         end
 
         should 'filter nils in params' do
           client = StripeClient.new
-          client.execute_request(:get, '/v1/invoices/upcoming',
-                                 params: { customer: API_FIXTURES[:customer][:id],
-                                           coupon: nil })
-          assert_requested(:get, "#{Stripe.api_base}/v1/invoices/upcoming?",
-                           query: { customer: API_FIXTURES[:customer][:id] })
+          client.execute_request(:get, '/v1/invoices/upcoming', params: {
+             customer: 'cus_123',
+             coupon: nil
+          })
+          assert_requested(
+            :get,
+            "#{Stripe.api_base}/v1/invoices/upcoming?",
+            query: {
+              customer: 'cus_123'
+            }
+          )
         end
       end
     end
@@ -517,7 +529,7 @@ module Stripe
     context "#request" do
       should "return a result and response object" do
         stub_request(:post, "#{Stripe.api_base}/v1/charges").
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+          to_return(body: JSON.generate({ object: "charge" }))
 
         client = StripeClient.new
         charge, resp = client.request { Charge.create }

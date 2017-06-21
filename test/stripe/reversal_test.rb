@@ -2,10 +2,8 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ReversalTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:transfer_reversal)
-
     setup do
-      @transfer = Stripe::Transfer.retrieve(API_FIXTURES.fetch(:transfer)[:id])
+      @transfer = Stripe::Transfer.retrieve("tr_123")
     end
 
     should "be listable" do
@@ -17,9 +15,9 @@ module Stripe
     end
 
     should "be retrievable" do
-      reversal = @transfer.reversals.retrieve(FIXTURE[:id])
+      reversal = @transfer.reversals.retrieve("trr_123")
       assert_requested :get,
-        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/trr_123"
       assert reversal.kind_of?(Stripe::Reversal)
     end
 
@@ -33,11 +31,11 @@ module Stripe
     end
 
     should "be saveable" do
-      reversal = @transfer.reversals.retrieve(FIXTURE[:id])
+      reversal = @transfer.reversals.retrieve("trr_123")
       reversal.metadata['key'] = 'value'
       reversal.save
       assert_requested :post,
-        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/#{reversal.id}"
     end
   end
 end

@@ -8,7 +8,7 @@ module Stripe
     # a separate spec for it though, so it's high effort with low reward for
     # the time being.
     FIXTURE = {
-      id: "fil_15ABpV2eZvKYlo2C7vu7XS5l",
+      id: "file_123",
       object: "file_upload",
     }.freeze
 
@@ -26,10 +26,10 @@ module Stripe
     end
 
     should "be retrievable" do
-      stub_request(:get, "#{Stripe.uploads_base}/v1/files/#{FIXTURE[:id]}").
+      stub_request(:get, "#{Stripe.uploads_base}/v1/files/file_123").
         to_return(body: JSON.generate(FIXTURE))
 
-      file = Stripe::FileUpload.retrieve(FIXTURE[:id])
+      file = Stripe::FileUpload.retrieve("file_123")
       assert file.kind_of?(Stripe::FileUpload)
     end
 

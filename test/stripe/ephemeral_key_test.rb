@@ -3,8 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 module Stripe
   class EphemeralKeyTest < Test::Unit::TestCase
     context "#create" do
-      FIXTURE = API_FIXTURES.fetch(:ephemeral_key_with_secret)
-
       should "succeed" do
         key = Stripe::EphemeralKey.create(
           {customer:"cus_123"},
@@ -72,8 +70,6 @@ module Stripe
     end
 
     context "#delete" do
-      FIXTURE = API_FIXTURES.fetch(:ephemeral_key)
-
       should "succeed" do
         key = Stripe::EphemeralKey.create(
           {customer: 'cus_123'},

@@ -46,6 +46,19 @@ module Stripe
           "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}/pay"
         assert invoice.kind_of?(Stripe::Invoice)
       end
+
+      should "pay invoice with a specific source" do
+        invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
+        invoice = invoice.pay(
+          source: API_FIXTURES[:customer][:sources][:data][0][:id]
+        )
+        assert_requested :post,
+          "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}/pay",
+          body: {
+            source: API_FIXTURES[:customer][:sources][:data][0][:id]
+          }
+        assert invoice.kind_of?(Stripe::Invoice)
+      end
     end
 
     context "#upcoming" do

@@ -11,8 +11,8 @@ module Stripe
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
-    def pay(opts={})
-      resp, opts = request(:post, pay_url, {}, opts)
+    def pay(params={}, opts={})
+      resp, opts = request(:post, pay_url, params, opts)
       initialize_from(resp.data, opts)
     end
 

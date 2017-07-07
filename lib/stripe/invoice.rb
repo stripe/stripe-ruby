@@ -7,6 +7,7 @@ module Stripe
     OBJECT_NAME = 'invoice'
 
     def self.upcoming(params, opts={})
+      params = params.merge(params) {|_, v| v.nil? ? '' : v}
       resp, opts = request(:get, upcoming_url, params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end

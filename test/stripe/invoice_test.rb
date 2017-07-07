@@ -74,6 +74,21 @@ module Stripe
           }
         assert invoice.kind_of?(Stripe::Invoice)
       end
+
+      should "convert nil params to empty string" do
+        invoice = Stripe::Invoice.upcoming(
+          customer: API_FIXTURES[:customer][:id],
+          subscription: API_FIXTURES[:subscription][:id],
+          coupon: nil
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming",
+          query: {
+            customer: API_FIXTURES[:customer][:id],
+            subscription: API_FIXTURES[:subscription][:id],
+            coupon: ''
+          }
+        assert invoice.kind_of?(Stripe::Invoice)
+      end
     end
   end
 end

@@ -117,6 +117,11 @@ module Stripe
 
       check_api_key!(api_key)
 
+      # there's no concept of a nil in form encoding, so convert any explicitly
+      # provided nils to an empty string which the API will handle
+      # appropriately
+      params = params.merge(params) {|_, v| v.nil? ? '' : v}
+
       params = Util.objects_to_ids(params)
       url = api_url(url, api_base)
 

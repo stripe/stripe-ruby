@@ -337,10 +337,6 @@ module Stripe
       self
     end
 
-    def saved_and_unchanged?
-      !@values.empty? && @unsaved_values.empty?
-    end
-
     def serialize_params_value(value, original, unsaved, force, key: nil)
       case true
       when value == nil

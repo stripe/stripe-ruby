@@ -176,7 +176,7 @@ module Stripe
         unsaved = @unsaved_values.include?(k)
         if options[:force] || unsaved || v.is_a?(StripeObject)
           update_hash[k.to_sym] =
-            serialize_params_value(k, @values[k], @original_values[k], unsaved, options[:force])
+            serialize_params_value(@values[k], @original_values[k], unsaved, options[:force], key: k)
         end
       end
 
@@ -341,7 +341,7 @@ module Stripe
       !@values.empty? && @unsaved_values.empty?
     end
 
-    def serialize_params_value(key, value, original, unsaved, force)
+    def serialize_params_value(value, original, unsaved, force, key: nil)
       case true
       when value == nil
         ''
@@ -380,10 +380,10 @@ module Stripe
         end
 
       when value.is_a?(Array)
-        update = value.map { |v| serialize_params_value(nil, v, nil, true, force) }
+        update = value.map { |v| serialize_params_value(v, nil, true, force) }
 
         # This prevents an array that's unchanged from being resent.
-        if update != serialize_params_value(nil, original, nil, true, force)
+        if update != serialize_params_value(original, nil, true, force)
           update
         else
           nil

@@ -126,7 +126,7 @@ module Stripe
         update = v.is_a?(StripeObject) ? v.serialize_params : v
 
         if update != {} && (!original_value ||
-          update != legal_entity.serialize_params_value(nil, original_value[i], nil, false, true))
+          update != legal_entity.serialize_params_value(original_value[i], nil, false, true))
             update_hash[i.to_s] = update
         end
       end

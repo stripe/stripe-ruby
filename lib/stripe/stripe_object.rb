@@ -176,7 +176,7 @@ module Stripe
         unsaved = @unsaved_values.include?(k)
         if options[:force] || unsaved || v.is_a?(StripeObject)
           update_hash[k.to_sym] =
-            serialize_params_value(@values[k], @original_values[k], unsaved, options[:force])
+            serialize_params_value(k, @values[k], @original_values[k], unsaved, options[:force])
         end
       end
 
@@ -337,7 +337,11 @@ module Stripe
       self
     end
 
-    def serialize_params_value(value, original, unsaved, force)
+    def saved_and_unchanged?
+      !@values.empty? && @unsaved_values.empty?
+    end
+
+    def serialize_params_value(key, value, original, unsaved, force)
       case true
       when value == nil
         ''
@@ -348,19 +352,38 @@ module Stripe
       # be updated from their proper endpoints, and therefore they are not
       # included when serializing even if they've been modified.
       #
-      # There are _some_ known exceptions though. For example, to save on API
-      # calls it's sometimes desirable to update a customer's default source by
-      # setting a new card (or other) object with `#source=` and then saving
-      # the customer. The `#save_with_parent` flag to override the default
-      # behavior allows us to handle these exceptions.
+      # There are _some_ known exceptions though.
+      #
+      # For example, if the value is unsaved (meaning the user has set it), and
+      # it looks like the API resource is persisted with an ID, then we include
+      # the object so that parameters are serialized with a reference to its
+      # ID.
+      #
+      # Another example is that on save API calls it's sometimes desirable to
+      # update a customer's default source by setting a new card (or other)
+      # object with `#source=` and then saving the customer. The
+      # `#save_with_parent` flag to override the default behavior allows us to
+      # handle these exceptions.
+      #
+      # We throw an error if a property was set explicitly but we can't do
+      # anything with it because the integration is probably not working as the
+      # user intended it to.
       when value.is_a?(APIResource) && !value.save_with_parent
-        nil
+        if !unsaved
+          nil
+        elsif value.respond_to?(:id) && value.id != nil
+          value
+        else
+          raise ArgumentError, "Cannot save property `#{key}` containing " \
+            "an API resource. It doesn't appear to be persisted and is " \
+            "not marked as `save_with_parent`."
+        end
 
       when value.is_a?(Array)
-        update = value.map { |v| serialize_params_value(v, nil, true, force) }
+        update = value.map { |v| serialize_params_value(nil, v, nil, true, force) }
 
         # This prevents an array that's unchanged from being resent.
-        if update != serialize_params_value(original, nil, true, force)
+        if update != serialize_params_value(nil, original, nil, true, force)
           update
         else
           nil

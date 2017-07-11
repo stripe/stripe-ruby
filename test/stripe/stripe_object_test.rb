@@ -266,16 +266,29 @@ module Stripe
       assert_equal([{ :foo => "bar" }], serialized[:metadata])
     end
 
-    should "#serialize_params and remove embedded APIResources" do
+    should "#serialize_params and embed an API resource that's been set and has an ID" do
+      customer = Customer.construct_from({ :id => "cus_123" })
+      obj = Stripe::StripeObject.construct_from({})
+
+      # the key here is that the property is set explicitly (and therefore
+      # marked as unsaved), which is why it gets included below
+      obj.customer = customer
+
+      serialized = obj.serialize_params
+      assert_equal({ :customer => customer }, serialized)
+    end
+
+    should "#serialize_params and not include API resources that have not been set" do
+      customer = Customer.construct_from({ :id => "cus_123" })
       obj = Stripe::StripeObject.construct_from({
-        :customer => Customer.construct_from({})
+        :customer => customer
       })
 
       serialized = obj.serialize_params
       assert_equal({}, serialized)
     end
 
-    should "#serialize_params and remove embedded APIResources unless flagged with save_with_parent" do
+    should "#serialize_params serializes API resources flagged with save_with_parent" do
       c = Customer.construct_from({})
       c.save_with_parent = true
 
@@ -285,6 +298,23 @@ module Stripe
 
       serialized = obj.serialize_params
       assert_equal({ :customer => {} }, serialized)
+    end
+
+    should "#serialize_params should raise an error on other embedded API resources" do
+      # This customer doesn't have an ID and therefore the library doesn't know
+      # what to do with it and throws an ArgumentError because it's probably
+      # not what the user expected to happen.
+      customer = Customer.construct_from({})
+
+      obj = Stripe::StripeObject.construct_from({})
+      obj.customer = customer
+
+      e = assert_raises(ArgumentError) do
+        obj.serialize_params
+      end
+      assert_equal "Cannot save property `customer` containing " \
+        "an API resource. It doesn't appear to be persisted and is " \
+        "not marked as `save_with_parent`.", e.message
     end
 
     should "#serialize_params takes a force option" do

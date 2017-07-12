@@ -1,3 +1,8 @@
+=== 3.0.1 2017-07-11
+
+* Properties set with an API resource will now serialize that resource's ID if possible
+* API resources will throw an ArgumentError on save if a property has been with an API resource that cannot be serialized
+
 === 3.0.0 2017-06-27
 
 * `#pay` on invoice now takes params as well as opts

@@ -464,9 +464,9 @@ module Stripe
                                           subscription: API_FIXTURES[:subscription][:id],
                                           coupon: nil})
           assert_requested(:get, "#{Stripe.api_base}/v1/invoices/upcoming?",
-                           query: { "customer" => API_FIXTURES[:customer][:id],
-                                    "subscription" => API_FIXTURES[:subscription][:id],
-                                    "coupon" => "" })
+                           query: { customer: API_FIXTURES[:customer][:id],
+                                    subscription: API_FIXTURES[:subscription][:id],
+                                    coupon: '' })
         end
       end
     end

@@ -1,4 +1,4 @@
-=== 3.0.2 2017-07-12
+=== 3.0.2 2017-07-12 (yanked)
 
 * Convert `nil` to empty string when serializing parameters
   (instead of opaquely dropping it)

@@ -312,6 +312,7 @@ module Stripe
       }]
 
       case error_code
+      when 'invalid_client'            then OAuth::InvalidClientError.new(*args)
       when 'invalid_grant'             then OAuth::InvalidGrantError.new(*args)
       when 'invalid_request'           then OAuth::InvalidRequestError.new(*args)
       when 'invalid_scope'             then OAuth::InvalidScopeError.new(*args)

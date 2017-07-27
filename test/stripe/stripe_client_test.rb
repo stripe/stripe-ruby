@@ -368,6 +368,24 @@ module Stripe
           assert_equal('invalid_grant', e.code)
           assert_equal('This authorization code has already been used. All tokens issued with this code have been revoked.', e.message)
         end
+
+        should "raise OAuth::InvalidClientError when error is a string with value 'invalid_client'" do
+          stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize").
+            to_return(body: JSON.generate({
+              error: "invalid_client",
+              error_description: "This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.",
+            }), status: 401)
+
+          client = StripeClient.new
+          opts = {api_base: Stripe.connect_base}
+          e = assert_raises Stripe::OAuth::InvalidClientError do
+            client.execute_request(:post, '/oauth/deauthorize', opts)
+          end
+
+          assert_equal(401, e.http_status)
+          assert_equal('invalid_client', e.code)
+          assert_equal('This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.', e.message)
+        end
       end
 
       context "idempotency keys" do

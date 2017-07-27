@@ -114,6 +114,12 @@ module Stripe
       end
     end
 
+    # InvalidClientError is raised when the client doesn't belong to you, or
+    # the API key mode (live or test) doesn't match the client mode. Or the
+    # stripe_user_id doesn't exist or isn't connected to your application.
+    class InvalidClientError < OAuthError
+    end
+
     # InvalidGrantError is raised when a specified code doesn't exist, is
     # expired, has been used, or doesn't belong to you; a refresh token doesn't
     # exist, or doesn't belong to you; or if an API key's mode (live or test)

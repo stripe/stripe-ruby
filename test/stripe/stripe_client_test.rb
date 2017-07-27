@@ -493,16 +493,23 @@ module Stripe
       end
 
       context "params serialization" do
-        should 'convert nil params to empty string' do
+        should 'allows empty strings in params' do
           client = StripeClient.new
           client.execute_request(:get, '/v1/invoices/upcoming',
-                                 params: {customer: API_FIXTURES[:customer][:id],
-                                          subscription: API_FIXTURES[:subscription][:id],
-                                          coupon: nil})
+                                 params: { customer: API_FIXTURES[:customer][:id],
+                                           coupon: '' })
           assert_requested(:get, "#{Stripe.api_base}/v1/invoices/upcoming?",
                            query: { customer: API_FIXTURES[:customer][:id],
-                                    subscription: API_FIXTURES[:subscription][:id],
                                     coupon: '' })
+        end
+
+        should 'filter nils in params' do
+          client = StripeClient.new
+          client.execute_request(:get, '/v1/invoices/upcoming',
+                                 params: { customer: API_FIXTURES[:customer][:id],
+                                           coupon: nil })
+          assert_requested(:get, "#{Stripe.api_base}/v1/invoices/upcoming?",
+                           query: { customer: API_FIXTURES[:customer][:id] })
         end
       end
     end

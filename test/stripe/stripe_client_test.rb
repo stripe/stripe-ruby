@@ -386,6 +386,24 @@ module Stripe
           assert_equal('invalid_client', e.code)
           assert_equal('This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.', e.message)
         end
+
+        should "raise Stripe::OAuthError on indeterminate OAuth error" do
+          stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize").
+            to_return(body: JSON.generate({
+              error: "new_code_not_recognized",
+              error_description: "Something.",
+            }), status: 401)
+
+          client = StripeClient.new
+          opts = {api_base: Stripe.connect_base}
+          e = assert_raises Stripe::OAuth::OAuthError do
+            client.execute_request(:post, '/oauth/deauthorize', opts)
+          end
+
+          assert_equal(401, e.http_status)
+          assert_equal("new_code_not_recognized", e.code)
+          assert_equal("Something.", e.message)
+        end
       end
 
       context "idempotency keys" do

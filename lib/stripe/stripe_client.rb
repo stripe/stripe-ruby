@@ -249,8 +249,7 @@ module Stripe
 
       if error_data.is_a?(String)
         error = specific_oauth_error(resp, error_data)
-      end
-      if error.nil?
+      else
         error = specific_api_error(resp, error_data)
       end
 
@@ -319,7 +318,9 @@ module Stripe
       when 'unsupported_grant_type'    then OAuth::UnsupportedGrantTypeError.new(*args)
       when 'unsupported_response_type' then OAuth::UnsupportedResponseTypeError.new(*args)
       else
-        nil
+        # We'd prefer that all errors are typed, but we create a generic
+        # OAuthError in case we run into a code that we don't recognize.
+        OAuth::OAuthError.new(*args)
       end
     end
 

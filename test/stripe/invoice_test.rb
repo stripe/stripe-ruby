@@ -74,6 +74,19 @@ module Stripe
           }
         assert invoice.kind_of?(Stripe::Invoice)
       end
+
+      should "be callable with an empty string" do
+        invoice = Stripe::Invoice.upcoming(
+          coupon: '',
+          customer: API_FIXTURES[:customer][:id]
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming",
+          query: {
+            coupon: '',
+            customer: API_FIXTURES[:customer][:id]
+          }
+        assert invoice.kind_of?(Stripe::Invoice)
+      end
     end
   end
 end

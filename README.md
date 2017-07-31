@@ -147,6 +147,13 @@ API.
 
 ## Development
 
+The test suite depends on [stripe-mock], so make sure to fetch and run it from a
+background terminal ([stripe-mock's README][stripe-mock] also contains
+instructions for installing via Homebrew and other methods):
+
+    go get -u github.com/stripe/stripe-mock
+    stripe-mock
+
 Run all tests:
 
     bundle exec rake
@@ -163,15 +170,15 @@ Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
     bundle exec rake update_certs
 
-Update bundled OpenAPI specification from the canonical repository:
-
-    bundle exec rake update_openapi
+Update the bundled [stripe-mock] by editing the version number found in
+`.travis.yml`.
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
 [faraday]: https://github.com/lostisland/faraday
 [idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
+[stripe-mock]: https://github.com/stripe/stripe-mock
 
 <!--
 # vim: set tw=79:

@@ -38,14 +38,14 @@ module Stripe
     end
 
     should "setting an attribute should not cause a network request" do
-      c = Stripe::Customer.new("test_customer");
+      c = Stripe::Customer.new("cus_123");
       c.card = {:id => "somecard", :object => "card"}
       assert_not_requested :get, %r{#{Stripe.api_base}/.*}
       assert_not_requested :post, %r{#{Stripe.api_base}/.*}
     end
 
     should "accessing id should not issue a fetch" do
-      c = Stripe::Customer.new("test_customer")
+      c = Stripe::Customer.new("cus_123")
       c.id
       assert_not_requested :get, %r{#{Stripe.api_base}/.*}
     end
@@ -53,7 +53,7 @@ module Stripe
     should "not specifying api credentials should raise an exception" do
       Stripe.api_key = nil
       assert_raises Stripe::AuthenticationError do
-        Stripe::Customer.new("test_customer").refresh
+        Stripe::Customer.new("cus_123").refresh
       end
     end
 
@@ -69,36 +69,36 @@ module Stripe
     should "specifying api credentials containing whitespace should raise an exception" do
       Stripe.api_key = "key "
       assert_raises Stripe::AuthenticationError do
-        Stripe::Customer.new("test_customer").refresh
+        Stripe::Customer.new("cus_123").refresh
       end
     end
 
     should "send expand on fetch properly" do
-      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_test_charge").
+      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123").
         with(query: { "expand" => ["customer"] }).
-        to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+        to_return(body: JSON.generate(charge_fixture))
 
-      Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => [:customer]})
+      Stripe::Charge.retrieve({:id => 'ch_123', :expand => [:customer]})
     end
 
     should "preserve expand across refreshes" do
-      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_test_charge").
+      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123").
         with(query: { "expand" => ["customer"] }).
-        to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+        to_return(body: JSON.generate(charge_fixture))
 
-      ch = Stripe::Charge.retrieve({:id => 'ch_test_charge', :expand => :customer})
+      ch = Stripe::Charge.retrieve({:id => 'ch_123', :expand => :customer})
       ch.refresh
     end
 
     should "send expand when fetching through ListObject" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
-        to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123").
+        to_return(body: JSON.generate(customer_fixture))
 
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer/sources/cc_test_card").
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123/sources/cc_test_card").
         with(query: { "expand" => ["customer"] }).
-        to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
+        to_return(body: JSON.generate(customer_fixture))
 
-      customer = Stripe::Customer.retrieve('c_test_customer')
+      customer = Stripe::Customer.retrieve('cus_123')
       customer.sources.retrieve({:id => 'cc_test_card', :expand => :customer})
     end
 
@@ -107,7 +107,7 @@ module Stripe
         should "use the per-object credential when creating" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges").
             with(headers: {"Authorization" => "Bearer sk_test_local"}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+            to_return(body: JSON.generate(charge_fixture))
 
           Stripe::Charge.create({:source => 'tok_visa'},
             'sk_test_local')
@@ -125,22 +125,22 @@ module Stripe
 
         should "use the per-object credential when creating" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges").
-            with(headers: {"Authorization" => "Bearer local"}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+            with(headers: {"Authorization" => "Bearer sk_test_local"}).
+            to_return(body: JSON.generate(charge_fixture))
 
           Stripe::Charge.create({:source => 'tok_visa'},
-            'local')
+            'sk_test_local')
         end
 
         should "use the per-object credential when retrieving and making other calls" do
-          stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_test_charge").
-            with(headers: {"Authorization" => "Bearer local"}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
-          stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_test_charge/refunds").
-            with(headers: {"Authorization" => "Bearer local"}).
-            to_return(body: JSON.generate(API_FIXTURES.fetch(:refund)))
+          stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123").
+            with(headers: {"Authorization" => "Bearer sk_test_local"}).
+            to_return(body: JSON.generate(charge_fixture))
+          stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_123/refunds").
+            with(headers: {"Authorization" => "Bearer sk_test_local"}).
+            to_return(body: "{}")
 
-          ch = Stripe::Charge.retrieve('ch_test_charge', 'local')
+          ch = Stripe::Charge.retrieve('ch_123', 'sk_test_local')
           ch.refunds.create
         end
       end
@@ -151,45 +151,45 @@ module Stripe
         stub_request(:get, "#{Stripe.api_base}/v1/charges").
           with(query: { customer: "test customer" }).
           to_return(body: JSON.generate({
-            data: [API_FIXTURES.fetch(:charge)]
+            data: [charge_fixture]
           }))
         charges = Stripe::Charge.list(:customer => 'test customer').data
         assert charges.kind_of? Array
       end
 
       should "construct URL properly with base query parameters" do
-        stub_request(:get, "#{Stripe.api_base}/v1/invoices").
-          with(query: { customer: "test_customer" }).
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          with(query: { customer: "cus_123" }).
           to_return(body: JSON.generate({
-            data: [API_FIXTURES.fetch(:invoice)],
-            url: "/v1/invoices"
+            data: [charge_fixture],
+            url: "/v1/charges"
           }))
-        invoices = Stripe::Invoice.list(:customer => 'test_customer')
+        charges = Stripe::Invoice.list(:customer => 'cus_123')
 
-        stub_request(:get, "#{Stripe.api_base}/v1/invoices").
-          with(query: { customer: "test_customer", paid: "true" }).
+        stub_request(:get, "#{Stripe.api_base}/v1/charges").
+          with(query: { customer: "cus_123", created: "123" }).
           to_return(body: JSON.generate({
-            data: [API_FIXTURES.fetch(:invoice)],
-            url: "/v1/invoices"
+            data: [charge_fixture],
+            url: "/v1/charges"
           }))
-        invoices.list(:paid => true)
+        charges.list(:created => 123)
       end
 
       should "setting a nil value for a param should exclude that param from the request" do
         stub_request(:get, "#{Stripe.api_base}/v1/charges").
           with(query: { offset: 5, sad: false }).
-          to_return(body: JSON.generate({ :count => 1, :data => [API_FIXTURES.fetch(:charge)] }))
+          to_return(body: JSON.generate({ :count => 1, :data => [charge_fixture] }))
         Stripe::Charge.list(:count => nil, :offset => 5, :sad => false)
 
         stub_request(:post, "#{Stripe.api_base}/v1/charges").
           with(body: { 'amount' => '50', 'currency' => 'usd' }).
-          to_return(body: JSON.generate({ :count => 1, :data => [API_FIXTURES.fetch(:charge)] }))
+          to_return(body: JSON.generate({ :count => 1, :data => [charge_fixture] }))
         Stripe::Charge.create(:amount => 50, :currency => 'usd', :card => { :number => nil })
       end
 
       should "not trigger a warning if a known opt, such as idempotency_key, is in opts" do
         stub_request(:post, "#{Stripe.api_base}/v1/charges").
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+          to_return(body: JSON.generate(charge_fixture))
         old_stderr = $stderr
         $stderr = StringIO.new
         begin
@@ -202,7 +202,7 @@ module Stripe
 
       should "trigger a warning if a known opt, such as idempotency_key, is in params" do
         stub_request(:post, "#{Stripe.api_base}/v1/charges").
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+          to_return(body: JSON.generate(charge_fixture))
         old_stderr = $stderr
         $stderr = StringIO.new
         begin
@@ -228,28 +228,28 @@ module Stripe
       should "making a GET request with parameters should have a query string and no body" do
         stub_request(:get, "#{Stripe.api_base}/v1/charges").
           with(query: { limit: 1 }).
-          to_return(body: JSON.generate({ :data => [API_FIXTURES.fetch(:charge)] }))
+          to_return(body: JSON.generate({ :data => [charge_fixture] }))
         Stripe::Charge.list({ :limit => 1 })
       end
 
       should "making a POST request with parameters should have a body and no query string" do
         stub_request(:post, "#{Stripe.api_base}/v1/charges").
           with(body: {'amount' => '100', 'currency' => 'usd', 'card' => 'sc_token'}).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:charge)))
+          to_return(body: JSON.generate(charge_fixture))
         Stripe::Charge.create({ :amount => 100, :currency => 'usd', :card => 'sc_token' })
       end
 
       should "loading an object should issue a GET request" do
-        stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
-        c = Stripe::Customer.new("test_customer")
+        stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123").
+          to_return(body: JSON.generate(charge_fixture))
+        c = Stripe::Charge.new("ch_123")
         c.refresh
       end
 
       should "using array accessors should be the same as the method interface" do
-        stub_request(:get, "#{Stripe.api_base}/v1/customers/test_customer").
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
-        c = Stripe::Customer.new("test_customer")
+        stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123").
+          to_return(body: JSON.generate(charge_fixture))
+        c = Stripe::Charge.new("cus_123")
         c.refresh
         assert_equal c.created, c[:created]
         assert_equal c.created, c['created']
@@ -259,26 +259,26 @@ module Stripe
 
       should "accessing a property other than id or parent on an unfetched object should fetch it" do
         stub_request(:get, "#{Stripe.api_base}/v1/charges").
-          with(query: { customer: "test_customer" }).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
-        c = Stripe::Customer.new("test_customer")
+          with(query: { customer: "cus_123" }).
+          to_return(body: JSON.generate(customer_fixture))
+        c = Stripe::Customer.new("cus_123")
         c.charges
       end
 
       should "updating an object should issue a POST request with only the changed properties" do
-        stub_request(:post, "#{Stripe.api_base}/v1/customers/c_test_customer").
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123").
           with(body: { 'description' => 'another_mn' }).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
-        c = Stripe::Customer.construct_from(API_FIXTURES.fetch(:customer))
+          to_return(body: JSON.generate(customer_fixture))
+        c = Stripe::Customer.construct_from(customer_fixture)
         c.description = "another_mn"
         c.save
       end
 
       should "updating should merge in returned properties" do
-        stub_request(:post, "#{Stripe.api_base}/v1/customers/c_test_customer").
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123").
           with(body: { 'description' => 'another_mn' }).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
-        c = Stripe::Customer.new("c_test_customer")
+          to_return(body: JSON.generate(customer_fixture))
+        c = Stripe::Customer.new("cus_123")
         c.description = "another_mn"
         c.save
         assert_equal false, c.livemode
@@ -294,23 +294,23 @@ module Stripe
       should "updating should use the supplied api_key" do
         stub_request(:post, "#{Stripe.api_base}/v1/customers").
           with(headers: {"Authorization" => "Bearer sk_test_local"}).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
+          to_return(body: JSON.generate(customer_fixture))
         c = Stripe::Customer.new
         c.save({}, { :api_key => 'sk_test_local' })
         assert_equal false, c.livemode
       end
 
       should "deleting should send no props and result in an object that has no props other deleted" do
-        stub_request(:delete, "#{Stripe.api_base}/v1/customers/c_test_customer").
-          to_return(body: JSON.generate({ "id" => "test_customer", "deleted" => true }))
-        c = Stripe::Customer.construct_from(API_FIXTURES.fetch(:customer))
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123").
+          to_return(body: JSON.generate({ "id" => "cus_123", "deleted" => true }))
+        c = Stripe::Customer.construct_from(customer_fixture)
         c.delete
       end
 
       should "loading all of an APIResource should return an array of recursively instantiated objects" do
         stub_request(:get, "#{Stripe.api_base}/v1/charges").
           to_return(body: JSON.generate({
-            data: [API_FIXTURES.fetch(:charge)]
+            data: [charge_fixture]
           }))
         charges = Stripe::Charge.list.data
         assert charges.kind_of? Array
@@ -319,21 +319,21 @@ module Stripe
       end
 
       should "passing in a stripe_account header should pass it through on call" do
-        stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
-          with(headers: {"Stripe-Account" => "acct_abc"}).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
-        Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123").
+          with(headers: {"Stripe-Account" => "acct_123"}).
+          to_return(body: JSON.generate(customer_fixture))
+        Stripe::Customer.retrieve("cus_123", {:stripe_account => 'acct_123'})
       end
 
       should "passing in a stripe_account header should pass it through on save" do
-        stub_request(:get, "#{Stripe.api_base}/v1/customers/c_test_customer").
-          with(headers: {"Stripe-Account" => "acct_abc"}).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
-        c = Stripe::Customer.retrieve("c_test_customer", {:stripe_account => 'acct_abc'})
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123").
+          with(headers: {"Stripe-Account" => "acct_123"}).
+          to_return(body: JSON.generate(customer_fixture))
+        c = Stripe::Customer.retrieve("cus_123", {:stripe_account => 'acct_123'})
 
-        stub_request(:post, "#{Stripe.api_base}/v1/customers/c_test_customer").
-          with(headers: {"Stripe-Account" => "acct_abc"}).
-          to_return(body: JSON.generate(API_FIXTURES.fetch(:customer)))
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123").
+          with(headers: {"Stripe-Account" => "acct_123"}).
+          to_return(body: JSON.generate(customer_fixture))
         c.description = 'FOO'
         c.save
       end
@@ -517,6 +517,42 @@ module Stripe
 
         account.save(:display_name => 'stripe', :metadata => {:key => 'value' })
       end
+    end
+
+    @@fixtures = {}
+    setup do
+      if @@fixtures.empty?
+        set_fixture(:charge) do
+          Charge.retrieve("ch_123")
+        end
+        set_fixture(:customer) do
+          Customer.retrieve("cus_123")
+        end
+      end
+    end
+
+    private
+
+    def charge_fixture
+      @@fixtures[:charge]
+    end
+
+    def customer_fixture
+      @@fixtures[:customer]
+    end
+
+    def get_fixture(key)
+      @@fixtures.fetch(key)
+    end
+
+    # Expects to retrieve a fixture from stripe-mock (an API call should be
+    # included in the block to yield to) and does very simple memoization.
+    def set_fixture(key)
+      return @@fixtures[key] if @@fixtures.key?(key)
+
+      obj = yield
+      @@fixtures[key] = obj.instance_variable_get(:@values).freeze
+      @@fixtures[key]
     end
   end
 end

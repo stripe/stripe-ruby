@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class InvoiceTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:invoice)
-
     should "be listable" do
       invoices = Stripe::Invoice.list
       assert_requested :get, "#{Stripe.api_base}/v1/invoices"
@@ -12,50 +10,50 @@ module Stripe
     end
 
     should "be retrievable" do
-      invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}"
+      invoice = Stripe::Invoice.retrieve("in_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_123"
       assert invoice.kind_of?(Stripe::Invoice)
     end
 
     should "be creatable" do
       invoice = Stripe::Invoice.create(
-        :customer => API_FIXTURES[:customer][:id]
+        :customer => "cus_123"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/invoices"
       assert invoice.kind_of?(Stripe::Invoice)
     end
 
     should "be saveable" do
-      invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
+      invoice = Stripe::Invoice.retrieve("in_123")
       invoice.metadata['key'] = 'value'
       invoice.save
-      assert_requested :post, "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}"
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/#{invoice.id}"
     end
 
     should "be updateable" do
-      invoice = Stripe::Invoice.update(FIXTURE[:id], metadata: { key: 'value' })
-      assert_requested :post, "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}"
+      invoice = Stripe::Invoice.update("in_123", metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123"
       assert invoice.kind_of?(Stripe::Invoice)
     end
 
     context "#pay" do
       should "pay invoice" do
-        invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
+        invoice = Stripe::Invoice.retrieve("in_123")
         invoice = invoice.pay
         assert_requested :post,
-          "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}/pay"
+          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/pay"
         assert invoice.kind_of?(Stripe::Invoice)
       end
 
       should "pay invoice with a specific source" do
-        invoice = Stripe::Invoice.retrieve(FIXTURE[:id])
+        invoice = Stripe::Invoice.retrieve("in_123")
         invoice = invoice.pay(
-          source: API_FIXTURES[:customer][:sources][:data][0][:id]
+          source: 'src_123',
         )
         assert_requested :post,
-          "#{Stripe.api_base}/v1/invoices/#{FIXTURE[:id]}/pay",
+          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/pay",
           body: {
-            source: API_FIXTURES[:customer][:sources][:data][0][:id]
+            source: 'src_123',
           }
         assert invoice.kind_of?(Stripe::Invoice)
       end
@@ -64,13 +62,13 @@ module Stripe
     context "#upcoming" do
       should "retrieve upcoming invoices" do
         invoice = Stripe::Invoice.upcoming(
-          customer: API_FIXTURES[:customer][:id],
-          subscription: API_FIXTURES[:subscription][:id]
+          customer: "cus_123",
+          subscription: "sub_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming",
           query: {
-            customer: API_FIXTURES[:customer][:id],
-            subscription: API_FIXTURES[:subscription][:id]
+            customer: "cus_123",
+            subscription: "sub_123"
           }
         assert invoice.kind_of?(Stripe::Invoice)
       end
@@ -78,12 +76,12 @@ module Stripe
       should "be callable with an empty string" do
         invoice = Stripe::Invoice.upcoming(
           coupon: '',
-          customer: API_FIXTURES[:customer][:id]
+          customer: "cus_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming",
           query: {
             coupon: '',
-            customer: API_FIXTURES[:customer][:id]
+            customer: "cus_123"
           }
         assert invoice.kind_of?(Stripe::Invoice)
       end

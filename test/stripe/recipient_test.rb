@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class RecipientTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:transfer_recipient)
-
     should "be listable" do
       recipients = Stripe::Recipient.list
       assert_requested :get, "#{Stripe.api_base}/v1/recipients"
@@ -12,8 +10,8 @@ module Stripe
     end
 
     should "be retrievable" do
-      recipient = Stripe::Recipient.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/recipients/#{FIXTURE[:id]}"
+      recipient = Stripe::Recipient.retrieve("rp_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/recipients/rp_123"
       assert recipient.kind_of?(Stripe::Recipient)
     end
 
@@ -27,22 +25,22 @@ module Stripe
     end
 
     should "be saveable" do
-      recipient = Stripe::Recipient.retrieve(FIXTURE[:id])
+      recipient = Stripe::Recipient.retrieve("rp_123")
       recipient.metadata['key'] = 'value'
       recipient.save
-      assert_requested :post, "#{Stripe.api_base}/v1/recipients/#{FIXTURE[:id]}"
+      assert_requested :post, "#{Stripe.api_base}/v1/recipients/#{recipient.id}"
     end
 
     should "be updateable" do
-      recipient = Stripe::Recipient.update(FIXTURE[:id], metadata: {foo: 'bar'})
-      assert_requested :post, "#{Stripe.api_base}/v1/recipients/#{FIXTURE[:id]}"
+      recipient = Stripe::Recipient.update("rp_123", metadata: {foo: 'bar'})
+      assert_requested :post, "#{Stripe.api_base}/v1/recipients/rp_123"
       assert recipient.kind_of?(Stripe::Recipient)
     end
 
     should "be deletable" do
-      recipient = Stripe::Recipient.retrieve(FIXTURE[:id])
+      recipient = Stripe::Recipient.retrieve("rp_123")
       recipient = recipient.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/recipients/#{FIXTURE[:id]}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/recipients/#{recipient.id}"
       assert recipient.kind_of?(Stripe::Recipient)
     end
   end

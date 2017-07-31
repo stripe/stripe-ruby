@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class BitcoinReceiverTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:bitcoin_receiver)
-
     should "be listable" do
       receivers = Stripe::BitcoinReceiver.list
       assert_requested :get, "#{Stripe.api_base}/v1/bitcoin/receivers"
@@ -12,9 +10,9 @@ module Stripe
     end
 
     should "be retrievable" do
-      receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
+      receiver = Stripe::BitcoinReceiver.retrieve("btcrcv_123")
       assert_requested :get,
-        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/bitcoin/receivers/btcrcv_123"
       assert receiver.kind_of?(Stripe::BitcoinReceiver)
     end
 
@@ -25,44 +23,43 @@ module Stripe
     end
 
     should "be saveable" do
-      receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
+      receiver = Stripe::BitcoinReceiver.retrieve("btcrcv_123")
       receiver.metadata['key'] = 'value'
       receiver.save
       assert_requested :post,
-        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{receiver.id}"
     end
 
     should "be updateable" do
-      receiver = Stripe::BitcoinReceiver.update(FIXTURE[:id], metadata: { key: 'value' })
+      receiver = Stripe::BitcoinReceiver.update("btcrcv_123", metadata: { key: 'value' })
       assert_requested :post,
-        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/bitcoin/receivers/btcrcv_123"
       assert receiver.kind_of?(Stripe::BitcoinReceiver)
     end
 
     should "be deletable" do
-      receiver = Stripe::BitcoinReceiver.retrieve(FIXTURE[:id])
+      receiver = Stripe::BitcoinReceiver.retrieve("btcrcv_123")
       receiver = receiver.delete
       assert_requested :delete,
-        "#{Stripe.api_base}/v1/bitcoin/receivers/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/bitcoin/receivers/#{receiver.id}"
       assert receiver.kind_of?(Stripe::BitcoinReceiver)
     end
 
     context "#resource_url" do
       should "return a customer URL" do
-        customer_id = API_FIXTURES.fetch(:customer)[:id]
         receiver = Stripe::BitcoinReceiver.construct_from(
-          customer: customer_id,
-          id: FIXTURE[:id]
+          customer: "cus_123",
+          id: "btcrcv_123",
         )
-        assert_equal "/v1/customers/#{customer_id}/sources/#{FIXTURE[:id]}",
+        assert_equal "/v1/customers/cus_123/sources/btcrcv_123",
           receiver.resource_url
       end
 
       should "return an absolute URL" do
         receiver = Stripe::BitcoinReceiver.construct_from(
-          id: FIXTURE[:id]
+          id: "btcrcv_123",
         )
-        assert_equal "/v1/bitcoin/receivers/#{FIXTURE[:id]}",
+        assert_equal "/v1/bitcoin/receivers/btcrcv_123",
           receiver.resource_url
       end
     end

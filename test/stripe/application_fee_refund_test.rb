@@ -2,11 +2,8 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class ApplicationFeeRefundTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:fee_refund)
-
     setup do
-      application_fee_fixture = API_FIXTURES.fetch(:platform_earning)
-      @fee = Stripe::ApplicationFee.retrieve(application_fee_fixture[:id])
+      @fee = Stripe::ApplicationFee.retrieve("fee_123")
     end
 
     should "be listable" do
@@ -32,7 +29,7 @@ module Stripe
       refund.metadata['key'] = 'value'
       refund.save
       assert_requested :post,
-        "#{Stripe.api_base}/v1/application_fees/#{@fee.id}/refunds/#{FIXTURE[:id]}"
+        "#{Stripe.api_base}/v1/application_fees/#{@fee.id}/refunds/#{refund.id}"
     end
   end
 end

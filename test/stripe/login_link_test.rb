@@ -2,18 +2,17 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class LoginLinkTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:login_link)
-
     setup do
-      account_fixture = API_FIXTURES.fetch(:account)
-      account_fixture = account_fixture.merge(
+      account_fixture = {
+        'id' => 'acct_123',
+        'object' => 'account',
         'login_links' => {
           'data' => [],
           'has_more' => false,
           'object' => 'list',
-          'url' =>  "/v1/accounts/#{account_fixture[:id]}/login_links"
+          'url' =>  "/v1/accounts/acct_123/login_links"
         }
-      )
+      }
       @account = Stripe::Account.construct_from(account_fixture)
     end
 
@@ -25,7 +24,7 @@ module Stripe
 
     should "be creatable" do
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/#{@account.id}/login_links").
-        to_return(body: JSON.generate(FIXTURE))
+        to_return(body: JSON.generate({ object: 'login_link' }))
 
       login_link = @account.login_links.create
       assert_requested :post,

@@ -2,8 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class OrderTest < Test::Unit::TestCase
-    FIXTURE = API_FIXTURES.fetch(:order)
-
     should "be listable" do
       orders = Stripe::Order.list
       assert_requested :get, "#{Stripe.api_base}/v1/orders"
@@ -12,8 +10,8 @@ module Stripe
     end
 
     should "be retrievable" do
-      order = Stripe::Order.retrieve(FIXTURE[:id])
-      assert_requested :get, "#{Stripe.api_base}/v1/orders/#{FIXTURE[:id]}"
+      order = Stripe::Order.retrieve("or_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/orders/or_123"
       assert order.kind_of?(Stripe::Order)
     end
 
@@ -26,31 +24,31 @@ module Stripe
     end
 
     should "be saveable" do
-      order = Stripe::Order.retrieve(FIXTURE[:id])
+      order = Stripe::Order.retrieve("or_123")
       order.metadata['key'] = 'value'
       order.save
-      assert_requested :post, "#{Stripe.api_base}/v1/orders/#{FIXTURE[:id]}"
+      assert_requested :post, "#{Stripe.api_base}/v1/orders/#{order.id}"
     end
 
     should "be updateable" do
-      order = Stripe::Order.update(FIXTURE[:id], metadata: { key: 'value' })
-      assert_requested :post, "#{Stripe.api_base}/v1/orders/#{FIXTURE[:id]}"
+      order = Stripe::Order.update("or_123", metadata: { key: 'value' })
+      assert_requested :post, "#{Stripe.api_base}/v1/orders/or_123"
       assert order.kind_of?(Stripe::Order)
     end
 
     context "#pay" do
       should "pay an order" do
-        order = Stripe::Order.retrieve(FIXTURE[:id])
-        order = order.pay(token: API_FIXTURES.fetch(:token)[:id])
+        order = Stripe::Order.retrieve("or_123")
+        order = order.pay(token: "tok_123")
         assert order.kind_of?(Stripe::Order)
       end
     end
 
     context "#return_order" do
       should "return an order" do
-        order = Stripe::Order.retrieve(FIXTURE[:id])
+        order = Stripe::Order.retrieve("or_123")
         order = order.return_order(:orders => [
-          { parent: API_FIXTURES.fetch(:sku)[:id] }
+          { parent: "sku_123" }
         ])
         assert order.kind_of?(Stripe::OrderReturn)
       end

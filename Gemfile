@@ -7,6 +7,7 @@ group :development do
   gem 'rake'
   gem 'shoulda-context'
   gem 'test-unit'
+  gem 'timecop'
   gem 'webmock'
 
   # Rack 2.0+ requires Ruby >= 2.2.2 which is problematic for the test suite on

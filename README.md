@@ -135,6 +135,24 @@ Please take care to set conservative read timeouts. Some API requests can take
 some time, and a short timeout increases the likelihood of a problem within our
 servers.
 
+### Logging
+
+The library can be configured to emit logging that will give you better insight
+into what it's doing. The `info` logging level is usually most appropriate for
+production use, but `debug` is also available for more verbosity.
+
+There are a few options for enabling it:
+
+1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`:
+   ```
+   $ export STRIPE_LOG=info
+   ```
+
+2. Set `Stripe.log_level`:
+   ``` ruby
+   Stripe.log_level = "info"
+   ```
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you

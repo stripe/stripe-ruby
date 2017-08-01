@@ -83,6 +83,8 @@ module Stripe
   @connect_base = 'https://connect.stripe.com'
   @uploads_base = 'https://uploads.stripe.com'
 
+  @log_level = nil
+
   @max_network_retries = 0
   @max_network_retry_delay = 2
   @initial_network_retry_delay = 0.5
@@ -142,6 +144,24 @@ module Stripe
     end
   end
 
+  LEVEL_DEBUG = "debug"
+  LEVEL_INFO = "info"
+
+  # When set prompts the library to log some extra information to $stdout about
+  # what it's doing. For example, it'll produce information about requests,
+  # responses, and errors that are received. Valid log levels are `debug` and
+  # `info`, with `debug` being a little more verbose in places.
+  def self.log_level
+    @log_level
+  end
+
+  def self.log_level=(val)
+    if val != nil && ![LEVEL_DEBUG, LEVEL_INFO].include?(val)
+      raise ArgumentError, "log_level should only be set to `nil`, `debug` or `info`"
+    end
+    @log_level = val
+  end
+
   def self.max_network_retries
     @max_network_retries
   end
@@ -173,4 +193,8 @@ module Stripe
     extend Gem::Deprecate
     deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 01
   end
+end
+
+unless ENV["STRIPE_LOG"].nil?
+  Stripe.log_level = ENV["STRIPE_LOG"]
 end

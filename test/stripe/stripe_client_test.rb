@@ -141,6 +141,158 @@ module Stripe
         end
       end
 
+      context "logging" do
+        setup do
+          # Freeze time for the purposes of the `elapsed` parameter that we
+          # emit for responses. I didn't want to bring in a new dependency for
+          # this, but Mocha's `anything` parameter can't match inside of a hash
+          # and is therefore not useful for this purpose. If we switch over to
+          # rspec-mocks at some point, we can probably remove Timecop from the
+          # project.
+          Timecop.freeze(Time.local(1990))
+        end
+
+        teardown do
+          Timecop.return
+        end
+
+        should "produce appropriate logging" do
+          body = JSON.generate({ object: "account" })
+
+          Util.expects(:log_info).with("Request to Stripe API",
+            api_version: '2010-11-12',
+            idempotency_key: "abc",
+            method: :post,
+            path: "/v1/account"
+          )
+          Util.expects(:log_debug).with("Request details",
+            body: '',
+            idempotency_key: "abc"
+          )
+
+          Util.expects(:log_info).with("Response from Stripe API",
+            api_version: '2010-11-12',
+            elapsed: 0.0,
+            idempotency_key: "abc",
+            method: :post,
+            path: "/v1/account",
+            request_id: "req_123",
+            status: 200
+          )
+          Util.expects(:log_debug).with("Response details",
+            body: body,
+            idempotency_key: "abc",
+            request_id: "req_123"
+          )
+          Util.expects(:log_debug).with("Dashboard link for request",
+            idempotency_key: "abc",
+            request_id: "req_123",
+            url: Util.request_id_dashboard_url("req_123", Stripe.api_key)
+          )
+
+          stub_request(:post, "#{Stripe.api_base}/v1/account").
+            to_return(
+              body: body,
+              headers: {
+                "Idempotency-Key" => "abc",
+                "Request-Id" => "req_123",
+                "Stripe-Version" => "2010-11-12"
+              }
+            )
+
+          client = StripeClient.new
+          client.execute_request(:post, '/v1/account',
+            headers: {
+              "Idempotency-Key" => "abc",
+              "Stripe-Version" => "2010-11-12"
+            }
+          )
+        end
+
+        should "produce logging on API error" do
+          Util.expects(:log_info).with("Request to Stripe API",
+            api_version: nil,
+            idempotency_key: nil,
+            method: :post,
+            path: "/v1/account"
+          )
+          Util.expects(:log_info).with("Response from Stripe API",
+            api_version: nil,
+            elapsed: 0.0,
+            idempotency_key: nil,
+            method: :post,
+            path: "/v1/account",
+            request_id: nil,
+            status: 500
+          )
+
+          error = {
+            code: 'code',
+            message: 'message',
+            param: 'param',
+            type: 'type',
+          }
+          Util.expects(:log_info).with('Stripe API error',
+            status: 500,
+            error_code: error['code'],
+            error_message: error['message'],
+            error_param: error['param'],
+            error_type: error['type'],
+            idempotency_key: nil,
+            request_id: nil
+          )
+
+          stub_request(:post, "#{Stripe.api_base}/v1/account").
+            to_return(
+              body: JSON.generate({ :error => error }),
+              status: 500
+            )
+
+          client = StripeClient.new
+          assert_raises Stripe::APIError do
+            client.execute_request(:post, '/v1/account')
+          end
+        end
+
+        should "produce logging on OAuth error" do
+          Util.expects(:log_info).with("Request to Stripe API",
+            api_version: nil,
+            idempotency_key: nil,
+            method: :post,
+            path: "/oauth/token"
+          )
+          Util.expects(:log_info).with("Response from Stripe API",
+            api_version: nil,
+            elapsed: 0.0,
+            idempotency_key: nil,
+            method: :post,
+            path: "/oauth/token",
+            request_id: nil,
+            status: 400
+          )
+
+          Util.expects(:log_info).with('Stripe OAuth error',
+            status: 400,
+            error_code: "invalid_request",
+            error_description: "No grant type specified",
+            idempotency_key: nil,
+            request_id: nil
+          )
+
+          stub_request(:post, "#{Stripe.connect_base}/oauth/token").
+            to_return(body: JSON.generate({
+              error: "invalid_request",
+              error_description: "No grant type specified",
+            }), status: 400)
+
+          client = StripeClient.new
+          opts = {api_base: Stripe.connect_base}
+          assert_raises Stripe::OAuth::InvalidRequestError do
+            client.execute_request(:post, '/oauth/token', opts)
+          end
+        end
+      end
+
       context "Stripe-Account header" do
         should "use a globally set header" do
           begin

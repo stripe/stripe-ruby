@@ -145,5 +145,169 @@ module Stripe
     should "#array_to_hash should convert an array into a hash with integer keys" do
       assert_equal({"0" => 1, "1" => 2, "2" => 3}, Util.array_to_hash([1, 2, 3]))
     end
+
+    context ".request_id_dashboard_url" do
+      should "generate a livemode URL" do
+        assert_equal "https://dashboard.stripe.com/live/logs/request-id",
+          Util.request_id_dashboard_url("request-id", "sk_live_123")
+      end
+
+      should "generate a testmode URL" do
+        assert_equal "https://dashboard.stripe.com/test/logs/request-id",
+          Util.request_id_dashboard_url("request-id", "sk_test_123")
+      end
+
+      should "default to a testmode URL" do
+        assert_equal "https://dashboard.stripe.com/test/logs/request-id",
+          Util.request_id_dashboard_url("request-id", nil)
+      end
+    end
+
+    context ".log_*" do
+      setup do
+        @old_log_level = Stripe.log_level
+        Stripe.log_level = nil
+
+        @old_stdout = $stdout
+        $stdout = StringIO.new
+      end
+
+      teardown do
+        Stripe.log_level = @old_log_level
+        $stdout = @old_stdout
+      end
+
+      context ".log_debug" do
+        should "not log if logging is disabled" do
+          Util.log_debug("foo")
+          assert_equal "", $stdout.string
+        end
+
+        should "log if level set to debug" do
+          Stripe.log_level = Stripe::LEVEL_DEBUG
+          Util.log_debug("foo")
+          assert_equal "message=foo level=debug \n", $stdout.string
+        end
+
+        should "not log if level set to info" do
+          Stripe.log_level = Stripe::LEVEL_INFO
+          Util.log_debug("foo")
+          assert_equal "", $stdout.string
+        end
+      end
+
+      context ".log_info" do
+        should "not log if logging is disabled" do
+          Util.log_info("foo")
+          assert_equal "", $stdout.string
+        end
+
+        should "log if level set to debug" do
+          Stripe.log_level = Stripe::LEVEL_DEBUG
+          Util.log_info("foo")
+          assert_equal "message=foo level=info \n", $stdout.string
+        end
+
+        should "log if level set to info" do
+          Stripe.log_level = Stripe::LEVEL_INFO
+          Util.log_info("foo")
+          assert_equal "message=foo level=info \n", $stdout.string
+        end
+      end
+    end
+
+    context ".normalize_headers" do
+      should "normalize the format of a header key" do
+        assert_equal({ "Request-Id" => nil },
+          Util.normalize_headers({ "Request-Id" => nil }))
+        assert_equal({ "Request-Id" => nil },
+          Util.normalize_headers({ "request-id" => nil }))
+        assert_equal({ "Request-Id" => nil },
+          Util.normalize_headers({ "Request-ID" => nil }))
+        assert_equal({ "Request-Id" => nil },
+          Util.normalize_headers({ :request_id => nil }))
+      end
+
+      should "tolerate bad formatting" do
+        assert_equal({ "Request-Id" => nil },
+          Util.normalize_headers({ "-Request--Id-" => nil }))
+        assert_equal({ "Request-Id" => nil },
+          Util.normalize_headers({ :request__id => nil }))
+      end
+    end
+
+    #
+    # private
+    #
+    # I don't feel particularly good about using #send to invoke these, but I
+    # want them hidden from the public interface, and each method is far easier
+    # to test in isolation (as opposed to going through a public method).
+    #
+
+    context ".colorize" do
+      should "colorize for a TTY" do
+        assert_equal "\033[0;32;49mfoo\033[0m",
+          Util.send(:colorize, "foo", :green, true)
+      end
+
+      should "not colorize otherwise" do
+        assert_equal "foo", Util.send(:colorize, "foo", :green, false)
+      end
+    end
+
+    context ".log_internal" do
+      should "log in a terminal friendly way" do
+        out = StringIO.new
+
+        # Sketchy as anything, but saves us from pulling in a mocking library.
+        # Open this instance of StringIO, and add a method override so that it
+        # looks like a TTY.
+        out.instance_eval do
+          def isatty; true; end
+        end
+
+        Util.send(:log_internal, "message", { foo: "bar" },
+          color: :green, level: Stripe::LEVEL_DEBUG, out: out)
+        assert_equal "\e[0;32;49mDEBU\e[0m message \e[0;32;49mfoo\e[0m=bar\n",
+          out.string
+      end
+
+      should "log in a data friendly way" do
+        out = StringIO.new
+        Util.send(:log_internal, "message", { foo: "bar" },
+          color: :green, level: Stripe::LEVEL_DEBUG, out: out)
+        assert_equal "message=message level=debug foo=bar\n",
+          out.string
+      end
+    end
+
+    context ".wrap_logfmt_value" do
+      should "pass through simple values" do
+        assert_equal "abc", Util.send(:wrap_logfmt_value, "abc")
+        assert_equal "123", Util.send(:wrap_logfmt_value, "123")
+        assert_equal "a-b_c/d", Util.send(:wrap_logfmt_value, "a-b_c/d")
+      end
+
+      should "pass through numerics" do
+        assert_equal 123, Util.send(:wrap_logfmt_value, 123)
+        assert_equal 1.23, Util.send(:wrap_logfmt_value, 1.23)
+      end
+
+      should "wrap more complex values in double quotes" do
+        assert_equal %{"abc=123"}, Util.send(:wrap_logfmt_value, %{abc=123})
+      end
+
+      should "escape double quotes already in the value" do
+        assert_equal %{"abc=\\"123\\""}, Util.send(:wrap_logfmt_value, %{abc="123"})
+      end
+
+      should "remove newlines" do
+        assert_equal %{"abc"}, Util.send(:wrap_logfmt_value, "a\nb\nc")
+      end
+
+      should "not error if given a non-string" do
+        assert_equal "true", Util.send(:wrap_logfmt_value, true)
+      end
+    end
   end
 end

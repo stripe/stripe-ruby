@@ -73,6 +73,26 @@ module Stripe
         assert invoice.kind_of?(Stripe::Invoice)
       end
 
+      should "retrieve upcoming invoices with items" do
+        items = [{
+          plan: 'gold',
+          quantity: 2
+        }]
+
+        invoice = Stripe::Invoice.upcoming(
+          customer: "cus_123",
+          subscription_items: items
+        )
+
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming",
+          query: {
+            customer: "cus_123",
+            :'subscription_items[][plan]' => 'gold',
+            :'subscription_items[][quantity]' =>  2
+          }
+        assert invoice.kind_of?(Stripe::Invoice)
+      end
+
       should "be callable with an empty string" do
         invoice = Stripe::Invoice.upcoming(
           coupon: '',

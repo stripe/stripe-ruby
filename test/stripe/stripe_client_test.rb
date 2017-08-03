@@ -163,6 +163,7 @@ module Stripe
             api_version: '2010-11-12',
             idempotency_key: "abc",
             method: :post,
+            num_retries: 0,
             path: "/v1/account"
           )
           Util.expects(:log_debug).with("Request details",
@@ -214,6 +215,7 @@ module Stripe
             api_version: nil,
             idempotency_key: nil,
             method: :post,
+            num_retries: 0,
             path: "/v1/account"
           )
           Util.expects(:log_info).with("Response from Stripe API",
@@ -259,6 +261,7 @@ module Stripe
             api_version: nil,
             idempotency_key: nil,
             method: :post,
+            num_retries: 0,
             path: "/oauth/token"
           )
           Util.expects(:log_info).with("Response from Stripe API",

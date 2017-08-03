@@ -56,8 +56,8 @@ module Stripe
     # Checks if an error is a problem that we should retry on. This includes both
     # socket errors that may represent an intermittent problem and some special
     # HTTP statuses.
-    def self.should_retry?(e, retry_count)
-      return false if retry_count >= Stripe.max_network_retries
+    def self.should_retry?(e, num_retries)
+      return false if num_retries >= Stripe.max_network_retries
 
       # Retry on timeout-related problems (either on open or read).
       return true if e.is_a?(Faraday::TimeoutError)
@@ -75,11 +75,11 @@ module Stripe
       false
     end
 
-    def self.sleep_time(retry_count)
+    def self.sleep_time(num_retries)
       # Apply exponential backoff with initial_network_retry_delay on the
-      # number of attempts so far as inputs. Do not allow the number to exceed
+      # number of num_retries so far as inputs. Do not allow the number to exceed
       # max_network_retry_delay.
-      sleep_seconds = [Stripe.initial_network_retry_delay * (2 ** (retry_count - 1)), Stripe.max_network_retry_delay].min
+      sleep_seconds = [Stripe.initial_network_retry_delay * (2 ** (num_retries - 1)), Stripe.max_network_retry_delay].min
 
       # Apply some jitter by randomizing the value in the range of (sleep_seconds
       # / 2) to (sleep_seconds).
@@ -189,10 +189,10 @@ module Stripe
     end
 
     def execute_request_with_rescues(api_base, context, &block)
-      retry_count = 0
+      num_retries = 0
       begin
         request_start = Time.now
-        log_request(context)
+        log_request(context, num_retries)
         resp = block.call
         context = context.dup_from_response(resp)
         log_response(context, request_start, resp.status, resp.body)
@@ -213,9 +213,9 @@ module Stripe
           log_response_error(error_context, request_start, e)
         end
 
-        if self.class.should_retry?(e, retry_count)
-          retry_count = retry_count + 1
-          sleep self.class.sleep_time(retry_count)
+        if self.class.should_retry?(e, num_retries)
+          num_retries += 1
+          sleep self.class.sleep_time(num_retries)
           retry
         end
 
@@ -224,7 +224,7 @@ module Stripe
           if e.response
             handle_error_response(e.response, error_context)
           else
-            handle_network_error(e, error_context, retry_count, api_base)
+            handle_network_error(e, error_context, num_retries, api_base)
           end
 
         # Only handle errors when we know we can do so, and re-raise otherwise.
@@ -362,7 +362,7 @@ module Stripe
       end
     end
 
-    def handle_network_error(e, context, retry_count, api_base=nil)
+    def handle_network_error(e, context, num_retries, api_base=nil)
       Util.log_info('Stripe OAuth error',
         error_message: e.message,
         idempotency_key: context.idempotency_key,
@@ -394,8 +394,8 @@ module Stripe
 
       end
 
-      if retry_count > 0
-        message += " Request was retried #{retry_count} times."
+      if num_retries > 0
+        message += " Request was retried #{num_retries} times."
       end
 
       raise APIConnectionError.new(message + "\n\n(Network error: #{e.message})")
@@ -437,11 +437,12 @@ module Stripe
       headers
     end
 
-    def log_request(context)
+    def log_request(context, num_retries)
       Util.log_info("Request to Stripe API",
         api_version: context.api_version,
         idempotency_key: context.idempotency_key,
         method: context.method,
+        num_retries: num_retries,
         path: context.path
       )
       Util.log_debug("Request details",

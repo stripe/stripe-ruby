@@ -89,6 +89,20 @@ module Stripe
       end
     end
 
+    def self.log_info(message, data = {})
+      if Stripe.log_level == Stripe::LEVEL_DEBUG ||Stripe.log_level == Stripe::LEVEL_INFO
+        log_internal(message, data, color: :cyan,
+          level: Stripe::LEVEL_INFO, out: $stdout)
+      end
+    end
+
+    def self.log_debug(message, data = {})
+      if Stripe.log_level == Stripe::LEVEL_DEBUG
+        log_internal(message, data, color: :blue,
+          level: Stripe::LEVEL_DEBUG, out: $stdout)
+      end
+    end
+
     def self.file_readable(file)
       # This is nominally equivalent to File.readable?, but that can
       # report incorrect results on some more oddball filesystems
@@ -220,7 +234,58 @@ module Stripe
       key
     end
 
+    # Normalizes header keys so that they're all lower case and each
+    # hyphen-delimited section starts with a single capitalized letter. For
+    # example, `request-id` becomes `Request-Id`. This is useful for extracting
+    # certain key values when the user could have set them with a variety of
+    # diffent naming schemes.
+    def self.normalize_headers(headers)
+      headers.inject({}) do |new_headers, (k, v)|
+        if k.is_a?(Symbol)
+          k = titlecase_parts(k.to_s.gsub("_", "-"))
+        elsif k.is_a?(String)
+          k = titlecase_parts(k)
+        end
+
+        new_headers[k] = v
+        new_headers
+      end
+    end
+
+    # Generates a Dashboard link to inspect a request ID based off of a request
+    # ID value and an API key, which is used to attempt to extract whether the
+    # environment is livemode or testmode.
+    def self.request_id_dashboard_url(request_id, api_key)
+      env = !api_key.nil? && api_key.start_with?("sk_live") ? "live" : "test"
+      "https://dashboard.stripe.com/#{env}/logs/#{request_id}"
+    end
+
+    # Constant time string comparison to prevent timing attacks
+    # Code borrowed from ActiveSupport
+    def self.secure_compare(a, b)
+      return false unless a.bytesize == b.bytesize
+
+      l = a.unpack "C#{a.bytesize}"
+
+      res = 0
+      b.each_byte { |byte| res |= byte ^ l.shift }
+      res == 0
+    end
+
     private
+
+    COLOR_CODES = {
+      :black   => 0, :light_black    => 60,
+      :red     => 1, :light_red      => 61,
+      :green   => 2, :light_green    => 62,
+      :yellow  => 3, :light_yellow   => 63,
+      :blue    => 4, :light_blue     => 64,
+      :magenta => 5, :light_magenta  => 65,
+      :cyan    => 6, :light_cyan     => 66,
+      :white   => 7, :light_white    => 67,
+      :default => 9
+    }
+    private_constant :COLOR_CODES
 
     # We use a pretty janky version of form encoding (Rack's) that supports
     # more complex data structures like maps and arrays through the use of
@@ -258,17 +323,71 @@ module Stripe
         end
       end
     end
+    private_class_method :check_array_of_maps_start_keys!
 
-    # Constant time string comparison to prevent timing attacks
-    # Code borrowed from ActiveSupport
-    def self.secure_compare(a, b)
-      return false unless a.bytesize == b.bytesize
+    # Uses an ANSI escape code to colorize text if it's going to be sent to a
+    # TTY.
+    def self.colorize(val, color, isatty)
+      return val unless isatty
 
-      l = a.unpack "C#{a.bytesize}"
+      mode = 0 # default
+      foreground = 30 + COLOR_CODES.fetch(color)
+      background = 40 + COLOR_CODES.fetch(:default)
 
-      res = 0
-      b.each_byte { |byte| res |= byte ^ l.shift }
-      res == 0
+      "\033[#{mode};#{foreground};#{background}m#{val}\033[0m"
     end
+    private_class_method :colorize
+
+    # TODO: Make these named required arguments when we drop support for Ruby
+    # 2.0.
+    def self.log_internal(message, data = {}, color: nil, level: nil, out: nil)
+      data_str = data.select { |k,v| !v.nil? }.
+        map { |(k,v)|
+          "%s=%s" % [
+            colorize(k, color, out.isatty),
+            wrap_logfmt_value(v)
+          ]
+        }.join(" ")
+
+      if out.isatty
+        out.puts "%s %s %s" %
+          [colorize(level[0, 4].upcase, color, out.isatty), message, data_str]
+      else
+        out.puts "message=%s level=%s %s" %
+          [wrap_logfmt_value(message), level, data_str]
+      end
+    end
+    private_class_method :log_internal
+
+    def self.titlecase_parts(s)
+      s.split("-").
+        select { |p| p != "" }.
+        map { |p| p[0].upcase + p[1..-1].downcase }.
+        join("-")
+    end
+    private_class_method :titlecase_parts
+
+    # Wraps a value in double quotes if it looks sufficiently complex so that
+    # it can be read by logfmt parsers.
+    def self.wrap_logfmt_value(val)
+      # If value is any kind of number, just allow it to be formatted directly
+      # to a string (this will handle integers or floats).
+      return val if val.is_a?(Numeric)
+
+      # Hopefully val is a string, but protect in case it's not.
+      val = val.to_s
+
+      if %r{[^\w\-/]} =~ val
+        # If the string contains any special characters, escape any double
+        # quotes it has, remove newlines, and wrap the whole thing in quotes.
+        %{"%s"} % val.gsub('"', '\"').gsub("\n", "")
+      else
+        # Otherwise use the basic value if it looks like a standard set of
+        # characters (and allow a few special characters like hyphens, and
+        # slashes)
+        val
+      end
+    end
+    private_class_method :wrap_logfmt_value
   end
 end

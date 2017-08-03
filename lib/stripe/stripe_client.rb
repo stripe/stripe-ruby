@@ -109,7 +109,7 @@ module Stripe
       end
     end
 
-    def execute_request(method, url,
+    def execute_request(method, path,
         api_base: nil, api_key: nil, headers: {}, params: {})
 
       api_base ||= Stripe.api_base
@@ -118,7 +118,7 @@ module Stripe
       check_api_key!(api_key)
 
       params = Util.objects_to_ids(params)
-      url = api_url(url, api_base)
+      url = api_url(path, api_base)
 
       case method.to_s.downcase.to_sym
       when :get, :head, :delete
@@ -133,14 +133,22 @@ module Stripe
         end
       end
 
-      http_resp = execute_request_with_rescues(api_base, 0) do
-        conn.run_request(
-          method,
-          url,
-          payload,
-          # TODO: Convert RestClient-style parameters.
-          request_headers(api_key, method).update(headers)
-        ) do |req|
+      headers = request_headers(api_key, method).
+        update(Util.normalize_headers(headers))
+
+      # stores information on the request we're about to make so that we don't
+      # have to pass as many parameters around for logging.
+      context = RequestLogContext.new(
+        api_key: api_key,
+        api_version: headers["Stripe-Version"] || Stripe.api_version,
+        idempotency_key: headers["Idempotency-Key"],
+        method: method,
+        path: path,
+        payload: payload,
+      )
+
+      http_resp = execute_request_with_rescues(api_base, context) do
+        conn.run_request(method, url, payload, headers) do |req|
           req.options.open_timeout = Stripe.open_timeout
           req.options.timeout = Stripe.read_timeout
         end
@@ -180,14 +188,31 @@ module Stripe
       end
     end
 
-    def execute_request_with_rescues(api_base, retry_count, &block)
+    def execute_request_with_rescues(api_base, context, &block)
+      retry_count = 0
       begin
+        request_start = Time.now
+        log_request(context)
         resp = block.call
+        context = context.dup_from_response(resp)
+        log_response(context, request_start, resp.status, resp.body)
 
       # We rescue all exceptions from a request so that we have an easy spot to
       # implement our retry logic across the board. We'll re-raise if it's a type
       # of exception that we didn't expect to handle.
       rescue => e
+        # If we modify context we copy it into a new variable so as not to
+        # taint the original on a retry.
+        error_context = context
+
+        if e.respond_to?(:response) && e.response
+          error_context = context.dup_from_response(e.response)
+          log_response(error_context, request_start,
+            e.response[:status], e.response[:body])
+        else
+          log_response_error(error_context, request_start, e)
+        end
+
         if self.class.should_retry?(e, retry_count)
           retry_count = retry_count + 1
           sleep self.class.sleep_time(retry_count)
@@ -197,9 +222,9 @@ module Stripe
         case e
         when Faraday::ClientError
           if e.response
-            handle_error_response(e.response)
+            handle_error_response(e.response, error_context)
           else
-            handle_network_error(e, retry_count, api_base)
+            handle_network_error(e, error_context, retry_count, api_base)
           end
 
         # Only handle errors when we know we can do so, and re-raise otherwise.
@@ -229,7 +254,7 @@ module Stripe
       str
     end
 
-    def handle_error_response(http_resp)
+    def handle_error_response(http_resp, context)
       begin
         resp = StripeResponse.from_faraday_hash(http_resp)
         error_data = resp.data[:error]
@@ -243,16 +268,26 @@ module Stripe
       end
 
       if error_data.is_a?(String)
-        error = specific_oauth_error(resp, error_data)
+        error = specific_oauth_error(resp, error_data, context)
       else
-        error = specific_api_error(resp, error_data)
+        error = specific_api_error(resp, error_data, context)
       end
 
       error.response = resp
       raise(error)
     end
 
-    def specific_api_error(resp, error_data)
+    def specific_api_error(resp, error_data, context)
+      Util.log_info('Stripe API error',
+        status: resp.http_status,
+        error_code: error_data['code'],
+        error_message: error_data['message'],
+        error_param: error_data['param'],
+        error_type: error_data['type'],
+        idempotency_key: context.idempotency_key,
+        request_id: context.request_id
+      )
+
       case resp.http_status
       when 400, 404
         error = InvalidRequestError.new(
@@ -297,8 +332,16 @@ module Stripe
 
     # Attempts to look at a response's error code and return an OAuth error if
     # one matches. Will return `nil` if the code isn't recognized.
-    def specific_oauth_error(resp, error_code)
+    def specific_oauth_error(resp, error_code, context)
       description = resp.data[:error_description] || error_code
+
+      Util.log_info('Stripe OAuth error',
+        status: resp.http_status,
+        error_code: error_code,
+        error_description: description,
+        idempotency_key: context.idempotency_key,
+        request_id: context.request_id
+      )
 
       args = [error_code, description, {
         http_status: resp.http_status, http_body: resp.http_body,
@@ -319,7 +362,13 @@ module Stripe
       end
     end
 
-    def handle_network_error(e, retry_count, api_base=nil)
+    def handle_network_error(e, context, retry_count, api_base=nil)
+      Util.log_info('Stripe OAuth error',
+        error_message: e.message,
+        idempotency_key: context.idempotency_key,
+        request_id: context.request_id
+      )
+
       case e
       when Faraday::ConnectionFailed
         message = "Unexpected error communicating when trying to connect to Stripe. " \
@@ -386,6 +435,104 @@ module Stripe
       end
 
       headers
+    end
+
+    def log_request(context)
+      Util.log_info("Request to Stripe API",
+        api_version: context.api_version,
+        idempotency_key: context.idempotency_key,
+        method: context.method,
+        path: context.path
+      )
+      Util.log_debug("Request details",
+        body: context.payload,
+        idempotency_key: context.idempotency_key
+      )
+    end
+    private :log_request
+
+    def log_response(context, request_start, status, body)
+      Util.log_info("Response from Stripe API",
+        api_version: context.api_version,
+        elapsed: Time.now - request_start,
+        idempotency_key: context.idempotency_key,
+        method: context.method,
+        path: context.path,
+        request_id: context.request_id,
+        status: status
+      )
+      Util.log_debug("Response details",
+        body: body,
+        idempotency_key: context.idempotency_key,
+        request_id: context.request_id,
+      )
+      if context.request_id
+        Util.log_debug("Dashboard link for request",
+          idempotency_key: context.idempotency_key,
+          request_id: context.request_id,
+          url: Util.request_id_dashboard_url(context.request_id, context.api_key)
+        )
+      end
+    end
+    private :log_response
+
+    def log_response_error(context, request_start, e)
+      Util.log_info("Request error",
+        elapsed: Time.now - request_start,
+        error_message: e.message,
+        idempotency_key: context.idempotency_key,
+        method: context.method,
+        path: context.path,
+      )
+    end
+    private :log_response_error
+
+    # RequestLogContext stores information about a request that's begin made so
+    # that we can log certain information. It's useful because it means that we
+    # don't have to pass around as many parameters.
+    class RequestLogContext
+      attr_accessor :api_key
+      attr_accessor :api_version
+      attr_accessor :idempotency_key
+      attr_accessor :method
+      attr_accessor :path
+      attr_accessor :payload
+      attr_accessor :request_id
+
+      def initialize(api_key: nil, api_version: nil, idempotency_key: nil,
+          method: nil, path: nil, payload: nil)
+        self.api_key = api_key
+        self.api_version = api_version
+        self.idempotency_key = idempotency_key
+        self.method = method
+        self.path = path
+        self.payload = payload
+      end
+
+      # The idea with this method is that we might want to update some of
+      # context information because a response that we've received from the API
+      # contains information that's more authoritative than what we started
+      # with for a request. For example, we should trust whatever came back in
+      # a `Stripe-Version` header beyond what configuration information that we
+      # might have had available.
+      def dup_from_response(resp)
+        return self if resp.nil?
+
+        # Faraday's API is a little unusual. Normally it'll produce a response
+        # object with a `headers` method, but on error what it puts into
+        # `e.response` is an untyped `Hash`.
+        headers = if resp.is_a?(Faraday::Response)
+          resp.headers
+        else
+          resp[:headers]
+        end
+
+        context = self.dup
+        context.api_version = headers["Stripe-Version"]
+        context.idempotency_key = headers["Idempotency-Key"]
+        context.request_id = headers["Request-Id"]
+        context
+      end
     end
 
     # SystemProfiler extracts information about the system that we're running

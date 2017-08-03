@@ -139,8 +139,9 @@ module Stripe
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
       context = RequestLogContext.new(
+        account: headers["Stripe-Account"],
         api_key: api_key,
-        api_version: headers["Stripe-Version"] || Stripe.api_version,
+        api_version: headers["Stripe-Version"],
         idempotency_key: headers["Idempotency-Key"],
         method: method,
         path: path,
@@ -439,6 +440,7 @@ module Stripe
 
     def log_request(context, num_retries)
       Util.log_info("Request to Stripe API",
+        account: context.account,
         api_version: context.api_version,
         idempotency_key: context.idempotency_key,
         method: context.method,
@@ -454,6 +456,7 @@ module Stripe
 
     def log_response(context, request_start, status, body)
       Util.log_info("Response from Stripe API",
+        account: context.account,
         api_version: context.api_version,
         elapsed: Time.now - request_start,
         idempotency_key: context.idempotency_key,
@@ -492,6 +495,7 @@ module Stripe
     # that we can log certain information. It's useful because it means that we
     # don't have to pass around as many parameters.
     class RequestLogContext
+      attr_accessor :account
       attr_accessor :api_key
       attr_accessor :api_version
       attr_accessor :idempotency_key
@@ -500,8 +504,9 @@ module Stripe
       attr_accessor :payload
       attr_accessor :request_id
 
-      def initialize(api_key: nil, api_version: nil, idempotency_key: nil,
-          method: nil, path: nil, payload: nil)
+      def initialize(account: nil, api_key: nil, api_version: nil,
+          idempotency_key: nil, method: nil, path: nil, payload: nil)
+        self.account = account
         self.api_key = api_key
         self.api_version = api_version
         self.idempotency_key = idempotency_key
@@ -529,6 +534,7 @@ module Stripe
         end
 
         context = self.dup
+        context.account = headers["Stripe-Account"]
         context.api_version = headers["Stripe-Version"]
         context.idempotency_key = headers["Idempotency-Key"]
         context.request_id = headers["Request-Id"]

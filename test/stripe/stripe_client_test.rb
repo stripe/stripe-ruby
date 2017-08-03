@@ -160,6 +160,7 @@ module Stripe
           body = JSON.generate({ object: "account" })
 
           Util.expects(:log_info).with("Request to Stripe API",
+            account: "acct_123",
             api_version: '2010-11-12',
             idempotency_key: "abc",
             method: :post,
@@ -172,6 +173,7 @@ module Stripe
           )
 
           Util.expects(:log_info).with("Response from Stripe API",
+            account: "acct_123",
             api_version: '2010-11-12',
             elapsed: 0.0,
             idempotency_key: "abc",
@@ -197,6 +199,7 @@ module Stripe
               headers: {
                 "Idempotency-Key" => "abc",
                 "Request-Id" => "req_123",
+                "Stripe-Account" => "acct_123",
                 "Stripe-Version" => "2010-11-12"
               }
             )
@@ -205,6 +208,7 @@ module Stripe
           client.execute_request(:post, '/v1/account',
             headers: {
               "Idempotency-Key" => "abc",
+              "Stripe-Account" => "acct_123",
               "Stripe-Version" => "2010-11-12"
             }
           )
@@ -212,6 +216,7 @@ module Stripe
 
         should "produce logging on API error" do
           Util.expects(:log_info).with("Request to Stripe API",
+            account: nil,
             api_version: nil,
             idempotency_key: nil,
             method: :post,
@@ -219,6 +224,7 @@ module Stripe
             path: "/v1/account"
           )
           Util.expects(:log_info).with("Response from Stripe API",
+            account: nil,
             api_version: nil,
             elapsed: 0.0,
             idempotency_key: nil,
@@ -258,6 +264,7 @@ module Stripe
 
         should "produce logging on OAuth error" do
           Util.expects(:log_info).with("Request to Stripe API",
+            account: nil,
             api_version: nil,
             idempotency_key: nil,
             method: :post,
@@ -265,6 +272,7 @@ module Stripe
             path: "/oauth/token"
           )
           Util.expects(:log_info).with("Response from Stripe API",
+            account: nil,
             api_version: nil,
             elapsed: 0.0,
             idempotency_key: nil,

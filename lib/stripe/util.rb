@@ -89,17 +89,27 @@ module Stripe
       end
     end
 
-    def self.log_info(message, data = {})
-      if Stripe.log_level == Stripe::LEVEL_DEBUG ||Stripe.log_level == Stripe::LEVEL_INFO
+    def self.log_error(message, data = {})
+      if !Stripe.logger.nil? ||
+          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_ERROR
         log_internal(message, data, color: :cyan,
-          level: Stripe::LEVEL_INFO, out: $stdout)
+          level: Stripe::LEVEL_ERROR, logger: Stripe.logger, out: $stderr)
+      end
+    end
+
+    def self.log_info(message, data = {})
+      if !Stripe.logger.nil? ||
+          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_INFO
+        log_internal(message, data, color: :cyan,
+          level: Stripe::LEVEL_INFO, logger: Stripe.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
-      if Stripe.log_level == Stripe::LEVEL_DEBUG
+      if !Stripe.logger.nil? ||
+          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_DEBUG
         log_internal(message, data, color: :blue,
-          level: Stripe::LEVEL_DEBUG, out: $stdout)
+          level: Stripe::LEVEL_DEBUG, logger: Stripe.logger, out: $stdout)
       end
     end
 
@@ -338,23 +348,39 @@ module Stripe
     end
     private_class_method :colorize
 
+    # Turns an integer log level into a printable name.
+    def self.level_name(level)
+      case level
+      when LEVEL_DEBUG then "debug"
+      when LEVEL_ERROR then "error"
+      when LEVEL_INFO  then "info"
+      else level
+      end
+    end
+    private_class_method :level_name
+
     # TODO: Make these named required arguments when we drop support for Ruby
     # 2.0.
-    def self.log_internal(message, data = {}, color: nil, level: nil, out: nil)
+    def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
       data_str = data.select { |k,v| !v.nil? }.
         map { |(k,v)|
           "%s=%s" % [
-            colorize(k, color, out.isatty),
+            colorize(k, color, !out.nil? && out.isatty),
             wrap_logfmt_value(v)
           ]
         }.join(" ")
 
-      if out.isatty
+      if !logger.nil?
+        # the library's log levels are mapped to the same values as the
+        # standard library's logger
+        logger.log(level,
+          "message=%s %s" % [wrap_logfmt_value(message), data_str])
+      elsif out.isatty
         out.puts "%s %s %s" %
-          [colorize(level[0, 4].upcase, color, out.isatty), message, data_str]
+          [colorize(level_name(level)[0, 4].upcase, color, out.isatty), message, data_str]
       else
         out.puts "message=%s level=%s %s" %
-          [wrap_logfmt_value(message), level, data_str]
+          [wrap_logfmt_value(message), level_name(level), data_str]
       end
     end
     private_class_method :log_internal

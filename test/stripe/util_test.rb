@@ -168,12 +168,16 @@ module Stripe
         @old_log_level = Stripe.log_level
         Stripe.log_level = nil
 
+        @old_stderr = $stderr
+        $stderr = StringIO.new
+
         @old_stdout = $stdout
         $stdout = StringIO.new
       end
 
       teardown do
         Stripe.log_level = @old_log_level
+        $stderr = @old_stderr
         $stdout = @old_stdout
       end
 
@@ -189,10 +193,41 @@ module Stripe
           assert_equal "message=foo level=debug \n", $stdout.string
         end
 
+        should "not log if level set to error" do
+          Stripe.log_level = Stripe::LEVEL_ERROR
+          Util.log_debug("foo")
+          assert_equal "", $stdout.string
+        end
+
         should "not log if level set to info" do
           Stripe.log_level = Stripe::LEVEL_INFO
           Util.log_debug("foo")
           assert_equal "", $stdout.string
+        end
+      end
+
+      context ".log_error" do
+        should "not log if logging is disabled" do
+          Util.log_error("foo")
+          assert_equal "", $stdout.string
+        end
+
+        should "log if level set to debug" do
+          Stripe.log_level = Stripe::LEVEL_DEBUG
+          Util.log_error("foo")
+          assert_equal "message=foo level=error \n", $stderr.string
+        end
+
+        should "log if level set to error" do
+          Stripe.log_level = Stripe::LEVEL_ERROR
+          Util.log_error("foo")
+          assert_equal "message=foo level=error \n", $stderr.string
+        end
+
+        should "log if level set to info" do
+          Stripe.log_level = Stripe::LEVEL_INFO
+          Util.log_error("foo")
+          assert_equal "message=foo level=error \n", $stderr.string
         end
       end
 
@@ -208,10 +243,52 @@ module Stripe
           assert_equal "message=foo level=info \n", $stdout.string
         end
 
+        should "not log if level set to error" do
+          Stripe.log_level = Stripe::LEVEL_ERROR
+          Util.log_debug("foo")
+          assert_equal "", $stdout.string
+        end
+
         should "log if level set to info" do
           Stripe.log_level = Stripe::LEVEL_INFO
           Util.log_info("foo")
           assert_equal "message=foo level=info \n", $stdout.string
+        end
+      end
+    end
+
+    context ".log_* with a logger" do
+      setup do
+        @out = StringIO.new
+        logger = ::Logger.new(@out)
+
+        # Set a really simple formatter to make matching output as easy as
+        # possible.
+        logger.formatter = proc { |_severity, _datetime, _progname, message|
+          message
+        }
+
+        Stripe.logger = logger
+      end
+
+      context ".log_debug" do
+        should "log to the logger" do
+          Util.log_debug("foo")
+          assert_equal "message=foo ", @out.string
+        end
+      end
+
+      context ".log_error" do
+        should "log to the logger" do
+          Util.log_error("foo")
+          assert_equal "message=foo ", @out.string
+        end
+      end
+
+      context ".log_info" do
+        should "log to the logger" do
+          Util.log_info("foo")
+          assert_equal "message=foo ", @out.string
         end
       end
     end
@@ -255,6 +332,14 @@ module Stripe
       end
     end
 
+    context ".level_name" do
+      should "convert levels to names" do
+        assert_equal "debug", Util.send(:level_name, LEVEL_DEBUG)
+        assert_equal "error", Util.send(:level_name, LEVEL_ERROR)
+        assert_equal "info", Util.send(:level_name, LEVEL_INFO)
+      end
+    end
+
     context ".log_internal" do
       should "log in a terminal friendly way" do
         out = StringIO.new
@@ -267,7 +352,7 @@ module Stripe
         end
 
         Util.send(:log_internal, "message", { foo: "bar" },
-          color: :green, level: Stripe::LEVEL_DEBUG, out: out)
+          color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "\e[0;32;49mDEBU\e[0m message \e[0;32;49mfoo\e[0m=bar\n",
           out.string
       end
@@ -275,8 +360,24 @@ module Stripe
       should "log in a data friendly way" do
         out = StringIO.new
         Util.send(:log_internal, "message", { foo: "bar" },
-          color: :green, level: Stripe::LEVEL_DEBUG, out: out)
+          color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "message=message level=debug foo=bar\n",
+          out.string
+      end
+
+      should "log to a logger if set" do
+        out = StringIO.new
+        logger = ::Logger.new(out)
+
+        # Set a really simple formatter to make matching output as easy as
+        # possible.
+        logger.formatter = proc { |_severity, _datetime, _progname, message|
+          message
+        }
+
+        Util.send(:log_internal, "message", { foo: "bar" },
+          color: :green, level: Stripe::LEVEL_DEBUG, logger: logger, out: nil)
+        assert_equal "message=message foo=bar",
           out.string
       end
     end

@@ -150,7 +150,7 @@ There are a few options for enabling it:
 
 2. Set `Stripe.log_level`:
    ``` ruby
-   Stripe.log_level = "info"
+   Stripe.log_level = Stripe::LEVEL_INFO
    ```
 
 ### Writing a Plugin

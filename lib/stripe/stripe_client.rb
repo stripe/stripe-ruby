@@ -279,7 +279,7 @@ module Stripe
     end
 
     def specific_api_error(resp, error_data, context)
-      Util.log_info('Stripe API error',
+      Util.log_error('Stripe API error',
         status: resp.http_status,
         error_code: error_data['code'],
         error_message: error_data['message'],
@@ -336,7 +336,7 @@ module Stripe
     def specific_oauth_error(resp, error_code, context)
       description = resp.data[:error_description] || error_code
 
-      Util.log_info('Stripe OAuth error',
+      Util.log_error('Stripe OAuth error',
         status: resp.http_status,
         error_code: error_code,
         error_description: description,
@@ -364,7 +364,7 @@ module Stripe
     end
 
     def handle_network_error(e, context, num_retries, api_base=nil)
-      Util.log_info('Stripe OAuth error',
+      Util.log_error('Stripe network error',
         error_message: e.message,
         idempotency_key: context.idempotency_key,
         request_id: context.request_id
@@ -481,7 +481,7 @@ module Stripe
     private :log_response
 
     def log_response_error(context, request_start, e)
-      Util.log_info("Request error",
+      Util.log_error("Request error",
         elapsed: Time.now - request_start,
         error_message: e.message,
         idempotency_key: context.idempotency_key,

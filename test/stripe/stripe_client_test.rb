@@ -240,7 +240,7 @@ module Stripe
             param: 'param',
             type: 'type',
           }
-          Util.expects(:log_info).with('Stripe API error',
+          Util.expects(:log_error).with('Stripe API error',
             status: 500,
             error_code: error['code'],
             error_message: error['message'],
@@ -282,7 +282,7 @@ module Stripe
             status: 400
           )
 
-          Util.expects(:log_info).with('Stripe OAuth error',
+          Util.expects(:log_error).with('Stripe OAuth error',
             status: 400,
             error_code: "invalid_request",
             error_description: "No grant type specified",

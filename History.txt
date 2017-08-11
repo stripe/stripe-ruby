@@ -1,3 +1,9 @@
+=== 3.3.0 2017-08-11
+
+* Add support for standard library logger interface with `Stripe.logger`
+* Error logs now go to stderr if using `Stripe.log_level`/`STRIPE_LOG`
+* `Stripe.log_level`/`STRIPE_LOG` now support `Stipe::LEVEL_ERROR`
+
 === 3.2.0 2017-08-03
 
 * Add logging for request retry account and `Stripe-Account` header

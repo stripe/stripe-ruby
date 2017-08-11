@@ -89,10 +89,17 @@ module Stripe
       end
     end
 
+    def self.log_error(message, data = {})
+      if !Stripe.logger.nil? ||
+          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_ERROR
+        log_internal(message, data, color: :cyan,
+          level: Stripe::LEVEL_ERROR, logger: Stripe.logger, out: $stderr)
+      end
+    end
+
     def self.log_info(message, data = {})
       if !Stripe.logger.nil? ||
-          Stripe.log_level == Stripe::LEVEL_DEBUG ||
-          Stripe.log_level == Stripe::LEVEL_INFO
+          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_INFO
         log_internal(message, data, color: :cyan,
           level: Stripe::LEVEL_INFO, logger: Stripe.logger, out: $stdout)
       end
@@ -100,7 +107,7 @@ module Stripe
 
     def self.log_debug(message, data = {})
       if !Stripe.logger.nil? ||
-          Stripe.log_level == Stripe::LEVEL_DEBUG
+          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_DEBUG
         log_internal(message, data, color: :blue,
           level: Stripe::LEVEL_DEBUG, logger: Stripe.logger, out: $stdout)
       end
@@ -341,6 +348,17 @@ module Stripe
     end
     private_class_method :colorize
 
+    # Turns an integer log level into a printable name.
+    def self.level_name(level)
+      case level
+      when LEVEL_DEBUG then "debug"
+      when LEVEL_ERROR then "error"
+      when LEVEL_INFO  then "info"
+      else level
+      end
+    end
+    private_class_method :level_name
+
     # TODO: Make these named required arguments when we drop support for Ruby
     # 2.0.
     def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
@@ -353,19 +371,16 @@ module Stripe
         }.join(" ")
 
       if !logger.nil?
-        str = "message=%s %s" % [wrap_logfmt_value(message), data_str]
-        case level
-        when Stripe::LEVEL_DEBUG
-          logger.debug(str)
-        else # Stripe::LEVEL_INFO (there should be no other values)
-          logger.info(str)
-        end
+        # the library's log levels are mapped to the same values as the
+        # standard library's logger
+        logger.log(level,
+          "message=%s %s" % [wrap_logfmt_value(message), data_str])
       elsif out.isatty
         out.puts "%s %s %s" %
-          [colorize(level[0, 4].upcase, color, out.isatty), message, data_str]
+          [colorize(level_name(level)[0, 4].upcase, color, out.isatty), message, data_str]
       else
         out.puts "message=%s level=%s %s" %
-          [wrap_logfmt_value(message), level, data_str]
+          [wrap_logfmt_value(message), level_name(level), data_str]
       end
     end
     private_class_method :log_internal

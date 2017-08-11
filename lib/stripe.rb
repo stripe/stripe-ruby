@@ -84,6 +84,7 @@ module Stripe
   @uploads_base = 'https://uploads.stripe.com'
 
   @log_level = nil
+  @logger = nil
 
   @max_network_retries = 0
   @max_network_retry_delay = 2
@@ -151,6 +152,9 @@ module Stripe
   # what it's doing. For example, it'll produce information about requests,
   # responses, and errors that are received. Valid log levels are `debug` and
   # `info`, with `debug` being a little more verbose in places.
+  #
+  # Use of this configuration is only useful when `.logger` is _not_ set. When
+  # it is, the decision what levels to print is entirely deferred to the logger.
   def self.log_level
     @log_level
   end
@@ -160,6 +164,21 @@ module Stripe
       raise ArgumentError, "log_level should only be set to `nil`, `debug` or `info`"
     end
     @log_level = val
+  end
+
+  # Sets a logger to which logging output will be sent. The logger should
+  # support the same interface as the `Logger` class that's part of Ruby's
+  # standard library (hint, anything in `Rails.logger` will likely be
+  # suitable).
+  #
+  # If `.logger` is set, the value of `.log_level` is ignored. The decision on
+  # what levels to print is entirely deferred to the logger.
+  def self.logger
+    @logger
+  end
+
+  def self.logger=(val)
+    @logger = val
   end
 
   def self.max_network_retries

@@ -1,3 +1,4 @@
+require "logger"
 require File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
@@ -216,6 +217,35 @@ module Stripe
       end
     end
 
+    context ".log_* with a logger" do
+      setup do
+        @out = StringIO.new
+        logger = ::Logger.new(@out)
+
+        # Set a really simple formatter to make matching output as easy as
+        # possible.
+        logger.formatter = proc { |_severity, _datetime, _progname, message|
+          message
+        }
+
+        Stripe.logger = logger
+      end
+
+      context ".log_debug" do
+        should "log to the logger" do
+          Util.log_debug("foo")
+          assert_equal "message=foo ", @out.string
+        end
+      end
+
+      context ".log_info" do
+        should "log to the logger" do
+          Util.log_info("foo")
+          assert_equal "message=foo ", @out.string
+        end
+      end
+    end
+
     context ".normalize_headers" do
       should "normalize the format of a header key" do
         assert_equal({ "Request-Id" => nil },
@@ -267,7 +297,7 @@ module Stripe
         end
 
         Util.send(:log_internal, "message", { foo: "bar" },
-          color: :green, level: Stripe::LEVEL_DEBUG, out: out)
+          color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "\e[0;32;49mDEBU\e[0m message \e[0;32;49mfoo\e[0m=bar\n",
           out.string
       end
@@ -275,8 +305,24 @@ module Stripe
       should "log in a data friendly way" do
         out = StringIO.new
         Util.send(:log_internal, "message", { foo: "bar" },
-          color: :green, level: Stripe::LEVEL_DEBUG, out: out)
+          color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "message=message level=debug foo=bar\n",
+          out.string
+      end
+
+      should "log to a logger if set" do
+        out = StringIO.new
+        logger = ::Logger.new(out)
+
+        # Set a really simple formatter to make matching output as easy as
+        # possible.
+        logger.formatter = proc { |_severity, _datetime, _progname, message|
+          message
+        }
+
+        Util.send(:log_internal, "message", { foo: "bar" },
+          color: :green, level: Stripe::LEVEL_DEBUG, logger: logger, out: nil)
+        assert_equal "message=message foo=bar",
           out.string
       end
     end

@@ -90,16 +90,19 @@ module Stripe
     end
 
     def self.log_info(message, data = {})
-      if Stripe.log_level == Stripe::LEVEL_DEBUG ||Stripe.log_level == Stripe::LEVEL_INFO
+      if !Stripe.logger.nil? ||
+          Stripe.log_level == Stripe::LEVEL_DEBUG ||
+          Stripe.log_level == Stripe::LEVEL_INFO
         log_internal(message, data, color: :cyan,
-          level: Stripe::LEVEL_INFO, out: $stdout)
+          level: Stripe::LEVEL_INFO, logger: Stripe.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
-      if Stripe.log_level == Stripe::LEVEL_DEBUG
+      if !Stripe.logger.nil? ||
+          Stripe.log_level == Stripe::LEVEL_DEBUG
         log_internal(message, data, color: :blue,
-          level: Stripe::LEVEL_DEBUG, out: $stdout)
+          level: Stripe::LEVEL_DEBUG, logger: Stripe.logger, out: $stdout)
       end
     end
 
@@ -340,16 +343,24 @@ module Stripe
 
     # TODO: Make these named required arguments when we drop support for Ruby
     # 2.0.
-    def self.log_internal(message, data = {}, color: nil, level: nil, out: nil)
+    def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
       data_str = data.select { |k,v| !v.nil? }.
         map { |(k,v)|
           "%s=%s" % [
-            colorize(k, color, out.isatty),
+            colorize(k, color, !out.nil? && out.isatty),
             wrap_logfmt_value(v)
           ]
         }.join(" ")
 
-      if out.isatty
+      if !logger.nil?
+        str = "message=%s %s" % [wrap_logfmt_value(message), data_str]
+        case level
+        when Stripe::LEVEL_DEBUG
+          logger.debug(str)
+        else # Stripe::LEVEL_INFO (there should be no other values)
+          logger.info(str)
+        end
+      elsif out.isatty
         out.puts "%s %s %s" %
           [colorize(level[0, 4].upcase, color, out.isatty), message, data_str]
       else

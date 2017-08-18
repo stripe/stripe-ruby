@@ -1,3 +1,8 @@
+=== 3.3.1 2017-08-18
+
+* Only parse webhook payload after verification to decrease likelihood of
+  attack
+
 === 3.3.0 2017-08-11
 
 * Add support for standard library logger interface with `Stripe.logger`

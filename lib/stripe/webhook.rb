@@ -7,12 +7,10 @@ module Stripe
     # This may raise JSON::ParserError if the payload is not valid JSON, or
     # SignatureVerificationError if the signature verification fails.
     def self.construct_event(payload, sig_header, secret, tolerance: DEFAULT_TOLERANCE)
-      data = JSON.parse(payload, symbolize_names: true)
-      event = Event.construct_from(data)
-
       Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
 
-      event
+      data = JSON.parse(payload, symbolize_names: true)
+      Event.construct_from(data)
     end
 
     module Signature

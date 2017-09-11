@@ -1,4 +1,4 @@
-require File.expand_path('../test_helper', __FILE__)
+require File.expand_path("../test_helper", __FILE__)
 
 class StripeTest < Test::Unit::TestCase
   should "warn that #refresh_from is deprecated" do
@@ -6,8 +6,8 @@ class StripeTest < Test::Unit::TestCase
     $stderr = StringIO.new
     begin
       Stripe.uri_encode({})
-      message = "NOTE: Stripe.uri_encode is deprecated; use " +
-        "Stripe::Util#encode_parameters instead"
+      message = "NOTE: Stripe.uri_encode is deprecated; use " \
+                "Stripe::Util#encode_parameters instead"
       assert_match Regexp.new(message), $stderr.string
     ensure
       $stderr = old_stderr
@@ -25,7 +25,7 @@ class StripeTest < Test::Unit::TestCase
       assert_equal({
         name: "MyAwesomePlugin",
         url: "https://myawesomeplugin.info",
-        version: "1.2.34"
+        version: "1.2.34",
       }, Stripe.app_info)
     ensure
       Stripe.app_info = old

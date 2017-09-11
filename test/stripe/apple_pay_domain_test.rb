@@ -1,31 +1,31 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class ApplePayDomainTest < Test::Unit::TestCase
     should "be listable" do
       domains = Stripe::ApplePayDomain.list
       assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains"
-      assert domains.data.kind_of?(Array)
-      assert domains.data[0].kind_of?(Stripe::ApplePayDomain)
+      assert domains.data.is_a?(Array)
+      assert domains.data[0].is_a?(Stripe::ApplePayDomain)
     end
 
     should "be retrievable" do
       domain = Stripe::ApplePayDomain.retrieve("apwc_123")
-    assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains/apwc_123"
-      assert domain.kind_of?(Stripe::ApplePayDomain)
+      assert_requested :get, "#{Stripe.api_base}/v1/apple_pay/domains/apwc_123"
+      assert domain.is_a?(Stripe::ApplePayDomain)
     end
 
     should "be creatable" do
-      domain = Stripe::ApplePayDomain.create(:domain_name => "example.com")
+      domain = Stripe::ApplePayDomain.create(domain_name: "example.com")
       assert_requested :post, "#{Stripe.api_base}/v1/apple_pay/domains"
-      assert domain.kind_of?(Stripe::ApplePayDomain)
+      assert domain.is_a?(Stripe::ApplePayDomain)
     end
 
     should "be deletable" do
       domain = Stripe::ApplePayDomain.retrieve("apwc_123")
       domain = domain.delete
       assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{domain.id}"
-      assert domain.kind_of?(Stripe::ApplePayDomain)
+      assert domain.is_a?(Stripe::ApplePayDomain)
     end
   end
 end

@@ -1,0 +1,20 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.0
+
+Layout/CaseIndentation:
+  EnforcedStyle: end
+
+Layout/IndentArray:
+  EnforcedStyle: consistent
+
+Layout/IndentHash:
+  EnforcedStyle: consistent
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: consistent_comma

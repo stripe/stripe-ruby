@@ -79,11 +79,11 @@ module Stripe
       # Apply exponential backoff with initial_network_retry_delay on the
       # number of num_retries so far as inputs. Do not allow the number to exceed
       # max_network_retry_delay.
-      sleep_seconds = [Stripe.initial_network_retry_delay * (2 ** (num_retries - 1)), Stripe.max_network_retry_delay].min
+      sleep_seconds = [Stripe.initial_network_retry_delay * (2**(num_retries - 1)), Stripe.max_network_retry_delay].min
 
       # Apply some jitter by randomizing the value in the range of (sleep_seconds
       # / 2) to (sleep_seconds).
-      sleep_seconds = sleep_seconds * (0.5 * (1 + rand()))
+      sleep_seconds *= (0.5 * (1 + rand))
 
       # But never sleep less than the base sleep seconds.
       sleep_seconds = [Stripe.initial_network_retry_delay, sleep_seconds].max
@@ -96,13 +96,13 @@ module Stripe
     #     client = StripeClient.new
     #     charge, resp = client.request { Charge.create }
     #
-    def request(&block)
+    def request
       @last_response = nil
       old_stripe_client = Thread.current[:stripe_client]
       Thread.current[:stripe_client] = self
 
       begin
-        res = block.call
+        res = yield
         [res, @last_response]
       ensure
         Thread.current[:stripe_client] = old_stripe_client
@@ -110,7 +110,7 @@ module Stripe
     end
 
     def execute_request(method, path,
-        api_base: nil, api_key: nil, headers: {}, params: {})
+                        api_base: nil, api_key: nil, headers: {}, params: {})
 
       api_base ||= Stripe.api_base
       api_key ||= Stripe.api_key
@@ -126,15 +126,15 @@ module Stripe
         url += "#{URI.parse(url).query ? '&' : '?'}#{Util.encode_parameters(params)}" if params && params.any?
         payload = nil
       else
-        if headers[:content_type] && headers[:content_type] == "multipart/form-data"
-          payload = params
-        else
-          payload = Util.encode_parameters(params)
-        end
+        payload = if headers[:content_type] && headers[:content_type] == "multipart/form-data"
+                    params
+                  else
+                    Util.encode_parameters(params)
+                  end
       end
 
-      headers = request_headers(api_key, method).
-        update(Util.normalize_headers(headers))
+      headers = request_headers(api_key, method)
+                .update(Util.normalize_headers(headers))
 
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
@@ -145,7 +145,7 @@ module Stripe
         idempotency_key: headers["Idempotency-Key"],
         method: method,
         path: path,
-        payload: payload,
+        payload: payload
       )
 
       http_resp = execute_request_with_rescues(api_base, context) do
@@ -168,33 +168,33 @@ module Stripe
 
     private
 
-    def api_url(url='', api_base=nil)
+    def api_url(url = "", api_base = nil)
       (api_base || Stripe.api_base) + url
     end
 
     def check_api_key!(api_key)
       unless api_key
-        raise AuthenticationError.new('No API key provided. ' \
+        raise AuthenticationError, "No API key provided. " \
           'Set your API key using "Stripe.api_key = <API-KEY>". ' \
-          'You can generate API keys from the Stripe web interface. ' \
-          'See https://stripe.com/api for details, or email support@stripe.com ' \
-          'if you have any questions.')
+          "You can generate API keys from the Stripe web interface. " \
+          "See https://stripe.com/api for details, or email support@stripe.com " \
+          "if you have any questions."
       end
 
       if api_key =~ /\s/
-        raise AuthenticationError.new('Your API key is invalid, as it contains ' \
-          'whitespace. (HINT: You can double-check your API key from the ' \
-          'Stripe web interface. See https://stripe.com/api for details, or ' \
-          'email support@stripe.com if you have any questions.)')
+        raise AuthenticationError, "Your API key is invalid, as it contains " \
+          "whitespace. (HINT: You can double-check your API key from the " \
+          "Stripe web interface. See https://stripe.com/api for details, or " \
+          "email support@stripe.com if you have any questions.)"
       end
     end
 
-    def execute_request_with_rescues(api_base, context, &block)
+    def execute_request_with_rescues(api_base, context)
       num_retries = 0
       begin
         request_start = Time.now
         log_request(context, num_retries)
-        resp = block.call
+        resp = yield
         context = context.dup_from_response(resp)
         log_response(context, request_start, resp.status, resp.body)
 
@@ -209,7 +209,7 @@ module Stripe
         if e.respond_to?(:response) && e.response
           error_context = context.dup_from_response(e.response)
           log_response(error_context, request_start,
-            e.response[:status], e.response[:body])
+                       e.response[:status], e.response[:body])
         else
           log_response_error(error_context, request_start, e)
         end
@@ -239,7 +239,7 @@ module Stripe
     end
 
     def general_api_error(status, body)
-      APIError.new("Invalid response object from API: #{body.inspect} " +
+      APIError.new("Invalid response object from API: #{body.inspect} " \
                    "(HTTP response code was #{status})",
                    http_status: status, http_body: body)
     end
@@ -260,34 +260,30 @@ module Stripe
         resp = StripeResponse.from_faraday_hash(http_resp)
         error_data = resp.data[:error]
 
-        unless error_data
-          raise StripeError.new("Indeterminate error")
-        end
-
+        raise StripeError, "Indeterminate error" unless error_data
       rescue JSON::ParserError, StripeError
         raise general_api_error(http_resp[:status], http_resp[:body])
       end
 
-      if error_data.is_a?(String)
-        error = specific_oauth_error(resp, error_data, context)
-      else
-        error = specific_api_error(resp, error_data, context)
-      end
+      error = if error_data.is_a?(String)
+                specific_oauth_error(resp, error_data, context)
+              else
+                specific_api_error(resp, error_data, context)
+              end
 
       error.response = resp
       raise(error)
     end
 
     def specific_api_error(resp, error_data, context)
-      Util.log_error('Stripe API error',
-        status: resp.http_status,
-        error_code: error_data['code'],
-        error_message: error_data['message'],
-        error_param: error_data['param'],
-        error_type: error_data['type'],
-        idempotency_key: context.idempotency_key,
-        request_id: context.request_id
-      )
+      Util.log_error("Stripe API error",
+                     status: resp.http_status,
+                     error_code: error_data["code"],
+                     error_message: error_data["message"],
+                     error_param: error_data["param"],
+                     error_type: error_data["type"],
+                     idempotency_key: context.idempotency_key,
+                     request_id: context.request_id)
 
       case resp.http_status
       when 400, 404
@@ -336,26 +332,25 @@ module Stripe
     def specific_oauth_error(resp, error_code, context)
       description = resp.data[:error_description] || error_code
 
-      Util.log_error('Stripe OAuth error',
-        status: resp.http_status,
-        error_code: error_code,
-        error_description: description,
-        idempotency_key: context.idempotency_key,
-        request_id: context.request_id
-      )
+      Util.log_error("Stripe OAuth error",
+                     status: resp.http_status,
+                     error_code: error_code,
+                     error_description: description,
+                     idempotency_key: context.idempotency_key,
+                     request_id: context.request_id)
 
       args = [error_code, description, {
         http_status: resp.http_status, http_body: resp.http_body,
-        json_body: resp.data, http_headers: resp.http_headers
-      }]
+        json_body: resp.data, http_headers: resp.http_headers,
+      },]
 
       case error_code
-      when 'invalid_client'            then OAuth::InvalidClientError.new(*args)
-      when 'invalid_grant'             then OAuth::InvalidGrantError.new(*args)
-      when 'invalid_request'           then OAuth::InvalidRequestError.new(*args)
-      when 'invalid_scope'             then OAuth::InvalidScopeError.new(*args)
-      when 'unsupported_grant_type'    then OAuth::UnsupportedGrantTypeError.new(*args)
-      when 'unsupported_response_type' then OAuth::UnsupportedResponseTypeError.new(*args)
+      when "invalid_client"            then OAuth::InvalidClientError.new(*args)
+      when "invalid_grant"             then OAuth::InvalidGrantError.new(*args)
+      when "invalid_request"           then OAuth::InvalidRequestError.new(*args)
+      when "invalid_scope"             then OAuth::InvalidScopeError.new(*args)
+      when "unsupported_grant_type"    then OAuth::UnsupportedGrantTypeError.new(*args)
+      when "unsupported_response_type" then OAuth::UnsupportedResponseTypeError.new(*args)
       else
         # We'd prefer that all errors are typed, but we create a generic
         # OAuthError in case we run into a code that we don't recognize.
@@ -363,12 +358,11 @@ module Stripe
       end
     end
 
-    def handle_network_error(e, context, num_retries, api_base=nil)
-      Util.log_error('Stripe network error',
-        error_message: e.message,
-        idempotency_key: context.idempotency_key,
-        request_id: context.request_id
-      )
+    def handle_network_error(e, context, num_retries, api_base = nil)
+      Util.log_error("Stripe network error",
+                     error_message: e.message,
+                     idempotency_key: context.idempotency_key,
+                     request_id: context.request_id)
 
       case e
       when Faraday::ConnectionFailed
@@ -383,7 +377,7 @@ module Stripe
                   "command line."
 
       when Faraday::TimeoutError
-        api_base = Stripe.api_base unless api_base
+        api_base ||= Stripe.api_base
         message = "Could not connect to Stripe (#{api_base}). " \
           "Please check your internet connection and try again. " \
           "If this problem persists, you should check Stripe's service status at " \
@@ -395,11 +389,9 @@ module Stripe
 
       end
 
-      if num_retries > 0
-        message += " Request was retried #{num_retries} times."
-      end
+      message += " Request was retried #{num_retries} times." if num_retries > 0
 
-      raise APIConnectionError.new(message + "\n\n(Network error: #{e.message})")
+      raise APIConnectionError, message + "\n\n(Network error: #{e.message})"
     end
 
     def request_headers(api_key, method)
@@ -409,28 +401,28 @@ module Stripe
       end
 
       headers = {
-        'User-Agent' => user_agent,
-        'Authorization' => "Bearer #{api_key}",
-        'Content-Type' => 'application/x-www-form-urlencoded'
+        "User-Agent" => user_agent,
+        "Authorization" => "Bearer #{api_key}",
+        "Content-Type" => "application/x-www-form-urlencoded",
       }
 
       # It is only safe to retry network failures on post and delete
       # requests if we add an Idempotency-Key header
-      if [:post, :delete].include?(method) && Stripe.max_network_retries > 0
-        headers['Idempotency-Key'] ||= SecureRandom.uuid
+      if %i[post delete].include?(method) && Stripe.max_network_retries > 0
+        headers["Idempotency-Key"] ||= SecureRandom.uuid
       end
 
-      headers['Stripe-Version'] = Stripe.api_version if Stripe.api_version
-      headers['Stripe-Account'] = Stripe.stripe_account if Stripe.stripe_account
+      headers["Stripe-Version"] = Stripe.api_version if Stripe.api_version
+      headers["Stripe-Account"] = Stripe.stripe_account if Stripe.stripe_account
 
       user_agent = @system_profiler.user_agent
       begin
         headers.update(
-          'X-Stripe-Client-User-Agent' => JSON.generate(user_agent)
+          "X-Stripe-Client-User-Agent" => JSON.generate(user_agent)
         )
       rescue => e
         headers.update(
-          'X-Stripe-Client-Raw-User-Agent' => user_agent.inspect,
+          "X-Stripe-Client-Raw-User-Agent" => user_agent.inspect,
           :error => "#{e} (#{e.class})"
         )
       end
@@ -440,54 +432,48 @@ module Stripe
 
     def log_request(context, num_retries)
       Util.log_info("Request to Stripe API",
-        account: context.account,
-        api_version: context.api_version,
-        idempotency_key: context.idempotency_key,
-        method: context.method,
-        num_retries: num_retries,
-        path: context.path
-      )
+                    account: context.account,
+                    api_version: context.api_version,
+                    idempotency_key: context.idempotency_key,
+                    method: context.method,
+                    num_retries: num_retries,
+                    path: context.path)
       Util.log_debug("Request details",
-        body: context.payload,
-        idempotency_key: context.idempotency_key
-      )
+                     body: context.payload,
+                     idempotency_key: context.idempotency_key)
     end
     private :log_request
 
     def log_response(context, request_start, status, body)
       Util.log_info("Response from Stripe API",
-        account: context.account,
-        api_version: context.api_version,
-        elapsed: Time.now - request_start,
-        idempotency_key: context.idempotency_key,
-        method: context.method,
-        path: context.path,
-        request_id: context.request_id,
-        status: status
-      )
+                    account: context.account,
+                    api_version: context.api_version,
+                    elapsed: Time.now - request_start,
+                    idempotency_key: context.idempotency_key,
+                    method: context.method,
+                    path: context.path,
+                    request_id: context.request_id,
+                    status: status)
       Util.log_debug("Response details",
-        body: body,
-        idempotency_key: context.idempotency_key,
-        request_id: context.request_id,
-      )
+                     body: body,
+                     idempotency_key: context.idempotency_key,
+                     request_id: context.request_id)
       if context.request_id
         Util.log_debug("Dashboard link for request",
-          idempotency_key: context.idempotency_key,
-          request_id: context.request_id,
-          url: Util.request_id_dashboard_url(context.request_id, context.api_key)
-        )
+                       idempotency_key: context.idempotency_key,
+                       request_id: context.request_id,
+                       url: Util.request_id_dashboard_url(context.request_id, context.api_key))
       end
     end
     private :log_response
 
     def log_response_error(context, request_start, e)
       Util.log_error("Request error",
-        elapsed: Time.now - request_start,
-        error_message: e.message,
-        idempotency_key: context.idempotency_key,
-        method: context.method,
-        path: context.path,
-      )
+                     elapsed: Time.now - request_start,
+                     error_message: e.message,
+                     idempotency_key: context.idempotency_key,
+                     method: context.method,
+                     path: context.path)
     end
     private :log_response_error
 
@@ -505,7 +491,7 @@ module Stripe
       attr_accessor :request_id
 
       def initialize(account: nil, api_key: nil, api_version: nil,
-          idempotency_key: nil, method: nil, path: nil, payload: nil)
+                     idempotency_key: nil, method: nil, path: nil, payload: nil)
         self.account = account
         self.api_key = api_key
         self.api_version = api_version
@@ -528,12 +514,12 @@ module Stripe
         # object with a `headers` method, but on error what it puts into
         # `e.response` is an untyped `Hash`.
         headers = if resp.is_a?(Faraday::Response)
-          resp.headers
-        else
-          resp[:headers]
+                    resp.headers
+                  else
+                    resp[:headers]
         end
 
-        context = self.dup
+        context = dup
         context.account = headers["Stripe-Account"]
         context.api_version = headers["Stripe-Version"]
         context.idempotency_key = headers["Idempotency-Key"]
@@ -547,10 +533,10 @@ module Stripe
     # integrations.
     class SystemProfiler
       def self.get_uname
-        if File.exist?('/proc/version')
-          File.read('/proc/version').strip
+        if File.exist?("/proc/version")
+          File.read("/proc/version").strip
         else
-          case RbConfig::CONFIG['host_os']
+          case RbConfig::CONFIG["host_os"]
           when /linux|darwin|bsd|sunos|solaris|cygwin/i
             get_uname_from_system
           when /mswin|mingw/i
@@ -562,7 +548,7 @@ module Stripe
       end
 
       def self.get_uname_from_system
-        (`uname -a 2>/dev/null` || '').strip
+        (`uname -a 2>/dev/null` || "").strip
       rescue Errno::ENOENT
         "uname executable not found"
       rescue Errno::ENOMEM # couldn't create subprocess
@@ -570,7 +556,7 @@ module Stripe
       end
 
       def self.get_uname_from_system_ver
-        (`ver` || '').strip
+        (`ver` || "").strip
       rescue Errno::ENOENT
         "ver executable not found"
       rescue Errno::ENOMEM # couldn't create subprocess
@@ -585,16 +571,16 @@ module Stripe
         lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
 
         {
-          :application => Stripe.app_info,
-          :bindings_version => Stripe::VERSION,
-          :lang => 'ruby',
-          :lang_version => lang_version,
-          :platform => RUBY_PLATFORM,
-          :engine => defined?(RUBY_ENGINE) ? RUBY_ENGINE : '',
-          :publisher => 'stripe',
-          :uname => @uname,
-          :hostname => Socket.gethostname,
-        }.delete_if { |k, v| v.nil? }
+          application: Stripe.app_info,
+          bindings_version: Stripe::VERSION,
+          lang: "ruby",
+          lang_version: lang_version,
+          platform: RUBY_PLATFORM,
+          engine: defined?(RUBY_ENGINE) ? RUBY_ENGINE : "",
+          publisher: "stripe",
+          uname: @uname,
+          hostname: Socket.gethostname,
+        }.delete_if { |_k, v| v.nil? }
       end
     end
   end

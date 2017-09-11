@@ -6,7 +6,7 @@ module Stripe
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'account'
+    OBJECT_NAME = "account".freeze
 
     save_nested_resource :external_account
 
@@ -15,7 +15,7 @@ module Stripe
     deprecate :bank_account=, "#external_account=", 2017, 8
 
     def resource_url
-      if self['id']
+      if self["id"]
         super
       else
         "/v1/account"
@@ -23,13 +23,13 @@ module Stripe
     end
 
     # @override To make id optional
-    def self.retrieve(id=ARGUMENT_NOT_PROVIDED, opts={})
+    def self.retrieve(id = ARGUMENT_NOT_PROVIDED, opts = {})
       id = id.equal?(ARGUMENT_NOT_PROVIDED) ? nil : Util.check_string_argument!(id)
 
       # Account used to be a singleton, where this method's signature was
       # `(opts={})`. For the sake of not breaking folks who pass in an OAuth
       # key in opts, let's lurkily string match for it.
-      if opts == {} && id.is_a?(String) && id.start_with?('sk_')
+      if opts == {} && id.is_a?(String) && id.start_with?("sk_")
         # `super` properly assumes a String opts is the apiKey and normalizes as expected.
         opts = id
         id = nil
@@ -37,9 +37,9 @@ module Stripe
       super(id, opts)
     end
 
-    def reject(params={}, opts={})
+    def reject(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
-      resp, opts = request(:post, resource_url + '/reject', params, opts)
+      resp, opts = request(:post, resource_url + "/reject", params, opts)
       initialize_from(resp.data, opts)
     end
 
@@ -70,7 +70,7 @@ module Stripe
       serialize_params_account(self, super)
     end
 
-    def serialize_params_account(obj, update_hash)
+    def serialize_params_account(_obj, update_hash)
       if entity = @values[:legal_entity]
         if owners = entity[:additional_owners]
           entity_update = update_hash[:legal_entity] ||= {}
@@ -86,17 +86,17 @@ module Stripe
     end
 
     def legal_entity
-      self['legal_entity']
+      self["legal_entity"]
     end
 
     def legal_entity=(_)
-      raise NoMethodError.new('Overridding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = \'Blah\'')
+      raise NoMethodError, 'Overridding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = \'Blah\''
     end
 
-    def deauthorize(client_id=nil, opts={})
+    def deauthorize(client_id = nil, opts = {})
       params = {
         client_id: client_id,
-        stripe_user_id: self.id,
+        stripe_user_id: id,
       }
       OAuth.deauthorize(params, opts)
     end
@@ -111,9 +111,7 @@ module Stripe
         # url params provide no mechanism for deleting an item in an array,
         # just overwriting the whole array or adding new items. So let's not
         # allow deleting without a full overwrite until we have a solution.
-        raise ArgumentError.new(
-          "You cannot delete an item from an array, you must instead set a new array"
-        )
+        raise ArgumentError, "You cannot delete an item from an array, you must instead set a new array"
       end
 
       update_hash = {}
@@ -127,7 +125,7 @@ module Stripe
 
         if update != {} && (!original_value ||
           update != legal_entity.serialize_params_value(original_value[i], nil, false, true))
-            update_hash[i.to_s] = update
+          update_hash[i.to_s] = update
         end
       end
       update_hash

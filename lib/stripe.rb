@@ -1,88 +1,88 @@
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
-require 'cgi'
-require 'logger'
-require 'openssl'
-require 'rbconfig'
-require 'set'
-require 'socket'
+require "cgi"
+require "logger"
+require "openssl"
+require "rbconfig"
+require "set"
+require "socket"
 
-require 'faraday'
-require 'json'
+require "faraday"
+require "json"
 
 # Version
-require 'stripe/version'
+require "stripe/version"
 
 # API operations
-require 'stripe/api_operations/create'
-require 'stripe/api_operations/save'
-require 'stripe/api_operations/delete'
-require 'stripe/api_operations/list'
-require 'stripe/api_operations/request'
+require "stripe/api_operations/create"
+require "stripe/api_operations/save"
+require "stripe/api_operations/delete"
+require "stripe/api_operations/list"
+require "stripe/api_operations/request"
 
 # API resource support classes
-require 'stripe/errors'
-require 'stripe/util'
-require 'stripe/stripe_client'
-require 'stripe/stripe_object'
-require 'stripe/stripe_response'
-require 'stripe/list_object'
-require 'stripe/api_resource'
-require 'stripe/singleton_api_resource'
-require 'stripe/webhook'
+require "stripe/errors"
+require "stripe/util"
+require "stripe/stripe_client"
+require "stripe/stripe_object"
+require "stripe/stripe_response"
+require "stripe/list_object"
+require "stripe/api_resource"
+require "stripe/singleton_api_resource"
+require "stripe/webhook"
 
 # Named API resources
-require 'stripe/account'
-require 'stripe/alipay_account'
-require 'stripe/apple_pay_domain'
-require 'stripe/application_fee'
-require 'stripe/application_fee_refund'
-require 'stripe/balance'
-require 'stripe/balance_transaction'
-require 'stripe/bank_account'
-require 'stripe/bitcoin_receiver'
-require 'stripe/bitcoin_transaction'
-require 'stripe/card'
-require 'stripe/charge'
-require 'stripe/country_spec'
-require 'stripe/coupon'
-require 'stripe/customer'
-require 'stripe/dispute'
-require 'stripe/ephemeral_key'
-require 'stripe/event'
-require 'stripe/file_upload'
-require 'stripe/invoice'
-require 'stripe/invoice_item'
-require 'stripe/invoice_line_item'
-require 'stripe/login_link'
-require 'stripe/order'
-require 'stripe/order_return'
-require 'stripe/payout'
-require 'stripe/plan'
-require 'stripe/product'
-require 'stripe/recipient'
-require 'stripe/recipient_transfer'
-require 'stripe/refund'
-require 'stripe/reversal'
-require 'stripe/sku'
-require 'stripe/source'
-require 'stripe/subscription'
-require 'stripe/subscription_item'
-require 'stripe/three_d_secure'
-require 'stripe/token'
-require 'stripe/transfer'
+require "stripe/account"
+require "stripe/alipay_account"
+require "stripe/apple_pay_domain"
+require "stripe/application_fee"
+require "stripe/application_fee_refund"
+require "stripe/balance"
+require "stripe/balance_transaction"
+require "stripe/bank_account"
+require "stripe/bitcoin_receiver"
+require "stripe/bitcoin_transaction"
+require "stripe/card"
+require "stripe/charge"
+require "stripe/country_spec"
+require "stripe/coupon"
+require "stripe/customer"
+require "stripe/dispute"
+require "stripe/ephemeral_key"
+require "stripe/event"
+require "stripe/file_upload"
+require "stripe/invoice"
+require "stripe/invoice_item"
+require "stripe/invoice_line_item"
+require "stripe/login_link"
+require "stripe/order"
+require "stripe/order_return"
+require "stripe/payout"
+require "stripe/plan"
+require "stripe/product"
+require "stripe/recipient"
+require "stripe/recipient_transfer"
+require "stripe/refund"
+require "stripe/reversal"
+require "stripe/sku"
+require "stripe/source"
+require "stripe/subscription"
+require "stripe/subscription_item"
+require "stripe/three_d_secure"
+require "stripe/token"
+require "stripe/transfer"
 
 # OAuth
-require 'stripe/oauth'
+require "stripe/oauth"
 
 module Stripe
-  DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'
+  DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + "/data/ca-certificates.crt"
 
   @app_info = nil
 
-  @api_base = 'https://api.stripe.com'
-  @connect_base = 'https://connect.stripe.com'
-  @uploads_base = 'https://uploads.stripe.com'
+  @api_base = "https://api.stripe.com"
+  @connect_base = "https://connect.stripe.com"
+  @uploads_base = "https://uploads.stripe.com"
 
   @log_level = nil
   @logger = nil
@@ -170,7 +170,7 @@ module Stripe
       val = LEVEL_INFO
     end
 
-    if val != nil && ![LEVEL_DEBUG, LEVEL_ERROR, LEVEL_INFO].include?(val)
+    if !val.nil? && ![LEVEL_DEBUG, LEVEL_ERROR, LEVEL_INFO].include?(val)
       raise ArgumentError, "log_level should only be set to `nil`, `debug` or `info`"
     end
     @log_level = val
@@ -220,10 +220,8 @@ module Stripe
   end
   class << self
     extend Gem::Deprecate
-    deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 01
+    deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 1
   end
 end
 
-unless ENV["STRIPE_LOG"].nil?
-  Stripe.log_level = ENV["STRIPE_LOG"]
-end
+Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

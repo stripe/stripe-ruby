@@ -3,20 +3,20 @@ module Stripe
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
-    OBJECT_NAME = 'alipay_account'
+    OBJECT_NAME = "alipay_account".freeze
 
     def resource_url
-      if respond_to?(:customer) && !self.customer.nil?
+      if respond_to?(:customer) && !customer.nil?
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       end
     end
 
-    def self.update(id, params=nil, opts=nil)
-      raise NotImplementedError.new("Alipay accounts cannot be updated without a customer ID. Update an Alipay account by `a = customer.sources.retrieve('alipay_account_id'); a.save`")
+    def self.update(_id, _params = nil, _opts = nil)
+      raise NotImplementedError, "Alipay accounts cannot be updated without a customer ID. Update an Alipay account by `a = customer.sources.retrieve('alipay_account_id'); a.save`"
     end
 
-    def self.retrieve(id, opts=nil)
-      raise NotImplementedError.new("Alipay accounts cannot be retrieved without a customer ID. Retrieve an Alipay account using customer.sources.retrieve('alipay_account_id')")
+    def self.retrieve(_id, _opts = nil)
+      raise NotImplementedError, "Alipay accounts cannot be retrieved without a customer ID. Retrieve an Alipay account using customer.sources.retrieve('alipay_account_id')"
     end
   end
 end

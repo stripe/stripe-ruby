@@ -1,7 +1,7 @@
 module Stripe
   module APIOperations
     module List
-      def list(filters={}, opts={})
+      def list(filters = {}, opts = {})
         opts = Util.normalize_opts(opts)
 
         resp, opts = request(:get, resource_url, filters, opts)
@@ -22,7 +22,7 @@ module Stripe
       # #all, and this alias allows us to maintain backward compatibility (the
       # choice was somewhat misleading in the way that it only returned a single
       # page rather than all objects).
-      alias :all :list
+      alias all list
     end
   end
 end

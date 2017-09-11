@@ -19,18 +19,18 @@ module Stripe
     end
 
     module Signature
-      EXPECTED_SCHEME = 'v1'
+      EXPECTED_SCHEME = "v1".freeze
 
       def self.compute_signature(payload, secret)
-        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), secret, payload)
+        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), secret, payload)
       end
       private_class_method :compute_signature
 
       # Extracts the timestamp and the signature(s) with the desired scheme
       # from the header
       def self.get_timestamp_and_signatures(header, scheme)
-        list_items = header.split(/,\s*/).map { |i| i.split('=', 2) }
-        timestamp = Integer(list_items.select { |i| i[0] == 't' }[0][1])
+        list_items = header.split(/,\s*/).map { |i| i.split("=", 2) }
+        timestamp = Integer(list_items.select { |i| i[0] == "t" }[0][1])
         signatures = list_items.select { |i| i[0] == scheme }.map { |i| i[1] }
         [timestamp, signatures]
       end
@@ -52,27 +52,31 @@ module Stripe
         rescue
           raise SignatureVerificationError.new(
             "Unable to extract timestamp and signatures from header",
-            header, http_body: payload)
+            header, http_body: payload
+          )
         end
 
         if signatures.empty?
           raise SignatureVerificationError.new(
             "No signatures found with expected scheme #{EXPECTED_SCHEME}",
-            header, http_body: payload)
+            header, http_body: payload
+          )
         end
 
         signed_payload = "#{timestamp}.#{payload}"
         expected_sig = compute_signature(signed_payload, secret)
-        unless signatures.any? {|s| Util.secure_compare(expected_sig, s)}
+        unless signatures.any? { |s| Util.secure_compare(expected_sig, s) }
           raise SignatureVerificationError.new(
             "No signatures found matching the expected signature for payload",
-            header, http_body: payload)
+            header, http_body: payload
+          )
         end
 
         if tolerance && timestamp < Time.now.to_f - tolerance
           raise SignatureVerificationError.new(
             "Timestamp outside the tolerance zone (#{Time.at(timestamp)})",
-            header, http_body: payload)
+            header, http_body: payload
+          )
         end
 
         true

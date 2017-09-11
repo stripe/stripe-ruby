@@ -4,7 +4,7 @@ module Stripe
     # Sources API instead: https://stripe.com/docs/sources/bitcoin
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'bitcoin_transaction'
+    OBJECT_NAME = "bitcoin_transaction".freeze
 
     def self.resource_url
       "/v1/bitcoin/transactions"

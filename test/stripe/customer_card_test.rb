@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class CustomerCardTest < Test::Unit::TestCase
@@ -8,7 +8,7 @@ module Stripe
 
     should "be listable" do
       sources = @customer.sources.list
-      assert sources.data.kind_of?(Array)
+      assert sources.data.is_a?(Array)
       # because of the terrible :wildcard nature of sources, the API stub
       # cannot currently replace this response with anything meaningful so we
       # don't assert on the type of individual items like we do in other tests
@@ -16,29 +16,25 @@ module Stripe
 
     should "be creatable" do
       card = @customer.sources.create(
-        source: "tok_123",
+        source: "tok_123"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources"
-      assert card.kind_of?(Stripe::BankAccount)
+      assert card.is_a?(Stripe::BankAccount)
     end
 
     should "be deletable" do
-      card = Stripe::Card.construct_from({
-        customer: @customer.id,
-        id: "card_123"
-      })
+      card = Stripe::Card.construct_from(customer: @customer.id,
+                                         id: "card_123")
       card = card.delete
       assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
-      assert card.kind_of?(Stripe::Card)
+      assert card.is_a?(Stripe::Card)
     end
 
     should "be saveable" do
-      card = Stripe::Card.construct_from({
-        customer: @customer.id,
-        id: "card_123",
-        metadata: {},
-      })
-      card.metadata['key'] = 'value'
+      card = Stripe::Card.construct_from(customer: @customer.id,
+                                         id: "card_123",
+                                         metadata: {})
+      card.metadata["key"] = "value"
       card.save
       assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
     end

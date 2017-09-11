@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class StripeResponseTest < Test::Unit::TestCase
@@ -29,8 +29,9 @@ module Stripe
         headers = { "Request-Id" => "request-id" }
 
         env = Faraday::Env.from(
-          :status => 200, :body => body,
-          :response_headers => headers)
+          status: 200, body: body,
+          response_headers: headers
+        )
         http_resp = Faraday::Response.new(env)
 
         resp = StripeResponse.from_faraday_response(http_resp)

@@ -1,37 +1,37 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class EphemeralKeyTest < Test::Unit::TestCase
     context "#create" do
       should "succeed" do
         key = Stripe::EphemeralKey.create(
-          {customer:"cus_123"},
-          {stripe_version:"2017-05-25"}
+          { customer: "cus_123" },
+          stripe_version: "2017-05-25"
         )
 
         assert_requested(
           :post,
           "#{Stripe.api_base}/v1/ephemeral_keys",
-          headers: {'Stripe-Version' => '2017-05-25'}
+          headers: { "Stripe-Version" => "2017-05-25" }
         )
 
-        assert key.kind_of?(Stripe::EphemeralKey)
+        assert key.is_a?(Stripe::EphemeralKey)
       end
 
       context "#no global version" do
         should "use the correct api version" do
           key = Stripe::EphemeralKey.create(
-            {customer: "cus_123"},
-            {stripe_version: "2017-06-05"}
+            { customer: "cus_123" },
+            stripe_version: "2017-06-05"
           )
 
           assert_requested(
             :post,
             "#{Stripe.api_base}/v1/ephemeral_keys",
-            headers: {'Stripe-Version' => '2017-06-05'}
+            headers: { "Stripe-Version" => "2017-06-05" }
           )
 
-          assert key.kind_of?(Stripe::EphemeralKey)
+          assert key.is_a?(Stripe::EphemeralKey)
         end
 
         should "error without an explicit api version" do
@@ -53,11 +53,11 @@ module Stripe
 
         should "use the correct api version" do
           key = Stripe::EphemeralKey.create(
-            {customer: "cus_123"},
-            {stripe_version: "2017-05-25"}
+            { customer: "cus_123" },
+            stripe_version: "2017-05-25"
           )
 
-          assert key.kind_of?(Stripe::EphemeralKey)
+          assert key.is_a?(Stripe::EphemeralKey)
         end
 
         should "error without an explicit api version" do
@@ -72,8 +72,8 @@ module Stripe
     context "#delete" do
       should "succeed" do
         key = Stripe::EphemeralKey.create(
-          {customer: 'cus_123'},
-          {stripe_version: '2017-05-25'}
+          { customer: "cus_123" },
+          stripe_version: "2017-05-25"
         )
 
         key.delete

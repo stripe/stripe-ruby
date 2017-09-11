@@ -5,6 +5,6 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'plan'
+    OBJECT_NAME = "plan".freeze
   end
 end

@@ -4,10 +4,10 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'bank_account'
+    OBJECT_NAME = "bank_account".freeze
 
-    def verify(params={}, opts={})
-      resp, opts = request(:post, resource_url + '/verify', params, opts)
+    def verify(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/verify", params, opts)
       initialize_from(resp.data, opts)
     end
 
@@ -19,12 +19,12 @@ module Stripe
       end
     end
 
-    def self.update(id, params=nil, opts=nil)
-      raise NotImplementedError.new("Bank accounts cannot be updated without an account ID. Update a bank account by using `a = account.external_accounts.retrieve('card_id'); a.save`")
+    def self.update(_id, _params = nil, _opts = nil)
+      raise NotImplementedError, "Bank accounts cannot be updated without an account ID. Update a bank account by using `a = account.external_accounts.retrieve('card_id'); a.save`"
     end
 
-    def self.retrieve(id, opts=nil)
-      raise NotImplementedError.new("Bank accounts cannot be retrieved without an account ID. Retrieve a bank account using account.external_accounts.retrieve('card_id')")
+    def self.retrieve(_id, _opts = nil)
+      raise NotImplementedError, "Bank accounts cannot be retrieved without an account ID. Retrieve a bank account using account.external_accounts.retrieve('card_id')"
     end
   end
 end

@@ -14,9 +14,9 @@ module Stripe
         #   object values) to be added to the request. E.g. to allow for an
         #   idempotency_key to be passed in the request headers, or for the
         #   api_key to be overwritten. See {APIOperations::Request.request}.
-        def update(id, params={}, opts={})
-          params.each do |k, v|
-            if self.protected_fields.include?(k)
+        def update(id, params = {}, opts = {})
+          params.each do |k, _v|
+            if protected_fields.include?(k)
               raise ArgumentError, "Cannot update protected field: #{k}"
             end
           end
@@ -42,7 +42,7 @@ module Stripe
       #   object values) to be added to the request. E.g. to allow for an
       #   idempotency_key to be passed in the request headers, or for the
       #   api_key to be overwritten. See {APIOperations::Request.request}.
-      def save(params={}, opts={})
+      def save(params = {}, opts = {})
         # We started unintentionally (sort of) allowing attributes sent to
         # +save+ to override values used during the update. So as not to break
         # the API, this makes that official here.
@@ -51,7 +51,7 @@ module Stripe
         # Now remove any parameters that look like object attributes.
         params = params.reject { |k, _| respond_to?(k) }
 
-        values = self.serialize_params(self).merge(params)
+        values = serialize_params(self).merge(params)
 
         # note that id gets removed here our call to #url above has already
         # generated a uri for this object with an identifier baked in
@@ -74,7 +74,7 @@ module Stripe
         # Stripe::APIOperations::Create), then use the URL to create a new
         # resource. Otherwise, generate a URL based on the object's identifier
         # for a normal update.
-        if self[:id] == nil && self.class.respond_to?(:create)
+        if self[:id].nil? && self.class.respond_to?(:create)
           self.class.resource_url
         else
           resource_url

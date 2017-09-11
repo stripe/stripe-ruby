@@ -4,14 +4,14 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::Create
 
-    OBJECT_NAME = 'invoice'
+    OBJECT_NAME = "invoice".freeze
 
-    def self.upcoming(params, opts={})
+    def self.upcoming(params, opts = {})
       resp, opts = request(:get, upcoming_url, params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
-    def pay(params={}, opts={})
+    def pay(params = {}, opts = {})
       resp, opts = request(:post, pay_url, params, opts)
       initialize_from(resp.data, opts)
     end
@@ -19,11 +19,11 @@ module Stripe
     private
 
     def self.upcoming_url
-      resource_url + '/upcoming'
+      resource_url + "/upcoming"
     end
 
     def pay_url
-      resource_url + '/pay'
+      resource_url + "/pay"
     end
   end
 end

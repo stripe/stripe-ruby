@@ -6,10 +6,10 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'recipient'
+    OBJECT_NAME = "recipient".freeze
 
     def transfers
-      Transfer.all({ :recipient => id }, @api_key)
+      Transfer.all({ recipient: id }, @api_key)
     end
   end
 end

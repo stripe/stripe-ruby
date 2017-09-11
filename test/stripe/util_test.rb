@@ -1,18 +1,18 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class UtilTest < Test::Unit::TestCase
     should "#encode_parameters should prepare parameters for an HTTP request" do
       params = {
-        :a => 3,
-        :b => "+foo?",
-        :c => "bar&baz",
-        :d => { :a => "a", :b => "b" },
-        :e => [0, 1],
-        :f => "",
+        a: 3,
+        b: "+foo?",
+        c: "bar&baz",
+        d: { a: "a", b: "b" },
+        e: [0, 1],
+        f: "",
 
         # note the empty hash won't even show up in the request
-        :g => [],
+        g: [],
       }
       assert_equal(
         "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1&f=",
@@ -22,25 +22,25 @@ module Stripe
 
     should "#encode_params should throw an error on an array of maps that cannot be encoded" do
       params = {
-        :a => [
-          { :a => 1, :b => 2 },
-          { :c => 3, :a => 4 },
-        ]
+        a: [
+          { a: 1, b: 2 },
+          { c: 3, a: 4 },
+        ],
       }
       e = assert_raises(ArgumentError) do
         Stripe::Util.encode_parameters(params)
       end
-      expected = "All maps nested in an array should start with the same key " +
-        "(expected starting key 'a', got 'c')"
+      expected = "All maps nested in an array should start with the same key " \
+                 "(expected starting key 'a', got 'c')"
       assert_equal expected, e.message
 
       # Make sure the check is recursive by taking our original params and
       # nesting it into yet another map and array. Should throw exactly the
       # same error because it's still the in inner array of maps that's wrong.
       params = {
-        :x => [
-          params
-        ]
+        x: [
+          params,
+        ],
       }
       e = assert_raises(ArgumentError) do
         Stripe::Util.encode_parameters(params)
@@ -61,15 +61,15 @@ module Stripe
         [:a, 3],
         [:b, "foo?"],
         [:c, "bar&baz"],
-        [:d, { :a => "a", :b => "b" }],
+        [:d, { a: "a", b: "b" }],
         [:e, [0, 1]],
         [:f, [
-          { :foo => "1", :ghi => "2" },
-          { :foo => "3", :bar => "4" },
-        ]],
+          { foo: "1", ghi: "2" },
+          { foo: "3", bar: "4" },
+        ],],
       ]
       assert_equal([
-        ["a",        3],
+        ["a", 3],
         ["b",        "foo?"],
         ["c",        "bar&baz"],
         ["d[a]",     "a"],
@@ -89,22 +89,22 @@ module Stripe
 
     should "#symbolize_names should convert names to symbols" do
       start = {
-        'foo' => 'bar',
-        'array' => [{ 'foo' => 'bar' }],
-        'nested' => {
+        "foo" => "bar",
+        "array" => [{ "foo" => "bar" }],
+        "nested" => {
           1 => 2,
           :symbol => 9,
-          'string' => nil
-        }
+          "string" => nil,
+        },
       }
       finish = {
-        :foo => 'bar',
-        :array => [{ :foo => 'bar' }],
-        :nested => {
+        foo: "bar",
+        array: [{ foo: "bar" }],
+        nested: {
           1 => 2,
           :symbol => 9,
-          :string => nil
-        }
+          :string => nil,
+        },
       }
 
       symbolized = Stripe::Util.symbolize_names(start)
@@ -113,7 +113,7 @@ module Stripe
 
     should "#normalize_opts should reject nil keys" do
       assert_raise { Stripe::Util.normalize_opts(nil) }
-      assert_raise { Stripe::Util.normalize_opts(:api_key => nil) }
+      assert_raise { Stripe::Util.normalize_opts(api_key: nil) }
     end
 
     should "#convert_to_stripe_object should pass through unknown types" do
@@ -122,18 +122,18 @@ module Stripe
     end
 
     should "#convert_to_stripe_object should turn hashes into StripeObjects" do
-      obj = Util.convert_to_stripe_object({ :foo => "bar" }, {})
+      obj = Util.convert_to_stripe_object({ foo: "bar" }, {})
       assert obj.is_a?(StripeObject)
       assert_equal "bar", obj.foo
     end
 
     should "#convert_to_stripe_object should turn lists into ListObjects" do
-      obj = Util.convert_to_stripe_object({ :object => "list" }, {})
+      obj = Util.convert_to_stripe_object({ object: "list" }, {})
       assert obj.is_a?(ListObject)
     end
 
     should "#convert_to_stripe_object should marshal other classes" do
-      obj = Util.convert_to_stripe_object({ :object => "account" }, {})
+      obj = Util.convert_to_stripe_object({ object: "account" }, {})
       assert obj.is_a?(Account)
     end
 
@@ -143,23 +143,23 @@ module Stripe
     end
 
     should "#array_to_hash should convert an array into a hash with integer keys" do
-      assert_equal({"0" => 1, "1" => 2, "2" => 3}, Util.array_to_hash([1, 2, 3]))
+      assert_equal({ "0" => 1, "1" => 2, "2" => 3 }, Util.array_to_hash([1, 2, 3]))
     end
 
     context ".request_id_dashboard_url" do
       should "generate a livemode URL" do
         assert_equal "https://dashboard.stripe.com/live/logs/request-id",
-          Util.request_id_dashboard_url("request-id", "sk_live_123")
+                     Util.request_id_dashboard_url("request-id", "sk_live_123")
       end
 
       should "generate a testmode URL" do
         assert_equal "https://dashboard.stripe.com/test/logs/request-id",
-          Util.request_id_dashboard_url("request-id", "sk_test_123")
+                     Util.request_id_dashboard_url("request-id", "sk_test_123")
       end
 
       should "default to a testmode URL" do
         assert_equal "https://dashboard.stripe.com/test/logs/request-id",
-          Util.request_id_dashboard_url("request-id", nil)
+                     Util.request_id_dashboard_url("request-id", nil)
       end
     end
 
@@ -296,20 +296,20 @@ module Stripe
     context ".normalize_headers" do
       should "normalize the format of a header key" do
         assert_equal({ "Request-Id" => nil },
-          Util.normalize_headers({ "Request-Id" => nil }))
+                     Util.normalize_headers("Request-Id" => nil))
         assert_equal({ "Request-Id" => nil },
-          Util.normalize_headers({ "request-id" => nil }))
+                     Util.normalize_headers("request-id" => nil))
         assert_equal({ "Request-Id" => nil },
-          Util.normalize_headers({ "Request-ID" => nil }))
+                     Util.normalize_headers("Request-ID" => nil))
         assert_equal({ "Request-Id" => nil },
-          Util.normalize_headers({ :request_id => nil }))
+                     Util.normalize_headers(request_id: nil))
       end
 
       should "tolerate bad formatting" do
         assert_equal({ "Request-Id" => nil },
-          Util.normalize_headers({ "-Request--Id-" => nil }))
+                     Util.normalize_headers("-Request--Id-" => nil))
         assert_equal({ "Request-Id" => nil },
-          Util.normalize_headers({ :request__id => nil }))
+                     Util.normalize_headers(request__id: nil))
       end
     end
 
@@ -324,7 +324,7 @@ module Stripe
     context ".colorize" do
       should "colorize for a TTY" do
         assert_equal "\033[0;32;49mfoo\033[0m",
-          Util.send(:colorize, "foo", :green, true)
+                     Util.send(:colorize, "foo", :green, true)
       end
 
       should "not colorize otherwise" do
@@ -348,21 +348,23 @@ module Stripe
         # Open this instance of StringIO, and add a method override so that it
         # looks like a TTY.
         out.instance_eval do
-          def isatty; true; end
+          def isatty
+            true
+          end
         end
 
         Util.send(:log_internal, "message", { foo: "bar" },
-          color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
+                  color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "\e[0;32;49mDEBU\e[0m message \e[0;32;49mfoo\e[0m=bar\n",
-          out.string
+                     out.string
       end
 
       should "log in a data friendly way" do
         out = StringIO.new
         Util.send(:log_internal, "message", { foo: "bar" },
-          color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
+                  color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "message=message level=debug foo=bar\n",
-          out.string
+                     out.string
       end
 
       should "log to a logger if set" do
@@ -376,9 +378,9 @@ module Stripe
         }
 
         Util.send(:log_internal, "message", { foo: "bar" },
-          color: :green, level: Stripe::LEVEL_DEBUG, logger: logger, out: nil)
+                  color: :green, level: Stripe::LEVEL_DEBUG, logger: logger, out: nil)
         assert_equal "message=message foo=bar",
-          out.string
+                     out.string
       end
     end
 
@@ -395,15 +397,15 @@ module Stripe
       end
 
       should "wrap more complex values in double quotes" do
-        assert_equal %{"abc=123"}, Util.send(:wrap_logfmt_value, %{abc=123})
+        assert_equal %("abc=123"), Util.send(:wrap_logfmt_value, %(abc=123))
       end
 
       should "escape double quotes already in the value" do
-        assert_equal %{"abc=\\"123\\""}, Util.send(:wrap_logfmt_value, %{abc="123"})
+        assert_equal %("abc=\\"123\\""), Util.send(:wrap_logfmt_value, %(abc="123"))
       end
 
       should "remove newlines" do
-        assert_equal %{"abc"}, Util.send(:wrap_logfmt_value, "a\nb\nc")
+        assert_equal %("abc"), Util.send(:wrap_logfmt_value, "a\nb\nc")
       end
 
       should "not error if given a non-string" do

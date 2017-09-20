@@ -1,3 +1,7 @@
+=== 3.3.2 2017-09-20
+
+* Correct minimum required Ruby version in gemspec (it's 2.0.0)
+
 === 3.3.1 2017-08-18
 
 * Only parse webhook payload after verification to decrease likelihood of

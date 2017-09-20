@@ -1,5 +1,7 @@
 module Stripe
   class BitcoinTransaction < APIResource
+    # Directly retrieving BitcoinTransactions is deprecated. Please use the
+    # Sources API instead: https://stripe.com/docs/sources/bitcoin
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = 'bitcoin_transaction'

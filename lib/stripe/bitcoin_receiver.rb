@@ -1,5 +1,7 @@
 module Stripe
   class BitcoinReceiver < APIResource
+    # Directly creating or retrieving BitcoinReceivers is deprecated. Please use
+    # the Sources API instead: https://stripe.com/docs/sources/bitcoin
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete

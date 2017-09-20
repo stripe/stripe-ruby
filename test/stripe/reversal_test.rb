@@ -35,7 +35,7 @@ module Stripe
       reversal.metadata['key'] = 'value'
       reversal.save
       assert_requested :post,
-        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/#{reversal.id}"
+        "#{Stripe.api_base}/v1/transfers/#{reversal.transfer}/reversals/#{reversal.id}"
     end
   end
 end

@@ -1,3 +1,8 @@
+=== 3.4.0 2017-09-20
+
+* Mark legacy Bitcoin API as deprecated, and remove corresponding tests
+* Mark recipients API as deprecated, and remove recipient card tests
+
 === 3.3.2 2017-09-20
 
 * Correct minimum required Ruby version in gemspec (it's 2.0.0)

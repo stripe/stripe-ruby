@@ -23,6 +23,11 @@ module Stripe
     extend Gem::Deprecate
     deprecate :delete, "#detach", 2017, 10
 
+    def source_transactions(params = {}, opts = {})
+      resp, opts = request(:get, resource_url + "/source_transactions", params, Util.normalize_opts(opts))
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
     def verify(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/verify", params, Util.normalize_opts(opts))
       initialize_from(resp.data, opts)

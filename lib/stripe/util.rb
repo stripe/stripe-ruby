@@ -77,6 +77,7 @@ module Stripe
         Reversal::OBJECT_NAME             => Reversal,
         SKU::OBJECT_NAME                  => SKU,
         Source::OBJECT_NAME               => Source,
+        SourceTransaction::OBJECT_NAME    => SourceTransaction,
         Subscription::OBJECT_NAME         => Subscription,
         SubscriptionItem::OBJECT_NAME     => SubscriptionItem,
         ThreeDSecure::OBJECT_NAME         => ThreeDSecure,

@@ -10,7 +10,7 @@ PROJECT_ROOT = File.expand_path("../../", __FILE__)
 
 require File.expand_path('../test_data', __FILE__)
 
-MOCK_MINIMUM_VERSION = "0.1.12"
+MOCK_MINIMUM_VERSION = "0.2.0"
 MOCK_PORT = ENV["STRIPE_MOCK_PORT"] || 12111
 
 # Disable all real network connections except those that are outgoing to

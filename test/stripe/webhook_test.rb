@@ -2,10 +2,12 @@ require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class WebhookTest < Test::Unit::TestCase
-    EVENT_PAYLOAD = ""'{
-  "id": "evt_test_webhook",
-  "object": "event"
-}'"".freeze
+    EVENT_PAYLOAD = <<-PAYLOAD.freeze
+      {
+        "id": "evt_test_webhook",
+        "object": "event"
+      }
+    PAYLOAD
     SECRET = "whsec_test_secret".freeze
 
     def generate_header(opts = {})

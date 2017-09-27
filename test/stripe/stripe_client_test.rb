@@ -409,7 +409,6 @@ module Stripe
             client.execute_request(:post, "/v1/charges")
           rescue Stripe::InvalidRequestError => e
             assert_equal(400, e.http_status)
-            assert_equal(true, !!e.http_body)
             assert_equal(true, e.json_body.is_a?(Hash))
           end
         end
@@ -422,7 +421,6 @@ module Stripe
             client.execute_request(:post, "/v1/charges")
           rescue Stripe::AuthenticationError => e
             assert_equal(401, e.http_status)
-            assert_equal(true, !!e.http_body)
             assert_equal(true, e.json_body.is_a?(Hash))
           end
         end
@@ -435,7 +433,6 @@ module Stripe
             client.execute_request(:post, "/v1/charges")
           rescue Stripe::CardError => e
             assert_equal(402, e.http_status)
-            assert_equal(true, !!e.http_body)
             assert_equal(true, e.json_body.is_a?(Hash))
           end
         end
@@ -448,7 +445,6 @@ module Stripe
             client.execute_request(:post, "/v1/charges")
           rescue Stripe::PermissionError => e
             assert_equal(403, e.http_status)
-            assert_equal(true, !!e.http_body)
             assert_equal(true, e.json_body.is_a?(Hash))
           end
         end
@@ -461,7 +457,6 @@ module Stripe
             client.execute_request(:post, "/v1/charges")
           rescue Stripe::InvalidRequestError => e
             assert_equal(404, e.http_status)
-            assert_equal(true, !!e.http_body)
             assert_equal(true, e.json_body.is_a?(Hash))
           end
         end
@@ -474,7 +469,6 @@ module Stripe
             client.execute_request(:post, "/v1/charges")
           rescue Stripe::RateLimitError => e
             assert_equal(429, e.http_status)
-            assert_equal(true, !!e.http_body)
             assert_equal(true, e.json_body.is_a?(Hash))
           end
         end
@@ -491,7 +485,6 @@ module Stripe
           end
 
           assert_equal(400, e.http_status)
-          assert_equal(true, !!e.http_body)
           assert_equal("No grant type specified", e.message)
         end
 
@@ -699,26 +692,26 @@ module Stripe
   end
 
   class SystemProfilerTest < Test::Unit::TestCase
-    context "#get_uname" do
+    context "#uname" do
       should "run without failure" do
         # Don't actually check the result because we try a variety of different
         # strategies that will have different results depending on where this
         # test and running. We're mostly making sure that no exception is thrown.
-        _ = StripeClient::SystemProfiler.get_uname
+        _ = StripeClient::SystemProfiler.uname
       end
     end
 
-    context "#get_uname_from_system" do
+    context "#uname_from_system" do
       should "run without failure" do
         # as above, just verify that an exception is not thrown
-        _ = StripeClient::SystemProfiler.get_uname_from_system
+        _ = StripeClient::SystemProfiler.uname_from_system
       end
     end
 
-    context "#get_uname_from_system_ver" do
+    context "#uname_from_system_ver" do
       should "run without failure" do
         # as above, just verify that an exception is not thrown
-        _ = StripeClient::SystemProfiler.get_uname_from_system_ver
+        _ = StripeClient::SystemProfiler.uname_from_system_ver
       end
     end
   end

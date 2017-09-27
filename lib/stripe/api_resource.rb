@@ -45,7 +45,7 @@ module Stripe
     end
 
     def resource_url
-      unless id = self["id"]
+      unless (id = self["id"])
         raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", "id")
       end
       "#{self.class.resource_url}/#{CGI.escape(id)}"

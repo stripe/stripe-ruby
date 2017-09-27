@@ -6,74 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Configuration parameters: Include.
-# Include: **/Gemfile, **/gems.rb
-Bundler/DuplicatedGem:
-  Exclude:
-    - 'Gemfile'
-
-# Offense count: 1
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'test/stripe/stripe_object_test.rb'
-
-# Offense count: 3
-# Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'lib/stripe/account.rb'
-    - 'lib/stripe/api_resource.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith, SupportedStylesAlignWith, AutoCorrect.
-# SupportedStylesAlignWith: keyword, variable, start_of_line
-Lint/EndAlignment:
-  Exclude:
-    - 'lib/stripe/stripe_client.rb'
-
-# Offense count: 2
-Lint/ImplicitStringConcatenation:
-  Exclude:
-    - 'test/stripe/webhook_test.rb'
-
-# Offense count: 3
-Lint/IneffectiveAccessModifier:
-  Exclude:
-    - 'lib/stripe.rb'
-    - 'lib/stripe/invoice.rb'
-    - 'lib/stripe/stripe_object.rb'
-
-# Offense count: 1
-Lint/LiteralInCondition:
-  Exclude:
-    - 'lib/stripe/stripe_object.rb'
-
-# Offense count: 2
-Lint/NonLocalExitFromIterator:
-  Exclude:
-    - 'lib/stripe/util.rb'
-
-# Offense count: 5
-Lint/RescueWithoutErrorClass:
-  Exclude:
-    - 'lib/stripe/stripe_client.rb'
-    - 'lib/stripe/util.rb'
-    - 'lib/stripe/webhook.rb'
-
-# Offense count: 2
-# Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
-Lint/UselessAccessModifier:
-  Exclude:
-    - 'lib/stripe.rb'
-    - 'lib/stripe/util.rb'
-
-# Offense count: 1
-Lint/UselessAssignment:
-  Exclude:
-    - 'stripe.gemspec'
-
 # Offense count: 18
 Metrics/AbcSize:
   Max: 49
@@ -116,32 +48,13 @@ Metrics/ParameterLists:
 # Offense count: 5
 Metrics/PerceivedComplexity:
   Max: 11
-
-# Offense count: 4
-Naming/AccessorMethodName:
   Exclude:
-    - 'lib/stripe/stripe_client.rb'
-    - 'test/stripe/api_resource_test.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect.
-Performance/HashEachMethods:
-  Exclude:
-    - 'lib/stripe/api_operations/save.rb'
     - 'lib/stripe/stripe_object.rb'
 
 # Offense count: 1
 Security/MarshalLoad:
   Exclude:
     - 'lib/stripe/stripe_object.rb'
-
-# Offense count: 1
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: nested, compact
-Style/ClassAndModuleChildren:
-  Exclude:
-    - 'test/test_helper.rb'
 
 # Offense count: 2
 Style/ClassVars:
@@ -153,11 +66,6 @@ Style/ClassVars:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 7
-Style/DoubleNegation:
-  Exclude:
-    - 'test/stripe/stripe_client_test.rb'
-
 # Offense count: 5
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
@@ -166,17 +74,3 @@ Style/GuardClause:
     - 'lib/stripe/source.rb'
     - 'lib/stripe/stripe_client.rb'
     - 'lib/stripe/stripe_object.rb'
-
-# Offense count: 1
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/stripe/stripe_object.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, SupportedStyles.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/stripe/util.rb'

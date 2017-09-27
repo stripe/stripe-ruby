@@ -119,7 +119,7 @@ module Stripe
       # (such as AFS)
 
       File.open(file) { |f| }
-    rescue
+    rescue StandardError
       false
     else
       true
@@ -132,7 +132,7 @@ module Stripe
         object.each do |key, value|
           key = (begin
                    key.to_sym
-                 rescue
+                 rescue StandardError
                    key
                  end) || key
           new_hash[key] = symbolize_names(value)
@@ -281,10 +281,12 @@ module Stripe
 
       res = 0
       b.each_byte { |byte| res |= byte ^ l.shift }
-      res == 0
+      res.zero?
     end
 
-    private
+    #
+    # private
+    #
 
     COLOR_CODES = {
       black:   0, light_black:   60,
@@ -319,8 +321,8 @@ module Stripe
     def self.check_array_of_maps_start_keys!(arr)
       expected_key = nil
       arr.each do |item|
-        return unless item.is_a?(Hash)
-        return if item.count == 0
+        break unless item.is_a?(Hash)
+        break if item.count.zero?
 
         first_key = item.first[0]
 

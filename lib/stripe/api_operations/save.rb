@@ -15,7 +15,7 @@ module Stripe
         #   idempotency_key to be passed in the request headers, or for the
         #   api_key to be overwritten. See {APIOperations::Request.request}.
         def update(id, params = {}, opts = {})
-          params.each do |k, _v|
+          params.each_key do |k|
             if protected_fields.include?(k)
               raise ArgumentError, "Cannot update protected field: #{k}"
             end

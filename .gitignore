@@ -3,3 +3,4 @@
 .rvmrc
 Gemfile.lock
 tags
+/.bundle/

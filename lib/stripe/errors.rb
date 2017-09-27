@@ -17,7 +17,7 @@ module Stripe
     attr_reader :request_id
 
     # Initializes a StripeError.
-    def initialize(message=nil, http_status: nil, http_body: nil, json_body: nil,
+    def initialize(message = nil, http_status: nil, http_body: nil, json_body: nil,
                    http_headers: nil)
       @message = message
       @http_status = http_status
@@ -60,7 +60,7 @@ module Stripe
     def initialize(message, param, code, http_status: nil, http_body: nil, json_body: nil,
                    http_headers: nil)
       super(message, http_status: http_status, http_body: http_body,
-        json_body: json_body, http_headers: http_headers)
+                     json_body: json_body, http_headers: http_headers)
       @param = param
       @code = code
     end
@@ -74,7 +74,7 @@ module Stripe
     def initialize(message, param, http_status: nil, http_body: nil, json_body: nil,
                    http_headers: nil)
       super(message, http_status: http_status, http_body: http_body,
-        json_body: json_body, http_headers: http_headers)
+                     json_body: json_body, http_headers: http_headers)
       @param = param
     end
   end
@@ -109,7 +109,7 @@ module Stripe
       def initialize(code, description, http_status: nil, http_body: nil, json_body: nil,
                      http_headers: nil)
         super(description, http_status: http_status, http_body: http_body,
-          json_body: json_body, http_headers: http_headers)
+                           json_body: json_body, http_headers: http_headers)
         @code = code
       end
     end

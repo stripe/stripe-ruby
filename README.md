@@ -174,7 +174,7 @@ instructions for installing via Homebrew and other methods):
 
 Run all tests:
 
-    bundle exec rake
+    bundle exec rake test
 
 Run a single test suite:
 
@@ -183,6 +183,10 @@ Run a single test suite:
 Run a single test:
 
     bundle exec ruby -Ilib/ test/stripe/util_test.rb -n /should.convert.names.to.symbols/
+
+Run the linter:
+
+    bundle exec rake rubocop
 
 Update bundled CA certificates from the [Mozilla cURL release][curl]:
 

@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class FileUploadTest < Test::Unit::TestCase
@@ -13,54 +13,52 @@ module Stripe
     }.freeze
 
     should "be listable" do
-      stub_request(:get, "#{Stripe.uploads_base}/v1/files").
-        to_return(body: JSON.generate({
-          data: [FIXTURE],
-          object: 'list',
-          resource_url: '/v1/files'
-        }))
+      stub_request(:get, "#{Stripe.uploads_base}/v1/files")
+        .to_return(body: JSON.generate(data: [FIXTURE],
+                                       object: "list",
+                                       resource_url: "/v1/files"))
 
       files = Stripe::FileUpload.list
-      assert files.data.kind_of?(Array)
-      assert files.data[0].kind_of?(Stripe::FileUpload)
+      assert files.data.is_a?(Array)
+      assert files.data[0].is_a?(Stripe::FileUpload)
     end
 
     should "be retrievable" do
-      stub_request(:get, "#{Stripe.uploads_base}/v1/files/file_123").
-        to_return(body: JSON.generate(FIXTURE))
+      stub_request(:get, "#{Stripe.uploads_base}/v1/files/file_123")
+        .to_return(body: JSON.generate(FIXTURE))
 
       file = Stripe::FileUpload.retrieve("file_123")
-      assert file.kind_of?(Stripe::FileUpload)
+      assert file.is_a?(Stripe::FileUpload)
     end
 
     should "be creatable" do
-      stub_request(:post, "#{Stripe.uploads_base}/v1/files").
-        with(:headers => {
-          "Content-Type" => %r|\A#{Faraday::Request::Multipart.mime_type}|
-        }) { |request|
-          request.body =~ /FileUploadTest/
-        }.to_return(body: JSON.generate(FIXTURE))
+      stub_request(:post, "#{Stripe.uploads_base}/v1/files")
+        .with(headers: {
+          "Content-Type" => /\A#{Faraday::Request::Multipart.mime_type}/,
+        }) do |request|
+        request.body =~ /FileUploadTest/
+      end.to_return(body: JSON.generate(FIXTURE))
 
       file = Stripe::FileUpload.create(
         purpose: "dispute_evidence",
-        file: File.new(__FILE__),
+        file: File.new(__FILE__)
       )
-      assert file.kind_of?(Stripe::FileUpload)
+      assert file.is_a?(Stripe::FileUpload)
     end
 
     should "be creatable with Faraday::UploadIO" do
-      stub_request(:post, "#{Stripe.uploads_base}/v1/files").
-        with(:headers => {
-          "Content-Type" => %r|\A#{Faraday::Request::Multipart.mime_type}|
-        }) { |request|
-          request.body =~ /FileUploadTest/
-        }.to_return(body: JSON.generate(FIXTURE))
+      stub_request(:post, "#{Stripe.uploads_base}/v1/files")
+        .with(headers: {
+          "Content-Type" => /\A#{Faraday::Request::Multipart.mime_type}/,
+        }) do |request|
+        request.body =~ /FileUploadTest/
+      end.to_return(body: JSON.generate(FIXTURE))
 
       file = Stripe::FileUpload.create(
         purpose: "dispute_evidence",
-        file: Faraday::UploadIO.new(File.new(__FILE__), nil),
+        file: Faraday::UploadIO.new(File.new(__FILE__), nil)
       )
-      assert file.kind_of?(Stripe::FileUpload)
+      assert file.is_a?(Stripe::FileUpload)
     end
   end
 end

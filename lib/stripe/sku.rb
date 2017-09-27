@@ -5,6 +5,6 @@ module Stripe
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
-    OBJECT_NAME = 'sku'
+    OBJECT_NAME = "sku".freeze
   end
 end

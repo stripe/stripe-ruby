@@ -5,6 +5,6 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'coupon'
+    OBJECT_NAME = "coupon".freeze
   end
 end

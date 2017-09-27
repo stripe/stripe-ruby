@@ -4,7 +4,7 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'card'
+    OBJECT_NAME = "card".freeze
 
     def resource_url
       if respond_to?(:recipient) && !recipient.nil? && !recipient.empty?
@@ -16,12 +16,12 @@ module Stripe
       end
     end
 
-    def self.update(id, params=nil, opts=nil)
-      raise NotImplementedError.new("Cards cannot be updated without a customer ID. Update a card using `c = customer.sources.retrieve('card_id'); c.save`")
+    def self.update(_id, _params = nil, _opts = nil)
+      raise NotImplementedError, "Cards cannot be updated without a customer ID. Update a card using `c = customer.sources.retrieve('card_id'); c.save`"
     end
 
-    def self.retrieve(id, opts=nil)
-      raise NotImplementedError.new("Cards cannot be retrieved without a customer ID. Retrieve a card using customer.sources.retrieve('card_id')")
+    def self.retrieve(_id, _opts = nil)
+      raise NotImplementedError, "Cards cannot be retrieved without a customer ID. Retrieve a card using customer.sources.retrieve('card_id')"
     end
   end
 end

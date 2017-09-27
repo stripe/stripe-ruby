@@ -5,7 +5,7 @@ module Stripe
     include Stripe::APIOperations::Request
     include Stripe::APIOperations::Create
 
-    OBJECT_NAME = 'list'
+    OBJECT_NAME = "list".freeze
 
     # This accessor allows a `ListObject` to inherit various filters that were
     # given to a predecessor. This allows for things like consistent limits,
@@ -15,8 +15,8 @@ module Stripe
     # An empty list object. This is returned from +next+ when we know that
     # there isn't a next page in order to replicate the behavior of the API
     # when it attempts to return a page beyond the last.
-    def self.empty_list(opts={})
-      ListObject.construct_from({ :data => [] }, opts)
+    def self.empty_list(opts = {})
+      ListObject.construct_from({ data: [] }, opts)
     end
 
     def initialize(*args)
@@ -29,7 +29,7 @@ module Stripe
       when String, Symbol
         super
       else
-        raise ArgumentError.new("You tried to access the #{k.inspect} index, but ListObject types only support String keys. (HINT: List calls return an object with a 'data' (which is the data array). You likely want to call #data[#{k.inspect}])")
+        raise ArgumentError, "You tried to access the #{k.inspect} index, but ListObject types only support String keys. (HINT: List calls return an object with a 'data' (which is the data array). You likely want to call #data[#{k.inspect}])"
       end
     end
 
@@ -39,7 +39,7 @@ module Stripe
     # Note that this method makes no effort to fetch a new page when it gets to
     # the end of the current page's resources. See also +auto_paging_each+.
     def each(&blk)
-      self.data.each(&blk)
+      data.each(&blk)
     end
 
     # Iterates through each resource in all pages, making additional fetches to
@@ -61,12 +61,12 @@ module Stripe
 
     # Returns true if the page object contains no elements.
     def empty?
-      self.data.empty?
+      data.empty?
     end
 
-    def retrieve(id, opts={})
+    def retrieve(id, opts = {})
       id, retrieve_params = Util.normalize_id(id)
-      resp, opts = request(:get,"#{resource_url}/#{CGI.escape(id)}", retrieve_params, opts)
+      resp, opts = request(:get, "#{resource_url}/#{CGI.escape(id)}", retrieve_params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
@@ -74,13 +74,11 @@ module Stripe
     #
     # This method will try to respect the limit of the current page. If none
     # was given, the default limit will be fetched again.
-    def next_page(params={}, opts={})
-      return self.class.empty_list(opts) if !has_more
+    def next_page(params = {}, opts = {})
+      return self.class.empty_list(opts) unless has_more
       last_id = data.last.id
 
-      params = filters.merge({
-        :starting_after => last_id,
-      }).merge(params)
+      params = filters.merge(starting_after: last_id).merge(params)
 
       list(params, opts)
     end
@@ -89,18 +87,16 @@ module Stripe
     #
     # This method will try to respect the limit of the current page. If none
     # was given, the default limit will be fetched again.
-    def previous_page(params={}, opts={})
+    def previous_page(params = {}, opts = {})
       first_id = data.first.id
 
-      params = filters.merge({
-        :ending_before => first_id,
-      }).merge(params)
+      params = filters.merge(ending_before: first_id).merge(params)
 
       list(params, opts)
     end
 
     def resource_url
-      self.url ||
+      url ||
         raise(ArgumentError, "List object does not contain a 'url' field.")
     end
   end

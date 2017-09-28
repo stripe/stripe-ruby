@@ -133,20 +133,6 @@ module Stripe
       @values.each(&blk)
     end
 
-    def _dump(_level)
-      # The StripeClient instance in @opts is not serializable and is not
-      # really a property of the StripeObject, so we exclude it when
-      # dumping
-      opts = @opts.clone
-      opts.delete(:client)
-      Marshal.dump([@values, opts])
-    end
-
-    def self._load(args)
-      values, opts = Marshal.load(args)
-      construct_from(values, opts)
-    end
-
     # Sets all keys within the StripeObject as unsaved so that they will be
     # included with an update when #serialize_params is called. This method is
     # also recursive, so any StripeObjects contained as values or which are
@@ -304,7 +290,9 @@ module Stripe
     #   remove accessors.
     def initialize_from(values, opts, partial = false)
       @opts = Util.normalize_opts(opts)
-      @original_values = Marshal.load(Marshal.dump(values)) # deep copy
+
+      # the `#send` is here so that we can keep this method private
+      @original_values = self.class.send(:deep_copy, values)
 
       removed = partial ? Set.new : Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)
@@ -403,6 +391,30 @@ module Stripe
     end
 
     private
+
+    # Produces a deep copy of the given object including support for arrays,
+    # hashes, and StripeObjects.
+    def self.deep_copy(obj)
+      case obj
+      when Array
+        obj.map { |e| deep_copy(e) }
+      when Hash
+        obj.each_with_object({}) do |(k, v), copy|
+          copy[k] = deep_copy(v)
+          copy
+        end
+      when StripeObject
+        StripeObject.construct_from(
+          deep_copy(obj.instance_variable_get(:@values)),
+          obj.instance_variable_get(:@opts).select do |k, _v|
+            Util::OPTS_COPYABLE.include?(k)
+          end
+        )
+      else
+        obj
+      end
+    end
+    private_class_method :deep_copy
 
     def dirty_value!(value)
       case value

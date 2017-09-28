@@ -35,10 +35,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 47
 
-# Offense count: 1
+# Offense count: 2
 # Configuration parameters: CountComments.
 Metrics/ModuleLength:
-  Max: 290
+  Max: 423
 
 # Offense count: 6
 # Configuration parameters: CountKeywordArgs.
@@ -48,11 +48,6 @@ Metrics/ParameterLists:
 # Offense count: 5
 Metrics/PerceivedComplexity:
   Max: 11
-  Exclude:
-    - 'lib/stripe/stripe_object.rb'
-
-# Offense count: 1
-Security/MarshalLoad:
   Exclude:
     - 'lib/stripe/stripe_object.rb'
 

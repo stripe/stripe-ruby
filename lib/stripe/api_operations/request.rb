@@ -2,8 +2,6 @@ module Stripe
   module APIOperations
     module Request
       module ClassMethods
-        OPTS_KEYS_TO_PERSIST = Set[:api_key, :api_base, :client, :stripe_account, :stripe_version]
-
         def request(method, url, params = {}, opts = {})
           warn_on_opts_in_params(params)
 
@@ -25,7 +23,7 @@ module Stripe
           # Hash#select returns an array before 1.9
           opts_to_persist = {}
           opts.each do |k, v|
-            opts_to_persist[k] = v if OPTS_KEYS_TO_PERSIST.include?(k)
+            opts_to_persist[k] = v if Util::OPTS_KEYS_TO_PERSIST.include?(k)
           end
 
           [resp, opts_to_persist]
@@ -33,11 +31,8 @@ module Stripe
 
         private
 
-        KNOWN_OPTS = Set[:api_key, :idempotency_key, :stripe_account, :stripe_version]
-        private_constant :KNOWN_OPTS
-
         def warn_on_opts_in_params(params)
-          KNOWN_OPTS.each do |opt|
+          Util::OPTS_USER_SPECIFIED.each do |opt|
             if params.key?(opt)
               $stderr.puts("WARNING: #{opt} should be in opts instead of params.")
             end

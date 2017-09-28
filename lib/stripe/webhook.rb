@@ -49,7 +49,7 @@ module Stripe
       def self.verify_header(payload, header, secret, tolerance: nil)
         begin
           timestamp, signatures = get_timestamp_and_signatures(header, EXPECTED_SCHEME)
-        rescue
+        rescue StandardError
           raise SignatureVerificationError.new(
             "Unable to extract timestamp and signatures from header",
             header, http_body: payload

@@ -153,7 +153,7 @@ module Stripe
     # values in a tenant array are also marked as dirty.
     def dirty!
       @unsaved_values = Set.new(@values.keys)
-      @values.each do |_k, v|
+      @values.each_value do |v|
         dirty_value!(v)
       end
     end
@@ -194,14 +194,14 @@ module Stripe
       deprecate :serialize_params, "#serialize_params", 2016, 9
     end
 
-    protected
-
     # A protected field is one that doesn't get an accessor assigned to it
     # (i.e. `obj.public = ...`) and one which is not allowed to be updated via
     # the class level `Model.update(id, { ... })`.
     def self.protected_fields
       []
     end
+
+    protected
 
     def metaclass
       class << self; self; end
@@ -271,8 +271,8 @@ module Stripe
           raise NoMethodError, "Cannot set #{attr} on this object. HINT: you can't set: #{@@permanent_attributes.to_a.join(', ')}"
         end
         return mth.call(args[0])
-      else
-        return @values[name] if @values.key?(name)
+      elsif @values.key?(name)
+        return @values[name]
       end
 
       begin
@@ -323,7 +323,7 @@ module Stripe
       end
 
       update_attributes(values, opts, dirty: false)
-      values.each do |k, _|
+      values.each_key do |k|
         @transient_values.delete(k)
         @unsaved_values.delete(k)
       end
@@ -332,8 +332,7 @@ module Stripe
     end
 
     def serialize_params_value(value, original, unsaved, force, key: nil)
-      case true
-      when value.nil?
+      if value.nil?
         ""
 
       # The logic here is that essentially any object embedded in another
@@ -358,7 +357,7 @@ module Stripe
       # We throw an error if a property was set explicitly but we can't do
       # anything with it because the integration is probably not working as the
       # user intended it to.
-      when value.is_a?(APIResource) && !value.save_with_parent
+      elsif value.is_a?(APIResource) && !value.save_with_parent
         if !unsaved
           nil
         elsif value.respond_to?(:id) && !value.id.nil?
@@ -369,7 +368,7 @@ module Stripe
             "not marked as `save_with_parent`."
         end
 
-      when value.is_a?(Array)
+      elsif value.is_a?(Array)
         update = value.map { |v| serialize_params_value(v, nil, true, force) }
 
         # This prevents an array that's unchanged from being resent.
@@ -385,10 +384,10 @@ module Stripe
       # existing array being held by a StripeObject. This could happen for
       # example by appending a new hash onto `additional_owners` for an
       # account.
-      when value.is_a?(Hash)
+      elsif value.is_a?(Hash)
         Util.convert_to_stripe_object(value, @opts).serialize_params
 
-      when value.is_a?(StripeObject)
+      elsif value.is_a?(StripeObject)
         update = value.serialize_params(force: force)
 
         # If the entire object was replaced, then we need blank each field of

@@ -23,7 +23,7 @@ group :development do
   if RUBY_VERSION >= "2.2.2"
     gem "rack", ">= 1.5"
   else
-    gem "rack", ">= 1.5", "< 2.0"
+    gem "rack", ">= 1.5", "< 2.0" # rubocop:disable Bundler/DuplicatedGem
   end
 
   platforms :mri do

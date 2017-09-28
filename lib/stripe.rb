@@ -4,6 +4,7 @@ require "cgi"
 require "logger"
 require "openssl"
 require "rbconfig"
+require "securerandom"
 require "set"
 require "socket"
 
@@ -212,12 +213,11 @@ module Stripe
     }
   end
 
-  private
-
   # DEPRECATED. Use `Util#encode_parameters` instead.
   def self.uri_encode(params)
     Util.encode_parameters(params)
   end
+  private_class_method :uri_encode
   class << self
     extend Gem::Deprecate
     deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 1

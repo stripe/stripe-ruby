@@ -490,10 +490,10 @@ module Stripe
     @@fixtures = {}
     setup do
       if @@fixtures.empty?
-        set_fixture(:charge) do
+        cache_fixture(:charge) do
           Charge.retrieve("ch_123")
         end
-        set_fixture(:customer) do
+        cache_fixture(:customer) do
           Customer.retrieve("cus_123")
         end
       end
@@ -509,13 +509,9 @@ module Stripe
       @@fixtures[:customer]
     end
 
-    def get_fixture(key)
-      @@fixtures.fetch(key)
-    end
-
     # Expects to retrieve a fixture from stripe-mock (an API call should be
     # included in the block to yield to) and does very simple memoization.
-    def set_fixture(key)
+    def cache_fixture(key)
       return @@fixtures[key] if @@fixtures.key?(key)
 
       obj = yield

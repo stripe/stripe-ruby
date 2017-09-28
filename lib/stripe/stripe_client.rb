@@ -201,7 +201,7 @@ module Stripe
       # We rescue all exceptions from a request so that we have an easy spot to
       # implement our retry logic across the board. We'll re-raise if it's a type
       # of exception that we didn't expect to handle.
-      rescue => e
+      rescue StandardError => e
         # If we modify context we copy it into a new variable so as not to
         # taint the original on a retry.
         error_context = context
@@ -420,7 +420,7 @@ module Stripe
         headers.update(
           "X-Stripe-Client-User-Agent" => JSON.generate(user_agent)
         )
-      rescue => e
+      rescue StandardError => e
         headers.update(
           "X-Stripe-Client-Raw-User-Agent" => user_agent.inspect,
           :error => "#{e} (#{e.class})"
@@ -517,7 +517,7 @@ module Stripe
                     resp.headers
                   else
                     resp[:headers]
-        end
+                  end
 
         context = dup
         context.account = headers["Stripe-Account"]
@@ -532,22 +532,22 @@ module Stripe
     # in so that we can generate a rich user agent header to help debug
     # integrations.
     class SystemProfiler
-      def self.get_uname
+      def self.uname
         if File.exist?("/proc/version")
           File.read("/proc/version").strip
         else
           case RbConfig::CONFIG["host_os"]
           when /linux|darwin|bsd|sunos|solaris|cygwin/i
-            get_uname_from_system
+            uname_from_system
           when /mswin|mingw/i
-            get_uname_from_system_ver
+            uname_from_system_ver
           else
             "unknown platform"
           end
         end
       end
 
-      def self.get_uname_from_system
+      def self.uname_from_system
         (`uname -a 2>/dev/null` || "").strip
       rescue Errno::ENOENT
         "uname executable not found"
@@ -555,7 +555,7 @@ module Stripe
         "uname lookup failed"
       end
 
-      def self.get_uname_from_system_ver
+      def self.uname_from_system_ver
         (`ver` || "").strip
       rescue Errno::ENOENT
         "ver executable not found"
@@ -564,7 +564,7 @@ module Stripe
       end
 
       def initialize
-        @uname = self.class.get_uname
+        @uname = self.class.uname
       end
 
       def user_agent

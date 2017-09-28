@@ -2,7 +2,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "stripe/version"
 
-spec = Gem::Specification.new do |s|
+Gem::Specification.new do |s|
   s.name = "stripe"
   s.version = Stripe::VERSION
   s.required_ruby_version = ">= 2.0.0"

@@ -352,7 +352,7 @@ module Stripe
       e = assert_raises ArgumentError do
         obj.foo = ""
       end
-      assert_match /\(object\).foo = nil/, e.message
+      assert_match(/\(object\).foo = nil/, e.message)
     end
   end
 end

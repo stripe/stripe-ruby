@@ -34,23 +34,27 @@ rescue Faraday::ConnectionFailed
     "it running? Please see README for setup instructions.")
 end
 
-class Test::Unit::TestCase
-  include Stripe::TestData
-  include Mocha
+module Test
+  module Unit
+    class TestCase
+      include Stripe::TestData
+      include Mocha
 
-  setup do
-    Stripe.api_key = "sk_test_123"
-    Stripe.api_base = "http://localhost:#{MOCK_PORT}"
-    stub_connect
-  end
+      setup do
+        Stripe.api_key = "sk_test_123"
+        Stripe.api_base = "http://localhost:#{MOCK_PORT}"
+        stub_connect
+      end
 
-  teardown do
-    Stripe.api_key = nil
-  end
+      teardown do
+        Stripe.api_key = nil
+      end
 
-  private
+      private
 
-  def stub_connect
-    stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: "{}")
+      def stub_connect
+        stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: "{}")
+      end
+    end
   end
 end

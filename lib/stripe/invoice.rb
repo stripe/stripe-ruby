@@ -16,14 +16,14 @@ module Stripe
       initialize_from(resp.data, opts)
     end
 
-    private
-
     def self.upcoming_url
       resource_url + "/upcoming"
     end
+    private_class_method :upcoming_url
 
     def pay_url
       resource_url + "/pay"
     end
+    private :pay_url
   end
 end

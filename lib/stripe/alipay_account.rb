@@ -6,9 +6,12 @@ module Stripe
     OBJECT_NAME = "alipay_account".freeze
 
     def resource_url
-      if respond_to?(:customer) && !customer.nil?
-        "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
+      if !respond_to?(:customer) || customer.nil?
+        raise NotImplementedError,
+              "Alipay accounts cannot be accessed without a customer ID."
       end
+
+      "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)

@@ -2,6 +2,12 @@ require "cgi"
 
 module Stripe
   module Util
+    def self.est_stripe_fee(amount=0.0)
+      # 2.9% + $0.30
+      percent = amount * 0.029
+      (percent + 0.30).round(2)
+    end
+
     def self.objects_to_ids(h)
       case h
       when APIResource

@@ -181,12 +181,12 @@ module Stripe
           "if you have any questions."
       end
 
-      if api_key =~ /\s/
-        raise AuthenticationError, "Your API key is invalid, as it contains " \
-          "whitespace. (HINT: You can double-check your API key from the " \
-          "Stripe web interface. See https://stripe.com/api for details, or " \
-          "email support@stripe.com if you have any questions.)"
-      end
+      return unless api_key =~ /\s/
+
+      raise AuthenticationError, "Your API key is invalid, as it contains " \
+        "whitespace. (HINT: You can double-check your API key from the " \
+        "Stripe web interface. See https://stripe.com/api for details, or " \
+        "email support@stripe.com if you have any questions.)"
     end
 
     def execute_request_with_rescues(api_base, context)
@@ -458,12 +458,13 @@ module Stripe
                      body: body,
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id)
-      if context.request_id
-        Util.log_debug("Dashboard link for request",
-                       idempotency_key: context.idempotency_key,
-                       request_id: context.request_id,
-                       url: Util.request_id_dashboard_url(context.request_id, context.api_key))
-      end
+
+      return unless context.request_id
+
+      Util.log_debug("Dashboard link for request",
+                     idempotency_key: context.idempotency_key,
+                     request_id: context.request_id,
+                     url: Util.request_id_dashboard_url(context.request_id, context.api_key))
     end
     private :log_response
 

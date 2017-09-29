@@ -65,12 +65,3 @@ Style/ClassVars:
 # Offense count: 51
 Style/Documentation:
   Enabled: false
-
-# Offense count: 5
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/stripe/alipay_account.rb'
-    - 'lib/stripe/source.rb'
-    - 'lib/stripe/stripe_client.rb'
-    - 'lib/stripe/stripe_object.rb'

@@ -35,19 +35,75 @@ module Stripe
       assert_equal "Stripe", obj[:name]
     end
 
-    should "marshal a stripe object correctly" do
-      obj = Stripe::StripeObject.construct_from(
-        { id: 1, name: "Stripe" },
-        api_key: "apikey",
-        # StripeClient is not serializable and is expected to be removed
-        # when marshalling StripeObjects
-        client: StripeClient.active_client
-      )
-      m = Marshal.load(Marshal.dump(obj))
-      assert_equal 1, m.id
-      assert_equal "Stripe", m.name
-      expected_hash = { api_key: "apikey" }
-      assert_equal expected_hash, m.instance_variable_get("@opts")
+    context "#deep_copy" do
+      should "produce a deep copy" do
+        opts = {
+          api_base: Stripe.api_base,
+          api_key: "apikey",
+        }
+        values = {
+          id: 1,
+          name: "Stripe",
+          arr: [
+            StripeObject.construct_from({ id: "index0" }, opts),
+            "index1",
+            2,
+          ],
+          map: {
+            :"0" => StripeObject.construct_from({ id: "index0" }, opts),
+            :"1" => "index1",
+            :"2" => 2,
+          },
+        }
+
+        # it's not good to test methods with `#send` like this, but I've done
+        # it in the interest of trying to keep `.deep_copy` as internal as
+        # possible
+        copy_values = Stripe::StripeObject.send(:deep_copy, values)
+
+        # we can't compare the hashes directly because they have embedded
+        # objects which are different from each other
+        assert_equal values[:id], copy_values[:id]
+        assert_equal values[:name], copy_values[:name]
+
+        assert_equal values[:arr].length, copy_values[:arr].length
+
+        # internal values of the copied StripeObject should be the same
+        # (including opts), but the object itself should be new (hence the
+        # refutation of equality on #object_id)
+        assert_equal values[:arr][0][:id], copy_values[:arr][0][:id]
+        refute_equal values[:arr][0].object_id, copy_values[:arr][0].object_id
+        assert_equal values[:arr][0].instance_variable_get(:@opts),
+                     copy_values[:arr][0].instance_variable_get(:@opts)
+
+        # scalars however, can be compared
+        assert_equal values[:arr][1], copy_values[:arr][1]
+        assert_equal values[:arr][2], copy_values[:arr][2]
+
+        # and a similar story with the hash
+        assert_equal values[:map].keys, copy_values[:map].keys
+        assert_equal values[:map][:"0"][:id], copy_values[:map][:"0"][:id]
+        refute_equal values[:map][:"0"].object_id, copy_values[:map][:"0"].object_id
+        assert_equal values[:map][:"0"].instance_variable_get(:@opts),
+                     copy_values[:map][:"0"].instance_variable_get(:@opts)
+        assert_equal values[:map][:"1"], copy_values[:map][:"1"]
+        assert_equal values[:map][:"2"], copy_values[:map][:"2"]
+      end
+
+      should "not copy a client" do
+        opts = {
+          api_key: "apikey",
+          client: StripeClient.active_client,
+        }
+        values = { id: 1, name: "Stripe" }
+
+        obj = Stripe::StripeObject.construct_from(values, opts)
+        copy_obj = Stripe::StripeObject.send(:deep_copy, obj)
+
+        assert_equal values, copy_obj.instance_variable_get(:@values)
+        assert_equal opts.reject { |k, _v| k == :client },
+                     copy_obj.instance_variable_get(:@opts)
+      end
     end
 
     should "recursively call to_hash on its values" do

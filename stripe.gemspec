@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://stripe.com/docs/api/ruby"
   s.license = "MIT"
 
-  s.add_dependency("faraday", "~> 0.9")
+  s.add_dependency("faraday", "~> 0.10")
 
   s.files = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")

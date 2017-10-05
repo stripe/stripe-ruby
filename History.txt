@@ -1,3 +1,8 @@
+=== 3.4.1 2017-10-05
+
+* [#586] Log query strings as well as form bodies with STRIPE_LOG
+* [#588] Require minimum Faraday 0.10 for bug fix in parameter encoding
+
 === 3.4.0 2017-09-20
 
 * Mark legacy Bitcoin API as deprecated, and remove corresponding tests

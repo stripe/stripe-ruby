@@ -166,7 +166,8 @@ module Stripe
                                        path: "/v1/account")
           Util.expects(:log_debug).with("Request details",
                                         body: "",
-                                        idempotency_key: "abc")
+                                        idempotency_key: "abc",
+                                        query_string: nil)
 
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: "acct_123",

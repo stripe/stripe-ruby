@@ -120,17 +120,19 @@ module Stripe
       params = Util.objects_to_ids(params)
       url = api_url(path, api_base)
 
+      body = nil
+      query_string = nil
+
       case method.to_s.downcase.to_sym
       when :get, :head, :delete
-        # Make params into GET parameters
-        url += "#{URI.parse(url).query ? '&' : '?'}#{Util.encode_parameters(params)}" if params && params.any?
-        payload = nil
+        query_string = Util.encode_parameters(params) if params && params.any?
+        url += "#{URI.parse(url).query ? '&' : '?'}#{query_string}" unless query_string.nil?
       else
-        payload = if headers[:content_type] && headers[:content_type] == "multipart/form-data"
-                    params
-                  else
-                    Util.encode_parameters(params)
-                  end
+        body = if headers[:content_type] && headers[:content_type] == "multipart/form-data"
+                 params
+               else
+                 Util.encode_parameters(params)
+               end
       end
 
       headers = request_headers(api_key, method)
@@ -138,18 +140,18 @@ module Stripe
 
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
-      context = RequestLogContext.new(
-        account: headers["Stripe-Account"],
-        api_key: api_key,
-        api_version: headers["Stripe-Version"],
-        idempotency_key: headers["Idempotency-Key"],
-        method: method,
-        path: path,
-        payload: payload
-      )
+      context = RequestLogContext.new
+      context.account         = headers["Stripe-Account"]
+      context.api_key         = api_key
+      context.api_version     = headers["Stripe-Version"]
+      context.body            = body
+      context.idempotency_key = headers["Idempotency-Key"]
+      context.method          = method
+      context.path            = path
+      context.query_string    = query_string
 
       http_resp = execute_request_with_rescues(api_base, context) do
-        conn.run_request(method, url, payload, headers) do |req|
+        conn.run_request(method, url, body, headers) do |req|
           req.options.open_timeout = Stripe.open_timeout
           req.options.timeout = Stripe.read_timeout
         end
@@ -439,8 +441,9 @@ module Stripe
                     num_retries: num_retries,
                     path: context.path)
       Util.log_debug("Request details",
-                     body: context.payload,
-                     idempotency_key: context.idempotency_key)
+                     body: context.body,
+                     idempotency_key: context.idempotency_key,
+                     query_string: context.query_string)
     end
     private :log_request
 
@@ -482,25 +485,15 @@ module Stripe
     # that we can log certain information. It's useful because it means that we
     # don't have to pass around as many parameters.
     class RequestLogContext
+      attr_accessor :body
       attr_accessor :account
       attr_accessor :api_key
       attr_accessor :api_version
       attr_accessor :idempotency_key
       attr_accessor :method
       attr_accessor :path
-      attr_accessor :payload
+      attr_accessor :query_string
       attr_accessor :request_id
-
-      def initialize(account: nil, api_key: nil, api_version: nil,
-                     idempotency_key: nil, method: nil, path: nil, payload: nil)
-        self.account = account
-        self.api_key = api_key
-        self.api_version = api_version
-        self.idempotency_key = idempotency_key
-        self.method = method
-        self.path = path
-        self.payload = payload
-      end
 
       # The idea with this method is that we might want to update some of
       # context information because a response that we've received from the API

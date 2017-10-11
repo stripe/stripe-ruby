@@ -1,3 +1,7 @@
+=== 3.5.0 2017-10-11
+
+* [#589] Add support for detaching sources fromm customers
+
 === 3.4.1 2017-10-05
 
 * [#586] Log query strings as well as form bodies with STRIPE_LOG

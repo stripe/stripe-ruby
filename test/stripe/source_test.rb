@@ -30,12 +30,12 @@ module Stripe
       assert source.is_a?(Stripe::Source)
     end
 
-    context "#delete" do
+    context "#detach" do
       should "not be deletable when unattached" do
         source = Stripe::Source.retrieve("src_123")
 
         assert_raises NotImplementedError do
-          source.delete
+          source.detach
         end
       end
 
@@ -43,9 +43,27 @@ module Stripe
         source = Stripe::Source.construct_from(customer: "cus_123",
                                                id: "src_123",
                                                object: "source")
-        source = source.delete
+        source = source.detach
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/sources/src_123"
         assert source.is_a?(Stripe::Source)
+      end
+    end
+
+    context "#delete" do
+      should "warn that #delete is deprecated" do
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        begin
+          source = Stripe::Source.construct_from(customer: "cus_123",
+                                                 id: "src_123",
+                                                 object: "source")
+          source.delete
+          message = "NOTE: Stripe::Source#delete is " \
+                    "deprecated; use #detach instead"
+          assert_match Regexp.new(message), $stderr.string
+        ensure
+          $stderr = old_stderr
+        end
       end
     end
 

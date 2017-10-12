@@ -1,3 +1,7 @@
+=== 3.5.1 2017-10-12
+
+* [#591] Use thread-local `StripeClient` instances for thread safety
+
 === 3.5.0 2017-10-11
 
 * [#589] Rename source `delete` to `detach` (and deprecate the former)

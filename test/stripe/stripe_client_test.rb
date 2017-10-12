@@ -19,6 +19,15 @@ module Stripe
       should "be a StripeClient" do
         assert_kind_of StripeClient, StripeClient.default_client
       end
+
+      should "be a different client on each thread" do
+        other_thread_client = nil
+        thread = Thread.new do
+          other_thread_client = StripeClient.default_client
+        end
+        thread.join
+        refute_equal StripeClient.default_client, other_thread_client
+      end
     end
 
     context ".default_conn" do

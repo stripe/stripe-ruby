@@ -17,7 +17,7 @@ module Stripe
     end
 
     def self.default_client
-      @default_client ||= StripeClient.new(default_conn)
+      Thread.current[:stripe_client_default_client] ||= StripeClient.new(default_conn)
     end
 
     # A default Faraday connection to be used when one isn't configured. This

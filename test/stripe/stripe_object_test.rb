@@ -104,6 +104,15 @@ module Stripe
         assert_equal opts.reject { |k, _v| k == :client },
                      copy_obj.instance_variable_get(:@opts)
       end
+
+      should "return an instance of the same class" do
+        class TestObject < Stripe::StripeObject; end
+
+        obj = TestObject.construct_from(id: 1)
+        copy_obj = obj.class.send(:deep_copy, obj)
+
+        assert_equal obj.class, copy_obj.class
+      end
     end
 
     should "recursively call to_hash on its values" do

@@ -536,4 +536,6 @@ Identical to 1.56.0 above. I incorrectly cut a patch-level release.
 * 1 major enhancement:
   * Initial release
 
+<!--
 # vim: set tw=0:
+-->

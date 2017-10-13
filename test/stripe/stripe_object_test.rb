@@ -410,5 +410,18 @@ module Stripe
       end
       assert_match(/\(object\).foo = nil/, e.message)
     end
+
+    should "marshal and unmarshal using custom encoder and decoder" do
+      obj = Stripe::StripeObject.construct_from(
+        { id: 1, name: "Stripe" },
+        api_key: "apikey",
+        client: StripeClient.active_client
+      )
+      m = Marshal.load(Marshal.dump(obj))
+      assert_equal 1, m.id
+      assert_equal "Stripe", m.name
+      expected_hash = { api_key: "apikey" }
+      assert_equal expected_hash, m.instance_variable_get("@opts")
+    end
   end
 end

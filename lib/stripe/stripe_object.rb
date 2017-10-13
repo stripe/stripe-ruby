@@ -144,6 +144,28 @@ module Stripe
       end
     end
 
+    # Implements custom encoding for Ruby's Marshal. The data produced by this
+    # method should be comprehendable by #marshal_load.
+    #
+    # This allows us to remove certain features that cannot or should not be
+    # serialized.
+    def marshal_dump
+      # The StripeClient instance in @opts is not serializable and is not
+      # really a property of the StripeObject, so we exclude it when
+      # dumping
+      opts = @opts.clone
+      opts.delete(:client)
+      [@values, opts]
+    end
+
+    # Implements custom decoding for Ruby's Marshal. Consumes data that's
+    # produced by #marshal_dump.
+    def marshal_load(data)
+      values, opts = data
+      initialize(values[:id])
+      initialize_from(values, opts)
+    end
+
     def serialize_params(options = {})
       update_hash = {}
 

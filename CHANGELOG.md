@@ -4,14 +4,14 @@
 * [#592](https://github.com/stripe/stripe-ruby#592) Bring back `Marshal.dump/load` support with custom marshal encoder/decoder
 
 ## 3.5.1 - 2017-10-12
-* [#591](https://github.com/stripe/stripe-dotnet#591) Use thread-local `StripeClient` instances for thread safety
+* [#591](https://github.com/stripe/stripe-ruby#591) Use thread-local `StripeClient` instances for thread safety
 
 ## 3.5.0 - 2017-10-11
-* [#589](https://github.com/stripe/stripe-dotnet#589) Rename source `delete` to `detach` (and deprecate the former)
+* [#589](https://github.com/stripe/stripe-ruby#589) Rename source `delete` to `detach` (and deprecate the former)
 
 ## 3.4.1 - 2017-10-05
-* [#586](https://github.com/stripe/stripe-dotnet#586) Log query strings as well as form bodies with STRIPE_LOG
-* [#588](https://github.com/stripe/stripe-dotnet#588) Require minimum Faraday 0.10 for bug fix in parameter encoding
+* [#586](https://github.com/stripe/stripe-ruby#586) Log query strings as well as form bodies with STRIPE_LOG
+* [#588](https://github.com/stripe/stripe-ruby#588) Require minimum Faraday 0.10 for bug fix in parameter encoding
 
 ## 3.4.0 - 2017-09-20
 * Mark legacy Bitcoin API as deprecated, and remove corresponding tests

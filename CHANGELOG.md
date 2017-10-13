@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.5.2 - 2017-10-13
+* [#592](https://github.com/stripe/stripe-ruby#592) Bring back `Marshal.dump/load` support with custom marshal encoder/decoder
+
 ## 3.5.1 - 2017-10-12
 * [#591](https://github.com/stripe/stripe-dotnet#591) Use thread-local `StripeClient` instances for thread safety
 

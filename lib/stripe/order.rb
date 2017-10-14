@@ -12,8 +12,14 @@ module Stripe
     end
 
     def return_order(params, opts = {})
+      params[:items] = Util.array_to_hash(params[:items]) if params[:items]
       resp, opts = request(:post, returns_url, params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.create(params = {}, opts = {})
+      params[:items] = Util.array_to_hash(params[:items]) if params[:items]
+      super(params, opts)
     end
 
     private

@@ -423,5 +423,17 @@ module Stripe
       expected_hash = { api_key: "apikey" }
       assert_equal expected_hash, m.instance_variable_get("@opts")
     end
+
+    context "#method" do
+      should "act as a getter is not argument is provided" do
+        obj = Stripe::StripeObject.construct_from(id: 1, method: "foo")
+        assert_equal "foo", obj.method
+      end
+
+      should "call Object#method if an argument is provided" do
+        obj = Stripe::StripeObject.construct_from(id: 1, method: "foo")
+        assert obj.method(:id).is_a?(Method)
+      end
+    end
   end
 end

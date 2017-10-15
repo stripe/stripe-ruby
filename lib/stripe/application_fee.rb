@@ -1,8 +1,11 @@
 module Stripe
   class ApplicationFee < APIResource
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "application_fee".freeze
+
+    nested_resource_class_methods :refund, operations: %i[create retrieve update list]
 
     def self.resource_url
       "/v1/application_fees"

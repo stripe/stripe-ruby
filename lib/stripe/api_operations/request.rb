@@ -23,7 +23,7 @@ module Stripe
           # Hash#select returns an array before 1.9
           opts_to_persist = {}
           opts.each do |k, v|
-            opts_to_persist[k] = v if Util::OPTS_KEYS_TO_PERSIST.include?(k)
+            opts_to_persist[k] = v if Util::OPTS_PERSISTABLE.include?(k)
           end
 
           [resp, opts_to_persist]

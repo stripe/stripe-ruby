@@ -2,6 +2,22 @@ require File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class UtilTest < Test::Unit::TestCase
+    context "OPTS_COPYABLE" do
+      should "include :apibase" do
+        assert_include Stripe::Util::OPTS_COPYABLE, :api_base
+      end
+    end
+
+    context "OPTS_PERSISTABLE" do
+      should "include :client" do
+        assert_include Stripe::Util::OPTS_PERSISTABLE, :client
+      end
+
+      should "not include :idempotency_key" do
+        refute_includes Stripe::Util::OPTS_PERSISTABLE, :idempotency_key
+      end
+    end
+
     should "#encode_parameters should prepare parameters for an HTTP request" do
       params = {
         a: 3,

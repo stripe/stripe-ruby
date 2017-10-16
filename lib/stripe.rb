@@ -1,15 +1,15 @@
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
 require "cgi"
+require "faraday"
+require "json"
 require "logger"
 require "openssl"
 require "rbconfig"
 require "securerandom"
 require "set"
 require "socket"
-
-require "faraday"
-require "json"
+require "uri"
 
 # Version
 require "stripe/version"

@@ -434,7 +434,7 @@ module Stripe
     end
 
     context "#method" do
-      should "act as a getter is not argument is provided" do
+      should "act as a getter if no arguments are provided" do
         obj = Stripe::StripeObject.construct_from(id: 1, method: "foo")
         assert_equal "foo", obj.method
       end

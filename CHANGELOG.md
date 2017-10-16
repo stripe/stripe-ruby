@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.5.3 - 2017-10-16
+* [#594](https://github.com/stripe/stripe-ruby#594) Make sure that `StripeObject`'s `#deep_copy` maintains original class
+* [#595](https://github.com/stripe/stripe-ruby#595) Allow `Object#method` to be called on `StripeObject` even if it conflicts with an accessor
+* [#596](https://github.com/stripe/stripe-ruby#596) Encode arrays as integer-indexed hashes where appropriate
+* [#598](https://github.com/stripe/stripe-ruby#598) Don't persist `idempotency_key` opt between requests
+
 ## 3.5.2 - 2017-10-13
 * [#592](https://github.com/stripe/stripe-ruby#592) Bring back `Marshal.dump/load` support with custom marshal encoder/decoder
 

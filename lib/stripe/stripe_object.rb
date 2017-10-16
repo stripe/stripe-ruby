@@ -241,7 +241,16 @@ module Stripe
           next if protected_fields.include?(k)
           next if @@permanent_attributes.include?(k)
 
-          define_method(k) { @values[k] }
+          if k == :method
+            # Object#method is a built-in Ruby method that accepts a symbol
+            # and returns the corresponding Method object. Because the API may
+            # also use `method` as a field name, we check the arity of *args
+            # to decide whether to act as a getter or call the parent method.
+            define_method(k) { |*args| args.empty? ? @values[k] : super(*args) }
+          else
+            define_method(k) { @values[k] }
+          end
+
           define_method(:"#{k}=") do |v|
             if v == ""
               raise ArgumentError, "You cannot set #{k} to an empty string. " \

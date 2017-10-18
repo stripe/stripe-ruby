@@ -2,7 +2,7 @@ module Stripe
   module APIOperations
     # Adds methods to help manipulate a subresource from its parent resource so
     # that it's possible to do so from a static context (i.e. without a
-    # pre-existing collection of subresources on the parent). 
+    # pre-existing collection of subresources on the parent).
     #
     # For examle, a transfer gains the static methods for reversals so that the
     # methods `.create_reversal`, `.retrieve_reversal`, `.update_reversal`,

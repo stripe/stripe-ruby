@@ -31,7 +31,8 @@ module Stripe
     context ".nested_resource_class_methods" do
       class MainResource < APIResource
         extend Stripe::APIOperations::NestedResource
-        nested_resource_class_methods :nested
+        nested_resource_class_methods :nested,
+                                      operations: %i[create retrieve update delete list]
       end
 
       should "define a create method" do

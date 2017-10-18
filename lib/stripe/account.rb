@@ -5,10 +5,13 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "account".freeze
 
     save_nested_resource :external_account
+    nested_resource_class_methods :external_account
+    nested_resource_class_methods :login_link, operations: %i[create]
 
     # This method is deprecated. Please use `#external_account=` instead.
     save_nested_resource :bank_account

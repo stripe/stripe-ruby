@@ -3,8 +3,11 @@ module Stripe
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "transfer".freeze
+
+    nested_resource_class_methods :reversal, operations: %i[create retrieve update list]
 
     def cancel
       resp, api_key = request(:post, cancel_url)

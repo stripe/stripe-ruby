@@ -20,6 +20,7 @@ require "stripe/api_operations/save"
 require "stripe/api_operations/delete"
 require "stripe/api_operations/list"
 require "stripe/api_operations/request"
+require "stripe/api_operations/nested_resource"
 
 # API resource support classes
 require "stripe/errors"

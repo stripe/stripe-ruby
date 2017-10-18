@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.6.0 - 2017-10-17
+* [#597](https://github.com/stripe/stripe-ruby#597) Add static methods to manipulate resources from parent
+    * `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)
+    * `ApplicationFee` gains methods for refunds
+    * `Customer` gains methods for sources
+    * `Transfer` gains methods for reversals
+
 ## 3.5.3 - 2017-10-16
 * [#594](https://github.com/stripe/stripe-ruby#594) Make sure that `StripeObject`'s `#deep_copy` maintains original class
 * [#595](https://github.com/stripe/stripe-ruby#595) Allow `Object#method` to be called on `StripeObject` even if it conflicts with an accessor

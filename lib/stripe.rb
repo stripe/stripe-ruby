@@ -16,11 +16,11 @@ require "stripe/version"
 
 # API operations
 require "stripe/api_operations/create"
-require "stripe/api_operations/save"
 require "stripe/api_operations/delete"
 require "stripe/api_operations/list"
-require "stripe/api_operations/request"
 require "stripe/api_operations/nested_resource"
+require "stripe/api_operations/request"
+require "stripe/api_operations/save"
 
 # API resource support classes
 require "stripe/errors"

@@ -10,7 +10,7 @@ module Stripe
     module NestedResource
       def nested_resource_class_methods(resource, path: nil, operations: nil)
         path ||= "#{resource}s"
-        operations ||= %i[create retrieve update delete list]
+        raise ArgumentError, "operations array required" if operations.nil?
 
         resource_url_method = :"#{resource}s_url"
         define_singleton_method(resource_url_method) do |id, nested_id = nil|

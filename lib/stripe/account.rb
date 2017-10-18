@@ -10,7 +10,8 @@ module Stripe
     OBJECT_NAME = "account".freeze
 
     save_nested_resource :external_account
-    nested_resource_class_methods :external_account
+    nested_resource_class_methods :external_account,
+                                  operations: %i[create retrieve update delete list]
     nested_resource_class_methods :login_link, operations: %i[create]
 
     # This method is deprecated. Please use `#external_account=` instead.

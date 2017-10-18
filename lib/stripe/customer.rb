@@ -9,7 +9,8 @@ module Stripe
     OBJECT_NAME = "customer".freeze
 
     save_nested_resource :source
-    nested_resource_class_methods :source
+    nested_resource_class_methods :source,
+                                  operations: %i[create retrieve update delete list]
 
     # The API request for deleting a card or bank account and for detaching a
     # source object are the same.

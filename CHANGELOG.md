@@ -1,30 +1,30 @@
 # Changelog
 
 ## 3.6.0 - 2017-10-17
-* [#597](https://github.com/stripe/stripe-ruby#597) Add static methods to manipulate resources from parent
+* [#597](https://github.com/stripe/stripe-ruby/pull/597) Add static methods to manipulate resources from parent
     * `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)
     * `ApplicationFee` gains methods for refunds
     * `Customer` gains methods for sources
     * `Transfer` gains methods for reversals
 
 ## 3.5.3 - 2017-10-16
-* [#594](https://github.com/stripe/stripe-ruby#594) Make sure that `StripeObject`'s `#deep_copy` maintains original class
-* [#595](https://github.com/stripe/stripe-ruby#595) Allow `Object#method` to be called on `StripeObject` even if it conflicts with an accessor
-* [#596](https://github.com/stripe/stripe-ruby#596) Encode arrays as integer-indexed hashes where appropriate
-* [#598](https://github.com/stripe/stripe-ruby#598) Don't persist `idempotency_key` opt between requests
+* [#594](https://github.com/stripe/stripe-ruby/pull/594) Make sure that `StripeObject`'s `#deep_copy` maintains original class
+* [#595](https://github.com/stripe/stripe-ruby/pull/595) Allow `Object#method` to be called on `StripeObject` even if it conflicts with an accessor
+* [#596](https://github.com/stripe/stripe-ruby/pull/596) Encode arrays as integer-indexed hashes where appropriate
+* [#598](https://github.com/stripe/stripe-ruby/pull/598) Don't persist `idempotency_key` opt between requests
 
 ## 3.5.2 - 2017-10-13
-* [#592](https://github.com/stripe/stripe-ruby#592) Bring back `Marshal.dump/load` support with custom marshal encoder/decoder
+* [#592](https://github.com/stripe/stripe-ruby/pull/592) Bring back `Marshal.dump/load` support with custom marshal encoder/decoder
 
 ## 3.5.1 - 2017-10-12
-* [#591](https://github.com/stripe/stripe-ruby#591) Use thread-local `StripeClient` instances for thread safety
+* [#591](https://github.com/stripe/stripe-ruby/pull/591) Use thread-local `StripeClient` instances for thread safety
 
 ## 3.5.0 - 2017-10-11
-* [#589](https://github.com/stripe/stripe-ruby#589) Rename source `delete` to `detach` (and deprecate the former)
+* [#589](https://github.com/stripe/stripe-ruby/pull/589) Rename source `delete` to `detach` (and deprecate the former)
 
 ## 3.4.1 - 2017-10-05
-* [#586](https://github.com/stripe/stripe-ruby#586) Log query strings as well as form bodies with STRIPE_LOG
-* [#588](https://github.com/stripe/stripe-ruby#588) Require minimum Faraday 0.10 for bug fix in parameter encoding
+* [#586](https://github.com/stripe/stripe-ruby/pull/586) Log query strings as well as form bodies with STRIPE_LOG
+* [#588](https://github.com/stripe/stripe-ruby/pull/588) Require minimum Faraday 0.10 for bug fix in parameter encoding
 
 ## 3.4.0 - 2017-09-20
 * Mark legacy Bitcoin API as deprecated, and remove corresponding tests

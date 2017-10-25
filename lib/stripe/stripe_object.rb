@@ -116,7 +116,7 @@ module Stripe
 
     def to_hash
       maybe_to_hash = lambda do |value|
-        value.respond_to?(:to_hash) ? value.to_hash : value
+        value && value.respond_to?(:to_hash) ? value.to_hash : value
       end
 
       @values.each_with_object({}) do |(key, value), acc|

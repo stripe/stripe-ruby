@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.7.0 - 2017-10-26
+* [#603](https://github.com/stripe/stripe-ruby/pull/603) Support for listing source transactions
+
 ## 3.6.0 - 2017-10-17
 * [#597](https://github.com/stripe/stripe-ruby/pull/597) Add static methods to manipulate resources from parent
     * `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)

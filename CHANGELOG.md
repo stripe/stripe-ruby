@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.8.0 - 2017-10-31
+* [#606](https://github.com/stripe/stripe-ruby/pull/606) Support for exchange rates APIs
+
 ## 3.7.0 - 2017-10-26
 * [#603](https://github.com/stripe/stripe-ruby/pull/603) Support for listing source transactions
 

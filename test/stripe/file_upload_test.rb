@@ -31,7 +31,7 @@ module Stripe
       assert file.is_a?(Stripe::FileUpload)
     end
 
-    should "be creatable" do
+    should "be creatable with a File" do
       stub_request(:post, "#{Stripe.uploads_base}/v1/files")
         .with(headers: {
           "Content-Type" => /\A#{Faraday::Request::Multipart.mime_type}/,
@@ -42,6 +42,25 @@ module Stripe
       file = Stripe::FileUpload.create(
         purpose: "dispute_evidence",
         file: File.new(__FILE__)
+      )
+      assert file.is_a?(Stripe::FileUpload)
+    end
+
+    should "be creatable with a Tempfile" do
+      stub_request(:post, "#{Stripe.uploads_base}/v1/files")
+        .with(headers: {
+          "Content-Type" => /\A#{Faraday::Request::Multipart.mime_type}/,
+        }) do |request|
+        request.body =~ /Hello world/
+      end.to_return(body: JSON.generate(FIXTURE))
+
+      tempfile = Tempfile.new("foo")
+      tempfile.write("Hello world")
+      tempfile.rewind
+
+      file = Stripe::FileUpload.create(
+        purpose: "dispute_evidence",
+        file: tempfile
       )
       assert file.is_a?(Stripe::FileUpload)
     end

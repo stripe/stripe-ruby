@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.8.1 - 2017-12-06
+* [#611](https://github.com/stripe/stripe-ruby/pull/611) Support `Tempfile` (as well as `File`) in file uploads
+
 ## 3.8.0 - 2017-10-31
 * [#606](https://github.com/stripe/stripe-ruby/pull/606) Support for exchange rates APIs
 

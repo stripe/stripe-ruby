@@ -121,12 +121,11 @@ module Stripe
       url = api_url(path, api_base)
 
       body = nil
-      query_string = nil
+      query_params = nil
 
       case method.to_s.downcase.to_sym
       when :get, :head, :delete
-        query_string = Util.encode_parameters(params) if params && params.any?
-        url += "#{URI.parse(url).query ? '&' : '?'}#{query_string}" unless query_string.nil?
+        query_params = params
       else
         body = if headers[:content_type] && headers[:content_type] == "multipart/form-data"
                  params
@@ -148,12 +147,13 @@ module Stripe
       context.idempotency_key = headers["Idempotency-Key"]
       context.method          = method
       context.path            = path
-      context.query_string    = query_string
+      context.query_params    = query_params ? Util.encode_parameters(query_params) : nil
 
       http_resp = execute_request_with_rescues(api_base, context) do
         conn.run_request(method, url, body, headers) do |req|
           req.options.open_timeout = Stripe.open_timeout
           req.options.timeout = Stripe.read_timeout
+          req.params = query_params unless query_params.nil?
         end
       end
 
@@ -443,7 +443,7 @@ module Stripe
       Util.log_debug("Request details",
                      body: context.body,
                      idempotency_key: context.idempotency_key,
-                     query_string: context.query_string)
+                     query_params: context.query_params)
     end
     private :log_request
 
@@ -492,7 +492,7 @@ module Stripe
       attr_accessor :idempotency_key
       attr_accessor :method
       attr_accessor :path
-      attr_accessor :query_string
+      attr_accessor :query_params
       attr_accessor :request_id
 
       # The idea with this method is that we might want to update some of

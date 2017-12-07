@@ -87,8 +87,9 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming",
                          query: {
                            customer: "cus_123",
-                           :'subscription_items[][plan]' => "gold",
-                           :'subscription_items[][quantity]' =>  2,
+                           subscription_items: [
+                             { plan: "gold", quantity: "2" },
+                           ],
                          }
         assert invoice.is_a?(Stripe::Invoice)
       end

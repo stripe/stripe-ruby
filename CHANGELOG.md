@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.8.2 - 2017-12-07
+* [#612](https://github.com/stripe/stripe-ruby/pull/612) Fix integer-indexed array encoding when sent as query parameter (subscription items can now be used when fetching an upcoming invoice)
+
 ## 3.8.1 - 2017-12-06
 * [#611](https://github.com/stripe/stripe-ruby/pull/611) Support `Tempfile` (as well as `File`) in file uploads
 

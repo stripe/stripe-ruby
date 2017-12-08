@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.9.0 - 2017-12-08
+* [#613](https://github.com/stripe/stripe-ruby/pull/613) Introduce new `IdempotencyError` type for idempotency-specific failures
+
 ## 3.8.2 - 2017-12-07
 * [#612](https://github.com/stripe/stripe-ruby/pull/612) Fix integer-indexed array encoding when sent as query parameter (subscription items can now be used when fetching an upcoming invoice)
 

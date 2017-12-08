@@ -280,53 +280,47 @@ module Stripe
     def specific_api_error(resp, error_data, context)
       Util.log_error("Stripe API error",
                      status: resp.http_status,
-                     error_code: error_data["code"],
-                     error_message: error_data["message"],
-                     error_param: error_data["param"],
-                     error_type: error_data["type"],
+                     error_code: error_data[:code],
+                     error_message: error_data[:message],
+                     error_param: error_data[:param],
+                     error_type: error_data[:type],
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id)
 
+      # The standard set of arguments that can be used to initialize most of
+      # the exceptions.
+      opts = {
+        http_body: resp.http_body,
+        http_headers: resp.http_headers,
+        http_status: resp.http_status,
+        json_body: resp.data,
+      }
+
       case resp.http_status
       when 400, 404
-        error = InvalidRequestError.new(
-          error_data[:message], error_data[:param],
-          http_status: resp.http_status, http_body: resp.http_body,
-          json_body: resp.data, http_headers: resp.http_headers
-        )
+        case error_data[:type]
+        when "idempotency_error"
+          IdempotencyError.new(error_data[:message], opts)
+        else
+          InvalidRequestError.new(
+            error_data[:message], error_data[:param],
+            opts
+          )
+        end
       when 401
-        error = AuthenticationError.new(
-          error_data[:message],
-          http_status: resp.http_status, http_body: resp.http_body,
-          json_body: resp.data, http_headers: resp.http_headers
-        )
+        AuthenticationError.new(error_data[:message], opts)
       when 402
-        error = CardError.new(
+        CardError.new(
           error_data[:message], error_data[:param], error_data[:code],
-          http_status: resp.http_status, http_body: resp.http_body,
-          json_body: resp.data, http_headers: resp.http_headers
+          opts
         )
       when 403
-        error = PermissionError.new(
-          error_data[:message],
-          http_status: resp.http_status, http_body: resp.http_body,
-          json_body: resp.data, http_headers: resp.http_headers
-        )
+        PermissionError.new(error_data[:message], opts)
       when 429
-        error = RateLimitError.new(
-          error_data[:message],
-          http_status: resp.http_status, http_body: resp.http_body,
-          json_body: resp.data, http_headers: resp.http_headers
-        )
+        RateLimitError.new(error_data[:message], opts)
       else
-        error = APIError.new(
-          error_data[:message],
-          http_status: resp.http_status, http_body: resp.http_body,
-          json_body: resp.data, http_headers: resp.http_headers
-        )
+        APIError.new(error_data[:message], opts)
       end
-
-      error
     end
 
     # Attempts to look at a response's error code and return an OAuth error if

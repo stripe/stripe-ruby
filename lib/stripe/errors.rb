@@ -66,6 +66,11 @@ module Stripe
     end
   end
 
+  # IdempotencyError is raised in cases where an idempotency key was used
+  # improperly.
+  class IdempotencyError < StripeError
+  end
+
   # InvalidRequestError is raised when a request is initiated with invalid
   # parameters.
   class InvalidRequestError < StripeError

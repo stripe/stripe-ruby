@@ -13,12 +13,12 @@ Metrics/AbcSize:
 # Offense count: 27
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
-  Max: 455
+  Max: 467
 
 # Offense count: 8
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 583
+  Max: 595
 
 # Offense count: 10
 Metrics/CyclomaticComplexity:

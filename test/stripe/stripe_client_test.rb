@@ -242,10 +242,10 @@ module Stripe
           }
           Util.expects(:log_error).with("Stripe API error",
                                         status: 500,
-                                        error_code: error["code"],
-                                        error_message: error["message"],
-                                        error_param: error["param"],
-                                        error_type: error["type"],
+                                        error_code: error[:code],
+                                        error_message: error[:message],
+                                        error_param: error[:param],
+                                        error_type: error[:type],
                                         idempotency_key: nil,
                                         request_id: nil)
 
@@ -411,7 +411,22 @@ module Stripe
           assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.message
         end
 
-        should "raise InvalidRequestError on 400" do
+        should "raise IdempotencyError on 400 of type idempotency_error" do
+          data = make_missing_id_error
+          data[:error][:type] = "idempotency_error"
+
+          stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            .to_return(body: JSON.generate(data), status: 400)
+          client = StripeClient.new
+
+          e = assert_raises Stripe::IdempotencyError do
+            client.execute_request(:post, "/v1/charges")
+          end
+          assert_equal(400, e.http_status)
+          assert_equal(true, e.json_body.is_a?(Hash))
+        end
+
+        should "raise InvalidRequestError on other 400s" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(make_missing_id_error), status: 400)
           client = StripeClient.new

@@ -4,3 +4,4 @@
 Gemfile.lock
 tags
 /.bundle/
+coverage/

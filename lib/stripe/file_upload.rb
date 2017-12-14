@@ -1,5 +1,3 @@
-require "tempfile"
-
 module Stripe
   class FileUpload < APIResource
     extend Stripe::APIOperations::Create
@@ -20,9 +18,9 @@ module Stripe
 
     def self.create(params = {}, opts = {})
       # rest-client would accept a vanilla `File` for upload, but Faraday does
-      # not. Support the old API by wrapping a `File` with an `UploadIO` object
-      # if we're given one.
-      if params[:file] && [File, Tempfile].any? { |klass| params[:file].is_a?(klass) }
+      # not. Support the old API by wrapping a `File`-like object with an
+      # `UploadIO` object if we're given one.
+      if params[:file] && params[:file].respond_to?(:path) && params[:file].respond_to?(:read)
         params[:file] = Faraday::UploadIO.new(params[:file], nil)
       end
 

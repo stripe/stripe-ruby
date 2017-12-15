@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.9.1 - 2017-12-15
+* [#616](https://github.com/stripe/stripe-ruby/pull/616) Support all file-like objects for uploads with duck typed checks on `path` and `read` (we previously whitelisted only certain classes)
+
 ## 3.9.0 - 2017-12-08
 * [#613](https://github.com/stripe/stripe-ruby/pull/613) Introduce new `IdempotencyError` type for idempotency-specific failures
 

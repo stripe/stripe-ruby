@@ -62,6 +62,7 @@ require 'stripe/subscription_item'
 require 'stripe/three_d_secure'
 require 'stripe/token'
 require 'stripe/transfer'
+require 'stripe/payout'
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + '/data/ca-certificates.crt'

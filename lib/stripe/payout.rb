@@ -4,15 +4,13 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "payout".freeze
-
     def cancel
-      resp, api_key = request(:post, cancel_url)
-      initialize_from(resp.data, api_key)
+      response, api_key = self.request(:post, cancel_url)
+      initialize_from(response, api_key)
     end
 
     def cancel_url
-      resource_url + "/cancel"
+      resource_url + '/cancel'
     end
   end
 end

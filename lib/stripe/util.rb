@@ -36,6 +36,7 @@ module Stripe
         'fee_refund' => ApplicationFeeRefund,
         'invoiceitem' => InvoiceItem,
         'invoice' => Invoice,
+        'payout' => Payout,
         'plan' => Plan,
         'recipient' => Recipient,
         'refund' => Refund,

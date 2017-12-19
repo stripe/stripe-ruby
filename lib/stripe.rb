@@ -52,6 +52,7 @@ require 'stripe/dispute'
 require 'stripe/product'
 require 'stripe/sku'
 require 'stripe/order'
+require 'stripe/payout'
 
 # Errors
 require 'stripe/errors/stripe_error'

@@ -23,6 +23,11 @@ cache:
     - stripe-mock
 
 before_install:
+  # Download and Configure Testspace client 
+  - mkdir -p $HOME/bin
+  - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux.tgz | tar -zxvf- -C $HOME/bin
+  - testspace config url $TS_ORG.testspace.com
+
   # Unpack and start stripe-mock so that the test suite can talk to it
   - |
     if [ ! -d "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}" ]; then
@@ -36,3 +41,6 @@ before_install:
 
 script:
   - bundle exec rake
+
+after_script:
+  - testspace [Ruby_${TRAVIS_RUBY_VERSION}]test/reports/TEST-*.xml{test}

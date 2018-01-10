@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  gem "ci_reporter_test_unit"
   gem "coveralls", require: false
   gem "mocha", "~> 0.13.2"
   gem "rake"

@@ -83,6 +83,7 @@ module Stripe
         SubscriptionItem::OBJECT_NAME     => SubscriptionItem,
         ThreeDSecure::OBJECT_NAME         => ThreeDSecure,
         Token::OBJECT_NAME                => Token,
+        Topup::OBJECT_NAME                => Topup,
         Transfer::OBJECT_NAME             => Transfer,
       }
     end

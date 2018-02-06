@@ -74,6 +74,7 @@ require "stripe/subscription"
 require "stripe/subscription_item"
 require "stripe/three_d_secure"
 require "stripe/token"
+require "stripe/topup"
 require "stripe/transfer"
 
 # OAuth

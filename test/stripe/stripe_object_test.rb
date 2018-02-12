@@ -115,23 +115,40 @@ module Stripe
       end
     end
 
-    should "recursively call to_hash on its values" do
-      # deep nested hash (when contained in an array) or StripeObject
-      nested_hash = { id: 7, foo: "bar" }
-      nested = Stripe::StripeObject.construct_from(nested_hash)
+    context "#to_hash" do
+      should "skip calling to_hash on nil" do
+        module NilWithToHash
+          def to_hash
+            raise "Can't call to_hash on nil"
+          end
+        end
+        # include is private in Ruby 2.0
+        NilClass.send(:include, NilWithToHash)
 
-      obj = Stripe::StripeObject.construct_from(id: 1,
-                                                # simple hash that contains a StripeObject to help us test deep
-                                                # recursion
-                                                nested: { object: "list", data: [nested] },
-                                                list: [nested])
+        hash_with_nil = { id: 3, foo: nil }
+        obj = StripeObject.construct_from(hash_with_nil)
+        expected_hash = { id: 3, foo: nil }
+        assert_equal expected_hash, obj.to_hash
+      end
 
-      expected_hash = {
-        id: 1,
-        nested: { object: "list", data: [nested_hash] },
-        list: [nested_hash],
-      }
-      assert_equal expected_hash, obj.to_hash
+      should "recursively call to_hash on its values" do
+        # deep nested hash (when contained in an array) or StripeObject
+        nested_hash = { id: 7, foo: "bar" }
+        nested = Stripe::StripeObject.construct_from(nested_hash)
+
+        obj = Stripe::StripeObject.construct_from(id: 1,
+                                                  # simple hash that contains a StripeObject to help us test deep
+                                                  # recursion
+                                                  nested: { object: "list", data: [nested] },
+                                                  list: [nested])
+
+        expected_hash = {
+          id: 1,
+          nested: { object: "list", data: [nested_hash] },
+          list: [nested_hash],
+        }
+        assert_equal expected_hash, obj.to_hash
+      end
     end
 
     should "assign question mark accessors for booleans" do

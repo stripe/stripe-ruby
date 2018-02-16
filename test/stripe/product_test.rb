@@ -16,10 +16,12 @@ module Stripe
     end
 
     should "be creatable" do
-      _ = Stripe::Product.create(
-        name: "My Product"
+      product = Stripe::Product.create(
+        name: "My Product",
+        type: "good"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/products"
+      assert product.is_a?(Stripe::Product)
     end
 
     should "be saveable" do

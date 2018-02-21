@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.10.0 - 2018-02-21
+* [#627](https://github.com/stripe/stripe-ruby/pull/627) Add support for topups
+
 ## 3.9.2 - 2018-02-12
 * [#625](https://github.com/stripe/stripe-ruby/pull/625) Skip calling `to_hash` for `nil`
 

@@ -8,8 +8,7 @@ module Stripe
     # about the response that conveyed the error.
     attr_accessor :response
 
-    # These fields are now available as part of #response and that usage should
-    # be preferred.
+    attr_reader :code
     attr_reader :http_body
     attr_reader :http_headers
     attr_reader :http_status
@@ -18,12 +17,13 @@ module Stripe
 
     # Initializes a StripeError.
     def initialize(message = nil, http_status: nil, http_body: nil, json_body: nil,
-                   http_headers: nil)
+                   http_headers: nil, code: nil)
       @message = message
       @http_status = http_status
       @http_body = http_body
       @http_headers = http_headers || {}
       @json_body = json_body
+      @code = code
       @request_id = @http_headers[:request_id]
     end
 
@@ -55,14 +55,15 @@ module Stripe
   # CardError is raised when a user enters a card that can't be charged for
   # some reason.
   class CardError < StripeError
-    attr_reader :param, :code
+    attr_reader :param
 
+    # TODO: make code a keyword arg in next major release
     def initialize(message, param, code, http_status: nil, http_body: nil, json_body: nil,
                    http_headers: nil)
       super(message, http_status: http_status, http_body: http_body,
-                     json_body: json_body, http_headers: http_headers)
+                     json_body: json_body, http_headers: http_headers,
+                     code: code)
       @param = param
-      @code = code
     end
   end
 
@@ -77,9 +78,10 @@ module Stripe
     attr_accessor :param
 
     def initialize(message, param, http_status: nil, http_body: nil, json_body: nil,
-                   http_headers: nil)
+                   http_headers: nil, code: nil)
       super(message, http_status: http_status, http_body: http_body,
-                     json_body: json_body, http_headers: http_headers)
+                     json_body: json_body, http_headers: http_headers,
+                     code: code)
       @param = param
     end
   end
@@ -109,13 +111,11 @@ module Stripe
   module OAuth
     # OAuthError is raised when the OAuth API returns an error.
     class OAuthError < StripeError
-      attr_accessor :code
-
       def initialize(code, description, http_status: nil, http_body: nil, json_body: nil,
                      http_headers: nil)
         super(description, http_status: http_status, http_body: http_body,
-                           json_body: json_body, http_headers: http_headers)
-        @code = code
+                           json_body: json_body, http_headers: http_headers,
+                           code: code)
       end
     end
 

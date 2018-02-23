@@ -452,13 +452,15 @@ module Stripe
 
         should "raise CardError on 402" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_missing_id_error), status: 402)
+            .to_return(body: JSON.generate(make_invalid_exp_year_error), status: 402)
           client = StripeClient.new
           begin
             client.execute_request(:post, "/v1/charges")
           rescue Stripe::CardError => e
             assert_equal(402, e.http_status)
             assert_equal(true, e.json_body.is_a?(Hash))
+            assert_equal("invalid_expiry_year", e.code)
+            assert_equal("exp_year", e.param)
           end
         end
 

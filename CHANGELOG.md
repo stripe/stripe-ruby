@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.11.0 - 2018-02-26
+* [#628](https://github.com/stripe/stripe-ruby/pull/628) Add support for `code` attribute on all Stripe exceptions
+
 ## 3.10.0 - 2018-02-21
 * [#627](https://github.com/stripe/stripe-ruby/pull/627) Add support for topups
 

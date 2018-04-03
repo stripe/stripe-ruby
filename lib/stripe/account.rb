@@ -82,6 +82,13 @@ module Stripe
             serialize_additional_owners(entity, owners)
         end
       end
+      if (transfer_schedule = update_hash[:transfer_schedule])
+        if (transfer_schedule[:interval] == "weekly")
+          transfer_schedule.delete(:monthly_anchor)
+        elsif (transfer_schedule[:interval] == "monthly")
+          transfer_schedule.delete(:weekly_anchor)
+        end
+      end
       update_hash
     end
 

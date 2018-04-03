@@ -410,10 +410,14 @@ module Stripe
       elsif value.is_a?(StripeObject)
         update = value.serialize_params(force: force)
 
-        # If the entire object was replaced, then we need blank each field of
-        # the old object that held a value. The new serialized values will
-        # override any of these empty values.
-        update = empty_values(original).merge(update) if original && unsaved
+        # If the entire object was replaced and this is a `metadata` hash, then
+        # we need blank each field of the old object that held a value because
+        # otherwise the update to `metadata` will be additive instead of a full
+        # replacement. The new serialized values will override any of these
+        # empty values.
+        if original && unsaved && key && key == :metadata
+          update = empty_values(original).merge(update)
+        end
 
         update
 

@@ -54,8 +54,9 @@ module Stripe
 
     should "be deletable" do
       account = Stripe::Account.retrieve("acct_123")
+      account_id = account.id
       account = account.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{account.id}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{account_id}"
       assert account.is_a?(Stripe::Account)
     end
 

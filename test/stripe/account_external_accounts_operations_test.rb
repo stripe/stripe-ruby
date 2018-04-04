@@ -43,12 +43,11 @@ module Stripe
 
     context "#delete_external_account" do
       should "delete an external_account" do
-        external_account = Stripe::Account.delete_external_account(
+        Stripe::Account.delete_external_account(
           @account_id,
           @external_account_id
         )
         assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{@account_id}/external_accounts/#{@external_account_id}"
-        assert external_account.is_a?(Stripe::BankAccount)
       end
     end
 

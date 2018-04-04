@@ -23,8 +23,9 @@ module Stripe
 
     should "be deletable" do
       domain = Stripe::ApplePayDomain.retrieve("apwc_123")
+      domain_id = domain.id
       domain = domain.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{domain.id}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{domain_id}"
       assert domain.is_a?(Stripe::ApplePayDomain)
     end
   end

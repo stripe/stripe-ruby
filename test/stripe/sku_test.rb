@@ -40,8 +40,9 @@ module Stripe
 
     should "be deletable" do
       sku = Stripe::SKU.retrieve("sku_123")
+      sku_id = sku.id
       sku = sku.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/skus/#{sku.id}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/skus/#{sku_id}"
       assert sku.is_a?(Stripe::SKU)
     end
   end

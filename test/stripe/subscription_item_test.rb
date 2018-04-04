@@ -44,8 +44,9 @@ module Stripe
 
     should "be deletable" do
       item = Stripe::SubscriptionItem.retrieve("si_123")
+      item_id = item.id
       item = item.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/subscription_items/#{item.id}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/subscription_items/#{item_id}"
       assert item.is_a?(Stripe::SubscriptionItem)
     end
   end

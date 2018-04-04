@@ -42,8 +42,9 @@ module Stripe
 
     should "be deletable" do
       plan = Stripe::Plan.retrieve("sapphire-elite")
+      plan_id = plan.id
       plan = plan.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/plans/#{plan.id}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/plans/#{plan_id}"
       assert plan.is_a?(Stripe::Plan)
     end
   end

@@ -36,8 +36,9 @@ module Stripe
 
     should "be deletable" do
       customer = Stripe::Customer.retrieve("cus_123")
+      customer_id = customer.id
       customer = customer.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer.id}"
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer_id}"
       assert customer.is_a?(Stripe::Customer)
     end
 

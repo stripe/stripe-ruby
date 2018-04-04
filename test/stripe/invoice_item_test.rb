@@ -44,9 +44,10 @@ module Stripe
 
     should "be deletable" do
       item = Stripe::InvoiceItem.retrieve("ii_123")
+      item_id = item.id
       item = item.delete
       assert_requested :delete,
-                       "#{Stripe.api_base}/v1/invoiceitems/#{item.id}"
+                       "#{Stripe.api_base}/v1/invoiceitems/#{item_id}"
       assert item.is_a?(Stripe::InvoiceItem)
     end
   end

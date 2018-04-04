@@ -315,7 +315,11 @@ module Stripe
     end
 
     should "#serialize_params with StripeObject that's been replaced which is `metadata`" do
-      obj = Stripe::StripeObject.construct_from(metadata: Stripe::StripeObject.construct_from(bar: "foo"))
+      class WithAdditiveObjectParam < Stripe::StripeObject
+        additive_object_param :metadata
+      end
+
+      obj = WithAdditiveObjectParam.construct_from(metadata: Stripe::StripeObject.construct_from(bar: "foo"))
 
       # Here we replace the object wholesale. Because it's `metadata`, the
       # client must be able to blank out the values that were in the old

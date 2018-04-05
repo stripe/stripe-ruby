@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.12.0 - 2018-04-05
+* [#632](https://github.com/stripe/stripe-ruby/pull/632) Introduce `additive_object_param` so that non-`metadata` subobjects don't zero their keys as they're being replaced
+
 ## 3.11.0 - 2018-02-26
 * [#628](https://github.com/stripe/stripe-ruby/pull/628) Add support for `code` attribute on all Stripe exceptions
 

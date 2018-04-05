@@ -64,7 +64,8 @@ module Stripe
     # Returns whether the given name is an additive object parameter. See
     # `.additive_object_param` for details.
     def self.additive_object_param?(name)
-      !@additive_params.nil? && @additive_params.include?(name)
+      @additive_params ||= Set.new
+      @additive_params.include?(name)
     end
 
     def initialize(id = nil, opts = {})

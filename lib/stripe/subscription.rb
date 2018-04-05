@@ -25,13 +25,8 @@ module Stripe
     end
 
     def serialize_params(options = {})
-      update_hash = super
-      if @unsaved_values.include?(:items)
-        value = Util.array_to_hash(@values[:items])
-        update_hash[:items] =
-          serialize_params_value(value, nil, true, options[:force], key: :items)
-      end
-      update_hash
+      @values[:items] = Util.array_to_hash(@values[:items]) if @values[:items]
+      super
     end
 
     private

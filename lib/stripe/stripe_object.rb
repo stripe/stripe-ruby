@@ -7,6 +7,66 @@ module Stripe
     # The default :id method is deprecated and isn't useful to us
     undef :id if method_defined?(:id)
 
+    # Sets the given parameter name to one which is known to be an additive
+    # object.
+    #
+    # Additive objects are subobjects in the API that don't have the same
+    # semantics as most subobjects, which are fully replaced when they're set.
+    # This is best illustrated by example. The `source` parameter sent when
+    # updating a subscription is *not* additive; if we set it:
+    #
+    #     source[object]=card&source[number]=123
+    #
+    # We expect the old `source` object to have been overwritten completely. If
+    # the previous source had an `address_state` key associated with it and we
+    # didn't send one this time, that value of `address_state` is gone.
+    #
+    # By contrast, additive objects are those that will have new data added to
+    # them while keeping any existing data in place. The only known case of its
+    # use is for `metadata`, but it could in theory be more general. As an
+    # example, say we have a `metadata` object that looks like this on the
+    # server side:
+    #
+    #     metadata = { old: "old_value" }
+    #
+    # If we update the object with `metadata[new]=new_value`, the server side
+    # object now has *both* fields:
+    #
+    #     metadata = { old: "old_value", new: "new_value" }
+    #
+    # This is okay in itself because usually users will want to treat it as
+    # additive:
+    #
+    #     obj.metadata[:new] = "new_value"
+    #     obj.save
+    #
+    # However, in other cases, they may want to replace the entire existing
+    # contents:
+    #
+    #     obj.metadata = { new: "new_value" }
+    #     obj.save
+    #
+    # This is where things get a little bit tricky because in order to clear
+    # any old keys that may have existed, we actually have to send an explicit
+    # empty string to the server. So the operation above would have to send
+    # this form to get the intended behavior:
+    #
+    #     metadata[old]=&metadata[new]=new_value
+    #
+    # This method allows us to track which parameters are considered additive,
+    # and lets us behave correctly where appropriate when serializing
+    # parameters to be sent.
+    def self.additive_object_param(name)
+      @additive_params ||= Set.new
+      @additive_params << name
+    end
+
+    # Returns whether the given name is an additive object parameter. See
+    # `.additive_object_param` for details.
+    def self.additive_object_param?(name)
+      !@additive_params.nil? && @additive_params.include?(name)
+    end
+
     def initialize(id = nil, opts = {})
       id, @retrieve_params = Util.normalize_id(id)
       @opts = Util.normalize_opts(opts)
@@ -410,10 +470,14 @@ module Stripe
       elsif value.is_a?(StripeObject)
         update = value.serialize_params(force: force)
 
-        # If the entire object was replaced, then we need blank each field of
-        # the old object that held a value. The new serialized values will
-        # override any of these empty values.
-        update = empty_values(original).merge(update) if original && unsaved
+        # If the entire object was replaced and this is an additive object,
+        # then we need blank each field of the old object that held a value
+        # because otherwise the update to the keys of the object will be
+        # additive instead of a full replacement. The new serialized values
+        # will override any of these empty values.
+        if original && unsaved && key && self.class.additive_object_param?(key)
+          update = empty_values(original).merge(update)
+        end
 
         update
 

@@ -62,6 +62,15 @@ module Stripe
       end
 
       def self.included(base)
+        # Set `metadata` as additive so that when it's set directly we remember
+        # to clear keys that may have been previously set by sending empty
+        # values for them.
+        #
+        # It's possible that not every object with `Save` has `metadata`, but
+        # it's a close enough heuristic, and having this option set when there
+        # is no `metadata` field is not harmful.
+        base.additive_object_param(:metadata)
+
         base.extend(ClassMethods)
       end
 

@@ -303,12 +303,27 @@ module Stripe
       assert_equal({ foo: "bar" }, serialized[:metadata])
     end
 
-    should "#serialize_params with a StripeObject that's been replaced" do
-      obj = Stripe::StripeObject.construct_from(metadata: Stripe::StripeObject.construct_from(bar: "foo"))
+    should "#serialize_params with StripeObject that's been replaced" do
+      obj = Stripe::StripeObject.construct_from(source: Stripe::StripeObject.construct_from(bar: "foo"))
 
-      # Here we replace the object wholesale which means that the client must
-      # be able to blank out the values that were in the old object, but which
-      # are no longer present in the new one.
+      # Here we replace the object wholesale.
+      obj.source =
+        Stripe::StripeObject.construct_from(baz: "foo")
+
+      serialized = obj.serialize_params
+      assert_equal({ baz: "foo" }, serialized[:source])
+    end
+
+    should "#serialize_params with StripeObject that's been replaced which is `metadata`" do
+      class WithAdditiveObjectParam < Stripe::StripeObject
+        additive_object_param :metadata
+      end
+
+      obj = WithAdditiveObjectParam.construct_from(metadata: Stripe::StripeObject.construct_from(bar: "foo"))
+
+      # Here we replace the object wholesale. Because it's `metadata`, the
+      # client must be able to blank out the values that were in the old
+      # object, but which are no longer present in the new one.
       obj.metadata =
         Stripe::StripeObject.construct_from(baz: "foo")
 

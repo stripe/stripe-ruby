@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.12.1 - 2018-04-05
+* [#636](https://github.com/stripe/stripe-ruby/pull/636) Fix a warning for uninitialized instance variable `@additive_params`
+
 ## 3.12.0 - 2018-04-05
 * [#632](https://github.com/stripe/stripe-ruby/pull/632) Introduce `additive_object_param` so that non-`metadata` subobjects don't zero their keys as they're being replaced
 

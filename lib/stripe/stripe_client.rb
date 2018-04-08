@@ -311,11 +311,8 @@ module Stripe
       when 401
         AuthenticationError.new(error_data[:message], opts)
       when 402
-        # TODO: modify CardError constructor to make code a keyword argument
-        #       so we don't have to delete it from opts
-        opts.delete(:code)
         CardError.new(
-          error_data[:message], error_data[:param], error_data[:code],
+          error_data[:message], error_data[:param],
           opts
         )
       when 403

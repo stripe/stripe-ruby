@@ -130,6 +130,7 @@ module Stripe
     should "#normalize_opts should reject nil keys" do
       assert_raise { Stripe::Util.normalize_opts(nil) }
       assert_raise { Stripe::Util.normalize_opts(api_key: nil) }
+      assert_raise { Stripe::Util.normalize_opts(any_specified_key: nil) }
     end
 
     should "#convert_to_stripe_object should pass through unknown types" do

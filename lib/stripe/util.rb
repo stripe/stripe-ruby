@@ -253,7 +253,7 @@ module Stripe
       when String
         { api_key: opts }
       when Hash
-        check_api_key!(opts.fetch(:api_key)) if opts.key?(:api_key)
+        opts.keys.map { |key| check_key!(opts.fetch(key)) }
         opts.clone
       else
         raise TypeError, "normalize_opts expects a string or a hash"
@@ -265,9 +265,9 @@ module Stripe
       key
     end
 
-    def self.check_api_key!(key)
-      raise TypeError, "api_key must be a string" unless key.is_a?(String)
-      key
+    def self.check_key!(value)
+      raise TypeError, "#{value} must be present" if value.nil?
+      value
     end
 
     # Normalizes header keys so that they're all lower case and each

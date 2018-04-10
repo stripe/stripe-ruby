@@ -48,7 +48,8 @@ module Stripe
           @external_account_id
         )
         assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{@account_id}/external_accounts/#{@external_account_id}"
-        assert external_account.is_a?(Stripe::BankAccount)
+        assert external_account.deleted
+        assert_equal @external_account_id, external_account.id
       end
     end
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.13.0 - 2018-04-11
+* [#498](https://github.com/stripe/stripe-ruby/pull/498) Add support for flexible billing primitives
+
 ## 3.12.1 - 2018-04-05
 * [#636](https://github.com/stripe/stripe-ruby/pull/636) Fix a warning for uninitialized instance variable `@additive_params`
 

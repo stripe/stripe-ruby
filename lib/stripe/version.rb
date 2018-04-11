@@ -1,3 +1,3 @@
 module Stripe
-  VERSION = "3.12.1".freeze
+  VERSION = "3.13.0".freeze
 end

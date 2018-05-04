@@ -80,14 +80,20 @@ require "stripe"
 
 Stripe::Charge.list(
   {},
-  :api_key => "sk_test_...",
-  :stripe_account => "acct_..."
+  {
+    :api_key => "sk_test_...",
+    :stripe_account => "acct_...",
+    :stripe_version => "2018-02-28"
+  }
 )
 
 Stripe::Charge.retrieve(
   "ch_18atAXCdGbJFKhCuBAa4532Z",
-  :api_key => "sk_test_...",
-  :stripe_account => "acct_..."
+  {
+    :api_key => "sk_test_...",
+    :stripe_account => "acct_...",
+    :stripe_version => "2018-02-28"
+  }
 )
 ```
 
@@ -107,6 +113,15 @@ charge, resp = client.request do
 end
 puts resp.request_id
 ```
+
+### Configuration an API Version
+
+By default, the library will use the API version pinned to the account making
+a request. This can be overridden with this global option:
+
+    Stripe.api_version = "2018-02-28"
+
+See [versioning in the API reference][versioning] for more information.
 
 ### Configuring CA Bundles
 
@@ -204,6 +219,7 @@ Update the bundled [stripe-mock] by editing the version number found in
 [faraday]: https://github.com/lostisland/faraday
 [idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
 [stripe-mock]: https://github.com/stripe/stripe-mock
+[versioning]: https://stripe.com/docs/api/ruby#versioning
 
 <!--
 # vim: set tw=79:

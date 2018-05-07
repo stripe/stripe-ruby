@@ -681,6 +681,35 @@ module Stripe
             }
           )
         end
+
+        should "merge query parameters in URL and params" do
+          client = StripeClient.new
+          client.execute_request(:get, "/v1/invoices/upcoming?coupon=25OFF", params: {
+            customer: "cus_123",
+          })
+          assert_requested(
+            :get,
+            "#{Stripe.api_base}/v1/invoices/upcoming?",
+            query: {
+              coupon: "25OFF",
+              customer: "cus_123",
+            }
+          )
+        end
+
+        should "prefer query parameters in params when specified in URL as well" do
+          client = StripeClient.new
+          client.execute_request(:get, "/v1/invoices/upcoming?customer=cus_query", params: {
+            customer: "cus_param",
+          })
+          assert_requested(
+            :get,
+            "#{Stripe.api_base}/v1/invoices/upcoming?",
+            query: {
+              customer: "cus_param",
+            }
+          )
+        end
       end
     end
 

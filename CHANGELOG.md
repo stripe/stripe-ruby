@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.13.1 - 2018-05-07
+* [#647](https://github.com/stripe/stripe-ruby/pull/647) Merge query parameters coming from path with `params` argument
+
 ## 3.13.0 - 2018-04-11
 * [#498](https://github.com/stripe/stripe-ruby/pull/498) Add support for flexible billing primitives
 

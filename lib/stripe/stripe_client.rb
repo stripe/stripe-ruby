@@ -134,6 +134,23 @@ module Stripe
                end
       end
 
+      # This works around an edge case where we end up with both query
+      # parameters in `query_params` and query parameters that are appended
+      # onto the end of the given path. In this case, Faraday will silently
+      # discard the URL's parameters which may break a request.
+      #
+      # Here we decode any parameters that were added onto the end of a path
+      # and add them to `query_params` so that all parameters end up in one
+      # place and all of them are correctly included in the final request.
+      u = URI.parse(path)
+      unless u.query.nil?
+        query_params ||= {}
+        query_params = Hash[URI.decode_www_form(u.query)].merge(query_params)
+
+        # Reset the path minus any query parameters that were specified.
+        path = u.path
+      end
+
       headers = request_headers(api_key, method)
                 .update(Util.normalize_headers(headers))
 

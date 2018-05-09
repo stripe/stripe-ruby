@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.14.0 - 2018-05-09
+* [#645](https://github.com/stripe/stripe-ruby/pull/645) Add support for issuer fraud records
+
 ## 3.13.1 - 2018-05-07
 * [#647](https://github.com/stripe/stripe-ruby/pull/647) Merge query parameters coming from path with `params` argument
 

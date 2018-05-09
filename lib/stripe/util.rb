@@ -66,6 +66,7 @@ module Stripe
         Invoice::OBJECT_NAME              => Invoice,
         InvoiceItem::OBJECT_NAME          => InvoiceItem,
         InvoiceLineItem::OBJECT_NAME      => InvoiceLineItem,
+        IssuerFraudRecord::OBJECT_NAME    => IssuerFraudRecord,
         LoginLink::OBJECT_NAME            => LoginLink,
         Order::OBJECT_NAME                => Order,
         OrderReturn::OBJECT_NAME          => OrderReturn,

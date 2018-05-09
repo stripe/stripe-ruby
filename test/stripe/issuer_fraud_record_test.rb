@@ -9,18 +9,6 @@ module Stripe
       assert issfrs.data[0].is_a?(Stripe::IssuerFraudRecord)
     end
 
-    should "be listable by charge id" do
-      issfrs = Stripe::IssuerFraudRecord.from_charge(
-        charge: "ch_123",
-      )
-      assert_requested :get, "#{Stripe.api_base}/v1/issuer_fraud_records",
-                       query: {
-                         charge: "ch_123",
-                       }
-      assert issfrs.data.is_a?(Array)
-      assert issfrs.data[0].is_a?(Stripe::IssuerFraudRecord)
-    end
-
     should "be retrievable" do
       issfr = Stripe::IssuerFraudRecord.retrieve("issfr_123")
       assert_requested :get, "#{Stripe.api_base}/v1/issuer_fraud_records/issfr_123"

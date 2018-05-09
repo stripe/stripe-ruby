@@ -6,7 +6,7 @@ module Stripe
 
     def self.from_charge(params, opts = {})
       resp, opts = request(:get, from_charge_url, params, opts)
-      resp.data
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.from_charge_url

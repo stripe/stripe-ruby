@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   # Domains registered for Apple Pay on the Web
   class ApplePayDomain < APIResource

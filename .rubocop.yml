@@ -13,6 +13,9 @@ Layout/IndentArray:
 Layout/IndentHash:
   EnforcedStyle: consistent
 
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

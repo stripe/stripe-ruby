@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class OrderReturn < APIResource
     extend Stripe::APIOperations::List

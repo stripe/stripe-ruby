@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class SKU < APIResource
     extend Stripe::APIOperations::List

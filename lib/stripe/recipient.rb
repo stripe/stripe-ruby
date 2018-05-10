@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   # Recipients objects are deprecated. Please use Stripe Connect instead.
   class Recipient < APIResource

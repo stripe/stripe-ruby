@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class BankAccount < APIResource
     include Stripe::APIOperations::Save

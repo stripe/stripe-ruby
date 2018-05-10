@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class BitcoinTransaction < APIResource
     # Directly retrieving BitcoinTransactions is deprecated. Please use the

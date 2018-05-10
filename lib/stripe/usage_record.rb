@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class UsageRecord < APIResource
     def self.create(params = {}, opts = {})

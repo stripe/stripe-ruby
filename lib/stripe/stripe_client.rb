@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   # StripeClient executes requests against the Stripe API and allows a user to
   # recover both a resource a call returns as well as a response object that

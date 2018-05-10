@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class Transfer < APIResource
     extend Stripe::APIOperations::List

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class LoginLink < APIResource
     OBJECT_NAME = "login_link".freeze

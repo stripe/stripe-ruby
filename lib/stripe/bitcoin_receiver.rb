@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class BitcoinReceiver < APIResource
     # Directly creating or retrieving BitcoinReceivers is deprecated. Please use

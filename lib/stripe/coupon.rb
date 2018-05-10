@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class Coupon < APIResource
     extend Stripe::APIOperations::Create

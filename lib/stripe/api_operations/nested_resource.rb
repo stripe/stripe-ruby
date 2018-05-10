@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   module APIOperations
     # Adds methods to help manipulate a subresource from its parent resource so

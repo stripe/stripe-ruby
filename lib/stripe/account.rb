@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class Account < APIResource
     extend Gem::Deprecate

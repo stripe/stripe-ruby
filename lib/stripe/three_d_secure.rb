@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class ThreeDSecure < APIResource
     extend Stripe::APIOperations::Create

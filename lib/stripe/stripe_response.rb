@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   # StripeResponse encapsulates some vitals of a response that came back from
   # the Stripe API.

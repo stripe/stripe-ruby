@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
 require "cgi"

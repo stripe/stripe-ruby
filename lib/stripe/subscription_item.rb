@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class SubscriptionItem < APIResource
     extend Stripe::APIOperations::Create

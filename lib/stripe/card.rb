@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stripe
   class Card < APIResource
     include Stripe::APIOperations::Save

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.15.0 - 2018-05-10
+* [#649](https://github.com/stripe/stripe-ruby/pull/649) Freeze all string literals
+
 ## 3.14.0 - 2018-05-09
 * [#645](https://github.com/stripe/stripe-ruby/pull/645) Add support for issuer fraud records
 

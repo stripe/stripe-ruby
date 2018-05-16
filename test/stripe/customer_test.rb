@@ -46,7 +46,7 @@ module Stripe
     context "#create_subscription" do
       should "create a new subscription" do
         customer = Stripe::Customer.retrieve("cus_123")
-        subscription = customer.create_subscription(plan: "silver")
+        subscription = customer.create_subscription(items: [{ plan: "silver" }])
         assert subscription.is_a?(Stripe::Subscription)
       end
     end

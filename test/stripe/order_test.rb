@@ -41,7 +41,7 @@ module Stripe
     context "#pay" do
       should "pay an order" do
         order = Stripe::Order.retrieve("or_123")
-        order = order.pay(token: "tok_123")
+        order = order.pay(source: "tok_123")
         assert order.is_a?(Stripe::Order)
       end
     end
@@ -49,7 +49,7 @@ module Stripe
     context "#return_order" do
       should "return an order" do
         order = Stripe::Order.retrieve("or_123")
-        order = order.return_order(orders: [
+        order = order.return_order(items: [
           { parent: "sku_123" },
         ])
         assert order.is_a?(Stripe::OrderReturn)

@@ -345,6 +345,7 @@ module Stripe
             old = Stripe.app_info
             Stripe.set_app_info(
               "MyAwesomePlugin",
+              partner_id: "partner_1234",
               url: "https://myawesomeplugin.info",
               version: "1.2.34"
             )
@@ -361,6 +362,7 @@ module Stripe
 
                 assert_equal({
                   name: "MyAwesomePlugin",
+                  partner_id: "partner_1234",
                   url: "https://myawesomeplugin.info",
                   version: "1.2.34",
                 }, data[:application])

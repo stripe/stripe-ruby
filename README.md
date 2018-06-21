@@ -114,7 +114,7 @@ end
 puts resp.request_id
 ```
 
-### Configuration an API Version
+### Configuring an API Version
 
 By default, the library will use the API version pinned to the account making
 a request. This can be overridden with this global option:

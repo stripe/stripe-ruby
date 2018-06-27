@@ -18,6 +18,11 @@ module Stripe
       resp, opts = request(:post, pay_url, params, opts)
       initialize_from(resp.data, opts)
     end
+    
+    def send(params = {}, opts = {})
+      resp, opts = request(:post, send_url, params, opts)
+      initialize_from(resp.data, opts)
+    end
 
     def self.upcoming_url
       resource_url + "/upcoming"
@@ -28,5 +33,10 @@ module Stripe
       resource_url + "/pay"
     end
     private :pay_url
+    
+    def send_url
+      resource_url + "/send"
+    end
+    private :send_url
   end
 end

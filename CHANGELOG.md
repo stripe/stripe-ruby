@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.17.0 - 2018-06-28
+* [#658](https://github.com/stripe/stripe-ruby/pull/658) Add support for `partner_id` from `Stripe.set_app_info`
+
 ## 3.16.0 - 2018-06-28
 * [#657](https://github.com/stripe/stripe-ruby/pull/657) Add support for payment intents
 

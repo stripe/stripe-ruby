@@ -213,10 +213,11 @@ module Stripe
   # with API requests. Useful for plugin authors to identify their plugin when
   # communicating with Stripe.
   #
-  # Takes a name and optional version and plugin URL.
-  def self.set_app_info(name, version: nil, url: nil)
+  # Takes a name and optional  partner program ID, plugin URL, and version.
+  def self.set_app_info(name, partner_id: nil, url: nil, version: nil)
     @app_info = {
       name: name,
+      partner_id: partner_id,
       url: url,
       version: version,
     }

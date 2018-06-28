@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.16.0 - 2018-06-28
+* [#657](https://github.com/stripe/stripe-ruby/pull/657) Add support for payment intents
+
 ## 3.15.0 - 2018-05-10
 * [#649](https://github.com/stripe/stripe-ruby/pull/649) Freeze all string literals
 

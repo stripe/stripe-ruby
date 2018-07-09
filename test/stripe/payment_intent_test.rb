@@ -7,9 +7,6 @@ module Stripe
 
   class PaymentIntentTest < Test::Unit::TestCase
     should "be listable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/payment_intents")
-        .to_return(body: JSON.generate(object: "list", data: [{ id: "pi_123", object: "payment_intent" }]))
-
       payment_intents = Stripe::PaymentIntent.list
       assert_requested :get, "#{Stripe.api_base}/v1/payment_intents"
       assert payment_intents.data.is_a?(Array)
@@ -17,27 +14,22 @@ module Stripe
     end
 
     should "be retrievable" do
-      stub_request(:get, "#{Stripe.api_base}/v1/payment_intents/pi_123")
-        .to_return(body: JSON.generate(id: "pi_123", object: "payment_intent"))
-
       payment_intent = Stripe::PaymentIntent.retrieve("pi_123")
       assert_requested :get, "#{Stripe.api_base}/v1/payment_intents/pi_123"
       assert payment_intent.is_a?(Stripe::PaymentIntent)
     end
 
     should "be creatable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/payment_intents")
-        .to_return(body: JSON.generate(id: "pi_123", object: "payment_intent"))
-
-      payment_intent = Stripe::PaymentIntent.create
+      payment_intent = Stripe::PaymentIntent.create(
+        allowed_source_types: ["card"],
+        amount: 1234,
+        currency: "usd"
+      )
       assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
       assert payment_intent.is_a?(Stripe::PaymentIntent)
     end
 
     should "be saveable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/payment_intents/pi_123")
-        .to_return(body: JSON.generate(id: "pi_123", object: "payment_intent"))
-
       payment_intent = Stripe::PaymentIntent.construct_from(id: "pi_123", object: "payment_intent", metadata: {})
       payment_intent.metadata["key"] = "value"
       payment_intent.save
@@ -45,9 +37,6 @@ module Stripe
     end
 
     should "be updateable" do
-      stub_request(:post, "#{Stripe.api_base}/v1/payment_intents/pi_123")
-        .to_return(body: JSON.generate(id: "pi_123", object: "payment_intent"))
-
       payment_intent = Stripe::PaymentIntent.update("pi_123", metadata: { foo: "bar" })
 
       assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123"
@@ -56,9 +45,6 @@ module Stripe
 
     context "#cancel" do
       should "cancel a payment_intent" do
-        stub_request(:post, "#{Stripe.api_base}/v1/payment_intents/pi_123/cancel")
-          .to_return(body: JSON.generate(id: "pi_123", object: "payment_intent"))
-
         payment_intent = Stripe::PaymentIntent.construct_from(id: "pi_123", object: "payment_intent")
         payment_intent = payment_intent.cancel
 
@@ -69,9 +55,6 @@ module Stripe
 
     context "#capture" do
       should "capture a payment_intent" do
-        stub_request(:post, "#{Stripe.api_base}/v1/payment_intents/pi_123/capture")
-          .to_return(body: JSON.generate(id: "pi_123", object: "payment_intent"))
-
         payment_intent = Stripe::PaymentIntent.construct_from(id: "pi_123", object: "payment_intent")
         payment_intent = payment_intent.capture
 
@@ -82,9 +65,6 @@ module Stripe
 
     context "#confirm" do
       should "confirm a payment_intent" do
-        stub_request(:post, "#{Stripe.api_base}/v1/payment_intents/pi_123/confirm")
-          .to_return(body: JSON.generate(id: "pi_123", object: "payment_intent"))
-
         payment_intent = Stripe::PaymentIntent.construct_from(id: "pi_123", object: "payment_intent")
         payment_intent = payment_intent.confirm
 

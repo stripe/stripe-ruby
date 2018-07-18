@@ -38,6 +38,8 @@ module Stripe
         OBJECT_NAME = "mainresource".freeze
         nested_resource_class_methods :nested,
                                       operations: %i[create retrieve update delete list]
+
+        OBJECT_NAME = "mainresource".freeze
       end
 
       should "define a create method" do

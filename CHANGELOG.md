@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.17.1 - 2018-07-19
+* [#663](https://github.com/stripe/stripe-ruby/pull/663) Internal improvements to `ApiResource.class_url`
+
 ## 3.17.0 - 2018-06-28
 * [#658](https://github.com/stripe/stripe-ruby/pull/658) Add support for `partner_id` from `Stripe.set_app_info`
 

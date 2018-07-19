@@ -8,6 +8,8 @@ module Stripe
     class UpdateableResource < APIResource
       include Stripe::APIOperations::Save
 
+      OBJECT_NAME = "updateableresource".freeze
+
       def self.protected_fields
         [:protected]
       end
@@ -33,6 +35,7 @@ module Stripe
     context ".nested_resource_class_methods" do
       class MainResource < APIResource
         extend Stripe::APIOperations::NestedResource
+        OBJECT_NAME = "mainresource".freeze
         nested_resource_class_methods :nested,
                                       operations: %i[create retrieve update delete list]
       end

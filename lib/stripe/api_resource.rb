@@ -19,7 +19,9 @@ module Stripe
       if self == APIResource
         raise NotImplementedError, "APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)"
       end
-      "/v1/#{CGI.escape(class_name.downcase)}s"
+      # Namespaces are separated in object names with periods (.) and in URLs
+      # with forward slashes (/), so replace the former with the latter.
+      "/v1/#{self::OBJECT_NAME.downcase.tr('.', '/')}s"
     end
 
     # A metaprogramming call that specifies that a field of a resource can be

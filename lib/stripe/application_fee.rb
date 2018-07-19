@@ -9,10 +9,6 @@ module Stripe
 
     nested_resource_class_methods :refund, operations: %i[create retrieve update list]
 
-    def self.resource_url
-      "/v1/application_fees"
-    end
-
     # If you don't need access to an updated fee object after the refund, it's
     # more performant to just call `fee.refunds.create` directly.
     def refund(params = {}, opts = {})

@@ -396,7 +396,7 @@ module Stripe
     def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
       data_str = data.reject { |_k, v| v.nil? }
                      .map do |(k, v)|
-        format("%s=%s", colorize(k, color, !out.nil? && out.isatty), wrap_logfmt_value(v))
+        format("%s=%s", colorize(k, color, logger.nil? && !out.nil? && out.isatty), wrap_logfmt_value(v))
       end.join(" ")
 
       if !logger.nil?

@@ -396,7 +396,7 @@ module Stripe
         }
 
         Util.send(:log_internal, "message", { foo: "bar" },
-                  color: :green, level: Stripe::LEVEL_DEBUG, logger: logger, out: nil)
+                  color: :green, level: Stripe::LEVEL_DEBUG, logger: logger, out: $stdout)
         assert_equal "message=message foo=bar",
                      out.string
       end

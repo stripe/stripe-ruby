@@ -9,10 +9,6 @@ module Stripe
 
     OBJECT_NAME = "payment_intent".freeze
 
-    def self.resource_url
-      "/v1/payment_intents"
-    end
-
     def cancel
       resp, api_key = request(:post, resource_url + "/cancel")
       initialize_from(resp.data, api_key)

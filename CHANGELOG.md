@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.17.2 - 2018-07-19
+* [#664](https://github.com/stripe/stripe-ruby/pull/664) Don't colorize log output being sent to a configured logger
+
 ## 3.17.1 - 2018-07-19
 * [#663](https://github.com/stripe/stripe-ruby/pull/663) Internal improvements to `ApiResource.class_url`
 

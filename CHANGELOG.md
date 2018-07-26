@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.18.0 - 2018-07-26
+* [#665](https://github.com/stripe/stripe-ruby/pull/665) Add support for Stripe Issuing
+
 ## 3.17.2 - 2018-07-19
 * [#664](https://github.com/stripe/stripe-ruby/pull/664) Don't colorize log output being sent to a configured logger
 

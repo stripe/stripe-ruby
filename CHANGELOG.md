@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.19.0 - 2018-07-27
+* [#666](https://github.com/stripe/stripe-ruby/pull/666) Add support for scheduled query runs (`Stripe::Sigma::ScheduledQueryRun`) for Sigma
+
 ## 3.18.0 - 2018-07-26
 * [#665](https://github.com/stripe/stripe-ruby/pull/665) Add support for Stripe Issuing
 

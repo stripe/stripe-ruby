@@ -39,7 +39,7 @@ module Stripe
       end
     end
 
-    def self.object_classes
+    def self.object_classes # rubocop:disable Metrics/MethodLength
       @object_classes ||= {
         # data structures
         ListObject::OBJECT_NAME => ListObject,

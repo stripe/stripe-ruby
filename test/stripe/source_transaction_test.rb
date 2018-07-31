@@ -9,17 +9,6 @@ module Stripe
     end
 
     should "be listable" do
-      # TODO: remove the stub once stripe-mock supports /v1/sources/src_.../source_transactions
-      stub_request(:get, "#{Stripe.api_base}/v1/sources/#{@source.id}/source_transactions")
-        .to_return(body: JSON.generate(
-          object: "list",
-          data: [
-            {
-              object: "source_transaction",
-            },
-          ]
-        ))
-
       transactions = @source.source_transactions
 
       assert_requested :get, "#{Stripe.api_base}/v1/sources/#{@source.id}/source_transactions"

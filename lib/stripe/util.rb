@@ -64,6 +64,7 @@ module Stripe
         EphemeralKey::OBJECT_NAME             => EphemeralKey,
         Event::OBJECT_NAME                    => Event,
         ExchangeRate::OBJECT_NAME             => ExchangeRate,
+        FileLink::OBJECT_NAME                 => FileLink,
         FileUpload::OBJECT_NAME               => FileUpload,
         Invoice::OBJECT_NAME                  => Invoice,
         InvoiceItem::OBJECT_NAME              => InvoiceItem,

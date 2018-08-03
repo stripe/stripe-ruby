@@ -41,5 +41,14 @@ module Stripe
       assert_requested :post, "#{Stripe.api_base}/v1/topups/tu_123"
       assert topup.is_a?(Stripe::Topup)
     end
+
+    context "#cancel" do
+      should "cancel the topup" do
+        topup = Stripe::Topup.retrieve("tu_123")
+        topup = topup.cancel
+        assert_requested :post, "#{Stripe.api_base}/v1/topups/#{topup.id}/cancel"
+        assert topup.is_a?(Stripe::Topup)
+      end
+    end
   end
 end

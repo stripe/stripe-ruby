@@ -60,4 +60,33 @@ class StripeTest < Test::Unit::TestCase
     assert_equal Stripe.open_timeout, 30
     assert_equal Stripe.read_timeout, 80
   end
+
+  should "allow api key configured per thread" do
+    begin
+      old = Stripe.api_key
+      Stripe.config(api_key: "test_key")
+      assert_equal "test_key", Stripe.api_key
+
+      other_thread_value = nil
+      Thread.new { other_thread_value = Stripe.api_key }.join
+      assert_equal old, other_thread_value
+    ensure
+      Stripe.config # delete thread-specific configuration
+      assert_equal old, Stripe.api_key
+    end
+  end
+
+  should "allow api version configured per thread" do
+    begin
+      Stripe.config(api_version: "2078-01-32")
+      assert_equal "2078-01-32", Stripe.api_version
+
+      other_thread_value = nil
+      Thread.new { other_thread_value = Stripe.api_version }.join
+      assert_equal nil, other_thread_value
+    ensure
+      Stripe.config # delete thread-specific configuration
+      assert_equal nil, Stripe.api_version
+    end
+  end
 end

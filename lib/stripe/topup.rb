@@ -7,5 +7,10 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "topup".freeze
+
+    def cancel
+      resp, api_key = request(:post, resource_url + "/cancel")
+      initialize_from(resp.data, api_key)
+    end
   end
 end

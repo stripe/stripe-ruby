@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.20.0 - 2018-08-03
+* [#669](https://github.com/stripe/stripe-ruby/pull/669) Add support for file links
+
 ## 3.19.0 - 2018-07-27
 * [#666](https://github.com/stripe/stripe-ruby/pull/666) Add support for scheduled query runs (`Stripe::Sigma::ScheduledQueryRun`) for Sigma
 

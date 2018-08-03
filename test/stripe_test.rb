@@ -64,8 +64,8 @@ class StripeTest < Test::Unit::TestCase
   should "allow api key configured per thread" do
     begin
       old = Stripe.api_key
-      Stripe.config(api_key: 'test_key')
-      assert_equal 'test_key', Stripe.api_key
+      Stripe.config(api_key: "test_key")
+      assert_equal "test_key", Stripe.api_key
 
       other_thread_value = nil
       Thread.new { other_thread_value = Stripe.api_key }.join
@@ -78,8 +78,8 @@ class StripeTest < Test::Unit::TestCase
 
   should "allow api version configured per thread" do
     begin
-      Stripe.config(api_version: '2078-01-32')
-      assert_equal '2078-01-32', Stripe.api_version
+      Stripe.config(api_version: "2078-01-32")
+      assert_equal "2078-01-32", Stripe.api_version
 
       other_thread_value = nil
       Thread.new { other_thread_value = Stripe.api_version }.join

@@ -150,7 +150,6 @@ module Stripe
     thread_specific(:stripe_account) || @stripe_account
   end
 
-
   # Gets the application for a plugin that's identified some. See
   # #set_app_info.
   def self.app_info

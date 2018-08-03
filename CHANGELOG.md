@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.21.0 - 2018-08-03
+* [#671](https://github.com/stripe/stripe-ruby/pull/671) Add cancel support for topups
+
 ## 3.20.0 - 2018-08-03
 * [#669](https://github.com/stripe/stripe-ruby/pull/669) Add support for file links
 

@@ -97,6 +97,22 @@ Stripe::Charge.retrieve(
 )
 ```
 
+### Per-thread Configuration
+If your application uses workers in different threads, each with a specific key,
+you can use the per-thread configuration:
+
+``` ruby
+require "stripe"
+
+Stripe.config(
+  {
+    :api_key => "sk_test_...",
+    :stripe_account => "acct_...",
+    :stripe_version => "2018-02-28"
+  }
+)
+```
+
 ### Configuring a Client
 
 While a default HTTP client is used by default, it's also possible to have the

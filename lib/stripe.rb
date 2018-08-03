@@ -115,12 +115,41 @@ module Stripe
   @open_timeout = 30
   @read_timeout = 80
 
+  @api_key = nil
+  @api_version = nil
+  @stripe_account = nil
+
   class << self
-    attr_accessor :stripe_account, :api_key, :api_base, :verify_ssl_certs, :api_version, :client_id, :connect_base, :uploads_base,
+    attr_accessor :api_base, :verify_ssl_certs, :client_id, :connect_base, :uploads_base,
                   :open_timeout, :read_timeout
 
     attr_reader :max_network_retry_delay, :initial_network_retry_delay
+
+    attr_writer :api_key, :api_version, :stripe_account
   end
+
+  # Optionally set config parameters just for current thread.
+  # params - hash with api_key & api_version.
+  def self.config(params = nil)
+    Thread.current[:stripe_config] = params
+  end
+
+  def self.thread_specific(field)
+    Thread.current[:stripe_config][field] if Thread.current[:stripe_config]
+  end
+
+  def self.api_key
+    thread_specific(:api_key) || @api_key
+  end
+
+  def self.api_version
+    thread_specific(:api_version) || @api_version
+  end
+
+  def self.stripe_account
+    thread_specific(:stripe_account) || @stripe_account
+  end
+
 
   # Gets the application for a plugin that's identified some. See
   # #set_app_info.

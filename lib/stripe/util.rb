@@ -190,20 +190,6 @@ module Stripe
           .map { |k, v| "#{url_encode(k)}=#{url_encode(v)}" }.join("&")
     end
 
-    # Transforms an array into a hash with integer keys. Used for a small
-    # number of API endpoints. If the argument is not an Array, return it
-    # unchanged. Example: [{foo: 'bar'}] => {"0" => {foo: "bar"}}
-    def self.array_to_hash(array)
-      case array
-      when Array
-        hash = {}
-        array.each_with_index { |v, i| hash[i.to_s] = v }
-        hash
-      else
-        array
-      end
-    end
-
     # Encodes a string in a way that makes it suitable for use in a set of
     # query parameters in a URI or in a set of form parameters in a request
     # body.
@@ -225,7 +211,6 @@ module Stripe
         if value.is_a?(Hash)
           result += flatten_params(value, calculated_key)
         elsif value.is_a?(Array)
-          check_array_of_maps_start_keys!(value)
           result += flatten_params_array(value, calculated_key)
         else
           result << [calculated_key, value]
@@ -237,13 +222,13 @@ module Stripe
 
     def self.flatten_params_array(value, calculated_key)
       result = []
-      value.each do |elem|
+      value.each_with_index do |elem, i|
         if elem.is_a?(Hash)
-          result += flatten_params(elem, "#{calculated_key}[]")
+          result += flatten_params(elem, "#{calculated_key}[#{i}]")
         elsif elem.is_a?(Array)
           result += flatten_params_array(elem, calculated_key)
         else
-          result << ["#{calculated_key}[]", elem]
+          result << ["#{calculated_key}[#{i}]", elem]
         end
       end
       result
@@ -336,44 +321,6 @@ module Stripe
       default: 9,
     }.freeze
     private_constant :COLOR_CODES
-
-    # We use a pretty janky version of form encoding (Rack's) that supports
-    # more complex data structures like maps and arrays through the use of
-    # specialized syntax. To encode an array of maps like:
-    #
-    #     [{a: 1, b: 2}, {a: 3, b: 4}]
-    #
-    # We have to produce something that looks like this:
-    #
-    #     arr[][a]=1&arr[][b]=2&arr[][a]=3&arr[][b]=4
-    #
-    # The only way for the server to recognize that this is a two item array is
-    # that it notices the repetition of element "a", so it's key that these
-    # repeated elements are encoded first.
-    #
-    # This method is invoked for any arrays being encoded and checks that if
-    # the array contains all non-empty maps, that each of those maps must start
-    # with the same key so that their boundaries can be properly encoded.
-    def self.check_array_of_maps_start_keys!(arr)
-      expected_key = nil
-      arr.each do |item|
-        break unless item.is_a?(Hash)
-        break if item.count.zero?
-
-        first_key = item.first[0]
-
-        if expected_key
-          if expected_key != first_key
-            raise ArgumentError,
-                  "All maps nested in an array should start with the same key " \
-                  "(expected starting key '#{expected_key}', got '#{first_key}')"
-          end
-        else
-          expected_key = first_key
-        end
-      end
-    end
-    private_class_method :check_array_of_maps_start_keys!
 
     # Uses an ANSI escape code to colorize text if it's going to be sent to a
     # TTY.

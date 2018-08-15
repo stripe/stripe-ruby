@@ -56,51 +56,5 @@ module Stripe
         assert subscription.is_a?(Stripe::Subscription)
       end
     end
-
-    context "#serialize_params" do
-      should "serialize when items is set to an Array" do
-        obj = Stripe::Util.convert_to_stripe_object({
-          object: "subscription",
-          items: Stripe::Util.convert_to_stripe_object(
-            object: "list",
-            data: []
-          ),
-        }, {})
-        obj.items = [
-          { id: "si_foo", deleted: true },
-          { plan: "plan_bar" },
-        ]
-
-        expected = {
-          items: {
-            :"0" => { id: "si_foo", deleted: true },
-            :"1" => { plan: "plan_bar" },
-          },
-        }
-        assert_equal(expected, obj.serialize_params)
-      end
-
-      should "serialize when items is set to a Hash" do
-        obj = Stripe::Util.convert_to_stripe_object({
-          object: "subscription",
-          items: Stripe::Util.convert_to_stripe_object(
-            object: "list",
-            data: []
-          ),
-        }, {})
-        obj.items = {
-          "0" => { id: "si_foo", deleted: true },
-          "1" => { plan: "plan_bar" },
-        }
-
-        expected = {
-          items: {
-            :"0" => { id: "si_foo", deleted: true },
-            :"1" => { plan: "plan_bar" },
-          },
-        }
-        assert_equal(expected, obj.serialize_params)
-      end
-    end
   end
 end

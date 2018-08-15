@@ -9,7 +9,6 @@ module Stripe
     OBJECT_NAME = "invoice".freeze
 
     def self.upcoming(params, opts = {})
-      params[:subscription_items] = Util.array_to_hash(params[:subscription_items]) if params[:subscription_items]
       resp, opts = request(:get, upcoming_url, params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end

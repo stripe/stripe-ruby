@@ -33,37 +33,9 @@ module Stripe
         g: [],
       }
       assert_equal(
-        "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[]=0&e[]=1&f=",
+        "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[0]=0&e[1]=1&f=",
         Stripe::Util.encode_parameters(params)
       )
-    end
-
-    should "#encode_params should throw an error on an array of maps that cannot be encoded" do
-      params = {
-        a: [
-          { a: 1, b: 2 },
-          { c: 3, a: 4 },
-        ],
-      }
-      e = assert_raises(ArgumentError) do
-        Stripe::Util.encode_parameters(params)
-      end
-      expected = "All maps nested in an array should start with the same key " \
-                 "(expected starting key 'a', got 'c')"
-      assert_equal expected, e.message
-
-      # Make sure the check is recursive by taking our original params and
-      # nesting it into yet another map and array. Should throw exactly the
-      # same error because it's still the in inner array of maps that's wrong.
-      params = {
-        x: [
-          params,
-        ],
-      }
-      e = assert_raises(ArgumentError) do
-        Stripe::Util.encode_parameters(params)
-      end
-      assert_equal expected, e.message
     end
 
     should "#url_encode should prepare strings for HTTP" do
@@ -92,16 +64,16 @@ module Stripe
         ["c",        "bar&baz"],
         ["d[a]",     "a"],
         ["d[b]",     "b"],
-        ["e[]",      0],
-        ["e[]",      1],
+        ["e[0]",      0],
+        ["e[1]",      1],
 
         # *The key here is the order*. In order to be properly interpreted as
         # an array of hashes on the server, everything from a single hash must
         # come in at once. A duplicate key in an array triggers a new element.
-        ["f[][foo]", "1"],
-        ["f[][ghi]", "2"],
-        ["f[][foo]", "3"],
-        ["f[][bar]", "4"],
+        ["f[0][foo]", "1"],
+        ["f[0][ghi]", "2"],
+        ["f[1][foo]", "3"],
+        ["f[1][bar]", "4"],
       ], Stripe::Util.flatten_params(params))
     end
 
@@ -158,10 +130,6 @@ module Stripe
     should "#convert_to_stripe_object should marshal arrays" do
       obj = Util.convert_to_stripe_object([1, 2, 3], {})
       assert_equal [1, 2, 3], obj
-    end
-
-    should "#array_to_hash should convert an array into a hash with integer keys" do
-      assert_equal({ "0" => 1, "1" => 2, "2" => 3 }, Util.array_to_hash([1, 2, 3]))
     end
 
     context ".request_id_dashboard_url" do

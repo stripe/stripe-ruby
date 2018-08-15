@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.22.0 - 2018-08-15
+* [#674](https://github.com/stripe/stripe-ruby/pull/674) Use integer-indexed encoding for all arrays
+
 ## 3.21.0 - 2018-08-03
 * [#671](https://github.com/stripe/stripe-ruby/pull/671) Add cancel support for topups
 

@@ -98,6 +98,7 @@ module Stripe
         Topup::OBJECT_NAME                    => Topup,
         Transfer::OBJECT_NAME                 => Transfer,
         UsageRecord::OBJECT_NAME              => UsageRecord,
+        UsageRecordSummary::OBJECT_NAME       => UsageRecordSummary,
       }
     end
 

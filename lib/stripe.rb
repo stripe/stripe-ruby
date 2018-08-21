@@ -89,6 +89,7 @@ require "stripe/token"
 require "stripe/topup"
 require "stripe/transfer"
 require "stripe/usage_record"
+require "stripe/usage_record_summary"
 
 # OAuth
 require "stripe/oauth"

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.23.0 - 2018-08-23
+* [#676](https://github.com/stripe/stripe-ruby/pull/676) Add support for usage record summaries
+
 ## 3.22.0 - 2018-08-15
 * [#674](https://github.com/stripe/stripe-ruby/pull/674) Use integer-indexed encoding for all arrays
 

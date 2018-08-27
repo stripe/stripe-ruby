@@ -154,7 +154,7 @@ module Stripe
       # report incorrect results on some more oddball filesystems
       # (such as AFS)
 
-      File.open(file) { |f| }
+      ::File.open(file) { |f| }
     rescue StandardError
       false
     else

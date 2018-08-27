@@ -11,9 +11,9 @@ require "shoulda/context"
 require "timecop"
 require "webmock/test_unit"
 
-PROJECT_ROOT = File.expand_path("../../", __FILE__)
+PROJECT_ROOT = ::File.expand_path("../../", __FILE__)
 
-require File.expand_path("../test_data", __FILE__)
+require ::File.expand_path("../test_data", __FILE__)
 
 # If changing this number, please also change it in `.travis.yml`.
 MOCK_MINIMUM_VERSION = "0.25.0".freeze

@@ -544,8 +544,8 @@ module Stripe
     # integrations.
     class SystemProfiler
       def self.uname
-        if File.exist?("/proc/version")
-          File.read("/proc/version").strip
+        if ::File.exist?("/proc/version")
+          ::File.read("/proc/version").strip
         else
           case RbConfig::CONFIG["host_os"]
           when /linux|darwin|bsd|sunos|solaris|cygwin/i

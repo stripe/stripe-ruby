@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.24.0 - 2018-08-27
+* [#675](https://github.com/stripe/stripe-ruby/pull/675) Remove support for `BitcoinReceiver` write-actions
+
 ## 3.23.0 - 2018-08-23
 * [#676](https://github.com/stripe/stripe-ruby/pull/676) Add support for usage record summaries
 

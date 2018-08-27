@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path("../../test_helper", __FILE__)
+require ::File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class FileUploadTest < Test::Unit::TestCase
@@ -18,7 +18,7 @@ module Stripe
     should "be creatable with a File" do
       file = Stripe::FileUpload.create(
         purpose: "dispute_evidence",
-        file: File.new(__FILE__)
+        file: ::File.new(__FILE__)
       )
       assert file.is_a?(Stripe::FileUpload)
     end
@@ -38,7 +38,7 @@ module Stripe
     should "be creatable with Faraday::UploadIO" do
       file = Stripe::FileUpload.create(
         purpose: "dispute_evidence",
-        file: Faraday::UploadIO.new(File.new(__FILE__), nil)
+        file: Faraday::UploadIO.new(::File.new(__FILE__), nil)
       )
       assert file.is_a?(Stripe::FileUpload)
     end

@@ -95,7 +95,7 @@ require "stripe/usage_record_summary"
 require "stripe/oauth"
 
 module Stripe
-  DEFAULT_CA_BUNDLE_PATH = File.dirname(__FILE__) + "/data/ca-certificates.crt"
+  DEFAULT_CA_BUNDLE_PATH = ::File.dirname(__FILE__) + "/data/ca-certificates.crt"
 
   @app_info = nil
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.25.0 - 2018-08-28
+* [#678](https://github.com/stripe/stripe-ruby/pull/678) Allow payment intent `#cancel`, `#capture`, and `#confirm` to take their own parameters
+
 ## 3.24.0 - 2018-08-27
 * [#675](https://github.com/stripe/stripe-ruby/pull/675) Remove support for `BitcoinReceiver` write-actions
 

@@ -3,25 +3,24 @@
 module Stripe
   class PaymentIntent < APIResource
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_intent".freeze
 
-    def cancel
-      resp, api_key = request(:post, resource_url + "/cancel")
-      initialize_from(resp.data, api_key)
+    def cancel(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/cancel", params, opts)
+      initialize_from(resp.data, opts)
     end
 
-    def capture
-      resp, api_key = request(:post, resource_url + "/capture")
-      initialize_from(resp.data, api_key)
+    def capture(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/capture", params, opts)
+      initialize_from(resp.data, opts)
     end
 
-    def confirm
-      resp, api_key = request(:post, resource_url + "/confirm")
-      initialize_from(resp.data, api_key)
+    def confirm(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/confirm", params, opts)
+      initialize_from(resp.data, opts)
     end
   end
 end

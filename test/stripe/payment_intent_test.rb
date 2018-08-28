@@ -56,7 +56,9 @@ module Stripe
     context "#capture" do
       should "capture a payment_intent" do
         payment_intent = Stripe::PaymentIntent.construct_from(id: "pi_123", object: "payment_intent")
-        payment_intent = payment_intent.capture
+        payment_intent = payment_intent.capture(
+          amount_to_capture: 1234
+        )
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/capture"
         assert payment_intent.is_a?(Stripe::PaymentIntent)
@@ -66,7 +68,9 @@ module Stripe
     context "#confirm" do
       should "confirm a payment_intent" do
         payment_intent = Stripe::PaymentIntent.construct_from(id: "pi_123", object: "payment_intent")
-        payment_intent = payment_intent.confirm
+        payment_intent = payment_intent.confirm(
+          source: "src_123"
+        )
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/confirm"
         assert payment_intent.is_a?(Stripe::PaymentIntent)

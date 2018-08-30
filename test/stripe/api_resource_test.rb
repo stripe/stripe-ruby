@@ -86,7 +86,7 @@ module Stripe
         .with(query: { "expand" => ["customer"] })
         .to_return(body: JSON.generate(charge_fixture))
 
-      ch = Stripe::Charge.retrieve(id: "ch_123", expand: :customer)
+      ch = Stripe::Charge.retrieve(id: "ch_123", expand: [:customer])
       ch.refresh
     end
 
@@ -99,7 +99,7 @@ module Stripe
         .to_return(body: JSON.generate(customer_fixture))
 
       customer = Stripe::Customer.retrieve("cus_123")
-      customer.sources.retrieve(id: "cc_test_card", expand: :customer)
+      customer.sources.retrieve(id: "cc_test_card", expand: [:customer])
     end
 
     context "when specifying per-object credentials" do
@@ -160,7 +160,7 @@ module Stripe
           .with(query: { customer: "cus_123" })
           .to_return(body: JSON.generate(data: [charge_fixture],
                                          url: "/v1/charges"))
-        charges = Stripe::Invoice.list(customer: "cus_123")
+        charges = Stripe::Charge.list(customer: "cus_123")
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .with(query: { customer: "cus_123", created: "123" })

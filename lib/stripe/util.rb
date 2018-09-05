@@ -150,18 +150,6 @@ module Stripe
       end
     end
 
-    def self.file_readable(file)
-      # This is nominally equivalent to File.readable?, but that can
-      # report incorrect results on some more oddball filesystems
-      # (such as AFS)
-
-      ::File.open(file) { |f| }
-    rescue StandardError
-      false
-    else
-      true
-    end
-
     def self.symbolize_names(object)
       case object
       when Hash

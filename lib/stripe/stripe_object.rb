@@ -141,10 +141,7 @@ module Stripe
     # * +:dirty+ - Whether values should be initiated as "dirty" (unsaved) and
     #   which applies only to new StripeObjects being initiated under this
     #   StripeObject. Defaults to true.
-    def update_attributes(values, opts = {}, method_options = {})
-      # Default to true. TODO: Convert to optional arguments after we're off
-      # 1.9 which will make this quite a bit more clear.
-      dirty = method_options.fetch(:dirty, true)
+    def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
         @values[k] = Util.convert_to_stripe_object(v, opts)

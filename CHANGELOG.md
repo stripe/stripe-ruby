@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.26.0 - 2018-09-05
+* [#681](https://github.com/stripe/stripe-ruby/pull/681) Add support for reporting resources
+
 ## 3.25.0 - 2018-08-28
 * [#678](https://github.com/stripe/stripe-ruby/pull/678) Allow payment intent `#cancel`, `#capture`, and `#confirm` to take their own parameters
 

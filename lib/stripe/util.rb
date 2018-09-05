@@ -86,6 +86,8 @@ module Stripe
         Recipient::OBJECT_NAME                => Recipient,
         RecipientTransfer::OBJECT_NAME        => RecipientTransfer,
         Refund::OBJECT_NAME                   => Refund,
+        Reporting::ReportRun::OBJECT_NAME     => Reporting::ReportRun,
+        Reporting::ReportType::OBJECT_NAME    => Reporting::ReportType,
         Reversal::OBJECT_NAME                 => Reversal,
         SKU::OBJECT_NAME                      => SKU,
         Sigma::ScheduledQueryRun::OBJECT_NAME => Sigma::ScheduledQueryRun,

@@ -264,11 +264,8 @@ module Stripe
     # diffent naming schemes.
     def self.normalize_headers(headers)
       headers.each_with_object({}) do |(k, v), new_headers|
-        if k.is_a?(Symbol)
-          k = titlecase_parts(k.to_s.tr("_", "-"))
-        elsif k.is_a?(String)
-          k = titlecase_parts(k)
-        end
+        k = k.to_s.tr("_", "-") if k.is_a?(Symbol)
+        k = k.split("-").reject(&:empty?).map(&:capitalize).join("-")
 
         new_headers[k] = v
       end
@@ -355,14 +352,6 @@ module Stripe
       end
     end
     private_class_method :log_internal
-
-    def self.titlecase_parts(s)
-      s.split("-")
-       .reject { |p| p == "" }
-       .map { |p| p[0].upcase + p[1..-1].downcase }
-       .join("-")
-    end
-    private_class_method :titlecase_parts
 
     # Wraps a value in double quotes if it looks sufficiently complex so that
     # it can be read by logfmt parsers.

@@ -96,6 +96,17 @@ module Stripe
       other.is_a?(StripeObject) && @values == other.instance_variable_get(:@values)
     end
 
+    # Hash equality. As with ==, we consider two equivalent Stripe objects equal.
+    def eql?(other)
+      self == other
+    end
+
+    # As for equality, we hash to Stripe objects to the same value if they're
+    # equivalent objects.
+    def hash
+      @values.hash
+    end
+
     # Indicates whether or not the resource has been deleted on the server.
     # Note that some, but not all, resources can indicate whether they have
     # been deleted.

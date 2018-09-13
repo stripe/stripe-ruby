@@ -117,6 +117,46 @@ module Stripe
       end
     end
 
+    context "#eql?" do
+      should "produce the true for two equivalent Stripe objects" do
+        obj1 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        obj2 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        assert obj1.eql?(obj2)
+      end
+
+      should "produce false for non-equivalent Stripe objects" do
+        obj1 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        obj2 = Stripe::StripeObject.construct_from(id: 2, name: "Stripe")
+        refute obj1.eql?(obj2)
+      end
+
+      should "produce false for different types" do
+        obj1 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        obj2 = 7
+        refute obj1.eql?(obj2)
+      end
+    end
+
+    context "#hash" do
+      should "produce the same hash for two equivalent Stripe objects" do
+        obj1 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        obj2 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        assert_equal obj1.hash, obj2.hash
+      end
+
+      should "produce different hashes for non-equivalent Stripe objects" do
+        obj1 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        obj2 = Stripe::StripeObject.construct_from(id: 2, name: "Stripe")
+        refute_equal obj1.hash, obj2.hash
+      end
+
+      should "produce different hashes for different types" do
+        obj1 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
+        obj2 = 7
+        refute_equal obj1.hash, obj2.hash
+      end
+    end
+
     context "#to_hash" do
       should "skip calling to_hash on nil" do
         module NilWithToHash

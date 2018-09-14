@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.26.1 - 2018-09-14
+* [#688](https://github.com/stripe/stripe-ruby/pull/688) Fix hash equality on `StripeObject`
+
 ## 3.26.0 - 2018-09-05
 * [#681](https://github.com/stripe/stripe-ruby/pull/681) Add support for reporting resources
 

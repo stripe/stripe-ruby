@@ -96,13 +96,14 @@ module Stripe
       other.is_a?(StripeObject) && @values == other.instance_variable_get(:@values)
     end
 
-    # Hash equality. As with ==, we consider two equivalent Stripe objects equal.
+    # Hash equality. As with `#==`, we consider two equivalent Stripe objects equal.
     def eql?(other)
+      # Defer to the implementation on `#==`.
       self == other
     end
 
-    # As for equality, we hash to Stripe objects to the same value if they're
-    # equivalent objects.
+    # As with equality in `#==` and `#eql?`, we hash two Stripe objects to the
+    # same value if they're equivalent objects.
     def hash
       @values.hash
     end

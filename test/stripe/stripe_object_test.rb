@@ -118,7 +118,7 @@ module Stripe
     end
 
     context "#eql?" do
-      should "produce the true for two equivalent Stripe objects" do
+      should "produce true for two equivalent Stripe objects" do
         obj1 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
         obj2 = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
         assert obj1.eql?(obj2)

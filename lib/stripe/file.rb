@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 module Stripe
-  class FileUpload < APIResource
+  class File < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "file_upload".freeze
+    # This resource can have two different object names. In latter API
+    # versions, only `file` is used, but since stripe-ruby may be used with
+    # any API version, we need to support deserializing the older
+    # `file_upload` object into the same class.
+    OBJECT_NAME = "file".freeze
+    OBJECT_NAME_ALT = "file_upload".freeze
 
     def self.resource_url
       "/v1/files"
@@ -32,4 +37,7 @@ module Stripe
       super
     end
   end
+
+  # For backwards compatibility, the `File` class is aliased to `FileUpload`.
+  FileUpload = File
 end

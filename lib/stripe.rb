@@ -103,7 +103,7 @@ module Stripe
 
   @api_base = "https://api.stripe.com"
   @connect_base = "https://connect.stripe.com"
-  @uploads_base = "https://uploads.stripe.com"
+  @uploads_base = "https://files.stripe.com"
 
   @log_level = nil
   @logger = nil

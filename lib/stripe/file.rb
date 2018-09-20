@@ -16,13 +16,6 @@ module Stripe
       "/v1/files"
     end
 
-    def self.request(method, url, params = {}, opts = {})
-      opts = {
-        api_base: Stripe.uploads_base,
-      }.merge(Util.normalize_opts(opts))
-      super
-    end
-
     def self.create(params = {}, opts = {})
       # rest-client would accept a vanilla `File` for upload, but Faraday does
       # not. Support the old API by wrapping a `File`-like object with an
@@ -32,6 +25,7 @@ module Stripe
       end
 
       opts = {
+        api_base: Stripe.uploads_base,
         content_type: "multipart/form-data",
       }.merge(Util.normalize_opts(opts))
       super

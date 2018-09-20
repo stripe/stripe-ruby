@@ -50,10 +50,6 @@ module Test
         Stripe.api_key = "sk_test_123"
         Stripe.api_base = "http://localhost:#{MOCK_PORT}"
 
-        # We don't point to the same host for the API and uploads in
-        # production, but `stripe-mock` supports both APIs.
-        Stripe.uploads_base = Stripe.api_base
-
         stub_connect
       end
 

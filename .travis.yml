@@ -18,7 +18,7 @@ sudo: false
 env:
   global:
     # If changing this number, please also change it in `test/test_helper.rb`.
-    - STRIPE_MOCK_VERSION=0.30.0
+    - STRIPE_MOCK_VERSION=0.32.0
 
 cache:
   directories:

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.27.0 - 2018-09-24
+* [#689](https://github.com/stripe/stripe-ruby/pull/689) Rename `FileUpload` to `File`
+
 ## 3.26.1 - 2018-09-14
 * [#688](https://github.com/stripe/stripe-ruby/pull/688) Fix hash equality on `StripeObject`
 

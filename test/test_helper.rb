@@ -16,7 +16,7 @@ PROJECT_ROOT = ::File.expand_path("../../", __FILE__)
 require ::File.expand_path("../test_data", __FILE__)
 
 # If changing this number, please also change it in `.travis.yml`.
-MOCK_MINIMUM_VERSION = "0.30.0".freeze
+MOCK_MINIMUM_VERSION = "0.32.0".freeze
 MOCK_PORT = ENV["STRIPE_MOCK_PORT"] || 12_111
 
 # Disable all real network connections except those that are outgoing to
@@ -49,10 +49,6 @@ module Test
       setup do
         Stripe.api_key = "sk_test_123"
         Stripe.api_base = "http://localhost:#{MOCK_PORT}"
-
-        # We don't point to the same host for the API and uploads in
-        # production, but `stripe-mock` supports both APIs.
-        Stripe.uploads_base = Stripe.api_base
 
         stub_connect
       end

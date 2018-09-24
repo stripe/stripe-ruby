@@ -55,8 +55,8 @@ require "stripe/dispute"
 require "stripe/ephemeral_key"
 require "stripe/event"
 require "stripe/exchange_rate"
+require "stripe/file"
 require "stripe/file_link"
-require "stripe/file_upload"
 require "stripe/invoice"
 require "stripe/invoice_item"
 require "stripe/invoice_line_item"
@@ -103,7 +103,7 @@ module Stripe
 
   @api_base = "https://api.stripe.com"
   @connect_base = "https://connect.stripe.com"
-  @uploads_base = "https://uploads.stripe.com"
+  @uploads_base = "https://files.stripe.com"
 
   @log_level = nil
   @logger = nil

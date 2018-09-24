@@ -8,7 +8,7 @@ module Stripe
       should "be creatable" do
         dispute = Stripe::Issuing::Dispute.create(
           reason: "fraudulent",
-          transaction: "ipi_123"
+          disputed_transaction: "ipi_123"
         )
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes"
         assert dispute.is_a?(Stripe::Issuing::Dispute)

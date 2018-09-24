@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.28.0 - 2018-09-24
+* [#690](https://github.com/stripe/stripe-ruby/pull/690) Add support for Stripe Terminal
+
 ## 3.27.0 - 2018-09-24
 * [#689](https://github.com/stripe/stripe-ruby/pull/689) Rename `FileUpload` to `File`
 

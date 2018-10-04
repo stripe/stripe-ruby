@@ -161,12 +161,12 @@ production use, but `debug` is also available for more verbosity.
 
 There are a few options for enabling it:
 
-1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`:
+a) Set the environment variable `STRIPE_LOG` to the value `debug` or `info`:
    ```
    $ export STRIPE_LOG=info
    ```
 
-2. Set `Stripe.log_level`:
+b) Set `Stripe.log_level`:
    ``` ruby
    Stripe.log_level = Stripe::LEVEL_INFO
    ```

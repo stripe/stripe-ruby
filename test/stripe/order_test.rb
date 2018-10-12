@@ -49,9 +49,7 @@ module Stripe
     context "#return_order" do
       should "return an order" do
         order = Stripe::Order.retrieve("or_123")
-        order = order.return_order(items: [
-          { parent: "sku_123" },
-        ])
+        order = order.return_order({})
         assert order.is_a?(Stripe::OrderReturn)
       end
     end

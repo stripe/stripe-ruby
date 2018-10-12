@@ -82,6 +82,7 @@ module Stripe
         OrderReturn::OBJECT_NAME               => OrderReturn,
         PaymentIntent::OBJECT_NAME             => PaymentIntent,
         Payout::OBJECT_NAME                    => Payout,
+        Person::OBJECT_NAME                    => Person,
         Plan::OBJECT_NAME                      => Plan,
         Product::OBJECT_NAME                   => Product,
         Recipient::OBJECT_NAME                 => Recipient,

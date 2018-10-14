@@ -40,5 +40,12 @@ module Stripe
       assert_requested :post, "#{Stripe.api_base}/v1/coupons/25OFF"
       assert coupon.is_a?(Stripe::Coupon)
     end
+
+    should "be deletable" do
+      coupon = Stripe::Coupon.retrieve("25OFF")
+      coupon = coupon.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/coupons/#{coupon.id}"
+      assert coupon.is_a?(Stripe::Coupon)
+    end
   end
 end

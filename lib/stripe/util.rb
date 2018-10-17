@@ -106,6 +106,7 @@ module Stripe
         Transfer::OBJECT_NAME                  => Transfer,
         UsageRecord::OBJECT_NAME               => UsageRecord,
         UsageRecordSummary::OBJECT_NAME        => UsageRecordSummary,
+        WebhookEndpoint::OBJECT_NAME           => WebhookEndpoint,
       }
     end
 

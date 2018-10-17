@@ -96,6 +96,7 @@ require "stripe/topup"
 require "stripe/transfer"
 require "stripe/usage_record"
 require "stripe/usage_record_summary"
+require "stripe/webhook_endpoint"
 
 # OAuth
 require "stripe/oauth"

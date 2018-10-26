@@ -5,3 +5,4 @@ Gemfile.lock
 tags
 /.bundle/
 coverage/
+.idea/

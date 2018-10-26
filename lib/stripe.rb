@@ -124,6 +124,8 @@ module Stripe
   @open_timeout = 30
   @read_timeout = 80
 
+  @enable_telemetry = false
+
   class << self
     attr_accessor :stripe_account, :api_key, :api_base, :verify_ssl_certs, :api_version, :client_id, :connect_base, :uploads_base,
                   :open_timeout, :read_timeout
@@ -223,6 +225,14 @@ module Stripe
 
   def self.max_network_retries=(val)
     @max_network_retries = val.to_i
+  end
+
+  def self.enable_telemetry?
+    @enable_telemetry
+  end
+
+  def self.enable_telemetry=(val)
+    @enable_telemetry = val
   end
 
   # Sets some basic information about the running application that's sent along

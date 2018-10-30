@@ -17,19 +17,17 @@ module Stripe
     end
 
     should "be creatable" do
-      card = @customer.sources.create(
+      @customer.sources.create(
         source: "tok_123"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources"
-      assert card.is_a?(Stripe::BankAccount)
     end
 
     should "be deletable" do
       card = Stripe::Card.construct_from(customer: @customer.id,
                                          id: "card_123")
-      card = card.delete
+      card.delete
       assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
-      assert card.is_a?(Stripe::Card)
     end
 
     should "be saveable" do

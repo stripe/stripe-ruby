@@ -61,6 +61,14 @@ module Stripe
       assert account.is_a?(Stripe::Account)
     end
 
+    should "be able to list Persons" do
+      account = Stripe::Account.retrieve("acct_123")
+      persons = account.persons
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/persons"
+      assert persons.data.is_a?(Array)
+      assert persons.data[0].is_a?(Stripe::Person)
+    end
+
     context "#bank_account=" do
       should "warn that #bank_account= is deprecated" do
         old_stderr = $stderr

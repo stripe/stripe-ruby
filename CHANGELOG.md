@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.29.0 - 2018-10-30
+* [#692](https://github.com/stripe/stripe-ruby/pull/692) Add support for the `Person` resource
+* [#694](https://github.com/stripe/stripe-ruby/pull/694) Add support for the `WebhookEndpoint` resource
+
 ## 3.28.0 - 2018-09-24
 * [#690](https://github.com/stripe/stripe-ruby/pull/690) Add support for Stripe Terminal
 

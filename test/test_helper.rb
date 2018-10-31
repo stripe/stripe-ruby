@@ -16,7 +16,7 @@ PROJECT_ROOT = ::File.expand_path("../../", __FILE__)
 require ::File.expand_path("../test_data", __FILE__)
 
 # If changing this number, please also change it in `.travis.yml`.
-MOCK_MINIMUM_VERSION = "0.35.0".freeze
+MOCK_MINIMUM_VERSION = "0.37.0".freeze
 MOCK_PORT = ENV["STRIPE_MOCK_PORT"] || 12_111
 
 # Disable all real network connections except those that are outgoing to

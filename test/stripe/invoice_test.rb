@@ -38,6 +38,33 @@ module Stripe
       assert invoice.is_a?(Stripe::Invoice)
     end
 
+    should "be deletable" do
+      invoice = Stripe::Invoice.retrieve("in_123")
+      invoice = invoice.delete
+      assert_requested :delete, "#{Stripe.api_base}/v1/invoices/#{invoice.id}"
+      assert invoice.is_a?(Stripe::Invoice)
+    end
+
+    context "#finalize" do
+      should "finalize invoice" do
+        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = invoice.finalize_invoice
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/invoices/#{invoice.id}/finalize"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context "#mark_uncollectible" do
+      should "mark invoice as uncollectible" do
+        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = invoice.mark_uncollectible
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/invoices/#{invoice.id}/mark_uncollectible"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
     context "#pay" do
       should "pay invoice" do
         invoice = Stripe::Invoice.retrieve("in_123")
@@ -57,6 +84,16 @@ module Stripe
                          body: {
                            source: "src_123",
                          }
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context "#send" do
+      should "send invoice" do
+        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = invoice.send_invoice
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/invoices/#{invoice.id}/send"
         assert invoice.is_a?(Stripe::Invoice)
       end
     end
@@ -106,6 +143,16 @@ module Stripe
                            coupon: "",
                            customer: "cus_123",
                          }
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context "#void" do
+      should "void invoice" do
+        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = invoice.void_invoice
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/invoices/#{invoice.id}/void"
         assert invoice.is_a?(Stripe::Invoice)
       end
     end

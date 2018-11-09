@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.30.0 - 2018-11-08
+* [#693](https://github.com/stripe/stripe-ruby/pull/693) Add new API endpoints for the `Invoice` resource.
+
 ## 3.29.0 - 2018-10-30
 * [#692](https://github.com/stripe/stripe-ruby/pull/692) Add support for the `Person` resource
 * [#694](https://github.com/stripe/stripe-ruby/pull/694) Add support for the `WebhookEndpoint` resource

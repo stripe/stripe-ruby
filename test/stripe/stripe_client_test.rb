@@ -749,6 +749,51 @@ module Stripe
         end
       end
     end
+
+    context "#telemetry" do
+      teardown do
+        # make sure to always set telemetry back to false
+        # to not mutate global state
+        Stripe.enable_telemetry = false
+      end
+
+      should "not send metrics if enable trace flag is not set" do
+        Stripe.enable_telemetry = false
+
+        trace_metrics_header = nil
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .with do |req|
+          trace_metrics_header = req.headers["X-Stripe-Client-Telemetry"]
+          false
+        end.to_return(body: JSON.generate(object: "charge"))
+
+        Stripe::Charge.list
+        assert(trace_metrics_header.nil?)
+
+        Stripe::Charge.list
+        assert(trace_metrics_header.nil?)
+      end
+
+      should "send metrics if enabled telemetry is true" do
+        Stripe.enable_telemetry = true
+
+        trace_metrics_header = nil
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .with do |req|
+          trace_metrics_header = req.headers["X-Stripe-Client-Telemetry"]
+          false
+        end.to_return(body: JSON.generate(object: "charge"))
+
+        Stripe::Charge.list
+        Stripe::Charge.list
+
+        assert(!trace_metrics_header.nil?)
+
+        trace_payload = JSON.parse(trace_metrics_header)
+        assert(trace_payload["last_request_metrics"]["request_id"] == "req_123")
+        assert(!trace_payload["last_request_metrics"]["request_duration"].nil?)
+      end
+    end
   end
 
   class SystemProfilerTest < Test::Unit::TestCase

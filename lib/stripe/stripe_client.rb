@@ -12,6 +12,7 @@ module Stripe
     def initialize(conn = nil)
       self.conn = conn || self.class.default_conn
       @system_profiler = SystemProfiler.new
+      @last_request_metrics = nil
     end
 
     def self.active_client
@@ -113,7 +114,6 @@ module Stripe
 
     def execute_request(method, path,
                         api_base: nil, api_key: nil, headers: {}, params: {})
-
       api_base ||= Stripe.api_base
       api_key ||= Stripe.api_key
 
@@ -218,6 +218,9 @@ module Stripe
         resp = yield
         context = context.dup_from_response(resp)
         log_response(context, request_start, resp.status, resp.body)
+        if Stripe.enable_telemetry?
+          @last_request_metrics = StripeRequestMetrics.new(context.request_id, Time.now - request_start)
+        end
 
       # We rescue all exceptions from a request so that we have an easy spot to
       # implement our retry logic across the board. We'll re-raise if it's a type
@@ -425,6 +428,10 @@ module Stripe
         "Content-Type" => "application/x-www-form-urlencoded",
       }
 
+      if Stripe.enable_telemetry? && !@last_request_metrics.nil?
+        headers["X-Stripe-Client-Telemetry"] = JSON.generate(last_request_metrics: @last_request_metrics.payload)
+      end
+
       # It is only safe to retry network failures on post and delete
       # requests if we add an Idempotency-Key header
       if %i[post delete].include?(method) && Stripe.max_network_retries > 0
@@ -592,6 +599,24 @@ module Stripe
           uname: @uname,
           hostname: Socket.gethostname,
         }.delete_if { |_k, v| v.nil? }
+      end
+    end
+
+    # StripeRequestMetrics tracks metadata to be reported to stripe for metrics collection
+    class StripeRequestMetrics
+      # The Stripe request ID of the response.
+      attr_accessor :request_id
+
+      # Request duration
+      attr_accessor :request_duration
+
+      def initialize(request_id, request_duration)
+        self.request_id       = request_id
+        self.request_duration = request_duration
+      end
+
+      def payload
+        { request_id: request_id, request_duration: request_duration }
       end
     end
   end

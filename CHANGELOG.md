@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.31.0 - 2018-11-12
+* [#696](https://github.com/stripe/stripe-ruby/pull/696) Add configurable telemetry to gather information on client-side request latency
+
 ## 3.30.0 - 2018-11-08
 * [#693](https://github.com/stripe/stripe-ruby/pull/693) Add new API endpoints for the `Invoice` resource.
 

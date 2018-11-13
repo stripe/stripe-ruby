@@ -791,7 +791,7 @@ module Stripe
 
         trace_payload = JSON.parse(trace_metrics_header)
         assert(trace_payload["last_request_metrics"]["request_id"] == "req_123")
-        assert(!trace_payload["last_request_metrics"]["request_duration"].nil?)
+        assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
       end
     end
   end

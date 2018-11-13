@@ -219,7 +219,8 @@ module Stripe
         context = context.dup_from_response(resp)
         log_response(context, request_start, resp.status, resp.body)
         if Stripe.enable_telemetry?
-          @last_request_metrics = StripeRequestMetrics.new(context.request_id, Time.now - request_start)
+          request_duration_ms = ((Time.now - request_start) * 1000).to_int
+          @last_request_metrics = StripeRequestMetrics.new(context.request_id, request_duration_ms)
         end
 
       # We rescue all exceptions from a request so that we have an easy spot to
@@ -607,16 +608,16 @@ module Stripe
       # The Stripe request ID of the response.
       attr_accessor :request_id
 
-      # Request duration
-      attr_accessor :request_duration
+      # Request duration in milliseconds
+      attr_accessor :request_duration_ms
 
-      def initialize(request_id, request_duration)
-        self.request_id       = request_id
-        self.request_duration = request_duration
+      def initialize(request_id, request_duration_ms)
+        self.request_id = request_id
+        self.request_duration_ms = request_duration_ms
       end
 
       def payload
-        { request_id: request_id, request_duration: request_duration }
+        { request_id: request_id, request_duration_ms: request_duration_ms }
       end
     end
   end

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.31.1 - 2018-11-12
+* [#697](https://github.com/stripe/stripe-ruby/pull/697) Send telemetry in milliseconds specifically
+
 ## 3.31.0 - 2018-11-12
 * [#696](https://github.com/stripe/stripe-ruby/pull/696) Add configurable telemetry to gather information on client-side request latency
 

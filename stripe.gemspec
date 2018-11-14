@@ -7,7 +7,7 @@ require "stripe/version"
 Gem::Specification.new do |s|
   s.name = "stripe"
   s.version = Stripe::VERSION
-  s.required_ruby_version = ">= 2.0.0"
+  s.required_ruby_version = ">= 2.1.0"
   s.summary = "Ruby bindings for the Stripe API"
   s.description = "Stripe is the easiest way to accept payments online.  See https://stripe.com for details."
   s.author = "Stripe"
@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.license = "MIT"
 
   s.add_dependency("faraday", "~> 0.10")
+  s.add_dependency("net-http-persistent", "~> 3.0")
 
   s.files = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")

@@ -27,7 +27,8 @@ WebMock.disable_net_connect!(allow: "localhost:#{MOCK_PORT}")
 # we can print one error and fail fast so that it's more clear to the user how
 # they should fix the problem.
 begin
-  resp = Faraday.get("http://localhost:#{MOCK_PORT}/")
+  conn = Faraday::Connection.new("http://localhost:#{MOCK_PORT}")
+  resp = conn.get("/")
   version = resp.headers["Stripe-Mock-Version"]
   if version != "master" &&
      Gem::Version.new(version) < Gem::Version.new(MOCK_MINIMUM_VERSION)

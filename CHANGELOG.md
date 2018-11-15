@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0 - 2018-11-15
+* [#698](https://github.com/stripe/stripe-ruby/pull/698) Use persistent connections by default through `Net::HTTP::Persistent`
+* [#698](https://github.com/stripe/stripe-ruby/pull/698) Drop support for Ruby 2.0 (which we consider a breaking change here)
+
 ## 3.31.1 - 2018-11-12
 * [#697](https://github.com/stripe/stripe-ruby/pull/697) Send telemetry in milliseconds specifically
 

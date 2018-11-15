@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.0.1 - 2018-11-15
+* [#699](https://github.com/stripe/stripe-ruby/pull/699) Only send telemetry if `Request-Id` was present in the response
+
 ## 4.0.0 - 2018-11-15
 * [#698](https://github.com/stripe/stripe-ruby/pull/698) Use persistent connections by default through `Net::HTTP::Persistent`
 * [#698](https://github.com/stripe/stripe-ruby/pull/698) Drop support for Ruby 2.0 (which we consider a breaking change here)

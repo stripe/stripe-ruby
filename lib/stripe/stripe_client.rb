@@ -225,7 +225,8 @@ module Stripe
         resp = yield
         context = context.dup_from_response(resp)
         log_response(context, request_start, resp.status, resp.body)
-        if Stripe.enable_telemetry?
+
+        if Stripe.enable_telemetry? && context.request_id
           request_duration_ms = ((Time.now - request_start) * 1000).to_int
           @last_request_metrics = StripeRequestMetrics.new(context.request_id, request_duration_ms)
         end

@@ -31,11 +31,18 @@ module Stripe
       # of connection re-use, so make sure that we have a separate connection
       # object per thread.
       Thread.current[:stripe_client_default_conn] ||= begin
-        conn = Faraday.new do |c|
-          c.use Faraday::Request::Multipart
-          c.use Faraday::Request::UrlEncoded
-          c.use Faraday::Response::RaiseError
-          c.adapter Faraday.default_adapter
+        conn = Faraday.new do |builder|
+          builder.use Faraday::Request::Multipart
+          builder.use Faraday::Request::UrlEncoded
+          builder.use Faraday::Response::RaiseError
+
+          # Net::HTTP::Persistent doesn't seem to do well on JRuby, so fall
+          # back to default there.
+          if RUBY_PLATFORM == "java"
+            builder.adapter :net_http
+          else
+            builder.adapter :net_http_persistent
+          end
         end
 
         if Stripe.verify_ssl_certs

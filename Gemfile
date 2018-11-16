@@ -24,9 +24,9 @@ group :development do
   # older Ruby versions. Check Ruby the version here and put a maximum
   # constraint on Rack if necessary.
   if RUBY_VERSION >= "2.2.2"
-    gem "rack", ">= 1.5"
+    gem "rack", ">= 2.0.6"
   else
-    gem "rack", ">= 1.5", "< 2.0" # rubocop:disable Bundler/DuplicatedGem
+    gem "rack", ">= 1.6.11", "< 2.0" # rubocop:disable Bundler/DuplicatedGem
   end
 
   platforms :mri do

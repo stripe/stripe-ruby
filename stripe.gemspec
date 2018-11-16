@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://stripe.com/docs/api/ruby"
   s.license = "MIT"
 
-  s.add_dependency("faraday", "~> 0.10")
+  s.add_dependency("faraday", "~> 0.13")
   s.add_dependency("net-http-persistent", "~> 3.0")
 
   s.files = `git ls-files`.split("\n")

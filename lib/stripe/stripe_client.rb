@@ -36,9 +36,9 @@ module Stripe
           builder.use Faraday::Request::UrlEncoded
           builder.use Faraday::Response::RaiseError
 
-          # Net::HTTP::Persistent doesn't seem to do well on JRuby, so fall
-          # back to default there.
-          if RUBY_PLATFORM == "java"
+          # Net::HTTP::Persistent doesn't seem to do well on Windows or JRuby,
+          # so fall back to default there.
+          if Gem.win_platform? || RUBY_PLATFORM == "java"
             builder.adapter :net_http
           else
             builder.adapter :net_http_persistent

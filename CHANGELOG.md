@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.0.3 - 2018-11-19
+* [#703](https://github.com/stripe/stripe-ruby/pull/703) Don't use `Net::HTTP::Persistent` on Windows where it's not well supported
+
 ## 4.0.2 - 2018-11-16
 * [#701](https://github.com/stripe/stripe-ruby/pull/701) Require minimum Faraday 0.13 for proper support of persistent connections
 

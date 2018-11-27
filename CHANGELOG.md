@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.1.0 - 2018-11-27
+* [#695](https://github.com/stripe/stripe-ruby/pull/695) Add support for `ValueList` and `ValueListItem` for Radar
+
 ## 4.0.3 - 2018-11-19
 * [#703](https://github.com/stripe/stripe-ruby/pull/703) Don't use `Net::HTTP::Persistent` on Windows where it's not well supported
 

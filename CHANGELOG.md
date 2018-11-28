@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.2.0 - 2018-11-28
+* [#705](https://github.com/stripe/stripe-ruby/pull/705) Add support for the `Review` APIs
+
 ## 4.1.0 - 2018-11-27
 * [#695](https://github.com/stripe/stripe-ruby/pull/695) Add support for `ValueList` and `ValueListItem` for Radar
 

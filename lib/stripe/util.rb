@@ -93,6 +93,7 @@ module Stripe
         Reporting::ReportRun::OBJECT_NAME      => Reporting::ReportRun,
         Reporting::ReportType::OBJECT_NAME     => Reporting::ReportType,
         Reversal::OBJECT_NAME                  => Reversal,
+        Review::OBJECT_NAME                    => Review,
         SKU::OBJECT_NAME                       => SKU,
         Sigma::ScheduledQueryRun::OBJECT_NAME  => Sigma::ScheduledQueryRun,
         Source::OBJECT_NAME                    => Source,

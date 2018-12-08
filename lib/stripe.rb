@@ -37,7 +37,6 @@ require "stripe/webhook"
 
 # Named API resources
 require "stripe/account"
-require "stripe/account_link"
 require "stripe/alipay_account"
 require "stripe/apple_pay_domain"
 require "stripe/application_fee"

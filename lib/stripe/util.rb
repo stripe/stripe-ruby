@@ -46,7 +46,6 @@ module Stripe
 
         # business objects
         Account::OBJECT_NAME                   => Account,
-        AccountLink::OBJECT_NAME               => AccountLink,
         AlipayAccount::OBJECT_NAME             => AlipayAccount,
         ApplePayDomain::OBJECT_NAME            => ApplePayDomain,
         ApplicationFee::OBJECT_NAME            => ApplicationFee,

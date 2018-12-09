@@ -119,6 +119,7 @@ module Stripe
   @max_network_retries = 0
   @max_network_retry_delay = 2
   @initial_network_retry_delay = 0.5
+  @enable_persistent_connections = true
 
   @ca_bundle_path = DEFAULT_CA_BUNDLE_PATH
   @ca_store = nil
@@ -131,7 +132,7 @@ module Stripe
 
   class << self
     attr_accessor :stripe_account, :api_key, :api_base, :verify_ssl_certs, :api_version, :client_id, :connect_base, :uploads_base,
-                  :open_timeout, :read_timeout
+                  :open_timeout, :read_timeout, :enable_persistent_connections
 
     attr_reader :max_network_retry_delay, :initial_network_retry_delay
   end

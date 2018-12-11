@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.3.0 - 2018-12-10
+* [#711](https://github.com/stripe/stripe-ruby/pull/711) Add support for account links
+
 ## 4.2.0 - 2018-11-28
 * [#705](https://github.com/stripe/stripe-ruby/pull/705) Add support for the `Review` APIs
 

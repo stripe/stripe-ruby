@@ -4,6 +4,13 @@ require ::File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class SourceTest < Test::Unit::TestCase
+    should "be listable" do
+      charges = Stripe::Source.list
+      assert_requested :get, "#{Stripe.api_base}/v1/sources"
+      assert charges.data.is_a?(Array)
+      assert charges.data[0].is_a?(Stripe::Source)
+    end
+
     should "be retrievable" do
       source = Stripe::Source.retrieve("src_123")
       assert_requested :get, "#{Stripe.api_base}/v1/sources/src_123"

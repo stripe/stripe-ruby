@@ -2,6 +2,7 @@
 
 module Stripe
   class Source < APIResource
+    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 

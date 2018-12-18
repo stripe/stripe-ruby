@@ -26,16 +26,14 @@ cache:
 before_install:
   # Install bundler 1.x, because we need to support Ruby 2.1 for now
   - gem install bundler -v "~> 1.0"
-  # Unpack and start stripe-mock so that the test suite can talk to it
+  # Unpack stripe-mock and add it to PATH so that the test suite can run it
   - |
-    if [ ! -d "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}" ]; then
-      mkdir -p stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/
-      curl -L "https://github.com/stripe/stripe-mock/releases/download/v${STRIPE_MOCK_VERSION}/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz" -o "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz"
-      tar -zxf "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz" -C "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/"
+    if [ ! -d "${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}" ]; then
+      mkdir -p "${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/"
+      curl -L "https://github.com/stripe/stripe-mock/releases/download/v${STRIPE_MOCK_VERSION}/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz" -o "${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz"
+      tar -zxf "${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz" -C "${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/"
     fi
-  - |
-    stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/stripe-mock > /dev/null &
-    STRIPE_MOCK_PID=$!
+  - export PATH=${PATH}:${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}
 
 script:
   - bundle exec rake

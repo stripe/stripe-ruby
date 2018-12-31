@@ -278,7 +278,7 @@ module Stripe
     end
 
     # Formats a plugin "app info" hash into a string that we can tack onto the
-    # end of a User-Agent string where it'll be fairly prominant in places like
+    # end of a User-Agent string where it'll be fairly prominent in places like
     # the Dashboard. Note that this formatting has been implemented to match
     # other libraries, and shouldn't be changed without universal consensus.
     def format_app_info(info)

@@ -103,7 +103,7 @@ module Stripe
     end
 
     def legal_entity=(_)
-      raise NoMethodError, 'Overridding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = \'Blah\''
+      raise NoMethodError, 'Overriding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = \'Blah\''
     end
 
     def deauthorize(client_id = nil, opts = {})

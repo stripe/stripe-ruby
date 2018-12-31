@@ -452,14 +452,14 @@ module Stripe
 
     should "#to_s will call to_s for all embedded stripe objects" do
       obj = Stripe::StripeObject.construct_from(id: "id",
-                                                # embeded list object
+                                                # embedded list object
                                                 refunds: Stripe::ListObject.construct_from(data: [
                                                   # embedded object in list
                                                   Stripe::StripeObject.construct_from(id: "id",
                                                                                       # embedded object in an object in a list object
                                                                                       metadata: Stripe::StripeObject.construct_from(foo: "bar")),
                                                 ]),
-                                                # embeded stripe object
+                                                # embedded stripe object
                                                 metadata: Stripe::StripeObject.construct_from(foo: "bar"))
       expected = JSON.pretty_generate(id: "id",
                                       refunds: {

@@ -35,6 +35,15 @@ module Stripe
         assert_equal(["https://example.com/profile/test"], params["stripe_user[url]"])
         assert_equal(["US"], params["stripe_user[country]"])
       end
+
+      should "optionally return an express path" do
+        uri_str = OAuth.authorize_url({}, express: true)
+
+        uri = URI.parse(uri_str)
+        assert_equal("https", uri.scheme)
+        assert_equal("connect.stripe.com", uri.host)
+        assert_equal("/express/oauth/authorize", uri.path)
+      end
     end
 
     context ".token" do

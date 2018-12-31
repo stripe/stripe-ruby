@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.4.1 - 2018-12-31
+* [#718](https://github.com/stripe/stripe-ruby/pull/718) Fix an error message typo
+
 ## 4.4.0 - 2018-12-21
 * [#716](https://github.com/stripe/stripe-ruby/pull/716) Add support for the `CheckoutSession` resource 
 

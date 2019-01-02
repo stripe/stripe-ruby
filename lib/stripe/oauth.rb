@@ -31,11 +31,14 @@ module Stripe
     def self.authorize_url(params = {}, opts = {})
       base = opts[:connect_base] || Stripe.connect_base
 
+      path = "/oauth/authorize"
+      path = "/express" + path if opts[:express]
+
       params[:client_id] = get_client_id(params)
       params[:response_type] ||= "code"
       query = Util.encode_parameters(params)
 
-      "#{base}/oauth/authorize?#{query}"
+      "#{base}#{path}?#{query}"
     end
 
     def self.token(params = {}, opts = {})

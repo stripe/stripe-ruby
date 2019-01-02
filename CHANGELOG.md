@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.5.0 - 2019-01-02
+* [#719](https://github.com/stripe/stripe-ruby/pull/719) Generate OAuth authorize URLs for Express accounts as well as standard
+
 ## 4.4.1 - 2018-12-31
 * [#718](https://github.com/stripe/stripe-ruby/pull/718) Fix an error message typo
 

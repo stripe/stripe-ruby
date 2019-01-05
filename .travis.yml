@@ -24,6 +24,8 @@ cache:
     - stripe-mock
 
 before_install:
+  # Install bundler 1.x, because we need to support Ruby 2.1 for now
+  - gem install bundler -v "~> 1.0"
   # Unpack and start stripe-mock so that the test suite can talk to it
   - |
     if [ ! -d "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}" ]; then

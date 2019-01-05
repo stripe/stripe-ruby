@@ -159,18 +159,21 @@ module Stripe
 
     context "#to_hash" do
       should "skip calling to_hash on nil" do
-        module NilWithToHash
-          def to_hash
-            raise "Can't call to_hash on nil"
+        begin
+          module NilWithToHash
+            def to_hash
+              raise "Can't call to_hash on nil"
+            end
           end
-        end
-        # include is private in Ruby 2.0
-        NilClass.send(:include, NilWithToHash)
+          ::NilClass.include NilWithToHash
 
-        hash_with_nil = { id: 3, foo: nil }
-        obj = StripeObject.construct_from(hash_with_nil)
-        expected_hash = { id: 3, foo: nil }
-        assert_equal expected_hash, obj.to_hash
+          hash_with_nil = { id: 3, foo: nil }
+          obj = StripeObject.construct_from(hash_with_nil)
+          expected_hash = { id: 3, foo: nil }
+          assert_equal expected_hash, obj.to_hash
+        ensure
+          ::NilClass.send(:undef_method, :to_hash)
+        end
       end
 
       should "recursively call to_hash on its values" do

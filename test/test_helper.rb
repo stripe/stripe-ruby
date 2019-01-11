@@ -14,10 +14,11 @@ require "webmock/test_unit"
 PROJECT_ROOT = ::File.expand_path("../../", __FILE__)
 
 require ::File.expand_path("../test_data", __FILE__)
+require ::File.expand_path("../stripe_mock", __FILE__)
 
 # If changing this number, please also change it in `.travis.yml`.
 MOCK_MINIMUM_VERSION = "0.40.1".freeze
-MOCK_PORT = ENV["STRIPE_MOCK_PORT"] || 12_111
+MOCK_PORT = Stripe::StripeMock.start
 
 # Disable all real network connections except those that are outgoing to
 # stripe-mock.
@@ -39,6 +40,10 @@ begin
 rescue Faraday::ConnectionFailed
   abort("Couldn't reach stripe-mock at `localhost:#{MOCK_PORT}`. Is " \
     "it running? Please see README for setup instructions.")
+end
+
+Test::Unit.at_exit do
+  Stripe::StripeMock.stop
 end
 
 module Test

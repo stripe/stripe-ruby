@@ -36,6 +36,7 @@ before_install:
   - |
     stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/stripe-mock > /dev/null &
     STRIPE_MOCK_PID=$!
+  - export PATH="${PATH}:${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}"
 
 script:
   - bundle exec rake

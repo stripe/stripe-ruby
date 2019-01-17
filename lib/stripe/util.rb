@@ -58,7 +58,7 @@ module Stripe
         BitcoinTransaction::OBJECT_NAME        => BitcoinTransaction,
         Card::OBJECT_NAME                      => Card,
         Charge::OBJECT_NAME                    => Charge,
-        CheckoutSession::OBJECT_NAME           => CheckoutSession,
+        Checkout::Session::OBJECT_NAME         => Checkout::Session,
         CountrySpec::OBJECT_NAME               => CountrySpec,
         Coupon::OBJECT_NAME                    => Coupon,
         Customer::OBJECT_NAME                  => Customer,

@@ -195,6 +195,57 @@ module Stripe
         }
         assert_equal(expected, obj.serialize_params)
       end
+
+      should "serialize on a new individual" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+        }, {})
+        obj.individual = { first_name: "Jane" }
+
+        expected = { individual: { first_name: "Jane" } }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      should "serialize on a partially changed individual" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+          individual: Stripe::Util.convert_to_stripe_object({
+            object: "person",
+            first_name: "Jenny",
+          }, {}),
+        }, {})
+        obj.individual = { first_name: "Jane" }
+
+        expected = { individual: { first_name: "Jane" } }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      should "serialize on an unchanged individual" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+          individual: Stripe::Util.convert_to_stripe_object({
+            object: "person",
+            first_name: "Jenny",
+          }, {}),
+        }, {})
+
+        expected = { individual: {} }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      should "serialize on an unset individual" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+          individual: Stripe::Util.convert_to_stripe_object({
+            object: "person",
+            first_name: "Jenny",
+          }, {}),
+        }, {})
+        obj.individual = nil
+
+        expected = { individual: "" }
+        assert_equal(expected, obj.serialize_params)
+      end
     end
   end
 end

@@ -80,15 +80,20 @@ module Stripe
     # We're trying to get this overturned on the server side, but for now,
     # patch in a special allowance.
     def serialize_params(options = {})
-      serialize_params_account(self, super)
+      serialize_params_account(self, super, options)
     end
 
-    def serialize_params_account(_obj, update_hash)
+    def serialize_params_account(_obj, update_hash, options = {})
       if (entity = @values[:legal_entity])
         if (owners = entity[:additional_owners])
           entity_update = update_hash[:legal_entity] ||= {}
           entity_update[:additional_owners] =
             serialize_additional_owners(entity, owners)
+        end
+      end
+      if (individual = @values[:individual])
+        if individual.is_a?(Person) && !update_hash.key?(:individual)
+          update_hash[:individual] = individual.serialize_params(options)
         end
       end
       update_hash

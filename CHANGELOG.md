@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.6.0 - 2019-01-21
+* [#736](https://github.com/stripe/stripe-ruby/pull/736) Properly serialize `individual` on `Account` objects
+
 ## 4.5.0 - 2019-01-02
 * [#719](https://github.com/stripe/stripe-ruby/pull/719) Generate OAuth authorize URLs for Express accounts as well as standard
 

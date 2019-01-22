@@ -55,7 +55,7 @@ module Stripe
 
       status = (::Process.wait2(@pid, ::Process::WNOHANG) || []).last
       if status.nil?
-        puts("Started stripe-mock, PID = #{@pid}")
+        puts("Started stripe-mock; PID = #{@pid}, port = #{@port}")
       else
         abort("stripe-mock terminated early: #{status}")
       end

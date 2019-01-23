@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.7.0 - 2019-01-23
+* [#735](https://github.com/stripe/stripe-ruby/pull/735) Rename `CheckoutSession` to `Session` and move it under the `Checkout` namespace. This is a breaking change, but we've reached out to affected merchants and all new merchants would use the new approach.
+
 ## 4.6.0 - 2019-01-21
 * [#736](https://github.com/stripe/stripe-ruby/pull/736) Properly serialize `individual` on `Account` objects
 

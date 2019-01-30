@@ -21,9 +21,9 @@ module Stripe
 
     should "be creatable" do
       payment_intent = Stripe::PaymentIntent.create(
-        allowed_source_types: ["card"],
         amount: 1234,
-        currency: "usd"
+        currency: "usd",
+        payment_method_types: ["card"]
       )
       assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
       assert payment_intent.is_a?(Stripe::PaymentIntent)

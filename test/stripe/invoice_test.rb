@@ -113,10 +113,10 @@ module Stripe
       end
 
       should "retrieve upcoming invoices with items" do
-        items = [{
-          plan: "gold",
-          quantity: 2,
-        },]
+        items = [
+          { plan: "gold", quantity: 2 },
+          { id: "si_123", deleted: true },
+        ]
 
         invoice = Stripe::Invoice.upcoming(
           customer: "cus_123",
@@ -128,6 +128,7 @@ module Stripe
                            customer: "cus_123",
                            subscription_items: [
                              { plan: "gold", quantity: "2" },
+                             { id: "si_123", deleted: true },
                            ],
                          }
         assert invoice.is_a?(Stripe::Invoice)

@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.7.1 - 2019-02-01
+* [#740](https://github.com/stripe/stripe-ruby/pull/740) Fix query encoding for integer-indexed maps
+
 ## 4.7.0 - 2019-01-23
 * [#735](https://github.com/stripe/stripe-ruby/pull/735) Rename `CheckoutSession` to `Session` and move it under the `Checkout` namespace. This is a breaking change, but we've reached out to affected merchants and all new merchants would use the new approach.
 

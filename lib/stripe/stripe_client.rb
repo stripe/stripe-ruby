@@ -123,24 +123,17 @@ module Stripe
                         api_base: nil, api_key: nil, headers: {}, params: {})
       api_base ||= Stripe.api_base
       api_key ||= Stripe.api_key
+      params = Util.objects_to_ids(params)
 
       check_api_key!(api_key)
 
-      params = Util.objects_to_ids(params)
-      url = api_url(path, api_base)
-
       body = nil
       query_params = nil
-
       case method.to_s.downcase.to_sym
       when :get, :head, :delete
         query_params = params
       else
-        body = if headers[:content_type] && headers[:content_type] == "multipart/form-data"
-                 params
-               else
-                 Util.encode_parameters(params)
-               end
+        body = params
       end
 
       # This works around an edge case where we end up with both query
@@ -162,6 +155,8 @@ module Stripe
 
       headers = request_headers(api_key, method)
                 .update(Util.normalize_headers(headers))
+      params_encoder = FaradayStripeEncoder.new
+      url = api_url(path, api_base)
 
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
@@ -169,19 +164,19 @@ module Stripe
       context.account         = headers["Stripe-Account"]
       context.api_key         = api_key
       context.api_version     = headers["Stripe-Version"]
-      context.body            = body
+      context.body            = body ? params_encoder.encode(body) : nil
       context.idempotency_key = headers["Idempotency-Key"]
       context.method          = method
       context.path            = path
-      context.query_params    = query_params ? Util.encode_parameters(query_params) : nil
+      context.query_params    = query_params ? params_encoder.encode(query_params) : nil
 
+      # note that both request body and query params will be passed through
+      # `FaradayStripeEncoder`
       http_resp = execute_request_with_rescues(api_base, context) do
         conn.run_request(method, url, body, headers) do |req|
           req.options.open_timeout = Stripe.open_timeout
-          req.options.params_encoder = FaradayStripeEncoder
+          req.options.params_encoder = params_encoder
           req.options.timeout = Stripe.read_timeout
-
-          # note that these will be passed through `FaradayStripeEncoder`
           req.params = query_params unless query_params.nil?
         end
       end
@@ -207,14 +202,50 @@ module Stripe
     #
     # We work around the problem by implementing our own simplified encoder and
     # telling Faraday to use that.
+    #
+    # The class also performs simple caching so that we don't have to encode
+    # parameters twice for every request (once to build the request and once
+    # for logging).
+    #
+    # When initialized with `multipart: true`, the encoder just inspects the
+    # hash instead to get a decent representation for logging. In the case of a
+    # multipart request, Faraday won't use the result of this encoder.
     class FaradayStripeEncoder
-      def self.encode(hash)
-        Util.encode_parameters(hash)
+      def initialize
+        @cache = {}
+      end
+
+      # This is quite subtle, but for a `multipart/form-data` request Faraday
+      # will throw away the result of this encoder and build its body.
+      def encode(hash)
+        @cache.fetch(hash) do |k|
+          @cache[k] = Util.encode_parameters(replace_faraday_io(hash))
+        end
       end
 
       # We should never need to do this so it's not implemented.
-      def self.decode(_str)
+      def decode(_str)
         raise NotImplementedError, "#{self.class.name} does not implement #decode"
+      end
+
+      # Replaces instances of `Faraday::UploadIO` with a simple string
+      # representation so that they'll log a little better. Faraday won't use
+      # these parameters, so it's okay that we did this.
+      #
+      # Unfortunately the string representation still doesn't look very nice
+      # because we still URL-encode special symbols in the final value. It's
+      # possible we could stop doing this and just leave it to Faraday to do
+      # the right thing.
+      private def replace_faraday_io(value)
+        if value.is_a?(Array)
+          value.each_with_index { |v, i| value[i] = replace_faraday_io(v) }
+        elsif value.is_a?(Hash)
+          value.each { |k, v| value[k] = replace_faraday_io(v) }
+        elsif value.is_a?(Faraday::UploadIO)
+          "FILE:#{value.original_filename}"
+        else
+          value
+        end
       end
     end
 

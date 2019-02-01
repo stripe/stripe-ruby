@@ -205,13 +205,14 @@ module Stripe
     # -- in particular when we send our integer-indexed maps (i.e. arrays),
     # Faraday ends up stripping out the integer indexes.
     #
-    # We work around the problem by implementing our own simplified decoder and
+    # We work around the problem by implementing our own simplified encoder and
     # telling Faraday to use that.
     class FaradayStripeEncoder
       def self.encode(hash)
         Util.encode_parameters(hash)
       end
 
+      # We should never need to do this so it's not implemented.
       def self.decode(_str)
         raise NotImplementedError, "#{self.class.name} does not implement #decode"
       end

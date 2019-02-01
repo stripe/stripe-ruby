@@ -178,7 +178,10 @@ module Stripe
       http_resp = execute_request_with_rescues(api_base, context) do
         conn.run_request(method, url, body, headers) do |req|
           req.options.open_timeout = Stripe.open_timeout
+          req.options.params_encoder = FaradayStripeEncoder
           req.options.timeout = Stripe.read_timeout
+
+          # note that these will be passed through `FaradayStripeEncoder`
           req.params = query_params unless query_params.nil?
         end
       end
@@ -195,6 +198,24 @@ module Stripe
     end
 
     private
+
+    # Used to workaround buggy behavior in Faraday: the library will try to
+    # reshape anything that we pass to `req.params` with one of its default
+    # encoders. I don't think this process is supposed to be lossy, but it is
+    # -- in particular when we send our integer-indexed maps (i.e. arrays),
+    # Faraday ends up stripping out the integer indexes.
+    #
+    # We work around the problem by implementing our own simplified decoder and
+    # telling Faraday to use that.
+    class FaradayStripeEncoder
+      def self.encode(hash)
+        Util.encode_parameters(hash)
+      end
+
+      def self.decode(_str)
+        raise NotImplementedError, "#{self.class.name} does not implement #decode"
+      end
+    end
 
     def api_url(url = "", api_base = nil)
       (api_base || Stripe.api_base) + url

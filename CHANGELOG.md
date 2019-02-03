@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.8.0 - 2019-02-03
+* [#741](https://github.com/stripe/stripe-ruby/pull/741) Use `FaradayStripeEncoder` to encode all parameter styles
+
 ## 4.7.1 - 2019-02-01
 * [#740](https://github.com/stripe/stripe-ruby/pull/740) Fix query encoding for integer-indexed maps
 

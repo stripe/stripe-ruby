@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.8.1 - 2019-02-11
+* [#743](https://github.com/stripe/stripe-ruby/pull/743) Fix bug in file uploading introduced in #741
+
 ## 4.8.0 - 2019-02-03
 * [#741](https://github.com/stripe/stripe-ruby/pull/741) Use `FaradayStripeEncoder` to encode all parameter styles
 

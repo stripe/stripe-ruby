@@ -219,33 +219,13 @@ module Stripe
       # will throw away the result of this encoder and build its body.
       def encode(hash)
         @cache.fetch(hash) do |k|
-          @cache[k] = Util.encode_parameters(replace_faraday_io(hash))
+          @cache[k] = Util.encode_parameters(hash)
         end
       end
 
       # We should never need to do this so it's not implemented.
       def decode(_str)
         raise NotImplementedError, "#{self.class.name} does not implement #decode"
-      end
-
-      # Replaces instances of `Faraday::UploadIO` with a simple string
-      # representation so that they'll log a little better. Faraday won't use
-      # these parameters, so it's okay that we did this.
-      #
-      # Unfortunately the string representation still doesn't look very nice
-      # because we still URL-encode special symbols in the final value. It's
-      # possible we could stop doing this and just leave it to Faraday to do
-      # the right thing.
-      private def replace_faraday_io(value)
-        if value.is_a?(Array)
-          value.each_with_index { |v, i| value[i] = replace_faraday_io(v) }
-        elsif value.is_a?(Hash)
-          value.each { |k, v| value[k] = replace_faraday_io(v) }
-        elsif value.is_a?(Faraday::UploadIO)
-          "FILE:#{value.original_filename}"
-        else
-          value
-        end
       end
     end
 

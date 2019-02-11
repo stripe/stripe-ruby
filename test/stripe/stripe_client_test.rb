@@ -794,16 +794,6 @@ module Stripe
         assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
       end
     end
-
-    context "FaradayStripeEncoder" do
-      should "replace Faraday::UploadIO instances in parameters" do
-        encoder = StripeClient::FaradayStripeEncoder.new
-        encoded = encoder.encode(foo: [
-          { file: Faraday::UploadIO.new(::File.new(__FILE__), nil) },
-        ])
-        assert_equal "foo[0][file]=FILE%3Astripe_client_test.rb", encoded
-      end
-    end
   end
 
   class SystemProfilerTest < Test::Unit::TestCase

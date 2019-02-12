@@ -7,7 +7,6 @@ module Stripe
     class SessionTest < Test::Unit::TestCase
       should "be creatable" do
         session = Stripe::Checkout::Session.create(
-          allowed_source_types: ["card"],
           cancel_url: "https://stripe.com/cancel",
           client_reference_id: "1234",
           line_items: [
@@ -25,6 +24,7 @@ module Stripe
           payment_intent_data: [
             receipt_email: "test@stripe.com",
           ],
+          payment_method_types: ["card"],
           success_url: "https://stripe.com/success"
         )
         assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions"

@@ -208,7 +208,8 @@
 * Handle `invalid_client` OAuth error code
 * Improve safety of error handling logic safer for unrecognized OAuth error codes
 
-## 3.0.2 - 2017-07-12 (yanked)
+## 3.0.2 - 2017-07-12
+**Important:** This version is non-functional and has been yanked in favor of 3.0.3.
 * Convert `nil` to empty string when serializing parameters (instead of opaquely dropping it) -- NOTE: this change has since been reverted
 
 ## 3.0.1 - 2017-07-11

@@ -100,7 +100,12 @@ module Stripe
 
     context "#legal_entity=" do
       should "disallow direct overrides" do
-        account = Stripe::Account.retrieve("acct_123")
+        account = Stripe::Account.construct_from(
+          id: "acct_123",
+          legal_entity: {
+            first_name: "name",
+          }
+        )
 
         assert_raise NoMethodError do
           account.legal_entity = { first_name: "Blah" }
@@ -111,7 +116,7 @@ module Stripe
     end
 
     context "#serialize_params" do
-      should "serialize an a new additional_owners" do
+      should "serialize a new additional_owners" do
         obj = Stripe::Util.convert_to_stripe_object({
           object: "account",
           legal_entity: Stripe::StripeObject.construct_from({

@@ -375,20 +375,22 @@ module Stripe
       end
 
       should "correctly handle replaced nested objects" do
-        acct = Stripe::Account.construct_from(id: "myid",
-                                              legal_entity: {
-                                                last_name: "Smith",
-                                                address: {
-                                                  line1: "test",
-                                                  city: "San Francisco",
-                                                },
-                                              })
+        acct = Stripe::Account.construct_from(
+          id: "acct_123",
+          company: {
+            name: "company_name",
+            address: {
+              line1: "test",
+              city: "San Francisco",
+            },
+          }
+        )
 
-        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { legal_entity: { address: { line1: "Test2", city: "" } } })
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_123")
+          .with(body: { company: { address: { line1: "Test2", city: "" } } })
           .to_return(body: JSON.generate("id" => "my_id"))
 
-        acct.legal_entity.address = { line1: "Test2" }
+        acct.company.address = { line1: "Test2" }
         acct.save
       end
 

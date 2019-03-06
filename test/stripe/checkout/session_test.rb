@@ -30,6 +30,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions"
         assert session.is_a?(Stripe::Checkout::Session)
       end
+
+      should "be retrievable" do
+        charge = Stripe::Checkout::Session.retrieve("cs_123")
+        assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_123"
+        assert charge.is_a?(Stripe::Checkout::Session)
+      end
     end
   end
 end

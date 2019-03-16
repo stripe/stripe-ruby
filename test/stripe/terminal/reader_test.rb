@@ -40,6 +40,13 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/rdr_123"
         assert reader.is_a?(Stripe::Terminal::Reader)
       end
+
+      should "be deletable" do
+        reader = Stripe::Terminal::Reader.retrieve("rdr_123")
+        reader = reader.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/terminal/readers/#{reader.id}"
+        assert reader.is_a?(Stripe::Terminal::Reader)
+      end
     end
   end
 end

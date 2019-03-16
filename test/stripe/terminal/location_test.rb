@@ -46,6 +46,13 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/locations/loc_123"
         assert location.is_a?(Stripe::Terminal::Location)
       end
+
+      should "be deletable" do
+        location = Stripe::Terminal::Location.retrieve("loc_123")
+        location = location.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/terminal/locations/#{location.id}"
+        assert location.is_a?(Stripe::Terminal::Location)
+      end
     end
   end
 end

@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.9.1 - 2019-03-18
+* [#750](https://github.com/stripe/stripe-ruby/pull/750) Catch error and warn if unable to remove a method
+
 ## 4.9.0 - 2019-02-12
 * [#739](https://github.com/stripe/stripe-ruby/pull/739) Add support for `SubscriptionSchedule` and `SubscriptionScheduleRevision`
 

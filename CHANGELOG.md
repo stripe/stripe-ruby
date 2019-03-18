@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.10.0 - 2019-03-18
+* [#745](https://github.com/stripe/stripe-ruby/pull/745) Add support for the `PaymentMethod` resource and APIs
+* [#747](https://github.com/stripe/stripe-ruby/pull/747) Add support for retrieving a Checkout `Session`
+* [#748](https://github.com/stripe/stripe-ruby/pull/748) Add support for deleting a Terminal `Location` and `Reader`
+
 ## 4.9.1 - 2019-03-18
 * [#750](https://github.com/stripe/stripe-ruby/pull/750) Catch error and warn if unable to remove a method
 

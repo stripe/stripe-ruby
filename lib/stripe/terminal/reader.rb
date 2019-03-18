@@ -4,6 +4,7 @@ module Stripe
   module Terminal
     class Reader < Stripe::APIResource
       extend Stripe::APIOperations::Create
+      include Stripe::APIOperations::Delete
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 

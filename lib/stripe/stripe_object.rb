@@ -298,7 +298,25 @@ module Stripe
 
           # Remove methods for the accessor's reader and writer.
           [k, :"#{k}=", :"#{k}?"].each do |method_name|
-            remove_method(method_name) if method_defined?(method_name)
+            next unless method_defined?(method_name)
+
+            begin
+              remove_method(method_name)
+            rescue NameError
+              # In some cases there can be a method that's detected with
+              # `method_defined?`, but which cannot be removed with
+              # `remove_method`, even though it's on the same class. The only
+              # case so far that we've noticed this is when a class is
+              # reopened for monkey patching:
+              #
+              #     https://github.com/stripe/stripe-ruby/issues/749
+              #
+              # Here we swallow that error and issue a warning so at least
+              # the program doesn't crash.
+              $stderr.puts("WARNING: Unable to remove method `#{method_name}`; " \
+                "if custom, please consider renaming to a name that doesn't " \
+                "collide with an API property name.")
+            end
           end
         end
       end

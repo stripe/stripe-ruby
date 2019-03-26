@@ -45,6 +45,8 @@ module Stripe
           end
         end
 
+        conn.proxy = Stripe.proxy if Stripe.proxy
+
         if Stripe.verify_ssl_certs
           conn.ssl.verify = true
           conn.ssl.cert_store = Stripe.ca_store

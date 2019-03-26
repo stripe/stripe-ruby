@@ -114,6 +114,14 @@ end
 puts resp.request_id
 ```
 
+### Configuring a proxy
+
+A proxy can be configured with `Stripe.proxy`:
+
+```ruby
+Stripe.proxy = "https://user:pass@example.com:1234"
+```
+
 ### Configuring an API Version
 
 By default, the library will use the API version pinned to the account making

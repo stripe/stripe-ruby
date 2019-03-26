@@ -750,6 +750,25 @@ module Stripe
       end
     end
 
+    context "#proxy" do
+      should "run the request through the proxy" do
+        begin
+          Thread.current[:stripe_client_default_conn] = nil
+
+          Stripe.proxy = "http://localhost:8080"
+
+          client = StripeClient.new
+          client.request {}
+
+          assert_equal "http://localhost:8080", Stripe::StripeClient.default_conn.proxy.uri.to_s
+        ensure
+          Stripe.proxy = nil
+
+          Thread.current[:stripe_client_default_conn] = nil
+        end
+      end
+    end
+
     context "#telemetry" do
       teardown do
         # make sure to always set telemetry back to false

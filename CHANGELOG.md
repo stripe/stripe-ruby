@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.11.0 - 2019-03-26
+* [#753](https://github.com/stripe/stripe-ruby/pull/753) Add a global proxy configuration parameter
+
 ## 4.10.0 - 2019-03-18
 * [#745](https://github.com/stripe/stripe-ruby/pull/745) Add support for the `PaymentMethod` resource and APIs
 * [#747](https://github.com/stripe/stripe-ruby/pull/747) Add support for retrieving a Checkout `Session`

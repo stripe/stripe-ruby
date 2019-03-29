@@ -11,6 +11,8 @@ module Stripe
 
     OBJECT_NAME = "account".freeze
 
+    custom_method :reject, http_verb: :post
+
     save_nested_resource :external_account
     nested_resource_class_methods :external_account,
                                   operations: %i[create retrieve update delete list]

@@ -48,6 +48,30 @@ module Stripe
       end
     end
 
+    # Adds a custom method to a resource class. This is used to add support for
+    # non-CRUDL API requests, e.g. capturing charges. custom_method takes the
+    # following parameters:
+    # - name: the name of the custom method to create (as a symbol)
+    # - http_verb: the HTTP verb for the API request (:get, :post, or :delete)
+    # - http_path: the path to append to the resource's URL. If not provided,
+    #              the name is used as the path
+    #
+    # For example, this call:
+    #     custom_method :capture, http_verb: post
+    # adds a `capture` class method to the resource class that, when called,
+    # will send a POST request to `/v1/<object_name>/capture`.
+    def self.custom_method(name, http_verb:, http_path: nil)
+      unless %i[get post delete].include?(http_verb)
+        raise ArgumentError, "Invalid http_verb value: #{http_verb.inspect}. Should be one of :get, :post or :delete."
+      end
+      http_path ||= name.to_s
+      define_singleton_method(name) do |id, params = {}, opts = {}|
+        url = "#{resource_url}/#{CGI.escape(id)}/#{CGI.escape(http_path)}"
+        resp, opts = request(http_verb, url, params, opts)
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+    end
+
     def resource_url
       unless (id = self["id"])
         raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", "id")

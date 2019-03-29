@@ -7,6 +7,8 @@ module Stripe
 
     OBJECT_NAME = "source".freeze
 
+    custom_method :verify, http_verb: :post
+
     def detach(params = {}, opts = {})
       if !respond_to?(:customer) || customer.nil? || customer.empty?
         raise NotImplementedError,

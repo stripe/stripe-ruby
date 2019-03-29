@@ -24,15 +24,18 @@ module Stripe
     end
 
     should "be rejectable" do
-      account_data = { id: "acct_foo" }
-      stub_request(:get, "#{Stripe.api_base}/v1/accounts/acct_foo")
-        .to_return(body: JSON.generate(account_data))
-
-      stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_foo/reject")
-        .to_return(body: JSON.generate(account_data))
-
       account = Stripe::Account.retrieve("acct_foo")
-      account.reject(reason: "fraud")
+      account = account.reject(reason: "fraud")
+      assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}/reject"
+      assert account.is_a?(Stripe::Account)
+    end
+
+    context ".reject" do
+      should "reject the account" do
+        account = Stripe::Account.reject("acct_foo", reason: "fraud")
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}/reject"
+        assert account.is_a?(Stripe::Account)
+      end
     end
 
     should "be creatable" do

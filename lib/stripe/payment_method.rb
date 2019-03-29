@@ -8,6 +8,9 @@ module Stripe
 
     OBJECT_NAME = "payment_method".freeze
 
+    custom_method :attach, http_verb: :post
+    custom_method :detach, http_verb: :post
+
     def attach(params = {}, opts = {})
       url = resource_url + "/attach"
       resp, opts = request(:post, url, params, opts)

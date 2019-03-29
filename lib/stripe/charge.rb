@@ -8,6 +8,8 @@ module Stripe
 
     OBJECT_NAME = "charge".freeze
 
+    custom_method :capture, http_verb: :post
+
     def refund(params = {}, opts = {})
       # Old versions of charge objects included a `refunds` field that was just
       # a vanilla array instead of a Stripe list object.

@@ -9,6 +9,8 @@ module Stripe
 
     OBJECT_NAME = "subscription".freeze
 
+    custom_method :delete_discount, http_verb: :delete, http_path: "discount"
+
     save_nested_resource :source
 
     def delete_discount

@@ -39,10 +39,22 @@ module Stripe
     end
 
     should "be deletable" do
-      invoice = Stripe::Invoice.retrieve("in_123")
-      invoice = invoice.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/invoices/#{invoice.id}"
-      assert invoice.is_a?(Stripe::Invoice)
+    end
+    context "#delete" do
+      should "be deletable" do
+        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = invoice.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/invoices/#{invoice.id}"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        invoice = Stripe::Invoice.delete("in_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/invoices/in_123"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
     end
 
     context "#finalize" do

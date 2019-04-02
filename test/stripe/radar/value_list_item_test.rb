@@ -27,11 +27,21 @@ module Stripe
         assert item.is_a?(Stripe::Radar::ValueListItem)
       end
 
-      should "be deletable" do
-        list = Stripe::Radar::ValueListItem.retrieve("rsli_123")
-        list = list.delete
-        assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_123"
-        assert list.is_a?(Stripe::Radar::ValueListItem)
+      context "#delete" do
+        should "be deletable" do
+          list = Stripe::Radar::ValueListItem.retrieve("rsli_123")
+          list = list.delete
+          assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_123"
+          assert list.is_a?(Stripe::Radar::ValueListItem)
+        end
+      end
+
+      context ".delete" do
+        should "be deletable" do
+          list = Stripe::Radar::ValueListItem.delete("rsli_123")
+          assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_123"
+          assert list.is_a?(Stripe::Radar::ValueListItem)
+        end
       end
     end
   end

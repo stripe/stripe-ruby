@@ -40,10 +40,23 @@ module Stripe
     end
 
     should "be deletable" do
-      recipient = Stripe::Recipient.retrieve("rp_123")
-      recipient = recipient.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/recipients/#{recipient.id}"
-      assert recipient.is_a?(Stripe::Recipient)
+    end
+
+    context "#delete" do
+      should "be deletable" do
+        recipient = Stripe::Recipient.retrieve("rp_123")
+        recipient = recipient.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/recipients/#{recipient.id}"
+        assert recipient.is_a?(Stripe::Recipient)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        recipient = Stripe::Recipient.delete("rp_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/recipients/rp_123"
+        assert recipient.is_a?(Stripe::Recipient)
+      end
     end
   end
 end

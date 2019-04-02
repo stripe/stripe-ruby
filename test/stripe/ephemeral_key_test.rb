@@ -82,5 +82,12 @@ module Stripe
         assert_requested :delete, "#{Stripe.api_base}/v1/ephemeral_keys/#{key.id}"
       end
     end
+
+    context ".delete" do
+      should "succeed" do
+        Stripe::EphemeralKey.delete("ephkey_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/ephemeral_keys/ephkey_123"
+      end
+    end
   end
 end

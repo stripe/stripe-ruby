@@ -38,5 +38,22 @@ module Stripe
       assert_requested :post, "#{Stripe.api_base}/v1/webhook_endpoints/we_123"
       assert webhook_endpoint.is_a?(Stripe::WebhookEndpoint)
     end
+
+    context "#delete" do
+      should "be deletable" do
+        webhook_endpoint = Stripe::WebhookEndpoint.retrieve("we_123")
+        webhook_endpoint = webhook_endpoint.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/webhook_endpoints/#{webhook_endpoint.id}"
+        assert webhook_endpoint.is_a?(Stripe::WebhookEndpoint)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        webhook_endpoint = Stripe::WebhookEndpoint.delete("we_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/webhook_endpoints/we_123"
+        assert webhook_endpoint.is_a?(Stripe::WebhookEndpoint)
+      end
+    end
   end
 end

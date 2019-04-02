@@ -57,11 +57,21 @@ module Stripe
       assert account.is_a?(Stripe::Account)
     end
 
-    should "be deletable" do
-      account = Stripe::Account.retrieve("acct_123")
-      account = account.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{account.id}"
-      assert account.is_a?(Stripe::Account)
+    context "#delete" do
+      should "be deletable" do
+        account = Stripe::Account.retrieve("acct_123")
+        account = account.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{account.id}"
+        assert account.is_a?(Stripe::Account)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        account = Stripe::Account.delete("acct_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_123"
+        assert account.is_a?(Stripe::Account)
+      end
     end
 
     should "be able to list Persons" do

@@ -36,11 +36,21 @@ module Stripe
       assert customer.is_a?(Stripe::Customer)
     end
 
-    should "be deletable" do
-      customer = Stripe::Customer.retrieve("cus_123")
-      customer = customer.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer.id}"
-      assert customer.is_a?(Stripe::Customer)
+    context "#delete" do
+      should "be deletable" do
+        customer = Stripe::Customer.retrieve("cus_123")
+        customer = customer.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer.id}"
+        assert customer.is_a?(Stripe::Customer)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        customer = Stripe::Customer.delete("cus_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123"
+        assert customer.is_a?(Stripe::Customer)
+      end
     end
 
     context "#create_subscription" do

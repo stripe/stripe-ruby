@@ -24,10 +24,23 @@ module Stripe
     end
 
     should "be deletable" do
-      domain = Stripe::ApplePayDomain.retrieve("apwc_123")
-      domain = domain.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{domain.id}"
-      assert domain.is_a?(Stripe::ApplePayDomain)
+    end
+
+    context "#delete" do
+      should "be deletable" do
+        domain = Stripe::ApplePayDomain.retrieve("apwc_123")
+        domain = domain.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/#{domain.id}"
+        assert domain.is_a?(Stripe::ApplePayDomain)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        domain = Stripe::ApplePayDomain.delete("apwc_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/apple_pay/domains/apwc_123"
+        assert domain.is_a?(Stripe::ApplePayDomain)
+      end
     end
   end
 end

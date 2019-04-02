@@ -41,12 +41,23 @@ module Stripe
       assert subscription.is_a?(Stripe::Subscription)
     end
 
-    should "be deletable" do
-      subscription = Stripe::Subscription.retrieve("sub_123")
-      subscription = subscription.delete
-      assert_requested :delete,
-                       "#{Stripe.api_base}/v1/subscriptions/#{subscription.id}"
-      assert subscription.is_a?(Stripe::Subscription)
+    context "#delete" do
+      should "be deletable" do
+        subscription = Stripe::Subscription.retrieve("sub_123")
+        subscription = subscription.delete
+        assert_requested :delete,
+                         "#{Stripe.api_base}/v1/subscriptions/#{subscription.id}"
+        assert subscription.is_a?(Stripe::Subscription)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        subscription = Stripe::Subscription.delete("sub_123")
+        assert_requested :delete,
+                         "#{Stripe.api_base}/v1/subscriptions/sub_123"
+        assert subscription.is_a?(Stripe::Subscription)
+      end
     end
 
     context "#delete_discount" do

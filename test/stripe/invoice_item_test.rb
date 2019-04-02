@@ -44,12 +44,23 @@ module Stripe
       assert item.is_a?(Stripe::InvoiceItem)
     end
 
-    should "be deletable" do
-      item = Stripe::InvoiceItem.retrieve("ii_123")
-      item = item.delete
-      assert_requested :delete,
-                       "#{Stripe.api_base}/v1/invoiceitems/#{item.id}"
-      assert item.is_a?(Stripe::InvoiceItem)
+    context "#delete" do
+      should "be deletable" do
+        item = Stripe::InvoiceItem.retrieve("ii_123")
+        item = item.delete
+        assert_requested :delete,
+                         "#{Stripe.api_base}/v1/invoiceitems/#{item.id}"
+        assert item.is_a?(Stripe::InvoiceItem)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        item = Stripe::InvoiceItem.delete("ii_123")
+        assert_requested :delete,
+                         "#{Stripe.api_base}/v1/invoiceitems/ii_123"
+        assert item.is_a?(Stripe::InvoiceItem)
+      end
     end
   end
 end

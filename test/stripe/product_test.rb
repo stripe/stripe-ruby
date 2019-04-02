@@ -39,11 +39,21 @@ module Stripe
       assert product.is_a?(Stripe::Product)
     end
 
-    should "be deletable" do
-      product = Stripe::Product.retrieve("prod_123")
-      product = product.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/products/#{product.id}"
-      assert product.is_a?(Stripe::Product)
+    context "#delete" do
+      should "be deletable" do
+        product = Stripe::Product.retrieve("prod_123")
+        product = product.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/products/#{product.id}"
+        assert product.is_a?(Stripe::Product)
+      end
+    end
+
+    context ".delete" do
+      should "be deletable" do
+        product = Stripe::Product.delete("prod_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/products/prod_123"
+        assert product.is_a?(Stripe::Product)
+      end
     end
   end
 end

@@ -11,7 +11,6 @@ module Stripe
 
     custom_method :cancel, http_verb: :post
     custom_method :release, http_verb: :post
-    custom_method :revisions, http_verb: :get
 
     nested_resource_class_methods :revision,
                                   operations: %i[retrieve list]

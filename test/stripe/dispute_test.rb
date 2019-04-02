@@ -36,6 +36,15 @@ module Stripe
         dispute.close
         assert_requested :post,
                          "#{Stripe.api_base}/v1/disputes/#{dispute.id}/close"
+        assert dispute.is_a?(Stripe::Dispute)
+      end
+    end
+
+    context ".close" do
+      should "close a dispute" do
+        dispute = Stripe::Dispute.close("dp_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/disputes/dp_123/close"
+        assert dispute.is_a?(Stripe::Dispute)
       end
     end
   end

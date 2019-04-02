@@ -8,6 +8,9 @@ module Stripe
 
       OBJECT_NAME = "issuing.authorization".freeze
 
+      custom_method :approve, http_verb: :post
+      custom_method :decline, http_verb: :post
+
       def approve(params = {}, opts = {})
         resp, opts = request(:post, resource_url + "/approve", params, opts)
         initialize_from(resp.data, opts)

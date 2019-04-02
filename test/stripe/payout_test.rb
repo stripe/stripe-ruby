@@ -46,5 +46,12 @@ module Stripe
         assert payout.is_a?(Stripe::Payout)
       end
     end
+
+    context ".cancel" do
+      should "cancel a payout" do
+        payout = Stripe::Payout.cancel("pm_123")
+        assert payout.is_a?(Stripe::Payout)
+      end
+    end
   end
 end

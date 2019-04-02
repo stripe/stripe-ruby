@@ -40,6 +40,27 @@ module Stripe
       assert charge.is_a?(Stripe::Charge)
     end
 
+    context "#capture" do
+      should "capture the charge" do
+        charge = Stripe::Charge.retrieve("ch_123")
+        charge = charge.capture(amount: 100)
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/charges/ch_123/capture",
+                         body: { amount: 100 }
+        assert charge.is_a?(Stripe::Charge)
+      end
+    end
+
+    context ".capture" do
+      should "capture the charge" do
+        charge = Stripe::Charge.capture("ch_123", amount: 100)
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/charges/ch_123/capture",
+                         body: { amount: 100 }
+        assert charge.is_a?(Stripe::Charge)
+      end
+    end
+
     context "#mark_as_fraudulent" do
       should "charges should be able to be marked as fraudulent" do
         charge = Stripe::Charge.retrieve("ch_123")

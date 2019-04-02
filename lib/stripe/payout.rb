@@ -8,6 +8,8 @@ module Stripe
 
     OBJECT_NAME = "payout".freeze
 
+    custom_method :cancel, http_verb: :post
+
     def cancel
       resp, api_key = request(:post, cancel_url)
       initialize_from(resp.data, api_key)

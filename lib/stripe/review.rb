@@ -6,6 +6,8 @@ module Stripe
 
     OBJECT_NAME = "review".freeze
 
+    custom_method :approve, http_verb: :post
+
     def approve(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/approve", params, opts)
       initialize_from(resp.data, opts)

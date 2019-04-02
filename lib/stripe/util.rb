@@ -62,6 +62,7 @@ module Stripe
         CountrySpec::OBJECT_NAME                  => CountrySpec,
         Coupon::OBJECT_NAME                       => Coupon,
         Customer::OBJECT_NAME                     => Customer,
+        Discount::OBJECT_NAME                     => Discount,
         Dispute::OBJECT_NAME                      => Dispute,
         EphemeralKey::OBJECT_NAME                 => EphemeralKey,
         Event::OBJECT_NAME                        => Event,

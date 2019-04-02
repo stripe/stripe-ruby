@@ -9,6 +9,9 @@ module Stripe
 
     OBJECT_NAME = "subscription_schedule".freeze
 
+    custom_method :cancel, http_verb: :post
+    custom_method :release, http_verb: :post
+
     nested_resource_class_methods :revision,
                                   operations: %i[retrieve list]
 

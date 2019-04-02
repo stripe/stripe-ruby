@@ -9,6 +9,8 @@ module Stripe
 
       OBJECT_NAME = "issuing.card".freeze
 
+      custom_method :details, http_verb: :get
+
       def details(params = {}, opts = {})
         resp, opts = request(:get, resource_url + "/details", params, opts)
         Util.convert_to_stripe_object(resp.data, opts)

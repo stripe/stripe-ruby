@@ -41,12 +41,21 @@ module Stripe
         assert card.is_a?(Stripe::Issuing::Card)
       end
 
-      should "be able to retrieve card details" do
-        card = Stripe::Issuing::Card.retrieve("ic_123")
+      context "#details" do
+        should "retrieve a card's details" do
+          card_details = Stripe::Issuing::Card.details("ic_123")
+          assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_123/details"
+          assert card_details.is_a?(Stripe::Issuing::CardDetails)
+        end
+      end
 
-        card_details = card.details
-        assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_123/details"
-        assert card_details.is_a?(Stripe::Issuing::CardDetails)
+      context ".details" do
+        should "retrieve a card's details" do
+          card = Stripe::Issuing::Card.retrieve("ic_123")
+          card_details = card.details
+          assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_123/details"
+          assert card_details.is_a?(Stripe::Issuing::CardDetails)
+        end
       end
     end
   end

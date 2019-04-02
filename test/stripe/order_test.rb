@@ -42,6 +42,15 @@ module Stripe
       should "pay an order" do
         order = Stripe::Order.retrieve("or_123")
         order = order.pay(source: "tok_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/#{order.id}/pay"
+        assert order.is_a?(Stripe::Order)
+      end
+    end
+
+    context ".pay" do
+      should "pay an order" do
+        order = Stripe::Order.pay("or_123", source: "tok_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/or_123/pay"
         assert order.is_a?(Stripe::Order)
       end
     end
@@ -49,8 +58,17 @@ module Stripe
     context "#return_order" do
       should "return an order" do
         order = Stripe::Order.retrieve("or_123")
-        order = order.return_order({})
-        assert order.is_a?(Stripe::OrderReturn)
+        order_return = order.return_order({})
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/#{order.id}/returns"
+        assert order_return.is_a?(Stripe::OrderReturn)
+      end
+    end
+
+    context ".return_order" do
+      should "return an order" do
+        order_return = Stripe::Order.return_order("or_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/or_123/returns"
+        assert order_return.is_a?(Stripe::OrderReturn)
       end
     end
   end

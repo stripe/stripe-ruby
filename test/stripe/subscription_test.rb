@@ -53,7 +53,16 @@ module Stripe
       should "be able to delete a subscriptions's discount" do
         subscription = Stripe::Subscription.retrieve("sub_123")
         subscription = subscription.delete_discount
+        assert_requested :delete, "#{Stripe.api_base}/v1/subscriptions/sub_123/discount"
         assert subscription.is_a?(Stripe::Subscription)
+      end
+    end
+
+    context ".delete_discount" do
+      should "be able to delete a subscriptions's discount" do
+        discount = Stripe::Subscription.delete_discount("sub_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/subscriptions/sub_123/discount"
+        assert discount.is_a?(Stripe::Discount)
       end
     end
   end

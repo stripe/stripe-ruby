@@ -32,18 +32,40 @@ module Stripe
         assert authorization.is_a?(Stripe::Issuing::Authorization)
       end
 
-      should "be approveable" do
-        authorization = Stripe::Issuing::Authorization.retrieve("iauth_123")
-        authorization.approve
-        assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_123/approve"
-        assert authorization.is_a?(Stripe::Issuing::Authorization)
+      context ".approve" do
+        should "approve an authorization" do
+          payment_intent = Stripe::Issuing::Authorization.approve("iauth_123")
+
+          assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_123/approve"
+          assert payment_intent.is_a?(Stripe::Issuing::Authorization)
+        end
       end
 
-      should "be declineable" do
-        authorization = Stripe::Issuing::Authorization.retrieve("iauth_123")
-        authorization.decline
-        assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_123/decline"
-        assert authorization.is_a?(Stripe::Issuing::Authorization)
+      context "#approve" do
+        should "approve an authorization" do
+          authorization = Stripe::Issuing::Authorization.retrieve("iauth_123")
+          authorization.approve
+          assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_123/approve"
+          assert authorization.is_a?(Stripe::Issuing::Authorization)
+        end
+      end
+
+      context ".decline" do
+        should "decline an authorization" do
+          payment_intent = Stripe::Issuing::Authorization.decline("iauth_123")
+
+          assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_123/decline"
+          assert payment_intent.is_a?(Stripe::Issuing::Authorization)
+        end
+      end
+
+      context "#decline" do
+        should "decline an authorization" do
+          authorization = Stripe::Issuing::Authorization.retrieve("iauth_123")
+          authorization.decline
+          assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_123/decline"
+          assert authorization.is_a?(Stripe::Issuing::Authorization)
+        end
       end
     end
   end

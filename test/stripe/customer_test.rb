@@ -47,6 +47,7 @@ module Stripe
       should "create a new subscription" do
         customer = Stripe::Customer.retrieve("cus_123")
         subscription = customer.create_subscription(items: [{ plan: "silver" }])
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscriptions"
         assert subscription.is_a?(Stripe::Subscription)
       end
     end
@@ -55,6 +56,7 @@ module Stripe
       should "create a new invoice" do
         customer = Stripe::Customer.retrieve("cus_123")
         invoice = customer.create_upcoming_invoice
+        assert_requested :post, "#{Stripe.api_base}/v1/invoices"
         assert invoice.is_a?(Stripe::Invoice)
       end
     end
@@ -88,11 +90,17 @@ module Stripe
     context "#delete_discount" do
       should "delete a discount" do
         customer = Stripe::Customer.retrieve("cus_123")
+        customer = customer.delete_discount
+        assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer.id}/discount"
+        assert customer.is_a?(Stripe::Customer)
+      end
+    end
 
-        stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{customer.id}/discount")
-          .to_return(body: JSON.generate(object: "customer"))
-        discount = customer.delete_discount
-        assert discount.is_a?(Stripe::Customer)
+    context ".delete_discount" do
+      should "delete a discount" do
+        discount = Stripe::Customer.delete_discount("cus_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/discount"
+        assert discount.is_a?(Stripe::Discount)
       end
     end
 

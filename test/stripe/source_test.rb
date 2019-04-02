@@ -79,6 +79,19 @@ module Stripe
       should "verify the source" do
         source = Stripe::Source.retrieve("src_123")
         source = source.verify(values: [1, 2])
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/sources/#{source.id}/verify",
+                         body: { values: [1, 2] }
+        assert source.is_a?(Stripe::Source)
+      end
+    end
+
+    context ".verify" do
+      should "verify the source" do
+        source = Stripe::Source.verify("src_123", values: [1, 2])
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/sources/src_123/verify",
+                         body: { values: [1, 2] }
         assert source.is_a?(Stripe::Source)
       end
     end

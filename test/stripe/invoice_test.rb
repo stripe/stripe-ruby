@@ -55,12 +55,28 @@ module Stripe
       end
     end
 
+    context ".finalize" do
+      should "finalize invoice" do
+        invoice = Stripe::Invoice.finalize_invoice("in_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/finalize"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
     context "#mark_uncollectible" do
       should "mark invoice as uncollectible" do
         invoice = Stripe::Invoice.retrieve("in_123")
         invoice = invoice.mark_uncollectible
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/mark_uncollectible"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context ".mark_uncollectible" do
+      should "mark invoice as uncollectible" do
+        invoice = Stripe::Invoice.mark_uncollectible("in_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/mark_uncollectible"
         assert invoice.is_a?(Stripe::Invoice)
       end
     end
@@ -88,12 +104,30 @@ module Stripe
       end
     end
 
-    context "#send" do
+    context ".pay" do
+      should "pay invoice" do
+        invoice = Stripe::Invoice.pay("in_123", source: "src_123")
+        assert_requested :post,
+                         "#{Stripe.api_base}/v1/invoices/in_123/pay",
+                         body: { source: "src_123" }
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context "#send_invoice" do
       should "send invoice" do
         invoice = Stripe::Invoice.retrieve("in_123")
         invoice = invoice.send_invoice
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/send"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context ".send_invoice" do
+      should "send invoice" do
+        invoice = Stripe::Invoice.send_invoice("in_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/send"
         assert invoice.is_a?(Stripe::Invoice)
       end
     end
@@ -148,12 +182,20 @@ module Stripe
       end
     end
 
-    context "#void" do
+    context "#void_invoice" do
       should "void invoice" do
         invoice = Stripe::Invoice.retrieve("in_123")
         invoice = invoice.void_invoice
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/void"
+        assert invoice.is_a?(Stripe::Invoice)
+      end
+    end
+
+    context ".void_invoice" do
+      should "void invoice" do
+        invoice = Stripe::Invoice.void_invoice("in_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/void"
         assert invoice.is_a?(Stripe::Invoice)
       end
     end

@@ -8,6 +8,10 @@ module Stripe
 
     OBJECT_NAME = "payment_intent".freeze
 
+    custom_method :cancel, http_verb: :post
+    custom_method :capture, http_verb: :post
+    custom_method :confirm, http_verb: :post
+
     def cancel(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/cancel", params, opts)
       initialize_from(resp.data, opts)

@@ -9,6 +9,8 @@ module Stripe
 
     OBJECT_NAME = "transfer".freeze
 
+    custom_method :cancel, http_verb: :post
+
     nested_resource_class_methods :reversal, operations: %i[create retrieve update list]
 
     def cancel

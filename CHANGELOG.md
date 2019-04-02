@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.0 - 2019-04-02
+* [#752](https://github.com/stripe/stripe-ruby/pull/752) Add `.delete` class method on deletable API resources
+* [#754](https://github.com/stripe/stripe-ruby/pull/754) Add class methods for all custom API requests (e.g. `Charge.capture`)
+
 ## 4.11.0 - 2019-03-26
 * [#753](https://github.com/stripe/stripe-ruby/pull/753) Add a global proxy configuration parameter
 

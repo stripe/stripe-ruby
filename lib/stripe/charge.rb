@@ -36,11 +36,6 @@ module Stripe
       initialize_from(resp.data, opts)
     end
 
-    def self.capture(id, params = {}, opts = {})
-      resp, opts = request(:post, "#{resource_url}/#{id}/capture", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
-    end
-
     def update_dispute(params = {}, opts = {})
       resp, opts = request(:post, dispute_url, params, opts)
       initialize_from({ dispute: resp.data }, opts, true)

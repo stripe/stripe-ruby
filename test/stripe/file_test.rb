@@ -31,7 +31,8 @@ module Stripe
       should "be creatable with a File" do
         file = Stripe::File.create(
           purpose: "dispute_evidence",
-          file: ::File.new(__FILE__)
+          file: ::File.new(__FILE__),
+          file_link_data: { create: true }
         )
         assert_requested :post, "#{Stripe.uploads_base}/v1/files"
         assert file.is_a?(Stripe::File)
@@ -44,7 +45,8 @@ module Stripe
 
         file = Stripe::File.create(
           purpose: "dispute_evidence",
-          file: tempfile
+          file: tempfile,
+          file_link_data: { create: true }
         )
         assert_requested :post, "#{Stripe.uploads_base}/v1/files"
         assert file.is_a?(Stripe::File)
@@ -53,7 +55,8 @@ module Stripe
       should "be creatable with Faraday::UploadIO" do
         file = Stripe::File.create(
           purpose: "dispute_evidence",
-          file: Faraday::UploadIO.new(::File.new(__FILE__), nil)
+          file: Faraday::UploadIO.new(::File.new(__FILE__), nil),
+          file_link_data: { create: true }
         )
         assert_requested :post, "#{Stripe.uploads_base}/v1/files"
         assert file.is_a?(Stripe::File)

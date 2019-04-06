@@ -38,8 +38,6 @@ module Stripe
       assert invoice.is_a?(Stripe::Invoice)
     end
 
-    should "be deletable" do
-    end
     context "#delete" do
       should "be deletable" do
         invoice = Stripe::Invoice.retrieve("in_123")

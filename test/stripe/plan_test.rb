@@ -21,7 +21,7 @@ module Stripe
       plan = Stripe::Plan.create(
         amount: 5000,
         interval: "month",
-        name: "Sapphire elite",
+        nickname: "Sapphire elite",
         currency: "usd"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/plans"
@@ -32,7 +32,7 @@ module Stripe
       plan = Stripe::Plan.create(
         amount: 5000,
         interval: "month",
-        name: "Sapphire elite",
+        nickname: "Sapphire elite",
         currency: "usd",
         usage_type: "metered"
       )
@@ -43,7 +43,7 @@ module Stripe
     should "be creatable with tiered configuration" do
       plan = Stripe::Plan.create(
         interval: "month",
-        name: "Sapphire elite",
+        nickname: "Sapphire elite",
         currency: "usd",
         billing_scheme: "tiered",
         tiers_mode: "volume",
@@ -56,7 +56,7 @@ module Stripe
     should "be creatable with transform_usage" do
       plan = Stripe::Plan.create(
         interval: "month",
-        name: "Sapphire elite",
+        nickname: "Sapphire elite",
         currency: "usd",
         amount: 5000,
         transform_usage: { round: "up", divide_by: 50 }

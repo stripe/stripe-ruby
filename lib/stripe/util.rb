@@ -108,6 +108,7 @@ module Stripe
         SubscriptionSchedule::OBJECT_NAME         => SubscriptionSchedule,
         SubscriptionScheduleRevision::OBJECT_NAME => SubscriptionScheduleRevision,
         TaxId::OBJECT_NAME                        => TaxId,
+        TaxRate::OBJECT_NAME                      => TaxRate,
         Terminal::ConnectionToken::OBJECT_NAME    => Terminal::ConnectionToken,
         Terminal::Location::OBJECT_NAME           => Terminal::Location,
         Terminal::Reader::OBJECT_NAME             => Terminal::Reader,

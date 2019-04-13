@@ -180,5 +180,47 @@ module Stripe
         assert_equal true, c.source.save_with_parent
       end
     end
+
+    context "#create_tax_id" do
+      should "create a tax id" do
+        Stripe::Customer.create_tax_id(
+          "cus_123",
+          type: "eu_vat",
+          value: "11111"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids"
+      end
+    end
+
+    context "#retrieve_tax_id" do
+      should "retrieve a tax id" do
+        Stripe::Customer.retrieve_tax_id(
+          "cus_123",
+          "txi_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids/txi_123"
+      end
+    end
+
+    context "#delete_tax_id" do
+      should "delete a tax id" do
+        Stripe::Customer.delete_tax_id(
+          "cus_123",
+          "txi_123"
+        )
+        assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids/txi_123"
+      end
+    end
+
+    context "#list_tax_ids" do
+      should "list the customer's tax ids" do
+        sources = Stripe::Customer.list_tax_ids(
+          "cus_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids"
+        assert sources.is_a?(Stripe::ListObject)
+        assert sources.data.is_a?(Array)
+      end
+    end
   end
 end

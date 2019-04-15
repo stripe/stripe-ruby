@@ -265,5 +265,130 @@ module Stripe
         assert_equal(expected, obj.serialize_params)
       end
     end
+
+    context "#create_external_account" do
+      should "create an external account" do
+        external_account = Stripe::Account.create_external_account(
+          "acct_123",
+          external_account: "btok_123"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123/external_accounts"
+        assert external_account.is_a?(Stripe::BankAccount)
+      end
+    end
+
+    context "#retrieve_external_account" do
+      should "retrieve an external account" do
+        external_account = Stripe::Account.retrieve_external_account(
+          "acct_123",
+          "ba_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/external_accounts/ba_123"
+        assert external_account.is_a?(Stripe::BankAccount)
+      end
+    end
+
+    context "#update_external_account" do
+      should "update an external account" do
+        external_account = Stripe::Account.update_external_account(
+          "acct_123",
+          "ba_123",
+          metadata: { foo: "bar" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123/external_accounts/ba_123"
+        assert external_account.is_a?(Stripe::BankAccount)
+      end
+    end
+
+    context "#delete_external_account" do
+      should "delete an external_account" do
+        external_account = Stripe::Account.delete_external_account(
+          "acct_123",
+          "ba_123"
+        )
+        assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_123/external_accounts/ba_123"
+        assert external_account.deleted
+        assert_equal "ba_123", external_account.id
+      end
+    end
+
+    context "#list_external_accounts" do
+      should "list the account's external accounts" do
+        external_accounts = Stripe::Account.list_external_accounts(
+          "acct_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/external_accounts"
+        assert external_accounts.is_a?(Stripe::ListObject)
+        assert external_accounts.data.is_a?(Array)
+      end
+    end
+
+    context "#create_login_link" do
+      should "create a login link" do
+        login_link = Stripe::Account.create_login_link(
+          "acct_123"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123/login_links"
+        assert login_link.is_a?(Stripe::LoginLink)
+      end
+    end
+
+    context "#create_person" do
+      should "create a person" do
+        person = Stripe::Account.create_person(
+          "acct_123",
+          first_name: "John",
+          last_name: "Doe"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123/persons"
+        assert person.is_a?(Stripe::Person)
+      end
+    end
+
+    context "#retrieve_person" do
+      should "retrieve a person" do
+        person = Stripe::Account.retrieve_person(
+          "acct_123",
+          "person_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/persons/person_123"
+        assert person.is_a?(Stripe::Person)
+      end
+    end
+
+    context "#update_person" do
+      should "update a person" do
+        person = Stripe::Account.update_person(
+          "acct_123",
+          "person_123",
+          first_name: "John"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123/persons/person_123"
+        assert person.is_a?(Stripe::Person)
+      end
+    end
+
+    context "#delete_person" do
+      should "delete an person" do
+        person = Stripe::Account.delete_person(
+          "acct_123",
+          "person_123"
+        )
+        assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_123/persons/person_123"
+        assert person.deleted
+        assert_equal "person_123", person.id
+      end
+    end
+
+    context "#list_persons" do
+      should "list the account's external accounts" do
+        persons = Stripe::Account.list_persons(
+          "acct_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/persons"
+        assert persons.is_a?(Stripe::ListObject)
+        assert persons.data.is_a?(Array)
+      end
+    end
   end
 end

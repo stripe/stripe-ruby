@@ -113,6 +113,57 @@ module Stripe
         assert discount.is_a?(Stripe::Discount)
       end
     end
+    context "#create_source" do
+      should "create a source" do
+        Stripe::Customer.create_source(
+          "cus_123",
+          source: "tok_123"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources"
+      end
+    end
+
+    context "#retrieve_source" do
+      should "retrieve a source" do
+        Stripe::Customer.retrieve_source(
+          "cus_123",
+          "ba_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123"
+      end
+    end
+
+    context "#update_source" do
+      should "update a source" do
+        Stripe::Customer.update_source(
+          "cus_123",
+          "ba_123",
+          metadata: { foo: "bar" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123"
+      end
+    end
+
+    context "#delete_source" do
+      should "delete a source" do
+        Stripe::Customer.delete_source(
+          "cus_123",
+          "ba_123"
+        )
+        assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123"
+      end
+    end
+
+    context "#list_sources" do
+      should "list the customer's sources" do
+        sources = Stripe::Customer.list_sources(
+          "cus_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/sources"
+        assert sources.is_a?(Stripe::ListObject)
+        assert sources.data.is_a?(Array)
+      end
+    end
 
     context "source field" do
       should "allow setting source with token" do

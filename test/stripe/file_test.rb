@@ -61,6 +61,27 @@ module Stripe
         assert_requested :post, "#{Stripe.uploads_base}/v1/files"
         assert file.is_a?(Stripe::File)
       end
+
+      should "be creatable with a string" do
+        file = Stripe::File.create(
+          purpose: "dispute_evidence",
+          file: "my-file-contents",
+          file_link_data: { create: true }
+        )
+        assert_requested :post, "#{Stripe.uploads_base}/v1/files"
+        assert file.is_a?(Stripe::File)
+      end
+
+      should "raise given a file object that doesn't respond to #read" do
+        e = assert_raises(ArgumentError) do
+          Stripe::File.create(
+            purpose: "dispute_evidence",
+            file: Object.new,
+            file_link_data: { create: true }
+          )
+        end
+        assert_equal "file must respond to `#read`", e.message
+      end
     end
 
     should "be deserializable when `object=file`" do

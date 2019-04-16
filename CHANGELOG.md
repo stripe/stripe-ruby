@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.13.0 - 2019-04-16
+* [#766](https://github.com/stripe/stripe-ruby/pull/766) Relax constraints on objects that we'll accept as a file (now they just need to respond to `#read`)
+
 ## 4.12.0 - 2019-04-02
 * [#752](https://github.com/stripe/stripe-ruby/pull/752) Add `.delete` class method on deletable API resources
 * [#754](https://github.com/stripe/stripe-ruby/pull/754) Add class methods for all custom API requests (e.g. `Charge.capture`)

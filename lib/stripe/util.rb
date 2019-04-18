@@ -61,6 +61,7 @@ module Stripe
         Checkout::Session::OBJECT_NAME            => Checkout::Session,
         CountrySpec::OBJECT_NAME                  => CountrySpec,
         Coupon::OBJECT_NAME                       => Coupon,
+        CreditNote::OBJECT_NAME                   => CreditNote,
         Customer::OBJECT_NAME                     => Customer,
         Discount::OBJECT_NAME                     => Discount,
         Dispute::OBJECT_NAME                      => Dispute,

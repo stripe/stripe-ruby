@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.14.0 - 2019-04-18
+* [#758](https://github.com/stripe/stripe-ruby/pull/758) Add support for the `CreditNote` resource and APIs
+
 ## 4.13.0 - 2019-04-16
 * [#766](https://github.com/stripe/stripe-ruby/pull/766) Relax constraints on objects that we'll accept as a file (now they just need to respond to `#read`)
 

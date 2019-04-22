@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.15.0 - 2019-04-22
+* [#762](https://github.com/stripe/stripe-ruby/pull/762) Add support for the `TaxId` resource and APIs
+
 ## 4.14.0 - 2019-04-18
 * [#758](https://github.com/stripe/stripe-ruby/pull/758) Add support for the `CreditNote` resource and APIs
 

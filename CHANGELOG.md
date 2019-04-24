@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.16.0 - 2019-04-24
+* [#760](https://github.com/stripe/stripe-ruby/pull/760) Add support for the `TaxRate` resource and APIs
+
 ## 4.15.0 - 2019-04-22
 * [#762](https://github.com/stripe/stripe-ruby/pull/762) Add support for the `TaxId` resource and APIs
 

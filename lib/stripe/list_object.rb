@@ -82,6 +82,10 @@ module Stripe
 
       params = filters.merge(starting_after: last_id).merge(params)
 
+      if params[:include] && params[:include].include?('total_count')
+        params[:include].delete 'total_count'
+      end
+
       list(params, opts)
     end
 

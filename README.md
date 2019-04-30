@@ -95,6 +95,17 @@ Stripe::Charge.retrieve(
     :stripe_version => "2018-02-28"
   }
 )
+
+Stripe::Charge.retrieve(
+  {
+    id: 'ch_18atAXCdGbJFKhCuBAa4532Z',
+    expand: %w(balance_transaction)
+  },
+  {
+    stripe_version: '2018-02-28',
+    api_key: 'sk_test_...'
+  }
+)
 ```
 
 ### Configuring a Client

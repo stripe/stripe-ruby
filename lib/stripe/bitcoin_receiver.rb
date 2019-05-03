@@ -6,7 +6,7 @@ module Stripe
     # the Sources API instead: https://stripe.com/docs/sources/bitcoin
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "bitcoin_receiver".freeze
+    OBJECT_NAME = 'bitcoin_receiver'.freeze
 
     def self.resource_url
       "/v1/bitcoin/receivers"

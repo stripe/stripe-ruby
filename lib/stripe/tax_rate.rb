@@ -6,6 +6,6 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "tax_rate".freeze
+    OBJECT_NAME = 'tax_rate'.freeze
   end
 end

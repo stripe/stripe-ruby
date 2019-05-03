@@ -6,7 +6,7 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "card".freeze
+    OBJECT_NAME = 'card'.freeze
 
     def resource_url
       if respond_to?(:recipient) && !recipient.nil? && !recipient.empty?

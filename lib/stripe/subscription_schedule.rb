@@ -7,7 +7,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "subscription_schedule".freeze
+    OBJECT_NAME = 'subscription_schedule'.freeze
 
     custom_method :cancel, http_verb: :post
     custom_method :release, http_verb: :post
@@ -16,19 +16,17 @@ module Stripe
                                   operations: %i[retrieve list]
 
     def cancel(params = {}, opts = {})
-      url = resource_url + "/cancel"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/cancel', params, opts)
       initialize_from(resp.data, opts)
     end
 
     def release(params = {}, opts = {})
-      url = resource_url + "/release"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/release', params, opts)
       initialize_from(resp.data, opts)
     end
 
     def revisions(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/revisions", params, Util.normalize_opts(opts))
+      resp, opts = request(:get, resource_url + '/revisions', params, Util.normalize_opts(opts))
       Util.convert_to_stripe_object(resp.data, opts)
     end
   end

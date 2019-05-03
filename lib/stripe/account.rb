@@ -9,7 +9,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "account".freeze
+    OBJECT_NAME = 'account'.freeze
 
     custom_method :reject, http_verb: :post
 
@@ -48,13 +48,13 @@ module Stripe
     end
 
     def persons(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/persons", params, Util.normalize_opts(opts))
+      resp, opts = request(:get, resource_url + '/persons', params, Util.normalize_opts(opts))
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def reject(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
-      resp, opts = request(:post, resource_url + "/reject", params, opts)
+      resp, opts = request(:post, resource_url + '/reject', params, opts)
       initialize_from(resp.data, opts)
     end
 

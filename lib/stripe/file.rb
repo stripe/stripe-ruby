@@ -9,8 +9,8 @@ module Stripe
     # versions, only `file` is used, but since stripe-ruby may be used with
     # any API version, we need to support deserializing the older
     # `file_upload` object into the same class.
-    OBJECT_NAME = "file".freeze
-    OBJECT_NAME_ALT = "file_upload".freeze
+    OBJECT_NAME = 'file'.freeze
+    OBJECT_NAME_ALT = 'file_upload'.freeze
 
     def self.resource_url
       "/v1/files"

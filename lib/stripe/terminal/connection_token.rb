@@ -5,7 +5,7 @@ module Stripe
     class ConnectionToken < Stripe::APIResource
       extend Stripe::APIOperations::Create
 
-      OBJECT_NAME = "terminal.connection_token".freeze
+      OBJECT_NAME = 'terminal.connection_token'.freeze
     end
   end
 end

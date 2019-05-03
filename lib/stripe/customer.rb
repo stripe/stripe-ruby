@@ -8,9 +8,9 @@ module Stripe
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "customer".freeze
+    OBJECT_NAME = 'customer'.freeze
 
-    custom_method :delete_discount, http_verb: :delete, http_path: "discount"
+    custom_method :delete_discount, http_verb: :delete, http_path: 'discount'
 
     save_nested_resource :source
     nested_resource_class_methods :source,

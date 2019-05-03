@@ -6,10 +6,10 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "bank_account".freeze
+    OBJECT_NAME = 'bank_account'.freeze
 
     def verify(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/verify", params, opts)
+      resp, opts = request(:post, resource_url + '/verify', params, opts)
       initialize_from(resp.data, opts)
     end
 

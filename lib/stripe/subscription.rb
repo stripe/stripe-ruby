@@ -7,9 +7,9 @@ module Stripe
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
-    OBJECT_NAME = "subscription".freeze
+    OBJECT_NAME = 'subscription'.freeze
 
-    custom_method :delete_discount, http_verb: :delete, http_path: "discount"
+    custom_method :delete_discount, http_verb: :delete, http_path: 'discount'
 
     save_nested_resource :source
 

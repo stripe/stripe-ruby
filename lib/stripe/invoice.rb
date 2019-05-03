@@ -7,47 +7,41 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::Create
 
-    OBJECT_NAME = "invoice".freeze
+    OBJECT_NAME = 'invoice'.freeze
 
-    custom_method :finalize_invoice, http_verb: :post, http_path: "finalize"
+    custom_method :finalize_invoice, http_verb: :post, http_path: 'finalize'
     custom_method :mark_uncollectible, http_verb: :post
     custom_method :pay, http_verb: :post
-    custom_method :send_invoice, http_verb: :post, http_path: "send"
-    custom_method :void_invoice, http_verb: :post, http_path: "void"
+    custom_method :send_invoice, http_verb: :post, http_path: 'send'
+    custom_method :void_invoice, http_verb: :post, http_path: 'void'
 
     def finalize_invoice(params = {}, opts = {})
-      url = resource_url + "/finalize"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/finalize', params, opts)
       initialize_from(resp.data, opts)
     end
 
     def mark_uncollectible(params = {}, opts = {})
-      url = resource_url + "/mark_uncollectible"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/mark_uncollectible', params, opts)
       initialize_from(resp.data, opts)
     end
 
     def pay(params = {}, opts = {})
-      url = resource_url + "/pay"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/pay', params, opts)
       initialize_from(resp.data, opts)
     end
 
     def send_invoice(params = {}, opts = {})
-      url = resource_url + "/send"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/send', params, opts)
       initialize_from(resp.data, opts)
     end
 
     def self.upcoming(params, opts = {})
-      url = resource_url + "/upcoming"
-      resp, opts = request(:get, url, params, opts)
+      resp, opts = request(:get, resource_url + '/upcoming', params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def void_invoice(params = {}, opts = {})
-      url = resource_url + "/void"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/void', params, opts)
       initialize_from(resp.data, opts)
     end
   end

@@ -6,13 +6,12 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::Create
 
-    OBJECT_NAME = "credit_note".freeze
+    OBJECT_NAME = 'credit_note'.freeze
 
-    custom_method :void_credit_note, http_verb: :post, http_path: "void"
+    custom_method :void_credit_note, http_verb: :post, http_path: 'void'
 
     def void_credit_note(params = {}, opts = {})
-      url = resource_url + "/void"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + '/void', params, opts)
       initialize_from(resp.data, opts)
     end
   end

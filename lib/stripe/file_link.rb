@@ -6,6 +6,6 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "file_link".freeze
+    OBJECT_NAME = 'file_link'.freeze
   end
 end

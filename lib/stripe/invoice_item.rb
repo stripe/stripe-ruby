@@ -7,6 +7,6 @@ module Stripe
     include Stripe::APIOperations::Delete
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "invoiceitem".freeze
+    OBJECT_NAME = 'invoiceitem'.freeze
   end
 end

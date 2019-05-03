@@ -9,6 +9,6 @@ module Stripe
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
-    OBJECT_NAME = "usage_record".freeze
+    OBJECT_NAME = 'usage_record'.freeze
   end
 end

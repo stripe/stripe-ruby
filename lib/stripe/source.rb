@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "source".freeze
+    OBJECT_NAME = 'source'.freeze
 
     custom_method :verify, http_verb: :post
 
@@ -28,12 +28,12 @@ module Stripe
     deprecate :delete, "#detach", 2017, 10
 
     def source_transactions(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/source_transactions", params, Util.normalize_opts(opts))
+      resp, opts = request(:get, resource_url + '/source_transactions', params, Util.normalize_opts(opts))
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def verify(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/verify", params, Util.normalize_opts(opts))
+      resp, opts = request(:post, resource_url + '/verify', params, Util.normalize_opts(opts))
       initialize_from(resp.data, opts)
     end
   end

@@ -7,6 +7,6 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "webhook_endpoint".freeze
+    OBJECT_NAME = 'webhook_endpoint'.freeze
   end
 end

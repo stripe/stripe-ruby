@@ -2,7 +2,7 @@
 
 module Stripe
   module Issuing
-    class Transaction < Stripe::APIResource
+    class Transaction < APIResource
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 

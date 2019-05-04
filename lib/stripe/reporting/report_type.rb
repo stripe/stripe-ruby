@@ -2,7 +2,7 @@
 
 module Stripe
   module Reporting
-    class ReportType < Stripe::APIResource
+    class ReportType < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
 

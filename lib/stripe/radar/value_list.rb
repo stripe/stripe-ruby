@@ -2,7 +2,7 @@
 
 module Stripe
   module Radar
-    class ValueList < Stripe::APIResource
+    class ValueList < APIResource
       extend Stripe::APIOperations::Create
       include Stripe::APIOperations::Delete
       extend Stripe::APIOperations::List

@@ -2,7 +2,7 @@
 
 module Stripe
   module Issuing
-    class Card < Stripe::APIResource
+    class Card < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save

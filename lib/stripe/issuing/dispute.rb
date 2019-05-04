@@ -2,7 +2,7 @@
 
 module Stripe
   module Issuing
-    class Dispute < Stripe::APIResource
+    class Dispute < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save

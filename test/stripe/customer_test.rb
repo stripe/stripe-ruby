@@ -1,163 +1,163 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../../test_helper", __FILE__)
+require ::File.expand_path('../../test_helper', __FILE__)
 
 module Stripe
   class CustomerTest < Test::Unit::TestCase
-    should "be listable" do
+    should 'be listable' do
       customers = Stripe::Customer.list
       assert_requested :get, "#{Stripe.api_base}/v1/customers"
       assert customers.data.is_a?(Array)
       assert customers.first.is_a?(Stripe::Customer)
     end
 
-    should "be retrievable" do
-      customer = Stripe::Customer.retrieve("cus_123")
+    should 'be retrievable' do
+      customer = Stripe::Customer.retrieve('cus_123')
       assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123"
       assert customer.is_a?(Stripe::Customer)
     end
 
-    should "be creatable" do
+    should 'be creatable' do
       customer = Stripe::Customer.create
       assert_requested :post, "#{Stripe.api_base}/v1/customers"
       assert customer.is_a?(Stripe::Customer)
     end
 
-    should "be saveable" do
-      customer = Stripe::Customer.retrieve("cus_123")
-      customer.metadata["key"] = "value"
+    should 'be saveable' do
+      customer = Stripe::Customer.retrieve('cus_123')
+      customer.metadata['key'] = 'value'
       customer.save
       assert_requested :post, "#{Stripe.api_base}/v1/customers/#{customer.id}"
     end
 
-    should "be updateable" do
-      customer = Stripe::Customer.update("cus_123", metadata: { key: "value" })
+    should 'be updateable' do
+      customer = Stripe::Customer.update('cus_123', metadata: { key: 'value' })
       assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123"
       assert customer.is_a?(Stripe::Customer)
     end
 
-    context "#delete" do
-      should "be deletable" do
-        customer = Stripe::Customer.retrieve("cus_123")
+    context '#delete' do
+      should 'be deletable' do
+        customer = Stripe::Customer.retrieve('cus_123')
         customer = customer.delete
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer.id}"
         assert customer.is_a?(Stripe::Customer)
       end
     end
 
-    context ".delete" do
-      should "be deletable" do
-        customer = Stripe::Customer.delete("cus_123")
+    context '.delete' do
+      should 'be deletable' do
+        customer = Stripe::Customer.delete('cus_123')
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123"
         assert customer.is_a?(Stripe::Customer)
       end
     end
 
-    context "#create_subscription" do
-      should "create a new subscription" do
-        customer = Stripe::Customer.retrieve("cus_123")
-        subscription = customer.create_subscription(items: [{ plan: "silver" }])
+    context '#create_subscription' do
+      should 'create a new subscription' do
+        customer = Stripe::Customer.retrieve('cus_123')
+        subscription = customer.create_subscription(items: [{ plan: 'silver' }])
         assert_requested :post, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscriptions"
         assert subscription.is_a?(Stripe::Subscription)
       end
     end
 
-    context "#create_upcoming_invoice" do
-      should "create a new invoice" do
-        customer = Stripe::Customer.retrieve("cus_123")
+    context '#create_upcoming_invoice' do
+      should 'create a new invoice' do
+        customer = Stripe::Customer.retrieve('cus_123')
         invoice = customer.create_upcoming_invoice
         assert_requested :post, "#{Stripe.api_base}/v1/invoices"
         assert invoice.is_a?(Stripe::Invoice)
       end
     end
 
-    context "#update_subscription" do
-      should "update a subscription" do
-        customer = Stripe::Customer.retrieve("cus_123")
+    context '#update_subscription' do
+      should 'update a subscription' do
+        customer = Stripe::Customer.retrieve('cus_123')
 
         # deprecated API and not in schema
         stub_request(:post, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscription")
-          .with(body: { plan: "silver" })
-          .to_return(body: JSON.generate(object: "subscription"))
-        subscription = customer.update_subscription(plan: "silver")
+          .with(body: { plan: 'silver' })
+          .to_return(body: JSON.generate(object: 'subscription'))
+        subscription = customer.update_subscription(plan: 'silver')
         assert subscription.is_a?(Stripe::Subscription)
       end
     end
 
-    context "#cancel_subscription" do
-      should "cancel a subscription" do
-        customer = Stripe::Customer.retrieve("cus_123")
+    context '#cancel_subscription' do
+      should 'cancel a subscription' do
+        customer = Stripe::Customer.retrieve('cus_123')
 
         # deprecated API and not in schema
         stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscription")
-          .with(query: { at_period_end: "true" })
-          .to_return(body: JSON.generate(object: "subscription"))
-        subscription = customer.cancel_subscription(at_period_end: "true")
+          .with(query: { at_period_end: 'true' })
+          .to_return(body: JSON.generate(object: 'subscription'))
+        subscription = customer.cancel_subscription(at_period_end: 'true')
         assert subscription.is_a?(Stripe::Subscription)
       end
     end
 
-    context "#delete_discount" do
-      should "delete a discount" do
-        customer = Stripe::Customer.retrieve("cus_123")
+    context '#delete_discount' do
+      should 'delete a discount' do
+        customer = Stripe::Customer.retrieve('cus_123')
         customer = customer.delete_discount
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer.id}/discount"
         assert customer.is_a?(Stripe::Customer)
       end
     end
 
-    context ".delete_discount" do
-      should "delete a discount" do
-        discount = Stripe::Customer.delete_discount("cus_123")
+    context '.delete_discount' do
+      should 'delete a discount' do
+        discount = Stripe::Customer.delete_discount('cus_123')
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/discount"
         assert discount.is_a?(Stripe::Discount)
       end
     end
-    context "#create_source" do
-      should "create a source" do
+    context '#create_source' do
+      should 'create a source' do
         Stripe::Customer.create_source(
-          "cus_123",
-          source: "tok_123"
+          'cus_123',
+          source: 'tok_123'
         )
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources"
       end
     end
 
-    context "#retrieve_source" do
-      should "retrieve a source" do
+    context '#retrieve_source' do
+      should 'retrieve a source' do
         Stripe::Customer.retrieve_source(
-          "cus_123",
-          "ba_123"
+          'cus_123',
+          'ba_123'
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123"
       end
     end
 
-    context "#update_source" do
-      should "update a source" do
+    context '#update_source' do
+      should 'update a source' do
         Stripe::Customer.update_source(
-          "cus_123",
-          "ba_123",
-          metadata: { foo: "bar" }
+          'cus_123',
+          'ba_123',
+          metadata: { foo: 'bar' }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123"
       end
     end
 
-    context "#delete_source" do
-      should "delete a source" do
+    context '#delete_source' do
+      should 'delete a source' do
         Stripe::Customer.delete_source(
-          "cus_123",
-          "ba_123"
+          'cus_123',
+          'ba_123'
         )
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123"
       end
     end
 
-    context "#list_sources" do
+    context '#list_sources' do
       should "list the customer's sources" do
         sources = Stripe::Customer.list_sources(
-          "cus_123"
+          'cus_123'
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/sources"
         assert sources.is_a?(Stripe::ListObject)
@@ -165,57 +165,57 @@ module Stripe
       end
     end
 
-    context "source field" do
-      should "allow setting source with token" do
-        c = Stripe::Customer.new("test_customer")
-        c.source = "tok_123"
-        assert_equal "tok_123", c.source
+    context 'source field' do
+      should 'allow setting source with token' do
+        c = Stripe::Customer.new('test_customer')
+        c.source = 'tok_123'
+        assert_equal 'tok_123', c.source
       end
 
-      should "allow setting source with hash and set flag" do
-        c = Stripe::Customer.new("test_customer")
+      should 'allow setting source with hash and set flag' do
+        c = Stripe::Customer.new('test_customer')
         c.source = {
-          object: "card",
+          object: 'card',
         }
         assert_equal true, c.source.save_with_parent
       end
     end
 
-    context "#create_tax_id" do
-      should "create a tax id" do
+    context '#create_tax_id' do
+      should 'create a tax id' do
         Stripe::Customer.create_tax_id(
-          "cus_123",
-          type: "eu_vat",
-          value: "11111"
+          'cus_123',
+          type: 'eu_vat',
+          value: '11111'
         )
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids"
       end
     end
 
-    context "#retrieve_tax_id" do
-      should "retrieve a tax id" do
+    context '#retrieve_tax_id' do
+      should 'retrieve a tax id' do
         Stripe::Customer.retrieve_tax_id(
-          "cus_123",
-          "txi_123"
+          'cus_123',
+          'txi_123'
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids/txi_123"
       end
     end
 
-    context "#delete_tax_id" do
-      should "delete a tax id" do
+    context '#delete_tax_id' do
+      should 'delete a tax id' do
         Stripe::Customer.delete_tax_id(
-          "cus_123",
-          "txi_123"
+          'cus_123',
+          'txi_123'
         )
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids/txi_123"
       end
     end
 
-    context "#list_tax_ids" do
+    context '#list_tax_ids' do
       should "list the customer's tax ids" do
         sources = Stripe::Customer.list_tax_ids(
-          "cus_123"
+          'cus_123'
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids"
         assert sources.is_a?(Stripe::ListObject)

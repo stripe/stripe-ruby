@@ -10,7 +10,7 @@ module Stripe
     def resource_url
       if !respond_to?(:account) || account.nil?
         raise NotImplementedError,
-              "Persons cannot be accessed without an account ID."
+              'Persons cannot be accessed without an account ID.'
       end
       "#{Account.resource_url}/#{CGI.escape(account)}/persons/#{CGI.escape(id)}"
     end

@@ -21,7 +21,7 @@ module Stripe
     private
 
     def discount_url
-      resource_url + "/discount"
+      resource_url + '/discount'
     end
   end
 end

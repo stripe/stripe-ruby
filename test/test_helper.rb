@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require "coveralls"
-Coveralls.wear!("test_frameworks")
+require 'coveralls'
+Coveralls.wear!('test_frameworks')
 
-require "stripe"
-require "test/unit"
-require "mocha/setup"
-require "stringio"
-require "shoulda/context"
-require "timecop"
-require "webmock/test_unit"
+require 'stripe'
+require 'test/unit'
+require 'mocha/setup'
+require 'stringio'
+require 'shoulda/context'
+require 'timecop'
+require 'webmock/test_unit'
 
-PROJECT_ROOT = ::File.expand_path("../../", __FILE__)
+PROJECT_ROOT = ::File.expand_path('../../', __FILE__)
 
-require ::File.expand_path("../test_data", __FILE__)
-require ::File.expand_path("../stripe_mock", __FILE__)
+require ::File.expand_path('../test_data', __FILE__)
+require ::File.expand_path('../stripe_mock', __FILE__)
 
 # If changing this number, please also change it in `.travis.yml`.
-MOCK_MINIMUM_VERSION = "0.54.0".freeze
+MOCK_MINIMUM_VERSION = '0.54.0'.freeze
 MOCK_PORT = Stripe::StripeMock.start
 
 # Disable all real network connections except those that are outgoing to
@@ -29,17 +29,17 @@ WebMock.disable_net_connect!(allow: "localhost:#{MOCK_PORT}")
 # they should fix the problem.
 begin
   conn = Faraday::Connection.new("http://localhost:#{MOCK_PORT}")
-  resp = conn.get("/")
-  version = resp.headers["Stripe-Mock-Version"]
-  if version != "master" &&
+  resp = conn.get('/')
+  version = resp.headers['Stripe-Mock-Version']
+  if version != 'master' &&
      Gem::Version.new(version) < Gem::Version.new(MOCK_MINIMUM_VERSION)
     abort("Your version of stripe-mock (#{version}) is too old. The minimum " \
       "version to run this test suite is #{MOCK_MINIMUM_VERSION}. Please " \
-      "see its repository for upgrade instructions.")
+      'see its repository for upgrade instructions.')
   end
 rescue Faraday::ConnectionFailed
   abort("Couldn't reach stripe-mock at `localhost:#{MOCK_PORT}`. Is " \
-    "it running? Please see README for setup instructions.")
+    'it running? Please see README for setup instructions.')
 end
 
 Test::Unit.at_exit do
@@ -53,7 +53,7 @@ module Test
       include Mocha
 
       setup do
-        Stripe.api_key = "sk_test_123"
+        Stripe.api_key = 'sk_test_123'
         Stripe.api_base = "http://localhost:#{MOCK_PORT}"
 
         stub_connect
@@ -66,7 +66,7 @@ module Test
       private
 
       def stub_connect
-        stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: "{}")
+        stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: '{}')
       end
     end
   end

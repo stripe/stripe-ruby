@@ -12,8 +12,8 @@ module Stripe
     def detach(params = {}, opts = {})
       if !respond_to?(:customer) || customer.nil? || customer.empty?
         raise NotImplementedError,
-              "This source object does not appear to be currently attached " \
-              "to a customer object."
+              'This source object does not appear to be currently attached ' \
+              'to a customer object.'
       end
 
       url = "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
@@ -25,7 +25,7 @@ module Stripe
       detach(params, opts)
     end
     extend Gem::Deprecate
-    deprecate :delete, "#detach", 2017, 10
+    deprecate :delete, '#detach', 2017, 10
 
     def source_transactions(params = {}, opts = {})
       resp, opts = request(:get, resource_url + '/source_transactions', params, Util.normalize_opts(opts))

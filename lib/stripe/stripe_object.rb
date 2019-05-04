@@ -120,7 +120,7 @@ module Stripe
     end
 
     def inspect
-      id_string = respond_to?(:id) && !id.nil? ? " id=#{id}" : ""
+      id_string = respond_to?(:id) && !id.nil? ? " id=#{id}" : ''
       "#<#{self.class}:0x#{object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
     end
 
@@ -134,7 +134,7 @@ module Stripe
       initialize_from(values, opts, partial)
     end
     extend Gem::Deprecate
-    deprecate :refresh_from, "#update_attributes", 2016, 1
+    deprecate :refresh_from, '#update_attributes', 2016, 1
 
     # Mass assigns attributes on the model.
     #
@@ -271,7 +271,7 @@ module Stripe
         obj.serialize_params(options)
       end
       extend Gem::Deprecate
-      deprecate :serialize_params, "#serialize_params", 2016, 9
+      deprecate :serialize_params, '#serialize_params', 2016, 9
     end
 
     # A protected field is one that doesn't get an accessor assigned to it
@@ -315,7 +315,7 @@ module Stripe
               # the program doesn't crash.
               $stderr.puts("WARNING: Unable to remove method `#{method_name}`; " \
                 "if custom, please consider renaming to a name that doesn't " \
-                "collide with an API property name.")
+                'collide with an API property name.')
             end
           end
         end
@@ -342,9 +342,9 @@ module Stripe
           end
 
           define_method(:"#{k}=") do |v|
-            if v == ""
+            if v == ''
               raise ArgumentError, "You cannot set #{k} to an empty string. " \
-                "We interpret empty strings as nil in requests. " \
+                'We interpret empty strings as nil in requests. ' \
                 "You may set (object).#{k} = nil to delete the property."
             end
             @values[k] = Util.convert_to_stripe_object(v, @opts)
@@ -361,7 +361,7 @@ module Stripe
 
     def method_missing(name, *args)
       # TODO: only allow setting in updateable classes.
-      if name.to_s.end_with?("=")
+      if name.to_s.end_with?('=')
         attr = name.to_s[0...-1].to_sym
 
         # Pull out the assigned value. This is only used in the case of a
@@ -443,7 +443,7 @@ module Stripe
 
     def serialize_params_value(value, original, unsaved, force, key: nil)
       if value.nil?
-        ""
+        ''
 
       # The logic here is that essentially any object embedded in another
       # object that had a `type` is actually an API resource of a different
@@ -475,7 +475,7 @@ module Stripe
         else
           raise ArgumentError, "Cannot save property `#{key}` containing " \
             "an API resource. It doesn't appear to be persisted and is " \
-            "not marked as `save_with_parent`."
+            'not marked as `save_with_parent`.'
         end
 
       elsif value.is_a?(Array)
@@ -562,7 +562,7 @@ module Stripe
                end
 
       values.each_with_object({}) do |(k, _), update|
-        update[k] = ""
+        update[k] = ''
       end
     end
   end

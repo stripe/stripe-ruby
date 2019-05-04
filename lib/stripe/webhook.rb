@@ -21,18 +21,18 @@ module Stripe
     end
 
     module Signature
-      EXPECTED_SCHEME = "v1".freeze
+      EXPECTED_SCHEME = 'v1'.freeze
 
       def self.compute_signature(payload, secret)
-        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), secret, payload)
+        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), secret, payload)
       end
       private_class_method :compute_signature
 
       # Extracts the timestamp and the signature(s) with the desired scheme
       # from the header
       def self.get_timestamp_and_signatures(header, scheme)
-        list_items = header.split(/,\s*/).map { |i| i.split("=", 2) }
-        timestamp = Integer(list_items.select { |i| i[0] == "t" }[0][1])
+        list_items = header.split(/,\s*/).map { |i| i.split('=', 2) }
+        timestamp = Integer(list_items.select { |i| i[0] == 't' }[0][1])
         signatures = list_items.select { |i| i[0] == scheme }.map { |i| i[1] }
         [timestamp, signatures]
       end
@@ -53,7 +53,7 @@ module Stripe
           timestamp, signatures = get_timestamp_and_signatures(header, EXPECTED_SCHEME)
         rescue StandardError
           raise SignatureVerificationError.new(
-            "Unable to extract timestamp and signatures from header",
+            'Unable to extract timestamp and signatures from header',
             header, http_body: payload
           )
         end
@@ -69,7 +69,7 @@ module Stripe
         expected_sig = compute_signature(signed_payload, secret)
         unless signatures.any? { |s| Util.secure_compare(expected_sig, s) }
           raise SignatureVerificationError.new(
-            "No signatures found matching the expected signature for payload",
+            'No signatures found matching the expected signature for payload',
             header, http_body: payload
           )
         end

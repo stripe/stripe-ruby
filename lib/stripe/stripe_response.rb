@@ -30,7 +30,7 @@ module Stripe
       resp.http_body = http_resp[:body]
       resp.http_headers = http_resp[:headers]
       resp.http_status = http_resp[:status]
-      resp.request_id = http_resp[:headers]["Request-Id"]
+      resp.request_id = http_resp[:headers]['Request-Id']
       resp
     end
 
@@ -43,7 +43,7 @@ module Stripe
       resp.http_body = http_resp.body
       resp.http_headers = http_resp.headers
       resp.http_status = http_resp.status
-      resp.request_id = http_resp.headers["Request-Id"]
+      resp.request_id = http_resp.headers['Request-Id']
       resp
     end
   end

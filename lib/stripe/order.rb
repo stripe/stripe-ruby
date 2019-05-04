@@ -24,11 +24,11 @@ module Stripe
     private
 
     def pay_url
-      resource_url + "/pay"
+      resource_url + '/pay'
     end
 
     def returns_url
-      resource_url + "/returns"
+      resource_url + '/returns'
     end
   end
 end

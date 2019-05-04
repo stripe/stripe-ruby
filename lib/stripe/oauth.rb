@@ -17,13 +17,13 @@ module Stripe
     def self.get_client_id(params = {})
       client_id = params[:client_id] || Stripe.client_id
       unless client_id
-        raise AuthenticationError, "No client_id provided. " \
+        raise AuthenticationError, 'No client_id provided. ' \
           'Set your client_id using "Stripe.client_id = <CLIENT-ID>". ' \
-          "You can find your client_ids in your Stripe dashboard at " \
-          "https://dashboard.stripe.com/account/applications/settings, " \
-          "after registering your account as a platform. See " \
-          "https://stripe.com/docs/connect/standalone-accounts for details, " \
-          "or email support@stripe.com if you have any questions."
+          'You can find your client_ids in your Stripe dashboard at ' \
+          'https://dashboard.stripe.com/account/applications/settings, ' \
+          'after registering your account as a platform. See ' \
+          'https://stripe.com/docs/connect/standalone-accounts for details, ' \
+          'or email support@stripe.com if you have any questions.'
       end
       client_id
     end
@@ -31,11 +31,11 @@ module Stripe
     def self.authorize_url(params = {}, opts = {})
       base = opts[:connect_base] || Stripe.connect_base
 
-      path = "/oauth/authorize"
-      path = "/express" + path if opts[:express]
+      path = '/oauth/authorize'
+      path = '/express' + path if opts[:express]
 
       params[:client_id] = get_client_id(params)
-      params[:response_type] ||= "code"
+      params[:response_type] ||= 'code'
       query = Util.encode_parameters(params)
 
       "#{base}#{path}?#{query}"
@@ -44,7 +44,7 @@ module Stripe
     def self.token(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
       resp, opts = OAuthOperations.request(
-        :post, "/oauth/token", params, opts
+        :post, '/oauth/token', params, opts
       )
       # This is just going to return a generic StripeObject, but that's okay
       Util.convert_to_stripe_object(resp.data, opts)
@@ -54,7 +54,7 @@ module Stripe
       opts = Util.normalize_opts(opts)
       params[:client_id] = get_client_id(params)
       resp, opts = OAuthOperations.request(
-        :post, "/oauth/deauthorize", params, opts
+        :post, '/oauth/deauthorize', params, opts
       )
       # This is just going to return a generic StripeObject, but that's okay
       Util.convert_to_stripe_object(resp.data, opts)

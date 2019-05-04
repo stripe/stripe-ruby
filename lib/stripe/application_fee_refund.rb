@@ -5,7 +5,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "fee_refund".freeze
+    OBJECT_NAME = 'fee_refund'.freeze
 
     def resource_url
       "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds/#{CGI.escape(id)}"

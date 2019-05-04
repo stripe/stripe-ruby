@@ -49,7 +49,7 @@ module Stripe
 
     def mark_as_fraudulent
       params = {
-        fraud_details: { user_report: "fraudulent" },
+        fraud_details: { user_report: 'fraudulent' },
       }
       resp, opts = request(:post, resource_url, params)
       initialize_from(resp.data, opts)
@@ -57,7 +57,7 @@ module Stripe
 
     def mark_as_safe
       params = {
-        fraud_details: { user_report: "safe" },
+        fraud_details: { user_report: 'safe' },
       }
       resp, opts = request(:post, resource_url, params)
       initialize_from(resp.data, opts)
@@ -66,21 +66,21 @@ module Stripe
     private
 
     def capture_url
-      resource_url + "/capture"
+      resource_url + '/capture'
     end
 
     def dispute_url
-      resource_url + "/dispute"
+      resource_url + '/dispute'
     end
 
     def close_dispute_url
-      resource_url + "/dispute/close"
+      resource_url + '/dispute/close'
     end
 
     # Note that this is actually the *old* refund URL and its use is no longer
     # preferred.
     def refund_url
-      resource_url + "/refund"
+      resource_url + '/refund'
     end
   end
 end

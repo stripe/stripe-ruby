@@ -12,12 +12,12 @@ module Stripe
     attr_accessor :save_with_parent
 
     def self.class_name
-      name.split("::")[-1]
+      name.split('::')[-1]
     end
 
     def self.resource_url
       if self == APIResource
-        raise NotImplementedError, "APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)"
+        raise NotImplementedError, 'APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)'
       end
       # Namespaces are separated in object names with periods (.) and in URLs
       # with forward slashes (/), so replace the former with the latter.
@@ -73,8 +73,8 @@ module Stripe
     end
 
     def resource_url
-      unless (id = self["id"])
-        raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", "id")
+      unless (id = self['id'])
+        raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", 'id')
       end
       "#{self.class.resource_url}/#{CGI.escape(id)}"
     end

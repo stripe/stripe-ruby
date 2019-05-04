@@ -5,12 +5,12 @@ module Stripe
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
-    OBJECT_NAME = "alipay_account".freeze
+    OBJECT_NAME = 'alipay_account'.freeze
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?
         raise NotImplementedError,
-              "Alipay accounts cannot be accessed without a customer ID."
+              'Alipay accounts cannot be accessed without a customer ID.'
       end
 
       "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"

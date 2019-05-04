@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "cgi"
+require 'cgi'
 
 module Stripe
   module Util
@@ -196,7 +196,7 @@ module Stripe
     # `&`).
     def self.encode_parameters(params)
       Util.flatten_params(params)
-          .map { |k, v| "#{url_encode(k)}=#{url_encode(v)}" }.join("&")
+          .map { |k, v| "#{url_encode(k)}=#{url_encode(v)}" }.join('&')
     end
 
     # Encodes a string in a way that makes it suitable for use in a set of
@@ -207,7 +207,7 @@ module Stripe
         # Don't use strict form encoding by changing the square bracket control
         # characters back to their literals. This is fine by the server, and
         # makes these parameter strings easier to read.
-        gsub("%5B", "[").gsub("%5D", "]")
+        gsub('%5B', '[').gsub('%5D', ']')
     end
 
     def self.flatten_params(params, parent_key = nil)
@@ -263,17 +263,17 @@ module Stripe
         check_api_key!(opts.fetch(:api_key)) if opts.key?(:api_key)
         opts.clone
       else
-        raise TypeError, "normalize_opts expects a string or a hash"
+        raise TypeError, 'normalize_opts expects a string or a hash'
       end
     end
 
     def self.check_string_argument!(key)
-      raise TypeError, "argument must be a string" unless key.is_a?(String)
+      raise TypeError, 'argument must be a string' unless key.is_a?(String)
       key
     end
 
     def self.check_api_key!(key)
-      raise TypeError, "api_key must be a string" unless key.is_a?(String)
+      raise TypeError, 'api_key must be a string' unless key.is_a?(String)
       key
     end
 
@@ -284,8 +284,8 @@ module Stripe
     # diffent naming schemes.
     def self.normalize_headers(headers)
       headers.each_with_object({}) do |(k, v), new_headers|
-        k = k.to_s.tr("_", "-") if k.is_a?(Symbol)
-        k = k.split("-").reject(&:empty?).map(&:capitalize).join("-")
+        k = k.to_s.tr('_', '-') if k.is_a?(Symbol)
+        k = k.split('-').reject(&:empty?).map(&:capitalize).join('-')
 
         new_headers[k] = v
       end
@@ -295,7 +295,7 @@ module Stripe
     # ID value and an API key, which is used to attempt to extract whether the
     # environment is livemode or testmode.
     def self.request_id_dashboard_url(request_id, api_key)
-      env = !api_key.nil? && api_key.start_with?("sk_live") ? "live" : "test"
+      env = !api_key.nil? && api_key.start_with?('sk_live') ? 'live' : 'test'
       "https://dashboard.stripe.com/#{env}/logs/#{request_id}"
     end
 
@@ -344,9 +344,9 @@ module Stripe
     # Turns an integer log level into a printable name.
     def self.level_name(level)
       case level
-      when LEVEL_DEBUG then "debug"
-      when LEVEL_ERROR then "error"
-      when LEVEL_INFO  then "info"
+      when LEVEL_DEBUG then 'debug'
+      when LEVEL_ERROR then 'error'
+      when LEVEL_INFO  then 'info'
       else level
       end
     end
@@ -357,18 +357,18 @@ module Stripe
     def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
       data_str = data.reject { |_k, v| v.nil? }
                      .map do |(k, v)|
-        format("%s=%s", colorize(k, color, logger.nil? && !out.nil? && out.isatty), wrap_logfmt_value(v))
-      end.join(" ")
+        format('%s=%s', colorize(k, color, logger.nil? && !out.nil? && out.isatty), wrap_logfmt_value(v))
+      end.join(' ')
 
       if !logger.nil?
         # the library's log levels are mapped to the same values as the
         # standard library's logger
         logger.log(level,
-                   format("message=%s %s", wrap_logfmt_value(message), data_str))
+                   format('message=%s %s', wrap_logfmt_value(message), data_str))
       elsif out.isatty
-        out.puts format("%s %s %s", colorize(level_name(level)[0, 4].upcase, color, out.isatty), message, data_str)
+        out.puts format('%s %s %s', colorize(level_name(level)[0, 4].upcase, color, out.isatty), message, data_str)
       else
-        out.puts format("message=%s level=%s %s", wrap_logfmt_value(message), level_name(level), data_str)
+        out.puts format('message=%s level=%s %s', wrap_logfmt_value(message), level_name(level), data_str)
       end
     end
     private_class_method :log_internal

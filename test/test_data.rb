@@ -14,8 +14,8 @@ module Stripe
     def make_invalid_api_key_error
       {
         error: {
-          type: "invalid_request_error",
-          message: "Invalid API Key provided: invalid",
+          type: 'invalid_request_error',
+          message: 'Invalid API Key provided: invalid',
         },
       }
     end
@@ -23,9 +23,9 @@ module Stripe
     def make_invalid_exp_year_error
       {
         error: {
-          code: "invalid_expiry_year",
-          param: "exp_year",
-          type: "card_error",
+          code: 'invalid_expiry_year',
+          param: 'exp_year',
+          type: 'card_error',
           message: "Your card's expiration year is invalid",
         },
       }
@@ -34,9 +34,9 @@ module Stripe
     def make_missing_id_error
       {
         error: {
-          param: "id",
-          type: "invalid_request_error",
-          message: "Missing id",
+          param: 'id',
+          type: 'invalid_request_error',
+          message: 'Missing id',
         },
       }
     end
@@ -44,8 +44,8 @@ module Stripe
     def make_rate_limit_error
       {
         error: {
-          type: "invalid_request_error",
-          message: "Too many requests in a period of time.",
+          type: 'invalid_request_error',
+          message: 'Too many requests in a period of time.',
         },
       }
     end
@@ -53,7 +53,7 @@ module Stripe
     def make_api_error
       {
         error: {
-          type: "api_error",
+          type: 'api_error',
         },
       }
     end

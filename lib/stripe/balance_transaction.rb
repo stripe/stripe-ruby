@@ -7,7 +7,7 @@ module Stripe
     OBJECT_NAME = 'balance_transaction'.freeze
 
     def self.resource_url
-      "/v1/balance/history"
+      '/v1/balance/history'
     end
   end
 end

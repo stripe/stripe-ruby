@@ -2,125 +2,125 @@
 
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
-require "cgi"
-require "faraday"
-require "json"
-require "logger"
-require "openssl"
-require "rbconfig"
-require "securerandom"
-require "set"
-require "socket"
-require "uri"
+require 'cgi'
+require 'faraday'
+require 'json'
+require 'logger'
+require 'openssl'
+require 'rbconfig'
+require 'securerandom'
+require 'set'
+require 'socket'
+require 'uri'
 
 # Version
-require "stripe/version"
+require 'stripe/version'
 
 # API operations
-require "stripe/api_operations/create"
-require "stripe/api_operations/delete"
-require "stripe/api_operations/list"
-require "stripe/api_operations/nested_resource"
-require "stripe/api_operations/request"
-require "stripe/api_operations/save"
+require 'stripe/api_operations/create'
+require 'stripe/api_operations/delete'
+require 'stripe/api_operations/list'
+require 'stripe/api_operations/nested_resource'
+require 'stripe/api_operations/request'
+require 'stripe/api_operations/save'
 
 # API resource support classes
-require "stripe/errors"
-require "stripe/util"
-require "stripe/stripe_client"
-require "stripe/stripe_object"
-require "stripe/stripe_response"
-require "stripe/list_object"
-require "stripe/api_resource"
-require "stripe/singleton_api_resource"
-require "stripe/webhook"
+require 'stripe/errors'
+require 'stripe/util'
+require 'stripe/stripe_client'
+require 'stripe/stripe_object'
+require 'stripe/stripe_response'
+require 'stripe/list_object'
+require 'stripe/api_resource'
+require 'stripe/singleton_api_resource'
+require 'stripe/webhook'
 
 # Named API resources
-require "stripe/account"
-require "stripe/account_link"
-require "stripe/alipay_account"
-require "stripe/apple_pay_domain"
-require "stripe/application_fee"
-require "stripe/application_fee_refund"
-require "stripe/balance"
-require "stripe/balance_transaction"
-require "stripe/bank_account"
-require "stripe/bitcoin_receiver"
-require "stripe/bitcoin_transaction"
-require "stripe/card"
-require "stripe/charge"
-require "stripe/checkout/session"
-require "stripe/country_spec"
-require "stripe/coupon"
-require "stripe/credit_note"
-require "stripe/customer"
-require "stripe/discount"
-require "stripe/dispute"
-require "stripe/ephemeral_key"
-require "stripe/event"
-require "stripe/exchange_rate"
-require "stripe/file"
-require "stripe/file_link"
-require "stripe/invoice"
-require "stripe/invoice_item"
-require "stripe/invoice_line_item"
-require "stripe/issuer_fraud_record"
-require "stripe/issuing/authorization"
-require "stripe/issuing/card"
-require "stripe/issuing/card_details"
-require "stripe/issuing/cardholder"
-require "stripe/issuing/dispute"
-require "stripe/issuing/transaction"
-require "stripe/login_link"
-require "stripe/order"
-require "stripe/order_return"
-require "stripe/payment_intent"
-require "stripe/payment_method"
-require "stripe/payout"
-require "stripe/person"
-require "stripe/plan"
-require "stripe/product"
-require "stripe/radar/value_list"
-require "stripe/radar/value_list_item"
-require "stripe/recipient"
-require "stripe/recipient_transfer"
-require "stripe/refund"
-require "stripe/reporting/report_run"
-require "stripe/reporting/report_type"
-require "stripe/reversal"
-require "stripe/review"
-require "stripe/sigma/scheduled_query_run"
-require "stripe/sku"
-require "stripe/source"
-require "stripe/source_transaction"
-require "stripe/subscription"
-require "stripe/subscription_item"
-require "stripe/subscription_schedule"
-require "stripe/subscription_schedule_revision"
-require "stripe/tax_id"
-require "stripe/tax_rate"
-require "stripe/terminal/connection_token"
-require "stripe/terminal/location"
-require "stripe/terminal/reader"
-require "stripe/three_d_secure"
-require "stripe/token"
-require "stripe/topup"
-require "stripe/transfer"
-require "stripe/usage_record"
-require "stripe/usage_record_summary"
-require "stripe/webhook_endpoint"
+require 'stripe/account'
+require 'stripe/account_link'
+require 'stripe/alipay_account'
+require 'stripe/apple_pay_domain'
+require 'stripe/application_fee'
+require 'stripe/application_fee_refund'
+require 'stripe/balance'
+require 'stripe/balance_transaction'
+require 'stripe/bank_account'
+require 'stripe/bitcoin_receiver'
+require 'stripe/bitcoin_transaction'
+require 'stripe/card'
+require 'stripe/charge'
+require 'stripe/checkout/session'
+require 'stripe/country_spec'
+require 'stripe/coupon'
+require 'stripe/credit_note'
+require 'stripe/customer'
+require 'stripe/discount'
+require 'stripe/dispute'
+require 'stripe/ephemeral_key'
+require 'stripe/event'
+require 'stripe/exchange_rate'
+require 'stripe/file'
+require 'stripe/file_link'
+require 'stripe/invoice'
+require 'stripe/invoice_item'
+require 'stripe/invoice_line_item'
+require 'stripe/issuer_fraud_record'
+require 'stripe/issuing/authorization'
+require 'stripe/issuing/card'
+require 'stripe/issuing/card_details'
+require 'stripe/issuing/cardholder'
+require 'stripe/issuing/dispute'
+require 'stripe/issuing/transaction'
+require 'stripe/login_link'
+require 'stripe/order'
+require 'stripe/order_return'
+require 'stripe/payment_intent'
+require 'stripe/payment_method'
+require 'stripe/payout'
+require 'stripe/person'
+require 'stripe/plan'
+require 'stripe/product'
+require 'stripe/radar/value_list'
+require 'stripe/radar/value_list_item'
+require 'stripe/recipient'
+require 'stripe/recipient_transfer'
+require 'stripe/refund'
+require 'stripe/reporting/report_run'
+require 'stripe/reporting/report_type'
+require 'stripe/reversal'
+require 'stripe/review'
+require 'stripe/sigma/scheduled_query_run'
+require 'stripe/sku'
+require 'stripe/source'
+require 'stripe/source_transaction'
+require 'stripe/subscription'
+require 'stripe/subscription_item'
+require 'stripe/subscription_schedule'
+require 'stripe/subscription_schedule_revision'
+require 'stripe/tax_id'
+require 'stripe/tax_rate'
+require 'stripe/terminal/connection_token'
+require 'stripe/terminal/location'
+require 'stripe/terminal/reader'
+require 'stripe/three_d_secure'
+require 'stripe/token'
+require 'stripe/topup'
+require 'stripe/transfer'
+require 'stripe/usage_record'
+require 'stripe/usage_record_summary'
+require 'stripe/webhook_endpoint'
 
 # OAuth
-require "stripe/oauth"
+require 'stripe/oauth'
 
 module Stripe
-  DEFAULT_CA_BUNDLE_PATH = ::File.dirname(__FILE__) + "/data/ca-certificates.crt"
+  DEFAULT_CA_BUNDLE_PATH = ::File.dirname(__FILE__) + '/data/ca-certificates.crt'
 
   @app_info = nil
 
-  @api_base = "https://api.stripe.com"
-  @connect_base = "https://connect.stripe.com"
-  @uploads_base = "https://files.stripe.com"
+  @api_base = 'https://api.stripe.com'
+  @connect_base = 'https://connect.stripe.com'
+  @uploads_base = 'https://files.stripe.com'
 
   @log_level = nil
   @logger = nil
@@ -206,14 +206,14 @@ module Stripe
 
   def self.log_level=(val)
     # Backwards compatibility for values that we briefly allowed
-    if val == "debug"
+    if val == 'debug'
       val = LEVEL_DEBUG
-    elsif val == "info"
+    elsif val == 'info'
       val = LEVEL_INFO
     end
 
     if !val.nil? && ![LEVEL_DEBUG, LEVEL_ERROR, LEVEL_INFO].include?(val)
-      raise ArgumentError, "log_level should only be set to `nil`, `debug` or `info`"
+      raise ArgumentError, 'log_level should only be set to `nil`, `debug` or `info`'
     end
     @log_level = val
   end
@@ -270,8 +270,8 @@ module Stripe
   private_class_method :uri_encode
   class << self
     extend Gem::Deprecate
-    deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 1
+    deprecate :uri_encode, 'Stripe::Util#encode_parameters', 2016, 1
   end
 end
 
-Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?
+Stripe.log_level = ENV['STRIPE_LOG'] unless ENV['STRIPE_LOG'].nil?

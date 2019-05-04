@@ -25,8 +25,5 @@ Metrics/ModuleLength:
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: consistent_comma

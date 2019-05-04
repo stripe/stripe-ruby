@@ -16,7 +16,7 @@ module Stripe
     end
 
     def cancel_url
-      resource_url + "/cancel"
+      resource_url + '/cancel'
     end
   end
 end

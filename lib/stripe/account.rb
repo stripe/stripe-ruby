@@ -22,13 +22,13 @@ module Stripe
 
     # This method is deprecated. Please use `#external_account=` instead.
     save_nested_resource :bank_account
-    deprecate :bank_account=, "#external_account=", 2017, 8
+    deprecate :bank_account=, '#external_account=', 2017, 8
 
     def resource_url
-      if self["id"]
+      if self['id']
         super
       else
-        "/v1/account"
+        '/v1/account'
       end
     end
 
@@ -39,7 +39,7 @@ module Stripe
       # Account used to be a singleton, where this method's signature was
       # `(opts={})`. For the sake of not breaking folks who pass in an OAuth
       # key in opts, let's lurkily string match for it.
-      if opts == {} && id.is_a?(String) && id.start_with?("sk_")
+      if opts == {} && id.is_a?(String) && id.start_with?('sk_')
         # `super` properly assumes a String opts is the apiKey and normalizes as expected.
         opts = id
         id = nil
@@ -106,7 +106,7 @@ module Stripe
     end
 
     def legal_entity
-      self["legal_entity"]
+      self['legal_entity']
     end
 
     def legal_entity=(_)
@@ -131,7 +131,7 @@ module Stripe
         # url params provide no mechanism for deleting an item in an array,
         # just overwriting the whole array or adding new items. So let's not
         # allow deleting without a full overwrite until we have a solution.
-        raise ArgumentError, "You cannot delete an item from an array, you must instead set a new array"
+        raise ArgumentError, 'You cannot delete an item from an array, you must instead set a new array'
       end
 
       update_hash = {}

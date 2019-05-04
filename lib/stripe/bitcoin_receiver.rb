@@ -9,11 +9,11 @@ module Stripe
     OBJECT_NAME = 'bitcoin_receiver'.freeze
 
     def self.resource_url
-      "/v1/bitcoin/receivers"
+      '/v1/bitcoin/receivers'
     end
 
     def resource_url
-      if respond_to?(:customer) && !customer.nil? && customer != ""
+      if respond_to?(:customer) && !customer.nil? && customer != ''
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       else
         "#{self.class.resource_url}/#{CGI.escape(id)}"

@@ -7,7 +7,7 @@ module Stripe
     include Stripe::APIOperations::Request
     include Stripe::APIOperations::Create
 
-    OBJECT_NAME = "list".freeze
+    OBJECT_NAME = 'list'.freeze
 
     # This accessor allows a `ListObject` to inherit various filters that were
     # given to a predecessor. This allows for things like consistent limits,

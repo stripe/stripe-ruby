@@ -10,7 +10,7 @@ module Stripe
     def resource_url
       if !respond_to?(:customer) || customer.nil?
         raise NotImplementedError,
-              "Tax Ids cannot be accessed without a customer ID."
+              'Tax Ids cannot be accessed without a customer ID.'
       end
       "#{Customer.resource_url}/#{CGI.escape(customer)}/tax_ids/#{CGI.escape(id)}"
     end

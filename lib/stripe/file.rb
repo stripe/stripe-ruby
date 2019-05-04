@@ -13,7 +13,7 @@ module Stripe
     OBJECT_NAME_ALT = 'file_upload'.freeze
 
     def self.resource_url
-      "/v1/files"
+      '/v1/files'
     end
 
     def self.create(params = {}, opts = {})
@@ -22,7 +22,7 @@ module Stripe
       # `UploadIO` object if we're given one.
       if params[:file] && !params[:file].is_a?(String)
         unless params[:file].respond_to?(:read)
-          raise ArgumentError, "file must respond to `#read`"
+          raise ArgumentError, 'file must respond to `#read`'
         end
 
         params[:file] = Faraday::UploadIO.new(params[:file], nil)
@@ -30,7 +30,7 @@ module Stripe
 
       opts = {
         api_base: Stripe.uploads_base,
-        content_type: "multipart/form-data",
+        content_type: 'multipart/form-data',
       }.merge(Util.normalize_opts(opts))
       super
     end

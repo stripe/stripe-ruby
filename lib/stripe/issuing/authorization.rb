@@ -2,7 +2,7 @@
 
 module Stripe
   module Issuing
-    class Authorization < Stripe::APIResource
+    class Authorization < APIResource
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 

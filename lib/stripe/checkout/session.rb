@@ -2,7 +2,7 @@
 
 module Stripe
   module Checkout
-    class Session < Stripe::APIResource
+    class Session < APIResource
       extend Stripe::APIOperations::Create
 
       OBJECT_NAME = "checkout.session".freeze

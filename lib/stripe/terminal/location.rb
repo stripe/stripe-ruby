@@ -2,7 +2,7 @@
 
 module Stripe
   module Terminal
-    class Location < Stripe::APIResource
+    class Location < APIResource
       extend Stripe::APIOperations::Create
       include Stripe::APIOperations::Delete
       extend Stripe::APIOperations::List

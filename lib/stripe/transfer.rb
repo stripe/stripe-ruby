@@ -2,8 +2,8 @@
 
 module Stripe
   class Transfer < APIResource
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
+    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 

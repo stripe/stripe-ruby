@@ -3,8 +3,8 @@
 module Stripe
   class PaymentMethod < APIResource
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_method".freeze
 

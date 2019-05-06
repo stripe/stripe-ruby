@@ -2,9 +2,9 @@
 
 module Stripe
   class CreditNote < APIResource
+    extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
-    extend Stripe::APIOperations::Create
 
     OBJECT_NAME = "credit_note".freeze
 

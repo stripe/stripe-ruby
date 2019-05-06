@@ -5,8 +5,8 @@ module Stripe
   class Recipient < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
-    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::List
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "recipient".freeze
 

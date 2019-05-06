@@ -2,8 +2,8 @@
 
 module Stripe
   class Payout < APIResource
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
+    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payout".freeze

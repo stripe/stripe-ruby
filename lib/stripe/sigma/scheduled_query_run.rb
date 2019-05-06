@@ -2,7 +2,7 @@
 
 module Stripe
   module Sigma
-    class ScheduledQueryRun < Stripe::APIResource
+    class ScheduledQueryRun < APIResource
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "scheduled_query_run".freeze

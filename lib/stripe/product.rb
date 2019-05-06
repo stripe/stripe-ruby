@@ -2,10 +2,10 @@
 
 module Stripe
   class Product < APIResource
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
+    extend Stripe::APIOperations::List
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "product".freeze
   end

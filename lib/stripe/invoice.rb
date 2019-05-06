@@ -2,10 +2,10 @@
 
 module Stripe
   class Invoice < APIResource
+    extend Stripe::APIOperations::Create
+    include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::Create
 
     OBJECT_NAME = "invoice".freeze
 

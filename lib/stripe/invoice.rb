@@ -16,26 +16,22 @@ module Stripe
     custom_method :void_invoice, http_verb: :post, http_path: "void"
 
     def finalize_invoice(params = {}, opts = {})
-      url = resource_url + "/finalize"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/finalize", params, opts)
       initialize_from(resp.data, opts)
     end
 
     def mark_uncollectible(params = {}, opts = {})
-      url = resource_url + "/mark_uncollectible"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/mark_uncollectible", params, opts)
       initialize_from(resp.data, opts)
     end
 
     def pay(params = {}, opts = {})
-      url = resource_url + "/pay"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/pay", params, opts)
       initialize_from(resp.data, opts)
     end
 
     def send_invoice(params = {}, opts = {})
-      url = resource_url + "/send"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/send", params, opts)
       initialize_from(resp.data, opts)
     end
 
@@ -46,8 +42,7 @@ module Stripe
     end
 
     def void_invoice(params = {}, opts = {})
-      url = resource_url + "/void"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/void", params, opts)
       initialize_from(resp.data, opts)
     end
   end

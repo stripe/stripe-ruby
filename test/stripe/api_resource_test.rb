@@ -5,7 +5,7 @@ require ::File.expand_path("../../test_helper", __FILE__)
 
 module Stripe
   class ApiResourceTest < Test::Unit::TestCase
-    class NestedTestAPIResource < Stripe::APIResource
+    class NestedTestAPIResource < APIResource
       save_nested_resource :external_account
     end
 

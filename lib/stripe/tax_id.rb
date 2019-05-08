@@ -2,8 +2,8 @@
 
 module Stripe
   class TaxId < APIResource
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Delete
+    extend Stripe::APIOperations::List
 
     OBJECT_NAME = "tax_id".freeze
 

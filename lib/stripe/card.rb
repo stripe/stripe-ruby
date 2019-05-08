@@ -2,9 +2,9 @@
 
 module Stripe
   class Card < APIResource
-    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "card".freeze
 

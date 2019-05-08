@@ -2,9 +2,9 @@
 
 module Stripe
   class BankAccount < APIResource
-    include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "bank_account".freeze
 

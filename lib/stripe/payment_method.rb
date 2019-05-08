@@ -12,14 +12,12 @@ module Stripe
     custom_method :detach, http_verb: :post
 
     def attach(params = {}, opts = {})
-      url = resource_url + "/attach"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/attach", params, opts)
       initialize_from(resp.data, opts)
     end
 
     def detach(params = {}, opts = {})
-      url = resource_url + "/detach"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/detach", params, opts)
       initialize_from(resp.data, opts)
     end
   end

@@ -17,14 +17,12 @@ module Stripe
         #   idempotency_key to be passed in the request headers, or for the
         #   api_key to be overwritten. See {APIOperations::Request.request}.
         def delete(id, params = {}, opts = {})
-          opts = Util.normalize_opts(opts)
           resp, opts = request(:delete, "#{resource_url}/#{id}", params, opts)
           Util.convert_to_stripe_object(resp.data, opts)
         end
       end
 
       def delete(params = {}, opts = {})
-        opts = Util.normalize_opts(opts)
         resp, opts = request(:delete, resource_url, params, opts)
         initialize_from(resp.data, opts)
       end

@@ -28,7 +28,7 @@ module Stripe
     end
 
     def revisions(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/revisions", params, Util.normalize_opts(opts))
+      resp, opts = request(:get, resource_url + "/revisions", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
   end

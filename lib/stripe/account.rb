@@ -48,12 +48,11 @@ module Stripe
     end
 
     def persons(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/persons", params, Util.normalize_opts(opts))
+      resp, opts = request(:get, resource_url + "/persons", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def reject(params = {}, opts = {})
-      opts = Util.normalize_opts(opts)
       resp, opts = request(:post, resource_url + "/reject", params, opts)
       initialize_from(resp.data, opts)
     end

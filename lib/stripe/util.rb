@@ -135,6 +135,8 @@ module Stripe
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
     def self.convert_to_stripe_object(data, opts = {})
+      opts = normalize_opts(opts)
+
       case data
       when Array
         data.map { |i| convert_to_stripe_object(i, opts) }

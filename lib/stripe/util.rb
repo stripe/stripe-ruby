@@ -56,6 +56,7 @@ module Stripe
         BankAccount::OBJECT_NAME                  => BankAccount,
         BitcoinReceiver::OBJECT_NAME              => BitcoinReceiver,
         BitcoinTransaction::OBJECT_NAME           => BitcoinTransaction,
+        Capability::OBJECT_NAME                   => Capability,
         Card::OBJECT_NAME                         => Card,
         Charge::OBJECT_NAME                       => Charge,
         Checkout::Session::OBJECT_NAME            => Checkout::Session,

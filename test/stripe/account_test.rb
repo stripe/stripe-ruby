@@ -266,6 +266,40 @@ module Stripe
       end
     end
 
+    context "#retrieve_capability" do
+      should "retrieve a capability" do
+        capability = Stripe::Account.retrieve_capability(
+          "acct_123",
+          "acap_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/capabilities/acap_123"
+        assert capability.is_a?(Stripe::Capability)
+      end
+    end
+
+    context "#update_capability" do
+      should "update a capability" do
+        capability = Stripe::Account.update_capability(
+          "acct_123",
+          "acap_123",
+          requested: true
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123/capabilities/acap_123"
+        assert capability.is_a?(Stripe::Capability)
+      end
+    end
+
+    context "#list_capabilities" do
+      should "list the account's external accounts" do
+        capabilities = Stripe::Account.list_capabilities(
+          "acct_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/capabilities"
+        assert capabilities.is_a?(Stripe::ListObject)
+        assert capabilities.data.is_a?(Array)
+      end
+    end
+
     context "#create_external_account" do
       should "create an external account" do
         external_account = Stripe::Account.create_external_account(

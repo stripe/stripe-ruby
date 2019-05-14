@@ -10,8 +10,9 @@ module Stripe
     # methods `.create_reversal`, `.retrieve_reversal`, `.update_reversal`,
     # etc. all become available.
     module NestedResource
-      def nested_resource_class_methods(resource, path: nil, operations: nil)
-        path ||= "#{resource}s"
+      def nested_resource_class_methods(resource, path: nil, operations: nil, resource_plural: nil)
+        resource_plural ||= "#{resource}s"
+        path ||= resource_plural
         raise ArgumentError, "operations array required" if operations.nil?
 
         resource_url_method = :"#{resource}s_url"
@@ -48,7 +49,7 @@ module Stripe
               Util.convert_to_stripe_object(resp.data, opts)
             end
           when :list
-            define_singleton_method(:"list_#{resource}s") do |id, params = {}, opts = {}|
+            define_singleton_method(:"list_#{resource_plural}") do |id, params = {}, opts = {}|
               url = send(resource_url_method, id)
               resp, opts = request(:get, url, params, opts)
               Util.convert_to_stripe_object(resp.data, opts)

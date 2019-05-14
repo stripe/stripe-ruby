@@ -14,6 +14,9 @@ module Stripe
     custom_method :reject, http_verb: :post
 
     save_nested_resource :external_account
+    nested_resource_class_methods :capability,
+                                  operations: %i[retrieve update list],
+                                  resource_plural: "capabilities"
     nested_resource_class_methods :external_account,
                                   operations: %i[create retrieve update delete list]
     nested_resource_class_methods :login_link, operations: %i[create]
@@ -51,6 +54,9 @@ module Stripe
       resp, opts = request(:get, resource_url + "/persons", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
+
+    # We are not adding a helper for capabilities here as the Account object already has a
+    # capabilities property which is a hash and not the sub-list of capabilities.
 
     def reject(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/reject", params, opts)

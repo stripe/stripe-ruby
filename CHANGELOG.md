@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.17.0 - 2019-05-14
+* [#779](https://github.com/stripe/stripe-ruby/pull/779) Add support for the Capability resource and APIs
+
 ## 4.16.0 - 2019-04-24
 * [#760](https://github.com/stripe/stripe-ruby/pull/760) Add support for the `TaxRate` resource and APIs
 

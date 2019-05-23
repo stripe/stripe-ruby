@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "files.trimTrailingWhitespace": true,
+
+  // Rubocop settings
+  "ruby.rubocop.configFilePath": ".rubocop.yml",
+  "ruby.rubocop.onSave": true
+}

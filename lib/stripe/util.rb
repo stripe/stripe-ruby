@@ -91,6 +91,7 @@ module Stripe
         Person::OBJECT_NAME                       => Person,
         Plan::OBJECT_NAME                         => Plan,
         Product::OBJECT_NAME                      => Product,
+        Radar::EarlyFraudWarning::OBJECT_NAME     => Radar::EarlyFraudWarning,
         Radar::ValueList::OBJECT_NAME             => Radar::ValueList,
         Radar::ValueListItem::OBJECT_NAME         => Radar::ValueListItem,
         Recipient::OBJECT_NAME                    => Recipient,

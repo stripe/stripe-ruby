@@ -307,7 +307,7 @@ module Stripe
         charges = Stripe::Charge.list.data
         assert charges.is_a? Array
         assert charges[0].is_a? Stripe::Charge
-        assert charges[0].source.is_a?(Stripe::StripeObject)
+        assert charges[0].payment_method_details.is_a?(Stripe::StripeObject)
       end
 
       should "passing in a stripe_account header should pass it through on call" do

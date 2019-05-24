@@ -87,7 +87,7 @@ module Stripe
       should "confirm a payment_intent" do
         payment_intent = Stripe::PaymentIntent.construct_from(id: "pi_123", object: "payment_intent")
         payment_intent = payment_intent.confirm(
-          source: "src_123"
+          payment_method: "pm_123"
         )
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/confirm"
@@ -97,7 +97,7 @@ module Stripe
 
     context ".confirm" do
       should "confirm a payment_intent" do
-        payment_intent = Stripe::PaymentIntent.confirm("pi_123", source: "src_123")
+        payment_intent = Stripe::PaymentIntent.confirm("pi_123", payment_method: "pm_123")
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/confirm"
         assert payment_intent.is_a?(Stripe::PaymentIntent)

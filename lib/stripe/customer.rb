@@ -14,8 +14,8 @@ module Stripe
 
     save_nested_resource :source
     nested_resource_class_methods :source,
-                                  operations: %i[create retrieve update delete list]
-
+                                  operations: %i[create retrieve update delete
+                                                 list]
     nested_resource_class_methods :tax_id,
                                   operations: %i[create retrieve delete list]
 

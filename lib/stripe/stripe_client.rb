@@ -20,7 +20,8 @@ module Stripe
     end
 
     def self.default_client
-      Thread.current[:stripe_client_default_client] ||= StripeClient.new(default_conn)
+      Thread.current[:stripe_client_default_client] ||=
+        StripeClient.new(default_conn)
     end
 
     # A default Faraday connection to be used when one isn't configured. This
@@ -57,7 +58,8 @@ module Stripe
             @verify_ssl_warned = true
             warn("WARNING: Running without SSL cert verification. " \
               "You should never do this in production. " \
-              "Execute 'Stripe.verify_ssl_certs = true' to enable verification.")
+              "Execute `Stripe.verify_ssl_certs = true` to enable " \
+              "verification.")
           end
         end
 
@@ -65,9 +67,9 @@ module Stripe
       end
     end
 
-    # Checks if an error is a problem that we should retry on. This includes both
-    # socket errors that may represent an intermittent problem and some special
-    # HTTP statuses.
+    # Checks if an error is a problem that we should retry on. This includes
+    # both socket errors that may represent an intermittent problem and some
+    # special HTTP statuses.
     def self.should_retry?(error, num_retries)
       return false if num_retries >= Stripe.max_network_retries
 
@@ -89,15 +91,15 @@ module Stripe
 
     def self.sleep_time(num_retries)
       # Apply exponential backoff with initial_network_retry_delay on the
-      # number of num_retries so far as inputs. Do not allow the number to exceed
-      # max_network_retry_delay.
+      # number of num_retries so far as inputs. Do not allow the number to
+      # exceed max_network_retry_delay.
       sleep_seconds = [
         Stripe.initial_network_retry_delay * (2**(num_retries - 1)),
         Stripe.max_network_retry_delay,
       ].min
 
-      # Apply some jitter by randomizing the value in the range of (sleep_seconds
-      # / 2) to (sleep_seconds).
+      # Apply some jitter by randomizing the value in the range of
+      # (sleep_seconds / 2) to (sleep_seconds).
       sleep_seconds *= (0.5 * (1 + rand))
 
       # But never sleep less than the base sleep seconds.
@@ -173,7 +175,9 @@ module Stripe
       context.idempotency_key = headers["Idempotency-Key"]
       context.method          = method
       context.path            = path
-      context.query_params    = query_params ? params_encoder.encode(query_params) : nil
+      context.query_params    = if query_params
+                                  params_encoder.encode(query_params)
+                                end
 
       # note that both request body and query params will be passed through
       # `FaradayStripeEncoder`
@@ -230,7 +234,8 @@ module Stripe
 
       # We should never need to do this so it's not implemented.
       def decode(_str)
-        raise NotImplementedError, "#{self.class.name} does not implement #decode"
+        raise NotImplementedError,
+              "#{self.class.name} does not implement #decode"
       end
     end
 
@@ -243,8 +248,8 @@ module Stripe
         raise AuthenticationError, "No API key provided. " \
           'Set your API key using "Stripe.api_key = <API-KEY>". ' \
           "You can generate API keys from the Stripe web interface. " \
-          "See https://stripe.com/api for details, or email support@stripe.com " \
-          "if you have any questions."
+          "See https://stripe.com/api for details, or email " \
+          "support@stripe.com if you have any questions."
       end
 
       return unless api_key =~ /\s/
@@ -266,12 +271,13 @@ module Stripe
 
         if Stripe.enable_telemetry? && context.request_id
           request_duration_ms = ((Time.now - request_start) * 1000).to_int
-          @last_request_metrics = StripeRequestMetrics.new(context.request_id, request_duration_ms)
+          @last_request_metrics =
+            StripeRequestMetrics.new(context.request_id, request_duration_ms)
         end
 
       # We rescue all exceptions from a request so that we have an easy spot to
-      # implement our retry logic across the board. We'll re-raise if it's a type
-      # of exception that we didn't expect to handle.
+      # implement our retry logic across the board. We'll re-raise if it's a
+      # type of exception that we didn't expect to handle.
       rescue StandardError => e
         # If we modify context we copy it into a new variable so as not to
         # taint the original on a retry.
@@ -414,12 +420,18 @@ module Stripe
       },]
 
       case error_code
-      when "invalid_client"            then OAuth::InvalidClientError.new(*args)
-      when "invalid_grant"             then OAuth::InvalidGrantError.new(*args)
-      when "invalid_request"           then OAuth::InvalidRequestError.new(*args)
-      when "invalid_scope"             then OAuth::InvalidScopeError.new(*args)
-      when "unsupported_grant_type"    then OAuth::UnsupportedGrantTypeError.new(*args)
-      when "unsupported_response_type" then OAuth::UnsupportedResponseTypeError.new(*args)
+      when "invalid_client"
+        OAuth::InvalidClientError.new(*args)
+      when "invalid_grant"
+        OAuth::InvalidGrantError.new(*args)
+      when "invalid_request"
+        OAuth::InvalidRequestError.new(*args)
+      when "invalid_scope"
+        OAuth::InvalidScopeError.new(*args)
+      when "unsupported_grant_type"
+        OAuth::UnsupportedGrantTypeError.new(*args)
+      when "unsupported_response_type"
+        OAuth::UnsupportedResponseTypeError.new(*args)
       else
         # We'd prefer that all errors are typed, but we create a generic
         # OAuthError in case we run into a code that we don't recognize.
@@ -435,22 +447,24 @@ module Stripe
 
       case error
       when Faraday::ConnectionFailed
-        message = "Unexpected error communicating when trying to connect to Stripe. " \
-          "You may be seeing this message because your DNS is not working. " \
-          "To check, try running 'host stripe.com' from the command line."
+        message = "Unexpected error communicating when trying to connect to " \
+          "Stripe. You may be seeing this message because your DNS is not" \
+          "working.  To check, try running `host stripe.com` from the " \
+          "command line."
 
       when Faraday::SSLError
-        message = "Could not establish a secure connection to Stripe, you may " \
-                  "need to upgrade your OpenSSL version. To check, try running " \
-                  "'openssl s_client -connect api.stripe.com:443' from the " \
-                  "command line."
+        message = "Could not establish a secure connection to Stripe, you " \
+          "may need to upgrade your OpenSSL version. To check, try running " \
+          "`openssl s_client -connect api.stripe.com:443` from the command " \
+          "line."
 
       when Faraday::TimeoutError
         api_base ||= Stripe.api_base
         message = "Could not connect to Stripe (#{api_base}). " \
           "Please check your internet connection and try again. " \
-          "If this problem persists, you should check Stripe's service status at " \
-          "https://twitter.com/stripestatus, or let us know at support@stripe.com."
+          "If this problem persists, you should check Stripe's service " \
+          "status at https://status.stripe.com, or let us know at " \
+          "support@stripe.com."
 
       else
         message = "Unexpected error communicating with Stripe. " \
@@ -460,12 +474,15 @@ module Stripe
 
       message += " Request was retried #{num_retries} times." if num_retries > 0
 
-      raise APIConnectionError, message + "\n\n(Network error: #{error.message})"
+      raise APIConnectionError,
+            message + "\n\n(Network error: #{error.message})"
     end
 
     def request_headers(api_key, method)
       user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
-      user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
+      unless Stripe.app_info.nil?
+        user_agent += " " + format_app_info(Stripe.app_info)
+      end
 
       headers = {
         "User-Agent" => user_agent,
@@ -537,7 +554,8 @@ module Stripe
       Util.log_debug("Dashboard link for request",
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id,
-                     url: Util.request_id_dashboard_url(context.request_id, context.api_key))
+                     url: Util.request_id_dashboard_url(context.request_id,
+                                                        context.api_key))
     end
 
     def log_response_error(context, request_start, error)
@@ -630,7 +648,8 @@ module Stripe
       end
 
       def user_agent
-        lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} (#{RUBY_RELEASE_DATE})"
+        lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} " \
+                       "(#{RUBY_RELEASE_DATE})"
 
         {
           application: Stripe.app_info,
@@ -646,7 +665,8 @@ module Stripe
       end
     end
 
-    # StripeRequestMetrics tracks metadata to be reported to stripe for metrics collection
+    # StripeRequestMetrics tracks metadata to be reported to stripe for metrics
+    # collection
     class StripeRequestMetrics
       # The Stripe request ID of the response.
       attr_accessor :request_id

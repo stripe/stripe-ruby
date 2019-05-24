@@ -93,10 +93,12 @@ module Stripe
     # considered to be equal if they have the same set of values and each one
     # of those values is the same.
     def ==(other)
-      other.is_a?(StripeObject) && @values == other.instance_variable_get(:@values)
+      other.is_a?(StripeObject) &&
+        @values == other.instance_variable_get(:@values)
     end
 
-    # Hash equality. As with `#==`, we consider two equivalent Stripe objects equal.
+    # Hash equality. As with `#==`, we consider two equivalent Stripe objects
+    # equal.
     def eql?(other)
       # Defer to the implementation on `#==`.
       self == other
@@ -121,7 +123,8 @@ module Stripe
 
     def inspect
       id_string = respond_to?(:id) && !id.nil? ? " id=#{id}" : ""
-      "#<#{self.class}:0x#{object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
+      "#<#{self.class}:0x#{object_id.to_s(16)}#{id_string}> JSON: " +
+        JSON.pretty_generate(@values)
     end
 
     # Re-initializes the object based on a hash of values (usually one that's
@@ -428,8 +431,8 @@ module Stripe
       added = Set.new(values.keys - @values.keys)
 
       # Wipe old state before setting new.  This is useful for e.g. updating a
-      # customer, where there is no persistent card parameter.  Mark those values
-      # which don't persist as transient
+      # customer, where there is no persistent card parameter.  Mark those
+      # values which don't persist as transient
 
       remove_accessors(removed)
       add_accessors(added, values)
@@ -566,7 +569,9 @@ module Stripe
                when Hash         then obj
                when StripeObject then obj.instance_variable_get(:@values)
                else
-                 raise ArgumentError, "#empty_values got unexpected object type: #{obj.class.name}"
+                 raise ArgumentError,
+                       "#empty_values got unexpected object type: " \
+                       "#{obj.class.name}"
                end
 
       values.each_with_object({}) do |(k, _), update|

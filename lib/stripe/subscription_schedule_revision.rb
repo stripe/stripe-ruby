@@ -12,7 +12,8 @@ module Stripe
               "Subscription schedule revisions cannot be accessed without a " \
               "subscription schedule ID."
       end
-      "#{SubscriptionSchedule.resource_url}/#{CGI.escape(schedule)}/revisions/#{CGI.escape(id)}"
+      "#{SubscriptionSchedule.resource_url}/#{CGI.escape(schedule)}" \
+      "/revisions/#{CGI.escape(id)}"
     end
 
     def self.retrieve(_id, _opts = {})

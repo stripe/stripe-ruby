@@ -40,6 +40,7 @@ module Stripe
     end
 
     def self.object_classes # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/LineLength
       @object_classes ||= {
         # data structures
         ListObject::OBJECT_NAME => ListObject,
@@ -122,6 +123,7 @@ module Stripe
         UsageRecordSummary::OBJECT_NAME           => UsageRecordSummary,
         WebhookEndpoint::OBJECT_NAME              => WebhookEndpoint,
       }
+      # rubocop:enable Metrics/LineLength
     end
 
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or
@@ -145,7 +147,8 @@ module Stripe
       when Hash
         # Try converting to a known object class.  If none available, fall back
         # to generic StripeObject
-        object_classes.fetch(data[:object], StripeObject).construct_from(data, opts)
+        object_classes.fetch(data[:object], StripeObject)
+                      .construct_from(data, opts)
       else
         data
       end
@@ -154,24 +157,24 @@ module Stripe
     def self.log_error(message, data = {})
       if !Stripe.logger.nil? ||
          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_ERROR
-        log_internal(message, data, color: :cyan,
-                                    level: Stripe::LEVEL_ERROR, logger: Stripe.logger, out: $stderr)
+        log_internal(message, data, color: :cyan, level: Stripe::LEVEL_ERROR,
+                                    logger: Stripe.logger, out: $stderr)
       end
     end
 
     def self.log_info(message, data = {})
       if !Stripe.logger.nil? ||
          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_INFO
-        log_internal(message, data, color: :cyan,
-                                    level: Stripe::LEVEL_INFO, logger: Stripe.logger, out: $stdout)
+        log_internal(message, data, color: :cyan, level: Stripe::LEVEL_INFO,
+                                    logger: Stripe.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
       if !Stripe.logger.nil? ||
          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_DEBUG
-        log_internal(message, data, color: :blue,
-                                    level: Stripe::LEVEL_DEBUG, logger: Stripe.logger, out: $stdout)
+        log_internal(message, data, color: :blue, level: Stripe::LEVEL_DEBUG,
+                                    logger: Stripe.logger, out: $stdout)
       end
     end
 
@@ -359,7 +362,8 @@ module Stripe
 
     # TODO: Make these named required arguments when we drop support for Ruby
     # 2.0.
-    def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
+    def self.log_internal(message, data = {}, color: nil, level: nil,
+                          logger: nil, out: nil)
       data_str = data.reject { |_k, v| v.nil? }
                      .map do |(k, v)|
         format("%<key>s=%<value>s",
@@ -376,7 +380,8 @@ module Stripe
                           data_str: data_str))
       elsif out.isatty
         out.puts format("%<level>s %<message>s %<data_str>s",
-                        level: colorize(level_name(level)[0, 4].upcase, color, out.isatty),
+                        level: colorize(level_name(level)[0, 4].upcase,
+                                        color, out.isatty),
                         message: message,
                         data_str: data_str)
       else

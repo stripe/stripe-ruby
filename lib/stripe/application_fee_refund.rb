@@ -8,7 +8,8 @@ module Stripe
     OBJECT_NAME = "fee_refund".freeze
 
     def resource_url
-      "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds/#{CGI.escape(id)}"
+      "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds" \
+      "/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)

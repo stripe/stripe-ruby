@@ -8,7 +8,8 @@ module Stripe
     #
     # This may raise JSON::ParserError if the payload is not valid JSON, or
     # SignatureVerificationError if the signature verification fails.
-    def self.construct_event(payload, sig_header, secret, tolerance: DEFAULT_TOLERANCE)
+    def self.construct_event(payload, sig_header, secret,
+                             tolerance: DEFAULT_TOLERANCE)
       Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
 
       # It's a good idea to parse the payload only after verifying it. We use
@@ -50,7 +51,8 @@ module Stripe
       # Returns true otherwise
       def self.verify_header(payload, header, secret, tolerance: nil)
         begin
-          timestamp, signatures = get_timestamp_and_signatures(header, EXPECTED_SCHEME)
+          timestamp, signatures =
+            get_timestamp_and_signatures(header, EXPECTED_SCHEME)
         rescue StandardError
           raise SignatureVerificationError.new(
             "Unable to extract timestamp and signatures from header",

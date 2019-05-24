@@ -13,7 +13,8 @@ module Stripe
               "Alipay accounts cannot be accessed without a customer ID."
       end
 
-      "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
+      "#{Customer.resource_url}/#{CGI.escape(customer)}/sources" \
+      "/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)

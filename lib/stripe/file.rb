@@ -21,7 +21,9 @@ module Stripe
       # not. Support the old API by wrapping a `File`-like object with an
       # `UploadIO` object if we're given one.
       if params[:file] && !params[:file].is_a?(String)
-        raise ArgumentError, "file must respond to `#read`" unless params[:file].respond_to?(:read)
+        unless params[:file].respond_to?(:read)
+          raise ArgumentError, "file must respond to `#read`"
+        end
 
         params[:file] = Faraday::UploadIO.new(params[:file], nil)
       end

@@ -8,7 +8,8 @@ module Stripe
     OBJECT_NAME = "transfer_reversal".freeze
 
     def resource_url
-      "#{Transfer.resource_url}/#{CGI.escape(transfer)}/reversals/#{CGI.escape(id)}"
+      "#{Transfer.resource_url}/#{CGI.escape(transfer)}/reversals" \
+      "/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)

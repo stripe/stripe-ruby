@@ -12,7 +12,8 @@ module Stripe
         raise NotImplementedError,
               "Capabilities cannot be accessed without an account ID."
       end
-      "#{Account.resource_url}/#{CGI.escape(account)}/capabilities/#{CGI.escape(id)}"
+      "#{Account.resource_url}/#{CGI.escape(account)}/capabilities" \
+      "/#{CGI.escape(id)}"
     end
 
     def self.retrieve(_id, _opts = {})

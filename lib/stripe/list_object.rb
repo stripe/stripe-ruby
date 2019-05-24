@@ -72,7 +72,8 @@ module Stripe
 
     def retrieve(id, opts = {})
       id, retrieve_params = Util.normalize_id(id)
-      resp, opts = request(:get, "#{resource_url}/#{CGI.escape(id)}", retrieve_params, opts)
+      resp, opts = request(:get, "#{resource_url}/#{CGI.escape(id)}",
+                           retrieve_params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
 

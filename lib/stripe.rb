@@ -116,7 +116,7 @@ require "stripe/webhook_endpoint"
 require "stripe/oauth"
 
 module Stripe
-  DEFAULT_CA_BUNDLE_PATH = ::File.dirname(__FILE__) + "/data/ca-certificates.crt"
+  DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"
 
   @app_info = nil
 
@@ -216,7 +216,8 @@ module Stripe
     end
 
     if !val.nil? && ![LEVEL_DEBUG, LEVEL_ERROR, LEVEL_INFO].include?(val)
-      raise ArgumentError, "log_level should only be set to `nil`, `debug` or `info`"
+      raise ArgumentError,
+            "log_level should only be set to `nil`, `debug` or `info`"
     end
     @log_level = val
   end

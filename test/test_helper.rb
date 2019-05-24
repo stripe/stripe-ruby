@@ -11,10 +11,10 @@ require "shoulda/context"
 require "timecop"
 require "webmock/test_unit"
 
-PROJECT_ROOT = ::File.expand_path("../../", __FILE__)
+PROJECT_ROOT = ::File.expand_path("../", __dir__)
 
-require ::File.expand_path("../test_data", __FILE__)
-require ::File.expand_path("../stripe_mock", __FILE__)
+require ::File.expand_path("test_data", __dir__)
+require ::File.expand_path("stripe_mock", __dir__)
 
 # If changing this number, please also change it in `.travis.yml`.
 MOCK_MINIMUM_VERSION = "0.57.0".freeze
@@ -63,9 +63,7 @@ module Test
         Stripe.api_key = nil
       end
 
-      private
-
-      def stub_connect
+      private def stub_connect
         stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: "{}")
       end
     end

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # frozen_string_literal: true
 
-require ::File.expand_path("../../test_helper", __FILE__)
+require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class ApiResourceTest < Test::Unit::TestCase
@@ -491,7 +490,7 @@ module Stripe
       end
     end
 
-    @@fixtures = {}
+    @@fixtures = {} # rubocop:disable Style/ClassVars
     setup do
       if @@fixtures.empty?
         cache_fixture(:charge) do
@@ -503,19 +502,17 @@ module Stripe
       end
     end
 
-    private
-
-    def charge_fixture
+    private def charge_fixture
       @@fixtures[:charge]
     end
 
-    def customer_fixture
+    private def customer_fixture
       @@fixtures[:customer]
     end
 
     # Expects to retrieve a fixture from stripe-mock (an API call should be
     # included in the block to yield to) and does very simple memoization.
-    def cache_fixture(key)
+    private def cache_fixture(key)
       return @@fixtures[key] if @@fixtures.key?(key)
 
       obj = yield

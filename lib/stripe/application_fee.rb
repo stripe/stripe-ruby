@@ -7,7 +7,8 @@ module Stripe
 
     OBJECT_NAME = "application_fee".freeze
 
-    nested_resource_class_methods :refund, operations: %i[create retrieve update list]
+    nested_resource_class_methods :refund,
+                                  operations: %i[create retrieve update list]
 
     # If you don't need access to an updated fee object after the refund, it's
     # more performant to just call `fee.refunds.create` directly.

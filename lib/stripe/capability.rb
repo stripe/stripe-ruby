@@ -12,15 +12,22 @@ module Stripe
         raise NotImplementedError,
               "Capabilities cannot be accessed without an account ID."
       end
-      "#{Account.resource_url}/#{CGI.escape(account)}/capabilities/#{CGI.escape(id)}"
+      "#{Account.resource_url}/#{CGI.escape(account)}/capabilities" \
+      "/#{CGI.escape(id)}"
     end
 
     def self.retrieve(_id, _opts = {})
-      raise NotImplementedError, "Capabilities cannot be retrieved without an account ID. Retrieve a capability using account.retrieve_capability('acct_123', 'acap_123')"
+      raise NotImplementedError,
+            "Capabilities cannot be retrieve without an account ID. " \
+            "Retrieve a capability using Account.retrieve_capability(" \
+            "'account_id', 'capability_id')`"
     end
 
     def self.update(_id, _params = nil, _opts = nil)
-      raise NotImplementedError, "Capabilities cannot be updated without an account ID. Update a capability using `p = account.update_capability('acct_123', 'acap_123', params)"
+      raise NotImplementedError,
+            "Capabilities cannot be updated without an account ID. Update a " \
+            "capability using Account.update_capability('account_id', " \
+            "'capability_id', update_params)`"
     end
   end
 end

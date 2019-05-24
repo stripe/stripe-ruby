@@ -8,15 +8,23 @@ module Stripe
     OBJECT_NAME = "fee_refund".freeze
 
     def resource_url
-      "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds/#{CGI.escape(id)}"
+      "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds" \
+      "/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)
-      raise NotImplementedError, "Refunds cannot be updated without an application fee ID. Update a refund by using `a = appfee.refunds.retrieve('refund_id'); a.save`"
+      raise NotImplementedError,
+            "Application fee refunds cannot be updated without an " \
+            "application fee ID. Update an application fee refund using " \
+            "`ApplicationFee.update_refund('fee_id', 'refund_id', " \
+            "update_params)`"
     end
 
     def self.retrieve(_id, _api_key = nil)
-      raise NotImplementedError, "Refunds cannot be retrieved without an application fee ID. Retrieve a refund using appfee.refunds.retrieve('refund_id')"
+      raise NotImplementedError,
+            "Application fee refunds cannot be retrieved without an " \
+            "application fee ID. Retrieve an application fee refund using " \
+            "`ApplicationFee.retrieve_refund('fee_id', 'refund_id')`"
     end
   end
 end

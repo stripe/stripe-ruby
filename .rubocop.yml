@@ -13,6 +13,10 @@ Layout/IndentArray:
 Layout/IndentHash:
   EnforcedStyle: consistent
 
+Metrics/LineLength:
+  Exclude:
+    - "test/**/*.rb"
+
 Metrics/MethodLength:
   # There's ~2 long methods in `StripeClient`. If we want to truncate those a
   # little, we could move this to be closer to ~30 (but the default of 10 is
@@ -22,11 +26,17 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Enabled: false
 
+Style/AccessModifierDeclarations:
+  EnforcedStyle: inline
+
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma

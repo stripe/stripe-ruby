@@ -4,7 +4,7 @@ module Stripe
   class StripeObject
     include Enumerable
 
-    @@permanent_attributes = Set.new([:id])
+    @@permanent_attributes = Set.new([:id]) # rubocop:disable Style/ClassVars
 
     # The default :id method is deprecated and isn't useful to us
     undef :id if method_defined?(:id)
@@ -93,10 +93,12 @@ module Stripe
     # considered to be equal if they have the same set of values and each one
     # of those values is the same.
     def ==(other)
-      other.is_a?(StripeObject) && @values == other.instance_variable_get(:@values)
+      other.is_a?(StripeObject) &&
+        @values == other.instance_variable_get(:@values)
     end
 
-    # Hash equality. As with `#==`, we consider two equivalent Stripe objects equal.
+    # Hash equality. As with `#==`, we consider two equivalent Stripe objects
+    # equal.
     def eql?(other)
       # Defer to the implementation on `#==`.
       self == other
@@ -121,7 +123,8 @@ module Stripe
 
     def inspect
       id_string = respond_to?(:id) && !id.nil? ? " id=#{id}" : ""
-      "#<#{self.class}:0x#{object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values)
+      "#<#{self.class}:0x#{object_id.to_s(16)}#{id_string}> JSON: " +
+        JSON.pretty_generate(@values)
     end
 
     # Re-initializes the object based on a hash of values (usually one that's
@@ -162,12 +165,12 @@ module Stripe
       end
     end
 
-    def [](k)
-      @values[k.to_sym]
+    def [](key)
+      @values[key.to_sym]
     end
 
-    def []=(k, v)
-      send(:"#{k}=", v)
+    def []=(key, value)
+      send(:"#{key}=", value)
     end
 
     def keys
@@ -178,12 +181,13 @@ module Stripe
       @values.values
     end
 
-    def to_json(*_a)
+    def to_json(*_opts)
+      # TODO: pass opts to JSON.generate?
       JSON.generate(@values)
     end
 
-    def as_json(*a)
-      @values.as_json(*a)
+    def as_json(*opts)
+      @values.as_json(*opts)
     end
 
     def to_hash
@@ -251,10 +255,10 @@ module Stripe
         #      values within in that its parent StripeObject doesn't know about.
         #
         unsaved = @unsaved_values.include?(k)
-        if options[:force] || unsaved || v.is_a?(StripeObject)
-          update_hash[k.to_sym] =
-            serialize_params_value(@values[k], @original_values[k], unsaved, options[:force], key: k)
-        end
+        next unless options[:force] || unsaved || v.is_a?(StripeObject)
+        update_hash[k.to_sym] = serialize_params_value(
+          @values[k], @original_values[k], unsaved, options[:force], key: k
+        )
       end
 
       # a `nil` that makes it out of `#serialize_params_value` signals an empty
@@ -281,13 +285,11 @@ module Stripe
       []
     end
 
-    protected
-
-    def metaclass
+    protected def metaclass
       class << self; self; end
     end
 
-    def remove_accessors(keys)
+    protected def remove_accessors(keys)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
 
@@ -313,7 +315,7 @@ module Stripe
               #
               # Here we swallow that error and issue a warning so at least
               # the program doesn't crash.
-              $stderr.puts("WARNING: Unable to remove method `#{method_name}`; " \
+              warn("WARNING: Unable to remove method `#{method_name}`; " \
                 "if custom, please consider renaming to a name that doesn't " \
                 "collide with an API property name.")
             end
@@ -322,7 +324,7 @@ module Stripe
       end
     end
 
-    def add_accessors(keys, values)
+    protected def add_accessors(keys, values)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
 
@@ -359,7 +361,11 @@ module Stripe
       end
     end
 
-    def method_missing(name, *args)
+    # Disabling the cop because it's confused by the fact that the methods are
+    # protected, but we do define `#respond_to_missing?` just below. Hopefully
+    # this is fixed in more recent Rubocop versions.
+    # rubocop:disable Style/MissingRespondToMissing
+    protected def method_missing(name, *args)
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?("=")
         attr = name.to_s[0...-1].to_sym
@@ -375,7 +381,9 @@ module Stripe
         begin
           mth = method(name)
         rescue NameError
-          raise NoMethodError, "Cannot set #{attr} on this object. HINT: you can't set: #{@@permanent_attributes.to_a.join(', ')}"
+          raise NoMethodError,
+                "Cannot set #{attr} on this object. HINT: you can't set: " \
+                "#{@@permanent_attributes.to_a.join(', ')}"
         end
         return mth.call(args[0])
       elsif @values.key?(name)
@@ -390,11 +398,17 @@ module Stripe
         # raise right away.
         raise unless @transient_values.include?(name)
 
-        raise NoMethodError, e.message + ".  HINT: The '#{name}' attribute was set in the past, however.  It was then wiped when refreshing the object with the result returned by Stripe's API, probably as a result of a save().  The attributes currently available on this object are: #{@values.keys.join(', ')}"
+        raise NoMethodError,
+              e.message + ".  HINT: The '#{name}' attribute was set in the " \
+              "past, however.  It was then wiped when refreshing the object " \
+              "with the result returned by Stripe's API, probably as a " \
+              "result of a save().  The attributes currently available on " \
+              "this object are: #{@values.keys.join(', ')}"
       end
     end
+    # rubocop:enable Style/MissingRespondToMissing
 
-    def respond_to_missing?(symbol, include_private = false)
+    protected def respond_to_missing?(symbol, include_private = false)
       @values && @values.key?(symbol) || super
     end
 
@@ -410,7 +424,7 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    def initialize_from(values, opts, partial = false)
+    protected def initialize_from(values, opts, partial = false)
       @opts = Util.normalize_opts(opts)
 
       # the `#send` is here so that we can keep this method private
@@ -420,8 +434,8 @@ module Stripe
       added = Set.new(values.keys - @values.keys)
 
       # Wipe old state before setting new.  This is useful for e.g. updating a
-      # customer, where there is no persistent card parameter.  Mark those values
-      # which don't persist as transient
+      # customer, where there is no persistent card parameter.  Mark those
+      # values which don't persist as transient
 
       remove_accessors(removed)
       add_accessors(added, values)
@@ -441,7 +455,8 @@ module Stripe
       self
     end
 
-    def serialize_params_value(value, original, unsaved, force, key: nil)
+    protected def serialize_params_value(value, original, unsaved, force,
+                                         key: nil)
       if value.nil?
         ""
 
@@ -516,11 +531,9 @@ module Stripe
       end
     end
 
-    private
-
     # Produces a deep copy of the given object including support for arrays,
     # hashes, and StripeObjects.
-    def self.deep_copy(obj)
+    private_class_method def self.deep_copy(obj)
       case obj
       when Array
         obj.map { |e| deep_copy(e) }
@@ -540,9 +553,8 @@ module Stripe
         obj
       end
     end
-    private_class_method :deep_copy
 
-    def dirty_value!(value)
+    private def dirty_value!(value)
       case value
       when Array
         value.map { |v| dirty_value!(v) }
@@ -553,12 +565,14 @@ module Stripe
 
     # Returns a hash of empty values for all the values that are in the given
     # StripeObject.
-    def empty_values(obj)
+    private def empty_values(obj)
       values = case obj
                when Hash         then obj
                when StripeObject then obj.instance_variable_get(:@values)
                else
-                 raise ArgumentError, "#empty_values got unexpected object type: #{obj.class.name}"
+                 raise ArgumentError,
+                       "#empty_values got unexpected object type: " \
+                       "#{obj.class.name}"
                end
 
       values.each_with_object({}) do |(k, _), update|

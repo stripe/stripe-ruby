@@ -24,22 +24,23 @@ module Stripe
       OPTS_USER_SPECIFIED + Set[:client] - Set[:idempotency_key]
     ).freeze
 
-    def self.objects_to_ids(h)
-      case h
+    def self.objects_to_ids(obj)
+      case obj
       when APIResource
-        h.id
+        obj.id
       when Hash
         res = {}
-        h.each { |k, v| res[k] = objects_to_ids(v) unless v.nil? }
+        obj.each { |k, v| res[k] = objects_to_ids(v) unless v.nil? }
         res
       when Array
-        h.map { |v| objects_to_ids(v) }
+        obj.map { |v| objects_to_ids(v) }
       else
-        h
+        obj
       end
     end
 
     def self.object_classes # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/LineLength
       @object_classes ||= {
         # data structures
         ListObject::OBJECT_NAME => ListObject,
@@ -122,6 +123,7 @@ module Stripe
         UsageRecordSummary::OBJECT_NAME           => UsageRecordSummary,
         WebhookEndpoint::OBJECT_NAME              => WebhookEndpoint,
       }
+      # rubocop:enable Metrics/LineLength
     end
 
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or
@@ -143,8 +145,10 @@ module Stripe
       when Array
         data.map { |i| convert_to_stripe_object(i, opts) }
       when Hash
-        # Try converting to a known object class.  If none available, fall back to generic StripeObject
-        object_classes.fetch(data[:object], StripeObject).construct_from(data, opts)
+        # Try converting to a known object class.  If none available, fall back
+        # to generic StripeObject
+        object_classes.fetch(data[:object], StripeObject)
+                      .construct_from(data, opts)
       else
         data
       end
@@ -153,24 +157,24 @@ module Stripe
     def self.log_error(message, data = {})
       if !Stripe.logger.nil? ||
          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_ERROR
-        log_internal(message, data, color: :cyan,
-                                    level: Stripe::LEVEL_ERROR, logger: Stripe.logger, out: $stderr)
+        log_internal(message, data, color: :cyan, level: Stripe::LEVEL_ERROR,
+                                    logger: Stripe.logger, out: $stderr)
       end
     end
 
     def self.log_info(message, data = {})
       if !Stripe.logger.nil? ||
          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_INFO
-        log_internal(message, data, color: :cyan,
-                                    level: Stripe::LEVEL_INFO, logger: Stripe.logger, out: $stdout)
+        log_internal(message, data, color: :cyan, level: Stripe::LEVEL_INFO,
+                                    logger: Stripe.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
       if !Stripe.logger.nil? ||
          !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_DEBUG
-        log_internal(message, data, color: :blue,
-                                    level: Stripe::LEVEL_DEBUG, logger: Stripe.logger, out: $stdout)
+        log_internal(message, data, color: :blue, level: Stripe::LEVEL_DEBUG,
+                                    logger: Stripe.logger, out: $stdout)
       end
     end
 
@@ -305,13 +309,13 @@ module Stripe
 
     # Constant time string comparison to prevent timing attacks
     # Code borrowed from ActiveSupport
-    def self.secure_compare(a, b)
-      return false unless a.bytesize == b.bytesize
+    def self.secure_compare(str_a, str_b)
+      return false unless str_a.bytesize == str_b.bytesize
 
-      l = a.unpack "C#{a.bytesize}"
+      l = str_a.unpack "C#{str_a.bytesize}"
 
       res = 0
-      b.each_byte { |byte| res |= byte ^ l.shift }
+      str_b.each_byte { |byte| res |= byte ^ l.shift }
       res.zero?
     end
 
@@ -358,21 +362,33 @@ module Stripe
 
     # TODO: Make these named required arguments when we drop support for Ruby
     # 2.0.
-    def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
+    def self.log_internal(message, data = {}, color: nil, level: nil,
+                          logger: nil, out: nil)
       data_str = data.reject { |_k, v| v.nil? }
                      .map do |(k, v)|
-        format("%s=%s", colorize(k, color, logger.nil? && !out.nil? && out.isatty), wrap_logfmt_value(v))
+        format("%<key>s=%<value>s",
+               key: colorize(k, color, logger.nil? && !out.nil? && out.isatty),
+               value: wrap_logfmt_value(v))
       end.join(" ")
 
       if !logger.nil?
         # the library's log levels are mapped to the same values as the
         # standard library's logger
         logger.log(level,
-                   format("message=%s %s", wrap_logfmt_value(message), data_str))
+                   format("message=%<message>s %<data_str>s",
+                          message: wrap_logfmt_value(message),
+                          data_str: data_str))
       elsif out.isatty
-        out.puts format("%s %s %s", colorize(level_name(level)[0, 4].upcase, color, out.isatty), message, data_str)
+        out.puts format("%<level>s %<message>s %<data_str>s",
+                        level: colorize(level_name(level)[0, 4].upcase,
+                                        color, out.isatty),
+                        message: message,
+                        data_str: data_str)
       else
-        out.puts format("message=%s level=%s %s", wrap_logfmt_value(message), level_name(level), data_str)
+        out.puts format("message=%<message>s level=%<level>s %<data_str>s",
+                        message: wrap_logfmt_value(message),
+                        level: level_name(level),
+                        data_str: data_str)
       end
     end
     private_class_method :log_internal
@@ -390,7 +406,7 @@ module Stripe
       if %r{[^\w\-/]} =~ val
         # If the string contains any special characters, escape any double
         # quotes it has, remove newlines, and wrap the whole thing in quotes.
-        format(%("%s"), val.gsub('"', '\"').delete("\n"))
+        format(%("%<value>s"), value: val.gsub('"', '\"').delete("\n"))
       else
         # Otherwise use the basic value if it looks like a standard set of
         # characters (and allow a few special characters like hyphens, and

@@ -14,8 +14,8 @@ module Stripe
 
     save_nested_resource :source
     nested_resource_class_methods :source,
-                                  operations: %i[create retrieve update delete list]
-
+                                  operations: %i[create retrieve update delete
+                                                 list]
     nested_resource_class_methods :tax_id,
                                   operations: %i[create retrieve delete list]
 
@@ -78,17 +78,15 @@ module Stripe
       initialize_from({ discount: nil }, opts, true)
     end
 
-    private
-
-    def discount_url
+    private def discount_url
       resource_url + "/discount"
     end
 
-    def subscription_url
+    private def subscription_url
       resource_url + "/subscription"
     end
 
-    def subscriptions_url
+    private def subscriptions_url
       resource_url + "/subscriptions"
     end
   end

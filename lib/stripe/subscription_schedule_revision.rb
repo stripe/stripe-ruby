@@ -9,17 +9,26 @@ module Stripe
     def resource_url
       if !respond_to?(:schedule) || schedule.nil?
         raise NotImplementedError,
-              "Subscription Schedule Revisions cannot be accessed without a Subscription Schedule ID."
+              "Subscription schedule revisions cannot be accessed without a " \
+              "subscription schedule ID."
       end
-      "#{SubscriptionSchedule.resource_url}/#{CGI.escape(schedule)}/revisions/#{CGI.escape(id)}"
+      "#{SubscriptionSchedule.resource_url}/#{CGI.escape(schedule)}" \
+      "/revisions/#{CGI.escape(id)}"
     end
 
     def self.retrieve(_id, _opts = {})
-      raise NotImplementedError, "Subscription Schedule Revisions cannot be retrieved without a Subscription Schedule ID. Retrieve it using schedule.revisions.retrieve('revision_id')"
+      raise NotImplementedError,
+            "Subscription schedule revisions cannot be retrieved without a " \
+            "subscription schedule ID. Retrieve a subscribtion schedule " \
+            "revision using `SubscriptionSchedule.retrieve_revision(" \
+            "'schedule_id', 'revision_id')`"
     end
 
     def self.list(_id, _opts = {})
-      raise NotImplementedError, "Subscription Schedule Revisions cannot be listed without a Subscription Schedule ID. List those using schedule.revisions"
+      raise NotImplementedError,
+            "Subscription schedule revisions cannot be listed without a " \
+            "subscription schedule ID. List subscribtion schedule revisions " \
+            "using `SubscriptionSchedule.list_revisions('schedule_id')`"
     end
   end
 end

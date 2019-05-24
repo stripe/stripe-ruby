@@ -16,11 +16,16 @@ module Stripe
     end
 
     def self.retrieve(_id, _opts = {})
-      raise NotImplementedError, "Persons cannot be retrieved without an account ID. Retrieve a person using account.persons.retrieve('person_id')"
+      raise NotImplementedError,
+            "Persons cannot be retrieved without an account ID. Retrieve a " \
+            "person using `Account.retrieve_person('account_id', 'person_id')`"
     end
 
     def self.update(_id, _params = nil, _opts = nil)
-      raise NotImplementedError, "Persons cannot be updated without an account ID. Update a person using `p = account.persons.retrieve('person_id'); p.save`"
+      raise NotImplementedError,
+            "Persons cannot be updated without an account ID. Update a " \
+            "person using `Account.update_person('account_id', 'person_id', " \
+            "update_params)`"
     end
   end
 end

@@ -18,8 +18,8 @@ module Stripe
     attr_reader :request_id
 
     # Initializes a StripeError.
-    def initialize(message = nil, http_status: nil, http_body: nil, json_body: nil,
-                   http_headers: nil, code: nil)
+    def initialize(message = nil, http_status: nil, http_body: nil,
+                   json_body: nil, http_headers: nil, code: nil)
       @message = message
       @http_status = http_status
       @http_body = http_body
@@ -60,8 +60,8 @@ module Stripe
     attr_reader :param
 
     # TODO: make code a keyword arg in next major release
-    def initialize(message, param, code, http_status: nil, http_body: nil, json_body: nil,
-                   http_headers: nil)
+    def initialize(message, param, code, http_status: nil, http_body: nil,
+                   json_body: nil, http_headers: nil)
       super(message, http_status: http_status, http_body: http_body,
                      json_body: json_body, http_headers: http_headers,
                      code: code)
@@ -79,8 +79,8 @@ module Stripe
   class InvalidRequestError < StripeError
     attr_accessor :param
 
-    def initialize(message, param, http_status: nil, http_body: nil, json_body: nil,
-                   http_headers: nil, code: nil)
+    def initialize(message, param, http_status: nil, http_body: nil,
+                   json_body: nil, http_headers: nil, code: nil)
       super(message, http_status: http_status, http_body: http_body,
                      json_body: json_body, http_headers: http_headers,
                      code: code)
@@ -113,8 +113,8 @@ module Stripe
   module OAuth
     # OAuthError is raised when the OAuth API returns an error.
     class OAuthError < StripeError
-      def initialize(code, description, http_status: nil, http_body: nil, json_body: nil,
-                     http_headers: nil)
+      def initialize(code, description, http_status: nil, http_body: nil,
+                     json_body: nil, http_headers: nil)
         super(description, http_status: http_status, http_body: http_body,
                            json_body: json_body, http_headers: http_headers,
                            code: code)

@@ -17,7 +17,9 @@ module Stripe
 
     def self.resource_url
       if self == APIResource
-        raise NotImplementedError, "APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)"
+        raise NotImplementedError,
+              "APIResource is an abstract class. You should perform actions " \
+              "on its subclasses (Charge, Customer, etc.)"
       end
       # Namespaces are separated in object names with periods (.) and in URLs
       # with forward slashes (/), so replace the former with the latter.
@@ -62,7 +64,9 @@ module Stripe
     # will send a POST request to `/v1/<object_name>/capture`.
     def self.custom_method(name, http_verb:, http_path: nil)
       unless %i[get post delete].include?(http_verb)
-        raise ArgumentError, "Invalid http_verb value: #{http_verb.inspect}. Should be one of :get, :post or :delete."
+        raise ArgumentError,
+              "Invalid http_verb value: #{http_verb.inspect}. Should be one " \
+              "of :get, :post or :delete."
       end
       http_path ||= name.to_s
       define_singleton_method(name) do |id, params = {}, opts = {}|
@@ -74,7 +78,11 @@ module Stripe
 
     def resource_url
       unless (id = self["id"])
-        raise InvalidRequestError.new("Could not determine which URL to request: #{self.class} instance has invalid ID: #{id.inspect}", "id")
+        raise InvalidRequestError.new(
+          "Could not determine which URL to request: #{self.class} instance " \
+          "has invalid ID: #{id.inspect}",
+          "id"
+        )
       end
       "#{self.class.resource_url}/#{CGI.escape(id)}"
     end

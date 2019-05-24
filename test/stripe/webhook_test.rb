@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../../test_helper", __FILE__)
+require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class WebhookTest < Test::Unit::TestCase
@@ -46,7 +46,7 @@ module Stripe
 
     context ".verify_signature_header" do
       should "raise a SignatureVerificationError when the header does not have the expected format" do
-        header = 'i\'m not even a real signature header'
+        header = "i'm not even a real signature header"
         e = assert_raises(Stripe::SignatureVerificationError) do
           Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, "secret")
         end

@@ -18,10 +18,12 @@ module Stripe
                                   operations: %i[retrieve update list],
                                   resource_plural: "capabilities"
     nested_resource_class_methods :external_account,
-                                  operations: %i[create retrieve update delete list]
+                                  operations: %i[create retrieve update delete
+                                                 list]
     nested_resource_class_methods :login_link, operations: %i[create]
     nested_resource_class_methods :person,
-                                  operations: %i[create retrieve update delete list]
+                                  operations: %i[create retrieve update delete
+                                                 list]
 
     # This method is deprecated. Please use `#external_account=` instead.
     save_nested_resource :bank_account
@@ -37,13 +39,18 @@ module Stripe
 
     # @override To make id optional
     def self.retrieve(id = ARGUMENT_NOT_PROVIDED, opts = {})
-      id = id.equal?(ARGUMENT_NOT_PROVIDED) ? nil : Util.check_string_argument!(id)
+      id = if id.equal?(ARGUMENT_NOT_PROVIDED)
+             nil
+           else
+             Util.check_string_argument!(id)
+           end
 
       # Account used to be a singleton, where this method's signature was
       # `(opts={})`. For the sake of not breaking folks who pass in an OAuth
       # key in opts, let's lurkily string match for it.
       if opts == {} && id.is_a?(String) && id.start_with?("sk_")
-        # `super` properly assumes a String opts is the apiKey and normalizes as expected.
+        # `super` properly assumes a String opts is the apiKey and normalizes
+        # as expected.
         opts = id
         id = nil
       end
@@ -55,8 +62,9 @@ module Stripe
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
-    # We are not adding a helper for capabilities here as the Account object already has a
-    # capabilities property which is a hash and not the sub-list of capabilities.
+    # We are not adding a helper for capabilities here as the Account object
+    # already has a capabilities property which is a hash and not the sub-list
+    # of capabilities.
 
     def reject(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/reject", params, opts)
@@ -114,8 +122,11 @@ module Stripe
       self["legal_entity"]
     end
 
-    def legal_entity=(_)
-      raise NoMethodError, 'Overriding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = \'Blah\''
+    def legal_entity=(_legal_entity)
+      raise NoMethodError,
+            "Overriding legal_entity can cause serious issues. Instead, set " \
+            "the individual fields of legal_entity like " \
+            "`account.legal_entity.first_name = 'Blah'`"
     end
 
     def deauthorize(client_id = nil, opts = {})
@@ -128,15 +139,17 @@ module Stripe
 
     ARGUMENT_NOT_PROVIDED = Object.new
 
-    private
-
-    def serialize_additional_owners(legal_entity, additional_owners)
-      original_value = legal_entity.instance_variable_get(:@original_values)[:additional_owners]
+    private def serialize_additional_owners(legal_entity, additional_owners)
+      original_value =
+        legal_entity
+        .instance_variable_get(:@original_values)[:additional_owners]
       if original_value && original_value.length > additional_owners.length
         # url params provide no mechanism for deleting an item in an array,
         # just overwriting the whole array or adding new items. So let's not
         # allow deleting without a full overwrite until we have a solution.
-        raise ArgumentError, "You cannot delete an item from an array, you must instead set a new array"
+        raise ArgumentError,
+              "You cannot delete an item from an array, you must instead " \
+              "set a new array"
       end
 
       update_hash = {}
@@ -148,10 +161,11 @@ module Stripe
         # StripeObject.
         update = v.is_a?(StripeObject) ? v.serialize_params : v
 
-        if update != {} && (!original_value ||
-          update != legal_entity.serialize_params_value(original_value[i], nil, false, true))
-          update_hash[i.to_s] = update
-        end
+        next unless update != {} && (!original_value ||
+          update != legal_entity.serialize_params_value(original_value[i], nil,
+                                                        false, true))
+
+        update_hash[i.to_s] = update
       end
       update_hash
     end

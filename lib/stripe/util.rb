@@ -361,18 +361,18 @@ module Stripe
     def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
       data_str = data.reject { |_k, v| v.nil? }
                      .map do |(k, v)|
-        format("%s=%s", colorize(k, color, logger.nil? && !out.nil? && out.isatty), wrap_logfmt_value(v))
+        format("%<key>s=%<value>s", key: colorize(k, color, logger.nil? && !out.nil? && out.isatty), value: wrap_logfmt_value(v))
       end.join(" ")
 
       if !logger.nil?
         # the library's log levels are mapped to the same values as the
         # standard library's logger
         logger.log(level,
-                   format("message=%s %s", wrap_logfmt_value(message), data_str))
+                   format("message=%<message>s %<data_str>s", message: wrap_logfmt_value(message), data_str: data_str))
       elsif out.isatty
-        out.puts format("%s %s %s", colorize(level_name(level)[0, 4].upcase, color, out.isatty), message, data_str)
+        out.puts format("%<level>s %<message>s %<data_str>s", level: colorize(level_name(level)[0, 4].upcase, color, out.isatty), message: message, data_str: data_str)
       else
-        out.puts format("message=%s level=%s %s", wrap_logfmt_value(message), level_name(level), data_str)
+        out.puts format("message=%<message>s level=%<level>s %<data_str>s", message: wrap_logfmt_value(message), level: level_name(level), data_str: data_str)
       end
     end
     private_class_method :log_internal
@@ -390,7 +390,7 @@ module Stripe
       if %r{[^\w\-/]} =~ val
         # If the string contains any special characters, escape any double
         # quotes it has, remove newlines, and wrap the whole thing in quotes.
-        format(%("%s"), val.gsub('"', '\"').delete("\n"))
+        format(%("%<value>s"), value: val.gsub('"', '\"').delete("\n"))
       else
         # Otherwise use the basic value if it looks like a standard set of
         # characters (and allow a few special characters like hyphens, and

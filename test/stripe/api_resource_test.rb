@@ -502,19 +502,17 @@ module Stripe
       end
     end
 
-    private
-
-    def charge_fixture
+    private def charge_fixture
       @@fixtures[:charge]
     end
 
-    def customer_fixture
+    private def customer_fixture
       @@fixtures[:customer]
     end
 
     # Expects to retrieve a fixture from stripe-mock (an API call should be
     # included in the block to yield to) and does very simple memoization.
-    def cache_fixture(key)
+    private def cache_fixture(key)
       return @@fixtures[key] if @@fixtures.key?(key)
 
       obj = yield

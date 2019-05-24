@@ -76,9 +76,7 @@ module Stripe
         base.extend(ClassMethods)
       end
 
-      private
-
-      def save_url
+      private def save_url
         # This switch essentially allows us "upsert"-like functionality. If the
         # API resource doesn't have an ID set (suggesting that it's new) and
         # its class responds to .create (which comes from

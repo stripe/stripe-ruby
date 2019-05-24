@@ -63,23 +63,21 @@ module Stripe
       initialize_from(resp.data, opts)
     end
 
-    private
-
-    def capture_url
+    private def capture_url
       resource_url + "/capture"
     end
 
-    def dispute_url
+    private def dispute_url
       resource_url + "/dispute"
     end
 
-    def close_dispute_url
+    private def close_dispute_url
       resource_url + "/dispute/close"
     end
 
     # Note that this is actually the *old* refund URL and its use is no longer
     # preferred.
-    def refund_url
+    private def refund_url
       resource_url + "/refund"
     end
   end

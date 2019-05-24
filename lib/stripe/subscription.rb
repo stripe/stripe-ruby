@@ -18,9 +18,7 @@ module Stripe
       initialize_from({ discount: nil }, opts, true)
     end
 
-    private
-
-    def discount_url
+    private def discount_url
       resource_url + "/discount"
     end
   end

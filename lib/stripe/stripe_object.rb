@@ -285,13 +285,11 @@ module Stripe
       []
     end
 
-    protected
-
-    def metaclass
+    protected def metaclass
       class << self; self; end
     end
 
-    def remove_accessors(keys)
+    protected def remove_accessors(keys)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
 
@@ -326,7 +324,7 @@ module Stripe
       end
     end
 
-    def add_accessors(keys, values)
+    protected def add_accessors(keys, values)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
 
@@ -363,7 +361,11 @@ module Stripe
       end
     end
 
-    def method_missing(name, *args)
+    # Disabling the cop because it's confused by the fact that the methods are
+    # protected, but we do define `#respond_to_missing?` just below. Hopefully
+    # this is fixed in more recent Rubocop versions.
+    # rubocop:disable Style/MissingRespondToMissing
+    protected def method_missing(name, *args)
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?("=")
         attr = name.to_s[0...-1].to_sym
@@ -404,8 +406,9 @@ module Stripe
               "this object are: #{@values.keys.join(', ')}"
       end
     end
+    # rubocop:enable Style/MissingRespondToMissing
 
-    def respond_to_missing?(symbol, include_private = false)
+    protected def respond_to_missing?(symbol, include_private = false)
       @values && @values.key?(symbol) || super
     end
 
@@ -421,7 +424,7 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    def initialize_from(values, opts, partial = false)
+    protected def initialize_from(values, opts, partial = false)
       @opts = Util.normalize_opts(opts)
 
       # the `#send` is here so that we can keep this method private
@@ -452,7 +455,8 @@ module Stripe
       self
     end
 
-    def serialize_params_value(value, original, unsaved, force, key: nil)
+    protected def serialize_params_value(value, original, unsaved, force,
+                                         key: nil)
       if value.nil?
         ""
 
@@ -527,11 +531,9 @@ module Stripe
       end
     end
 
-    private
-
     # Produces a deep copy of the given object including support for arrays,
     # hashes, and StripeObjects.
-    def self.deep_copy(obj)
+    private_class_method def self.deep_copy(obj)
       case obj
       when Array
         obj.map { |e| deep_copy(e) }
@@ -551,9 +553,8 @@ module Stripe
         obj
       end
     end
-    private_class_method :deep_copy
 
-    def dirty_value!(value)
+    private def dirty_value!(value)
       case value
       when Array
         value.map { |v| dirty_value!(v) }
@@ -564,7 +565,7 @@ module Stripe
 
     # Returns a hash of empty values for all the values that are in the given
     # StripeObject.
-    def empty_values(obj)
+    private def empty_values(obj)
       values = case obj
                when Hash         then obj
                when StripeObject then obj.instance_variable_get(:@values)

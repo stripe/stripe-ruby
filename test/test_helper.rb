@@ -63,9 +63,7 @@ module Test
         Stripe.api_key = nil
       end
 
-      private
-
-      def stub_connect
+      private def stub_connect
         stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: "{}")
       end
     end

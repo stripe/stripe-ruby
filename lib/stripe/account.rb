@@ -139,9 +139,7 @@ module Stripe
 
     ARGUMENT_NOT_PROVIDED = Object.new
 
-    private
-
-    def serialize_additional_owners(legal_entity, additional_owners)
+    private def serialize_additional_owners(legal_entity, additional_owners)
       original_value =
         legal_entity
         .instance_variable_get(:@original_values)[:additional_owners]

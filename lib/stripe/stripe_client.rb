@@ -201,8 +201,6 @@ module Stripe
       [resp, api_key]
     end
 
-    private
-
     # Used to workaround buggy behavior in Faraday: the library will try to
     # reshape anything that we pass to `req.params` with one of its default
     # encoders. I don't think this process is supposed to be lossy, but it is
@@ -239,11 +237,11 @@ module Stripe
       end
     end
 
-    def api_url(url = "", api_base = nil)
+    private def api_url(url = "", api_base = nil)
       (api_base || Stripe.api_base) + url
     end
 
-    def check_api_key!(api_key)
+    private def check_api_key!(api_key)
       unless api_key
         raise AuthenticationError, "No API key provided. " \
           'Set your API key using "Stripe.api_key = <API-KEY>". ' \
@@ -260,7 +258,7 @@ module Stripe
         "email support@stripe.com if you have any questions.)"
     end
 
-    def execute_request_with_rescues(api_base, context)
+    private def execute_request_with_rescues(api_base, context)
       num_retries = 0
       begin
         request_start = Time.now
@@ -315,7 +313,7 @@ module Stripe
       resp
     end
 
-    def general_api_error(status, body)
+    private def general_api_error(status, body)
       APIError.new("Invalid response object from API: #{body.inspect} " \
                    "(HTTP response code was #{status})",
                    http_status: status, http_body: body)
@@ -325,14 +323,14 @@ module Stripe
     # end of a User-Agent string where it'll be fairly prominent in places like
     # the Dashboard. Note that this formatting has been implemented to match
     # other libraries, and shouldn't be changed without universal consensus.
-    def format_app_info(info)
+    private def format_app_info(info)
       str = info[:name]
       str = "#{str}/#{info[:version]}" unless info[:version].nil?
       str = "#{str} (#{info[:url]})" unless info[:url].nil?
       str
     end
 
-    def handle_error_response(http_resp, context)
+    private def handle_error_response(http_resp, context)
       begin
         resp = StripeResponse.from_faraday_hash(http_resp)
         error_data = resp.data[:error]
@@ -352,7 +350,7 @@ module Stripe
       raise(error)
     end
 
-    def specific_api_error(resp, error_data, context)
+    private def specific_api_error(resp, error_data, context)
       Util.log_error("Stripe API error",
                      status: resp.http_status,
                      error_code: error_data[:code],
@@ -404,7 +402,7 @@ module Stripe
 
     # Attempts to look at a response's error code and return an OAuth error if
     # one matches. Will return `nil` if the code isn't recognized.
-    def specific_oauth_error(resp, error_code, context)
+    private def specific_oauth_error(resp, error_code, context)
       description = resp.data[:error_description] || error_code
 
       Util.log_error("Stripe OAuth error",
@@ -439,7 +437,8 @@ module Stripe
       end
     end
 
-    def handle_network_error(error, context, num_retries, api_base = nil)
+    private def handle_network_error(error, context, num_retries,
+                                     api_base = nil)
       Util.log_error("Stripe network error",
                      error_message: error.message,
                      idempotency_key: context.idempotency_key,
@@ -478,7 +477,7 @@ module Stripe
             message + "\n\n(Network error: #{error.message})"
     end
 
-    def request_headers(api_key, method)
+    private def request_headers(api_key, method)
       user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
       unless Stripe.app_info.nil?
         user_agent += " " + format_app_info(Stripe.app_info)
@@ -520,7 +519,7 @@ module Stripe
       headers
     end
 
-    def log_request(context, num_retries)
+    private def log_request(context, num_retries)
       Util.log_info("Request to Stripe API",
                     account: context.account,
                     api_version: context.api_version,
@@ -534,7 +533,7 @@ module Stripe
                      query_params: context.query_params)
     end
 
-    def log_response(context, request_start, status, body)
+    private def log_response(context, request_start, status, body)
       Util.log_info("Response from Stripe API",
                     account: context.account,
                     api_version: context.api_version,
@@ -558,7 +557,7 @@ module Stripe
                                                         context.api_key))
     end
 
-    def log_response_error(context, request_start, error)
+    private def log_response_error(context, request_start, error)
       Util.log_error("Request error",
                      elapsed: Time.now - request_start,
                      error_message: error.message,

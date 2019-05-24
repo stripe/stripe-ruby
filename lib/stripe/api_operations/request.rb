@@ -31,9 +31,7 @@ module Stripe
           [resp, opts_to_persist]
         end
 
-        private
-
-        def warn_on_opts_in_params(params)
+        private def warn_on_opts_in_params(params)
           Util::OPTS_USER_SPECIFIED.each do |opt|
             if params.key?(opt)
               warn("WARNING: #{opt} should be in opts instead of params.")
@@ -46,9 +44,7 @@ module Stripe
         base.extend(ClassMethods)
       end
 
-      protected
-
-      def request(method, url, params = {}, opts = {})
+      protected def request(method, url, params = {}, opts = {})
         opts = @opts.merge(Util.normalize_opts(opts))
         self.class.request(method, url, params, opts)
       end

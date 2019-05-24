@@ -26,6 +26,9 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Enabled: false
 
+Style/AccessModifierDeclarations:
+  EnforcedStyle: inline
+
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 

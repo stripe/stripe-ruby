@@ -513,7 +513,6 @@ module Stripe
                      idempotency_key: context.idempotency_key,
                      query_params: context.query_params)
     end
-    private :log_request
 
     def log_response(context, request_start, status, body)
       Util.log_info("Response from Stripe API",
@@ -537,7 +536,6 @@ module Stripe
                      request_id: context.request_id,
                      url: Util.request_id_dashboard_url(context.request_id, context.api_key))
     end
-    private :log_response
 
     def log_response_error(context, request_start, e)
       Util.log_error("Request error",
@@ -547,7 +545,6 @@ module Stripe
                      method: context.method,
                      path: context.path)
     end
-    private :log_response_error
 
     # RequestLogContext stores information about a request that's begin made so
     # that we can log certain information. It's useful because it means that we

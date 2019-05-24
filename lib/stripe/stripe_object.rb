@@ -4,7 +4,7 @@ module Stripe
   class StripeObject
     include Enumerable
 
-    @@permanent_attributes = Set.new([:id])
+    @@permanent_attributes = Set.new([:id]) # rubocop:disable Style/ClassVars
 
     # The default :id method is deprecated and isn't useful to us
     undef :id if method_defined?(:id)

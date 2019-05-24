@@ -490,7 +490,7 @@ module Stripe
       end
     end
 
-    @@fixtures = {}
+    @@fixtures = {} # rubocop:disable Style/ClassVars
     setup do
       if @@fixtures.empty?
         cache_fixture(:charge) do

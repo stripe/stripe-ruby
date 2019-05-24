@@ -24,18 +24,18 @@ module Stripe
       OPTS_USER_SPECIFIED + Set[:client] - Set[:idempotency_key]
     ).freeze
 
-    def self.objects_to_ids(h)
-      case h
+    def self.objects_to_ids(obj)
+      case obj
       when APIResource
-        h.id
+        obj.id
       when Hash
         res = {}
-        h.each { |k, v| res[k] = objects_to_ids(v) unless v.nil? }
+        obj.each { |k, v| res[k] = objects_to_ids(v) unless v.nil? }
         res
       when Array
-        h.map { |v| objects_to_ids(v) }
+        obj.map { |v| objects_to_ids(v) }
       else
-        h
+        obj
       end
     end
 
@@ -305,13 +305,13 @@ module Stripe
 
     # Constant time string comparison to prevent timing attacks
     # Code borrowed from ActiveSupport
-    def self.secure_compare(a, b)
-      return false unless a.bytesize == b.bytesize
+    def self.secure_compare(str_a, str_b)
+      return false unless str_a.bytesize == str_b.bytesize
 
-      l = a.unpack "C#{a.bytesize}"
+      l = str_a.unpack "C#{str_a.bytesize}"
 
       res = 0
-      b.each_byte { |byte| res |= byte ^ l.shift }
+      str_b.each_byte { |byte| res |= byte ^ l.shift }
       res.zero?
     end
 

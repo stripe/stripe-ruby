@@ -68,20 +68,20 @@ module Stripe
     # Checks if an error is a problem that we should retry on. This includes both
     # socket errors that may represent an intermittent problem and some special
     # HTTP statuses.
-    def self.should_retry?(e, num_retries)
+    def self.should_retry?(error, num_retries)
       return false if num_retries >= Stripe.max_network_retries
 
       # Retry on timeout-related problems (either on open or read).
-      return true if e.is_a?(Faraday::TimeoutError)
+      return true if error.is_a?(Faraday::TimeoutError)
 
       # Destination refused the connection, the connection was reset, or a
       # variety of other connection failures. This could occur from a single
       # saturated server, so retry in case it's intermittent.
-      return true if e.is_a?(Faraday::ConnectionFailed)
+      return true if error.is_a?(Faraday::ConnectionFailed)
 
-      if e.is_a?(Faraday::ClientError) && e.response
+      if error.is_a?(Faraday::ClientError) && error.response
         # 409 conflict
-        return true if e.response[:status] == 409
+        return true if error.response[:status] == 409
       end
 
       false
@@ -424,13 +424,13 @@ module Stripe
       end
     end
 
-    def handle_network_error(e, context, num_retries, api_base = nil)
+    def handle_network_error(error, context, num_retries, api_base = nil)
       Util.log_error("Stripe network error",
-                     error_message: e.message,
+                     error_message: error.message,
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id)
 
-      case e
+      case error
       when Faraday::ConnectionFailed
         message = "Unexpected error communicating when trying to connect to Stripe. " \
           "You may be seeing this message because your DNS is not working. " \
@@ -457,7 +457,7 @@ module Stripe
 
       message += " Request was retried #{num_retries} times." if num_retries > 0
 
-      raise APIConnectionError, message + "\n\n(Network error: #{e.message})"
+      raise APIConnectionError, message + "\n\n(Network error: #{error.message})"
     end
 
     def request_headers(api_key, method)
@@ -537,10 +537,10 @@ module Stripe
                      url: Util.request_id_dashboard_url(context.request_id, context.api_key))
     end
 
-    def log_response_error(context, request_start, e)
+    def log_response_error(context, request_start, error)
       Util.log_error("Request error",
                      elapsed: Time.now - request_start,
-                     error_message: e.message,
+                     error_message: error.message,
                      idempotency_key: context.idempotency_key,
                      method: context.method,
                      path: context.path)

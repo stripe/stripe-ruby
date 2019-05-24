@@ -162,12 +162,12 @@ module Stripe
       end
     end
 
-    def [](k)
-      @values[k.to_sym]
+    def [](key)
+      @values[key.to_sym]
     end
 
-    def []=(k, v)
-      send(:"#{k}=", v)
+    def []=(key, value)
+      send(:"#{key}=", value)
     end
 
     def keys
@@ -178,12 +178,13 @@ module Stripe
       @values.values
     end
 
-    def to_json(*_a)
+    def to_json(*_opts)
+      # TODO: pass opts to JSON.generate?
       JSON.generate(@values)
     end
 
-    def as_json(*a)
-      @values.as_json(*a)
+    def as_json(*opts)
+      @values.as_json(*opts)
     end
 
     def to_hash

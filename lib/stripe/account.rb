@@ -114,7 +114,7 @@ module Stripe
       self["legal_entity"]
     end
 
-    def legal_entity=(_)
+    def legal_entity=(_legal_entity)
       raise NoMethodError, "Overriding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = 'Blah'"
     end
 

@@ -313,7 +313,7 @@ module Stripe
               #
               # Here we swallow that error and issue a warning so at least
               # the program doesn't crash.
-              $stderr.puts("WARNING: Unable to remove method `#{method_name}`; " \
+              warn("WARNING: Unable to remove method `#{method_name}`; " \
                 "if custom, please consider renaming to a name that doesn't " \
                 "collide with an API property name.")
             end

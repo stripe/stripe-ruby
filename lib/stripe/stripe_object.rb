@@ -252,10 +252,10 @@ module Stripe
         #      values within in that its parent StripeObject doesn't know about.
         #
         unsaved = @unsaved_values.include?(k)
-        if options[:force] || unsaved || v.is_a?(StripeObject)
-          update_hash[k.to_sym] =
-            serialize_params_value(@values[k], @original_values[k], unsaved, options[:force], key: k)
-        end
+        next unless options[:force] || unsaved || v.is_a?(StripeObject)
+        update_hash[k.to_sym] = serialize_params_value(
+          @values[k], @original_values[k], unsaved, options[:force], key: k
+        )
       end
 
       # a `nil` that makes it out of `#serialize_params_value` signals an empty
@@ -376,7 +376,9 @@ module Stripe
         begin
           mth = method(name)
         rescue NameError
-          raise NoMethodError, "Cannot set #{attr} on this object. HINT: you can't set: #{@@permanent_attributes.to_a.join(', ')}"
+          raise NoMethodError,
+                "Cannot set #{attr} on this object. HINT: you can't set: " \
+                "#{@@permanent_attributes.to_a.join(', ')}"
         end
         return mth.call(args[0])
       elsif @values.key?(name)
@@ -391,7 +393,12 @@ module Stripe
         # raise right away.
         raise unless @transient_values.include?(name)
 
-        raise NoMethodError, e.message + ".  HINT: The '#{name}' attribute was set in the past, however.  It was then wiped when refreshing the object with the result returned by Stripe's API, probably as a result of a save().  The attributes currently available on this object are: #{@values.keys.join(', ')}"
+        raise NoMethodError,
+              e.message + ".  HINT: The '#{name}' attribute was set in the " \
+              "past, however.  It was then wiped when refreshing the object " \
+              "with the result returned by Stripe's API, probably as a " \
+              "result of a save().  The attributes currently available on " \
+              "this object are: #{@values.keys.join(', ')}"
       end
     end
 

@@ -19,11 +19,19 @@ module Stripe
     end
 
     def self.update(_id, _params = nil, _opts = nil)
-      raise NotImplementedError, "Cards cannot be updated without a customer ID. Update a card using `c = customer.sources.retrieve('card_id'); c.save`"
+      raise NotImplementedError,
+            "Card cannot be updated without a customer ID or an account ID. " \
+            "Update a card using `Customer.update_source('customer_id', " \
+            "'card_id', update_params)` or `Account.update_external_account(" \
+            "'account_id', 'card_id', update_params)`"
     end
 
     def self.retrieve(_id, _opts = nil)
-      raise NotImplementedError, "Cards cannot be retrieved without a customer ID. Retrieve a card using customer.sources.retrieve('card_id')"
+      raise NotImplementedError,
+            "Card cannot be retrieved without a customer ID or an account " \
+            "ID. Retrieve a card using `Customer.retrieve_source(" \
+            "'customer_id', 'card_id')` or " \
+            "`Account.retrieve_external_account('account_id', 'card_id')`"
     end
   end
 end

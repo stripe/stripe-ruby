@@ -37,13 +37,15 @@ module Stripe
               Util.convert_to_stripe_object(resp.data, opts)
             end
           when :update
-            define_singleton_method(:"update_#{resource}") do |id, nested_id, params = {}, opts = {}|
+            define_singleton_method(:"update_#{resource}") \
+                do |id, nested_id, params = {}, opts = {}|
               url = send(resource_url_method, id, nested_id)
               resp, opts = request(:post, url, params, opts)
               Util.convert_to_stripe_object(resp.data, opts)
             end
           when :delete
-            define_singleton_method(:"delete_#{resource}") do |id, nested_id, params = {}, opts = {}|
+            define_singleton_method(:"delete_#{resource}") \
+                do |id, nested_id, params = {}, opts = {}|
               url = send(resource_url_method, id, nested_id)
               resp, opts = request(:delete, url, params, opts)
               Util.convert_to_stripe_object(resp.data, opts)

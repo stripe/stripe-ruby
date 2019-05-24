@@ -22,11 +22,21 @@ module Stripe
     end
 
     def self.update(_id, _params = nil, _opts = nil)
-      raise NotImplementedError, "Bank accounts cannot be updated without an account ID. Update a bank account by using `a = account.external_accounts.retrieve('card_id'); a.save`"
+      raise NotImplementedError,
+            "Bank accounts cannot be updated without a customer ID or an " \
+            " account ID. Update a bank account using " \
+            "`Customer.update_source('customer_id', 'bank_account_id', " \
+            "update_params)` or `Account.update_external_account(" \
+            "'account_id', 'bank_account_id', update_params)`"
     end
 
     def self.retrieve(_id, _opts = nil)
-      raise NotImplementedError, "Bank accounts cannot be retrieved without an account ID. Retrieve a bank account using account.external_accounts.retrieve('card_id')"
+      raise NotImplementedError,
+            "Bank accounts cannot be retrieve without a customer ID or an " \
+            "account ID. Retrieve a bank account using " \
+            "`Customer.retrieve_source('customer_id', 'bank_account_id')` " \
+            "or `Account.retrieve_external_account('account_id', " \
+            "'bank_account_id')`"
     end
   end
 end

@@ -91,7 +91,10 @@ module Stripe
       # Apply exponential backoff with initial_network_retry_delay on the
       # number of num_retries so far as inputs. Do not allow the number to exceed
       # max_network_retry_delay.
-      sleep_seconds = [Stripe.initial_network_retry_delay * (2**(num_retries - 1)), Stripe.max_network_retry_delay].min
+      sleep_seconds = [
+        Stripe.initial_network_retry_delay * (2**(num_retries - 1)),
+        Stripe.max_network_retry_delay,
+      ].min
 
       # Apply some jitter by randomizing the value in the range of (sleep_seconds
       # / 2) to (sleep_seconds).
@@ -473,7 +476,9 @@ module Stripe
       }
 
       if Stripe.enable_telemetry? && !@last_request_metrics.nil?
-        headers["X-Stripe-Client-Telemetry"] = JSON.generate(last_request_metrics: @last_request_metrics.payload)
+        headers["X-Stripe-Client-Telemetry"] = JSON.generate(
+          last_request_metrics: @last_request_metrics.payload
+        )
       end
 
       # It is only safe to retry network failures on post and delete

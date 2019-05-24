@@ -16,7 +16,10 @@ module Stripe
     end
 
     def self.retrieve(_id, _opts = {})
-      raise NotImplementedError, "Tax Ids cannot be retrieved without a customer ID. Retrieve a tax id using Customer.retrieve_tax_id('tax_id')"
+      raise NotImplementedError,
+            "Tax IDs cannot be retrieved without a customer ID. Retrieve a " \
+            "tax ID using `Customer.retrieve_tax_id('customer_id', " \
+            "'tax_id_id')`"
     end
   end
 end

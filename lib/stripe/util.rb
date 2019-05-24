@@ -143,7 +143,8 @@ module Stripe
       when Array
         data.map { |i| convert_to_stripe_object(i, opts) }
       when Hash
-        # Try converting to a known object class.  If none available, fall back to generic StripeObject
+        # Try converting to a known object class.  If none available, fall back
+        # to generic StripeObject
         object_classes.fetch(data[:object], StripeObject).construct_from(data, opts)
       else
         data
@@ -361,18 +362,28 @@ module Stripe
     def self.log_internal(message, data = {}, color: nil, level: nil, logger: nil, out: nil)
       data_str = data.reject { |_k, v| v.nil? }
                      .map do |(k, v)|
-        format("%<key>s=%<value>s", key: colorize(k, color, logger.nil? && !out.nil? && out.isatty), value: wrap_logfmt_value(v))
+        format("%<key>s=%<value>s",
+               key: colorize(k, color, logger.nil? && !out.nil? && out.isatty),
+               value: wrap_logfmt_value(v))
       end.join(" ")
 
       if !logger.nil?
         # the library's log levels are mapped to the same values as the
         # standard library's logger
         logger.log(level,
-                   format("message=%<message>s %<data_str>s", message: wrap_logfmt_value(message), data_str: data_str))
+                   format("message=%<message>s %<data_str>s",
+                          message: wrap_logfmt_value(message),
+                          data_str: data_str))
       elsif out.isatty
-        out.puts format("%<level>s %<message>s %<data_str>s", level: colorize(level_name(level)[0, 4].upcase, color, out.isatty), message: message, data_str: data_str)
+        out.puts format("%<level>s %<message>s %<data_str>s",
+                        level: colorize(level_name(level)[0, 4].upcase, color, out.isatty),
+                        message: message,
+                        data_str: data_str)
       else
-        out.puts format("message=%<message>s level=%<level>s %<data_str>s", message: wrap_logfmt_value(message), level: level_name(level), data_str: data_str)
+        out.puts format("message=%<message>s level=%<level>s %<data_str>s",
+                        message: wrap_logfmt_value(message),
+                        level: level_name(level),
+                        data_str: data_str)
       end
     end
     private_class_method :log_internal

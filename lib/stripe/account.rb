@@ -115,7 +115,10 @@ module Stripe
     end
 
     def legal_entity=(_legal_entity)
-      raise NoMethodError, "Overriding legal_entity can cause serious issues. Instead, set the individual fields of legal_entity like blah.legal_entity.first_name = 'Blah'"
+      raise NoMethodError,
+            "Overriding legal_entity can cause serious issues. Instead, set " \
+            "the individual fields of legal_entity like " \
+            "`account.legal_entity.first_name = 'Blah'`"
     end
 
     def deauthorize(client_id = nil, opts = {})
@@ -136,7 +139,8 @@ module Stripe
         # url params provide no mechanism for deleting an item in an array,
         # just overwriting the whole array or adding new items. So let's not
         # allow deleting without a full overwrite until we have a solution.
-        raise ArgumentError, "You cannot delete an item from an array, you must instead set a new array"
+        raise ArgumentError,
+              "You cannot delete an item from an array, you must instead set a new array"
       end
 
       update_hash = {}

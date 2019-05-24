@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.18.0 - 2019-05-23
+* [#783](https://github.com/stripe/stripe-ruby/pull/783) Add support for `radar.early_fraud_warning` resource
+
 ## 4.17.0 - 2019-05-14
 * [#779](https://github.com/stripe/stripe-ruby/pull/779) Add support for the Capability resource and APIs
 

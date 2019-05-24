@@ -465,9 +465,7 @@ module Stripe
 
     def request_headers(api_key, method)
       user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
-      unless Stripe.app_info.nil?
-        user_agent += " " + format_app_info(Stripe.app_info)
-      end
+      user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
 
       headers = {
         "User-Agent" => user_agent,

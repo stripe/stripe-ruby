@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.18.1 - 2019-05-27
+* [#789](https://github.com/stripe/stripe-ruby/pull/789) Allow `Order#pay` to be called without arguments
+
 ## 4.18.0 - 2019-05-23
 * [#783](https://github.com/stripe/stripe-ruby/pull/783) Add support for `radar.early_fraud_warning` resource
 

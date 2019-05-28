@@ -11,7 +11,7 @@ module Stripe
     custom_method :pay, http_verb: :post
     custom_method :return_order, http_verb: :post, http_path: "returns"
 
-    def pay(params, opts = {})
+    def pay(params = {}, opts = {})
       resp, opts = request(:post, pay_url, params, opts)
       initialize_from(resp.data, opts)
     end

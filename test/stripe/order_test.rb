@@ -45,6 +45,13 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/orders/#{order.id}/pay"
         assert order.is_a?(Stripe::Order)
       end
+
+      should "pay an order without additional arguments" do
+        order = Stripe::Order.retrieve("or_123")
+        order = order.pay
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/#{order.id}/pay"
+        assert order.is_a?(Stripe::Order)
+      end
     end
 
     context ".pay" do

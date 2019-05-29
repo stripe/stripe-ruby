@@ -26,6 +26,7 @@ require "stripe/api_operations/save"
 
 # API resource support classes
 require "stripe/errors"
+require "stripe/object_types"
 require "stripe/util"
 require "stripe/stripe_client"
 require "stripe/stripe_object"

@@ -21,8 +21,7 @@ module Stripe
     end
 
     def mark_uncollectible(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/mark_uncollectible", params,
-                           opts)
+      resp, opts = request(:post, resource_url + "/mark_uncollectible", params, opts)
       initialize_from(resp.data, opts)
     end
 

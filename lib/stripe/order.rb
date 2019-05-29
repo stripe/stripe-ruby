@@ -12,21 +12,13 @@ module Stripe
     custom_method :return_order, http_verb: :post, http_path: "returns"
 
     def pay(params = {}, opts = {})
-      resp, opts = request(:post, pay_url, params, opts)
+      resp, opts = request(:post, resource_url + "/pay", params, opts)
       initialize_from(resp.data, opts)
     end
 
-    def return_order(params, opts = {})
-      resp, opts = request(:post, returns_url, params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
-    end
-
-    private def pay_url
-      resource_url + "/pay"
-    end
-
-    private def returns_url
-      resource_url + "/returns"
+    def return_order(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/returns", params, opts)
+      initialize_from(resp.data, opts)
     end
   end
 end

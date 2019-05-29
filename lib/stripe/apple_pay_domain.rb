@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Domains registered for Apple Pay on the Web
 module Stripe
-  # Domains registered for Apple Pay on the Web
   class ApplePayDomain < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete

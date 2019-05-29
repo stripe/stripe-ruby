@@ -21,7 +21,7 @@ module Stripe
 
     def reject(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/reject", params, opts)
-      initialize_from(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     save_nested_resource :external_account

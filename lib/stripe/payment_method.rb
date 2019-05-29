@@ -13,12 +13,12 @@ module Stripe
 
     def attach(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/attach", params, opts)
-      initialize_from(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def detach(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/detach", params, opts)
-      initialize_from(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

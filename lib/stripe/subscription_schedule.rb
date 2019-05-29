@@ -16,12 +16,12 @@ module Stripe
 
     def cancel(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/cancel", params, opts)
-      initialize_from(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def release(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/release", params, opts)
-      initialize_from(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def revisions(params = {}, opts = {})

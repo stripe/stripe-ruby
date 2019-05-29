@@ -11,7 +11,7 @@ module Stripe
 
     def verify(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/verify", params, opts)
-      initialize_from(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def detach(params = {}, opts = {})

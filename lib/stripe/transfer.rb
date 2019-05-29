@@ -22,5 +22,6 @@ module Stripe
     def cancel_url
       resource_url + "/cancel"
     end
+    deprecate :cancel_url, :none, 2019, 11
   end
 end

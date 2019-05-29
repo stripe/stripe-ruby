@@ -16,14 +16,12 @@ module Stripe
                                   operations: %i[retrieve list]
 
     def cancel(params = {}, opts = {})
-      url = resource_url + "/cancel"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/cancel", params, opts)
       initialize_from(resp.data, opts)
     end
 
     def release(params = {}, opts = {})
-      url = resource_url + "/release"
-      resp, opts = request(:post, url, params, opts)
+      resp, opts = request(:post, resource_url + "/release", params, opts)
       initialize_from(resp.data, opts)
     end
 

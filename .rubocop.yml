@@ -16,6 +16,7 @@ Layout/IndentHash:
 Metrics/LineLength:
   Exclude:
     - "test/**/*.rb"
+    - "lib/stripe/**/*.rb"
 
 Metrics/MethodLength:
   # There's ~2 long methods in `StripeClient`. If we want to truncate those a

@@ -4,8 +4,8 @@ module Stripe
   class Account < APIResource
     extend Gem::Deprecate
     extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Delete
+    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
@@ -13,17 +13,23 @@ module Stripe
 
     custom_method :reject, http_verb: :post
 
-    save_nested_resource :external_account
     nested_resource_class_methods :capability,
                                   operations: %i[retrieve update list],
                                   resource_plural: "capabilities"
-    nested_resource_class_methods :external_account,
-                                  operations: %i[create retrieve update delete
-                                                 list]
-    nested_resource_class_methods :login_link, operations: %i[create]
     nested_resource_class_methods :person,
-                                  operations: %i[create retrieve update delete
-                                                 list]
+                                  operations: %i[create retrieve update delete list]
+
+    def reject(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/reject", params, opts)
+      initialize_from(resp.data, opts)
+    end
+
+    save_nested_resource :external_account
+
+    nested_resource_class_methods :external_account,
+                                  operations: %i[create retrieve update delete list]
+
+    nested_resource_class_methods :login_link, operations: %i[create]
 
     # This method is deprecated. Please use `#external_account=` instead.
     save_nested_resource :bank_account
@@ -65,11 +71,6 @@ module Stripe
     # We are not adding a helper for capabilities here as the Account object
     # already has a capabilities property which is a hash and not the sub-list
     # of capabilities.
-
-    def reject(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/reject", params, opts)
-      initialize_from(resp.data, opts)
-    end
 
     # Somewhat unfortunately, we attempt to do a special encoding trick when
     # serializing `additional_owners` under an account: when updating a value,

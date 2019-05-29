@@ -14,9 +14,9 @@ module Stripe
     nested_resource_class_methods :reversal,
                                   operations: %i[create retrieve update list]
 
-    def cancel
-      resp, api_key = request(:post, cancel_url)
-      initialize_from(resp.data, api_key)
+    def cancel(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/cancel", params, opts)
+      initialize_from(resp.data, opts)
     end
 
     def cancel_url

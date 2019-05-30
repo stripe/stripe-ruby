@@ -40,7 +40,7 @@ module Stripe
     end
 
     def self.object_classes
-      @object_classes ||= Stripe::ObjectTypes.object_types_to_classes
+      @object_classes ||= Stripe::ObjectTypes.object_names_to_classes
     end
 
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or

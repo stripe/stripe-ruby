@@ -2,7 +2,7 @@
 
 module Stripe
   module ObjectTypes
-    def self.object_types_to_classes # rubocop:disable Metrics/MethodLength
+    def self.object_names_to_classes # rubocop:disable Metrics/MethodLength
       {
         # data structures
         ListObject::OBJECT_NAME => ListObject,

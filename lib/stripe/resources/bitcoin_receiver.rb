@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Directly creating or retrieving BitcoinReceivers is deprecated. Please use
-# the Sources API instead: https://stripe.com/docs/sources/bitcoin
 module Stripe
+  # Directly creating or retrieving BitcoinReceivers is deprecated. Please use
+  # the Sources API instead: https://stripe.com/docs/sources/bitcoin
   class BitcoinReceiver < APIResource
     extend Stripe::APIOperations::List
 

@@ -12,19 +12,16 @@ module Stripe
     custom_method :cancel, http_verb: :post
     custom_method :release, http_verb: :post
 
-    nested_resource_class_methods :revision,
-                                  operations: %i[retrieve list]
+    nested_resource_class_methods :revision, operations: %i[retrieve list]
 
     def cancel(params = {}, opts = {})
-      url = resource_url + "/cancel"
-      resp, opts = request(:post, url, params, opts)
-      initialize_from(resp.data, opts)
+      resp, opts = request(:post, resource_url + "/cancel", params, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def release(params = {}, opts = {})
-      url = resource_url + "/release"
-      resp, opts = request(:post, url, params, opts)
-      initialize_from(resp.data, opts)
+      resp, opts = request(:post, resource_url + "/release", params, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def revisions(params = {}, opts = {})

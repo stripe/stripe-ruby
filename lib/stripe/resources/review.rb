@@ -10,7 +10,7 @@ module Stripe
 
     def approve(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/approve", params, opts)
-      initialize_from(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

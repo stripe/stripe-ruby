@@ -15,11 +15,9 @@ module Stripe
 
     def resource_url
       if respond_to?(:customer)
-        "#{Customer.resource_url}/#{CGI.escape(customer)}/sources" \
-        "/#{CGI.escape(id)}"
+        "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       elsif respond_to?(:account)
-        "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts" \
-        "/#{CGI.escape(id)}"
+        "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
       end
     end
 

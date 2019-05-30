@@ -9,6 +9,11 @@ module Stripe
 
     custom_method :verify, http_verb: :post
 
+    def verify(params = {}, opts = {})
+      resp, opts = request(:post, resource_url + "/verify", params, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
     def detach(params = {}, opts = {})
       if !respond_to?(:customer) || customer.nil? || customer.empty?
         raise NotImplementedError,
@@ -32,11 +37,6 @@ module Stripe
       resp, opts = request(:get, resource_url + "/source_transactions", params,
                            opts)
       Util.convert_to_stripe_object(resp.data, opts)
-    end
-
-    def verify(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/verify", params, opts)
-      initialize_from(resp.data, opts)
     end
   end
 end

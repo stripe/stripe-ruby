@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/MethodLength
 
 module Stripe
   module ObjectTypes
-    def self.object_names_to_classes # rubocop:disable Metrics/MethodLength
+    def self.object_names_to_classes
       {
         # data structures
         ListObject::OBJECT_NAME => ListObject,
@@ -92,3 +93,4 @@ module Stripe
 end
 
 # rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/MethodLength

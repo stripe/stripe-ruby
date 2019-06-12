@@ -81,29 +81,29 @@ require "stripe"
 Stripe::Charge.list(
   {},
   {
-    :api_key => "sk_test_...",
-    :stripe_account => "acct_...",
-    :stripe_version => "2018-02-28"
+    api_key: "sk_test_...",
+    stripe_account: "acct_...",
+    stripe_version: "2018-02-28",
   }
 )
 
 Stripe::Charge.retrieve(
   "ch_18atAXCdGbJFKhCuBAa4532Z",
   {
-    :api_key => "sk_test_...",
-    :stripe_account => "acct_...",
-    :stripe_version => "2018-02-28"
+    api_key: "sk_test_...",
+    stripe_account: "acct_...",
+    stripe_version: "2018-02-28",
   }
 )
 
 Stripe::Charge.retrieve(
   {
-    id: 'ch_18atAXCdGbJFKhCuBAa4532Z',
+    id: "ch_18atAXCdGbJFKhCuBAa4532Z",
     expand: %w(balance_transaction)
   },
   {
-    stripe_version: '2018-02-28',
-    api_key: 'sk_test_...'
+    stripe_version: "2018-02-28",
+    api_key: "sk_test_...",
   }
 )
 ```

@@ -222,5 +222,48 @@ module Stripe
         assert sources.data.is_a?(Array)
       end
     end
+
+    context "#create_balance_transaction" do
+      should "create a customer balance transaction" do
+        Stripe::Customer.create_balance_transaction(
+          "cus_123",
+          amount: 1234,
+          currency: "usd"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/balance_transactions"
+      end
+    end
+
+    context "#retrieve_balance_transaction" do
+      should "retrieve a customer balance transaction" do
+        Stripe::Customer.retrieve_balance_transaction(
+          "cus_123",
+          "cbtxn_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/balance_transactions/cbtxn_123"
+      end
+    end
+
+    context "#update_balance_transaction" do
+      should "update a customer balance transaction" do
+        Stripe::Customer.update_balance_transaction(
+          "cus_123",
+          "cbtxn_123",
+          description: "new"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/balance_transactions/cbtxn_123"
+      end
+    end
+
+    context "#list_balance_transactions" do
+      should "list the customer balance transactions" do
+        sources = Stripe::Customer.list_balance_transactions(
+          "cus_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/balance_transactions"
+        assert sources.is_a?(Stripe::ListObject)
+        assert sources.data.is_a?(Array)
+      end
+    end
   end
 end

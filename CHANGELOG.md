@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.19.0 - 2019-06-17
+* [#770](https://github.com/stripe/stripe-ruby/pull/770) Add support for `CustomerBalanceTransaction` resource and APIs
+
 ## 4.18.1 - 2019-05-27
 * [#789](https://github.com/stripe/stripe-ruby/pull/789) Allow `Order#pay` to be called without arguments
 

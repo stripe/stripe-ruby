@@ -30,6 +30,7 @@ module Stripe
         Coupon::OBJECT_NAME => Coupon,
         CreditNote::OBJECT_NAME => CreditNote,
         Customer::OBJECT_NAME => Customer,
+        CustomerBalanceTransaction::OBJECT_NAME => CustomerBalanceTransaction,
         Discount::OBJECT_NAME => Discount,
         Dispute::OBJECT_NAME => Dispute,
         EphemeralKey::OBJECT_NAME => EphemeralKey,

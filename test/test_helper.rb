@@ -17,7 +17,7 @@ require ::File.expand_path("test_data", __dir__)
 require ::File.expand_path("stripe_mock", __dir__)
 
 # If changing this number, please also change it in `.travis.yml`.
-MOCK_MINIMUM_VERSION = "0.57.0".freeze
+MOCK_MINIMUM_VERSION = "0.58.0".freeze
 MOCK_PORT = Stripe::StripeMock.start
 
 # Disable all real network connections except those that are outgoing to

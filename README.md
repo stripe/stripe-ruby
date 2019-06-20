@@ -11,11 +11,11 @@ API.
 
 The library also provides other features. For example:
 
-* Easy configuration path for fast setup and use.
-* Helpers for pagination.
-* Tracking of "fresh" values in API resources so that partial updates can be
+- Easy configuration path for fast setup and use.
+- Helpers for pagination.
+- Tracking of "fresh" values in API resources so that partial updates can be
   executed.
-* Built-in mechanisms for the serialization of parameters according to the
+- Built-in mechanisms for the serialization of parameters according to the
   expectations of Stripe's API.
 
 ## Documentation
@@ -27,15 +27,19 @@ See the [Ruby API docs](https://stripe.com/docs/api/ruby#intro).
 You don't need this source code unless you want to modify the gem. If you just
 want to use the package, just run:
 
-    gem install stripe
+```sh
+gem install stripe
+```
 
 If you want to build the gem from source:
 
-    gem build stripe.gemspec
+```sh
+gem build stripe.gemspec
+```
 
 ### Requirements
 
-* Ruby 2.1+.
+- Ruby 2.1+.
 
 ### Bundler
 
@@ -43,7 +47,7 @@ If you are installing via bundler, you should be sure to use the https rubygems
 source in your Gemfile, as any gems fetched over http could potentially be
 compromised in transit and alter the code of gems fetched securely over https:
 
-``` ruby
+```ruby
 source 'https://rubygems.org'
 
 gem 'rails'
@@ -56,7 +60,7 @@ The library needs to be configured with your account's secret key which is
 available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
 value:
 
-``` ruby
+```ruby
 require "stripe"
 Stripe.api_key = "sk_test_..."
 
@@ -75,7 +79,7 @@ For apps that need to use multiple keys during the lifetime of a process, like
 one that uses [Stripe Connect][connect], it's also possible to set a
 per-request key and/or account:
 
-``` ruby
+```ruby
 require "stripe"
 
 Stripe::Charge.list(
@@ -114,7 +118,7 @@ While a default HTTP client is used by default, it's also possible to have the
 library use any client supported by [Faraday][faraday] by initializing a
 `Stripe::StripeClient` object and giving it a connection:
 
-``` ruby
+```ruby
 conn = Faraday.new
 client = Stripe::StripeClient.new(conn)
 charge, resp = client.request do
@@ -138,7 +142,9 @@ Stripe.proxy = "https://user:pass@example.com:1234"
 By default, the library will use the API version pinned to the account making
 a request. This can be overridden with this global option:
 
-    Stripe.api_version = "2018-02-28"
+```ruby
+Stripe.api_version = "2018-02-28"
+```
 
 See [versioning in the API reference][versioning] for more information.
 
@@ -147,14 +153,18 @@ See [versioning in the API reference][versioning] for more information.
 By default, the library will use its own internal bundle of known CA
 certificates, but it's possible to configure your own:
 
-    Stripe.ca_bundle_path = "path/to/ca/bundle"
+```ruby
+Stripe.ca_bundle_path = "path/to/ca/bundle"
+```
 
 ### Configuring Automatic Retries
 
 The library can be configured to automatically retry requests that fail due to
 an intermittent network problem:
 
-    Stripe.max_network_retries = 2
+```ruby
+Stripe.max_network_retries = 2
+```
 
 [Idempotency keys][idempotency-keys] are added to requests to guarantee that
 retries are safe.
@@ -163,7 +173,7 @@ retries are safe.
 
 Open and read timeouts are configurable:
 
-```java
+```ruby
 Stripe.open_timeout = 30 // in seconds
 Stripe.read_timeout = 80
 ```
@@ -181,12 +191,14 @@ production use, but `debug` is also available for more verbosity.
 There are a few options for enabling it:
 
 1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`:
-   ```
+
+   ```sh
    $ export STRIPE_LOG=info
    ```
 
 2. Set `Stripe.log_level`:
-   ``` ruby
+
+   ```ruby
    Stripe.log_level = Stripe::LEVEL_INFO
    ```
 
@@ -195,10 +207,23 @@ There are a few options for enabling it:
 If you're writing a plugin that uses the library, we'd appreciate it if you
 identified using `#set_app_info`:
 
-    Stripe.set_app_info("MyAwesomePlugin", version: "1.2.34", url: "https://myawesomeplugin.info");
+```ruby
+Stripe.set_app_info("MyAwesomePlugin", version: "1.2.34", url: "https://myawesomeplugin.info");
+```
 
 This information is passed along when the library makes calls to the Stripe
 API.
+
+### Request latency telemetry
+
+By default, the library sends request latency telemetry to Stripe. These
+numbers help Stripe improve the overall latency of its API for all users.
+
+You can disable this behavior if you prefer:
+
+```ruby
+Stripe.enable_telemetry = false
+```
 
 ## Development
 
@@ -206,28 +231,40 @@ The test suite depends on [stripe-mock], so make sure to fetch and run it from a
 background terminal ([stripe-mock's README][stripe-mock] also contains
 instructions for installing via Homebrew and other methods):
 
-    go get -u github.com/stripe/stripe-mock
-    stripe-mock
+```sh
+go get -u github.com/stripe/stripe-mock
+stripe-mock
+```
 
 Run all tests:
 
-    bundle exec rake test
+```sh
+bundle exec rake test
+```
 
 Run a single test suite:
 
-    bundle exec ruby -Ilib/ test/stripe/util_test.rb
+```sh
+bundle exec ruby -Ilib/ test/stripe/util_test.rb
+```
 
 Run a single test:
 
-    bundle exec ruby -Ilib/ test/stripe/util_test.rb -n /should.convert.names.to.symbols/
+```sh
+bundle exec ruby -Ilib/ test/stripe/util_test.rb -n /should.convert.names.to.symbols/
+```
 
 Run the linter:
 
-    bundle exec rake rubocop
+```sh
+bundle exec rake rubocop
+```
 
 Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
-    bundle exec rake update_certs
+```sh
+bundle exec rake update_certs
+```
 
 Update the bundled [stripe-mock] by editing the version number found in
 `.travis.yml`.

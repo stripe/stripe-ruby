@@ -67,7 +67,7 @@ module Stripe
   @open_timeout = 30
   @read_timeout = 80
 
-  @enable_telemetry = false
+  @enable_telemetry = true
 
   class << self
     attr_accessor :stripe_account, :api_key, :api_base, :verify_ssl_certs,

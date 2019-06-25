@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.20.0 - 2019-06-24
+* [#800](https://github.com/stripe/stripe-ruby/pull/800) Enable request latency telemetry by default
+
 ## 4.19.0 - 2019-06-17
 * [#770](https://github.com/stripe/stripe-ruby/pull/770) Add support for `CustomerBalanceTransaction` resource and APIs
 

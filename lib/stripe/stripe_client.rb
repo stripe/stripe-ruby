@@ -447,7 +447,7 @@ module Stripe
       case error
       when Faraday::ConnectionFailed
         message = "Unexpected error communicating when trying to connect to " \
-          "Stripe. You may be seeing this message because your DNS is not" \
+          "Stripe. You may be seeing this message because your DNS is not " \
           "working.  To check, try running `host stripe.com` from the " \
           "command line."
 

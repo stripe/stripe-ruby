@@ -3,9 +3,9 @@
 require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
-  TEST_RESOURCE_ID = "pi_123".freeze
-
   class PaymentIntentTest < Test::Unit::TestCase
+    TEST_RESOURCE_ID = "pi_123".freeze
+
     should "be listable" do
       payment_intents = Stripe::PaymentIntent.list
       assert_requested :get, "#{Stripe.api_base}/v1/payment_intents"

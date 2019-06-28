@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.21.0 - 2019-06-28
+* [#803](https://github.com/stripe/stripe-ruby/pull/803) Add support for the `SetupIntent` resource and APIs
+
 ## 4.20.1 - 2019-06-28
 * [#805](https://github.com/stripe/stripe-ruby/pull/805) Fix formatting in `ConnectionFailed` error message
 

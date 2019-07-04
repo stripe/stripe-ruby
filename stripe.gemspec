@@ -16,6 +16,16 @@ Gem::Specification.new do |s|
   s.homepage = "https://stripe.com/docs/api/ruby"
   s.license = "MIT"
 
+  s.metadata = {
+    "bug_tracker_uri"   => "https://github.com/stripe/stripe-ruby/issues",
+    "changelog_uri"     =>
+      "https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md",
+    "documentation_uri" => "https://stripe.com/docs/api/ruby",
+    "github_repo"       => "ssh://github.com/stripe/stripe-ruby",
+    "homepage_uri"      => "https://stripe.com/docs/api/ruby",
+    "source_code_uri"   => "https://github.com/stripe/stripe-ruby",
+  }
+
   s.add_dependency("faraday", "~> 0.13")
   s.add_dependency("net-http-persistent", "~> 3.0")
 

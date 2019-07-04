@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.21.1 - 2019-07-04
+* [#807](https://github.com/stripe/stripe-ruby/pull/807) Add gem metadata
+
 ## 4.21.0 - 2019-06-28
 * [#803](https://github.com/stripe/stripe-ruby/pull/803) Add support for the `SetupIntent` resource and APIs
 

@@ -13,7 +13,7 @@ module Stripe
 
       def details(params = {}, opts = {})
         resp, opts = request(:get, resource_url + "/details", params, opts)
-        initialize_from(resp.data, opts)
+        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

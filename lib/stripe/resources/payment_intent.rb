@@ -14,17 +14,17 @@ module Stripe
 
     def cancel(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/cancel", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def capture(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/capture", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def confirm(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/confirm", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
   end
 end

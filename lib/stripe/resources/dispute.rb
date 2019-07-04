@@ -11,7 +11,7 @@ module Stripe
 
     def close(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/close", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def close_url

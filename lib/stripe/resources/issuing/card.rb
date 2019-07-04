@@ -12,8 +12,12 @@ module Stripe
       custom_method :details, http_verb: :get
 
       def details(params = {}, opts = {})
-        resp, opts = request(:get, resource_url + "/details", params, opts)
-        Util.convert_to_stripe_object(resp.data, opts)
+        make_request_returning_stripe_object(
+          method: :get,
+          path: resource_url + "/details",
+          params: params,
+          opts: opts
+        )
       end
     end
   end

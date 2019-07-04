@@ -103,5 +103,16 @@ module Stripe
       instance.refresh
       instance
     end
+
+    protected def make_request_returning_stripe_object(method:, path:, params:, opts: {})
+      resp, opts = request(method, path, params, opts)
+
+      # If we're getting back this thing, update in-place; otherwise, instantiate anew.
+      if Util.object_classes[resp.data[:object]] == self.class
+        initialize_from(resp.data, opts)
+      else
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+    end
   end
 end

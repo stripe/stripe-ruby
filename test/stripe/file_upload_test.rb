@@ -54,16 +54,6 @@ module Stripe
         assert_requested :post, "#{Stripe.uploads_base}/v1/files"
         assert file.is_a?(Stripe::FileUpload)
       end
-
-      should "be creatable with Faraday::UploadIO" do
-        file = Stripe::FileUpload.create(
-          purpose: "dispute_evidence",
-          file: Faraday::UploadIO.new(::File.new(__FILE__), nil),
-          file_link_data: { create: true }
-        )
-        assert_requested :post, "#{Stripe.uploads_base}/v1/files"
-        assert file.is_a?(Stripe::FileUpload)
-      end
     end
 
     should "be deserializable when `object=file`" do

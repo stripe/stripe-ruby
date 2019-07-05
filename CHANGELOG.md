@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.21.2 - 2019-07-05
+* [#806](https://github.com/stripe/stripe-ruby/pull/806) Revert back to `initialize_from` from `Util.convert_to_stripe_object`
+
 ## 4.21.1 - 2019-07-04
 * [#807](https://github.com/stripe/stripe-ruby/pull/807) Add gem metadata
 

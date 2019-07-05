@@ -26,9 +26,6 @@ Gem::Specification.new do |s|
     "source_code_uri"   => "https://github.com/stripe/stripe-ruby",
   }
 
-  s.add_dependency("faraday", "~> 0.13")
-  s.add_dependency("net-http-persistent", "~> 3.0")
-
   s.files = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n")

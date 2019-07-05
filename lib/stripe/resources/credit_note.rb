@@ -12,7 +12,7 @@ module Stripe
 
     def void_credit_note(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/void", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
   end
 end

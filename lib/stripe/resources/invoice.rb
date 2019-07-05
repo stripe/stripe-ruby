@@ -17,27 +17,27 @@ module Stripe
 
     def finalize_invoice(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/finalize", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def mark_uncollectible(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/mark_uncollectible", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def pay(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/pay", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def send_invoice(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/send", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def void_invoice(params = {}, opts = {})
       resp, opts = request(:post, resource_url + "/void", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      initialize_from(resp.data, opts)
     end
 
     def self.upcoming(params, opts = {})

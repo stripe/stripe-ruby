@@ -13,7 +13,8 @@ RuboCop::RakeTask.new
 
 desc "Update bundled certs"
 task :update_certs do
-  require "faraday"
+  require "net/http"
+  require "uri"
 
   fetch_file "https://curl.haxx.se/ca/cacert.pem",
              ::File.expand_path("../lib/data/ca-certificates.crt", __FILE__)
@@ -23,14 +24,14 @@ end
 # helpers
 #
 
-def fetch_file(url, dest)
+def fetch_file(uri, dest)
   ::File.open(dest, "w") do |file|
-    resp = Faraday.get(url)
-    unless resp.status == 200
-      abort("bad response when fetching: #{url}\n" \
-        "Status #{resp.status}: #{resp.body}")
+    resp = Net::HTTP.get_response(URI.parse(uri))
+    unless resp.code.to_i == 200
+      abort("bad response when fetching: #{uri}\n" \
+        "Status #{resp.code}: #{resp.body}")
     end
     file.write(resp.body)
-    puts "Successfully fetched: #{url}"
+    puts "Successfully fetched: #{uri}"
   end
 end

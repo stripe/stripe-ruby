@@ -4,8 +4,29 @@ require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class ApiResourceTest < Test::Unit::TestCase
+    class CustomMethodAPIResource < APIResource
+      OBJECT_NAME = "custom_method".freeze
+      custom_method :my_method, http_verb: :post
+    end
+
     class NestedTestAPIResource < APIResource
       save_nested_resource :external_account
+    end
+
+    context ".custom_method" do
+      should "call to an RPC-style method" do
+        stub_request(:post, "#{Stripe.api_base}/v1/custom_methods/ch_123/my_method")
+          .to_return(body: JSON.generate({}))
+        CustomMethodAPIResource.my_method("ch_123")
+      end
+
+      should "raise an error if a non-ID is passed" do
+        e = assert_raises ArgumentError do
+          CustomMethodAPIResource.my_method(id: "ch_123")
+        end
+        assert_equal "id should be a string representing the ID of an API resource",
+                     e.message
+      end
     end
 
     context ".save_nested_resource" do

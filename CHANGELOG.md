@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.21.3 - 2019-07-15
+* [#810](https://github.com/stripe/stripe-ruby/pull/810) Better error message when passing non-string to custom method
+
 ## 4.21.2 - 2019-07-05
 * [#806](https://github.com/stripe/stripe-ruby/pull/806) Revert back to `initialize_from` from `Util.convert_to_stripe_object`
 

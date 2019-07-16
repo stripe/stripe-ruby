@@ -70,6 +70,11 @@ module Stripe
       end
       http_path ||= name.to_s
       define_singleton_method(name) do |id, params = {}, opts = {}|
+        unless id.is_a?(String)
+          raise ArgumentError,
+                "id should be a string representing the ID of an API resource"
+        end
+
         url = "#{resource_url}/#{CGI.escape(id)}/#{CGI.escape(http_path)}"
         resp, opts = request(http_verb, url, params, opts)
         Util.convert_to_stripe_object(resp.data, opts)

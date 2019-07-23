@@ -1,14 +1,4 @@
-# Stripe Ruby Library
-
-[![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
-[![Coverage Status](https://coveralls.io/repos/github/stripe/stripe-ruby/badge.svg?branch=master)](https://coveralls.io/github/stripe/stripe-ruby?branch=master)
-
-The Stripe Ruby library provides convenient access to the Stripe API from
-applications written in the Ruby language. It includes a pre-defined set of
-classes for API resources that initialize themselves dynamically from API
-responses which makes it compatible with a wide range of versions of the Stripe
-API.
-
+## Stripe
 The library also provides other features. For example:
 
 - Easy configuration path for fast setup and use.
@@ -280,3 +270,6 @@ Update the bundled [stripe-mock] by editing the version number found in
 <!--
 # vim: set tw=79:
 -->
+
+[![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
+[![Coverage Status](https://coveralls.io/repos/github/stripe/stripe-ruby/badge.svg?branch=master)](https://coveralls.io/github/stripe/stripe-ruby?branch=master)

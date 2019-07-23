@@ -1,12 +1,11 @@
 ## Stripe
-The library also provides other features. For example:
+...features
 
-- Easy configuration path for fast setup and use.
-- Helpers for pagination.
-- Tracking of "fresh" values in API resources so that partial updates can be
-  executed.
-- Built-in mechanisms for the serialization of parameters according to the
-  expectations of Stripe's API.
+- configuration.
+- page help.
+- Track.
+- Fresh content.
+- Mechanisms for processing payments.
 
 ## Documentation
 

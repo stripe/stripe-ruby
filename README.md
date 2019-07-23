@@ -7,34 +7,22 @@
 - Fresh content.
 - Mechanisms for processing payments.
 
-## Documentation
-
-See the [Ruby API docs](https://stripe.com/docs/api/ruby#intro).
+This document aims to recapture the content of [Ruby API docs](https://stripe.com/docs/api/ruby#intro).
 
 ## Installation
 
-You don't need this source code unless you want to modify the gem. If you just
-want to use the package, just run:
+Activate and build, with [Ruby 2.1](https://www.ruby-lang.org/en/).
 
 ```sh
 gem install stripe
-```
-
-If you want to build the gem from source:
-
-```sh
 gem build stripe.gemspec
 ```
 
-### Requirements
-
-- Ruby 2.1+.
-
 ### Bundler
 
-If you are installing via bundler, you should be sure to use the https rubygems
-source in your Gemfile, as any gems fetched over http could potentially be
-compromised in transit and alter the code of gems fetched securely over https:
+If you are installing via bundler,
+you should be sure to use the `https rubygems` source in your Gemfile,
+as any gems fetched over http are considered compromised.
 
 ```ruby
 source 'https://rubygems.org'
@@ -43,11 +31,7 @@ gem 'rails'
 gem 'stripe'
 ```
 
-## Usage
-
-The library needs to be configured with your account's secret key which is
-available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
-value:
+Set `Stripe.api_key` to your [account key][api-keys]:
 
 ```ruby
 require "stripe"
@@ -62,11 +46,9 @@ Stripe::Charge.retrieve(
 )
 ```
 
-### Per-request Configuration
+### Per-request accounts
 
-For apps that need to use multiple keys during the lifetime of a process, like
-one that uses [Stripe Connect][connect], it's also possible to set a
-per-request key and/or account:
+[Stripe Connect][connect] allows per-request accounts。
 
 ```ruby
 require "stripe"
@@ -270,5 +252,7 @@ Update the bundled [stripe-mock] by editing the version number found in
 # vim: set tw=79:
 -->
 
-[![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
-[![Coverage Status](https://coveralls.io/repos/github/stripe/stripe-ruby/badge.svg?branch=master)](https://coveralls.io/github/stripe/stripe-ruby?branch=master)
+[Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)
+![Build Status](https://travis-ci.org/stripe/stripe-ruby)
+[Coverage](https://coveralls.io/github/stripe/stripe-ruby?branch=master)
+![Coverage Status](https://coveralls.io/repos/github/stripe/stripe-ruby/badge.svg?branch=master)

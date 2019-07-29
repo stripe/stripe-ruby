@@ -22,7 +22,7 @@ module Stripe
     end
 
     module Signature
-      EXPECTED_SCHEME = "v1".freeze
+      EXPECTED_SCHEME = "v1"
 
       def self.compute_signature(payload, secret)
         OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), secret, payload)

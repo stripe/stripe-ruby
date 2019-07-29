@@ -7,7 +7,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "transfer".freeze
+    OBJECT_NAME = "transfer"
 
     custom_method :cancel, http_verb: :post
 

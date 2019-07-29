@@ -2,7 +2,7 @@
 
 module Stripe
   class LoginLink < APIResource
-    OBJECT_NAME = "login_link".freeze
+    OBJECT_NAME = "login_link"
 
     def self.retrieve(_id, _opts = nil)
       raise NotImplementedError,

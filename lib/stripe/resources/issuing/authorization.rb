@@ -6,7 +6,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "issuing.authorization".freeze
+      OBJECT_NAME = "issuing.authorization"
 
       custom_method :approve, http_verb: :post
       custom_method :decline, http_verb: :post

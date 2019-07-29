@@ -4,6 +4,6 @@ module Stripe
   class Token < APIResource
     extend Stripe::APIOperations::Create
 
-    OBJECT_NAME = "token".freeze
+    OBJECT_NAME = "token"
   end
 end

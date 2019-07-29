@@ -4,6 +4,6 @@ module Stripe
   class AccountLink < APIResource
     extend Stripe::APIOperations::Create
 
-    OBJECT_NAME = "account_link".freeze
+    OBJECT_NAME = "account_link"
   end
 end

@@ -5,7 +5,7 @@ module Stripe
     include Stripe::APIOperations::Save
     include Stripe::APIOperations::Delete
 
-    OBJECT_NAME = "alipay_account".freeze
+    OBJECT_NAME = "alipay_account"
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?

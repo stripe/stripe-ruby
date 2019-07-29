@@ -16,7 +16,7 @@ module Stripe
   # placed in the `Content-Type` header of a subsequent request (which includes
   # a boundary value).
   class MultipartEncoder
-    MULTIPART_FORM_DATA = "multipart/form-data".freeze
+    MULTIPART_FORM_DATA = "multipart/form-data"
 
     # A shortcut for encoding a single set of parameters and finalizing a
     # result.
@@ -35,10 +35,9 @@ module Stripe
 
     # Initializes a new multipart encoder.
     def initialize
-      # We seed this with an empty string so that it encoding defaults to UTF-8
-      # instead of ASCII. The empty string is UTF-8 and new string inherits the
-      # encoding of the string it's seeded with.
-      @body = String.new("")
+      # Kind of weird, but required by Rubocop because the unary plus operator
+      # is considered faster than `Stripe.new`.
+      @body = +""
 
       # Chose the same number of random bytes that Go uses in its standard
       # library implementation. Easily enough entropy to ensure that it won't

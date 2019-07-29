@@ -9,7 +9,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "account".freeze
+    OBJECT_NAME = "account"
 
     custom_method :reject, http_verb: :post
 

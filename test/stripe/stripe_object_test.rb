@@ -52,9 +52,9 @@ module Stripe
             2,
           ],
           map: {
-            :"0" => StripeObject.construct_from({ id: "index0" }, opts),
-            :"1" => "index1",
-            :"2" => 2,
+            "0": StripeObject.construct_from({ id: "index0" }, opts),
+            "1": "index1",
+            "2": 2,
           },
         }
 

@@ -4,8 +4,8 @@ module Stripe
   class StripeMock
     include Singleton
 
-    PATH_SPEC = "#{::File.dirname(__FILE__)}/openapi/spec3.json".freeze
-    PATH_FIXTURES = "#{::File.dirname(__FILE__)}/openapi/fixtures3.json".freeze
+    PATH_SPEC = "#{::File.dirname(__FILE__)}/openapi/spec3.json"
+    PATH_FIXTURES = "#{::File.dirname(__FILE__)}/openapi/fixtures3.json"
 
     @pid = nil
     @port = -1

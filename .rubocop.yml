@@ -2,7 +2,7 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.3
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -38,6 +38,9 @@ Style/AccessModifierDeclarations:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
+
+Style/NumericPredicate:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

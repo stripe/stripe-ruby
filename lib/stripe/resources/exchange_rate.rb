@@ -4,6 +4,6 @@ module Stripe
   class ExchangeRate < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "exchange_rate".freeze
+    OBJECT_NAME = "exchange_rate"
   end
 end

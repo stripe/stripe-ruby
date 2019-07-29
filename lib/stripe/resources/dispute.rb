@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "dispute".freeze
+    OBJECT_NAME = "dispute"
 
     custom_method :close, http_verb: :post
 

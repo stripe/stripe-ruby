@@ -281,10 +281,7 @@ module Stripe
     end
     private_class_method :level_name
 
-    # TODO: Make these named required arguments when we drop support for Ruby
-    # 2.0.
-    def self.log_internal(message, data = {}, color: nil, level: nil,
-                          logger: nil, out: nil)
+    def self.log_internal(message, data = {}, color:, level:, logger:, out:)
       data_str = data.reject { |_k, v| v.nil? }
                      .map do |(k, v)|
         format("%<key>s=%<value>s",

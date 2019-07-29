@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class ApiResourceTest < Test::Unit::TestCase
     class CustomMethodAPIResource < APIResource
-      OBJECT_NAME = "custom_method".freeze
+      OBJECT_NAME = "custom_method"
       custom_method :my_method, http_verb: :post
     end
 
@@ -513,7 +513,7 @@ module Stripe
 
     context "#request_stripe_object" do
       class HelloTestAPIResource < APIResource
-        OBJECT_NAME = "hello".freeze
+        OBJECT_NAME = "hello"
         def say_hello(params = {}, opts = {})
           request_stripe_object(
             method: :post,

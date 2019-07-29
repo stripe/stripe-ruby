@@ -8,7 +8,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "customer".freeze
+    OBJECT_NAME = "customer"
 
     nested_resource_class_methods :balance_transaction,
                                   operations: %i[create retrieve update list]

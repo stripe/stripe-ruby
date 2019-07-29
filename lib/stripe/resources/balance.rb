@@ -2,6 +2,6 @@
 
 module Stripe
   class Balance < SingletonAPIResource
-    OBJECT_NAME = "balance".freeze
+    OBJECT_NAME = "balance"
   end
 end

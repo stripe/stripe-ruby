@@ -4,13 +4,13 @@ require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class WebhookTest < Test::Unit::TestCase
-    EVENT_PAYLOAD = <<-PAYLOAD.freeze
+    EVENT_PAYLOAD = <<~PAYLOAD
       {
         "id": "evt_test_webhook",
         "object": "event"
       }
     PAYLOAD
-    SECRET = "whsec_test_secret".freeze
+    SECRET = "whsec_test_secret"
 
     def generate_header(opts = {})
       opts[:timestamp] ||= Time.now.to_i

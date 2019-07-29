@@ -6,7 +6,7 @@ module Stripe
   class BitcoinReceiver < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "bitcoin_receiver".freeze
+    OBJECT_NAME = "bitcoin_receiver"
 
     def self.resource_url
       "/v1/bitcoin/receivers"

@@ -2,6 +2,6 @@
 
 module Stripe
   class Discount < StripeObject
-    OBJECT_NAME = "discount".freeze
+    OBJECT_NAME = "discount"
   end
 end

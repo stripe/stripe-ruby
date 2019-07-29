@@ -7,6 +7,6 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "webhook_endpoint".freeze
+    OBJECT_NAME = "webhook_endpoint"
   end
 end

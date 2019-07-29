@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "source".freeze
+    OBJECT_NAME = "source"
 
     custom_method :verify, http_verb: :post
 

@@ -7,7 +7,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "issuing.dispute".freeze
+      OBJECT_NAME = "issuing.dispute"
     end
   end
 end

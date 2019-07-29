@@ -5,7 +5,7 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "tax_id".freeze
+    OBJECT_NAME = "tax_id"
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?

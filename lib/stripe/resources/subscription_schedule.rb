@@ -7,7 +7,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "subscription_schedule".freeze
+    OBJECT_NAME = "subscription_schedule"
 
     custom_method :cancel, http_verb: :post
     custom_method :release, http_verb: :post

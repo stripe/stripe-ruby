@@ -4,7 +4,7 @@ module Stripe
   class SubscriptionScheduleRevision < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "subscription_schedule_revision".freeze
+    OBJECT_NAME = "subscription_schedule_revision"
 
     def resource_url
       if !respond_to?(:schedule) || schedule.nil?

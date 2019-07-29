@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "application_fee".freeze
+    OBJECT_NAME = "application_fee"
 
     nested_resource_class_methods :refund,
                                   operations: %i[create retrieve update list]

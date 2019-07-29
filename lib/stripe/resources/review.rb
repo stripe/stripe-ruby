@@ -4,7 +4,7 @@ module Stripe
   class Review < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "review".freeze
+    OBJECT_NAME = "review"
 
     custom_method :approve, http_verb: :post
 

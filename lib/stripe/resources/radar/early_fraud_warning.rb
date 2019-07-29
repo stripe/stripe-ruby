@@ -5,7 +5,7 @@ module Stripe
     class EarlyFraudWarning < APIResource
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "radar.early_fraud_warning".freeze
+      OBJECT_NAME = "radar.early_fraud_warning"
     end
   end
 end

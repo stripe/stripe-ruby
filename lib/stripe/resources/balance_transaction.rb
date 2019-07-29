@@ -4,6 +4,6 @@ module Stripe
   class BalanceTransaction < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "balance_transaction".freeze
+    OBJECT_NAME = "balance_transaction"
   end
 end

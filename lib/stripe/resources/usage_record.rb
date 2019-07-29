@@ -2,7 +2,7 @@
 
 module Stripe
   class UsageRecord < APIResource
-    OBJECT_NAME = "usage_record".freeze
+    OBJECT_NAME = "usage_record"
 
     def self.create(params = {}, opts = {})
       unless params.key?(:subscription_item)

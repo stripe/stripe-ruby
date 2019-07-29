@@ -6,7 +6,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "payment_method".freeze
+    OBJECT_NAME = "payment_method"
 
     custom_method :attach, http_verb: :post
     custom_method :detach, http_verb: :post

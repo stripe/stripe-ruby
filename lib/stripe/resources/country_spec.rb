@@ -4,6 +4,6 @@ module Stripe
   class CountrySpec < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "country_spec".freeze
+    OBJECT_NAME = "country_spec"
   end
 end

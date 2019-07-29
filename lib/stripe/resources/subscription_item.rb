@@ -7,7 +7,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "subscription_item".freeze
+    OBJECT_NAME = "subscription_item"
 
     def usage_record_summaries(params = {}, opts = {})
       resp, opts = request(:get, resource_url + "/usage_record_summaries", params, opts)

@@ -4,7 +4,7 @@ require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class PaymentIntentTest < Test::Unit::TestCase
-    TEST_RESOURCE_ID = "pi_123".freeze
+    TEST_RESOURCE_ID = "pi_123"
 
     should "be listable" do
       payment_intents = Stripe::PaymentIntent.list

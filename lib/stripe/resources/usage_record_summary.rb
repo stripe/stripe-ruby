@@ -2,6 +2,6 @@
 
 module Stripe
   class UsageRecordSummary < StripeObject
-    OBJECT_NAME = "usage_record_summary".freeze
+    OBJECT_NAME = "usage_record_summary"
   end
 end

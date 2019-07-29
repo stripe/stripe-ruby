@@ -7,7 +7,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "invoice".freeze
+    OBJECT_NAME = "invoice"
 
     custom_method :finalize_invoice, http_verb: :post, http_path: "finalize"
     custom_method :mark_uncollectible, http_verb: :post

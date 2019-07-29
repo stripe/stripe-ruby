@@ -18,17 +18,17 @@ module Stripe
         encoder.close
         body = encoder.body
 
-        assert_equal <<-BODY.rstrip, body
---#{encoder.boundary}\r
-Content-Disposition: form-data; name="file"; filename="#{::File.basename(f.path)}"\r
-Content-Type: application/octet-stream\r
-\r
-file-content\r
---#{encoder.boundary}\r
-Content-Disposition: form-data; name="other_param"\r
-\r
-other-param-content\r
---#{encoder.boundary}--
+        assert_equal <<~BODY.rstrip, body
+          --#{encoder.boundary}\r
+          Content-Disposition: form-data; name="file"; filename="#{::File.basename(f.path)}"\r
+          Content-Type: application/octet-stream\r
+          \r
+          file-content\r
+          --#{encoder.boundary}\r
+          Content-Disposition: form-data; name="other_param"\r
+          \r
+          other-param-content\r
+          --#{encoder.boundary}--
         BODY
       end
     end
@@ -47,13 +47,13 @@ other-param-content\r
       encoder.close
       body = encoder.body
 
-      assert_equal <<-BODY.rstrip, body
---#{encoder.boundary}\r
-Content-Disposition: form-data; name="file_like"; filename="blob"\r
-Content-Type: application/octet-stream\r
-\r
-klass-read-content\r
---#{encoder.boundary}--
+      assert_equal <<~BODY.rstrip, body
+        --#{encoder.boundary}\r
+        Content-Disposition: form-data; name="file_like"; filename="blob"\r
+        Content-Type: application/octet-stream\r
+        \r
+        klass-read-content\r
+        --#{encoder.boundary}--
       BODY
     end
 
@@ -65,12 +65,12 @@ klass-read-content\r
       encoder.close
       body = encoder.body
 
-      assert_equal <<-BODY.rstrip, body
---#{encoder.boundary}\r
-Content-Disposition: form-data; name="%22quoted  %22"\r
-\r
-content\r
---#{encoder.boundary}--
+      assert_equal <<~BODY.rstrip, body
+        --#{encoder.boundary}\r
+        Content-Disposition: form-data; name="%22quoted  %22"\r
+        \r
+        content\r
+        --#{encoder.boundary}--
       BODY
     end
 

@@ -10,6 +10,12 @@ Layout/CaseIndentation:
 Layout/IndentArray:
   EnforcedStyle: consistent
 
+# This can be re-enabled once we're 2.3+ only and can use the squiggly heredoc
+# operator. Prior to that, Rubocop recommended bringing in a library like
+# ActiveSupport to get heredoc indentation, which is just terrible.
+Layout/IndentHeredoc:
+  Enabled: false
+
 Layout/IndentHash:
   EnforcedStyle: consistent
 

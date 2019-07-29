@@ -112,15 +112,13 @@ Stripe::Charge.retrieve(
 )
 ```
 
-### Configuring a Client
+### Accessing a response object
 
-While a default HTTP client is used by default, it's also possible to have the
-library use any client supported by [Faraday][faraday] by initializing a
-`Stripe::StripeClient` object and giving it a connection:
+Get access to response objects by initializing a client and using its `request`
+method:
 
 ```ruby
-conn = Faraday.new
-client = Stripe::StripeClient.new(conn)
+client = Stripe::StripeClient.new
 charge, resp = client.request do
   Stripe::Charge.retrieve(
     "ch_18atAXCdGbJFKhCuBAa4532Z",
@@ -272,7 +270,6 @@ Update the bundled [stripe-mock] by editing the version number found in
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
-[faraday]: https://github.com/lostisland/faraday
 [idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [versioning]: https://stripe.com/docs/api/ruby#versioning

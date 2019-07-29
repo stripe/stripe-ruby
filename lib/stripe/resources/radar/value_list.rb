@@ -8,7 +8,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "radar.value_list".freeze
+      OBJECT_NAME = "radar.value_list"
     end
   end
 end

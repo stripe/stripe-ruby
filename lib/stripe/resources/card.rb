@@ -6,7 +6,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "card".freeze
+    OBJECT_NAME = "card"
 
     def resource_url
       if respond_to?(:recipient) && !recipient.nil? && !recipient.empty?

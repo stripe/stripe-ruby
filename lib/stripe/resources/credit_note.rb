@@ -6,7 +6,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "credit_note".freeze
+    OBJECT_NAME = "credit_note"
 
     custom_method :void_credit_note, http_verb: :post, http_path: "void"
 

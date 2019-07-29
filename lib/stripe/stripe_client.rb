@@ -185,19 +185,19 @@ module Stripe
       "Unexpected error communicating when trying to connect to " \
         "Stripe (%s). You may be seeing this message because your DNS is not " \
         "working or you don't have an internet connection.  To check, try " \
-        "running `host stripe.com` from the command line.".freeze
+        "running `host stripe.com` from the command line."
     ERROR_MESSAGE_SSL =
       "Could not establish a secure connection to Stripe (%s), you " \
         "may need to upgrade your OpenSSL version. To check, try running " \
         "`openssl s_client -connect api.stripe.com:443` from the command " \
-        "line.".freeze
+        "line."
 
     # Common error suffix sared by both connect and read timeout messages.
     ERROR_MESSAGE_TIMEOUT_SUFFIX =
       "Please check your internet connection and try again. " \
         "If this problem persists, you should check Stripe's service " \
         "status at https://status.stripe.com, or let us know at " \
-        "support@stripe.com.".freeze
+        "support@stripe.com."
 
     ERROR_MESSAGE_TIMEOUT_CONNECT = (
       "Timed out connecting to Stripe (%s). " +

@@ -7,7 +7,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "subscription".freeze
+    OBJECT_NAME = "subscription"
 
     custom_method :delete_discount, http_verb: :delete, http_path: "discount"
 

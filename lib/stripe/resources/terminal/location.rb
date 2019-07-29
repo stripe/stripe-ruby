@@ -8,7 +8,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "terminal.location".freeze
+      OBJECT_NAME = "terminal.location"
     end
   end
 end

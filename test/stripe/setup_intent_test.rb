@@ -4,7 +4,7 @@ require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class SetupIntentTest < Test::Unit::TestCase
-    TEST_RESOURCE_ID = "seti_123".freeze
+    TEST_RESOURCE_ID = "seti_123"
 
     should "be listable" do
       setup_intents = Stripe::SetupIntent.list

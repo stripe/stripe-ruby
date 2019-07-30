@@ -59,8 +59,7 @@ module Stripe
   class CardError < StripeError
     attr_reader :param
 
-    # TODO: make code a keyword arg in next major release
-    def initialize(message, param, code, http_status: nil, http_body: nil,
+    def initialize(message, param, code: nil, http_status: nil, http_body: nil,
                    json_body: nil, http_headers: nil)
       super(message, http_status: http_status, http_body: http_body,
                      json_body: json_body, http_headers: http_headers,

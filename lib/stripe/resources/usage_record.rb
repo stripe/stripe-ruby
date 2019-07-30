@@ -8,6 +8,7 @@ module Stripe
       unless params.key?(:subscription_item)
         raise ArgumentError, "Params must have a subscription_item key"
       end
+
       req_params = params.clone.delete_if do |key, _value|
         key == :subscription_item
       end

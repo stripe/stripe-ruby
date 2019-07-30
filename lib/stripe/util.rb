@@ -194,11 +194,13 @@ module Stripe
 
     def self.check_string_argument!(key)
       raise TypeError, "argument must be a string" unless key.is_a?(String)
+
       key
     end
 
     def self.check_api_key!(key)
       raise TypeError, "api_key must be a string" unless key.is_a?(String)
+
       key
     end
 
@@ -241,14 +243,14 @@ module Stripe
     #
 
     COLOR_CODES = {
-      black:   0, light_black:   60,
-      red:     1, light_red:     61,
-      green:   2, light_green:   62,
-      yellow:  3, light_yellow:  63,
-      blue:    4, light_blue:    64,
+      black: 0, light_black: 60,
+      red: 1, light_red: 61,
+      green: 2, light_green: 62,
+      yellow: 3, light_yellow: 63,
+      blue: 4, light_blue: 64,
       magenta: 5, light_magenta: 65,
-      cyan:    6, light_cyan:    66,
-      white:   7, light_white:   67,
+      cyan: 6, light_cyan: 66,
+      white: 7, light_white: 67,
       default: 9,
     }.freeze
     private_constant :COLOR_CODES

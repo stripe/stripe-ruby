@@ -12,7 +12,7 @@ module Stripe
           "data" => [],
           "has_more" => false,
           "object" => "list",
-          "url" =>  "/v1/accounts/acct_123/login_links",
+          "url" => "/v1/accounts/acct_123/login_links",
         },
       }
       @account = Stripe::Account.construct_from(account_fixture)

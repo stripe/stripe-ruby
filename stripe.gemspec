@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
   s.license = "MIT"
 
   s.metadata = {
-    "bug_tracker_uri"   => "https://github.com/stripe/stripe-ruby/issues",
-    "changelog_uri"     =>
+    "bug_tracker_uri" => "https://github.com/stripe/stripe-ruby/issues",
+    "changelog_uri" =>
       "https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md",
     "documentation_uri" => "https://stripe.com/docs/api/ruby",
-    "github_repo"       => "ssh://github.com/stripe/stripe-ruby",
-    "homepage_uri"      => "https://stripe.com/docs/api/ruby",
-    "source_code_uri"   => "https://github.com/stripe/stripe-ruby",
+    "github_repo" => "ssh://github.com/stripe/stripe-ruby",
+    "homepage_uri" => "https://stripe.com/docs/api/ruby",
+    "source_code_uri" => "https://github.com/stripe/stripe-ruby",
   }
 
   s.files = `git ls-files`.split("\n")

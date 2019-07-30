@@ -51,6 +51,7 @@ module Stripe
     # Gets the encoded body. `#close` must be called first.
     def body
       raise "object must be closed before getting body" unless @closed
+
       @body
     end
 

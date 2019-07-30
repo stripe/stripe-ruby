@@ -5,9 +5,5 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "balance_transaction".freeze
-
-    def self.resource_url
-      "/v1/balance/history"
-    end
   end
 end

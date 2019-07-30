@@ -39,7 +39,7 @@ gem build stripe.gemspec
 
 ### Requirements
 
-- Ruby 2.1+.
+- Ruby 2.3+.
 
 ### Bundler
 

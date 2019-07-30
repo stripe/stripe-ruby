@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.22.0 - 2019-07-30
+* [#821](https://github.com/stripe/stripe-ruby/pull/821) Listing `BalanceTransaction` objects now uses `/v1/balance_transactions` instead of `/v1/balance/history`
+
 ## 4.21.3 - 2019-07-15
 * [#810](https://github.com/stripe/stripe-ruby/pull/810) Better error message when passing non-string to custom method
 

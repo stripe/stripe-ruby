@@ -193,6 +193,7 @@ module Stripe
     def to_hash
       maybe_to_hash = lambda do |value|
         return nil if value.nil?
+
         value.respond_to?(:to_hash) ? value.to_hash : value
       end
 
@@ -257,6 +258,7 @@ module Stripe
         #
         unsaved = @unsaved_values.include?(k)
         next unless options[:force] || unsaved || v.is_a?(StripeObject)
+
         update_hash[k.to_sym] = serialize_params_value(
           @values[k], @original_values[k], unsaved, options[:force], key: k
         )

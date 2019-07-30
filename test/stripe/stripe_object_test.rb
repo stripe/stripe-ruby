@@ -302,14 +302,14 @@ module Stripe
     end
 
     should "#serialize_params on an array that shortens" do
-      obj = Stripe::StripeObject.construct_from(foo: ["0-index", "1-index", "2-index"])
+      obj = Stripe::StripeObject.construct_from(foo: %w[0-index 1-index 2-index])
       obj.foo = ["new-value"]
       assert_equal({ foo: ["new-value"] },
                    obj.serialize_params)
     end
 
     should "#serialize_params on an array that lengthens" do
-      obj = Stripe::StripeObject.construct_from(foo: ["0-index", "1-index", "2-index"])
+      obj = Stripe::StripeObject.construct_from(foo: %w[0-index 1-index 2-index])
       obj.foo = ["new-value"] * 4
       assert_equal({ foo: ["new-value"] * 4 },
                    obj.serialize_params)
@@ -331,8 +331,8 @@ module Stripe
     end
 
     should "#serialize_params on an array that is unchanged" do
-      obj = Stripe::StripeObject.construct_from(foo: ["0-index", "1-index", "2-index"])
-      obj.foo = ["0-index", "1-index", "2-index"]
+      obj = Stripe::StripeObject.construct_from(foo: %w[0-index 1-index 2-index])
+      obj.foo = %w[0-index 1-index 2-index]
       assert_equal({}, obj.serialize_params)
     end
 

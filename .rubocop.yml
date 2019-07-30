@@ -7,7 +7,10 @@ AllCops:
 Layout/CaseIndentation:
   EnforcedStyle: end
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
 
 # This can be re-enabled once we're 2.3+ only and can use the squiggly heredoc
@@ -15,9 +18,6 @@ Layout/IndentArray:
 # ActiveSupport to get heredoc indentation, which is just terrible.
 Layout/IndentHeredoc:
   Enabled: false
-
-Layout/IndentHash:
-  EnforcedStyle: consistent
 
 Metrics/LineLength:
   Exclude:

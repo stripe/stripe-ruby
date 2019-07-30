@@ -83,6 +83,7 @@ module Stripe
     # was given, the default limit will be fetched again.
     def next_page(params = {}, opts = {})
       return self.class.empty_list(opts) unless has_more
+
       last_id = data.last.id
 
       params = filters.merge(starting_after: last_id).merge(params)

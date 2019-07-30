@@ -214,11 +214,11 @@ module Stripe
     # The original error message is also appended onto the final exception for
     # full transparency.
     NETWORK_ERROR_MESSAGES_MAP = {
-      Errno::ECONNREFUSED    => ERROR_MESSAGE_CONNECTION,
-      SocketError            => ERROR_MESSAGE_CONNECTION,
+      Errno::ECONNREFUSED => ERROR_MESSAGE_CONNECTION,
+      SocketError => ERROR_MESSAGE_CONNECTION,
 
-      Net::OpenTimeout       => ERROR_MESSAGE_TIMEOUT_CONNECT,
-      Net::ReadTimeout       => ERROR_MESSAGE_TIMEOUT_READ,
+      Net::OpenTimeout => ERROR_MESSAGE_TIMEOUT_CONNECT,
+      Net::ReadTimeout => ERROR_MESSAGE_TIMEOUT_READ,
 
       OpenSSL::SSL::SSLError => ERROR_MESSAGE_SSL,
     }.freeze

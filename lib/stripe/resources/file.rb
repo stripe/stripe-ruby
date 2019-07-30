@@ -32,8 +32,3 @@ module Stripe
     end
   end
 end
-
-module Stripe
-  # For backwards compatibility, the `File` class is aliased to `FileUpload`.
-  FileUpload = File
-end

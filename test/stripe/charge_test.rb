@@ -60,21 +60,5 @@ module Stripe
         assert charge.is_a?(Stripe::Charge)
       end
     end
-
-    context "#mark_as_fraudulent" do
-      should "charges should be able to be marked as fraudulent" do
-        charge = Stripe::Charge.retrieve("ch_123")
-        charge = charge.mark_as_fraudulent
-        assert charge.is_a?(Stripe::Charge)
-      end
-    end
-
-    context "#mark_as_safe" do
-      should "charges should be able to be marked as safe" do
-        charge = Stripe::Charge.retrieve("ch_123")
-        charge = charge.mark_as_safe
-        assert charge.is_a?(Stripe::Charge)
-      end
-    end
   end
 end

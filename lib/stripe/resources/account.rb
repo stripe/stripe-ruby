@@ -31,10 +31,6 @@ module Stripe
 
     nested_resource_class_methods :login_link, operations: %i[create]
 
-    # This method is deprecated. Please use `#external_account=` instead.
-    save_nested_resource :bank_account
-    deprecate :bank_account=, "#external_account=", 2017, 8
-
     def resource_url
       if self["id"]
         super

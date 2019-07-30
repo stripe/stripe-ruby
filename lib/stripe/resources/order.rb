@@ -20,13 +20,5 @@ module Stripe
       resp, opts = request(:post, resource_url + "/returns", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
-
-    private def pay_url
-      resource_url + "/pay"
-    end
-
-    private def returns_url
-      resource_url + "/returns"
-    end
   end
 end

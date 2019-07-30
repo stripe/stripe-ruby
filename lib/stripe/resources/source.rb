@@ -27,12 +27,6 @@ module Stripe
       initialize_from(resp.data, opts)
     end
 
-    def delete(params = {}, opts = {})
-      detach(params, opts)
-    end
-    extend Gem::Deprecate
-    deprecate :delete, "#detach", 2017, 10
-
     def source_transactions(params = {}, opts = {})
       resp, opts = request(:get, resource_url + "/source_transactions", params,
                            opts)

@@ -18,10 +18,5 @@ module Stripe
       resp, opts = request(:post, resource_url + "/cancel", params, opts)
       initialize_from(resp.data, opts)
     end
-
-    def cancel_url
-      resource_url + "/cancel"
-    end
-    deprecate :cancel_url, :none, 2019, 11
   end
 end

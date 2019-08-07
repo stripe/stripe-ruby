@@ -82,22 +82,6 @@ module Stripe
       assert persons.data[0].is_a?(Stripe::Person)
     end
 
-    context "#bank_account=" do
-      should "warn that #bank_account= is deprecated" do
-        old_stderr = $stderr
-        $stderr = StringIO.new
-        begin
-          account = Stripe::Account.retrieve("acct_123")
-          account.bank_account = "tok_123"
-          message = "NOTE: Stripe::Account#bank_account= is " \
-                    "deprecated; use #external_account= instead"
-          assert_match Regexp.new(message), $stderr.string
-        ensure
-          $stderr = old_stderr
-        end
-      end
-    end
-
     context "#deauthorize" do
       should "deauthorize an account" do
         account = Stripe::Account.retrieve("acct_123")

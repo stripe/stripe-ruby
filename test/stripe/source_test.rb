@@ -51,24 +51,6 @@ module Stripe
       end
     end
 
-    context "#delete" do
-      should "warn that #delete is deprecated" do
-        old_stderr = $stderr
-        $stderr = StringIO.new
-        begin
-          source = Stripe::Source.construct_from(customer: "cus_123",
-                                                 id: "src_123",
-                                                 object: "source")
-          source.delete
-          message = "NOTE: Stripe::Source#delete is " \
-                    "deprecated; use #detach instead"
-          assert_match Regexp.new(message), $stderr.string
-        ensure
-          $stderr = old_stderr
-        end
-      end
-    end
-
     should "not be listable" do
       assert_raises NoMethodError do
         Stripe::Source.list

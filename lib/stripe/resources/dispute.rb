@@ -13,11 +13,5 @@ module Stripe
       resp, opts = request(:post, resource_url + "/close", params, opts)
       initialize_from(resp.data, opts)
     end
-
-    def close_url
-      resource_url + "/close"
-    end
-    extend Gem::Deprecate
-    deprecate :close_url, :none, 2019, 11
   end
 end

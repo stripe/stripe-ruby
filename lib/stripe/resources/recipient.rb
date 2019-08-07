@@ -9,9 +9,5 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "recipient"
-
-    def transfers
-      Transfer.all({ recipient: id }, @api_key)
-    end
   end
 end

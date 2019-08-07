@@ -53,50 +53,6 @@ module Stripe
       end
     end
 
-    context "#create_subscription" do
-      should "create a new subscription" do
-        customer = Stripe::Customer.retrieve("cus_123")
-        subscription = customer.create_subscription(items: [{ plan: "silver" }])
-        assert_requested :post, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscriptions"
-        assert subscription.is_a?(Stripe::Subscription)
-      end
-    end
-
-    context "#create_upcoming_invoice" do
-      should "create a new invoice" do
-        customer = Stripe::Customer.retrieve("cus_123")
-        invoice = customer.create_upcoming_invoice
-        assert_requested :post, "#{Stripe.api_base}/v1/invoices"
-        assert invoice.is_a?(Stripe::Invoice)
-      end
-    end
-
-    context "#update_subscription" do
-      should "update a subscription" do
-        customer = Stripe::Customer.retrieve("cus_123")
-
-        # deprecated API and not in schema
-        stub_request(:post, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscription")
-          .with(body: { plan: "silver" })
-          .to_return(body: JSON.generate(object: "subscription"))
-        subscription = customer.update_subscription(plan: "silver")
-        assert subscription.is_a?(Stripe::Subscription)
-      end
-    end
-
-    context "#cancel_subscription" do
-      should "cancel a subscription" do
-        customer = Stripe::Customer.retrieve("cus_123")
-
-        # deprecated API and not in schema
-        stub_request(:delete, "#{Stripe.api_base}/v1/customers/#{customer.id}/subscription")
-          .with(query: { at_period_end: "true" })
-          .to_return(body: JSON.generate(object: "subscription"))
-        subscription = customer.cancel_subscription(at_period_end: "true")
-        assert subscription.is_a?(Stripe::Subscription)
-      end
-    end
-
     context "#delete_discount" do
       should "delete a discount" do
         customer = Stripe::Customer.retrieve("cus_123")
@@ -113,6 +69,7 @@ module Stripe
         assert discount.is_a?(Stripe::Discount)
       end
     end
+
     context "#create_source" do
       should "create a source" do
         Stripe::Customer.create_source(

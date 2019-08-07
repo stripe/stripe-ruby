@@ -271,14 +271,6 @@ module Stripe
         assert_equal c.created, 12_345
       end
 
-      should "accessing a property other than id or parent on an unfetched object should fetch it" do
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
-          .with(query: { customer: "cus_123" })
-          .to_return(body: JSON.generate(customer_fixture))
-        c = Stripe::Customer.new("cus_123")
-        c.charges
-      end
-
       should "updating an object should issue a POST request with only the changed properties" do
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })

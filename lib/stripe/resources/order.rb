@@ -28,13 +28,5 @@ module Stripe
         opts: opts
       )
     end
-
-    private def pay_url
-      resource_url + "/pay"
-    end
-
-    private def returns_url
-      resource_url + "/returns"
-    end
   end
 end

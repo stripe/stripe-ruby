@@ -18,11 +18,5 @@ module Stripe
         opts: opts
       )
     end
-
-    def cancel_url
-      resource_url + "/cancel"
-    end
-    extend Gem::Deprecate
-    deprecate :cancel_url, :none, 2019, 11
   end
 end

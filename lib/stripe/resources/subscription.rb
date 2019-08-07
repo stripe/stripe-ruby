@@ -14,12 +14,8 @@ module Stripe
     save_nested_resource :source
 
     def delete_discount
-      _, opts = request(:delete, discount_url)
-      initialize_from({ discount: nil }, opts, true)
-    end
-
-    private def discount_url
-      resource_url + "/discount"
+      resp, opts = request(:delete, resource_url + "/discount")
+      initialize_from(resp.data, opts, true)
     end
   end
 end

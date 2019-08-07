@@ -32,12 +32,8 @@ module Stripe
     end
 
     def capture(params = {}, opts = {})
-      make_request_returning_stripe_object(
-        method: :post,
-        path: capture_url,
-        params: params,
-        opts: opts
-      )
+      resp, opts = request(:post, capture_url, params, opts)
+      initialize_from(resp.data, opts)
     end
 
     def update_dispute(params = {}, opts = {})

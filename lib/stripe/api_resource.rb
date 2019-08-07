@@ -104,11 +104,11 @@ module Stripe
       instance
     end
 
-    protected def make_request_returning_stripe_object(method:, path:, params:, opts: {})
+    protected def request_stripe_object(method:, path:, params:, opts: {})
       resp, opts = request(method, path, params, opts)
 
-      # If we're getting back this thing, update in-place; otherwise, instantiate anew.
-      if Util.object_classes[resp.data[:object]] == self.class
+      # If we're getting back this thing, update; otherwise, instantiate.
+      if Util.object_name_matches_class?(resp.data[:object], self.class)
         initialize_from(resp.data, opts)
       else
         Util.convert_to_stripe_object(resp.data, opts)

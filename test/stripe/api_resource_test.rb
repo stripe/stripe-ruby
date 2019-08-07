@@ -511,7 +511,7 @@ module Stripe
       end
     end
 
-    context "#make_request_returning_stripe_object" do
+    context "#request_stripe_object" do
       should "make requests appropriately"
       should "update attributes in-place when it returns the same thing"
       should "instantiate a new object of the appropriate class when it is different than the host class"

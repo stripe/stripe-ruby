@@ -10,8 +10,12 @@ module Stripe
     custom_method :verify, http_verb: :post
 
     def verify(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/verify", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/verify",
+        params: params,
+        opts: opts
+      )
     end
 
     def detach(params = {}, opts = {})

@@ -11,8 +11,12 @@ module Stripe
     custom_method :void_credit_note, http_verb: :post, http_path: "void"
 
     def void_credit_note(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/void", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/void",
+        params: params,
+        opts: opts
+      )
     end
   end
 end

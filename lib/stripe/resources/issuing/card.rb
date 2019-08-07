@@ -12,7 +12,7 @@ module Stripe
       custom_method :details, http_verb: :get
 
       def details(params = {}, opts = {})
-        make_request_returning_stripe_object(
+        request_stripe_object(
           method: :get,
           path: resource_url + "/details",
           params: params,

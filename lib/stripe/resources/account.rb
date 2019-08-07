@@ -20,8 +20,12 @@ module Stripe
                                   operations: %i[create retrieve update delete list]
 
     def reject(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/reject", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/reject",
+        params: params,
+        opts: opts
+      )
     end
 
     save_nested_resource :external_account

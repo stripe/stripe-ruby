@@ -11,8 +11,12 @@ module Stripe
     custom_method :cancel, http_verb: :post
 
     def cancel(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/cancel", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/cancel",
+        params: params,
+        opts: opts
+      )
     end
 
     def cancel_url

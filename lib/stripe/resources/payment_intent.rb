@@ -13,18 +13,30 @@ module Stripe
     custom_method :confirm, http_verb: :post
 
     def cancel(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/cancel", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/cancel",
+        params: params,
+        opts: opts
+      )
     end
 
     def capture(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/capture", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/capture",
+        params: params,
+        opts: opts
+      )
     end
 
     def confirm(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/confirm", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/confirm",
+        params: params,
+        opts: opts
+      )
     end
   end
 end

@@ -12,13 +12,21 @@ module Stripe
       custom_method :decline, http_verb: :post
 
       def approve(params = {}, opts = {})
-        resp, opts = request(:post, resource_url + "/approve", params, opts)
-        initialize_from(resp.data, opts)
+        request_stripe_object(
+          method: :post,
+          path: resource_url + "/approve",
+          params: params,
+          opts: opts
+        )
       end
 
       def decline(params = {}, opts = {})
-        resp, opts = request(:post, resource_url + "/decline", params, opts)
-        initialize_from(resp.data, opts)
+        request_stripe_object(
+          method: :post,
+          path: resource_url + "/decline",
+          params: params,
+          opts: opts
+        )
       end
     end
   end

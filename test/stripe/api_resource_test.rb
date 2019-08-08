@@ -511,6 +511,83 @@ module Stripe
       end
     end
 
+    context "#request_stripe_object" do
+      class HelloTestAPIResource < APIResource
+        OBJECT_NAME = "hello".freeze
+        def say_hello(params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: resource_url + "/say",
+            params: params,
+            opts: opts
+          )
+        end
+      end
+
+      setup do
+        Util.instance_variable_set(
+          :@object_classes,
+          Stripe::ObjectTypes.object_names_to_classes.merge(
+            "hello" => HelloTestAPIResource
+          )
+        )
+      end
+      teardown do
+        Util.class.instance_variable_set(:@object_classes, Stripe::ObjectTypes.object_names_to_classes)
+      end
+
+      should "make requests appropriately" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate("object" => "hello"))
+
+        hello = HelloTestAPIResource.new(id: "hi_123")
+        hello.say_hello({ foo: "bar" }, stripe_account: "acct_hi")
+      end
+
+      should "update attributes in-place when it returns the same thing" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say")
+          .to_return(body: JSON.generate("object" => "hello", "additional" => "attribute"))
+
+        hello = HelloTestAPIResource.new(id: "hi_123")
+        hello.unsaved = "a value"
+        new_hello = hello.say_hello
+
+        # Doesn't matter if you use the return variable or the instance.
+        assert_equal(hello, new_hello)
+
+        # It updates new attributes in-place.
+        assert_equal("attribute", hello.additional)
+
+        # It removes unsaved attributes, but at least lets you know about them.
+        e = assert_raises(NoMethodError) { hello.unsaved }
+        assert_match("The 'unsaved' attribute was set in the past", e.message)
+      end
+
+      should "instantiate a new object of the appropriate class when it is different than the host class" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say")
+          .to_return(body: JSON.generate("object" => "goodbye", "additional" => "attribute"))
+
+        hello = HelloTestAPIResource.new(id: "hi_123")
+        hello.unsaved = "a value"
+        new_goodbye = hello.say_hello
+
+        # The returned value and the instance are different objects.
+        refute_equal(new_goodbye, hello)
+
+        # The returned value has stuff from the server.
+        assert_equal("attribute", new_goodbye.additional)
+        assert_equal("goodbye", new_goodbye.object)
+
+        # You instance doesn't have stuff from the server.
+        e = assert_raises(NoMethodError) { hello.additional }
+        refute_match(/was set in the past/, e.message)
+
+        # The instance preserves unset attributes on the original instance (not sure this is good behavior?)
+        assert_equal("a value", hello.unsaved)
+      end
+    end
+
     @@fixtures = {} # rubocop:disable Style/ClassVars
     setup do
       if @@fixtures.empty?

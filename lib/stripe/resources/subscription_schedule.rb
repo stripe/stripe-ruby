@@ -15,13 +15,21 @@ module Stripe
     nested_resource_class_methods :revision, operations: %i[retrieve list]
 
     def cancel(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/cancel", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/cancel",
+        params: params,
+        opts: opts
+      )
     end
 
     def release(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/release", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/release",
+        params: params,
+        opts: opts
+      )
     end
 
     def revisions(params = {}, opts = {})

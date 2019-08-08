@@ -43,6 +43,10 @@ module Stripe
       @object_classes ||= Stripe::ObjectTypes.object_names_to_classes
     end
 
+    def self.object_name_matches_class?(object_name, klass)
+      Util.object_classes[object_name] == klass
+    end
+
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or
     # array of +StripeObject+s. These new objects will be created as a concrete
     # type as dictated by their `object` field (e.g. an `object` value of

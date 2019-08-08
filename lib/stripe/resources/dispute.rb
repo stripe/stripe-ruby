@@ -10,8 +10,12 @@ module Stripe
     custom_method :close, http_verb: :post
 
     def close(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/close", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/close",
+        params: params,
+        opts: opts
+      )
     end
 
     def close_url

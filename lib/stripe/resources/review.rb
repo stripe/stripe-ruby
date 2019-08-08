@@ -9,8 +9,12 @@ module Stripe
     custom_method :approve, http_verb: :post
 
     def approve(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/approve", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/approve",
+        params: params,
+        opts: opts
+      )
     end
   end
 end

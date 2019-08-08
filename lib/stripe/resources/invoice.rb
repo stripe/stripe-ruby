@@ -16,28 +16,48 @@ module Stripe
     custom_method :void_invoice, http_verb: :post, http_path: "void"
 
     def finalize_invoice(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/finalize", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/finalize",
+        params: params,
+        opts: opts
+      )
     end
 
     def mark_uncollectible(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/mark_uncollectible", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/mark_uncollectible",
+        params: params,
+        opts: opts
+      )
     end
 
     def pay(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/pay", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/pay",
+        params: params,
+        opts: opts
+      )
     end
 
     def send_invoice(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/send", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/send",
+        params: params,
+        opts: opts
+      )
     end
 
     def void_invoice(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/void", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/void",
+        params: params,
+        opts: opts
+      )
     end
 
     def self.upcoming(params, opts = {})

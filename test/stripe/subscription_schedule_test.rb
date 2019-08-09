@@ -78,39 +78,5 @@ module Stripe
         assert schedule.is_a?(Stripe::SubscriptionSchedule)
       end
     end
-
-    context "#revisions" do
-      should "retrieve the subscription schedule's revisions" do
-        schedule = Stripe::SubscriptionSchedule.retrieve("sub_sched_123")
-        revisions = schedule.revisions
-        assert_requested :get,
-                         "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_123/revisions"
-        assert revisions.data.is_a?(Array)
-        assert revisions.data[0].is_a?(Stripe::SubscriptionScheduleRevision)
-      end
-    end
-
-    context "#retrieve_revision" do
-      should "retrieve a subscription schedule revision" do
-        revision = Stripe::SubscriptionSchedule.retrieve_revision(
-          "sub_sched_123",
-          "sub_sched_rev_123"
-        )
-        assert_requested :get, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_123/revisions/sub_sched_rev_123"
-        assert revision.is_a?(Stripe::SubscriptionScheduleRevision)
-      end
-    end
-
-    context "#list_revisions" do
-      should "list a subscription schedule's revisions" do
-        revisions = Stripe::SubscriptionSchedule.list_revisions(
-          "sub_sched_123"
-        )
-        assert_requested :get, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_123/revisions"
-        assert revisions.is_a?(Stripe::ListObject)
-        assert revisions.data.is_a?(Array)
-        assert revisions.data[0].is_a?(Stripe::SubscriptionScheduleRevision)
-      end
-    end
   end
 end

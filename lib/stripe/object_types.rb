@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable Metrics/MethodLength
 
 module Stripe
@@ -91,5 +92,4 @@ module Stripe
   end
 end
 
-# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/MethodLength

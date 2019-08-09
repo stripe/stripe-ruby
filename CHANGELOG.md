@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.22.1 - 2019-08-09
+* [#808](https://github.com/stripe/stripe-ruby/pull/808) Unify request/response handling
+
 ## 4.22.0 - 2019-07-30
 * [#821](https://github.com/stripe/stripe-ruby/pull/821) Listing `BalanceTransaction` objects now uses `/v1/balance_transactions` instead of `/v1/balance/history`
 
@@ -85,7 +88,7 @@
 * [#718](https://github.com/stripe/stripe-ruby/pull/718) Fix an error message typo
 
 ## 4.4.0 - 2018-12-21
-* [#716](https://github.com/stripe/stripe-ruby/pull/716) Add support for the `CheckoutSession` resource 
+* [#716](https://github.com/stripe/stripe-ruby/pull/716) Add support for the `CheckoutSession` resource
 
 ## 4.3.0 - 2018-12-10
 * [#711](https://github.com/stripe/stripe-ruby/pull/711) Add support for account links

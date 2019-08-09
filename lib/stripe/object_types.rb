@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
 # rubocop:disable Metrics/MethodLength
 
 module Stripe
@@ -76,7 +75,6 @@ module Stripe
         Subscription::OBJECT_NAME => Subscription,
         SubscriptionItem::OBJECT_NAME => SubscriptionItem,
         SubscriptionSchedule::OBJECT_NAME => SubscriptionSchedule,
-        SubscriptionScheduleRevision::OBJECT_NAME => SubscriptionScheduleRevision,
         TaxId::OBJECT_NAME => TaxId,
         TaxRate::OBJECT_NAME => TaxRate,
         Terminal::ConnectionToken::OBJECT_NAME => Terminal::ConnectionToken,
@@ -94,5 +92,4 @@ module Stripe
   end
 end
 
-# rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/MethodLength

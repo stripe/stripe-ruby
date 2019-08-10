@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.23.0 - 2019-08-09
+* [#824](https://github.com/stripe/stripe-ruby/pull/824) Remove SubscriptionScheduleRevision
+  - This is technically a breaking change. We've chosen to release it as a minor vesion bump because the associated API is unused.
+
 ## 4.22.1 - 2019-08-09
 * [#808](https://github.com/stripe/stripe-ruby/pull/808) Unify request/response handling
 

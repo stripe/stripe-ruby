@@ -28,10 +28,5 @@ module Stripe
         opts: opts
       )
     end
-
-    def revisions(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/revisions", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
-    end
   end
 end

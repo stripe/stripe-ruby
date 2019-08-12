@@ -6,8 +6,11 @@ module Stripe
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "subscription_item".freeze
+
+    nested_resource_class_methods :usage_record, operations: %i[create]
 
     def usage_record_summaries(params = {}, opts = {})
       resp, opts = request(:get, resource_url + "/usage_record_summaries", params, opts)

@@ -59,5 +59,17 @@ module Stripe
         assert item.is_a?(Stripe::SubscriptionItem)
       end
     end
+
+    context "#create_usage_record" do
+      should "create a usage record" do
+        Stripe::SubscriptionItem.create_usage_record(
+          "si_123",
+          quantity: 5000,
+          timestamp: Time.now.to_i,
+          action: "increment"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/subscription_items/si_123/usage_records"
+      end
+    end
   end
 end

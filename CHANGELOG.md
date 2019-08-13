@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.24.0 - 2019-08-12
+* [#825](https://github.com/stripe/stripe-ruby/pull/825) Add `SubscriptionItem.create_usage_record` method
+  - This release also removed the `SubscriptionSchedule.revisions` method. This should have been included in the previous release (4.23.0)
+
 ## 4.23.0 - 2019-08-09
 * [#824](https://github.com/stripe/stripe-ruby/pull/824) Remove SubscriptionScheduleRevision
   - This is technically a breaking change. We've chosen to release it as a minor vesion bump because the associated API is unused.

@@ -54,31 +54,43 @@ module Stripe
       end
 
       should "retry on Errno::ECONNREFUSED" do
-        assert StripeClient.should_retry?(Errno::ECONNREFUSED.new, 0)
+        assert StripeClient.should_retry?(Errno::ECONNREFUSED.new,
+                                          method: :post, num_retries: 0)
       end
 
       should "retry on Net::OpenTimeout" do
-        assert StripeClient.should_retry?(Net::OpenTimeout.new, 0)
+        assert StripeClient.should_retry?(Net::OpenTimeout.new,
+                                          method: :post, num_retries: 0)
       end
 
       should "retry on Net::ReadTimeout" do
-        assert StripeClient.should_retry?(Net::ReadTimeout.new, 0)
+        assert StripeClient.should_retry?(Net::ReadTimeout.new,
+                                          method: :post, num_retries: 0)
       end
 
       should "retry on SocketError" do
-        assert StripeClient.should_retry?(SocketError.new, 0)
+        assert StripeClient.should_retry?(SocketError.new,
+                                          method: :post, num_retries: 0)
       end
 
-      should "retry on a conflict" do
-        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 409), 0)
+      should "retry on a 409 Conflict" do
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 409),
+                                          method: :post, num_retries: 0)
+      end
+
+      should "retry on a 503 Service Unavailable" do
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 503),
+                                          method: :post, num_retries: 0)
       end
 
       should "not retry at maximum count" do
-        refute StripeClient.should_retry?(RuntimeError.new, Stripe.max_network_retries)
+        refute StripeClient.should_retry?(RuntimeError.new,
+                                          method: :post, num_retries: Stripe.max_network_retries)
       end
 
       should "not retry on a certificate validation error" do
-        refute StripeClient.should_retry?(OpenSSL::SSL::SSLError.new, 0)
+        refute StripeClient.should_retry?(OpenSSL::SSL::SSLError.new,
+                                          method: :post, num_retries: 0)
       end
     end
 

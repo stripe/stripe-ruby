@@ -39,7 +39,7 @@ module Stripe
     # Checks if an error is a problem that we should retry on. This includes
     # both socket errors that may represent an intermittent problem and some
     # special HTTP statuses.
-    def self.should_retry?(error, num_retries)
+    def self.should_retry?(error, method:, num_retries:)
       return false if num_retries >= Stripe.max_network_retries
 
       # Retry on timeout-related problems (either on open or read).
@@ -53,8 +53,18 @@ module Stripe
       return true if error.is_a?(SocketError)
 
       if error.is_a?(Stripe::StripeError)
-        # 409 conflict
+        # 409 Conflict
         return true if error.http_status == 409
+
+        # 500 Internal Server Error
+        #
+        # We only bother retrying these for non-POST requests. POSTs end up
+        # being cached by the idempotency layer so there's no purpose in
+        # retrying them.
+        return true if error.http_status == 500 && method == :post
+
+        # 503 Service Unavailable
+        return true if error.http_status == 503
       end
 
       false
@@ -99,6 +109,11 @@ module Stripe
 
     def execute_request(method, path,
                         api_base: nil, api_key: nil, headers: {}, params: {})
+      raise ArgumentError, "method should be a symbol" \
+        unless method.is_a?(Symbol)
+      raise ArgumentError, "path should be a string" \
+        unless path.is_a?(String)
+
       api_base ||= Stripe.api_base
       api_key ||= Stripe.api_key
       params = Util.objects_to_ids(params)
@@ -159,7 +174,7 @@ module Stripe
       context.path            = path
       context.query_params    = query
 
-      http_resp = execute_request_with_rescues(api_base, context) do
+      http_resp = execute_request_with_rescues(method, api_base, context) do
         connection_manager.execute_request(method, url,
                                            body: body,
                                            headers: headers,
@@ -276,7 +291,7 @@ module Stripe
       [body, body_log]
     end
 
-    private def execute_request_with_rescues(api_base, context)
+    private def execute_request_with_rescues(method, api_base, context)
       num_retries = 0
       begin
         request_start = Time.now
@@ -310,7 +325,7 @@ module Stripe
           log_response_error(error_context, request_start, e)
         end
 
-        if self.class.should_retry?(e, num_retries)
+        if self.class.should_retry?(e, method: method, num_retries: num_retries)
           num_retries += 1
           sleep self.class.sleep_time(num_retries)
           retry

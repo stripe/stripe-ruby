@@ -235,20 +235,6 @@ module Stripe
       assert_equal true, obj.send(:metaclass).method_defined?(:foo)
     end
 
-    should "warn that #refresh_from is deprecated" do
-      old_stderr = $stderr
-      $stderr = StringIO.new
-      begin
-        obj = Stripe::StripeObject.construct_from({})
-        obj.refresh_from({}, {})
-        message = "NOTE: Stripe::StripeObject#refresh_from is " \
-                  "deprecated; use #update_attributes instead"
-        assert_match Regexp.new(message), $stderr.string
-      ensure
-        $stderr = old_stderr
-      end
-    end
-
     should "pass opts down to children when initializing" do
       opts = { custom: "opts" }
 
@@ -473,20 +459,6 @@ module Stripe
                                       metadata: { foo: "bar" })
 
       assert_equal(expected, obj.to_s)
-    end
-
-    should "warn that .serialize_params is deprecated" do
-      old_stderr = $stderr
-      $stderr = StringIO.new
-      begin
-        obj = Stripe::StripeObject.construct_from({})
-        Stripe::StripeObject.serialize_params(obj)
-        message = "NOTE: Stripe::StripeObject.serialize_params is " \
-                  "deprecated; use #serialize_params instead"
-        assert_match Regexp.new(message), $stderr.string
-      ensure
-        $stderr = old_stderr
-      end
     end
 
     should "error on setting a property to an empty string" do

@@ -196,16 +196,6 @@ module Stripe
       version: version,
     }
   end
-
-  # DEPRECATED. Use `Util#encode_parameters` instead.
-  def self.uri_encode(params)
-    Util.encode_parameters(params)
-  end
-  private_class_method :uri_encode
-  class << self
-    extend Gem::Deprecate
-    deprecate :uri_encode, "Stripe::Util#encode_parameters", 2016, 1
-  end
 end
 
 Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

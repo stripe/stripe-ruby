@@ -8,6 +8,23 @@ module Stripe
       @manager = Stripe::ConnectionManager.new
     end
 
+    context "#clear" do
+      should "clear any active connections" do
+        stub_request(:post, "#{Stripe.api_base}/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        # Making a request lets us know that at least one connection is open.
+        @manager.execute_request(:post, "#{Stripe.api_base}/path")
+
+        # Now clear the manager.
+        @manager.clear
+
+        # This check isn't great, but it's otherwise difficult to tell that
+        # anything happened with just the public-facing API.
+        assert_equal({}, @manager.instance_variable_get(:@active_connections))
+      end
+    end
+
     context "#connection_for" do
       should "correctly initialize a connection" do
         old_proxy = Stripe.proxy

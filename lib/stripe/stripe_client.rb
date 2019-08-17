@@ -5,6 +5,11 @@ module Stripe
   # recover both a resource a call returns as well as a response object that
   # contains information on the HTTP call.
   class StripeClient
+    # A set of all known connection managers across all threads and a mutex to
+    # synchronize global access to them.
+    @all_connection_managers = []
+    @all_connection_managers_mutex = Mutex.new
+
     attr_accessor :connection_manager
 
     # Initializes a new `StripeClient`. Expects a `ConnectionManager` object,
@@ -24,6 +29,20 @@ module Stripe
       Thread.current[:stripe_client] || default_client
     end
 
+    # Finishes any active connections by closing their TCP connection and
+    # clears them from internal tracking in all connection managers across all
+    # threads.
+    def self.clear_all_connection_managers
+      # Just a quick path for when configuration is being set for the first
+      # time before any connections have been opened. There is technically some
+      # potential for thread raciness here, but not in a practical sense.
+      return if @all_connection_managers.empty?
+
+      @all_connection_managers_mutex.synchronize do
+        @all_connection_managers.each(&:clear)
+      end
+    end
+
     # A default client for the current thread.
     def self.default_client
       Thread.current[:stripe_client_default_client] ||=
@@ -32,8 +51,15 @@ module Stripe
 
     # A default connection manager for the current thread.
     def self.default_connection_manager
-      Thread.current[:stripe_client_default_connection_manager] ||=
-        ConnectionManager.new
+      Thread.current[:stripe_client_default_connection_manager] ||= begin
+        connection_manager = ConnectionManager.new
+
+        @all_connection_managers_mutex.synchronize do
+          @all_connection_managers << connection_manager
+        end
+
+        connection_manager
+      end
     end
 
     # Checks if an error is a problem that we should retry on. This includes

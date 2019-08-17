@@ -73,9 +73,20 @@ module Stripe
   @enable_telemetry = true
 
   class << self
-    attr_accessor :stripe_account, :api_key, :api_base, :verify_ssl_certs,
-                  :api_version, :client_id, :connect_base, :uploads_base,
-                  :open_timeout, :read_timeout, :proxy
+    attr_accessor :api_key
+    attr_accessor :api_version
+    attr_accessor :client_id
+    attr_accessor :stripe_account
+
+    # These all get manual attribute writers so that we can reset connections
+    # if they change.
+    attr_reader :api_base
+    attr_reader :connect_base
+    attr_reader :open_timeout
+    attr_reader :proxy
+    attr_reader :read_timeout
+    attr_reader :uploads_base
+    attr_reader :verify_ssl_certs
 
     attr_reader :max_network_retry_delay, :initial_network_retry_delay
   end
@@ -90,6 +101,11 @@ module Stripe
     @app_info = info
   end
 
+  def self.api_base=(api_base)
+    @api_base = api_base
+    StripeClient.clear_all_connection_managers
+  end
+
   # The location of a file containing a bundle of CA certificates. By default
   # the library will use an included bundle that can successfully validate
   # Stripe certificates.
@@ -102,6 +118,8 @@ module Stripe
 
     # empty this field so a new store is initialized
     @ca_store = nil
+
+    StripeClient.clear_all_connection_managers
   end
 
   # A certificate store initialized from the the bundle in #ca_bundle_path and
@@ -119,6 +137,19 @@ module Stripe
       store.add_file(ca_bundle_path)
       store
     end
+  end
+
+  def self.connection_base=(connection_base)
+    @connection_base = connection_base
+    StripeClient.clear_all_connection_managers
+  end
+
+  def self.enable_telemetry?
+    @enable_telemetry
+  end
+
+  def self.enable_telemetry=(val)
+    @enable_telemetry = val
   end
 
   # map to the same values as the standard library's logger
@@ -175,12 +206,19 @@ module Stripe
     @max_network_retries = val.to_i
   end
 
-  def self.enable_telemetry?
-    @enable_telemetry
+  def self.open_timeout=(open_timeout)
+    @open_timeout = open_timeout
+    StripeClient.clear_all_connection_managers
   end
 
-  def self.enable_telemetry=(val)
-    @enable_telemetry = val
+  def self.proxy=(proxy)
+    @proxy = proxy
+    StripeClient.clear_all_connection_managers
+  end
+
+  def self.read_timeout=(read_timeout)
+    @read_timeout = read_timeout
+    StripeClient.clear_all_connection_managers
   end
 
   # Sets some basic information about the running application that's sent along
@@ -195,6 +233,16 @@ module Stripe
       url: url,
       version: version,
     }
+  end
+
+  def self.uploads_base=(uploads_base)
+    @uploads_base = uploads_base
+    StripeClient.clear_all_connection_managers
+  end
+
+  def self.verify_ssl_certs=(verify_ssl_certs)
+    @verify_ssl_certs = verify_ssl_certs
+    StripeClient.clear_all_connection_managers
   end
 end
 

@@ -78,6 +78,11 @@ module Stripe
                                           method: :post, num_retries: 0)
       end
 
+      should "retry on a 500 Internal Server Error when non-POST" do
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
+                                          method: :get, num_retries: 0)
+      end
+
       should "retry on a 503 Service Unavailable" do
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 503),
                                           method: :post, num_retries: 0)
@@ -90,6 +95,11 @@ module Stripe
 
       should "not retry on a certificate validation error" do
         refute StripeClient.should_retry?(OpenSSL::SSL::SSLError.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "not retry on a 500 Internal Server Error when POST" do
+        refute StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
                                           method: :post, num_retries: 0)
       end
     end

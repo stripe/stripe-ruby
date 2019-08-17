@@ -61,7 +61,7 @@ module Stripe
         # We only bother retrying these for non-POST requests. POSTs end up
         # being cached by the idempotency layer so there's no purpose in
         # retrying them.
-        return true if error.http_status == 500 && method == :post
+        return true if error.http_status == 500 && method != :post
 
         # 503 Service Unavailable
         return true if error.http_status == 503

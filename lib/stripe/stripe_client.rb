@@ -148,45 +148,28 @@ module Stripe
 
       body_params = nil
       query_params = nil
-      case method.to_s.downcase.to_sym
+      case method
       when :get, :head, :delete
         query_params = params
       else
         body_params = params
       end
 
-      # This works around an edge case where we end up with both query
-      # parameters in `query_params` and query parameters that are appended
-      # onto the end of the given path.
-      #
-      # Here we decode any parameters that were added onto the end of a path
-      # and add them to `query_params` so that all parameters end up in one
-      # place and all of them are correctly included in the final request.
-      u = URI.parse(path)
-      unless u.query.nil?
-        query_params ||= {}
-        query_params = Hash[URI.decode_www_form(u.query)].merge(query_params)
-
-        # Reset the path minus any query parameters that were specified.
-        path = u.path
-      end
+      query_params, path = merge_query_params(query_params, path)
 
       headers = request_headers(api_key, method)
                 .update(Util.normalize_headers(headers))
       url = api_url(path, api_base)
 
+      # Merge given query parameters with any already encoded in the path.
       query = query_params ? Util.encode_parameters(query_params) : nil
 
       # Encoding body parameters is a little more complex because we may have
       # to send a multipart-encoded body. `body_log` is produced separately as
-      # a variant of the encoded form that's output-friendly. e.g. Doesn't show
-      # as multipart. File objects are displayed as such instead of as their
-      # file contents.
-      body, body_log = if body_params
-                         encode_body(body_params, headers)
-                       else
-                         [nil, nil]
-                       end
+      # a log-friendly variant of the encoded form. File objects are displayed
+      # as such instead of as their file contents.
+      body, body_log =
+        body_params ? encode_body(body_params, headers) : [nil, nil]
 
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
@@ -198,7 +181,7 @@ module Stripe
       context.idempotency_key = headers["Idempotency-Key"]
       context.method          = method
       context.path            = path
-      context.query_params    = query
+      context.query           = query
 
       http_resp = execute_request_with_rescues(method, api_base, context) do
         connection_manager.execute_request(method, url,
@@ -410,6 +393,28 @@ module Stripe
       raise(error)
     end
 
+    # Works around an edge case where we end up with both query parameters from
+    # parameteers and query parameters that were appended onto the end of the
+    # given path.
+    #
+    # Decode any parameters that were added onto the end of a path and add them
+    # to a unified query parameter hash so that all parameters end up in one
+    # place and all of them are correctly included in the final request.
+    private def merge_query_params(query_params, path)
+      u = URI.parse(path)
+
+      # Return original results if there was nothing to be found.
+      return query_params, path if u.query.nil?
+
+      query_params ||= {}
+      query_params = Hash[URI.decode_www_form(u.query)].merge(query_params)
+
+      # Reset the path minus any query parameters that were specified.
+      path = u.path
+
+      [query_params, path]
+    end
+
     private def specific_api_error(resp, error_data, context)
       Util.log_error("Stripe API error",
                      status: resp.http_status,
@@ -572,7 +577,7 @@ module Stripe
       Util.log_debug("Request details",
                      body: context.body,
                      idempotency_key: context.idempotency_key,
-                     query_params: context.query_params)
+                     query: context.query)
     end
 
     private def log_response(context, request_start, status, body)
@@ -619,7 +624,7 @@ module Stripe
       attr_accessor :idempotency_key
       attr_accessor :method
       attr_accessor :path
-      attr_accessor :query_params
+      attr_accessor :query
       attr_accessor :request_id
 
       # The idea with this method is that we might want to update some of

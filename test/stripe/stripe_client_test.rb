@@ -826,14 +826,106 @@ module Stripe
 
       should "reset local thread state after a call" do
         begin
-          Thread.current[:stripe_client] = :stripe_client
+          StripeClient.current_thread_context.active_client = :stripe_client
 
           client = StripeClient.new
           client.request {}
 
-          assert_equal :stripe_client, Thread.current[:stripe_client]
+          assert_equal :stripe_client,
+                       StripeClient.current_thread_context.active_client
         ensure
-          Thread.current[:stripe_client] = nil
+          StripeClient.current_thread_context.active_client = nil
+        end
+      end
+
+      should "correctly return last responses despite multiple clients" do
+        charge_resp = { object: "charge" }
+        coupon_resp = { object: "coupon" }
+
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(charge_resp))
+        stub_request(:post, "#{Stripe.api_base}/v1/coupons")
+          .to_return(body: JSON.generate(coupon_resp))
+
+        client1 = StripeClient.new
+        client2 = StripeClient.new
+
+        client2_resp = nil
+        _charge, client1_resp = client1.request do
+          Charge.create
+
+          # This is contrived, but we run one client nested in the `request`
+          # block of another one just to ensure that the parent is still
+          # unwinding when this goes through. If the parent's last response
+          # were to be overridden by this client (through a bug), then it would
+          # happen here.
+          _coupon, client2_resp = client2.request do
+            Coupon.create
+          end
+        end
+
+        assert_equal charge_resp, client1_resp.data
+        assert_equal coupon_resp, client2_resp.data
+      end
+
+      should "correctly return last responses despite multiple threads" do
+        charge_resp = { object: "charge" }
+        coupon_resp = { object: "coupon" }
+
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(charge_resp))
+        stub_request(:post, "#{Stripe.api_base}/v1/coupons")
+          .to_return(body: JSON.generate(coupon_resp))
+
+        client = StripeClient.new
+
+        # Poorly named class -- note this is actually a concurrent queue.
+        recv_queue = Queue.new
+        send_queue = Queue.new
+
+        # Start a thread, make an API request, but then idle in the `request`
+        # block until the main thread has been able to make its own API request
+        # and signal that it's done. If this thread's last response were to be
+        # overridden by the main thread (through a bug), then this routine
+        # should suss it out.
+        resp1 = nil
+        thread = Thread.start do
+          _charge, resp1 = client.request do
+            Charge.create
+
+            # Idle in `request` block until main thread signals.
+            send_queue.pop
+          end
+
+          # Signal main thread that we're done and it can run its checks.
+          recv_queue << true
+        end
+
+        # Make an API request.
+        _coupon, resp2 = client.request do
+          Coupon.create
+        end
+
+        # Tell background thread to finish `request`, then wait for it to
+        # signal back to us that it's ready.
+        send_queue << true
+        recv_queue.pop
+
+        assert_equal charge_resp, resp1.data
+        assert_equal coupon_resp, resp2.data
+
+        # And for maximum hygiene, make sure that our thread rejoins.
+        thread.join
+      end
+
+      should "error if calls to #request are nested on the same thread" do
+        client = StripeClient.new
+        client.request do
+          e = assert_raises(RuntimeError) do
+            client.request {}
+          end
+          assert_equal "calls to StripeClient#request cannot be nested within a thread",
+                       e.message
         end
       end
     end
@@ -841,7 +933,7 @@ module Stripe
     context "#proxy" do
       should "run the request through the proxy" do
         begin
-          Thread.current[:stripe_client_default_connection_manager] = nil
+          StripeClient.current_thread_context.default_connection_manager = nil
 
           Stripe.proxy = "http://user:pass@localhost:8080"
 
@@ -857,7 +949,7 @@ module Stripe
         ensure
           Stripe.proxy = nil
 
-          Thread.current[:stripe_client_default_connection_manager] = nil
+          StripeClient.current_thread_context.default_connection_manager = nil
         end
       end
     end

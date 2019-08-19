@@ -32,7 +32,7 @@ module Stripe
     end
 
     def construct_error_object
-      return nil if @json_body.nil? || !@json_body.key?(:error)\
+      return nil if @json_body.nil? || !@json_body.key?(:error)
 
       ErrorObject.construct_from(@json_body[:error])
     end

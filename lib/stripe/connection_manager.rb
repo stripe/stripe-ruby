@@ -20,6 +20,15 @@ module Stripe
       @active_connections = {}
     end
 
+    # Finishes any active connections by closing their TCP connection and
+    # clears them from internal tracking.
+    def clear
+      @active_connections.each do |_, connection|
+        connection.finish
+      end
+      @active_connections = {}
+    end
+
     # Gets a connection for a given URI. This is for internal use only as it's
     # subject to change (we've moved between HTTP client schemes in the past
     # and may do it again).

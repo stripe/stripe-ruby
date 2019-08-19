@@ -17,6 +17,50 @@ module Stripe
       end
     end
 
+    context ".clear_all_connection_managers" do
+      should "clear connection managers across all threads" do
+        stub_request(:post, "#{Stripe.api_base}/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        num_threads = 3
+
+        # Poorly named class -- note this is actually a concurrent queue.
+        recv_queue = Queue.new
+        send_queue = Queue.new
+
+        threads = num_threads.times.map do |_|
+          Thread.start do
+            # Causes a connection manager to be created on this thread and a
+            # connection within that manager to be created for API access.
+            manager = StripeClient.default_connection_manager
+            manager.execute_request(:post, "#{Stripe.api_base}/path")
+
+            # Signal to the main thread we're ready.
+            recv_queue << true
+
+            # Wait for the main thread to signal continue.
+            send_queue.pop
+
+            # This check isn't great, but it's otherwise difficult to tell that
+            # anything happened with just the public-facing API.
+            assert_equal({}, manager.instance_variable_get(:@active_connections))
+          end
+        end
+
+        # Wait for threads to start up.
+        threads.each { recv_queue.pop }
+
+        # Do the clear (the method we're actually trying to test).
+        StripeClient.clear_all_connection_managers
+
+        # Tell threads to run their check.
+        threads.each { send_queue << true }
+
+        # And finally, give all threads time to perform their check.
+        threads.each(&:join)
+      end
+    end
+
     context ".default_client" do
       should "be a StripeClient" do
         assert_kind_of StripeClient, StripeClient.default_client

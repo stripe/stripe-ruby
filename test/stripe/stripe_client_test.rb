@@ -17,6 +17,50 @@ module Stripe
       end
     end
 
+    context ".clear_all_connection_managers" do
+      should "clear connection managers across all threads" do
+        stub_request(:post, "#{Stripe.api_base}/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        num_threads = 3
+
+        # Poorly named class -- note this is actually a concurrent queue.
+        recv_queue = Queue.new
+        send_queue = Queue.new
+
+        threads = num_threads.times.map do |_|
+          Thread.start do
+            # Causes a connection manager to be created on this thread and a
+            # connection within that manager to be created for API access.
+            manager = StripeClient.default_connection_manager
+            manager.execute_request(:post, "#{Stripe.api_base}/path")
+
+            # Signal to the main thread we're ready.
+            recv_queue << true
+
+            # Wait for the main thread to signal continue.
+            send_queue.pop
+
+            # This check isn't great, but it's otherwise difficult to tell that
+            # anything happened with just the public-facing API.
+            assert_equal({}, manager.instance_variable_get(:@active_connections))
+          end
+        end
+
+        # Wait for threads to start up.
+        threads.each { recv_queue.pop }
+
+        # Do the clear (the method we're actually trying to test).
+        StripeClient.clear_all_connection_managers
+
+        # Tell threads to run their check.
+        threads.each { send_queue << true }
+
+        # And finally, give all threads time to perform their check.
+        threads.each(&:join)
+      end
+    end
+
     context ".default_client" do
       should "be a StripeClient" do
         assert_kind_of StripeClient, StripeClient.default_client
@@ -32,18 +76,19 @@ module Stripe
       end
     end
 
-    context ".default_conn" do
-      should "be a Faraday::Connection" do
-        assert_kind_of Faraday::Connection, StripeClient.default_conn
+    context ".default_connection_manager" do
+      should "be a ConnectionManager" do
+        assert_kind_of ConnectionManager,
+                       StripeClient.default_connection_manager
       end
 
       should "be a different connection on each thread" do
-        other_thread_conn = nil
+        other_thread_manager = nil
         thread = Thread.new do
-          other_thread_conn = StripeClient.default_conn
+          other_thread_manager = StripeClient.default_connection_manager
         end
         thread.join
-        refute_equal StripeClient.default_conn, other_thread_conn
+        refute_equal StripeClient.default_connection_manager, other_thread_manager
       end
     end
 
@@ -52,26 +97,54 @@ module Stripe
         Stripe.stubs(:max_network_retries).returns(2)
       end
 
-      should "retry on timeout" do
-        assert StripeClient.should_retry?(Faraday::TimeoutError.new(""), 0)
+      should "retry on Errno::ECONNREFUSED" do
+        assert StripeClient.should_retry?(Errno::ECONNREFUSED.new,
+                                          method: :post, num_retries: 0)
       end
 
-      should "retry on a failed connection" do
-        assert StripeClient.should_retry?(Faraday::ConnectionFailed.new(""), 0)
+      should "retry on Net::OpenTimeout" do
+        assert StripeClient.should_retry?(Net::OpenTimeout.new,
+                                          method: :post, num_retries: 0)
       end
 
-      should "retry on a conflict" do
-        error = make_rate_limit_error
-        e = Faraday::ClientError.new(error[:error][:message], status: 409)
-        assert StripeClient.should_retry?(e, 0)
+      should "retry on Net::ReadTimeout" do
+        assert StripeClient.should_retry?(Net::ReadTimeout.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "retry on SocketError" do
+        assert StripeClient.should_retry?(SocketError.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "retry on a 409 Conflict" do
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 409),
+                                          method: :post, num_retries: 0)
+      end
+
+      should "retry on a 500 Internal Server Error when non-POST" do
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
+                                          method: :get, num_retries: 0)
+      end
+
+      should "retry on a 503 Service Unavailable" do
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 503),
+                                          method: :post, num_retries: 0)
       end
 
       should "not retry at maximum count" do
-        refute StripeClient.should_retry?(RuntimeError.new, Stripe.max_network_retries)
+        refute StripeClient.should_retry?(RuntimeError.new,
+                                          method: :post, num_retries: Stripe.max_network_retries)
       end
 
       should "not retry on a certificate validation error" do
-        refute StripeClient.should_retry?(Faraday::SSLError.new(""), 0)
+        refute StripeClient.should_retry?(OpenSSL::SSL::SSLError.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "not retry on a 500 Internal Server Error when POST" do
+        refute StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
+                                          method: :post, num_retries: 0)
       end
     end
 
@@ -115,15 +188,16 @@ module Stripe
     end
 
     context "#initialize" do
-      should "set Stripe.default_conn" do
+      should "set Stripe.default_connection_manager" do
         client = StripeClient.new
-        assert_equal StripeClient.default_conn, client.conn
+        assert_equal StripeClient.default_connection_manager,
+                     client.connection_manager
       end
 
       should "set a different connection if one was specified" do
-        conn = Faraday.new
-        client = StripeClient.new(conn)
-        assert_equal conn, client.conn
+        connection_manager = ConnectionManager.new
+        client = StripeClient.new(connection_manager)
+        assert_equal connection_manager, client.connection_manager
       end
     end
 
@@ -178,7 +252,7 @@ module Stripe
           Util.expects(:log_debug).with("Request details",
                                         body: "",
                                         idempotency_key: "abc",
-                                        query_params: nil)
+                                        query: nil)
 
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: "acct_123",
@@ -401,6 +475,20 @@ module Stripe
           end
 
           assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
+        end
+
+        should "handle low level error" do
+          stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            .to_raise(Errno::ECONNREFUSED.new)
+
+          client = StripeClient.new
+          e = assert_raises Stripe::APIConnectionError do
+            client.execute_request(:post, "/v1/charges")
+          end
+
+          assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base +
+                       "\n\n(Network error: Connection refused)",
+                       e.message
         end
 
         should "handle error response with unknown value" do
@@ -738,14 +826,106 @@ module Stripe
 
       should "reset local thread state after a call" do
         begin
-          Thread.current[:stripe_client] = :stripe_client
+          StripeClient.current_thread_context.active_client = :stripe_client
 
           client = StripeClient.new
           client.request {}
 
-          assert_equal :stripe_client, Thread.current[:stripe_client]
+          assert_equal :stripe_client,
+                       StripeClient.current_thread_context.active_client
         ensure
-          Thread.current[:stripe_client] = nil
+          StripeClient.current_thread_context.active_client = nil
+        end
+      end
+
+      should "correctly return last responses despite multiple clients" do
+        charge_resp = { object: "charge" }
+        coupon_resp = { object: "coupon" }
+
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(charge_resp))
+        stub_request(:post, "#{Stripe.api_base}/v1/coupons")
+          .to_return(body: JSON.generate(coupon_resp))
+
+        client1 = StripeClient.new
+        client2 = StripeClient.new
+
+        client2_resp = nil
+        _charge, client1_resp = client1.request do
+          Charge.create
+
+          # This is contrived, but we run one client nested in the `request`
+          # block of another one just to ensure that the parent is still
+          # unwinding when this goes through. If the parent's last response
+          # were to be overridden by this client (through a bug), then it would
+          # happen here.
+          _coupon, client2_resp = client2.request do
+            Coupon.create
+          end
+        end
+
+        assert_equal charge_resp, client1_resp.data
+        assert_equal coupon_resp, client2_resp.data
+      end
+
+      should "correctly return last responses despite multiple threads" do
+        charge_resp = { object: "charge" }
+        coupon_resp = { object: "coupon" }
+
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(charge_resp))
+        stub_request(:post, "#{Stripe.api_base}/v1/coupons")
+          .to_return(body: JSON.generate(coupon_resp))
+
+        client = StripeClient.new
+
+        # Poorly named class -- note this is actually a concurrent queue.
+        recv_queue = Queue.new
+        send_queue = Queue.new
+
+        # Start a thread, make an API request, but then idle in the `request`
+        # block until the main thread has been able to make its own API request
+        # and signal that it's done. If this thread's last response were to be
+        # overridden by the main thread (through a bug), then this routine
+        # should suss it out.
+        resp1 = nil
+        thread = Thread.start do
+          _charge, resp1 = client.request do
+            Charge.create
+
+            # Idle in `request` block until main thread signals.
+            send_queue.pop
+          end
+
+          # Signal main thread that we're done and it can run its checks.
+          recv_queue << true
+        end
+
+        # Make an API request.
+        _coupon, resp2 = client.request do
+          Coupon.create
+        end
+
+        # Tell background thread to finish `request`, then wait for it to
+        # signal back to us that it's ready.
+        send_queue << true
+        recv_queue.pop
+
+        assert_equal charge_resp, resp1.data
+        assert_equal coupon_resp, resp2.data
+
+        # And for maximum hygiene, make sure that our thread rejoins.
+        thread.join
+      end
+
+      should "error if calls to #request are nested on the same thread" do
+        client = StripeClient.new
+        client.request do
+          e = assert_raises(RuntimeError) do
+            client.request {}
+          end
+          assert_equal "calls to StripeClient#request cannot be nested within a thread",
+                       e.message
         end
       end
     end
@@ -753,18 +933,23 @@ module Stripe
     context "#proxy" do
       should "run the request through the proxy" do
         begin
-          Thread.current[:stripe_client_default_conn] = nil
+          StripeClient.current_thread_context.default_connection_manager = nil
 
-          Stripe.proxy = "http://localhost:8080"
+          Stripe.proxy = "http://user:pass@localhost:8080"
 
           client = StripeClient.new
           client.request {}
 
-          assert_equal "http://localhost:8080", Stripe::StripeClient.default_conn.proxy.uri.to_s
+          connection = Stripe::StripeClient.default_connection_manager.connection_for(Stripe.api_base)
+
+          assert_equal "localhost", connection.proxy_address
+          assert_equal 8080, connection.proxy_port
+          assert_equal "user", connection.proxy_user
+          assert_equal "pass", connection.proxy_pass
         ensure
           Stripe.proxy = nil
 
-          Thread.current[:stripe_client_default_conn] = nil
+          StripeClient.current_thread_context.default_connection_manager = nil
         end
       end
     end

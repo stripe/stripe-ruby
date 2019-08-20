@@ -127,18 +127,6 @@ module Stripe
         JSON.pretty_generate(@values)
     end
 
-    # Re-initializes the object based on a hash of values (usually one that's
-    # come back from an API call). Adds or removes value accessors as necessary
-    # and updates the state of internal data.
-    #
-    # Please don't use this method. If you're trying to do mass assignment, try
-    # #initialize_from instead.
-    def refresh_from(values, opts, partial = false)
-      initialize_from(values, opts, partial)
-    end
-    extend Gem::Deprecate
-    deprecate :refresh_from, "#update_attributes", 2016, 1
-
     # Mass assigns attributes on the model.
     #
     # This is a version of +update_attributes+ that takes some extra options
@@ -192,7 +180,9 @@ module Stripe
 
     def to_hash
       maybe_to_hash = lambda do |value|
-        value && value.respond_to?(:to_hash) ? value.to_hash : value
+        return nil if value.nil?
+
+        value.respond_to?(:to_hash) ? value.to_hash : value
       end
 
       @values.each_with_object({}) do |(key, value), acc|
@@ -256,6 +246,7 @@ module Stripe
         #
         unsaved = @unsaved_values.include?(k)
         next unless options[:force] || unsaved || v.is_a?(StripeObject)
+
         update_hash[k.to_sym] = serialize_params_value(
           @values[k], @original_values[k], unsaved, options[:force], key: k
         )
@@ -266,16 +257,6 @@ module Stripe
       update_hash.reject! { |_, v| v.nil? }
 
       update_hash
-    end
-
-    class << self
-      # This class method has been deprecated in favor of the instance method
-      # of the same name.
-      def serialize_params(obj, options = {})
-        obj.serialize_params(options)
-      end
-      extend Gem::Deprecate
-      deprecate :serialize_params, "#serialize_params", 2016, 9
     end
 
     # A protected field is one that doesn't get an accessor assigned to it

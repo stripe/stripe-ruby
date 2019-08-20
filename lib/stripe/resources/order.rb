@@ -6,7 +6,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "order".freeze
+    OBJECT_NAME = "order"
 
     custom_method :pay, http_verb: :post
     custom_method :return_order, http_verb: :post, http_path: "returns"
@@ -27,14 +27,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    private def pay_url
-      resource_url + "/pay"
-    end
-
-    private def returns_url
-      resource_url + "/returns"
     end
   end
 end

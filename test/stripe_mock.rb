@@ -4,8 +4,8 @@ module Stripe
   class StripeMock
     include Singleton
 
-    PATH_SPEC = "#{::File.dirname(__FILE__)}/openapi/spec3.json".freeze
-    PATH_FIXTURES = "#{::File.dirname(__FILE__)}/openapi/fixtures3.json".freeze
+    PATH_SPEC = "#{::File.dirname(__FILE__)}/openapi/spec3.json"
+    PATH_FIXTURES = "#{::File.dirname(__FILE__)}/openapi/fixtures3.json"
 
     @pid = nil
     @port = -1
@@ -29,7 +29,7 @@ module Stripe
       @stderr, @child_stderr = ::IO.pipe
 
       @pid = ::Process.spawn(
-        ["stripe-mock", "stripe-mock"],
+        %w[stripe-mock stripe-mock],
         "-http-port",
         "0", # have stripe-mock select a port
         "-spec",
@@ -66,6 +66,7 @@ module Stripe
     # Stops stripe-mock, if necessary.
     def self.stop
       return if @pid.nil?
+
       puts("Stopping stripe-mock...")
       ::Process.kill(:SIGTERM, @pid)
       ::Process.waitpid2(@pid)

@@ -7,7 +7,7 @@ module Stripe
     include Stripe::APIOperations::Request
     include Stripe::APIOperations::Create
 
-    OBJECT_NAME = "list".freeze
+    OBJECT_NAME = "list"
 
     # This accessor allows a `ListObject` to inherit various filters that were
     # given to a predecessor. This allows for things like consistent limits,
@@ -83,6 +83,7 @@ module Stripe
     # was given, the default limit will be fetched again.
     def next_page(params = {}, opts = {})
       return self.class.empty_list(opts) unless has_more
+
       last_id = data.last.id
 
       params = filters.merge(starting_after: last_id).merge(params)

@@ -7,19 +7,15 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "subscription".freeze
+    OBJECT_NAME = "subscription"
 
     custom_method :delete_discount, http_verb: :delete, http_path: "discount"
 
     save_nested_resource :source
 
     def delete_discount
-      _, opts = request(:delete, discount_url)
-      initialize_from({ discount: nil }, opts, true)
-    end
-
-    private def discount_url
-      resource_url + "/discount"
+      resp, opts = request(:delete, resource_url + "/discount")
+      initialize_from(resp.data, opts, true)
     end
   end
 end

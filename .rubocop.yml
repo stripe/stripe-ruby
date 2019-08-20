@@ -2,21 +2,31 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.3
 
 Layout/CaseIndentation:
   EnforcedStyle: end
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
+
+# This can be re-enabled once we're 2.3+ only and can use the squiggly heredoc
+# operator. Prior to that, Rubocop recommended bringing in a library like
+# ActiveSupport to get heredoc indentation, which is just terrible.
+Layout/IndentHeredoc:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - "test/**/*.rb"
 
 Metrics/LineLength:
   Exclude:
-    - "test/**/*.rb"
     - "lib/stripe/resources/**/*.rb"
+    - "test/**/*.rb"
 
 Metrics/MethodLength:
   # There's ~2 long methods in `StripeClient`. If we want to truncate those a
@@ -32,6 +42,9 @@ Style/AccessModifierDeclarations:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
+
+Style/NumericPredicate:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

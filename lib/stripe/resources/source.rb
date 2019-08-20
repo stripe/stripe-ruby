@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "source".freeze
+    OBJECT_NAME = "source"
 
     custom_method :verify, http_verb: :post
 
@@ -30,12 +30,6 @@ module Stripe
       resp, opts = request(:delete, url, params, opts)
       initialize_from(resp.data, opts)
     end
-
-    def delete(params = {}, opts = {})
-      detach(params, opts)
-    end
-    extend Gem::Deprecate
-    deprecate :delete, "#detach", 2017, 10
 
     def source_transactions(params = {}, opts = {})
       resp, opts = request(:get, resource_url + "/source_transactions", params,

@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "person".freeze
+    OBJECT_NAME = "person"
 
     def resource_url
       if !respond_to?(:account) || account.nil?

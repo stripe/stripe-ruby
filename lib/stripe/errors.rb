@@ -11,6 +11,7 @@ module Stripe
     attr_accessor :response
 
     attr_reader :code
+    attr_reader :error
     attr_reader :http_body
     attr_reader :http_headers
     attr_reader :http_status
@@ -27,6 +28,13 @@ module Stripe
       @json_body = json_body
       @code = code
       @request_id = @http_headers[:request_id]
+      @error = construct_error_object
+    end
+
+    def construct_error_object
+      return nil if @json_body.nil? || !@json_body.key?(:error)
+
+      ErrorObject.construct_from(@json_body[:error])
     end
 
     def to_s
@@ -59,8 +67,7 @@ module Stripe
   class CardError < StripeError
     attr_reader :param
 
-    # TODO: make code a keyword arg in next major release
-    def initialize(message, param, code, http_status: nil, http_body: nil,
+    def initialize(message, param, code: nil, http_status: nil, http_body: nil,
                    json_body: nil, http_headers: nil)
       super(message, http_status: http_status, http_body: http_body,
                      json_body: json_body, http_headers: http_headers,
@@ -118,6 +125,12 @@ module Stripe
         super(description, http_status: http_status, http_body: http_body,
                            json_body: json_body, http_headers: http_headers,
                            code: code)
+      end
+
+      def construct_error_object
+        return nil if @json_body.nil?
+
+        OAuthErrorObject.construct_from(@json_body)
       end
     end
 

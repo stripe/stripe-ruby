@@ -6,7 +6,7 @@ module Stripe
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "reporting.report_type".freeze
+      OBJECT_NAME = "reporting.report_type"
     end
   end
 end

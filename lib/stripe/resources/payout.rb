@@ -6,7 +6,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "payout".freeze
+    OBJECT_NAME = "payout"
 
     custom_method :cancel, http_verb: :post
 
@@ -18,11 +18,5 @@ module Stripe
         opts: opts
       )
     end
-
-    def cancel_url
-      resource_url + "/cancel"
-    end
-    extend Gem::Deprecate
-    deprecate :cancel_url, :none, 2019, 11
   end
 end

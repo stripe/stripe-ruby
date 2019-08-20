@@ -19,12 +19,6 @@ module Stripe
 
         obj
       end
-
-      # The original version of #list was given the somewhat unfortunate name of
-      # #all, and this alias allows us to maintain backward compatibility (the
-      # choice was somewhat misleading in the way that it only returned a single
-      # page rather than all objects).
-      alias all list
     end
   end
 end

@@ -7,7 +7,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "invoice".freeze
+    OBJECT_NAME = "invoice"
 
     custom_method :finalize_invoice, http_verb: :post, http_path: "finalize"
     custom_method :mark_uncollectible, http_verb: :post
@@ -62,6 +62,11 @@ module Stripe
 
     def self.upcoming(params, opts = {})
       resp, opts = request(:get, resource_url + "/upcoming", params, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.list_upcoming_line_items(params, opts = {})
+      resp, opts = request(:get, resource_url + "/upcoming/lines", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
   end

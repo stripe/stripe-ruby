@@ -7,7 +7,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "issuing.card".freeze
+      OBJECT_NAME = "issuing.card"
 
       custom_method :details, http_verb: :get
 

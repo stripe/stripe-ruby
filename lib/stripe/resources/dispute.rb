@@ -5,7 +5,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "dispute".freeze
+    OBJECT_NAME = "dispute"
 
     custom_method :close, http_verb: :post
 
@@ -17,11 +17,5 @@ module Stripe
         opts: opts
       )
     end
-
-    def close_url
-      resource_url + "/close"
-    end
-    extend Gem::Deprecate
-    deprecate :close_url, :none, 2019, 11
   end
 end

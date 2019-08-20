@@ -5,85 +5,98 @@ module Stripe
   # recover both a resource a call returns as well as a response object that
   # contains information on the HTTP call.
   class StripeClient
-    attr_accessor :conn
+    # A set of all known connection managers across all threads and a mutex to
+    # synchronize global access to them.
+    @all_connection_managers = []
+    @all_connection_managers_mutex = Mutex.new
 
-    # Initializes a new StripeClient. Expects a Faraday connection object, and
-    # uses a default connection unless one is passed.
-    def initialize(conn = nil)
-      self.conn = conn || self.class.default_conn
+    attr_accessor :connection_manager
+
+    # Initializes a new `StripeClient`. Expects a `ConnectionManager` object,
+    # and uses a default connection manager unless one is passed.
+    def initialize(connection_manager = nil)
+      self.connection_manager = connection_manager ||
+                                self.class.default_connection_manager
       @system_profiler = SystemProfiler.new
       @last_request_metrics = nil
     end
 
+    # Gets a currently active `StripeClient`. Set for the current thread when
+    # `StripeClient#request` is being run so that API operations being executed
+    # inside of that block can find the currently active client. It's reset to
+    # the original value (hopefully `nil`) after the block ends.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
     def self.active_client
-      Thread.current[:stripe_client] || default_client
+      current_thread_context.active_client || default_client
     end
 
+    # Finishes any active connections by closing their TCP connection and
+    # clears them from internal tracking in all connection managers across all
+    # threads.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    def self.clear_all_connection_managers
+      # Just a quick path for when configuration is being set for the first
+      # time before any connections have been opened. There is technically some
+      # potential for thread raciness here, but not in a practical sense.
+      return if @all_connection_managers.empty?
+
+      @all_connection_managers_mutex.synchronize do
+        @all_connection_managers.each(&:clear)
+      end
+    end
+
+    # A default client for the current thread.
     def self.default_client
-      Thread.current[:stripe_client_default_client] ||=
-        StripeClient.new(default_conn)
+      current_thread_context.default_client ||=
+        StripeClient.new(default_connection_manager)
     end
 
-    # A default Faraday connection to be used when one isn't configured. This
-    # object should never be mutated, and instead instantiating your own
-    # connection and wrapping it in a StripeClient object should be preferred.
-    def self.default_conn
-      # We're going to keep connections around so that we can take advantage
-      # of connection re-use, so make sure that we have a separate connection
-      # object per thread.
-      Thread.current[:stripe_client_default_conn] ||= begin
-        conn = Faraday.new do |builder|
-          builder.use Faraday::Request::Multipart
-          builder.use Faraday::Request::UrlEncoded
-          builder.use Faraday::Response::RaiseError
+    # A default connection manager for the current thread.
+    def self.default_connection_manager
+      current_thread_context.default_connection_manager ||= begin
+        connection_manager = ConnectionManager.new
 
-          # Net::HTTP::Persistent doesn't seem to do well on Windows or JRuby,
-          # so fall back to default there.
-          if Gem.win_platform? || RUBY_PLATFORM == "java"
-            builder.adapter :net_http
-          else
-            builder.adapter :net_http_persistent
-          end
+        @all_connection_managers_mutex.synchronize do
+          @all_connection_managers << connection_manager
         end
 
-        conn.proxy = Stripe.proxy if Stripe.proxy
-
-        if Stripe.verify_ssl_certs
-          conn.ssl.verify = true
-          conn.ssl.cert_store = Stripe.ca_store
-        else
-          conn.ssl.verify = false
-
-          unless @verify_ssl_warned
-            @verify_ssl_warned = true
-            warn("WARNING: Running without SSL cert verification. " \
-              "You should never do this in production. " \
-              "Execute `Stripe.verify_ssl_certs = true` to enable " \
-              "verification.")
-          end
-        end
-
-        conn
+        connection_manager
       end
     end
 
     # Checks if an error is a problem that we should retry on. This includes
     # both socket errors that may represent an intermittent problem and some
     # special HTTP statuses.
-    def self.should_retry?(error, num_retries)
+    def self.should_retry?(error, method:, num_retries:)
       return false if num_retries >= Stripe.max_network_retries
 
       # Retry on timeout-related problems (either on open or read).
-      return true if error.is_a?(Faraday::TimeoutError)
+      return true if error.is_a?(Net::OpenTimeout)
+      return true if error.is_a?(Net::ReadTimeout)
 
       # Destination refused the connection, the connection was reset, or a
       # variety of other connection failures. This could occur from a single
       # saturated server, so retry in case it's intermittent.
-      return true if error.is_a?(Faraday::ConnectionFailed)
+      return true if error.is_a?(Errno::ECONNREFUSED)
+      return true if error.is_a?(SocketError)
 
-      if error.is_a?(Faraday::ClientError) && error.response
-        # 409 conflict
-        return true if error.response[:status] == 409
+      if error.is_a?(Stripe::StripeError)
+        # 409 Conflict
+        return true if error.http_status == 409
+
+        # 500 Internal Server Error
+        #
+        # We only bother retrying these for non-POST requests. POSTs end up
+        # being cached by the idempotency layer so there's no purpose in
+        # retrying them.
+        return true if error.http_status == 500 && method != :post
+
+        # 503 Service Unavailable
+        return true if error.http_status == 503
       end
 
       false
@@ -114,56 +127,62 @@ module Stripe
     #     charge, resp = client.request { Charge.create }
     #
     def request
-      @last_response = nil
-      old_stripe_client = Thread.current[:stripe_client]
-      Thread.current[:stripe_client] = self
+      old_stripe_client = self.class.current_thread_context.active_client
+      self.class.current_thread_context.active_client = self
+
+      if self.class.current_thread_context.last_responses&.key?(object_id)
+        raise "calls to StripeClient#request cannot be nested within a thread"
+      end
+
+      self.class.current_thread_context.last_responses ||= {}
+      self.class.current_thread_context.last_responses[object_id] = nil
 
       begin
         res = yield
-        [res, @last_response]
+        [res, self.class.current_thread_context.last_responses[object_id]]
       ensure
-        Thread.current[:stripe_client] = old_stripe_client
+        self.class.current_thread_context.active_client = old_stripe_client
+        self.class.current_thread_context.last_responses.delete(object_id)
       end
     end
 
     def execute_request(method, path,
                         api_base: nil, api_key: nil, headers: {}, params: {})
+      raise ArgumentError, "method should be a symbol" \
+        unless method.is_a?(Symbol)
+      raise ArgumentError, "path should be a string" \
+        unless path.is_a?(String)
+
       api_base ||= Stripe.api_base
       api_key ||= Stripe.api_key
       params = Util.objects_to_ids(params)
 
       check_api_key!(api_key)
 
-      body = nil
+      body_params = nil
       query_params = nil
-      case method.to_s.downcase.to_sym
+      case method
       when :get, :head, :delete
         query_params = params
       else
-        body = params
+        body_params = params
       end
 
-      # This works around an edge case where we end up with both query
-      # parameters in `query_params` and query parameters that are appended
-      # onto the end of the given path. In this case, Faraday will silently
-      # discard the URL's parameters which may break a request.
-      #
-      # Here we decode any parameters that were added onto the end of a path
-      # and add them to `query_params` so that all parameters end up in one
-      # place and all of them are correctly included in the final request.
-      u = URI.parse(path)
-      unless u.query.nil?
-        query_params ||= {}
-        query_params = Hash[URI.decode_www_form(u.query)].merge(query_params)
-
-        # Reset the path minus any query parameters that were specified.
-        path = u.path
-      end
+      query_params, path = merge_query_params(query_params, path)
 
       headers = request_headers(api_key, method)
                 .update(Util.normalize_headers(headers))
-      params_encoder = FaradayStripeEncoder.new
       url = api_url(path, api_base)
+
+      # Merge given query parameters with any already encoded in the path.
+      query = query_params ? Util.encode_parameters(query_params) : nil
+
+      # Encoding body parameters is a little more complex because we may have
+      # to send a multipart-encoded body. `body_log` is produced separately as
+      # a log-friendly variant of the encoded form. File objects are displayed
+      # as such instead of as their file contents.
+      body, body_log =
+        body_params ? encode_body(body_params, headers) : [nil, nil]
 
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
@@ -171,70 +190,124 @@ module Stripe
       context.account         = headers["Stripe-Account"]
       context.api_key         = api_key
       context.api_version     = headers["Stripe-Version"]
-      context.body            = body ? params_encoder.encode(body) : nil
+      context.body            = body_log
       context.idempotency_key = headers["Idempotency-Key"]
       context.method          = method
       context.path            = path
-      context.query_params    = if query_params
-                                  params_encoder.encode(query_params)
-                                end
+      context.query           = query
 
-      # note that both request body and query params will be passed through
-      # `FaradayStripeEncoder`
-      http_resp = execute_request_with_rescues(api_base, context) do
-        conn.run_request(method, url, body, headers) do |req|
-          req.options.open_timeout = Stripe.open_timeout
-          req.options.params_encoder = params_encoder
-          req.options.timeout = Stripe.read_timeout
-          req.params = query_params unless query_params.nil?
-        end
+      http_resp = execute_request_with_rescues(method, api_base, context) do
+        connection_manager.execute_request(method, url,
+                                           body: body,
+                                           headers: headers,
+                                           query: query)
       end
 
       begin
-        resp = StripeResponse.from_faraday_response(http_resp)
+        resp = StripeResponse.from_net_http(http_resp)
       rescue JSON::ParserError
-        raise general_api_error(http_resp.status, http_resp.body)
+        raise general_api_error(http_resp.code.to_i, http_resp.body)
       end
 
-      # Allows StripeClient#request to return a response object to a caller.
-      @last_response = resp
+      # If being called from `StripeClient#request`, put the last response in
+      # thread-local memory so that it can be returned to the user. Don't store
+      # anything otherwise so that we don't leak memory.
+      if self.class.current_thread_context.last_responses&.key?(object_id)
+        self.class.current_thread_context.last_responses[object_id] = resp
+      end
+
       [resp, api_key]
     end
 
-    # Used to workaround buggy behavior in Faraday: the library will try to
-    # reshape anything that we pass to `req.params` with one of its default
-    # encoders. I don't think this process is supposed to be lossy, but it is
-    # -- in particular when we send our integer-indexed maps (i.e. arrays),
-    # Faraday ends up stripping out the integer indexes.
     #
-    # We work around the problem by implementing our own simplified encoder and
-    # telling Faraday to use that.
+    # private
     #
-    # The class also performs simple caching so that we don't have to encode
-    # parameters twice for every request (once to build the request and once
-    # for logging).
-    #
-    # When initialized with `multipart: true`, the encoder just inspects the
-    # hash instead to get a decent representation for logging. In the case of a
-    # multipart request, Faraday won't use the result of this encoder.
-    class FaradayStripeEncoder
-      def initialize
-        @cache = {}
-      end
 
-      # This is quite subtle, but for a `multipart/form-data` request Faraday
-      # will throw away the result of this encoder and build its body.
-      def encode(hash)
-        @cache.fetch(hash) do |k|
-          @cache[k] = Util.encode_parameters(hash)
-        end
-      end
+    ERROR_MESSAGE_CONNECTION =
+      "Unexpected error communicating when trying to connect to " \
+        "Stripe (%s). You may be seeing this message because your DNS is not " \
+        "working or you don't have an internet connection.  To check, try " \
+        "running `host stripe.com` from the command line."
+    ERROR_MESSAGE_SSL =
+      "Could not establish a secure connection to Stripe (%s), you " \
+        "may need to upgrade your OpenSSL version. To check, try running " \
+        "`openssl s_client -connect api.stripe.com:443` from the command " \
+        "line."
 
-      # We should never need to do this so it's not implemented.
-      def decode(_str)
-        raise NotImplementedError,
-              "#{self.class.name} does not implement #decode"
-      end
+    # Common error suffix sared by both connect and read timeout messages.
+    ERROR_MESSAGE_TIMEOUT_SUFFIX =
+      "Please check your internet connection and try again. " \
+        "If this problem persists, you should check Stripe's service " \
+        "status at https://status.stripe.com, or let us know at " \
+        "support@stripe.com."
+
+    ERROR_MESSAGE_TIMEOUT_CONNECT = (
+      "Timed out connecting to Stripe (%s). " +
+      ERROR_MESSAGE_TIMEOUT_SUFFIX
+    ).freeze
+
+    ERROR_MESSAGE_TIMEOUT_READ = (
+      "Timed out communicating with Stripe (%s). " +
+      ERROR_MESSAGE_TIMEOUT_SUFFIX
+    ).freeze
+
+    # Maps types of exceptions that we're likely to see during a network
+    # request to more user-friendly messages that we put in front of people.
+    # The original error message is also appended onto the final exception for
+    # full transparency.
+    NETWORK_ERROR_MESSAGES_MAP = {
+      Errno::ECONNREFUSED => ERROR_MESSAGE_CONNECTION,
+      SocketError => ERROR_MESSAGE_CONNECTION,
+
+      Net::OpenTimeout => ERROR_MESSAGE_TIMEOUT_CONNECT,
+      Net::ReadTimeout => ERROR_MESSAGE_TIMEOUT_READ,
+
+      OpenSSL::SSL::SSLError => ERROR_MESSAGE_SSL,
+    }.freeze
+    private_constant :NETWORK_ERROR_MESSAGES_MAP
+
+    # A record representing any data that `StripeClient` puts into
+    # `Thread.current`. Making it a class likes this gives us a little extra
+    # type safety and lets us document what each field does.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    class ThreadContext
+      # A `StripeClient` that's been flagged as currently active within a
+      # thread by `StripeClient#request`. A client stays active until the
+      # completion of the request block.
+      attr_accessor :active_client
+
+      # A default `StripeClient` object for the thread. Used in all cases where
+      # the user hasn't specified their own.
+      attr_accessor :default_client
+
+      # A default `ConnectionManager` for the thread. Normally shared between
+      # all `StripeClient` objects on a particular thread, and created so as to
+      # minimize the number of open connections that an application needs.
+      attr_accessor :default_connection_manager
+
+      # A temporary map of object IDs to responses from last executed API
+      # calls. Used to return a responses from calls to `StripeClient#request`.
+      #
+      # Stored in the thread data to make the use of a single `StripeClient`
+      # object safe across multiple threads. Stored as a map so that multiple
+      # `StripeClient` objects can run concurrently on the same thread.
+      #
+      # Responses are only left in as long as they're needed, which means
+      # they're removed as soon as a call leaves `StripeClient#request`, and
+      # because that's wrapped in an `ensure` block, they should never leave
+      # garbage in `Thread.current`.
+      attr_accessor :last_responses
+    end
+
+    # Access data stored for `StripeClient` within the thread's current
+    # context. Returns `ThreadContext`.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    def self.current_thread_context
+      Thread.current[:stripe_client__internal_use_only] ||= ThreadContext.new
     end
 
     private def api_url(url = "", api_base = nil)
@@ -258,14 +331,48 @@ module Stripe
         "email support@stripe.com if you have any questions.)"
     end
 
-    private def execute_request_with_rescues(api_base, context)
+    # Encodes a set of body parameters using multipart if `Content-Type` is set
+    # for that, or standard form-encoding otherwise. Returns the encoded body
+    # and a version of the encoded body that's safe to be logged.
+    private def encode_body(body_params, headers)
+      body = nil
+      flattened_params = Util.flatten_params(body_params)
+
+      if headers["Content-Type"] == MultipartEncoder::MULTIPART_FORM_DATA
+        body, content_type = MultipartEncoder.encode(flattened_params)
+
+        # Set a new content type that also includes the multipart boundary.
+        # See `MultipartEncoder` for details.
+        headers["Content-Type"] = content_type
+
+        # `#to_s` any complex objects like files and the like to build output
+        # that's more condusive to logging.
+        flattened_params =
+          flattened_params.map { |k, v| [k, v.is_a?(String) ? v : v.to_s] }.to_h
+      else
+        body = Util.encode_parameters(body_params)
+      end
+
+      # We don't use `Util.encode_parameters` partly as an optimization (to not
+      # redo work we've already done), and partly because the encoded forms of
+      # certain characters introduce a lot of visual noise and it's nice to
+      # have a clearer format for logs.
+      body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
+
+      [body, body_log]
+    end
+
+    private def execute_request_with_rescues(method, api_base, context)
       num_retries = 0
       begin
         request_start = Time.now
         log_request(context, num_retries)
         resp = yield
-        context = context.dup_from_response(resp)
-        log_response(context, request_start, resp.status, resp.body)
+        context = context.dup_from_response_headers(resp)
+
+        handle_error_response(resp, context) if resp.code.to_i >= 400
+
+        log_response(context, request_start, resp.code.to_i, resp.body)
 
         if Stripe.enable_telemetry? && context.request_id
           request_duration_ms = ((Time.now - request_start) * 1000).to_int
@@ -281,27 +388,25 @@ module Stripe
         # taint the original on a retry.
         error_context = context
 
-        if e.respond_to?(:response) && e.response
-          error_context = context.dup_from_response(e.response)
+        if e.is_a?(Stripe::StripeError)
+          error_context = context.dup_from_response_headers(e.http_headers)
           log_response(error_context, request_start,
-                       e.response[:status], e.response[:body])
+                       e.http_status, e.http_body)
         else
           log_response_error(error_context, request_start, e)
         end
 
-        if self.class.should_retry?(e, num_retries)
+        if self.class.should_retry?(e, method: method, num_retries: num_retries)
           num_retries += 1
           sleep self.class.sleep_time(num_retries)
           retry
         end
 
         case e
-        when Faraday::ClientError
-          if e.response
-            handle_error_response(e.response, error_context)
-          else
-            handle_network_error(e, error_context, num_retries, api_base)
-          end
+        when Stripe::StripeError
+          raise
+        when *NETWORK_ERROR_MESSAGES_MAP.keys
+          handle_network_error(e, error_context, num_retries, api_base)
 
         # Only handle errors when we know we can do so, and re-raise otherwise.
         # This should be pretty infrequent.
@@ -332,12 +437,12 @@ module Stripe
 
     private def handle_error_response(http_resp, context)
       begin
-        resp = StripeResponse.from_faraday_hash(http_resp)
+        resp = StripeResponse.from_net_http(http_resp)
         error_data = resp.data[:error]
 
         raise StripeError, "Indeterminate error" unless error_data
       rescue JSON::ParserError, StripeError
-        raise general_api_error(http_resp[:status], http_resp[:body])
+        raise general_api_error(http_resp.code.to_i, http_resp.body)
       end
 
       error = if error_data.is_a?(String)
@@ -348,6 +453,28 @@ module Stripe
 
       error.response = resp
       raise(error)
+    end
+
+    # Works around an edge case where we end up with both query parameters from
+    # parameteers and query parameters that were appended onto the end of the
+    # given path.
+    #
+    # Decode any parameters that were added onto the end of a path and add them
+    # to a unified query parameter hash so that all parameters end up in one
+    # place and all of them are correctly included in the final request.
+    private def merge_query_params(query_params, path)
+      u = URI.parse(path)
+
+      # Return original results if there was nothing to be found.
+      return query_params, path if u.query.nil?
+
+      query_params ||= {}
+      query_params = Hash[URI.decode_www_form(u.query)].merge(query_params)
+
+      # Reset the path minus any query parameters that were specified.
+      path = u.path
+
+      [query_params, path]
     end
 
     private def specific_api_error(resp, error_data, context)
@@ -384,11 +511,8 @@ module Stripe
       when 401
         AuthenticationError.new(error_data[:message], opts)
       when 402
-        # TODO: modify CardError constructor to make code a keyword argument
-        #       so we don't have to delete it from opts
-        opts.delete(:code)
         CardError.new(
-          error_data[:message], error_data[:param], error_data[:code],
+          error_data[:message], error_data[:param],
           opts
         )
       when 403
@@ -444,32 +568,17 @@ module Stripe
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id)
 
-      case error
-      when Faraday::ConnectionFailed
-        message = "Unexpected error communicating when trying to connect to " \
-          "Stripe. You may be seeing this message because your DNS is not " \
-          "working.  To check, try running `host stripe.com` from the " \
-          "command line."
-
-      when Faraday::SSLError
-        message = "Could not establish a secure connection to Stripe, you " \
-          "may need to upgrade your OpenSSL version. To check, try running " \
-          "`openssl s_client -connect api.stripe.com:443` from the command " \
-          "line."
-
-      when Faraday::TimeoutError
-        api_base ||= Stripe.api_base
-        message = "Could not connect to Stripe (#{api_base}). " \
-          "Please check your internet connection and try again. " \
-          "If this problem persists, you should check Stripe's service " \
-          "status at https://status.stripe.com, or let us know at " \
-          "support@stripe.com."
-
-      else
-        message = "Unexpected error communicating with Stripe. " \
-          "If this problem persists, let us know at support@stripe.com."
-
+      errors, message = NETWORK_ERROR_MESSAGES_MAP.detect do |(e, _)|
+        error.is_a?(e)
       end
+
+      if errors.nil?
+        message = "Unexpected error #{error.class.name} communicating " \
+          "with Stripe. Please let us know at support@stripe.com."
+      end
+
+      api_base ||= Stripe.api_base
+      message = message % api_base
 
       message += " Request was retried #{num_retries} times." if num_retries > 0
 
@@ -530,7 +639,7 @@ module Stripe
       Util.log_debug("Request details",
                      body: context.body,
                      idempotency_key: context.idempotency_key,
-                     query_params: context.query_params)
+                     query: context.query)
     end
 
     private def log_response(context, request_start, status, body)
@@ -577,7 +686,7 @@ module Stripe
       attr_accessor :idempotency_key
       attr_accessor :method
       attr_accessor :path
-      attr_accessor :query_params
+      attr_accessor :query
       attr_accessor :request_id
 
       # The idea with this method is that we might want to update some of
@@ -586,18 +695,7 @@ module Stripe
       # with for a request. For example, we should trust whatever came back in
       # a `Stripe-Version` header beyond what configuration information that we
       # might have had available.
-      def dup_from_response(resp)
-        return self if resp.nil?
-
-        # Faraday's API is a little unusual. Normally it'll produce a response
-        # object with a `headers` method, but on error what it puts into
-        # `e.response` is an untyped `Hash`.
-        headers = if resp.is_a?(Faraday::Response)
-                    resp.headers
-                  else
-                    resp[:headers]
-                  end
-
+      def dup_from_response_headers(headers)
         context = dup
         context.account = headers["Stripe-Account"]
         context.api_version = headers["Stripe-Version"]

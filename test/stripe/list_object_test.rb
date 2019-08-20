@@ -132,22 +132,6 @@ module Stripe
       next_list = list.previous_page
       assert_equal({ expand: ["data.source"], limit: 3 }, next_list.filters)
     end
-
-    #
-    # backward compatibility
-    #
-
-    # note that the name #all is deprecated, as is using it fetch the next page
-    # in a list
-    should "be able to retrieve full lists given a listobject" do
-      c = Stripe::Charge.all
-      assert c.is_a?(Stripe::ListObject)
-      assert_equal("/v1/charges", c.resource_url)
-      all = c.all
-      assert all.is_a?(Stripe::ListObject)
-      assert_equal("/v1/charges", all.resource_url)
-      assert all.data.is_a?(Array)
-    end
   end
 end
 

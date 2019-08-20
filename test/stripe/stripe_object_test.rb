@@ -52,9 +52,9 @@ module Stripe
             2,
           ],
           map: {
-            :"0" => StripeObject.construct_from({ id: "index0" }, opts),
-            :"1" => "index1",
-            :"2" => 2,
+            "0": StripeObject.construct_from({ id: "index0" }, opts),
+            "1": "index1",
+            "2": 2,
           },
         }
 
@@ -235,20 +235,6 @@ module Stripe
       assert_equal true, obj.send(:metaclass).method_defined?(:foo)
     end
 
-    should "warn that #refresh_from is deprecated" do
-      old_stderr = $stderr
-      $stderr = StringIO.new
-      begin
-        obj = Stripe::StripeObject.construct_from({})
-        obj.refresh_from({}, {})
-        message = "NOTE: Stripe::StripeObject#refresh_from is " \
-                  "deprecated; use #update_attributes instead"
-        assert_match Regexp.new(message), $stderr.string
-      ensure
-        $stderr = old_stderr
-      end
-    end
-
     should "pass opts down to children when initializing" do
       opts = { custom: "opts" }
 
@@ -302,14 +288,14 @@ module Stripe
     end
 
     should "#serialize_params on an array that shortens" do
-      obj = Stripe::StripeObject.construct_from(foo: ["0-index", "1-index", "2-index"])
+      obj = Stripe::StripeObject.construct_from(foo: %w[0-index 1-index 2-index])
       obj.foo = ["new-value"]
       assert_equal({ foo: ["new-value"] },
                    obj.serialize_params)
     end
 
     should "#serialize_params on an array that lengthens" do
-      obj = Stripe::StripeObject.construct_from(foo: ["0-index", "1-index", "2-index"])
+      obj = Stripe::StripeObject.construct_from(foo: %w[0-index 1-index 2-index])
       obj.foo = ["new-value"] * 4
       assert_equal({ foo: ["new-value"] * 4 },
                    obj.serialize_params)
@@ -331,8 +317,8 @@ module Stripe
     end
 
     should "#serialize_params on an array that is unchanged" do
-      obj = Stripe::StripeObject.construct_from(foo: ["0-index", "1-index", "2-index"])
-      obj.foo = ["0-index", "1-index", "2-index"]
+      obj = Stripe::StripeObject.construct_from(foo: %w[0-index 1-index 2-index])
+      obj.foo = %w[0-index 1-index 2-index]
       assert_equal({}, obj.serialize_params)
     end
 
@@ -473,20 +459,6 @@ module Stripe
                                       metadata: { foo: "bar" })
 
       assert_equal(expected, obj.to_s)
-    end
-
-    should "warn that .serialize_params is deprecated" do
-      old_stderr = $stderr
-      $stderr = StringIO.new
-      begin
-        obj = Stripe::StripeObject.construct_from({})
-        Stripe::StripeObject.serialize_params(obj)
-        message = "NOTE: Stripe::StripeObject.serialize_params is " \
-                  "deprecated; use #serialize_params instead"
-        assert_match Regexp.new(message), $stderr.string
-      ensure
-        $stderr = old_stderr
-      end
     end
 
     should "error on setting a property to an empty string" do

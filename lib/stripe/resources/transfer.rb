@@ -7,7 +7,7 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = "transfer".freeze
+    OBJECT_NAME = "transfer"
 
     custom_method :cancel, http_verb: :post
 
@@ -22,10 +22,5 @@ module Stripe
         opts: opts
       )
     end
-
-    def cancel_url
-      resource_url + "/cancel"
-    end
-    deprecate :cancel_url, :none, 2019, 11
   end
 end

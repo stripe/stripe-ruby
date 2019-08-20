@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class ApiResourceTest < Test::Unit::TestCase
     class CustomMethodAPIResource < APIResource
-      OBJECT_NAME = "custom_method".freeze
+      OBJECT_NAME = "custom_method"
       custom_method :my_method, http_verb: :post
     end
 
@@ -271,14 +271,6 @@ module Stripe
         assert_equal c.created, 12_345
       end
 
-      should "accessing a property other than id or parent on an unfetched object should fetch it" do
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
-          .with(query: { customer: "cus_123" })
-          .to_return(body: JSON.generate(customer_fixture))
-        c = Stripe::Customer.new("cus_123")
-        c.charges
-      end
-
       should "updating an object should issue a POST request with only the changed properties" do
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })
@@ -513,7 +505,7 @@ module Stripe
 
     context "#request_stripe_object" do
       class HelloTestAPIResource < APIResource
-        OBJECT_NAME = "hello".freeze
+        OBJECT_NAME = "hello"
         def say_hello(params = {}, opts = {})
           request_stripe_object(
             method: :post,

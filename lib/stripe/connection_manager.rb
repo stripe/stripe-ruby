@@ -109,14 +109,7 @@ module Stripe
         connection.cert_store = Stripe.ca_store
       else
         connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-        unless @verify_ssl_warned
-          @verify_ssl_warned = true
-          warn("WARNING: Running without SSL cert verification. " \
-            "You should never do this in production. " \
-            "Execute `Stripe.verify_ssl_certs = true` to enable " \
-            "verification.")
-        end
+        warn_ssl_verify_none
       end
 
       connection
@@ -133,6 +126,16 @@ module Stripe
         u = URI.parse(Stripe.proxy)
         [u.host, u.port, u.user, u.password]
       end
+    end
+
+    private def warn_ssl_verify_none
+      return if @verify_ssl_warned
+
+      @verify_ssl_warned = true
+      warn("WARNING: Running without SSL cert verification. " \
+        "You should never do this in production. " \
+        "Execute `Stripe.verify_ssl_certs = true` to enable " \
+        "verification.")
     end
   end
 end

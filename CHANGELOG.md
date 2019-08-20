@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.0.1 - 2019-08-20
+* [#836](https://github.com/stripe/stripe-ruby/pull/836) Increase connection keep alive timeout to 30 seconds
+
 ## 5.0.0 - 2019-08-20
 Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v5) contains a detailed list of backwards-incompatible changes with upgrade instructions.
 

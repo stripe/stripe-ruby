@@ -11,8 +11,12 @@ module Stripe
     custom_method :capture, http_verb: :post
 
     def capture(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/capture", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/capture",
+        params: params,
+        opts: opts
+      )
     end
   end
 end

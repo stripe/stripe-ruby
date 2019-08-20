@@ -11,10 +11,10 @@ module Stripe
   # instantiated once per thread.
   #
   # Note also that this class doesn't currently clean up after itself because
-  # it expects to only ever have a few connections. It'd be possible to tank
-  # memory by constantly changing the value of `Stripe.api_base` or the like. A
-  # possible improvement might be to detect and prune old connections whenever
-  # a request is executed.
+  # it expects to only ever have a few connections (unless `.clear` is called
+  # manually). It'd be possible to tank memory by constantly changing the value
+  # of `Stripe.api_base` or the like. A possible improvement might be to detect
+  # and prune old connections whenever a request is executed.
   class ConnectionManager
     def initialize
       @active_connections = {}

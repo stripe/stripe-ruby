@@ -21,17 +21,23 @@ module Stripe
       @last_request_metrics = nil
     end
 
-    # For internal use: sets a value on the current thread's store when
+    # Gets a currently active `StripeClient`. Set for the current thread when
     # `StripeClient#request` is being run so that API operations being executed
     # inside of that block can find the currently active client. It's reset to
     # the original value (hopefully `nil`) after the block ends.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
     def self.active_client
-      Thread.current[:stripe_client] || default_client
+      current_thread_context.active_client || default_client
     end
 
     # Finishes any active connections by closing their TCP connection and
     # clears them from internal tracking in all connection managers across all
     # threads.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
     def self.clear_all_connection_managers
       # Just a quick path for when configuration is being set for the first
       # time before any connections have been opened. There is technically some
@@ -45,13 +51,13 @@ module Stripe
 
     # A default client for the current thread.
     def self.default_client
-      Thread.current[:stripe_client_default_client] ||=
+      current_thread_context.default_client ||=
         StripeClient.new(default_connection_manager)
     end
 
     # A default connection manager for the current thread.
     def self.default_connection_manager
-      Thread.current[:stripe_client_default_connection_manager] ||= begin
+      current_thread_context.default_connection_manager ||= begin
         connection_manager = ConnectionManager.new
 
         @all_connection_managers_mutex.synchronize do
@@ -121,15 +127,22 @@ module Stripe
     #     charge, resp = client.request { Charge.create }
     #
     def request
-      @last_response = nil
-      old_stripe_client = Thread.current[:stripe_client]
-      Thread.current[:stripe_client] = self
+      old_stripe_client = self.class.current_thread_context.active_client
+      self.class.current_thread_context.active_client = self
+
+      if self.class.current_thread_context.last_responses&.key?(object_id)
+        raise "calls to StripeClient#request cannot be nested within a thread"
+      end
+
+      self.class.current_thread_context.last_responses ||= {}
+      self.class.current_thread_context.last_responses[object_id] = nil
 
       begin
         res = yield
-        [res, @last_response]
+        [res, self.class.current_thread_context.last_responses[object_id]]
       ensure
-        Thread.current[:stripe_client] = old_stripe_client
+        self.class.current_thread_context.active_client = old_stripe_client
+        self.class.current_thread_context.last_responses.delete(object_id)
       end
     end
 
@@ -196,8 +209,13 @@ module Stripe
         raise general_api_error(http_resp.code.to_i, http_resp.body)
       end
 
-      # Allows StripeClient#request to return a response object to a caller.
-      @last_response = resp
+      # If being called from `StripeClient#request`, put the last response in
+      # thread-local memory so that it can be returned to the user. Don't store
+      # anything otherwise so that we don't leak memory.
+      if self.class.current_thread_context.last_responses&.key?(object_id)
+        self.class.current_thread_context.last_responses[object_id] = resp
+      end
+
       [resp, api_key]
     end
 
@@ -247,6 +265,50 @@ module Stripe
       OpenSSL::SSL::SSLError => ERROR_MESSAGE_SSL,
     }.freeze
     private_constant :NETWORK_ERROR_MESSAGES_MAP
+
+    # A record representing any data that `StripeClient` puts into
+    # `Thread.current`. Making it a class likes this gives us a little extra
+    # type safety and lets us document what each field does.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    class ThreadContext
+      # A `StripeClient` that's been flagged as currently active within a
+      # thread by `StripeClient#request`. A client stays active until the
+      # completion of the request block.
+      attr_accessor :active_client
+
+      # A default `StripeClient` object for the thread. Used in all cases where
+      # the user hasn't specified their own.
+      attr_accessor :default_client
+
+      # A default `ConnectionManager` for the thread. Normally shared between
+      # all `StripeClient` objects on a particular thread, and created so as to
+      # minimize the number of open connections that an application needs.
+      attr_accessor :default_connection_manager
+
+      # A temporary map of object IDs to responses from last executed API
+      # calls. Used to return a responses from calls to `StripeClient#request`.
+      #
+      # Stored in the thread data to make the use of a single `StripeClient`
+      # object safe across multiple threads. Stored as a map so that multiple
+      # `StripeClient` objects can run concurrently on the same thread.
+      #
+      # Responses are only left in as long as they're needed, which means
+      # they're removed as soon as a call leaves `StripeClient#request`, and
+      # because that's wrapped in an `ensure` block, they should never leave
+      # garbage in `Thread.current`.
+      attr_accessor :last_responses
+    end
+
+    # Access data stored for `StripeClient` within the thread's current
+    # context. Returns `ThreadContext`.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    def self.current_thread_context
+      Thread.current[:stripe_client__internal_use_only] ||= ThreadContext.new
+    end
 
     private def api_url(url = "", api_base = nil)
       (api_base || Stripe.api_base) + url

@@ -40,8 +40,6 @@ module Stripe
 
       if connection.nil?
         connection = create_connection(u)
-
-        # TODO: what happens after TTL?
         connection.start
 
         @active_connections[[u.host, u.port]] = connection
@@ -91,6 +89,15 @@ module Stripe
       connection = Net::HTTP.new(uri.host, uri.port,
                                  proxy_host, proxy_port,
                                  proxy_user, proxy_pass)
+
+      # Time in seconds within which Net::HTTP will try to reuse an already
+      # open connection when issuing a new operation. Outside this window, Ruby
+      # will transparently close and re-open the connection without trying to
+      # reuse it.
+      #
+      # Ruby's default of 2 seconds is almost certainly too short. Here I've
+      # reused Go's default for `DefaultTransport`.
+      connection.keep_alive_timeout = 30
 
       connection.open_timeout = Stripe.open_timeout
       connection.read_timeout = Stripe.read_timeout

@@ -88,6 +88,16 @@ module Stripe
         # 409 Conflict
         return true if error.http_status == 409
 
+        # 429 Too Many Requests
+        #
+        # There are a few different problems that can lead to a 429. The most
+        # common is rate limiting, on which we *don't* want to retry because
+        # that'd likely contribute to more contention problems. However, some
+        # 429s are lock timeouts, which is when a request conflicted with
+        # another request or an internal process on some particular object.
+        # These 429s are safe to retry.
+        return true if error.http_status == 429 && error.code == "lock_timeout"
+
         # 500 Internal Server Error
         #
         # We only bother retrying these for non-POST requests. POSTs end up

@@ -122,6 +122,12 @@ module Stripe
                                           method: :post, num_retries: 0)
       end
 
+      should "retry on a 429 Too Many Requests when lock timeout" do
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 429,
+                                                                  code: "lock_timeout"),
+                                          method: :post, num_retries: 0)
+      end
+
       should "retry on a 500 Internal Server Error when non-POST" do
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
                                           method: :get, num_retries: 0)
@@ -139,6 +145,12 @@ module Stripe
 
       should "not retry on a certificate validation error" do
         refute StripeClient.should_retry?(OpenSSL::SSL::SSLError.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "not retry on a 429 Too Many Requests when not lock timeout" do
+        refute StripeClient.should_retry?(Stripe::StripeError.new(http_status: 429,
+                                                                  code: "rate_limited"),
                                           method: :post, num_retries: 0)
       end
 

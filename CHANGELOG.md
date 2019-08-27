@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.1.0 - 2019-08-27
+* [#841](https://github.com/stripe/stripe-ruby/pull/841) Retry requests on a 429 that's a lock timeout
+
 ## 5.0.1 - 2019-08-20
 * [#836](https://github.com/stripe/stripe-ruby/pull/836) Increase connection keep alive timeout to 30 seconds
 

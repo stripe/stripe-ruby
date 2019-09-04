@@ -27,7 +27,7 @@ module Stripe
       @http_headers = http_headers || {}
       @json_body = json_body
       @code = code
-      @request_id = @http_headers[:request_id]
+      @request_id = @http_headers["request-id"]
       @error = construct_error_object
     end
 

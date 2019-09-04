@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.1.1 - 2019-09-04
+* [#845](https://github.com/stripe/stripe-ruby/pull/845) Transfer the request_id from the http_headers to error.
+
 ## 5.1.0 - 2019-08-27
 * [#841](https://github.com/stripe/stripe-ruby/pull/841) Retry requests on a 429 that's a lock timeout
 

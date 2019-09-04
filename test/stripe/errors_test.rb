@@ -22,7 +22,7 @@ module Stripe
           e = StripeError.new("message", http_status: 200)
           assert_equal "(Status 200) message", e.to_s
 
-          e = StripeError.new("message", http_status: nil, http_body: nil, json_body: nil, http_headers: { request_id: "request-id" })
+          e = StripeError.new("message", http_status: nil, http_body: nil, json_body: nil, http_headers: { "request-id" => "request-id" })
           assert_equal "(Request request-id) message", e.to_s
         end
       end

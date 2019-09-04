@@ -470,10 +470,10 @@ module Stripe
             .to_return(body: "", status: 500)
 
           client = StripeClient.new
+
           e = assert_raises Stripe::APIError do
             client.execute_request(:post, "/v1/charges")
           end
-
           assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.message
         end
 
@@ -482,10 +482,10 @@ module Stripe
             .to_return(body: "", status: 200)
 
           client = StripeClient.new
+
           e = assert_raises Stripe::APIError do
             client.execute_request(:post, "/v1/charges")
           end
-
           assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
         end
 
@@ -494,6 +494,7 @@ module Stripe
             .to_return(body: JSON.generate(make_missing_id_error),
                        headers: { "Request-ID": "req_123" },
                        status: 400)
+
           client = StripeClient.new
 
           e = assert_raises Stripe::InvalidRequestError do
@@ -507,10 +508,10 @@ module Stripe
             .to_raise(Errno::ECONNREFUSED.new)
 
           client = StripeClient.new
+
           e = assert_raises Stripe::APIConnectionError do
             client.execute_request(:post, "/v1/charges")
           end
-
           assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base +
                        "\n\n(Network error: Connection refused)",
                        e.message
@@ -521,10 +522,10 @@ module Stripe
             .to_return(body: JSON.generate(bar: "foo"), status: 500)
 
           client = StripeClient.new
+
           e = assert_raises Stripe::APIError do
             client.execute_request(:post, "/v1/charges")
           end
-
           assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.message
         end
 
@@ -534,6 +535,7 @@ module Stripe
 
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(data), status: 400)
+
           client = StripeClient.new
 
           e = assert_raises Stripe::IdempotencyError do
@@ -546,75 +548,81 @@ module Stripe
         should "raise InvalidRequestError on other 400s" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(make_missing_id_error), status: 400)
+
           client = StripeClient.new
-          begin
+
+          e = assert_raises Stripe::InvalidRequestError do
             client.execute_request(:post, "/v1/charges")
-          rescue Stripe::InvalidRequestError => e
-            assert_equal(400, e.http_status)
-            assert_equal(true, e.json_body.is_a?(Hash))
           end
+          assert_equal(400, e.http_status)
+          assert_equal(true, e.json_body.is_a?(Hash))
         end
 
         should "raise AuthenticationError on 401" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(make_missing_id_error), status: 401)
+
           client = StripeClient.new
-          begin
+
+          e = assert_raises Stripe::AuthenticationError do
             client.execute_request(:post, "/v1/charges")
-          rescue Stripe::AuthenticationError => e
-            assert_equal(401, e.http_status)
-            assert_equal(true, e.json_body.is_a?(Hash))
           end
+          assert_equal(401, e.http_status)
+          assert_equal(true, e.json_body.is_a?(Hash))
         end
 
         should "raise CardError on 402" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(make_invalid_exp_year_error), status: 402)
+
           client = StripeClient.new
-          begin
+
+          e = assert_raises Stripe::CardError do
             client.execute_request(:post, "/v1/charges")
-          rescue Stripe::CardError => e
-            assert_equal(402, e.http_status)
-            assert_equal(true, e.json_body.is_a?(Hash))
-            assert_equal("invalid_expiry_year", e.code)
-            assert_equal("exp_year", e.param)
           end
+          assert_equal(402, e.http_status)
+          assert_equal(true, e.json_body.is_a?(Hash))
+          assert_equal("invalid_expiry_year", e.code)
+          assert_equal("exp_year", e.param)
         end
 
         should "raise PermissionError on 403" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(make_missing_id_error), status: 403)
+
           client = StripeClient.new
-          begin
+
+          e = assert_raises Stripe::PermissionError do
             client.execute_request(:post, "/v1/charges")
-          rescue Stripe::PermissionError => e
-            assert_equal(403, e.http_status)
-            assert_equal(true, e.json_body.is_a?(Hash))
           end
+          assert_equal(403, e.http_status)
+          assert_equal(true, e.json_body.is_a?(Hash))
         end
 
         should "raise InvalidRequestError on 404" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(make_missing_id_error), status: 404)
+
           client = StripeClient.new
-          begin
+
+          e = assert_raises Stripe::InvalidRequestError do
             client.execute_request(:post, "/v1/charges")
-          rescue Stripe::InvalidRequestError => e
-            assert_equal(404, e.http_status)
-            assert_equal(true, e.json_body.is_a?(Hash))
           end
+          assert_equal(404, e.http_status)
+          assert_equal(true, e.json_body.is_a?(Hash))
         end
 
         should "raise RateLimitError on 429" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_return(body: JSON.generate(make_rate_limit_error), status: 429)
+
           client = StripeClient.new
-          begin
+
+          e = assert_raises Stripe::RateLimitError do
             client.execute_request(:post, "/v1/charges")
-          rescue Stripe::RateLimitError => e
-            assert_equal(429, e.http_status)
-            assert_equal(true, e.json_body.is_a?(Hash))
           end
+          assert_equal(429, e.http_status)
+          assert_equal(true, e.json_body.is_a?(Hash))
         end
 
         should "raise OAuth::InvalidRequestError when error is a string with value 'invalid_request'" do
@@ -623,6 +631,7 @@ module Stripe
                                            error_description: "No grant type specified"), status: 400)
 
           client = StripeClient.new
+
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::InvalidRequestError do
             client.execute_request(:post, "/oauth/token", opts)
@@ -638,6 +647,7 @@ module Stripe
                                            error_description: "This authorization code has already been used. All tokens issued with this code have been revoked."), status: 400)
 
           client = StripeClient.new
+
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::InvalidGrantError do
             client.execute_request(:post, "/oauth/token", opts)
@@ -654,6 +664,7 @@ module Stripe
                                            error_description: "This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist."), status: 401)
 
           client = StripeClient.new
+
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::InvalidClientError do
             client.execute_request(:post, "/oauth/deauthorize", opts)
@@ -670,6 +681,7 @@ module Stripe
                                            error_description: "Something."), status: 401)
 
           client = StripeClient.new
+
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::OAuthError do
             client.execute_request(:post, "/oauth/deauthorize", opts)

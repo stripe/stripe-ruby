@@ -489,6 +489,19 @@ module Stripe
           assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
         end
 
+        should "feed a request ID through to the error object" do
+          stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            .to_return(body: JSON.generate(make_missing_id_error),
+                       headers: { "Request-ID": "req_123" },
+                       status: 400)
+          client = StripeClient.new
+
+          e = assert_raises Stripe::InvalidRequestError do
+            client.execute_request(:post, "/v1/charges")
+          end
+          assert_equal("req_123", e.request_id)
+        end
+
         should "handle low level error" do
           stub_request(:post, "#{Stripe.api_base}/v1/charges")
             .to_raise(Errno::ECONNREFUSED.new)

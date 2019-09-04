@@ -19,8 +19,17 @@ Layout/IndentFirstHashElement:
 Layout/IndentHeredoc:
   Enabled: false
 
+Metrics/BlockLength:
+  Max: 40
+  Exclude:
+    # `context` in tests are blocks and get quite large, so exclude the test
+    # directory from having to adhere to this rule.
+    - "test/**/*.rb"
+
 Metrics/ClassLength:
   Exclude:
+    # Test classes get quite large, so exclude the test directory from having
+    # to adhere to this rule.
     - "test/**/*.rb"
 
 Metrics/LineLength:

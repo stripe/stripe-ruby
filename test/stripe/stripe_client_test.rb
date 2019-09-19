@@ -17,6 +17,60 @@ module Stripe
       end
     end
 
+    context ".maybe_gc_connection_managers" do
+      should "garbage collect old connection managers when appropriate" do
+        stub_request(:post, "#{Stripe.api_base}/v1/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        # Make sure we start with a blank slate (state may have been left in
+        # place by other tests).
+        StripeClient.clear_all_connection_managers
+
+        # Establish a base time.
+        t = Time.new(2019)
+
+        # And pretend that `StripeClient` was just initialized for the first
+        # time. (Don't access instance variables like this, but it's tricky to
+        # test properly otherwise.)
+        StripeClient.instance_variable_set(:@last_connection_manager_gc, t)
+
+        Timecop.freeze(t) do
+          # Execute an initial request to ensure that a connection manager was
+          # created.
+          client = StripeClient.new
+          client.execute_request(:post, "/v1/path")
+
+          # The GC shouldn't run yet  (a `nil` return indicates that GC didn't run).
+          assert_equal nil, StripeClient.maybe_gc_connection_managers
+        end
+
+        # Move time to just *before* garbage collection is eligible to run.
+        # Nothing should happen.
+        Timecop.freeze(t + StripeClient::CONNECTION_MANAGER_GC_PERIOD - 1) do
+          assert_equal nil, StripeClient.maybe_gc_connection_managers
+        end
+
+        # Move time to just *after* garbage collection is eligible to run.
+        # Garbage collection will run, but because the connection manager is
+        # not passed its expiry age, it will not be collected. Zero is returned
+        # to indicate so.
+        Timecop.freeze(t + StripeClient::CONNECTION_MANAGER_GC_PERIOD + 1) do
+          assert_equal 0, StripeClient.maybe_gc_connection_managers
+        end
+
+        # Move us far enough into the future that we're passed the horizons for
+        # both a GC run as well as well as the expiry age of a connection
+        # manager. That means the GC will run and collect the connection
+        # manager that we created above.
+        Timecop.freeze(t + StripeClient::CONNECTION_MANAGER_GC_LAST_USED_EXPIRY + 1) do
+          assert_equal 1, StripeClient.maybe_gc_connection_managers
+
+          # And as an additional check, the connection manager of the current thread context should have been set to `nil` as it was GCed.
+          assert_nil StripeClient.current_thread_context.default_connection_manager
+        end
+      end
+    end
+
     context ".clear_all_connection_managers" do
       should "clear connection managers across all threads" do
         stub_request(:post, "#{Stripe.api_base}/path")
@@ -196,20 +250,6 @@ module Stripe
         assert_equal(base_value * 2, StripeClient.sleep_time(2))
         assert_equal(base_value * 4, StripeClient.sleep_time(3))
         assert_equal(base_value * 8, StripeClient.sleep_time(4))
-      end
-    end
-
-    context "#initialize" do
-      should "set Stripe.default_connection_manager" do
-        client = StripeClient.new
-        assert_equal StripeClient.default_connection_manager,
-                     client.connection_manager
-      end
-
-      should "set a different connection if one was specified" do
-        connection_manager = ConnectionManager.new
-        client = StripeClient.new(connection_manager)
-        assert_equal connection_manager, client.connection_manager
       end
     end
 
@@ -838,6 +878,22 @@ module Stripe
               customer: "cus_param",
             }
           )
+        end
+      end
+    end
+
+    context "#connection_manager" do
+      should "warn that #connection_manager is deprecated" do
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        begin
+          client = StripeClient.new
+          client.connection_manager
+          message = "NOTE: Stripe::StripeClient#connection_manager is " \
+                    "deprecated"
+          assert_match Regexp.new(message), $stderr.string
+        ensure
+          $stderr = old_stderr
         end
       end
     end

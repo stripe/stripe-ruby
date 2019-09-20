@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.2.0 - 2019-09-19
+* [#851](https://github.com/stripe/stripe-ruby/pull/851) Introduce system for garbage collecting connection managers
+
 ## 5.1.1 - 2019-09-04
 * [#845](https://github.com/stripe/stripe-ruby/pull/845) Transfer the request_id from the http_headers to error.
 

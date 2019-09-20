@@ -92,6 +92,12 @@ module Stripe
       return true if error.is_a?(SocketError)
 
       if error.is_a?(Stripe::StripeError)
+        # The API may ask us not to retry (e.g. if doing so would be a no-op),
+        # or advise us to retry (e.g. in cases of lock timeouts). Defer to
+        # those instructions if given.
+        return false if error.http_headers["stripe-should-retry"] == "false"
+        return true if error.http_headers["stripe-should-retry"] == "true"
+
         # 409 Conflict
         return true if error.http_status == 409
 

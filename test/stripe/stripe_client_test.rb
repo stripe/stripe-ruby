@@ -171,6 +171,28 @@ module Stripe
                                           method: :post, num_retries: 0)
       end
 
+      should "retry when the `Stripe-Should-Retry` header is `true`" do
+        headers = StripeResponse::Headers.new(
+          "Stripe-Should-Retry" => ["true"]
+        )
+
+        # Note we send status 400 here, which would normally not be retried.
+        assert StripeClient.should_retry?(Stripe::StripeError.new(http_headers: headers,
+                                                                  http_status: 400),
+                                          method: :post, num_retries: 0)
+      end
+
+      should "not retry when the `Stripe-Should-Retry` header is `false`" do
+        headers = StripeResponse::Headers.new(
+          "Stripe-Should-Retry" => ["false"]
+        )
+
+        # Note we send status 409 here, which would normally be retried.
+        refute StripeClient.should_retry?(Stripe::StripeError.new(http_headers: headers,
+                                                                  http_status: 409),
+                                          method: :post, num_retries: 0)
+      end
+
       should "retry on a 409 Conflict" do
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 409),
                                           method: :post, num_retries: 0)

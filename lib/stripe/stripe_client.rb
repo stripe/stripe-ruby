@@ -5,18 +5,17 @@ module Stripe
   # recover both a resource a call returns as well as a response object that
   # contains information on the HTTP call.
   class StripeClient
-    # A set of all known connection managers across all threads and a mutex to
+    # A set of all known thread contexts across all threads and a mutex to
     # synchronize global access to them.
-    @all_connection_managers = []
-    @all_connection_managers_mutex = Mutex.new
+    @thread_contexts_with_connection_managers = []
+    @thread_contexts_with_connection_managers_mutex = Mutex.new
+    @last_connection_manager_gc = Time.now
 
-    attr_accessor :connection_manager
-
-    # Initializes a new `StripeClient`. Expects a `ConnectionManager` object,
-    # and uses a default connection manager unless one is passed.
-    def initialize(connection_manager = nil)
-      self.connection_manager = connection_manager ||
-                                self.class.default_connection_manager
+    # Initializes a new `StripeClient`.
+    #
+    # Takes a connection manager object for backwards compatibility only, and
+    # that use is DEPRECATED.
+    def initialize(_connection_manager = nil)
       @system_profiler = SystemProfiler.new
       @last_request_metrics = nil
     end
@@ -42,17 +41,24 @@ module Stripe
       # Just a quick path for when configuration is being set for the first
       # time before any connections have been opened. There is technically some
       # potential for thread raciness here, but not in a practical sense.
-      return if @all_connection_managers.empty?
+      return if @thread_contexts_with_connection_managers.empty?
 
-      @all_connection_managers_mutex.synchronize do
-        @all_connection_managers.each(&:clear)
+      @thread_contexts_with_connection_managers_mutex.synchronize do
+        @thread_contexts_with_connection_managers.each do |thread_context|
+          # Note that the thread context itself is not destroyed, but we clear
+          # its connection manager and remove our reference to it. If it ever
+          # makes a new request we'll give it a new connection manager and
+          # it'll go back into `@thread_contexts_with_connection_managers`.
+          thread_context.default_connection_manager.clear
+          thread_context.default_connection_manager = nil
+        end
+        @thread_contexts_with_connection_managers.clear
       end
     end
 
     # A default client for the current thread.
     def self.default_client
-      current_thread_context.default_client ||=
-        StripeClient.new(default_connection_manager)
+      current_thread_context.default_client ||= StripeClient.new
     end
 
     # A default connection manager for the current thread.
@@ -60,8 +66,9 @@ module Stripe
       current_thread_context.default_connection_manager ||= begin
         connection_manager = ConnectionManager.new
 
-        @all_connection_managers_mutex.synchronize do
-          @all_connection_managers << connection_manager
+        @thread_contexts_with_connection_managers_mutex.synchronize do
+          maybe_gc_connection_managers
+          @thread_contexts_with_connection_managers << current_thread_context
         end
 
         connection_manager
@@ -130,6 +137,15 @@ module Stripe
 
       sleep_seconds
     end
+
+    # Gets the connection manager in use for the current `StripeClient`.
+    #
+    # This method is DEPRECATED and for backwards compatibility only.
+    def connection_manager
+      self.class.default_connection_manager
+    end
+    extend Gem::Deprecate
+    deprecate :connection_manager, :none, 2020, 9
 
     # Executes the API call within the given block. Usage looks like:
     #
@@ -207,10 +223,10 @@ module Stripe
       context.query           = query
 
       http_resp = execute_request_with_rescues(method, api_base, context) do
-        connection_manager.execute_request(method, url,
-                                           body: body,
-                                           headers: headers,
-                                           query: query)
+        self.class.default_connection_manager.execute_request(method, url,
+                                                              body: body,
+                                                              headers: headers,
+                                                              query: query)
       end
 
       begin
@@ -232,6 +248,14 @@ module Stripe
     #
     # private
     #
+
+    # Time (in seconds) that a connection manager has not been used before it's
+    # eligible for garbage collection.
+    CONNECTION_MANAGER_GC_LAST_USED_EXPIRY = 120
+
+    # How often to check (in seconds) for connection managers that haven't been
+    # used in a long time and which should be garbage collected.
+    CONNECTION_MANAGER_GC_PERIOD = 60
 
     ERROR_MESSAGE_CONNECTION =
       "Unexpected error communicating when trying to connect to " \
@@ -318,6 +342,46 @@ module Stripe
     # with future non-major changes.
     def self.current_thread_context
       Thread.current[:stripe_client__internal_use_only] ||= ThreadContext.new
+    end
+
+    # Garbage collects connection managers that haven't been used in some time,
+    # with the idea being that we want to remove old connection managers that
+    # belong to dead threads and the like.
+    #
+    # Prefixed with `maybe_` because garbage collection will only run
+    # periodically so that we're not constantly engaged in busy work. If
+    # connection managers live a little passed their useful age it's not
+    # harmful, so it's not necessary to get them right away.
+    #
+    # For testability, returns `nil` if it didn't run and the number of
+    # connection managers that were garbage collected otherwise.
+    #
+    # IMPORTANT: This method is not thread-safe and expects to be called inside
+    # a lock on `@thread_contexts_with_connection_managers_mutex`.
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    def self.maybe_gc_connection_managers
+      if @last_connection_manager_gc + CONNECTION_MANAGER_GC_PERIOD > Time.now
+        return nil
+      end
+
+      last_used_threshold = Time.now - CONNECTION_MANAGER_GC_LAST_USED_EXPIRY
+
+      pruned_thread_contexts = []
+      @thread_contexts_with_connection_managers.each do |thread_context|
+        connection_manager = thread_context.default_connection_manager
+        next if connection_manager.last_used > last_used_threshold
+
+        connection_manager.clear
+        thread_context.default_connection_manager = nil
+        pruned_thread_contexts << thread_context
+      end
+
+      @thread_contexts_with_connection_managers -= pruned_thread_contexts
+      @last_connection_manager_gc = Time.now
+
+      pruned_thread_contexts.count
     end
 
     private def api_url(url = "", api_base = nil)

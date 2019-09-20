@@ -8,6 +8,15 @@ module Stripe
       @manager = Stripe::ConnectionManager.new
     end
 
+    context "#initialize" do
+      should "set #last_used to current time" do
+        t = Time.new(2019)
+        Timecop.freeze(t) do
+          assert_equal t, Stripe::ConnectionManager.new.last_used
+        end
+      end
+    end
+
     context "#clear" do
       should "clear any active connections" do
         stub_request(:post, "#{Stripe.api_base}/path")
@@ -132,6 +141,25 @@ module Stripe
                                    query: {})
         end
         assert_equal e.message, "query should be a string"
+      end
+
+      should "set #last_used to current time" do
+        stub_request(:post, "#{Stripe.api_base}/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        t = Time.new(2019)
+
+        # Make sure the connection manager is initialized at a different time
+        # than the one we're going to measure at because `#last_used` is also
+        # set by the constructor.
+        manager = Timecop.freeze(t) do
+          Stripe::ConnectionManager.new
+        end
+
+        Timecop.freeze(t + 1) do
+          manager.execute_request(:post, "#{Stripe.api_base}/path")
+          assert_equal t + 1, manager.last_used
+        end
       end
     end
   end

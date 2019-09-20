@@ -9,24 +9,35 @@ module Stripe
   #
   # Note that this class in itself is *not* thread safe. We expect it to be
   # instantiated once per thread.
-  #
-  # Note also that this class doesn't currently clean up after itself because
-  # it expects to only ever have a few connections (unless `.clear` is called
-  # manually). It'd be possible to tank memory by constantly changing the value
-  # of `Stripe.api_base` or the like. A possible improvement might be to detect
-  # and prune old connections whenever a request is executed.
   class ConnectionManager
+    # Timestamp indicating when the connection manager last made a request.
+    # This is used by `StripeClient` to determine whether a connection manager
+    # should be garbage collected or not.
+    attr_reader :last_used
+
     def initialize
       @active_connections = {}
+      @last_used = Time.now
+
+      # A connection manager may be accessed across threads as one thread makes
+      # requests on it while another is trying to clear it (either because it's
+      # trying to garbage collect the manager or trying to clear it because a
+      # configuration setting has changed). That's probably thread-safe already
+      # because of Ruby's GIL, but just in case the library's running on JRuby
+      # or the like, use a mutex to synchronize access in this connection
+      # manager.
+      @mutex = Mutex.new
     end
 
     # Finishes any active connections by closing their TCP connection and
     # clears them from internal tracking.
     def clear
-      @active_connections.each do |_, connection|
-        connection.finish
+      @mutex.synchronize do
+        @active_connections.each do |_, connection|
+          connection.finish
+        end
+        @active_connections = {}
       end
-      @active_connections = {}
     end
 
     # Gets a connection for a given URI. This is for internal use only as it's
@@ -35,17 +46,19 @@ module Stripe
     #
     # `uri` is expected to be a string.
     def connection_for(uri)
-      u = URI.parse(uri)
-      connection = @active_connections[[u.host, u.port]]
+      @mutex.synchronize do
+        u = URI.parse(uri)
+        connection = @active_connections[[u.host, u.port]]
 
-      if connection.nil?
-        connection = create_connection(u)
-        connection.start
+        if connection.nil?
+          connection = create_connection(u)
+          connection.start
 
-        @active_connections[[u.host, u.port]] = connection
+          @active_connections[[u.host, u.port]] = connection
+        end
+
+        connection
       end
-
-      connection
     end
 
     # Executes an HTTP request to the given URI with the given method. Also
@@ -65,6 +78,8 @@ module Stripe
       raise ArgumentError, "query should be a string" \
         if query && !query.is_a?(String)
 
+      @last_used = Time.now
+
       connection = connection_for(uri)
 
       u = URI.parse(uri)
@@ -74,7 +89,9 @@ module Stripe
                u.path
              end
 
-      connection.send_request(method.to_s.upcase, path, body, headers)
+      @mutex.synchronize do
+        connection.send_request(method.to_s.upcase, path, body, headers)
+      end
     end
 
     #

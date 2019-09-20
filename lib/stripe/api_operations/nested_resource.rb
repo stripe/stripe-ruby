@@ -6,7 +6,7 @@ module Stripe
     # that it's possible to do so from a static context (i.e. without a
     # pre-existing collection of subresources on the parent).
     #
-    # For examle, a transfer gains the static methods for reversals so that the
+    # For example, a transfer gains the static methods for reversals so that the
     # methods `.create_reversal`, `.retrieve_reversal`, `.update_reversal`,
     # etc. all become available.
     module NestedResource

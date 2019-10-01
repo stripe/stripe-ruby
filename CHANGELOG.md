@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.3.0 - 2019-10-01
+* [#853](https://github.com/stripe/stripe-ruby/pull/853) Support `Stripe-Should-Retry` header
+
 ## 5.2.0 - 2019-09-19
 * [#851](https://github.com/stripe/stripe-ruby/pull/851) Introduce system for garbage collecting connection managers
 

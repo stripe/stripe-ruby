@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.4.0 - 2019-10-01
+* [#857](https://github.com/stripe/stripe-ruby/pull/857) Move to monotonic time for duration calculations
+
 ## 5.3.0 - 2019-10-01
 * [#853](https://github.com/stripe/stripe-ruby/pull/853) Support `Stripe-Should-Retry` header
 

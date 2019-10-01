@@ -178,9 +178,8 @@ module Stripe
     # to calculate an elapsed duration.
     #
     # Shortcut for getting monotonic time, mostly for purposes of line length
-    # and stubbing (Timecop doesn't freeze the monotonic clock). Returns time
-    # in seconds since the event used for monotonic reference purposes by the
-    # platform (e.g. system boot time).
+    # and test stubbing. Returns time in seconds since the event used for
+    # monotonic reference purposes by the platform (e.g. system boot time).
     def self.monotonic_time
       Process.clock_gettime(Process::CLOCK_MONOTONIC)
     end

@@ -9,7 +9,7 @@ module Stripe
     # synchronize global access to them.
     @thread_contexts_with_connection_managers = []
     @thread_contexts_with_connection_managers_mutex = Mutex.new
-    @last_connection_manager_gc = Time.now
+    @last_connection_manager_gc = Util.monotonic_time
 
     # Initializes a new `StripeClient`.
     #
@@ -368,11 +368,11 @@ module Stripe
     # For internal use only. Does not provide a stable API and may be broken
     # with future non-major changes.
     def self.maybe_gc_connection_managers
-      if @last_connection_manager_gc + CONNECTION_MANAGER_GC_PERIOD > Time.now
-        return nil
-      end
+      next_gc_time = @last_connection_manager_gc + CONNECTION_MANAGER_GC_PERIOD
+      return nil if next_gc_time > Util.monotonic_time
 
-      last_used_threshold = Time.now - CONNECTION_MANAGER_GC_LAST_USED_EXPIRY
+      last_used_threshold =
+        Util.monotonic_time - CONNECTION_MANAGER_GC_LAST_USED_EXPIRY
 
       pruned_thread_contexts = []
       @thread_contexts_with_connection_managers.each do |thread_context|
@@ -385,7 +385,7 @@ module Stripe
       end
 
       @thread_contexts_with_connection_managers -= pruned_thread_contexts
-      @last_connection_manager_gc = Time.now
+      @last_connection_manager_gc = Util.monotonic_time
 
       pruned_thread_contexts.count
     end
@@ -445,7 +445,7 @@ module Stripe
     private def execute_request_with_rescues(method, api_base, context)
       num_retries = 0
       begin
-        request_start = Time.now
+        request_start = Util.monotonic_time
         log_request(context, num_retries)
         resp = yield
         context = context.dup_from_response_headers(resp)
@@ -455,7 +455,8 @@ module Stripe
         log_response(context, request_start, resp.code.to_i, resp.body)
 
         if Stripe.enable_telemetry? && context.request_id
-          request_duration_ms = ((Time.now - request_start) * 1000).to_int
+          request_duration_ms =
+            ((Util.monotonic_time - request_start) * 1000).to_int
           @last_request_metrics =
             StripeRequestMetrics.new(context.request_id, request_duration_ms)
         end
@@ -726,7 +727,7 @@ module Stripe
       Util.log_info("Response from Stripe API",
                     account: context.account,
                     api_version: context.api_version,
-                    elapsed: Time.now - request_start,
+                    elapsed: Util.monotonic_time - request_start,
                     idempotency_key: context.idempotency_key,
                     method: context.method,
                     path: context.path,
@@ -748,7 +749,7 @@ module Stripe
 
     private def log_response_error(context, request_start, error)
       Util.log_error("Request error",
-                     elapsed: Time.now - request_start,
+                     elapsed: Util.monotonic_time - request_start,
                      error_message: error.message,
                      idempotency_key: context.idempotency_key,
                      method: context.method,

@@ -10,14 +10,15 @@ module Stripe
   # Note that this class in itself is *not* thread safe. We expect it to be
   # instantiated once per thread.
   class ConnectionManager
-    # Timestamp indicating when the connection manager last made a request.
-    # This is used by `StripeClient` to determine whether a connection manager
-    # should be garbage collected or not.
+    # Timestamp (in seconds procured from the system's monotonic clock)
+    # indicating when the connection manager last made a request. This is used
+    # by `StripeClient` to determine whether a connection manager should be
+    # garbage collected or not.
     attr_reader :last_used
 
     def initialize
       @active_connections = {}
-      @last_used = Time.now
+      @last_used = Util.monotonic_time
 
       # A connection manager may be accessed across threads as one thread makes
       # requests on it while another is trying to clear it (either because it's
@@ -78,7 +79,7 @@ module Stripe
       raise ArgumentError, "query should be a string" \
         if query && !query.is_a?(String)
 
-      @last_used = Time.now
+      @last_used = Util.monotonic_time
 
       connection = connection_for(uri)
 

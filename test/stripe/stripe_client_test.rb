@@ -27,47 +27,63 @@ module Stripe
         StripeClient.clear_all_connection_managers
 
         # Establish a base time.
-        t = Time.new(2019)
+        t = 0.0
 
         # And pretend that `StripeClient` was just initialized for the first
         # time. (Don't access instance variables like this, but it's tricky to
         # test properly otherwise.)
         StripeClient.instance_variable_set(:@last_connection_manager_gc, t)
 
-        Timecop.freeze(t) do
-          # Execute an initial request to ensure that a connection manager was
-          # created.
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/path")
+        #
+        # t
+        #
+        Util.stubs(:monotonic_time).returns(t)
 
-          # The GC shouldn't run yet  (a `nil` return indicates that GC didn't run).
-          assert_equal nil, StripeClient.maybe_gc_connection_managers
-        end
+        # Execute an initial request to ensure that a connection manager was
+        # created.
+        client = StripeClient.new
+        client.execute_request(:post, "/v1/path")
 
+        # The GC shouldn't run yet  (a `nil` return indicates that GC didn't run).
+        assert_equal nil, StripeClient.maybe_gc_connection_managers
+
+        #
+        # t + StripeClient::CONNECTION_MANAGER_GC_PERIOD - 1
+        #
         # Move time to just *before* garbage collection is eligible to run.
         # Nothing should happen.
-        Timecop.freeze(t + StripeClient::CONNECTION_MANAGER_GC_PERIOD - 1) do
-          assert_equal nil, StripeClient.maybe_gc_connection_managers
-        end
+        #
+        Util.stubs(:monotonic_time).returns(t + StripeClient::CONNECTION_MANAGER_GC_PERIOD - 1)
 
+        assert_equal nil, StripeClient.maybe_gc_connection_managers
+
+        #
+        # t + StripeClient::CONNECTION_MANAGER_GC_PERIOD + 1
+        #
         # Move time to just *after* garbage collection is eligible to run.
         # Garbage collection will run, but because the connection manager is
         # not passed its expiry age, it will not be collected. Zero is returned
         # to indicate so.
-        Timecop.freeze(t + StripeClient::CONNECTION_MANAGER_GC_PERIOD + 1) do
-          assert_equal 0, StripeClient.maybe_gc_connection_managers
-        end
+        #
+        Util.stubs(:monotonic_time).returns(t + StripeClient::CONNECTION_MANAGER_GC_PERIOD + 1)
 
+        assert_equal 0, StripeClient.maybe_gc_connection_managers
+
+        #
+        # t + StripeClient::CONNECTION_MANAGER_GC_LAST_USED_EXPIRY + 1
+        #
         # Move us far enough into the future that we're passed the horizons for
         # both a GC run as well as well as the expiry age of a connection
         # manager. That means the GC will run and collect the connection
         # manager that we created above.
-        Timecop.freeze(t + StripeClient::CONNECTION_MANAGER_GC_LAST_USED_EXPIRY + 1) do
-          assert_equal 1, StripeClient.maybe_gc_connection_managers
+        #
+        Util.stubs(:monotonic_time).returns(t + StripeClient::CONNECTION_MANAGER_GC_LAST_USED_EXPIRY + 1)
 
-          # And as an additional check, the connection manager of the current thread context should have been set to `nil` as it was GCed.
-          assert_nil StripeClient.current_thread_context.default_connection_manager
-        end
+        assert_equal 1, StripeClient.maybe_gc_connection_managers
+
+        # And as an additional check, the connection manager of the current
+        # thread context should have been set to `nil` as it was GCed.
+        assert_nil StripeClient.current_thread_context.default_connection_manager
       end
     end
 
@@ -300,17 +316,12 @@ module Stripe
 
       context "logging" do
         setup do
-          # Freeze time for the purposes of the `elapsed` parameter that we
-          # emit for responses. I didn't want to bring in a new dependency for
-          # this, but Mocha's `anything` parameter can't match inside of a hash
-          # and is therefore not useful for this purpose. If we switch over to
-          # rspec-mocks at some point, we can probably remove Timecop from the
-          # project.
-          Timecop.freeze(Time.local(1990))
-        end
-
-        teardown do
-          Timecop.return
+          # Freeze time for the purposes of the `elapsed` parameter that we emit
+          # for responses. Mocha's `anything` parameter can't match inside of a
+          # hash and is therefore not useful for this purpose, and Timecop
+          # doesn't freeze monotonic time. If we switch over to rspec-mocks at
+          # some point, we can probably remove Timecop from the project.
+          Util.stubs(:monotonic_time).returns(0.0)
         end
 
         should "produce appropriate logging" do

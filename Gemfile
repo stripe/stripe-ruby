@@ -11,7 +11,6 @@ group :development do
   gem "rake"
   gem "shoulda-context"
   gem "test-unit"
-  gem "timecop"
   gem "webmock"
 
   # Rubocop changes pretty quickly: new cops get added and old cops change

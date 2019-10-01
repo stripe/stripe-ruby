@@ -8,7 +8,6 @@ require "test/unit"
 require "mocha/setup"
 require "stringio"
 require "shoulda/context"
-require "timecop"
 require "webmock/test_unit"
 
 PROJECT_ROOT = ::File.expand_path("../", __dir__)

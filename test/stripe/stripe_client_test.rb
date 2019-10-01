@@ -316,11 +316,11 @@ module Stripe
 
       context "logging" do
         setup do
-          # Freeze time for the purposes of the `elapsed` parameter that we emit
-          # for responses. Mocha's `anything` parameter can't match inside of a
-          # hash and is therefore not useful for this purpose, and Timecop
-          # doesn't freeze monotonic time. If we switch over to rspec-mocks at
-          # some point, we can probably remove Timecop from the project.
+          # Freeze time for the purposes of the `elapsed` parameter that we
+          # emit for responses. Mocha's `anything` parameter can't match inside
+          # of a hash and is therefore not useful for this purpose. If we
+          # switch over to rspec-mocks at some point, we can probably remove
+          # this.
           Util.stubs(:monotonic_time).returns(0.0)
         end
 

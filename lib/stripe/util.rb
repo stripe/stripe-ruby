@@ -172,6 +172,19 @@ module Stripe
       result
     end
 
+    # `Time.now` can be unstable in cases like an administrator manually
+    # updating its value or a reconcilation via NTP. For this reason, prefer
+    # the use of the system's monotonic clock especially where comparing times
+    # to calculate an elapsed duration.
+    #
+    # Shortcut for getting monotonic time, mostly for purposes of line length
+    # and stubbing (Timecop doesn't freeze the monotonic clock). Returns time
+    # in seconds since the event used for monotonic reference purposes by the
+    # platform (e.g. system boot time).
+    def self.monotonic_time
+      Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    end
+
     def self.normalize_id(id)
       if id.is_a?(Hash) # overloaded id
         params_hash = id.dup

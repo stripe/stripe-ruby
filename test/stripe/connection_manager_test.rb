@@ -10,10 +10,9 @@ module Stripe
 
     context "#initialize" do
       should "set #last_used to current time" do
-        t = Time.new(2019)
-        Timecop.freeze(t) do
-          assert_equal t, Stripe::ConnectionManager.new.last_used
-        end
+        t = 123.0
+        Util.stubs(:monotonic_time).returns(t)
+        assert_equal t, Stripe::ConnectionManager.new.last_used
       end
     end
 
@@ -147,19 +146,17 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/path")
           .to_return(body: JSON.generate(object: "account"))
 
-        t = Time.new(2019)
+        t = 123.0
+        Util.stubs(:monotonic_time).returns(t)
 
-        # Make sure the connection manager is initialized at a different time
-        # than the one we're going to measure at because `#last_used` is also
-        # set by the constructor.
-        manager = Timecop.freeze(t) do
-          Stripe::ConnectionManager.new
-        end
+        manager = Stripe::ConnectionManager.new
 
-        Timecop.freeze(t + 1) do
-          manager.execute_request(:post, "#{Stripe.api_base}/path")
-          assert_equal t + 1, manager.last_used
-        end
+        # `#last_used` is also set by the constructor, so make sure we get a
+        # new value for it.
+        Util.stubs(:monotonic_time).returns(t + 1.0)
+
+        manager.execute_request(:post, "#{Stripe.api_base}/path")
+        assert_equal t + 1.0, manager.last_used
       end
     end
   end

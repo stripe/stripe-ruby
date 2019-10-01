@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.4.1 - 2019-10-01
+* [#858](https://github.com/stripe/stripe-ruby/pull/858) Drop Timecop dependency
+
 ## 5.4.0 - 2019-10-01
 * [#857](https://github.com/stripe/stripe-ruby/pull/857) Move to monotonic time for duration calculations
 

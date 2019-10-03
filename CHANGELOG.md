@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.5.0 - 2019-10-03
+* [#859](https://github.com/stripe/stripe-ruby/pull/859) User-friendly messages and retries for `EOFError`, `Errno::ECONNRESET`, `Errno::ETIMEDOUT`, and `Errno::EHOSTUNREACH` network errors
+
 ## 5.4.1 - 2019-10-01
 * [#858](https://github.com/stripe/stripe-ruby/pull/858) Drop Timecop dependency
 

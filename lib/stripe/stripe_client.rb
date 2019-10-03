@@ -81,21 +81,17 @@ module Stripe
     def self.should_retry?(error, method:, num_retries:)
       return false if num_retries >= Stripe.max_network_retries
 
-      # Retry on timeout-related problems (either on open or read).
-      return true if error.is_a?(Net::OpenTimeout)
-      return true if error.is_a?(Net::ReadTimeout)
-
-      # Destination refused the connection, the connection was reset, or a
-      # variety of other connection failures. This could occur from a single
-      # saturated server, so retry in case it's intermittent.
-      return true if error.is_a?(EOFError)
-      return true if error.is_a?(Errno::ECONNREFUSED)
-      return true if error.is_a?(Errno::ECONNRESET)
-      return true if error.is_a?(Errno::EHOSTUNREACH)
-      return true if error.is_a?(Errno::ETIMEDOUT)
-      return true if error.is_a?(SocketError)
-
-      if error.is_a?(Stripe::StripeError)
+      case error
+      when Net::OpenTimeout, Net::ReadTimeout
+        # Retry on timeout-related problems (either on open or read).
+        true
+      when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET,
+            Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError
+        # Destination refused the connection, the connection was reset, or a
+        # variety of other connection failures. This could occur from a single
+        # saturated server, so retry in case it's intermittent.
+        true
+      when Stripe::StripeError
         # The API may ask us not to retry (e.g. if doing so would be a no-op),
         # or advise us to retry (e.g. in cases of lock timeouts). Defer to
         # those instructions if given.
@@ -123,10 +119,10 @@ module Stripe
         return true if error.http_status == 500 && method != :post
 
         # 503 Service Unavailable
-        return true if error.http_status == 503
+        error.http_status == 503
+      else
+        false
       end
-
-      false
     end
 
     def self.sleep_time(num_retries)

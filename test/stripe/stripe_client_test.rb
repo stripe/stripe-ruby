@@ -172,6 +172,26 @@ module Stripe
                                           method: :post, num_retries: 0)
       end
 
+      should "retry on EOFError" do
+        assert StripeClient.should_retry?(EOFError.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "retry on Errno::ECONNRESET" do
+        assert StripeClient.should_retry?(Errno::ECONNRESET.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "retry on Errno::ETIMEDOUT" do
+        assert StripeClient.should_retry?(Errno::ETIMEDOUT.new,
+                                          method: :post, num_retries: 0)
+      end
+
+      should "retry on Errno::EHOSTUNREACH" do
+        assert StripeClient.should_retry?(Errno::EHOSTUNREACH.new,
+                                          method: :post, num_retries: 0)
+      end
+
       should "retry on Net::OpenTimeout" do
         assert StripeClient.should_retry?(Net::OpenTimeout.new,
                                           method: :post, num_retries: 0)

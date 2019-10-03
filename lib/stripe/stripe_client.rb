@@ -88,7 +88,11 @@ module Stripe
       # Destination refused the connection, the connection was reset, or a
       # variety of other connection failures. This could occur from a single
       # saturated server, so retry in case it's intermittent.
+      return true if error.is_a?(EOFError)
       return true if error.is_a?(Errno::ECONNREFUSED)
+      return true if error.is_a?(Errno::ECONNRESET)
+      return true if error.is_a?(Errno::EHOSTUNREACH)
+      return true if error.is_a?(Errno::ETIMEDOUT)
       return true if error.is_a?(SocketError)
 
       if error.is_a?(Stripe::StripeError)
@@ -296,7 +300,11 @@ module Stripe
     # The original error message is also appended onto the final exception for
     # full transparency.
     NETWORK_ERROR_MESSAGES_MAP = {
+      EOFError => ERROR_MESSAGE_CONNECTION,
       Errno::ECONNREFUSED => ERROR_MESSAGE_CONNECTION,
+      Errno::ECONNRESET => ERROR_MESSAGE_CONNECTION,
+      Errno::EHOSTUNREACH => ERROR_MESSAGE_CONNECTION,
+      Errno::ETIMEDOUT => ERROR_MESSAGE_TIMEOUT_CONNECT,
       SocketError => ERROR_MESSAGE_CONNECTION,
 
       Net::OpenTimeout => ERROR_MESSAGE_TIMEOUT_CONNECT,

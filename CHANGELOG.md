@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.6.0 - 2019-10-04
+* [#861](https://github.com/stripe/stripe-ruby/pull/861) Nicer error when specifying non-nil non-string opt value
+
 ## 5.5.0 - 2019-10-03
 * [#859](https://github.com/stripe/stripe-ruby/pull/859) User-friendly messages and retries for `EOFError`, `Errno::ECONNRESET`, `Errno::ETIMEDOUT`, and `Errno::EHOSTUNREACH` network errors
 

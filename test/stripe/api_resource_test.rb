@@ -227,6 +227,23 @@ module Stripe
         end
       end
 
+      should "error if a user-specified opt is given a non-nil non-string value" do
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(charge_fixture))
+
+        # Works fine if not included or a string.
+        Stripe::Charge.create({ amount: 100, currency: "usd" }, {})
+        Stripe::Charge.create({ amount: 100, currency: "usd" }, idempotency_key: "12345")
+
+        # Errors on a non-string.
+        e = assert_raises(ArgumentError) do
+          Stripe::Charge.create({ amount: 100, currency: "usd" }, idempotency_key: :foo)
+        end
+        assert_equal "request option 'idempotency_key' should be a string value " \
+                       "(was a Symbol)",
+                     e.message
+      end
+
       should "requesting with a unicode ID should result in a request" do
         stub_request(:get, "#{Stripe.api_base}/v1/customers/%E2%98%83")
           .to_return(body: JSON.generate(make_missing_id_error), status: 404)

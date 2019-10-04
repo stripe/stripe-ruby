@@ -8,6 +8,8 @@ module Stripe
           warn_on_opts_in_params(params)
 
           opts = Util.normalize_opts(opts)
+          error_on_non_string_user_opts(opts)
+
           opts[:client] ||= StripeClient.active_client
 
           headers = opts.clone
@@ -31,10 +33,24 @@ module Stripe
           [resp, opts_to_persist]
         end
 
+        private def error_on_non_string_user_opts(opts)
+          Util::OPTS_USER_SPECIFIED.each do |opt|
+            next unless opts.key?(opt)
+
+            val = opts[opt]
+            next if val.nil?
+            next if val.is_a?(String)
+
+            raise ArgumentError,
+                  "request option '#{opt}' should be a string value " \
+                    "(was a #{val.class})"
+          end
+        end
+
         private def warn_on_opts_in_params(params)
           Util::OPTS_USER_SPECIFIED.each do |opt|
             if params.key?(opt)
-              warn("WARNING: #{opt} should be in opts instead of params.")
+              warn("WARNING: '#{opt}' should be in opts instead of params.")
             end
           end
         end

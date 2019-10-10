@@ -157,7 +157,7 @@ module Stripe
         .with(query: { "expand[]" => "data.source", "limit" => "3", "starting_after" => "1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
       next_list = list.next_page
-      assert_equal({ expand: ["data.source"], limit: 3 }, next_list.filters)
+      assert_equal({ expand: ["data.source"], limit: 3, starting_after: 1 }, next_list.filters)
     end
 
     should "fetch an empty page through #next_page" do
@@ -192,7 +192,7 @@ module Stripe
         .with(query: { "expand[]" => "data.source", "limit" => "3", "ending_before" => "2" })
         .to_return(body: JSON.generate(data: [{ id: 1 }], has_more: false))
       next_list = list.previous_page
-      assert_equal({ expand: ["data.source"], limit: 3 }, next_list.filters)
+      assert_equal({ ending_before: 2, expand: ["data.source"], limit: 3 }, next_list.filters)
     end
   end
 end

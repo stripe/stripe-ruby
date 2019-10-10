@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.7.0 - 2019-10-10
+* [#865](https://github.com/stripe/stripe-ruby/pull/865) Support backwards pagination with list's `#auto_paging_each`
+
 ## 5.6.0 - 2019-10-04
 * [#861](https://github.com/stripe/stripe-ruby/pull/861) Nicer error when specifying non-nil non-string opt value
 

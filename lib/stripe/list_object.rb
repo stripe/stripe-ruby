@@ -59,8 +59,18 @@ module Stripe
 
       page = self
       loop do
-        page.each(&blk)
-        page = page.next_page
+        # Backward iterating activates if we have an `ending_before` constraint
+        # and _just_ an `ending_before` constraint. If `starting_after` was
+        # also used, we iterate forwards normally.
+        if filters.include?(:ending_before) &&
+           !filters.include?(:starting_after)
+          page.reverse_each(&blk)
+          page = page.previous_page
+        else
+          page.each(&blk)
+          page = page.next_page
+        end
+
         break if page.empty?
       end
     end
@@ -96,6 +106,8 @@ module Stripe
     # This method will try to respect the limit of the current page. If none
     # was given, the default limit will be fetched again.
     def previous_page(params = {}, opts = {})
+      return self.class.empty_list(opts) unless has_more
+
       first_id = data.first.id
 
       params = filters.merge(ending_before: first_id).merge(params)
@@ -106,6 +118,12 @@ module Stripe
     def resource_url
       url ||
         raise(ArgumentError, "List object does not contain a 'url' field.")
+    end
+
+    # Iterates through each resource in the page represented by the current
+    # `ListObject` in reverse.
+    def reverse_each(&blk)
+      data.reverse_each(&blk)
     end
   end
 end

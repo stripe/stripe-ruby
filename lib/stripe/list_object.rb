@@ -51,6 +51,16 @@ module Stripe
     # Iterates through each resource in all pages, making additional fetches to
     # the API as necessary.
     #
+    # The default iteration direction is forwards according to Stripe's API
+    # "natural" ordering direction -- newer objects first, and moving towards
+    # older objects.
+    #
+    # However, if the initial list object was fetched using an `ending_before`
+    # cursor (and only `ending_before`, `starting_after` cannot also be
+    # included), the method assumes that the user is trying to iterate
+    # backwards compared to natural ordering and returns results that way --
+    # older objects first, and moving towards newer objects.
+    #
     # Note that this method will make as many API calls as necessary to fetch
     # all resources. For more granular control, please see +each+ and
     # +next_page+.

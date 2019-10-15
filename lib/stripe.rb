@@ -139,8 +139,8 @@ module Stripe
     end
   end
 
-  def self.connection_base=(connection_base)
-    @connection_base = connection_base
+  def self.connect_base=(connect_base)
+    @connect_base = connect_base
     StripeClient.clear_all_connection_managers
   end
 

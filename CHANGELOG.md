@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.7.1 - 2019-10-15
+* [#869](https://github.com/stripe/stripe-ruby/pull/869) Fixes the misnamed `connection_base=` setter to be named `connect_base=`
+
 ## 5.7.0 - 2019-10-10
 * [#865](https://github.com/stripe/stripe-ruby/pull/865) Support backwards pagination with list's `#auto_paging_each`
 

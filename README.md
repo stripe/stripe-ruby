@@ -203,6 +203,29 @@ There are a few options for enabling it:
    Stripe.log_level = Stripe::LEVEL_INFO
    ```
 
+### Instrumentation
+
+The library has a hook for when a HTTP call is made which can be used for
+monitoring. The callback supplies the following arguments about the request:
+- the `RequestLogContext` object, if possible updated with response data
+- HTTP response code (`Integer`) if available, or `nil` in case of a lower
+  level network error
+- request duration in seconds (`Float`)
+- the number of retries (`Integer`)
+
+For example:
+```ruby
+Stripe::Instrumentation.subscribe do |context, response_code, duration, retries|
+  tags = {
+    method: context.method,
+    resource: context.path.split("/")[2],
+    code: response_code,
+    retries: retries
+  }
+  StatsD.distribution('stripe_request', duration, tags: tags)
+end
+```
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you

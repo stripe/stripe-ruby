@@ -1144,6 +1144,89 @@ module Stripe
         assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
       end
     end
+
+    context "instrumentation" do
+      teardown do
+        Stripe::Instrumentation.unsubscribe(:test)
+      end
+
+      should "notify a subscriber of a successful HTTP request" do
+        events = []
+        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(object: "charge"))
+        Stripe::Charge.list
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event[0].method)
+        assert_equal("/v1/charges", event[0].path)
+        assert_equal(200, event[1])
+        assert(event[2].positive?)
+        assert_equal(0, event[3])
+      end
+
+      should "notify a subscriber of a StripeError" do
+        events = []
+        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+
+        error = {
+          code: "code",
+          message: "message",
+          param: "param",
+          type: "type",
+        }
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(
+            body: JSON.generate(error: error),
+            status: 500
+          )
+        assert_raises(Stripe::APIError) do
+          Stripe::Charge.list
+        end
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event[0].method)
+        assert_equal("/v1/charges", event[0].path)
+        assert_equal(500, event[1])
+        assert(event[2].positive?)
+        assert_equal(0, event[3])
+      end
+
+      should "notify a subscriber of a network error" do
+        events = []
+        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_raise(Net::OpenTimeout)
+        assert_raises(Stripe::APIConnectionError) do
+          Stripe::Charge.list
+        end
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event[0].method)
+        assert_equal("/v1/charges", event[0].path)
+        assert_nil(event[1])
+        assert(event[2].positive?)
+        assert_equal(0, event[3])
+      end
+
+      should "not notify a subscriber once it has unsubscribed" do
+        events = []
+        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(object: "charge"))
+        2.times { Stripe::Charge.list }
+        Stripe::Instrumentation.unsubscribe(:test)
+        Stripe::Charge.list
+
+        assert_equal(2, events.size)
+      end
+    end
   end
 
   class SystemProfilerTest < Test::Unit::TestCase

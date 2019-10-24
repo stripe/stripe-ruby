@@ -67,6 +67,22 @@ module Stripe
                            code: "this_is_an_authorization_code")
         assert_equal("sk_access_token", resp.access_token)
       end
+
+      should "override the API key when client_secret is passed" do
+        stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+          .with(body: {
+            "client_secret" => "client_secret_override",
+            "grant_type" => "authorization_code",
+            "code" => "this_is_an_authorization_code",
+          })
+          .with(headers: { "Authorization": "Bearer client_secret_override" })
+          .to_return(body: JSON.generate(access_token: "another_access_token"))
+
+        resp = OAuth.token(client_secret: "client_secret_override",
+                           grant_type: "authorization_code",
+                           code: "this_is_an_authorization_code")
+        assert_equal("another_access_token", resp.access_token)
+      end
     end
 
     context ".deauthorize" do

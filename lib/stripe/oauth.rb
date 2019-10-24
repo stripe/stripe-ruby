@@ -43,6 +43,7 @@ module Stripe
 
     def self.token(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
+      opts[:api_key] = params[:client_secret] if params[:client_secret]
       resp, opts = OAuthOperations.request(
         :post, "/oauth/token", params, opts
       )

@@ -227,6 +227,22 @@ module Stripe
         end
       end
 
+      should "error if the params is not a Hash" do
+        stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_123/capture")
+          .to_return(body: JSON.generate(charge_fixture))
+
+        e = assert_raises(ArgumentError) { Stripe::Charge.capture("ch_123", "sk_test_secret") }
+
+        assert_equal "request params should be either a Hash or nil (was a String)", e.message
+      end
+
+      should "allow making a request with params set to nil" do
+        stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_123/capture")
+          .to_return(body: JSON.generate(charge_fixture))
+
+        Stripe::Charge.capture("ch_123", nil, "sk_test_secret")
+      end
+
       should "error if a user-specified opt is given a non-nil non-string value" do
         stub_request(:post, "#{Stripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(charge_fixture))

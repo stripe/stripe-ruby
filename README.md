@@ -56,6 +56,11 @@ gem 'stripe'
 
 ## Usage
 
+You can find documentation and example requests in Ruby for most resources at the
+[API Reference](https://stripe.com/docs/api/charges?lang=ruby).
+
+### API Key
+
 The library needs to be configured with your account's secret key which is
 available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
 value:

@@ -5,6 +5,9 @@ module Stripe
     module Request
       module ClassMethods
         def request(method, url, params = {}, opts = {})
+          params ||= {}
+
+          error_on_invalid_params(params)
           warn_on_opts_in_params(params)
 
           opts = Util.normalize_opts(opts)
@@ -45,6 +48,14 @@ module Stripe
                   "request option '#{opt}' should be a string value " \
                     "(was a #{val.class})"
           end
+        end
+
+        private def error_on_invalid_params(params)
+          return if params.nil? || params.is_a?(Hash)
+
+          raise ArgumentError,
+                "request params should be either a Hash or nil " \
+                  "(was a #{params.class})"
         end
 
         private def warn_on_opts_in_params(params)

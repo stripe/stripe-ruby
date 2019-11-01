@@ -110,7 +110,25 @@ Stripe::Charge.retrieve(
     api_key: "sk_test_...",
   }
 )
+
+Stripe::Charge.capture(
+  "ch_18atAXCdGbJFKhCuBAa4532Z",
+  {},
+  {
+    stripe_version: "2018-02-28",
+    api_key: "sk_test_...",
+  }
+)
 ```
+
+Keep in mind that there are different method signatures depending on the action:
+- When operating on a collection (e.g. `.list`, `.create`) the method signature is
+  `method(params, opts)`.
+- When operating on resource (e.g. `.capture`, `.update`) the method signature is
+  `method(id, params, opts)`.
+- One exception is that `retrieve`, despite being an operation on a resource, has the signature
+  `retrieve(id, opts)`. In addition, it will accept a Hash for the `id` param but will extract the
+  `id` key out and use the others as options.
 
 ### Accessing a response object
 

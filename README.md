@@ -206,8 +206,10 @@ There are a few options for enabling it:
 ### Instrumentation
 
 The library has a hook for when a HTTP call is made which can be used for
-monitoring. The callback supplies the following arguments about the request:
-- the `RequestLogContext` object, if possible updated with response data
+monitoring. The callback receives a `RequestEvent` object with the following
+data:
+- HTTP method (`Symbol`)
+- request path (`String`)
 - HTTP response code (`Integer`) if available, or `nil` in case of a lower
   level network error
 - request duration in seconds (`Float`)
@@ -215,14 +217,14 @@ monitoring. The callback supplies the following arguments about the request:
 
 For example:
 ```ruby
-Stripe::Instrumentation.subscribe(:request) do |context, response_code, duration, retries|
+Stripe::Instrumentation.subscribe(:request) do |request_event|
   tags = {
-    method: context.method,
-    resource: context.path.split("/")[2],
-    code: response_code,
-    retries: retries
+    method: request_event.method,
+    resource: request_event.path.split("/")[2],
+    code: request_event.http_status,
+    retries: request_event.num_retries
   }
-  StatsD.distribution('stripe_request', duration, tags: tags)
+  StatsD.distribution('stripe_request', request_event.duration, tags: tags)
 end
 ```
 

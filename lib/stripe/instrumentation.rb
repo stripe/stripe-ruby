@@ -2,6 +2,23 @@
 
 module Stripe
   class Instrumentation
+    class RequestEvent
+      attr_reader :duration
+      attr_reader :http_status
+      attr_reader :method
+      attr_reader :num_retries
+      attr_reader :path
+
+      def initialize(duration:, http_status:, method:, num_retries:, path:)
+        @duration = duration
+        @http_status = http_status
+        @method = method
+        @num_retries = num_retries
+        @path = path
+        freeze
+      end
+    end
+
     def self.subscribe(topic, name = rand, &block)
       subscribers[topic][name] = block
       name
@@ -11,8 +28,8 @@ module Stripe
       subscribers[topic].delete(name)
     end
 
-    def self.notify(topic, *args)
-      subscribers[topic].each_value { |subscriber| subscriber.call(*args) }
+    def self.notify(topic, event)
+      subscribers[topic].each_value { |subscriber| subscriber.call(event) }
     end
 
     def self.subscribers

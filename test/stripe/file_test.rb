@@ -62,6 +62,18 @@ module Stripe
         assert file.is_a?(Stripe::File)
       end
 
+      should "be creatable with a URL string" do
+        stub_request(:get, "https://example.com/verification.png")
+          .to_return(status: 200, body: "", headers: {})
+        file = Stripe::File.create(
+          purpose: "dispute_evidence",
+          file: "https://example.com/verification.png",
+          file_link_data: { create: true }
+        )
+        assert_requested :post, "#{Stripe.uploads_base}/v1/files"
+        assert file.is_a?(Stripe::File)
+      end
+
       should "raise given a file object that doesn't respond to #read" do
         e = assert_raises(ArgumentError) do
           Stripe::File.create(

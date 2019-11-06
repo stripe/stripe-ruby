@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "cgi"
+require "open-uri"
 
 module Stripe
   module Util
@@ -206,6 +207,14 @@ module Stripe
       else
         raise TypeError, "normalize_opts expects a string or a hash"
       end
+    end
+
+    # Will either retrieve the contents of a URL or return the file_param
+    # if the argument does not satisfy the regex
+    def self.normalize_file_params(file_param)
+      return file_param unless file_param =~ /^http.*/
+
+      OpenURI.open_uri(file_param)
     end
 
     def self.check_string_argument!(key)

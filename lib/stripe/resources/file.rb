@@ -18,9 +18,13 @@ module Stripe
     end
 
     def self.create(params = {}, opts = {})
-      if params[:file] && !params[:file].is_a?(String)
-        unless params[:file].respond_to?(:read)
-          raise ArgumentError, "file must respond to `#read`"
+      if params[:file]
+        if params[:file].is_a?(String)
+          params[:file] = Util.normalize_file_params(params[:file])
+        else
+          unless params[:file].respond_to?(:read)
+            raise ArgumentError, "file must respond to `#read`"
+          end
         end
       end
 

@@ -299,6 +299,22 @@ module Stripe
       end
     end
 
+    context ".normalize_file_params" do
+      should "return the original params when already mutlipart data" do
+        assert_equal("file-contents",
+                     Util.normalize_file_params("file-contents"))
+      end
+
+      should "return an object that respons to #read when the params are a URL" do
+        image_url = "https://example.come/image.png"
+        stub_request(:get, image_url)
+          .to_return(status: 200, body: "file-contents", headers: {})
+
+        assert_equal("file-contents",
+                     Util.normalize_file_params(image_url).read)
+      end
+    end
+
     #
     # private
     #

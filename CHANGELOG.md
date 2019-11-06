@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.8.0 - 2019-11-05
+* [#879](https://github.com/stripe/stripe-ruby/pull/879) Add support for `Mandate`
+* [#876](https://github.com/stripe/stripe-ruby/pull/876) Add additional per-request configuration documentation
+* [#874](https://github.com/stripe/stripe-ruby/pull/874) Raise an error when requests params are invalid
+* [#873](https://github.com/stripe/stripe-ruby/pull/873) Contributor Covenant
+
 ## 5.7.1 - 2019-10-15
 * [#869](https://github.com/stripe/stripe-ruby/pull/869) Fixes the misnamed `connection_base=` setter to be named `connect_base=`
 

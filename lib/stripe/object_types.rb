@@ -48,6 +48,7 @@ module Stripe
         Issuing::Dispute::OBJECT_NAME => Issuing::Dispute,
         Issuing::Transaction::OBJECT_NAME => Issuing::Transaction,
         LoginLink::OBJECT_NAME => LoginLink,
+        Mandate::OBJECT_NAME => Mandate,
         Order::OBJECT_NAME => Order,
         OrderReturn::OBJECT_NAME => OrderReturn,
         PaymentIntent::OBJECT_NAME => PaymentIntent,

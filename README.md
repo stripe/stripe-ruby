@@ -215,7 +215,7 @@ monitoring. The callback supplies the following arguments about the request:
 
 For example:
 ```ruby
-Stripe::Instrumentation.subscribe do |context, response_code, duration, retries|
+Stripe::Instrumentation.subscribe(:request) do |context, response_code, duration, retries|
   tags = {
     method: context.method,
     resource: context.path.split("/")[2],

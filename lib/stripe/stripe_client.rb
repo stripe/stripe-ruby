@@ -461,8 +461,8 @@ module Stripe
         handle_error_response(resp, context) if response_code >= 400
 
         log_response(context, request_start, response_code, resp.body)
-        Stripe::Instrumentation.notify(context, response_code, request_duration,
-                                       num_retries)
+        Stripe::Instrumentation.notify(:request, context, response_code,
+                                       request_duration, num_retries)
 
         if Stripe.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
@@ -488,7 +488,7 @@ module Stripe
         else
           log_response_error(error_context, request_start, e)
         end
-        Stripe::Instrumentation.notify(error_context, response_code,
+        Stripe::Instrumentation.notify(:request, error_context, response_code,
                                        request_duration, num_retries)
 
         if self.class.should_retry?(e, method: method, num_retries: num_retries)

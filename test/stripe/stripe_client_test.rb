@@ -1147,12 +1147,12 @@ module Stripe
 
     context "instrumentation" do
       teardown do
-        Stripe::Instrumentation.unsubscribe(:test)
+        Stripe::Instrumentation.unsubscribe(:request, :test)
       end
 
       should "notify a subscriber of a successful HTTP request" do
         events = []
-        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+        Stripe::Instrumentation.subscribe(:request, :test) { |*args| events << args }
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"))
@@ -1169,7 +1169,7 @@ module Stripe
 
       should "notify a subscriber of a StripeError" do
         events = []
-        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+        Stripe::Instrumentation.subscribe(:request, :test) { |*args| events << args }
 
         error = {
           code: "code",
@@ -1197,7 +1197,7 @@ module Stripe
 
       should "notify a subscriber of a network error" do
         events = []
-        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+        Stripe::Instrumentation.subscribe(:request, :test) { |*args| events << args }
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .to_raise(Net::OpenTimeout)
@@ -1216,12 +1216,12 @@ module Stripe
 
       should "not notify a subscriber once it has unsubscribed" do
         events = []
-        Stripe::Instrumentation.subscribe(:test) { |*args| events << args }
+        Stripe::Instrumentation.subscribe(:request, :test) { |*args| events << args }
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"))
         2.times { Stripe::Charge.list }
-        Stripe::Instrumentation.unsubscribe(:test)
+        Stripe::Instrumentation.unsubscribe(:request, :test)
         Stripe::Charge.list
 
         assert_equal(2, events.size)

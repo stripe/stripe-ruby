@@ -2,21 +2,21 @@
 
 module Stripe
   class Instrumentation
-    def self.subscribe(name = rand, &block)
-      subscribers[name] = block
+    def self.subscribe(topic, name = rand, &block)
+      subscribers[topic][name] = block
       name
     end
 
-    def self.unsubscribe(name)
-      subscribers.delete(name)
+    def self.unsubscribe(topic, name)
+      subscribers[topic].delete(name)
     end
 
-    def self.notify(*args)
-      subscribers.each_value { |subscriber| subscriber.call(*args) }
+    def self.notify(topic, *args)
+      subscribers[topic].each_value { |subscriber| subscriber.call(*args) }
     end
 
     def self.subscribers
-      @subscribers ||= {}
+      @subscribers ||= Hash.new { |hash, key| hash[key] = {} }
     end
     private_class_method :subscribers
   end

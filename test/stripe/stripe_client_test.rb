@@ -1213,19 +1213,6 @@ module Stripe
         assert(event.duration.positive?)
         assert_equal(0, event.num_retries)
       end
-
-      should "not notify a subscriber once it has unsubscribed" do
-        events = []
-        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
-
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
-          .to_return(body: JSON.generate(object: "charge"))
-        2.times { Stripe::Charge.list }
-        Stripe::Instrumentation.unsubscribe(:request, :test)
-        Stripe::Charge.list
-
-        assert_equal(2, events.size)
-      end
     end
   end
 

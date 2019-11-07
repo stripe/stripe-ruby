@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.9.0 - 2019-11-07
+* [#870](https://github.com/stripe/stripe-ruby/pull/870) Add request instrumentation callback (see `README.md` for usage example)
+
 ## 5.8.0 - 2019-11-05
 * [#879](https://github.com/stripe/stripe-ruby/pull/879) Add support for `Mandate`
 * [#876](https://github.com/stripe/stripe-ruby/pull/876) Add additional per-request configuration documentation

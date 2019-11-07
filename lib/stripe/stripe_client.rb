@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "stripe/instrumentation"
+
 module Stripe
   # StripeClient executes requests against the Stripe API and allows a user to
   # recover both a resource a call returns as well as a response object that
@@ -452,15 +454,18 @@ module Stripe
         request_start = Util.monotonic_time
         log_request(context, num_retries)
         resp = yield
+        request_duration = Util.monotonic_time - request_start
+        http_status = resp.code.to_i
         context = context.dup_from_response_headers(resp)
 
-        handle_error_response(resp, context) if resp.code.to_i >= 400
+        handle_error_response(resp, context) if http_status >= 400
 
-        log_response(context, request_start, resp.code.to_i, resp.body)
+        log_response(context, request_start, http_status, resp.body)
+        notify_subscribers(request_duration, http_status, context,
+                           num_retries)
 
         if Stripe.enable_telemetry? && context.request_id
-          request_duration_ms =
-            ((Util.monotonic_time - request_start) * 1000).to_int
+          request_duration_ms = (request_duration * 1000).to_i
           @last_request_metrics =
             StripeRequestMetrics.new(context.request_id, request_duration_ms)
         end
@@ -472,14 +477,18 @@ module Stripe
         # If we modify context we copy it into a new variable so as not to
         # taint the original on a retry.
         error_context = context
+        request_duration = Util.monotonic_time - request_start
+        http_status = nil
 
         if e.is_a?(Stripe::StripeError)
           error_context = context.dup_from_response_headers(e.http_headers)
+          http_status = resp.code.to_i
           log_response(error_context, request_start,
                        e.http_status, e.http_body)
         else
           log_response_error(error_context, request_start, e)
         end
+        notify_subscribers(request_duration, http_status, context, num_retries)
 
         if self.class.should_retry?(e, method: method, num_retries: num_retries)
           num_retries += 1
@@ -501,6 +510,17 @@ module Stripe
       end
 
       resp
+    end
+
+    private def notify_subscribers(duration, http_status, context, num_retries)
+      request_event = Instrumentation::RequestEvent.new(
+        duration: duration,
+        http_status: http_status,
+        method: context.method,
+        num_retries: num_retries,
+        path: context.path
+      )
+      Stripe::Instrumentation.notify(:request, request_event)
     end
 
     private def general_api_error(status, body)

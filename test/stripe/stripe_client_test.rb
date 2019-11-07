@@ -1144,6 +1144,76 @@ module Stripe
         assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
       end
     end
+
+    context "instrumentation" do
+      teardown do
+        Stripe::Instrumentation.unsubscribe(:request, :test)
+      end
+
+      should "notify a subscriber of a successful HTTP request" do
+        events = []
+        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(object: "charge"))
+        Stripe::Charge.list
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event.method)
+        assert_equal("/v1/charges", event.path)
+        assert_equal(200, event.http_status)
+        assert(event.duration.positive?)
+        assert_equal(0, event.num_retries)
+      end
+
+      should "notify a subscriber of a StripeError" do
+        events = []
+        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+
+        error = {
+          code: "code",
+          message: "message",
+          param: "param",
+          type: "type",
+        }
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(
+            body: JSON.generate(error: error),
+            status: 500
+          )
+        assert_raises(Stripe::APIError) do
+          Stripe::Charge.list
+        end
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event.method)
+        assert_equal("/v1/charges", event.path)
+        assert_equal(500, event.http_status)
+        assert(event.duration.positive?)
+        assert_equal(0, event.num_retries)
+      end
+
+      should "notify a subscriber of a network error" do
+        events = []
+        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_raise(Net::OpenTimeout)
+        assert_raises(Stripe::APIConnectionError) do
+          Stripe::Charge.list
+        end
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event.method)
+        assert_equal("/v1/charges", event.path)
+        assert_nil(event.http_status)
+        assert(event.duration.positive?)
+        assert_equal(0, event.num_retries)
+      end
+    end
   end
 
   class SystemProfilerTest < Test::Unit::TestCase

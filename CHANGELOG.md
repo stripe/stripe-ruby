@@ -46,23 +46,23 @@
 Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v5) contains a detailed list of backwards-incompatible changes with upgrade instructions.
 
 Pull requests included in this release (cf. [#815](https://github.com/stripe/stripe-ruby/pull/815)) (⚠️ = breaking changes):
-* [x] ⚠️ #813: Convert library to use built-in `Net::HTTP`
-* [x] ⚠️ #816: Make `code` argument in `CardError` named instead of positional.
-* [x] ⚠️ #817: Drop support for very old Ruby versions.
-* [x] #818: Bump Rubocop to latest version
-* [x] #819: Ruby minimum version increase followup
-* [x] ⚠️ #820: Remove old deprecated methods
-* [x] ⚠️ #823: Remove all alias for list methods
-* [x] ⚠️ #826: Remove `UsageRecord.create` method
-* [x] ⚠️ #827: Remove `IssuerFraudRecord`
-* [x] #811: Add `ErrorObject` to `StripeError` exceptions
-* [x] #828: Tweak retry logic to be a little more like stripe-node
-* [x] #829: Reset connections when connection-changing configuration changes (optional)
-* [x] #830: Fix inverted sign for 500 retries
-* [x] ⚠️#831: Remove a few more very old deprecated methods
-* [x] #832: Minor cleanup in `StripeClient`
-* [x] #833: Do better bookkeeping when tracking state in `Thread.current`
-* [x] #834: Add `Invoice.list_upcoming_line_items` method
+* ⚠️ [#813](https://github.com/stripe/stripe-ruby/pull/813): Convert library to use built-in `Net::HTTP`
+* ⚠️ [#816](https://github.com/stripe/stripe-ruby/pull/816): Make `code` argument in `CardError` named instead of positional.
+* ⚠️ [#817](https://github.com/stripe/stripe-ruby/pull/817): Drop support for very old Ruby versions.
+* [#818](https://github.com/stripe/stripe-ruby/pull/818): Bump Rubocop to latest version
+* [#819](https://github.com/stripe/stripe-ruby/pull/819): Ruby minimum version increase followup
+* ⚠️ [#820](https://github.com/stripe/stripe-ruby/pull/820): Remove old deprecated methods
+* ⚠️ [#823](https://github.com/stripe/stripe-ruby/pull/823): Remove all alias for list methods
+* ⚠️ [#826](https://github.com/stripe/stripe-ruby/pull/826): Remove `UsageRecord.create` method
+* ⚠️ [#827](https://github.com/stripe/stripe-ruby/pull/827): Remove `IssuerFraudRecord`
+* [#811](https://github.com/stripe/stripe-ruby/pull/811): Add `ErrorObject` to `StripeError` exceptions
+* [#828](https://github.com/stripe/stripe-ruby/pull/828): Tweak retry logic to be a little more like stripe-node
+* [#829](https://github.com/stripe/stripe-ruby/pull/829): Reset connections when connection-changing configuration changes (optional)
+* [#830](https://github.com/stripe/stripe-ruby/pull/830): Fix inverted sign for 500 retries
+* ⚠️[#831](https://github.com/stripe/stripe-ruby/pull/831): Remove a few more very old deprecated methods
+* [#832](https://github.com/stripe/stripe-ruby/pull/832): Minor cleanup in `StripeClient`
+* [#833](https://github.com/stripe/stripe-ruby/pull/833): Do better bookkeeping when tracking state in `Thread.current`
+* [#834](https://github.com/stripe/stripe-ruby/pull/834): Add `Invoice.list_upcoming_line_items` method
 
 ## 4.24.0 - 2019-08-12
 * [#825](https://github.com/stripe/stripe-ruby/pull/825) Add `SubscriptionItem.create_usage_record` method

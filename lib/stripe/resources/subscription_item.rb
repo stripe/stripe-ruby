@@ -11,10 +11,15 @@ module Stripe
     OBJECT_NAME = "subscription_item"
 
     nested_resource_class_methods :usage_record, operations: %i[create]
+    nested_resource_class_methods :usage_record_summary,
+                                  operations: %i[list],
+                                  resource_plural: "usage_record_summaries"
 
     def usage_record_summaries(params = {}, opts = {})
       resp, opts = request(:get, resource_url + "/usage_record_summaries", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
+    extend Gem::Deprecate
+    deprecate :usage_record_summaries, :"SubscriptionItem.list_usage_record_summaries", 2020, 1
   end
 end

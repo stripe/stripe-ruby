@@ -71,5 +71,14 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_items/si_123/usage_records"
       end
     end
+
+    context "#list_usage_record_summaries" do
+      should "list usage record summaries" do
+        Stripe::SubscriptionItem.list_usage_record_summaries(
+          "si_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/subscription_items/si_123/usage_record_summaries"
+      end
+    end
   end
 end

@@ -4,10 +4,13 @@ module Stripe
   class Source < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "source"
 
     custom_method :verify, http_verb: :post
+
+    nested_resource_class_methods :source_transaction, operations: %i[list]
 
     def verify(params = {}, opts = {})
       request_stripe_object(
@@ -36,5 +39,7 @@ module Stripe
                            opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
+    extend Gem::Deprecate
+    deprecate :source_transactions, :"Source.list_source_transactions", 2020, 1
   end
 end

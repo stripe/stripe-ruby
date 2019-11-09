@@ -8,8 +8,16 @@ module Stripe
       @source = Stripe::Source.retrieve("src_123")
     end
 
-    should "be listable" do
+    should "be listable (DEPRECATED)" do
       transactions = @source.source_transactions
+
+      assert_requested :get, "#{Stripe.api_base}/v1/sources/#{@source.id}/source_transactions"
+      assert transactions.data.is_a?(Array)
+      assert transactions.first.is_a?(Stripe::SourceTransaction)
+    end
+
+    should "be listable" do
+      transactions = Stripe::Source.list_source_transactions(@source.id)
 
       assert_requested :get, "#{Stripe.api_base}/v1/sources/#{@source.id}/source_transactions"
       assert transactions.data.is_a?(Array)

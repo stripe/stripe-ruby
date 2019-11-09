@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.10.0 - 2019-11-08
+* [#882](https://github.com/stripe/stripe-ruby/pull/882) Add list_usage_record_summaries and list_source_transactions
+
 ## 5.9.0 - 2019-11-07
 * [#870](https://github.com/stripe/stripe-ruby/pull/870) Add request instrumentation callback (see `README.md` for usage example)
 

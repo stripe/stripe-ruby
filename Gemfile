@@ -12,6 +12,7 @@ group :development do
   gem "shoulda-context"
   gem "test-unit"
   gem "webmock"
+  gem "ci_reporter_test_unit"
 
   # Rubocop changes pretty quickly: new cops get added and old cops change
   # names or go into new namespaces. This is a library and we don't have

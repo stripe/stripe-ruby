@@ -6,3 +6,4 @@ tags
 /.bundle/
 coverage/
 .idea/
+test/reports

@@ -2,11 +2,17 @@
 
 require "rake/testtask"
 require "rubocop/rake_task"
+require "ci/reporter/rake/test_unit"
 
 task default: %i[test rubocop]
+task testunit: "ci:setup:testunit"
 
 Rake::TestTask.new do |t|
   t.pattern = "./test/**/*_test.rb"
+end
+
+namespace :ci do
+  task all: ["ci:setup:testunit", "test"]
 end
 
 RuboCop::RakeTask.new

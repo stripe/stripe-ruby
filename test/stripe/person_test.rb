@@ -5,9 +5,6 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class PersonTest < Test::Unit::TestCase
     context "#resource_url" do
-      should "deliberality fail" do
-        assert_equal "3", "infinity"
-      end
       should "return a resource URL" do
         person = Stripe::Person.construct_from(
           id: "person_123",

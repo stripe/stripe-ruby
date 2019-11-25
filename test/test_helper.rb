@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require "coveralls"
-Coveralls.wear!("test_frameworks")
+
+Coveralls.wear!("test_frameworks") unless ENV["DISABLE_COVERALLS"]
 
 require "stripe"
 require "test/unit"

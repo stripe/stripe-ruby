@@ -5,7 +5,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
-  gem "ci_reporter_test_unit"
+  gem "ci_reporter_test_unit", require: false
   gem "coveralls", require: false
   gem "mocha", "~> 0.13.2"
   gem "rack", ">= 2.0.6"

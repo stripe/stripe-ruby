@@ -194,7 +194,7 @@ retries are safe.
 Open and read timeouts are configurable:
 
 ```ruby
-Stripe.open_timeout = 30 // in seconds
+Stripe.open_timeout = 30 # in seconds
 Stripe.read_timeout = 80
 ```
 

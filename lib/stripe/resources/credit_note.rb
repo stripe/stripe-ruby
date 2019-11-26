@@ -18,5 +18,10 @@ module Stripe
         opts: opts
       )
     end
+
+    def self.preview(params, opts = {})
+      resp, opts = request(:get, resource_url + "/preview", params, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
   end
 end

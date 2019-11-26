@@ -40,6 +40,21 @@ module Stripe
       assert credit_note.is_a?(Stripe::CreditNote)
     end
 
+    context ".preview" do
+      should "preview a credit note" do
+        invoice = Stripe::CreditNote.preview(
+          invoice: "in_123",
+          amount: 500
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/credit_notes/preview",
+                         query: {
+                           invoice: "in_123",
+                           amount: 500,
+                         }
+        assert invoice.is_a?(Stripe::CreditNote)
+      end
+    end
+
     context "#void_credit_note" do
       should "void credit_note" do
         credit_note = Stripe::CreditNote.retrieve("cn_123")

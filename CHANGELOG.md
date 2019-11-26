@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.11.0 - 2019-11-26
+* [#885](https://github.com/stripe/stripe-ruby/pull/885) Add support for `CreditNote` preview
+
 ## 5.10.0 - 2019-11-08
 * [#882](https://github.com/stripe/stripe-ruby/pull/882) Add list_usage_record_summaries and list_source_transactions
 

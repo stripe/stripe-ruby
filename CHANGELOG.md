@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.12.0 - 2020-01-02
+* [#889](https://github.com/stripe/stripe-ruby/pull/889) Add support for retrieve source transaction API method
+
 ## 5.11.0 - 2019-11-26
 * [#885](https://github.com/stripe/stripe-ruby/pull/885) Add support for `CreditNote` preview
 

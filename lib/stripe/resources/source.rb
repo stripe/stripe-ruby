@@ -10,7 +10,8 @@ module Stripe
 
     custom_method :verify, http_verb: :post
 
-    nested_resource_class_methods :source_transaction, operations: %i[list]
+    nested_resource_class_methods :source_transaction,
+                                  operations: %i[retrieve list]
 
     def verify(params = {}, opts = {})
       request_stripe_object(

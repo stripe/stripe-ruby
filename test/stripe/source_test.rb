@@ -77,5 +77,33 @@ module Stripe
         assert source.is_a?(Stripe::Source)
       end
     end
+
+    context ".retrieve_source_transaction" do
+      should "retrieve a source transaction" do
+        Stripe::Source.retrieve_source_transaction(
+          "src_123",
+          "srctxn_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/sources/src_123/source_transactions/srctxn_123"
+      end
+    end
+
+    context ".list_source_transactions" do
+      should "list source transactions" do
+        Stripe::Source.list_source_transactions(
+          "src_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/sources/src_123/source_transactions"
+      end
+    end
+
+    context "#source_transactions" do
+      should "list source transactions" do
+        source = Stripe::Source.construct_from(id: "src_123",
+                                               object: "source")
+        source.source_transactions
+        assert_requested :get, "#{Stripe.api_base}/v1/sources/src_123/source_transactions"
+      end
+    end
   end
 end

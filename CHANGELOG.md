@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.12.1 - 2020-01-06
+* [#890](https://github.com/stripe/stripe-ruby/pull/890) Override API key with `client_secret` in `OAuth.token`
+
 ## 5.12.0 - 2020-01-02
 * [#889](https://github.com/stripe/stripe-ruby/pull/889) Add support for retrieve source transaction API method
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.13.0 - 2020-01-08
+* [#891](https://github.com/stripe/stripe-ruby/pull/891) Fix most Ruby 2.7 warnings
+
 ## 5.12.1 - 2020-01-06
 * [#890](https://github.com/stripe/stripe-ruby/pull/890) Override API key with `client_secret` in `OAuth.token`
 

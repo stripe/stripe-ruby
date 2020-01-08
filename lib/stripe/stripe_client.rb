@@ -606,26 +606,26 @@ module Stripe
       when 400, 404
         case error_data[:type]
         when "idempotency_error"
-          IdempotencyError.new(error_data[:message], opts)
+          IdempotencyError.new(error_data[:message], **opts)
         else
           InvalidRequestError.new(
             error_data[:message], error_data[:param],
-            opts
+            **opts
           )
         end
       when 401
-        AuthenticationError.new(error_data[:message], opts)
+        AuthenticationError.new(error_data[:message], **opts)
       when 402
         CardError.new(
           error_data[:message], error_data[:param],
-          opts
+          **opts
         )
       when 403
-        PermissionError.new(error_data[:message], opts)
+        PermissionError.new(error_data[:message], **opts)
       when 429
-        RateLimitError.new(error_data[:message], opts)
+        RateLimitError.new(error_data[:message], **opts)
       else
-        APIError.new(error_data[:message], opts)
+        APIError.new(error_data[:message], **opts)
       end
     end
 

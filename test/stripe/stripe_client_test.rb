@@ -474,7 +474,7 @@ module Stripe
           client = StripeClient.new
           opts = { api_base: Stripe.connect_base }
           assert_raises Stripe::OAuth::InvalidRequestError do
-            client.execute_request(:post, "/oauth/token", opts)
+            client.execute_request(:post, "/oauth/token", **opts)
           end
         end
       end
@@ -727,7 +727,7 @@ module Stripe
 
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::InvalidRequestError do
-            client.execute_request(:post, "/oauth/token", opts)
+            client.execute_request(:post, "/oauth/token", **opts)
           end
 
           assert_equal(400, e.http_status)
@@ -743,7 +743,7 @@ module Stripe
 
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::InvalidGrantError do
-            client.execute_request(:post, "/oauth/token", opts)
+            client.execute_request(:post, "/oauth/token", **opts)
           end
 
           assert_equal(400, e.http_status)
@@ -760,7 +760,7 @@ module Stripe
 
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::InvalidClientError do
-            client.execute_request(:post, "/oauth/deauthorize", opts)
+            client.execute_request(:post, "/oauth/deauthorize", **opts)
           end
 
           assert_equal(401, e.http_status)
@@ -777,7 +777,7 @@ module Stripe
 
           opts = { api_base: Stripe.connect_base }
           e = assert_raises Stripe::OAuth::OAuthError do
-            client.execute_request(:post, "/oauth/deauthorize", opts)
+            client.execute_request(:post, "/oauth/deauthorize", **opts)
           end
 
           assert_equal(401, e.http_status)

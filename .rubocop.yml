@@ -13,17 +13,22 @@ AllCops:
 Layout/CaseIndentation:
   EnforcedStyle: end
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 # This can be re-enabled once we're 2.3+ only and can use the squiggly heredoc
 # operator. Prior to that, Rubocop recommended bringing in a library like
 # ActiveSupport to get heredoc indentation, which is just terrible.
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
+
+Layout/LineLength:
+  Exclude:
+    - "lib/stripe/resources/**/*.rb"
+    - "test/**/*.rb"
 
 Metrics/BlockLength:
   Max: 40
@@ -36,11 +41,6 @@ Metrics/ClassLength:
   Exclude:
     # Test classes get quite large, so exclude the test directory from having
     # to adhere to this rule.
-    - "test/**/*.rb"
-
-Metrics/LineLength:
-  Exclude:
-    - "lib/stripe/resources/**/*.rb"
     - "test/**/*.rb"
 
 Metrics/MethodLength:

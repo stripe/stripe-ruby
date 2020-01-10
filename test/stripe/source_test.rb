@@ -99,10 +99,20 @@ module Stripe
 
     context "#source_transactions" do
       should "list source transactions" do
-        source = Stripe::Source.construct_from(id: "src_123",
-                                               object: "source")
-        source.source_transactions
-        assert_requested :get, "#{Stripe.api_base}/v1/sources/src_123/source_transactions"
+        old_stderr = $stderr
+        $stderr = StringIO.new
+
+        begin
+          source = Stripe::Source.construct_from(id: "src_123",
+                                                 object: "source")
+          source.source_transactions
+          assert_requested :get, "#{Stripe.api_base}/v1/sources/src_123/source_transactions"
+
+          assert_include $stderr.string,
+                         "use Source.list_source_transactions instead"
+        ensure
+          $stderr = old_stderr
+        end
       end
     end
   end

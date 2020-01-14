@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.14.0 - 2020-01-14
+* [#896](https://github.com/stripe/stripe-ruby/pull/896) Add support for `CreditNoteLineItem`
+* [#894](https://github.com/stripe/stripe-ruby/pull/894) Clean up test output by capturing `$stderr` when we expect warnings
+* [#892](https://github.com/stripe/stripe-ruby/pull/892) Explicitly pass a parameter as hash to be more ruby 2.7 friendly
+* [#893](https://github.com/stripe/stripe-ruby/pull/893) Upgrade Rubocop to 0.79
+
 ## 5.13.0 - 2020-01-08
 * [#891](https://github.com/stripe/stripe-ruby/pull/891) Fix most Ruby 2.7 warnings
 

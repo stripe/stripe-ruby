@@ -23,5 +23,10 @@ module Stripe
       resp, opts = request(:get, resource_url + "/preview", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
+
+    def self.list_preview_line_items(params, opts = {})
+      resp, opts = request(:get, resource_url + "/preview/lines", params, opts)
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
   end
 end

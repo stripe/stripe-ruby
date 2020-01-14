@@ -72,5 +72,19 @@ module Stripe
         assert credit_note.is_a?(Stripe::CreditNote)
       end
     end
+
+    context ".list_preview_line_items" do
+      should "list_preview_line_items" do
+        line_items = Stripe::CreditNote.list_preview_line_items(
+          invoice: "in_123"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/credit_notes/preview/lines",
+                         query: {
+                           invoice: "in_123",
+                         }
+        assert line_items.data.is_a?(Array)
+        assert line_items.data[0].is_a?(Stripe::CreditNoteLineItem)
+      end
+    end
   end
 end

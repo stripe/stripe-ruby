@@ -28,6 +28,7 @@ module Stripe
         CountrySpec::OBJECT_NAME => CountrySpec,
         Coupon::OBJECT_NAME => Coupon,
         CreditNote::OBJECT_NAME => CreditNote,
+        CreditNoteLineItem::OBJECT_NAME => CreditNoteLineItem,
         Customer::OBJECT_NAME => Customer,
         CustomerBalanceTransaction::OBJECT_NAME => CustomerBalanceTransaction,
         Discount::OBJECT_NAME => Discount,

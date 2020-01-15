@@ -11,7 +11,10 @@ group :development do
   gem "rake"
   gem "shoulda-context"
   gem "test-unit"
-  gem "webmock"
+
+  # Version doesn't matter that much, but this one contains some fixes for Ruby
+  # 2.7 warnings that add noise to the test suite.
+  gem "webmock", ">= 3.8.0"
 
   # Rubocop changes pretty quickly: new cops get added and old cops change
   # names or go into new namespaces. This is a library and we don't have

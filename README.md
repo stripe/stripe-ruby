@@ -14,8 +14,6 @@ The library also provides other features. For example:
 
 - Easy configuration path for fast setup and use.
 - Helpers for pagination.
-- Tracking of "fresh" values in API resources so that partial updates can be
-  executed.
 - Built-in mechanisms for the serialization of parameters according to the
   expectations of Stripe's API.
 
@@ -65,13 +63,11 @@ value:
 require "stripe"
 Stripe.api_key = "sk_test_..."
 
-# list charges
-Stripe::Charge.list()
+# list customers
+Stripe::Customer.list()
 
-# retrieve single charge
-Stripe::Charge.retrieve(
-  "ch_18atAXCdGbJFKhCuBAa4532Z",
-)
+# retrieve single customer
+Stripe::Customer.retrieve("cus_123456789")
 ```
 
 ### Per-request Configuration
@@ -83,7 +79,7 @@ per-request key and/or account:
 ```ruby
 require "stripe"
 
-Stripe::Charge.list(
+Stripe::Customer.list(
   {},
   {
     api_key: "sk_test_...",
@@ -92,8 +88,8 @@ Stripe::Charge.list(
   }
 )
 
-Stripe::Charge.retrieve(
-  "ch_18atAXCdGbJFKhCuBAa4532Z",
+Stripe::Customer.retrieve(
+  "cus_123456789",
   {
     api_key: "sk_test_...",
     stripe_account: "acct_...",
@@ -101,9 +97,9 @@ Stripe::Charge.retrieve(
   }
 )
 
-Stripe::Charge.retrieve(
+Stripe::Customer.retrieve(
   {
-    id: "ch_18atAXCdGbJFKhCuBAa4532Z",
+    id: "cus_123456789",
     expand: %w(balance_transaction)
   },
   {
@@ -112,8 +108,8 @@ Stripe::Charge.retrieve(
   }
 )
 
-Stripe::Charge.capture(
-  "ch_18atAXCdGbJFKhCuBAa4532Z",
+Stripe::Customer.capture(
+  "cus_123456789",
   {},
   {
     stripe_version: "2018-02-28",
@@ -123,6 +119,7 @@ Stripe::Charge.capture(
 ```
 
 Keep in mind that there are different method signatures depending on the action:
+
 - When operating on a collection (e.g. `.list`, `.create`) the method signature is
   `method(params, opts)`.
 - When operating on resource (e.g. `.capture`, `.update`) the method signature is
@@ -138,10 +135,8 @@ method:
 
 ```ruby
 client = Stripe::StripeClient.new
-charge, resp = client.request do
-  Stripe::Charge.retrieve(
-    "ch_18atAXCdGbJFKhCuBAa4532Z",
-  )
+customer, resp = client.request do
+  Stripe::Customer.retrieve("cus_123456789",)
 end
 puts resp.request_id
 ```
@@ -227,6 +222,7 @@ There are a few options for enabling it:
 The library has a hook for when a HTTP call is made which can be used for
 monitoring. The callback receives a `RequestEvent` object with the following
 data:
+
 - HTTP method (`Symbol`)
 - request path (`String`)
 - HTTP response code (`Integer`) if available, or `nil` in case of a lower
@@ -235,6 +231,7 @@ data:
 - the number of retries (`Integer`)
 
 For example:
+
 ```ruby
 Stripe::Instrumentation.subscribe(:request) do |request_event|
   tags = {

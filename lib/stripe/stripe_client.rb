@@ -450,19 +450,26 @@ module Stripe
 
     private def execute_request_with_rescues(method, api_base, context)
       num_retries = 0
+
       begin
-        request_start = Util.monotonic_time
+        request_start = nil
+        user_data = nil
+
         log_request(context, num_retries)
+        user_data = notify_request_begin(context)
+
+        request_start = Util.monotonic_time
         resp = yield
         request_duration = Util.monotonic_time - request_start
+
         http_status = resp.code.to_i
         context = context.dup_from_response_headers(resp)
 
         handle_error_response(resp, context) if http_status >= 400
 
         log_response(context, request_start, http_status, resp.body)
-        notify_subscribers(request_duration, http_status, context,
-                           num_retries)
+        notify_request_end(context, request_duration, http_status,
+                           num_retries, user_data)
 
         if Stripe.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
@@ -477,8 +484,8 @@ module Stripe
         # If we modify context we copy it into a new variable so as not to
         # taint the original on a retry.
         error_context = context
-        request_duration = Util.monotonic_time - request_start
         http_status = nil
+        request_duration = Util.monotonic_time - request_start if request_start
 
         if e.is_a?(Stripe::StripeError)
           error_context = context.dup_from_response_headers(e.http_headers)
@@ -488,7 +495,8 @@ module Stripe
         else
           log_response_error(error_context, request_start, e)
         end
-        notify_subscribers(request_duration, http_status, context, num_retries)
+        notify_request_end(context, request_duration, http_status, num_retries,
+                           user_data)
 
         if self.class.should_retry?(e, method: method, num_retries: num_retries)
           num_retries += 1
@@ -512,15 +520,39 @@ module Stripe
       resp
     end
 
-    private def notify_subscribers(duration, http_status, context, num_retries)
-      request_event = Instrumentation::RequestEvent.new(
+    private def notify_request_begin(context)
+      return unless Instrumentation.any_subscribers?(:request_begin)
+
+      event = Instrumentation::RequestBeginEvent.new(
+        method: context.method,
+        path: context.path,
+        user_data: {}
+      )
+      Stripe::Instrumentation.notify(:request_begin, event)
+
+      # This field may be set in the `request_begin` callback. If so, we'll
+      # forward it onto `request_end`.
+      event.user_data
+    end
+
+    private def notify_request_end(context, duration, http_status, num_retries,
+                                   user_data)
+      return if !Instrumentation.any_subscribers?(:request_end) &&
+                !Instrumentation.any_subscribers?(:request)
+
+      event = Instrumentation::RequestEndEvent.new(
         duration: duration,
         http_status: http_status,
         method: context.method,
         num_retries: num_retries,
-        path: context.path
+        path: context.path,
+        user_data: user_data || {}
       )
-      Stripe::Instrumentation.notify(:request, request_event)
+      Stripe::Instrumentation.notify(:request_end, event)
+
+      # The name before `request_begin` was also added. Provided for backwards
+      # compatibility.
+      Stripe::Instrumentation.notify(:request, event)
     end
 
     private def general_api_error(status, body)
@@ -772,8 +804,9 @@ module Stripe
     end
 
     private def log_response_error(context, request_start, error)
+      elapsed = request_start ? Util.monotonic_time - request_start : nil
       Util.log_error("Request error",
-                     elapsed: Util.monotonic_time - request_start,
+                     elapsed: elapsed,
                      error_message: error.message,
                      idempotency_key: context.idempotency_key,
                      method: context.method,

@@ -219,21 +219,43 @@ There are a few options for enabling it:
 
 ### Instrumentation
 
-The library has a hook for when a HTTP call is made which can be used for
-monitoring. The callback receives a `RequestEvent` object with the following
-data:
+The library has various hooks that user code can tie into by passing a block to
+`Stripe::Instrumentation.subscribe` to be notified about specific events.
 
-- HTTP method (`Symbol`)
-- request path (`String`)
-- HTTP response code (`Integer`) if available, or `nil` in case of a lower
-  level network error
-- request duration in seconds (`Float`)
-- the number of retries (`Integer`)
+#### `request_begin`
+
+Invoked when an HTTP request starts. Receives `RequestBeginEvent` with the
+following properties:
+
+- `method`: HTTP method. (`Symbol`)
+- `num_retries`: The number of retries. (`Integer`)
+- `user_data`: A hash on which users can set arbitrary data, and which will be
+  passed through to `request_end` invocations. This could be used, for example,
+  to assign unique IDs to each request, and it'd work even if many requests are
+  running in parallel. All subscribers share the same object for any particular
+  request, so they must be careful to use unique keys that will not conflict
+  with other subscribers. (`Hash`)
+
+#### `request_end`
+
+Invoked when an HTTP request finishes, regardless of whether it terminated with
+a success or error. Receives `RequestEndEvent` with the following properties:
+
+- `duration`: Request duration in seconds. (`Float`)
+- `http_status`: HTTP response code (`Integer`) if available, or `nil` in case
+  of a lower level network error.
+- `method`: HTTP method. (`Symbol`)
+- `num_retries`: The number of retries. (`Integer`)
+- `path`: Request path. (`String`)
+- `user_data`: A hash on which users may have set arbitrary data in
+  `request_begin`. See above for more information. (`Hash`)
+
+#### Example
 
 For example:
 
 ```ruby
-Stripe::Instrumentation.subscribe(:request) do |request_event|
+Stripe::Instrumentation.subscribe(:request_end) do |request_event|
   tags = {
     method: request_event.method,
     resource: request_event.path.split("/")[2],

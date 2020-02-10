@@ -44,14 +44,27 @@ module Stripe
       end
     end
 
-    context "RequestEvent" do
+    context "RequestEventBegin" do
       should "return a frozen object" do
-        event = Stripe::Instrumentation::RequestEvent.new(
+        event = Stripe::Instrumentation::RequestBeginEvent.new(
+          method: :get,
+          path: "/v1/test",
+          user_data: nil
+        )
+
+        assert(event.frozen?)
+      end
+    end
+
+    context "RequestEventEnd" do
+      should "return a frozen object" do
+        event = Stripe::Instrumentation::RequestEndEvent.new(
           duration: 0.1,
           http_status: 200,
           method: :get,
           num_retries: 0,
-          path: "/v1/test"
+          path: "/v1/test",
+          user_data: nil
         )
 
         assert(event.frozen?)

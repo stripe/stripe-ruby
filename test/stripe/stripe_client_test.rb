@@ -1150,9 +1150,23 @@ module Stripe
         Stripe::Instrumentation.unsubscribe(:request, :test)
       end
 
+      should "notify a subscribe on HTTP request start" do
+        events = []
+        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(object: "charge"))
+        Stripe::Charge.list
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event.method)
+        assert_equal("/v1/charges", event.path)
+      end
+
       should "notify a subscriber of a successful HTTP request" do
         events = []
-        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"))
@@ -1169,7 +1183,7 @@ module Stripe
 
       should "notify a subscriber of a StripeError" do
         events = []
-        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
         error = {
           code: "code",
@@ -1197,7 +1211,7 @@ module Stripe
 
       should "notify a subscriber of a network error" do
         events = []
-        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .to_raise(Net::OpenTimeout)
@@ -1210,6 +1224,40 @@ module Stripe
         assert_equal(:get, event.method)
         assert_equal("/v1/charges", event.path)
         assert_nil(event.http_status)
+        assert(event.duration.positive?)
+        assert_equal(0, event.num_retries)
+      end
+
+      should "pass `user_data` from `request_begin` to `request_end`" do
+        actual_user_data = nil
+
+        Stripe::Instrumentation.subscribe(:request_begin) do |event|
+          event.user_data[:foo] = :bar
+        end
+        Stripe::Instrumentation.subscribe(:request_end) do |event|
+          actual_user_data = event.user_data
+        end
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(object: "charge"))
+        Stripe::Charge.list
+
+        assert_equal({ foo: :bar }, actual_user_data)
+      end
+
+      should "provide backward compatibility on `request` topic" do
+        events = []
+        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(object: "charge"))
+        Stripe::Charge.list
+
+        assert_equal(1, events.size)
+        event = events.first
+        assert_equal(:get, event.method)
+        assert_equal("/v1/charges", event.path)
+        assert_equal(200, event.http_status)
         assert(event.duration.positive?)
         assert_equal(0, event.num_retries)
       end

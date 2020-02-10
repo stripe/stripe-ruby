@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.15.0 - 2020-02-10
+* [#902](https://github.com/stripe/stripe-ruby/pull/902) Add `request_begin` instrumentation callback
+
 ## 5.14.0 - 2020-01-14
 * [#896](https://github.com/stripe/stripe-ruby/pull/896) Add support for `CreditNoteLineItem`
 * [#894](https://github.com/stripe/stripe-ruby/pull/894) Clean up test output by capturing `$stderr` when we expect warnings

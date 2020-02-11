@@ -228,7 +228,7 @@ Invoked when an HTTP request starts. Receives `RequestBeginEvent` with the
 following properties:
 
 - `method`: HTTP method. (`Symbol`)
-- `num_retries`: The number of retries. (`Integer`)
+- `path`: Request path. (`String`)
 - `user_data`: A hash on which users can set arbitrary data, and which will be
   passed through to `request_end` invocations. This could be used, for example,
   to assign unique IDs to each request, and it'd work even if many requests are

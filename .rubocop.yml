@@ -58,6 +58,15 @@ Style/AccessModifierDeclarations:
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
 Style/NumericPredicate:
   Enabled: false
 

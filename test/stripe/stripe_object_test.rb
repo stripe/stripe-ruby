@@ -213,28 +213,28 @@ module Stripe
     should "mass assign values with #update_attributes" do
       obj = Stripe::StripeObject.construct_from(id: 1, name: "Stripe")
 
-      obj.update_attributes({ name: "STRIPE" }) # rubocop:disable Style/BracesAroundHashParameters
+      obj.update_attributes({ name: "STRIPE" })
 
       assert_equal "STRIPE", obj.name
 
       # unfortunately, we even assign unknown properties to duplicate the
       # behavior that we currently have via magic accessors with
       # method_missing
-      obj.update_attributes({ unknown: "foo" }) # rubocop:disable Style/BracesAroundHashParameters
+      obj.update_attributes({ unknown: "foo" })
 
       assert_equal "foo", obj.unknown
     end
 
     should "#update_attributes with a hash" do
       obj = Stripe::StripeObject.construct_from({})
-      obj.update_attributes({ metadata: { foo: "bar" } }) # rubocop:disable Style/BracesAroundHashParameters
+      obj.update_attributes({ metadata: { foo: "bar" } })
       assert_equal Stripe::StripeObject, obj.metadata.class
     end
 
     should "create accessors when #update_attributes is called" do
       obj = Stripe::StripeObject.construct_from({})
       assert_equal false, obj.send(:metaclass).method_defined?(:foo)
-      obj.update_attributes({ foo: "bar" }) # rubocop:disable Style/BracesAroundHashParameters
+      obj.update_attributes({ foo: "bar" })
       assert_equal true, obj.send(:metaclass).method_defined?(:foo)
     end
 
@@ -271,7 +271,7 @@ module Stripe
 
     should "#serialize_params on a basic object" do
       obj = Stripe::StripeObject.construct_from(foo: nil)
-      obj.update_attributes({ foo: "bar" }) # rubocop:disable Style/BracesAroundHashParameters
+      obj.update_attributes({ foo: "bar" })
       assert_equal({ foo: "bar" }, obj.serialize_params)
     end
 

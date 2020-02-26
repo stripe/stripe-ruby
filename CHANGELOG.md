@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.16.0 - 2020-02-26
+* [#906](https://github.com/stripe/stripe-ruby/pull/906) Add support for listing Checkout sessions
+* [#903](https://github.com/stripe/stripe-ruby/pull/903) Upgrade to Rubocop 0.80
+
 ## 5.15.0 - 2020-02-10
 * [#902](https://github.com/stripe/stripe-ruby/pull/902) Add `request_begin` instrumentation callback
 

@@ -25,6 +25,7 @@ module Stripe
       @http_status = http_status
       @http_body = http_body
       @http_headers = http_headers || {}
+      @idempotent_replayed = @http_headers["idempotent-replayed"] == "true"
       @json_body = json_body
       @code = code
       @request_id = @http_headers["request-id"]
@@ -35,6 +36,13 @@ module Stripe
       return nil if @json_body.nil? || !@json_body.key?(:error)
 
       ErrorObject.construct_from(@json_body[:error])
+    end
+
+    # Whether the error was the result of an idempotent replay, meaning that it
+    # originally occurred on a previous request and is being replayed back
+    # because the user sent the same idempotency key for this one.
+    def idempotent_replayed?
+      @idempotent_replayed
     end
 
     def to_s

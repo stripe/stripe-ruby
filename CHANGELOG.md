@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.17.0 - 2020-02-26
+* [#907](https://github.com/stripe/stripe-ruby/pull/907) Add `StripeError#idempotent_replayed?`
+
 ## 5.16.0 - 2020-02-26
 * [#906](https://github.com/stripe/stripe-ruby/pull/906) Add support for listing Checkout sessions
 * [#903](https://github.com/stripe/stripe-ruby/pull/903) Upgrade to Rubocop 0.80

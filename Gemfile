@@ -9,7 +9,10 @@ group :development do
   gem "mocha", "~> 0.13.2"
   gem "rack", ">= 2.0.6"
   gem "rake"
-  gem "shoulda-context"
+
+  # Update to 2.0.0 once it ships.
+  gem "shoulda-context", "2.0.0.rc4"
+
   gem "test-unit"
 
   # Version doesn't matter that much, but this one contains some fixes for Ruby

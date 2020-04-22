@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.18.0 - 2020-04-22
+* [#911](https://github.com/stripe/stripe-ruby/pull/911) Add support for `BillingPortal` namespace and `Session` resource and APIs
+
 ## 5.17.0 - 2020-02-26
 * [#907](https://github.com/stripe/stripe-ruby/pull/907) Add `StripeError#idempotent_replayed?`
 

@@ -6,10 +6,8 @@ module Stripe
   module Issuing
     class DisputeTest < Test::Unit::TestCase
       should "be creatable" do
-        dispute = Stripe::Issuing::Dispute.create(
-          reason: "fraudulent",
-          disputed_transaction: "ipi_123"
-        )
+        dispute = Stripe::Issuing::Dispute.create
+
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes"
         assert dispute.is_a?(Stripe::Issuing::Dispute)
       end
@@ -27,16 +25,8 @@ module Stripe
         assert dispute.is_a?(Stripe::Issuing::Dispute)
       end
 
-      should "be saveable" do
-        dispute = Stripe::Issuing::Dispute.retrieve("ich_123")
-        dispute.metadata["key"] = "value"
-        dispute.save
-        assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/#{dispute.id}"
-        assert dispute.is_a?(Stripe::Issuing::Dispute)
-      end
-
       should "be updateable" do
-        dispute = Stripe::Issuing::Dispute.update("ich_123", metadata: { foo: "bar" })
+        dispute = Stripe::Issuing::Dispute.update("ich_123", {})
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/ich_123"
         assert dispute.is_a?(Stripe::Issuing::Dispute)
       end

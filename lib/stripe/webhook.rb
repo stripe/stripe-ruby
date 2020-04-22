@@ -24,10 +24,14 @@ module Stripe
     module Signature
       EXPECTED_SCHEME = "v1"
 
-      def self.compute_signature(payload, secret)
+      # Compute a signature for a given payload, header and secret
+      def self.compute_signature(payload, header, secret)
+        timestamp, _signatures =
+            get_timestamp_and_signatures(header, EXPECTED_SCHEME)
+        
+        signed_payload = "#{timestamp}.#{payload}"
         OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), secret, payload)
       end
-      private_class_method :compute_signature
 
       # Extracts the timestamp and the signature(s) with the desired scheme
       # from the header
@@ -67,8 +71,8 @@ module Stripe
           )
         end
 
-        signed_payload = "#{timestamp}.#{payload}"
-        expected_sig = compute_signature(signed_payload, secret)
+        
+        expected_sig = compute_signature(payload, header, secret)
         unless signatures.any? { |s| Util.secure_compare(expected_sig, s) }
           raise SignatureVerificationError.new(
             "No signatures found matching the expected signature for payload",
@@ -85,6 +89,7 @@ module Stripe
 
         true
       end
+      
     end
   end
 end

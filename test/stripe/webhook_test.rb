@@ -13,12 +13,29 @@ module Stripe
     SECRET = "whsec_test_secret"
 
     def generate_header(opts = {})
-      opts[:timestamp] ||= Time.now.to_i
+      opts[:timestamp] ||= Time.now
       opts[:payload] ||= EVENT_PAYLOAD
       opts[:secret] ||= SECRET
       opts[:scheme] ||= Stripe::Webhook::Signature::EXPECTED_SCHEME
-      opts[:signature] ||= Stripe::Webhook::Signature.send(:compute_signature, "#{opts[:timestamp]}.#{opts[:payload]}", opts[:secret])
-      "t=#{opts[:timestamp]},#{opts[:scheme]}=#{opts[:signature]}"
+      opts[:signature] ||= Stripe::Webhook::Signature.compute_signature(
+        opts[:timestamp],
+        opts[:payload],
+        opts[:secret]
+      )
+      "t=#{opts[:timestamp].to_i},#{opts[:scheme]}=#{opts[:signature]}"
+    end
+
+    context ".compute_signature" do
+      should "compute a signature which can then be verified" do
+        timestamp = Time.now
+        signature = Stripe::Webhook::Signature.compute_signature(
+          timestamp,
+          EVENT_PAYLOAD,
+          SECRET
+        )
+        header = generate_header(timestamp: timestamp, signature: signature)
+        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET))
+      end
     end
 
     context ".construct_event" do
@@ -70,7 +87,7 @@ module Stripe
       end
 
       should "raise a SignatureVerificationError when the timestamp is not within the tolerance" do
-        header = generate_header(timestamp: Time.now.to_i - 15)
+        header = generate_header(timestamp: Time.now - 15)
         e = assert_raises(Stripe::SignatureVerificationError) do
           Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET, tolerance: 10)
         end
@@ -88,7 +105,7 @@ module Stripe
       end
 
       should "return true when the header contains a valid signature and the timestamp is off but no tolerance is provided" do
-        header = generate_header(timestamp: 12_345)
+        header = generate_header(timestamp: Time.at(12_345))
         assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET))
       end
     end

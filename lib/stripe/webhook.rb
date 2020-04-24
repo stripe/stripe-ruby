@@ -24,10 +24,20 @@ module Stripe
     module Signature
       EXPECTED_SCHEME = "v1"
 
-      def self.compute_signature(payload, secret)
-        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), secret, payload)
+      # Computes a webhook signature given a time (probably the current time),
+      # a payload, and a signing secret.
+      def self.compute_signature(timestamp, payload, secret)
+        raise ArgumentError, "timestamp should be an instance of Time" \
+          unless timestamp.is_a?(Time)
+        raise ArgumentError, "payload should be a string" \
+          unless payload.is_a?(String)
+        raise ArgumentError, "secret should be a string" \
+          unless secret.is_a?(String)
+
+        timestamped_payload = "#{timestamp.to_i}.#{payload}"
+        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), secret,
+                                timestamped_payload)
       end
-      private_class_method :compute_signature
 
       # Extracts the timestamp and the signature(s) with the desired scheme
       # from the header
@@ -35,7 +45,7 @@ module Stripe
         list_items = header.split(/,\s*/).map { |i| i.split("=", 2) }
         timestamp = Integer(list_items.select { |i| i[0] == "t" }[0][1])
         signatures = list_items.select { |i| i[0] == scheme }.map { |i| i[1] }
-        [timestamp, signatures]
+        [Time.at(timestamp), signatures]
       end
       private_class_method :get_timestamp_and_signatures
 
@@ -53,6 +63,11 @@ module Stripe
         begin
           timestamp, signatures =
             get_timestamp_and_signatures(header, EXPECTED_SCHEME)
+
+        # TODO: Try to knock over this blanket rescue as it can unintentionally
+        # swallow many valid errors. Instead, try to validate an incoming
+        # header one piece at a time, and error with a known exception class if
+        # any part is found to be invalid. Rescue that class here.
         rescue StandardError
           raise SignatureVerificationError.new(
             "Unable to extract timestamp and signatures from header",
@@ -67,8 +82,7 @@ module Stripe
           )
         end
 
-        signed_payload = "#{timestamp}.#{payload}"
-        expected_sig = compute_signature(signed_payload, secret)
+        expected_sig = compute_signature(timestamp, payload, secret)
         unless signatures.any? { |s| Util.secure_compare(expected_sig, s) }
           raise SignatureVerificationError.new(
             "No signatures found matching the expected signature for payload",
@@ -76,7 +90,7 @@ module Stripe
           )
         end
 
-        if tolerance && timestamp < Time.now.to_f - tolerance
+        if tolerance && timestamp < Time.now - tolerance
           raise SignatureVerificationError.new(
             "Timestamp outside the tolerance zone (#{Time.at(timestamp)})",
             header, http_body: payload

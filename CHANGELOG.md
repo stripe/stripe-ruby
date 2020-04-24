@@ -1,6 +1,6 @@
 # Changelog
 
-## - 2020-04-24
+## 5.19.0 - 2020-04-24
 * [#915](https://github.com/stripe/stripe-ruby/pull/915) Expose `Stripe::Webhook.compute_signature` publicly
 
 ## 5.18.0 - 2020-04-22

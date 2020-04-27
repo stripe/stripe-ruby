@@ -39,6 +39,23 @@ module Stripe
                                 timestamped_payload)
       end
 
+      # Generates a value that would be added to a `Stripe-Signature` for a
+      # given webhook payload.
+      #
+      # Note that this isn't needed to verify webhooks in any way, and is
+      # mainly here for use in test cases (those that are both within this
+      # project and without).
+      def self.generate_header(timestamp, signature, scheme: EXPECTED_SCHEME)
+        raise ArgumentError, "timestamp should be an instance of Time" \
+          unless timestamp.is_a?(Time)
+        raise ArgumentError, "signature should be a string" \
+          unless signature.is_a?(String)
+        raise ArgumentError, "scheme should be a string" \
+          unless scheme.is_a?(String)
+
+        "t=#{timestamp.to_i},#{scheme}=#{signature}"
+      end
+
       # Extracts the timestamp and the signature(s) with the desired scheme
       # from the header
       def self.get_timestamp_and_signatures(header, scheme)

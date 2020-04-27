@@ -22,7 +22,11 @@ module Stripe
         opts[:payload],
         opts[:secret]
       )
-      "t=#{opts[:timestamp].to_i},#{opts[:scheme]}=#{opts[:signature]}"
+      Stripe::Webhook::Signature.generate_header(
+        opts[:timestamp],
+        opts[:signature],
+        scheme: opts[:scheme]
+      )
     end
 
     context ".compute_signature" do
@@ -35,6 +39,24 @@ module Stripe
         )
         header = generate_header(timestamp: timestamp, signature: signature)
         assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, SECRET))
+      end
+    end
+
+    context ".generate_header" do
+      should "generate a header in valid format" do
+        timestamp = Time.now
+        signature = Stripe::Webhook::Signature.compute_signature(
+          timestamp,
+          EVENT_PAYLOAD,
+          SECRET
+        )
+        scheme = "v1"
+        header = Stripe::Webhook::Signature.generate_header(
+          timestamp,
+          signature,
+          scheme: scheme
+        )
+        assert_equal("t=#{timestamp.to_i},#{scheme}=#{signature}", header)
       end
     end
 

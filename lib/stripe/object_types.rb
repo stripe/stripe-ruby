@@ -58,6 +58,7 @@ module Stripe
         Payout::OBJECT_NAME => Payout,
         Person::OBJECT_NAME => Person,
         Plan::OBJECT_NAME => Plan,
+        Price::OBJECT_NAME => Price,
         Product::OBJECT_NAME => Product,
         Radar::EarlyFraudWarning::OBJECT_NAME => Radar::EarlyFraudWarning,
         Radar::ValueList::OBJECT_NAME => Radar::ValueList,

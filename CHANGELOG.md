@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.21.0 - 2020-04-29
+* [#917](https://github.com/stripe/stripe-ruby/pull/917) Add support for the `Price` resource and APIs
+
 ## 5.20.0 - 2020-04-27
 * [#916](https://github.com/stripe/stripe-ruby/pull/916) Add new `.generate_header` method for webhooks
 

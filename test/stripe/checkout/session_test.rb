@@ -36,6 +36,18 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_123"
         assert charge.is_a?(Stripe::Checkout::Session)
       end
+
+      context "#list_line_items" do
+        should "list the session's line items" do
+          sources = Stripe::Checkout::Session.list_line_items(
+            "cs_123"
+          )
+          assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_123/line_items"
+          assert sources.is_a?(Stripe::ListObject)
+          assert sources.data.is_a?(Array)
+          assert sources.data[0].is_a?(Stripe::LineItem)
+        end
+      end
     end
   end
 end

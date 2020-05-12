@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.22.0 - 2020-05-11
+* [#918](https://github.com/stripe/stripe-ruby/pull/918) Add support for the `LineItem` resource and APIs
+
 ## 5.21.0 - 2020-04-29
 * [#917](https://github.com/stripe/stripe-ruby/pull/917) Add support for the `Price` resource and APIs
 

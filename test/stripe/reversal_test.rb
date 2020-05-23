@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class ReversalTest < Test::Unit::TestCase
     setup do
-      @transfer = Stripe::Transfer.retrieve("tr_123")
+      @transfer = StripeClient.new.transfers.retrieve("tr_123")
     end
 
     should "be listable" do

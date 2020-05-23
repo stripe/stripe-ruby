@@ -31,7 +31,6 @@ require "stripe/object_types"
 require "stripe/util"
 require "stripe/connection_manager"
 require "stripe/multipart_encoder"
-require "stripe/stripe_client"
 require "stripe/stripe_object"
 require "stripe/stripe_response"
 require "stripe/list_object"
@@ -40,9 +39,14 @@ require "stripe/api_resource"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
 require "stripe/stripe_configuration"
+require "stripe/client_api_operations"
 
 # Named API resources
 require "stripe/resources"
+
+# StripeClient requires API Resources to be loaded
+# due to dynamic methods defined by ClientAPIOperations
+require "stripe/stripe_client"
 
 # OAuth
 require "stripe/oauth"

@@ -15,7 +15,7 @@ module Stripe
           "url" => "/v1/accounts/acct_123/login_links",
         },
       }
-      @account = Stripe::Account.construct_from(account_fixture)
+      @account = StripeClient.new.accounts.construct_from(account_fixture)
     end
 
     should "not be retrievable" do

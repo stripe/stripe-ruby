@@ -6,7 +6,7 @@ module Stripe
   module Checkout
     class SessionTest < Test::Unit::TestCase
       should "be creatable" do
-        session = Stripe::Checkout::Session.create(
+        session = StripeClient.new.checkout.sessions.create(
           cancel_url: "https://stripe.com/cancel",
           client_reference_id: "1234",
           line_items: [
@@ -32,14 +32,14 @@ module Stripe
       end
 
       should "be retrievable" do
-        charge = Stripe::Checkout::Session.retrieve("cs_123")
+        charge = StripeClient.new.checkout.sessions.retrieve("cs_123")
         assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_123"
         assert charge.is_a?(Stripe::Checkout::Session)
       end
 
       context "#list_line_items" do
         should "list the session's line items" do
-          sources = Stripe::Checkout::Session.list_line_items(
+          sources = StripeClient.new.checkout.sessions.list_line_items(
             "cs_123"
           )
           assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_123/line_items"

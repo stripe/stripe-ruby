@@ -6,7 +6,7 @@ module Stripe
   module Reporting
     class ReportRunTest < Test::Unit::TestCase
       should "be creatable" do
-        report_run = Stripe::Reporting::ReportRun.create(
+        report_run = StripeClient.new.reporting.report_runs.create(
           parameters: {
             connected_account: "acct_123",
           },
@@ -17,14 +17,14 @@ module Stripe
       end
 
       should "be listable" do
-        report_runs = Stripe::Reporting::ReportRun.list
+        report_runs = StripeClient.new.reporting.report_runs.list
         assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_runs"
         assert report_runs.data.is_a?(Array)
         assert report_runs.data[0].is_a?(Stripe::Reporting::ReportRun)
       end
 
       should "be retrievable" do
-        report_run = Stripe::Reporting::ReportRun.retrieve("frr_123")
+        report_run = StripeClient.new.reporting.report_runs.retrieve("frr_123")
         assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_runs/frr_123"
         assert report_run.is_a?(Stripe::Reporting::ReportRun)
       end

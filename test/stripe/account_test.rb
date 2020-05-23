@@ -5,26 +5,26 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class AccountTest < Test::Unit::TestCase
     should "be listable" do
-      accounts = Stripe::Account.list
+      accounts = StripeClient.new.accounts.list
       assert_requested :get, "#{Stripe.api_base}/v1/accounts"
       assert accounts.data.is_a?(Array)
       assert accounts.data[0].is_a?(Stripe::Account)
     end
 
     should "be retrievable using singular endpoint" do
-      account = Stripe::Account.retrieve
+      account = StripeClient.new.accounts.retrieve
       assert_requested :get, "#{Stripe.api_base}/v1/account"
       assert account.is_a?(Stripe::Account)
     end
 
     should "be retrievable using plural endpoint" do
-      account = Stripe::Account.retrieve("acct_123")
+      account = StripeClient.new.accounts.retrieve("acct_123")
       assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123"
       assert account.is_a?(Stripe::Account)
     end
 
     should "be rejectable" do
-      account = Stripe::Account.retrieve("acct_foo")
+      account = StripeClient.new.accounts.retrieve("acct_foo")
       account = account.reject(reason: "fraud")
       assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}/reject"
       assert account.is_a?(Stripe::Account)
@@ -32,34 +32,34 @@ module Stripe
 
     context ".reject" do
       should "reject the account" do
-        account = Stripe::Account.reject("acct_foo", reason: "fraud")
+        account = StripeClient.new.accounts.reject("acct_foo", reason: "fraud")
         assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}/reject"
         assert account.is_a?(Stripe::Account)
       end
     end
 
     should "be creatable" do
-      account = Stripe::Account.create(metadata: {}, type: "standard")
+      account = StripeClient.new.accounts.create(metadata: {}, type: "standard")
       assert_requested :post, "#{Stripe.api_base}/v1/accounts"
       assert account.is_a?(Stripe::Account)
     end
 
     should "be saveable" do
-      account = Stripe::Account.retrieve("acct_123")
+      account = StripeClient.new.accounts.retrieve("acct_123")
       account.metadata["key"] = "value"
       account.save
       assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}"
     end
 
     should "be updateable" do
-      account = Stripe::Account.update("acct_123", metadata: { foo: "bar" })
+      account = StripeClient.new.accounts.update("acct_123", metadata: { foo: "bar" })
       assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123"
       assert account.is_a?(Stripe::Account)
     end
 
     context "#delete" do
       should "be deletable" do
-        account = Stripe::Account.retrieve("acct_123")
+        account = StripeClient.new.accounts.retrieve("acct_123")
         account = account.delete
         assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{account.id}"
         assert account.is_a?(Stripe::Account)
@@ -68,14 +68,14 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        account = Stripe::Account.delete("acct_123")
+        account = StripeClient.new.accounts.delete("acct_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_123"
         assert account.is_a?(Stripe::Account)
       end
     end
 
     should "be able to list Persons" do
-      account = Stripe::Account.retrieve("acct_123")
+      account = StripeClient.new.accounts.retrieve("acct_123")
       persons = account.persons
       assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/persons"
       assert persons.data.is_a?(Array)
@@ -84,7 +84,7 @@ module Stripe
 
     context "#deauthorize" do
       should "deauthorize an account" do
-        account = Stripe::Account.retrieve("acct_123")
+        account = StripeClient.new.accounts.retrieve("acct_123")
 
         # Unfortunately, the OpenAPI spec doesn't yet cover anything under the
         # Connect endpoints, so for just stub this out with Webmock.
@@ -93,11 +93,25 @@ module Stripe
           .to_return(body: JSON.generate("stripe_user_id" => account.id))
         account.deauthorize("ca_1234", "sk_test_1234")
       end
+
+      context "when the caller is a StripeClient" do
+        should "use the StripeClient options" do
+          client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+          account = client.accounts.retrieve("acct_123")
+
+          stub_request(:post, "https://other.stripe.com/oauth/deauthorize")
+            .with(body: { "client_id" => "ca_1234", "stripe_user_id" => account.id })
+            .to_return(body: JSON.generate("stripe_user_id" => account.id))
+          resp = account.deauthorize("ca_1234", "sk_test_1234")
+
+          assert_equal(account.id, resp.stripe_user_id)
+        end
+      end
     end
 
     context "#legal_entity=" do
       should "disallow direct overrides" do
-        account = Stripe::Account.construct_from(
+        account = StripeClient.new.accounts.construct_from(
           id: "acct_123",
           legal_entity: {
             first_name: "name",
@@ -252,7 +266,7 @@ module Stripe
 
     context "#retrieve_capability" do
       should "retrieve a capability" do
-        capability = Stripe::Account.retrieve_capability(
+        capability = StripeClient.new.accounts.retrieve_capability(
           "acct_123",
           "acap_123"
         )
@@ -263,7 +277,7 @@ module Stripe
 
     context "#update_capability" do
       should "update a capability" do
-        capability = Stripe::Account.update_capability(
+        capability = StripeClient.new.accounts.update_capability(
           "acct_123",
           "acap_123",
           requested: true
@@ -275,7 +289,7 @@ module Stripe
 
     context "#list_capabilities" do
       should "list the account's external accounts" do
-        capabilities = Stripe::Account.list_capabilities(
+        capabilities = StripeClient.new.accounts.list_capabilities(
           "acct_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/capabilities"
@@ -286,7 +300,7 @@ module Stripe
 
     context "#create_external_account" do
       should "create an external account" do
-        external_account = Stripe::Account.create_external_account(
+        external_account = StripeClient.new.accounts.create_external_account(
           "acct_123",
           external_account: "btok_123"
         )
@@ -297,7 +311,7 @@ module Stripe
 
     context "#retrieve_external_account" do
       should "retrieve an external account" do
-        external_account = Stripe::Account.retrieve_external_account(
+        external_account = StripeClient.new.accounts.retrieve_external_account(
           "acct_123",
           "ba_123"
         )
@@ -308,7 +322,7 @@ module Stripe
 
     context "#update_external_account" do
       should "update an external account" do
-        external_account = Stripe::Account.update_external_account(
+        external_account = StripeClient.new.accounts.update_external_account(
           "acct_123",
           "ba_123",
           metadata: { foo: "bar" }
@@ -320,7 +334,7 @@ module Stripe
 
     context "#delete_external_account" do
       should "delete an external_account" do
-        external_account = Stripe::Account.delete_external_account(
+        external_account = StripeClient.new.accounts.delete_external_account(
           "acct_123",
           "ba_123"
         )
@@ -332,7 +346,7 @@ module Stripe
 
     context "#list_external_accounts" do
       should "list the account's external accounts" do
-        external_accounts = Stripe::Account.list_external_accounts(
+        external_accounts = StripeClient.new.accounts.list_external_accounts(
           "acct_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/external_accounts"
@@ -343,7 +357,7 @@ module Stripe
 
     context "#create_login_link" do
       should "create a login link" do
-        login_link = Stripe::Account.create_login_link(
+        login_link = StripeClient.new.accounts.create_login_link(
           "acct_123"
         )
         assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_123/login_links"
@@ -353,7 +367,7 @@ module Stripe
 
     context "#create_person" do
       should "create a person" do
-        person = Stripe::Account.create_person(
+        person = StripeClient.new.accounts.create_person(
           "acct_123",
           first_name: "John",
           last_name: "Doe"
@@ -365,7 +379,7 @@ module Stripe
 
     context "#retrieve_person" do
       should "retrieve a person" do
-        person = Stripe::Account.retrieve_person(
+        person = StripeClient.new.accounts.retrieve_person(
           "acct_123",
           "person_123"
         )
@@ -376,7 +390,7 @@ module Stripe
 
     context "#update_person" do
       should "update a person" do
-        person = Stripe::Account.update_person(
+        person = StripeClient.new.accounts.update_person(
           "acct_123",
           "person_123",
           first_name: "John"
@@ -388,7 +402,7 @@ module Stripe
 
     context "#delete_person" do
       should "delete an person" do
-        person = Stripe::Account.delete_person(
+        person = StripeClient.new.accounts.delete_person(
           "acct_123",
           "person_123"
         )
@@ -400,7 +414,7 @@ module Stripe
 
     context "#list_persons" do
       should "list the account's external accounts" do
-        persons = Stripe::Account.list_persons(
+        persons = StripeClient.new.accounts.list_persons(
           "acct_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_123/persons"

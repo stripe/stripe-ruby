@@ -11,7 +11,7 @@ module Stripe
       stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
         .to_return(body: JSON.generate(customer_json))
 
-      @customer = Stripe::Customer.retrieve("cus_123")
+      @customer = StripeClient.new.customers.retrieve("cus_123")
     end
 
     should "be listable" do
@@ -30,16 +30,16 @@ module Stripe
     end
 
     should "be deletable" do
-      card = Stripe::Card.construct_from(customer: @customer.id,
-                                         id: "card_123")
+      card = StripeClient.new.cards.construct_from(customer: @customer.id,
+                                                   id: "card_123")
       card.delete
       assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
     end
 
     should "be saveable" do
-      card = Stripe::Card.construct_from(customer: @customer.id,
-                                         id: "card_123",
-                                         metadata: {})
+      card = StripeClient.new.cards.construct_from(customer: @customer.id,
+                                                   id: "card_123",
+                                                   metadata: {})
       card.metadata["key"] = "value"
       card.save
       assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"

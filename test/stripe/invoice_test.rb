@@ -5,20 +5,20 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class InvoiceTest < Test::Unit::TestCase
     should "be listable" do
-      invoices = Stripe::Invoice.list
+      invoices = StripeClient.new.invoices.list
       assert_requested :get, "#{Stripe.api_base}/v1/invoices"
       assert invoices.data.is_a?(Array)
       assert invoices.first.is_a?(Stripe::Invoice)
     end
 
     should "be retrievable" do
-      invoice = Stripe::Invoice.retrieve("in_123")
+      invoice = StripeClient.new.invoices.retrieve("in_123")
       assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_123"
       assert invoice.is_a?(Stripe::Invoice)
     end
 
     should "be creatable" do
-      invoice = Stripe::Invoice.create(
+      invoice = StripeClient.new.invoices.create(
         customer: "cus_123"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/invoices"
@@ -26,21 +26,21 @@ module Stripe
     end
 
     should "be saveable" do
-      invoice = Stripe::Invoice.retrieve("in_123")
+      invoice = StripeClient.new.invoices.retrieve("in_123")
       invoice.metadata["key"] = "value"
       invoice.save
       assert_requested :post, "#{Stripe.api_base}/v1/invoices/#{invoice.id}"
     end
 
     should "be updateable" do
-      invoice = Stripe::Invoice.update("in_123", metadata: { key: "value" })
+      invoice = StripeClient.new.invoices.update("in_123", metadata: { key: "value" })
       assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123"
       assert invoice.is_a?(Stripe::Invoice)
     end
 
     context "#delete" do
       should "be deletable" do
-        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = StripeClient.new.invoices.retrieve("in_123")
         invoice = invoice.delete
         assert_requested :delete, "#{Stripe.api_base}/v1/invoices/#{invoice.id}"
         assert invoice.is_a?(Stripe::Invoice)
@@ -49,7 +49,7 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        invoice = Stripe::Invoice.delete("in_123")
+        invoice = StripeClient.new.invoices.delete("in_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/invoices/in_123"
         assert invoice.is_a?(Stripe::Invoice)
       end
@@ -57,7 +57,7 @@ module Stripe
 
     context "#finalize" do
       should "finalize invoice" do
-        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = StripeClient.new.invoices.retrieve("in_123")
         invoice = invoice.finalize_invoice
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/finalize"
@@ -67,7 +67,7 @@ module Stripe
 
     context ".finalize" do
       should "finalize invoice" do
-        invoice = Stripe::Invoice.finalize_invoice("in_123")
+        invoice = StripeClient.new.invoices.finalize_invoice("in_123")
         assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/finalize"
         assert invoice.is_a?(Stripe::Invoice)
       end
@@ -75,7 +75,7 @@ module Stripe
 
     context "#mark_uncollectible" do
       should "mark invoice as uncollectible" do
-        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = StripeClient.new.invoices.retrieve("in_123")
         invoice = invoice.mark_uncollectible
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/mark_uncollectible"
@@ -85,7 +85,7 @@ module Stripe
 
     context ".mark_uncollectible" do
       should "mark invoice as uncollectible" do
-        invoice = Stripe::Invoice.mark_uncollectible("in_123")
+        invoice = StripeClient.new.invoices.mark_uncollectible("in_123")
         assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/mark_uncollectible"
         assert invoice.is_a?(Stripe::Invoice)
       end
@@ -93,7 +93,7 @@ module Stripe
 
     context "#pay" do
       should "pay invoice" do
-        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = StripeClient.new.invoices.retrieve("in_123")
         invoice = invoice.pay
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/pay"
@@ -101,7 +101,7 @@ module Stripe
       end
 
       should "pay invoice with a specific source" do
-        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = StripeClient.new.invoices.retrieve("in_123")
         invoice = invoice.pay(
           source: "src_123"
         )
@@ -116,7 +116,7 @@ module Stripe
 
     context ".pay" do
       should "pay invoice" do
-        invoice = Stripe::Invoice.pay("in_123", source: "src_123")
+        invoice = StripeClient.new.invoices.pay("in_123", source: "src_123")
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/in_123/pay",
                          body: { source: "src_123" }
@@ -126,7 +126,7 @@ module Stripe
 
     context "#send_invoice" do
       should "send invoice" do
-        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = StripeClient.new.invoices.retrieve("in_123")
         invoice = invoice.send_invoice
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/send"
@@ -136,7 +136,7 @@ module Stripe
 
     context ".send_invoice" do
       should "send invoice" do
-        invoice = Stripe::Invoice.send_invoice("in_123")
+        invoice = StripeClient.new.invoices.send_invoice("in_123")
         assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/send"
         assert invoice.is_a?(Stripe::Invoice)
       end
@@ -144,7 +144,7 @@ module Stripe
 
     context ".upcoming" do
       should "retrieve upcoming invoices" do
-        invoice = Stripe::Invoice.upcoming(
+        invoice = StripeClient.new.invoices.upcoming(
           customer: "cus_123",
           subscription: "sub_123"
         )
@@ -162,7 +162,7 @@ module Stripe
           { id: "si_123", deleted: true },
         ]
 
-        invoice = Stripe::Invoice.upcoming(
+        invoice = StripeClient.new.invoices.upcoming(
           customer: "cus_123",
           subscription_items: items
         )
@@ -179,7 +179,7 @@ module Stripe
       end
 
       should "be callable with an empty string" do
-        invoice = Stripe::Invoice.upcoming(
+        invoice = StripeClient.new.invoices.upcoming(
           coupon: "",
           customer: "cus_123"
         )
@@ -194,7 +194,7 @@ module Stripe
 
     context ".list_upcoming_line_items" do
       should "retrieve upcoming invoices" do
-        line_items = Stripe::Invoice.list_upcoming_line_items(
+        line_items = StripeClient.new.invoices.list_upcoming_line_items(
           customer: "cus_123",
           subscription: "sub_123"
         )
@@ -210,7 +210,7 @@ module Stripe
 
     context "#void_invoice" do
       should "void invoice" do
-        invoice = Stripe::Invoice.retrieve("in_123")
+        invoice = StripeClient.new.invoices.retrieve("in_123")
         invoice = invoice.void_invoice
         assert_requested :post,
                          "#{Stripe.api_base}/v1/invoices/#{invoice.id}/void"
@@ -220,7 +220,7 @@ module Stripe
 
     context ".void_invoice" do
       should "void invoice" do
-        invoice = Stripe::Invoice.void_invoice("in_123")
+        invoice = StripeClient.new.invoices.void_invoice("in_123")
         assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_123/void"
         assert invoice.is_a?(Stripe::Invoice)
       end

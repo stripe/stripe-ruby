@@ -7,6 +7,8 @@ module Stripe
   # recover both a resource a call returns as well as a response object that
   # contains information on the HTTP call.
   class StripeClient
+    include Stripe::ClientAPIOperations
+
     # A set of all known thread contexts across all threads and a mutex to
     # synchronize global access to them.
     @thread_contexts_with_connection_managers = Set.new

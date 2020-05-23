@@ -6,7 +6,7 @@ module Stripe
   class TaxIdTest < Test::Unit::TestCase
     context "#resource_url" do
       should "return a resource URL" do
-        tax_id = Stripe::TaxId.construct_from(
+        tax_id = StripeClient.new.tax_ids.construct_from(
           id: "txi_123",
           customer: "cus_123"
         )
@@ -15,7 +15,7 @@ module Stripe
       end
 
       should "raise without a customer" do
-        tax_id = Stripe::TaxId.construct_from(id: "txi_123")
+        tax_id = StripeClient.new.tax_ids.construct_from(id: "txi_123")
         assert_raises NotImplementedError do
           tax_id.resource_url
         end
@@ -24,7 +24,7 @@ module Stripe
 
     should "raise on #retrieve" do
       assert_raises NotImplementedError do
-        Stripe::TaxId.retrieve("txi_123")
+        StripeClient.new.tax_ids.retrieve("txi_123")
       end
     end
   end

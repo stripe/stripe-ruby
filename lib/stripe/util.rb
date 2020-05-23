@@ -39,8 +39,14 @@ module Stripe
       end
     end
 
+    # Returns a hash of all Stripe object classes.
     def self.object_classes
       @object_classes ||= Stripe::ObjectTypes.object_names_to_classes
+    end
+
+    # Returns a hash containling only Stripe API object classes.
+    def self.api_object_classes
+      @api_object_classes ||= ::Stripe::ObjectTypes.api_object_names_to_classes
     end
 
     def self.object_name_matches_class?(object_name, klass)

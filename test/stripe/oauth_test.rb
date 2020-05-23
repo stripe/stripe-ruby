@@ -28,7 +28,6 @@ module Stripe
         assert_equal("https", uri.scheme)
         assert_equal("connect.stripe.com", uri.host)
         assert_equal("/oauth/authorize", uri.path)
-
         assert_equal(["ca_test"], params["client_id"])
         assert_equal(["read_write"], params["scope"])
         assert_equal(["test@example.com"], params["stripe_user[email]"])

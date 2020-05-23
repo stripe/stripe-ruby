@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class SubscriptionItemTest < Test::Unit::TestCase
     should "be listable" do
-      items = Stripe::SubscriptionItem.list(
+      items = StripeClient.new.subscription_items.list(
         subscription: "sub_123"
       )
       assert_requested :get, "#{Stripe.api_base}/v1/subscription_items",
@@ -15,13 +15,13 @@ module Stripe
     end
 
     should "be retrievable" do
-      item = Stripe::SubscriptionItem.retrieve("si_123")
+      item = StripeClient.new.subscription_items.retrieve("si_123")
       assert_requested :get, "#{Stripe.api_base}/v1/subscription_items/si_123"
       assert item.is_a?(Stripe::SubscriptionItem)
     end
 
     should "be creatable" do
-      item = Stripe::SubscriptionItem.create(
+      item = StripeClient.new.subscription_items.create(
         price: "sapphire-elite",
         quantity: 3,
         subscription: "sub_123"
@@ -31,21 +31,21 @@ module Stripe
     end
 
     should "be saveable" do
-      item = Stripe::SubscriptionItem.retrieve("si_123")
+      item = StripeClient.new.subscription_items.retrieve("si_123")
       item.quantity = 4
       item.save
       assert_requested :post, "#{Stripe.api_base}/v1/subscription_items/#{item.id}"
     end
 
     should "be updateable" do
-      item = Stripe::SubscriptionItem.update("si_123", metadata: { foo: "bar" })
+      item = StripeClient.new.subscription_items.update("si_123", metadata: { foo: "bar" })
       assert_requested :post, "#{Stripe.api_base}/v1/subscription_items/si_123"
       assert item.is_a?(Stripe::SubscriptionItem)
     end
 
     context "#delete" do
       should "be deletable" do
-        item = Stripe::SubscriptionItem.retrieve("si_123")
+        item = StripeClient.new.subscription_items.retrieve("si_123")
         item = item.delete
         assert_requested :delete, "#{Stripe.api_base}/v1/subscription_items/#{item.id}"
         assert item.is_a?(Stripe::SubscriptionItem)
@@ -54,7 +54,7 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        item = Stripe::SubscriptionItem.delete("si_123")
+        item = StripeClient.new.subscription_items.delete("si_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/subscription_items/si_123"
         assert item.is_a?(Stripe::SubscriptionItem)
       end
@@ -62,7 +62,7 @@ module Stripe
 
     context "#create_usage_record" do
       should "create a usage record" do
-        Stripe::SubscriptionItem.create_usage_record(
+        StripeClient.new.subscription_items.create_usage_record(
           "si_123",
           quantity: 5000,
           timestamp: Time.now.to_i,
@@ -74,7 +74,7 @@ module Stripe
 
     context "#list_usage_record_summaries" do
       should "list usage record summaries" do
-        Stripe::SubscriptionItem.list_usage_record_summaries(
+        StripeClient.new.subscription_items.list_usage_record_summaries(
           "si_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/subscription_items/si_123/usage_record_summaries"

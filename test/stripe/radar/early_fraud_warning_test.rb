@@ -6,14 +6,14 @@ module Stripe
   module Radar
     class EarlyFraudWarningTest < Test::Unit::TestCase
       should "be listable" do
-        warnings = Stripe::Radar::EarlyFraudWarning.list
+        warnings = StripeClient.new.radar.early_fraud_warnings.list
         assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings"
         assert warnings.data.is_a?(Array)
         assert warnings.data[0].is_a?(Stripe::Radar::EarlyFraudWarning)
       end
 
       should "be retrievable" do
-        warning = Stripe::Radar::EarlyFraudWarning.retrieve("issfr_123")
+        warning = StripeClient.new.radar.early_fraud_warnings.retrieve("issfr_123")
         assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings/issfr_123"
         assert warning.is_a?(Stripe::Radar::EarlyFraudWarning)
       end

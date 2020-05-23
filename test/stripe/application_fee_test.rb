@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class ApplicationFeeTest < Test::Unit::TestCase
     should "be listable" do
-      fees = Stripe::ApplicationFee.list
+      fees = StripeClient.new.application_fees.list
       assert_requested :get, "#{Stripe.api_base}/v1/application_fees"
       assert fees.data.is_a?(Array)
       assert fees.data[0].is_a?(Stripe::ApplicationFee)
@@ -13,7 +13,7 @@ module Stripe
 
     context "#create_refund" do
       should "create a refund" do
-        refund = Stripe::ApplicationFee.create_refund(
+        refund = StripeClient.new.application_fees.create_refund(
           "fee_123"
         )
         assert_requested :post, "#{Stripe.api_base}/v1/application_fees/fee_123/refunds"
@@ -23,7 +23,7 @@ module Stripe
 
     context "#retrieve_refund" do
       should "retrieve a refund" do
-        refund = Stripe::ApplicationFee.retrieve_refund(
+        refund = StripeClient.new.application_fees.retrieve_refund(
           "fee_123",
           "fr_123"
         )
@@ -34,7 +34,7 @@ module Stripe
 
     context "#update_refund" do
       should "update a refund" do
-        refund = Stripe::ApplicationFee.update_refund(
+        refund = StripeClient.new.application_fees.update_refund(
           "fee_123",
           "fr_123",
           metadata: { foo: "bar" }
@@ -46,7 +46,7 @@ module Stripe
 
     context "#list_refunds" do
       should "list the application fee's refuns" do
-        refunds = Stripe::ApplicationFee.list_refunds(
+        refunds = StripeClient.new.application_fees.list_refunds(
           "fee_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_123/refunds"

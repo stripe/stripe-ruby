@@ -6,7 +6,7 @@ module Stripe
   class PersonTest < Test::Unit::TestCase
     context "#resource_url" do
       should "return a resource URL" do
-        person = Stripe::Person.construct_from(
+        person = StripeClient.new.persons.construct_from(
           id: "person_123",
           account: "acct_123"
         )
@@ -15,7 +15,7 @@ module Stripe
       end
 
       should "raise without an account" do
-        person = Stripe::Person.construct_from(id: "person_123")
+        person = StripeClient.new.persons.construct_from(id: "person_123")
         assert_raises NotImplementedError do
           person.resource_url
         end
@@ -24,13 +24,13 @@ module Stripe
 
     should "raise on #retrieve" do
       assert_raises NotImplementedError do
-        Stripe::Person.retrieve("person_123")
+        StripeClient.new.persons.retrieve("person_123")
       end
     end
 
     should "raise on #update" do
       assert_raises NotImplementedError do
-        Stripe::Person.update("person_123", {})
+        StripeClient.new.persons.update("person_123", {})
       end
     end
 

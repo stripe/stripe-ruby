@@ -6,7 +6,7 @@ module Stripe
   module BillingPortal
     class SessionTest < Test::Unit::TestCase
       should "be creatable" do
-        session = Stripe::BillingPortal::Session.create(
+        session = StripeClient.new.billing_portal.sessions.create(
           customer: "cus_123",
           return_url: "https://stripe.com/return"
         )

@@ -136,6 +136,7 @@ module Stripe
         client_id: client_id,
         stripe_user_id: id,
       }
+      opts = @opts.merge(Util.normalize_opts(opts))
       OAuth.deauthorize(params, opts)
     end
 

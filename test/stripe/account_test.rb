@@ -93,6 +93,20 @@ module Stripe
           .to_return(body: JSON.generate("stripe_user_id" => account.id))
         account.deauthorize("ca_1234", "sk_test_1234")
       end
+
+      context "when the caller is a StripeClient" do
+        should "use the StripeClient options" do
+          client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+          account = client.accounts.retrieve("acct_123")
+
+          stub_request(:post, "https://other.stripe.com/oauth/deauthorize")
+            .with(body: { "client_id" => "ca_1234", "stripe_user_id" => account.id })
+            .to_return(body: JSON.generate("stripe_user_id" => account.id))
+          resp = account.deauthorize("ca_1234", "sk_test_1234")
+
+          assert_equal(account.id, resp.stripe_user_id)
+        end
+      end
     end
 
     context "#legal_entity=" do

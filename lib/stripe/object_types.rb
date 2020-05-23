@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/MethodLength
-
 module Stripe
   module ObjectTypes
     def self.object_names_to_classes
       {
         # data structures
         ListObject::OBJECT_NAME => ListObject,
+      }.merge(api_object_names_to_classes)
+    end
 
-        # business objects
+    def self.api_object_names_to_classes
+      {
         Account::OBJECT_NAME => Account,
         AccountLink::OBJECT_NAME => AccountLink,
         AlipayAccount::OBJECT_NAME => AlipayAccount,
@@ -97,5 +99,4 @@ module Stripe
     end
   end
 end
-
 # rubocop:enable Metrics/MethodLength

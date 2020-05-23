@@ -164,7 +164,7 @@ module Stripe
 
     context ".should_retry?" do
       setup do
-        Stripe.stubs(:max_network_retries).returns(2)
+        Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
       end
 
       should "retry on Errno::ECONNREFUSED" do
@@ -275,7 +275,7 @@ module Stripe
     context ".sleep_time" do
       should "should grow exponentially" do
         StripeClient.stubs(:rand).returns(1)
-        Stripe.stubs(:max_network_retry_delay).returns(999)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(999)
         assert_equal(Stripe.initial_network_retry_delay, StripeClient.sleep_time(1))
         assert_equal(Stripe.initial_network_retry_delay * 2, StripeClient.sleep_time(2))
         assert_equal(Stripe.initial_network_retry_delay * 4, StripeClient.sleep_time(3))
@@ -284,8 +284,8 @@ module Stripe
 
       should "enforce the max_network_retry_delay" do
         StripeClient.stubs(:rand).returns(1)
-        Stripe.stubs(:initial_network_retry_delay).returns(1)
-        Stripe.stubs(:max_network_retry_delay).returns(2)
+        Stripe.configuration.stubs(:initial_network_retry_delay).returns(1)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(2)
         assert_equal(1, StripeClient.sleep_time(1))
         assert_equal(2, StripeClient.sleep_time(2))
         assert_equal(2, StripeClient.sleep_time(3))
@@ -295,8 +295,8 @@ module Stripe
       should "add some randomness" do
         random_value = 0.8
         StripeClient.stubs(:rand).returns(random_value)
-        Stripe.stubs(:initial_network_retry_delay).returns(1)
-        Stripe.stubs(:max_network_retry_delay).returns(8)
+        Stripe.configuration.stubs(:initial_network_retry_delay).returns(1)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(8)
 
         base_value = Stripe.initial_network_retry_delay * (0.5 * (1 + random_value))
 
@@ -308,6 +308,23 @@ module Stripe
         assert_equal(base_value * 2, StripeClient.sleep_time(2))
         assert_equal(base_value * 4, StripeClient.sleep_time(3))
         assert_equal(base_value * 8, StripeClient.sleep_time(4))
+      end
+
+      should "permit passing in a configuration object" do
+        StripeClient.stubs(:rand).returns(1)
+        config = Stripe::StripeConfiguration.setup do |c|
+          c.initial_network_retry_delay = 1
+          c.max_network_retry_delay = 2
+        end
+
+        # Set the global configuration to be different than the client
+        Stripe.configuration.stubs(:initial_network_retry_delay).returns(100)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(200)
+
+        assert_equal(1, StripeClient.sleep_time(1, config: config))
+        assert_equal(2, StripeClient.sleep_time(2, config: config))
+        assert_equal(2, StripeClient.sleep_time(3, config: config))
+        assert_equal(2, StripeClient.sleep_time(4, config: config))
       end
     end
 
@@ -342,6 +359,10 @@ module Stripe
           # switch over to rspec-mocks at some point, we can probably remove
           # this.
           Util.stubs(:monotonic_time).returns(0.0)
+
+          # Stub the Stripe configuration so that mocha matchers will succeed. Currently,
+          # mocha does not support using param matchers within hashes.
+          StripeClient.any_instance.stubs(:config).returns(Stripe.configuration)
         end
 
         should "produce appropriate logging" do
@@ -353,11 +374,13 @@ module Stripe
                                        idempotency_key: "abc",
                                        method: :post,
                                        num_retries: 0,
-                                       path: "/v1/account")
+                                       path: "/v1/account",
+                                       config: Stripe.configuration)
           Util.expects(:log_debug).with("Request details",
                                         body: "",
                                         idempotency_key: "abc",
-                                        query: nil)
+                                        query: nil,
+                                        config: Stripe.configuration)
 
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: "acct_123",
@@ -367,15 +390,18 @@ module Stripe
                                        method: :post,
                                        path: "/v1/account",
                                        request_id: "req_123",
-                                       status: 200)
+                                       status: 200,
+                                       config: Stripe.configuration)
           Util.expects(:log_debug).with("Response details",
                                         body: body,
                                         idempotency_key: "abc",
-                                        request_id: "req_123")
+                                        request_id: "req_123",
+                                        config: Stripe.configuration)
           Util.expects(:log_debug).with("Dashboard link for request",
                                         idempotency_key: "abc",
                                         request_id: "req_123",
-                                        url: Util.request_id_dashboard_url("req_123", Stripe.api_key))
+                                        url: Util.request_id_dashboard_url("req_123", Stripe.api_key),
+                                        config: Stripe.configuration)
 
           stub_request(:post, "#{Stripe.api_base}/v1/account")
             .to_return(
@@ -404,7 +430,8 @@ module Stripe
                                        idempotency_key: nil,
                                        method: :post,
                                        num_retries: 0,
-                                       path: "/v1/account")
+                                       path: "/v1/account",
+                                       config: Stripe.configuration)
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: nil,
                                        api_version: nil,
@@ -413,7 +440,8 @@ module Stripe
                                        method: :post,
                                        path: "/v1/account",
                                        request_id: nil,
-                                       status: 500)
+                                       status: 500,
+                                       config: Stripe.configuration)
 
           error = {
             code: "code",
@@ -428,7 +456,8 @@ module Stripe
                                         error_param: error[:param],
                                         error_type: error[:type],
                                         idempotency_key: nil,
-                                        request_id: nil)
+                                        request_id: nil,
+                                        config: Stripe.configuration)
 
           stub_request(:post, "#{Stripe.api_base}/v1/account")
             .to_return(
@@ -449,7 +478,8 @@ module Stripe
                                        idempotency_key: nil,
                                        method: :post,
                                        num_retries: 0,
-                                       path: "/oauth/token")
+                                       path: "/oauth/token",
+                                       config: Stripe.configuration)
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: nil,
                                        api_version: nil,
@@ -458,14 +488,16 @@ module Stripe
                                        method: :post,
                                        path: "/oauth/token",
                                        request_id: nil,
-                                       status: 400)
+                                       status: 400,
+                                       config: Stripe.configuration)
 
           Util.expects(:log_error).with("Stripe OAuth error",
                                         status: 400,
                                         error_code: "invalid_request",
                                         error_description: "No grant type specified",
                                         idempotency_key: nil,
-                                        request_id: nil)
+                                        request_id: nil,
+                                        config: Stripe.configuration)
 
           stub_request(:post, "#{Stripe.connect_base}/oauth/token")
             .to_return(body: JSON.generate(error: "invalid_request",
@@ -788,7 +820,7 @@ module Stripe
 
       context "idempotency keys" do
         setup do
-          Stripe.stubs(:max_network_retries).returns(2)
+          Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
         end
 
         should "not add an idempotency key to GET requests" do
@@ -838,7 +870,7 @@ module Stripe
 
       context "retry logic" do
         setup do
-          Stripe.stubs(:max_network_retries).returns(2)
+          Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
         end
 
         should "retry failed requests and raise if error persists" do
@@ -869,6 +901,21 @@ module Stripe
 
           client = StripeClient.new
           client.execute_request(:post, "/v1/charges")
+        end
+
+        should "pass the client configuration when retrying" do
+          StripeClient.expects(:sleep_time)
+                      .with(any_of(1, 2),
+                            has_entry(:config, kind_of(Stripe::StripeConfiguration)))
+                      .at_least_once.returns(0)
+
+          stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            .to_raise(Errno::ECONNREFUSED.new)
+
+          client = StripeClient.new
+          assert_raises Stripe::APIConnectionError do
+            client.execute_request(:post, "/v1/charges")
+          end
         end
       end
 
@@ -1142,6 +1189,193 @@ module Stripe
         trace_payload = JSON.parse(trace_metrics_header)
         assert(trace_payload["last_request_metrics"]["request_id"] == "req_123")
         assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
+      end
+    end
+
+    context "API resource instance methods" do
+      should "define methods for all api resources" do
+        client = StripeClient.new
+
+        # Update Sigma name to account for nuance
+        api_resources = Stripe::Util.api_object_classes
+        sigma_class = api_resources.delete("scheduled_query_run")
+        api_resources["sigma.scheduled_query_run"] = sigma_class
+
+        api_resources.each do |string, _|
+          if string.include?(".")
+            resource_module, resource_name = string.split(".")
+
+            assert client.respond_to?(resource_module), "#{resource_module} not found"
+            assert client.send(resource_module).respond_to?("#{resource_name}s"), "#{resource_name} not found"
+          else
+            assert client.respond_to?("#{string}s"), "#{string} not found"
+          end
+        end
+      end
+
+      should "make expected request on a singular API resource" do
+        client = StripeClient.new
+        account = client.accounts.retrieve("acct_1234")
+        assert_requested(:get, "#{Stripe.api_base}/v1/accounts/acct_1234")
+        assert account.is_a?(Stripe::Account)
+      end
+
+      should "make expected request on a namespaces API resource" do
+        client = StripeClient.new
+        list = client.radar.value_lists.retrieve("rsl_123")
+        assert_requested(:get, "#{Stripe.api_base}/v1/radar/value_lists/rsl_123")
+        assert list.is_a?(Stripe::Radar::ValueList)
+      end
+
+      should "allow for listing a resource" do
+        client = StripeClient.new
+        accounts = client.accounts.list
+        assert_requested(:get, "#{Stripe.api_base}/v1/accounts")
+        assert accounts.data.is_a?(Array)
+        assert accounts.data[0].is_a?(Stripe::Account)
+      end
+
+      should "allow for listing a resource with filters" do
+        client = StripeClient.new
+        accounts = client.accounts.list({ limit: 10 })
+        assert_requested(:get, "#{Stripe.api_base}/v1/accounts?limit=10")
+        assert accounts.data.is_a?(Array)
+        assert accounts.data[0].is_a?(Stripe::Account)
+      end
+
+      should "allow for deleting a resource" do
+        client = StripeClient.new
+        account = client.accounts.retrieve("acct_123")
+        account = account.delete
+        assert_requested :delete, "#{Stripe.api_base}/v1/accounts/#{account.id}"
+        assert account.is_a?(Stripe::Account)
+      end
+
+      should "allow for creating a resource" do
+        client = StripeClient.new
+        charge = client.charges.create(
+          amount: 100,
+          currency: "USD",
+          source: "src_123"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/charges"
+        assert charge.is_a?(Stripe::Charge)
+      end
+
+      should "allow for updating a resource" do
+        client = StripeClient.new
+        account = client.accounts.update("acct_123", metadata: { foo: "bar" })
+        assert_requested(:post,
+                         "#{Stripe.api_base}/v1/accounts/acct_123",
+                         body: { metadata: { foo: "bar" } })
+        assert account.is_a?(Stripe::Account)
+      end
+
+      context "setting configurable options" do
+        should "override any global configurations" do
+          Stripe.api_key = "sk_test_old"
+
+          client = StripeClient.new(api_key: "sk_test_new")
+          client.accounts.retrieve("acct_1234")
+          assert_requested(:get,
+                           "#{Stripe.api_base}/v1/accounts/acct_1234",
+                           headers: {
+                             "Authorization" => "Bearer sk_test_new",
+                           })
+        end
+
+        should "use global settings by default" do
+          client = StripeClient.new
+          client.accounts.retrieve("acct_1234")
+          assert_requested(:get,
+                           "#{Stripe.api_base}/v1/accounts/acct_1234",
+                           headers: {
+                             "Authorization" => "Bearer #{Stripe.api_key}",
+                           })
+        end
+
+        should "allow for overrides when retrieving a resource" do
+          client = StripeClient.new(api_key: "sk_test_local")
+          account = client.accounts.retrieve("acct_123", { api_key: "sk_test_other" })
+          assert_requested(:get, "#{Stripe.api_base}/v1/accounts/acct_123",
+                           headers: { "Authorization" => "Bearer sk_test_other" })
+          assert account.is_a?(Stripe::Account)
+        end
+
+        should "allow for retrieving a resource with options" do
+          client = Stripe::StripeClient.new(api_key: "sk_test_local")
+          account = client.charges.retrieve(id: "acct_123", expand: ["customer"])
+          assert_requested(:get, "#{Stripe.api_base}/v1/charges/acct_123",
+                           headers: { "Authorization" => "Bearer sk_test_local" },
+                           query: { "expand[]" => "customer" })
+          assert account.is_a?(Stripe::Charge)
+        end
+
+        should "allow for overrides when operating on a collection" do
+          client = StripeClient.new(api_key: "sk_test_local")
+          accounts = client.accounts.list({}, { api_key: "sk_test_other" })
+          assert_requested(:get,
+                           "#{Stripe.api_base}/v1/accounts",
+                           headers: { "Authorization" => "Bearer sk_test_other" })
+          assert accounts.data.is_a?(Array)
+          assert accounts.data[0].is_a?(Stripe::Account)
+        end
+
+        should "allow for overrides when operating on a resource" do
+          client = StripeClient.new(api_key: "sk_test_local")
+          account = client.accounts.update("acct_123",
+                                           {},
+                                           { api_key: "sk_test_other" })
+          assert_requested(:post,
+                           "#{Stripe.api_base}/v1/accounts/acct_123",
+                           headers: { "Authorization" => "Bearer sk_test_other" })
+          assert account.is_a?(Stripe::Account)
+        end
+
+        should "allow for overrides when operating on an instance" do
+          client = StripeClient.new(api_key: "sk_test_new")
+          account = client.accounts.retrieve("acct_123")
+          account.metadata = { foo: "bar" }
+          account.save
+          assert_requested(:post,
+                           "#{Stripe.api_base}/v1/accounts/acct_123",
+                           body: { metadata: { foo: "bar" } },
+                           headers: {
+                             "Authorization" => "Bearer sk_test_new",
+                           })
+          assert account.is_a?(Stripe::Account)
+        end
+
+        context "when the api key is provided as a string" do
+          should "correctly normalizes when operating on an instance" do
+            client = StripeClient.new
+            account = client.accounts.retrieve("acct_123", "sk_test_new")
+            account.metadata = { foo: "bar" }
+            account.save
+            assert_requested(:post,
+                             "#{Stripe.api_base}/v1/accounts/acct_123",
+                             body: { metadata: { foo: "bar" } },
+                             headers: {
+                               "Authorization" => "Bearer sk_test_new",
+                             })
+          end
+
+          should "correctly normalizes when operating on a collection" do
+            client = StripeClient.new(api_key: "sk_test_local")
+            client.accounts.list({}, "sk_test_other")
+            assert_requested(:get,
+                             "#{Stripe.api_base}/v1/accounts",
+                             headers: { "Authorization" => "Bearer sk_test_other" })
+          end
+
+          should "correctly normalize operating on a resource" do
+            client = StripeClient.new(api_key: "sk_test_local")
+            client.accounts.update("acct_123", {}, "sk_test_other")
+            assert_requested(:post,
+                             "#{Stripe.api_base}/v1/accounts/acct_123",
+                             headers: { "Authorization" => "Bearer sk_test_other" })
+          end
+        end
       end
     end
 

@@ -39,8 +39,14 @@ module Stripe
       end
     end
 
+    # Returns a hash of all Stripe object classes.
     def self.object_classes
       @object_classes ||= Stripe::ObjectTypes.object_names_to_classes
+    end
+
+    # Returns a hash containling only Stripe API object classes.
+    def self.api_object_classes
+      @api_object_classes ||= ::Stripe::ObjectTypes.api_object_names_to_classes
     end
 
     def self.object_name_matches_class?(object_name, klass)
@@ -76,24 +82,30 @@ module Stripe
     end
 
     def self.log_error(message, data = {})
-      if !Stripe.logger.nil? ||
-         !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_ERROR
+      config = data.delete(:config) || Stripe.configuration
+      logger = config.logger || Stripe.logger
+      if !logger.nil? ||
+         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_ERROR
         log_internal(message, data, color: :cyan, level: Stripe::LEVEL_ERROR,
                                     logger: Stripe.logger, out: $stderr)
       end
     end
 
     def self.log_info(message, data = {})
-      if !Stripe.logger.nil? ||
-         !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_INFO
+      config = data.delete(:config) || Stripe.configuration
+      logger = config.logger || Stripe.logger
+      if !logger.nil? ||
+         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_INFO
         log_internal(message, data, color: :cyan, level: Stripe::LEVEL_INFO,
                                     logger: Stripe.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
-      if !Stripe.logger.nil? ||
-         !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_DEBUG
+      config = data.delete(:config) || Stripe.configuration
+      logger = config.logger || Stripe.logger
+      if !logger.nil? ||
+         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_DEBUG
         log_internal(message, data, color: :blue, level: Stripe::LEVEL_DEBUG,
                                     logger: Stripe.logger, out: $stdout)
       end

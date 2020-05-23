@@ -72,6 +72,21 @@ module Stripe
         end
         assert_equal "file must respond to `#read`", e.message
       end
+
+      context "when the caller is a StripeClient" do
+        should "permit the StripeClient to set the `api_base`" do
+          client = StripeClient.new(uploads_base: Stripe.uploads_base)
+          Stripe.configuration.stubs(:uploads_base).returns("old")
+
+          file = client.files.create(
+            purpose: "dispute_evidence",
+            file: ::File.new(__FILE__),
+            file_link_data: { create: true }
+          )
+          assert_requested :post, "#{client.config.uploads_base}/v1/files"
+          assert file.is_a?(Stripe::File)
+        end
+      end
     end
 
     should "be deserializable when `object=file`" do

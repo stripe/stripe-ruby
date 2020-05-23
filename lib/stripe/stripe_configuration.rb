@@ -27,7 +27,6 @@ module Stripe
   class StripeConfiguration
     attr_accessor :api_key
     attr_accessor :api_version
-    attr_accessor :client_id
     attr_accessor :enable_telemetry
     attr_accessor :logger
     attr_accessor :stripe_account
@@ -99,6 +98,14 @@ module Stripe
 
     def max_network_retries=(val)
       @max_network_retries = val.to_i
+    end
+
+    def max_network_retry_delay=(val)
+      @max_network_retry_delay = val.to_i
+    end
+
+    def initial_network_retry_delay=(val)
+      @initial_network_retry_delay = val.to_i
     end
 
     def open_timeout=(open_timeout)

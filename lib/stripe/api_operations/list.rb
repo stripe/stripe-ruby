@@ -9,6 +9,7 @@ module Stripe
         resp, opts = execute_resource_request(:get, resource_url, filters, opts)
         obj = ListObject.construct_from(resp.data, opts)
 
+        filters ||= {}
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages
         obj.filters = filters.dup

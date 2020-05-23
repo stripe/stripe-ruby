@@ -7,9 +7,10 @@ module Stripe
 
       def self.execute_resource_request(method, url, params, opts)
         opts = Util.normalize_opts(opts)
-        opts[:client] ||= StripeClient.active_client
-        opts[:api_base] ||= Stripe.connect_base
+        opts[:client] ||= params[:client] || StripeClient.active_client
+        opts[:api_base] ||= opts[:client].config.connect_base
 
+        params.delete(:client)
         super(method, url, params, opts)
       end
     end
@@ -29,7 +30,8 @@ module Stripe
     end
 
     def self.authorize_url(params = {}, opts = {})
-      base = opts[:connect_base] || Stripe.connect_base
+      client = params[:client] || StripeClient.active_client
+      base = opts[:connect_base] || client.config.connect_base
 
       path = "/oauth/authorize"
       path = "/express" + path if opts[:express]

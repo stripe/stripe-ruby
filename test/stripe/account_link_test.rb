@@ -7,9 +7,9 @@ module Stripe
     should "be creatable" do
       link = Stripe::AccountLink.create(
         account: "acct_123",
-        failure_url: "https://stripe.com/failure",
-        success_url: "https://stripe.com/success",
-        type: "custom_account_verification"
+        refresh_url: "https://stripe.com/refresh",
+        return_url: "https://stripe.com/return",
+        type: "account_onboarding"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/account_links"
       assert link.is_a?(Stripe::AccountLink)

@@ -10,7 +10,7 @@ module Stripe
     OBJECT_NAME = "bank_account"
 
     def verify(params = {}, opts = {})
-      resp, opts = request(:post, resource_url + "/verify", params, opts)
+      resp, opts = execute_resource_request(:post, resource_url + "/verify", params, opts)
       initialize_from(resp.data, opts)
     end
 

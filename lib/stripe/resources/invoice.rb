@@ -62,12 +62,12 @@ module Stripe
     end
 
     def self.upcoming(params, opts = {})
-      resp, opts = request(:get, resource_url + "/upcoming", params, opts)
+      resp, opts = execute_resource_request(:get, resource_url + "/upcoming", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.list_upcoming_line_items(params, opts = {})
-      resp, opts = request(:get, resource_url + "/upcoming/lines", params, opts)
+      resp, opts = execute_resource_request(:get, resource_url + "/upcoming/lines", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
   end

@@ -15,15 +15,19 @@ module Stripe
         # * +opts+ - A Hash of additional options (separate from the params /
         #   object values) to be added to the request. E.g. to allow for an
         #   idempotency_key to be passed in the request headers, or for the
-        #   api_key to be overwritten. See {APIOperations::Request.request}.
+        #   api_key to be overwritten. See
+        #   {APIOperations::Request.execute_resource_request}.
         def delete(id, params = {}, opts = {})
-          resp, opts = request(:delete, "#{resource_url}/#{id}", params, opts)
+          resp, opts = execute_resource_request(:delete,
+                                                "#{resource_url}/#{id}",
+                                                params, opts)
           Util.convert_to_stripe_object(resp.data, opts)
         end
       end
 
       def delete(params = {}, opts = {})
-        resp, opts = request(:delete, resource_url, params, opts)
+        resp, opts = execute_resource_request(:delete, resource_url,
+                                              params, opts)
         initialize_from(resp.data, opts)
       end
 

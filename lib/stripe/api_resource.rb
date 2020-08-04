@@ -76,7 +76,7 @@ module Stripe
         end
 
         url = "#{resource_url}/#{CGI.escape(id)}/#{CGI.escape(http_path)}"
-        resp, opts = request(http_verb, url, params, opts)
+        resp, opts = execute_resource_request(http_verb, url, params, opts)
         Util.convert_to_stripe_object(resp.data, opts)
       end
     end
@@ -93,7 +93,8 @@ module Stripe
     end
 
     def refresh
-      resp, opts = request(:get, resource_url, @retrieve_params)
+      resp, opts = execute_resource_request(:get, resource_url,
+                                            @retrieve_params)
       initialize_from(resp.data, opts)
     end
 
@@ -105,7 +106,7 @@ module Stripe
     end
 
     protected def request_stripe_object(method:, path:, params:, opts: {})
-      resp, opts = request(method, path, params, opts)
+      resp, opts = execute_resource_request(method, path, params, opts)
 
       # If we're getting back this thing, update; otherwise, instantiate.
       if Util.object_name_matches_class?(resp.data[:object], self.class)

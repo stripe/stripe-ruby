@@ -32,13 +32,13 @@ module Stripe
 
       url = "#{Customer.resource_url}/#{CGI.escape(customer)}/sources" \
             "/#{CGI.escape(id)}"
-      resp, opts = request(:delete, url, params, opts)
+      resp, opts = execute_resource_request(:delete, url, params, opts)
       initialize_from(resp.data, opts)
     end
 
     def source_transactions(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/source_transactions", params,
-                           opts)
+      resp, opts = execute_resource_request(:get, resource_url + "/source_transactions", params,
+                                            opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
     extend Gem::Deprecate

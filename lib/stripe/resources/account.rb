@@ -65,7 +65,7 @@ module Stripe
     end
 
     def persons(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/persons", params, opts)
+      resp, opts = execute_resource_request(:get, resource_url + "/persons", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
 

@@ -15,7 +15,8 @@ module Stripe
         # * +opts+ - A Hash of additional options (separate from the params /
         #   object values) to be added to the request. E.g. to allow for an
         #   idempotency_key to be passed in the request headers, or for the
-        #   api_key to be overwritten. See {APIOperations::Request.request}.
+        #   api_key to be overwritten. See
+        #   {APIOperations::Request.execute_resource_request}.
         def update(id, params = {}, opts = {})
           params.each_key do |k|
             if protected_fields.include?(k)
@@ -23,7 +24,8 @@ module Stripe
             end
           end
 
-          resp, opts = request(:post, "#{resource_url}/#{id}", params, opts)
+          resp, opts = execute_resource_request(:post, "#{resource_url}/#{id}",
+                                                params, opts)
           Util.convert_to_stripe_object(resp.data, opts)
         end
       end
@@ -43,7 +45,8 @@ module Stripe
       # * +opts+ - A Hash of additional options (separate from the params /
       #   object values) to be added to the request. E.g. to allow for an
       #   idempotency_key to be passed in the request headers, or for the
-      #   api_key to be overwritten. See {APIOperations::Request.request}.
+      #   api_key to be overwritten. See
+      #   {APIOperations::Request.execute_resource_request}.
       def save(params = {}, opts = {})
         # We started unintentionally (sort of) allowing attributes sent to
         # +save+ to override values used during the update. So as not to break
@@ -59,7 +62,7 @@ module Stripe
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
 
-        resp, opts = request(:post, save_url, values, opts)
+        resp, opts = execute_resource_request(:post, save_url, values, opts)
         initialize_from(resp.data, opts)
       end
 

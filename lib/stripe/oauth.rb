@@ -5,7 +5,7 @@ module Stripe
     module OAuthOperations
       extend APIOperations::Request::ClassMethods
 
-      def self.request(method, url, params, opts)
+      def self.execute_resource_request(method, url, params, opts)
         opts = Util.normalize_opts(opts)
         opts[:client] ||= StripeClient.active_client
         opts[:api_base] ||= Stripe.connect_base
@@ -44,7 +44,7 @@ module Stripe
     def self.token(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
       opts[:api_key] = params[:client_secret] if params[:client_secret]
-      resp, opts = OAuthOperations.request(
+      resp, opts = OAuthOperations.execute_resource_request(
         :post, "/oauth/token", params, opts
       )
       # This is just going to return a generic StripeObject, but that's okay
@@ -54,7 +54,7 @@ module Stripe
     def self.deauthorize(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
       params[:client_id] = get_client_id(params)
-      resp, opts = OAuthOperations.request(
+      resp, opts = OAuthOperations.execute_resource_request(
         :post, "/oauth/deauthorize", params, opts
       )
       # This is just going to return a generic StripeObject, but that's okay

@@ -17,7 +17,7 @@ module Stripe
                                   resource_plural: "usage_record_summaries"
 
     def usage_record_summaries(params = {}, opts = {})
-      resp, opts = request(:get, resource_url + "/usage_record_summaries", params, opts)
+      resp, opts = execute_resource_request(:get, resource_url + "/usage_record_summaries", params, opts)
       Util.convert_to_stripe_object(resp.data, opts)
     end
     extend Gem::Deprecate

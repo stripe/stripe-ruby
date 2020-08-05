@@ -6,7 +6,7 @@ module Stripe
       def list(filters = {}, opts = {})
         opts = Util.normalize_opts(opts)
 
-        resp, opts = request(:get, resource_url, filters, opts)
+        resp, opts = execute_resource_request(:get, resource_url, filters, opts)
         obj = ListObject.construct_from(resp.data, opts)
 
         # set filters so that we can fetch the same limit, expansions, and

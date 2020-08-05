@@ -29,7 +29,7 @@ module Stripe
     end
 
     def delete_discount
-      resp, opts = request(:delete, resource_url + "/discount")
+      resp, opts = execute_resource_request(:delete, resource_url + "/discount")
       initialize_from(resp.data, opts, true)
     end
   end

@@ -22,7 +22,7 @@ module Stripe
 
     should "be creatable" do
       item = Stripe::SubscriptionItem.create(
-        plan: "sapphire-elite",
+        price: "sapphire-elite",
         quantity: 3,
         subscription: "sub_123"
       )

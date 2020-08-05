@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.23.1 - 2020-08-05
+* [#936](https://github.com/stripe/stripe-ruby/pull/936) Rename API resource's `request` method
+
 ## 5.23.0 - 2020-08-05
 * [#937](https://github.com/stripe/stripe-ruby/pull/937) Add support for the `PromotionCode` resource and APIs
 

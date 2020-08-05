@@ -61,6 +61,7 @@ module Stripe
         Plan::OBJECT_NAME => Plan,
         Price::OBJECT_NAME => Price,
         Product::OBJECT_NAME => Product,
+        PromotionCode::OBJECT_NAME => PromotionCode,
         Radar::EarlyFraudWarning::OBJECT_NAME => Radar::EarlyFraudWarning,
         Radar::ValueList::OBJECT_NAME => Radar::ValueList,
         Radar::ValueListItem::OBJECT_NAME => Radar::ValueListItem,

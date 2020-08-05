@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.23.0 - 2020-08-05
+* [#937](https://github.com/stripe/stripe-ruby/pull/937) Add support for the `PromotionCode` resource and APIs
+
 ## 5.22.0 - 2020-05-11
 * [#918](https://github.com/stripe/stripe-ruby/pull/918) Add support for the `LineItem` resource and APIs
 

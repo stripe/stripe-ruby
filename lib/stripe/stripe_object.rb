@@ -375,7 +375,7 @@ module Stripe
       begin
         super
       rescue NoMethodError => e
-        # If we notice the accessed name if our set of transient values we can
+        # If we notice the accessed name of our set of transient values we can
         # give the user a slightly more helpful error message. If not, just
         # raise right away.
         raise unless @transient_values.include?(name)

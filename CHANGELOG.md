@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.24.0 - 2020-08-26
+* [#939](https://github.com/stripe/stripe-ruby/pull/939) Extract configurations into separate object
+* [#940](https://github.com/stripe/stripe-ruby/pull/940) Fix typo in documentation of `stripe_object.rb`
+
 ## 5.23.1 - 2020-08-05
 * [#936](https://github.com/stripe/stripe-ruby/pull/936) Rename API resource's `request` method
 

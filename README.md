@@ -60,14 +60,14 @@ available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
 value:
 
 ```ruby
-require "stripe"
-Stripe.api_key = "sk_test_..."
+require 'stripe'
+Stripe.api_key = 'sk_test_...'
 
 # list customers
 Stripe::Customer.list()
 
 # retrieve single customer
-Stripe::Customer.retrieve("cus_123456789")
+Stripe::Customer.retrieve('cus_123456789')
 ```
 
 ### Per-request Configuration
@@ -82,38 +82,38 @@ require "stripe"
 Stripe::Customer.list(
   {},
   {
-    api_key: "sk_test_...",
-    stripe_account: "acct_...",
-    stripe_version: "2018-02-28",
+    api_key: 'sk_test_...',
+    stripe_account: 'acct_...',
+    stripe_version: '2018-02-28',
   }
 )
 
 Stripe::Customer.retrieve(
-  "cus_123456789",
+  'cus_123456789',
   {
-    api_key: "sk_test_...",
-    stripe_account: "acct_...",
-    stripe_version: "2018-02-28",
+    api_key: 'sk_test_...',
+    stripe_account: 'acct_...',
+    stripe_version: '2018-02-28',
   }
 )
 
 Stripe::Customer.retrieve(
   {
-    id: "cus_123456789",
+    id: 'cus_123456789',
     expand: %w(balance_transaction)
   },
   {
-    stripe_version: "2018-02-28",
-    api_key: "sk_test_...",
+    stripe_version: '2018-02-28',
+    api_key: 'sk_test_...',
   }
 )
 
 Stripe::Customer.capture(
-  "cus_123456789",
+  'cus_123456789',
   {},
   {
-    stripe_version: "2018-02-28",
-    api_key: "sk_test_...",
+    stripe_version: '2018-02-28',
+    api_key: 'sk_test_...',
   }
 )
 ```
@@ -136,7 +136,7 @@ method:
 ```ruby
 client = Stripe::StripeClient.new
 customer, resp = client.request do
-  Stripe::Customer.retrieve("cus_123456789",)
+  Stripe::Customer.retrieve('cus_123456789',)
 end
 puts resp.request_id
 ```
@@ -146,7 +146,7 @@ puts resp.request_id
 A proxy can be configured with `Stripe.proxy`:
 
 ```ruby
-Stripe.proxy = "https://user:pass@example.com:1234"
+Stripe.proxy = 'https://user:pass@example.com:1234'
 ```
 
 ### Configuring an API Version
@@ -155,7 +155,7 @@ By default, the library will use the API version pinned to the account making
 a request. This can be overridden with this global option:
 
 ```ruby
-Stripe.api_version = "2018-02-28"
+Stripe.api_version = '2018-02-28'
 ```
 
 See [versioning in the API reference][versioning] for more information.
@@ -166,7 +166,7 @@ By default, the library will use its own internal bundle of known CA
 certificates, but it's possible to configure your own:
 
 ```ruby
-Stripe.ca_bundle_path = "path/to/ca/bundle"
+Stripe.ca_bundle_path = 'path/to/ca/bundle'
 ```
 
 ### Configuring Automatic Retries
@@ -258,7 +258,7 @@ For example:
 Stripe::Instrumentation.subscribe(:request_end) do |request_event|
   tags = {
     method: request_event.method,
-    resource: request_event.path.split("/")[2],
+    resource: request_event.path.split('/')[2],
     code: request_event.http_status,
     retries: request_event.num_retries
   }
@@ -272,7 +272,7 @@ If you're writing a plugin that uses the library, we'd appreciate it if you
 identified using `#set_app_info`:
 
 ```ruby
-Stripe.set_app_info("MyAwesomePlugin", version: "1.2.34", url: "https://myawesomeplugin.info");
+Stripe.set_app_info('MyAwesomePlugin', version: '1.2.34', url: 'https://myawesomeplugin.info')
 ```
 
 This information is passed along when the library makes calls to the Stripe

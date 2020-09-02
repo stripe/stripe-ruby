@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.25.0 - 2020-09-02
+* [#944](https://github.com/stripe/stripe-ruby/pull/944) Add support for the Issuing Dispute Submit API
+
 ## 5.24.0 - 2020-08-26
 * [#939](https://github.com/stripe/stripe-ruby/pull/939) Extract configurations into separate object
 * [#940](https://github.com/stripe/stripe-ruby/pull/940) Fix typo in documentation of `stripe_object.rb`

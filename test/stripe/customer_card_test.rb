@@ -5,6 +5,12 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class CustomerCardTest < Test::Unit::TestCase
     setup do
+      # Unfortunately, the OpenAPI spec has an issue where the sources list has the wrong
+      # url so we need to mock this call instead.
+      customer_json = { id: "cus_123", object: "customer", sources: { object: "list", data: [], has_more: true, url: "/v1/customers/cus_123/sources" } }
+      stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+        .to_return(body: JSON.generate(customer_json))
+
       @customer = Stripe::Customer.retrieve("cus_123")
     end
 

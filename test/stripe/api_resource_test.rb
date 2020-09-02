@@ -111,15 +111,15 @@ module Stripe
     end
 
     should "send expand when fetching through ListObject" do
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
-        .to_return(body: JSON.generate(customer_fixture))
+      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123")
+        .to_return(body: JSON.generate(charge_fixture))
 
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123/sources/cc_test_card")
-        .with(query: { "expand" => ["customer"] })
-        .to_return(body: JSON.generate(customer_fixture))
+      stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123/refunds/re_123")
+        .with(query: { "expand" => ["balance_transaction"] })
+        .to_return(body: JSON.generate(charge_fixture))
 
-      customer = Stripe::Customer.retrieve("cus_123")
-      customer.sources.retrieve(id: "cc_test_card", expand: [:customer])
+      charge = Stripe::Charge.retrieve("ch_123")
+      charge.refunds.retrieve(id: "re_123", expand: [:balance_transaction])
     end
 
     context "when specifying per-object credentials" do

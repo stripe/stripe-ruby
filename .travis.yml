@@ -12,8 +12,6 @@ notifications:
   email:
     on_success: never
 
-sudo: false
-
 env:
   global:
     # If changing this number, please also change it in `test/test_helper.rb`.

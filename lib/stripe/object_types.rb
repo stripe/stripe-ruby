@@ -73,6 +73,7 @@ module Stripe
         Reversal::OBJECT_NAME => Reversal,
         Review::OBJECT_NAME => Review,
         SKU::OBJECT_NAME => SKU,
+        SetupAttempt::OBJECT_NAME => SetupAttempt,
         SetupIntent::OBJECT_NAME => SetupIntent,
         Sigma::ScheduledQueryRun::OBJECT_NAME => Sigma::ScheduledQueryRun,
         Source::OBJECT_NAME => Source,

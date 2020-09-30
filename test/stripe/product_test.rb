@@ -19,8 +19,7 @@ module Stripe
 
     should "be creatable" do
       product = Stripe::Product.create(
-        name: "My Product",
-        type: "good"
+        name: "My Product"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/products"
       assert product.is_a?(Stripe::Product)

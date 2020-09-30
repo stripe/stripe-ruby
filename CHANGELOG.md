@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.26.0 - 2020-09-29
+* [#949](https://github.com/stripe/stripe-ruby/pull/949) Add support for the `SetupAttempt` resource and List API
+
 ## 5.25.0 - 2020-09-02
 * [#944](https://github.com/stripe/stripe-ruby/pull/944) Add support for the Issuing Dispute Submit API
 

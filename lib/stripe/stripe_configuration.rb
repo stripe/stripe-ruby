@@ -42,6 +42,7 @@ module Stripe
     attr_reader :max_network_retry_delay
     attr_reader :open_timeout
     attr_reader :read_timeout
+    attr_reader :write_timeout
     attr_reader :proxy
     attr_reader :verify_ssl_certs
 
@@ -72,6 +73,7 @@ module Stripe
 
       @open_timeout = 30
       @read_timeout = 80
+      @write_timeout = 30
 
       @api_base = "https://api.stripe.com"
       @connect_base = "https://connect.stripe.com"
@@ -106,6 +108,15 @@ module Stripe
 
     def read_timeout=(read_timeout)
       @read_timeout = read_timeout
+      StripeClient.clear_all_connection_managers
+    end
+
+    def write_timeout=(write_timeout)
+      unless Net::HTTP.instance_methods.include?(:write_timeout=)
+        raise NotImplementedError
+      end
+
+      @write_timeout = write_timeout
       StripeClient.clear_all_connection_managers
     end
 

@@ -16,6 +16,7 @@ module Stripe
         assert_equal 0, config.max_network_retries
         assert_equal 30, config.open_timeout
         assert_equal 80, config.read_timeout
+        assert_equal 30, config.write_timeout
         assert_equal "https://api.stripe.com", config.api_base
         assert_equal "https://connect.stripe.com", config.connect_base
         assert_equal "https://files.stripe.com", config.uploads_base
@@ -25,10 +26,12 @@ module Stripe
         config = Stripe::StripeConfiguration.setup do |c|
           c.open_timeout = 100
           c.read_timeout = 100
+          c.write_timeout = 100 if WRITE_TIMEOUT_SUPPORTED
         end
 
         assert_equal 100, config.open_timeout
         assert_equal 100, config.read_timeout
+        assert_equal 100, config.write_timeout if WRITE_TIMEOUT_SUPPORTED
       end
     end
 

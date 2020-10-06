@@ -71,6 +71,7 @@ module Stripe
     def_delegators :@configuration, :connect_base, :connect_base=
     def_delegators :@configuration, :open_timeout, :open_timeout=
     def_delegators :@configuration, :read_timeout, :read_timeout=
+    def_delegators :@configuration, :write_timeout, :write_timeout=
     def_delegators :@configuration, :proxy, :proxy=
     def_delegators :@configuration, :verify_ssl_certs, :verify_ssl_certs=
     def_delegators :@configuration, :ca_bundle_path, :ca_bundle_path=

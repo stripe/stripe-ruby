@@ -54,6 +54,19 @@ class StripeTest < Test::Unit::TestCase
       assert_equal 10, Stripe.read_timeout
     end
 
+    if WRITE_TIMEOUT_SUPPORTED
+      should "allow write timeout to be configured" do
+        Stripe.write_timeout = 10
+        assert_equal 10, Stripe.write_timeout
+      end
+    else
+      should "raise when write timeout to be configured is not supported" do
+        assert_raises NotImplementedError do
+          Stripe.write_timeout = 10
+        end
+      end
+    end
+
     should "allow api_key to be configured" do
       Stripe.api_key = "sk_local_test"
       assert_equal "sk_local_test", Stripe.api_key

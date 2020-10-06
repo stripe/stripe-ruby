@@ -56,6 +56,8 @@ module Test
       include Stripe::TestData
       include Mocha
 
+      WRITE_TIMEOUT_SUPPORTED = Net::HTTP.instance_methods.include?(:write_timeout=)
+
       setup do
         Stripe.api_key = "sk_test_123"
         Stripe.api_base = "http://localhost:#{MOCK_PORT}"

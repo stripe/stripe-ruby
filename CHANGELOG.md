@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.27.0 - 2020-10-14
+* [#951](https://github.com/stripe/stripe-ruby/pull/951) Add support for the Payout Reverse API
+
 ## 5.26.0 - 2020-09-29
 * [#949](https://github.com/stripe/stripe-ruby/pull/949) Add support for the `SetupAttempt` resource and List API
 

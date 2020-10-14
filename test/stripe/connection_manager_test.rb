@@ -39,6 +39,7 @@ module Stripe
 
         old_open_timeout = Stripe.open_timeout
         old_read_timeout = Stripe.read_timeout
+        old_write_timeout = Stripe.write_timeout
 
         begin
           # Make sure any global initialization here is undone in the `ensure`
@@ -47,6 +48,7 @@ module Stripe
 
           Stripe.open_timeout = 123
           Stripe.read_timeout = 456
+          Stripe.write_timeout = 789 if WRITE_TIMEOUT_SUPPORTED
 
           conn = @manager.connection_for("https://stripe.com")
 
@@ -63,6 +65,7 @@ module Stripe
           # Timeouts
           assert_equal 123, conn.open_timeout
           assert_equal 456, conn.read_timeout
+          assert_equal 789, conn.write_timeout if WRITE_TIMEOUT_SUPPORTED
 
           assert_equal true, conn.use_ssl?
           assert_equal OpenSSL::SSL::VERIFY_PEER, conn.verify_mode
@@ -72,6 +75,7 @@ module Stripe
 
           Stripe.open_timeout = old_open_timeout
           Stripe.read_timeout = old_read_timeout
+          Stripe.write_timeout = old_write_timeout if WRITE_TIMEOUT_SUPPORTED
         end
       end
 

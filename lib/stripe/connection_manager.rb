@@ -119,6 +119,9 @@ module Stripe
 
       connection.open_timeout = Stripe.open_timeout
       connection.read_timeout = Stripe.read_timeout
+      if connection.respond_to?(:write_timeout=)
+        connection.write_timeout = Stripe.write_timeout
+      end
 
       connection.use_ssl = uri.scheme == "https"
 

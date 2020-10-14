@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.28.0 - 2020-10-14
+* [#950](https://github.com/stripe/stripe-ruby/pull/950) Add configuration option for `write_timeout` for connections on Ruby 2.6+
+
 ## 5.27.0 - 2020-10-14
 * [#951](https://github.com/stripe/stripe-ruby/pull/951) Add support for the Payout Reverse API
 

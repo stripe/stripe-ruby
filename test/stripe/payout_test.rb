@@ -53,5 +53,20 @@ module Stripe
         assert payout.is_a?(Stripe::Payout)
       end
     end
+
+    context "#reverse" do
+      should "reverse a payout" do
+        payout = Stripe::Payout.retrieve("tr_123")
+        payout = payout.reverse
+        assert payout.is_a?(Stripe::Payout)
+      end
+    end
+
+    context ".reverse" do
+      should "reverse a payout" do
+        payout = Stripe::Payout.reverse("pm_123")
+        assert payout.is_a?(Stripe::Payout)
+      end
+    end
   end
 end

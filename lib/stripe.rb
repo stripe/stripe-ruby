@@ -79,13 +79,12 @@ module Stripe
     def_delegators :@configuration, :logger, :logger=
     def_delegators :@configuration, :max_network_retries, :max_network_retries=
     def_delegators :@configuration, :enable_telemetry=, :enable_telemetry?
+    def_delegators :@configuration, :client_id=, :client_id
 
     # Internal configurations
     def_delegators :@configuration, :max_network_retry_delay
     def_delegators :@configuration, :initial_network_retry_delay
     def_delegators :@configuration, :ca_store
-
-    attr_accessor :client_id
   end
 
   # Gets the application for a plugin that's identified some. See

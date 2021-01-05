@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.29.0 - 2021-01-05
+* [#952](https://github.com/stripe/stripe-ruby/pull/952) Allow client_id configuration on instance config
+
 ## 5.28.0 - 2020-10-14
 * [#950](https://github.com/stripe/stripe-ruby/pull/950) Add configuration option for `write_timeout` for connections on Ruby 2.6+
 

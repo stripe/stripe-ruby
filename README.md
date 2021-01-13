@@ -21,6 +21,9 @@ The library also provides other features. For example:
 
 See the [Ruby API docs](https://stripe.com/docs/api/ruby#intro).
 
+See [video demonstrations][youtube-playlist] covering how to use the library.
+
+
 ## Installation
 
 You don't need this source code unless you want to modify the gem. If you just
@@ -340,6 +343,7 @@ Update the bundled [stripe-mock] by editing the version number found in
 [idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [versioning]: https://stripe.com/docs/api/ruby#versioning
+[youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M50RmP6ie-gdcSnfOuQCRYk
 
 <!--
 # vim: set tw=79:

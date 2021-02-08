@@ -56,9 +56,9 @@ module Stripe
     context "#delete_discount" do
       should "delete a discount" do
         customer = Stripe::Customer.retrieve("cus_123")
-        customer = customer.delete_discount
+        discount = customer.delete_discount
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/discount"
-        assert customer.is_a?(Stripe::Customer)
+        assert discount.is_a?(Stripe::Discount)
       end
     end
 

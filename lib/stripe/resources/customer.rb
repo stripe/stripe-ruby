@@ -28,9 +28,14 @@ module Stripe
       alias detach_source delete_source
     end
 
+    # Deletes a discount associated with the customer.
+    #
+    # Returns the deleted discount. The customer object is not updated,
+    # so you must call `refresh` on it to get a new version with the
+    # discount removed.
     def delete_discount
       resp, opts = execute_resource_request(:delete, resource_url + "/discount")
-      initialize_from(resp.data, opts, true)
+      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.29.1 - 2021-02-09
+* [#964](https://github.com/stripe/stripe-ruby/pull/964) Fix return value of `Customer#delete_discount`
+
 ## 5.29.0 - 2021-01-05
 * [#952](https://github.com/stripe/stripe-ruby/pull/952) Allow client_id configuration on instance config
 

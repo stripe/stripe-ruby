@@ -19,6 +19,7 @@ module Stripe
         Balance::OBJECT_NAME => Balance,
         BalanceTransaction::OBJECT_NAME => BalanceTransaction,
         BankAccount::OBJECT_NAME => BankAccount,
+        BillingPortal::Configuration::OBJECT_NAME => BillingPortal::Configuration,
         BillingPortal::Session::OBJECT_NAME => BillingPortal::Session,
         BitcoinReceiver::OBJECT_NAME => BitcoinReceiver,
         BitcoinTransaction::OBJECT_NAME => BitcoinTransaction,

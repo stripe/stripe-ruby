@@ -27,6 +27,7 @@ Layout/HeredocIndentation:
 
 Layout/LineLength:
   Exclude:
+    - "lib/stripe/object_types.rb"
     - "lib/stripe/resources/**/*.rb"
     - "test/**/*.rb"
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.30.0 - 2021-02-22
+* [#965](https://github.com/stripe/stripe-ruby/pull/965) Add support for the Billing Portal Configuration API
+
 ## 5.29.1 - 2021-02-09
 * [#964](https://github.com/stripe/stripe-ruby/pull/964) Fix return value of `Customer#delete_discount`
 

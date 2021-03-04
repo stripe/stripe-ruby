@@ -129,4 +129,44 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "client", Stripe.client_id
     end
   end
+
+  context "with_api_key" do
+    should "require an api_key to be provided" do
+      assert_raises ArgumentError, "An api_key is required" do
+        Stripe.with_api_key do
+        end
+      end
+    end
+
+    should "require a block to be provided" do
+      assert_raises ArgumentError, "A block is required when overriding global api_key" do
+        Stripe.with_api_key "sk_some_key"
+      end
+    end
+
+    should "temporarily override Stripe.api_key and reset it after the block is complete" do
+      Stripe.api_key = "sk_global_key"
+
+      threads = []
+      threads << Thread.new do
+        assert_equal "sk_global_key", Stripe::StripeClient.active_client.api_key
+
+        Stripe.with_api_key "sk_outer_key" do
+          threads << Thread.new do
+            assert_equal "sk_global_key", Stripe::StripeClient.active_client.api_key
+
+            Stripe.with_api_key "sk_inner_key" do
+              assert_equal "sk_inner_key", Stripe::StripeClient.active_client.api_key
+            end
+          end
+
+          assert_equal "sk_outer_key", Stripe::StripeClient.active_client.api_key
+        end
+
+        assert_equal "sk_global_key", Stripe::StripeClient.active_client.api_key
+      end
+
+      threads.each(&:join)
+    end
+  end
 end

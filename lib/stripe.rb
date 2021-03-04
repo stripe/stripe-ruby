@@ -110,6 +110,19 @@ module Stripe
       version: version,
     }
   end
+
+  # A block helper to temporarily switch api_keys in a thread-safe fashion.
+  def self.with_api_key(api_key)
+    raise ArgumentError, "An api_key is required" unless api_key
+
+    unless block_given?
+      raise ArgumentError, "A block is required when overriding global api_key"
+    end
+
+    StripeClient.current_thread_context.api_key = api_key
+    yield
+    StripeClient.current_thread_context.api_key = nil
+  end
 end
 
 Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

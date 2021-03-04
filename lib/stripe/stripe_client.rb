@@ -180,6 +180,10 @@ module Stripe
       end
     end
 
+    def api_key
+      self.class.current_thread_context.api_key || Stripe.api_key
+    end
+
     def execute_request(method, path,
                         api_base: nil, api_key: nil, headers: {}, params: {})
       raise ArgumentError, "method should be a symbol" \
@@ -188,7 +192,7 @@ module Stripe
         unless path.is_a?(String)
 
       api_base ||= Stripe.api_base
-      api_key ||= Stripe.api_key
+      api_key ||= self.api_key
       params = Util.objects_to_ids(params)
 
       check_api_key!(api_key)
@@ -345,6 +349,12 @@ module Stripe
       # because that's wrapped in an `ensure` block, they should never leave
       # garbage in `Thread.current`.
       attr_accessor :last_responses
+
+      # A thread-local api_key that is preferentially used over the globally
+      # defined Stripe.api_key.
+      # This is nil by default and is only set temporarily when using the
+      # the `Stripe.with_api_key` block helper.
+      attr_accessor :api_key
     end
 
     # Access data stored for `StripeClient` within the thread's current

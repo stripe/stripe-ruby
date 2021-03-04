@@ -144,6 +144,14 @@ class StripeTest < Test::Unit::TestCase
       end
     end
 
+    should "return the value of the block" do
+      four = Stripe.with_api_key "sk_some_key" do
+        2 * 2
+      end
+
+      assert_equal four, 4
+    end
+
     should "temporarily override Stripe.api_key and reset it after the block is complete" do
       Stripe.api_key = "sk_global_key"
 

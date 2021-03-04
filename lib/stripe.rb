@@ -120,8 +120,9 @@ module Stripe
     end
 
     StripeClient.current_thread_context.api_key = api_key
-    yield
+    block_value = yield
     StripeClient.current_thread_context.api_key = nil
+    block_value
   end
 end
 

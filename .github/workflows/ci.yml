@@ -15,7 +15,7 @@ jobs:
       with:
         ruby-version: 2.7
     - name: rubocop
-      run: rake rubocop
+      run: bundle exec rake rubocop
 
   test:
     runs-on: ubuntu-latest
@@ -32,4 +32,4 @@ jobs:
     - name: Start stripe-mock
       run: docker run -d -p 12111-12112:12111-12112 stripemock/stripe-mock && sleep 5
     - name: test
-      run: rake test
+      run: bundle exec rake test

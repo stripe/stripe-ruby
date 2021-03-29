@@ -9,18 +9,34 @@ module Stripe
   class StripeClient
     # A set of all known thread contexts across all threads and a mutex to
     # synchronize global access to them.
-    @thread_contexts_with_connection_managers = []
+    @thread_contexts_with_connection_managers = Set.new
     @thread_contexts_with_connection_managers_mutex = Mutex.new
     @last_connection_manager_gc = Util.monotonic_time
 
-    # Initializes a new `StripeClient`.
-    #
-    # Takes a connection manager object for backwards compatibility only, and
-    # that use is DEPRECATED.
-    def initialize(_connection_manager = nil)
+    # Initializes a new StripeClient
+    def initialize(config_overrides = {})
       @system_profiler = SystemProfiler.new
       @last_request_metrics = nil
+
+      # Supports accepting a connection manager object for backwards
+      # compatibility only, and that use is DEPRECATED.
+      @config_overrides = case config_overrides
+                          when Stripe::ConnectionManager
+                            {}
+                          when String
+                            { api_key: config_overrides }
+                          else
+                            config_overrides
+                          end
     end
+
+    # Always base config off the global Stripe configuration to ensure the
+    # client picks up any changes to the config.
+    def config
+      Stripe.configuration.reverse_duplicate_merge(@config_overrides)
+    end
+
+    attr_reader :options
 
     # Gets a currently active `StripeClient`. Set for the current thread when
     # `StripeClient#request` is being run so that API operations being executed
@@ -51,8 +67,8 @@ module Stripe
           # its connection manager and remove our reference to it. If it ever
           # makes a new request we'll give it a new connection manager and
           # it'll go back into `@thread_contexts_with_connection_managers`.
-          thread_context.default_connection_manager.clear
-          thread_context.default_connection_manager = nil
+          thread_context.default_connection_managers.map { |_, cm| cm.clear }
+          thread_context.reset_connection_managers
         end
         @thread_contexts_with_connection_managers.clear
       end
@@ -63,10 +79,11 @@ module Stripe
       current_thread_context.default_client ||= StripeClient.new
     end
 
-    # A default connection manager for the current thread.
-    def self.default_connection_manager
-      current_thread_context.default_connection_manager ||= begin
-        connection_manager = ConnectionManager.new
+    # A default connection manager for the current thread scoped to the
+    # configuration object that may be provided.
+    def self.default_connection_manager(config = Stripe.configuration)
+      current_thread_context.default_connection_managers[config.key] ||= begin
+        connection_manager = ConnectionManager.new(config)
 
         @thread_contexts_with_connection_managers_mutex.synchronize do
           maybe_gc_connection_managers
@@ -80,8 +97,9 @@ module Stripe
     # Checks if an error is a problem that we should retry on. This includes
     # both socket errors that may represent an intermittent problem and some
     # special HTTP statuses.
-    def self.should_retry?(error, method:, num_retries:)
-      return false if num_retries >= Stripe.max_network_retries
+    def self.should_retry?(error,
+                           method:, num_retries:, config: Stripe.configuration)
+      return false if num_retries >= config.max_network_retries
 
       case error
       when Net::OpenTimeout, Net::ReadTimeout
@@ -127,13 +145,13 @@ module Stripe
       end
     end
 
-    def self.sleep_time(num_retries)
+    def self.sleep_time(num_retries, config: Stripe.configuration)
       # Apply exponential backoff with initial_network_retry_delay on the
       # number of num_retries so far as inputs. Do not allow the number to
       # exceed max_network_retry_delay.
       sleep_seconds = [
-        Stripe.initial_network_retry_delay * (2**(num_retries - 1)),
-        Stripe.max_network_retry_delay,
+        config.initial_network_retry_delay * (2**(num_retries - 1)),
+        config.max_network_retry_delay,
       ].min
 
       # Apply some jitter by randomizing the value in the range of
@@ -141,9 +159,7 @@ module Stripe
       sleep_seconds *= (0.5 * (1 + rand))
 
       # But never sleep less than the base sleep seconds.
-      sleep_seconds = [Stripe.initial_network_retry_delay, sleep_seconds].max
-
-      sleep_seconds
+      [config.initial_network_retry_delay, sleep_seconds].max
     end
 
     # Gets the connection manager in use for the current `StripeClient`.
@@ -187,8 +203,8 @@ module Stripe
       raise ArgumentError, "path should be a string" \
         unless path.is_a?(String)
 
-      api_base ||= Stripe.api_base
-      api_key ||= Stripe.api_key
+      api_base ||= config.api_base
+      api_key ||= config.api_key
       params = Util.objects_to_ids(params)
 
       check_api_key!(api_key)
@@ -231,10 +247,12 @@ module Stripe
       context.query           = query
 
       http_resp = execute_request_with_rescues(method, api_base, context) do
-        self.class.default_connection_manager.execute_request(method, url,
-                                                              body: body,
-                                                              headers: headers,
-                                                              query: query)
+        self.class
+            .default_connection_manager(config)
+            .execute_request(method, url,
+                             body: body,
+                             headers: headers,
+                             query: query)
       end
 
       begin
@@ -246,11 +264,19 @@ module Stripe
       # If being called from `StripeClient#request`, put the last response in
       # thread-local memory so that it can be returned to the user. Don't store
       # anything otherwise so that we don't leak memory.
-      if self.class.current_thread_context.last_responses&.key?(object_id)
-        self.class.current_thread_context.last_responses[object_id] = resp
-      end
+      store_last_response(object_id, resp)
 
       [resp, api_key]
+    end
+
+    def store_last_response(object_id, resp)
+      return unless last_response_has_key?(object_id)
+
+      self.class.current_thread_context.last_responses[object_id] = resp
+    end
+
+    def last_response_has_key?(object_id)
+      self.class.current_thread_context.last_responses&.key?(object_id)
     end
 
     #
@@ -328,11 +354,6 @@ module Stripe
       # the user hasn't specified their own.
       attr_accessor :default_client
 
-      # A default `ConnectionManager` for the thread. Normally shared between
-      # all `StripeClient` objects on a particular thread, and created so as to
-      # minimize the number of open connections that an application needs.
-      attr_accessor :default_connection_manager
-
       # A temporary map of object IDs to responses from last executed API
       # calls. Used to return a responses from calls to `StripeClient#request`.
       #
@@ -345,6 +366,17 @@ module Stripe
       # because that's wrapped in an `ensure` block, they should never leave
       # garbage in `Thread.current`.
       attr_accessor :last_responses
+
+      # A map of connection mangers for the thread. Normally shared between
+      # all `StripeClient` objects on a particular thread, and created so as to
+      # minimize the number of open connections that an application needs.
+      def default_connection_managers
+        @default_connection_managers ||= {}
+      end
+
+      def reset_connection_managers
+        @default_connection_managers = {}
+      end
     end
 
     # Access data stored for `StripeClient` within the thread's current
@@ -382,11 +414,19 @@ module Stripe
 
       pruned_thread_contexts = []
       @thread_contexts_with_connection_managers.each do |thread_context|
-        connection_manager = thread_context.default_connection_manager
-        next if connection_manager.last_used > last_used_threshold
+        thread_context
+          .default_connection_managers
+          .each do |config_key, connection_manager|
+            next if connection_manager.last_used > last_used_threshold
 
-        connection_manager.clear
-        thread_context.default_connection_manager = nil
+            connection_manager.clear
+            thread_context.default_connection_managers.delete(config_key)
+          end
+      end
+
+      @thread_contexts_with_connection_managers.each do |thread_context|
+        next unless thread_context.default_connection_managers.empty?
+
         pruned_thread_contexts << thread_context
       end
 
@@ -397,7 +437,7 @@ module Stripe
     end
 
     private def api_url(url = "", api_base = nil)
-      (api_base || Stripe.api_base) + url
+      (api_base || config.api_base) + url
     end
 
     private def check_api_key!(api_key)
@@ -471,7 +511,7 @@ module Stripe
         notify_request_end(context, request_duration, http_status,
                            num_retries, user_data)
 
-        if Stripe.enable_telemetry? && context.request_id
+        if config.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
           @last_request_metrics =
             StripeRequestMetrics.new(context.request_id, request_duration_ms)
@@ -498,9 +538,12 @@ module Stripe
         notify_request_end(context, request_duration, http_status, num_retries,
                            user_data)
 
-        if self.class.should_retry?(e, method: method, num_retries: num_retries)
+        if self.class.should_retry?(e,
+                                    method: method,
+                                    num_retries: num_retries,
+                                    config: config)
           num_retries += 1
-          sleep self.class.sleep_time(num_retries)
+          sleep self.class.sleep_time(num_retries, config: config)
           retry
         end
 
@@ -622,7 +665,8 @@ module Stripe
                      error_param: error_data[:param],
                      error_type: error_data[:type],
                      idempotency_key: context.idempotency_key,
-                     request_id: context.request_id)
+                     request_id: context.request_id,
+                     config: config)
 
       # The standard set of arguments that can be used to initialize most of
       # the exceptions.
@@ -671,7 +715,8 @@ module Stripe
                      error_code: error_code,
                      error_description: description,
                      idempotency_key: context.idempotency_key,
-                     request_id: context.request_id)
+                     request_id: context.request_id,
+                     config: config)
 
       args = {
         http_status: resp.http_status, http_body: resp.http_body,
@@ -703,7 +748,8 @@ module Stripe
       Util.log_error("Stripe network error",
                      error_message: error.message,
                      idempotency_key: context.idempotency_key,
-                     request_id: context.request_id)
+                     request_id: context.request_id,
+                     config: config)
 
       errors, message = NETWORK_ERROR_MESSAGES_MAP.detect do |(e, _)|
         error.is_a?(e)
@@ -714,7 +760,7 @@ module Stripe
           "with Stripe. Please let us know at support@stripe.com."
       end
 
-      api_base ||= Stripe.api_base
+      api_base ||= config.api_base
       message = message % api_base
 
       message += " Request was retried #{num_retries} times." if num_retries > 0
@@ -735,7 +781,7 @@ module Stripe
         "Content-Type" => "application/x-www-form-urlencoded",
       }
 
-      if Stripe.enable_telemetry? && !@last_request_metrics.nil?
+      if config.enable_telemetry? && !@last_request_metrics.nil?
         headers["X-Stripe-Client-Telemetry"] = JSON.generate(
           last_request_metrics: @last_request_metrics.payload
         )
@@ -743,12 +789,12 @@ module Stripe
 
       # It is only safe to retry network failures on post and delete
       # requests if we add an Idempotency-Key header
-      if %i[post delete].include?(method) && Stripe.max_network_retries > 0
+      if %i[post delete].include?(method) && config.max_network_retries > 0
         headers["Idempotency-Key"] ||= SecureRandom.uuid
       end
 
-      headers["Stripe-Version"] = Stripe.api_version if Stripe.api_version
-      headers["Stripe-Account"] = Stripe.stripe_account if Stripe.stripe_account
+      headers["Stripe-Version"] = config.api_version if config.api_version
+      headers["Stripe-Account"] = config.stripe_account if config.stripe_account
 
       user_agent = @system_profiler.user_agent
       begin
@@ -772,11 +818,13 @@ module Stripe
                     idempotency_key: context.idempotency_key,
                     method: context.method,
                     num_retries: num_retries,
-                    path: context.path)
+                    path: context.path,
+                    config: config)
       Util.log_debug("Request details",
                      body: context.body,
                      idempotency_key: context.idempotency_key,
-                     query: context.query)
+                     query: context.query,
+                     config: config)
     end
 
     private def log_response(context, request_start, status, body)
@@ -788,11 +836,13 @@ module Stripe
                     method: context.method,
                     path: context.path,
                     request_id: context.request_id,
-                    status: status)
+                    status: status,
+                    config: config)
       Util.log_debug("Response details",
                      body: body,
                      idempotency_key: context.idempotency_key,
-                     request_id: context.request_id)
+                     request_id: context.request_id,
+                     config: config)
 
       return unless context.request_id
 
@@ -800,7 +850,8 @@ module Stripe
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id,
                      url: Util.request_id_dashboard_url(context.request_id,
-                                                        context.api_key))
+                                                        context.api_key),
+                     config: config)
     end
 
     private def log_response_error(context, request_start, error)
@@ -810,7 +861,8 @@ module Stripe
                      error_message: error.message,
                      idempotency_key: context.idempotency_key,
                      method: context.method,
-                     path: context.path)
+                     path: context.path,
+                     config: config)
     end
 
     # RequestLogContext stores information about a request that's begin made so

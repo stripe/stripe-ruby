@@ -62,6 +62,8 @@ module Stripe
   class << self
     extend Forwardable
 
+    attr_reader :configuration
+
     # User configurable options
     def_delegators :@configuration, :api_key, :api_key=
     def_delegators :@configuration, :api_version, :api_version=

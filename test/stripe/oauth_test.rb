@@ -44,6 +44,14 @@ module Stripe
         assert_equal("connect.stripe.com", uri.host)
         assert_equal("/express/oauth/authorize", uri.path)
       end
+
+      should "override the api base path when a StripeClient is provided" do
+        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+        uri_str = OAuth.authorize_url({}, client: client)
+
+        uri = URI.parse(uri_str)
+        assert_equal("other.stripe.com", uri.host)
+      end
     end
 
     context ".token" do
@@ -83,6 +91,29 @@ module Stripe
                            code: "this_is_an_authorization_code")
         assert_equal("another_access_token", resp.access_token)
       end
+
+      should "override the api base path when a StripeClient is provided" do
+        stub_request(:post, "https://other.stripe.com/oauth/token")
+          .with(body: {
+            "grant_type" => "authorization_code",
+            "code" => "this_is_an_authorization_code",
+          })
+          .to_return(body: JSON.generate(access_token: "sk_access_token",
+                                         scope: "read_only",
+                                         livemode: false,
+                                         token_type: "bearer",
+                                         refresh_token: "sk_refresh_token",
+                                         stripe_user_id: "acct_test",
+                                         stripe_publishable_key: "pk_test"))
+
+        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+        resp = OAuth.token(
+          { grant_type: "authorization_code", code: "this_is_an_authorization_code" },
+          client: client
+        )
+
+        assert_equal("sk_access_token", resp.access_token)
+      end
     end
 
     context ".deauthorize" do
@@ -97,6 +128,20 @@ module Stripe
           .to_return(body: JSON.generate(stripe_user_id: "acct_test_deauth"))
 
         resp = OAuth.deauthorize(stripe_user_id: "acct_test_deauth")
+        assert_equal("acct_test_deauth", resp.stripe_user_id)
+      end
+
+      should "override the api base path when a StripeClient is provided" do
+        stub_request(:post, "https://other.stripe.com/oauth/deauthorize")
+          .with(body: {
+            "client_id" => "ca_test",
+            "stripe_user_id" => "acct_test_deauth",
+          })
+          .to_return(body: JSON.generate(stripe_user_id: "acct_test_deauth"))
+
+        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+        resp = OAuth.deauthorize({ stripe_user_id: "acct_test_deauth" }, client: client)
+
         assert_equal("acct_test_deauth", resp.stripe_user_id)
       end
     end

@@ -15,8 +15,10 @@ module Stripe
     # by `StripeClient` to determine whether a connection manager should be
     # garbage collected or not.
     attr_reader :last_used
+    attr_reader :config
 
-    def initialize
+    def initialize(config = Stripe.configuration)
+      @config = config
       @active_connections = {}
       @last_used = Util.monotonic_time
 
@@ -117,17 +119,17 @@ module Stripe
       # reused Go's default for `DefaultTransport`.
       connection.keep_alive_timeout = 30
 
-      connection.open_timeout = Stripe.open_timeout
-      connection.read_timeout = Stripe.read_timeout
+      connection.open_timeout = config.open_timeout
+      connection.read_timeout = config.read_timeout
       if connection.respond_to?(:write_timeout=)
-        connection.write_timeout = Stripe.write_timeout
+        connection.write_timeout = config.write_timeout
       end
 
       connection.use_ssl = uri.scheme == "https"
 
-      if Stripe.verify_ssl_certs
+      if config.verify_ssl_certs
         connection.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        connection.cert_store = Stripe.ca_store
+        connection.cert_store = config.ca_store
       else
         connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
         warn_ssl_verify_none
@@ -141,10 +143,10 @@ module Stripe
     # out those pieces to make passing them into a new connection a little less
     # ugly.
     private def proxy_parts
-      if Stripe.proxy.nil?
+      if config.proxy.nil?
         [nil, nil, nil, nil]
       else
-        u = URI.parse(Stripe.proxy)
+        u = URI.parse(config.proxy)
         [u.host, u.port, u.user, u.password]
       end
     end

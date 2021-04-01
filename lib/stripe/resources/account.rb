@@ -45,12 +45,8 @@ module Stripe
     end
 
     # @override To make id optional
-    def self.retrieve(id = ARGUMENT_NOT_PROVIDED, opts = {})
-      id = if id.equal?(ARGUMENT_NOT_PROVIDED)
-             nil
-           else
-             Util.check_string_argument!(id)
-           end
+    def self.retrieve(id = nil, opts = {})
+      Util.check_string_argument!(id) if id
 
       # Account used to be a singleton, where this method's signature was
       # `(opts={})`. For the sake of not breaking folks who pass in an OAuth
@@ -136,10 +132,9 @@ module Stripe
         client_id: client_id,
         stripe_user_id: id,
       }
+      opts = @opts.merge(Util.normalize_opts(opts))
       OAuth.deauthorize(params, opts)
     end
-
-    ARGUMENT_NOT_PROVIDED = Object.new
 
     private def serialize_additional_owners(legal_entity, additional_owners)
       original_value =

@@ -101,6 +101,14 @@ module Stripe
       @max_network_retries = val.to_i
     end
 
+    def max_network_retry_delay=(val)
+      @max_network_retry_delay = val.to_i
+    end
+
+    def initial_network_retry_delay=(val)
+      @initial_network_retry_delay = val.to_i
+    end
+
     def open_timeout=(open_timeout)
       @open_timeout = open_timeout
       StripeClient.clear_all_connection_managers
@@ -173,6 +181,14 @@ module Stripe
 
     def enable_telemetry?
       enable_telemetry
+    end
+
+    # Generates a deterministic key to identify configuration objects with
+    # identical configuration values.
+    def key
+      instance_variables
+        .collect { |variable| instance_variable_get(variable) }
+        .join
     end
   end
 end

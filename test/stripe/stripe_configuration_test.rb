@@ -20,6 +20,7 @@ module Stripe
         assert_equal "https://api.stripe.com", config.api_base
         assert_equal "https://connect.stripe.com", config.connect_base
         assert_equal "https://files.stripe.com", config.uploads_base
+        assert_equal nil, config.api_version
       end
 
       should "allow for overrides when a block is passed" do
@@ -41,7 +42,7 @@ module Stripe
           c.open_timeout = 100
         end
 
-        duped_config = config.reverse_duplicate_merge(read_timeout: 500)
+        duped_config = config.reverse_duplicate_merge(read_timeout: 500, api_version: "2018-08-02")
 
         assert_equal config.open_timeout, duped_config.open_timeout
         assert_equal 500, duped_config.read_timeout
@@ -54,6 +55,24 @@ module Stripe
 
         config.max_network_retries = "10"
         assert_equal 10, config.max_network_retries
+      end
+    end
+
+    context "#max_network_retry_delay=" do
+      should "coerce the option into an integer" do
+        config = Stripe::StripeConfiguration.setup
+
+        config.max_network_retry_delay = "10"
+        assert_equal 10, config.max_network_retry_delay
+      end
+    end
+
+    context "#initial_network_retry_delay=" do
+      should "coerce the option into an integer" do
+        config = Stripe::StripeConfiguration.setup
+
+        config.initial_network_retry_delay = "10"
+        assert_equal 10, config.initial_network_retry_delay
       end
     end
 
@@ -125,6 +144,15 @@ module Stripe
 
         StripeClient.expects(:clear_all_connection_managers)
         config.verify_ssl_certs = false
+      end
+    end
+
+    context "#key" do
+      should "generate the same key when values are identicial" do
+        assert_equal StripeConfiguration.setup.key, StripeConfiguration.setup.key
+
+        custom_config = StripeConfiguration.setup { |c| c.open_timeout = 1000 }
+        refute_equal StripeConfiguration.setup.key, custom_config.key
       end
     end
   end

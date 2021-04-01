@@ -79,6 +79,49 @@ module Stripe
         end
       end
 
+      context "when a StripeClient has different configurations" do
+        should "correctly initialize a connection" do
+          old_proxy = Stripe.proxy
+
+          old_open_timeout = Stripe.open_timeout
+          old_read_timeout = Stripe.read_timeout
+
+          begin
+            client = StripeClient.new(
+              proxy: "http://other:pass@localhost:8080",
+              open_timeout: 400,
+              read_timeout: 500,
+              verify_ssl_certs: true
+            )
+            conn = Stripe::ConnectionManager.new(client.config)
+                                            .connection_for("https://stripe.com")
+
+            # Host/port
+            assert_equal "stripe.com", conn.address
+            assert_equal 443, conn.port
+
+            # Proxy
+            assert_equal "localhost", conn.proxy_address
+            assert_equal 8080, conn.proxy_port
+            assert_equal "other", conn.proxy_user
+            assert_equal "pass", conn.proxy_pass
+
+            # Timeouts
+            assert_equal 400, conn.open_timeout
+            assert_equal 500, conn.read_timeout
+
+            assert_equal true, conn.use_ssl?
+            assert_equal OpenSSL::SSL::VERIFY_PEER, conn.verify_mode
+            assert_equal Stripe.ca_store, conn.cert_store
+          ensure
+            Stripe.proxy = old_proxy
+
+            Stripe.open_timeout = old_open_timeout
+            Stripe.read_timeout = old_read_timeout
+          end
+        end
+      end
+
       should "produce the same connection multiple times" do
         conn1 = @manager.connection_for("https://stripe.com")
         conn2 = @manager.connection_for("https://stripe.com")

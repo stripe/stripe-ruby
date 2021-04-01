@@ -25,8 +25,9 @@ module Stripe
         end
       end
 
+      config = opts[:client]&.config || Stripe.configuration
       opts = {
-        api_base: Stripe.uploads_base,
+        api_base: config.uploads_base,
         content_type: MultipartEncoder::MULTIPART_FORM_DATA,
       }.merge(Util.normalize_opts(opts))
       super

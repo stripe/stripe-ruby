@@ -4,6 +4,24 @@ require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class StripeClientTest < Test::Unit::TestCase
+    context "initializing a StripeClient" do
+      should "allow a String to be passed in order to set the api key" do
+        assert_equal StripeClient.new("test_123").config.api_key, "test_123"
+      end
+
+      should "allow for overrides via a Hash" do
+        config = { api_key: "test_123", open_timeout: 100 }
+        client = StripeClient.new(config)
+
+        assert_equal client.config.api_key, "test_123"
+        assert_equal client.config.open_timeout, 100
+      end
+
+      should "support deprecated ConnectionManager objects" do
+        assert StripeClient.new(Stripe::ConnectionManager.new).config.is_a?(Stripe::StripeConfiguration)
+      end
+    end
+
     context ".active_client" do
       should "be .default_client outside of #request" do
         assert_equal StripeClient.default_client, StripeClient.active_client
@@ -82,8 +100,64 @@ module Stripe
         assert_equal 1, StripeClient.maybe_gc_connection_managers
 
         # And as an additional check, the connection manager of the current
-        # thread context should have been set to `nil` as it was GCed.
-        assert_nil StripeClient.current_thread_context.default_connection_manager
+        # thread context should have been removed as it was GCed.
+        assert_equal({}, StripeClient.current_thread_context.default_connection_managers)
+      end
+
+      should "only garbage collect when all connection managers for a thread are expired" do
+        stub_request(:post, "#{Stripe.api_base}/v1/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        # Make sure we start with a blank slate (state may have been left in
+        # place by other tests).
+        StripeClient.clear_all_connection_managers
+
+        # Establish a base time.
+        t = 0.0
+
+        # And pretend that `StripeClient` was just initialized for the first
+        # time. (Don't access instance variables like this, but it's tricky to
+        # test properly otherwise.)
+        StripeClient.instance_variable_set(:@last_connection_manager_gc, t)
+
+        #
+        # t
+        #
+        Util.stubs(:monotonic_time).returns(t)
+
+        # Execute an initial request to ensure that a connection manager was
+        # created.
+        client = StripeClient.new
+        client.execute_request(:post, "/v1/path")
+
+        # Create a new client with a unique config to make sure the thread has two
+        # connection managers
+        active_client = StripeClient.new(max_network_retries: 10)
+        active_client.execute_request(:post, "/v1/path")
+
+        assert_equal 2, StripeClient.current_thread_context.default_connection_managers.keys.count
+        assert_equal nil, StripeClient.maybe_gc_connection_managers
+
+        # t + StripeClient::CONNECTION_MANAGER_GC_LAST_USED_EXPIRY + 1
+        #
+        # Move us far enough into the future that we're passed the horizons for
+        # both a GC run as well as well as the expiry age of a connection
+        # manager. That means the GC will run and collect the connection
+        # manager that we created above.
+        #
+        Util.stubs(:monotonic_time).returns(t + StripeClient::CONNECTION_MANAGER_GC_LAST_USED_EXPIRY + 1)
+
+        # Manually set the active_client's last_used time into the future to prevent GC.
+        StripeClient.default_connection_manager(active_client.config)
+                    .instance_variable_set(:@last_used, Util.monotonic_time + 1)
+
+        assert_equal 0, StripeClient.maybe_gc_connection_managers
+
+        # Move time into the future past the last GC round
+        current_time = Util.monotonic_time
+        Util.stubs(:monotonic_time).returns(current_time * 2)
+
+        assert_equal 1, StripeClient.maybe_gc_connection_managers
       end
     end
 
@@ -160,11 +234,26 @@ module Stripe
         thread.join
         refute_equal StripeClient.default_connection_manager, other_thread_manager
       end
+
+      should "create a separate connection manager per configuration" do
+        config = Stripe::StripeConfiguration.setup { |c| c.open_timeout = 100 }
+        connection_manager_one = StripeClient.default_connection_manager
+        connection_manager_two = StripeClient.default_connection_manager(config)
+
+        assert_equal connection_manager_one.config.open_timeout, 30
+        assert_equal connection_manager_two.config.open_timeout, 100
+      end
+
+      should "create a single connection manager for identitical configurations" do
+        2.times { StripeClient.default_connection_manager(Stripe::StripeConfiguration.setup) }
+
+        assert_equal 1, StripeClient.instance_variable_get(:@thread_contexts_with_connection_managers).first.default_connection_managers.size
+      end
     end
 
     context ".should_retry?" do
       setup do
-        Stripe.stubs(:max_network_retries).returns(2)
+        Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
       end
 
       should "retry on Errno::ECONNREFUSED" do
@@ -275,7 +364,7 @@ module Stripe
     context ".sleep_time" do
       should "should grow exponentially" do
         StripeClient.stubs(:rand).returns(1)
-        Stripe.stubs(:max_network_retry_delay).returns(999)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(999)
         assert_equal(Stripe.initial_network_retry_delay, StripeClient.sleep_time(1))
         assert_equal(Stripe.initial_network_retry_delay * 2, StripeClient.sleep_time(2))
         assert_equal(Stripe.initial_network_retry_delay * 4, StripeClient.sleep_time(3))
@@ -284,8 +373,8 @@ module Stripe
 
       should "enforce the max_network_retry_delay" do
         StripeClient.stubs(:rand).returns(1)
-        Stripe.stubs(:initial_network_retry_delay).returns(1)
-        Stripe.stubs(:max_network_retry_delay).returns(2)
+        Stripe.configuration.stubs(:initial_network_retry_delay).returns(1)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(2)
         assert_equal(1, StripeClient.sleep_time(1))
         assert_equal(2, StripeClient.sleep_time(2))
         assert_equal(2, StripeClient.sleep_time(3))
@@ -295,8 +384,8 @@ module Stripe
       should "add some randomness" do
         random_value = 0.8
         StripeClient.stubs(:rand).returns(random_value)
-        Stripe.stubs(:initial_network_retry_delay).returns(1)
-        Stripe.stubs(:max_network_retry_delay).returns(8)
+        Stripe.configuration.stubs(:initial_network_retry_delay).returns(1)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(8)
 
         base_value = Stripe.initial_network_retry_delay * (0.5 * (1 + random_value))
 
@@ -308,6 +397,23 @@ module Stripe
         assert_equal(base_value * 2, StripeClient.sleep_time(2))
         assert_equal(base_value * 4, StripeClient.sleep_time(3))
         assert_equal(base_value * 8, StripeClient.sleep_time(4))
+      end
+
+      should "permit passing in a configuration object" do
+        StripeClient.stubs(:rand).returns(1)
+        config = Stripe::StripeConfiguration.setup do |c|
+          c.initial_network_retry_delay = 1
+          c.max_network_retry_delay = 2
+        end
+
+        # Set the global configuration to be different than the client
+        Stripe.configuration.stubs(:initial_network_retry_delay).returns(100)
+        Stripe.configuration.stubs(:max_network_retry_delay).returns(200)
+
+        assert_equal(1, StripeClient.sleep_time(1, config: config))
+        assert_equal(2, StripeClient.sleep_time(2, config: config))
+        assert_equal(2, StripeClient.sleep_time(3, config: config))
+        assert_equal(2, StripeClient.sleep_time(4, config: config))
       end
     end
 
@@ -342,6 +448,10 @@ module Stripe
           # switch over to rspec-mocks at some point, we can probably remove
           # this.
           Util.stubs(:monotonic_time).returns(0.0)
+
+          # Stub the Stripe configuration so that mocha matchers will succeed. Currently,
+          # mocha does not support using param matchers within hashes.
+          StripeClient.any_instance.stubs(:config).returns(Stripe.configuration)
         end
 
         should "produce appropriate logging" do
@@ -353,11 +463,13 @@ module Stripe
                                        idempotency_key: "abc",
                                        method: :post,
                                        num_retries: 0,
-                                       path: "/v1/account")
+                                       path: "/v1/account",
+                                       config: Stripe.configuration)
           Util.expects(:log_debug).with("Request details",
                                         body: "",
                                         idempotency_key: "abc",
-                                        query: nil)
+                                        query: nil,
+                                        config: Stripe.configuration)
 
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: "acct_123",
@@ -367,15 +479,18 @@ module Stripe
                                        method: :post,
                                        path: "/v1/account",
                                        request_id: "req_123",
-                                       status: 200)
+                                       status: 200,
+                                       config: Stripe.configuration)
           Util.expects(:log_debug).with("Response details",
                                         body: body,
                                         idempotency_key: "abc",
-                                        request_id: "req_123")
+                                        request_id: "req_123",
+                                        config: Stripe.configuration)
           Util.expects(:log_debug).with("Dashboard link for request",
                                         idempotency_key: "abc",
                                         request_id: "req_123",
-                                        url: Util.request_id_dashboard_url("req_123", Stripe.api_key))
+                                        url: Util.request_id_dashboard_url("req_123", Stripe.api_key),
+                                        config: Stripe.configuration)
 
           stub_request(:post, "#{Stripe.api_base}/v1/account")
             .to_return(
@@ -404,7 +519,8 @@ module Stripe
                                        idempotency_key: nil,
                                        method: :post,
                                        num_retries: 0,
-                                       path: "/v1/account")
+                                       path: "/v1/account",
+                                       config: Stripe.configuration)
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: nil,
                                        api_version: nil,
@@ -413,7 +529,8 @@ module Stripe
                                        method: :post,
                                        path: "/v1/account",
                                        request_id: nil,
-                                       status: 500)
+                                       status: 500,
+                                       config: Stripe.configuration)
 
           error = {
             code: "code",
@@ -428,7 +545,8 @@ module Stripe
                                         error_param: error[:param],
                                         error_type: error[:type],
                                         idempotency_key: nil,
-                                        request_id: nil)
+                                        request_id: nil,
+                                        config: Stripe.configuration)
 
           stub_request(:post, "#{Stripe.api_base}/v1/account")
             .to_return(
@@ -449,7 +567,8 @@ module Stripe
                                        idempotency_key: nil,
                                        method: :post,
                                        num_retries: 0,
-                                       path: "/oauth/token")
+                                       path: "/oauth/token",
+                                       config: Stripe.configuration)
           Util.expects(:log_info).with("Response from Stripe API",
                                        account: nil,
                                        api_version: nil,
@@ -458,14 +577,16 @@ module Stripe
                                        method: :post,
                                        path: "/oauth/token",
                                        request_id: nil,
-                                       status: 400)
+                                       status: 400,
+                                       config: Stripe.configuration)
 
           Util.expects(:log_error).with("Stripe OAuth error",
                                         status: 400,
                                         error_code: "invalid_request",
                                         error_description: "No grant type specified",
                                         idempotency_key: nil,
-                                        request_id: nil)
+                                        request_id: nil,
+                                        config: Stripe.configuration)
 
           stub_request(:post, "#{Stripe.connect_base}/oauth/token")
             .to_return(body: JSON.generate(error: "invalid_request",
@@ -788,7 +909,7 @@ module Stripe
 
       context "idempotency keys" do
         setup do
-          Stripe.stubs(:max_network_retries).returns(2)
+          Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
         end
 
         should "not add an idempotency key to GET requests" do
@@ -838,7 +959,7 @@ module Stripe
 
       context "retry logic" do
         setup do
-          Stripe.stubs(:max_network_retries).returns(2)
+          Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
         end
 
         should "retry failed requests and raise if error persists" do
@@ -869,6 +990,21 @@ module Stripe
 
           client = StripeClient.new
           client.execute_request(:post, "/v1/charges")
+        end
+
+        should "pass the client configuration when retrying" do
+          StripeClient.expects(:sleep_time)
+                      .with(any_of(1, 2),
+                            has_entry(:config, kind_of(Stripe::StripeConfiguration)))
+                      .at_least_once.returns(0)
+
+          stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            .to_raise(Errno::ECONNREFUSED.new)
+
+          client = StripeClient.new
+          assert_raises Stripe::APIConnectionError do
+            client.execute_request(:post, "/v1/charges")
+          end
         end
       end
 
@@ -1079,7 +1215,7 @@ module Stripe
     context "#proxy" do
       should "run the request through the proxy" do
         begin
-          StripeClient.current_thread_context.default_connection_manager = nil
+          StripeClient.clear_all_connection_managers
 
           Stripe.proxy = "http://user:pass@localhost:8080"
 
@@ -1095,7 +1231,7 @@ module Stripe
         ensure
           Stripe.proxy = nil
 
-          StripeClient.current_thread_context.default_connection_manager = nil
+          StripeClient.clear_all_connection_managers
         end
       end
     end

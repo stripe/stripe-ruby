@@ -114,6 +114,11 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "https://other.stripe.com", Stripe.api_base
     end
 
+    should "allow api_version to be configured" do
+      Stripe.api_version = "2018-02-28"
+      assert_equal "2018-02-28", Stripe.api_version
+    end
+
     should "allow connect_base to be configured" do
       Stripe.connect_base = "https://other.stripe.com"
       assert_equal "https://other.stripe.com", Stripe.connect_base

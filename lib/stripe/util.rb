@@ -76,24 +76,30 @@ module Stripe
     end
 
     def self.log_error(message, data = {})
-      if !Stripe.logger.nil? ||
-         !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_ERROR
+      config = data.delete(:config) || Stripe.configuration
+      logger = config.logger || Stripe.logger
+      if !logger.nil? ||
+         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_ERROR
         log_internal(message, data, color: :cyan, level: Stripe::LEVEL_ERROR,
                                     logger: Stripe.logger, out: $stderr)
       end
     end
 
     def self.log_info(message, data = {})
-      if !Stripe.logger.nil? ||
-         !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_INFO
+      config = data.delete(:config) || Stripe.configuration
+      logger = config.logger || Stripe.logger
+      if !logger.nil? ||
+         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_INFO
         log_internal(message, data, color: :cyan, level: Stripe::LEVEL_INFO,
                                     logger: Stripe.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
-      if !Stripe.logger.nil? ||
-         !Stripe.log_level.nil? && Stripe.log_level <= Stripe::LEVEL_DEBUG
+      config = data.delete(:config) || Stripe.configuration
+      logger = config.logger || Stripe.logger
+      if !logger.nil? ||
+         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_DEBUG
         log_internal(message, data, color: :blue, level: Stripe::LEVEL_DEBUG,
                                     logger: Stripe.logger, out: $stdout)
       end

@@ -496,5 +496,15 @@ module Stripe
         assert obj.method(:id).is_a?(Method)
       end
     end
+
+    should "ignore properties that are reserved names" do
+      obj = Stripe::StripeObject.construct_from(metadata: { class: "something" })
+
+      # See comment on `StripeObject::RESERVED_FIELD_NAMES`
+      assert_equal Stripe::StripeObject, obj.metadata.class
+
+      # Value still accessible with hash syntax
+      assert_equal "something", obj.metadata[:class]
+    end
   end
 end

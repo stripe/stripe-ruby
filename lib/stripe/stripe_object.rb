@@ -267,6 +267,27 @@ module Stripe
       []
     end
 
+    # When designing APIs, we now make a conscious effort server-side to avoid
+    # naming fields after important built-ins in various languages (e.g. class,
+    # method, etc.).
+    #
+    # However, a long time ago we made the mistake (either consciously or by
+    # accident) of initializing our `metadata` fields as instances of
+    # `StripeObject`, and metadata can have a wide range of different keys
+    # defined in it. This is somewhat a convenient in that it allows users to
+    # access data like `obj.metadata.my_field`, but is almost certainly not
+    # worth the cost.
+    #
+    # Naming metadata fields bad things like `class` causes `initialize_from`
+    # to produce strange results, so we ban known offenders here.
+    #
+    # In a future major version we should consider leaving `metadata` as a hash
+    # and forcing people to access it with `obj.metadata[:my_field]` because
+    # the potential for trouble is just too high. For now, reserve names.
+    RESERVED_FIELD_NAMES = [
+      :class,
+    ].freeze
+
     protected def metaclass
       class << self; self; end
     end
@@ -277,6 +298,7 @@ module Stripe
 
       metaclass.instance_eval do
         keys.each do |k|
+          next if RESERVED_FIELD_NAMES.include?(k)
           next if protected_fields.include?(k)
           next if @@permanent_attributes.include?(k)
 
@@ -312,6 +334,7 @@ module Stripe
 
       metaclass.instance_eval do
         keys.each do |k|
+          next if RESERVED_FIELD_NAMES.include?(k)
           next if protected_fields.include?(k)
           next if @@permanent_attributes.include?(k)
 

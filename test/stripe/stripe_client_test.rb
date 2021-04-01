@@ -20,6 +20,12 @@ module Stripe
       should "support deprecated ConnectionManager objects" do
         assert StripeClient.new(Stripe::ConnectionManager.new).config.is_a?(Stripe::StripeConfiguration)
       end
+
+      should "support passing a full configuration object" do
+        config = Stripe.configuration.reverse_duplicate_merge({ api_key: "test_123", open_timeout: 100 })
+        client = StripeClient.new(config)
+        assert_equal config, client.config
+      end
     end
 
     context ".active_client" do
@@ -203,6 +209,27 @@ module Stripe
         # And finally, give all threads time to perform their check.
         threads.each(&:join)
       end
+
+      should "clear only connection managers with a given configuration" do
+        StripeClient.clear_all_connection_managers
+
+        client1 = StripeClient.new(read_timeout: 5.0)
+        StripeClient.default_connection_manager(client1.config)
+        client2 = StripeClient.new(read_timeout: 2.0)
+        StripeClient.default_connection_manager(client2.config)
+
+        thread_contexts = StripeClient.instance_variable_get(:@thread_contexts_with_connection_managers)
+        assert_equal 1, thread_contexts.count
+        thread_context = thread_contexts.first
+
+        refute_nil thread_context.default_connection_managers[client1.config.key]
+        refute_nil thread_context.default_connection_managers[client2.config.key]
+
+        StripeClient.clear_all_connection_managers(config: client1.config)
+
+        assert_nil thread_context.default_connection_managers[client1.config.key]
+        refute_nil thread_context.default_connection_managers[client2.config.key]
+      end
     end
 
     context ".default_client" do
@@ -244,7 +271,9 @@ module Stripe
         assert_equal connection_manager_two.config.open_timeout, 100
       end
 
-      should "create a single connection manager for identitical configurations" do
+      should "create a single connection manager for identical configurations" do
+        StripeClient.clear_all_connection_managers
+
         2.times { StripeClient.default_connection_manager(Stripe::StripeConfiguration.setup) }
 
         assert_equal 1, StripeClient.instance_variable_get(:@thread_contexts_with_connection_managers).first.default_connection_managers.size

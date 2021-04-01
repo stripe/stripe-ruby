@@ -100,49 +100,49 @@ module Stripe
       should "clear when setting allow ca_bundle_path" do
         config = Stripe::StripeConfiguration.setup
 
-        StripeClient.expects(:clear_all_connection_managers)
+        StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.ca_bundle_path = "/path/to/ca/bundle"
       end
 
       should "clear when setting open timeout" do
         config = Stripe::StripeConfiguration.setup
 
-        StripeClient.expects(:clear_all_connection_managers)
+        StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.open_timeout = 10
       end
 
       should "clear when setting read timeout" do
         config = Stripe::StripeConfiguration.setup
 
-        StripeClient.expects(:clear_all_connection_managers)
+        StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.read_timeout = 10
       end
 
       should "clear when setting uploads_base" do
         config = Stripe::StripeConfiguration.setup
 
-        StripeClient.expects(:clear_all_connection_managers)
+        StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.uploads_base = "https://other.stripe.com"
       end
 
-      should "clearn when setting api_base to be configured" do
+      should "clear when setting api_base to be configured" do
         config = Stripe::StripeConfiguration.setup
 
-        StripeClient.expects(:clear_all_connection_managers)
+        StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.api_base = "https://other.stripe.com"
       end
 
       should "clear when setting connect_base" do
         config = Stripe::StripeConfiguration.setup
 
-        StripeClient.expects(:clear_all_connection_managers)
+        StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.connect_base = "https://other.stripe.com"
       end
 
       should "clear when setting verify_ssl_certs" do
         config = Stripe::StripeConfiguration.setup
 
-        StripeClient.expects(:clear_all_connection_managers)
+        StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.verify_ssl_certs = false
       end
     end

@@ -25,7 +25,7 @@ module Stripe
         end
       end
 
-      config = opts[:client]&.config || Stripe.configuration
+      config = opts[:client]&.config || Stripe.config
       opts = {
         api_base: config.uploads_base,
         content_type: MultipartEncoder::MULTIPART_FORM_DATA,

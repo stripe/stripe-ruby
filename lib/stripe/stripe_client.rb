@@ -14,28 +14,29 @@ module Stripe
     @last_connection_manager_gc = Util.monotonic_time
 
     # Initializes a new StripeClient
-    def initialize(config_overrides = {})
+    def initialize(config_arg = {})
       @system_profiler = SystemProfiler.new
       @last_request_metrics = nil
 
-      # Supports accepting a connection manager object for backwards
-      # compatibility only, and that use is DEPRECATED.
-      @config_overrides = case config_overrides
-                          when Stripe::ConnectionManager
-                            {}
-                          when String
-                            { api_key: config_overrides }
-                          else
-                            config_overrides
-                          end
+      @config = case config_arg
+                when Hash
+                  Stripe.configuration.reverse_duplicate_merge(config_arg)
+                when Stripe::ConnectionManager
+                  # Supports accepting a connection manager object for backwards
+                  # compatibility only, and that use is DEPRECATED.
+                  Stripe.configuration.dup
+                when Stripe::StripeConfiguration
+                  config_arg
+                when String
+                  Stripe.configuration.reverse_duplicate_merge(
+                    { api_key: config_arg }
+                  )
+                else
+                  raise ArgumentError, "Can't handle argument: #{config_arg}"
+                end
     end
 
-    # Always base config off the global Stripe configuration to ensure the
-    # client picks up any changes to the config.
-    def config
-      Stripe.configuration.reverse_duplicate_merge(@config_overrides)
-    end
-
+    attr_reader :config
     attr_reader :options
 
     # Gets a currently active `StripeClient`. Set for the current thread when
@@ -53,30 +54,45 @@ module Stripe
     # clears them from internal tracking in all connection managers across all
     # threads.
     #
+    # If passed a `config` object, only clear connection managers for that
+    # particular configuration.
+    #
     # For internal use only. Does not provide a stable API and may be broken
     # with future non-major changes.
-    def self.clear_all_connection_managers
+    def self.clear_all_connection_managers(config: nil)
       # Just a quick path for when configuration is being set for the first
       # time before any connections have been opened. There is technically some
       # potential for thread raciness here, but not in a practical sense.
       return if @thread_contexts_with_connection_managers.empty?
 
       @thread_contexts_with_connection_managers_mutex.synchronize do
+        pruned_contexts = Set.new
+
         @thread_contexts_with_connection_managers.each do |thread_context|
           # Note that the thread context itself is not destroyed, but we clear
           # its connection manager and remove our reference to it. If it ever
           # makes a new request we'll give it a new connection manager and
           # it'll go back into `@thread_contexts_with_connection_managers`.
-          thread_context.default_connection_managers.map { |_, cm| cm.clear }
-          thread_context.reset_connection_managers
+          thread_context.default_connection_managers.reject! do |cm_config, cm|
+            if config.nil? || config.key == cm_config
+              cm.clear
+              true
+            end
+          end
+
+          if thread_context.default_connection_managers.empty?
+            pruned_contexts << thread_context
+          end
         end
-        @thread_contexts_with_connection_managers.clear
+
+        @thread_contexts_with_connection_managers.subtract(pruned_contexts)
       end
     end
 
     # A default client for the current thread.
     def self.default_client
-      current_thread_context.default_client ||= StripeClient.new
+      current_thread_context.default_client ||=
+        StripeClient.new(Stripe.configuration)
     end
 
     # A default connection manager for the current thread scoped to the
@@ -412,7 +428,7 @@ module Stripe
       last_used_threshold =
         Util.monotonic_time - CONNECTION_MANAGER_GC_LAST_USED_EXPIRY
 
-      pruned_thread_contexts = []
+      pruned_contexts = []
       @thread_contexts_with_connection_managers.each do |thread_context|
         thread_context
           .default_connection_managers
@@ -427,13 +443,13 @@ module Stripe
       @thread_contexts_with_connection_managers.each do |thread_context|
         next unless thread_context.default_connection_managers.empty?
 
-        pruned_thread_contexts << thread_context
+        pruned_contexts << thread_context
       end
 
-      @thread_contexts_with_connection_managers -= pruned_thread_contexts
+      @thread_contexts_with_connection_managers -= pruned_contexts
       @last_connection_manager_gc = Util.monotonic_time
 
-      pruned_thread_contexts.count
+      pruned_contexts.count
     end
 
     private def api_url(url = "", api_base = nil)

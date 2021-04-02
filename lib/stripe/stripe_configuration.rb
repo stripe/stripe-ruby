@@ -111,12 +111,12 @@ module Stripe
 
     def open_timeout=(open_timeout)
       @open_timeout = open_timeout
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def read_timeout=(read_timeout)
       @read_timeout = read_timeout
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def write_timeout=(write_timeout)
@@ -125,32 +125,32 @@ module Stripe
       end
 
       @write_timeout = write_timeout
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def proxy=(proxy)
       @proxy = proxy
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def verify_ssl_certs=(verify_ssl_certs)
       @verify_ssl_certs = verify_ssl_certs
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def uploads_base=(uploads_base)
       @uploads_base = uploads_base
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def connect_base=(connect_base)
       @connect_base = connect_base
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def api_base=(api_base)
       @api_base = api_base
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     def ca_bundle_path=(path)
@@ -159,7 +159,7 @@ module Stripe
       # empty this field so a new store is initialized
       @ca_store = nil
 
-      StripeClient.clear_all_connection_managers
+      StripeClient.clear_all_connection_managers(config: self)
     end
 
     # A certificate store initialized from the the bundle in #ca_bundle_path and

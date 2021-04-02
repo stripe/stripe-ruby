@@ -57,36 +57,36 @@ module Stripe
 
   @app_info = nil
 
-  @configuration = Stripe::StripeConfiguration.setup
+  @config = Stripe::StripeConfiguration.setup
 
   class << self
     extend Forwardable
 
-    attr_reader :configuration
+    attr_reader :config
 
     # User configurable options
-    def_delegators :@configuration, :api_key, :api_key=
-    def_delegators :@configuration, :api_version, :api_version=
-    def_delegators :@configuration, :stripe_account, :stripe_account=
-    def_delegators :@configuration, :api_base, :api_base=
-    def_delegators :@configuration, :uploads_base, :uploads_base=
-    def_delegators :@configuration, :connect_base, :connect_base=
-    def_delegators :@configuration, :open_timeout, :open_timeout=
-    def_delegators :@configuration, :read_timeout, :read_timeout=
-    def_delegators :@configuration, :write_timeout, :write_timeout=
-    def_delegators :@configuration, :proxy, :proxy=
-    def_delegators :@configuration, :verify_ssl_certs, :verify_ssl_certs=
-    def_delegators :@configuration, :ca_bundle_path, :ca_bundle_path=
-    def_delegators :@configuration, :log_level, :log_level=
-    def_delegators :@configuration, :logger, :logger=
-    def_delegators :@configuration, :max_network_retries, :max_network_retries=
-    def_delegators :@configuration, :enable_telemetry=, :enable_telemetry?
-    def_delegators :@configuration, :client_id=, :client_id
+    def_delegators :@config, :api_key, :api_key=
+    def_delegators :@config, :api_version, :api_version=
+    def_delegators :@config, :stripe_account, :stripe_account=
+    def_delegators :@config, :api_base, :api_base=
+    def_delegators :@config, :uploads_base, :uploads_base=
+    def_delegators :@config, :connect_base, :connect_base=
+    def_delegators :@config, :open_timeout, :open_timeout=
+    def_delegators :@config, :read_timeout, :read_timeout=
+    def_delegators :@config, :write_timeout, :write_timeout=
+    def_delegators :@config, :proxy, :proxy=
+    def_delegators :@config, :verify_ssl_certs, :verify_ssl_certs=
+    def_delegators :@config, :ca_bundle_path, :ca_bundle_path=
+    def_delegators :@config, :log_level, :log_level=
+    def_delegators :@config, :logger, :logger=
+    def_delegators :@config, :max_network_retries, :max_network_retries=
+    def_delegators :@config, :enable_telemetry=, :enable_telemetry?
+    def_delegators :@config, :client_id=, :client_id
 
     # Internal configurations
-    def_delegators :@configuration, :max_network_retry_delay
-    def_delegators :@configuration, :initial_network_retry_delay
-    def_delegators :@configuration, :ca_store
+    def_delegators :@config, :max_network_retry_delay
+    def_delegators :@config, :initial_network_retry_delay
+    def_delegators :@config, :ca_store
   end
 
   # Gets the application for a plugin that's identified some. See

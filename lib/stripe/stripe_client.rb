@@ -20,15 +20,15 @@ module Stripe
 
       @config = case config_arg
                 when Hash
-                  Stripe.configuration.reverse_duplicate_merge(config_arg)
+                  Stripe.config.reverse_duplicate_merge(config_arg)
                 when Stripe::ConnectionManager
                   # Supports accepting a connection manager object for backwards
                   # compatibility only, and that use is DEPRECATED.
-                  Stripe.configuration.dup
+                  Stripe.config.dup
                 when Stripe::StripeConfiguration
                   config_arg
                 when String
-                  Stripe.configuration.reverse_duplicate_merge(
+                  Stripe.config.reverse_duplicate_merge(
                     { api_key: config_arg }
                   )
                 else
@@ -91,13 +91,12 @@ module Stripe
 
     # A default client for the current thread.
     def self.default_client
-      current_thread_context.default_client ||=
-        StripeClient.new(Stripe.configuration)
+      current_thread_context.default_client ||= StripeClient.new(Stripe.config)
     end
 
     # A default connection manager for the current thread scoped to the
     # configuration object that may be provided.
-    def self.default_connection_manager(config = Stripe.configuration)
+    def self.default_connection_manager(config = Stripe.config)
       current_thread_context.default_connection_managers[config.key] ||= begin
         connection_manager = ConnectionManager.new(config)
 
@@ -114,7 +113,7 @@ module Stripe
     # both socket errors that may represent an intermittent problem and some
     # special HTTP statuses.
     def self.should_retry?(error,
-                           method:, num_retries:, config: Stripe.configuration)
+                           method:, num_retries:, config: Stripe.config)
       return false if num_retries >= config.max_network_retries
 
       case error
@@ -161,7 +160,7 @@ module Stripe
       end
     end
 
-    def self.sleep_time(num_retries, config: Stripe.configuration)
+    def self.sleep_time(num_retries, config: Stripe.config)
       # Apply exponential backoff with initial_network_retry_delay on the
       # number of num_retries so far as inputs. Do not allow the number to
       # exceed max_network_retry_delay.

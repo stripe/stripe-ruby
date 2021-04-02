@@ -76,7 +76,7 @@ module Stripe
     end
 
     def self.log_error(message, data = {})
-      config = data.delete(:config) || Stripe.configuration
+      config = data.delete(:config) || Stripe.config
       logger = config.logger || Stripe.logger
       if !logger.nil? ||
          !config.log_level.nil? && config.log_level <= Stripe::LEVEL_ERROR
@@ -86,7 +86,7 @@ module Stripe
     end
 
     def self.log_info(message, data = {})
-      config = data.delete(:config) || Stripe.configuration
+      config = data.delete(:config) || Stripe.config
       logger = config.logger || Stripe.logger
       if !logger.nil? ||
          !config.log_level.nil? && config.log_level <= Stripe::LEVEL_INFO
@@ -96,7 +96,7 @@ module Stripe
     end
 
     def self.log_debug(message, data = {})
-      config = data.delete(:config) || Stripe.configuration
+      config = data.delete(:config) || Stripe.config
       logger = config.logger || Stripe.logger
       if !logger.nil? ||
          !config.log_level.nil? && config.log_level <= Stripe::LEVEL_DEBUG

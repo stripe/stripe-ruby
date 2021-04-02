@@ -17,7 +17,7 @@ module Stripe
     attr_reader :last_used
     attr_reader :config
 
-    def initialize(config = Stripe.configuration)
+    def initialize(config = Stripe.config)
       @config = config
       @active_connections = {}
       @last_used = Util.monotonic_time

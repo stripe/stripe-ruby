@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.31.0 - 2021-04-02
+* [#968](https://github.com/stripe/stripe-ruby/pull/968) Allow StripeClient to be configured per instance
+* [#971](https://github.com/stripe/stripe-ruby/pull/971) On config change, only clear connection managers for changed config
+* [#972](https://github.com/stripe/stripe-ruby/pull/972) Rename `Stripe.configuration` to `Stripe.config`
+* [#970](https://github.com/stripe/stripe-ruby/pull/970) Reserve some critical field names when adding `StripeObject` accessors
+* [#967](https://github.com/stripe/stripe-ruby/pull/967) CI: github actions
+
 ## 5.30.0 - 2021-02-22
 * [#965](https://github.com/stripe/stripe-ruby/pull/965) Add support for the Billing Portal Configuration API
 

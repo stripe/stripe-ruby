@@ -26,8 +26,15 @@ Gem::Specification.new do |s|
     "source_code_uri" => "https://github.com/stripe/stripe-ruby",
   }
 
-  ignored = Regexp.union(%w[test/ .editorconfig .git .rubocop .travis .vscode])
-  s.files = `git ls-files`.split("\n").reject { |f| f.match(ignored) }
+  ignored = Regexp.union(
+    %r{\A\.editorconfig},
+    %r{\A\.git},
+    %r{\A\.rubocop},
+    %r{\A\.travis.yml},
+    %r{\A\.vscode},
+    %r{\Atest/}
+  )
+  s.files = `git ls-files`.split("\n").reject { |f| ignored.match?(f) }
   s.executables   = `git ls-files -- bin/*`.split("\n")
                                            .map { |f| ::File.basename(f) }
   s.require_paths = ["lib"]

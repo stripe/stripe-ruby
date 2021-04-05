@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.32.1 - 2021-04-05
+* Correct use of regexp `match` in gemspec for old versions of Ruby
+
 ## 5.32.0 - 2021-04-05
 * [#973](https://github.com/stripe/stripe-ruby/pull/973) Reduce packed gem size
 

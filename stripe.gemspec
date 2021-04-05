@@ -27,12 +27,12 @@ Gem::Specification.new do |s|
   }
 
   ignored = Regexp.union(
-    %r{\A\.editorconfig},
-    %r{\A\.git},
-    %r{\A\.rubocop},
-    %r{\A\.travis.yml},
-    %r{\A\.vscode},
-    %r{\Atest/}
+    /\A\.editorconfig/,
+    /\A\.git/,
+    /\A\.rubocop/,
+    /\A\.travis.yml/,
+    /\A\.vscode/,
+    /\Atest/
   )
   s.files = `git ls-files`.split("\n").reject { |f| ignored.match?(f) }
   s.executables   = `git ls-files -- bin/*`.split("\n")

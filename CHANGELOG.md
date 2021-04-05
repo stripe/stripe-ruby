@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.32.0 - 2021-04-05
+* [#973](https://github.com/stripe/stripe-ruby/pull/973) Reduce packed gem size
+
 ## 5.31.0 - 2021-04-02
 * [#968](https://github.com/stripe/stripe-ruby/pull/968) Allow StripeClient to be configured per instance
 * [#971](https://github.com/stripe/stripe-ruby/pull/971) On config change, only clear connection managers for changed config

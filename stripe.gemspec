@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
     /\A\.vscode/,
     /\Atest/
   )
-  s.files = `git ls-files`.split("\n").reject { |f| ignored.match?(f) }
+  s.files = `git ls-files`.split("\n").reject { |f| ignored.match(f) }
   s.executables   = `git ls-files -- bin/*`.split("\n")
                                            .map { |f| ::File.basename(f) }
   s.require_paths = ["lib"]

@@ -11,7 +11,7 @@ module Stripe
 
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages
-        obj.filters = filters.dup
+        obj.filters = filters.dup unless filters.nil?
         obj
       end
     end

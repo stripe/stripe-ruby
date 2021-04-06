@@ -10,7 +10,6 @@ module Stripe
         opts[:client] ||= opts[:client] || StripeClient.active_client
         opts[:api_base] ||= opts[:client].config.connect_base
 
-        opts.delete(:client)
         super(method, url, params, opts)
       end
     end

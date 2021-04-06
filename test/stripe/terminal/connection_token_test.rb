@@ -6,7 +6,7 @@ module Stripe
   module Terminal
     class ConnectionTokenTest < Test::Unit::TestCase
       should "be creatable" do
-        connection_token = StripeClient.new.terminal.connection_tokens.create
+        connection_token = StripeClient.new.terminal.connection_token.create
 
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/connection_tokens"
         assert connection_token.is_a?(Stripe::Terminal::ConnectionToken)

@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class SetupAttemptTest < Test::Unit::TestCase
     should "be listable" do
-      setup_attempts = StripeClient.new.setup_attempts.list({
+      setup_attempts = StripeClient.new.setup_attempt.list({
         setup_intent: "seti_123",
       })
       assert_requested :get, "#{Stripe.api_base}/v1/setup_attempts?setup_intent=seti_123"

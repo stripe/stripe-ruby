@@ -25,19 +25,21 @@ module Stripe
       should "define methods for all api resources" do
         client = StripeClient.new
 
-        # Update Sigma name to account for nuance
         api_resources = Stripe::Util.api_object_classes
         sigma_class = api_resources.delete("scheduled_query_run")
         api_resources["sigma.scheduled_query_run"] = sigma_class
+
+        invoice_item_class = api_resources.delete("invoiceitem")
+        api_resources["invoice_item"] = invoice_item_class
 
         api_resources.each do |string, _|
           if string.include?(".")
             resource_module, resource_name = string.split(".")
 
             assert client.respond_to?(resource_module), "#{resource_module} not found"
-            assert client.send(resource_module).respond_to?("#{resource_name}s"), "#{resource_name} not found"
+            assert client.send(resource_module).respond_to?(resource_name), "#{resource_name} not found"
           else
-            assert client.respond_to?("#{string}s"), "#{string} not found"
+            assert client.respond_to?(string), "#{string} not found"
           end
         end
       end
@@ -56,7 +58,7 @@ module Stripe
       context "setting configurable options" do
         should "allow for listing a resource with filters" do
           client = StripeClient.new
-          accounts = client.accounts.list({ limit: 10 })
+          accounts = client.account.list({ limit: 10 })
           assert_requested(:get, "#{Stripe.api_base}/v1/accounts?limit=10")
           assert accounts.data.is_a?(Array)
           assert accounts.data[0].is_a?(Stripe::Account)
@@ -66,7 +68,7 @@ module Stripe
           Stripe.api_key = "sk_test_old"
 
           client = StripeClient.new(api_key: "sk_test_new")
-          client.accounts.retrieve("acct_1234")
+          client.account.retrieve("acct_1234")
           assert_requested(:get,
                            "#{Stripe.api_base}/v1/accounts/acct_1234",
                            headers: {
@@ -76,7 +78,7 @@ module Stripe
 
         should "use global settings by default" do
           client = StripeClient.new
-          client.accounts.retrieve("acct_1234")
+          client.account.retrieve("acct_1234")
           assert_requested(:get,
                            "#{Stripe.api_base}/v1/accounts/acct_1234",
                            headers: {
@@ -112,7 +114,7 @@ module Stripe
 
         should "allow for overrides when retrieving a resource" do
           client = StripeClient.new(api_key: "sk_test_local")
-          account = client.accounts.retrieve("acct_123", { api_key: "sk_test_other" })
+          account = client.account.retrieve("acct_123", { api_key: "sk_test_other" })
           assert_requested(:get, "#{Stripe.api_base}/v1/accounts/acct_123",
                            headers: { "Authorization" => "Bearer sk_test_other" })
           assert account.is_a?(Stripe::Account)
@@ -120,7 +122,7 @@ module Stripe
 
         should "allow for retrieving a resource with options" do
           client = Stripe::StripeClient.new(api_key: "sk_test_local")
-          account = client.charges.retrieve(id: "acct_123", expand: ["customer"])
+          account = client.charge.retrieve(id: "acct_123", expand: ["customer"])
           assert_requested(:get, "#{Stripe.api_base}/v1/charges/acct_123",
                            headers: { "Authorization" => "Bearer sk_test_local" },
                            query: { "expand[]" => "customer" })
@@ -129,7 +131,7 @@ module Stripe
 
         should "allow for overrides when operating on a collection" do
           client = StripeClient.new(api_key: "sk_test_local")
-          accounts = client.accounts.list({}, { api_key: "sk_test_other" })
+          accounts = client.account.list({}, { api_key: "sk_test_other" })
           assert_requested(:get,
                            "#{Stripe.api_base}/v1/accounts",
                            headers: { "Authorization" => "Bearer sk_test_other" })
@@ -139,9 +141,9 @@ module Stripe
 
         should "allow for overrides when operating on a resource" do
           client = StripeClient.new(api_key: "sk_test_local")
-          account = client.accounts.update("acct_123",
-                                           {},
-                                           { api_key: "sk_test_other" })
+          account = client.account.update("acct_123",
+                                          {},
+                                          { api_key: "sk_test_other" })
           assert_requested(:post,
                            "#{Stripe.api_base}/v1/accounts/acct_123",
                            headers: { "Authorization" => "Bearer sk_test_other" })
@@ -150,7 +152,7 @@ module Stripe
 
         should "allow for overrides when operating on an instance" do
           client = StripeClient.new(api_key: "sk_test_new")
-          account = client.accounts.retrieve("acct_123")
+          account = client.account.retrieve("acct_123")
           account.metadata = { foo: "bar" }
           account.save
           assert_requested(:post,
@@ -165,7 +167,7 @@ module Stripe
         context "when the api key is provided as a string" do
           should "correctly normalize the options when operating on an instance" do
             client = StripeClient.new
-            account = client.accounts.retrieve("acct_123", "sk_test_new")
+            account = client.account.retrieve("acct_123", "sk_test_new")
             account.metadata = { foo: "bar" }
             account.save
             assert_requested(:post,
@@ -178,7 +180,7 @@ module Stripe
 
           should "correctly normalize the options when operating on a collection" do
             client = StripeClient.new(api_key: "sk_test_local")
-            client.accounts.list({}, "sk_test_other")
+            client.account.list({}, "sk_test_other")
             assert_requested(:get,
                              "#{Stripe.api_base}/v1/accounts",
                              headers: { "Authorization" => "Bearer sk_test_other" })
@@ -186,7 +188,7 @@ module Stripe
 
           should "correctly normalize  the options when operationg on a resource" do
             client = StripeClient.new(api_key: "sk_test_local")
-            client.accounts.update("acct_123", {}, "sk_test_other")
+            client.account.update("acct_123", {}, "sk_test_other")
             assert_requested(:post,
                              "#{Stripe.api_base}/v1/accounts/acct_123",
                              headers: { "Authorization" => "Bearer sk_test_other" })

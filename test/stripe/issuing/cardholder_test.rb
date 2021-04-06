@@ -6,7 +6,7 @@ module Stripe
   module Issuing
     class CardholderTest < Test::Unit::TestCase
       should "be creatable" do
-        cardholder = StripeClient.new.issuing.cardholders.create(
+        cardholder = StripeClient.new.issuing.cardholder.create(
           billing: {
             address: {
               city: "city",
@@ -23,20 +23,20 @@ module Stripe
       end
 
       should "be listable" do
-        cardholders = StripeClient.new.issuing.cardholders.list
+        cardholders = StripeClient.new.issuing.cardholder.list
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders"
         assert cardholders.data.is_a?(Array)
         assert cardholders.data[0].is_a?(Stripe::Issuing::Cardholder)
       end
 
       should "be retrievable" do
-        cardholder = StripeClient.new.issuing.cardholders.retrieve("ich_123")
+        cardholder = StripeClient.new.issuing.cardholder.retrieve("ich_123")
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders/ich_123"
         assert cardholder.is_a?(Stripe::Issuing::Cardholder)
       end
 
       should "be saveable" do
-        cardholder = StripeClient.new.issuing.cardholders.retrieve("ich_123")
+        cardholder = StripeClient.new.issuing.cardholder.retrieve("ich_123")
         cardholder.metadata["key"] = "value"
         cardholder.save
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders/#{cardholder.id}"
@@ -44,7 +44,7 @@ module Stripe
       end
 
       should "be updateable" do
-        cardholder = StripeClient.new.issuing.cardholders.update("ich_123", metadata: { foo: "bar" })
+        cardholder = StripeClient.new.issuing.cardholder.update("ich_123", metadata: { foo: "bar" })
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders/ich_123"
         assert cardholder.is_a?(Stripe::Issuing::Cardholder)
       end

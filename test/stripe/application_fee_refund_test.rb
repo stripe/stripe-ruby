@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class ApplicationFeeRefundTest < Test::Unit::TestCase
     setup do
-      @fee = StripeClient.new.application_fees.retrieve("fee_123")
+      @fee = StripeClient.new.application_fee.retrieve("fee_123")
     end
 
     should "be listable" do

@@ -6,7 +6,7 @@ module Stripe
   class CustomerBalanceTransactionTest < Test::Unit::TestCase
     context "#resource_url" do
       should "return a resource URL" do
-        transaction = StripeClient.new.customer_balance_transactions.construct_from(
+        transaction = StripeClient.new.customer_balance_transaction.construct_from(
           id: "cbtxn_123",
           customer: "cus_123"
         )
@@ -15,7 +15,7 @@ module Stripe
       end
 
       should "raise without a customer" do
-        transaction = StripeClient.new.customer_balance_transactions.construct_from(id: "cbtxn_123")
+        transaction = StripeClient.new.customer_balance_transaction.construct_from(id: "cbtxn_123")
         assert_raises NotImplementedError do
           transaction.resource_url
         end
@@ -24,13 +24,13 @@ module Stripe
 
     should "raise on #retrieve" do
       assert_raises NotImplementedError do
-        StripeClient.new.customer_balance_transactions.retrieve("cbtxn_123")
+        StripeClient.new.customer_balance_transaction.retrieve("cbtxn_123")
       end
     end
 
     should "raise on #update" do
       assert_raises NotImplementedError do
-        StripeClient.new.customer_balance_transactions.update("cbtxn_123")
+        StripeClient.new.customer_balance_transaction.update("cbtxn_123")
       end
     end
   end

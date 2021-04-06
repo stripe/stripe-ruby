@@ -6,7 +6,7 @@ module Stripe
   class AlipayAccountTest < Test::Unit::TestCase
     context "#resource_url" do
       should "return a resource URL" do
-        alipay_account = StripeClient.new.alipay_accounts.construct_from(
+        alipay_account = StripeClient.new.alipay_account.construct_from(
           id: "aliacc_123",
           customer: "cus_123"
         )
@@ -15,7 +15,7 @@ module Stripe
       end
 
       should "raise without a customer" do
-        alipay_account = StripeClient.new.alipay_accounts.construct_from(id: "aliacc_123")
+        alipay_account = StripeClient.new.alipay_account.construct_from(id: "aliacc_123")
         assert_raises NotImplementedError do
           alipay_account.resource_url
         end
@@ -24,13 +24,13 @@ module Stripe
 
     should "raise on #retrieve" do
       assert_raises NotImplementedError do
-        StripeClient.new.alipay_accounts.retrieve("aliacc_123")
+        StripeClient.new.alipay_account.retrieve("aliacc_123")
       end
     end
 
     should "raise on #update" do
       assert_raises NotImplementedError do
-        StripeClient.new.alipay_accounts.update("aliacc_123", {})
+        StripeClient.new.alipay_account.update("aliacc_123", {})
       end
     end
   end

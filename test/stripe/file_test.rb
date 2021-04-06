@@ -5,14 +5,14 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class FileTest < Test::Unit::TestCase
     should "be listable" do
-      files = StripeClient.new.files.list
+      files = StripeClient.new.file.list
       assert_requested :get, "#{Stripe.api_base}/v1/files"
       assert files.data.is_a?(Array)
       assert files.data[0].is_a?(Stripe::File)
     end
 
     should "be retrievable" do
-      file = StripeClient.new.files.retrieve("file_123")
+      file = StripeClient.new.file.retrieve("file_123")
       assert_requested :get, "#{Stripe.api_base}/v1/files/file_123"
       assert file.is_a?(Stripe::File)
     end
@@ -29,7 +29,7 @@ module Stripe
       end
 
       should "be creatable with a File" do
-        file = StripeClient.new.files.create(
+        file = StripeClient.new.file.create(
           purpose: "dispute_evidence",
           file: ::File.new(__FILE__),
           file_link_data: { create: true }
@@ -43,7 +43,7 @@ module Stripe
         tempfile.write("Hello world")
         tempfile.rewind
 
-        file = StripeClient.new.files.create(
+        file = StripeClient.new.file.create(
           purpose: "dispute_evidence",
           file: tempfile,
           file_link_data: { create: true }
@@ -53,7 +53,7 @@ module Stripe
       end
 
       should "be creatable with a string" do
-        file = StripeClient.new.files.create(
+        file = StripeClient.new.file.create(
           purpose: "dispute_evidence",
           file: "my-file-contents",
           file_link_data: { create: true }
@@ -64,7 +64,7 @@ module Stripe
 
       should "raise given a file object that doesn't respond to #read" do
         e = assert_raises(ArgumentError) do
-          StripeClient.new.files.create(
+          StripeClient.new.file.create(
             purpose: "dispute_evidence",
             file: Object.new,
             file_link_data: { create: true }
@@ -78,7 +78,7 @@ module Stripe
           client = StripeClient.new(uploads_base: Stripe.uploads_base)
           Stripe.config.stubs(:uploads_base).returns("old")
 
-          file = client.files.create(
+          file = client.file.create(
             purpose: "dispute_evidence",
             file: ::File.new(__FILE__),
             file_link_data: { create: true }

@@ -7,20 +7,20 @@ module Stripe
     TEST_RESOURCE_ID = "pi_123"
 
     should "be listable" do
-      payment_intents = StripeClient.new.payment_intents.list
+      payment_intents = StripeClient.new.payment_intent.list
       assert_requested :get, "#{Stripe.api_base}/v1/payment_intents"
       assert payment_intents.data.is_a?(Array)
       assert payment_intents.data[0].is_a?(Stripe::PaymentIntent)
     end
 
     should "be retrievable" do
-      payment_intent = StripeClient.new.payment_intents.retrieve("pi_123")
+      payment_intent = StripeClient.new.payment_intent.retrieve("pi_123")
       assert_requested :get, "#{Stripe.api_base}/v1/payment_intents/pi_123"
       assert payment_intent.is_a?(Stripe::PaymentIntent)
     end
 
     should "be creatable" do
-      payment_intent = StripeClient.new.payment_intents.create(
+      payment_intent = StripeClient.new.payment_intent.create(
         amount: 1234,
         currency: "usd",
         payment_method_types: ["card"]
@@ -30,14 +30,14 @@ module Stripe
     end
 
     should "be saveable" do
-      payment_intent = StripeClient.new.payment_intents.construct_from(id: "pi_123", object: "payment_intent", metadata: {})
+      payment_intent = StripeClient.new.payment_intent.construct_from(id: "pi_123", object: "payment_intent", metadata: {})
       payment_intent.metadata["key"] = "value"
       payment_intent.save
       assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/#{payment_intent.id}"
     end
 
     should "be updateable" do
-      payment_intent = StripeClient.new.payment_intents.update("pi_123", metadata: { foo: "bar" })
+      payment_intent = StripeClient.new.payment_intent.update("pi_123", metadata: { foo: "bar" })
 
       assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123"
       assert payment_intent.is_a?(Stripe::PaymentIntent)
@@ -45,7 +45,7 @@ module Stripe
 
     context "#cancel" do
       should "cancel a payment_intent" do
-        payment_intent = StripeClient.new.payment_intents.construct_from(id: "pi_123", object: "payment_intent")
+        payment_intent = StripeClient.new.payment_intent.construct_from(id: "pi_123", object: "payment_intent")
         payment_intent = payment_intent.cancel
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/cancel"
@@ -55,7 +55,7 @@ module Stripe
 
     context ".cancel" do
       should "cancel a payment_intent" do
-        payment_intent = StripeClient.new.payment_intents.cancel("pi_123")
+        payment_intent = StripeClient.new.payment_intent.cancel("pi_123")
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/cancel"
         assert payment_intent.is_a?(Stripe::PaymentIntent)
@@ -64,7 +64,7 @@ module Stripe
 
     context "#capture" do
       should "capture a payment_intent" do
-        payment_intent = StripeClient.new.payment_intents.construct_from(id: "pi_123", object: "payment_intent")
+        payment_intent = StripeClient.new.payment_intent.construct_from(id: "pi_123", object: "payment_intent")
         payment_intent = payment_intent.capture(
           amount_to_capture: 1234
         )
@@ -76,7 +76,7 @@ module Stripe
 
     context ".capture" do
       should "capture a payment_intent" do
-        payment_intent = StripeClient.new.payment_intents.capture("pi_123", amount_to_capture: 1234)
+        payment_intent = StripeClient.new.payment_intent.capture("pi_123", amount_to_capture: 1234)
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/capture"
         assert payment_intent.is_a?(Stripe::PaymentIntent)
@@ -85,7 +85,7 @@ module Stripe
 
     context "#confirm" do
       should "confirm a payment_intent" do
-        payment_intent = StripeClient.new.payment_intents.construct_from(id: "pi_123", object: "payment_intent")
+        payment_intent = StripeClient.new.payment_intent.construct_from(id: "pi_123", object: "payment_intent")
         payment_intent = payment_intent.confirm(
           payment_method: "pm_123"
         )
@@ -97,7 +97,7 @@ module Stripe
 
     context ".confirm" do
       should "confirm a payment_intent" do
-        payment_intent = StripeClient.new.payment_intents.confirm("pi_123", payment_method: "pm_123")
+        payment_intent = StripeClient.new.payment_intent.confirm("pi_123", payment_method: "pm_123")
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_123/confirm"
         assert payment_intent.is_a?(Stripe::PaymentIntent)

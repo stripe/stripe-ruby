@@ -5,21 +5,21 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class SubscriptionTest < Test::Unit::TestCase
     should "be listable" do
-      subscriptions = StripeClient.new.subscriptions.list
+      subscriptions = StripeClient.new.subscription.list
       assert_requested :get, "#{Stripe.api_base}/v1/subscriptions"
       assert subscriptions.data.is_a?(Array)
       assert subscriptions.data[0].is_a?(Stripe::Subscription)
     end
 
     should "be retrievable" do
-      subscription = StripeClient.new.subscriptions.retrieve("sub_123")
+      subscription = StripeClient.new.subscription.retrieve("sub_123")
       assert_requested :get,
                        "#{Stripe.api_base}/v1/subscriptions/sub_123"
       assert subscription.is_a?(Stripe::Subscription)
     end
 
     should "be creatable" do
-      subscription = StripeClient.new.subscriptions.create(
+      subscription = StripeClient.new.subscription.create(
         customer: "cus_123"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/subscriptions"
@@ -27,7 +27,7 @@ module Stripe
     end
 
     should "be saveable" do
-      subscription = StripeClient.new.subscriptions.retrieve("sub_123")
+      subscription = StripeClient.new.subscription.retrieve("sub_123")
       subscription.metadata["key"] = "value"
       subscription.save
       assert_requested :post,
@@ -35,7 +35,7 @@ module Stripe
     end
 
     should "be updateable" do
-      subscription = StripeClient.new.subscriptions.update("sub_123", metadata: { foo: "bar" })
+      subscription = StripeClient.new.subscription.update("sub_123", metadata: { foo: "bar" })
       assert_requested :post,
                        "#{Stripe.api_base}/v1/subscriptions/sub_123"
       assert subscription.is_a?(Stripe::Subscription)
@@ -43,7 +43,7 @@ module Stripe
 
     context "#delete" do
       should "be deletable" do
-        subscription = StripeClient.new.subscriptions.retrieve("sub_123")
+        subscription = StripeClient.new.subscription.retrieve("sub_123")
         subscription = subscription.delete
         assert_requested :delete,
                          "#{Stripe.api_base}/v1/subscriptions/#{subscription.id}"
@@ -53,7 +53,7 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        subscription = StripeClient.new.subscriptions.delete("sub_123")
+        subscription = StripeClient.new.subscription.delete("sub_123")
         assert_requested :delete,
                          "#{Stripe.api_base}/v1/subscriptions/sub_123"
         assert subscription.is_a?(Stripe::Subscription)
@@ -62,7 +62,7 @@ module Stripe
 
     context "#delete_discount" do
       should "be able to delete a subscriptions's discount" do
-        subscription = StripeClient.new.subscriptions.retrieve("sub_123")
+        subscription = StripeClient.new.subscription.retrieve("sub_123")
         discount = subscription.delete_discount
         assert_requested :delete, "#{Stripe.api_base}/v1/subscriptions/sub_123/discount"
         assert discount.is_a?(Stripe::Discount)
@@ -71,7 +71,7 @@ module Stripe
 
     context ".delete_discount" do
       should "be able to delete a subscriptions's discount" do
-        discount = StripeClient.new.subscriptions.delete_discount("sub_123")
+        discount = StripeClient.new.subscription.delete_discount("sub_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/subscriptions/sub_123/discount"
         assert discount.is_a?(Stripe::Discount)
       end

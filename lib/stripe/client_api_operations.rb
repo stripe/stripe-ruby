@@ -80,13 +80,10 @@ module Stripe
             # Defines the methods required for chaining calls for resources that
             # are namespaced. A proxy object is created so that all resource
             # methods can be defined at once.
-            #
-            # NOTE: At some point, a smarter pluralization scheme may be
-            # necessary for resource names with complex pluralization rules.
             proxy = ClientProxy.new(client: nil)
             resources.each do |resource_name, resource_class|
               method_name = resource_name.split(".").last
-              proxy.define_singleton_method("#{method_name}s") do
+              proxy.define_singleton_method(method_name) do
                 ClientProxy.new(client: proxy.client, resource: resource_class)
               end
             end
@@ -99,7 +96,7 @@ module Stripe
             end
           else
             # Defines plural methods for non-namespaced resources
-            define_method("#{resource_namespace}s".to_sym) do
+            define_method(resource_namespace.to_sym) do
               ClientProxy.new(client: self, resource: resources[0][1])
             end
           end

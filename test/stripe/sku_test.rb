@@ -5,20 +5,20 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class SKUTest < Test::Unit::TestCase
     should "be listable" do
-      skus = StripeClient.new.skus.list
+      skus = StripeClient.new.sku.list
       assert_requested :get, "#{Stripe.api_base}/v1/skus"
       assert skus.data.is_a?(Array)
       assert skus.data[0].is_a?(Stripe::SKU)
     end
 
     should "be retrievable" do
-      sku = StripeClient.new.skus.retrieve("sku_123")
+      sku = StripeClient.new.sku.retrieve("sku_123")
       assert_requested :get, "#{Stripe.api_base}/v1/skus/sku_123"
       assert sku.is_a?(Stripe::SKU)
     end
 
     should "be creatable" do
-      _ = StripeClient.new.skus.create(
+      _ = StripeClient.new.sku.create(
         currency: "USD",
         inventory: { type: "finite", quantity: 500 },
         price: 100,
@@ -28,21 +28,21 @@ module Stripe
     end
 
     should "be saveable" do
-      sku = StripeClient.new.skus.retrieve("sku_123")
+      sku = StripeClient.new.sku.retrieve("sku_123")
       sku.metadata["key"] = "value"
       sku.save
       assert_requested :post, "#{Stripe.api_base}/v1/skus/#{sku.id}"
     end
 
     should "be updateable" do
-      sku = StripeClient.new.skus.update("sku_123", metadata: { foo: "bar" })
+      sku = StripeClient.new.sku.update("sku_123", metadata: { foo: "bar" })
       assert_requested :post, "#{Stripe.api_base}/v1/skus/sku_123"
       assert sku.is_a?(Stripe::SKU)
     end
 
     context "#delete" do
       should "be deletable" do
-        sku = StripeClient.new.skus.retrieve("sku_123")
+        sku = StripeClient.new.sku.retrieve("sku_123")
         sku = sku.delete
         assert_requested :delete, "#{Stripe.api_base}/v1/skus/#{sku.id}"
         assert sku.is_a?(Stripe::SKU)
@@ -51,7 +51,7 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        sku = StripeClient.new.skus.delete("sku_123")
+        sku = StripeClient.new.sku.delete("sku_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/skus/sku_123"
         assert sku.is_a?(Stripe::SKU)
       end

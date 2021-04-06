@@ -5,20 +5,20 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class PlanTest < Test::Unit::TestCase
     should "be listable" do
-      plans = StripeClient.new.plans.list
+      plans = StripeClient.new.plan.list
       assert_requested :get, "#{Stripe.api_base}/v1/plans"
       assert plans.data.is_a?(Array)
       assert plans.data[0].is_a?(Stripe::Plan)
     end
 
     should "be retrievable" do
-      plan = StripeClient.new.plans.retrieve("pl_123")
+      plan = StripeClient.new.plan.retrieve("pl_123")
       assert_requested :get, "#{Stripe.api_base}/v1/plans/pl_123"
       assert plan.is_a?(Stripe::Plan)
     end
 
     should "be creatable" do
-      plan = StripeClient.new.plans.create(
+      plan = StripeClient.new.plan.create(
         amount: 5000,
         interval: "month",
         nickname: "Sapphire elite",
@@ -29,7 +29,7 @@ module Stripe
     end
 
     should "be creatable with metered configuration" do
-      plan = StripeClient.new.plans.create(
+      plan = StripeClient.new.plan.create(
         amount: 5000,
         interval: "month",
         nickname: "Sapphire elite",
@@ -41,7 +41,7 @@ module Stripe
     end
 
     should "be creatable with tiered configuration" do
-      plan = StripeClient.new.plans.create(
+      plan = StripeClient.new.plan.create(
         interval: "month",
         nickname: "Sapphire elite",
         currency: "usd",
@@ -54,7 +54,7 @@ module Stripe
     end
 
     should "be creatable with transform_usage" do
-      plan = StripeClient.new.plans.create(
+      plan = StripeClient.new.plan.create(
         interval: "month",
         nickname: "Sapphire elite",
         currency: "usd",
@@ -66,21 +66,21 @@ module Stripe
     end
 
     should "be saveable" do
-      plan = StripeClient.new.plans.retrieve("pl_123")
+      plan = StripeClient.new.plan.retrieve("pl_123")
       plan.metadata["key"] = "value"
       plan.save
       assert_requested :post, "#{Stripe.api_base}/v1/plans/#{plan.id}"
     end
 
     should "be updateable" do
-      plan = StripeClient.new.plans.update("pl_123", metadata: { foo: "bar" })
+      plan = StripeClient.new.plan.update("pl_123", metadata: { foo: "bar" })
       assert_requested :post, "#{Stripe.api_base}/v1/plans/pl_123"
       assert plan.is_a?(Stripe::Plan)
     end
 
     context "#delete" do
       should "be deletable" do
-        plan = StripeClient.new.plans.retrieve("pl_123")
+        plan = StripeClient.new.plan.retrieve("pl_123")
         plan = plan.delete
         assert_requested :delete, "#{Stripe.api_base}/v1/plans/#{plan.id}"
         assert plan.is_a?(Stripe::Plan)
@@ -89,7 +89,7 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        plan = StripeClient.new.plans.delete("pl_123")
+        plan = StripeClient.new.plan.delete("pl_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/plans/pl_123"
         assert plan.is_a?(Stripe::Plan)
       end

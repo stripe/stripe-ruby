@@ -9,7 +9,7 @@ module Stripe
         stub_request(:get, "#{Stripe.api_base}/v1/issuing/transactions")
           .to_return(body: JSON.generate(object: "list", data: [{ id: "ipi_123", object: "issuing.transaction" }]))
 
-        transactions = StripeClient.new.issuing.transactions.list
+        transactions = StripeClient.new.issuing.transaction.list
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions"
         assert transactions.data.is_a?(Array)
         assert transactions.data[0].is_a?(Stripe::Issuing::Transaction)
@@ -19,7 +19,7 @@ module Stripe
         stub_request(:get, "#{Stripe.api_base}/v1/issuing/transactions/ipi_123")
           .to_return(body: JSON.generate(id: "ipi_123", object: "issuing.transaction"))
 
-        transaction = StripeClient.new.issuing.transactions.retrieve("ipi_123")
+        transaction = StripeClient.new.issuing.transaction.retrieve("ipi_123")
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions/ipi_123"
         assert transaction.is_a?(Stripe::Issuing::Transaction)
       end
@@ -28,7 +28,7 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/issuing/transactions/ipi_123")
           .to_return(body: JSON.generate(id: "ipi_123", object: "issuing.transaction"))
 
-        transaction = StripeClient.new.issuing.transactions.construct_from(id: "ipi_123", object: "issuing.transaction", metadata: {})
+        transaction = StripeClient.new.issuing.transaction.construct_from(id: "ipi_123", object: "issuing.transaction", metadata: {})
         transaction.metadata["key"] = "value"
         transaction.save
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/transactions/#{transaction.id}"
@@ -39,7 +39,7 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/issuing/transactions/ipi_123")
           .to_return(body: JSON.generate(id: "ipi_123", object: "issuing.transaction"))
 
-        transaction = StripeClient.new.issuing.transactions.update("ipi_123", metadata: { foo: "bar" })
+        transaction = StripeClient.new.issuing.transaction.update("ipi_123", metadata: { foo: "bar" })
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/transactions/ipi_123"
         assert transaction.is_a?(Stripe::Issuing::Transaction)
       end

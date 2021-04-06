@@ -46,26 +46,26 @@ module Stripe
     end
 
     should "creating a new APIResource should not fetch over the network" do
-      StripeClient.new.customers.new("someid")
+      StripeClient.new.customer.new("someid")
       assert_not_requested :get, %r{#{Stripe.api_base}/.*}
     end
 
     should "creating a new APIResource from a hash should not fetch over the network" do
-      StripeClient.new.customers.construct_from(id: "somecustomer",
-                                                card: { id: "somecard", object: "card" },
-                                                object: "customer")
+      StripeClient.new.customer.construct_from(id: "somecustomer",
+                                               card: { id: "somecard", object: "card" },
+                                               object: "customer")
       assert_not_requested :get, %r{#{Stripe.api_base}/.*}
     end
 
     should "setting an attribute should not cause a network request" do
-      c = StripeClient.new.customers.new("cus_123")
+      c = StripeClient.new.customer.new("cus_123")
       c.card = { id: "somecard", object: "card" }
       assert_not_requested :get, %r{#{Stripe.api_base}/.*}
       assert_not_requested :post, %r{#{Stripe.api_base}/.*}
     end
 
     should "accessing id should not issue a fetch" do
-      c = StripeClient.new.customers.new("cus_123")
+      c = StripeClient.new.customer.new("cus_123")
       c.id
       assert_not_requested :get, %r{#{Stripe.api_base}/.*}
     end
@@ -73,23 +73,23 @@ module Stripe
     should "not specifying api credentials should raise an exception" do
       Stripe.api_key = nil
       assert_raises Stripe::AuthenticationError do
-        StripeClient.new.customers.new("cus_123").refresh
+        StripeClient.new.customer.new("cus_123").refresh
       end
     end
 
     should "using a nil api key should raise an exception" do
       assert_raises TypeError do
-        StripeClient.new.customers.list({}, nil)
+        StripeClient.new.customer.list({}, nil)
       end
       assert_raises TypeError do
-        StripeClient.new.customers.list({}, api_key: nil)
+        StripeClient.new.customer.list({}, api_key: nil)
       end
     end
 
     should "specifying api credentials containing whitespace should raise an exception" do
       Stripe.api_key = "key "
       assert_raises Stripe::AuthenticationError do
-        StripeClient.new.customers.new("cus_123").refresh
+        StripeClient.new.customer.new("cus_123").refresh
       end
     end
 
@@ -263,12 +263,12 @@ module Stripe
       should "requesting with a unicode ID should result in a request" do
         stub_request(:get, "#{Stripe.api_base}/v1/customers/%E2%98%83")
           .to_return(body: JSON.generate(make_missing_id_error), status: 404)
-        c = StripeClient.new.customers.new("☃")
+        c = StripeClient.new.customer.new("☃")
         assert_raises(Stripe::InvalidRequestError) { c.refresh }
       end
 
       should "requesting with no ID should result in an InvalidRequestError with no request" do
-        c = StripeClient.new.customers.new
+        c = StripeClient.new.customer.new
         assert_raises(Stripe::InvalidRequestError) { c.refresh }
       end
 
@@ -308,7 +308,7 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = StripeClient.new.customers.construct_from(customer_fixture)
+        c = StripeClient.new.customer.construct_from(customer_fixture)
         c.description = "another_mn"
         c.save
       end
@@ -317,14 +317,14 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = StripeClient.new.customers.new("cus_123")
+        c = StripeClient.new.customer.new("cus_123")
         c.description = "another_mn"
         c.save
         assert_equal false, c.livemode
       end
 
       should "updating should fail if api_key is overwritten with nil" do
-        c = StripeClient.new.customers.new
+        c = StripeClient.new.customer.new
         assert_raises TypeError do
           c.save({}, api_key: nil)
         end
@@ -334,7 +334,7 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/customers")
           .with(headers: { "Authorization" => "Bearer sk_test_local" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = StripeClient.new.customers.new
+        c = StripeClient.new.customer.new
         c.save({}, api_key: "sk_test_local")
         assert_equal false, c.livemode
       end
@@ -342,7 +342,7 @@ module Stripe
       should "deleting should send no props and result in an object that has no props other deleted" do
         stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
           .to_return(body: JSON.generate("id" => "cus_123", "deleted" => true))
-        c = StripeClient.new.customers.construct_from(customer_fixture)
+        c = StripeClient.new.customer.construct_from(customer_fixture)
         c.delete
       end
 
@@ -359,14 +359,14 @@ module Stripe
         stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(headers: { "Stripe-Account" => "acct_123" })
           .to_return(body: JSON.generate(customer_fixture))
-        StripeClient.new.customers.retrieve("cus_123", stripe_account: "acct_123")
+        StripeClient.new.customer.retrieve("cus_123", stripe_account: "acct_123")
       end
 
       should "passing in a stripe_account header should pass it through on save" do
         stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(headers: { "Stripe-Account" => "acct_123" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = StripeClient.new.customers.retrieve("cus_123", stripe_account: "acct_123")
+        c = StripeClient.new.customer.retrieve("cus_123", stripe_account: "acct_123")
 
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(headers: { "Stripe-Account" => "acct_123" })

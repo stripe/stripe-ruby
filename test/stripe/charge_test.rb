@@ -5,20 +5,20 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class ChargeTest < Test::Unit::TestCase
     should "be listable" do
-      charges = StripeClient.new.charges.list
+      charges = StripeClient.new.charge.list
       assert_requested :get, "#{Stripe.api_base}/v1/charges"
       assert charges.data.is_a?(Array)
       assert charges.data[0].is_a?(Stripe::Charge)
     end
 
     should "be retrievable" do
-      charge = StripeClient.new.charges.retrieve("ch_123")
+      charge = StripeClient.new.charge.retrieve("ch_123")
       assert_requested :get, "#{Stripe.api_base}/v1/charges/ch_123"
       assert charge.is_a?(Stripe::Charge)
     end
 
     should "be creatable" do
-      charge = StripeClient.new.charges.create(
+      charge = StripeClient.new.charge.create(
         amount: 100,
         currency: "USD",
         source: "src_123"
@@ -28,21 +28,21 @@ module Stripe
     end
 
     should "be saveable" do
-      charge = StripeClient.new.charges.retrieve("ch_123")
+      charge = StripeClient.new.charge.retrieve("ch_123")
       charge.metadata["key"] = "value"
       charge.save
       assert_requested :post, "#{Stripe.api_base}/v1/charges/#{charge.id}"
     end
 
     should "be updateable" do
-      charge = StripeClient.new.charges.update("ch_123", metadata: { foo: "bar" })
+      charge = StripeClient.new.charge.update("ch_123", metadata: { foo: "bar" })
       assert_requested :post, "#{Stripe.api_base}/v1/charges/ch_123"
       assert charge.is_a?(Stripe::Charge)
     end
 
     context "#capture" do
       should "capture the charge" do
-        charge = StripeClient.new.charges.retrieve("ch_123")
+        charge = StripeClient.new.charge.retrieve("ch_123")
         charge = charge.capture(amount: 100)
         assert_requested :post,
                          "#{Stripe.api_base}/v1/charges/ch_123/capture",
@@ -53,7 +53,7 @@ module Stripe
 
     context ".capture" do
       should "capture the charge" do
-        charge = StripeClient.new.charges.capture("ch_123", amount: 100)
+        charge = StripeClient.new.charge.capture("ch_123", amount: 100)
         assert_requested :post,
                          "#{Stripe.api_base}/v1/charges/ch_123/capture",
                          body: { amount: 100 }

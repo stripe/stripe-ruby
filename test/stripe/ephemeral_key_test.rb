@@ -6,7 +6,7 @@ module Stripe
   class EphemeralKeyTest < Test::Unit::TestCase
     context "#create" do
       should "succeed" do
-        key = StripeClient.new.ephemeral_keys.create(
+        key = StripeClient.new.ephemeral_key.create(
           { customer: "cus_123" },
           stripe_version: "2017-05-25"
         )
@@ -22,7 +22,7 @@ module Stripe
 
       context "#no global version" do
         should "use the correct api version" do
-          key = StripeClient.new.ephemeral_keys.create(
+          key = StripeClient.new.ephemeral_key.create(
             { customer: "cus_123" },
             stripe_version: "2017-06-05"
           )
@@ -38,7 +38,7 @@ module Stripe
 
         should "error without an explicit api version" do
           e = assert_raises(ArgumentError) do
-            StripeClient.new.ephemeral_keys.create(customer: "cus_123")
+            StripeClient.new.ephemeral_key.create(customer: "cus_123")
           end
           assert_match("stripe_version must be specified", e.message)
         end
@@ -54,7 +54,7 @@ module Stripe
         end
 
         should "use the correct api version" do
-          key = StripeClient.new.ephemeral_keys.create(
+          key = StripeClient.new.ephemeral_key.create(
             { customer: "cus_123" },
             stripe_version: "2017-05-25"
           )
@@ -64,7 +64,7 @@ module Stripe
 
         should "error without an explicit api version" do
           e = assert_raises(ArgumentError) do
-            StripeClient.new.ephemeral_keys.create(customer: "cus_123")
+            StripeClient.new.ephemeral_key.create(customer: "cus_123")
           end
           assert_match("stripe_version must be specified", e.message)
         end
@@ -73,7 +73,7 @@ module Stripe
 
     context "#delete" do
       should "succeed" do
-        key = StripeClient.new.ephemeral_keys.create(
+        key = StripeClient.new.ephemeral_key.create(
           { customer: "cus_123" },
           stripe_version: "2017-05-25"
         )
@@ -85,7 +85,7 @@ module Stripe
 
     context ".delete" do
       should "succeed" do
-        StripeClient.new.ephemeral_keys.delete("ephkey_123")
+        StripeClient.new.ephemeral_key.delete("ephkey_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/ephemeral_keys/ephkey_123"
       end
     end

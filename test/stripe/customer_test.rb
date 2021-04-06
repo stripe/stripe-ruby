@@ -5,40 +5,40 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class CustomerTest < Test::Unit::TestCase
     should "be listable" do
-      customers = StripeClient.new.customers.list
+      customers = StripeClient.new.customer.list
       assert_requested :get, "#{Stripe.api_base}/v1/customers"
       assert customers.data.is_a?(Array)
       assert customers.first.is_a?(Stripe::Customer)
     end
 
     should "be retrievable" do
-      customer = StripeClient.new.customers.retrieve("cus_123")
+      customer = StripeClient.new.customer.retrieve("cus_123")
       assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123"
       assert customer.is_a?(Stripe::Customer)
     end
 
     should "be creatable" do
-      customer = StripeClient.new.customers.create
+      customer = StripeClient.new.customer.create
       assert_requested :post, "#{Stripe.api_base}/v1/customers"
       assert customer.is_a?(Stripe::Customer)
     end
 
     should "be saveable" do
-      customer = StripeClient.new.customers.retrieve("cus_123")
+      customer = StripeClient.new.customer.retrieve("cus_123")
       customer.metadata["key"] = "value"
       customer.save
       assert_requested :post, "#{Stripe.api_base}/v1/customers/#{customer.id}"
     end
 
     should "be updateable" do
-      customer = StripeClient.new.customers.update("cus_123", metadata: { key: "value" })
+      customer = StripeClient.new.customer.update("cus_123", metadata: { key: "value" })
       assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123"
       assert customer.is_a?(Stripe::Customer)
     end
 
     context "#delete" do
       should "be deletable" do
-        customer = StripeClient.new.customers.retrieve("cus_123")
+        customer = StripeClient.new.customer.retrieve("cus_123")
         customer = customer.delete
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{customer.id}"
         assert customer.is_a?(Stripe::Customer)
@@ -47,7 +47,7 @@ module Stripe
 
     context ".delete" do
       should "be deletable" do
-        customer = StripeClient.new.customers.delete("cus_123")
+        customer = StripeClient.new.customer.delete("cus_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123"
         assert customer.is_a?(Stripe::Customer)
       end
@@ -64,7 +64,7 @@ module Stripe
 
     context ".delete_discount" do
       should "delete a discount" do
-        discount = StripeClient.new.customers.delete_discount("cus_123")
+        discount = StripeClient.new.customer.delete_discount("cus_123")
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_123/discount"
         assert discount.is_a?(Stripe::Discount)
       end
@@ -72,7 +72,7 @@ module Stripe
 
     context "#create_source" do
       should "create a source" do
-        StripeClient.new.customers.create_source(
+        StripeClient.new.customer.create_source(
           "cus_123",
           source: "tok_123"
         )
@@ -82,7 +82,7 @@ module Stripe
 
     context "#retrieve_source" do
       should "retrieve a source" do
-        StripeClient.new.customers.retrieve_source(
+        StripeClient.new.customer.retrieve_source(
           "cus_123",
           "ba_123"
         )
@@ -92,7 +92,7 @@ module Stripe
 
     context "#update_source" do
       should "update a source" do
-        StripeClient.new.customers.update_source(
+        StripeClient.new.customer.update_source(
           "cus_123",
           "ba_123",
           metadata: { foo: "bar" }
@@ -103,7 +103,7 @@ module Stripe
 
     context "#delete_source" do
       should "delete a source" do
-        StripeClient.new.customers.delete_source(
+        StripeClient.new.customer.delete_source(
           "cus_123",
           "ba_123"
         )
@@ -113,7 +113,7 @@ module Stripe
 
     context "#list_sources" do
       should "list the customer's sources" do
-        sources = StripeClient.new.customers.list_sources(
+        sources = StripeClient.new.customer.list_sources(
           "cus_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/sources"
@@ -124,13 +124,13 @@ module Stripe
 
     context "source field" do
       should "allow setting source with token" do
-        c = StripeClient.new.customers.new("test_customer")
+        c = StripeClient.new.customer.new("test_customer")
         c.source = "tok_123"
         assert_equal "tok_123", c.source
       end
 
       should "allow setting source with hash and set flag" do
-        c = StripeClient.new.customers.new("test_customer")
+        c = StripeClient.new.customer.new("test_customer")
         c.source = {
           object: "card",
         }
@@ -140,7 +140,7 @@ module Stripe
 
     context "#create_tax_id" do
       should "create a tax id" do
-        StripeClient.new.customers.create_tax_id(
+        StripeClient.new.customer.create_tax_id(
           "cus_123",
           type: "eu_vat",
           value: "11111"
@@ -151,7 +151,7 @@ module Stripe
 
     context "#retrieve_tax_id" do
       should "retrieve a tax id" do
-        StripeClient.new.customers.retrieve_tax_id(
+        StripeClient.new.customer.retrieve_tax_id(
           "cus_123",
           "txi_123"
         )
@@ -161,7 +161,7 @@ module Stripe
 
     context "#delete_tax_id" do
       should "delete a tax id" do
-        StripeClient.new.customers.delete_tax_id(
+        StripeClient.new.customer.delete_tax_id(
           "cus_123",
           "txi_123"
         )
@@ -171,7 +171,7 @@ module Stripe
 
     context "#list_tax_ids" do
       should "list the customer's tax ids" do
-        sources = StripeClient.new.customers.list_tax_ids(
+        sources = StripeClient.new.customer.list_tax_ids(
           "cus_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/tax_ids"
@@ -182,7 +182,7 @@ module Stripe
 
     context "#create_balance_transaction" do
       should "create a customer balance transaction" do
-        StripeClient.new.customers.create_balance_transaction(
+        StripeClient.new.customer.create_balance_transaction(
           "cus_123",
           amount: 1234,
           currency: "usd"
@@ -193,7 +193,7 @@ module Stripe
 
     context "#retrieve_balance_transaction" do
       should "retrieve a customer balance transaction" do
-        StripeClient.new.customers.retrieve_balance_transaction(
+        StripeClient.new.customer.retrieve_balance_transaction(
           "cus_123",
           "cbtxn_123"
         )
@@ -203,7 +203,7 @@ module Stripe
 
     context "#update_balance_transaction" do
       should "update a customer balance transaction" do
-        StripeClient.new.customers.update_balance_transaction(
+        StripeClient.new.customer.update_balance_transaction(
           "cus_123",
           "cbtxn_123",
           description: "new"
@@ -214,7 +214,7 @@ module Stripe
 
     context "#list_balance_transactions" do
       should "list the customer balance transactions" do
-        sources = StripeClient.new.customers.list_balance_transactions(
+        sources = StripeClient.new.customer.list_balance_transactions(
           "cus_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/balance_transactions"

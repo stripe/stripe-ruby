@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class PaymentMethodTest < Test::Unit::TestCase
     should "be listable" do
-      payment_methods = StripeClient.new.payment_methods.list(
+      payment_methods = StripeClient.new.payment_method.list(
         customer: "cus_123",
         type: "card"
       )
@@ -15,13 +15,13 @@ module Stripe
     end
 
     should "be retrievable" do
-      payment_method = StripeClient.new.payment_methods.retrieve("pm_123")
+      payment_method = StripeClient.new.payment_method.retrieve("pm_123")
       assert_requested :get, "#{Stripe.api_base}/v1/payment_methods/pm_123"
       assert payment_method.is_a?(Stripe::PaymentMethod)
     end
 
     should "be creatable" do
-      payment_method = StripeClient.new.payment_methods.create(
+      payment_method = StripeClient.new.payment_method.create(
         type: "card"
       )
       assert_requested :post, "#{Stripe.api_base}/v1/payment_methods"
@@ -29,21 +29,21 @@ module Stripe
     end
 
     should "be saveable" do
-      payment_method = StripeClient.new.payment_methods.retrieve("pm_123")
+      payment_method = StripeClient.new.payment_method.retrieve("pm_123")
       payment_method.metadata["key"] = "value"
       payment_method.save
       assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/#{payment_method.id}"
     end
 
     should "be updateable" do
-      payment_method = StripeClient.new.payment_methods.update("pm_123", metadata: { key: "value" })
+      payment_method = StripeClient.new.payment_method.update("pm_123", metadata: { key: "value" })
       assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_123"
       assert payment_method.is_a?(Stripe::PaymentMethod)
     end
 
     context "#attach" do
       should "attach payment_method" do
-        payment_method = StripeClient.new.payment_methods.construct_from(id: "pm_123", object: "payment_method")
+        payment_method = StripeClient.new.payment_method.construct_from(id: "pm_123", object: "payment_method")
         payment_method = payment_method.attach(
           customer: "cus_123"
         )
@@ -55,7 +55,7 @@ module Stripe
 
     context ".attach" do
       should "attach payment_method" do
-        payment_method = StripeClient.new.payment_methods.attach("pm_123", customer: "cus_123")
+        payment_method = StripeClient.new.payment_method.attach("pm_123", customer: "cus_123")
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_123/attach"
         assert payment_method.is_a?(Stripe::PaymentMethod)
@@ -64,7 +64,7 @@ module Stripe
 
     context "#detach" do
       should "detach payment_method" do
-        payment_method = StripeClient.new.payment_methods.construct_from(id: "pm_123", object: "payment_method")
+        payment_method = StripeClient.new.payment_method.construct_from(id: "pm_123", object: "payment_method")
         payment_method = payment_method.detach
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_123/detach"
@@ -74,7 +74,7 @@ module Stripe
 
     context ".detach" do
       should "detach payment_method" do
-        payment_method = StripeClient.new.payment_methods.detach("pm_123")
+        payment_method = StripeClient.new.payment_method.detach("pm_123")
 
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_123/detach"
         assert payment_method.is_a?(Stripe::PaymentMethod)

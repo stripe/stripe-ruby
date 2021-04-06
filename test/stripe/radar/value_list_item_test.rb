@@ -6,20 +6,20 @@ module Stripe
   module Radar
     class ValueListItemTest < Test::Unit::TestCase
       should "be listable" do
-        items = StripeClient.new.radar.value_list_items.list(value_list: "rsl_123")
+        items = StripeClient.new.radar.value_list_item.list(value_list: "rsl_123")
         assert_requested :get, "#{Stripe.api_base}/v1/radar/value_list_items?value_list=rsl_123"
         assert items.data.is_a?(Array)
         assert items.first.is_a?(Stripe::Radar::ValueListItem)
       end
 
       should "be retrievable" do
-        item = StripeClient.new.radar.value_list_items.retrieve("rsli_123")
+        item = StripeClient.new.radar.value_list_item.retrieve("rsli_123")
         assert_requested :get, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_123"
         assert item.is_a?(Stripe::Radar::ValueListItem)
       end
 
       should "be creatable" do
-        item = StripeClient.new.radar.value_list_items.create(
+        item = StripeClient.new.radar.value_list_item.create(
           value_list: "rsl_123",
           value: "value"
         )
@@ -29,7 +29,7 @@ module Stripe
 
       context "#delete" do
         should "be deletable" do
-          list = StripeClient.new.radar.value_list_items.retrieve("rsli_123")
+          list = StripeClient.new.radar.value_list_item.retrieve("rsli_123")
           list = list.delete
           assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_123"
           assert list.is_a?(Stripe::Radar::ValueListItem)
@@ -38,7 +38,7 @@ module Stripe
 
       context ".delete" do
         should "be deletable" do
-          list = StripeClient.new.radar.value_list_items.delete("rsli_123")
+          list = StripeClient.new.radar.value_list_item.delete("rsli_123")
           assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_123"
           assert list.is_a?(Stripe::Radar::ValueListItem)
         end

@@ -5,20 +5,20 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class TopupTest < Test::Unit::TestCase
     should "be listable" do
-      topups = StripeClient.new.topups.list
+      topups = StripeClient.new.topup.list
       assert_requested :get, "#{Stripe.api_base}/v1/topups"
       assert topups.data.is_a?(Array)
       assert topups.data[0].is_a?(Stripe::Topup)
     end
 
     should "be retrievable" do
-      topup = StripeClient.new.topups.retrieve("tu_123")
+      topup = StripeClient.new.topup.retrieve("tu_123")
       assert_requested :get, "#{Stripe.api_base}/v1/topups/tu_123"
       assert topup.is_a?(Stripe::Topup)
     end
 
     should "be creatable" do
-      topup = StripeClient.new.topups.create(
+      topup = StripeClient.new.topup.create(
         amount: 100,
         currency: "USD",
         source: "src_123",
@@ -30,21 +30,21 @@ module Stripe
     end
 
     should "be saveable" do
-      topup = StripeClient.new.topups.retrieve("tu_123")
+      topup = StripeClient.new.topup.retrieve("tu_123")
       topup.metadata["key"] = "value"
       topup.save
       assert_requested :post, "#{Stripe.api_base}/v1/topups/#{topup.id}"
     end
 
     should "be updateable" do
-      topup = StripeClient.new.topups.update("tu_123", metadata: { foo: "bar" })
+      topup = StripeClient.new.topup.update("tu_123", metadata: { foo: "bar" })
       assert_requested :post, "#{Stripe.api_base}/v1/topups/tu_123"
       assert topup.is_a?(Stripe::Topup)
     end
 
     context "#cancel" do
       should "cancel the topup" do
-        topup = StripeClient.new.topups.retrieve("tu_123")
+        topup = StripeClient.new.topup.retrieve("tu_123")
         topup = topup.cancel
         assert_requested :post, "#{Stripe.api_base}/v1/topups/#{topup.id}/cancel"
         assert topup.is_a?(Stripe::Topup)
@@ -53,7 +53,7 @@ module Stripe
 
     context ".cancel" do
       should "cancel the topup" do
-        topup = StripeClient.new.topups.cancel("tu_123")
+        topup = StripeClient.new.topup.cancel("tu_123")
         assert_requested :post, "#{Stripe.api_base}/v1/topups/tu_123/cancel"
         assert topup.is_a?(Stripe::Topup)
       end

@@ -5,7 +5,7 @@ require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class UsageRecordSummaryTest < Test::Unit::TestCase
     setup do
-      @sub_item = StripeClient.new.subscription_items.retrieve("si_123")
+      @sub_item = StripeClient.new.subscription_item.retrieve("si_123")
     end
 
     should "be listable" do

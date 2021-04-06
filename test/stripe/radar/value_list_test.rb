@@ -6,20 +6,20 @@ module Stripe
   module Radar
     class ValueListTest < Test::Unit::TestCase
       should "be listable" do
-        lists = StripeClient.new.radar.value_lists.list
+        lists = StripeClient.new.radar.value_list.list
         assert_requested :get, "#{Stripe.api_base}/v1/radar/value_lists"
         assert lists.data.is_a?(Array)
         assert lists.first.is_a?(Stripe::Radar::ValueList)
       end
 
       should "be retrievable" do
-        list = StripeClient.new.radar.value_lists.retrieve("rsl_123")
+        list = StripeClient.new.radar.value_list.retrieve("rsl_123")
         assert_requested :get, "#{Stripe.api_base}/v1/radar/value_lists/rsl_123"
         assert list.is_a?(Stripe::Radar::ValueList)
       end
 
       should "be creatable" do
-        list = StripeClient.new.radar.value_lists.create(
+        list = StripeClient.new.radar.value_list.create(
           alias: "list_alias",
           name: "list_name"
         )
@@ -28,21 +28,21 @@ module Stripe
       end
 
       should "be saveable" do
-        list = StripeClient.new.radar.value_lists.retrieve("rsl_123")
+        list = StripeClient.new.radar.value_list.retrieve("rsl_123")
         list.metadata["key"] = "value"
         list.save
         assert_requested :post, "#{Stripe.api_base}/v1/radar/value_lists/rsl_123"
       end
 
       should "be updateable" do
-        list = StripeClient.new.radar.value_lists.update("rsl_123", metadata: { key: "value" })
+        list = StripeClient.new.radar.value_list.update("rsl_123", metadata: { key: "value" })
         assert_requested :post, "#{Stripe.api_base}/v1/radar/value_lists/rsl_123"
         assert list.is_a?(Stripe::Radar::ValueList)
       end
 
       context "#delete" do
         should "be deletable" do
-          list = StripeClient.new.radar.value_lists.retrieve("rsl_123")
+          list = StripeClient.new.radar.value_list.retrieve("rsl_123")
           list = list.delete
           assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_lists/rsl_123"
           assert list.is_a?(Stripe::Radar::ValueList)
@@ -51,7 +51,7 @@ module Stripe
 
       context ".delete" do
         should "be deletable" do
-          list = StripeClient.new.radar.value_lists.delete("rsl_123")
+          list = StripeClient.new.radar.value_list.delete("rsl_123")
           assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_lists/rsl_123"
           assert list.is_a?(Stripe::Radar::ValueList)
         end

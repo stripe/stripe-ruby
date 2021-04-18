@@ -13,7 +13,7 @@ module Stripe
     custom_method :capture, http_verb: :post
     custom_method :confirm, http_verb: :post
 
-    def cancel(params = {}, opts = {})
+    def cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: resource_url + "/cancel",
@@ -22,7 +22,7 @@ module Stripe
       )
     end
 
-    def capture(params = {}, opts = {})
+    def capture(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: resource_url + "/capture",
@@ -31,7 +31,7 @@ module Stripe
       )
     end
 
-    def confirm(params = {}, opts = {})
+    def confirm(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: resource_url + "/confirm",

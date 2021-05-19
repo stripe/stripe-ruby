@@ -1,8 +1,7 @@
 # Changelog
 
 ## 5.33.0 - 2021-05-19
-* [#979](https://github.com/stripe/stripe-ruby/pull/979) API Updates
-* [#975](https://github.com/stripe/stripe-ruby/pull/975) Add Truffleruby head to CI
+* [#979](https://github.com/stripe/stripe-ruby/pull/979) Add support for the Identify VerificationSession and VerificationReport APIs
 
 ## 5.32.1 - 2021-04-05
 * Correct use of regexp `match` in gemspec for old versions of Ruby

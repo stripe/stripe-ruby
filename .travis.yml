@@ -15,7 +15,7 @@ notifications:
 env:
   global:
     # If changing this number, please also change it in `test/test_helper.rb`.
-    - STRIPE_MOCK_VERSION=0.105.0
+    - STRIPE_MOCK_VERSION=0.106.0
 
 cache:
   directories:

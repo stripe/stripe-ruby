@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.34.0 - 2021-06-04
+* [#981](https://github.com/stripe/stripe-ruby/pull/981) API Updates
+  * Add support for `TaxCode` API.
+
 ## 5.33.0 - 2021-05-19
 * [#979](https://github.com/stripe/stripe-ruby/pull/979) Add support for the Identify VerificationSession and VerificationReport APIs
 

@@ -6,6 +6,28 @@ module Stripe
       module ClassMethods
         def execute_resource_request(method, url,
                                      params = {}, opts = {})
+          execute_resource_request_internal(
+            :execute_request, method, url, params, opts
+          )
+        end
+
+        def execute_resource_request_stream(method, url,
+                                            params = {}, opts = {},
+                                            &read_body_chunk_block)
+          execute_resource_request_internal(
+            :execute_request_stream,
+            method,
+            url,
+            params,
+            opts,
+            &read_body_chunk_block
+          )
+        end
+
+        private def execute_resource_request_internal(client_request_method_sym,
+                                                      method, url,
+                                                      params, opts,
+                                                      &read_body_chunk_block)
           params ||= {}
 
           error_on_invalid_params(params)
@@ -22,10 +44,12 @@ module Stripe
           client = headers.delete(:client)
           # Assume all remaining opts must be headers
 
-          resp, opts[:api_key] = client.execute_request(
+          resp, opts[:api_key] = client.send(
+            client_request_method_sym,
             method, url,
             api_base: api_base, api_key: api_key,
-            headers: headers, params: params
+            headers: headers, params: params,
+            &read_body_chunk_block
           )
 
           # Hash#select returns an array before 1.9
@@ -87,6 +111,15 @@ module Stripe
                                              params = {}, opts = {})
         opts = @opts.merge(Util.normalize_opts(opts))
         self.class.execute_resource_request(method, url, params, opts)
+      end
+
+      protected def execute_resource_request_stream(method, url,
+                                                    params = {}, opts = {},
+                                                    &read_body_chunk_block)
+        opts = @opts.merge(Util.normalize_opts(opts))
+        self.class.execute_resource_request_stream(
+          method, url, params, opts, &read_body_chunk_block
+        )
       end
 
       # See notes on `alias` above.

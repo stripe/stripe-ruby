@@ -79,4 +79,55 @@ module Stripe
       resp
     end
   end
+
+  # StripeStreamResponse includes header-related vitals of the
+  # response as well as an IO stream of the body content.
+  class StripeStreamResponse
+    attr_accessor :io
+
+    # A Hash of the HTTP headers of the response.
+    attr_accessor :http_headers
+
+    # The integer HTTP status code of the response.
+    attr_accessor :http_status
+
+    # The Stripe request ID of the response.
+    attr_accessor :request_id
+
+    # Initializes a StripeStreamResponse object from a Net::HTTP::HTTPResponse
+    # object.
+    def self.from_net_http(http_resp)
+      resp = StripeStreamResponse.new
+      resp.io = StringIO.new http_resp.body
+      resp.http_headers = StripeResponse::Headers.from_net_http(http_resp)
+      resp.http_status = http_resp.code.to_i
+      resp.request_id = http_resp["request-id"]
+      resp
+    end
+  end
+
+  # StripeHeadersOnlyResponse includes only header-related vitals of the
+  # response. This is used for streaming requests where the response was read
+  # directly in a block and we explicitly don't want to store the body of the
+  # response in memory.
+  class StripeHeadersOnlyResponse
+    # A Hash of the HTTP headers of the response.
+    attr_accessor :http_headers
+
+    # The integer HTTP status code of the response.
+    attr_accessor :http_status
+
+    # The Stripe request ID of the response.
+    attr_accessor :request_id
+
+    # Initializes a StripeHeadersOnlyResponse object from a
+    # Net::HTTP::HTTPResponse object.
+    def self.from_net_http(http_resp)
+      resp = StripeHeadersOnlyResponse.new
+      resp.http_headers = StripeResponse::Headers.from_net_http(http_resp)
+      resp.http_status = http_resp.code.to_i
+      resp.request_id = http_resp["request-id"]
+      resp
+    end
+  end
 end

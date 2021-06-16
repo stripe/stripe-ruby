@@ -66,7 +66,8 @@ module Stripe
 
     # Executes an HTTP request to the given URI with the given method. Also
     # allows a request body, headers, and query string to be specified.
-    def execute_request(method, uri, body: nil, headers: nil, query: nil)
+    def execute_request(method, uri, body: nil, headers: nil, query: nil,
+                        &block)
       # Perform some basic argument validation because it's easy to get
       # confused between strings and hashes for things like body and query
       # parameters.
@@ -92,8 +93,22 @@ module Stripe
                u.path
              end
 
+      method_name = method.to_s.upcase
+      has_response_body = method_name != "HEAD"
+      request = Net::HTTPGenericRequest.new(
+        method_name,
+        (body ? true : false),
+        has_response_body,
+        path,
+        headers
+      )
+
       @mutex.synchronize do
-        connection.send_request(method.to_s.upcase, path, body, headers)
+        # The block parameter is special here. If a block is provided, the block
+        # is invoked with the Net::HTTPResponse. However, the body will not have
+        # been read yet in the block, and can be streamed by calling
+        # HTTPResponse#read_body.
+        connection.request(request, body, &block)
       end
     end
 

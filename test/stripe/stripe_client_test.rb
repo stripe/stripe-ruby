@@ -1114,7 +1114,7 @@ module Stripe
         resp, = client.execute_request_stream(:post, "/v1/charges")
 
         assert_instance_of Stripe::StripeStreamResponse, resp
-        assert_equal "response body", resp.io.read
+        assert_equal "response body", resp.http_body
       end
 
       should "executes the read_body_chunk_block when passed" do

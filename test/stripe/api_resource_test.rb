@@ -662,7 +662,7 @@ module Stripe
         resp = StreamTestAPIResource.new(id: "hi_123").read_stream({ foo: "bar" }, stripe_account: "acct_hi")
 
         assert_instance_of Stripe::StripeStreamResponse, resp
-        assert_equal "response body", resp.io.read
+        assert_equal "response body", resp.http_body
       end
     end
 

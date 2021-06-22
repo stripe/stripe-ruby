@@ -246,6 +246,11 @@ module Stripe
                                api_base: nil, api_key: nil,
                                headers: {}, params: {},
                                &read_body_chunk_block)
+      unless block_given?
+        raise ArgumentError,
+              "execute_request_stream requires a read_body_chunk_block"
+      end
+
       http_resp, api_key = execute_request_internal(
         method, path, api_base, api_key, headers, params, &read_body_chunk_block
       )
@@ -253,11 +258,7 @@ module Stripe
       # When the read_body_chunk_block is given, we no longer have access to the
       # response body at this point and so return a response object containing
       # only the headers. This is because the body was consumed by the block.
-      resp = if block_given?
-               StripeHeadersOnlyResponse.from_net_http(http_resp)
-             else
-               StripeStreamResponse.from_net_http(http_resp)
-             end
+      resp = StripeHeadersOnlyResponse.from_net_http(http_resp)
 
       [resp, api_key]
     end

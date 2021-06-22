@@ -654,15 +654,14 @@ module Stripe
         assert_equal "response body", accumulated_body
       end
 
-      should "supports requesting without a block" do
+      should "fail when requesting without a block" do
         stub_request(:get, "#{Stripe.api_base}/v1/streams/hi_123/read")
           .with(query: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
           .to_return(body: "response body")
 
-        resp = StreamTestAPIResource.new(id: "hi_123").read_stream({ foo: "bar" }, stripe_account: "acct_hi")
-
-        assert_instance_of Stripe::StripeStreamResponse, resp
-        assert_equal "response body", resp.http_body
+        assert_raises ArgumentError do
+          StreamTestAPIResource.new(id: "hi_123").read_stream({ foo: "bar" }, stripe_account: "acct_hi")
+        end
       end
     end
 

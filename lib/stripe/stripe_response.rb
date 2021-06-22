@@ -92,24 +92,6 @@ module Stripe
   # compatible.
   StripeResponse::Headers = StripeResponseHeaders
 
-  # StripeStreamResponse includes header-related vitals of the
-  # response as well as as the raw HTTP body content.
-  class StripeStreamResponse
-    include StripeResponseBase
-
-    # The raw HTTP body of the response.
-    attr_accessor :http_body
-
-    # Initializes a StripeStreamResponse object from a Net::HTTP::HTTPResponse
-    # object.
-    def self.from_net_http(http_resp)
-      resp = StripeStreamResponse.new
-      resp.http_body = http_resp.body
-      StripeResponseBase.populate_for_net_http(resp, http_resp)
-      resp
-    end
-  end
-
   # StripeHeadersOnlyResponse includes only header-related vitals of the
   # response. This is used for streaming requests where the response was read
   # directly in a block and we explicitly don't want to store the body of the

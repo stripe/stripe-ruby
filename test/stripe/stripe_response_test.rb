@@ -54,7 +54,7 @@ module Stripe
       end
     end
 
-    [StripeResponse, StripeStreamResponse, StripeHeadersOnlyResponse].each do |response_class|
+    [StripeResponse, StripeHeadersOnlyResponse].each do |response_class|
       context "StripeResponseBase mixin for #{response_class}" do
         context ".from_net_http" do
           should "populate the base fields" do
@@ -93,21 +93,6 @@ module Stripe
           headers = StripeResponse::Headers.new("Request-Id" => ["request-id"])
 
           assert_instance_of StripeResponseHeaders, headers
-        end
-      end
-    end
-
-    context "#StripeStreamResponse" do
-      context ".from_net_http" do
-        should "converts to StripeStreamResponse" do
-          code = 200
-          body = '{"foo": "bar"}'
-          http_resp = create_net_http_resp(code, body, {})
-
-          resp = StripeStreamResponse.from_net_http(http_resp)
-
-          assert_instance_of StripeStreamResponse, resp
-          assert_equal body, resp.http_body
         end
       end
     end

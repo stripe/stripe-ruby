@@ -213,62 +213,9 @@ module Stripe
 
     def execute_request(method, path,
                         api_base: nil, api_key: nil, headers: {}, params: {})
-      raise ArgumentError, "method should be a symbol" \
-        unless method.is_a?(Symbol)
-      raise ArgumentError, "path should be a string" \
-        unless path.is_a?(String)
-
-      api_base ||= config.api_base
-      api_key ||= config.api_key
-      params = Util.objects_to_ids(params)
-
-      check_api_key!(api_key)
-
-      body_params = nil
-      query_params = nil
-      case method
-      when :get, :head, :delete
-        query_params = params
-      else
-        body_params = params
-      end
-
-      query_params, path = merge_query_params(query_params, path)
-
-      headers = request_headers(api_key, method)
-                .update(Util.normalize_headers(headers))
-      url = api_url(path, api_base)
-
-      # Merge given query parameters with any already encoded in the path.
-      query = query_params ? Util.encode_parameters(query_params) : nil
-
-      # Encoding body parameters is a little more complex because we may have
-      # to send a multipart-encoded body. `body_log` is produced separately as
-      # a log-friendly variant of the encoded form. File objects are displayed
-      # as such instead of as their file contents.
-      body, body_log =
-        body_params ? encode_body(body_params, headers) : [nil, nil]
-
-      # stores information on the request we're about to make so that we don't
-      # have to pass as many parameters around for logging.
-      context = RequestLogContext.new
-      context.account         = headers["Stripe-Account"]
-      context.api_key         = api_key
-      context.api_version     = headers["Stripe-Version"]
-      context.body            = body_log
-      context.idempotency_key = headers["Idempotency-Key"]
-      context.method          = method
-      context.path            = path
-      context.query           = query
-
-      http_resp = execute_request_with_rescues(method, api_base, context) do
-        self.class
-            .default_connection_manager(config)
-            .execute_request(method, url,
-                             body: body,
-                             headers: headers,
-                             query: query)
-      end
+      http_resp, api_key = execute_request_internal(
+        method, path, api_base, api_key, headers, params
+      )
 
       begin
         resp = StripeResponse.from_net_http(http_resp)
@@ -280,6 +227,38 @@ module Stripe
       # thread-local memory so that it can be returned to the user. Don't store
       # anything otherwise so that we don't leak memory.
       store_last_response(object_id, resp)
+
+      [resp, api_key]
+    end
+
+    # Executes a request and returns the body as a stream instead of converting
+    # it to a StripeObject. This should be used for any request where we expect
+    # an arbitrary binary response.
+    #
+    # A `read_body_chunk` block can be passed, which will be called repeatedly
+    # with the body chunks read from the socket.
+    #
+    # If a block is passed, a StripeHeadersOnlyResponse is returned as the
+    # block is expected to do all the necessary body processing. If no block is
+    # passed, then a StripeStreamResponse is returned containing an IO stream
+    # with the response body.
+    def execute_request_stream(method, path,
+                               api_base: nil, api_key: nil,
+                               headers: {}, params: {},
+                               &read_body_chunk_block)
+      unless block_given?
+        raise ArgumentError,
+              "execute_request_stream requires a read_body_chunk_block"
+      end
+
+      http_resp, api_key = execute_request_internal(
+        method, path, api_base, api_key, headers, params, &read_body_chunk_block
+      )
+
+      # When the read_body_chunk_block is given, we no longer have access to the
+      # response body at this point and so return a response object containing
+      # only the headers. This is because the body was consumed by the block.
+      resp = StripeHeadersOnlyResponse.from_net_http(http_resp)
 
       [resp, api_key]
     end
@@ -451,6 +430,83 @@ module Stripe
       pruned_contexts.count
     end
 
+    private def execute_request_internal(method, path,
+                                         api_base, api_key, headers, params,
+                                         &read_body_chunk_block)
+      raise ArgumentError, "method should be a symbol" \
+      unless method.is_a?(Symbol)
+      raise ArgumentError, "path should be a string" \
+      unless path.is_a?(String)
+
+      api_base ||= config.api_base
+      api_key ||= config.api_key
+      params = Util.objects_to_ids(params)
+
+      check_api_key!(api_key)
+
+      body_params = nil
+      query_params = nil
+      case method
+      when :get, :head, :delete
+        query_params = params
+      else
+        body_params = params
+      end
+
+      query_params, path = merge_query_params(query_params, path)
+
+      headers = request_headers(api_key, method)
+                .update(Util.normalize_headers(headers))
+      url = api_url(path, api_base)
+
+      # Merge given query parameters with any already encoded in the path.
+      query = query_params ? Util.encode_parameters(query_params) : nil
+
+      # Encoding body parameters is a little more complex because we may have
+      # to send a multipart-encoded body. `body_log` is produced separately as
+      # a log-friendly variant of the encoded form. File objects are displayed
+      # as such instead of as their file contents.
+      body, body_log =
+        body_params ? encode_body(body_params, headers) : [nil, nil]
+
+      # stores information on the request we're about to make so that we don't
+      # have to pass as many parameters around for logging.
+      context = RequestLogContext.new
+      context.account         = headers["Stripe-Account"]
+      context.api_key         = api_key
+      context.api_version     = headers["Stripe-Version"]
+      context.body            = body_log
+      context.idempotency_key = headers["Idempotency-Key"]
+      context.method          = method
+      context.path            = path
+      context.query           = query
+
+      # A block can be passed in to read the content directly from the response.
+      # We want to execute this block only when the response was actually
+      # successful. When it wasn't, we defer to the standard error handling as
+      # we have to read the body and parse the error JSON.
+      response_block =
+        if block_given?
+          lambda do |response|
+            unless should_handle_as_error(response.code.to_i)
+              response.read_body(&read_body_chunk_block)
+            end
+          end
+        end
+
+      http_resp = execute_request_with_rescues(method, api_base, context) do
+        self.class
+            .default_connection_manager(config)
+            .execute_request(method, url,
+                             body: body,
+                             headers: headers,
+                             query: query,
+                             &response_block)
+      end
+
+      [http_resp, api_key]
+    end
+
     private def api_url(url = "", api_base = nil)
       (api_base || config.api_base) + url
     end
@@ -490,6 +546,7 @@ module Stripe
         # that's more condusive to logging.
         flattened_params =
           flattened_params.map { |k, v| [k, v.is_a?(String) ? v : v.to_s] }.to_h
+
       else
         body = Util.encode_parameters(body_params)
       end
@@ -501,6 +558,10 @@ module Stripe
       body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
 
       [body, body_log]
+    end
+
+    private def should_handle_as_error(http_status)
+      http_status >= 400
     end
 
     private def execute_request_with_rescues(method, api_base, context)
@@ -520,7 +581,9 @@ module Stripe
         http_status = resp.code.to_i
         context = context.dup_from_response_headers(resp)
 
-        handle_error_response(resp, context) if http_status >= 400
+        if should_handle_as_error(http_status)
+          handle_error_response(resp, context)
+        end
 
         log_response(context, request_start, http_status, resp.body)
         notify_request_end(context, request_duration, http_status,

@@ -446,657 +446,731 @@ module Stripe
       end
     end
 
-    context "#execute_request" do
-      context "headers" do
-        should "support literal headers" do
-          stub_request(:post, "#{Stripe.api_base}/v1/account")
-            .with(headers: { "Stripe-Account" => "bar" })
-            .to_return(body: JSON.generate(object: "account"))
-
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/account",
-                                 headers: { "Stripe-Account" => "bar" })
-        end
-
-        should "support RestClient-style header keys" do
-          stub_request(:post, "#{Stripe.api_base}/v1/account")
-            .with(headers: { "Stripe-Account" => "bar" })
-            .to_return(body: JSON.generate(object: "account"))
-
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/account",
-                                 headers: { stripe_account: "bar" })
-        end
-      end
-
-      context "logging" do
+    %w[execute_request execute_request_stream].each do |request_method|
+      context "request processing for #{request_method}" do
         setup do
-          # Freeze time for the purposes of the `elapsed` parameter that we
-          # emit for responses. Mocha's `anything` parameter can't match inside
-          # of a hash and is therefore not useful for this purpose. If we
-          # switch over to rspec-mocks at some point, we can probably remove
-          # this.
-          Util.stubs(:monotonic_time).returns(0.0)
-
-          # Stub the Stripe.config so that mocha matchers will succeed. Currently,
-          # mocha does not support using param matchers within hashes.
-          StripeClient.any_instance.stubs(:config).returns(Stripe.config)
+          @read_body_chunk_block = if request_method == "execute_request_stream"
+                                     proc { |body_chunk| body_chunk }
+                                   end
         end
 
-        should "produce appropriate logging" do
-          body = JSON.generate(object: "account")
-
-          Util.expects(:log_info).with("Request to Stripe API",
-                                       account: "acct_123",
-                                       api_version: "2010-11-12",
-                                       idempotency_key: "abc",
-                                       method: :post,
-                                       num_retries: 0,
-                                       path: "/v1/account",
-                                       config: Stripe.config)
-          Util.expects(:log_debug).with("Request details",
-                                        body: "",
-                                        idempotency_key: "abc",
-                                        query: nil,
-                                        config: Stripe.config)
-
-          Util.expects(:log_info).with("Response from Stripe API",
-                                       account: "acct_123",
-                                       api_version: "2010-11-12",
-                                       elapsed: 0.0,
-                                       idempotency_key: "abc",
-                                       method: :post,
-                                       path: "/v1/account",
-                                       request_id: "req_123",
-                                       status: 200,
-                                       config: Stripe.config)
-          Util.expects(:log_debug).with("Response details",
-                                        body: body,
-                                        idempotency_key: "abc",
-                                        request_id: "req_123",
-                                        config: Stripe.config)
-          Util.expects(:log_debug).with("Dashboard link for request",
-                                        idempotency_key: "abc",
-                                        request_id: "req_123",
-                                        url: Util.request_id_dashboard_url("req_123", Stripe.api_key),
-                                        config: Stripe.config)
-
-          stub_request(:post, "#{Stripe.api_base}/v1/account")
-            .to_return(
-              body: body,
-              headers: {
-                "Idempotency-Key" => "abc",
-                "Request-Id" => "req_123",
-                "Stripe-Account" => "acct_123",
-                "Stripe-Version" => "2010-11-12",
-              }
-            )
-
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/account",
-                                 headers: {
-                                   "Idempotency-Key" => "abc",
-                                   "Stripe-Account" => "acct_123",
-                                   "Stripe-Version" => "2010-11-12",
-                                 })
-        end
-
-        should "produce logging on API error" do
-          Util.expects(:log_info).with("Request to Stripe API",
-                                       account: nil,
-                                       api_version: nil,
-                                       idempotency_key: nil,
-                                       method: :post,
-                                       num_retries: 0,
-                                       path: "/v1/account",
-                                       config: Stripe.config)
-          Util.expects(:log_info).with("Response from Stripe API",
-                                       account: nil,
-                                       api_version: nil,
-                                       elapsed: 0.0,
-                                       idempotency_key: nil,
-                                       method: :post,
-                                       path: "/v1/account",
-                                       request_id: nil,
-                                       status: 500,
-                                       config: Stripe.config)
-
-          error = {
-            code: "code",
-            message: "message",
-            param: "param",
-            type: "type",
-          }
-          Util.expects(:log_error).with("Stripe API error",
-                                        status: 500,
-                                        error_code: error[:code],
-                                        error_message: error[:message],
-                                        error_param: error[:param],
-                                        error_type: error[:type],
-                                        idempotency_key: nil,
-                                        request_id: nil,
-                                        config: Stripe.config)
-
-          stub_request(:post, "#{Stripe.api_base}/v1/account")
-            .to_return(
-              body: JSON.generate(error: error),
-              status: 500
-            )
-
-          client = StripeClient.new
-          assert_raises Stripe::APIError do
-            client.execute_request(:post, "/v1/account")
-          end
-        end
-
-        should "produce logging on OAuth error" do
-          Util.expects(:log_info).with("Request to Stripe API",
-                                       account: nil,
-                                       api_version: nil,
-                                       idempotency_key: nil,
-                                       method: :post,
-                                       num_retries: 0,
-                                       path: "/oauth/token",
-                                       config: Stripe.config)
-          Util.expects(:log_info).with("Response from Stripe API",
-                                       account: nil,
-                                       api_version: nil,
-                                       elapsed: 0.0,
-                                       idempotency_key: nil,
-                                       method: :post,
-                                       path: "/oauth/token",
-                                       request_id: nil,
-                                       status: 400,
-                                       config: Stripe.config)
-
-          Util.expects(:log_error).with("Stripe OAuth error",
-                                        status: 400,
-                                        error_code: "invalid_request",
-                                        error_description: "No grant type specified",
-                                        idempotency_key: nil,
-                                        request_id: nil,
-                                        config: Stripe.config)
-
-          stub_request(:post, "#{Stripe.connect_base}/oauth/token")
-            .to_return(body: JSON.generate(error: "invalid_request",
-                                           error_description: "No grant type specified"), status: 400)
-
-          client = StripeClient.new
-          opts = { api_base: Stripe.connect_base }
-          assert_raises Stripe::OAuth::InvalidRequestError do
-            client.execute_request(:post, "/oauth/token", **opts)
-          end
-        end
-      end
-
-      context "Stripe-Account header" do
-        should "use a globally set header" do
-          begin
-            old = Stripe.stripe_account
-            Stripe.stripe_account = "acct_1234"
-
+        context "headers" do
+          should "support literal headers" do
             stub_request(:post, "#{Stripe.api_base}/v1/account")
-              .with(headers: { "Stripe-Account" => Stripe.stripe_account })
+              .with(headers: { "Stripe-Account" => "bar" })
               .to_return(body: JSON.generate(object: "account"))
 
             client = StripeClient.new
-            client.execute_request(:post, "/v1/account")
-          ensure
-            Stripe.stripe_account = old
+            client.send(request_method, :post, "/v1/account",
+                        headers: { "Stripe-Account" => "bar" },
+                        &@read_body_chunk_block)
+          end
+
+          should "support RestClient-style header keys" do
+            stub_request(:post, "#{Stripe.api_base}/v1/account")
+              .with(headers: { "Stripe-Account" => "bar" })
+              .to_return(body: JSON.generate(object: "account"))
+
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/account",
+                        headers: { stripe_account: "bar" },
+                        &@read_body_chunk_block)
           end
         end
 
-        should "use a locally set header" do
-          stripe_account = "acct_0000"
-          stub_request(:post, "#{Stripe.api_base}/v1/account")
-            .with(headers: { "Stripe-Account" => stripe_account })
-            .to_return(body: JSON.generate(object: "account"))
+        context "logging" do
+          setup do
+            # Freeze time for the purposes of the `elapsed` parameter that we
+            # emit for responses. Mocha's `anything` parameter can't match inside
+            # of a hash and is therefore not useful for this purpose. If we
+            # switch over to rspec-mocks at some point, we can probably remove
+            # this.
+            Util.stubs(:monotonic_time).returns(0.0)
 
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/account",
-                                 headers: { stripe_account: stripe_account })
-        end
+            # Stub the Stripe.config so that mocha matchers will succeed. Currently,
+            # mocha does not support using param matchers within hashes.
+            StripeClient.any_instance.stubs(:config).returns(Stripe.config)
+          end
 
-        should "not send it otherwise" do
-          stub_request(:post, "#{Stripe.api_base}/v1/account")
-            .with do |req|
-              req.headers["Stripe-Account"].nil?
-            end.to_return(body: JSON.generate(object: "account"))
+          should "produce appropriate logging" do
+            body = JSON.generate(object: "account")
 
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/account")
-        end
-      end
+            Util.expects(:log_info).with("Request to Stripe API",
+                                         account: "acct_123",
+                                         api_version: "2010-11-12",
+                                         idempotency_key: "abc",
+                                         method: :post,
+                                         num_retries: 0,
+                                         path: "/v1/account",
+                                         config: Stripe.config)
+            Util.expects(:log_debug).with("Request details",
+                                          body: "",
+                                          idempotency_key: "abc",
+                                          query: nil,
+                                          config: Stripe.config)
 
-      context "app_info" do
-        should "send app_info if set" do
-          begin
-            old = Stripe.app_info
-            Stripe.set_app_info(
-              "MyAwesomePlugin",
-              partner_id: "partner_1234",
-              url: "https://myawesomeplugin.info",
-              version: "1.2.34"
-            )
+            Util.expects(:log_info).with("Response from Stripe API",
+                                         account: "acct_123",
+                                         api_version: "2010-11-12",
+                                         elapsed: 0.0,
+                                         idempotency_key: "abc",
+                                         method: :post,
+                                         path: "/v1/account",
+                                         request_id: "req_123",
+                                         status: 200,
+                                         config: Stripe.config)
+            Util.expects(:log_debug).with do |message, data|
+              if message == "Response details" &&
+                 data[:idempotency_key] == "abc" &&
+                 data[:request_id] == "req_123" &&
+                 data[:config] == Stripe.config
+                # Streaming requests have a different body.
+                if request_method == "execute_request_stream"
+                  data[:body].is_a? Net::ReadAdapter
+                else
+                  data[:body] == body
+                end
+              end
+            end
+            Util.expects(:log_debug).with("Dashboard link for request",
+                                          idempotency_key: "abc",
+                                          request_id: "req_123",
+                                          url: Util.request_id_dashboard_url("req_123", Stripe.api_key),
+                                          config: Stripe.config)
 
             stub_request(:post, "#{Stripe.api_base}/v1/account")
+              .to_return(
+                body: body,
+                headers: {
+                  "Idempotency-Key" => "abc",
+                  "Request-Id" => "req_123",
+                  "Stripe-Account" => "acct_123",
+                  "Stripe-Version" => "2010-11-12",
+                }
+              )
+
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/account",
+                        headers: {
+                          "Idempotency-Key" => "abc",
+                          "Stripe-Account" => "acct_123",
+                          "Stripe-Version" => "2010-11-12",
+                        },
+                        &@read_body_chunk_block)
+          end
+
+          should "produce logging on API error" do
+            Util.expects(:log_info).with("Request to Stripe API",
+                                         account: nil,
+                                         api_version: nil,
+                                         idempotency_key: nil,
+                                         method: :post,
+                                         num_retries: 0,
+                                         path: "/v1/account",
+                                         config: Stripe.config)
+            Util.expects(:log_info).with("Response from Stripe API",
+                                         account: nil,
+                                         api_version: nil,
+                                         elapsed: 0.0,
+                                         idempotency_key: nil,
+                                         method: :post,
+                                         path: "/v1/account",
+                                         request_id: nil,
+                                         status: 500,
+                                         config: Stripe.config)
+
+            error = {
+              code: "code",
+              message: "message",
+              param: "param",
+              type: "type",
+            }
+            Util.expects(:log_error).with("Stripe API error",
+                                          status: 500,
+                                          error_code: error[:code],
+                                          error_message: error[:message],
+                                          error_param: error[:param],
+                                          error_type: error[:type],
+                                          idempotency_key: nil,
+                                          request_id: nil,
+                                          config: Stripe.config)
+
+            stub_request(:post, "#{Stripe.api_base}/v1/account")
+              .to_return(
+                body: JSON.generate(error: error),
+                status: 500
+              )
+
+            client = StripeClient.new
+            assert_raises Stripe::APIError do
+              client.send(request_method, :post, "/v1/account",
+                          &@read_body_chunk_block)
+            end
+          end
+
+          should "produce logging on OAuth error" do
+            Util.expects(:log_info).with("Request to Stripe API",
+                                         account: nil,
+                                         api_version: nil,
+                                         idempotency_key: nil,
+                                         method: :post,
+                                         num_retries: 0,
+                                         path: "/oauth/token",
+                                         config: Stripe.config)
+            Util.expects(:log_info).with("Response from Stripe API",
+                                         account: nil,
+                                         api_version: nil,
+                                         elapsed: 0.0,
+                                         idempotency_key: nil,
+                                         method: :post,
+                                         path: "/oauth/token",
+                                         request_id: nil,
+                                         status: 400,
+                                         config: Stripe.config)
+
+            Util.expects(:log_error).with("Stripe OAuth error",
+                                          status: 400,
+                                          error_code: "invalid_request",
+                                          error_description: "No grant type specified",
+                                          idempotency_key: nil,
+                                          request_id: nil,
+                                          config: Stripe.config)
+
+            stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+              .to_return(body: JSON.generate(error: "invalid_request",
+                                             error_description: "No grant type specified"), status: 400)
+
+            client = StripeClient.new
+            opts = { api_base: Stripe.connect_base }
+            assert_raises Stripe::OAuth::InvalidRequestError do
+              client.send(request_method, :post, "/oauth/token", **opts,
+                          &@read_body_chunk_block)
+            end
+          end
+        end
+
+        context "Stripe-Account header" do
+          should "use a globally set header" do
+            begin
+              old = Stripe.stripe_account
+              Stripe.stripe_account = "acct_1234"
+
+              stub_request(:post, "#{Stripe.api_base}/v1/account")
+                .with(headers: { "Stripe-Account" => Stripe.stripe_account })
+                .to_return(body: JSON.generate(object: "account"))
+
+              client = StripeClient.new
+              client.send(request_method, :post, "/v1/account",
+                          &@read_body_chunk_block)
+            ensure
+              Stripe.stripe_account = old
+            end
+          end
+
+          should "use a locally set header" do
+            stripe_account = "acct_0000"
+            stub_request(:post, "#{Stripe.api_base}/v1/account")
+              .with(headers: { "Stripe-Account" => stripe_account })
+              .to_return(body: JSON.generate(object: "account"))
+
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/account",
+                        headers: { stripe_account: stripe_account },
+                        &@read_body_chunk_block)
+          end
+
+          should "not send it otherwise" do
+            stub_request(:post, "#{Stripe.api_base}/v1/account")
               .with do |req|
-                assert_equal \
-                  "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
-                  "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
-                  req.headers["User-Agent"]
-
-                data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"],
-                                  symbolize_names: true)
-
-                assert_equal({
-                  name: "MyAwesomePlugin",
-                  partner_id: "partner_1234",
-                  url: "https://myawesomeplugin.info",
-                  version: "1.2.34",
-                }, data[:application])
-
-                true
+                req.headers["Stripe-Account"].nil?
               end.to_return(body: JSON.generate(object: "account"))
 
             client = StripeClient.new
-            client.execute_request(:post, "/v1/account")
-          ensure
-            Stripe.app_info = old
+            client.send(request_method, :post, "/v1/account",
+                        &@read_body_chunk_block)
           end
         end
-      end
 
-      context "error handling" do
-        should "handle error response with empty body" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: "", status: 500)
+        context "app_info" do
+          should "send app_info if set" do
+            begin
+              old = Stripe.app_info
+              Stripe.set_app_info(
+                "MyAwesomePlugin",
+                partner_id: "partner_1234",
+                url: "https://myawesomeplugin.info",
+                version: "1.2.34"
+              )
 
-          client = StripeClient.new
+              stub_request(:post, "#{Stripe.api_base}/v1/account")
+                .with do |req|
+                  assert_equal \
+                    "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
+                    "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
+                    req.headers["User-Agent"]
 
-          e = assert_raises Stripe::APIError do
-            client.execute_request(:post, "/v1/charges")
+                  data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"],
+                                    symbolize_names: true)
+
+                  assert_equal({
+                    name: "MyAwesomePlugin",
+                    partner_id: "partner_1234",
+                    url: "https://myawesomeplugin.info",
+                    version: "1.2.34",
+                  }, data[:application])
+
+                  true
+                end.to_return(body: JSON.generate(object: "account"))
+
+              client = StripeClient.new
+              client.send(request_method, :post, "/v1/account",
+                          &@read_body_chunk_block)
+            ensure
+              Stripe.app_info = old
+            end
           end
-          assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.message
         end
 
-        should "handle success response with empty body" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: "", status: 200)
+        context "error handling" do
+          should "handle error response with empty body" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: "", status: 500)
 
-          client = StripeClient.new
+            client = StripeClient.new
 
-          e = assert_raises Stripe::APIError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
-        end
-
-        should "feed a request ID through to the error object" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_missing_id_error),
-                       headers: { "Request-ID": "req_123" },
-                       status: 400)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::InvalidRequestError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal("req_123", e.request_id)
-        end
-
-        should "handle low level error" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_raise(Errno::ECONNREFUSED.new)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::APIConnectionError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base +
-                       "\n\n(Network error: Connection refused)",
-                       e.message
-        end
-
-        should "handle error response with unknown value" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(bar: "foo"), status: 500)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::APIError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.message
-        end
-
-        should "raise IdempotencyError on 400 of type idempotency_error" do
-          data = make_missing_id_error
-          data[:error][:type] = "idempotency_error"
-
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(data), status: 400)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::IdempotencyError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal(400, e.http_status)
-          assert_equal(true, e.json_body.is_a?(Hash))
-        end
-
-        should "raise InvalidRequestError on other 400s" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_missing_id_error), status: 400)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::InvalidRequestError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal(400, e.http_status)
-          assert_equal(true, e.json_body.is_a?(Hash))
-        end
-
-        should "raise AuthenticationError on 401" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_missing_id_error), status: 401)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::AuthenticationError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal(401, e.http_status)
-          assert_equal(true, e.json_body.is_a?(Hash))
-        end
-
-        should "raise CardError on 402" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_invalid_exp_year_error), status: 402)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::CardError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal(402, e.http_status)
-          assert_equal(true, e.json_body.is_a?(Hash))
-          assert_equal("invalid_expiry_year", e.code)
-          assert_equal("exp_year", e.param)
-        end
-
-        should "raise PermissionError on 403" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_missing_id_error), status: 403)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::PermissionError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal(403, e.http_status)
-          assert_equal(true, e.json_body.is_a?(Hash))
-        end
-
-        should "raise InvalidRequestError on 404" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_missing_id_error), status: 404)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::InvalidRequestError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal(404, e.http_status)
-          assert_equal(true, e.json_body.is_a?(Hash))
-        end
-
-        should "raise RateLimitError on 429" do
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return(body: JSON.generate(make_rate_limit_error), status: 429)
-
-          client = StripeClient.new
-
-          e = assert_raises Stripe::RateLimitError do
-            client.execute_request(:post, "/v1/charges")
-          end
-          assert_equal(429, e.http_status)
-          assert_equal(true, e.json_body.is_a?(Hash))
-        end
-
-        should "raise OAuth::InvalidRequestError when error is a string with value 'invalid_request'" do
-          stub_request(:post, "#{Stripe.connect_base}/oauth/token")
-            .to_return(body: JSON.generate(error: "invalid_request",
-                                           error_description: "No grant type specified"), status: 400)
-
-          client = StripeClient.new
-
-          opts = { api_base: Stripe.connect_base }
-          e = assert_raises Stripe::OAuth::InvalidRequestError do
-            client.execute_request(:post, "/oauth/token", **opts)
+            e = assert_raises Stripe::APIError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.message
           end
 
-          assert_equal(400, e.http_status)
-          assert_equal("No grant type specified", e.message)
-        end
+          should "feed a request ID through to the error object" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(make_missing_id_error),
+                         headers: { "Request-ID": "req_123" },
+                         status: 400)
 
-        should "raise OAuth::InvalidGrantError when error is a string with value 'invalid_grant'" do
-          stub_request(:post, "#{Stripe.connect_base}/oauth/token")
-            .to_return(body: JSON.generate(error: "invalid_grant",
-                                           error_description: "This authorization code has already been used. All tokens issued with this code have been revoked."), status: 400)
+            client = StripeClient.new
 
-          client = StripeClient.new
-
-          opts = { api_base: Stripe.connect_base }
-          e = assert_raises Stripe::OAuth::InvalidGrantError do
-            client.execute_request(:post, "/oauth/token", **opts)
+            e = assert_raises Stripe::InvalidRequestError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal("req_123", e.request_id)
           end
 
-          assert_equal(400, e.http_status)
-          assert_equal("invalid_grant", e.code)
-          assert_equal("This authorization code has already been used. All tokens issued with this code have been revoked.", e.message)
-        end
+          should "handle low level error" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_raise(Errno::ECONNREFUSED.new)
 
-        should "raise OAuth::InvalidClientError when error is a string with value 'invalid_client'" do
-          stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize")
-            .to_return(body: JSON.generate(error: "invalid_client",
-                                           error_description: "This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist."), status: 401)
+            client = StripeClient.new
 
-          client = StripeClient.new
-
-          opts = { api_base: Stripe.connect_base }
-          e = assert_raises Stripe::OAuth::InvalidClientError do
-            client.execute_request(:post, "/oauth/deauthorize", **opts)
+            e = assert_raises Stripe::APIConnectionError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base +
+                         "\n\n(Network error: Connection refused)",
+                         e.message
           end
 
-          assert_equal(401, e.http_status)
-          assert_equal("invalid_client", e.code)
-          assert_equal("This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.", e.message)
-        end
+          should "handle error response with unknown value" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(bar: "foo"), status: 500)
 
-        should "raise Stripe::OAuthError on indeterminate OAuth error" do
-          stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize")
-            .to_return(body: JSON.generate(error: "new_code_not_recognized",
-                                           error_description: "Something."), status: 401)
+            client = StripeClient.new
 
-          client = StripeClient.new
-
-          opts = { api_base: Stripe.connect_base }
-          e = assert_raises Stripe::OAuth::OAuthError do
-            client.execute_request(:post, "/oauth/deauthorize", **opts)
+            e = assert_raises Stripe::APIError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.message
           end
 
-          assert_equal(401, e.http_status)
-          assert_equal("new_code_not_recognized", e.code)
-          assert_equal("Something.", e.message)
-        end
-      end
+          should "raise IdempotencyError on 400 of type idempotency_error" do
+            data = make_missing_id_error
+            data[:error][:type] = "idempotency_error"
 
-      context "idempotency keys" do
-        setup do
-          Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
-        end
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(data), status: 400)
 
-        should "not add an idempotency key to GET requests" do
-          SecureRandom.expects(:uuid).times(0)
-          stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123")
-            .with do |req|
-              req.headers["Idempotency-Key"].nil?
-            end.to_return(body: JSON.generate(object: "charge"))
-          client = StripeClient.new
-          client.execute_request(:get, "/v1/charges/ch_123")
-        end
+            client = StripeClient.new
 
-        should "ensure there is always an idempotency_key on POST requests" do
-          SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .with(headers: { "Idempotency-Key" => "random_key" })
-            .to_return(body: JSON.generate(object: "charge"))
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/charges")
-        end
-
-        should "ensure there is always an idempotency_key on DELETE requests" do
-          SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-          stub_request(:delete, "#{Stripe.api_base}/v1/charges/ch_123")
-            .with(headers: { "Idempotency-Key" => "random_key" })
-            .to_return(body: JSON.generate(object: "charge"))
-          client = StripeClient.new
-          client.execute_request(:delete, "/v1/charges/ch_123")
-        end
-
-        should "not override a provided idempotency_key" do
-          # Note that this expectation looks like `:idempotency_key` instead of
-          # the header `Idempotency-Key` because it's user provided as seen
-          # below. The ones injected by the library itself look like headers
-          # (`Idempotency-Key`), but rest-client does allow this symbol
-          # formatting and will properly override the system generated one as
-          # expected.
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .with(headers: { "Idempotency-Key" => "provided_key" })
-            .to_return(body: JSON.generate(object: "charge"))
-
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/charges",
-                                 headers: { idempotency_key: "provided_key" })
-        end
-      end
-
-      context "retry logic" do
-        setup do
-          Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
-        end
-
-        should "retry failed requests and raise if error persists" do
-          StripeClient.expects(:sleep_time).at_least_once.returns(0)
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_raise(Errno::ECONNREFUSED.new)
-
-          client = StripeClient.new
-          err = assert_raises Stripe::APIConnectionError do
-            client.execute_request(:post, "/v1/charges")
+            e = assert_raises Stripe::IdempotencyError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal(400, e.http_status)
+            assert_equal(true, e.json_body.is_a?(Hash))
           end
-          assert_match(/Request was retried 2 times/, err.message)
-        end
 
-        should "retry failed requests and return successful response" do
-          StripeClient.expects(:sleep_time).at_least_once.returns(0)
+          should "raise InvalidRequestError on other 400s" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(make_missing_id_error), status: 400)
 
-          i = 0
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_return do |_|
-              if i < 2
-                i += 1
-                raise Errno::ECONNREFUSED
-              else
-                { body: JSON.generate("id" => "myid") }
-              end
+            client = StripeClient.new
+
+            e = assert_raises Stripe::InvalidRequestError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal(400, e.http_status)
+            assert_equal(true, e.json_body.is_a?(Hash))
+          end
+
+          should "raise AuthenticationError on 401" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(make_missing_id_error), status: 401)
+
+            client = StripeClient.new
+
+            e = assert_raises Stripe::AuthenticationError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal(401, e.http_status)
+            assert_equal(true, e.json_body.is_a?(Hash))
+          end
+
+          should "raise CardError on 402" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(make_invalid_exp_year_error), status: 402)
+
+            client = StripeClient.new
+
+            e = assert_raises Stripe::CardError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal(402, e.http_status)
+            assert_equal(true, e.json_body.is_a?(Hash))
+            assert_equal("invalid_expiry_year", e.code)
+            assert_equal("exp_year", e.param)
+          end
+
+          should "raise PermissionError on 403" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(make_missing_id_error), status: 403)
+
+            client = StripeClient.new
+
+            e = assert_raises Stripe::PermissionError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal(403, e.http_status)
+            assert_equal(true, e.json_body.is_a?(Hash))
+          end
+
+          should "raise InvalidRequestError on 404" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(make_missing_id_error), status: 404)
+
+            client = StripeClient.new
+
+            e = assert_raises Stripe::InvalidRequestError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal(404, e.http_status)
+            assert_equal(true, e.json_body.is_a?(Hash))
+          end
+
+          should "raise RateLimitError on 429" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(make_rate_limit_error), status: 429)
+
+            client = StripeClient.new
+
+            e = assert_raises Stripe::RateLimitError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_equal(429, e.http_status)
+            assert_equal(true, e.json_body.is_a?(Hash))
+          end
+
+          should "raise OAuth::InvalidRequestError when error is a string with value 'invalid_request'" do
+            stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+              .to_return(body: JSON.generate(error: "invalid_request",
+                                             error_description: "No grant type specified"), status: 400)
+
+            client = StripeClient.new
+
+            opts = { api_base: Stripe.connect_base }
+            e = assert_raises Stripe::OAuth::InvalidRequestError do
+              client.send(request_method, :post, "/oauth/token", **opts,
+                          &@read_body_chunk_block)
             end
 
-          client = StripeClient.new
-          client.execute_request(:post, "/v1/charges")
+            assert_equal(400, e.http_status)
+            assert_equal("No grant type specified", e.message)
+          end
+
+          should "raise OAuth::InvalidGrantError when error is a string with value 'invalid_grant'" do
+            stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+              .to_return(body: JSON.generate(error: "invalid_grant",
+                                             error_description: "This authorization code has already been used. All tokens issued with this code have been revoked."), status: 400)
+
+            client = StripeClient.new
+
+            opts = { api_base: Stripe.connect_base }
+            e = assert_raises Stripe::OAuth::InvalidGrantError do
+              client.send(request_method, :post, "/oauth/token", **opts,
+                          &@read_body_chunk_block)
+            end
+
+            assert_equal(400, e.http_status)
+            assert_equal("invalid_grant", e.code)
+            assert_equal("This authorization code has already been used. All tokens issued with this code have been revoked.", e.message)
+          end
+
+          should "raise OAuth::InvalidClientError when error is a string with value 'invalid_client'" do
+            stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize")
+              .to_return(body: JSON.generate(error: "invalid_client",
+                                             error_description: "This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist."), status: 401)
+
+            client = StripeClient.new
+
+            opts = { api_base: Stripe.connect_base }
+            e = assert_raises Stripe::OAuth::InvalidClientError do
+              client.send(request_method, :post, "/oauth/deauthorize", **opts,
+                          &@read_body_chunk_block)
+            end
+
+            assert_equal(401, e.http_status)
+            assert_equal("invalid_client", e.code)
+            assert_equal("This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.", e.message)
+          end
+
+          should "raise Stripe::OAuthError on indeterminate OAuth error" do
+            stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize")
+              .to_return(body: JSON.generate(error: "new_code_not_recognized",
+                                             error_description: "Something."), status: 401)
+
+            client = StripeClient.new
+
+            opts = { api_base: Stripe.connect_base }
+            e = assert_raises Stripe::OAuth::OAuthError do
+              client.send(request_method, :post, "/oauth/deauthorize", **opts,
+                          &@read_body_chunk_block)
+            end
+
+            assert_equal(401, e.http_status)
+            assert_equal("new_code_not_recognized", e.code)
+            assert_equal("Something.", e.message)
+          end
         end
 
-        should "pass the client configuration when retrying" do
-          StripeClient.expects(:sleep_time)
-                      .with(any_of(1, 2),
-                            has_entry(:config, kind_of(Stripe::StripeConfiguration)))
-                      .at_least_once.returns(0)
+        context "idempotency keys" do
+          setup do
+            Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
+          end
 
-          stub_request(:post, "#{Stripe.api_base}/v1/charges")
-            .to_raise(Errno::ECONNREFUSED.new)
+          should "not add an idempotency key to GET requests" do
+            SecureRandom.expects(:uuid).times(0)
+            stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123")
+              .with do |req|
+                req.headers["Idempotency-Key"].nil?
+              end.to_return(body: JSON.generate(object: "charge"))
+            client = StripeClient.new
+            client.send(request_method, :get, "/v1/charges/ch_123",
+                        &@read_body_chunk_block)
+          end
 
-          client = StripeClient.new
-          assert_raises Stripe::APIConnectionError do
-            client.execute_request(:post, "/v1/charges")
+          should "ensure there is always an idempotency_key on POST requests" do
+            SecureRandom.expects(:uuid).at_least_once.returns("random_key")
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .with(headers: { "Idempotency-Key" => "random_key" })
+              .to_return(body: JSON.generate(object: "charge"))
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/charges",
+                        &@read_body_chunk_block)
+          end
+
+          should "ensure there is always an idempotency_key on DELETE requests" do
+            SecureRandom.expects(:uuid).at_least_once.returns("random_key")
+            stub_request(:delete, "#{Stripe.api_base}/v1/charges/ch_123")
+              .with(headers: { "Idempotency-Key" => "random_key" })
+              .to_return(body: JSON.generate(object: "charge"))
+            client = StripeClient.new
+            client.send(request_method, :delete, "/v1/charges/ch_123",
+                        &@read_body_chunk_block)
+          end
+
+          should "not override a provided idempotency_key" do
+            # Note that this expectation looks like `:idempotency_key` instead of
+            # the header `Idempotency-Key` because it's user provided as seen
+            # below. The ones injected by the library itself look like headers
+            # (`Idempotency-Key`), but rest-client does allow this symbol
+            # formatting and will properly override the system generated one as
+            # expected.
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .with(headers: { "Idempotency-Key" => "provided_key" })
+              .to_return(body: JSON.generate(object: "charge"))
+
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/charges",
+                        headers: { idempotency_key: "provided_key" },
+                        &@read_body_chunk_block)
+          end
+        end
+
+        context "retry logic" do
+          setup do
+            Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
+          end
+
+          should "retry failed requests and raise if error persists" do
+            StripeClient.expects(:sleep_time).at_least_once.returns(0)
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_raise(Errno::ECONNREFUSED.new)
+
+            client = StripeClient.new
+            err = assert_raises Stripe::APIConnectionError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+            assert_match(/Request was retried 2 times/, err.message)
+          end
+
+          should "retry failed requests and return successful response" do
+            StripeClient.expects(:sleep_time).at_least_once.returns(0)
+
+            i = 0
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return do |_|
+                if i < 2
+                  i += 1
+                  raise Errno::ECONNREFUSED
+                else
+                  { body: JSON.generate("id" => "myid") }
+                end
+              end
+
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/charges",
+                        &@read_body_chunk_block)
+          end
+
+          should "pass the client configuration when retrying" do
+            StripeClient.expects(:sleep_time)
+                        .with(any_of(1, 2),
+                              has_entry(:config, kind_of(Stripe::StripeConfiguration)))
+                        .at_least_once.returns(0)
+
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_raise(Errno::ECONNREFUSED.new)
+
+            client = StripeClient.new
+            assert_raises Stripe::APIConnectionError do
+              client.send(request_method, :post, "/v1/charges",
+                          &@read_body_chunk_block)
+            end
+          end
+        end
+
+        context "params serialization" do
+          should "allows empty strings in params" do
+            client = StripeClient.new
+            client.send(request_method, :get, "/v1/invoices/upcoming",
+                        params: { customer: "cus_123", coupon: "" },
+                        &@read_body_chunk_block)
+            assert_requested(
+              :get,
+              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              query: {
+                customer: "cus_123",
+                coupon: "",
+              }
+            )
+          end
+
+          should "filter nils in params" do
+            client = StripeClient.new
+            client.send(request_method, :get, "/v1/invoices/upcoming",
+                        params: { customer: "cus_123", coupon: nil },
+                        &@read_body_chunk_block)
+            assert_requested(
+              :get,
+              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              query: {
+                customer: "cus_123",
+              }
+            )
+          end
+
+          should "merge query parameters in URL and params" do
+            client = StripeClient.new
+            client.send(request_method, :get, "/v1/invoices/upcoming?coupon=25OFF",
+                        params: { customer: "cus_123" },
+                        &@read_body_chunk_block)
+            assert_requested(
+              :get,
+              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              query: {
+                coupon: "25OFF",
+                customer: "cus_123",
+              }
+            )
+          end
+
+          should "prefer query parameters in params when specified in URL as well" do
+            client = StripeClient.new
+            client.send(request_method, :get, "/v1/invoices/upcoming?customer=cus_query",
+                        params: { customer: "cus_param" },
+                        &@read_body_chunk_block)
+            assert_requested(
+              :get,
+              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              query: {
+                customer: "cus_param",
+              }
+            )
           end
         end
       end
+    end
 
-      context "params serialization" do
-        should "allows empty strings in params" do
-          client = StripeClient.new
-          client.execute_request(:get, "/v1/invoices/upcoming", params: {
-            customer: "cus_123",
-            coupon: "",
-          })
-          assert_requested(
-            :get,
-            "#{Stripe.api_base}/v1/invoices/upcoming?",
-            query: {
-              customer: "cus_123",
-              coupon: "",
-            }
-          )
+    context "#execute_request" do
+      should "handle success response with empty body" do
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: "", status: 200)
+
+        client = StripeClient.new
+
+        e = assert_raises Stripe::APIError do
+          client.execute_request(:post, "/v1/charges")
+        end
+        assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
+      end
+    end
+
+    context "#execute_request_stream" do
+      should "requires a block" do
+        client = StripeClient.new
+
+        e = assert_raises ArgumentError do
+          client.execute_request_stream(:post, "/v1/charges")
+        end
+        assert_equal "execute_request_stream requires a read_body_chunk_block", e.message
+      end
+
+      should "executes the read_body_chunk_block when passed" do
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: "response body", status: 200)
+
+        client = StripeClient.new
+
+        accumulated_body = +""
+
+        resp, = client.execute_request_stream(:post, "/v1/charges") do |body_chunk|
+          accumulated_body << body_chunk
         end
 
-        should "filter nils in params" do
-          client = StripeClient.new
-          client.execute_request(:get, "/v1/invoices/upcoming", params: {
-            customer: "cus_123",
-            coupon: nil,
-          })
-          assert_requested(
-            :get,
-            "#{Stripe.api_base}/v1/invoices/upcoming?",
-            query: {
-              customer: "cus_123",
-            }
-          )
-        end
-
-        should "merge query parameters in URL and params" do
-          client = StripeClient.new
-          client.execute_request(:get, "/v1/invoices/upcoming?coupon=25OFF", params: {
-            customer: "cus_123",
-          })
-          assert_requested(
-            :get,
-            "#{Stripe.api_base}/v1/invoices/upcoming?",
-            query: {
-              coupon: "25OFF",
-              customer: "cus_123",
-            }
-          )
-        end
-
-        should "prefer query parameters in params when specified in URL as well" do
-          client = StripeClient.new
-          client.execute_request(:get, "/v1/invoices/upcoming?customer=cus_query", params: {
-            customer: "cus_param",
-          })
-          assert_requested(
-            :get,
-            "#{Stripe.api_base}/v1/invoices/upcoming?",
-            query: {
-              customer: "cus_param",
-            }
-          )
-        end
+        assert_instance_of Stripe::StripeHeadersOnlyResponse, resp
+        assert_equal "response body", accumulated_body
       end
     end
 

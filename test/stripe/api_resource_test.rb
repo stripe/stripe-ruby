@@ -613,6 +613,58 @@ module Stripe
       end
     end
 
+    context "#request_stream" do
+      class StreamTestAPIResource < APIResource
+        OBJECT_NAME = "stream"
+        def read_stream(params = {}, opts = {}, &read_body_chunk_block)
+          request_stream(
+            method: :get,
+            path: resource_url + "/read",
+            params: params,
+            opts: opts,
+            &read_body_chunk_block
+          )
+        end
+      end
+
+      setup do
+        Util.instance_variable_set(
+          :@object_classes,
+          Stripe::ObjectTypes.object_names_to_classes.merge(
+            "stream" => StreamTestAPIResource
+          )
+        )
+      end
+      teardown do
+        Util.class.instance_variable_set(:@object_classes, Stripe::ObjectTypes.object_names_to_classes)
+      end
+
+      should "supports requesting with a block" do
+        stub_request(:get, "#{Stripe.api_base}/v1/streams/hi_123/read")
+          .with(query: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: "response body")
+
+        accumulated_body = +""
+
+        resp = StreamTestAPIResource.new(id: "hi_123").read_stream({ foo: "bar" }, stripe_account: "acct_hi") do |body_chunk|
+          accumulated_body << body_chunk
+        end
+
+        assert_instance_of Stripe::StripeHeadersOnlyResponse, resp
+        assert_equal "response body", accumulated_body
+      end
+
+      should "fail when requesting without a block" do
+        stub_request(:get, "#{Stripe.api_base}/v1/streams/hi_123/read")
+          .with(query: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: "response body")
+
+        assert_raises ArgumentError do
+          StreamTestAPIResource.new(id: "hi_123").read_stream({ foo: "bar" }, stripe_account: "acct_hi")
+        end
+      end
+    end
+
     @@fixtures = {} # rubocop:disable Style/ClassVars
     setup do
       if @@fixtures.empty?

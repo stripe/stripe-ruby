@@ -12,7 +12,6 @@ PROJECT_ROOT = ::File.expand_path("../", __dir__)
 require ::File.expand_path("test_data", __dir__)
 require ::File.expand_path("stripe_mock", __dir__)
 
-# If changing this number, please also change it in `.travis.yml`.
 MOCK_MINIMUM_VERSION = "0.106.0"
 MOCK_PORT = Stripe::StripeMock.start
 

@@ -23,6 +23,14 @@ module Stripe
         assert_equal("bar", resource.foo)
       end
 
+      should "handle a frozen set of opts" do
+        stub_request(:post, "#{Stripe.api_base}/v1/updateableresources/id")
+          .with(body: { foo: "bar" })
+          .to_return(body: JSON.generate(foo: "bar"))
+        resource = UpdateableResource.update("id", { foo: "bar" }, {}.freeze)
+        assert_equal("bar", resource.foo)
+      end
+
       should "error on protected fields" do
         e = assert_raises do
           UpdateableResource.update("id", protected: "bar")

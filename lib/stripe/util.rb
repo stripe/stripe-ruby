@@ -208,7 +208,9 @@ module Stripe
         { api_key: opts }
       when Hash
         check_api_key!(opts.fetch(:api_key)) if opts.key?(:api_key)
-        opts.clone
+        # Explicitly use dup here instead of clone to avoid preserving freeze
+        # state on input params.
+        opts.dup
       else
         raise TypeError, "normalize_opts expects a string or a hash"
       end

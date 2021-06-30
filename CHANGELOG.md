@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.35.0 - 2021-06-30
+* [#985](https://github.com/stripe/stripe-ruby/pull/985) Update normalize_opts to use dup instead of clone.
+* [#982](https://github.com/stripe/stripe-ruby/pull/982) Deprecate travis
+* [#983](https://github.com/stripe/stripe-ruby/pull/983) Add support for making a request and receiving the response as a stream.
+
 ## 5.34.0 - 2021-06-04
 * [#981](https://github.com/stripe/stripe-ruby/pull/981) API Updates
   * Add support for `TaxCode` API.

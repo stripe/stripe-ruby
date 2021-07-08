@@ -130,6 +130,14 @@ module Stripe
                            "#{Stripe.uploads_base}/v1/quotes/#{quote.id}/pdf"
           assert_equal "Stripe binary response", body
         end
+
+        should "raise when no block is passed" do
+          quote = Stripe::Quote.retrieve("qt_123")
+
+          assert_raises ArgumentError do
+            quote.pdf
+          end
+        end
       end
 
       context ".pdf" do
@@ -150,6 +158,19 @@ module Stripe
           assert_requested :get,
                            "#{Stripe.uploads_base}/v1/quotes/qt_123/pdf"
           assert_equal "Stripe binary response", body
+        end
+
+        should "raise when no block is passed" do
+          assert_raises ArgumentError do
+            Stripe::Quote.pdf("qt_123")
+          end
+        end
+
+        should "raise when no ID is passed" do
+          assert_raises ArgumentError do
+            Stripe::Quote.pdf do |read_body_chunk|
+            end
+          end
         end
       end
     end

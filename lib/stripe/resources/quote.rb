@@ -11,7 +11,7 @@ module Stripe
 
     custom_method :accept, http_verb: :post
     custom_method :cancel, http_verb: :post
-    custom_method :finalize, http_verb: :post
+    custom_method :finalize_quote, http_verb: :post, http_path: "finalize"
     custom_method :list_line_items, http_verb: :get, http_path: "line_items"
     custom_method :pdf, http_verb: :get
 
@@ -33,7 +33,7 @@ module Stripe
       )
     end
 
-    def finalize(params = {}, opts = {})
+    def finalize_quote(params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: resource_url + "/finalize",

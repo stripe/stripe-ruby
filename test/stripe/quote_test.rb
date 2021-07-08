@@ -132,18 +132,26 @@ module Stripe
         end
       end
 
-      # context ".pdf" do
-      #   should "generate binary response for quote" do
-      #     body = +""
-      #     Stripe::Quote.pdf("qt_123") do |read_body_chunk|
-      #       body << read_body_chunk
-      #     end
+      context ".pdf" do
+        should "generate binary response for quote" do
+          body = +""
 
-      #     assert_requested :get,
-      #                      "#{Stripe.api_base}/v1/quotes/#{quote.id}/pdf"
-      #     assert_equal "Stripe binary response", body
-      #   end
-      # end
+          # Set `api_base` to `nil` to ensure that these PDF requests are _not_ sent
+          # to the default API hostname.
+          Stripe.api_base = nil
+
+          Stripe::Quote.pdf("qt_123") do |read_body_chunk|
+            body << read_body_chunk
+          end
+
+          # Reset the API base.
+          Stripe.api_base = Stripe.uploads_base
+
+          assert_requested :get,
+                           "#{Stripe.uploads_base}/v1/quotes/qt_123/pdf"
+          assert_equal "Stripe binary response", body
+        end
+      end
     end
   end
 end

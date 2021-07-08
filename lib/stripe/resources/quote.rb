@@ -13,7 +13,6 @@ module Stripe
     custom_method :cancel, http_verb: :post
     custom_method :finalize_quote, http_verb: :post, http_path: "finalize"
     custom_method :list_line_items, http_verb: :get, http_path: "line_items"
-    custom_method :pdf, http_verb: :get
 
     def accept(params = {}, opts = {})
       request_stripe_object(
@@ -67,6 +66,30 @@ module Stripe
         }.merge(opts),
         &read_body_chunk_block
       )
+    end
+
+    def self.pdf(id, params = {}, opts = {}, &read_body_chunk_block)
+      unless id.is_a?(String)
+        raise ArgumentError,
+              "id should be a string representing the ID of an API resource"
+      end
+
+      unless block_given?
+        raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
+      end
+
+      config = opts[:client]&.config || Stripe.config
+
+      resp = execute_resource_request_stream(
+        :get,
+        "#{resource_url}/#{CGI.escape(id)}/pdf",
+        params,
+        {
+          api_base: config.uploads_base,
+        }.merge(opts),
+        &read_body_chunk_block
+      )
+      resp
     end
   end
 end

@@ -56,11 +56,15 @@ module Stripe
         raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
       end
 
+      config = opts[:client]&.config || Stripe.config
+
       request_stream(
         method: :get,
         path: resource_url + "/pdf",
         params: params,
-        opts: opts,
+        opts: {
+          api_base: config.uploads_base,
+        }.merge(opts),
         &read_body_chunk_block
       )
     end

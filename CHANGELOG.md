@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.36.0 - 2021-07-09
+* [#987](https://github.com/stripe/stripe-ruby/pull/987) Add support for `Quote` API
+
 ## 5.35.0 - 2021-06-30
 * [#985](https://github.com/stripe/stripe-ruby/pull/985) Update normalize_opts to use dup instead of clone.
 * [#982](https://github.com/stripe/stripe-ruby/pull/982) Deprecate travis

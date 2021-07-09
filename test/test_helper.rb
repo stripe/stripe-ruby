@@ -12,7 +12,7 @@ PROJECT_ROOT = ::File.expand_path("../", __dir__)
 require ::File.expand_path("test_data", __dir__)
 require ::File.expand_path("stripe_mock", __dir__)
 
-MOCK_MINIMUM_VERSION = "0.106.0"
+MOCK_MINIMUM_VERSION = "0.109.0"
 MOCK_PORT = Stripe::StripeMock.start
 
 # Disable all real network connections except those that are outgoing to

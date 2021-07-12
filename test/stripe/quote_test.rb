@@ -103,6 +103,29 @@ module Stripe
       end
     end
 
+    context "#computed_upfront_line_items" do
+      should "list item items for quote" do
+        quote = Stripe::Quote.retrieve("qt_123")
+        line_items = quote.list_computed_upfront_line_items
+        assert_requested :get,
+                         "#{Stripe.api_base}/v1/quotes/#{quote.id}/computed_upfront_line_items"
+
+        assert line_items.data.is_a?(Array)
+        assert line_items.data[0].is_a?(Stripe::LineItem)
+      end
+    end
+
+    context ".computed_upfront_line_items" do
+      should "list item items for quote" do
+        line_items = Stripe::Quote.list_computed_upfront_line_items("qt_123")
+        assert_requested :get,
+                         "#{Stripe.api_base}/v1/quotes/qt_123/computed_upfront_line_items"
+
+        assert line_items.data.is_a?(Array)
+        assert line_items.data[0].is_a?(Stripe::LineItem)
+      end
+    end
+
     context "uploads_base methods" do
       setup do
         # We don't point to the same host for the API and uploads in

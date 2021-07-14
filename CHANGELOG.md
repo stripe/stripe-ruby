@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.37.0 - 2021-07-14
+* [#988](https://github.com/stripe/stripe-ruby/pull/988) API Updates
+  * Add support for `list_computed_upfront_line_items` method on resource `Quote`
+
 ## 5.36.0 - 2021-07-09
 * [#987](https://github.com/stripe/stripe-ruby/pull/987) Add support for `Quote` API
 

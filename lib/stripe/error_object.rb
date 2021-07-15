@@ -69,9 +69,8 @@ module Stripe
       @values[:source]
     end
 
-    # The type of error returned. One of `api_connection_error`, `api_error`,
-    # `authentication_error`, `card_error`, `idempotency_error`,
-    # `invalid_request_error`, or `rate_limit_error`.
+    # The type of error returned. One of `api_error`, `card_error`,
+    # `idempotency_error`, or `invalid_request_error`.
     def type
       @values[:type]
     end

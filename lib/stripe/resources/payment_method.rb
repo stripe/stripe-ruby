@@ -7,7 +7,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "payment_method"
+    OBJECT_NAME = 'payment_method'
 
     custom_method :attach, http_verb: :post
     custom_method :detach, http_verb: :post
@@ -15,18 +15,18 @@ module Stripe
     def attach(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/attach",
+        path: resource_url + '/attach',
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
 
     def detach(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/detach",
+        path: resource_url + '/detach',
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
   end

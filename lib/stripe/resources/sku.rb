@@ -8,6 +8,6 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "sku"
+    OBJECT_NAME = 'sku'
   end
 end

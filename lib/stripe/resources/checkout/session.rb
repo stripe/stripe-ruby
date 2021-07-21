@@ -8,7 +8,7 @@ module Stripe
       extend Stripe::APIOperations::List
       extend Stripe::APIOperations::NestedResource
 
-      OBJECT_NAME = "checkout.session"
+      OBJECT_NAME = 'checkout.session'
 
       nested_resource_class_methods :line_item, operations: %i[list]
     end

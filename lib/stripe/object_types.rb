@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/MethodLength
@@ -76,10 +77,10 @@ module Stripe
         Reporting::ReportType::OBJECT_NAME => Reporting::ReportType,
         Reversal::OBJECT_NAME => Reversal,
         Review::OBJECT_NAME => Review,
-        SKU::OBJECT_NAME => SKU,
         SetupAttempt::OBJECT_NAME => SetupAttempt,
         SetupIntent::OBJECT_NAME => SetupIntent,
         Sigma::ScheduledQueryRun::OBJECT_NAME => Sigma::ScheduledQueryRun,
+        SKU::OBJECT_NAME => SKU,
         Source::OBJECT_NAME => Source,
         SourceTransaction::OBJECT_NAME => SourceTransaction,
         Subscription::OBJECT_NAME => Subscription,

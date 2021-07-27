@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 # frozen_string_literal: true
 
 module Stripe
@@ -22,8 +23,8 @@ module Stripe
     def self.retrieve(_id, _opts = {})
       raise NotImplementedError,
             "Reversals cannot be retrieved without a transfer ID. Retrieve " \
-             "a reversal using `Transfer.retrieve_reversal('transfer_id', " \
-             "'reversal_id')`"
+            "a reversal using `Transfer.retrieve_reversal('transfer_id', " \
+            "'reversal_id'`"
     end
   end
 end

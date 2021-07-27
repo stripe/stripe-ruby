@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 # frozen_string_literal: true
 
 module Stripe
@@ -26,7 +27,7 @@ module Stripe
     def self.update(_id, _params = nil, _opts = nil)
       raise NotImplementedError,
             "Capabilities cannot be updated without an account ID. Update a " \
-            "capability using Account.update_capability('account_id', " \
+            "capability using `Account.update_capability('account_id', " \
             "'capability_id', update_params)`"
     end
   end

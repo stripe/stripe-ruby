@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 # frozen_string_literal: true
 
 module Stripe
@@ -18,13 +19,13 @@ module Stripe
     def self.retrieve(_id, _opts = {})
       raise NotImplementedError,
             "Customer Balance Transactions cannot be retrieved without a customer ID. " \
-            "Retrieve a Customer Balance Transaction using Customer.retrieve_balance_transaction('cus_123', 'cbtxn_123')"
+            "Retrieve a Customer Balance Transaction using `Customer.retrieve_balance_transaction('cus_123', 'cbtxn_123')`"
     end
 
     def self.update(_id, _params = nil, _opts = nil)
       raise NotImplementedError,
             "Customer Balance Transactions cannot be retrieved without a customer ID. " \
-            "Update a Customer Balance Transaction using Customer.update_balance_transaction('cus_123', 'cbtxn_123', params)"
+            "Update a Customer Balance Transaction using `Customer.update_balance_transaction('cus_123', 'cbtxn_123', params)`"
     end
   end
 end

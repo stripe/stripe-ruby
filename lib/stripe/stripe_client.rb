@@ -667,6 +667,7 @@ module Stripe
         method: context.method,
         num_retries: num_retries,
         path: context.path,
+        request_id: context.request_id,
         user_data: user_data || {}
       )
       Stripe::Instrumentation.notify(:request_end, event)

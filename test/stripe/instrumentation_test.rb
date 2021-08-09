@@ -64,6 +64,7 @@ module Stripe
           method: :get,
           num_retries: 0,
           path: "/v1/test",
+          request_id: "req_123",
           user_data: nil
         )
 

@@ -1408,7 +1408,7 @@ module Stripe
         Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
-          .to_return(body: JSON.generate(object: "charge"))
+          .to_return(body: JSON.generate(object: "charge"), headers: { "Request-ID": "req_123" })
         Stripe::Charge.list
 
         assert_equal(1, events.size)
@@ -1418,6 +1418,7 @@ module Stripe
         assert_equal(200, event.http_status)
         assert(event.duration.positive?)
         assert_equal(0, event.num_retries)
+        assert_equal("req_123", event.request_id)
       end
 
       should "notify a subscriber of a StripeError" do

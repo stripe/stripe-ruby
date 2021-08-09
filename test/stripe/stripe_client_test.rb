@@ -1418,7 +1418,7 @@ module Stripe
         assert_equal(200, event.http_status)
         assert(event.duration.positive?)
         assert_equal(0, event.num_retries)
-        assert_equal('req_123', event.request_id)
+        assert_equal("req_123", event.request_id)
       end
 
       should "notify a subscriber of a StripeError" do

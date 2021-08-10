@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.38.0 - 2021-08-10
+* [#993](https://github.com/stripe/stripe-ruby/pull/993) Add `request_id` to RequestEndEvent
+* [#991](https://github.com/stripe/stripe-ruby/pull/991) Codegen more files
+* [#989](https://github.com/stripe/stripe-ruby/pull/989) Remove unused API error types from docs.
+
 ## 5.37.0 - 2021-07-14
 * [#988](https://github.com/stripe/stripe-ruby/pull/988) API Updates
   * Add support for `list_computed_upfront_line_items` method on resource `Quote`

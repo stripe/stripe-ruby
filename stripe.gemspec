@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(::File.join(::File.dirname(__FILE__), "lib"))
 require "stripe/version"
 
 Gem::Specification.new do |s|
-  s.name = "stripe"
+  s.name = "ew-stripe-ruby"
   s.version = Stripe::VERSION
   s.required_ruby_version = ">= 2.3.0"
   s.summary = "Ruby bindings for the Stripe API"

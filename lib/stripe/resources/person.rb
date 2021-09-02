@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class Person < APIResource
-    extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Save
+    extend EwStripe::APIOperations::List
+    include EwStripe::APIOperations::Save
 
     OBJECT_NAME = "person"
 

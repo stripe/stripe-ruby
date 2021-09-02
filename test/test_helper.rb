@@ -13,7 +13,7 @@ require ::File.expand_path("test_data", __dir__)
 require ::File.expand_path("stripe_mock", __dir__)
 
 MOCK_MINIMUM_VERSION = "0.109.0"
-MOCK_PORT = Stripe::StripeMock.start
+MOCK_PORT = EwStripe::StripeMock.start
 
 # Disable all real network connections except those that are outgoing to
 # stripe-mock.
@@ -43,30 +43,30 @@ rescue Errno::ECONNREFUSED
 end
 
 Test::Unit.at_exit do
-  Stripe::StripeMock.stop
+  EwStripe::StripeMock.stop
 end
 
 module Test
   module Unit
     class TestCase
-      include Stripe::TestData
+      include EwStripe::TestData
       include Mocha
 
       WRITE_TIMEOUT_SUPPORTED = Net::HTTP.instance_methods.include?(:write_timeout=)
 
       setup do
-        Stripe.api_key = "sk_test_123"
-        Stripe.api_base = "http://localhost:#{MOCK_PORT}"
+        EwStripe.api_key = "sk_test_123"
+        EwStripe.api_base = "http://localhost:#{MOCK_PORT}"
 
         stub_connect
       end
 
       teardown do
-        Stripe.api_key = nil
+        EwStripe.api_key = nil
       end
 
       private def stub_connect
-        stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: "{}")
+        stub_request(:any, /^#{EwStripe.connect_base}/).to_return(body: "{}")
       end
     end
   end

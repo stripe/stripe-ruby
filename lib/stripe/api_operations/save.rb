@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   module APIOperations
     module Save
       module ClassMethods
@@ -83,7 +83,7 @@ module Stripe
         # This switch essentially allows us "upsert"-like functionality. If the
         # API resource doesn't have an ID set (suggesting that it's new) and
         # its class responds to .create (which comes from
-        # Stripe::APIOperations::Create), then use the URL to create a new
+        # EwStripe::APIOperations::Create), then use the URL to create a new
         # resource. Otherwise, generate a URL based on the object's identifier
         # for a normal update.
         if self[:id].nil? && self.class.respond_to?(:create)

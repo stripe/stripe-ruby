@@ -2,26 +2,26 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class ReviewTest < Test::Unit::TestCase
     should "be listable" do
-      reviews = Stripe::Review.list
-      assert_requested :get, "#{Stripe.api_base}/v1/reviews"
+      reviews = EwStripe::Review.list
+      assert_requested :get, "#{EwStripe.api_base}/v1/reviews"
       assert reviews.data.is_a?(Array)
-      assert reviews.first.is_a?(Stripe::Review)
+      assert reviews.first.is_a?(EwStripe::Review)
     end
 
     should "be retrievable" do
-      review = Stripe::Review.retrieve("prv_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/reviews/prv_123"
-      assert review.is_a?(Stripe::Review)
+      review = EwStripe::Review.retrieve("prv_123")
+      assert_requested :get, "#{EwStripe.api_base}/v1/reviews/prv_123"
+      assert review.is_a?(EwStripe::Review)
     end
 
     should "be approvable" do
-      review = Stripe::Review.retrieve("prv_123")
+      review = EwStripe::Review.retrieve("prv_123")
       review.approve
-      assert_requested :post, "#{Stripe.api_base}/v1/reviews/prv_123/approve"
-      assert review.is_a?(Stripe::Review)
+      assert_requested :post, "#{EwStripe.api_base}/v1/reviews/prv_123/approve"
+      assert review.is_a?(EwStripe::Review)
     end
   end
 end

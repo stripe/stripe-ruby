@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   # Represents an error object as returned by the API.
   #
   # @see https://stripe.com/docs/api/errors

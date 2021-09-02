@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class RecipientTransfer < StripeObject
     OBJECT_NAME = "recipient_transfer"
   end

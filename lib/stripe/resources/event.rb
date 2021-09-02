@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class Event < APIResource
-    extend Stripe::APIOperations::List
+    extend EwStripe::APIOperations::List
 
     OBJECT_NAME = "event"
   end

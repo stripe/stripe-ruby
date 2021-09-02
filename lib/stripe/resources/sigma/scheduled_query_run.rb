@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   module Sigma
     class ScheduledQueryRun < APIResource
-      extend Stripe::APIOperations::List
+      extend EwStripe::APIOperations::List
 
       OBJECT_NAME = "scheduled_query_run"
 

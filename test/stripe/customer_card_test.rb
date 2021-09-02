@@ -2,16 +2,16 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class CustomerCardTest < Test::Unit::TestCase
     setup do
       # Unfortunately, the OpenAPI spec has an issue where the sources list has the wrong
       # url so we need to mock this call instead.
       customer_json = { id: "cus_123", object: "customer", sources: { object: "list", data: [], has_more: true, url: "/v1/customers/cus_123/sources" } }
-      stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+      stub_request(:get, "#{EwStripe.api_base}/v1/customers/cus_123")
         .to_return(body: JSON.generate(customer_json))
 
-      @customer = Stripe::Customer.retrieve("cus_123")
+      @customer = EwStripe::Customer.retrieve("cus_123")
     end
 
     should "be listable" do
@@ -26,23 +26,23 @@ module Stripe
       @customer.sources.create(
         source: "tok_123"
       )
-      assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources"
+      assert_requested :post, "#{EwStripe.api_base}/v1/customers/#{@customer.id}/sources"
     end
 
     should "be deletable" do
-      card = Stripe::Card.construct_from(customer: @customer.id,
+      card = EwStripe::Card.construct_from(customer: @customer.id,
                                          id: "card_123")
       card.delete
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
+      assert_requested :delete, "#{EwStripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
     end
 
     should "be saveable" do
-      card = Stripe::Card.construct_from(customer: @customer.id,
+      card = EwStripe::Card.construct_from(customer: @customer.id,
                                          id: "card_123",
                                          metadata: {})
       card.metadata["key"] = "value"
       card.save
-      assert_requested :post, "#{Stripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
+      assert_requested :post, "#{EwStripe.api_base}/v1/customers/#{@customer.id}/sources/card_123"
     end
   end
 end

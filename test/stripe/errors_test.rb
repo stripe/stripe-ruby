@@ -2,7 +2,7 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class StripeErrorTest < Test::Unit::TestCase
     context "StripeError" do
       context "#initialize" do

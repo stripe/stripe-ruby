@@ -1,11 +1,11 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   # Directly creating or retrieving BitcoinReceivers is deprecated. Please use
   # the Sources API instead: https://stripe.com/docs/sources/bitcoin
   class BitcoinReceiver < APIResource
-    extend Stripe::APIOperations::List
+    extend EwStripe::APIOperations::List
 
     OBJECT_NAME = "bitcoin_receiver"
 

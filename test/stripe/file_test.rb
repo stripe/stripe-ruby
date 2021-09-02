@@ -2,40 +2,40 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class FileTest < Test::Unit::TestCase
     should "be listable" do
-      files = Stripe::File.list
-      assert_requested :get, "#{Stripe.api_base}/v1/files"
+      files = EwStripe::File.list
+      assert_requested :get, "#{EwStripe.api_base}/v1/files"
       assert files.data.is_a?(Array)
-      assert files.data[0].is_a?(Stripe::File)
+      assert files.data[0].is_a?(EwStripe::File)
     end
 
     should "be retrievable" do
-      file = Stripe::File.retrieve("file_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/files/file_123"
-      assert file.is_a?(Stripe::File)
+      file = EwStripe::File.retrieve("file_123")
+      assert_requested :get, "#{EwStripe.api_base}/v1/files/file_123"
+      assert file.is_a?(EwStripe::File)
     end
 
     context ".create" do
       setup do
         # We don't point to the same host for the API and uploads in
         # production, but `stripe-mock` supports both APIs.
-        Stripe.uploads_base = Stripe.api_base
+        EwStripe.uploads_base = EwStripe.api_base
 
         # Set `api_base` to `nil` to ensure that these requests are _not_ sent
         # to the default API hostname.
-        Stripe.api_base = nil
+        EwStripe.api_base = nil
       end
 
       should "be creatable with a File" do
-        file = Stripe::File.create(
+        file = EwStripe::File.create(
           purpose: "dispute_evidence",
           file: ::File.new(__FILE__),
           file_link_data: { create: true }
         )
-        assert_requested :post, "#{Stripe.uploads_base}/v1/files"
-        assert file.is_a?(Stripe::File)
+        assert_requested :post, "#{EwStripe.uploads_base}/v1/files"
+        assert file.is_a?(EwStripe::File)
       end
 
       should "be creatable with a Tempfile" do
@@ -43,28 +43,28 @@ module Stripe
         tempfile.write("Hello world")
         tempfile.rewind
 
-        file = Stripe::File.create(
+        file = EwStripe::File.create(
           purpose: "dispute_evidence",
           file: tempfile,
           file_link_data: { create: true }
         )
-        assert_requested :post, "#{Stripe.uploads_base}/v1/files"
-        assert file.is_a?(Stripe::File)
+        assert_requested :post, "#{EwStripe.uploads_base}/v1/files"
+        assert file.is_a?(EwStripe::File)
       end
 
       should "be creatable with a string" do
-        file = Stripe::File.create(
+        file = EwStripe::File.create(
           purpose: "dispute_evidence",
           file: "my-file-contents",
           file_link_data: { create: true }
         )
-        assert_requested :post, "#{Stripe.uploads_base}/v1/files"
-        assert file.is_a?(Stripe::File)
+        assert_requested :post, "#{EwStripe.uploads_base}/v1/files"
+        assert file.is_a?(EwStripe::File)
       end
 
       should "raise given a file object that doesn't respond to #read" do
         e = assert_raises(ArgumentError) do
-          Stripe::File.create(
+          EwStripe::File.create(
             purpose: "dispute_evidence",
             file: Object.new,
             file_link_data: { create: true }
@@ -75,13 +75,13 @@ module Stripe
     end
 
     should "be deserializable when `object=file`" do
-      file = Stripe::Util.convert_to_stripe_object({ object: "file" }, {})
-      assert file.is_a?(Stripe::File)
+      file = EwStripe::Util.convert_to_stripe_object({ object: "file" }, {})
+      assert file.is_a?(EwStripe::File)
     end
 
     should "be deserializable when `object=file_upload`" do
-      file = Stripe::Util.convert_to_stripe_object({ object: "file_upload" }, {})
-      assert file.is_a?(Stripe::File)
+      file = EwStripe::Util.convert_to_stripe_object({ object: "file_upload" }, {})
+      assert file.is_a?(EwStripe::File)
     end
   end
 end

@@ -2,11 +2,11 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class AlipayAccountTest < Test::Unit::TestCase
     context "#resource_url" do
       should "return a resource URL" do
-        alipay_account = Stripe::AlipayAccount.construct_from(
+        alipay_account = EwStripe::AlipayAccount.construct_from(
           id: "aliacc_123",
           customer: "cus_123"
         )
@@ -15,7 +15,7 @@ module Stripe
       end
 
       should "raise without a customer" do
-        alipay_account = Stripe::AlipayAccount.construct_from(id: "aliacc_123")
+        alipay_account = EwStripe::AlipayAccount.construct_from(id: "aliacc_123")
         assert_raises NotImplementedError do
           alipay_account.resource_url
         end
@@ -24,13 +24,13 @@ module Stripe
 
     should "raise on #retrieve" do
       assert_raises NotImplementedError do
-        Stripe::AlipayAccount.retrieve("aliacc_123")
+        EwStripe::AlipayAccount.retrieve("aliacc_123")
       end
     end
 
     should "raise on #update" do
       assert_raises NotImplementedError do
-        Stripe::AlipayAccount.update("aliacc_123", {})
+        EwStripe::AlipayAccount.update("aliacc_123", {})
       end
     end
   end

@@ -1,11 +1,11 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class Source < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Save
-    extend Stripe::APIOperations::NestedResource
+    extend EwStripe::APIOperations::Create
+    include EwStripe::APIOperations::Save
+    extend EwStripe::APIOperations::NestedResource
 
     OBJECT_NAME = "source"
 

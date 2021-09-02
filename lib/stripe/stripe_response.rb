@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   # Headers provides an access wrapper to an API response's header data. It
   # mainly exists so that we don't need to expose the entire
   # `Net::HTTPResponse` object while still getting some of its benefits like
@@ -55,7 +55,7 @@ module Stripe
     # The integer HTTP status code of the response.
     attr_accessor :http_status
 
-    # The Stripe request ID of the response.
+    # The EwStripe request ID of the response.
     attr_accessor :request_id
 
     def self.populate_for_net_http(resp, http_resp)
@@ -66,7 +66,7 @@ module Stripe
   end
 
   # StripeResponse encapsulates some vitals of a response that came back from
-  # the Stripe API.
+  # the EwStripe API.
   class StripeResponse
     include StripeResponseBase
     # The data contained by the HTTP body of the response deserialized from

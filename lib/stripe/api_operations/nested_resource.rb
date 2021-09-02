@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   module APIOperations
     # Adds methods to help manipulate a subresource from its parent resource so
     # that it's possible to do so from a static context (i.e. without a

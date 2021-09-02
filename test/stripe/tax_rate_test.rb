@@ -2,42 +2,42 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class TaxRateTest < Test::Unit::TestCase
     should "be listable" do
-      tax_rates = Stripe::TaxRate.list
-      assert_requested :get, "#{Stripe.api_base}/v1/tax_rates"
+      tax_rates = EwStripe::TaxRate.list
+      assert_requested :get, "#{EwStripe.api_base}/v1/tax_rates"
       assert tax_rates.data.is_a?(Array)
-      assert tax_rates.first.is_a?(Stripe::TaxRate)
+      assert tax_rates.first.is_a?(EwStripe::TaxRate)
     end
 
     should "be retrievable" do
-      tax_rate = Stripe::TaxRate.retrieve("txr_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/tax_rates/txr_123"
-      assert tax_rate.is_a?(Stripe::TaxRate)
+      tax_rate = EwStripe::TaxRate.retrieve("txr_123")
+      assert_requested :get, "#{EwStripe.api_base}/v1/tax_rates/txr_123"
+      assert tax_rate.is_a?(EwStripe::TaxRate)
     end
 
     should "be creatable" do
-      tax_rate = Stripe::TaxRate.create(
+      tax_rate = EwStripe::TaxRate.create(
         display_name: "name",
         inclusive: false,
         percentage: 10.15
       )
-      assert_requested :post, "#{Stripe.api_base}/v1/tax_rates"
-      assert tax_rate.is_a?(Stripe::TaxRate)
+      assert_requested :post, "#{EwStripe.api_base}/v1/tax_rates"
+      assert tax_rate.is_a?(EwStripe::TaxRate)
     end
 
     should "be saveable" do
-      tax_rate = Stripe::TaxRate.retrieve("txr_123")
+      tax_rate = EwStripe::TaxRate.retrieve("txr_123")
       tax_rate.metadata["key"] = "value"
       tax_rate.save
-      assert_requested :post, "#{Stripe.api_base}/v1/tax_rates/#{tax_rate.id}"
+      assert_requested :post, "#{EwStripe.api_base}/v1/tax_rates/#{tax_rate.id}"
     end
 
     should "be updateable" do
-      tax_rate = Stripe::TaxRate.update("txr_123", metadata: { key: "value" })
-      assert_requested :post, "#{Stripe.api_base}/v1/tax_rates/txr_123"
-      assert tax_rate.is_a?(Stripe::TaxRate)
+      tax_rate = EwStripe::TaxRate.update("txr_123", metadata: { key: "value" })
+      assert_requested :post, "#{EwStripe.api_base}/v1/tax_rates/txr_123"
+      assert tax_rate.is_a?(EwStripe::TaxRate)
     end
   end
 end

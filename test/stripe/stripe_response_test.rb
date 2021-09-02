@@ -2,7 +2,7 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class StripeResponseTest < Test::Unit::TestCase
     context "StripeResponseHeaders" do
       should "allow case-insensitive header access" do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class Discount < StripeObject
     OBJECT_NAME = "discount"
   end

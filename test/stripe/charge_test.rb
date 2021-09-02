@@ -2,62 +2,62 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class ChargeTest < Test::Unit::TestCase
     should "be listable" do
-      charges = Stripe::Charge.list
-      assert_requested :get, "#{Stripe.api_base}/v1/charges"
+      charges = EwStripe::Charge.list
+      assert_requested :get, "#{EwStripe.api_base}/v1/charges"
       assert charges.data.is_a?(Array)
-      assert charges.data[0].is_a?(Stripe::Charge)
+      assert charges.data[0].is_a?(EwStripe::Charge)
     end
 
     should "be retrievable" do
-      charge = Stripe::Charge.retrieve("ch_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/charges/ch_123"
-      assert charge.is_a?(Stripe::Charge)
+      charge = EwStripe::Charge.retrieve("ch_123")
+      assert_requested :get, "#{EwStripe.api_base}/v1/charges/ch_123"
+      assert charge.is_a?(EwStripe::Charge)
     end
 
     should "be creatable" do
-      charge = Stripe::Charge.create(
+      charge = EwStripe::Charge.create(
         amount: 100,
         currency: "USD",
         source: "src_123"
       )
-      assert_requested :post, "#{Stripe.api_base}/v1/charges"
-      assert charge.is_a?(Stripe::Charge)
+      assert_requested :post, "#{EwStripe.api_base}/v1/charges"
+      assert charge.is_a?(EwStripe::Charge)
     end
 
     should "be saveable" do
-      charge = Stripe::Charge.retrieve("ch_123")
+      charge = EwStripe::Charge.retrieve("ch_123")
       charge.metadata["key"] = "value"
       charge.save
-      assert_requested :post, "#{Stripe.api_base}/v1/charges/#{charge.id}"
+      assert_requested :post, "#{EwStripe.api_base}/v1/charges/#{charge.id}"
     end
 
     should "be updateable" do
-      charge = Stripe::Charge.update("ch_123", metadata: { foo: "bar" })
-      assert_requested :post, "#{Stripe.api_base}/v1/charges/ch_123"
-      assert charge.is_a?(Stripe::Charge)
+      charge = EwStripe::Charge.update("ch_123", metadata: { foo: "bar" })
+      assert_requested :post, "#{EwStripe.api_base}/v1/charges/ch_123"
+      assert charge.is_a?(EwStripe::Charge)
     end
 
     context "#capture" do
       should "capture the charge" do
-        charge = Stripe::Charge.retrieve("ch_123")
+        charge = EwStripe::Charge.retrieve("ch_123")
         charge = charge.capture(amount: 100)
         assert_requested :post,
-                         "#{Stripe.api_base}/v1/charges/ch_123/capture",
+                         "#{EwStripe.api_base}/v1/charges/ch_123/capture",
                          body: { amount: 100 }
-        assert charge.is_a?(Stripe::Charge)
+        assert charge.is_a?(EwStripe::Charge)
       end
     end
 
     context ".capture" do
       should "capture the charge" do
-        charge = Stripe::Charge.capture("ch_123", amount: 100)
+        charge = EwStripe::Charge.capture("ch_123", amount: 100)
         assert_requested :post,
-                         "#{Stripe.api_base}/v1/charges/ch_123/capture",
+                         "#{EwStripe.api_base}/v1/charges/ch_123/capture",
                          body: { amount: 100 }
-        assert charge.is_a?(Stripe::Charge)
+        assert charge.is_a?(EwStripe::Charge)
       end
     end
   end

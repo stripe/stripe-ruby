@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   module Webhook
     DEFAULT_TOLERANCE = 300
 
@@ -39,7 +39,7 @@ module Stripe
                                 timestamped_payload)
       end
 
-      # Generates a value that would be added to a `Stripe-Signature` for a
+      # Generates a value that would be added to a `EwStripe-Signature` for a
       # given webhook payload.
       #
       # Note that this isn't needed to verify webhooks in any way, and is

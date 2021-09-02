@@ -2,7 +2,7 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class StripeClientTest < Test::Unit::TestCase
     context "initializing a StripeClient" do
       should "allow a String to be passed in order to set the api key" do
@@ -18,11 +18,11 @@ module Stripe
       end
 
       should "support deprecated ConnectionManager objects" do
-        assert StripeClient.new(Stripe::ConnectionManager.new).config.is_a?(Stripe::StripeConfiguration)
+        assert StripeClient.new(EwStripe::ConnectionManager.new).config.is_a?(EwStripe::StripeConfiguration)
       end
 
       should "support passing a full configuration object" do
-        config = Stripe.config.reverse_duplicate_merge({ api_key: "test_123", open_timeout: 100 })
+        config = EwStripe.config.reverse_duplicate_merge({ api_key: "test_123", open_timeout: 100 })
         client = StripeClient.new(config)
         assert_equal config, client.config
       end
@@ -43,7 +43,7 @@ module Stripe
 
     context ".maybe_gc_connection_managers" do
       should "garbage collect old connection managers when appropriate" do
-        stub_request(:post, "#{Stripe.api_base}/v1/path")
+        stub_request(:post, "#{EwStripe.api_base}/v1/path")
           .to_return(body: JSON.generate(object: "account"))
 
         # Make sure we start with a blank slate (state may have been left in
@@ -111,7 +111,7 @@ module Stripe
       end
 
       should "only garbage collect when all connection managers for a thread are expired" do
-        stub_request(:post, "#{Stripe.api_base}/v1/path")
+        stub_request(:post, "#{EwStripe.api_base}/v1/path")
           .to_return(body: JSON.generate(object: "account"))
 
         # Make sure we start with a blank slate (state may have been left in
@@ -169,7 +169,7 @@ module Stripe
 
     context ".clear_all_connection_managers" do
       should "clear connection managers across all threads" do
-        stub_request(:post, "#{Stripe.api_base}/path")
+        stub_request(:post, "#{EwStripe.api_base}/path")
           .to_return(body: JSON.generate(object: "account"))
 
         num_threads = 3
@@ -183,7 +183,7 @@ module Stripe
             # Causes a connection manager to be created on this thread and a
             # connection within that manager to be created for API access.
             manager = StripeClient.default_connection_manager
-            manager.execute_request(:post, "#{Stripe.api_base}/path")
+            manager.execute_request(:post, "#{EwStripe.api_base}/path")
 
             # Signal to the main thread we're ready.
             recv_queue << true
@@ -263,7 +263,7 @@ module Stripe
       end
 
       should "create a separate connection manager per configuration" do
-        config = Stripe::StripeConfiguration.setup { |c| c.open_timeout = 100 }
+        config = EwStripe::StripeConfiguration.setup { |c| c.open_timeout = 100 }
         connection_manager_one = StripeClient.default_connection_manager
         connection_manager_two = StripeClient.default_connection_manager(config)
 
@@ -274,7 +274,7 @@ module Stripe
       should "create a single connection manager for identical configurations" do
         StripeClient.clear_all_connection_managers
 
-        2.times { StripeClient.default_connection_manager(Stripe::StripeConfiguration.setup) }
+        2.times { StripeClient.default_connection_manager(EwStripe::StripeConfiguration.setup) }
 
         assert_equal 1, StripeClient.instance_variable_get(:@thread_contexts_with_connection_managers).first.default_connection_managers.size
       end
@@ -282,7 +282,7 @@ module Stripe
 
     context ".should_retry?" do
       setup do
-        Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
+        EwStripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
       end
 
       should "retry on Errno::ECONNREFUSED" do
@@ -325,52 +325,52 @@ module Stripe
                                           method: :post, num_retries: 0)
       end
 
-      should "retry when the `Stripe-Should-Retry` header is `true`" do
+      should "retry when the `EwStripe-Should-Retry` header is `true`" do
         headers = StripeResponse::Headers.new(
           "Stripe-Should-Retry" => ["true"]
         )
 
         # Note we send status 400 here, which would normally not be retried.
-        assert StripeClient.should_retry?(Stripe::StripeError.new(http_headers: headers,
+        assert StripeClient.should_retry?(EwStripe::StripeError.new(http_headers: headers,
                                                                   http_status: 400),
                                           method: :post, num_retries: 0)
       end
 
-      should "not retry when the `Stripe-Should-Retry` header is `false`" do
+      should "not retry when the `EwStripe-Should-Retry` header is `false`" do
         headers = StripeResponse::Headers.new(
           "Stripe-Should-Retry" => ["false"]
         )
 
         # Note we send status 409 here, which would normally be retried.
-        refute StripeClient.should_retry?(Stripe::StripeError.new(http_headers: headers,
+        refute StripeClient.should_retry?(EwStripe::StripeError.new(http_headers: headers,
                                                                   http_status: 409),
                                           method: :post, num_retries: 0)
       end
 
       should "retry on a 409 Conflict" do
-        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 409),
+        assert StripeClient.should_retry?(EwStripe::StripeError.new(http_status: 409),
                                           method: :post, num_retries: 0)
       end
 
       should "retry on a 429 Too Many Requests when lock timeout" do
-        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 429,
+        assert StripeClient.should_retry?(EwStripe::StripeError.new(http_status: 429,
                                                                   code: "lock_timeout"),
                                           method: :post, num_retries: 0)
       end
 
       should "retry on a 500 Internal Server Error when non-POST" do
-        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
+        assert StripeClient.should_retry?(EwStripe::StripeError.new(http_status: 500),
                                           method: :get, num_retries: 0)
       end
 
       should "retry on a 503 Service Unavailable" do
-        assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 503),
+        assert StripeClient.should_retry?(EwStripe::StripeError.new(http_status: 503),
                                           method: :post, num_retries: 0)
       end
 
       should "not retry at maximum count" do
         refute StripeClient.should_retry?(RuntimeError.new,
-                                          method: :post, num_retries: Stripe.max_network_retries)
+                                          method: :post, num_retries: EwStripe.max_network_retries)
       end
 
       should "not retry on a certificate validation error" do
@@ -379,13 +379,13 @@ module Stripe
       end
 
       should "not retry on a 429 Too Many Requests when not lock timeout" do
-        refute StripeClient.should_retry?(Stripe::StripeError.new(http_status: 429,
+        refute StripeClient.should_retry?(EwStripe::StripeError.new(http_status: 429,
                                                                   code: "rate_limited"),
                                           method: :post, num_retries: 0)
       end
 
       should "not retry on a 500 Internal Server Error when POST" do
-        refute StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
+        refute StripeClient.should_retry?(EwStripe::StripeError.new(http_status: 500),
                                           method: :post, num_retries: 0)
       end
     end
@@ -393,17 +393,17 @@ module Stripe
     context ".sleep_time" do
       should "should grow exponentially" do
         StripeClient.stubs(:rand).returns(1)
-        Stripe.config.stubs(:max_network_retry_delay).returns(999)
-        assert_equal(Stripe.initial_network_retry_delay, StripeClient.sleep_time(1))
-        assert_equal(Stripe.initial_network_retry_delay * 2, StripeClient.sleep_time(2))
-        assert_equal(Stripe.initial_network_retry_delay * 4, StripeClient.sleep_time(3))
-        assert_equal(Stripe.initial_network_retry_delay * 8, StripeClient.sleep_time(4))
+        EwStripe.config.stubs(:max_network_retry_delay).returns(999)
+        assert_equal(EwStripe.initial_network_retry_delay, StripeClient.sleep_time(1))
+        assert_equal(EwStripe.initial_network_retry_delay * 2, StripeClient.sleep_time(2))
+        assert_equal(EwStripe.initial_network_retry_delay * 4, StripeClient.sleep_time(3))
+        assert_equal(EwStripe.initial_network_retry_delay * 8, StripeClient.sleep_time(4))
       end
 
       should "enforce the max_network_retry_delay" do
         StripeClient.stubs(:rand).returns(1)
-        Stripe.config.stubs(:initial_network_retry_delay).returns(1)
-        Stripe.config.stubs(:max_network_retry_delay).returns(2)
+        EwStripe.config.stubs(:initial_network_retry_delay).returns(1)
+        EwStripe.config.stubs(:max_network_retry_delay).returns(2)
         assert_equal(1, StripeClient.sleep_time(1))
         assert_equal(2, StripeClient.sleep_time(2))
         assert_equal(2, StripeClient.sleep_time(3))
@@ -413,14 +413,14 @@ module Stripe
       should "add some randomness" do
         random_value = 0.8
         StripeClient.stubs(:rand).returns(random_value)
-        Stripe.config.stubs(:initial_network_retry_delay).returns(1)
-        Stripe.config.stubs(:max_network_retry_delay).returns(8)
+        EwStripe.config.stubs(:initial_network_retry_delay).returns(1)
+        EwStripe.config.stubs(:max_network_retry_delay).returns(8)
 
-        base_value = Stripe.initial_network_retry_delay * (0.5 * (1 + random_value))
+        base_value = EwStripe.initial_network_retry_delay * (0.5 * (1 + random_value))
 
         # the initial value cannot be smaller than the base,
         # so the randomness is ignored
-        assert_equal(Stripe.initial_network_retry_delay, StripeClient.sleep_time(1))
+        assert_equal(EwStripe.initial_network_retry_delay, StripeClient.sleep_time(1))
 
         # after the first one, the randomness is applied
         assert_equal(base_value * 2, StripeClient.sleep_time(2))
@@ -430,14 +430,14 @@ module Stripe
 
       should "permit passing in a configuration object" do
         StripeClient.stubs(:rand).returns(1)
-        config = Stripe::StripeConfiguration.setup do |c|
+        config = EwStripe::StripeConfiguration.setup do |c|
           c.initial_network_retry_delay = 1
           c.max_network_retry_delay = 2
         end
 
         # Set the global configuration to be different than the client
-        Stripe.config.stubs(:initial_network_retry_delay).returns(100)
-        Stripe.config.stubs(:max_network_retry_delay).returns(200)
+        EwStripe.config.stubs(:initial_network_retry_delay).returns(100)
+        EwStripe.config.stubs(:max_network_retry_delay).returns(200)
 
         assert_equal(1, StripeClient.sleep_time(1, config: config))
         assert_equal(2, StripeClient.sleep_time(2, config: config))
@@ -456,7 +456,7 @@ module Stripe
 
         context "headers" do
           should "support literal headers" do
-            stub_request(:post, "#{Stripe.api_base}/v1/account")
+            stub_request(:post, "#{EwStripe.api_base}/v1/account")
               .with(headers: { "Stripe-Account" => "bar" })
               .to_return(body: JSON.generate(object: "account"))
 
@@ -467,7 +467,7 @@ module Stripe
           end
 
           should "support RestClient-style header keys" do
-            stub_request(:post, "#{Stripe.api_base}/v1/account")
+            stub_request(:post, "#{EwStripe.api_base}/v1/account")
               .with(headers: { "Stripe-Account" => "bar" })
               .to_return(body: JSON.generate(object: "account"))
 
@@ -487,29 +487,29 @@ module Stripe
             # this.
             Util.stubs(:monotonic_time).returns(0.0)
 
-            # Stub the Stripe.config so that mocha matchers will succeed. Currently,
+            # Stub the EwStripe.config so that mocha matchers will succeed. Currently,
             # mocha does not support using param matchers within hashes.
-            StripeClient.any_instance.stubs(:config).returns(Stripe.config)
+            StripeClient.any_instance.stubs(:config).returns(EwStripe.config)
           end
 
           should "produce appropriate logging" do
             body = JSON.generate(object: "account")
 
-            Util.expects(:log_info).with("Request to Stripe API",
+            Util.expects(:log_info).with("Request to EwStripe API",
                                          account: "acct_123",
                                          api_version: "2010-11-12",
                                          idempotency_key: "abc",
                                          method: :post,
                                          num_retries: 0,
                                          path: "/v1/account",
-                                         config: Stripe.config)
+                                         config: EwStripe.config)
             Util.expects(:log_debug).with("Request details",
                                           body: "",
                                           idempotency_key: "abc",
                                           query: nil,
-                                          config: Stripe.config)
+                                          config: EwStripe.config)
 
-            Util.expects(:log_info).with("Response from Stripe API",
+            Util.expects(:log_info).with("Response from EwStripe API",
                                          account: "acct_123",
                                          api_version: "2010-11-12",
                                          elapsed: 0.0,
@@ -518,12 +518,12 @@ module Stripe
                                          path: "/v1/account",
                                          request_id: "req_123",
                                          status: 200,
-                                         config: Stripe.config)
+                                         config: EwStripe.config)
             Util.expects(:log_debug).with do |message, data|
               if message == "Response details" &&
                  data[:idempotency_key] == "abc" &&
                  data[:request_id] == "req_123" &&
-                 data[:config] == Stripe.config
+                 data[:config] == EwStripe.config
                 # Streaming requests have a different body.
                 if request_method == "execute_request_stream"
                   data[:body].is_a? Net::ReadAdapter
@@ -535,10 +535,10 @@ module Stripe
             Util.expects(:log_debug).with("Dashboard link for request",
                                           idempotency_key: "abc",
                                           request_id: "req_123",
-                                          url: Util.request_id_dashboard_url("req_123", Stripe.api_key),
-                                          config: Stripe.config)
+                                          url: Util.request_id_dashboard_url("req_123", EwStripe.api_key),
+                                          config: EwStripe.config)
 
-            stub_request(:post, "#{Stripe.api_base}/v1/account")
+            stub_request(:post, "#{EwStripe.api_base}/v1/account")
               .to_return(
                 body: body,
                 headers: {
@@ -560,15 +560,15 @@ module Stripe
           end
 
           should "produce logging on API error" do
-            Util.expects(:log_info).with("Request to Stripe API",
+            Util.expects(:log_info).with("Request to EwStripe API",
                                          account: nil,
                                          api_version: nil,
                                          idempotency_key: nil,
                                          method: :post,
                                          num_retries: 0,
                                          path: "/v1/account",
-                                         config: Stripe.config)
-            Util.expects(:log_info).with("Response from Stripe API",
+                                         config: EwStripe.config)
+            Util.expects(:log_info).with("Response from EwStripe API",
                                          account: nil,
                                          api_version: nil,
                                          elapsed: 0.0,
@@ -577,7 +577,7 @@ module Stripe
                                          path: "/v1/account",
                                          request_id: nil,
                                          status: 500,
-                                         config: Stripe.config)
+                                         config: EwStripe.config)
 
             error = {
               code: "code",
@@ -593,31 +593,31 @@ module Stripe
                                           error_type: error[:type],
                                           idempotency_key: nil,
                                           request_id: nil,
-                                          config: Stripe.config)
+                                          config: EwStripe.config)
 
-            stub_request(:post, "#{Stripe.api_base}/v1/account")
+            stub_request(:post, "#{EwStripe.api_base}/v1/account")
               .to_return(
                 body: JSON.generate(error: error),
                 status: 500
               )
 
             client = StripeClient.new
-            assert_raises Stripe::APIError do
+            assert_raises EwStripe::APIError do
               client.send(request_method, :post, "/v1/account",
                           &@read_body_chunk_block)
             end
           end
 
           should "produce logging on OAuth error" do
-            Util.expects(:log_info).with("Request to Stripe API",
+            Util.expects(:log_info).with("Request to EwStripe API",
                                          account: nil,
                                          api_version: nil,
                                          idempotency_key: nil,
                                          method: :post,
                                          num_retries: 0,
                                          path: "/oauth/token",
-                                         config: Stripe.config)
-            Util.expects(:log_info).with("Response from Stripe API",
+                                         config: EwStripe.config)
+            Util.expects(:log_info).with("Response from EwStripe API",
                                          account: nil,
                                          api_version: nil,
                                          elapsed: 0.0,
@@ -626,7 +626,7 @@ module Stripe
                                          path: "/oauth/token",
                                          request_id: nil,
                                          status: 400,
-                                         config: Stripe.config)
+                                         config: EwStripe.config)
 
             Util.expects(:log_error).with("Stripe OAuth error",
                                           status: 400,
@@ -634,15 +634,15 @@ module Stripe
                                           error_description: "No grant type specified",
                                           idempotency_key: nil,
                                           request_id: nil,
-                                          config: Stripe.config)
+                                          config: EwStripe.config)
 
-            stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+            stub_request(:post, "#{EwStripe.connect_base}/oauth/token")
               .to_return(body: JSON.generate(error: "invalid_request",
                                              error_description: "No grant type specified"), status: 400)
 
             client = StripeClient.new
-            opts = { api_base: Stripe.connect_base }
-            assert_raises Stripe::OAuth::InvalidRequestError do
+            opts = { api_base: EwStripe.connect_base }
+            assert_raises EwStripe::OAuth::InvalidRequestError do
               client.send(request_method, :post, "/oauth/token", **opts,
                           &@read_body_chunk_block)
             end
@@ -652,24 +652,24 @@ module Stripe
         context "Stripe-Account header" do
           should "use a globally set header" do
             begin
-              old = Stripe.stripe_account
-              Stripe.stripe_account = "acct_1234"
+              old = EwStripe.stripe_account
+              EwStripe.stripe_account = "acct_1234"
 
-              stub_request(:post, "#{Stripe.api_base}/v1/account")
-                .with(headers: { "Stripe-Account" => Stripe.stripe_account })
+              stub_request(:post, "#{EwStripe.api_base}/v1/account")
+                .with(headers: { "Stripe-Account" => EwStripe.stripe_account })
                 .to_return(body: JSON.generate(object: "account"))
 
               client = StripeClient.new
               client.send(request_method, :post, "/v1/account",
                           &@read_body_chunk_block)
             ensure
-              Stripe.stripe_account = old
+              EwStripe.stripe_account = old
             end
           end
 
           should "use a locally set header" do
             stripe_account = "acct_0000"
-            stub_request(:post, "#{Stripe.api_base}/v1/account")
+            stub_request(:post, "#{EwStripe.api_base}/v1/account")
               .with(headers: { "Stripe-Account" => stripe_account })
               .to_return(body: JSON.generate(object: "account"))
 
@@ -680,7 +680,7 @@ module Stripe
           end
 
           should "not send it otherwise" do
-            stub_request(:post, "#{Stripe.api_base}/v1/account")
+            stub_request(:post, "#{EwStripe.api_base}/v1/account")
               .with do |req|
                 req.headers["Stripe-Account"].nil?
               end.to_return(body: JSON.generate(object: "account"))
@@ -694,18 +694,18 @@ module Stripe
         context "app_info" do
           should "send app_info if set" do
             begin
-              old = Stripe.app_info
-              Stripe.set_app_info(
+              old = EwStripe.app_info
+              EwStripe.set_app_info(
                 "MyAwesomePlugin",
                 partner_id: "partner_1234",
                 url: "https://myawesomeplugin.info",
                 version: "1.2.34"
               )
 
-              stub_request(:post, "#{Stripe.api_base}/v1/account")
+              stub_request(:post, "#{EwStripe.api_base}/v1/account")
                 .with do |req|
                   assert_equal \
-                    "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
+                    "EwStripe/v1 RubyBindings/#{EwStripe::VERSION} " \
                     "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
                     req.headers["User-Agent"]
 
@@ -726,19 +726,19 @@ module Stripe
               client.send(request_method, :post, "/v1/account",
                           &@read_body_chunk_block)
             ensure
-              Stripe.app_info = old
+              EwStripe.app_info = old
             end
           end
         end
 
         context "error handling" do
           should "handle error response with empty body" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: "", status: 500)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::APIError do
+            e = assert_raises EwStripe::APIError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -746,14 +746,14 @@ module Stripe
           end
 
           should "feed a request ID through to the error object" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(make_missing_id_error),
                          headers: { "Request-ID": "req_123" },
                          status: 400)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::InvalidRequestError do
+            e = assert_raises EwStripe::InvalidRequestError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -761,27 +761,27 @@ module Stripe
           end
 
           should "handle low level error" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_raise(Errno::ECONNREFUSED.new)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::APIConnectionError do
+            e = assert_raises EwStripe::APIConnectionError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
-            assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base +
+            assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % EwStripe.api_base +
                          "\n\n(Network error: Connection refused)",
                          e.message
           end
 
           should "handle error response with unknown value" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(bar: "foo"), status: 500)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::APIError do
+            e = assert_raises EwStripe::APIError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -792,12 +792,12 @@ module Stripe
             data = make_missing_id_error
             data[:error][:type] = "idempotency_error"
 
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(data), status: 400)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::IdempotencyError do
+            e = assert_raises EwStripe::IdempotencyError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -806,12 +806,12 @@ module Stripe
           end
 
           should "raise InvalidRequestError on other 400s" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(make_missing_id_error), status: 400)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::InvalidRequestError do
+            e = assert_raises EwStripe::InvalidRequestError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -820,12 +820,12 @@ module Stripe
           end
 
           should "raise AuthenticationError on 401" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(make_missing_id_error), status: 401)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::AuthenticationError do
+            e = assert_raises EwStripe::AuthenticationError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -834,12 +834,12 @@ module Stripe
           end
 
           should "raise CardError on 402" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(make_invalid_exp_year_error), status: 402)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::CardError do
+            e = assert_raises EwStripe::CardError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -850,12 +850,12 @@ module Stripe
           end
 
           should "raise PermissionError on 403" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(make_missing_id_error), status: 403)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::PermissionError do
+            e = assert_raises EwStripe::PermissionError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -864,12 +864,12 @@ module Stripe
           end
 
           should "raise InvalidRequestError on 404" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(make_missing_id_error), status: 404)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::InvalidRequestError do
+            e = assert_raises EwStripe::InvalidRequestError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -878,12 +878,12 @@ module Stripe
           end
 
           should "raise RateLimitError on 429" do
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return(body: JSON.generate(make_rate_limit_error), status: 429)
 
             client = StripeClient.new
 
-            e = assert_raises Stripe::RateLimitError do
+            e = assert_raises EwStripe::RateLimitError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -892,14 +892,14 @@ module Stripe
           end
 
           should "raise OAuth::InvalidRequestError when error is a string with value 'invalid_request'" do
-            stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+            stub_request(:post, "#{EwStripe.connect_base}/oauth/token")
               .to_return(body: JSON.generate(error: "invalid_request",
                                              error_description: "No grant type specified"), status: 400)
 
             client = StripeClient.new
 
-            opts = { api_base: Stripe.connect_base }
-            e = assert_raises Stripe::OAuth::InvalidRequestError do
+            opts = { api_base: EwStripe.connect_base }
+            e = assert_raises EwStripe::OAuth::InvalidRequestError do
               client.send(request_method, :post, "/oauth/token", **opts,
                           &@read_body_chunk_block)
             end
@@ -909,14 +909,14 @@ module Stripe
           end
 
           should "raise OAuth::InvalidGrantError when error is a string with value 'invalid_grant'" do
-            stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+            stub_request(:post, "#{EwStripe.connect_base}/oauth/token")
               .to_return(body: JSON.generate(error: "invalid_grant",
                                              error_description: "This authorization code has already been used. All tokens issued with this code have been revoked."), status: 400)
 
             client = StripeClient.new
 
-            opts = { api_base: Stripe.connect_base }
-            e = assert_raises Stripe::OAuth::InvalidGrantError do
+            opts = { api_base: EwStripe.connect_base }
+            e = assert_raises EwStripe::OAuth::InvalidGrantError do
               client.send(request_method, :post, "/oauth/token", **opts,
                           &@read_body_chunk_block)
             end
@@ -927,14 +927,14 @@ module Stripe
           end
 
           should "raise OAuth::InvalidClientError when error is a string with value 'invalid_client'" do
-            stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize")
+            stub_request(:post, "#{EwStripe.connect_base}/oauth/deauthorize")
               .to_return(body: JSON.generate(error: "invalid_client",
                                              error_description: "This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist."), status: 401)
 
             client = StripeClient.new
 
-            opts = { api_base: Stripe.connect_base }
-            e = assert_raises Stripe::OAuth::InvalidClientError do
+            opts = { api_base: EwStripe.connect_base }
+            e = assert_raises EwStripe::OAuth::InvalidClientError do
               client.send(request_method, :post, "/oauth/deauthorize", **opts,
                           &@read_body_chunk_block)
             end
@@ -944,15 +944,15 @@ module Stripe
             assert_equal("This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.", e.message)
           end
 
-          should "raise Stripe::OAuthError on indeterminate OAuth error" do
-            stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize")
+          should "raise EwStripe::OAuthError on indeterminate OAuth error" do
+            stub_request(:post, "#{EwStripe.connect_base}/oauth/deauthorize")
               .to_return(body: JSON.generate(error: "new_code_not_recognized",
                                              error_description: "Something."), status: 401)
 
             client = StripeClient.new
 
-            opts = { api_base: Stripe.connect_base }
-            e = assert_raises Stripe::OAuth::OAuthError do
+            opts = { api_base: EwStripe.connect_base }
+            e = assert_raises EwStripe::OAuth::OAuthError do
               client.send(request_method, :post, "/oauth/deauthorize", **opts,
                           &@read_body_chunk_block)
             end
@@ -965,12 +965,12 @@ module Stripe
 
         context "idempotency keys" do
           setup do
-            Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
+            EwStripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
           end
 
           should "not add an idempotency key to GET requests" do
             SecureRandom.expects(:uuid).times(0)
-            stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123")
+            stub_request(:get, "#{EwStripe.api_base}/v1/charges/ch_123")
               .with do |req|
                 req.headers["Idempotency-Key"].nil?
               end.to_return(body: JSON.generate(object: "charge"))
@@ -981,7 +981,7 @@ module Stripe
 
           should "ensure there is always an idempotency_key on POST requests" do
             SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .with(headers: { "Idempotency-Key" => "random_key" })
               .to_return(body: JSON.generate(object: "charge"))
             client = StripeClient.new
@@ -991,7 +991,7 @@ module Stripe
 
           should "ensure there is always an idempotency_key on DELETE requests" do
             SecureRandom.expects(:uuid).at_least_once.returns("random_key")
-            stub_request(:delete, "#{Stripe.api_base}/v1/charges/ch_123")
+            stub_request(:delete, "#{EwStripe.api_base}/v1/charges/ch_123")
               .with(headers: { "Idempotency-Key" => "random_key" })
               .to_return(body: JSON.generate(object: "charge"))
             client = StripeClient.new
@@ -1006,7 +1006,7 @@ module Stripe
             # (`Idempotency-Key`), but rest-client does allow this symbol
             # formatting and will properly override the system generated one as
             # expected.
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .with(headers: { "Idempotency-Key" => "provided_key" })
               .to_return(body: JSON.generate(object: "charge"))
 
@@ -1019,16 +1019,16 @@ module Stripe
 
         context "retry logic" do
           setup do
-            Stripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
+            EwStripe::StripeConfiguration.any_instance.stubs(:max_network_retries).returns(2)
           end
 
           should "retry failed requests and raise if error persists" do
             StripeClient.expects(:sleep_time).at_least_once.returns(0)
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_raise(Errno::ECONNREFUSED.new)
 
             client = StripeClient.new
-            err = assert_raises Stripe::APIConnectionError do
+            err = assert_raises EwStripe::APIConnectionError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -1039,7 +1039,7 @@ module Stripe
             StripeClient.expects(:sleep_time).at_least_once.returns(0)
 
             i = 0
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_return do |_|
                 if i < 2
                   i += 1
@@ -1057,14 +1057,14 @@ module Stripe
           should "pass the client configuration when retrying" do
             StripeClient.expects(:sleep_time)
                         .with(any_of(1, 2),
-                              has_entry(:config, kind_of(Stripe::StripeConfiguration)))
+                              has_entry(:config, kind_of(EwStripe::StripeConfiguration)))
                         .at_least_once.returns(0)
 
-            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+            stub_request(:post, "#{EwStripe.api_base}/v1/charges")
               .to_raise(Errno::ECONNREFUSED.new)
 
             client = StripeClient.new
-            assert_raises Stripe::APIConnectionError do
+            assert_raises EwStripe::APIConnectionError do
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
@@ -1079,7 +1079,7 @@ module Stripe
                         &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{EwStripe.api_base}/v1/invoices/upcoming?",
               query: {
                 customer: "cus_123",
                 coupon: "",
@@ -1094,7 +1094,7 @@ module Stripe
                         &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{EwStripe.api_base}/v1/invoices/upcoming?",
               query: {
                 customer: "cus_123",
               }
@@ -1108,7 +1108,7 @@ module Stripe
                         &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{EwStripe.api_base}/v1/invoices/upcoming?",
               query: {
                 coupon: "25OFF",
                 customer: "cus_123",
@@ -1123,7 +1123,7 @@ module Stripe
                         &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{EwStripe.api_base}/v1/invoices/upcoming?",
               query: {
                 customer: "cus_param",
               }
@@ -1135,12 +1135,12 @@ module Stripe
 
     context "#execute_request" do
       should "handle success response with empty body" do
-        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+        stub_request(:post, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: "", status: 200)
 
         client = StripeClient.new
 
-        e = assert_raises Stripe::APIError do
+        e = assert_raises EwStripe::APIError do
           client.execute_request(:post, "/v1/charges")
         end
         assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
@@ -1158,7 +1158,7 @@ module Stripe
       end
 
       should "executes the read_body_chunk_block when passed" do
-        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+        stub_request(:post, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: "response body", status: 200)
 
         client = StripeClient.new
@@ -1169,7 +1169,7 @@ module Stripe
           accumulated_body << body_chunk
         end
 
-        assert_instance_of Stripe::StripeHeadersOnlyResponse, resp
+        assert_instance_of EwStripe::StripeHeadersOnlyResponse, resp
         assert_equal "response body", accumulated_body
       end
     end
@@ -1181,7 +1181,7 @@ module Stripe
         begin
           client = StripeClient.new
           client.connection_manager
-          message = "NOTE: Stripe::StripeClient#connection_manager is " \
+          message = "NOTE: EwStripe::StripeClient#connection_manager is " \
                     "deprecated"
           assert_match Regexp.new(message), $stderr.string
         ensure
@@ -1192,7 +1192,7 @@ module Stripe
 
     context "#request" do
       should "return a result and response object" do
-        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+        stub_request(:post, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"))
 
         client = StripeClient.new
@@ -1227,9 +1227,9 @@ module Stripe
         charge_resp = { object: "charge" }
         coupon_resp = { object: "coupon" }
 
-        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+        stub_request(:post, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(charge_resp))
-        stub_request(:post, "#{Stripe.api_base}/v1/coupons")
+        stub_request(:post, "#{EwStripe.api_base}/v1/coupons")
           .to_return(body: JSON.generate(coupon_resp))
 
         client1 = StripeClient.new
@@ -1257,9 +1257,9 @@ module Stripe
         charge_resp = { object: "charge" }
         coupon_resp = { object: "coupon" }
 
-        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+        stub_request(:post, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(charge_resp))
-        stub_request(:post, "#{Stripe.api_base}/v1/coupons")
+        stub_request(:post, "#{EwStripe.api_base}/v1/coupons")
           .to_return(body: JSON.generate(coupon_resp))
 
         client = StripeClient.new
@@ -1320,19 +1320,19 @@ module Stripe
         begin
           StripeClient.clear_all_connection_managers
 
-          Stripe.proxy = "http://user:pass@localhost:8080"
+          EwStripe.proxy = "http://user:pass@localhost:8080"
 
           client = StripeClient.new
           client.request {}
 
-          connection = Stripe::StripeClient.default_connection_manager.connection_for(Stripe.api_base)
+          connection = EwStripe::StripeClient.default_connection_manager.connection_for(EwStripe.api_base)
 
           assert_equal "localhost", connection.proxy_address
           assert_equal 8080, connection.proxy_port
           assert_equal "user", connection.proxy_user
           assert_equal "pass", connection.proxy_pass
         ensure
-          Stripe.proxy = nil
+          EwStripe.proxy = nil
 
           StripeClient.clear_all_connection_managers
         end
@@ -1343,38 +1343,38 @@ module Stripe
       teardown do
         # make sure to always set telemetry back to false
         # to not mutate global state
-        Stripe.enable_telemetry = false
+        EwStripe.enable_telemetry = false
       end
 
       should "not send metrics if enable trace flag is not set" do
-        Stripe.enable_telemetry = false
+        EwStripe.enable_telemetry = false
 
         trace_metrics_header = nil
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .with do |req|
           trace_metrics_header = req.headers["X-Stripe-Client-Telemetry"]
           false
         end.to_return(body: JSON.generate(object: "charge"))
 
-        Stripe::Charge.list
+        EwStripe::Charge.list
         assert(trace_metrics_header.nil?)
 
-        Stripe::Charge.list
+        EwStripe::Charge.list
         assert(trace_metrics_header.nil?)
       end
 
       should "send metrics if enabled telemetry is true" do
-        Stripe.enable_telemetry = true
+        EwStripe.enable_telemetry = true
 
         trace_metrics_header = nil
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .with do |req|
           trace_metrics_header = req.headers["X-Stripe-Client-Telemetry"]
           false
         end.to_return(body: JSON.generate(object: "charge"))
 
-        Stripe::Charge.list
-        Stripe::Charge.list
+        EwStripe::Charge.list
+        EwStripe::Charge.list
 
         assert(!trace_metrics_header.nil?)
 
@@ -1386,16 +1386,16 @@ module Stripe
 
     context "instrumentation" do
       teardown do
-        Stripe::Instrumentation.unsubscribe(:request, :test)
+        EwStripe::Instrumentation.unsubscribe(:request, :test)
       end
 
       should "notify a subscribe on HTTP request start" do
         events = []
-        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
+        EwStripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"))
-        Stripe::Charge.list
+        EwStripe::Charge.list
 
         assert_equal(1, events.size)
         event = events.first
@@ -1405,11 +1405,11 @@ module Stripe
 
       should "notify a subscriber of a successful HTTP request" do
         events = []
-        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
+        EwStripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"), headers: { "Request-ID": "req_123" })
-        Stripe::Charge.list
+        EwStripe::Charge.list
 
         assert_equal(1, events.size)
         event = events.first
@@ -1423,7 +1423,7 @@ module Stripe
 
       should "notify a subscriber of a StripeError" do
         events = []
-        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
+        EwStripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
         error = {
           code: "code",
@@ -1431,13 +1431,13 @@ module Stripe
           param: "param",
           type: "type",
         }
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .to_return(
             body: JSON.generate(error: error),
             status: 500
           )
-        assert_raises(Stripe::APIError) do
-          Stripe::Charge.list
+        assert_raises(EwStripe::APIError) do
+          EwStripe::Charge.list
         end
 
         assert_equal(1, events.size)
@@ -1451,12 +1451,12 @@ module Stripe
 
       should "notify a subscriber of a network error" do
         events = []
-        Stripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
+        EwStripe::Instrumentation.subscribe(:request_end, :test) { |event| events << event }
 
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .to_raise(Net::OpenTimeout)
-        assert_raises(Stripe::APIConnectionError) do
-          Stripe::Charge.list
+        assert_raises(EwStripe::APIConnectionError) do
+          EwStripe::Charge.list
         end
 
         assert_equal(1, events.size)
@@ -1471,27 +1471,27 @@ module Stripe
       should "pass `user_data` from `request_begin` to `request_end`" do
         actual_user_data = nil
 
-        Stripe::Instrumentation.subscribe(:request_begin) do |event|
+        EwStripe::Instrumentation.subscribe(:request_begin) do |event|
           event.user_data[:foo] = :bar
         end
-        Stripe::Instrumentation.subscribe(:request_end) do |event|
+        EwStripe::Instrumentation.subscribe(:request_end) do |event|
           actual_user_data = event.user_data
         end
 
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"))
-        Stripe::Charge.list
+        EwStripe::Charge.list
 
         assert_equal({ foo: :bar }, actual_user_data)
       end
 
       should "provide backward compatibility on `request` topic" do
         events = []
-        Stripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
+        EwStripe::Instrumentation.subscribe(:request, :test) { |event| events << event }
 
-        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+        stub_request(:get, "#{EwStripe.api_base}/v1/charges")
           .to_return(body: JSON.generate(object: "charge"))
-        Stripe::Charge.list
+        EwStripe::Charge.list
 
         assert_equal(1, events.size)
         event = events.first

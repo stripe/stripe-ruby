@@ -2,11 +2,11 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class PersonTest < Test::Unit::TestCase
     context "#resource_url" do
       should "return a resource URL" do
-        person = Stripe::Person.construct_from(
+        person = EwStripe::Person.construct_from(
           id: "person_123",
           account: "acct_123"
         )
@@ -15,7 +15,7 @@ module Stripe
       end
 
       should "raise without an account" do
-        person = Stripe::Person.construct_from(id: "person_123")
+        person = EwStripe::Person.construct_from(id: "person_123")
         assert_raises NotImplementedError do
           person.resource_url
         end
@@ -24,23 +24,23 @@ module Stripe
 
     should "raise on #retrieve" do
       assert_raises NotImplementedError do
-        Stripe::Person.retrieve("person_123")
+        EwStripe::Person.retrieve("person_123")
       end
     end
 
     should "raise on #update" do
       assert_raises NotImplementedError do
-        Stripe::Person.update("person_123", {})
+        EwStripe::Person.update("person_123", {})
       end
     end
 
     should "be saveable" do
-      account = Stripe::Account.retrieve("acct_123")
+      account = EwStripe::Account.retrieve("acct_123")
       person = account.persons.retrieve("person_123")
       person.first_name = "John"
       person.save
       assert_requested :post,
-                       "#{Stripe.api_base}/v1/accounts/#{person.account}/persons/#{person.id}"
+                       "#{EwStripe.api_base}/v1/accounts/#{person.account}/persons/#{person.id}"
     end
   end
 end

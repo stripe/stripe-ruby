@@ -2,13 +2,13 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class StripeConfigurationTest < Test::Unit::TestCase
     context ".setup" do
       should "initialize a new configuration with defaults" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
-        assert_equal Stripe::DEFAULT_CA_BUNDLE_PATH, config.ca_bundle_path
+        assert_equal EwStripe::DEFAULT_CA_BUNDLE_PATH, config.ca_bundle_path
         assert_equal true, config.enable_telemetry
         assert_equal true, config.verify_ssl_certs
         assert_equal 2, config.max_network_retry_delay
@@ -24,7 +24,7 @@ module Stripe
       end
 
       should "allow for overrides when a block is passed" do
-        config = Stripe::StripeConfiguration.setup do |c|
+        config = EwStripe::StripeConfiguration.setup do |c|
           c.open_timeout = 100
           c.read_timeout = 100
           c.write_timeout = 100 if WRITE_TIMEOUT_SUPPORTED
@@ -38,7 +38,7 @@ module Stripe
 
     context "#reverse_duplicate_merge" do
       should "return a duplicate object with overrides" do
-        config = Stripe::StripeConfiguration.setup do |c|
+        config = EwStripe::StripeConfiguration.setup do |c|
           c.open_timeout = 100
         end
 
@@ -51,7 +51,7 @@ module Stripe
 
     context "#max_network_retries=" do
       should "coerce the option into an integer" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         config.max_network_retries = "10"
         assert_equal 10, config.max_network_retries
@@ -60,7 +60,7 @@ module Stripe
 
     context "#max_network_retry_delay=" do
       should "coerce the option into an integer" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         config.max_network_retry_delay = "10"
         assert_equal 10, config.max_network_retry_delay
@@ -69,7 +69,7 @@ module Stripe
 
     context "#initial_network_retry_delay=" do
       should "coerce the option into an integer" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         config.initial_network_retry_delay = "10"
         assert_equal 10, config.initial_network_retry_delay
@@ -78,17 +78,17 @@ module Stripe
 
     context "#log_level=" do
       should "be backwards compatible with old values" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         config.log_level = "debug"
-        assert_equal Stripe::LEVEL_DEBUG, config.log_level
+        assert_equal EwStripe::LEVEL_DEBUG, config.log_level
 
         config.log_level = "info"
-        assert_equal Stripe::LEVEL_INFO, config.log_level
+        assert_equal EwStripe::LEVEL_INFO, config.log_level
       end
 
       should "raise an error if the value isn't valid" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         assert_raises ArgumentError do
           config.log_level = "Foo"
@@ -98,49 +98,49 @@ module Stripe
 
     context "options that require all connection managers to be cleared" do
       should "clear when setting allow ca_bundle_path" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.ca_bundle_path = "/path/to/ca/bundle"
       end
 
       should "clear when setting open timeout" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.open_timeout = 10
       end
 
       should "clear when setting read timeout" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.read_timeout = 10
       end
 
       should "clear when setting uploads_base" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.uploads_base = "https://other.stripe.com"
       end
 
       should "clear when setting api_base to be configured" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.api_base = "https://other.stripe.com"
       end
 
       should "clear when setting connect_base" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.connect_base = "https://other.stripe.com"
       end
 
       should "clear when setting verify_ssl_certs" do
-        config = Stripe::StripeConfiguration.setup
+        config = EwStripe::StripeConfiguration.setup
 
         StripeClient.expects(:clear_all_connection_managers).with(config: config)
         config.verify_ssl_certs = false

@@ -3,7 +3,7 @@
 require "securerandom"
 require "tempfile"
 
-module Stripe
+module EwStripe
   # Encodes parameters into a `multipart/form-data` payload as described by RFC
   # 2388:
   #
@@ -36,7 +36,7 @@ module Stripe
     # Initializes a new multipart encoder.
     def initialize
       # Kind of weird, but required by Rubocop because the unary plus operator
-      # is considered faster than `Stripe.new`.
+      # is considered faster than `EwStripe.new`.
       @body = +""
 
       # Chose the same number of random bytes that Go uses in its standard
@@ -77,7 +77,7 @@ module Stripe
     #
     # Note that parameters are expected to be a hash, but a "flat" hash such
     # that complex substructures like hashes and arrays have already been
-    # appropriately Stripe-encoded. Pass a complex structure through
+    # appropriately EwStripe-encoded. Pass a complex structure through
     # `Util.flatten_params` first before handing it off to this method.
     def encode(params)
       raise "no more parameters can be written to closed object" if @closed

@@ -2,10 +2,10 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class ApiOperationsTest < Test::Unit::TestCase
     class UpdateableResource < APIResource
-      include Stripe::APIOperations::Save
+      include EwStripe::APIOperations::Save
 
       OBJECT_NAME = "updateableresource"
 
@@ -16,7 +16,7 @@ module Stripe
 
     context ".update" do
       should "post the correct parameters to the resource URL" do
-        stub_request(:post, "#{Stripe.api_base}/v1/updateableresources/id")
+        stub_request(:post, "#{EwStripe.api_base}/v1/updateableresources/id")
           .with(body: { foo: "bar" })
           .to_return(body: JSON.generate(foo: "bar"))
         resource = UpdateableResource.update("id", foo: "bar")
@@ -24,7 +24,7 @@ module Stripe
       end
 
       should "handle a frozen set of opts" do
-        stub_request(:post, "#{Stripe.api_base}/v1/updateableresources/id")
+        stub_request(:post, "#{EwStripe.api_base}/v1/updateableresources/id")
           .with(body: { foo: "bar" })
           .to_return(body: JSON.generate(foo: "bar"))
         resource = UpdateableResource.update("id", { foo: "bar" }, {}.freeze)
@@ -41,14 +41,14 @@ module Stripe
 
     context ".nested_resource_class_methods" do
       class MainResource < APIResource
-        extend Stripe::APIOperations::NestedResource
+        extend EwStripe::APIOperations::NestedResource
         OBJECT_NAME = "mainresource"
         nested_resource_class_methods :nested,
                                       operations: %i[create retrieve update delete list]
       end
 
       should "define a create method" do
-        stub_request(:post, "#{Stripe.api_base}/v1/mainresources/id/nesteds")
+        stub_request(:post, "#{EwStripe.api_base}/v1/mainresources/id/nesteds")
           .with(body: { foo: "bar" })
           .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
         nested_resource = MainResource.create_nested("id", foo: "bar")
@@ -56,14 +56,14 @@ module Stripe
       end
 
       should "define a retrieve method" do
-        stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id")
+        stub_request(:get, "#{EwStripe.api_base}/v1/mainresources/id/nesteds/nested_id")
           .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
         nested_resource = MainResource.retrieve_nested("id", "nested_id")
         assert_equal "bar", nested_resource.foo
       end
 
       should "define an update method" do
-        stub_request(:post, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id")
+        stub_request(:post, "#{EwStripe.api_base}/v1/mainresources/id/nesteds/nested_id")
           .with(body: { foo: "baz" })
           .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "baz"))
         nested_resource = MainResource.update_nested("id", "nested_id", foo: "baz")
@@ -71,14 +71,14 @@ module Stripe
       end
 
       should "define a delete method" do
-        stub_request(:delete, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id")
+        stub_request(:delete, "#{EwStripe.api_base}/v1/mainresources/id/nesteds/nested_id")
           .to_return(body: JSON.generate(id: "nested_id", object: "nested", deleted: true))
         nested_resource = MainResource.delete_nested("id", "nested_id")
         assert_equal true, nested_resource.deleted
       end
 
       should "define a list method" do
-        stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds")
+        stub_request(:get, "#{EwStripe.api_base}/v1/mainresources/id/nesteds")
           .to_return(body: JSON.generate(object: "list", data: []))
         nested_resources = MainResource.list_nesteds("id")
         assert nested_resources.data.is_a?(Array)

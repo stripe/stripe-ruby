@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class APIResource < StripeObject
-    include Stripe::APIOperations::Request
+    include EwStripe::APIOperations::Request
 
     # A flag that can be set a behavior that will cause this resource to be
     # encoded and sent up along with an update of its parent resource. This is

@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class EphemeralKey < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
+    extend EwStripe::APIOperations::Create
+    include EwStripe::APIOperations::Delete
 
     OBJECT_NAME = "ephemeral_key"
 

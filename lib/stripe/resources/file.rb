@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class File < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
+    extend EwStripe::APIOperations::Create
+    extend EwStripe::APIOperations::List
 
     OBJECT_NAME = "file"
 
@@ -25,7 +25,7 @@ module Stripe
         end
       end
 
-      config = opts[:client]&.config || Stripe.config
+      config = opts[:client]&.config || EwStripe.config
       opts = {
         api_base: config.uploads_base,
         content_type: MultipartEncoder::MULTIPART_FORM_DATA,

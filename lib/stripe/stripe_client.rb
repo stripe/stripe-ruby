@@ -2,8 +2,8 @@
 
 require "stripe/instrumentation"
 
-module Stripe
-  # StripeClient executes requests against the Stripe API and allows a user to
+module EwStripe
+  # StripeClient executes requests against the EwStripe API and allows a user to
   # recover both a resource a call returns as well as a response object that
   # contains information on the HTTP call.
   class StripeClient
@@ -20,15 +20,15 @@ module Stripe
 
       @config = case config_arg
                 when Hash
-                  Stripe.config.reverse_duplicate_merge(config_arg)
-                when Stripe::ConnectionManager
+                  EwStripe.config.reverse_duplicate_merge(config_arg)
+                when EwStripe::ConnectionManager
                   # Supports accepting a connection manager object for backwards
                   # compatibility only, and that use is DEPRECATED.
-                  Stripe.config.dup
-                when Stripe::StripeConfiguration
+                  EwStripe.config.dup
+                when EwStripe::StripeConfiguration
                   config_arg
                 when String
-                  Stripe.config.reverse_duplicate_merge(
+                  EwStripe.config.reverse_duplicate_merge(
                     { api_key: config_arg }
                   )
                 else
@@ -91,12 +91,12 @@ module Stripe
 
     # A default client for the current thread.
     def self.default_client
-      current_thread_context.default_client ||= StripeClient.new(Stripe.config)
+      current_thread_context.default_client ||= StripeClient.new(EwStripe.config)
     end
 
     # A default connection manager for the current thread scoped to the
     # configuration object that may be provided.
-    def self.default_connection_manager(config = Stripe.config)
+    def self.default_connection_manager(config = EwStripe.config)
       current_thread_context.default_connection_managers[config.key] ||= begin
         connection_manager = ConnectionManager.new(config)
 
@@ -113,7 +113,7 @@ module Stripe
     # both socket errors that may represent an intermittent problem and some
     # special HTTP statuses.
     def self.should_retry?(error,
-                           method:, num_retries:, config: Stripe.config)
+                           method:, num_retries:, config: EwStripe.config)
       return false if num_retries >= config.max_network_retries
 
       case error
@@ -126,7 +126,7 @@ module Stripe
         # variety of other connection failures. This could occur from a single
         # saturated server, so retry in case it's intermittent.
         true
-      when Stripe::StripeError
+      when EwStripe::StripeError
         # The API may ask us not to retry (e.g. if doing so would be a no-op),
         # or advise us to retry (e.g. in cases of lock timeouts). Defer to
         # those instructions if given.
@@ -160,7 +160,7 @@ module Stripe
       end
     end
 
-    def self.sleep_time(num_retries, config: Stripe.config)
+    def self.sleep_time(num_retries, config: EwStripe.config)
       # Apply exponential backoff with initial_network_retry_delay on the
       # number of num_retries so far as inputs. Do not allow the number to
       # exceed max_network_retry_delay.
@@ -287,11 +287,11 @@ module Stripe
 
     ERROR_MESSAGE_CONNECTION =
       "Unexpected error communicating when trying to connect to " \
-        "Stripe (%s). You may be seeing this message because your DNS is not " \
+        "Stripe(%s). You may be seeing this message because your DNS is not " \
         "working or you don't have an internet connection.  To check, try " \
         "running `host stripe.com` from the command line."
     ERROR_MESSAGE_SSL =
-      "Could not establish a secure connection to Stripe (%s), you " \
+      "Could not establish a secure connection to EwStripe (%s), you " \
         "may need to upgrade your OpenSSL version. To check, try running " \
         "`openssl s_client -connect api.stripe.com:443` from the command " \
         "line."
@@ -299,17 +299,17 @@ module Stripe
     # Common error suffix sared by both connect and read timeout messages.
     ERROR_MESSAGE_TIMEOUT_SUFFIX =
       "Please check your internet connection and try again. " \
-        "If this problem persists, you should check Stripe's service " \
+        "If this problem persists, you should check EwStripe's service " \
         "status at https://status.stripe.com, or let us know at " \
         "support@stripe.com."
 
     ERROR_MESSAGE_TIMEOUT_CONNECT = (
-      "Timed out connecting to Stripe (%s). " +
+      "Timed out connecting to EwStripe (%s). " +
       ERROR_MESSAGE_TIMEOUT_SUFFIX
     ).freeze
 
     ERROR_MESSAGE_TIMEOUT_READ = (
-      "Timed out communicating with Stripe (%s). " +
+      "Timed out communicating with EwStripe (%s). " +
       ERROR_MESSAGE_TIMEOUT_SUFFIX
     ).freeze
 
@@ -514,8 +514,8 @@ module Stripe
     private def check_api_key!(api_key)
       unless api_key
         raise AuthenticationError, "No API key provided. " \
-          'Set your API key using "Stripe.api_key = <API-KEY>". ' \
-          "You can generate API keys from the Stripe web interface. " \
+          'Set your API key using "EwStripe.api_key = <API-KEY>". ' \
+          "You can generate API keys from the EwStripe web interface. " \
           "See https://stripe.com/api for details, or email " \
           "support@stripe.com if you have any questions."
       end
@@ -524,7 +524,7 @@ module Stripe
 
       raise AuthenticationError, "Your API key is invalid, as it contains " \
         "whitespace. (HINT: You can double-check your API key from the " \
-        "Stripe web interface. See https://stripe.com/api for details, or " \
+        "Stripeweb interface. See https://stripe.com/api for details, or " \
         "email support@stripe.com if you have any questions.)"
     end
 
@@ -605,7 +605,7 @@ module Stripe
         http_status = nil
         request_duration = Util.monotonic_time - request_start if request_start
 
-        if e.is_a?(Stripe::StripeError)
+        if e.is_a?(EwStripe::StripeError)
           error_context = context.dup_from_response_headers(e.http_headers)
           http_status = resp.code.to_i
           log_response(error_context, request_start,
@@ -626,7 +626,7 @@ module Stripe
         end
 
         case e
-        when Stripe::StripeError
+        when EwStripe::StripeError
           raise
         when *NETWORK_ERROR_MESSAGES_MAP.keys
           handle_network_error(e, error_context, num_retries, api_base)
@@ -649,7 +649,7 @@ module Stripe
         path: context.path,
         user_data: {}
       )
-      Stripe::Instrumentation.notify(:request_begin, event)
+      EwStripe::Instrumentation.notify(:request_begin, event)
 
       # This field may be set in the `request_begin` callback. If so, we'll
       # forward it onto `request_end`.
@@ -670,11 +670,11 @@ module Stripe
         request_id: context.request_id,
         user_data: user_data || {}
       )
-      Stripe::Instrumentation.notify(:request_end, event)
+      EwStripe::Instrumentation.notify(:request_end, event)
 
       # The name before `request_begin` was also added. Provided for backwards
       # compatibility.
-      Stripe::Instrumentation.notify(:request, event)
+      EwStripe::Instrumentation.notify(:request, event)
     end
 
     private def general_api_error(status, body)
@@ -824,7 +824,7 @@ module Stripe
 
     private def handle_network_error(error, context, num_retries,
                                      api_base = nil)
-      Util.log_error("Stripe network error",
+      Util.log_error("Stripenetwork error",
                      error_message: error.message,
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id,
@@ -836,7 +836,7 @@ module Stripe
 
       if errors.nil?
         message = "Unexpected error #{error.class.name} communicating " \
-          "with Stripe. Please let us know at support@stripe.com."
+          "with EwStripe. Please let us know at support@stripe.com."
       end
 
       api_base ||= config.api_base
@@ -849,9 +849,9 @@ module Stripe
     end
 
     private def request_headers(api_key, method)
-      user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
-      unless Stripe.app_info.nil?
-        user_agent += " " + format_app_info(Stripe.app_info)
+      user_agent = "EwStripe/v1 RubyBindings/#{EwStripe::VERSION}"
+      unless EwStripe.app_info.nil?
+        user_agent += " " + format_app_info(EwStripe.app_info)
       end
 
       headers = {
@@ -891,7 +891,7 @@ module Stripe
     end
 
     private def log_request(context, num_retries)
-      Util.log_info("Request to Stripe API",
+      Util.log_info("Request to EwStripe API",
                     account: context.account,
                     api_version: context.api_version,
                     idempotency_key: context.idempotency_key,
@@ -907,7 +907,7 @@ module Stripe
     end
 
     private def log_response(context, request_start, status, body)
-      Util.log_info("Response from Stripe API",
+      Util.log_info("Response from EwStripe API",
                     account: context.account,
                     api_version: context.api_version,
                     elapsed: Util.monotonic_time - request_start,
@@ -962,7 +962,7 @@ module Stripe
       # context information because a response that we've received from the API
       # contains information that's more authoritative than what we started
       # with for a request. For example, we should trust whatever came back in
-      # a `Stripe-Version` header beyond what configuration information that we
+      # a `EwStripe-Version` header beyond what configuration information that we
       # might have had available.
       def dup_from_response_headers(headers)
         context = dup
@@ -1018,8 +1018,8 @@ module Stripe
                        "(#{RUBY_RELEASE_DATE})"
 
         {
-          application: Stripe.app_info,
-          bindings_version: Stripe::VERSION,
+          application: EwStripe.app_info,
+          bindings_version: EwStripe::VERSION,
           lang: "ruby",
           lang_version: lang_version,
           platform: RUBY_PLATFORM,
@@ -1034,7 +1034,7 @@ module Stripe
     # StripeRequestMetrics tracks metadata to be reported to stripe for metrics
     # collection
     class StripeRequestMetrics
-      # The Stripe request ID of the response.
+      # The EwStripe request ID of the response.
       attr_accessor :request_id
 
       # Request duration in milliseconds

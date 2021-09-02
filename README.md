@@ -1,12 +1,12 @@
-# Stripe Ruby Library
+# EwStripe Ruby Library
 
 [![Gem Version](https://badge.fury.io/rb/stripe.svg)](https://badge.fury.io/rb/stripe)
 [![Build Status](https://travis-ci.org/stripe/stripe-ruby.svg?branch=master)](https://travis-ci.org/stripe/stripe-ruby)
 
-The Stripe Ruby library provides convenient access to the Stripe API from
+The EwStripe Ruby library provides convenient access to the EwStripe API from
 applications written in the Ruby language. It includes a pre-defined set of
 classes for API resources that initialize themselves dynamically from API
-responses which makes it compatible with a wide range of versions of the Stripe
+responses which makes it compatible with a wide range of versions of the EwStripe
 API.
 
 The library also provides other features. For example:
@@ -14,7 +14,7 @@ The library also provides other features. For example:
 - Easy configuration path for fast setup and use.
 - Helpers for pagination.
 - Built-in mechanisms for the serialization of parameters according to the
-  expectations of Stripe's API.
+  expectations of EwStripe's API.
 
 ## Documentation
 
@@ -58,30 +58,30 @@ gem 'stripe'
 ## Usage
 
 The library needs to be configured with your account's secret key which is
-available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
+available in your [EwStripe Dashboard][api-keys]. Set `EwStripe.api_key` to its
 value:
 
 ```ruby
 require 'stripe'
-Stripe.api_key = 'sk_test_...'
+EwStripe.api_key = 'sk_test_...'
 
 # list customers
-Stripe::Customer.list()
+EwStripe::Customer.list()
 
 # retrieve single customer
-Stripe::Customer.retrieve('cus_123456789')
+EwStripe::Customer.retrieve('cus_123456789')
 ```
 
 ### Per-request Configuration
 
 For apps that need to use multiple keys during the lifetime of a process, like
-one that uses [Stripe Connect][connect], it's also possible to set a
+one that uses [EwStripe Connect][connect], it's also possible to set a
 per-request key and/or account:
 
 ```ruby
 require "stripe"
 
-Stripe::Customer.list(
+EwStripe::Customer.list(
   {},
   {
     api_key: 'sk_test_...',
@@ -90,7 +90,7 @@ Stripe::Customer.list(
   }
 )
 
-Stripe::Customer.retrieve(
+EwStripe::Customer.retrieve(
   'cus_123456789',
   {
     api_key: 'sk_test_...',
@@ -99,7 +99,7 @@ Stripe::Customer.retrieve(
   }
 )
 
-Stripe::Customer.retrieve(
+EwStripe::Customer.retrieve(
   {
     id: 'cus_123456789',
     expand: %w(balance_transaction)
@@ -110,7 +110,7 @@ Stripe::Customer.retrieve(
   }
 )
 
-Stripe::Customer.capture(
+EwStripe::Customer.capture(
   'cus_123456789',
   {},
   {
@@ -136,19 +136,19 @@ Get access to response objects by initializing a client and using its `request`
 method:
 
 ```ruby
-client = Stripe::StripeClient.new
+client = EwStripe::StripeClient.new
 customer, resp = client.request do
-  Stripe::Customer.retrieve('cus_123456789',)
+  EwStripe::Customer.retrieve('cus_123456789',)
 end
 puts resp.request_id
 ```
 
 ### Configuring a proxy
 
-A proxy can be configured with `Stripe.proxy`:
+A proxy can be configured with `EwStripe.proxy`:
 
 ```ruby
-Stripe.proxy = 'https://user:pass@example.com:1234'
+EwStripe.proxy = 'https://user:pass@example.com:1234'
 ```
 
 ### Configuring an API Version
@@ -157,7 +157,7 @@ By default, the library will use the API version pinned to the account making
 a request. This can be overridden with this global option:
 
 ```ruby
-Stripe.api_version = '2018-02-28'
+EwStripe.api_version = '2018-02-28'
 ```
 
 See [versioning in the API reference][versioning] for more information.
@@ -168,7 +168,7 @@ By default, the library will use its own internal bundle of known CA
 certificates, but it's possible to configure your own:
 
 ```ruby
-Stripe.ca_bundle_path = 'path/to/ca/bundle'
+EwStripe.ca_bundle_path = 'path/to/ca/bundle'
 ```
 
 ### Configuring Automatic Retries
@@ -177,7 +177,7 @@ You can enable automatic retries on requests that fail due to a transient
 problem by configuring the maximum number of retries:
 
 ```ruby
-Stripe.max_network_retries = 2
+EwStripe.max_network_retries = 2
 ```
 
 Various errors can trigger a retry, like a connection error or a timeout, and
@@ -191,9 +191,9 @@ retries are safe.
 Open, read and write timeouts are configurable:
 
 ```ruby
-Stripe.open_timeout = 30 # in seconds
-Stripe.read_timeout = 80
-Stripe.write_timeout = 30 # only supported on Ruby 2.6+
+EwStripe.open_timeout = 30 # in seconds
+EwStripe.read_timeout = 80
+EwStripe.write_timeout = 30 # only supported on Ruby 2.6+
 ```
 
 Please take care to set conservative read timeouts. Some API requests can take
@@ -214,16 +214,16 @@ There are a few options for enabling it:
    $ export STRIPE_LOG=info
    ```
 
-2. Set `Stripe.log_level`:
+2. Set `EwStripe.log_level`:
 
    ```ruby
-   Stripe.log_level = Stripe::LEVEL_INFO
+   EwStripe.log_level = EwStripe::LEVEL_INFO
    ```
 
 ### Instrumentation
 
 The library has various hooks that user code can tie into by passing a block to
-`Stripe::Instrumentation.subscribe` to be notified about specific events.
+`EwStripe::Instrumentation.subscribe` to be notified about specific events.
 
 #### `request_begin`
 
@@ -259,7 +259,7 @@ a success or error. Receives `RequestEndEvent` with the following properties:
 For example:
 
 ```ruby
-Stripe::Instrumentation.subscribe(:request_end) do |request_event|
+EwStripe::Instrumentation.subscribe(:request_end) do |request_event|
   tags = {
     method: request_event.method,
     resource: request_event.path.split('/')[2],
@@ -276,21 +276,21 @@ If you're writing a plugin that uses the library, we'd appreciate it if you
 identified using `#set_app_info`:
 
 ```ruby
-Stripe.set_app_info('MyAwesomePlugin', version: '1.2.34', url: 'https://myawesomeplugin.info')
+EwStripe.set_app_info('MyAwesomePlugin', version: '1.2.34', url: 'https://myawesomeplugin.info')
 ```
 
-This information is passed along when the library makes calls to the Stripe
+This information is passed along when the library makes calls to the EwStripe
 API.
 
 ### Request latency telemetry
 
-By default, the library sends request latency telemetry to Stripe. These
-numbers help Stripe improve the overall latency of its API for all users.
+By default, the library sends request latency telemetry to EwStripe. These
+numbers help EwStripe improve the overall latency of its API for all users.
 
 You can disable this behavior if you prefer:
 
 ```ruby
-Stripe.enable_telemetry = false
+EwStripe.enable_telemetry = false
 ```
 
 ## Development

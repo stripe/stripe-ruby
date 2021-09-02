@@ -1,11 +1,11 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class Quote < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Save
+    extend EwStripe::APIOperations::Create
+    extend EwStripe::APIOperations::List
+    include EwStripe::APIOperations::Save
 
     OBJECT_NAME = "quote"
 
@@ -65,7 +65,7 @@ module Stripe
         raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
       end
 
-      config = opts[:client]&.config || Stripe.config
+      config = opts[:client]&.config || EwStripe.config
 
       request_stream(
         method: :get,
@@ -88,7 +88,7 @@ module Stripe
         raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
       end
 
-      config = opts[:client]&.config || Stripe.config
+      config = opts[:client]&.config || EwStripe.config
 
       resp = execute_resource_request_stream(
         :get,

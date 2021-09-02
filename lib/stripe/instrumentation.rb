@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class Instrumentation
     # Event emitted on `request_begin` callback.
     class RequestBeginEvent

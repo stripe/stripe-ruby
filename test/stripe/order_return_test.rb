@@ -2,20 +2,20 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class OrderReturnTest < Test::Unit::TestCase
     should "be listable" do
-      order_returns = Stripe::OrderReturn.list
-      assert_requested :get, "#{Stripe.api_base}/v1/order_returns"
+      order_returns = EwStripe::OrderReturn.list
+      assert_requested :get, "#{EwStripe.api_base}/v1/order_returns"
       assert order_returns.data.is_a?(Array)
-      assert order_returns.data[0].is_a?(Stripe::OrderReturn)
+      assert order_returns.data[0].is_a?(EwStripe::OrderReturn)
     end
 
     should "be retrievable" do
-      order_return = Stripe::OrderReturn.retrieve("orret_123")
+      order_return = EwStripe::OrderReturn.retrieve("orret_123")
       assert_requested :get,
-                       "#{Stripe.api_base}/v1/order_returns/orret_123"
-      assert order_return.is_a?(Stripe::OrderReturn)
+                       "#{EwStripe.api_base}/v1/order_returns/orret_123"
+      assert order_return.is_a?(EwStripe::OrderReturn)
     end
   end
 end

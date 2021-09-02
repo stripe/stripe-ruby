@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   module OAuth
     module OAuthOperations
       extend APIOperations::Request::ClassMethods
@@ -15,11 +15,11 @@ module Stripe
     end
 
     def self.get_client_id(params = {})
-      client_id = params[:client_id] || Stripe.client_id
+      client_id = params[:client_id] || EwStripe.client_id
       unless client_id
         raise AuthenticationError, "No client_id provided. " \
-          'Set your client_id using "Stripe.client_id = <CLIENT-ID>". ' \
-          "You can find your client_ids in your Stripe dashboard at " \
+          'Set your client_id using "EwStripe.client_id = <CLIENT-ID>". ' \
+          "You can find your client_ids in your EwStripe dashboard at " \
           "https://dashboard.stripe.com/account/applications/settings, " \
           "after registering your account as a platform. See " \
           "https://stripe.com/docs/connect/standalone-accounts for details, " \

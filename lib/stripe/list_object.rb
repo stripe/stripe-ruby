@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class ListObject < StripeObject
     include Enumerable
-    include Stripe::APIOperations::List
-    include Stripe::APIOperations::Request
-    include Stripe::APIOperations::Create
+    include EwStripe::APIOperations::List
+    include EwStripe::APIOperations::Request
+    include EwStripe::APIOperations::Create
 
     OBJECT_NAME = "list"
 
@@ -51,7 +51,7 @@ module Stripe
     # Iterates through each resource in all pages, making additional fetches to
     # the API as necessary.
     #
-    # The default iteration direction is forwards according to Stripe's API
+    # The default iteration direction is forwards according to EwStripe's API
     # "natural" ordering direction -- newer objects first, and moving towards
     # older objects.
     #

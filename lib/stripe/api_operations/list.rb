@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   module APIOperations
     module List
       def list(filters = {}, opts = {})

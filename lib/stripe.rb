@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Stripe Ruby bindings
+# EwStripe Ruby bindings
 # API spec at https://stripe.com/docs/api
 require "cgi"
 require "json"
@@ -47,7 +47,7 @@ require "stripe/resources"
 # OAuth
 require "stripe/oauth"
 
-module Stripe
+module EwStripe
   DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"
 
   # map to the same values as the standard library's logger
@@ -57,7 +57,7 @@ module Stripe
 
   @app_info = nil
 
-  @config = Stripe::StripeConfiguration.setup
+  @config = EwStripe::StripeConfiguration.setup
 
   class << self
     extend Forwardable
@@ -101,7 +101,7 @@ module Stripe
 
   # Sets some basic information about the running application that's sent along
   # with API requests. Useful for plugin authors to identify their plugin when
-  # communicating with Stripe.
+  # communicating with EwStripe.
   #
   # Takes a name and optional  partner program ID, plugin URL, and version.
   def self.set_app_info(name, partner_id: nil, url: nil, version: nil)
@@ -114,4 +114,4 @@ module Stripe
   end
 end
 
-Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?
+EwStripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

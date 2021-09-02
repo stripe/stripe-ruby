@@ -2,7 +2,7 @@
 
 require "cgi"
 
-module Stripe
+module EwStripe
   module Util
     # Options that a user is allowed to specify.
     OPTS_USER_SPECIFIED = Set[
@@ -40,7 +40,7 @@ module Stripe
     end
 
     def self.object_classes
-      @object_classes ||= Stripe::ObjectTypes.object_names_to_classes
+      @object_classes ||= EwStripe::ObjectTypes.object_names_to_classes
     end
 
     def self.object_name_matches_class?(object_name, klass)
@@ -76,32 +76,32 @@ module Stripe
     end
 
     def self.log_error(message, data = {})
-      config = data.delete(:config) || Stripe.config
-      logger = config.logger || Stripe.logger
+      config = data.delete(:config) || EwStripe.config
+      logger = config.logger || EwStripe.logger
       if !logger.nil? ||
-         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_ERROR
-        log_internal(message, data, color: :cyan, level: Stripe::LEVEL_ERROR,
-                                    logger: Stripe.logger, out: $stderr)
+         !config.log_level.nil? && config.log_level <= EwStripe::LEVEL_ERROR
+        log_internal(message, data, color: :cyan, level: EwStripe::LEVEL_ERROR,
+                                    logger: EwStripe.logger, out: $stderr)
       end
     end
 
     def self.log_info(message, data = {})
-      config = data.delete(:config) || Stripe.config
-      logger = config.logger || Stripe.logger
+      config = data.delete(:config) || EwStripe.config
+      logger = config.logger || EwStripe.logger
       if !logger.nil? ||
-         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_INFO
-        log_internal(message, data, color: :cyan, level: Stripe::LEVEL_INFO,
-                                    logger: Stripe.logger, out: $stdout)
+         !config.log_level.nil? && config.log_level <= EwStripe::LEVEL_INFO
+        log_internal(message, data, color: :cyan, level: EwStripe::LEVEL_INFO,
+                                    logger: EwStripe.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
-      config = data.delete(:config) || Stripe.config
-      logger = config.logger || Stripe.logger
+      config = data.delete(:config) || EwStripe.config
+      logger = config.logger || EwStripe.logger
       if !logger.nil? ||
-         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_DEBUG
-        log_internal(message, data, color: :blue, level: Stripe::LEVEL_DEBUG,
-                                    logger: Stripe.logger, out: $stdout)
+         !config.log_level.nil? && config.log_level <= EwStripe::LEVEL_DEBUG
+        log_internal(message, data, color: :blue, level: EwStripe::LEVEL_DEBUG,
+                                    logger: EwStripe.logger, out: $stdout)
       end
     end
 

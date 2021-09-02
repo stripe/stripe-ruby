@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class ThreeDSecure < APIResource
-    extend Stripe::APIOperations::Create
+    extend EwStripe::APIOperations::Create
 
     OBJECT_NAME = "three_d_secure"
 

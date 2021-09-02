@@ -3,7 +3,7 @@
 
 # rubocop:disable Metrics/MethodLength
 
-module Stripe
+module EwStripe
   module ObjectTypes
     def self.object_names_to_classes
       {

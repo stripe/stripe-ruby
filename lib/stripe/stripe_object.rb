@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class StripeObject
     include Enumerable
 
@@ -83,13 +83,13 @@ module Stripe
     end
 
     def self.construct_from(values, opts = {})
-      values = Stripe::Util.symbolize_names(values)
+      values = EwStripe::Util.symbolize_names(values)
 
       # work around protected #initialize_from for now
       new(values[:id]).send(:initialize_from, values, opts)
     end
 
-    # Determines the equality of two Stripe objects. Stripe objects are
+    # Determines the equality of two EwStripe objects. EwStripe objects are
     # considered to be equal if they have the same set of values and each one
     # of those values is the same.
     def ==(other)
@@ -97,14 +97,14 @@ module Stripe
         @values == other.instance_variable_get(:@values)
     end
 
-    # Hash equality. As with `#==`, we consider two equivalent Stripe objects
+    # Hash equality. As with `#==`, we consider two equivalent EwStripe objects
     # equal.
     def eql?(other)
       # Defer to the implementation on `#==`.
       self == other
     end
 
-    # As with equality in `#==` and `#eql?`, we hash two Stripe objects to the
+    # As with equality in `#==` and `#eql?`, we hash two EwStripe objects to the
     # same value if they're equivalent objects.
     def hash
       @values.hash
@@ -406,7 +406,7 @@ module Stripe
         raise NoMethodError,
               e.message + ".  HINT: The '#{name}' attribute was set in the " \
               "past, however.  It was then wiped when refreshing the object " \
-              "with the result returned by Stripe's API, probably as a " \
+              "with the result returned by EwStripe's API, probably as a " \
               "result of a save().  The attributes currently available on " \
               "this object are: #{@values.keys.join(', ')}"
       end

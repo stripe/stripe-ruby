@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class AlipayAccount < APIResource
-    include Stripe::APIOperations::Save
-    include Stripe::APIOperations::Delete
+    include EwStripe::APIOperations::Save
+    include EwStripe::APIOperations::Delete
 
     OBJECT_NAME = "alipay_account"
 

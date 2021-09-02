@@ -1,11 +1,11 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class PaymentIntent < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Save
+    extend EwStripe::APIOperations::Create
+    extend EwStripe::APIOperations::List
+    include EwStripe::APIOperations::Save
 
     OBJECT_NAME = "payment_intent"
 

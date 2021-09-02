@@ -2,11 +2,11 @@
 
 require ::File.expand_path("../../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   module Checkout
     class SessionTest < Test::Unit::TestCase
       should "be creatable" do
-        session = Stripe::Checkout::Session.create(
+        session = EwStripe::Checkout::Session.create(
           cancel_url: "https://stripe.com/cancel",
           client_reference_id: "1234",
           line_items: [
@@ -27,25 +27,25 @@ module Stripe
           payment_method_types: ["card"],
           success_url: "https://stripe.com/success"
         )
-        assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions"
-        assert session.is_a?(Stripe::Checkout::Session)
+        assert_requested :post, "#{EwStripe.api_base}/v1/checkout/sessions"
+        assert session.is_a?(EwStripe::Checkout::Session)
       end
 
       should "be retrievable" do
-        charge = Stripe::Checkout::Session.retrieve("cs_123")
-        assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_123"
-        assert charge.is_a?(Stripe::Checkout::Session)
+        charge = EwStripe::Checkout::Session.retrieve("cs_123")
+        assert_requested :get, "#{EwStripe.api_base}/v1/checkout/sessions/cs_123"
+        assert charge.is_a?(EwStripe::Checkout::Session)
       end
 
       context "#list_line_items" do
         should "list the session's line items" do
-          sources = Stripe::Checkout::Session.list_line_items(
+          sources = EwStripe::Checkout::Session.list_line_items(
             "cs_123"
           )
-          assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_123/line_items"
-          assert sources.is_a?(Stripe::ListObject)
+          assert_requested :get, "#{EwStripe.api_base}/v1/checkout/sessions/cs_123/line_items"
+          assert sources.is_a?(EwStripe::ListObject)
           assert sources.data.is_a?(Array)
-          assert sources.data[0].is_a?(Stripe::LineItem)
+          assert sources.data[0].is_a?(EwStripe::LineItem)
         end
       end
     end

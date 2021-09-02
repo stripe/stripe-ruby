@@ -2,14 +2,14 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class OAuthTest < Test::Unit::TestCase
     setup do
-      Stripe.client_id = "ca_test"
+      EwStripe.client_id = "ca_test"
     end
 
     teardown do
-      Stripe.client_id = nil
+      EwStripe.client_id = nil
     end
 
     context ".authorize_url" do
@@ -46,7 +46,7 @@ module Stripe
       end
 
       should "override the api base path when a StripeClient is provided" do
-        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+        client = EwStripe::StripeClient.new(connect_base: "https://other.stripe.com")
         uri_str = OAuth.authorize_url({}, client: client)
 
         uri = URI.parse(uri_str)
@@ -58,7 +58,7 @@ module Stripe
       should "exchange a code for an access token" do
         # The OpenAPI fixtures don't cover the OAuth endpoints, so we just
         # stub the request manually.
-        stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+        stub_request(:post, "#{EwStripe.connect_base}/oauth/token")
           .with(body: {
             "grant_type" => "authorization_code",
             "code" => "this_is_an_authorization_code",
@@ -77,7 +77,7 @@ module Stripe
       end
 
       should "override the API key when client_secret is passed" do
-        stub_request(:post, "#{Stripe.connect_base}/oauth/token")
+        stub_request(:post, "#{EwStripe.connect_base}/oauth/token")
           .with(body: {
             "client_secret" => "client_secret_override",
             "grant_type" => "authorization_code",
@@ -106,7 +106,7 @@ module Stripe
                                          stripe_user_id: "acct_test",
                                          stripe_publishable_key: "pk_test"))
 
-        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+        client = EwStripe::StripeClient.new(connect_base: "https://other.stripe.com")
         resp = OAuth.token(
           { grant_type: "authorization_code", code: "this_is_an_authorization_code" },
           client: client
@@ -120,7 +120,7 @@ module Stripe
       should "deauthorize an account" do
         # The OpenAPI fixtures don't cover the OAuth endpoints, so we just
         # stub the request manually.
-        stub_request(:post, "#{Stripe.connect_base}/oauth/deauthorize")
+        stub_request(:post, "#{EwStripe.connect_base}/oauth/deauthorize")
           .with(body: {
             "client_id" => "ca_test",
             "stripe_user_id" => "acct_test_deauth",
@@ -139,7 +139,7 @@ module Stripe
           })
           .to_return(body: JSON.generate(stripe_user_id: "acct_test_deauth"))
 
-        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+        client = EwStripe::StripeClient.new(connect_base: "https://other.stripe.com")
         resp = OAuth.deauthorize({ stripe_user_id: "acct_test_deauth" }, client: client)
 
         assert_equal("acct_test_deauth", resp.stripe_user_id)

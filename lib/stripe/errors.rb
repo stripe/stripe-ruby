@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Stripe
-  # StripeError is the base error from which all other more specific Stripe
+module EwStripe
+  # StripeError is the base error from which all other more specific EwStripe
   # errors derive.
   class StripeError < StandardError
     attr_reader :message
@@ -53,12 +53,12 @@ module Stripe
   end
 
   # AuthenticationError is raised when invalid credentials are used to connect
-  # to Stripe's servers.
+  # to EwStripe's servers.
   class AuthenticationError < StripeError
   end
 
   # APIConnectionError is raised in the event that the SDK can't connect to
-  # Stripe's servers. That can be for a variety of different reasons from a
+  # EwStripe's servers. That can be for a variety of different reasons from a
   # downed network to a bad TLS certificate.
   class APIConnectionError < StripeError
   end
@@ -109,7 +109,7 @@ module Stripe
   end
 
   # RateLimitError is raised in cases where an account is putting too much load
-  # on Stripe's API servers (usually by performing too many requests). Please
+  # on EwStripe's API servers (usually by performing too many requests). Please
   # back off on request rate.
   class RateLimitError < StripeError
   end

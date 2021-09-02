@@ -1,13 +1,13 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
-  # Recipients objects are deprecated. Please use Stripe Connect instead.
+module EwStripe
+  # Recipients objects are deprecated. Please use EwStripe Connect instead.
   class Recipient < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Save
+    extend EwStripe::APIOperations::Create
+    include EwStripe::APIOperations::Delete
+    extend EwStripe::APIOperations::List
+    include EwStripe::APIOperations::Save
 
     OBJECT_NAME = "recipient"
   end

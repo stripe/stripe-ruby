@@ -2,19 +2,19 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class ExchangeRateTest < Test::Unit::TestCase
     should "be listable" do
-      list_rates = Stripe::ExchangeRate.list
-      assert_requested :get, "#{Stripe.api_base}/v1/exchange_rates"
+      list_rates = EwStripe::ExchangeRate.list
+      assert_requested :get, "#{EwStripe.api_base}/v1/exchange_rates"
       assert list_rates.data.is_a?(Array)
-      assert list_rates.data.first.is_a?(Stripe::ExchangeRate)
+      assert list_rates.data.first.is_a?(EwStripe::ExchangeRate)
     end
 
     should "be retrievable" do
-      rates = Stripe::ExchangeRate.retrieve("usd")
-      assert_requested :get, "#{Stripe.api_base}/v1/exchange_rates/usd"
-      assert rates.is_a?(Stripe::ExchangeRate)
+      rates = EwStripe::ExchangeRate.retrieve("usd")
+      assert_requested :get, "#{EwStripe.api_base}/v1/exchange_rates/usd"
+      assert rates.is_a?(EwStripe::ExchangeRate)
     end
   end
 end

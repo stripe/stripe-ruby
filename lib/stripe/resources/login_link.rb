@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class LoginLink < APIResource
     OBJECT_NAME = "login_link"
 

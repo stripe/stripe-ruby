@@ -2,23 +2,23 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class PriceTest < Test::Unit::TestCase
     should "be listable" do
-      prices = Stripe::Price.list
-      assert_requested :get, "#{Stripe.api_base}/v1/prices"
+      prices = EwStripe::Price.list
+      assert_requested :get, "#{EwStripe.api_base}/v1/prices"
       assert prices.data.is_a?(Array)
-      assert prices.data[0].is_a?(Stripe::Price)
+      assert prices.data[0].is_a?(EwStripe::Price)
     end
 
     should "be retrievable" do
-      price = Stripe::Price.retrieve("price_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/prices/price_123"
-      assert price.is_a?(Stripe::Price)
+      price = EwStripe::Price.retrieve("price_123")
+      assert_requested :get, "#{EwStripe.api_base}/v1/prices/price_123"
+      assert price.is_a?(EwStripe::Price)
     end
 
     should "be creatable" do
-      price = Stripe::Price.create(
+      price = EwStripe::Price.create(
         unit_amount: 5000,
         currency: "usd",
         recurring: {
@@ -28,21 +28,21 @@ module Stripe
           name: "Product name",
         }
       )
-      assert_requested :post, "#{Stripe.api_base}/v1/prices"
-      assert price.is_a?(Stripe::Price)
+      assert_requested :post, "#{EwStripe.api_base}/v1/prices"
+      assert price.is_a?(EwStripe::Price)
     end
 
     should "be saveable" do
-      price = Stripe::Price.retrieve("price_123")
+      price = EwStripe::Price.retrieve("price_123")
       price.metadata["key"] = "value"
       price.save
-      assert_requested :post, "#{Stripe.api_base}/v1/prices/#{price.id}"
+      assert_requested :post, "#{EwStripe.api_base}/v1/prices/#{price.id}"
     end
 
     should "be updateable" do
-      price = Stripe::Price.update("price_123", metadata: { foo: "bar" })
-      assert_requested :post, "#{Stripe.api_base}/v1/prices/price_123"
-      assert price.is_a?(Stripe::Price)
+      price = EwStripe::Price.update("price_123", metadata: { foo: "bar" })
+      assert_requested :post, "#{EwStripe.api_base}/v1/prices/price_123"
+      assert price.is_a?(EwStripe::Price)
     end
   end
 end

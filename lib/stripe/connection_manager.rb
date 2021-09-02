@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   # Manages connections across multiple hosts which is useful because the
   # library may connect to multiple hosts during a typical session (main API,
   # Connect, Uploads). Ruby doesn't provide an easy way to make this happen
@@ -17,7 +17,7 @@ module Stripe
     attr_reader :last_used
     attr_reader :config
 
-    def initialize(config = Stripe.config)
+    def initialize(config = EwStripe.config)
       @config = config
       @active_connections = {}
       @last_used = Util.monotonic_time
@@ -172,7 +172,7 @@ module Stripe
       @verify_ssl_warned = true
       warn("WARNING: Running without SSL cert verification. " \
         "You should never do this in production. " \
-        "Execute `Stripe.verify_ssl_certs = true` to enable " \
+        "Execute `EwStripe.verify_ssl_certs = true` to enable " \
         "verification.")
     end
   end

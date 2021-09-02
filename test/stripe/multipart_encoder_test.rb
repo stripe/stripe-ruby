@@ -2,7 +2,7 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class MultipartEncoderTest < Test::Unit::TestCase
     should "multipart encode parameters" do
       Tempfile.create("image.jpg") do |f|

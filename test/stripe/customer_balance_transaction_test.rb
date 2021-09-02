@@ -2,11 +2,11 @@
 
 require ::File.expand_path("../../test_helper", __FILE__)
 
-module Stripe
+module EwStripe
   class CustomerBalanceTransactionTest < Test::Unit::TestCase
     context "#resource_url" do
       should "return a resource URL" do
-        transaction = Stripe::CustomerBalanceTransaction.construct_from(
+        transaction = EwStripe::CustomerBalanceTransaction.construct_from(
           id: "cbtxn_123",
           customer: "cus_123"
         )
@@ -15,7 +15,7 @@ module Stripe
       end
 
       should "raise without a customer" do
-        transaction = Stripe::CustomerBalanceTransaction.construct_from(id: "cbtxn_123")
+        transaction = EwStripe::CustomerBalanceTransaction.construct_from(id: "cbtxn_123")
         assert_raises NotImplementedError do
           transaction.resource_url
         end
@@ -24,13 +24,13 @@ module Stripe
 
     should "raise on #retrieve" do
       assert_raises NotImplementedError do
-        Stripe::CustomerBalanceTransaction.retrieve("cbtxn_123")
+        EwStripe::CustomerBalanceTransaction.retrieve("cbtxn_123")
       end
     end
 
     should "raise on #update" do
       assert_raises NotImplementedError do
-        Stripe::CustomerBalanceTransaction.update("cbtxn_123")
+        EwStripe::CustomerBalanceTransaction.update("cbtxn_123")
       end
     end
   end

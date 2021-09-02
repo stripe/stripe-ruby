@@ -2,15 +2,15 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class ListObjectTest < Test::Unit::TestCase
     should "provide .empty_list" do
-      list = Stripe::ListObject.empty_list
+      list = EwStripe::ListObject.empty_list
       assert list.empty?
     end
 
     should "provide #count via enumerable" do
-      list = Stripe::ListObject.construct_from(data: [{ object: "charge" }])
+      list = EwStripe::ListObject.construct_from(data: [{ object: "charge" }])
       assert_equal 1, list.count
     end
 
@@ -21,7 +21,7 @@ module Stripe
         { id: 3 },
       ]
       expected = Util.convert_to_stripe_object(arr, {})
-      list = Stripe::ListObject.construct_from(data: arr)
+      list = EwStripe::ListObject.construct_from(data: arr)
       assert_equal expected, list.each.to_a
     end
 
@@ -32,7 +32,7 @@ module Stripe
         { id: 3 },
       ]
       expected = Util.convert_to_stripe_object(arr.reverse, {})
-      list = Stripe::ListObject.construct_from(data: arr)
+      list = EwStripe::ListObject.construct_from(data: arr)
       assert_equal expected, list.reverse_each.to_a
     end
 
@@ -58,10 +58,10 @@ module Stripe
       # a starting point to fetch two more pages. The second page indicates
       # that there are no more elements by setting `has_more` to `false`, and
       # iteration stops.
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { starting_after: "1", limit: "3" })
         .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }, { id: 4 }], has_more: true, url: "/things"))
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { starting_after: "4", limit: "3" })
         .to_return(body: JSON.generate(data: [{ id: 5 }, { id: 6 }], has_more: false, url: "/things"))
 
@@ -93,10 +93,10 @@ module Stripe
       # a starting point to fetch two more pages. The second page indicates
       # that there are no more elements by setting `has_more` to `false`, and
       # iteration stops.
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { ending_before: "6", limit: "3" })
         .to_return(body: JSON.generate(data: [{ id: 3 }, { id: 4 }, { id: 5 }], has_more: true, url: "/things"))
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { ending_before: "3", limit: "3" })
         .to_return(body: JSON.generate(data: [{ id: 1 }, { id: 2 }], has_more: false, url: "/things"))
 
@@ -114,7 +114,7 @@ module Stripe
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: true,
                                            url: "/things")
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { starting_after: "1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }], has_more: false))
 
@@ -127,9 +127,9 @@ module Stripe
     end
 
     should "provide #empty?" do
-      list = Stripe::ListObject.construct_from(data: [])
+      list = EwStripe::ListObject.construct_from(data: [])
       assert list.empty?
-      list = Stripe::ListObject.construct_from(data: [{}])
+      list = EwStripe::ListObject.construct_from(data: [{}])
       refute list.empty?
     end
 
@@ -141,7 +141,7 @@ module Stripe
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: true,
                                            url: "/things")
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { starting_after: "1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
       next_list = list.next_page
@@ -153,7 +153,7 @@ module Stripe
                                            has_more: true,
                                            url: "/things")
       list.filters = { expand: ["data.source"], limit: 3 }
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { "expand[]" => "data.source", "limit" => "3", "starting_after" => "1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
       next_list = list.next_page
@@ -165,7 +165,7 @@ module Stripe
                                            has_more: false,
                                            url: "/things")
       next_list = list.next_page
-      assert_equal Stripe::ListObject.empty_list, next_list
+      assert_equal EwStripe::ListObject.empty_list, next_list
     end
 
     #
@@ -176,7 +176,7 @@ module Stripe
       list = TestListObject.construct_from(data: [{ id: 2 }],
                                            has_more: true,
                                            url: "/things")
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { ending_before: "2" })
         .to_return(body: JSON.generate(data: [{ id: 1 }], has_more: false))
       next_list = list.previous_page
@@ -188,7 +188,7 @@ module Stripe
                                            has_more: true,
                                            url: "/things")
       list.filters = { expand: ["data.source"], limit: 3 }
-      stub_request(:get, "#{Stripe.api_base}/things")
+      stub_request(:get, "#{EwStripe.api_base}/things")
         .with(query: { "expand[]" => "data.source", "limit" => "3", "ending_before" => "2" })
         .to_return(body: JSON.generate(data: [{ id: 1 }], has_more: false))
       next_list = list.previous_page
@@ -198,5 +198,5 @@ module Stripe
 end
 
 # A helper class with a URL that allows us to try out pagination.
-class TestListObject < Stripe::ListObject
+class TestListObject < EwStripe::ListObject
 end

@@ -2,21 +2,21 @@
 
 require ::File.expand_path("../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   class UtilTest < Test::Unit::TestCase
     context "OPTS_COPYABLE" do
       should "include :apibase" do
-        assert_include Stripe::Util::OPTS_COPYABLE, :api_base
+        assert_include EwStripe::Util::OPTS_COPYABLE, :api_base
       end
     end
 
     context "OPTS_PERSISTABLE" do
       should "include :client" do
-        assert_include Stripe::Util::OPTS_PERSISTABLE, :client
+        assert_include EwStripe::Util::OPTS_PERSISTABLE, :client
       end
 
       should "not include :idempotency_key" do
-        refute_includes Stripe::Util::OPTS_PERSISTABLE, :idempotency_key
+        refute_includes EwStripe::Util::OPTS_PERSISTABLE, :idempotency_key
       end
     end
 
@@ -34,16 +34,16 @@ module Stripe
       }
       assert_equal(
         "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[0]=0&e[1]=1&f=",
-        Stripe::Util.encode_parameters(params)
+        EwStripe::Util.encode_parameters(params)
       )
     end
 
     should "#url_encode should prepare strings for HTTP" do
-      assert_equal "foo",      Stripe::Util.url_encode("foo")
-      assert_equal "foo",      Stripe::Util.url_encode(:foo)
-      assert_equal "foo%2B",   Stripe::Util.url_encode("foo+")
-      assert_equal "foo%26",   Stripe::Util.url_encode("foo&")
-      assert_equal "foo[bar]", Stripe::Util.url_encode("foo[bar]")
+      assert_equal "foo",      EwStripe::Util.url_encode("foo")
+      assert_equal "foo",      EwStripe::Util.url_encode(:foo)
+      assert_equal "foo%2B",   EwStripe::Util.url_encode("foo+")
+      assert_equal "foo%26",   EwStripe::Util.url_encode("foo&")
+      assert_equal "foo[bar]", EwStripe::Util.url_encode("foo[bar]")
     end
 
     should "#flatten_params should encode parameters according to Rails convention" do
@@ -74,7 +74,7 @@ module Stripe
         ["f[0][ghi]", "2"],
         ["f[1][foo]", "3"],
         ["f[1][bar]", "4"],
-      ], Stripe::Util.flatten_params(params))
+      ], EwStripe::Util.flatten_params(params))
     end
 
     should "#symbolize_names should convert names to symbols" do
@@ -97,13 +97,13 @@ module Stripe
         },
       }
 
-      symbolized = Stripe::Util.symbolize_names(start)
+      symbolized = EwStripe::Util.symbolize_names(start)
       assert_equal(finish, symbolized)
     end
 
     should "#normalize_opts should reject nil keys" do
-      assert_raise { Stripe::Util.normalize_opts(nil) }
-      assert_raise { Stripe::Util.normalize_opts(api_key: nil) }
+      assert_raise { EwStripe::Util.normalize_opts(nil) }
+      assert_raise { EwStripe::Util.normalize_opts(api_key: nil) }
     end
 
     should "#convert_to_stripe_object should pass through unknown types" do
@@ -151,8 +151,8 @@ module Stripe
 
     context ".log_*" do
       setup do
-        @old_log_level = Stripe.log_level
-        Stripe.log_level = nil
+        @old_log_level = EwStripe.log_level
+        EwStripe.log_level = nil
 
         @old_stderr = $stderr
         $stderr = StringIO.new
@@ -162,7 +162,7 @@ module Stripe
       end
 
       teardown do
-        Stripe.log_level = @old_log_level
+        EwStripe.log_level = @old_log_level
         $stderr = @old_stderr
         $stdout = @old_stdout
       end
@@ -174,19 +174,19 @@ module Stripe
         end
 
         should "log if level set to debug" do
-          Stripe.log_level = Stripe::LEVEL_DEBUG
+          EwStripe.log_level = EwStripe::LEVEL_DEBUG
           Util.log_debug("foo")
           assert_equal "message=foo level=debug \n", $stdout.string
         end
 
         should "not log if level set to error" do
-          Stripe.log_level = Stripe::LEVEL_ERROR
+          EwStripe.log_level = EwStripe::LEVEL_ERROR
           Util.log_debug("foo")
           assert_equal "", $stdout.string
         end
 
         should "not log if level set to info" do
-          Stripe.log_level = Stripe::LEVEL_INFO
+          EwStripe.log_level = EwStripe::LEVEL_INFO
           Util.log_debug("foo")
           assert_equal "", $stdout.string
         end
@@ -199,19 +199,19 @@ module Stripe
         end
 
         should "log if level set to debug" do
-          Stripe.log_level = Stripe::LEVEL_DEBUG
+          EwStripe.log_level = EwStripe::LEVEL_DEBUG
           Util.log_error("foo")
           assert_equal "message=foo level=error \n", $stderr.string
         end
 
         should "log if level set to error" do
-          Stripe.log_level = Stripe::LEVEL_ERROR
+          EwStripe.log_level = EwStripe::LEVEL_ERROR
           Util.log_error("foo")
           assert_equal "message=foo level=error \n", $stderr.string
         end
 
         should "log if level set to info" do
-          Stripe.log_level = Stripe::LEVEL_INFO
+          EwStripe.log_level = EwStripe::LEVEL_INFO
           Util.log_error("foo")
           assert_equal "message=foo level=error \n", $stderr.string
         end
@@ -224,19 +224,19 @@ module Stripe
         end
 
         should "log if level set to debug" do
-          Stripe.log_level = Stripe::LEVEL_DEBUG
+          EwStripe.log_level = EwStripe::LEVEL_DEBUG
           Util.log_info("foo")
           assert_equal "message=foo level=info \n", $stdout.string
         end
 
         should "not log if level set to error" do
-          Stripe.log_level = Stripe::LEVEL_ERROR
+          EwStripe.log_level = EwStripe::LEVEL_ERROR
           Util.log_debug("foo")
           assert_equal "", $stdout.string
         end
 
         should "log if level set to info" do
-          Stripe.log_level = Stripe::LEVEL_INFO
+          EwStripe.log_level = EwStripe::LEVEL_INFO
           Util.log_info("foo")
           assert_equal "message=foo level=info \n", $stdout.string
         end
@@ -254,7 +254,7 @@ module Stripe
           message
         }
 
-        Stripe.logger = logger
+        EwStripe.logger = logger
       end
 
       context ".log_debug" do
@@ -340,7 +340,7 @@ module Stripe
         end
 
         Util.send(:log_internal, "message", { foo: "bar" },
-                  color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
+                  color: :green, level: EwStripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "\e[0;32;49mDEBU\e[0m message \e[0;32;49mfoo\e[0m=bar\n",
                      out.string
       end
@@ -348,7 +348,7 @@ module Stripe
       should "log in a data friendly way" do
         out = StringIO.new
         Util.send(:log_internal, "message", { foo: "bar" },
-                  color: :green, level: Stripe::LEVEL_DEBUG, logger: nil, out: out)
+                  color: :green, level: EwStripe::LEVEL_DEBUG, logger: nil, out: out)
         assert_equal "message=message level=debug foo=bar\n",
                      out.string
       end
@@ -364,7 +364,7 @@ module Stripe
         }
 
         Util.send(:log_internal, "message", { foo: "bar" },
-                  color: :green, level: Stripe::LEVEL_DEBUG, logger: logger, out: $stdout)
+                  color: :green, level: EwStripe::LEVEL_DEBUG, logger: logger, out: $stdout)
         assert_equal "message=message foo=bar",
                      out.string
       end

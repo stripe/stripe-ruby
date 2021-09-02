@@ -6,12 +6,12 @@ require "stripe/version"
 
 Gem::Specification.new do |s|
   s.name = "ew-stripe-ruby"
-  s.version = Stripe::VERSION
+  s.version = EwStripe::VERSION
   s.required_ruby_version = ">= 2.3.0"
-  s.summary = "Ruby bindings for the Stripe API"
-  s.description = "Stripe is the easiest way to accept payments online.  " \
+  s.summary = "Ruby bindings for the EwStripe API"
+  s.description = "EwStripe is the easiest way to accept payments online.  " \
                   "See https://stripe.com for details."
-  s.author = "Stripe"
+  s.author = "EwStripe"
   s.email = "support@stripe.com"
   s.homepage = "https://stripe.com/docs/api/ruby"
   s.license = "MIT"

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   module Issuing
-    class CardDetails < Stripe::StripeObject
+    class CardDetails < EwStripe::StripeObject
       OBJECT_NAME = "issuing.card_details"
     end
   end

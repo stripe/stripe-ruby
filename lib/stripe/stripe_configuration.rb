@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   # Configurable options:
   #
   # =ca_bundle_path=
   # The location of a file containing a bundle of CA certificates. By default
   # the library will use an included bundle that can successfully validate
-  # Stripe certificates.
+  # EwStripe certificates.
   #
   # =log_level=
   # When set prompts the library to log some extra information to $stdout and
@@ -63,7 +63,7 @@ module Stripe
     end
 
     def initialize
-      @ca_bundle_path = Stripe::DEFAULT_CA_BUNDLE_PATH
+      @ca_bundle_path = EwStripe::DEFAULT_CA_BUNDLE_PATH
       @enable_telemetry = true
       @verify_ssl_certs = true
 
@@ -83,12 +83,12 @@ module Stripe
     def log_level=(val)
       # Backwards compatibility for values that we briefly allowed
       if val == "debug"
-        val = Stripe::LEVEL_DEBUG
+        val = EwStripe::LEVEL_DEBUG
       elsif val == "info"
-        val = Stripe::LEVEL_INFO
+        val = EwStripe::LEVEL_INFO
       end
 
-      levels = [Stripe::LEVEL_INFO, Stripe::LEVEL_DEBUG, Stripe::LEVEL_ERROR]
+      levels = [EwStripe::LEVEL_INFO, EwStripe::LEVEL_DEBUG, EwStripe::LEVEL_ERROR]
 
       if !val.nil? && !levels.include?(val)
         raise ArgumentError,
@@ -169,7 +169,7 @@ module Stripe
     # when initiating many parallel requests marshaling the certificate store is
     # the most likely point of failure (see issue #382). Any program attempting
     # to leverage this pseudo safety should make a call to this method (i.e.
-    # `Stripe.ca_store`) in their initialization code because it marshals lazily
+    # `EwStripe.ca_store`) in their initialization code because it marshals lazily
     # and is itself not thread safe.
     def ca_store
       @ca_store ||= begin

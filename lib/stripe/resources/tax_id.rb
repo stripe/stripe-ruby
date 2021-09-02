@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-module Stripe
+module EwStripe
   class TaxId < APIResource
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
+    include EwStripe::APIOperations::Delete
+    extend EwStripe::APIOperations::List
 
     OBJECT_NAME = "tax_id"
 

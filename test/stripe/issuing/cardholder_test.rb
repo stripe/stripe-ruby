@@ -2,11 +2,11 @@
 
 require ::File.expand_path("../../test_helper", __dir__)
 
-module Stripe
+module EwStripe
   module Issuing
     class CardholderTest < Test::Unit::TestCase
       should "be creatable" do
-        cardholder = Stripe::Issuing::Cardholder.create(
+        cardholder = EwStripe::Issuing::Cardholder.create(
           billing: {
             address: {
               city: "city",
@@ -18,35 +18,35 @@ module Stripe
           name: "Jenny Rosen",
           type: "individual"
         )
-        assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders"
-        assert cardholder.is_a?(Stripe::Issuing::Cardholder)
+        assert_requested :post, "#{EwStripe.api_base}/v1/issuing/cardholders"
+        assert cardholder.is_a?(EwStripe::Issuing::Cardholder)
       end
 
       should "be listable" do
-        cardholders = Stripe::Issuing::Cardholder.list
-        assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders"
+        cardholders = EwStripe::Issuing::Cardholder.list
+        assert_requested :get, "#{EwStripe.api_base}/v1/issuing/cardholders"
         assert cardholders.data.is_a?(Array)
-        assert cardholders.data[0].is_a?(Stripe::Issuing::Cardholder)
+        assert cardholders.data[0].is_a?(EwStripe::Issuing::Cardholder)
       end
 
       should "be retrievable" do
-        cardholder = Stripe::Issuing::Cardholder.retrieve("ich_123")
-        assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders/ich_123"
-        assert cardholder.is_a?(Stripe::Issuing::Cardholder)
+        cardholder = EwStripe::Issuing::Cardholder.retrieve("ich_123")
+        assert_requested :get, "#{EwStripe.api_base}/v1/issuing/cardholders/ich_123"
+        assert cardholder.is_a?(EwStripe::Issuing::Cardholder)
       end
 
       should "be saveable" do
-        cardholder = Stripe::Issuing::Cardholder.retrieve("ich_123")
+        cardholder = EwStripe::Issuing::Cardholder.retrieve("ich_123")
         cardholder.metadata["key"] = "value"
         cardholder.save
-        assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders/#{cardholder.id}"
-        assert cardholder.is_a?(Stripe::Issuing::Cardholder)
+        assert_requested :post, "#{EwStripe.api_base}/v1/issuing/cardholders/#{cardholder.id}"
+        assert cardholder.is_a?(EwStripe::Issuing::Cardholder)
       end
 
       should "be updateable" do
-        cardholder = Stripe::Issuing::Cardholder.update("ich_123", metadata: { foo: "bar" })
-        assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders/ich_123"
-        assert cardholder.is_a?(Stripe::Issuing::Cardholder)
+        cardholder = EwStripe::Issuing::Cardholder.update("ich_123", metadata: { foo: "bar" })
+        assert_requested :post, "#{EwStripe.api_base}/v1/issuing/cardholders/ich_123"
+        assert cardholder.is_a?(EwStripe::Issuing::Cardholder)
       end
     end
   end

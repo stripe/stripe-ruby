@@ -79,7 +79,7 @@ one that uses [EwStripe Connect][connect], it's also possible to set a
 per-request key and/or account:
 
 ```ruby
-require "stripe"
+require "ew_stripe"
 
 EwStripe::Customer.list(
   {},

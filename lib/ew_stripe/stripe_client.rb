@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "stripe/instrumentation"
+require "ew_stripe/instrumentation"
 
 module EwStripe
   # StripeClient executes requests against the EwStripe API and allows a user to

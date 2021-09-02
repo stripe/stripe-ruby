@@ -2,7 +2,7 @@
 
 $LOAD_PATH.unshift(::File.join(::File.dirname(__FILE__), "lib"))
 
-require "stripe/version"
+require "ew_stripe/version"
 
 Gem::Specification.new do |s|
   s.name = "ew-stripe-ruby"

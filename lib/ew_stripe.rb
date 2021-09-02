@@ -15,37 +15,37 @@ require "uri"
 require "forwardable"
 
 # Version
-require "stripe/version"
+require "ew_stripe/version"
 
 # API operations
-require "stripe/api_operations/create"
-require "stripe/api_operations/delete"
-require "stripe/api_operations/list"
-require "stripe/api_operations/nested_resource"
-require "stripe/api_operations/request"
-require "stripe/api_operations/save"
+require "ew_stripe/api_operations/create"
+require "ew_stripe/api_operations/delete"
+require "ew_stripe/api_operations/list"
+require "ew_stripe/api_operations/nested_resource"
+require "ew_stripe/api_operations/request"
+require "ew_stripe/api_operations/save"
 
 # API resource support classes
-require "stripe/errors"
-require "stripe/object_types"
-require "stripe/util"
-require "stripe/connection_manager"
-require "stripe/multipart_encoder"
-require "stripe/stripe_client"
-require "stripe/stripe_object"
-require "stripe/stripe_response"
-require "stripe/list_object"
-require "stripe/error_object"
-require "stripe/api_resource"
-require "stripe/singleton_api_resource"
-require "stripe/webhook"
-require "stripe/stripe_configuration"
+require "ew_stripe/errors"
+require "ew_stripe/object_types"
+require "ew_stripe/util"
+require "ew_stripe/connection_manager"
+require "ew_stripe/multipart_encoder"
+require "ew_stripe/stripe_client"
+require "ew_stripe/stripe_object"
+require "ew_stripe/stripe_response"
+require "ew_stripe/list_object"
+require "ew_stripe/error_object"
+require "ew_stripe/api_resource"
+require "ew_stripe/singleton_api_resource"
+require "ew_stripe/webhook"
+require "ew_stripe/stripe_configuration"
 
 # Named API resources
-require "stripe/resources"
+require "ew_stripe/resources"
 
 # OAuth
-require "stripe/oauth"
+require "ew_stripe/oauth"
 
 module EwStripe
   DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"

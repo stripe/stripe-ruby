@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "stripe"
+require "ew_stripe"
 require "test/unit"
 require "mocha/setup"
 require "stringio"

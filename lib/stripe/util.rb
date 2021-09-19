@@ -142,7 +142,7 @@ module Stripe
         # Don't use strict form encoding by changing the square bracket control
         # characters back to their literals. This is fine by the server, and
         # makes these parameter strings easier to read.
-        gsub("%5B", "[").gsub("%5D", "]")
+        gsub("[", "%5B").gsub("]", "%5D")
     end
 
     def self.flatten_params(params, parent_key = nil)

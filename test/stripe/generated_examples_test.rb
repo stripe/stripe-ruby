@@ -239,9 +239,9 @@ module Stripe
       end
     end
     context "Customer.list_payment_methods" do
-      should "support requests with args: customer" do
-        Stripe::Customer.list_payment_methods("cus_xyz")
-        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xyz/payment_methods?"
+      should "support requests with args: customer, type" do
+        Stripe::Customer.list_payment_methods("cus_xyz", { type: "card" })
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xyz/payment_methods?type=card"
       end
     end
     context "Customer.retrieve" do

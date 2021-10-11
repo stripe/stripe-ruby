@@ -238,6 +238,12 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/customers?limit=3"
       end
     end
+    context "Customer.list_payment_methods" do
+      should "support requests with args: customer, type" do
+        Stripe::Customer.list_payment_methods("cus_xyz", { type: "card" })
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xyz/payment_methods?type=card"
+      end
+    end
     context "Customer.retrieve" do
       should "support requests with args: id" do
         Stripe::Customer.retrieve("cus_xxxxxxxxxxxxx")

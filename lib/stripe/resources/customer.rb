@@ -11,10 +11,21 @@ module Stripe
 
     OBJECT_NAME = "customer"
 
+    custom_method :list_payment_methods, http_verb: :get, http_path: "payment_methods"
+
     nested_resource_class_methods :balance_transaction,
                                   operations: %i[create retrieve update list]
     nested_resource_class_methods :tax_id,
                                   operations: %i[create retrieve delete list]
+
+    def list_payment_methods(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: resource_url + "/payment_methods",
+        params: params,
+        opts: opts
+      )
+    end
 
     custom_method :delete_discount, http_verb: :delete, http_path: "discount"
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.39.0 - 2021-10-11
+* [#1010](https://github.com/stripe/stripe-ruby/pull/1010) API Updates
+  * Add support for `list_payment_methods` method on resource `Customer`
+
 ## 5.38.0 - 2021-08-10
 * [#993](https://github.com/stripe/stripe-ruby/pull/993) Add `request_id` to RequestEndEvent
 * [#991](https://github.com/stripe/stripe-ruby/pull/991) Codegen more files

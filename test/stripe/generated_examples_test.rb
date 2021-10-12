@@ -73,6 +73,39 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx?"
       end
     end
+    context "Authorization.approve" do
+      should "support requests with args: id" do
+        Stripe::Issuing::Authorization.approve("iauth_xxxxxxxxxxxxx")
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve?"
+      end
+    end
+    context "Authorization.decline" do
+      should "support requests with args: id" do
+        Stripe::Issuing::Authorization.decline("iauth_xxxxxxxxxxxxx")
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline?"
+      end
+    end
+    context "Authorization.list" do
+      should "support requests with args: limit" do
+        Stripe::Issuing::Authorization.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/authorizations?limit=3"
+      end
+    end
+    context "Authorization.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Issuing::Authorization.retrieve("iauth_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Authorization.update" do
+      should "support requests with args: metadata, id" do
+        Stripe::Issuing::Authorization.update(
+          "iauth_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx"
+      end
+    end
     context "BalanceTransaction.list" do
       should "support requests with args: limit" do
         Stripe::BalanceTransaction.list(limit: 3)
@@ -83,6 +116,78 @@ module Stripe
       should "support requests with args: id" do
         Stripe::BalanceTransaction.retrieve("txn_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/balance_transactions/txn_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Card.create" do
+      should "support requests with args: cardholder, currency, type" do
+        Stripe::Issuing::Card.create(
+          cardholder: "ich_xxxxxxxxxxxxx",
+          currency: "usd",
+          type: "virtual"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/cards"
+      end
+    end
+    context "Card.list" do
+      should "support requests with args: limit" do
+        Stripe::Issuing::Card.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards?limit=3"
+      end
+    end
+    context "Card.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Issuing::Card.retrieve("ic_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Card.update" do
+      should "support requests with args: metadata, id" do
+        Stripe::Issuing::Card.update(
+          "ic_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/cards/ic_xxxxxxxxxxxxx"
+      end
+    end
+    context "Cardholder.create" do
+      should "support requests with args: type, name, email, phone_number, billing" do
+        Stripe::Issuing::Cardholder.create(
+          type: "individual",
+          name: "Jenny Rosen",
+          email: "jenny.rosen@example.com",
+          phone_number: "+18888675309",
+          billing: {
+            address: {
+              line1: "1234 Main Street",
+              city: "San Francisco",
+              state: "CA",
+              country: "US",
+              postal_code: "94111",
+            },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders"
+      end
+    end
+    context "Cardholder.list" do
+      should "support requests with args: limit" do
+        Stripe::Issuing::Cardholder.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders?limit=3"
+      end
+    end
+    context "Cardholder.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Issuing::Cardholder.retrieve("ich_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Cardholder.update" do
+      should "support requests with args: metadata, id" do
+        Stripe::Issuing::Cardholder.update(
+          "ich_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx"
       end
     end
     context "Charge.capture" do
@@ -121,6 +226,56 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/charges/ch_xxxxxxxxxxxxx"
+      end
+    end
+    context "Configuration.create" do
+      should "support requests with args: features, business_profile" do
+        Stripe::BillingPortal::Configuration.create(
+          features: {
+            customer_update: {
+              allowed_updates: %w[email tax_id],
+              enabled: true,
+            },
+            invoice_history: { enabled: true },
+          },
+          business_profile: {
+            privacy_policy_url: "https://example.com/privacy",
+            terms_of_service_url: "https://example.com/terms",
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/configurations"
+      end
+    end
+    context "Configuration.list" do
+      should "support requests with args: limit" do
+        Stripe::BillingPortal::Configuration.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/billing_portal/configurations?limit=3"
+      end
+    end
+    context "Configuration.retrieve" do
+      should "support requests with args: id" do
+        Stripe::BillingPortal::Configuration.retrieve("bpc_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Configuration.update" do
+      should "support requests with args: business_profile, id" do
+        Stripe::BillingPortal::Configuration.update(
+          "bpc_xxxxxxxxxxxxx",
+          {
+            business_profile: {
+              privacy_policy_url: "https://example.com/privacy",
+              terms_of_service_url: "https://example.com/terms",
+            },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx"
+      end
+    end
+    context "ConnectionToken.create" do
+      should "work" do
+        Stripe::Terminal::ConnectionToken.create
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/connection_tokens?"
       end
     end
     context "CountrySpec.list" do
@@ -265,16 +420,42 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx/close?"
       end
     end
+    context "Dispute.create" do
+      should "support requests with args: transaction, evidence" do
+        Stripe::Issuing::Dispute.create(
+          transaction: "ipi_xxxxxxxxxxxxx",
+          evidence: {
+            reason: "fraudulent",
+            fraudulent: { explanation: "Purchase was unrecognized." },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes"
+      end
+    end
     context "Dispute.list" do
       should "support requests with args: limit" do
         Stripe::Dispute.list(limit: 3)
         assert_requested :get, "#{Stripe.api_base}/v1/disputes?limit=3"
+      end
+      should "support requests with args: limit2" do
+        Stripe::Issuing::Dispute.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/disputes?limit=3"
       end
     end
     context "Dispute.retrieve" do
       should "support requests with args: id" do
         Stripe::Dispute.retrieve("dp_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx?"
+      end
+      should "support requests with args: id2" do
+        Stripe::Issuing::Dispute.retrieve("idp_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Dispute.submit" do
+      should "support requests with args: id" do
+        Stripe::Issuing::Dispute.submit("idp_xxxxxxxxxxxxx")
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit?"
       end
     end
     context "Dispute.update" do
@@ -284,6 +465,35 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx"
+      end
+      should "support requests with args: evidence, id" do
+        Stripe::Issuing::Dispute.update(
+          "idp_xxxxxxxxxxxxx",
+          {
+            evidence: {
+              reason: "not_received",
+              not_received: {
+                expected_at: 1_590_000_000,
+                explanation: "",
+                product_description: "Baseball cap",
+                product_type: "merchandise",
+              },
+            },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx"
+      end
+    end
+    context "EarlyFraudWarning.list" do
+      should "support requests with args: limit" do
+        Stripe::Radar::EarlyFraudWarning.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings?limit=3"
+      end
+    end
+    context "EarlyFraudWarning.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Radar::EarlyFraudWarning.retrieve("issfr_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx?"
       end
     end
     context "Event.list" do
@@ -434,6 +644,47 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
+      end
+    end
+    context "Location.create" do
+      should "support requests with args: display_name, address" do
+        Stripe::Terminal::Location.create(
+          display_name: "My First Store",
+          address: {
+            line1: "1234 Main Street",
+            city: "San Francisco",
+            country: "US",
+            postal_code: "94111",
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/locations"
+      end
+    end
+    context "Location.delete" do
+      should "support requests with args: id" do
+        Stripe::Terminal::Location.delete("tml_xxxxxxxxxxxxx")
+        assert_requested :delete, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Location.list" do
+      should "support requests with args: limit" do
+        Stripe::Terminal::Location.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/terminal/locations?limit=3"
+      end
+    end
+    context "Location.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Terminal::Location.retrieve("tml_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Location.update" do
+      should "support requests with args: display_name, id" do
+        Stripe::Terminal::Location.update(
+          "tml_xxxxxxxxxxxxx",
+          { display_name: "My First Store" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
       end
     end
     context "Mandate.retrieve" do
@@ -769,6 +1020,43 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
       end
     end
+    context "Reader.create" do
+      should "support requests with args: registration_code, label, location" do
+        Stripe::Terminal::Reader.create(
+          registration_code: "puppies-plug-could",
+          label: "Blue Rabbit",
+          location: "tml_1234"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers"
+      end
+    end
+    context "Reader.delete" do
+      should "support requests with args: id" do
+        Stripe::Terminal::Reader.delete("tmr_P400-123-456-789")
+        assert_requested :delete, "#{Stripe.api_base}/v1/terminal/readers/tmr_P400-123-456-789?"
+      end
+    end
+    context "Reader.list" do
+      should "support requests with args: limit" do
+        Stripe::Terminal::Reader.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/terminal/readers?limit=3"
+      end
+    end
+    context "Reader.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Terminal::Reader.retrieve("tmr_P400-123-456-789")
+        assert_requested :get, "#{Stripe.api_base}/v1/terminal/readers/tmr_P400-123-456-789?"
+      end
+    end
+    context "Reader.update" do
+      should "support requests with args: label, id" do
+        Stripe::Terminal::Reader.update(
+          "tmr_P400-123-456-789",
+          { label: "Blue Rabbit" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_P400-123-456-789"
+      end
+    end
     context "Refund.create" do
       should "support requests with args: charge" do
         Stripe::Refund.create(charge: "ch_xxxxxxxxxxxxx")
@@ -796,6 +1084,39 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/refunds/re_xxxxxxxxxxxxx"
       end
     end
+    context "ReportRun.create" do
+      should "support requests with args: report_type, parameters" do
+        Stripe::Reporting::ReportRun.create(
+          report_type: "balance.summary.1",
+          parameters: { interval_start: 1_522_540_800, interval_end: 1_525_132_800 }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/reporting/report_runs"
+      end
+    end
+    context "ReportRun.list" do
+      should "support requests with args: limit" do
+        Stripe::Reporting::ReportRun.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_runs?limit=3"
+      end
+    end
+    context "ReportRun.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Reporting::ReportRun.retrieve("frr_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_runs/frr_xxxxxxxxxxxxx?"
+      end
+    end
+    context "ReportType.list" do
+      should "work" do
+        Stripe::Reporting::ReportType.list
+        assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_types?"
+      end
+    end
+    context "ReportType.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Reporting::ReportType.retrieve("balance.summary.1")
+        assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_types/balance.summary.1?"
+      end
+    end
     context "Review.approve" do
       should "support requests with args: id" do
         Stripe::Review.approve("prv_xxxxxxxxxxxxx")
@@ -812,6 +1133,49 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Review.retrieve("prv_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/reviews/prv_xxxxxxxxxxxxx?"
+      end
+    end
+    context "ScheduledQueryRun.list" do
+      should "support requests with args: limit" do
+        Stripe::Sigma::ScheduledQueryRun.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/sigma/scheduled_query_runs?limit=3"
+      end
+    end
+    context "ScheduledQueryRun.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Sigma::ScheduledQueryRun.retrieve("sqr_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Session.create" do
+      should "support requests with args: success_url, cancel_url, payment_method_types, line_items, mode" do
+        Stripe::Checkout::Session.create(
+          success_url: "https://example.com/success",
+          cancel_url: "https://example.com/cancel",
+          payment_method_types: ["card"],
+          line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 2 }],
+          mode: "payment"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions"
+      end
+      should "support requests with args: customer, return_url" do
+        Stripe::BillingPortal::Session.create(
+          customer: "cus_xxxxxxxxxxxxx",
+          return_url: "https://example.com/account"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/sessions"
+      end
+    end
+    context "Session.list" do
+      should "support requests with args: limit" do
+        Stripe::Checkout::Session.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions?limit=3"
+      end
+    end
+    context "Session.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Checkout::Session.retrieve("cs_test_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx?"
       end
     end
     context "SetupAttempt.list" do
@@ -1153,6 +1517,27 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/topups/tu_xxxxxxxxxxxxx"
       end
     end
+    context "Transaction.list" do
+      should "support requests with args: limit" do
+        Stripe::Issuing::Transaction.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions?limit=3"
+      end
+    end
+    context "Transaction.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Issuing::Transaction.retrieve("ipi_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Transaction.update" do
+      should "support requests with args: metadata, id" do
+        Stripe::Issuing::Transaction.update(
+          "ipi_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx"
+      end
+    end
     context "Transfer.create" do
       should "support requests with args: amount, currency, destination, transfer_group" do
         Stripe::Transfer.create(
@@ -1183,6 +1568,73 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx"
+      end
+    end
+    context "ValueList.create" do
+      should "support requests with args: alias, name, item_type" do
+        Stripe::Radar::ValueList.create(
+          alias: "custom_ip_xxxxxxxxxxxxx",
+          name: "Custom IP Blocklist",
+          item_type: "ip_address"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/radar/value_lists"
+      end
+    end
+    context "ValueList.delete" do
+      should "support requests with args: id" do
+        Stripe::Radar::ValueList.delete("rsl_xxxxxxxxxxxxx")
+        assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx?"
+      end
+    end
+    context "ValueList.list" do
+      should "support requests with args: limit" do
+        Stripe::Radar::ValueList.list(limit: 3)
+        assert_requested :get, "#{Stripe.api_base}/v1/radar/value_lists?limit=3"
+      end
+    end
+    context "ValueList.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Radar::ValueList.retrieve("rsl_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx?"
+      end
+    end
+    context "ValueList.update" do
+      should "support requests with args: name, id" do
+        Stripe::Radar::ValueList.update(
+          "rsl_xxxxxxxxxxxxx",
+          { name: "Updated IP Block List" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
+      end
+    end
+    context "ValueListItem.create" do
+      should "support requests with args: value_list, value" do
+        Stripe::Radar::ValueListItem.create(
+          value_list: "rsl_xxxxxxxxxxxxx",
+          value: "1.2.3.4"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/radar/value_list_items"
+      end
+    end
+    context "ValueListItem.delete" do
+      should "support requests with args: id" do
+        Stripe::Radar::ValueListItem.delete("rsli_xxxxxxxxxxxxx")
+        assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx?"
+      end
+    end
+    context "ValueListItem.list" do
+      should "support requests with args: limit, value_list" do
+        Stripe::Radar::ValueListItem.list(
+          limit: 3,
+          value_list: "rsl_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/radar/value_list_items?limit=3&value_list=rsl_xxxxxxxxxxxxx"
+      end
+    end
+    context "ValueListItem.retrieve" do
+      should "support requests with args: id" do
+        Stripe::Radar::ValueListItem.retrieve("rsli_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx?"
       end
     end
     context "WebhookEndpoint.create" do

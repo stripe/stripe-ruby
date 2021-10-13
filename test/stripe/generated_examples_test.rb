@@ -118,6 +118,31 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/balance_transactions/txn_xxxxxxxxxxxxx?"
       end
     end
+    context "Capability.list" do
+      should "support requests with args: parent_id" do
+        Stripe::Account.list_capabilities("acct_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities?"
+      end
+    end
+    context "Capability.retrieve" do
+      should "support requests with args: parent_id, id" do
+        Stripe::Account.retrieve_capability(
+          "acct_xxxxxxxxxxxxx",
+          "card_payments"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments?"
+      end
+    end
+    context "Capability.update" do
+      should "support requests with args: requested, parent_id, id" do
+        Stripe::Account.update_capability(
+          "acct_xxxxxxxxxxxxx",
+          "card_payments",
+          { requested: true }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments"
+      end
+    end
     context "Card.create" do
       should "support requests with args: cardholder, currency, type" do
         Stripe::Issuing::Card.create(
@@ -414,6 +439,34 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx"
       end
     end
+    context "CustomerBalanceTransaction.list" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::Customer.list_balance_transactions(
+          "cus_xxxxxxxxxxxxx",
+          { limit: 3 }
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions?limit=3"
+      end
+    end
+    context "CustomerBalanceTransaction.retrieve" do
+      should "support requests with args: parent_id, id" do
+        Stripe::Customer.retrieve_balance_transaction(
+          "cus_xxxxxxxxxxxxx",
+          "cbtxn_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx?"
+      end
+    end
+    context "CustomerBalanceTransaction.update" do
+      should "support requests with args: metadata, parent_id, id" do
+        Stripe::Customer.update_balance_transaction(
+          "cus_xxxxxxxxxxxxx",
+          "cbtxn_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx"
+      end
+    end
     context "Dispute.close" do
       should "support requests with args: id" do
         Stripe::Dispute.close("dp_xxxxxxxxxxxxx")
@@ -506,6 +559,31 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Event.retrieve("evt_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/events/evt_xxxxxxxxxxxxx?"
+      end
+    end
+    context "FeeRefund.list" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::ApplicationFee.list_refunds("fee_xxxxxxxxxxxxx", { limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds?limit=3"
+      end
+    end
+    context "FeeRefund.retrieve" do
+      should "support requests with args: parent_id, id" do
+        Stripe::ApplicationFee.retrieve_refund(
+          "fee_xxxxxxxxxxxxx",
+          "fr_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx?"
+      end
+    end
+    context "FeeRefund.update" do
+      should "support requests with args: metadata, parent_id, id" do
+        Stripe::ApplicationFee.update_refund(
+          "fee_xxxxxxxxxxxxx",
+          "fr_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post,  "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx"
       end
     end
     context "File.list" do
@@ -888,6 +966,31 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx"
+      end
+    end
+    context "Person.list" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::Account.list_persons("acct_xxxxxxxxxxxxx", { limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons?limit=3"
+      end
+    end
+    context "Person.retrieve" do
+      should "support requests with args: parent_id, id" do
+        Stripe::Account.retrieve_person(
+          "acct_xxxxxxxxxxxxx",
+          "person_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Person.update" do
+      should "support requests with args: metadata, parent_id, id" do
+        Stripe::Account.update_person(
+          "acct_xxxxxxxxxxxxx",
+          "person_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx"
       end
     end
     context "Plan.create" do
@@ -1393,6 +1496,27 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
       end
     end
+    context "TaxId.delete" do
+      should "support requests with args: parent_id, id" do
+        Stripe::Customer.delete_tax_id("cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx")
+        assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx?"
+      end
+    end
+    context "TaxId.list" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::Customer.list_tax_ids("cus_xxxxxxxxxxxxx", { limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids?limit=3"
+      end
+    end
+    context "TaxId.retrieve" do
+      should "support requests with args: id, parent_id" do
+        Stripe::Customer.retrieve_tax_id(
+          "cus_xxxxxxxxxxxxx",
+          "txi_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx?"
+      end
+    end
     context "TaxRate.create" do
       should "support requests with args: display_name, description, jurisdiction, percentage, inclusive" do
         Stripe::TaxRate.create(
@@ -1568,6 +1692,31 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx"
+      end
+    end
+    context "TransferReversal.list" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::Transfer.list_reversals("tr_xxxxxxxxxxxxx", { limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals?limit=3"
+      end
+    end
+    context "TransferReversal.retrieve" do
+      should "support requests with args: parent_id, id" do
+        Stripe::Transfer.retrieve_reversal(
+          "tr_xxxxxxxxxxxxx",
+          "trr_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx?"
+      end
+    end
+    context "TransferReversal.update" do
+      should "support requests with args: metadata, parent_id, id" do
+        Stripe::Transfer.update_reversal(
+          "tr_xxxxxxxxxxxxx",
+          "trr_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
       end
     end
     context "ValueList.create" do

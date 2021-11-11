@@ -1269,6 +1269,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/sessions"
       end
     end
+    context "Session.expire" do
+      should "support requests with args: session" do
+        Stripe::Checkout::Session.expire("sess_xyz")
+        assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions/sess_xyz/expire?"
+      end
+    end
     context "Session.list" do
       should "support requests with args: limit" do
         Stripe::Checkout::Session.list(limit: 3)

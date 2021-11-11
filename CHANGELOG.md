@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.40.0 - 2021-11-11
+* [#1015](https://github.com/stripe/stripe-ruby/pull/1015) API Updates
+  * Add support for `expire` method on resource `Checkout.Session`
+* [#1013](https://github.com/stripe/stripe-ruby/pull/1013) Add tests for child resources.
+* [#1012](https://github.com/stripe/stripe-ruby/pull/1012) Add tests for namespaced resources.
+* [#1011](https://github.com/stripe/stripe-ruby/pull/1011) codegen: 3 more files
+
 ## 5.39.0 - 2021-10-11
 * [#1010](https://github.com/stripe/stripe-ruby/pull/1010) API Updates
   * Add support for `list_payment_methods` method on resource `Customer`

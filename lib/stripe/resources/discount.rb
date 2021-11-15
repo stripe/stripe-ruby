@@ -3,6 +3,6 @@
 
 module Stripe
   class Discount < StripeObject
-    OBJECT_NAME = "discount"
+    OBJECT_NAME = 'discount'
   end
 end

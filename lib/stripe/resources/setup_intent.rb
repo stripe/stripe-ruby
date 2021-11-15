@@ -7,7 +7,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "setup_intent"
+    OBJECT_NAME = 'setup_intent'
 
     custom_method :cancel, http_verb: :post
     custom_method :confirm, http_verb: :post
@@ -15,18 +15,17 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: resource_url + '/cancel',
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
-
     def confirm(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/confirm",
+        path: resource_url + '/confirm',
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
   end

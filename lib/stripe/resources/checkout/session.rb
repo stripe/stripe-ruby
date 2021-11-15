@@ -8,7 +8,7 @@ module Stripe
       extend Stripe::APIOperations::List
       extend Stripe::APIOperations::NestedResource
 
-      OBJECT_NAME = "checkout.session"
+      OBJECT_NAME = 'checkout.session'
 
       custom_method :expire, http_verb: :post
 
@@ -17,9 +17,9 @@ module Stripe
       def expire(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/expire",
+          path: resource_url + '/expire',
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
     end

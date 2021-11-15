@@ -8,7 +8,7 @@ module Stripe
       include Stripe::APIOperations::Delete
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "radar.value_list_item"
+      OBJECT_NAME = 'radar.value_list_item'
     end
   end
 end

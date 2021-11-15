@@ -2,12 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
-  class Product < APIResource
+  class ShippingRate < APIResource
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'product'
+    OBJECT_NAME = 'shipping_rate'
   end
 end

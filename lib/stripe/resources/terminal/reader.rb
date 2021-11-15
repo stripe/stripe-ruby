@@ -9,7 +9,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = 'terminal.reader'
+      OBJECT_NAME = "terminal.reader"
     end
   end
 end

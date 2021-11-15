@@ -7,19 +7,19 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = 'source'
+    OBJECT_NAME = "source"
 
     custom_method :verify, http_verb: :post
 
     nested_resource_class_methods :source_transaction,
-      operations: %i[retrieve list]
+                                  operations: %i[retrieve list]
 
     def verify(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/verify',
+        path: resource_url + "/verify",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
 

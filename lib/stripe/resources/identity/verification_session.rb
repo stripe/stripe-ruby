@@ -8,7 +8,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = 'identity.verification_session'
+      OBJECT_NAME = "identity.verification_session"
 
       custom_method :cancel, http_verb: :post
       custom_method :redact, http_verb: :post
@@ -16,17 +16,18 @@ module Stripe
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + '/cancel',
+          path: resource_url + "/cancel",
           params: params,
-          opts: opts,
+          opts: opts
         )
       end
+
       def redact(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + '/redact',
+          path: resource_url + "/redact",
           params: params,
-          opts: opts,
+          opts: opts
         )
       end
     end

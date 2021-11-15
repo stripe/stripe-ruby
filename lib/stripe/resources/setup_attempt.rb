@@ -5,6 +5,6 @@ module Stripe
   class SetupAttempt < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'setup_attempt'
+    OBJECT_NAME = "setup_attempt"
   end
 end

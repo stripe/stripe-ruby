@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.41.0 - 2021-11-16
+* [#1017](https://github.com/stripe/stripe-ruby/pull/1017) API Updates
+  * Add support for new resource `ShippingRate`
+
 ## 5.40.0 - 2021-11-11
 * [#1015](https://github.com/stripe/stripe-ruby/pull/1015) API Updates
   * Add support for `expire` method on resource `Checkout.Session`

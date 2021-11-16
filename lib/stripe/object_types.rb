@@ -79,6 +79,7 @@ module Stripe
         Review::OBJECT_NAME => Review,
         SetupAttempt::OBJECT_NAME => SetupAttempt,
         SetupIntent::OBJECT_NAME => SetupIntent,
+        ShippingRate::OBJECT_NAME => ShippingRate,
         Sigma::ScheduledQueryRun::OBJECT_NAME => Sigma::ScheduledQueryRun,
         SKU::OBJECT_NAME => SKU,
         Source::OBJECT_NAME => Source,

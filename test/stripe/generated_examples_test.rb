@@ -1268,6 +1268,26 @@ module Stripe
         )
         assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/sessions"
       end
+      should "support requests with args: success_url, cancel_url, mode, shipping_options" do
+        Stripe::Checkout::Session.create(
+          success_url: "https://example.com/success",
+          cancel_url: "https://example.com/cancel",
+          mode: "payment",
+          shipping_options: [
+            { shipping_rate: "shr_standard" },
+            {
+              shipping_rate_data: {
+                display_name: "Standard",
+                delivery_estimate: {
+                  minimum: { unit: "day", value: 5 },
+                  maximum: { unit: "day", value: 7 },
+                },
+              },
+            },
+          ]
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions"
+      end
     end
     context "Session.expire" do
       should "support requests with args: session" do
@@ -1333,6 +1353,22 @@ module Stripe
           { metadata: { user_id: "3435453" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx"
+      end
+    end
+    context "ShippingRate.create" do
+      should "support requests with args: display_name, fixed_amount, type" do
+        Stripe::ShippingRate.create(
+          display_name: "Sample Shipper",
+          fixed_amount: { currency: "usd", amount: 400 },
+          type: "fixed_amount"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/shipping_rates"
+      end
+    end
+    context "ShippingRate.list" do
+      should "work" do
+        Stripe::ShippingRate.list
+        assert_requested :get, "#{Stripe.api_base}/v1/shipping_rates?"
       end
     end
     context "SKU.create" do

@@ -300,8 +300,8 @@ module Stripe
     ERROR_MESSAGE_TIMEOUT_SUFFIX =
       "Please check your internet connection and try again. " \
         "If this problem persists, you should check Stripe's service " \
-        "status at https://status.stripe.com, or let us know at " \
-        "support@stripe.com."
+        "status at https://status.stripe.com, or contact support through " \
+        "https://support.stripe.com/contact"
 
     ERROR_MESSAGE_TIMEOUT_CONNECT = (
       "Timed out connecting to Stripe (%s). " +
@@ -516,8 +516,9 @@ module Stripe
         raise AuthenticationError, "No API key provided. " \
           'Set your API key using "Stripe.api_key = <API-KEY>". ' \
           "You can generate API keys from the Stripe web interface. " \
-          "See https://stripe.com/api for details, or email " \
-          "support@stripe.com if you have any questions."
+          "See https://stripe.com/api for details, or contact support " \
+          "through https://support.stripe.com/contact if you have any " \
+          "questions."
       end
 
       return unless api_key =~ /\s/
@@ -525,7 +526,8 @@ module Stripe
       raise AuthenticationError, "Your API key is invalid, as it contains " \
         "whitespace. (HINT: You can double-check your API key from the " \
         "Stripe web interface. See https://stripe.com/api for details, or " \
-        "email support@stripe.com if you have any questions.)"
+        "contact support through https://support.stripe.com/contact if you " \
+        "have any questions.)"
     end
 
     # Encodes a set of body parameters using multipart if `Content-Type` is set
@@ -836,7 +838,8 @@ module Stripe
 
       if errors.nil?
         message = "Unexpected error #{error.class.name} communicating " \
-          "with Stripe. Please let us know at support@stripe.com."
+          "with Stripe. Please let us know by contacting support through "\
+          "https://support.stripe.com/contact or emailing support@stripe.com."
       end
 
       api_base ||= config.api_base

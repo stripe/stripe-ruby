@@ -115,5 +115,13 @@ module Stripe
         Util.convert_to_stripe_object(resp.data, opts)
       end
     end
+
+    protected def request_stream(method:, path:, params:, opts: {},
+                                 &read_body_chunk_block)
+      resp, = execute_resource_request_stream(
+        method, path, params, opts, &read_body_chunk_block
+      )
+      resp
+    end
   end
 end

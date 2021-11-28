@@ -4,12 +4,12 @@ require ::File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class StripeResponseTest < Test::Unit::TestCase
-    context "Headers" do
+    context "StripeResponseHeaders" do
       should "allow case-insensitive header access" do
         headers = { "Request-Id" => "request-id" }
         http_resp = create_net_http_resp(200, "", headers)
 
-        headers = StripeResponse::Headers.from_net_http(http_resp)
+        headers = StripeResponseHeaders.from_net_http(http_resp)
 
         assert_equal "request-id", headers["request-id"]
         assert_equal "request-id", headers["Request-Id"]
@@ -17,26 +17,26 @@ module Stripe
       end
 
       should "initialize without error" do
-        StripeResponse::Headers.new({})
-        StripeResponse::Headers.new("Request-Id" => [])
-        StripeResponse::Headers.new("Request-Id" => ["request-id"])
+        StripeResponseHeaders.new({})
+        StripeResponseHeaders.new("Request-Id" => [])
+        StripeResponseHeaders.new("Request-Id" => ["request-id"])
       end
 
       should "initialize with error on a malformed hash" do
         assert_raises(ArgumentError) do
-          StripeResponse::Headers.new(nil)
+          StripeResponseHeaders.new(nil)
         end
 
         assert_raises(ArgumentError) do
-          StripeResponse::Headers.new(1 => [])
+          StripeResponseHeaders.new(1 => [])
         end
 
         assert_raises(ArgumentError) do
-          StripeResponse::Headers.new("Request-Id" => 1)
+          StripeResponseHeaders.new("Request-Id" => 1)
         end
 
         assert_raises(ArgumentError) do
-          StripeResponse::Headers.new("Request-Id" => [1])
+          StripeResponseHeaders.new("Request-Id" => [1])
         end
       end
 
@@ -44,7 +44,7 @@ module Stripe
         old_stderr = $stderr
         $stderr = StringIO.new
         begin
-          headers = StripeResponse::Headers.new("Duplicated" => %w[a b])
+          headers = StripeResponseHeaders.new("Duplicated" => %w[a b])
           assert_equal "a", headers["Duplicated"]
           assert_equal "Duplicate header values for `Duplicated`; returning only first",
                        $stderr.string.rstrip
@@ -54,20 +54,46 @@ module Stripe
       end
     end
 
-    context ".from_net_http" do
-      should "converts to StripeResponse" do
-        code = 200
-        body = '{"foo": "bar"}'
-        headers = { "Request-Id" => "request-id" }
-        http_resp = create_net_http_resp(code, body, headers)
+    [StripeResponse, StripeHeadersOnlyResponse].each do |response_class|
+      context "StripeResponseBase mixin for #{response_class}" do
+        context ".from_net_http" do
+          should "populate the base fields" do
+            code = 200
+            body = '{"foo": "bar"}'
+            headers = { "Request-Id" => "request-id" }
+            http_resp = create_net_http_resp(code, body, headers)
 
-        resp = StripeResponse.from_net_http(http_resp)
+            resp = response_class.from_net_http(http_resp)
 
-        assert_equal JSON.parse(body, symbolize_names: true), resp.data
-        assert_equal body, resp.http_body
-        assert_equal "request-id", resp.http_headers["Request-ID"]
-        assert_equal code, resp.http_status
-        assert_equal "request-id", resp.request_id
+            assert_equal "request-id", resp.http_headers["Request-ID"]
+            assert_equal code, resp.http_status
+            assert_equal "request-id", resp.request_id
+          end
+        end
+      end
+    end
+
+    context "#StripeResponse" do
+      context ".from_net_http" do
+        should "converts to StripeResponse" do
+          code = 200
+          body = '{"foo": "bar"}'
+          http_resp = create_net_http_resp(code, body, {})
+
+          resp = StripeResponse.from_net_http(http_resp)
+
+          assert_instance_of StripeResponse, resp
+          assert_equal JSON.parse(body, symbolize_names: true), resp.data
+          assert_equal body, resp.http_body
+        end
+      end
+
+      context "Headers backwards compatibility" do
+        should "alias StripeResponseHeaders" do
+          headers = StripeResponse::Headers.new("Request-Id" => ["request-id"])
+
+          assert_instance_of StripeResponseHeaders, headers
+        end
       end
     end
 

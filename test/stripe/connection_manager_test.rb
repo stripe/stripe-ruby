@@ -159,6 +159,27 @@ module Stripe
                                  query: "query=bar")
       end
 
+      should "make a request with a block" do
+        stub_request(:post, "#{Stripe.api_base}/path?query=bar")
+          .with(
+            body: "body=foo",
+            headers: { "Stripe-Account" => "bar" }
+          )
+          .to_return(body: "HTTP response body")
+
+        accumulated_body = +""
+
+        @manager.execute_request(:post, "#{Stripe.api_base}/path",
+                                 body: "body=foo",
+                                 headers: { "Stripe-Account" => "bar" },
+                                 query: "query=bar") do |res|
+                                   res.read_body do |body_chunk|
+                                     accumulated_body << body_chunk
+                                   end
+                                 end
+        assert_equal "HTTP response body", accumulated_body
+      end
+
       should "perform basic argument validation" do
         e = assert_raises ArgumentError do
           @manager.execute_request("POST", "#{Stripe.api_base}/path")

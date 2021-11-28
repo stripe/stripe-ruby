@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/MethodLength
@@ -43,6 +44,8 @@ module Stripe
         File::OBJECT_NAME => File,
         File::OBJECT_NAME_ALT => File,
         FileLink::OBJECT_NAME => FileLink,
+        Identity::VerificationReport::OBJECT_NAME => Identity::VerificationReport,
+        Identity::VerificationSession::OBJECT_NAME => Identity::VerificationSession,
         Invoice::OBJECT_NAME => Invoice,
         InvoiceItem::OBJECT_NAME => InvoiceItem,
         InvoiceLineItem::OBJECT_NAME => InvoiceLineItem,
@@ -65,6 +68,7 @@ module Stripe
         Price::OBJECT_NAME => Price,
         Product::OBJECT_NAME => Product,
         PromotionCode::OBJECT_NAME => PromotionCode,
+        Quote::OBJECT_NAME => Quote,
         Radar::EarlyFraudWarning::OBJECT_NAME => Radar::EarlyFraudWarning,
         Radar::ValueList::OBJECT_NAME => Radar::ValueList,
         Radar::ValueListItem::OBJECT_NAME => Radar::ValueListItem,
@@ -75,15 +79,17 @@ module Stripe
         Reporting::ReportType::OBJECT_NAME => Reporting::ReportType,
         Reversal::OBJECT_NAME => Reversal,
         Review::OBJECT_NAME => Review,
-        SKU::OBJECT_NAME => SKU,
         SetupAttempt::OBJECT_NAME => SetupAttempt,
         SetupIntent::OBJECT_NAME => SetupIntent,
+        ShippingRate::OBJECT_NAME => ShippingRate,
         Sigma::ScheduledQueryRun::OBJECT_NAME => Sigma::ScheduledQueryRun,
+        SKU::OBJECT_NAME => SKU,
         Source::OBJECT_NAME => Source,
         SourceTransaction::OBJECT_NAME => SourceTransaction,
         Subscription::OBJECT_NAME => Subscription,
         SubscriptionItem::OBJECT_NAME => SubscriptionItem,
         SubscriptionSchedule::OBJECT_NAME => SubscriptionSchedule,
+        TaxCode::OBJECT_NAME => TaxCode,
         TaxId::OBJECT_NAME => TaxId,
         TaxRate::OBJECT_NAME => TaxRate,
         Terminal::ConnectionToken::OBJECT_NAME => Terminal::ConnectionToken,

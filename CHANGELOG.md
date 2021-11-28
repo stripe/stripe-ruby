@@ -1,5 +1,44 @@
 # Changelog
 
+## 5.41.0 - 2021-11-16
+* [#1017](https://github.com/stripe/stripe-ruby/pull/1017) API Updates
+  * Add support for new resource `ShippingRate`
+
+## 5.40.0 - 2021-11-11
+* [#1015](https://github.com/stripe/stripe-ruby/pull/1015) API Updates
+  * Add support for `expire` method on resource `Checkout.Session`
+* [#1013](https://github.com/stripe/stripe-ruby/pull/1013) Add tests for child resources.
+* [#1012](https://github.com/stripe/stripe-ruby/pull/1012) Add tests for namespaced resources.
+* [#1011](https://github.com/stripe/stripe-ruby/pull/1011) codegen: 3 more files
+
+## 5.39.0 - 2021-10-11
+* [#1010](https://github.com/stripe/stripe-ruby/pull/1010) API Updates
+  * Add support for `list_payment_methods` method on resource `Customer`
+
+## 5.38.0 - 2021-08-10
+* [#993](https://github.com/stripe/stripe-ruby/pull/993) Add `request_id` to RequestEndEvent
+* [#991](https://github.com/stripe/stripe-ruby/pull/991) Codegen more files
+* [#989](https://github.com/stripe/stripe-ruby/pull/989) Remove unused API error types from docs.
+
+## 5.37.0 - 2021-07-14
+* [#988](https://github.com/stripe/stripe-ruby/pull/988) API Updates
+  * Add support for `list_computed_upfront_line_items` method on resource `Quote`
+
+## 5.36.0 - 2021-07-09
+* [#987](https://github.com/stripe/stripe-ruby/pull/987) Add support for `Quote` API
+
+## 5.35.0 - 2021-06-30
+* [#985](https://github.com/stripe/stripe-ruby/pull/985) Update normalize_opts to use dup instead of clone.
+* [#982](https://github.com/stripe/stripe-ruby/pull/982) Deprecate travis
+* [#983](https://github.com/stripe/stripe-ruby/pull/983) Add support for making a request and receiving the response as a stream.
+
+## 5.34.0 - 2021-06-04
+* [#981](https://github.com/stripe/stripe-ruby/pull/981) API Updates
+  * Add support for `TaxCode` API.
+
+## 5.33.0 - 2021-05-19
+* [#979](https://github.com/stripe/stripe-ruby/pull/979) Add support for the Identify VerificationSession and VerificationReport APIs
+
 ## 5.32.1 - 2021-04-05
 * Correct use of regexp `match` in gemspec for old versions of Ruby
 

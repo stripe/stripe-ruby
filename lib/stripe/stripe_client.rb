@@ -904,6 +904,7 @@ module Stripe
                      idempotency_key: context.idempotency_key,
                      query: context.query,
                      config: config,
+                     process_id: Process.pid,
                      thread_object_id: Thread.current.object_id)
     end
 
@@ -923,6 +924,7 @@ module Stripe
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id,
                      config: config,
+                     process_id: Process.pid,
                      thread_object_id: Thread.current.object_id,
                      response_object_id: resp.object_id)
 

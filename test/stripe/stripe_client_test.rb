@@ -502,6 +502,7 @@ module Stripe
               message == "ConnectionManager starting request" &&
                 data[:path] == "/v1/account" &&
                 data[:method_name] == "POST" &&
+                data[:process_id] == Process.pid &&
                 data[:thread_object_id] == Thread.current.object_id &&
                 (data[:connection_manager_object_id].is_a? Numeric) &&
                 (data[:connection_object_id].is_a? Numeric)
@@ -513,6 +514,7 @@ module Stripe
               if message == "ConnectionManager request complete" &&
                  data[:path] == "/v1/account" &&
                  data[:method_name] == "POST" &&
+                 data[:process_id] == Process.pid &&
                  data[:thread_object_id] == connection_manager_data[:thread_object_id] &&
                  data[:connection_manager_object_id] == connection_manager_data[:connection_manager_object_id] &&
                  data[:connection_object_id] == connection_manager_data[:connection_object_id] &&
@@ -534,6 +536,7 @@ module Stripe
                                           idempotency_key: "abc",
                                           query: nil,
                                           config: Stripe.config,
+                                          process_id: Process.pid,
                                           thread_object_id: Thread.current.object_id)
 
             Util.expects(:log_info).with("Response from Stripe API",
@@ -551,6 +554,8 @@ module Stripe
                  data[:idempotency_key] == "abc" &&
                  data[:request_id] == "req_123" &&
                  data[:config] == Stripe.config &&
+                 data[:process_id] == Process.pid &&
+                 data[:thread_object_id] == Thread.current.object_id &&
                  data[:response_object_id] == response_object_id
                 # Streaming requests have a different body.
                 if request_method == "execute_request_stream"

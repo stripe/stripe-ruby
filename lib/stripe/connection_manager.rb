@@ -106,6 +106,7 @@ module Stripe
       Util.log_debug("ConnectionManager starting request",
                      method_name: method_name,
                      path: path,
+                     process_id: Process.pid,
                      thread_object_id: Thread.current.object_id,
                      connection_manager_object_id: object_id,
                      connection_object_id: connection.object_id)
@@ -121,6 +122,7 @@ module Stripe
       Util.log_debug("ConnectionManager request complete",
                      method_name: method_name,
                      path: path,
+                     process_id: Process.pid,
                      thread_object_id: Thread.current.object_id,
                      connection_manager_object_id: object_id,
                      connection_object_id: connection.object_id,

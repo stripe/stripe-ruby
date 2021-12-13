@@ -109,7 +109,8 @@ module Stripe
                      process_id: Process.pid,
                      thread_object_id: Thread.current.object_id,
                      connection_manager_object_id: object_id,
-                     connection_object_id: connection.object_id)
+                     connection_object_id: connection.object_id,
+                     log_timestamp: Util.monotonic_time)
 
       resp = @mutex.synchronize do
         # The block parameter is special here. If a block is provided, the block
@@ -126,7 +127,8 @@ module Stripe
                      thread_object_id: Thread.current.object_id,
                      connection_manager_object_id: object_id,
                      connection_object_id: connection.object_id,
-                     response_object_id: resp.object_id)
+                     response_object_id: resp.object_id,
+                     log_timestamp: Util.monotonic_time)
 
       resp
     end

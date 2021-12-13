@@ -905,7 +905,8 @@ module Stripe
                      query: context.query,
                      config: config,
                      process_id: Process.pid,
-                     thread_object_id: Thread.current.object_id)
+                     thread_object_id: Thread.current.object_id,
+                     log_timestamp: Util.monotonic_time)
     end
 
     private def log_response(context, request_start, status, body, resp)
@@ -926,7 +927,8 @@ module Stripe
                      config: config,
                      process_id: Process.pid,
                      thread_object_id: Thread.current.object_id,
-                     response_object_id: resp.object_id)
+                     response_object_id: resp.object_id,
+                     log_timestamp: Util.monotonic_time)
 
       return unless context.request_id
 

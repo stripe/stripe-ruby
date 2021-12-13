@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.42.0 - 2021-12-13
+* [#1022](https://github.com/stripe/stripe-ruby/pull/1022) Add connection manager logging and include object IDs in logging.
+
 ## 5.41.0 - 2021-11-16
 * [#1017](https://github.com/stripe/stripe-ruby/pull/1017) API Updates
   * Add support for new resource `ShippingRate`

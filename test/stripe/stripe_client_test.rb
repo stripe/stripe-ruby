@@ -495,6 +495,36 @@ module Stripe
           should "produce appropriate logging" do
             body = JSON.generate(object: "account")
 
+            connection_manager_data = nil
+
+            Util.expects(:log_debug).with do |message, data|
+              connection_manager_data = data
+              message == "ConnectionManager starting request" &&
+                data[:path] == "/v1/account" &&
+                data[:method_name] == "POST" &&
+                data[:process_id] == Process.pid &&
+                data[:thread_object_id] == Thread.current.object_id &&
+                (data[:connection_manager_object_id].is_a? Numeric) &&
+                (data[:connection_object_id].is_a? Numeric) &&
+                data[:log_timestamp] == 0.0
+            end
+
+            response_object_id = nil
+
+            Util.expects(:log_debug).with do |message, data|
+              if message == "ConnectionManager request complete" &&
+                 data[:path] == "/v1/account" &&
+                 data[:method_name] == "POST" &&
+                 data[:process_id] == Process.pid &&
+                 data[:thread_object_id] == connection_manager_data[:thread_object_id] &&
+                 data[:connection_manager_object_id] == connection_manager_data[:connection_manager_object_id] &&
+                 data[:connection_object_id] == connection_manager_data[:connection_object_id] &&
+                 (data[:response_object_id].is_a? Numeric) &&
+                 data[:log_timestamp] == 0.0
+                response_object_id = data[:response_object_id]
+              end
+            end
+
             Util.expects(:log_info).with("Request to Stripe API",
                                          account: "acct_123",
                                          api_version: "2010-11-12",
@@ -507,7 +537,10 @@ module Stripe
                                           body: "",
                                           idempotency_key: "abc",
                                           query: nil,
-                                          config: Stripe.config)
+                                          config: Stripe.config,
+                                          process_id: Process.pid,
+                                          thread_object_id: Thread.current.object_id,
+                                          log_timestamp: 0.0)
 
             Util.expects(:log_info).with("Response from Stripe API",
                                          account: "acct_123",
@@ -523,7 +556,11 @@ module Stripe
               if message == "Response details" &&
                  data[:idempotency_key] == "abc" &&
                  data[:request_id] == "req_123" &&
-                 data[:config] == Stripe.config
+                 data[:config] == Stripe.config &&
+                 data[:process_id] == Process.pid &&
+                 data[:thread_object_id] == Thread.current.object_id &&
+                 data[:response_object_id] == response_object_id &&
+                 data[:log_timestamp] == 0.0
                 # Streaming requests have a different body.
                 if request_method == "execute_request_stream"
                   data[:body].is_a? Net::ReadAdapter

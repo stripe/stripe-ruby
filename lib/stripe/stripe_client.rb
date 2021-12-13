@@ -585,7 +585,7 @@ module Stripe
           handle_error_response(resp, context)
         end
 
-        log_response(context, request_start, http_status, resp.body)
+        log_response(context, request_start, http_status, resp.body, resp)
         notify_request_end(context, request_duration, http_status,
                            num_retries, user_data)
 
@@ -609,7 +609,7 @@ module Stripe
           error_context = context.dup_from_response_headers(e.http_headers)
           http_status = resp.code.to_i
           log_response(error_context, request_start,
-                       e.http_status, e.http_body)
+                       e.http_status, e.http_body, resp)
         else
           log_response_error(error_context, request_start, e)
         end
@@ -903,10 +903,13 @@ module Stripe
                      body: context.body,
                      idempotency_key: context.idempotency_key,
                      query: context.query,
-                     config: config)
+                     config: config,
+                     process_id: Process.pid,
+                     thread_object_id: Thread.current.object_id,
+                     log_timestamp: Util.monotonic_time)
     end
 
-    private def log_response(context, request_start, status, body)
+    private def log_response(context, request_start, status, body, resp)
       Util.log_info("Response from Stripe API",
                     account: context.account,
                     api_version: context.api_version,
@@ -921,7 +924,11 @@ module Stripe
                      body: body,
                      idempotency_key: context.idempotency_key,
                      request_id: context.request_id,
-                     config: config)
+                     config: config,
+                     process_id: Process.pid,
+                     thread_object_id: Thread.current.object_id,
+                     response_object_id: resp.object_id,
+                     log_timestamp: Util.monotonic_time)
 
       return unless context.request_id
 

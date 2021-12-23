@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     "bug_tracker_uri" => "https://github.com/stripe/stripe-ruby/issues",
     "changelog_uri" =>
       "https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md",
-    "documentation_uri" => "https://stripe.com/docs/api/ruby",
+    "documentation_uri" => "https://stripe.com/docs/api?lang=ruby",
     "github_repo" => "ssh://github.com/stripe/stripe-ruby",
     "homepage_uri" => "https://stripe.com/docs/api?lang=ruby",
     "source_code_uri" => "https://github.com/stripe/stripe-ruby",

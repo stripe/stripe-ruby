@@ -18,7 +18,7 @@ The library also provides other features. For example:
 
 ## Documentation
 
-See the [Ruby API docs](https://stripe.com/docs/api/ruby#intro).
+See the [Ruby API docs](https://stripe.com/docs/api?lang=ruby).
 
 See [video demonstrations][youtube-playlist] covering how to use the library.
 
@@ -340,9 +340,9 @@ Update the bundled [stripe-mock] by editing the version number found in
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
-[idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
+[idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=ruby
 [stripe-mock]: https://github.com/stripe/stripe-mock
-[versioning]: https://stripe.com/docs/api/ruby#versioning
+[versioning]: https://stripe.com/docs/api/versioning?lang=ruby
 [youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M50RmP6ie-gdcSnfOuQCRYk
 
 <!--

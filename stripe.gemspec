@@ -13,16 +13,16 @@ Gem::Specification.new do |s|
                   "See https://stripe.com for details."
   s.author = "Stripe"
   s.email = "support@stripe.com"
-  s.homepage = "https://stripe.com/docs/api/ruby"
+  s.homepage = "https://stripe.com/docs/api?lang=ruby"
   s.license = "MIT"
 
   s.metadata = {
     "bug_tracker_uri" => "https://github.com/stripe/stripe-ruby/issues",
     "changelog_uri" =>
       "https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md",
-    "documentation_uri" => "https://stripe.com/docs/api/ruby",
+    "documentation_uri" => "https://stripe.com/docs/api?lang=ruby",
     "github_repo" => "ssh://github.com/stripe/stripe-ruby",
-    "homepage_uri" => "https://stripe.com/docs/api/ruby",
+    "homepage_uri" => "https://stripe.com/docs/api?lang=ruby",
     "source_code_uri" => "https://github.com/stripe/stripe-ruby",
   }
 

@@ -895,6 +895,18 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/payment_links"
       end
     end
+    context "PaymentLink.list_line_items" do
+      should "support requests with args: payment_link" do
+        Stripe::PaymentLink.list_line_items("pl_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz/line_items?"
+      end
+    end
+    context "PaymentLink.retrieve" do
+      should "support requests with args: payment_link" do
+        Stripe::PaymentLink.retrieve("pl_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz?"
+      end
+    end
     context "PaymentMethod.attach" do
       should "support requests with args: customer, id" do
         Stripe::PaymentMethod.attach(

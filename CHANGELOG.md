@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.43.0 - 2022-01-20
+* [#1031](https://github.com/stripe/stripe-ruby/pull/1031) API Updates
+  * Add support for new resource `PaymentLink`
+
 ## 5.42.0 - 2021-12-13
 * [#1022](https://github.com/stripe/stripe-ruby/pull/1022) Add connection manager logging and include object IDs in logging.
 

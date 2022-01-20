@@ -857,6 +857,14 @@ module Stripe
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
       end
+      should "support requests with args: amount, currency, automatic_payment_methods" do
+        Stripe::PaymentIntent.create(
+          amount: 1099,
+          currency: "eur",
+          automatic_payment_methods: { enabled: true }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
+      end
     end
     context "PaymentIntent.list" do
       should "support requests with args: limit" do
@@ -877,6 +885,26 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx"
+      end
+    end
+    context "PaymentLink.create" do
+      should "support requests with args: line_items" do
+        Stripe::PaymentLink.create(
+          line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 1 }]
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_links"
+      end
+    end
+    context "PaymentLink.list_line_items" do
+      should "support requests with args: payment_link" do
+        Stripe::PaymentLink.list_line_items("pl_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz/line_items?"
+      end
+    end
+    context "PaymentLink.retrieve" do
+      should "support requests with args: payment_link" do
+        Stripe::PaymentLink.retrieve("pl_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz?"
       end
     end
     context "PaymentMethod.attach" do

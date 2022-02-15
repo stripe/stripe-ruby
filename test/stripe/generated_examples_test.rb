@@ -887,6 +887,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx"
       end
     end
+    context "PaymentIntent.verify_microdeposits" do
+      should "support requests with args: payment_intent" do
+        Stripe::PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx")
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits?"
+      end
+    end
     context "PaymentLink.create" do
       should "support requests with args: line_items" do
         Stripe::PaymentLink.create(
@@ -1381,6 +1387,12 @@ module Stripe
           { metadata: { user_id: "3435453" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx"
+      end
+    end
+    context "SetupIntent.verify_microdeposits" do
+      should "support requests with args: setup_intent" do
+        Stripe::SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
+        assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits?"
       end
     end
     context "ShippingRate.create" do

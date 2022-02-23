@@ -105,7 +105,7 @@ module Stripe
       instance
     end
 
-    protected def request_stripe_object(method:, path:, params:, opts: {})
+    def request_stripe_object(method:, path:, params:, opts: {})
       resp, opts = execute_resource_request(method, path, params, opts)
 
       # If we're getting back this thing, update; otherwise, instantiate.

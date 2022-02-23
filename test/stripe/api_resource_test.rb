@@ -665,6 +665,80 @@ module Stripe
       end
     end
 
+    context "test helpers" do
+      class TestHelperAPIResource < APIResource
+        include APIOperations::TestHelpers
+
+        OBJECT_NAME = "hello"
+
+        class TestHelpers < APIResource
+
+          OBJECT_NAME = "hello"
+
+          custom_method :say_hello, http_verb: :post
+          def say_hello(params = {}, opts = {})
+            request_stripe_object(
+              method: :post,
+              path: resource_url + "/say_hello",
+              params: params,
+              opts: opts
+            )
+          end
+        end
+      end
+
+      setup do
+        Util.instance_variable_set(
+          :@object_classes,
+          Stripe::ObjectTypes.object_names_to_classes.merge(
+            "hello" => TestHelperAPIResource
+          )
+        )
+      end
+      teardown do
+        Util.class.instance_variable_set(:@object_classes, Stripe::ObjectTypes.object_names_to_classes)
+      end
+
+      should "make requests appropriately" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate("object" => "hello"))
+
+        hello = TestHelperAPIResource.new(id: "hi_123")
+        hello.test_helpers.say_hello({ foo: "bar" }, stripe_account: "acct_hi")
+      end
+
+      should "forward opts" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate("object" => "hello"))
+
+        hello = TestHelperAPIResource.new("hi_123", stripe_account: "acct_hi")
+        hello.test_helpers.say_hello({ foo: "bar" })
+      end
+
+      should "return resource" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate({ object: "hello", result: "hi!" }))
+
+        hello = TestHelperAPIResource.new(id: "hi_123")
+        new_hello = hello.test_helpers.say_hello({ foo: "bar" }, stripe_account: "acct_hi")
+        assert new_hello.is_a? TestHelperAPIResource
+        assert_equal "hi!", new_hello.result
+      end
+
+      should "be callable statically" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate({ object: "hello", result: "hi!" }))
+
+        new_hello = TestHelperAPIResource::TestHelpers.say_hello("hi_123", { foo: "bar" }, stripe_account: "acct_hi")
+        assert new_hello.is_a? TestHelperAPIResource
+        assert_equal "hi!", new_hello.result
+      end
+    end
+
     @@fixtures = {} # rubocop:disable Style/ClassVars
     setup do
       if @@fixtures.empty?

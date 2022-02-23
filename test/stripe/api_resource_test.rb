@@ -672,7 +672,6 @@ module Stripe
         OBJECT_NAME = "hello"
 
         class TestHelpers < APIResource
-
           OBJECT_NAME = "hello"
 
           custom_method :say_hello, http_verb: :post

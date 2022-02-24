@@ -74,8 +74,17 @@ module Stripe
                 "id should be a string representing the ID of an API resource"
         end
 
-        url = "#{resource.resource_url}/#{CGI.escape(id)}/#{CGI.escape(http_path)}"
-        resp, opts = resource.execute_resource_request(http_verb, url, params, opts)
+        url = "#{resource.resource_url}/"\
+              "#{CGI.escape(id)}/"\
+              "#{CGI.escape(http_path)}"
+
+        resp, opts = resource.execute_resource_request(
+          http_verb,
+          url,
+          params,
+          opts
+        )
+
         Util.convert_to_stripe_object(resp.data, opts)
       end
     end

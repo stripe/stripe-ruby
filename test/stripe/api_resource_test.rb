@@ -673,10 +673,10 @@ module Stripe
           TestHelpers.new(self)
         end
 
-        class TestHelpers
-          def initialize(resource)
-            @resource = resource
-          end
+        class TestHelpers < APIResourceTestHelpers
+          RESOURCE_CLASS = TestHelperAPIResource
+
+          custom_method :say_hello, http_verb: :post
 
           def say_hello(params = {}, opts = {})
             @resource.request_stripe_object(
@@ -726,6 +726,16 @@ module Stripe
 
         hello = TestHelperAPIResource.new(id: "hi_123")
         new_hello = hello.test_helpers.say_hello({ foo: "bar" }, stripe_account: "acct_hi")
+        assert new_hello.is_a? TestHelperAPIResource
+        assert_equal "hi!", new_hello.result
+      end
+
+      should "be callable statically" do
+        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate({ object: "hello", result: "hi!" }))
+
+        new_hello = TestHelperAPIResource::TestHelpers.say_hello("hi_123", { foo: "bar" }, stripe_account: "acct_hi")
         assert new_hello.is_a? TestHelperAPIResource
         assert_equal "hi!", new_hello.result
       end

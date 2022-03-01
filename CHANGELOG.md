@@ -1,9 +1,12 @@
 # Changelog
 
+## 5.45.0 - 2022-03-01
+* [#1035](https://github.com/stripe/stripe-ruby/pull/1035) API Updates
+  * Add support for new resource `TestHelpers.TestClock`
+
 ## 5.44.0 - 2022-02-16
 * [#1032](https://github.com/stripe/stripe-ruby/pull/1032) API Updates
   * Add support for `verify_microdeposits` method on resources `PaymentIntent` and `SetupIntent`
-  
 
 ## 5.43.0 - 2022-01-20
 * [#1031](https://github.com/stripe/stripe-ruby/pull/1031) API Updates

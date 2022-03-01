@@ -1629,6 +1629,39 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/tax_rates/txr_xxxxxxxxxxxxx"
       end
     end
+    context "TestClock.advance" do
+      should "support requests with args: test_clock, frozen_time" do
+        Stripe::TestHelpers::TestClock.advance("clock_xyz", { frozen_time: 142 })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz/advance"
+      end
+    end
+    context "TestClock.create" do
+      should "support requests with args: frozen_time, name" do
+        Stripe::TestHelpers::TestClock.create(
+          frozen_time: 123,
+          name: "cogsworth"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/test_clocks"
+      end
+    end
+    context "TestClock.delete" do
+      should "support requests with args: test_clock" do
+        Stripe::TestHelpers::TestClock.delete("clock_xyz")
+        assert_requested :delete, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz?"
+      end
+    end
+    context "TestClock.list" do
+      should "work" do
+        Stripe::TestHelpers::TestClock.list
+        assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks?"
+      end
+    end
+    context "TestClock.retrieve" do
+      should "support requests with args: test_clock" do
+        Stripe::TestHelpers::TestClock.retrieve("clock_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz?"
+      end
+    end
     context "Token.create" do
       should "support requests with args: card" do
         Stripe::Token.create(

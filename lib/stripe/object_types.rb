@@ -94,6 +94,7 @@ module Stripe
         Terminal::ConnectionToken::OBJECT_NAME => Terminal::ConnectionToken,
         Terminal::Location::OBJECT_NAME => Terminal::Location,
         Terminal::Reader::OBJECT_NAME => Terminal::Reader,
+        TestHelpers::TestClock::OBJECT_NAME => TestHelpers::TestClock,
         ThreeDSecure::OBJECT_NAME => ThreeDSecure,
         Token::OBJECT_NAME => Token,
         Topup::OBJECT_NAME => Topup,

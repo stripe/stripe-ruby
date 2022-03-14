@@ -681,7 +681,7 @@ module Stripe
           def say_hello(params = {}, opts = {})
             @resource.request_stripe_object(
               method: :post,
-              path: @resource.resource_url + "/say_hello",
+              path: resource_url + "/say_hello",
               params: params,
               opts: opts
             )
@@ -702,7 +702,7 @@ module Stripe
       end
 
       should "make requests appropriately" do
-        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+        stub_request(:post, "#{Stripe.api_base}/v1/test_helpers/hellos/hi_123/say_hello")
           .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
           .to_return(body: JSON.generate("object" => "hello"))
 
@@ -711,7 +711,7 @@ module Stripe
       end
 
       should "forward opts" do
-        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+        stub_request(:post, "#{Stripe.api_base}/v1/test_helpers/hellos/hi_123/say_hello")
           .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
           .to_return(body: JSON.generate("object" => "hello"))
 
@@ -720,7 +720,7 @@ module Stripe
       end
 
       should "return resource" do
-        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+        stub_request(:post, "#{Stripe.api_base}/v1/test_helpers/hellos/hi_123/say_hello")
           .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
           .to_return(body: JSON.generate({ object: "hello", result: "hi!" }))
 
@@ -731,7 +731,7 @@ module Stripe
       end
 
       should "be callable statically" do
-        stub_request(:post, "#{Stripe.api_base}/v1/hellos/hi_123/say_hello")
+        stub_request(:post, "#{Stripe.api_base}/v1/test_helpers/hellos/hi_123/say_hello")
           .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
           .to_return(body: JSON.generate({ object: "hello", result: "hi!" }))
 

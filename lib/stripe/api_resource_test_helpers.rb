@@ -21,5 +21,20 @@ module Stripe
     def self.custom_method(name, http_verb:, http_path: nil)
       Util.custom_method self::RESOURCE_CLASS, self, name, http_verb, http_path
     end
+
+    def self.resource_url
+      "/v1/test_helpers/#{self::RESOURCE_CLASS::OBJECT_NAME.downcase.tr('.', '/')}s"
+    end
+
+    def resource_url
+      unless (id = @resource["id"])
+        raise InvalidRequestError.new(
+          "Could not determine which URL to request: #{self.class} instance " \
+          "has invalid ID: #{id.inspect}",
+          "id"
+        )
+      end
+      "#{self.class.resource_url}/#{CGI.escape(id)}"
+    end
   end
 end

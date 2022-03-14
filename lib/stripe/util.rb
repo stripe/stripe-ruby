@@ -74,7 +74,7 @@ module Stripe
                 "id should be a string representing the ID of an API resource"
         end
 
-        url = "#{resource.resource_url}/"\
+        url = "#{target.resource_url}/"\
               "#{CGI.escape(id)}/"\
               "#{CGI.escape(http_path)}"
 

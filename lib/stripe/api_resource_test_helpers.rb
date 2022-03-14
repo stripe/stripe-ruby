@@ -23,7 +23,8 @@ module Stripe
     end
 
     def self.resource_url
-      "/v1/test_helpers/#{self::RESOURCE_CLASS::OBJECT_NAME.downcase.tr('.', '/')}s"
+      "/v1/test_helpers/"\
+      "#{self::RESOURCE_CLASS::OBJECT_NAME.downcase.tr('.', '/')}s"
     end
 
     def resource_url

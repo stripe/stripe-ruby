@@ -46,11 +46,11 @@ module Stripe
       # that there are no more elements by setting `has_more` to `false`, and
       # iteration stops.
       stub_request(:get, "#{Stripe.api_base}/things")
-        .with(query: { limit: 3, next_page: "next_page_token_1" })
+        .with(query: { limit: 3, page: "next_page_token_1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }, { id: 4 }], has_more: true, url: "/things", next_page: "next_page_token_2"))
       stub_request(:get, "#{Stripe.api_base}/things")
-        .with(query: { limit: 3, next_page: "next_page_token_2" })
-        .to_return(body: JSON.generate(data: [{ id: 5 }, { id: 6 }], has_more: false, url: "/things"))
+        .with(query: { limit: 3, page: "next_page_token_2" })
+        .to_return(body: JSON.generate(data: [{ id: 5 }, { id: 6 }], has_more: false, url: "/things", next_page: nil))
 
       assert_equal arr, list.auto_paging_each.to_a.map(&:to_hash)
     end
@@ -69,7 +69,7 @@ module Stripe
                                                    url: "/things")
 
       stub_request(:get, "#{Stripe.api_base}/things")
-        .with(query: { next_page: "next_page_token_1" })
+        .with(query: { page: "next_page_token_1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }], has_more: false))
 
       actual = []
@@ -97,7 +97,7 @@ module Stripe
                                                    next_page: "next_page_token_1",
                                                    url: "/things")
       stub_request(:get, "#{Stripe.api_base}/things")
-        .with(query: { next_page: "next_page_token_1" })
+        .with(query: { page: "next_page_token_1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
       next_list = list.next_search_result_page
       refute next_list.empty?
@@ -111,10 +111,10 @@ module Stripe
                                                    url: "/things")
       list.filters = { limit: 3 }
       stub_request(:get, "#{Stripe.api_base}/things")
-        .with(query: { "limit": 3, next_page: "next_page_token_1" })
+        .with(query: { "limit": 3, page: "next_page_token_1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
       next_list = list.next_search_result_page
-      assert_equal({ limit: 3, next_page: "next_page_token_1" }, next_list.filters)
+      assert_equal({ limit: 3, page: "next_page_token_1" }, next_list.filters)
     end
 
     should "fetch an empty page through #next_page" do

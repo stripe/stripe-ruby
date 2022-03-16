@@ -78,7 +78,7 @@ module Stripe
     def next_search_result_page(params = {}, opts = {})
       return self.class.empty_search_result(opts) unless has_more
 
-      params = filters.merge(next_page: next_page).merge(params)
+      params = filters.merge(page: next_page).merge(params)
 
       _search(url, params, opts)
     end

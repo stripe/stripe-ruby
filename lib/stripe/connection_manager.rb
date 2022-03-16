@@ -103,13 +103,34 @@ module Stripe
         headers
       )
 
-      @mutex.synchronize do
+      Util.log_debug("ConnectionManager starting request",
+                     method_name: method_name,
+                     path: path,
+                     process_id: Process.pid,
+                     thread_object_id: Thread.current.object_id,
+                     connection_manager_object_id: object_id,
+                     connection_object_id: connection.object_id,
+                     log_timestamp: Util.monotonic_time)
+
+      resp = @mutex.synchronize do
         # The block parameter is special here. If a block is provided, the block
         # is invoked with the Net::HTTPResponse. However, the body will not have
         # been read yet in the block, and can be streamed by calling
         # HTTPResponse#read_body.
         connection.request(request, body, &block)
       end
+
+      Util.log_debug("ConnectionManager request complete",
+                     method_name: method_name,
+                     path: path,
+                     process_id: Process.pid,
+                     thread_object_id: Thread.current.object_id,
+                     connection_manager_object_id: object_id,
+                     connection_object_id: connection.object_id,
+                     response_object_id: resp.object_id,
+                     log_timestamp: Util.monotonic_time)
+
+      resp
     end
 
     #

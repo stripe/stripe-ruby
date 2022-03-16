@@ -41,7 +41,7 @@ module Stripe
                                                      url: "/things", })
       list.filters = { limit: 3 }
 
-      # The test will start with the synthetic list object above, and uses the
+      # The test will start with the synthetic search result object above, and uses the
       # 'next_page' token to fetch two more pages. The second page indicates
       # that there are no more elements by setting `has_more` to `false`, and
       # iteration stops.

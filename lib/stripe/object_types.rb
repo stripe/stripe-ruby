@@ -9,7 +9,6 @@ module Stripe
       {
         # data structures
         ListObject::OBJECT_NAME => ListObject,
-        SearchResultObject::OBJECT_NAME => SearchResultObject,
 
         # business objects
         Account::OBJECT_NAME => Account,

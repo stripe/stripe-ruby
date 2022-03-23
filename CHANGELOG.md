@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.46.0 - 2022-03-23
+* [#1039](https://github.com/stripe/stripe-ruby/pull/1039) API Updates
+  * Add support for `cancel` method on resource `Refund`
+* [#992](https://github.com/stripe/stripe-ruby/pull/992) Add support for Search API
+
 ## 5.45.0 - 2022-03-01
 * [#1035](https://github.com/stripe/stripe-ruby/pull/1035) API Updates
   * Add support for new resource `TestHelpers.TestClock`

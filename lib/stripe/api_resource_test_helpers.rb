@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module Stripe
+  # The base class for nested TestHelpers classes in resource objects.
+  # The APIResourceTestHelpers handles URL generation and custom method
+  # support for test-helper methods.
+  #
+  #  class MyAPIResource < APIResource
+  #    class TestHelpers < APIResourceTestHelpers
   class APIResourceTestHelpers
     def initialize(resource)
       @resource = resource

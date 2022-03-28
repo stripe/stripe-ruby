@@ -67,6 +67,11 @@ module Stripe
               "Invalid http_verb value: #{http_verb.inspect}. Should be one " \
               "of :get, :post or :delete."
       end
+      unless target.respond_to?(:resource_url)
+        raise ArgumentError,
+              "Invalid target value: #{target}. Target class should have a " \
+              "`resource_url` method."
+      end
       http_path ||= name.to_s
       target.define_singleton_method(name) do |id, params = {}, opts = {}|
         unless id.is_a?(String)

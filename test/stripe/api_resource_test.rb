@@ -27,6 +27,14 @@ module Stripe
         assert_equal "id should be a string representing the ID of an API resource",
                      e.message
       end
+
+      should "raise an error if an unsupported target is passed" do
+        e = assert_raises ArgumentError do
+          Stripe::Util.custom_method(CustomMethodAPIResource, String, :my_method, :post, "/")
+        end
+        assert_equal "Invalid target value: String. Target class should have a `resource_url` method.",
+                     e.message
+      end
     end
 
     context ".save_nested_resource" do

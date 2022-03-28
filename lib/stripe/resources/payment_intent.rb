@@ -5,6 +5,7 @@ module Stripe
   class PaymentIntent < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_intent"
@@ -48,6 +49,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.search(params = {}, opts = {})
+      _search("/v1/payment_intents/search", params, opts)
+    end
+
+    def self.search_auto_paging_each(params = {}, opts = {}, &blk)
+      search(params, opts).auto_paging_each(&blk)
     end
   end
 end

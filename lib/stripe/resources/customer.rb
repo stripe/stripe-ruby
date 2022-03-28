@@ -6,6 +6,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
@@ -47,6 +48,14 @@ module Stripe
     def delete_discount
       resp, opts = execute_resource_request(:delete, resource_url + "/discount")
       Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.search(params = {}, opts = {})
+      _search("/v1/customers/search", params, opts)
+    end
+
+    def self.search_auto_paging_each(params = {}, opts = {}, &blk)
+      search(params, opts).auto_paging_each(&blk)
     end
   end
 end

@@ -47,6 +47,53 @@ module Stripe
       Util.object_classes[object_name] == klass
     end
 
+    # Adds a custom method to a resource class. This is used to add support for
+    # non-CRUDL API requests, e.g. capturing charges. custom_method takes the
+    # following parameters:
+    # - name: the name of the custom method to create (as a symbol)
+    # - http_verb: the HTTP verb for the API request (:get, :post, or :delete)
+    # - http_path: the path to append to the resource's URL. If not provided,
+    #              the name is used as the path
+    # - resource: the resource implementation class
+    # - target: the class that custom static method will be added to
+    #
+    # For example, this call:
+    #     custom_method :capture, http_verb: post
+    # adds a `capture` class method to the resource class that, when called,
+    # will send a POST request to `/v1/<object_name>/capture`.
+    def self.custom_method(resource, target, name, http_verb, http_path)
+      unless %i[get post delete].include?(http_verb)
+        raise ArgumentError,
+              "Invalid http_verb value: #{http_verb.inspect}. Should be one " \
+              "of :get, :post or :delete."
+      end
+      unless target.respond_to?(:resource_url)
+        raise ArgumentError,
+              "Invalid target value: #{target}. Target class should have a " \
+              "`resource_url` method."
+      end
+      http_path ||= name.to_s
+      target.define_singleton_method(name) do |id, params = {}, opts = {}|
+        unless id.is_a?(String)
+          raise ArgumentError,
+                "id should be a string representing the ID of an API resource"
+        end
+
+        url = "#{target.resource_url}/"\
+              "#{CGI.escape(id)}/"\
+              "#{CGI.escape(http_path)}"
+
+        resp, opts = resource.execute_resource_request(
+          http_verb,
+          url,
+          params,
+          opts
+        )
+
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+    end
+
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or
     # array of +StripeObject+s. These new objects will be created as a concrete
     # type as dictated by their `object` field (e.g. an `object` value of

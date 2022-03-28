@@ -63,22 +63,7 @@ module Stripe
     # adds a `capture` class method to the resource class that, when called,
     # will send a POST request to `/v1/<object_name>/capture`.
     def self.custom_method(name, http_verb:, http_path: nil)
-      unless %i[get post delete].include?(http_verb)
-        raise ArgumentError,
-              "Invalid http_verb value: #{http_verb.inspect}. Should be one " \
-              "of :get, :post or :delete."
-      end
-      http_path ||= name.to_s
-      define_singleton_method(name) do |id, params = {}, opts = {}|
-        unless id.is_a?(String)
-          raise ArgumentError,
-                "id should be a string representing the ID of an API resource"
-        end
-
-        url = "#{resource_url}/#{CGI.escape(id)}/#{CGI.escape(http_path)}"
-        resp, opts = execute_resource_request(http_verb, url, params, opts)
-        Util.convert_to_stripe_object(resp.data, opts)
-      end
+      Util.custom_method self, self, name, http_verb, http_path
     end
 
     def resource_url
@@ -105,7 +90,7 @@ module Stripe
       instance
     end
 
-    protected def request_stripe_object(method:, path:, params:, opts: {})
+    def request_stripe_object(method:, path:, params:, opts: {})
       resp, opts = execute_resource_request(method, path, params, opts)
 
       # If we're getting back this thing, update; otherwise, instantiate.

@@ -11,6 +11,21 @@ module Stripe
       assert charges.data[0].is_a?(Stripe::Charge)
     end
 
+    should "be searchable" do
+      charges = Stripe::Charge.search(query: 'currency:"USD"')
+      assert_requested :get, "#{Stripe.api_base}/v1/charges/search?query=currency:%22USD%22"
+      assert charges.total_count == 1
+      assert charges.data.is_a?(Array)
+      assert charges.data[0].is_a?(Stripe::Charge)
+
+      cnt = 0
+      charges.auto_paging_each do |c|
+        assert c.is_a?(Stripe::Charge)
+        cnt += 1
+      end
+      assert cnt == 1
+    end
+
     should "be retrievable" do
       charge = Stripe::Charge.retrieve("ch_123")
       assert_requested :get, "#{Stripe.api_base}/v1/charges/ch_123"

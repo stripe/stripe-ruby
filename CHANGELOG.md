@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.47.0 - 2022-03-29
+* [#1040](https://github.com/stripe/stripe-ruby/pull/1040) API Updates
+  * Add support for Search API
+    * Add support for `search` method on resources `Charge`, `Customer`, `Invoice`, `PaymentIntent`, `Price`, `Product`, and `Subscription`
+  
+* [#1034](https://github.com/stripe/stripe-ruby/pull/1034) Add supporting classes for test helper generation
+
 ## 5.46.0 - 2022-03-23
 * [#1039](https://github.com/stripe/stripe-ruby/pull/1039) API Updates
   * Add support for `cancel` method on resource `Refund`

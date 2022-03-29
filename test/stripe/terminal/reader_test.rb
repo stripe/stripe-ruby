@@ -57,6 +57,13 @@ module Stripe
           assert reader.is_a?(Stripe::Terminal::Reader)
         end
       end
+
+      should "be able to present a payment method" do
+        reader = Stripe::Terminal::Reader.retrieve("rdr_123")
+        reader = reader.test_helpers.present_payment_method
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/terminal/readers/rdr_123/present_payment_method"
+        assert reader.is_a?(Stripe::Terminal::Reader)
+      end
     end
   end
 end

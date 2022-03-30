@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.48.0 - 2022-03-30
+* [#1041](https://github.com/stripe/stripe-ruby/pull/1041) API Updates
+  * Add support for `cancel_action`, `process_payment_intent`, `process_setup_intent`, and `set_reader_display` methods on resource `Terminal.Reader`
+
 ## 5.47.0 - 2022-03-29
 * [#1040](https://github.com/stripe/stripe-ruby/pull/1040) API Updates
   * Add support for Search API

@@ -6,7 +6,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'file'
+    OBJECT_NAME = "file"
 
     # This resource can have two different object names. In latter API
     # versions, only `file` is used, but since stripe-ruby may be used with

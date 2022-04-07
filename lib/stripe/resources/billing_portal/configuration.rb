@@ -8,7 +8,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = 'billing_portal.configuration'
+      OBJECT_NAME = "billing_portal.configuration"
     end
   end
 end

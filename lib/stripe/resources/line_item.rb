@@ -3,6 +3,6 @@
 
 module Stripe
   class LineItem < APIResource
-    OBJECT_NAME = 'item'
+    OBJECT_NAME = "item"
   end
 end

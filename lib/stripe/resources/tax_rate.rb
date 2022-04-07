@@ -7,6 +7,6 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "tax_rate"
+    OBJECT_NAME = 'tax_rate'
   end
 end

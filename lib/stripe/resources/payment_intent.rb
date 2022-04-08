@@ -10,10 +10,20 @@ module Stripe
 
     OBJECT_NAME = "payment_intent"
 
+    custom_method :apply_customer_balance, http_verb: :post
     custom_method :cancel, http_verb: :post
     custom_method :capture, http_verb: :post
     custom_method :confirm, http_verb: :post
     custom_method :verify_microdeposits, http_verb: :post
+
+    def apply_customer_balance(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/apply_customer_balance",
+        params: params,
+        opts: opts
+      )
+    end
 
     def cancel(params = {}, opts = {})
       request_stripe_object(

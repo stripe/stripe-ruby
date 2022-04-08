@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.49.0 - 2022-04-08
+* [#1043](https://github.com/stripe/stripe-ruby/pull/1043) API Updates
+  * Add support for `apply_customer_balance` method on resource `PaymentIntent`
+
 ## 5.48.0 - 2022-03-30
 * [#1041](https://github.com/stripe/stripe-ruby/pull/1041) API Updates
   * Add support for `cancel_action`, `process_payment_intent`, `process_setup_intent`, and `set_reader_display` methods on resource `Terminal.Reader`

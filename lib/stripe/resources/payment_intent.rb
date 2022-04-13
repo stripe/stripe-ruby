@@ -14,6 +14,7 @@ module Stripe
     custom_method :cancel, http_verb: :post
     custom_method :capture, http_verb: :post
     custom_method :confirm, http_verb: :post
+    custom_method :increment_authorization, http_verb: :post
     custom_method :verify_microdeposits, http_verb: :post
 
     def apply_customer_balance(params = {}, opts = {})
@@ -47,6 +48,15 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: resource_url + "/confirm",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def increment_authorization(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/increment_authorization",
         params: params,
         opts: opts
       )

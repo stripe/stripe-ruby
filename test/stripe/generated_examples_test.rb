@@ -648,10 +648,17 @@ module Stripe
       end
     end
     context "FundingInstructions.create" do
-      should "support requests with args: customer, funding_type" do
+      should "support requests with args: customer, bank_transfer, currency, funding_type" do
         Stripe::Customer.create_funding_instruction(
           "cus_123",
-          { funding_type: "bank_transfer" }
+          {
+            bank_transfer: {
+              requested_address_types: ["zengin"],
+              type: "jp_bank_transfer",
+            },
+            currency: "usd",
+            funding_type: "bank_transfer",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions"
       end

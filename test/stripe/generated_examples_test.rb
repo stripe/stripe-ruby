@@ -625,6 +625,18 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/file_links/link_xxxxxxxxxxxxx"
       end
     end
+    context "FundingInstructions.create" do
+      should "support requests with args: customer" do
+        Stripe::Customer.create_funding_instruction("cus_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions?"
+      end
+    end
+    context "FundingInstructions.list" do
+      should "support requests with args: customer" do
+        Stripe::Customer.list_funding_instructions("cus_123")
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions?"
+      end
+    end
     context "Invoice.create" do
       should "support requests with args: customer" do
         Stripe::Invoice.create(customer: "cus_xxxxxxxxxxxxx")

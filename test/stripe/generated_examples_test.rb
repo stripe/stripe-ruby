@@ -270,17 +270,35 @@ module Stripe
         )
         assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/configurations"
       end
+      should "work" do
+        Stripe::Terminal::Configuration.create
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations?"
+      end
+    end
+    context "Configuration.delete" do
+      should "support requests with args: configuration" do
+        Stripe::Terminal::Configuration.delete("uc_123")
+        assert_requested :delete, "#{Stripe.api_base}/v1/terminal/configurations/uc_123?"
+      end
     end
     context "Configuration.list" do
       should "support requests with args: limit" do
         Stripe::BillingPortal::Configuration.list(limit: 3)
         assert_requested :get, "#{Stripe.api_base}/v1/billing_portal/configurations?limit=3"
       end
+      should "work" do
+        Stripe::Terminal::Configuration.list
+        assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations?"
+      end
     end
     context "Configuration.retrieve" do
       should "support requests with args: id" do
         Stripe::BillingPortal::Configuration.retrieve("bpc_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx?"
+      end
+      should "support requests with args: configuration" do
+        Stripe::Terminal::Configuration.retrieve("uc_123")
+        assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations/uc_123?"
       end
     end
     context "Configuration.update" do
@@ -295,6 +313,10 @@ module Stripe
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx"
+      end
+      should "support requests with args: configuration" do
+        Stripe::Terminal::Configuration.update("uc_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations/uc_123?"
       end
     end
     context "ConnectionToken.create" do
@@ -626,9 +648,12 @@ module Stripe
       end
     end
     context "FundingInstructions.create" do
-      should "support requests with args: customer" do
-        Stripe::Customer.create_funding_instruction("cus_123")
-        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions?"
+      should "support requests with args: customer, funding_type" do
+        Stripe::Customer.create_funding_instruction(
+          "cus_123",
+          { funding_type: "bank_transfer" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions"
       end
     end
     context "FundingInstructions.list" do

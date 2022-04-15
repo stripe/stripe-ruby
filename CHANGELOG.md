@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.51.0 - 2022-04-15
+* [#1046](https://github.com/stripe/stripe-ruby/pull/1046) API Updates  
+  * Add support for new resources `FundingInstructions` and `Terminal.Configuration`
+
+* [#980](https://github.com/stripe/stripe-ruby/pull/980) Remove extra space
+* [#1028](https://github.com/stripe/stripe-ruby/pull/1028) Add Ruby 3.1 to the CI matrix
+
 ## 5.50.0 - 2022-04-13
 * [#1045](https://github.com/stripe/stripe-ruby/pull/1045) API Updates
   * Add support for `increment_authorization` method on resource `PaymentIntent`

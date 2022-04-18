@@ -3,9 +3,6 @@
 
 module Stripe
   class FundingInstructions < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "funding_instructions"
 
     def resource_url
@@ -13,8 +10,7 @@ module Stripe
         raise NotImplementedError,
               "FundingInstructions cannot be accessed without a customer ID."
       end
-      "#{Customer.resource_url}/#{CGI.escape(customer)}/funding_instructions" \
-      "/#{CGI.escape(id)}"
+      "#{Customer.resource_url}/#{CGI.escape(customer)}/funding_instructions" "/#{CGI.escape(id)}"
     end
   end
 end

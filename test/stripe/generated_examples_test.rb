@@ -314,9 +314,12 @@ module Stripe
         )
         assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx"
       end
-      should "support requests with args: configuration" do
-        Stripe::Terminal::Configuration.update("uc_123")
-        assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations/uc_123?"
+      should "support requests with args: configuration, tipping" do
+        Stripe::Terminal::Configuration.update(
+          "uc_123",
+          { tipping: { usd: { fixed_amounts: [10] } } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations/uc_123"
       end
     end
     context "ConnectionToken.create" do
@@ -422,6 +425,22 @@ module Stripe
           description: "My First Test Customer (created for API docs)"
         )
         assert_requested :post, "#{Stripe.api_base}/v1/customers"
+      end
+    end
+    context "Customer.create_funding_instructions" do
+      should "support requests with args: customer, bank_transfer, currency, funding_type" do
+        Stripe::Customer.create_funding_instructions(
+          "cus_123",
+          {
+            bank_transfer: {
+              requested_address_types: ["zengin"],
+              type: "jp_bank_transfer",
+            },
+            currency: "usd",
+            funding_type: "bank_transfer",
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions"
       end
     end
     context "Customer.delete" do
@@ -645,28 +664,6 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/file_links/link_xxxxxxxxxxxxx"
-      end
-    end
-    context "FundingInstructions.create" do
-      should "support requests with args: customer, bank_transfer, currency, funding_type" do
-        Stripe::Customer.create_funding_instruction(
-          "cus_123",
-          {
-            bank_transfer: {
-              requested_address_types: ["zengin"],
-              type: "jp_bank_transfer",
-            },
-            currency: "usd",
-            funding_type: "bank_transfer",
-          }
-        )
-        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions"
-      end
-    end
-    context "FundingInstructions.list" do
-      should "support requests with args: customer" do
-        Stripe::Customer.list_funding_instructions("cus_123")
-        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/funding_instructions?"
       end
     end
     context "Invoice.create" do

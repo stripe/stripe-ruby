@@ -43,7 +43,6 @@ module Stripe
         File::OBJECT_NAME => File,
         File::OBJECT_NAME_ALT => File,
         FileLink::OBJECT_NAME => FileLink,
-        FundingInstructions::OBJECT_NAME => FundingInstructions,
         Identity::VerificationReport::OBJECT_NAME => Identity::VerificationReport,
         Identity::VerificationSession::OBJECT_NAME => Identity::VerificationSession,
         Invoice::OBJECT_NAME => Invoice,

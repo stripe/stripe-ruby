@@ -1,5 +1,5 @@
 name: Feature request
-description: Create a report to help us improve
+description: Suggest an idea for this library
 labels: ["feature-request"]
 body:
   - type: markdown

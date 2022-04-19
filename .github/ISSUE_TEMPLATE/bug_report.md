@@ -24,8 +24,9 @@ If applicable, add code snippets and/or screenshots to help explain your problem
 
 **Environment (please complete the following information):**
  - OS: [e.g. macOS]
- - Library version [e.g. 5.52.0]
- - API version: [e.g. 2020-08-27]
+ - Language version: [e.g. Ruby 3.1.2]
+ - Library version [e.g. stripe-ruby v5.52.0]
+ - API version: [e.g. 2020-08-27] (See [Versioning](https://stripe.com/docs/api/versioning) in the API Reference to find which version you're using)
 
 **Additional context**
 Add any other context about the problem here.

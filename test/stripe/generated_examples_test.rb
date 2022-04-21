@@ -1241,6 +1241,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/refunds"
       end
     end
+    context "Refund.expire" do
+      should "support requests with args: refund" do
+        Stripe::Refund::TestHelpers.expire("re_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/refunds/re_123/expire?"
+      end
+    end
     context "Refund.list" do
       should "support requests with args: limit" do
         Stripe::Refund.list(limit: 3)

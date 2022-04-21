@@ -19,5 +19,24 @@ module Stripe
         opts: opts
       )
     end
+
+    def test_helpers
+      TestHelpers.new(self)
+    end
+
+    class TestHelpers < APIResourceTestHelpers
+      RESOURCE_CLASS = Refund
+
+      custom_method :expire, http_verb: :post
+
+      def expire(params = {}, opts = {})
+        @resource.request_stripe_object(
+          method: :post,
+          path: resource_url + "/expire",
+          params: params,
+          opts: opts
+        )
+      end
+    end
   end
 end

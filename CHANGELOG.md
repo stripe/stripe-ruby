@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.53.0 - 2022-04-21
+* [#1050](https://github.com/stripe/stripe-ruby/pull/1050) API Updates
+  * Add support for `expire` test helper method on resource `Refund`
+
 ## 5.52.0 - 2022-04-18
 * [#1046](https://github.com/stripe/stripe-ruby/pull/1046) [#1047](https://github.com/stripe/stripe-ruby/pull/1047) API Updates 
   * Add support for new resources `FundingInstructions` and `Terminal.Configuration`

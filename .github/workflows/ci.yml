@@ -1,3 +1,5 @@
+name: CI
+
 on:
   push:
     branches: [ master ]
@@ -17,6 +19,23 @@ jobs:
     - name: rubocop
       run: bundle install && bundle exec rake rubocop
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version:  3.1
+    - name: Build
+      run: bundle install && gem build stripe.gemspec
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: gems
+        path: '*.gem'
+
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -32,3 +51,23 @@ jobs:
       run: docker run -d -p 12111-12112:12111-12112 stripe/stripe-mock && sleep 5
     - name: test
       run: bundle install && bundle exec rake test
+
+  publish:
+    name: Publish
+    #if: (((github.event_name == 'push') || (github.event_name == 'workflow_dispatch')) && startsWith(github.ref, 'refs/tags/v') && endsWith(github.actor, '-stripe'))
+    needs: [build, test, lint]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: gems
+        path: gems
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version:  3.1
+    - name: Publish NuGet packages to NuGet
+      run: gem push gems/*.gem
+      env:
+        GEM_HOST_API_KEY: ${{secrets.GEM_HOST_API_KEY}}

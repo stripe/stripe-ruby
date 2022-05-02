@@ -9,7 +9,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "terminal.reader"
+      OBJECT_NAME = 'terminal.reader'
 
       custom_method :cancel_action, http_verb: :post
       custom_method :process_payment_intent, http_verb: :post
@@ -19,36 +19,33 @@ module Stripe
       def cancel_action(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/cancel_action",
+          path: resource_url + '/cancel_action',
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def process_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/process_payment_intent",
+          path: resource_url + '/process_payment_intent',
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def process_setup_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/process_setup_intent",
+          path: resource_url + '/process_setup_intent',
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def set_reader_display(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/set_reader_display",
+          path: resource_url + '/set_reader_display',
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
 
@@ -63,11 +60,11 @@ module Stripe
 
         def present_payment_method(params = {}, opts = {})
           @resource.request_stripe_object(
-            method: :post,
-            path: resource_url + "/present_payment_method",
-            params: params,
-            opts: opts
-          )
+              method: :post,
+              path: resource_url + '/present_payment_method',
+              params: params,
+              opts: opts,
+            )
         end
       end
     end

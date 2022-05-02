@@ -8,7 +8,7 @@ module Stripe
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'payment_intent'
+    OBJECT_NAME = "payment_intent"
 
     custom_method :apply_customer_balance, http_verb: :post
     custom_method :cancel, http_verb: :post
@@ -20,55 +20,61 @@ module Stripe
     def apply_customer_balance(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/apply_customer_balance',
+        path: resource_url + "/apply_customer_balance",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/cancel',
+        path: resource_url + "/cancel",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def capture(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/capture',
+        path: resource_url + "/capture",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def confirm(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/confirm',
+        path: resource_url + "/confirm",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def increment_authorization(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/increment_authorization',
+        path: resource_url + "/increment_authorization",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def verify_microdeposits(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/verify_microdeposits',
+        path: resource_url + "/verify_microdeposits",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
 
     def self.search(params = {}, opts = {})
-      _search('/v1/payment_intents/search', params, opts)
+      _search("/v1/payment_intents/search", params, opts)
     end
+
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)
       search(params, opts).auto_paging_each(&blk)
     end

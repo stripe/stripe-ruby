@@ -6,16 +6,16 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'dispute'
+    OBJECT_NAME = "dispute"
 
     custom_method :close, http_verb: :post
 
     def close(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/close',
+        path: resource_url + "/close",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
   end

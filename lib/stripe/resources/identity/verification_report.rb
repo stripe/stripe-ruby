@@ -6,7 +6,7 @@ module Stripe
     class VerificationReport < APIResource
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = 'identity.verification_report'
+      OBJECT_NAME = "identity.verification_report"
     end
   end
 end

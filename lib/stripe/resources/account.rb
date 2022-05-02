@@ -10,29 +10,29 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = 'account'
+    OBJECT_NAME = "account"
 
     custom_method :reject, http_verb: :post
 
     nested_resource_class_methods :capability,
-      operations: %i[retrieve update list],
-      resource_plural: 'capabilities'
+                                  operations: %i[retrieve update list],
+                                  resource_plural: "capabilities"
     nested_resource_class_methods :person,
-      operations: %i[create retrieve update delete list]
+                                  operations: %i[create retrieve update delete list]
 
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/reject',
+        path: resource_url + "/reject",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
 
     save_nested_resource :external_account
 
     nested_resource_class_methods :external_account,
-      operations: %i[create retrieve update delete list]
+                                  operations: %i[create retrieve update delete list]
 
     nested_resource_class_methods :login_link, operations: %i[create]
 

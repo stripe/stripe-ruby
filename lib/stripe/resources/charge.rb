@@ -8,22 +8,23 @@ module Stripe
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'charge'
+    OBJECT_NAME = "charge"
 
     custom_method :capture, http_verb: :post
 
     def capture(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + '/capture',
+        path: resource_url + "/capture",
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
 
     def self.search(params = {}, opts = {})
-      _search('/v1/charges/search', params, opts)
+      _search("/v1/charges/search", params, opts)
     end
+
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)
       search(params, opts).auto_paging_each(&blk)
     end

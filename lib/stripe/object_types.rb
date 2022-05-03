@@ -27,6 +27,7 @@ module Stripe
         BitcoinTransaction::OBJECT_NAME => BitcoinTransaction,
         Capability::OBJECT_NAME => Capability,
         Card::OBJECT_NAME => Card,
+        CashBalance::OBJECT_NAME => CashBalance,
         Charge::OBJECT_NAME => Charge,
         Checkout::Session::OBJECT_NAME => Checkout::Session,
         CountrySpec::OBJECT_NAME => CountrySpec,

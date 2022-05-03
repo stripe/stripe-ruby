@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.54.0 - 2022-05-03
+* [#1053](https://github.com/stripe/stripe-ruby/pull/1053) API Updates
+  * Add support for new resource `CashBalance`
+
 ## 5.53.0 - 2022-04-21
 * [#1050](https://github.com/stripe/stripe-ruby/pull/1050) API Updates
   * Add support for `expire` test helper method on resource `Refund`

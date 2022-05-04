@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
-  module Terminal
-    class ConnectionToken < APIResource
+  module FinancialConnections
+    class Session < APIResource
       extend Stripe::APIOperations::Create
 
-      OBJECT_NAME = 'terminal.connection_token'
+      OBJECT_NAME = 'financial_connections.session'
     end
   end
 end

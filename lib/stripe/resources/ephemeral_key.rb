@@ -6,7 +6,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
 
-    OBJECT_NAME = 'ephemeral_key'
+    OBJECT_NAME = "ephemeral_key"
 
     def self.create(params = {}, opts = {})
       opts = Util.normalize_opts(opts)

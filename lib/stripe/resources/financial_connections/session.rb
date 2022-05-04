@@ -6,7 +6,7 @@ module Stripe
     class Session < APIResource
       extend Stripe::APIOperations::Create
 
-      OBJECT_NAME = 'financial_connections.session'
+      OBJECT_NAME = "financial_connections.session"
     end
   end
 end

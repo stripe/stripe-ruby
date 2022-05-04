@@ -3,6 +3,6 @@
 
 module Stripe
   class Mandate < APIResource
-    OBJECT_NAME = 'mandate'
+    OBJECT_NAME = "mandate"
   end
 end

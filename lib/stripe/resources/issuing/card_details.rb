@@ -4,7 +4,7 @@
 module Stripe
   module Issuing
     class CardDetails < StripeObject
-      OBJECT_NAME = 'issuing.card_details'
+      OBJECT_NAME = "issuing.card_details"
     end
   end
 end

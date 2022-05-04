@@ -812,62 +812,6 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/mandates/mandate_xxxxxxxxxxxxx?"
       end
     end
-    context "Order.create" do
-      should "support requests with args: currency, email, items, shipping" do
-        Stripe::Order.create(
-          currency: "usd",
-          email: "jenny.rosen@example.com",
-          items: [{ type: "sku", parent: "sku_xxxxxxxxxxxxx" }],
-          shipping: {
-            name: "Jenny Rosen",
-            address: {
-              line1: "1234 Main Street",
-              city: "San Francisco",
-              state: "CA",
-              country: "US",
-              postal_code: "94111",
-            },
-          }
-        )
-        assert_requested :post, "#{Stripe.api_base}/v1/orders"
-      end
-    end
-    context "Order.list" do
-      should "support requests with args: limit" do
-        Stripe::Order.list(limit: 3)
-        assert_requested :get, "#{Stripe.api_base}/v1/orders?limit=3"
-      end
-    end
-    context "Order.pay" do
-      should "support requests with args: source, id" do
-        Stripe::Order.pay("or_xxxxxxxxxxxxx", { source: "tok_xxxx" })
-        assert_requested :post, "#{Stripe.api_base}/v1/orders/or_xxxxxxxxxxxxx/pay"
-      end
-    end
-    context "Order.retrieve" do
-      should "support requests with args: id" do
-        Stripe::Order.retrieve("or_xxxxxxxxxxxxx")
-        assert_requested :get, "#{Stripe.api_base}/v1/orders/or_xxxxxxxxxxxxx?"
-      end
-    end
-    context "Order.update" do
-      should "support requests with args: metadata, id" do
-        Stripe::Order.update("or_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
-        assert_requested :post, "#{Stripe.api_base}/v1/orders/or_xxxxxxxxxxxxx"
-      end
-    end
-    context "OrderReturn.list" do
-      should "support requests with args: limit" do
-        Stripe::OrderReturn.list(limit: 3)
-        assert_requested :get, "#{Stripe.api_base}/v1/order_returns?limit=3"
-      end
-    end
-    context "OrderReturn.retrieve" do
-      should "support requests with args: id" do
-        Stripe::OrderReturn.retrieve("orret_xxxxxxxxxxxxx")
-        assert_requested :get, "#{Stripe.api_base}/v1/order_returns/orret_xxxxxxxxxxxxx?"
-      end
-    end
     context "PaymentIntent.cancel" do
       should "support requests with args: id" do
         Stripe::PaymentIntent.cancel("pi_xxxxxxxxxxxxx")

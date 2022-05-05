@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.55.0 - 2022-05-05
+* [#1055](https://github.com/stripe/stripe-ruby/pull/1055) API Updates
+  * Add support for new resources `FinancialConnections.AccountOwner`, `FinancialConnections.AccountOwnership`, `FinancialConnections.Account`, and `FinancialConnections.Session`
+  
+
 ## 5.54.0 - 2022-05-03
 * [#1053](https://github.com/stripe/stripe-ruby/pull/1053) API Updates
   * Add support for new resource `CashBalance`

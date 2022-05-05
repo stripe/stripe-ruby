@@ -44,6 +44,11 @@ module Stripe
         File::OBJECT_NAME => File,
         File::OBJECT_NAME_ALT => File,
         FileLink::OBJECT_NAME => FileLink,
+        FinancialConnections::Account::OBJECT_NAME => FinancialConnections::Account,
+        FinancialConnections::AccountOwner::OBJECT_NAME => FinancialConnections::AccountOwner,
+        FinancialConnections::AccountOwnership::OBJECT_NAME =>
+        FinancialConnections::AccountOwnership,
+        FinancialConnections::Session::OBJECT_NAME => FinancialConnections::Session,
         FundingInstructions::OBJECT_NAME => FundingInstructions,
         Identity::VerificationReport::OBJECT_NAME => Identity::VerificationReport,
         Identity::VerificationSession::OBJECT_NAME => Identity::VerificationSession,

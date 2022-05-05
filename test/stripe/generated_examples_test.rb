@@ -812,6 +812,50 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/mandates/mandate_xxxxxxxxxxxxx?"
       end
     end
+    context "Order.cancel" do
+      should "support requests with args: order" do
+        Stripe::Order.cancel("order_xyz")
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz/cancel?"
+      end
+    end
+    context "Order.create" do
+      should "support requests with args: description, currency, line_items" do
+        Stripe::Order.create(
+          description: "description",
+          currency: "usd",
+          line_items: [{ description: "my line item" }]
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/orders"
+      end
+    end
+    context "Order.list_line_items" do
+      should "support requests with args: order" do
+        Stripe::Order.list_line_items("order_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/orders/order_xyz/line_items?"
+      end
+    end
+    context "Order.reopen" do
+      should "support requests with args: order" do
+        Stripe::Order.reopen("order_xyz")
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz/reopen?"
+      end
+    end
+    context "Order.submit" do
+      should "support requests with args: order, expected_total" do
+        Stripe::Order.submit("order_xyz", { expected_total: 100 })
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz/submit"
+      end
+    end
+    context "Order.update" do
+      should "support requests with args: order" do
+        Stripe::Order.update("order_xyz")
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz?"
+      end
+      should "support requests with args: order2" do
+        Stripe::Order.update("order_xyz")
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz?"
+      end
+    end
     context "PaymentIntent.cancel" do
       should "support requests with args: id" do
         Stripe::PaymentIntent.cancel("pi_xxxxxxxxxxxxx")

@@ -12,6 +12,7 @@ module Stripe
     custom_method :cancel, http_verb: :post
     custom_method :list_line_items, http_verb: :get, http_path: "line_items"
     custom_method :reopen, http_verb: :post
+    custom_method :submit, http_verb: :post
 
     def cancel(params = {}, opts = {})
       request_stripe_object(
@@ -35,6 +36,15 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: resource_url + "/reopen",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def submit(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/submit",
         params: params,
         opts: opts
       )

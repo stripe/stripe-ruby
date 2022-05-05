@@ -9,22 +9,42 @@ module Stripe
 
     OBJECT_NAME = "order"
 
-    custom_method :pay, http_verb: :post
-    custom_method :return_order, http_verb: :post, http_path: "returns"
+    custom_method :cancel, http_verb: :post
+    custom_method :list_line_items, http_verb: :get, http_path: "line_items"
+    custom_method :reopen, http_verb: :post
+    custom_method :submit, http_verb: :post
 
-    def pay(params = {}, opts = {})
+    def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/pay",
+        path: resource_url + "/cancel",
         params: params,
         opts: opts
       )
     end
 
-    def return_order(params = {}, opts = {})
+    def list_line_items(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: resource_url + "/line_items",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def reopen(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/returns",
+        path: resource_url + "/reopen",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def submit(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: resource_url + "/submit",
         params: params,
         opts: opts
       )

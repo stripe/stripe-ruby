@@ -65,7 +65,6 @@ module Stripe
         LoginLink::OBJECT_NAME => LoginLink,
         Mandate::OBJECT_NAME => Mandate,
         Order::OBJECT_NAME => Order,
-        OrderReturn::OBJECT_NAME => OrderReturn,
         PaymentIntent::OBJECT_NAME => PaymentIntent,
         PaymentLink::OBJECT_NAME => PaymentLink,
         PaymentMethod::OBJECT_NAME => PaymentMethod,

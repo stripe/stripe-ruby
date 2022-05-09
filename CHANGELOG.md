@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.0.0 - 2022-05-09
+* [#1056](https://github.com/stripe/stripe-ruby/pull/1056) API Updates
+  Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-Guide-for-v6) contains more information.
+  
+  (⚠️ = breaking changes):
+  * ⚠️ Replace the legacy `Order` API with the new `Order` API. 
+    * New methods: `cancel`, `list_line_items`, `reopen`, and `submit`
+    * Removed methods: `pay` and `return_order`
+    * Removed resources: `OrderItem` and `OrderReturn`
+  * ⚠️ Rename `FinancialConnections::Account.refresh` to `FinancialConnections::Account.refresh_account
+
 ## 5.55.0 - 2022-05-05
 * [#1055](https://github.com/stripe/stripe-ruby/pull/1055) API Updates
   * Add support for new resources `FinancialConnections.AccountOwner`, `FinancialConnections.AccountOwnership`, `FinancialConnections.Account`, and `FinancialConnections.Session`

@@ -7,7 +7,7 @@ module Stripe
       OBJECT_NAME = "financial_connections.account"
 
       custom_method :disconnect, http_verb: :post
-      custom_method :refresh, http_verb: :post
+      custom_method :refresh_account, http_verb: :post, http_path: "refresh"
 
       def disconnect(params = {}, opts = {})
         request_stripe_object(
@@ -18,7 +18,7 @@ module Stripe
         )
       end
 
-      def refresh(params = {}, opts = {})
+      def refresh_account(params = {}, opts = {})
         request_stripe_object(
           method: :post,
           path: resource_url + "/refresh",

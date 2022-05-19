@@ -2452,6 +2452,15 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/inbound_transfers"
       end
     end
+    context "Treasury.InboundTransfer.fail" do
+      should "support requests with args: id, failure_details" do
+        Stripe::Treasury::InboundTransfer::TestHelpers.fail(
+          "ibt_123",
+          { failure_details: { code: "account_closed" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail"
+      end
+    end
     context "Treasury.InboundTransfer.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::InboundTransfer.list(
@@ -2465,6 +2474,20 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Treasury::InboundTransfer.retrieve("ibt_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Treasury.InboundTransfer.return_inbound_transfer" do
+      should "support requests with args: id" do
+        Stripe::Treasury::InboundTransfer::TestHelpers.return_inbound_transfer(
+          "ibt_123"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/inbound_transfers/ibt_123/return?"
+      end
+    end
+    context "Treasury.InboundTransfer.succeed" do
+      should "support requests with args: id" do
+        Stripe::Treasury::InboundTransfer::TestHelpers.succeed("ibt_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed?"
       end
     end
     context "Treasury.OutboundPayment.cancel" do
@@ -2519,6 +2542,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/outbound_transfers"
       end
     end
+    context "Treasury.OutboundTransfer.fail" do
+      should "support requests with args: id" do
+        Stripe::Treasury::OutboundTransfer::TestHelpers.fail("obt_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/outbound_transfers/obt_123/fail?"
+      end
+    end
     context "Treasury.OutboundTransfer.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::OutboundTransfer.list(
@@ -2528,10 +2557,36 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_transfers?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
     end
+    context "Treasury.OutboundTransfer.post" do
+      should "support requests with args: id" do
+        Stripe::Treasury::OutboundTransfer::TestHelpers.post("obt_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/outbound_transfers/obt_123/post?"
+      end
+    end
     context "Treasury.OutboundTransfer.retrieve" do
       should "support requests with args: id" do
         Stripe::Treasury::OutboundTransfer.retrieve("obt_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Treasury.OutboundTransfer.return_outbound_transfer" do
+      should "support requests with args: id, returned_details" do
+        Stripe::Treasury::OutboundTransfer::TestHelpers.return_outbound_transfer(
+          "obt_123",
+          { returned_details: { code: "account_closed" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/outbound_transfers/obt_123/return"
+      end
+    end
+    context "Treasury.ReceivedCredit.create" do
+      should "support requests with args: financial_account, network, amount, currency" do
+        Stripe::Treasury::ReceivedCredit::TestHelpers.create(
+          financial_account: "fa_123",
+          network: "ach",
+          amount: 1234,
+          currency: "usd"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/received_credits"
       end
     end
     context "Treasury.ReceivedCredit.list" do
@@ -2547,6 +2602,17 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Treasury::ReceivedCredit.retrieve("rc_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/received_credits/rc_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Treasury.ReceivedDebit.create" do
+      should "support requests with args: financial_account, network, amount, currency" do
+        Stripe::Treasury::ReceivedDebit::TestHelpers.create(
+          financial_account: "fa_123",
+          network: "ach",
+          amount: 1234,
+          currency: "usd"
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/received_debits"
       end
     end
     context "Treasury.ReceivedDebit.list" do

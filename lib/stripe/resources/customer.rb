@@ -14,6 +14,7 @@ module Stripe
 
     custom_method :create_funding_instructions, http_verb: :post, http_path: "funding_instructions"
     custom_method :list_payment_methods, http_verb: :get, http_path: "payment_methods"
+    custom_method :retrieve_payment_method, http_verb: :get, http_path: "{payment_method}"
 
     nested_resource_class_methods :cash_balance,
                                   operations: %i[retrieve update],
@@ -36,6 +37,15 @@ module Stripe
       request_stripe_object(
         method: :get,
         path: resource_url + "/payment_methods",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def retrieve_payment_method(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: resource_url + "/{payment_method}",
         params: params,
         opts: opts
       )

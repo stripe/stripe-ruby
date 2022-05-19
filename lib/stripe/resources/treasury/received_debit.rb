@@ -18,7 +18,7 @@ module Stripe
         def self.create(params = {}, opts = {})
           resp, opts = execute_resource_request(
             :post,
-            resource_url + "/received_debits",
+            format("/v1/test_helpers/treasury/received_debits", {}),
             params,
             opts
           )

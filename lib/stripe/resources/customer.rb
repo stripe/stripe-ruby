@@ -53,13 +53,13 @@ module Stripe
     def self.retrieve_payment_method(
       customer,
       payment_method,
-      _params = {},
+      params = {},
       opts = {}
     )
       resp, opts = execute_resource_request(
         :get,
         format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
-        {},
+        params,
         opts
       )
       Util.convert_to_stripe_object(resp.data, opts)

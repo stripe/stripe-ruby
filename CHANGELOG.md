@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.1.0 - 2022-05-19
+* [#1057](https://github.com/stripe/stripe-ruby/pull/1057) API Updates
+  * Add support for new resources `Treasury.CreditReversal`, `Treasury.DebitReversal`, `Treasury.FinancialAccountFeatures`, `Treasury.FinancialAccount`, `Treasury.FlowDetails`, `Treasury.InboundTransfer`, `Treasury.OutboundPayment`, `Treasury.OutboundTransfer`, `Treasury.ReceivedCredit`, `Treasury.ReceivedDebit`, `Treasury.TransactionEntry`, and `Treasury.Transaction`
+  * Add support for `retrieve_payment_method` method on resource `Customer`
+  * Add support for `list_owners` and `list` methods on resource `FinancialConnections.Account`
+  
+  
+
 ## 6.0.0 - 2022-05-09
 * [#1056](https://github.com/stripe/stripe-ruby/pull/1056) API Updates
   Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-Guide-for-v6) contains more information.

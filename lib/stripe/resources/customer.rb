@@ -41,6 +41,30 @@ module Stripe
       )
     end
 
+    def retrieve_payment_method(payment_method, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(self["id"]), payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.retrieve_payment_method(
+      customer,
+      payment_method,
+      params = {},
+      opts = {}
+    )
+      resp, opts = execute_resource_request(
+        :get,
+        format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
     custom_method :delete_discount, http_verb: :delete, http_path: "discount"
 
     save_nested_resource :source

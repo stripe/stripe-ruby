@@ -8,6 +8,8 @@ module Stripe
   #  class MyAPIResource < APIResource
   #    class TestHelpers < APIResourceTestHelpers
   class APIResourceTestHelpers
+    include Stripe::APIOperations::Request
+
     def initialize(resource)
       @resource = resource
     end

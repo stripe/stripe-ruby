@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.0 - 2022-05-23
+* [#1060](https://github.com/stripe/stripe-ruby/pull/1060) API Updates
+  * Add support for new resource `Apps.Secret`
+
 ## 6.1.0 - 2022-05-19
 * [#1057](https://github.com/stripe/stripe-ruby/pull/1057) API Updates
   * Add support for new resources `Treasury.CreditReversal`, `Treasury.DebitReversal`, `Treasury.FinancialAccountFeatures`, `Treasury.FinancialAccount`, `Treasury.FlowDetails`, `Treasury.InboundTransfer`, `Treasury.OutboundPayment`, `Treasury.OutboundTransfer`, `Treasury.ReceivedCredit`, `Treasury.ReceivedDebit`, `Treasury.TransactionEntry`, and `Treasury.Transaction`

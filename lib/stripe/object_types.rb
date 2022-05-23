@@ -18,6 +18,7 @@ module Stripe
         ApplePayDomain::OBJECT_NAME => ApplePayDomain,
         ApplicationFee::OBJECT_NAME => ApplicationFee,
         ApplicationFeeRefund::OBJECT_NAME => ApplicationFeeRefund,
+        Apps::Secret::OBJECT_NAME => Apps::Secret,
         Balance::OBJECT_NAME => Balance,
         BalanceTransaction::OBJECT_NAME => BalanceTransaction,
         BankAccount::OBJECT_NAME => BankAccount,

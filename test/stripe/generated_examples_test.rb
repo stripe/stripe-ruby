@@ -73,6 +73,31 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx?"
       end
     end
+    context "Apps.Secret.create" do
+      should "support requests with args: name, payload, scope" do
+        Stripe::Apps::Secret.create(
+          name: "sec_123",
+          payload: "very secret string",
+          scope: { type: "account" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/apps/secrets"
+      end
+    end
+    context "Apps.Secret.delete_where" do
+      should "support requests with args: name, scope" do
+        Stripe::Apps::Secret.delete_where(
+          name: "sec_123",
+          scope: { type: "account" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/apps/secrets/delete"
+      end
+    end
+    context "Apps.Secret.find" do
+      should "support requests with args: name, scope" do
+        Stripe::Apps::Secret.find(name: "sec_123", scope: { type: "account" })
+        assert_requested :get, "#{Stripe.api_base}/v1/apps/secrets/find?name=sec_123&scope[type]=account"
+      end
+    end
     context "BillingPortal.Configuration.create" do
       should "support requests with args: features, business_profile" do
         Stripe::BillingPortal::Configuration.create(

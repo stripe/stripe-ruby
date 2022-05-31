@@ -222,5 +222,37 @@ module Stripe
         assert sources.data.is_a?(Array)
       end
     end
+
+    context "cash_balance compatibility" do
+      # These tests are present for compatibility purposes. Previously the cash
+      # balance methods required nil as a second nested_id parameter. The method
+      # has been patched to no longer require this, but we want to preserve
+      # compatibility for existing users.
+
+      context "#retrieve_cash_balance" do
+        should "support the original method which required passing in nil for the second parameter (no opts)" do
+          Stripe::Customer.retrieve_cash_balance("cus_123", nil)
+          assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
+        end
+
+        should "support the original method which required passing in nil for the second parameter (custom opts)" do
+          # Assert that we're actually making a change by swapping out the API base.
+          assert Stripe.api_base != Stripe.connect_base
+          # Pass in custom opts. Note that no params are passed in for retrieve.
+          Stripe::Customer.retrieve_cash_balance("cus_123", nil, { api_base: Stripe.connect_base })
+          assert_requested :get, "#{Stripe.connect_base}/v1/customers/cus_123/cash_balance"
+        end
+      end
+
+      context "#update_cash_balance" do
+        should "passes the parameters despite nested ID param requiring nil" do
+          Stripe::Customer.update_cash_balance("cus_123", nil, { settings: { reconciliation_mode: "manual" } })
+
+          assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance" do |req|
+            req.body == "settings[reconciliation_mode]=manual"
+          end
+        end
+      end
+    end
   end
 end

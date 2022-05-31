@@ -15,9 +15,6 @@ module Stripe
     custom_method :create_funding_instructions, http_verb: :post, http_path: "funding_instructions"
     custom_method :list_payment_methods, http_verb: :get, http_path: "payment_methods"
 
-    nested_resource_class_methods :cash_balance,
-                                  operations: %i[retrieve update],
-                                  resource_plural: "cash_balance"
     nested_resource_class_methods :balance_transaction,
                                   operations: %i[create retrieve update list]
     nested_resource_class_methods :tax_id,
@@ -93,6 +90,33 @@ module Stripe
 
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)
       search(params, opts).auto_paging_each(&blk)
+    end
+
+    def self.retrieve_cash_balance(customer, _unused = nil, opts = {})
+      # The _unused parameter is required for backwards compatibility purposes and is ignored.
+      resp, opts = execute_resource_request(
+        :get,
+        format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        {},
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.update_cash_balance(
+      customer,
+      _unused = nil,
+      params = {},
+      opts = {}
+    )
+      # The _unused parameter is required for backwards compatibility purposes and is ignored.
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

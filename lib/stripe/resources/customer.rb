@@ -92,14 +92,17 @@ module Stripe
       search(params, opts).auto_paging_each(&blk)
     end
 
-    def self.retrieve_cash_balance(customer, opts_or_unused_nested_id = nil, opts = {})
+    def self.retrieve_cash_balance(
+      customer,
+      opts_or_unused_nested_id = nil,
+      opts = {}
+    )
       # Support two call patterns for backwards compatibility.
       # 1. Legacy: (nil unused nested_id, opts)
       # 2. Fixed pattern: (opts)
       if !opts_or_unused_nested_id.nil? && opts_or_unused_nested_id.class == Hash && opts.empty?
         opts = opts_or_unused_nested_id
       end
-
       resp, opts = execute_resource_request(
         :get,
         format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
@@ -115,14 +118,11 @@ module Stripe
       params = {},
       opts = {}
     )
-      # Do not allow passing in a hash as the second argument, as we require a
-      # nil for compatibility reasons. We cannot differentiate from a legacy
-      # pattern (nil, params) and a modern pattern (nil for params, opts).
+      # Do not allow passing in a hash as the second argument, as we require a nil for compatibility reasons. We cannot differentiate from a legacy pattern (nil, params) and a modern pattern (nil for params, opts).
       if !unused_nested_id.nil? && unused_nested_id.class == Hash
-        raise ArgumentError, "update_cash_balance requires the second argument always be nil for legacy reasons. Did you mean update_cash_balance(customer, nil, params[, opts])?"
+        raise ArgumentError, "update_cash_balance requires the second argument always be nil for legacy reasons."
       end
 
-      # The _unused parameter is required for backwards compatibility purposes and is ignored.
       resp, opts = execute_resource_request(
         :post,
         format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),

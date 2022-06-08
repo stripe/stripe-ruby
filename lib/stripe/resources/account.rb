@@ -18,6 +18,15 @@ module Stripe
     nested_resource_class_methods :person,
                                   operations: %i[create retrieve update delete list]
 
+    def persons(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -25,6 +34,16 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.persons(account, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :get,
+        format("/v1/accounts/%<account>s/persons", { account: CGI.escape(account) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.reject(account, params = {}, opts = {})
@@ -66,11 +85,6 @@ module Stripe
         id = nil
       end
       super(id, opts)
-    end
-
-    def persons(params = {}, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/persons", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     # We are not adding a helper for capabilities here as the Account object

@@ -48,7 +48,7 @@ module Stripe
       def expire(params = {}, opts = {})
         @resource.request_stripe_object(
           method: :post,
-          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(self["id"]) }),
+          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(@resource["id"]) }),
           params: params,
           opts: opts
         )

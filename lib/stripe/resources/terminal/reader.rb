@@ -107,7 +107,7 @@ module Stripe
         def present_payment_method(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/terminal/readers/%<reader>s/present_payment_method", { reader: CGI.escape(self["id"]) }),
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/present_payment_method", { reader: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

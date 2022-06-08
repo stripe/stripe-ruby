@@ -72,7 +72,7 @@ module Stripe
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/fail", { outbound_transfer: CGI.escape(self["id"]) }),
+            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/fail", { outbound_transfer: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
@@ -81,7 +81,7 @@ module Stripe
         def post(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/post", { outbound_transfer: CGI.escape(self["id"]) }),
+            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/post", { outbound_transfer: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
@@ -90,7 +90,7 @@ module Stripe
         def return_outbound_transfer(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/return", { outbound_transfer: CGI.escape(self["id"]) }),
+            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/return", { outbound_transfer: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

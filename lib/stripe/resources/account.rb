@@ -12,6 +12,7 @@ module Stripe
 
     OBJECT_NAME = "account"
 
+    custom_method :persons, http_verb: :get
     custom_method :reject, http_verb: :post
 
     nested_resource_class_methods :capability,
@@ -19,6 +20,15 @@ module Stripe
                                   resource_plural: "capabilities"
     nested_resource_class_methods :person,
                                   operations: %i[create retrieve update delete list]
+
+    def persons(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: resource_url + "/persons",
+        params: params,
+        opts: opts
+      )
+    end
 
     def reject(params = {}, opts = {})
       request_stripe_object(
@@ -58,11 +68,6 @@ module Stripe
         id = nil
       end
       super(id, opts)
-    end
-
-    def persons(params = {}, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/persons", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     # We are not adding a helper for capabilities here as the Account object

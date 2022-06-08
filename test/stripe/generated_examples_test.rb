@@ -176,6 +176,22 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments"
       end
     end
+    context "CashBalance.retrieve" do
+      should "support requests with args: customer" do
+        Stripe::Customer.retrieve_cash_balance("cus_123")
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance?"
+      end
+    end
+    context "CashBalance.update" do
+      should "support requests with args: customer, settings" do
+        Stripe::Customer.update_cash_balance(
+          "cus_123",
+          nil,
+          { settings: { reconciliation_mode: "manual" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
+      end
+    end
     context "Charge.capture" do
       should "support requests with args: id" do
         Stripe::Charge.capture("ch_xxxxxxxxxxxxx")

@@ -9,14 +9,10 @@ module Stripe
 
     OBJECT_NAME = "setup_intent"
 
-    custom_method :cancel, http_verb: :post
-    custom_method :confirm, http_verb: :post
-    custom_method :verify_microdeposits, http_verb: :post
-
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -25,7 +21,7 @@ module Stripe
     def confirm(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/confirm",
+        path: format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -34,10 +30,40 @@ module Stripe
     def verify_microdeposits(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/verify_microdeposits",
+        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.cancel(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.confirm(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.verify_microdeposits(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.3.0 - 2022-06-08
+* [#1063](https://github.com/stripe/stripe-ruby/pull/1063) fix: Update cash balance methods to no longer require nested ID.
+
 ## 6.2.0 - 2022-05-23
 * [#1060](https://github.com/stripe/stripe-ruby/pull/1060) API Updates
   * Add support for new resource `Apps.Secret`

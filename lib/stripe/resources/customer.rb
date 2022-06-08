@@ -12,6 +12,9 @@ module Stripe
 
     OBJECT_NAME = "customer"
 
+    custom_method :create_funding_instructions, http_verb: :post, http_path: "funding_instructions"
+    custom_method :list_payment_methods, http_verb: :get, http_path: "payment_methods"
+
     nested_resource_class_methods :balance_transaction,
                                   operations: %i[create retrieve update list]
     nested_resource_class_methods :tax_id,

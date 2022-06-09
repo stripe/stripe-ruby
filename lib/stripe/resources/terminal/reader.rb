@@ -11,15 +11,10 @@ module Stripe
 
       OBJECT_NAME = "terminal.reader"
 
-      custom_method :cancel_action, http_verb: :post
-      custom_method :process_payment_intent, http_verb: :post
-      custom_method :process_setup_intent, http_verb: :post
-      custom_method :set_reader_display, http_verb: :post
-
       def cancel_action(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/cancel_action",
+          path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -28,7 +23,7 @@ module Stripe
       def process_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/process_payment_intent",
+          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -37,7 +32,7 @@ module Stripe
       def process_setup_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/process_setup_intent",
+          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -46,10 +41,50 @@ module Stripe
       def set_reader_display(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/set_reader_display",
+          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
+      end
+
+      def self.cancel_action(reader, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+
+      def self.process_payment_intent(reader, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(reader) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+
+      def self.process_setup_intent(reader, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(reader) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+
+      def self.set_reader_display(reader, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(reader) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
       end
 
       def test_helpers
@@ -59,12 +94,20 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = Reader
 
-        custom_method :present_payment_method, http_verb: :post
+        def self.present_payment_method(reader, params = {}, opts = {})
+          resp, opts = execute_resource_request(
+            :post,
+            format("/v1/test_helpers/terminal/readers/%<reader>s/present_payment_method", { reader: CGI.escape(reader) }),
+            params,
+            opts
+          )
+          Util.convert_to_stripe_object(resp.data, opts)
+        end
 
         def present_payment_method(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: resource_url + "/present_payment_method",
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/present_payment_method", { reader: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

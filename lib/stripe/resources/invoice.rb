@@ -11,16 +11,10 @@ module Stripe
 
     OBJECT_NAME = "invoice"
 
-    custom_method :finalize_invoice, http_verb: :post, http_path: "finalize"
-    custom_method :mark_uncollectible, http_verb: :post
-    custom_method :pay, http_verb: :post
-    custom_method :send_invoice, http_verb: :post, http_path: "send"
-    custom_method :void_invoice, http_verb: :post, http_path: "void"
-
     def finalize_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/finalize",
+        path: format("/v1/invoices/%<invoice>s/finalize", { invoice: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -29,7 +23,7 @@ module Stripe
     def mark_uncollectible(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/mark_uncollectible",
+        path: format("/v1/invoices/%<invoice>s/mark_uncollectible", { invoice: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -38,7 +32,7 @@ module Stripe
     def pay(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/pay",
+        path: format("/v1/invoices/%<invoice>s/pay", { invoice: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -47,7 +41,7 @@ module Stripe
     def send_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/send",
+        path: format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -56,10 +50,60 @@ module Stripe
     def void_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/void",
+        path: format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.finalize_invoice(invoice, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/invoices/%<invoice>s/finalize", { invoice: CGI.escape(invoice) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.mark_uncollectible(invoice, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/invoices/%<invoice>s/mark_uncollectible", { invoice: CGI.escape(invoice) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.pay(invoice, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/invoices/%<invoice>s/pay", { invoice: CGI.escape(invoice) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.send_invoice(invoice, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(invoice) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.void_invoice(invoice, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(invoice) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.upcoming(params, opts = {})

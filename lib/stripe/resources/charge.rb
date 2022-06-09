@@ -10,15 +10,23 @@ module Stripe
 
     OBJECT_NAME = "charge"
 
-    custom_method :capture, http_verb: :post
-
     def capture(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/capture",
+        path: format("/v1/charges/%<charge>s/capture", { charge: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.capture(charge, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/charges/%<charge>s/capture", { charge: CGI.escape(charge) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.search(params = {}, opts = {})

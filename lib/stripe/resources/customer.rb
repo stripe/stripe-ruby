@@ -12,9 +12,6 @@ module Stripe
 
     OBJECT_NAME = "customer"
 
-    custom_method :create_funding_instructions, http_verb: :post, http_path: "funding_instructions"
-    custom_method :list_payment_methods, http_verb: :get, http_path: "payment_methods"
-
     nested_resource_class_methods :balance_transaction,
                                   operations: %i[create retrieve update list]
     nested_resource_class_methods :tax_id,
@@ -23,7 +20,7 @@ module Stripe
     def create_funding_instructions(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/funding_instructions",
+        path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -32,7 +29,7 @@ module Stripe
     def list_payment_methods(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: resource_url + "/payment_methods",
+        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -45,6 +42,26 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.create_funding_instructions(customer, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(customer) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.list_payment_methods(customer, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :get,
+        format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(customer) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.retrieve_payment_method(

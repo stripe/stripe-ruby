@@ -9,18 +9,26 @@ module Stripe
 
     OBJECT_NAME = "source"
 
-    custom_method :verify, http_verb: :post
-
     nested_resource_class_methods :source_transaction,
                                   operations: %i[retrieve list]
 
     def verify(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/verify",
+        path: format("/v1/sources/%<source>s/verify", { source: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.verify(source, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/sources/%<source>s/verify", { source: CGI.escape(source) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def detach(params = {}, opts = {})

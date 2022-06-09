@@ -10,17 +10,10 @@ module Stripe
 
     OBJECT_NAME = "payment_intent"
 
-    custom_method :apply_customer_balance, http_verb: :post
-    custom_method :cancel, http_verb: :post
-    custom_method :capture, http_verb: :post
-    custom_method :confirm, http_verb: :post
-    custom_method :increment_authorization, http_verb: :post
-    custom_method :verify_microdeposits, http_verb: :post
-
     def apply_customer_balance(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/apply_customer_balance",
+        path: format("/v1/payment_intents/%<intent>s/apply_customer_balance", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -29,7 +22,7 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: format("/v1/payment_intents/%<intent>s/cancel", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -38,7 +31,7 @@ module Stripe
     def capture(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/capture",
+        path: format("/v1/payment_intents/%<intent>s/capture", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -47,7 +40,7 @@ module Stripe
     def confirm(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/confirm",
+        path: format("/v1/payment_intents/%<intent>s/confirm", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -56,7 +49,7 @@ module Stripe
     def increment_authorization(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/increment_authorization",
+        path: format("/v1/payment_intents/%<intent>s/increment_authorization", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -65,10 +58,70 @@ module Stripe
     def verify_microdeposits(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/verify_microdeposits",
+        path: format("/v1/payment_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.apply_customer_balance(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/payment_intents/%<intent>s/apply_customer_balance", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.cancel(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/payment_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.capture(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/payment_intents/%<intent>s/capture", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.confirm(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/payment_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.increment_authorization(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/payment_intents/%<intent>s/increment_authorization", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.verify_microdeposits(intent, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/payment_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.search(params = {}, opts = {})

@@ -9,12 +9,19 @@ module Stripe
 
     OBJECT_NAME = "refund"
 
-    custom_method :cancel, http_verb: :post
-
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.cancel(refund, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(refund) }),
         params: params,
         opts: opts
       )
@@ -27,12 +34,19 @@ module Stripe
     class TestHelpers < APIResourceTestHelpers
       RESOURCE_CLASS = Refund
 
-      custom_method :expire, http_verb: :post
+      def self.expire(refund, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(refund) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       def expire(params = {}, opts = {})
         @resource.request_stripe_object(
           method: :post,
-          path: resource_url + "/expire",
+          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(@resource["id"]) }),
           params: params,
           opts: opts
         )

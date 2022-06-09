@@ -10,14 +10,21 @@ module Stripe
 
       OBJECT_NAME = "checkout.session"
 
-      custom_method :expire, http_verb: :post
-
       nested_resource_class_methods :line_item, operations: %i[list]
 
       def expire(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/expire",
+          path: format("/v1/checkout/sessions/%<session>s/expire", { session: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.expire(session, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<session>s/expire", { session: CGI.escape(session) }),
           params: params,
           opts: opts
         )

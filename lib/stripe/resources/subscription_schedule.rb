@@ -9,13 +9,10 @@ module Stripe
 
     OBJECT_NAME = "subscription_schedule"
 
-    custom_method :cancel, http_verb: :post
-    custom_method :release, http_verb: :post
-
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -24,7 +21,25 @@ module Stripe
     def release(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/release",
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.cancel(schedule, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(schedule) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.release(schedule, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts
       )

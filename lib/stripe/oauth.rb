@@ -49,7 +49,7 @@ module Stripe
         :post, "/oauth/token", params, opts
       )
       # This is just going to return a generic StripeObject, but that's okay
-      Util.convert_to_stripe_object(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, {}, opts)
     end
 
     def self.deauthorize(params = {}, opts = {})
@@ -59,7 +59,7 @@ module Stripe
         :post, "/oauth/deauthorize", params, opts
       )
       # This is just going to return a generic StripeObject, but that's okay
-      Util.convert_to_stripe_object(resp.data, opts)
+      Util.convert_to_stripe_object(resp.data, {}, opts)
     end
   end
 end

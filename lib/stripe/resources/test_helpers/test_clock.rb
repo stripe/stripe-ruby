@@ -10,12 +10,19 @@ module Stripe
 
       OBJECT_NAME = "test_helpers.test_clock"
 
-      custom_method :advance, http_verb: :post
-
       def advance(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/advance",
+          path: format("/v1/test_helpers/test_clocks/%<test_clock>s/advance", { test_clock: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.advance(test_clock, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/test_clocks/%<test_clock>s/advance", { test_clock: CGI.escape(test_clock) }),
           params: params,
           opts: opts
         )

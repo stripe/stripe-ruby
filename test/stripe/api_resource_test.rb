@@ -187,13 +187,15 @@ module Stripe
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .with(query: { customer: "cus_123" })
           .to_return(body: JSON.generate(data: [charge_fixture],
-                                         url: "/v1/charges"))
+                                         url: "/v1/charges",
+                                         object: "list"))
         charges = Stripe::Charge.list(customer: "cus_123")
 
         stub_request(:get, "#{Stripe.api_base}/v1/charges")
           .with(query: { customer: "cus_123", created: "123" })
           .to_return(body: JSON.generate(data: [charge_fixture],
-                                         url: "/v1/charges"))
+                                         url: "/v1/charges",
+                                         object: "list"))
         charges.list(created: 123)
       end
 

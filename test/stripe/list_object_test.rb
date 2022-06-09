@@ -20,7 +20,7 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {})
+      expected = Util.convert_to_stripe_object(arr, {}, {})
       list = Stripe::ListObject.construct_from(data: arr)
       assert_equal expected, list.each.to_a
     end
@@ -31,7 +31,7 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr.reverse, {})
+      expected = Util.convert_to_stripe_object(arr.reverse, {}, {})
       list = Stripe::ListObject.construct_from(data: arr)
       assert_equal expected, list.reverse_each.to_a
     end
@@ -45,13 +45,14 @@ module Stripe
         { id: 5 },
         { id: 6 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {})
+      expected = Util.convert_to_stripe_object(arr, {}, {})
 
       # Initial list object to page on. Notably, its last data element will be
       # used as a cursor to fetch the next page.
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: true,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
       list.filters = { limit: 3 }
 
       # The test will start with the synthetic list object above, and use it as
@@ -60,10 +61,12 @@ module Stripe
       # iteration stops.
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { starting_after: "1", limit: "3" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }, { id: 4 }], has_more: true, url: "/things"))
+        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }, { id: 4 }], has_more: true, url: "/things",
+                                       object: "list"))
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { starting_after: "4", limit: "3" })
-        .to_return(body: JSON.generate(data: [{ id: 5 }, { id: 6 }], has_more: false, url: "/things"))
+        .to_return(body: JSON.generate(data: [{ id: 5 }, { id: 6 }], has_more: false, url: "/things",
+                                       object: "list"))
 
       assert_equal expected, list.auto_paging_each.to_a
     end
@@ -77,13 +80,14 @@ module Stripe
         { id: 2 },
         { id: 1 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {})
+      expected = Util.convert_to_stripe_object(arr, {}, {})
 
       # Initial list object to page on. Notably, its first data element will be
       # used as a cursor to fetch the next page.
       list = TestListObject.construct_from(data: [{ id: 6 }],
                                            has_more: true,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
 
       # We also add an `ending_before` filter on the list to simulate backwards
       # pagination.
@@ -95,10 +99,12 @@ module Stripe
       # iteration stops.
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { ending_before: "6", limit: "3" })
-        .to_return(body: JSON.generate(data: [{ id: 3 }, { id: 4 }, { id: 5 }], has_more: true, url: "/things"))
+        .to_return(body: JSON.generate(data: [{ id: 3 }, { id: 4 }, { id: 5 }], has_more: true, url: "/things",
+                                       object: "list"))
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { ending_before: "3", limit: "3" })
-        .to_return(body: JSON.generate(data: [{ id: 1 }, { id: 2 }], has_more: false, url: "/things"))
+        .to_return(body: JSON.generate(data: [{ id: 1 }, { id: 2 }], has_more: false, url: "/things",
+                                       object: "list"))
 
       assert_equal expected, list.auto_paging_each.to_a
     end
@@ -109,14 +115,15 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {})
+      expected = Util.convert_to_stripe_object(arr, {}, {})
 
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: true,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { starting_after: "1" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }], has_more: false, object: "list"))
 
       actual = []
       list.auto_paging_each do |obj|
@@ -140,10 +147,11 @@ module Stripe
     should "fetch a next page through #next_page" do
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: true,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { starting_after: "1" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "list"))
       next_list = list.next_page
       refute next_list.empty?
     end
@@ -151,11 +159,12 @@ module Stripe
     should "fetch a next page through #next_page and respect limit" do
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: true,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
       list.filters = { expand: ["data.source"], limit: 3 }
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { "expand[]" => "data.source", "limit" => "3", "starting_after" => "1" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "list"))
       next_list = list.next_page
       assert_equal({ expand: ["data.source"], limit: 3, starting_after: 1 }, next_list.filters)
     end
@@ -163,7 +172,8 @@ module Stripe
     should "fetch an empty page through #next_page" do
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: false,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
       next_list = list.next_page
       assert_equal Stripe::ListObject.empty_list, next_list
     end
@@ -175,10 +185,11 @@ module Stripe
     should "fetch a next page through #previous_page" do
       list = TestListObject.construct_from(data: [{ id: 2 }],
                                            has_more: true,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { ending_before: "2" })
-        .to_return(body: JSON.generate(data: [{ id: 1 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 1 }], has_more: false, object: "list"))
       next_list = list.previous_page
       refute next_list.empty?
     end
@@ -186,11 +197,12 @@ module Stripe
     should "fetch a next page through #previous_page and respect limit" do
       list = TestListObject.construct_from(data: [{ id: 2 }],
                                            has_more: true,
-                                           url: "/things")
+                                           url: "/things",
+                                           object: "list")
       list.filters = { expand: ["data.source"], limit: 3 }
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { "expand[]" => "data.source", "limit" => "3", "ending_before" => "2" })
-        .to_return(body: JSON.generate(data: [{ id: 1 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 1 }], has_more: false, object: "list"))
       next_list = list.previous_page
       assert_equal({ ending_before: 2, expand: ["data.source"], limit: 3 }, next_list.filters)
     end

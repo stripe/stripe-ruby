@@ -9,12 +9,19 @@ module Stripe
 
     OBJECT_NAME = "topup"
 
-    custom_method :cancel, http_verb: :post
-
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.cancel(topup, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(topup) }),
         params: params,
         opts: opts
       )

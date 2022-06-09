@@ -148,7 +148,7 @@ module Stripe
     def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
-        @values[k] = Util.convert_to_stripe_object(v, opts)
+        @values[k] = Util.convert_to_stripe_object(v, {}, opts)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
       end
@@ -354,7 +354,7 @@ module Stripe
                 "We interpret empty strings as nil in requests. " \
                 "You may set (object).#{k} = nil to delete the property."
             end
-            @values[k] = Util.convert_to_stripe_object(v, @opts)
+            @values[k] = Util.convert_to_stripe_object(v, {}, @opts)
             dirty_value!(@values[k])
             @unsaved_values.add(k)
           end
@@ -515,7 +515,7 @@ module Stripe
       # example by appending a new hash onto `additional_owners` for an
       # account.
       elsif value.is_a?(Hash)
-        Util.convert_to_stripe_object(value, @opts).serialize_params
+        Util.convert_to_stripe_object(value, {}, @opts).serialize_params
 
       elsif value.is_a?(StripeObject)
         update = value.serialize_params(force: force)

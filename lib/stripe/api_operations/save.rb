@@ -24,9 +24,12 @@ module Stripe
             end
           end
 
-          resp, opts = execute_resource_request(:post, "#{resource_url}/#{id}",
-                                                params, opts)
-          Util.convert_to_stripe_object(resp.data, opts)
+          request_stripe_object(
+            method: :post,
+            path: "#{resource_url}/#{id}",
+            params: params,
+            opts: opts
+          )
         end
       end
 

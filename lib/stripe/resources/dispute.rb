@@ -8,12 +8,19 @@ module Stripe
 
     OBJECT_NAME = "dispute"
 
-    custom_method :close, http_verb: :post
-
     def close(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/close",
+        path: format("/v1/disputes/%<dispute>s/close", { dispute: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.close(dispute, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/disputes/%<dispute>s/close", { dispute: CGI.escape(dispute) }),
         params: params,
         opts: opts
       )

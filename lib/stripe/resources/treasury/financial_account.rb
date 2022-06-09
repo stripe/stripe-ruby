@@ -10,13 +10,10 @@ module Stripe
 
       OBJECT_NAME = "treasury.financial_account"
 
-      custom_method :retrieve_features, http_verb: :get, http_path: "features"
-      custom_method :update_features, http_verb: :post, http_path: "features"
-
       def retrieve_features(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: resource_url + "/features",
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -25,7 +22,25 @@ module Stripe
       def update_features(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/features",
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.retrieve_features(financial_account, params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.update_features(financial_account, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
           params: params,
           opts: opts
         )

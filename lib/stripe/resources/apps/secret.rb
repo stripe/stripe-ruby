@@ -10,23 +10,21 @@ module Stripe
       OBJECT_NAME = "apps.secret"
 
       def self.delete_where(params = {}, opts = {})
-        resp, opts = execute_resource_request(
-          :post,
-          resource_url + "/delete",
-          params,
-          opts
+        request_stripe_object(
+          method: :post,
+          path: "/v1/apps/secrets/delete",
+          params: params,
+          opts: opts
         )
-        Util.convert_to_stripe_object(resp.data, opts)
       end
 
       def self.find(params = {}, opts = {})
-        resp, opts = execute_resource_request(
-          :get,
-          resource_url + "/find",
-          params,
-          opts
+        request_stripe_object(
+          method: :get,
+          path: "/v1/apps/secrets/find",
+          params: params,
+          opts: opts
         )
-        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

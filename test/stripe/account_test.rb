@@ -118,7 +118,7 @@ module Stripe
           object: "account",
           legal_entity: Stripe::StripeObject.construct_from({
           }),
-        }, nil, {})
+        }, {}, {})
         obj.legal_entity.additional_owners = [
           { first_name: "Joe" },
           { first_name: "Jane" },
@@ -144,7 +144,7 @@ module Stripe
               Stripe::StripeObject.construct_from(first_name: "Jane"),
             ],
           },
-        }, nil, {})
+        }, {}, {})
         obj.legal_entity.additional_owners[1].first_name = "Stripe"
 
         expected = {
@@ -166,7 +166,7 @@ module Stripe
               Stripe::StripeObject.construct_from(first_name: "Jane"),
             ],
           },
-        }, nil, {})
+        }, {}, {})
 
         expected = {
           legal_entity: {
@@ -187,7 +187,7 @@ module Stripe
               Stripe::StripeObject.construct_from(first_name: "Jane"),
             ],
           },
-        }, nil, {})
+        }, {}, {})
         obj.legal_entity.additional_owners = nil
 
         expected = {
@@ -201,7 +201,7 @@ module Stripe
       should "serialize on a new individual" do
         obj = Stripe::Util.convert_to_stripe_object({
           object: "account",
-        }, nil, {})
+        }, {}, {})
         obj.individual = { first_name: "Jane" }
 
         expected = { individual: { first_name: "Jane" } }
@@ -214,8 +214,8 @@ module Stripe
           individual: Stripe::Util.convert_to_stripe_object({
             object: "person",
             first_name: "Jenny",
-          }, nil, {}),
-        }, nil, {})
+          }, {}, {}),
+        }, {}, {})
         obj.individual = { first_name: "Jane" }
 
         expected = { individual: { first_name: "Jane" } }
@@ -228,8 +228,8 @@ module Stripe
           individual: Stripe::Util.convert_to_stripe_object({
             object: "person",
             first_name: "Jenny",
-          }, nil, {}),
-        }, nil, {})
+          }, {}, {}),
+        }, {}, {})
 
         expected = { individual: {} }
         assert_equal(expected, obj.serialize_params)
@@ -241,8 +241,8 @@ module Stripe
           individual: Stripe::Util.convert_to_stripe_object({
             object: "person",
             first_name: "Jenny",
-          }, nil, {}),
-        }, nil, {})
+          }, {}, {}),
+        }, {}, {})
         obj.individual = nil
 
         expected = { individual: "" }

@@ -10,18 +10,26 @@ module Stripe
 
     OBJECT_NAME = "transfer"
 
-    custom_method :cancel, http_verb: :post
-
     nested_resource_class_methods :reversal,
                                   operations: %i[create retrieve update list]
 
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/cancel",
+        path: format("/v1/transfers/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.cancel(id, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/transfers/%<id>s/cancel", { id: CGI.escape(id) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

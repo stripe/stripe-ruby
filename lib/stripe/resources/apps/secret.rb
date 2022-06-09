@@ -12,7 +12,7 @@ module Stripe
       def self.delete_where(params = {}, opts = {})
         resp, opts = execute_resource_request(
           :post,
-          resource_url + "/delete",
+          "/v1/apps/secrets/delete",
           params,
           opts
         )
@@ -22,7 +22,7 @@ module Stripe
       def self.find(params = {}, opts = {})
         resp, opts = execute_resource_request(
           :get,
-          resource_url + "/find",
+          "/v1/apps/secrets/find",
           params,
           opts
         )

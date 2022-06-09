@@ -9,13 +9,10 @@ module Stripe
 
       OBJECT_NAME = "issuing.authorization"
 
-      custom_method :approve, http_verb: :post
-      custom_method :decline, http_verb: :post
-
       def approve(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/approve",
+          path: format("/v1/issuing/authorizations/%<authorization>s/approve", { authorization: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -24,10 +21,30 @@ module Stripe
       def decline(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/decline",
+          path: format("/v1/issuing/authorizations/%<authorization>s/decline", { authorization: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
+      end
+
+      def self.approve(authorization, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/issuing/authorizations/%<authorization>s/approve", { authorization: CGI.escape(authorization) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+
+      def self.decline(authorization, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/issuing/authorizations/%<authorization>s/decline", { authorization: CGI.escape(authorization) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

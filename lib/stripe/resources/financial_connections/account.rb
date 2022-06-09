@@ -8,14 +8,10 @@ module Stripe
 
       OBJECT_NAME = "financial_connections.account"
 
-      custom_method :disconnect, http_verb: :post
-      custom_method :list_owners, http_verb: :get, http_path: "owners"
-      custom_method :refresh_account, http_verb: :post, http_path: "refresh"
-
       def disconnect(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/disconnect",
+          path: format("/v1/financial_connections/accounts/%<account>s/disconnect", { account: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -24,7 +20,7 @@ module Stripe
       def list_owners(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: resource_url + "/owners",
+          path: format("/v1/financial_connections/accounts/%<account>s/owners", { account: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -33,10 +29,40 @@ module Stripe
       def refresh_account(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/refresh",
+          path: format("/v1/financial_connections/accounts/%<account>s/refresh", { account: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
+      end
+
+      def self.disconnect(account, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/financial_connections/accounts/%<account>s/disconnect", { account: CGI.escape(account) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+
+      def self.list_owners(account, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :get,
+          format("/v1/financial_connections/accounts/%<account>s/owners", { account: CGI.escape(account) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
+      end
+
+      def self.refresh_account(account, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/financial_connections/accounts/%<account>s/refresh", { account: CGI.escape(account) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

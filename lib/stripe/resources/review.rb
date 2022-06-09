@@ -7,15 +7,23 @@ module Stripe
 
     OBJECT_NAME = "review"
 
-    custom_method :approve, http_verb: :post
-
     def approve(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/approve",
+        path: format("/v1/reviews/%<review>s/approve", { review: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.approve(review, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/reviews/%<review>s/approve", { review: CGI.escape(review) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

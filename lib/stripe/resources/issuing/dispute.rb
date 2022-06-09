@@ -10,15 +10,23 @@ module Stripe
 
       OBJECT_NAME = "issuing.dispute"
 
-      custom_method :submit, http_verb: :post
-
       def submit(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: resource_url + "/submit",
+          path: format("/v1/issuing/disputes/%<dispute>s/submit", { dispute: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
+      end
+
+      def self.submit(dispute, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :post,
+          format("/v1/issuing/disputes/%<dispute>s/submit", { dispute: CGI.escape(dispute) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

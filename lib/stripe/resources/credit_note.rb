@@ -9,15 +9,23 @@ module Stripe
 
     OBJECT_NAME = "credit_note"
 
-    custom_method :void_credit_note, http_verb: :post, http_path: "void"
-
     def void_credit_note(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/void",
+        path: format("/v1/credit_notes/%<id>s/void", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.void_credit_note(id, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/credit_notes/%<id>s/void", { id: CGI.escape(id) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.preview(params, opts = {})

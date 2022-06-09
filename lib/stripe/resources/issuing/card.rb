@@ -10,15 +10,23 @@ module Stripe
 
       OBJECT_NAME = "issuing.card"
 
-      custom_method :details, http_verb: :get
-
       def details(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: resource_url + "/details",
+          path: format("/v1/issuing/cards/%<card>s/details", { card: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
+      end
+
+      def self.details(card, params = {}, opts = {})
+        resp, opts = execute_resource_request(
+          :get,
+          format("/v1/issuing/cards/%<card>s/details", { card: CGI.escape(card) }),
+          params,
+          opts
+        )
+        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

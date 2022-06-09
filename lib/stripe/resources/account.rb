@@ -12,9 +12,6 @@ module Stripe
 
     OBJECT_NAME = "account"
 
-    custom_method :persons, http_verb: :get
-    custom_method :reject, http_verb: :post
-
     nested_resource_class_methods :capability,
                                   operations: %i[retrieve update list],
                                   resource_plural: "capabilities"
@@ -24,7 +21,7 @@ module Stripe
     def persons(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: resource_url + "/persons",
+        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -33,10 +30,30 @@ module Stripe
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: resource_url + "/reject",
+        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    def self.persons(account, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :get,
+        format("/v1/accounts/%<account>s/persons", { account: CGI.escape(account) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
+    end
+
+    def self.reject(account, params = {}, opts = {})
+      resp, opts = execute_resource_request(
+        :post,
+        format("/v1/accounts/%<account>s/reject", { account: CGI.escape(account) }),
+        params,
+        opts
+      )
+      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     save_nested_resource :external_account

@@ -30,10 +30,9 @@ module Stripe
           when :create
             define_singleton_method(:"create_#{resource}") \
               do |id, params = {}, opts = {}|
-                url = send(resource_url_method, id)
                 request_stripe_object(
                   method: :post,
-                  path: url,
+                  path: send(resource_url_method, id),
                   params: params,
                   opts: opts
                 )
@@ -41,10 +40,9 @@ module Stripe
           when :retrieve
             define_singleton_method(:"retrieve_#{resource}") \
               do |id, nested_id, opts = {}|
-                url = send(resource_url_method, id, nested_id)
                 request_stripe_object(
                   method: :get,
-                  path: url,
+                  path: send(resource_url_method, id, nested_id),
                   params: {},
                   opts: opts
                 )
@@ -52,10 +50,9 @@ module Stripe
           when :update
             define_singleton_method(:"update_#{resource}") \
               do |id, nested_id, params = {}, opts = {}|
-                url = send(resource_url_method, id, nested_id)
                 request_stripe_object(
                   method: :post,
-                  path: url,
+                  path: send(resource_url_method, id, nested_id),
                   params: params,
                   opts: opts
                 )
@@ -63,10 +60,9 @@ module Stripe
           when :delete
             define_singleton_method(:"delete_#{resource}") \
               do |id, nested_id, params = {}, opts = {}|
-                url = send(resource_url_method, id, nested_id)
                 request_stripe_object(
                   method: :delete,
-                  path: url,
+                  path: send(resource_url_method, id, nested_id),
                   params: params,
                   opts: opts
                 )
@@ -74,10 +70,9 @@ module Stripe
           when :list
             define_singleton_method(:"list_#{resource_plural}") \
               do |id, params = {}, opts = {}|
-                url = send(resource_url_method, id)
                 request_stripe_object(
                   method: :get,
-                  path: url,
+                  path: send(resource_url_method, id),
                   params: params,
                   opts: opts
                 )

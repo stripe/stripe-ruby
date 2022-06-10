@@ -26,7 +26,7 @@ module Stripe
 
         private def request_stripe_object(method:, path:, params:, opts: {})
           resp, opts = execute_resource_request(method, path, params, opts)
-          Util.convert_to_stripe_object(resp.data, params, opts)
+          Util.convert_to_stripe_object_with_params(resp.data, params, opts)
         end
 
         private def execute_resource_request_internal(client_request_method_sym,
@@ -129,7 +129,7 @@ module Stripe
 
       private def request_stripe_object(method:, path:, params:, opts: {})
         resp, opts = execute_resource_request(method, path, params, opts)
-        Util.convert_to_stripe_object(resp.data, params, opts)
+        Util.convert_to_stripe_object_with_params(resp.data, params, opts)
       end
 
       # See notes on `alias` above.

@@ -90,7 +90,7 @@ module Stripe
           opts
         )
 
-        Util.convert_to_stripe_object(resp.data, {}, opts)
+        Util.convert_to_stripe_object_with_params(resp.data, params, opts)
       end
     end
 
@@ -108,12 +108,28 @@ module Stripe
     #   will be reused on subsequent API calls.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
-    def self.convert_to_stripe_object(data, params = {}, opts = {})
+    def self.convert_to_stripe_object(data, opts = {})
+      convert_to_stripe_object_with_params(data, {}, opts)
+    end
+
+    # Converts a hash of fields or an array of hashes into a +StripeObject+ or
+    # array of +StripeObject+s. These new objects will be created as a concrete
+    # type as dictated by their `object` field (e.g. an `object` value of
+    # `charge` would create an instance of +Charge+), but if `object` is not
+    # present or of an unknown type, the newly created instance will fall back
+    # to being a +StripeObject+.
+    #
+    # ==== Attributes
+    #
+    # * +data+ - Hash of fields and values to be converted into a StripeObject.
+    # * +opts+ - Options for +StripeObject+ like an API key that will be reused
+    #   on subsequent API calls.
+    def self.convert_to_stripe_object_with_params(data, params, opts = {})
       opts = normalize_opts(opts)
 
       case data
       when Array
-        data.map { |i| convert_to_stripe_object(i, {}, opts) }
+        data.map { |i| convert_to_stripe_object(i, opts) }
       when Hash
         # Try converting to a known object class.  If none available, fall back
         # to generic StripeObject
@@ -123,7 +139,7 @@ module Stripe
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages
         if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject))
-          obj.filters = params
+          obj.filters = params.dup
         end
 
         obj

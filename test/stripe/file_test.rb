@@ -75,12 +75,12 @@ module Stripe
     end
 
     should "be deserializable when `object=file`" do
-      file = Stripe::Util.convert_to_stripe_object({ object: "file" }, {}, {})
+      file = Stripe::Util.convert_to_stripe_object({ object: "file" }, {})
       assert file.is_a?(Stripe::File)
     end
 
     should "be deserializable when `object=file_upload`" do
-      file = Stripe::Util.convert_to_stripe_object({ object: "file_upload" }, {}, {})
+      file = Stripe::Util.convert_to_stripe_object({ object: "file_upload" }, {})
       assert file.is_a?(Stripe::File)
     end
   end

@@ -20,7 +20,7 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {}, {})
+      expected = Util.convert_to_stripe_object(arr, {})
       list = Stripe::ListObject.construct_from(data: arr)
       assert_equal expected, list.each.to_a
     end
@@ -31,7 +31,7 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr.reverse, {}, {})
+      expected = Util.convert_to_stripe_object(arr.reverse, {})
       list = Stripe::ListObject.construct_from(data: arr)
       assert_equal expected, list.reverse_each.to_a
     end
@@ -45,7 +45,7 @@ module Stripe
         { id: 5 },
         { id: 6 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {}, {})
+      expected = Util.convert_to_stripe_object(arr, {})
 
       # Initial list object to page on. Notably, its last data element will be
       # used as a cursor to fetch the next page.
@@ -80,7 +80,7 @@ module Stripe
         { id: 2 },
         { id: 1 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {}, {})
+      expected = Util.convert_to_stripe_object(arr, {})
 
       # Initial list object to page on. Notably, its first data element will be
       # used as a cursor to fetch the next page.
@@ -115,7 +115,7 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {}, {})
+      expected = Util.convert_to_stripe_object(arr, {})
 
       list = TestListObject.construct_from(data: [{ id: 1 }],
                                            has_more: true,

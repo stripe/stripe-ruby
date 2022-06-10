@@ -107,28 +107,28 @@ module Stripe
     end
 
     should "#convert_to_stripe_object should pass through unknown types" do
-      obj = Util.convert_to_stripe_object(7, {}, {})
+      obj = Util.convert_to_stripe_object(7, {})
       assert_equal 7, obj
     end
 
     should "#convert_to_stripe_object should turn hashes into StripeObjects" do
-      obj = Util.convert_to_stripe_object({ foo: "bar" }, {}, {})
+      obj = Util.convert_to_stripe_object({ foo: "bar" }, {})
       assert obj.is_a?(StripeObject)
       assert_equal "bar", obj.foo
     end
 
     should "#convert_to_stripe_object should turn lists into ListObjects" do
-      obj = Util.convert_to_stripe_object({ object: "list" }, {}, {})
+      obj = Util.convert_to_stripe_object({ object: "list" }, {})
       assert obj.is_a?(ListObject)
     end
 
     should "#convert_to_stripe_object should marshal other classes" do
-      obj = Util.convert_to_stripe_object({ object: "account" }, {}, {})
+      obj = Util.convert_to_stripe_object({ object: "account" }, {})
       assert obj.is_a?(Account)
     end
 
     should "#convert_to_stripe_object should marshal arrays" do
-      obj = Util.convert_to_stripe_object([1, 2, 3], {}, {})
+      obj = Util.convert_to_stripe_object([1, 2, 3], {})
       assert_equal [1, 2, 3], obj
     end
 

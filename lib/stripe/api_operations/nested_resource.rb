@@ -31,37 +31,56 @@ module Stripe
             define_singleton_method(:"create_#{resource}") \
               do |id, params = {}, opts = {}|
                 url = send(resource_url_method, id)
-                resp, opts = execute_resource_request(:post, url, params, opts)
-                Util.convert_to_stripe_object(resp.data, {}, opts)
+                request_stripe_object(
+                  method: :post,
+                  path: url,
+                  params: params,
+                  opts: opts
+                )
               end
           when :retrieve
             define_singleton_method(:"retrieve_#{resource}") \
               do |id, nested_id, opts = {}|
                 url = send(resource_url_method, id, nested_id)
-                resp, opts = execute_resource_request(:get, url, {}, opts)
-                Util.convert_to_stripe_object(resp.data, {}, opts)
+                request_stripe_object(
+                  method: :get,
+                  path: url,
+                  params: {},
+                  opts: opts
+                )
               end
           when :update
             define_singleton_method(:"update_#{resource}") \
               do |id, nested_id, params = {}, opts = {}|
                 url = send(resource_url_method, id, nested_id)
-                resp, opts = execute_resource_request(:post, url, params, opts)
-                Util.convert_to_stripe_object(resp.data, {}, opts)
+                request_stripe_object(
+                  method: :post,
+                  path: url,
+                  params: params,
+                  opts: opts
+                )
               end
           when :delete
             define_singleton_method(:"delete_#{resource}") \
               do |id, nested_id, params = {}, opts = {}|
                 url = send(resource_url_method, id, nested_id)
-                resp, opts = execute_resource_request(:delete, url, params,
-                                                      opts)
-                Util.convert_to_stripe_object(resp.data, {}, opts)
+                request_stripe_object(
+                  method: :delete,
+                  path: url,
+                  params: params,
+                  opts: opts
+                )
               end
           when :list
             define_singleton_method(:"list_#{resource_plural}") \
               do |id, params = {}, opts = {}|
                 url = send(resource_url_method, id)
-                resp, opts = execute_resource_request(:get, url, params, opts)
-                Util.convert_to_stripe_object(resp.data, {}, opts)
+                request_stripe_object(
+                  method: :get,
+                  path: url,
+                  params: params,
+                  opts: opts
+                )
               end
           else
             raise ArgumentError, "Unknown operation: #{operation.inspect}"

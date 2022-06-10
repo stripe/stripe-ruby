@@ -20,7 +20,7 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {}, {})
+      expected = Util.convert_to_stripe_object(arr, {})
       list = Stripe::SearchResultObject.construct_from(data: arr)
       assert_equal expected, list.each.to_a
     end
@@ -62,7 +62,7 @@ module Stripe
         { id: 2 },
         { id: 3 },
       ]
-      expected = Util.convert_to_stripe_object(arr, {}, {})
+      expected = Util.convert_to_stripe_object(arr, {})
 
       list = TestSearchResultObject.construct_from(data: [{ id: 1 }],
                                                    has_more: true,

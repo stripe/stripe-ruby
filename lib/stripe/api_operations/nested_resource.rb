@@ -26,11 +26,12 @@ module Stripe
         end
 
         operations.each do |operation|
-          define_operation(operation, resource_url_method, resource_plural)
+          define_operation(resource, operation, resource_url_method, resource_plural)
         end
       end
 
       private def define_operation(
+        resource,
         operation,
         resource_url_method,
         resource_plural

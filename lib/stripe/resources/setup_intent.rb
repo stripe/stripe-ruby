@@ -37,33 +37,30 @@ module Stripe
     end
 
     def self.cancel(intent, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.confirm(intent, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.verify_microdeposits(intent, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

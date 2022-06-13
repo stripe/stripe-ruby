@@ -38,7 +38,8 @@ module Stripe
       list = TestSearchResultObject.construct_from({ data: [{ id: 1 }],
                                                      has_more: true,
                                                      next_page: "next_page_token_1",
-                                                     url: "/things", })
+                                                     url: "/things",
+                                                     object: "search_result", })
       list.filters = { limit: 3 }
 
       # The test will start with the synthetic search result object above, and uses the
@@ -47,10 +48,10 @@ module Stripe
       # iteration stops.
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { limit: 3, page: "next_page_token_1" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }, { id: 4 }], has_more: true, url: "/things", next_page: "next_page_token_2"))
+        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }, { id: 4 }], has_more: true, url: "/things", next_page: "next_page_token_2", object: "search_result"))
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { limit: 3, page: "next_page_token_2" })
-        .to_return(body: JSON.generate(data: [{ id: 5 }, { id: 6 }], has_more: false, url: "/things", next_page: nil))
+        .to_return(body: JSON.generate(data: [{ id: 5 }, { id: 6 }], has_more: false, url: "/things", next_page: nil, object: "search_result"))
 
       assert_equal arr, list.auto_paging_each.to_a.map(&:to_hash)
     end
@@ -70,7 +71,7 @@ module Stripe
 
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { page: "next_page_token_1" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 2 }, { id: 3 }], has_more: false, object: "search_result"))
 
       actual = []
       list.auto_paging_each do |obj|
@@ -98,7 +99,7 @@ module Stripe
                                                    url: "/things")
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { page: "next_page_token_1" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "search_result"))
       next_list = list.next_search_result_page
       refute next_list.empty?
       assert_equal [{ id: 2 }], next_list.auto_paging_each.to_a.map(&:to_hash)
@@ -108,11 +109,12 @@ module Stripe
       list = TestSearchResultObject.construct_from(data: [{ id: 1 }],
                                                    has_more: true,
                                                    next_page: "next_page_token_1",
-                                                   url: "/things")
+                                                   url: "/things",
+                                                   object: "search_result")
       list.filters = { limit: 3 }
       stub_request(:get, "#{Stripe.api_base}/things")
         .with(query: { "limit": 3, page: "next_page_token_1" })
-        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false))
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "search_result"))
       next_list = list.next_search_result_page
       assert_equal({ limit: 3, page: "next_page_token_1" }, next_list.filters)
     end

@@ -19,13 +19,12 @@ module Stripe
     end
 
     def self.cancel(refund, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(refund) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(refund) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def test_helpers
@@ -36,13 +35,12 @@ module Stripe
       RESOURCE_CLASS = Refund
 
       def self.expire(refund, params = {}, opts = {})
-        resp, opts = execute_resource_request(
-          :post,
-          format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(refund) }),
-          params,
-          opts
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(refund) }),
+          params: params,
+          opts: opts
         )
-        Util.convert_to_stripe_object(resp.data, opts)
       end
 
       def expire(params = {}, opts = {})

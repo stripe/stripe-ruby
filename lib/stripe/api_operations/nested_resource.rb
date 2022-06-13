@@ -26,46 +26,74 @@ module Stripe
         end
 
         operations.each do |operation|
-          case operation
-          when :create
-            define_singleton_method(:"create_#{resource}") \
+          define_operation(
+            resource,
+            operation,
+            resource_url_method,
+            resource_plural
+          )
+        end
+      end
+
+      private def define_operation(
+        resource,
+        operation,
+        resource_url_method,
+        resource_plural
+      )
+        case operation
+        when :create
+          define_singleton_method(:"create_#{resource}") \
               do |id, params = {}, opts = {}|
-                url = send(resource_url_method, id)
-                resp, opts = execute_resource_request(:post, url, params, opts)
-                Util.convert_to_stripe_object(resp.data, opts)
-              end
-          when :retrieve
-            define_singleton_method(:"retrieve_#{resource}") \
-              do |id, nested_id, opts = {}|
-                url = send(resource_url_method, id, nested_id)
-                resp, opts = execute_resource_request(:get, url, {}, opts)
-                Util.convert_to_stripe_object(resp.data, opts)
-              end
-          when :update
-            define_singleton_method(:"update_#{resource}") \
-              do |id, nested_id, params = {}, opts = {}|
-                url = send(resource_url_method, id, nested_id)
-                resp, opts = execute_resource_request(:post, url, params, opts)
-                Util.convert_to_stripe_object(resp.data, opts)
-              end
-          when :delete
-            define_singleton_method(:"delete_#{resource}") \
-              do |id, nested_id, params = {}, opts = {}|
-                url = send(resource_url_method, id, nested_id)
-                resp, opts = execute_resource_request(:delete, url, params,
-                                                      opts)
-                Util.convert_to_stripe_object(resp.data, opts)
-              end
-          when :list
-            define_singleton_method(:"list_#{resource_plural}") \
-              do |id, params = {}, opts = {}|
-                url = send(resource_url_method, id)
-                resp, opts = execute_resource_request(:get, url, params, opts)
-                Util.convert_to_stripe_object(resp.data, opts)
-              end
-          else
-            raise ArgumentError, "Unknown operation: #{operation.inspect}"
+            request_stripe_object(
+              method: :post,
+              path: send(resource_url_method, id),
+              params: params,
+              opts: opts
+            )
           end
+        when :retrieve
+          define_singleton_method(:"retrieve_#{resource}") \
+              do |id, nested_id, opts = {}|
+            request_stripe_object(
+              method: :get,
+              path: send(resource_url_method, id, nested_id),
+              params: {},
+              opts: opts
+            )
+          end
+        when :update
+          define_singleton_method(:"update_#{resource}") \
+              do |id, nested_id, params = {}, opts = {}|
+            request_stripe_object(
+              method: :post,
+              path: send(resource_url_method, id, nested_id),
+              params: params,
+              opts: opts
+            )
+          end
+        when :delete
+          define_singleton_method(:"delete_#{resource}") \
+              do |id, nested_id, params = {}, opts = {}|
+            request_stripe_object(
+              method: :delete,
+              path: send(resource_url_method, id, nested_id),
+              params: params,
+              opts: opts
+            )
+          end
+        when :list
+          define_singleton_method(:"list_#{resource_plural}") \
+              do |id, params = {}, opts = {}|
+            request_stripe_object(
+              method: :get,
+              path: send(resource_url_method, id),
+              params: params,
+              opts: opts
+            )
+          end
+        else
+          raise ArgumentError, "Unknown operation: #{operation.inspect}"
         end
       end
     end

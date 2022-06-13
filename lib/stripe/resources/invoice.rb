@@ -57,63 +57,66 @@ module Stripe
     end
 
     def self.finalize_invoice(invoice, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/invoices/%<invoice>s/finalize", { invoice: CGI.escape(invoice) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/finalize", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.mark_uncollectible(invoice, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/invoices/%<invoice>s/mark_uncollectible", { invoice: CGI.escape(invoice) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/mark_uncollectible", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.pay(invoice, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/invoices/%<invoice>s/pay", { invoice: CGI.escape(invoice) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/pay", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.send_invoice(invoice, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(invoice) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.void_invoice(invoice, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(invoice) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.upcoming(params, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/upcoming", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      request_stripe_object(
+        method: :get,
+        path: resource_url + "/upcoming",
+        params: params,
+        opts: opts
+      )
     end
 
     def self.list_upcoming_line_items(params, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/upcoming/lines", params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      request_stripe_object(
+        method: :get,
+        path: resource_url + "/upcoming/lines",
+        params: params,
+        opts: opts
+      )
     end
 
     def self.search(params = {}, opts = {})

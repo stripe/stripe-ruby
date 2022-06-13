@@ -21,13 +21,12 @@ module Stripe
     end
 
     def self.delete_discount(subscription_exposed_id, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :delete,
-        format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     save_nested_resource :source

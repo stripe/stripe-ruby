@@ -16,13 +16,12 @@ module Stripe
         RESOURCE_CLASS = ReceivedDebit
 
         def self.create(params = {}, opts = {})
-          resp, opts = execute_resource_request(
-            :post,
-            "/v1/test_helpers/treasury/received_debits",
-            params,
-            opts
+          request_stripe_object(
+            method: :post,
+            path: "/v1/test_helpers/treasury/received_debits",
+            params: params,
+            opts: opts
           )
-          Util.convert_to_stripe_object(resp.data, opts)
         end
       end
     end

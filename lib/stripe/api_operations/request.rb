@@ -24,6 +24,11 @@ module Stripe
           )
         end
 
+        private def request_stripe_object(method:, path:, params:, opts: {})
+          resp, opts = execute_resource_request(method, path, params, opts)
+          Util.convert_to_stripe_object_with_params(resp.data, params, opts)
+        end
+
         private def execute_resource_request_internal(client_request_method_sym,
                                                       method, url,
                                                       params, opts,
@@ -120,6 +125,11 @@ module Stripe
         self.class.execute_resource_request_stream(
           method, url, params, opts, &read_body_chunk_block
         )
+      end
+
+      private def request_stripe_object(method:, path:, params:, opts: {})
+        resp, opts = execute_resource_request(method, path, params, opts)
+        Util.convert_to_stripe_object_with_params(resp.data, params, opts)
       end
 
       # See notes on `alias` above.

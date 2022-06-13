@@ -29,23 +29,21 @@ module Stripe
       end
 
       def self.retrieve_features(financial_account, params = {}, opts = {})
-        resp, opts = execute_resource_request(
-          :get,
-          format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
-          params,
-          opts
+        request_stripe_object(
+          method: :get,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
+          params: params,
+          opts: opts
         )
-        Util.convert_to_stripe_object(resp.data, opts)
       end
 
       def self.update_features(financial_account, params = {}, opts = {})
-        resp, opts = execute_resource_request(
-          :post,
-          format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
-          params,
-          opts
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
+          params: params,
+          opts: opts
         )
-        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

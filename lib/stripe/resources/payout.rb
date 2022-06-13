@@ -28,23 +28,21 @@ module Stripe
     end
 
     def self.cancel(payout, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/payouts/%<payout>s/cancel", { payout: CGI.escape(payout) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payouts/%<payout>s/cancel", { payout: CGI.escape(payout) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.reverse(payout, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(payout) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(payout) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

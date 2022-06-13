@@ -19,13 +19,12 @@ module Stripe
     end
 
     def self.cancel(topup, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(topup) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(topup) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

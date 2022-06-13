@@ -45,23 +45,21 @@ module Stripe
     end
 
     def self.create_funding_instructions(customer, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(customer) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.list_payment_methods(customer, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :get,
-        format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(customer) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.retrieve_payment_method(
@@ -70,13 +68,12 @@ module Stripe
       params = {},
       opts = {}
     )
-      resp, opts = execute_resource_request(
-        :get,
-        format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     custom_method :delete_discount, http_verb: :delete, http_path: "discount"
@@ -97,8 +94,11 @@ module Stripe
     # so you must call `refresh` on it to get a new version with the
     # discount removed.
     def delete_discount
-      resp, opts = execute_resource_request(:delete, resource_url + "/discount")
-      Util.convert_to_stripe_object(resp.data, opts)
+      request_stripe_object(
+        method: :delete,
+        path: resource_url + "/discount",
+        params: {}
+      )
     end
 
     def self.search(params = {}, opts = {})
@@ -120,13 +120,12 @@ module Stripe
       if !opts_or_unused_nested_id.nil? && opts_or_unused_nested_id.class == Hash && opts.empty?
         opts = opts_or_unused_nested_id
       end
-      resp, opts = execute_resource_request(
-        :get,
-        format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
-        {},
-        opts
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        params: {},
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.update_cash_balance(
@@ -140,13 +139,12 @@ module Stripe
         raise ArgumentError, "update_cash_balance requires the second argument always be nil for legacy reasons."
       end
 
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

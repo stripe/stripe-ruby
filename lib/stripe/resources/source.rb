@@ -22,13 +22,12 @@ module Stripe
     end
 
     def self.verify(source, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/sources/%<source>s/verify", { source: CGI.escape(source) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/sources/%<source>s/verify", { source: CGI.escape(source) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def detach(params = {}, opts = {})
@@ -45,9 +44,12 @@ module Stripe
     end
 
     def source_transactions(params = {}, opts = {})
-      resp, opts = execute_resource_request(:get, resource_url + "/source_transactions", params,
-                                            opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      request_stripe_object(
+        method: :get,
+        path: resource_url + "/source_transactions",
+        params: params,
+        opts: opts
+      )
     end
     extend Gem::Deprecate
     deprecate :source_transactions, :"Source.list_source_transactions", 2020, 1

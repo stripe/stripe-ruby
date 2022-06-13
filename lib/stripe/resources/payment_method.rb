@@ -28,23 +28,21 @@ module Stripe
     end
 
     def self.attach(payment_method, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/payment_methods/%<payment_method>s/attach", { payment_method: CGI.escape(payment_method) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_methods/%<payment_method>s/attach", { payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.detach(payment_method, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/payment_methods/%<payment_method>s/detach", { payment_method: CGI.escape(payment_method) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_methods/%<payment_method>s/detach", { payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

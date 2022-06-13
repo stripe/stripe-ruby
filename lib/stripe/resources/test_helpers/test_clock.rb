@@ -20,13 +20,12 @@ module Stripe
       end
 
       def self.advance(test_clock, params = {}, opts = {})
-        resp, opts = execute_resource_request(
-          :post,
-          format("/v1/test_helpers/test_clocks/%<test_clock>s/advance", { test_clock: CGI.escape(test_clock) }),
-          params,
-          opts
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/test_clocks/%<test_clock>s/advance", { test_clock: CGI.escape(test_clock) }),
+          params: params,
+          opts: opts
         )
-        Util.convert_to_stripe_object(resp.data, opts)
       end
     end
   end

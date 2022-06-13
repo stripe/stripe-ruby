@@ -19,13 +19,12 @@ module Stripe
     end
 
     def self.list_line_items(payment_link, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :get,
-        format("/v1/payment_links/%<payment_link>s/line_items", { payment_link: CGI.escape(payment_link) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/payment_links/%<payment_link>s/line_items", { payment_link: CGI.escape(payment_link) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

@@ -18,13 +18,12 @@ module Stripe
     end
 
     def self.close(dispute, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/disputes/%<dispute>s/close", { dispute: CGI.escape(dispute) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/disputes/%<dispute>s/close", { dispute: CGI.escape(dispute) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

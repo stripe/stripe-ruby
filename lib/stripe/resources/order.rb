@@ -46,43 +46,39 @@ module Stripe
     end
 
     def self.cancel(id, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/orders/%<id>s/cancel", { id: CGI.escape(id) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/orders/%<id>s/cancel", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.list_line_items(id, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :get,
-        format("/v1/orders/%<id>s/line_items", { id: CGI.escape(id) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/orders/%<id>s/line_items", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.reopen(id, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/orders/%<id>s/reopen", { id: CGI.escape(id) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/orders/%<id>s/reopen", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.submit(id, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/orders/%<id>s/submit", { id: CGI.escape(id) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/orders/%<id>s/submit", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

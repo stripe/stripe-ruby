@@ -28,23 +28,21 @@ module Stripe
     end
 
     def self.cancel(schedule, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(schedule) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(schedule) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.release(schedule, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

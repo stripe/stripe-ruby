@@ -55,53 +55,48 @@ module Stripe
     end
 
     def self.accept(quote, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/quotes/%<quote>s/accept", { quote: CGI.escape(quote) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/accept", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.cancel(quote, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/quotes/%<quote>s/cancel", { quote: CGI.escape(quote) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/cancel", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.finalize_quote(quote, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :post,
-        format("/v1/quotes/%<quote>s/finalize", { quote: CGI.escape(quote) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/finalize", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.list_computed_upfront_line_items(quote, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :get,
-        format("/v1/quotes/%<quote>s/computed_upfront_line_items", { quote: CGI.escape(quote) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/computed_upfront_line_items", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.list_line_items(quote, params = {}, opts = {})
-      resp, opts = execute_resource_request(
-        :get,
-        format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(quote) }),
-        params,
-        opts
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
       )
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def pdf(params = {}, opts = {}, &read_body_chunk_block)

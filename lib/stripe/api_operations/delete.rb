@@ -18,17 +18,22 @@ module Stripe
         #   api_key to be overwritten. See
         #   {APIOperations::Request.execute_resource_request}.
         def delete(id, params = {}, opts = {})
-          resp, opts = execute_resource_request(:delete,
-                                                "#{resource_url}/#{id}",
-                                                params, opts)
-          Util.convert_to_stripe_object(resp.data, opts)
+          request_stripe_object(
+            method: :delete,
+            path: "#{resource_url}/#{id}",
+            params: params,
+            opts: opts
+          )
         end
       end
 
       def delete(params = {}, opts = {})
-        resp, opts = execute_resource_request(:delete, resource_url,
-                                              params, opts)
-        initialize_from(resp.data, opts)
+        request_stripe_object(
+          method: :delete,
+          path: resource_url,
+          params: params,
+          opts: opts
+        )
       end
 
       def self.included(base)

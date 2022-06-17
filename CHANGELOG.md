@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.4.0 - 2022-06-17
+* [#1073](https://github.com/stripe/stripe-ruby/pull/1073) API Updates
+  * Add support for `fund_cash_balance` test helper method on resource `Customer`
+* [#1074](https://github.com/stripe/stripe-ruby/pull/1074) Support updating pre-release versions
+* [#1072](https://github.com/stripe/stripe-ruby/pull/1072) Trigger workflows on beta branches
+* [#1071](https://github.com/stripe/stripe-ruby/pull/1071) Use request_stripe_object for all requests
+* [#1070](https://github.com/stripe/stripe-ruby/pull/1070) API Updates
+  
+  Switch from using meta-programing to generating explicit methods for custom methods.
+* [#1069](https://github.com/stripe/stripe-ruby/pull/1069) chore: Stop special implementation of Account.persons method.
+
 ## 6.3.0 - 2022-06-08
 * [#1063](https://github.com/stripe/stripe-ruby/pull/1063) fix: Update cash balance methods to no longer require nested ID.
 

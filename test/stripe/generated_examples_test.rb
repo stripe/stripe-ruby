@@ -409,6 +409,15 @@ module Stripe
         assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx?"
       end
     end
+    context "Customer.fund_cash_balance" do
+      should "support requests with args: customer, amount, currency" do
+        Stripe::Customer::TestHelpers.fund_cash_balance(
+          "cus_123",
+          { amount: 30, currency: "eur" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/customers/cus_123/fund_cash_balance"
+      end
+    end
     context "Customer.list" do
       should "support requests with args: limit" do
         Stripe::Customer.list(limit: 3)

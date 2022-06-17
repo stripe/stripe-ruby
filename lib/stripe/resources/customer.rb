@@ -146,5 +146,31 @@ module Stripe
         opts: opts
       )
     end
+
+    def test_helpers
+      TestHelpers.new(self)
+    end
+
+    class TestHelpers < APIResourceTestHelpers
+      RESOURCE_CLASS = Customer
+
+      def self.fund_cash_balance(customer, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/customers/%<customer>s/fund_cash_balance", { customer: CGI.escape(customer) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def fund_cash_balance(params = {}, opts = {})
+        @resource.request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/customers/%<customer>s/fund_cash_balance", { customer: CGI.escape(@resource["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+    end
   end
 end

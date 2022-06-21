@@ -63,6 +63,8 @@ module Stripe
     end
 
     def initialize
+      @api_version = ApiVersion::CURRENT
+
       @ca_bundle_path = Stripe::DEFAULT_CA_BUNDLE_PATH
       @enable_telemetry = true
       @verify_ssl_certs = true

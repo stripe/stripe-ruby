@@ -15,6 +15,7 @@ require "uri"
 require "forwardable"
 
 # Version
+require "stripe/api_version"
 require "stripe/version"
 
 # API operations

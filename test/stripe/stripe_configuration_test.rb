@@ -20,7 +20,7 @@ module Stripe
         assert_equal "https://api.stripe.com", config.api_base
         assert_equal "https://connect.stripe.com", config.connect_base
         assert_equal "https://files.stripe.com", config.uploads_base
-        assert_equal nil, config.api_version
+        assert !config.api_version.nil?
       end
 
       should "allow for overrides when a block is passed" do

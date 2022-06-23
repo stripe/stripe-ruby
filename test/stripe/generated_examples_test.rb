@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# File generated from our OpenAPI spec
 require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class CodegennedExampleTest < Test::Unit::TestCase

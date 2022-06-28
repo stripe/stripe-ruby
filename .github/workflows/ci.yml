@@ -12,6 +12,7 @@ on:
     branches:
       - master
       - beta
+      - next-major-release
 
 jobs:
   build:

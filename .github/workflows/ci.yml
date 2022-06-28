@@ -6,13 +6,16 @@ on:
     branches:
       - master
       - beta
+      - release/**
+      - feature/**
     tags:
       - v[0-9]+.[0-9]+.[0-9]+*
   pull_request:
     branches:
       - master
       - beta
-      - next-major-release
+      - release/**
+      - feature/**
 
 jobs:
   build:

@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
+# File generated from our OpenAPI spec
 require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class CodegennedExampleTest < Test::Unit::TestCase
     context "Account.create" do
       should "support requests with args: type, country, email, capabilities" do
         Stripe::Account.create(
-          type: "custom",
-          country: "US",
-          email: "jenny.rosen@example.com",
-          capabilities: {
-            card_payments: { requested: true },
-            transfers: { requested: true },
+          {
+            type: "custom",
+            country: "US",
+            email: "jenny.rosen@example.com",
+            capabilities: {
+              card_payments: { requested: true },
+              transfers: { requested: true },
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/accounts"
@@ -25,7 +28,7 @@ module Stripe
     end
     context "Account.list" do
       should "support requests with args: limit" do
-        Stripe::Account.list(limit: 3)
+        Stripe::Account.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/accounts?limit=3"
       end
     end
@@ -53,17 +56,19 @@ module Stripe
     context "AccountLink.create" do
       should "support requests with args: account, refresh_url, return_url, type" do
         Stripe::AccountLink.create(
-          account: "acct_xxxxxxxxxxxxx",
-          refresh_url: "https://example.com/reauth",
-          return_url: "https://example.com/return",
-          type: "account_onboarding"
+          {
+            account: "acct_xxxxxxxxxxxxx",
+            refresh_url: "https://example.com/reauth",
+            return_url: "https://example.com/return",
+            type: "account_onboarding",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/account_links"
       end
     end
     context "ApplicationFee.list" do
       should "support requests with args: limit" do
-        Stripe::ApplicationFee.list(limit: 3)
+        Stripe::ApplicationFee.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/application_fees?limit=3"
       end
     end
@@ -76,9 +81,21 @@ module Stripe
     context "Apps.Secret.create" do
       should "support requests with args: name, payload, scope" do
         Stripe::Apps::Secret.create(
-          name: "sec_123",
-          payload: "very secret string",
-          scope: { type: "account" }
+          {
+            name: "sec_123",
+            payload: "very secret string",
+            scope: { type: "account" },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/apps/secrets"
+      end
+      should "support requests with args: name, payload, scope2" do
+        Stripe::Apps::Secret.create(
+          {
+            name: "my-api-key",
+            payload: "secret_key_xxxxxx",
+            scope: { type: "account" },
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/apps/secrets"
       end
@@ -86,31 +103,50 @@ module Stripe
     context "Apps.Secret.delete_where" do
       should "support requests with args: name, scope" do
         Stripe::Apps::Secret.delete_where(
-          name: "sec_123",
-          scope: { type: "account" }
+          { name: "my-api-key", scope: { type: "account" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/apps/secrets/delete"
       end
     end
     context "Apps.Secret.find" do
       should "support requests with args: name, scope" do
-        Stripe::Apps::Secret.find(name: "sec_123", scope: { type: "account" })
+        Stripe::Apps::Secret.find({ name: "sec_123", scope: { type: "account" } })
         assert_requested :get, "#{Stripe.api_base}/v1/apps/secrets/find?name=sec_123&scope[type]=account"
+      end
+    end
+    context "Apps.Secret.list" do
+      should "support requests with args: scope, limit" do
+        Stripe::Apps::Secret.list({ scope: { type: "account" }, limit: 2 })
+        assert_requested :get, "#{Stripe.api_base}/v1/apps/secrets?scope[type]=account&limit=2"
+      end
+    end
+    context "BalanceTransaction.list" do
+      should "support requests with args: limit" do
+        Stripe::BalanceTransaction.list({ limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/balance_transactions?limit=3"
+      end
+    end
+    context "BalanceTransaction.retrieve" do
+      should "support requests with args: id" do
+        Stripe::BalanceTransaction.retrieve("txn_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/balance_transactions/txn_xxxxxxxxxxxxx?"
       end
     end
     context "BillingPortal.Configuration.create" do
       should "support requests with args: features, business_profile" do
         Stripe::BillingPortal::Configuration.create(
-          features: {
-            customer_update: {
-              allowed_updates: %w[email tax_id],
-              enabled: true,
+          {
+            features: {
+              customer_update: {
+                allowed_updates: %w[email tax_id],
+                enabled: true,
+              },
+              invoice_history: { enabled: true },
             },
-            invoice_history: { enabled: true },
-          },
-          business_profile: {
-            privacy_policy_url: "https://example.com/privacy",
-            terms_of_service_url: "https://example.com/terms",
+            business_profile: {
+              privacy_policy_url: "https://example.com/privacy",
+              terms_of_service_url: "https://example.com/terms",
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/configurations"
@@ -118,7 +154,7 @@ module Stripe
     end
     context "BillingPortal.Configuration.list" do
       should "support requests with args: limit" do
-        Stripe::BillingPortal::Configuration.list(limit: 3)
+        Stripe::BillingPortal::Configuration.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/billing_portal/configurations?limit=3"
       end
     end
@@ -145,8 +181,10 @@ module Stripe
     context "BillingPortal.Session.create" do
       should "support requests with args: customer, return_url" do
         Stripe::BillingPortal::Session.create(
-          customer: "cus_xxxxxxxxxxxxx",
-          return_url: "https://example.com/account"
+          {
+            customer: "cus_xxxxxxxxxxxxx",
+            return_url: "https://example.com/account",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/billing_portal/sessions"
       end
@@ -201,17 +239,19 @@ module Stripe
     context "Charge.create" do
       should "support requests with args: amount, currency, source, description" do
         Stripe::Charge.create(
-          amount: 2000,
-          currency: "usd",
-          source: "tok_xxxx",
-          description: "My First Test Charge (created for API docs)"
+          {
+            amount: 2000,
+            currency: "usd",
+            source: "tok_xxxx",
+            description: "My First Test Charge (created for API docs)",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/charges"
       end
     end
     context "Charge.list" do
       should "support requests with args: limit" do
-        Stripe::Charge.list(limit: 3)
+        Stripe::Charge.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/charges?limit=3"
       end
     end
@@ -224,7 +264,7 @@ module Stripe
     context "Charge.search" do
       should "support requests with args: query" do
         Stripe::Charge.search(
-          query: "amount>999 AND metadata['order_id']:'6735'"
+          { query: "amount>999 AND metadata['order_id']:'6735'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/charges/search?query=amount>999 AND metadata['order_id']:'6735'"
       end
@@ -241,30 +281,34 @@ module Stripe
     context "Checkout.Session.create" do
       should "support requests with args: success_url, cancel_url, mode, shipping_options" do
         Stripe::Checkout::Session.create(
-          success_url: "https://example.com/success",
-          cancel_url: "https://example.com/cancel",
-          mode: "payment",
-          shipping_options: [
-            { shipping_rate: "shr_standard" },
-            {
-              shipping_rate_data: {
-                display_name: "Standard",
-                delivery_estimate: {
-                  minimum: { unit: "day", value: 5 },
-                  maximum: { unit: "day", value: 7 },
+          {
+            success_url: "https://example.com/success",
+            cancel_url: "https://example.com/cancel",
+            mode: "payment",
+            shipping_options: [
+              { shipping_rate: "shr_standard" },
+              {
+                shipping_rate_data: {
+                  display_name: "Standard",
+                  delivery_estimate: {
+                    minimum: { unit: "day", value: 5 },
+                    maximum: { unit: "day", value: 7 },
+                  },
                 },
               },
-            },
-          ]
+            ],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions"
       end
       should "support requests with args: success_url, cancel_url, line_items, mode" do
         Stripe::Checkout::Session.create(
-          success_url: "https://example.com/success",
-          cancel_url: "https://example.com/cancel",
-          line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 2 }],
-          mode: "payment"
+          {
+            success_url: "https://example.com/success",
+            cancel_url: "https://example.com/cancel",
+            line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 2 }],
+            mode: "payment",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions"
       end
@@ -281,7 +325,7 @@ module Stripe
     end
     context "Checkout.Session.list" do
       should "support requests with args: limit" do
-        Stripe::Checkout::Session.list(limit: 3)
+        Stripe::Checkout::Session.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions?limit=3"
       end
     end
@@ -293,7 +337,7 @@ module Stripe
     end
     context "CountrySpec.list" do
       should "support requests with args: limit" do
-        Stripe::CountrySpec.list(limit: 3)
+        Stripe::CountrySpec.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/country_specs?limit=3"
       end
     end
@@ -306,9 +350,7 @@ module Stripe
     context "Coupon.create" do
       should "support requests with args: percent_off, duration, duration_in_months" do
         Stripe::Coupon.create(
-          percent_off: 25.5,
-          duration: "repeating",
-          duration_in_months: 3
+          { percent_off: 25.5, duration: "repeating", duration_in_months: 3 }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/coupons"
       end
@@ -316,12 +358,12 @@ module Stripe
     context "Coupon.delete" do
       should "support requests with args: id" do
         Stripe::Coupon.delete("Z4OV52SU")
-        assert_requested :delete,  "#{Stripe.api_base}/v1/coupons/Z4OV52SU?"
+        assert_requested :delete, "#{Stripe.api_base}/v1/coupons/Z4OV52SU?"
       end
     end
     context "Coupon.list" do
       should "support requests with args: limit" do
-        Stripe::Coupon.list(limit: 3)
+        Stripe::Coupon.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/coupons?limit=3"
       end
     end
@@ -340,37 +382,24 @@ module Stripe
     context "CreditNote.create" do
       should "support requests with args: invoice, lines" do
         Stripe::CreditNote.create(
-          invoice: "in_xxxxxxxxxxxxx",
-          lines: [
-            {
-              type: "invoice_line_item",
-              invoice_line_item: "il_xxxxxxxxxxxxx",
-              quantity: 1,
-            },
-          ]
+          {
+            invoice: "in_xxxxxxxxxxxxx",
+            lines: [
+              {
+                type: "invoice_line_item",
+                invoice_line_item: "il_xxxxxxxxxxxxx",
+                quantity: 1,
+              },
+            ],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/credit_notes"
       end
     end
     context "CreditNote.list" do
       should "support requests with args: limit" do
-        Stripe::CreditNote.list(limit: 3)
+        Stripe::CreditNote.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/credit_notes?limit=3"
-      end
-    end
-    context "CreditNote.retrieve" do
-      should "support requests with args: id" do
-        Stripe::CreditNote.retrieve("cn_xxxxxxxxxxxxx")
-        assert_requested :get, "#{Stripe.api_base}/v1/credit_notes/cn_xxxxxxxxxxxxx?"
-      end
-    end
-    context "CreditNote.update" do
-      should "support requests with args: metadata, id" do
-        Stripe::CreditNote.update(
-          "cn_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
-        assert_requested :post, "#{Stripe.api_base}/v1/credit_notes/cn_xxxxxxxxxxxxx"
       end
     end
     context "CreditNote.void_credit_note" do
@@ -382,7 +411,7 @@ module Stripe
     context "Customer.create" do
       should "support requests with args: description" do
         Stripe::Customer.create(
-          description: "My First Test Customer (created for API docs)"
+          { description: "My First Test Customer (created for API docs)" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/customers"
       end
@@ -420,11 +449,11 @@ module Stripe
     end
     context "Customer.list" do
       should "support requests with args: limit" do
-        Stripe::Customer.list(limit: 3)
+        Stripe::Customer.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/customers?limit=3"
       end
       should "support requests with args: limit2" do
-        Stripe::Customer.list(limit: 3)
+        Stripe::Customer.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/customers?limit=3"
       end
     end
@@ -450,13 +479,13 @@ module Stripe
     context "Customer.search" do
       should "support requests with args: query" do
         Stripe::Customer.search(
-          query: "name:'fakename' AND metadata['foo']:'bar'"
+          { query: "name:'fakename' AND metadata['foo']:'bar'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name:'fakename' AND metadata['foo']:'bar'"
       end
       should "support requests with args: query2" do
         Stripe::Customer.search(
-          query: "name:'fakename' AND metadata['foo']:'bar'"
+          { query: "name:'fakename' AND metadata['foo']:'bar'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name:'fakename' AND metadata['foo']:'bar'"
       end
@@ -506,7 +535,7 @@ module Stripe
     end
     context "Dispute.list" do
       should "support requests with args: limit" do
-        Stripe::Dispute.list(limit: 3)
+        Stripe::Dispute.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/disputes?limit=3"
       end
     end
@@ -527,7 +556,7 @@ module Stripe
     end
     context "Event.list" do
       should "support requests with args: limit" do
-        Stripe::Event.list(limit: 3)
+        Stripe::Event.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/events?limit=3"
       end
     end
@@ -559,12 +588,12 @@ module Stripe
           "fr_xxxxxxxxxxxxx",
           { metadata: { order_id: "6735" } }
         )
-        assert_requested :post,  "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx"
+        assert_requested :post, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx"
       end
     end
     context "File.list" do
       should "support requests with args: limit" do
-        Stripe::File.list(limit: 3)
+        Stripe::File.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/files?limit=3"
       end
     end
@@ -576,13 +605,13 @@ module Stripe
     end
     context "FileLink.create" do
       should "support requests with args: file" do
-        Stripe::FileLink.create(file: "file_xxxxxxxxxxxxx")
+        Stripe::FileLink.create({ file: "file_xxxxxxxxxxxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/file_links"
       end
     end
     context "FileLink.list" do
       should "support requests with args: limit" do
-        Stripe::FileLink.list(limit: 3)
+        Stripe::FileLink.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/file_links?limit=3"
       end
     end
@@ -614,7 +643,7 @@ module Stripe
       end
       should "support requests with args: account_holder" do
         Stripe::FinancialConnections::Account.list(
-          account_holder: { customer: "cus_xxxxxxxxxxxxx" }
+          { account_holder: { customer: "cus_xxxxxxxxxxxxx" } }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts?account_holder[customer]=cus_xxxxxxxxxxxxx"
       end
@@ -657,16 +686,20 @@ module Stripe
     context "FinancialConnections.Session.create" do
       should "support requests with args: account_holder, permissions" do
         Stripe::FinancialConnections::Session.create(
-          account_holder: { type: "customer", customer: "cus_123" },
-          permissions: ["balances"]
+          {
+            account_holder: { type: "customer", customer: "cus_123" },
+            permissions: ["balances"],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/sessions"
       end
       should "support requests with args: account_holder, permissions, filters" do
         Stripe::FinancialConnections::Session.create(
-          account_holder: { type: "customer", customer: "cus_xxxxxxxxxxxxx" },
-          permissions: %w[payment_method balances],
-          filters: { countries: ["US"] }
+          {
+            account_holder: { type: "customer", customer: "cus_xxxxxxxxxxxxx" },
+            permissions: %w[payment_method balances],
+            filters: { countries: ["US"] },
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/sessions"
       end
@@ -683,7 +716,7 @@ module Stripe
     end
     context "Identity.VerificationReport.list" do
       should "support requests with args: limit" do
-        Stripe::Identity::VerificationReport.list(limit: 3)
+        Stripe::Identity::VerificationReport.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/identity/verification_reports?limit=3"
       end
     end
@@ -701,13 +734,13 @@ module Stripe
     end
     context "Identity.VerificationSession.create" do
       should "support requests with args: type" do
-        Stripe::Identity::VerificationSession.create(type: "document")
+        Stripe::Identity::VerificationSession.create({ type: "document" })
         assert_requested :post, "#{Stripe.api_base}/v1/identity/verification_sessions"
       end
     end
     context "Identity.VerificationSession.list" do
       should "support requests with args: limit" do
-        Stripe::Identity::VerificationSession.list(limit: 3)
+        Stripe::Identity::VerificationSession.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/identity/verification_sessions?limit=3"
       end
     end
@@ -734,7 +767,7 @@ module Stripe
     end
     context "Invoice.create" do
       should "support requests with args: customer" do
-        Stripe::Invoice.create(customer: "cus_xxxxxxxxxxxxx")
+        Stripe::Invoice.create({ customer: "cus_xxxxxxxxxxxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/invoices"
       end
     end
@@ -752,7 +785,7 @@ module Stripe
     end
     context "Invoice.list" do
       should "support requests with args: limit" do
-        Stripe::Invoice.list(limit: 3)
+        Stripe::Invoice.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/invoices?limit=3"
       end
     end
@@ -777,7 +810,7 @@ module Stripe
     context "Invoice.search" do
       should "support requests with args: query" do
         Stripe::Invoice.search(
-          query: "total>999 AND metadata['order_id']:'6735'"
+          { query: "total>999 AND metadata['order_id']:'6735'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/invoices/search?query=total>999 AND metadata['order_id']:'6735'"
       end
@@ -806,8 +839,7 @@ module Stripe
     context "InvoiceItem.create" do
       should "support requests with args: customer, price" do
         Stripe::InvoiceItem.create(
-          customer: "cus_xxxxxxxxxxxxx",
-          price: "price_xxxxxxxxxxxxx"
+          { customer: "cus_xxxxxxxxxxxxx", price: "price_xxxxxxxxxxxxx" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/invoiceitems"
       end
@@ -820,7 +852,7 @@ module Stripe
     end
     context "InvoiceItem.list" do
       should "support requests with args: limit" do
-        Stripe::InvoiceItem.list(limit: 3)
+        Stripe::InvoiceItem.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/invoiceitems?limit=3"
       end
     end
@@ -853,7 +885,7 @@ module Stripe
     end
     context "Issuing.Authorization.list" do
       should "support requests with args: limit" do
-        Stripe::Issuing::Authorization.list(limit: 3)
+        Stripe::Issuing::Authorization.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/authorizations?limit=3"
       end
     end
@@ -875,16 +907,26 @@ module Stripe
     context "Issuing.Card.create" do
       should "support requests with args: cardholder, currency, type" do
         Stripe::Issuing::Card.create(
-          cardholder: "ich_xxxxxxxxxxxxx",
-          currency: "usd",
-          type: "virtual"
+          { cardholder: "ich_xxxxxxxxxxxxx", currency: "usd", type: "virtual" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/cards"
       end
     end
+    context "Issuing.Card.deliver_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.deliver_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/deliver?"
+      end
+    end
+    context "Issuing.Card.fail_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.fail_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/fail?"
+      end
+    end
     context "Issuing.Card.list" do
       should "support requests with args: limit" do
-        Stripe::Issuing::Card.list(limit: 3)
+        Stripe::Issuing::Card.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards?limit=3"
       end
     end
@@ -892,6 +934,18 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Issuing::Card.retrieve("ic_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Issuing.Card.return_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.return_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/return?"
+      end
+    end
+    context "Issuing.Card.ship_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.ship_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/ship?"
       end
     end
     context "Issuing.Card.update" do
@@ -906,17 +960,19 @@ module Stripe
     context "Issuing.Cardholder.create" do
       should "support requests with args: type, name, email, phone_number, billing" do
         Stripe::Issuing::Cardholder.create(
-          type: "individual",
-          name: "Jenny Rosen",
-          email: "jenny.rosen@example.com",
-          phone_number: "+18888675309",
-          billing: {
-            address: {
-              line1: "1234 Main Street",
-              city: "San Francisco",
-              state: "CA",
-              country: "US",
-              postal_code: "94111",
+          {
+            type: "individual",
+            name: "Jenny Rosen",
+            email: "jenny.rosen@example.com",
+            phone_number: "+18888675309",
+            billing: {
+              address: {
+                line1: "1234 Main Street",
+                city: "San Francisco",
+                state: "CA",
+                country: "US",
+                postal_code: "94111",
+              },
             },
           }
         )
@@ -925,7 +981,7 @@ module Stripe
     end
     context "Issuing.Cardholder.list" do
       should "support requests with args: limit" do
-        Stripe::Issuing::Cardholder.list(limit: 3)
+        Stripe::Issuing::Cardholder.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders?limit=3"
       end
     end
@@ -947,10 +1003,12 @@ module Stripe
     context "Issuing.Dispute.create" do
       should "support requests with args: transaction, evidence" do
         Stripe::Issuing::Dispute.create(
-          transaction: "ipi_xxxxxxxxxxxxx",
-          evidence: {
-            reason: "fraudulent",
-            fraudulent: { explanation: "Purchase was unrecognized." },
+          {
+            transaction: "ipi_xxxxxxxxxxxxx",
+            evidence: {
+              reason: "fraudulent",
+              fraudulent: { explanation: "Purchase was unrecognized." },
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes"
@@ -958,7 +1016,7 @@ module Stripe
     end
     context "Issuing.Dispute.list" do
       should "support requests with args: limit" do
-        Stripe::Issuing::Dispute.list(limit: 3)
+        Stripe::Issuing::Dispute.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/disputes?limit=3"
       end
     end
@@ -974,28 +1032,9 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit?"
       end
     end
-    context "Issuing.Dispute.update" do
-      should "support requests with args: evidence, id" do
-        Stripe::Issuing::Dispute.update(
-          "idp_xxxxxxxxxxxxx",
-          {
-            evidence: {
-              reason: "not_received",
-              not_received: {
-                expected_at: 1_590_000_000,
-                explanation: "",
-                product_description: "Baseball cap",
-                product_type: "merchandise",
-              },
-            },
-          }
-        )
-        assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx"
-      end
-    end
     context "Issuing.Transaction.list" do
       should "support requests with args: limit" do
-        Stripe::Issuing::Transaction.list(limit: 3)
+        Stripe::Issuing::Transaction.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions?limit=3"
       end
     end
@@ -1029,11 +1068,19 @@ module Stripe
     context "Order.create" do
       should "support requests with args: description, currency, line_items" do
         Stripe::Order.create(
-          description: "description",
-          currency: "usd",
-          line_items: [{ description: "my line item" }]
+          {
+            description: "description",
+            currency: "usd",
+            line_items: [{ description: "my line item" }],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/orders"
+      end
+    end
+    context "Order.list" do
+      should "support requests with args: limit" do
+        Stripe::Order.list({ limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/orders?limit=3"
       end
     end
     context "Order.list_line_items" do
@@ -1094,17 +1141,17 @@ module Stripe
     context "PaymentIntent.create" do
       should "support requests with args: amount, currency, automatic_payment_methods" do
         Stripe::PaymentIntent.create(
-          amount: 1099,
-          currency: "eur",
-          automatic_payment_methods: { enabled: true }
+          {
+            amount: 1099,
+            currency: "eur",
+            automatic_payment_methods: { enabled: true },
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
       end
       should "support requests with args: amount, currency, payment_method_types" do
         Stripe::PaymentIntent.create(
-          amount: 2000,
-          currency: "usd",
-          payment_method_types: ["card"]
+          { amount: 2000, currency: "usd", payment_method_types: ["card"] }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
       end
@@ -1120,7 +1167,7 @@ module Stripe
     end
     context "PaymentIntent.list" do
       should "support requests with args: limit" do
-        Stripe::PaymentIntent.list(limit: 3)
+        Stripe::PaymentIntent.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/payment_intents?limit=3"
       end
     end
@@ -1133,7 +1180,7 @@ module Stripe
     context "PaymentIntent.search" do
       should "support requests with args: query" do
         Stripe::PaymentIntent.search(
-          query: "status:'succeeded' AND metadata['order_id']:'6735'"
+          { query: "status:'succeeded' AND metadata['order_id']:'6735'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/payment_intents/search?query=status:'succeeded' AND metadata['order_id']:'6735'"
       end
@@ -1156,20 +1203,20 @@ module Stripe
     context "PaymentLink.create" do
       should "support requests with args: line_items" do
         Stripe::PaymentLink.create(
-          line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 1 }]
+          { line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 1 }] }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_links"
       end
       should "support requests with args: line_items2" do
         Stripe::PaymentLink.create(
-          line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 1 }]
+          { line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 1 }] }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_links"
       end
     end
     context "PaymentLink.list" do
       should "support requests with args: limit" do
-        Stripe::PaymentLink.list(limit: 3)
+        Stripe::PaymentLink.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/payment_links?limit=3"
       end
     end
@@ -1207,12 +1254,14 @@ module Stripe
     context "PaymentMethod.create" do
       should "support requests with args: type, card" do
         Stripe::PaymentMethod.create(
-          type: "card",
-          card: {
-            number: "4242424242424242",
-            exp_month: 5,
-            exp_year: 2023,
-            cvc: "314",
+          {
+            type: "card",
+            card: {
+              number: "4242424242424242",
+              exp_month: 5,
+              exp_year: 2023,
+              cvc: "314",
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods"
@@ -1226,7 +1275,9 @@ module Stripe
     end
     context "PaymentMethod.list" do
       should "support requests with args: customer, type" do
-        Stripe::PaymentMethod.list(customer: "cus_xxxxxxxxxxxxx", type: "card")
+        Stripe::PaymentMethod.list(
+          { customer: "cus_xxxxxxxxxxxxx", type: "card" }
+        )
         assert_requested :get, "#{Stripe.api_base}/v1/payment_methods?customer=cus_xxxxxxxxxxxxx&type=card"
       end
     end
@@ -1253,13 +1304,13 @@ module Stripe
     end
     context "Payout.create" do
       should "support requests with args: amount, currency" do
-        Stripe::Payout.create(amount: 1100, currency: "usd")
+        Stripe::Payout.create({ amount: 1100, currency: "usd" })
         assert_requested :post, "#{Stripe.api_base}/v1/payouts"
       end
     end
     context "Payout.list" do
       should "support requests with args: limit" do
-        Stripe::Payout.list(limit: 3)
+        Stripe::Payout.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/payouts?limit=3"
       end
     end
@@ -1312,10 +1363,12 @@ module Stripe
     context "Plan.create" do
       should "support requests with args: amount, currency, interval, product" do
         Stripe::Plan.create(
-          amount: 2000,
-          currency: "usd",
-          interval: "month",
-          product: "prod_xxxxxxxxxxxxx"
+          {
+            amount: 2000,
+            currency: "usd",
+            interval: "month",
+            product: "prod_xxxxxxxxxxxxx",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/plans"
       end
@@ -1328,7 +1381,7 @@ module Stripe
     end
     context "Plan.list" do
       should "support requests with args: limit" do
-        Stripe::Plan.list(limit: 3)
+        Stripe::Plan.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/plans?limit=3"
       end
     end
@@ -1350,17 +1403,19 @@ module Stripe
     context "Price.create" do
       should "support requests with args: unit_amount, currency, recurring, product" do
         Stripe::Price.create(
-          unit_amount: 2000,
-          currency: "usd",
-          recurring: { interval: "month" },
-          product: "prod_xxxxxxxxxxxxx"
+          {
+            unit_amount: 2000,
+            currency: "usd",
+            recurring: { interval: "month" },
+            product: "prod_xxxxxxxxxxxxx",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/prices"
       end
     end
     context "Price.list" do
       should "support requests with args: limit" do
-        Stripe::Price.list(limit: 3)
+        Stripe::Price.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/prices?limit=3"
       end
     end
@@ -1373,7 +1428,7 @@ module Stripe
     context "Price.search" do
       should "support requests with args: query" do
         Stripe::Price.search(
-          query: "active:'true' AND metadata['order_id']:'6735'"
+          { query: "active:'true' AND metadata['order_id']:'6735'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/prices/search?query=active:'true' AND metadata['order_id']:'6735'"
       end
@@ -1389,7 +1444,7 @@ module Stripe
     end
     context "Product.create" do
       should "support requests with args: name" do
-        Stripe::Product.create(name: "Gold Special")
+        Stripe::Product.create({ name: "Gold Special" })
         assert_requested :post, "#{Stripe.api_base}/v1/products"
       end
     end
@@ -1401,7 +1456,7 @@ module Stripe
     end
     context "Product.list" do
       should "support requests with args: limit" do
-        Stripe::Product.list(limit: 3)
+        Stripe::Product.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/products?limit=3"
       end
     end
@@ -1414,7 +1469,7 @@ module Stripe
     context "Product.search" do
       should "support requests with args: query" do
         Stripe::Product.search(
-          query: "active:'true' AND metadata['order_id']:'6735'"
+          { query: "active:'true' AND metadata['order_id']:'6735'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/products/search?query=active:'true' AND metadata['order_id']:'6735'"
       end
@@ -1430,13 +1485,13 @@ module Stripe
     end
     context "PromotionCode.create" do
       should "support requests with args: coupon" do
-        Stripe::PromotionCode.create(coupon: "Z4OV52SU")
+        Stripe::PromotionCode.create({ coupon: "Z4OV52SU" })
         assert_requested :post, "#{Stripe.api_base}/v1/promotion_codes"
       end
     end
     context "PromotionCode.list" do
       should "support requests with args: limit" do
-        Stripe::PromotionCode.list(limit: 3)
+        Stripe::PromotionCode.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/promotion_codes?limit=3"
       end
     end
@@ -1470,8 +1525,10 @@ module Stripe
     context "Quote.create" do
       should "support requests with args: customer, line_items" do
         Stripe::Quote.create(
-          customer: "cus_xxxxxxxxxxxxx",
-          line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 2 }]
+          {
+            customer: "cus_xxxxxxxxxxxxx",
+            line_items: [{ price: "price_xxxxxxxxxxxxx", quantity: 2 }],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/quotes"
       end
@@ -1484,7 +1541,7 @@ module Stripe
     end
     context "Quote.list" do
       should "support requests with args: limit" do
-        Stripe::Quote.list(limit: 3)
+        Stripe::Quote.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/quotes?limit=3"
       end
     end
@@ -1502,7 +1559,7 @@ module Stripe
     end
     context "Radar.EarlyFraudWarning.list" do
       should "support requests with args: limit" do
-        Stripe::Radar::EarlyFraudWarning.list(limit: 3)
+        Stripe::Radar::EarlyFraudWarning.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings?limit=3"
       end
     end
@@ -1515,9 +1572,11 @@ module Stripe
     context "Radar.ValueList.create" do
       should "support requests with args: alias, name, item_type" do
         Stripe::Radar::ValueList.create(
-          alias: "custom_ip_xxxxxxxxxxxxx",
-          name: "Custom IP Blocklist",
-          item_type: "ip_address"
+          {
+            alias: "custom_ip_xxxxxxxxxxxxx",
+            name: "Custom IP Blocklist",
+            item_type: "ip_address",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/radar/value_lists"
       end
@@ -1530,7 +1589,7 @@ module Stripe
     end
     context "Radar.ValueList.list" do
       should "support requests with args: limit" do
-        Stripe::Radar::ValueList.list(limit: 3)
+        Stripe::Radar::ValueList.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/radar/value_lists?limit=3"
       end
     end
@@ -1552,8 +1611,7 @@ module Stripe
     context "Radar.ValueListItem.create" do
       should "support requests with args: value_list, value" do
         Stripe::Radar::ValueListItem.create(
-          value_list: "rsl_xxxxxxxxxxxxx",
-          value: "1.2.3.4"
+          { value_list: "rsl_xxxxxxxxxxxxx", value: "1.2.3.4" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/radar/value_list_items"
       end
@@ -1567,8 +1625,7 @@ module Stripe
     context "Radar.ValueListItem.list" do
       should "support requests with args: limit, value_list" do
         Stripe::Radar::ValueListItem.list(
-          limit: 3,
-          value_list: "rsl_xxxxxxxxxxxxx"
+          { limit: 3, value_list: "rsl_xxxxxxxxxxxxx" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/radar/value_list_items?limit=3&value_list=rsl_xxxxxxxxxxxxx"
       end
@@ -1587,7 +1644,7 @@ module Stripe
     end
     context "Refund.create" do
       should "support requests with args: charge" do
-        Stripe::Refund.create(charge: "ch_xxxxxxxxxxxxx")
+        Stripe::Refund.create({ charge: "ch_xxxxxxxxxxxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/refunds"
       end
     end
@@ -1599,7 +1656,7 @@ module Stripe
     end
     context "Refund.list" do
       should "support requests with args: limit" do
-        Stripe::Refund.list(limit: 3)
+        Stripe::Refund.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/refunds?limit=3"
       end
     end
@@ -1621,15 +1678,17 @@ module Stripe
     context "Reporting.ReportRun.create" do
       should "support requests with args: report_type, parameters" do
         Stripe::Reporting::ReportRun.create(
-          report_type: "balance.summary.1",
-          parameters: { interval_start: 1_522_540_800, interval_end: 1_525_132_800 }
+          {
+            report_type: "balance.summary.1",
+            parameters: { interval_start: 1_522_540_800, interval_end: 1_525_132_800 },
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/reporting/report_runs"
       end
     end
     context "Reporting.ReportRun.list" do
       should "support requests with args: limit" do
-        Stripe::Reporting::ReportRun.list(limit: 3)
+        Stripe::Reporting::ReportRun.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_runs?limit=3"
       end
     end
@@ -1659,7 +1718,7 @@ module Stripe
     end
     context "Review.list" do
       should "support requests with args: limit" do
-        Stripe::Review.list(limit: 3)
+        Stripe::Review.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/reviews?limit=3"
       end
     end
@@ -1671,7 +1730,7 @@ module Stripe
     end
     context "SetupAttempt.list" do
       should "support requests with args: limit, setup_intent" do
-        Stripe::SetupAttempt.list(limit: 3, setup_intent: "si_xyz")
+        Stripe::SetupAttempt.list({ limit: 3, setup_intent: "si_xyz" })
         assert_requested :get, "#{Stripe.api_base}/v1/setup_attempts?limit=3&setup_intent=si_xyz"
       end
     end
@@ -1692,13 +1751,13 @@ module Stripe
     end
     context "SetupIntent.create" do
       should "support requests with args: payment_method_types" do
-        Stripe::SetupIntent.create(payment_method_types: ["card"])
+        Stripe::SetupIntent.create({ payment_method_types: ["card"] })
         assert_requested :post, "#{Stripe.api_base}/v1/setup_intents"
       end
     end
     context "SetupIntent.list" do
       should "support requests with args: limit" do
-        Stripe::SetupIntent.list(limit: 3)
+        Stripe::SetupIntent.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/setup_intents?limit=3"
       end
     end
@@ -1726,17 +1785,21 @@ module Stripe
     context "ShippingRate.create" do
       should "support requests with args: display_name, fixed_amount, type" do
         Stripe::ShippingRate.create(
-          display_name: "Sample Shipper",
-          fixed_amount: { currency: "usd", amount: 400 },
-          type: "fixed_amount"
+          {
+            display_name: "Sample Shipper",
+            fixed_amount: { currency: "usd", amount: 400 },
+            type: "fixed_amount",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/shipping_rates"
       end
       should "support requests with args: display_name, type, fixed_amount" do
         Stripe::ShippingRate.create(
-          display_name: "Ground shipping",
-          type: "fixed_amount",
-          fixed_amount: { amount: 500, currency: "usd" }
+          {
+            display_name: "Ground shipping",
+            type: "fixed_amount",
+            fixed_amount: { amount: 500, currency: "usd" },
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/shipping_rates"
       end
@@ -1747,7 +1810,7 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/shipping_rates?"
       end
       should "support requests with args: limit" do
-        Stripe::ShippingRate.list(limit: 3)
+        Stripe::ShippingRate.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/shipping_rates?limit=3"
       end
     end
@@ -1768,7 +1831,7 @@ module Stripe
     end
     context "Sigma.ScheduledQueryRun.list" do
       should "support requests with args: limit" do
-        Stripe::Sigma::ScheduledQueryRun.list(limit: 3)
+        Stripe::Sigma::ScheduledQueryRun.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/sigma/scheduled_query_runs?limit=3"
       end
     end
@@ -1781,11 +1844,13 @@ module Stripe
     context "SKU.create" do
       should "support requests with args: attributes, price, currency, inventory, product" do
         Stripe::SKU.create(
-          attributes: { size: "Medium", gender: "Unisex" },
-          price: 1500,
-          currency: "usd",
-          inventory: { type: "finite", quantity: 500 },
-          product: "prod_xxxxxxxxxxxxx"
+          {
+            attributes: { size: "Medium", gender: "Unisex" },
+            price: 1500,
+            currency: "usd",
+            inventory: { type: "finite", quantity: 500 },
+            product: "prod_xxxxxxxxxxxxx",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/skus"
       end
@@ -1798,8 +1863,8 @@ module Stripe
     end
     context "SKU.list" do
       should "support requests with args: limit" do
-        Stripe::SKU.list(limit: 3)
-        assert_requested :get,  "#{Stripe.api_base}/v1/skus?limit=3"
+        Stripe::SKU.list({ limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/skus?limit=3"
       end
     end
     context "SKU.retrieve" do
@@ -1836,15 +1901,17 @@ module Stripe
     context "Subscription.create" do
       should "support requests with args: customer, items" do
         Stripe::Subscription.create(
-          customer: "cus_xxxxxxxxxxxxx",
-          items: [{ price: "price_xxxxxxxxxxxxx" }]
+          {
+            customer: "cus_xxxxxxxxxxxxx",
+            items: [{ price: "price_xxxxxxxxxxxxx" }],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/subscriptions"
       end
     end
     context "Subscription.list" do
       should "support requests with args: limit" do
-        Stripe::Subscription.list(limit: 3)
+        Stripe::Subscription.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/subscriptions?limit=3"
       end
     end
@@ -1857,7 +1924,7 @@ module Stripe
     context "Subscription.search" do
       should "support requests with args: query" do
         Stripe::Subscription.search(
-          query: "status:'active' AND metadata['order_id']:'6735'"
+          { query: "status:'active' AND metadata['order_id']:'6735'" }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/subscriptions/search?query=status:'active' AND metadata['order_id']:'6735'"
       end
@@ -1874,9 +1941,11 @@ module Stripe
     context "SubscriptionItem.create" do
       should "support requests with args: subscription, price, quantity" do
         Stripe::SubscriptionItem.create(
-          subscription: "sub_xxxxxxxxxxxxx",
-          price: "price_xxxxxxxxxxxxx",
-          quantity: 2
+          {
+            subscription: "sub_xxxxxxxxxxxxx",
+            price: "price_xxxxxxxxxxxxx",
+            quantity: 2,
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_items"
       end
@@ -1889,7 +1958,7 @@ module Stripe
     end
     context "SubscriptionItem.list" do
       should "support requests with args: subscription" do
-        Stripe::SubscriptionItem.list(subscription: "sub_xxxxxxxxxxxxx")
+        Stripe::SubscriptionItem.list({ subscription: "sub_xxxxxxxxxxxxx" })
         assert_requested :get, "#{Stripe.api_base}/v1/subscription_items?subscription=sub_xxxxxxxxxxxxx"
       end
     end
@@ -1917,22 +1986,24 @@ module Stripe
     context "SubscriptionSchedule.create" do
       should "support requests with args: customer, start_date, end_behavior, phases" do
         Stripe::SubscriptionSchedule.create(
-          customer: "cus_xxxxxxxxxxxxx",
-          start_date: 1_652_909_005,
-          end_behavior: "release",
-          phases: [
-            {
-              items: [{ price: "price_xxxxxxxxxxxxx", quantity: 1 }],
-              iterations: 12,
-            },
-          ]
+          {
+            customer: "cus_xxxxxxxxxxxxx",
+            start_date: 1_652_909_005,
+            end_behavior: "release",
+            phases: [
+              {
+                items: [{ price: "price_xxxxxxxxxxxxx", quantity: 1 }],
+                iterations: 12,
+              },
+            ],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules"
       end
     end
     context "SubscriptionSchedule.list" do
       should "support requests with args: limit" do
-        Stripe::SubscriptionSchedule.list(limit: 3)
+        Stripe::SubscriptionSchedule.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/subscription_schedules?limit=3"
       end
     end
@@ -1959,7 +2030,7 @@ module Stripe
     end
     context "TaxCode.list" do
       should "support requests with args: limit" do
-        Stripe::TaxCode.list(limit: 3)
+        Stripe::TaxCode.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/tax_codes?limit=3"
       end
     end
@@ -1993,18 +2064,20 @@ module Stripe
     context "TaxRate.create" do
       should "support requests with args: display_name, description, jurisdiction, percentage, inclusive" do
         Stripe::TaxRate.create(
-          display_name: "VAT",
-          description: "VAT Germany",
-          jurisdiction: "DE",
-          percentage: 16,
-          inclusive: false
+          {
+            display_name: "VAT",
+            description: "VAT Germany",
+            jurisdiction: "DE",
+            percentage: 16,
+            inclusive: false,
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/tax_rates"
       end
     end
     context "TaxRate.list" do
       should "support requests with args: limit" do
-        Stripe::TaxRate.list(limit: 3)
+        Stripe::TaxRate.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/tax_rates?limit=3"
       end
     end
@@ -2027,7 +2100,7 @@ module Stripe
       end
       should "support requests with args: bbpos_wisepos_e" do
         Stripe::Terminal::Configuration.create(
-          bbpos_wisepos_e: { splashscreen: "file_xxxxxxxxxxxxx" }
+          { bbpos_wisepos_e: { splashscreen: "file_xxxxxxxxxxxxx" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations"
       end
@@ -2048,7 +2121,7 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations?"
       end
       should "support requests with args: limit" do
-        Stripe::Terminal::Configuration.list(limit: 3)
+        Stripe::Terminal::Configuration.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations?limit=3"
       end
     end
@@ -2087,12 +2160,14 @@ module Stripe
     context "Terminal.Location.create" do
       should "support requests with args: display_name, address" do
         Stripe::Terminal::Location.create(
-          display_name: "My First Store",
-          address: {
-            line1: "1234 Main Street",
-            city: "San Francisco",
-            country: "US",
-            postal_code: "94111",
+          {
+            display_name: "My First Store",
+            address: {
+              line1: "1234 Main Street",
+              city: "San Francisco",
+              country: "US",
+              postal_code: "94111",
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/locations"
@@ -2106,7 +2181,7 @@ module Stripe
     end
     context "Terminal.Location.list" do
       should "support requests with args: limit" do
-        Stripe::Terminal::Location.list(limit: 3)
+        Stripe::Terminal::Location.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/terminal/locations?limit=3"
       end
     end
@@ -2134,9 +2209,11 @@ module Stripe
     context "Terminal.Reader.create" do
       should "support requests with args: registration_code, label, location" do
         Stripe::Terminal::Reader.create(
-          registration_code: "puppies-plug-could",
-          label: "Blue Rabbit",
-          location: "tml_1234"
+          {
+            registration_code: "puppies-plug-could",
+            label: "Blue Rabbit",
+            location: "tml_1234",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers"
       end
@@ -2149,7 +2226,7 @@ module Stripe
     end
     context "Terminal.Reader.list" do
       should "support requests with args: limit" do
-        Stripe::Terminal::Reader.list(limit: 3)
+        Stripe::Terminal::Reader.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/terminal/readers?limit=3"
       end
     end
@@ -2160,18 +2237,6 @@ module Stripe
           { payment_intent: "pi_xxxxxxxxxxxxx" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent"
-      end
-    end
-    context "Terminal.Reader.process_setup_intent" do
-      should "support requests with args: setup_intent, customer_consent_collected, id" do
-        Stripe::Terminal::Reader.process_setup_intent(
-          "tmr_xxxxxxxxxxxxx",
-          {
-            setup_intent: "seti_xxxxxxxxxxxxx",
-            customer_consent_collected: true,
-          }
-        )
-        assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent"
       end
     end
     context "Terminal.Reader.retrieve" do
@@ -2205,13 +2270,12 @@ module Stripe
     context "TestHelpers.TestClock.create" do
       should "support requests with args: frozen_time, name" do
         Stripe::TestHelpers::TestClock.create(
-          frozen_time: 123,
-          name: "cogsworth"
+          { frozen_time: 123, name: "cogsworth" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/test_clocks"
       end
       should "support requests with args: frozen_time" do
-        Stripe::TestHelpers::TestClock.create(frozen_time: 1_577_836_800)
+        Stripe::TestHelpers::TestClock.create({ frozen_time: 1_577_836_800 })
         assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/test_clocks"
       end
     end
@@ -2231,7 +2295,7 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks?"
       end
       should "support requests with args: limit" do
-        Stripe::TestHelpers::TestClock.list(limit: 3)
+        Stripe::TestHelpers::TestClock.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks?limit=3"
       end
     end
@@ -2248,53 +2312,61 @@ module Stripe
     context "Token.create" do
       should "support requests with args: card" do
         Stripe::Token.create(
-          card: {
-            number: "4242424242424242",
-            exp_month: "5",
-            exp_year: "2023",
-            cvc: "314",
+          {
+            card: {
+              number: "4242424242424242",
+              exp_month: "5",
+              exp_year: "2023",
+              cvc: "314",
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/tokens"
       end
       should "support requests with args: bank_account" do
         Stripe::Token.create(
-          bank_account: {
-            country: "US",
-            currency: "usd",
-            account_holder_name: "Jenny Rosen",
-            account_holder_type: "individual",
-            routing_number: "110000000",
-            account_number: "000123456789",
+          {
+            bank_account: {
+              country: "US",
+              currency: "usd",
+              account_holder_name: "Jenny Rosen",
+              account_holder_type: "individual",
+              routing_number: "110000000",
+              account_number: "000123456789",
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/tokens"
       end
       should "support requests with args: pii" do
-        Stripe::Token.create(pii: { id_number: "000000000" })
+        Stripe::Token.create({ pii: { id_number: "000000000" } })
         assert_requested :post, "#{Stripe.api_base}/v1/tokens"
       end
       should "support requests with args: account" do
         Stripe::Token.create(
-          account: {
-            individual: { first_name: "Jane", last_name: "Doe" },
-            tos_shown_and_accepted: true,
+          {
+            account: {
+              individual: { first_name: "Jane", last_name: "Doe" },
+              tos_shown_and_accepted: true,
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/tokens"
       end
       should "support requests with args: person" do
         Stripe::Token.create(
-          person: {
-            first_name: "Jane",
-            last_name: "Doe",
-            relationship: { owner: true },
+          {
+            person: {
+              first_name: "Jane",
+              last_name: "Doe",
+              relationship: { owner: true },
+            },
           }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/tokens"
       end
       should "support requests with args: cvc_update" do
-        Stripe::Token.create(cvc_update: { cvc: "123" })
+        Stripe::Token.create({ cvc_update: { cvc: "123" } })
         assert_requested :post, "#{Stripe.api_base}/v1/tokens"
       end
     end
@@ -2313,17 +2385,19 @@ module Stripe
     context "Topup.create" do
       should "support requests with args: amount, currency, description, statement_descriptor" do
         Stripe::Topup.create(
-          amount: 2000,
-          currency: "usd",
-          description: "Top-up for Jenny Rosen",
-          statement_descriptor: "Top-up"
+          {
+            amount: 2000,
+            currency: "usd",
+            description: "Top-up for Jenny Rosen",
+            statement_descriptor: "Top-up",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/topups"
       end
     end
     context "Topup.list" do
       should "support requests with args: limit" do
-        Stripe::Topup.list(limit: 3)
+        Stripe::Topup.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/topups?limit=3"
       end
     end
@@ -2342,17 +2416,19 @@ module Stripe
     context "Transfer.create" do
       should "support requests with args: amount, currency, destination, transfer_group" do
         Stripe::Transfer.create(
-          amount: 400,
-          currency: "usd",
-          destination: "acct_xxxxxxxxxxxxx",
-          transfer_group: "ORDER_95"
+          {
+            amount: 400,
+            currency: "usd",
+            destination: "acct_xxxxxxxxxxxxx",
+            transfer_group: "ORDER_95",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/transfers"
       end
     end
     context "Transfer.list" do
       should "support requests with args: limit" do
-        Stripe::Transfer.list(limit: 3)
+        Stripe::Transfer.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/transfers?limit=3"
       end
     end
@@ -2399,7 +2475,7 @@ module Stripe
     context "Treasury.CreditReversal.create" do
       should "support requests with args: received_credit" do
         Stripe::Treasury::CreditReversal.create(
-          received_credit: "rc_xxxxxxxxxxxxx"
+          { received_credit: "rc_xxxxxxxxxxxxx" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/credit_reversals"
       end
@@ -2407,8 +2483,7 @@ module Stripe
     context "Treasury.CreditReversal.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::CreditReversal.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/credit_reversals?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2422,7 +2497,7 @@ module Stripe
     context "Treasury.DebitReversal.create" do
       should "support requests with args: received_debit" do
         Stripe::Treasury::DebitReversal.create(
-          received_debit: "rd_xxxxxxxxxxxxx"
+          { received_debit: "rd_xxxxxxxxxxxxx" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/debit_reversals"
       end
@@ -2430,8 +2505,7 @@ module Stripe
     context "Treasury.DebitReversal.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::DebitReversal.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/debit_reversals?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2445,15 +2519,14 @@ module Stripe
     context "Treasury.FinancialAccount.create" do
       should "support requests with args: supported_currencies, features" do
         Stripe::Treasury::FinancialAccount.create(
-          supported_currencies: ["usd"],
-          features: {}
+          { supported_currencies: ["usd"], features: {} }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/financial_accounts"
       end
     end
     context "Treasury.FinancialAccount.list" do
       should "support requests with args: limit" do
-        Stripe::Treasury::FinancialAccount.list(limit: 3)
+        Stripe::Treasury::FinancialAccount.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/financial_accounts?limit=3"
       end
     end
@@ -2479,9 +2552,12 @@ module Stripe
       end
     end
     context "Treasury.FinancialAccount.update_features" do
-      should "support requests with args: parent_id" do
-        Stripe::Treasury::FinancialAccount.update_features("fa_xxxxxxxxxxxxx")
-        assert_requested :post, "#{Stripe.api_base}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features?"
+      should "support requests with args: card_issuing, parent_id" do
+        Stripe::Treasury::FinancialAccount.update_features(
+          "fa_xxxxxxxxxxxxx",
+          { card_issuing: { requested: false } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features"
       end
     end
     context "Treasury.InboundTransfer.cancel" do
@@ -2493,11 +2569,13 @@ module Stripe
     context "Treasury.InboundTransfer.create" do
       should "support requests with args: financial_account, amount, currency, origin_payment_method, description" do
         Stripe::Treasury::InboundTransfer.create(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          amount: 10_000,
-          currency: "usd",
-          origin_payment_method: "pm_xxxxxxxxxxxxx",
-          description: "InboundTransfer from my bank account"
+          {
+            financial_account: "fa_xxxxxxxxxxxxx",
+            amount: 10_000,
+            currency: "usd",
+            origin_payment_method: "pm_xxxxxxxxxxxxx",
+            description: "InboundTransfer from my bank account",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/inbound_transfers"
       end
@@ -2514,8 +2592,7 @@ module Stripe
     context "Treasury.InboundTransfer.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::InboundTransfer.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/inbound_transfers?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2549,12 +2626,14 @@ module Stripe
     context "Treasury.OutboundPayment.create" do
       should "support requests with args: financial_account, amount, currency, customer, destination_payment_method, description" do
         Stripe::Treasury::OutboundPayment.create(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          amount: 10_000,
-          currency: "usd",
-          customer: "cu_xxxxxxxxxxxxx",
-          destination_payment_method: "pm_xxxxxxxxxxxxx",
-          description: "OutboundPayment to a 3rd party"
+          {
+            financial_account: "fa_xxxxxxxxxxxxx",
+            amount: 10_000,
+            currency: "usd",
+            customer: "cu_xxxxxxxxxxxxx",
+            destination_payment_method: "pm_xxxxxxxxxxxxx",
+            description: "OutboundPayment to a 3rd party",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/outbound_payments"
       end
@@ -2562,8 +2641,7 @@ module Stripe
     context "Treasury.OutboundPayment.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::OutboundPayment.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_payments?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2583,11 +2661,13 @@ module Stripe
     context "Treasury.OutboundTransfer.create" do
       should "support requests with args: financial_account, destination_payment_method, amount, currency, description" do
         Stripe::Treasury::OutboundTransfer.create(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          destination_payment_method: "pm_xxxxxxxxxxxxx",
-          amount: 500,
-          currency: "usd",
-          description: "OutboundTransfer to my external bank account"
+          {
+            financial_account: "fa_xxxxxxxxxxxxx",
+            destination_payment_method: "pm_xxxxxxxxxxxxx",
+            amount: 500,
+            currency: "usd",
+            description: "OutboundTransfer to my external bank account",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/outbound_transfers"
       end
@@ -2601,8 +2681,7 @@ module Stripe
     context "Treasury.OutboundTransfer.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::OutboundTransfer.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_transfers?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2631,10 +2710,12 @@ module Stripe
     context "Treasury.ReceivedCredit.create" do
       should "support requests with args: financial_account, network, amount, currency" do
         Stripe::Treasury::ReceivedCredit::TestHelpers.create(
-          financial_account: "fa_123",
-          network: "ach",
-          amount: 1234,
-          currency: "usd"
+          {
+            financial_account: "fa_123",
+            network: "ach",
+            amount: 1234,
+            currency: "usd",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/received_credits"
       end
@@ -2642,8 +2723,7 @@ module Stripe
     context "Treasury.ReceivedCredit.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::ReceivedCredit.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/received_credits?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2657,10 +2737,12 @@ module Stripe
     context "Treasury.ReceivedDebit.create" do
       should "support requests with args: financial_account, network, amount, currency" do
         Stripe::Treasury::ReceivedDebit::TestHelpers.create(
-          financial_account: "fa_123",
-          network: "ach",
-          amount: 1234,
-          currency: "usd"
+          {
+            financial_account: "fa_123",
+            network: "ach",
+            amount: 1234,
+            currency: "usd",
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/received_debits"
       end
@@ -2668,8 +2750,7 @@ module Stripe
     context "Treasury.ReceivedDebit.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::ReceivedDebit.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/received_debits?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2683,8 +2764,7 @@ module Stripe
     context "Treasury.Transaction.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::Transaction.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/transactions?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2698,8 +2778,7 @@ module Stripe
     context "Treasury.TransactionEntry.list" do
       should "support requests with args: financial_account, limit" do
         Stripe::Treasury::TransactionEntry.list(
-          financial_account: "fa_xxxxxxxxxxxxx",
-          limit: 3
+          { financial_account: "fa_xxxxxxxxxxxxx", limit: 3 }
         )
         assert_requested :get, "#{Stripe.api_base}/v1/treasury/transaction_entries?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       end
@@ -2713,8 +2792,10 @@ module Stripe
     context "WebhookEndpoint.create" do
       should "support requests with args: url, enabled_events" do
         Stripe::WebhookEndpoint.create(
-          url: "https://example.com/my/webhook/endpoint",
-          enabled_events: ["charge.failed", "charge.succeeded"]
+          {
+            url: "https://example.com/my/webhook/endpoint",
+            enabled_events: ["charge.failed", "charge.succeeded"],
+          }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/webhook_endpoints"
       end
@@ -2727,7 +2808,7 @@ module Stripe
     end
     context "WebhookEndpoint.list" do
       should "support requests with args: limit" do
-        Stripe::WebhookEndpoint.list(limit: 3)
+        Stripe::WebhookEndpoint.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/webhook_endpoints?limit=3"
       end
     end

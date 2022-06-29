@@ -912,6 +912,18 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/cards"
       end
     end
+    context "Issuing.Card.deliver_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.deliver_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/deliver?"
+      end
+    end
+    context "Issuing.Card.fail_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.fail_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/fail?"
+      end
+    end
     context "Issuing.Card.list" do
       should "support requests with args: limit" do
         Stripe::Issuing::Card.list({ limit: 3 })
@@ -922,6 +934,18 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Issuing::Card.retrieve("ic_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Issuing.Card.return_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.return_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/return?"
+      end
+    end
+    context "Issuing.Card.ship_card" do
+      should "support requests with args: card" do
+        Stripe::Issuing::Card::TestHelpers.ship_card("card_123")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/ship?"
       end
     end
     context "Issuing.Card.update" do
@@ -1705,9 +1729,9 @@ module Stripe
       end
     end
     context "SetupAttempt.list" do
-      should "support requests with args: limit" do
-        Stripe::SetupAttempt.list({ limit: 3 })
-        assert_requested :get, "#{Stripe.api_base}/v1/setup_attempts?limit=3"
+      should "support requests with args: limit, setup_intent" do
+        Stripe::SetupAttempt.list({ limit: 3, setup_intent: "si_xyz" })
+        assert_requested :get, "#{Stripe.api_base}/v1/setup_attempts?limit=3&setup_intent=si_xyz"
       end
     end
     context "SetupIntent.cancel" do

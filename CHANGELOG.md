@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.5.0 - 2022-06-29
+* [#1084](https://github.com/stripe/stripe-ruby/pull/1084) API Updates
+  * Add support for `deliver_card`, `fail_card`, `return_card`, and `ship_card` test helper methods on resource `Issuing.Card`
+* [#1076](https://github.com/stripe/stripe-ruby/pull/1076) fix: Update logging to coerce ASCII-8BIT into UTF-8.
+
 ## 6.4.0 - 2022-06-17
 * [#1073](https://github.com/stripe/stripe-ruby/pull/1073) API Updates
   * Add support for `fund_cash_balance` test helper method on resource `Customer`

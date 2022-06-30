@@ -416,6 +416,15 @@ module Stripe
       # Hopefully val is a string, but protect in case it's not.
       val = val.to_s
 
+      # Some values returned by the server are encoded in ASCII-8BIT before
+      # being parsed as UTF-8 by Marshal. If we don't transform these here, then
+      # puts will fail as it tries to render UTF-8 characters as ASCII-8BIT
+      # which is not valid.
+      if val && val.encoding == Encoding::ASCII_8BIT
+        # Dup the string as it is a frozen literal.
+        val = val.dup.force_encoding("UTF-8")
+      end
+
       if %r{[^\w\-/]} =~ val
         # If the string contains any special characters, escape any double
         # quotes it has, remove newlines, and wrap the whole thing in quotes.

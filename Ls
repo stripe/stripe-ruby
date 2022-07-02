@@ -1,0 +1,25 @@
+
+Stripe.api_key =
+'sk_test_sk_live_51Kl8HIGSHvi5JOIbZlN7ZkVo0SDP1hrQKCaIhLelUZU662HqNyOAE8pdMmJEXMkOKLC2WhEEw6WjxPqSawFTEoqe0097jWrHZP’
+
+Stripe::PaymentIntent.create(
+  payment_method_types: ['klarna'],
+  amount: ‘
+  currency: 'usd’,
+)
+
+<input id="payment-name" type="text">
+<button id="payment-button" data-secret="<%= @intent.client_secret %>">
+  Submit Payment
+</button>
+
+get '/checkout' do
+  @intent = # ... Fetch or create the PaymentIntent
+erb :checkout
+end
+
+curl https://api.stripe.com/v1/accounts \
+  -u 'sk_test_sk_live_51Kl8HIGSHvi5JOIbZlN7ZkVo0SDP1hrQKCaIhLelUZU662HqNyOAE8pdMmJEXMkOKLC2WhEEw6WjxPqSawFTEoqe0097jWrHZP’
+  -d "type"="custom" \
+  -d "capabilities[card_payments][requested]"="true" \
+  -d "capabilities[transfers][requested]"="true"

@@ -821,6 +821,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/send?"
       end
     end
+    context "Invoice.upcoming" do
+      should "support requests with args: customer" do
+        Stripe::Invoice.upcoming({ customer: "cus_9utnxg47pWjV1e" })
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
+      end
+    end
     context "Invoice.update" do
       should "support requests with args: metadata, id" do
         Stripe::Invoice.update(

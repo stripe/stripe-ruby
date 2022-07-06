@@ -18,28 +18,28 @@ module Stripe
       )
     end
 
+    def self.list_preview_line_items(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/credit_notes/preview/lines",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.preview(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/credit_notes/preview",
+        params: params,
+        opts: opts
+      )
+    end
+
     def self.void_credit_note(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/credit_notes/%<id>s/void", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    def self.preview(params, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: resource_url + "/preview",
-        params: params,
-        opts: opts
-      )
-    end
-
-    def self.list_preview_line_items(params, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: resource_url + "/preview/lines",
         params: params,
         opts: opts
       )

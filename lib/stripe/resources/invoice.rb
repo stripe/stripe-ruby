@@ -65,6 +65,15 @@ module Stripe
       )
     end
 
+    def self.list_upcoming_line_items(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/invoices/upcoming/lines",
+        params: params,
+        opts: opts
+      )
+    end
+
     def self.mark_uncollectible(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -92,28 +101,19 @@ module Stripe
       )
     end
 
+    def self.upcoming(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/invoices/upcoming",
+        params: params,
+        opts: opts
+      )
+    end
+
     def self.void_invoice(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(invoice) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    def self.upcoming(params, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: resource_url + "/upcoming",
-        params: params,
-        opts: opts
-      )
-    end
-
-    def self.list_upcoming_line_items(params, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: resource_url + "/upcoming/lines",
         params: params,
         opts: opts
       )

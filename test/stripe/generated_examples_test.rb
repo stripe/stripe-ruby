@@ -1407,6 +1407,21 @@ module Stripe
       end
     end
     context "Price.create" do
+      should "support requests with args: unit_amount, currency, currency_options, recurring, product" do
+        Stripe::Price.create(
+          {
+            unit_amount: 2000,
+            currency: "usd",
+            currency_options: {
+              uah: { unit_amount: 5000 },
+              eur: { unit_amount: 1800 },
+            },
+            recurring: { interval: "month" },
+            product: "prod_xxxxxxxxxxxxx",
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/prices"
+      end
       should "support requests with args: unit_amount, currency, recurring, product" do
         Stripe::Price.create(
           {

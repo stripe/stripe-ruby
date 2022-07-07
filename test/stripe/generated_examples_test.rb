@@ -821,6 +821,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/send?"
       end
     end
+    context "Invoice.upcoming" do
+      should "support requests with args: customer" do
+        Stripe::Invoice.upcoming({ customer: "cus_9utnxg47pWjV1e" })
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
+      end
+    end
     context "Invoice.update" do
       should "support requests with args: metadata, id" do
         Stripe::Invoice.update(
@@ -1401,6 +1407,21 @@ module Stripe
       end
     end
     context "Price.create" do
+      should "support requests with args: unit_amount, currency, currency_options, recurring, product" do
+        Stripe::Price.create(
+          {
+            unit_amount: 2000,
+            currency: "usd",
+            currency_options: {
+              uah: { unit_amount: 5000 },
+              eur: { unit_amount: 1800 },
+            },
+            recurring: { interval: "month" },
+            product: "prod_xxxxxxxxxxxxx",
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/prices"
+      end
       should "support requests with args: unit_amount, currency, recurring, product" do
         Stripe::Price.create(
           {

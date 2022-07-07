@@ -26,6 +26,15 @@ module Stripe
       )
     end
 
+    def delete_discount(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def list_payment_methods(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -48,6 +57,15 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.delete_discount(customer, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(customer) }),
         params: params,
         opts: opts
       )
@@ -76,8 +94,6 @@ module Stripe
       )
     end
 
-    custom_method :delete_discount, http_verb: :delete, http_path: "discount"
-
     save_nested_resource :source
     nested_resource_class_methods :source,
                                   operations: %i[create retrieve update delete list]
@@ -86,19 +102,6 @@ module Stripe
     # source object are the same.
     class << self
       alias detach_source delete_source
-    end
-
-    # Deletes a discount associated with the customer.
-    #
-    # Returns the deleted discount. The customer object is not updated,
-    # so you must call `refresh` on it to get a new version with the
-    # discount removed.
-    def delete_discount
-      request_stripe_object(
-        method: :delete,
-        path: resource_url + "/discount",
-        params: {}
-      )
     end
 
     def self.search(params = {}, opts = {})

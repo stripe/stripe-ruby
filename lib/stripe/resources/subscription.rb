@@ -4,17 +4,34 @@
 module Stripe
   class Subscription < APIResource
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "subscription"
 
+    def cancel(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def delete_discount(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
         path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.cancel(subscription_exposed_id, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
         params: params,
         opts: opts
       )

@@ -9,6 +9,15 @@ module Stripe
 
     OBJECT_NAME = "subscription_schedule"
 
+    def amend(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -22,6 +31,15 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.amend(schedule, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts
       )

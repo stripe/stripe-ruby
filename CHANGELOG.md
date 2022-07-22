@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.6.0-beta.1 - 2022-07-22
+* [#1100](https://github.com/stripe/stripe-ruby/pull/1100) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Add `QuotePhase` resource
+* [#1097](https://github.com/stripe/stripe-ruby/pull/1097) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Add `SubscriptionSchedule.amend` method.
+* [#1093](https://github.com/stripe/stripe-ruby/pull/1093) API Updates for beta branch
+  - Include `server_side_confirmation_beta=v1` beta
+  - Add `secretKeyConfirmation` to `PaymentIntent`
+* [#1085](https://github.com/stripe/stripe-ruby/pull/1085) API Updates for beta branch
+  - Updated stable APIs to the latest version
+* [#1075](https://github.com/stripe/stripe-ruby/pull/1075) Use the generated API version
+
 ## 6.5.0 - 2022-06-29
 * [#1084](https://github.com/stripe/stripe-ruby/pull/1084) API Updates
   * Add support for `deliver_card`, `fail_card`, `return_card`, and `ship_card` test helper methods on resource `Issuing.Card`

@@ -329,6 +329,12 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions?limit=3"
       end
     end
+    context "Checkout.Session.list_line_items" do
+      should "support requests with args: session" do
+        Stripe::Checkout::Session.list_line_items("sess_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/sess_xyz/line_items?"
+      end
+    end
     context "Checkout.Session.retrieve" do
       should "support requests with args: id" do
         Stripe::Checkout::Session.retrieve("cs_test_xxxxxxxxxxxxx")
@@ -1101,6 +1107,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz/reopen?"
       end
     end
+    context "Order.retrieve" do
+      should "support requests with args: order" do
+        Stripe::Order.retrieve("order_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/orders/order_xyz?"
+      end
+    end
     context "Order.submit" do
       should "support requests with args: order, expected_total" do
         Stripe::Order.submit("order_xyz", { expected_total: 100 })
@@ -1108,13 +1120,12 @@ module Stripe
       end
     end
     context "Order.update" do
-      should "support requests with args: order" do
-        Stripe::Order.update("order_xyz")
-        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz?"
-      end
-      should "support requests with args: order2" do
-        Stripe::Order.update("order_xyz")
-        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz?"
+      should "support requests with args: order, metadata, ip_address" do
+        Stripe::Order.update(
+          "order_xyz",
+          { metadata: { reference_number: "123" }, ip_address: "0.0.0.0" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/orders/order_xyz"
       end
     end
     context "PaymentIntent.apply_customer_balance" do

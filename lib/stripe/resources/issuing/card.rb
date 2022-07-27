@@ -10,24 +10,6 @@ module Stripe
 
       OBJECT_NAME = "issuing.card"
 
-      def details(params = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: format("/v1/issuing/cards/%<card>s/details", { card: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      def self.details(card, params = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: format("/v1/issuing/cards/%<card>s/details", { card: CGI.escape(card) }),
-          params: params,
-          opts: opts
-        )
-      end
-
       def test_helpers
         TestHelpers.new(self)
       end

@@ -231,7 +231,7 @@ module Stripe
 
       context "#retrieve_cash_balance" do
         should "legacy call pattern - retrieve_cash_balance(customer_id, nil)" do
-          Stripe::Customer.retrieve_cash_balance("cus_123", nil)
+          Stripe::Customer.retrieve_cash_balance("cus_123")
           assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
         end
 

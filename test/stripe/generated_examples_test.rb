@@ -224,7 +224,6 @@ module Stripe
       should "support requests with args: customer, settings" do
         Stripe::Customer.update_cash_balance(
           "cus_123",
-          nil,
           { settings: { reconciliation_mode: "manual" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"

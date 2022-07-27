@@ -66,11 +66,11 @@ module Stripe
     end
 
     extend Gem::Deprecate
-    deprecate :delete, "Stripe::Subscription.delete", 2022, 7
+    deprecate :delete, "Stripe::Subscription.cancel", 2022, 7
 
     class << self
       extend Gem::Deprecate
-      deprecate :delete, "Stripe::Subscription#delete", 2022, 7
+      deprecate :delete, "Stripe::Subscription#cancel", 2022, 7
     end
 
     def self.search(params = {}, opts = {})

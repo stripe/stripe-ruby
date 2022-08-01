@@ -12,23 +12,5 @@ module Stripe
 
     nested_resource_class_methods :reversal,
                                   operations: %i[create retrieve update list]
-
-    def cancel(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/transfers/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    def self.cancel(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/transfers/%<id>s/cancel", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
-    end
   end
 end

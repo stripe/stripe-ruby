@@ -112,11 +112,11 @@ module Stripe
       search(params, opts).auto_paging_each(&blk)
     end
 
-    def self.retrieve_cash_balance(customer, opts = {})
+    def self.retrieve_cash_balance(customer, params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
-        params: {},
+        params: params,
         opts: opts
       )
     end

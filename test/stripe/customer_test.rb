@@ -230,44 +230,35 @@ module Stripe
       # compatibility for existing users.
 
       context "#retrieve_cash_balance" do
-        should "legacy call pattern - retrieve_cash_balance(customer_id, nil)" do
-          Stripe::Customer.retrieve_cash_balance("cus_123", nil)
+        should "retrieve with just ID" do
+          Stripe::Customer.retrieve_cash_balance("cus_123")
           assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
         end
 
-        should "legacy call pattern - retrieve_cash_balance(customer_id, nil, opts)" do
+        should "retrieve with custom opts" do
           # Assert that we're actually making a change by swapping out the API base.
           assert Stripe.api_base != Stripe.connect_base
 
-          Stripe::Customer.retrieve_cash_balance("cus_123", nil, { api_base: Stripe.connect_base })
-          assert_requested :get, "#{Stripe.connect_base}/v1/customers/cus_123/cash_balance"
-        end
-
-        should "modern call pattern - retrieve_cash_balance(customer_id, opts)" do
-          # Assert that we're actually making a change by swapping out the API base.
-          assert Stripe.api_base != Stripe.connect_base
-
-          Stripe::Customer.retrieve_cash_balance("cus_123", { api_base: Stripe.connect_base })
+          Stripe::Customer.retrieve_cash_balance("cus_123", {}, { api_base: Stripe.connect_base })
           assert_requested :get, "#{Stripe.connect_base}/v1/customers/cus_123/cash_balance"
         end
       end
 
       context "#update_cash_balance" do
-        should "legacy call pattern - update_cash_balance(customer, nil, params)" do
-          Stripe::Customer.update_cash_balance("cus_123", nil, { settings: { reconciliation_mode: "manual" } })
+        should "update with ID, params" do
+          Stripe::Customer.update_cash_balance("cus_123", { settings: { reconciliation_mode: "manual" } })
 
           assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance" do |req|
             req.body == "settings[reconciliation_mode]=manual"
           end
         end
 
-        should "legacy call pattern - update_cash_balance(customer, nil, params, opts)" do
+        should "update with ID, params and opts" do
           # Assert that we're actually making a change by swapping out the API base.
           assert Stripe.api_base != Stripe.connect_base
 
           Stripe::Customer.update_cash_balance(
             "cus_123",
-            nil,
             { settings: { reconciliation_mode: "manual" } },
             { api_base: Stripe.connect_base }
           )
@@ -277,23 +268,10 @@ module Stripe
           end
         end
 
-        should "modern call pattern - update_cash_balance(customer)" do
+        should "update with just ID" do
           Stripe::Customer.update_cash_balance("cus_123")
 
           assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
-        end
-
-        should "modern call pattern - fail if passing in hash to second argument" do
-          # We catch this on purpose to avoid mis-using the call as is.
-          # Unfortunately we can't automatically shift over arguments (eg.
-          # update_cash_balance(customer_id, params, opts) ->
-          # update_cash_balance(customer_id, nil, params, opts)) since we have
-          # the problematic case of update_cash_balance(customer_id, nil, hash)
-          # where we can't differentiate params and opts for the second hash.
-          e = assert_raises(ArgumentError) do
-            Stripe::Customer.update_cash_balance("cus_123", { settings: { reconciliation_mode: "manual" } })
-          end
-          assert_match("update_cash_balance requires the second argument always be nil", e.message)
         end
       end
     end

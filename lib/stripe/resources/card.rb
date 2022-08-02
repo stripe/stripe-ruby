@@ -10,9 +10,7 @@ module Stripe
     OBJECT_NAME = "card"
 
     def resource_url
-      if respond_to?(:recipient) && !recipient.nil? && !recipient.empty?
-        "#{Recipient.resource_url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
-      elsif respond_to?(:customer) && !customer.nil? && !customer.empty?
+      if respond_to?(:customer) && !customer.nil? && !customer.empty?
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       elsif respond_to?(:account) && !account.nil? && !account.empty?
         "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"

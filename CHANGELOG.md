@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.1.0-beta.1 - 2022-08-03
+* [#1107](https://github.com/stripe/stripe-ruby/pull/1107) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Added the `Order` resource support
+
 ## 7.0.0 - 2022-08-02
 
 Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v7. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.

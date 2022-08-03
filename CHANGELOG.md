@@ -1,5 +1,16 @@
 # Changelog
 
+## 7.0.0 - 2022-08-02
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v7. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.
+
+"⚠️" symbol highlights breaking changes.
+
+* [#1106](https://github.com/stripe/stripe-ruby/pull/1106) API Updates
+* [#1092](https://github.com/stripe/stripe-ruby/pull/1092) API Updates
+* [#1090](https://github.com/stripe/stripe-ruby/pull/1090) Use auto-generation for `Invoice` methods
+* [#1103](https://github.com/stripe/stripe-ruby/pull/1103) Next major release changes
+
 ## 6.6.0-beta.1 - 2022-07-22
 * [#1100](https://github.com/stripe/stripe-ruby/pull/1100) API Updates for beta branch
   - Updated stable APIs to the latest version

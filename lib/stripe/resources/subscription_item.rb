@@ -15,16 +15,5 @@ module Stripe
     nested_resource_class_methods :usage_record_summary,
                                   operations: %i[list],
                                   resource_plural: "usage_record_summaries"
-
-    def usage_record_summaries(params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: resource_url + "/usage_record_summaries",
-        params: params,
-        opts: opts
-      )
-    end
-    extend Gem::Deprecate
-    deprecate :usage_record_summaries, :"SubscriptionItem.list_usage_record_summaries", 2020, 1
   end
 end

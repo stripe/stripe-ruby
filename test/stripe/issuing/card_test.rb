@@ -40,35 +40,6 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/cards/ic_123"
         assert card.is_a?(Stripe::Issuing::Card)
       end
-
-      context "#details" do
-        should "retrieve a card's details" do
-          # The /details endpoint is deprecated and not in the spec so we mock
-          stub_request(:get, "#{Stripe.api_base}/v1/issuing/cards/ic_123/details")
-            .to_return(body: JSON.generate(object: "issuing.card_details"))
-
-          card_details = Stripe::Issuing::Card.details("ic_123")
-          assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_123/details"
-          assert card_details.is_a?(Stripe::Issuing::CardDetails)
-        end
-      end
-
-      context ".details" do
-        should "retrieve a card's details" do
-          # The /details endpoint is deprecated and not in the spec so we mock
-          stub_request(:get, "#{Stripe.api_base}/v1/issuing/cards/ic_123/details")
-            .to_return(body: JSON.generate(object: "issuing.card_details"))
-
-          card = Stripe::Issuing::Card.construct_from(
-            id: "ic_123",
-            object: "issuing.card_details"
-          )
-          card_details = card.details
-
-          assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_123/details"
-          assert card_details.is_a?(Stripe::Issuing::CardDetails)
-        end
-      end
     end
   end
 end

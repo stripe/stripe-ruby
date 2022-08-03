@@ -26,6 +26,15 @@ module Stripe
       )
     end
 
+    def delete_discount(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def list_payment_methods(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -48,6 +57,15 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.delete_discount(customer, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(customer) }),
         params: params,
         opts: opts
       )
@@ -85,20 +103,6 @@ module Stripe
     class << self
       alias detach_source delete_source
     end
-    custom_method :delete_discount, http_verb: :delete, http_path: "discount"
-
-    # Deletes a discount associated with the customer.
-    #
-    # Returns the deleted discount. The customer object is not updated,
-    # so you must call `refresh` on it to get a new version with the
-    # discount removed.
-    def delete_discount
-      request_stripe_object(
-        method: :delete,
-        path: resource_url + "/discount",
-        params: {}
-      )
-    end
 
     def self.search(params = {}, opts = {})
       _search("/v1/customers/search", params, opts)
@@ -108,36 +112,16 @@ module Stripe
       search(params, opts).auto_paging_each(&blk)
     end
 
-    def self.retrieve_cash_balance(
-      customer,
-      opts_or_unused_nested_id = nil,
-      opts = {}
-    )
-      # Support two call patterns for backwards compatibility.
-      # 1. Legacy: (nil unused nested_id, opts)
-      # 2. Fixed pattern: (opts)
-      if !opts_or_unused_nested_id.nil? && opts_or_unused_nested_id.class == Hash && opts.empty?
-        opts = opts_or_unused_nested_id
-      end
+    def self.retrieve_cash_balance(customer, params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
-        params: {},
+        params: params,
         opts: opts
       )
     end
 
-    def self.update_cash_balance(
-      customer,
-      unused_nested_id = nil,
-      params = {},
-      opts = {}
-    )
-      # Do not allow passing in a hash as the second argument, as we require a nil for compatibility reasons. We cannot differentiate from a legacy pattern (nil, params) and a modern pattern (nil for params, opts).
-      if !unused_nested_id.nil? && unused_nested_id.class == Hash
-        raise ArgumentError, "update_cash_balance requires the second argument always be nil for legacy reasons."
-      end
-
+    def self.update_cash_balance(customer, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),

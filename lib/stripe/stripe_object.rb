@@ -196,6 +196,8 @@ module Stripe
       end
     end
 
+    alias to_h to_hash
+
     def each(&blk)
       @values.each(&blk)
     end

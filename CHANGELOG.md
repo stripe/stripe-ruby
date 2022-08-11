@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.1.0-beta.2 - 2022-08-11
+* [#1113](https://github.com/stripe/stripe-ruby/pull/1113) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Add `refund_payment` method to Terminal resource
+
 ## 7.1.0-beta.1 - 2022-08-03
 * [#1107](https://github.com/stripe/stripe-ruby/pull/1107) API Updates for beta branch
   - Updated stable APIs to the latest version

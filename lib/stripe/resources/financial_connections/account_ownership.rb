@@ -4,7 +4,7 @@
 module Stripe
   module FinancialConnections
     class AccountOwnership < StripeObject
-      OBJECT_NAME = "financial_connections.account_ownership"
+      OBJECT_NAME = 'financial_connections.account_ownership'
     end
   end
 end

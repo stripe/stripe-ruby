@@ -7,23 +7,22 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "payment_link"
+    OBJECT_NAME = 'payment_link'
 
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/payment_links/%<payment_link>s/line_items", { payment_link: CGI.escape(self["id"]) }),
+        path: format('/v1/payment_links/%<payment_link>s/line_items', {:payment_link => CGI.escape(self["id"])}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
-
     def self.list_line_items(payment_link, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/payment_links/%<payment_link>s/line_items", { payment_link: CGI.escape(payment_link) }),
+        path: format('/v1/payment_links/%<payment_link>s/line_items', {:payment_link => CGI.escape(payment_link)}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
   end

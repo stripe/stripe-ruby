@@ -3,7 +3,7 @@
 
 module Stripe
   class CashBalance < APIResource
-    OBJECT_NAME = "cash_balance"
+    OBJECT_NAME = 'cash_balance'
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?

@@ -7,6 +7,6 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "promotion_code"
+    OBJECT_NAME = 'promotion_code'
   end
 end

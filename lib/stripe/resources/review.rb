@@ -5,23 +5,22 @@ module Stripe
   class Review < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "review"
+    OBJECT_NAME = 'review'
 
     def approve(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/reviews/%<review>s/approve", { review: CGI.escape(self["id"]) }),
+        path: format('/v1/reviews/%<review>s/approve', {:review => CGI.escape(self["id"])}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
-
     def self.approve(review, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/reviews/%<review>s/approve", { review: CGI.escape(review) }),
+        path: format('/v1/reviews/%<review>s/approve', {:review => CGI.escape(review)}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
   end

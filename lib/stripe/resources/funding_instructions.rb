@@ -3,7 +3,7 @@
 
 module Stripe
   class FundingInstructions < APIResource
-    OBJECT_NAME = "funding_instructions"
+    OBJECT_NAME = 'funding_instructions'
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?

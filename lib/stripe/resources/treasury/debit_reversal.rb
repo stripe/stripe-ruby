@@ -7,7 +7,7 @@ module Stripe
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "treasury.debit_reversal"
+      OBJECT_NAME = 'treasury.debit_reversal'
     end
   end
 end

@@ -3,6 +3,6 @@
 
 module Stripe
   module ApiVersion
-    CURRENT = "2022-08-01; server_side_confirmation_beta=v1; orders_beta=v4"
+    CURRENT = "2022-08-01; server_side_confirmation_beta=v1; orders_beta=v4; terminal_interac_refunds_beta=v1"
   end
 end

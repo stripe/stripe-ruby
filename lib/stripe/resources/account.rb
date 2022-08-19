@@ -2,6 +2,12 @@
 # frozen_string_literal: true
 
 module Stripe
+  # This is an object representing a Stripe account. You can retrieve it to see
+  # properties on the account like its current e-mail address or if the account is
+  # enabled yet to make live charges.
+  #
+  # Some properties, marked below, are available only to platforms that want to
+  # [create and manage Express or Custom accounts](https://stripe.com/docs/connect/accounts).
   class Account < APIResource
     extend Gem::Deprecate
     extend Stripe::APIOperations::Create

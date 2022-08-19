@@ -3,6 +3,9 @@
 
 module Stripe
   module Radar
+    # Value lists allow you to group values together which can then be referenced in rules.
+    #
+    # Related guide: [Default Stripe Lists](https://stripe.com/docs/radar/lists#managing-list-items).
     class ValueList < APIResource
       extend Stripe::APIOperations::Create
       include Stripe::APIOperations::Delete

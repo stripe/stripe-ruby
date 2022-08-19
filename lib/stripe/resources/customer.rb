@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
+  # This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
+  #
+  # Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment).
   class Customer < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -14,6 +17,8 @@ module Stripe
 
     nested_resource_class_methods :balance_transaction,
                                   operations: %i[create retrieve update list]
+    nested_resource_class_methods :cash_balance_transaction,
+                                  operations: %i[retrieve list]
     nested_resource_class_methods :tax_id,
                                   operations: %i[create retrieve delete list]
 

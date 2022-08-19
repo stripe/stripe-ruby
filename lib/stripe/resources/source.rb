@@ -2,6 +2,12 @@
 # frozen_string_literal: true
 
 module Stripe
+  # `Source` objects allow you to accept a variety of payment methods. They
+  # represent a customer's payment instrument, and can be used with the Stripe API
+  # just like a `Card` object: once chargeable, they can be charged, or can be
+  # attached to customers.
+  #
+  # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
   class Source < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Save

@@ -3,6 +3,7 @@
 
 module Stripe
   module FinancialConnections
+    # A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     class Account < APIResource
       extend Stripe::APIOperations::List
 

@@ -44,6 +44,11 @@ Metrics/ModuleLength:
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline
 
+Style/AsciiComments:
+  AllowedChars:
+    - ’
+    - €
+
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 

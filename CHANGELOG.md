@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.1.0 - 2022-08-19
+* [#1116](https://github.com/stripe/stripe-ruby/pull/1116) API Updates
+  * Add support for new resource `CustomerCashBalanceTransaction`
+* [#1118](https://github.com/stripe/stripe-ruby/pull/1118) Update AllowedChars in rubocop config
+* [#1117](https://github.com/stripe/stripe-ruby/pull/1117) Refresh rubocop config.
+* [#1115](https://github.com/stripe/stripe-ruby/pull/1115) Add a support section to the readme
+
 ## 7.0.0 - 2022-08-02
 
 Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v7. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.

@@ -14,6 +14,8 @@ module Stripe
 
     nested_resource_class_methods :balance_transaction,
                                   operations: %i[create retrieve update list]
+    nested_resource_class_methods :cash_balance_transaction,
+                                  operations: %i[retrieve list]
     nested_resource_class_methods :tax_id,
                                   operations: %i[create retrieve delete list]
 

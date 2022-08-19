@@ -34,6 +34,7 @@ module Stripe
         CreditNoteLineItem::OBJECT_NAME => CreditNoteLineItem,
         Customer::OBJECT_NAME => Customer,
         CustomerBalanceTransaction::OBJECT_NAME => CustomerBalanceTransaction,
+        CustomerCashBalanceTransaction::OBJECT_NAME => CustomerCashBalanceTransaction,
         Discount::OBJECT_NAME => Discount,
         Dispute::OBJECT_NAME => Dispute,
         EphemeralKey::OBJECT_NAME => EphemeralKey,

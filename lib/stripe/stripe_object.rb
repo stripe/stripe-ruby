@@ -432,8 +432,7 @@ module Stripe
     protected def initialize_from(values, opts, partial = false)
       @opts = Util.normalize_opts(opts)
 
-      # the `#send` is here so that we can keep this method private
-      @original_values = self.class.send(:deep_copy, values)
+      @original_values = self.deep_copy(values)
 
       removed = partial ? Set.new : Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)
@@ -538,7 +537,7 @@ module Stripe
 
     # Produces a deep copy of the given object including support for arrays,
     # hashes, and StripeObjects.
-    private_class_method def self.deep_copy(obj)
+    def self.deep_copy(obj)
       case obj
       when Array
         obj.map { |e| deep_copy(e) }

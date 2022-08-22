@@ -58,10 +58,7 @@ module Stripe
           },
         }
 
-        # it's not good to test methods with `#send` like this, but I've done
-        # it in the interest of trying to keep `.deep_copy` as internal as
-        # possible
-        copy_values = Stripe::StripeObject.send(:deep_copy, values)
+        copy_values = Stripe::StripeObject.deep_copy(values)
 
         # we can't compare the hashes directly because they have embedded
         # objects which are different from each other
@@ -100,7 +97,7 @@ module Stripe
         values = { id: 1, name: "Stripe" }
 
         obj = Stripe::StripeObject.construct_from(values, opts)
-        copy_obj = Stripe::StripeObject.send(:deep_copy, obj)
+        copy_obj = Stripe::StripeObject.deep_copy(obj)
 
         assert_equal values, copy_obj.instance_variable_get(:@values)
         assert_equal opts.reject { |k, _v| k == :client },
@@ -111,7 +108,7 @@ module Stripe
         class TestObject < Stripe::StripeObject; end
 
         obj = TestObject.construct_from(id: 1)
-        copy_obj = obj.class.send(:deep_copy, obj)
+        copy_obj = obj.class.deep_copy(obj)
 
         assert_equal obj.class, copy_obj.class
       end

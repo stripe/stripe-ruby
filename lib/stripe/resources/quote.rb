@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
+  # A Quote is a way to model prices that you'd like to provide to a customer.
+  # Once accepted, it will automatically create an invoice, subscription or subscription schedule.
   class Quote < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

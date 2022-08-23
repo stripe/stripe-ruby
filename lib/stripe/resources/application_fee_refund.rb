@@ -2,6 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
+  # `Application Fee Refund` objects allow you to refund an application fee that
+  # has previously been created but not yet refunded. Funds will be refunded to
+  # the Stripe account from which the fee was originally collected.
+  #
+  # Related guide: [Refunding Application Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
   class ApplicationFeeRefund < APIResource
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save

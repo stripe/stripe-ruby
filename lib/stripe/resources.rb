@@ -3,6 +3,7 @@
 
 require "stripe/resources/account"
 require "stripe/resources/account_link"
+require "stripe/resources/account_session"
 require "stripe/resources/apple_pay_domain"
 require "stripe/resources/application_fee"
 require "stripe/resources/application_fee_refund"

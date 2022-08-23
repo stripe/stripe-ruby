@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
+  # A quote phase describes the line items, coupons, and trialing status of a subscription for a predefined time period.
   class QuotePhase < APIResource
     extend Stripe::APIOperations::List
 

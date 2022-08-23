@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
+  # Issue a credit note to adjust an invoice's amount after the invoice is finalized.
+  #
+  # Related guide: [Credit Notes](https://stripe.com/docs/billing/invoices/credit-notes).
   class CreditNote < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

@@ -3,6 +3,8 @@
 
 module Stripe
   module Treasury
+    # Stripe Treasury provides users with a container for money called a FinancialAccount that is separate from their Payments balance.
+    # FinancialAccounts serve as the source and destination of Treasury's money movement APIs.
     class FinancialAccount < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List

@@ -3,6 +3,7 @@
 
 module Stripe
   module Treasury
+    # TransactionEntries represent individual units of money movements within a single [Transaction](https://stripe.com/docs/api#transactions).
     class TransactionEntry < APIResource
       extend Stripe::APIOperations::List
 

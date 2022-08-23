@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
+  # This is an object representing a capability for a Stripe account.
+  #
+  # Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities).
   class Capability < APIResource
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save

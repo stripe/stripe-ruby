@@ -2,6 +2,13 @@
 # frozen_string_literal: true
 
 module Stripe
+  # This is an object representing a file hosted on Stripe's servers. The
+  # file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
+  # request (for example, when uploading dispute evidence) or it may have
+  # been created by Stripe (for example, the results of a [Sigma scheduled
+  # query](https://stripe.com/docs/api#scheduled_queries)).
+  #
+  # Related guide: [File Upload Guide](https://stripe.com/docs/file-upload).
   class File < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

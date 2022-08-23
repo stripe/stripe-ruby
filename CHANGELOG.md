@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.0-beta.1 - 2022-08-23
+* [#1122](https://github.com/stripe/stripe-ruby/pull/1122) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - `Stripe-Version` beta headers are not pinned by-default and need to be manually specified, please refer to [beta SDKs README section](https://github.com/stripe/stripe-ruby/blob/master/README.md#beta-sdks) 
+
 ## 7.1.0 - 2022-08-19
 * [#1116](https://github.com/stripe/stripe-ruby/pull/1116) API Updates
   * Add support for new resource `CustomerCashBalanceTransaction`

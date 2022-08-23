@@ -3,6 +3,11 @@
 
 module Stripe
   module Issuing
+    # When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
+    # object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
+    # purchase to be completed successfully.
+    #
+    # Related guide: [Issued Card Authorizations](https://stripe.com/docs/issuing/purchases/authorizations).
     class Authorization < APIResource
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save

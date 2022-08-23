@@ -16,10 +16,6 @@ The library also provides other features. For example:
 - Built-in mechanisms for the serialization of parameters according to the
   expectations of Stripe's API.
 
-## Support
-
-New features and bug fixes are released on the latest major version of the Stripe Ruby library. If you are on an older major version, we recommend that you upgrade to the latest in order to use the new features and bug fixes including those for security vulnerabilities. Older major versions of the package will continue to be available for use, but will not be receiving any updates.
-
 ## Documentation
 
 See the [Ruby API docs](https://stripe.com/docs/api?lang=ruby).
@@ -296,6 +292,30 @@ You can disable this behavior if you prefer:
 ```ruby
 Stripe.enable_telemetry = false
 ```
+
+### Beta SDKs
+
+Stripe has features in the beta phase that can be accessed via the beta version of this package.
+We would love for you to try these and share feedback with us before these features reach the stable phase.
+To install a beta version use `gem install` with the exact version you'd like to use:
+
+```sh
+gem install stripe -v 7.1.0.pre.beta.2
+```
+
+> Note: There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
+
+We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
+
+If your beta feature requires a `Stripe-Version` header to be sent, use the `Stripe.api_version` field to set it:
+
+```python
+Stripe.api_version += "; feature_beta=v3"
+```
+
+## Support
+
+New features and bug fixes are released on the latest major version of the Stripe Ruby library. If you are on an older major version, we recommend that you upgrade to the latest in order to use the new features and bug fixes including those for security vulnerabilities. Older major versions of the package will continue to be available for use, but will not be receiving any updates.
 
 ## Development
 

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "coveralls"
+Coveralls.wear!
+
 require "stripe"
 require "test/unit"
 require "mocha/setup"

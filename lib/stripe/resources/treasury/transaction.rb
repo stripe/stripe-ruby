@@ -3,6 +3,7 @@
 
 module Stripe
   module Treasury
+    # Transactions represent changes to a [FinancialAccount's](https://stripe.com/docs/api#financial_accounts) balance.
     class Transaction < APIResource
       extend Stripe::APIOperations::List
 

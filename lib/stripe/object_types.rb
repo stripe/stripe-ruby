@@ -14,6 +14,7 @@ module Stripe
         # business objects
         Account::OBJECT_NAME => Account,
         AccountLink::OBJECT_NAME => AccountLink,
+        AccountSession::OBJECT_NAME => AccountSession,
         ApplePayDomain::OBJECT_NAME => ApplePayDomain,
         ApplicationFee::OBJECT_NAME => ApplicationFee,
         ApplicationFeeRefund::OBJECT_NAME => ApplicationFeeRefund,
@@ -34,6 +35,7 @@ module Stripe
         CreditNoteLineItem::OBJECT_NAME => CreditNoteLineItem,
         Customer::OBJECT_NAME => Customer,
         CustomerBalanceTransaction::OBJECT_NAME => CustomerBalanceTransaction,
+        CustomerCashBalanceTransaction::OBJECT_NAME => CustomerCashBalanceTransaction,
         Discount::OBJECT_NAME => Discount,
         Dispute::OBJECT_NAME => Dispute,
         EphemeralKey::OBJECT_NAME => EphemeralKey,

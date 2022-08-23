@@ -2,6 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
+  # To charge a credit or a debit card, you create a `Charge` object. You can
+  # retrieve and refund individual charges as well as list all charges. Charges
+  # are identified by a unique, random ID.
+  #
+  # Related guide: [Accept a payment with the Charges API](https://stripe.com/docs/payments/accept-a-payment-charges).
   class Charge < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

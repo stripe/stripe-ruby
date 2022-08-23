@@ -3,6 +3,9 @@
 
 module Stripe
   module Terminal
+    # A Location represents a grouping of readers.
+    #
+    # Related guide: [Fleet Management](https://stripe.com/docs/terminal/fleet/locations).
     class Location < APIResource
       extend Stripe::APIOperations::Create
       include Stripe::APIOperations::Delete

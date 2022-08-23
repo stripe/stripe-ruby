@@ -3,6 +3,9 @@
 
 module Stripe
   module Treasury
+    # Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
+    #
+    # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
     class OutboundPayment < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List

@@ -2,6 +2,12 @@
 # frozen_string_literal: true
 
 module Stripe
+  # Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
+  # which denotes a debit or credit that's automatically applied to their next invoice upon finalization.
+  # You may modify the value directly by using the [update customer API](https://stripe.com/docs/api/customers/update),
+  # or by creating a Customer Balance Transaction, which increments or decrements the customer's `balance` by the specified `amount`.
+  #
+  # Related guide: [Customer Balance](https://stripe.com/docs/billing/customer/balance) to learn more.
   class CustomerBalanceTransaction < APIResource
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save

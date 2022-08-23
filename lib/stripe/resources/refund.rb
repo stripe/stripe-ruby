@@ -2,6 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
+  # `Refund` objects allow you to refund a charge that has previously been created
+  # but not yet refunded. Funds will be refunded to the credit or debit card that
+  # was originally charged.
+  #
+  # Related guide: [Refunds](https://stripe.com/docs/refunds).
   class Refund < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

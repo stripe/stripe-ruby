@@ -432,7 +432,7 @@ module Stripe
     protected def initialize_from(values, opts, partial = false)
       @opts = Util.normalize_opts(opts)
 
-      @original_values = deep_copy(values)
+      @original_values = self.class.deep_copy(values)
 
       removed = partial ? Set.new : Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)

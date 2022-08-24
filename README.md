@@ -303,7 +303,8 @@ To install a beta version use `gem install` with the exact version you'd like to
 gem install stripe -v 7.1.0.pre.beta.2
 ```
 
-> Note: There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
+> **Note**
+> There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
 
 We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
 

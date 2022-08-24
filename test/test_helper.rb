@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+if RUBY_VERSION >= "3.1"
+  require "coveralls"
+  Coveralls.wear!
+end
+
 require "stripe"
 require "test/unit"
 require "mocha/setup"

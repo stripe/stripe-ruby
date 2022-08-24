@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-require "coveralls"
-Coveralls.wear!
+if RUBY_VERSION >= 2.5
+  require "coveralls"
+  Coveralls.wear!
+end
 
 require "stripe"
 require "test/unit"

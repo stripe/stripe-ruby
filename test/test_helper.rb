@@ -3,7 +3,7 @@
 # Report test coverage to coveralls for only one Ruby version to avoid
 # repeated builds. This also accounts for coveralls_reborn requiring
 # RUBY_VERSION >= 2.5.
-if RUBY_VERSION.start_with?("3.1")
+if RUBY_VERSION.start_with?("3.1.")
   require "coveralls"
   Coveralls.wear!
 end

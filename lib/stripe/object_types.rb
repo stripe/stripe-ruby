@@ -50,6 +50,8 @@ module Stripe
         FinancialConnections::AccountOwnership,
         FinancialConnections::Session::OBJECT_NAME => FinancialConnections::Session,
         FundingInstructions::OBJECT_NAME => FundingInstructions,
+        GiftCards::Card::OBJECT_NAME => GiftCards::Card,
+        GiftCards::Transaction::OBJECT_NAME => GiftCards::Transaction,
         Identity::VerificationReport::OBJECT_NAME => Identity::VerificationReport,
         Identity::VerificationSession::OBJECT_NAME => Identity::VerificationSession,
         Invoice::OBJECT_NAME => Invoice,

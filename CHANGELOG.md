@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.2.0-beta.2 - 2022-08-26
+* [#1127](https://github.com/stripe/stripe-ruby/pull/1127) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for the beta [Gift Card API](https://stripe.com/docs/gift-cards).
+
+
 ## 7.2.0-beta.1 - 2022-08-23
 * [#1122](https://github.com/stripe/stripe-ruby/pull/1122) API Updates for beta branch
   - Updated stable APIs to the latest version

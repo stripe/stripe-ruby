@@ -145,7 +145,7 @@ module Stripe
     end
 
     def self.set_filters(obj, params)
-      return unless obj&.is_a?(StripeObject)
+      return unless obj&.is_a?(StripeObject) && params
 
       # set filters so that we can fetch the same limit, expansions, and
       # predicates when accessing the next and previous pages

@@ -136,16 +136,30 @@ module Stripe
         obj = object_classes.fetch(data[:object], StripeObject)
                             .construct_from(data, opts)
 
-        # set filters so that we can fetch the same limit, expansions, and
-        # predicates when accessing the next and previous pages
-        if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject))
-          obj.filters = params.dup
-        end
+        set_filters(obj, params)
 
         obj
       else
         data
       end
+    end
+
+    def self.set_filters(obj, params)
+      return unless obj&.is_a?(StripeObject)
+
+      # set filters so that we can fetch the same limit, expansions, and
+      # predicates when accessing the next and previous pages
+      if obj.is_a?(SearchResultObject) || obj.is_a?(ListObject)
+        obj.filters = params.dup
+      end
+
+      # rubocop:disable Style/HashEachMethods
+      # values of obj may themselves be ListObjects, so iterate through
+      # those and set filters on them too
+      obj.values.each do |v|
+        set_filters(v, params)
+      end
+      # rubocop:enable Style/HashEachMethods
     end
 
     def self.log_error(message, data = {})

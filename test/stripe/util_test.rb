@@ -132,6 +132,18 @@ module Stripe
       assert_equal [1, 2, 3], obj
     end
 
+    should "#convert_to_stripe_object_with_params should preserve filters for ListObjects" do
+      obj = Util.convert_to_stripe_object_with_params({ object: "list" }, { some_filter: true })
+
+      assert obj.filters.key?(:some_filter)
+    end
+
+    should "#convert_to_stripe_object_with_params should preserve filters for ListObject values" do
+      obj = Util.convert_to_stripe_object_with_params({ foo: "bar", baz: { object: "list" } }, { some_filter: true })
+      assert obj.baz.is_a?(ListObject)
+      assert obj.baz.filters.key?(:some_filter)
+    end
+
     context ".request_id_dashboard_url" do
       should "generate a livemode URL" do
         assert_equal "https://dashboard.stripe.com/live/logs/request-id",

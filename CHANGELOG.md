@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.0-beta.3 - 2022-09-26
+* [#1129](https://github.com/stripe/stripe-ruby/pull/1129) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add `FinancingOffer`, `FinancingSummary` and `FinancingTransaction` resources.
+
 ## 7.2.0-beta.2 - 2022-08-26
 * [#1127](https://github.com/stripe/stripe-ruby/pull/1127) API Updates for beta branch
   * Updated stable APIs to the latest version

@@ -12,7 +12,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "radar.value_list"
+      OBJECT_NAME = 'radar.value_list'
     end
   end
 end

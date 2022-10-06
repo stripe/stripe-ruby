@@ -4,6 +4,6 @@
 module Stripe
   # A Mandate is a record of the permission a customer has given you to debit their payment method.
   class Mandate < APIResource
-    OBJECT_NAME = "mandate"
+    OBJECT_NAME = 'mandate'
   end
 end

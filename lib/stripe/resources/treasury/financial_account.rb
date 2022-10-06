@@ -10,41 +10,38 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "treasury.financial_account"
+      OBJECT_NAME = 'treasury.financial_account'
 
       def retrieve_features(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(self["id"]) }),
+          path: format('/v1/treasury/financial_accounts/%<financial_account>s/features', {:financial_account => CGI.escape(self["id"])}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def update_features(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(self["id"]) }),
+          path: format('/v1/treasury/financial_accounts/%<financial_account>s/features', {:financial_account => CGI.escape(self["id"])}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def self.retrieve_features(financial_account, params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
+          path: format('/v1/treasury/financial_accounts/%<financial_account>s/features', {:financial_account => CGI.escape(financial_account)}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def self.update_features(financial_account, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
+          path: format('/v1/treasury/financial_accounts/%<financial_account>s/features', {:financial_account => CGI.escape(financial_account)}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
     end

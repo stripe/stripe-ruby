@@ -7,7 +7,7 @@ module Stripe
     class TransactionEntry < APIResource
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "treasury.transaction_entry"
+      OBJECT_NAME = 'treasury.transaction_entry'
 
       def self.resource_url
         "/v1/treasury/transaction_entries"

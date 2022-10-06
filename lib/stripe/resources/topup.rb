@@ -12,23 +12,22 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "topup"
+    OBJECT_NAME = 'topup'
 
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(self["id"]) }),
+        path: format('/v1/topups/%<topup>s/cancel', {:topup => CGI.escape(self["id"])}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
-
     def self.cancel(topup, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(topup) }),
+        path: format('/v1/topups/%<topup>s/cancel', {:topup => CGI.escape(topup)}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
   end

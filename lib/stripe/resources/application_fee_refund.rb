@@ -11,7 +11,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "fee_refund"
+    OBJECT_NAME = 'fee_refund'
 
     def resource_url
       "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds" \
@@ -31,6 +31,8 @@ module Stripe
             "Application fee refunds cannot be retrieved without an " \
             "application fee ID. Retrieve an application fee refund using " \
             "`ApplicationFee.retrieve_refund('fee_id', 'refund_id')`"
+
+
     end
   end
 end

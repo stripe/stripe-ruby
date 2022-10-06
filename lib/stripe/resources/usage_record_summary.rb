@@ -3,6 +3,6 @@
 
 module Stripe
   class UsageRecordSummary < StripeObject
-    OBJECT_NAME = "usage_record_summary"
+    OBJECT_NAME = 'usage_record_summary'
   end
 end

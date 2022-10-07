@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.2.0-beta.4 - 2022-10-07
+* [#999](https://github.com/stripe/stripe-ruby/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
+
 ## 7.2.0-beta.3 - 2022-09-26
 * [#1129](https://github.com/stripe/stripe-ruby/pull/1129) API Updates for beta branch
   * Updated stable APIs to the latest version

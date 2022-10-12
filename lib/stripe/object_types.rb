@@ -62,7 +62,6 @@ module Stripe
         LineItem::OBJECT_NAME => LineItem,
         LoginLink::OBJECT_NAME => LoginLink,
         Mandate::OBJECT_NAME => Mandate,
-        Order::OBJECT_NAME => Order,
         PaymentIntent::OBJECT_NAME => PaymentIntent,
         PaymentLink::OBJECT_NAME => PaymentLink,
         PaymentMethod::OBJECT_NAME => PaymentMethod,

@@ -7,7 +7,7 @@ module Stripe
     class FinancingTransaction < APIResource
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = 'capital.financing_transaction'
+      OBJECT_NAME = "capital.financing_transaction"
     end
   end
 end

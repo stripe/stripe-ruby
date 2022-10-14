@@ -7,7 +7,7 @@ module Stripe
     class ReceivedCredit < APIResource
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = 'treasury.received_credit'
+      OBJECT_NAME = "treasury.received_credit"
 
       def test_helpers
         TestHelpers.new(self)
@@ -19,9 +19,9 @@ module Stripe
         def self.create(params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: '/v1/test_helpers/treasury/received_credits',
+            path: "/v1/test_helpers/treasury/received_credits",
             params: params,
-            opts: opts,
+            opts: opts
           )
         end
       end

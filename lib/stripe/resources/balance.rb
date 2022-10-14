@@ -14,6 +14,6 @@ module Stripe
   #
   # Related guide: [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
   class Balance < SingletonAPIResource
-    OBJECT_NAME = 'balance'
+    OBJECT_NAME = "balance"
   end
 end

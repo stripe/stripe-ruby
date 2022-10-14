@@ -6,6 +6,6 @@ module Stripe
   class TaxCode < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'tax_code'
+    OBJECT_NAME = "tax_code"
   end
 end

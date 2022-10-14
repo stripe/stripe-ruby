@@ -11,11 +11,11 @@ module Stripe
     include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
 
-    OBJECT_NAME = 'subscription_item'
+    OBJECT_NAME = "subscription_item"
 
     nested_resource_class_methods :usage_record, operations: %i[create]
     nested_resource_class_methods :usage_record_summary,
-      operations: %i[list],
-      resource_plural: 'usage_record_summaries'
+                                  operations: %i[list],
+                                  resource_plural: "usage_record_summaries"
   end
 end

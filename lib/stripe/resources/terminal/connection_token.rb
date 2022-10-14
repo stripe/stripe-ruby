@@ -9,7 +9,7 @@ module Stripe
     class ConnectionToken < APIResource
       extend Stripe::APIOperations::Create
 
-      OBJECT_NAME = 'terminal.connection_token'
+      OBJECT_NAME = "terminal.connection_token"
     end
   end
 end

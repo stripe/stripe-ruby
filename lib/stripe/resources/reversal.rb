@@ -19,7 +19,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'transfer_reversal'
+    OBJECT_NAME = "transfer_reversal"
 
     def resource_url
       "#{Transfer.resource_url}/#{CGI.escape(transfer)}/reversals" \

@@ -9,6 +9,6 @@ module Stripe
   class CustomerCashBalanceTransaction < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = 'customer_cash_balance_transaction'
+    OBJECT_NAME = "customer_cash_balance_transaction"
   end
 end

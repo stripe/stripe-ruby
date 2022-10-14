@@ -11,7 +11,7 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = 'issuing.cardholder'
+      OBJECT_NAME = "issuing.cardholder"
     end
   end
 end

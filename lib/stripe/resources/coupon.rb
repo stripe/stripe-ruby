@@ -11,6 +11,6 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'coupon'
+    OBJECT_NAME = "coupon"
   end
 end

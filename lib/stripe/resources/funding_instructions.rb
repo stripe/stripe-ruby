@@ -8,7 +8,7 @@ module Stripe
   # `financial_addresses` field.
   # Related guide: [Customer Balance - Funding Instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions) to learn more
   class FundingInstructions < APIResource
-    OBJECT_NAME = 'funding_instructions'
+    OBJECT_NAME = "funding_instructions"
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?

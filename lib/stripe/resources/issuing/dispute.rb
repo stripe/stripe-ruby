@@ -11,22 +11,23 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = 'issuing.dispute'
+      OBJECT_NAME = "issuing.dispute"
 
       def submit(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format('/v1/issuing/disputes/%<dispute>s/submit', {:dispute => CGI.escape(self["id"])}),
+          path: format("/v1/issuing/disputes/%<dispute>s/submit", { dispute: CGI.escape(self["id"]) }),
           params: params,
-          opts: opts,
+          opts: opts
         )
       end
+
       def self.submit(dispute, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format('/v1/issuing/disputes/%<dispute>s/submit', {:dispute => CGI.escape(dispute)}),
+          path: format("/v1/issuing/disputes/%<dispute>s/submit", { dispute: CGI.escape(dispute) }),
           params: params,
-          opts: opts,
+          opts: opts
         )
       end
     end

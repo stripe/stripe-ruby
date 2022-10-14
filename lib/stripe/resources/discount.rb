@@ -7,6 +7,6 @@ module Stripe
   #
   # Related guide: [Applying Discounts to Subscriptions](https://stripe.com/docs/billing/subscriptions/discounts).
   class Discount < StripeObject
-    OBJECT_NAME = 'discount'
+    OBJECT_NAME = "discount"
   end
 end

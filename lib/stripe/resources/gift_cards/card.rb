@@ -10,14 +10,14 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = 'gift_cards.card'
+      OBJECT_NAME = "gift_cards.card"
 
       def self.validate(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: '/v1/gift_cards/cards/validate',
+          path: "/v1/gift_cards/cards/validate",
           params: params,
-          opts: opts,
+          opts: opts
         )
       end
     end

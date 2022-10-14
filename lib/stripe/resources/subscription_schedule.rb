@@ -10,54 +10,59 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = 'subscription_schedule'
+    OBJECT_NAME = "subscription_schedule"
 
     def amend(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/amend', {:schedule => CGI.escape(self["id"])}),
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(self["id"]) }),
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/cancel', {:schedule => CGI.escape(self["id"])}),
+        path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(self["id"]) }),
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def release(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/release', {:schedule => CGI.escape(self["id"])}),
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(self["id"]) }),
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def self.amend(schedule, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/amend', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(schedule) }),
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def self.cancel(schedule, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/cancel', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(schedule) }),
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
+
     def self.release(schedule, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format('/v1/subscription_schedules/%<schedule>s/release', {:schedule => CGI.escape(schedule)}),
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
         params: params,
-        opts: opts,
+        opts: opts
       )
     end
   end

@@ -3,6 +3,7 @@
 
 module Stripe
   module BillingPortal
+    # A portal configuration describes the functionality and behavior of a portal session.
     class Configuration < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List

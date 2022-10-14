@@ -3,30 +3,13 @@
 
 module Stripe
   module Issuing
+    # You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
     class Card < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.card"
-
-      def details(params = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: format("/v1/issuing/cards/%<card>s/details", { card: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      def self.details(card, params = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: format("/v1/issuing/cards/%<card>s/details", { card: CGI.escape(card) }),
-          params: params,
-          opts: opts
-        )
-      end
 
       def test_helpers
         TestHelpers.new(self)

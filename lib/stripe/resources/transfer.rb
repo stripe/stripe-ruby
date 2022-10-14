@@ -2,6 +2,16 @@
 # frozen_string_literal: true
 
 module Stripe
+  # A `Transfer` object is created when you move funds between Stripe accounts as
+  # part of Connect.
+  #
+  # Before April 6, 2017, transfers also represented movement of funds from a
+  # Stripe account to a card or bank account. This behavior has since been split
+  # out into a [Payout](https://stripe.com/docs/api#payout_object) object, with corresponding payout endpoints. For more
+  # information, read about the
+  # [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
+  #
+  # Related guide: [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers).
   class Transfer < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -12,23 +22,5 @@ module Stripe
 
     nested_resource_class_methods :reversal,
                                   operations: %i[create retrieve update list]
-
-    def cancel(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/transfers/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    def self.cancel(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/transfers/%<id>s/cancel", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
-    end
   end
 end

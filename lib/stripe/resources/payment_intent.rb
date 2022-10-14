@@ -2,6 +2,17 @@
 # frozen_string_literal: true
 
 module Stripe
+  # A PaymentIntent guides you through the process of collecting a payment from your customer.
+  # We recommend that you create exactly one PaymentIntent for each order or
+  # customer session in your system. You can reference the PaymentIntent later to
+  # see the history of payment attempts for a particular session.
+  #
+  # A PaymentIntent transitions through
+  # [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+  # throughout its lifetime as it interfaces with Stripe.js to perform
+  # authentication flows and ultimately creates at most one successful charge.
+  #
+  # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents).
   class PaymentIntent < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

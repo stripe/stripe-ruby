@@ -2,6 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
+  # You can store multiple cards on a customer in order to charge the customer
+  # later. You can also store multiple debit cards on a recipient in order to
+  # transfer to those cards later.
+  #
+  # Related guide: [Card Payments with Sources](https://stripe.com/docs/sources/cards).
   class Card < APIResource
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
@@ -10,9 +15,7 @@ module Stripe
     OBJECT_NAME = "card"
 
     def resource_url
-      if respond_to?(:recipient) && !recipient.nil? && !recipient.empty?
-        "#{Recipient.resource_url}/#{CGI.escape(recipient)}/cards/#{CGI.escape(id)}"
-      elsif respond_to?(:customer) && !customer.nil? && !customer.empty?
+      if respond_to?(:customer) && !customer.nil? && !customer.empty?
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
       elsif respond_to?(:account) && !account.nil? && !account.empty?
         "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"

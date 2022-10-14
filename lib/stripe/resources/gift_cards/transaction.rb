@@ -14,41 +14,38 @@ module Stripe
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
-      OBJECT_NAME = "gift_cards.transaction"
+      OBJECT_NAME = 'gift_cards.transaction'
 
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/gift_cards/transactions/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
+          path: format('/v1/gift_cards/transactions/%<id>s/cancel', {:id => CGI.escape(self["id"])}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def confirm(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/gift_cards/transactions/%<id>s/confirm", { id: CGI.escape(self["id"]) }),
+          path: format('/v1/gift_cards/transactions/%<id>s/confirm', {:id => CGI.escape(self["id"])}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def self.cancel(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/gift_cards/transactions/%<id>s/cancel", { id: CGI.escape(id) }),
+          path: format('/v1/gift_cards/transactions/%<id>s/cancel', {:id => CGI.escape(id)}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def self.confirm(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/gift_cards/transactions/%<id>s/confirm", { id: CGI.escape(id) }),
+          path: format('/v1/gift_cards/transactions/%<id>s/confirm', {:id => CGI.escape(id)}),
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
     end

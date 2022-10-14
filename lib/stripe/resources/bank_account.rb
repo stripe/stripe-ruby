@@ -14,7 +14,7 @@ module Stripe
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "bank_account"
+    OBJECT_NAME = 'bank_account'
 
     def verify(params = {}, opts = {})
       resp, opts = execute_resource_request(:post, resource_url + "/verify", params, opts)

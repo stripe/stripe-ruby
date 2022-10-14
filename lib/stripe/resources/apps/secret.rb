@@ -16,23 +16,22 @@ module Stripe
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "apps.secret"
+      OBJECT_NAME = 'apps.secret'
 
       def self.delete_where(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: "/v1/apps/secrets/delete",
+          path: '/v1/apps/secrets/delete',
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
-
       def self.find(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: "/v1/apps/secrets/find",
+          path: '/v1/apps/secrets/find',
           params: params,
-          opts: opts
+          opts: opts,
         )
       end
     end

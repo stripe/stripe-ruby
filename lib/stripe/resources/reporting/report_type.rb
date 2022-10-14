@@ -14,7 +14,7 @@ module Stripe
     class ReportType < APIResource
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "reporting.report_type"
+      OBJECT_NAME = 'reporting.report_type'
     end
   end
 end

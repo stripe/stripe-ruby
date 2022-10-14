@@ -6,7 +6,7 @@ module Stripe
     # A financing object describes an account's current financing state. Used by Connect
     # platforms to read the state of Capital offered to their connected accounts.
     class FinancingSummary < SingletonAPIResource
-      OBJECT_NAME = "capital.financing_summary"
+      OBJECT_NAME = 'capital.financing_summary'
     end
   end
 end

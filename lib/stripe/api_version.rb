@@ -3,6 +3,8 @@
 
 module Stripe
   module ApiVersion
-    CURRENT = "2022-08-01"
+    # rubocop:disable Layout/LineLength
+    CURRENT = '2022-08-01'
+    # rubocop:enable Layout/LineLength
   end
 end

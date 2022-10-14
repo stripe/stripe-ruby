@@ -11,41 +11,38 @@ module Stripe
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
-    OBJECT_NAME = "subscription"
+    OBJECT_NAME = 'subscription'
 
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(self["id"]) }),
+        path: format('/v1/subscriptions/%<subscription_exposed_id>s', {:subscription_exposed_id => CGI.escape(self["id"])}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
-
     def delete_discount(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(self["id"]) }),
+        path: format('/v1/subscriptions/%<subscription_exposed_id>s/discount', {:subscription_exposed_id => CGI.escape(self["id"])}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
-
     def self.cancel(subscription_exposed_id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format('/v1/subscriptions/%<subscription_exposed_id>s', {:subscription_exposed_id => CGI.escape(subscription_exposed_id)}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
-
     def self.delete_discount(subscription_exposed_id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format('/v1/subscriptions/%<subscription_exposed_id>s/discount', {:subscription_exposed_id => CGI.escape(subscription_exposed_id)}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
 
@@ -53,18 +50,18 @@ module Stripe
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(self["id"]) }),
+        path: format('/v1/subscriptions/%<subscription_exposed_id>s', {:subscription_exposed_id => CGI.escape(self["id"])}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
 
     def self.delete(subscription_exposed_id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format('/v1/subscriptions/%<subscription_exposed_id>s', {:subscription_exposed_id => CGI.escape(subscription_exposed_id)}),
         params: params,
-        opts: opts
+        opts: opts,
       )
     end
 
@@ -77,9 +74,8 @@ module Stripe
     end
 
     def self.search(params = {}, opts = {})
-      _search("/v1/subscriptions/search", params, opts)
+      _search('/v1/subscriptions/search', params, opts)
     end
-
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)
       search(params, opts).auto_paging_each(&blk)
     end

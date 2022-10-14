@@ -7,7 +7,7 @@ module Stripe
     class Transaction < APIResource
       extend Stripe::APIOperations::List
 
-      OBJECT_NAME = "treasury.transaction"
+      OBJECT_NAME = 'treasury.transaction'
     end
   end
 end

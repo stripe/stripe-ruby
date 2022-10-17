@@ -84,7 +84,6 @@ module Stripe
         SetupIntent::OBJECT_NAME => SetupIntent,
         ShippingRate::OBJECT_NAME => ShippingRate,
         Sigma::ScheduledQueryRun::OBJECT_NAME => Sigma::ScheduledQueryRun,
-        SKU::OBJECT_NAME => SKU,
         Source::OBJECT_NAME => Source,
         SourceTransaction::OBJECT_NAME => SourceTransaction,
         Subscription::OBJECT_NAME => Subscription,

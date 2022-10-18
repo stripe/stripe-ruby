@@ -50,6 +50,9 @@ module Stripe
       #   idempotency_key to be passed in the request headers, or for the
       #   api_key to be overwritten. See
       #   {APIOperations::Request.execute_resource_request}.
+      #
+      # This method is DEPRECATED and for backwards compatibility only.
+      # Use the update method with the resource ID instead.
       def save(params = {}, opts = {})
         # We started unintentionally (sort of) allowing attributes sent to
         # +save+ to override values used during the update. So as not to break
@@ -68,6 +71,8 @@ module Stripe
         resp, opts = execute_resource_request(:post, save_url, values, opts)
         initialize_from(resp.data, opts)
       end
+      extend Gem::Deprecate
+      deprecate :save, :none, 2022, 11
 
       def self.included(base)
         # Set `metadata` as additive so that when it's set directly we remember

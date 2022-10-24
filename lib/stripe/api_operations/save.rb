@@ -33,6 +33,9 @@ module Stripe
         end
       end
 
+      # The `save` method is DEPRECATED and will be removed in a future major
+      # version of the library. Use the `update` method on the resource instead.
+      #
       # Creates or updates an API resource.
       #
       # If the resource doesn't yet have an assigned ID and the resource is one
@@ -68,6 +71,8 @@ module Stripe
         resp, opts = execute_resource_request(:post, save_url, values, opts)
         initialize_from(resp.data, opts)
       end
+      extend Gem::Deprecate
+      deprecate :save, :update, 2022, 11
 
       def self.included(base)
         # Set `metadata` as additive so that when it's set directly we remember

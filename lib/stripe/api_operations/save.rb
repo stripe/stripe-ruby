@@ -51,7 +51,7 @@ module Stripe
       #   api_key to be overwritten. See
       #   {APIOperations::Request.execute_resource_request}.
       #
-      # The `save` method is DEPRECATED and will be removed in future major
+      # The `save` method is DEPRECATED and will be removed in a future major
       # version of the library. Use the `update` method on the resource instead.
       def save(params = {}, opts = {})
         # We started unintentionally (sort of) allowing attributes sent to

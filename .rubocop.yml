@@ -45,9 +45,7 @@ Style/AccessModifierDeclarations:
   EnforcedStyle: inline
 
 Style/AsciiComments:
-  AllowedChars:
-    - ’
-    - €
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always

@@ -6,6 +6,10 @@ module Stripe
   # but not yet refunded. Funds will be refunded to the credit or debit card that
   # was originally charged.
   #
+  # Stripe Tax users with recurring payments and invoices can create [Credit Notes](https://stripe.com/docs/api/credit_notes),
+  # which reduce overall tax liability because tax is correctly recalculated and
+  # apportioned to the related invoice.
+  #
   # Related guide: [Refunds](https://stripe.com/docs/refunds).
   class Refund < APIResource
     extend Stripe::APIOperations::Create

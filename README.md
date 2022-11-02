@@ -261,9 +261,13 @@ For example:
 
 ```ruby
 Stripe::Instrumentation.subscribe(:request_end) do |request_event|
+  # Filter out high-cardinality ids from `path`
+  path_parts = event.path.split("/").drop(2)
+  resource = path_parts.map { |part| part.match?(/\A[a-z_]+\z/) ? part : ":id" }.join("/")
+
   tags = {
     method: request_event.method,
-    resource: request_event.path.split('/')[2],
+    resource: resource,
     code: request_event.http_status,
     retries: request_event.num_retries
   }

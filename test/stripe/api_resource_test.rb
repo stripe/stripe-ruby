@@ -318,9 +318,8 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = Stripe::Customer.construct_from(customer_fixture)
-        c.description = "another_mn"
-        c.save
+        Stripe::Customer.construct_from(customer_fixture)
+        Stripe::Customer.update("cus_123", { description: "another_mn" })
       end
 
       should "updating should merge in returned properties" do
@@ -334,9 +333,9 @@ module Stripe
       end
 
       should "updating should fail if api_key is overwritten with nil" do
-        c = Stripe::Customer.new
+        Stripe::Customer.new("cus_123")
         assert_raises TypeError do
-          c.save({}, api_key: nil)
+          Stripe::Customer.update("cus_123", {}, { api_key: nil })
         end
       end
 
@@ -386,32 +385,30 @@ module Stripe
       end
 
       should "add key to nested objects" do
-        acct = Stripe::Account.construct_from(id: "myid",
-                                              legal_entity: {
-                                                size: "l",
-                                                score: 4,
-                                                height: 10,
-                                              })
+        Stripe::Account.construct_from(id: "myid",
+                                       business_profile: {
+                                         url: "example.com",
+                                         support_email: "test@example.com",
+                                       })
 
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { legal_entity: { first_name: "Bob" } })
+          .with(body: { business_profile: { name: "Bob" } })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.legal_entity.first_name = "Bob"
-        acct.save
+        Stripe::Account.update("myid", { business_profile: { name: "Bob" } })
       end
 
-      should "save nothing if nothing changes" do
-        acct = Stripe::Account.construct_from(id: "acct_id",
-                                              metadata: {
-                                                key: "value",
-                                              })
+      should "update nothing if nothing changes" do
+        Stripe::Account.construct_from(id: "acct_id",
+                                       metadata: {
+                                         key: "value",
+                                       })
 
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_id")
           .with(body: {})
           .to_return(body: JSON.generate("id" => "acct_id"))
 
-        acct.save
+        Stripe::Account.update("acct_id")
       end
 
       should "not save nested API resources" do

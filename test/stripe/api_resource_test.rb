@@ -326,9 +326,8 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = Stripe::Customer.new("cus_123")
-        c.description = "another_mn"
-        c.save
+        Stripe::Customer.new("cus_123")
+        c = Stripe::Customer.update("cus_123", { description: "another_mn" })
         assert_equal false, c.livemode
       end
 
@@ -343,8 +342,8 @@ module Stripe
         stub_request(:post, "#{Stripe.api_base}/v1/customers")
           .with(headers: { "Authorization" => "Bearer sk_test_local" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = Stripe::Customer.new
-        c.save({}, api_key: "sk_test_local")
+        Stripe::Customer.new("cus_123")
+        c = Stripe::Customer.update("cus_123", {}, api_key: "sk_test_local")
         assert_equal false, c.livemode
       end
 

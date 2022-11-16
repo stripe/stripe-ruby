@@ -1815,44 +1815,6 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx?"
       end
     end
-    context "SKU.create" do
-      should "support requests with args: attributes, price, currency, inventory, product" do
-        Stripe::SKU.create(
-          {
-            attributes: { size: "Medium", gender: "Unisex" },
-            price: 1500,
-            currency: "usd",
-            inventory: { type: "finite", quantity: 500 },
-            product: "prod_xxxxxxxxxxxxx",
-          }
-        )
-        assert_requested :post, "#{Stripe.api_base}/v1/skus"
-      end
-    end
-    context "SKU.delete" do
-      should "support requests with args: id" do
-        Stripe::SKU.delete("sku_xxxxxxxxxxxxx")
-        assert_requested :delete, "#{Stripe.api_base}/v1/skus/sku_xxxxxxxxxxxxx?"
-      end
-    end
-    context "SKU.list" do
-      should "support requests with args: limit" do
-        Stripe::SKU.list({ limit: 3 })
-        assert_requested :get, "#{Stripe.api_base}/v1/skus?limit=3"
-      end
-    end
-    context "SKU.retrieve" do
-      should "support requests with args: id" do
-        Stripe::SKU.retrieve("sku_xxxxxxxxxxxxx")
-        assert_requested :get, "#{Stripe.api_base}/v1/skus/sku_xxxxxxxxxxxxx?"
-      end
-    end
-    context "SKU.update" do
-      should "support requests with args: metadata, id" do
-        Stripe::SKU.update("sku_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
-        assert_requested :post, "#{Stripe.api_base}/v1/skus/sku_xxxxxxxxxxxxx"
-      end
-    end
     context "Source.retrieve" do
       should "support requests with args: id" do
         Stripe::Source.retrieve("src_xxxxxxxxxxxxx")

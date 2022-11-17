@@ -1,5 +1,37 @@
 # Changelog
 
+## 8.0.0 - 2022-11-16
+* [#1144](https://github.com/stripe/stripe-ruby/pull/1144) Next major release changes
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+
+"⚠️" symbol highlights breaking changes.
+
+### Deprecated
+- The `save` method is deprecated. Prefer the static `update` method that doesn't require retrieval of the resource to update it.
+  ``` ruby
+  # before
+  refund = Stripe::Refund.retrieve("re_123")
+  refund.description = "Refund description"
+  refund.save
+  
+  # after
+  Stripe::Refund.update("re_123", description: "Refund description")
+  ```
+
+### ⚠️ Removed
+- Removed deprecated `Sku` resource.
+- Removed deprecated `Orders` resource.
+- Removed deprecated `delete` method on `Subscription` resource. Please use `cancel` method instead.
+  ```ruby
+  # before
+  Stripe::Subscription::delete("sub_12345")
+
+  # after
+  Stripe::Subscription::cancel("sub_12345")
+  ```
+
+
 ## 7.1.0 - 2022-08-19
 * [#1116](https://github.com/stripe/stripe-ruby/pull/1116) API Updates
   * Add support for new resource `CustomerCashBalanceTransaction`

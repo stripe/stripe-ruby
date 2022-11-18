@@ -314,7 +314,7 @@ module Stripe
         assert_equal c.created, 12_345
       end
 
-      should "updating an object should issue a POST request with only the changed properties" do
+      should "saving an object should issue a POST request with only the changed properties" do
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })
           .to_return(body: JSON.generate(customer_fixture))
@@ -323,7 +323,15 @@ module Stripe
         c.save
       end
 
-      should "updating should merge in returned properties" do
+      should "updating an object should issue a POST request with only the changed properties" do
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with(body: { "description" => "another_mn" })
+          .to_return(body: JSON.generate(customer_fixture))
+        Stripe::Customer.construct_from(customer_fixture)
+        Stripe::Customer.update("cus_123", { description: "another_mn" })
+      end
+
+      should "saving should merge in returned properties" do
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(body: { "description" => "another_mn" })
           .to_return(body: JSON.generate(customer_fixture))
@@ -333,20 +341,35 @@ module Stripe
         assert_equal false, c.livemode
       end
 
-      should "updating should fail if api_key is overwritten with nil" do
+      should "saving should fail if api_key is overwritten with nil" do
         c = Stripe::Customer.new
         assert_raises TypeError do
           c.save({}, api_key: nil)
         end
       end
 
-      should "updating should use the supplied api_key" do
+      should "updating should fail if api_key is overwritten with nil" do
+        Stripe::Customer.new("cus_123")
+        assert_raises TypeError do
+          Stripe::Customer.update("cus_123", {}, { api_key: nil })
+        end
+      end
+
+      should "saving should use the supplied api_key" do
         stub_request(:post, "#{Stripe.api_base}/v1/customers")
           .with(headers: { "Authorization" => "Bearer sk_test_local" })
           .to_return(body: JSON.generate(customer_fixture))
         c = Stripe::Customer.new
         c.save({}, api_key: "sk_test_local")
         assert_equal false, c.livemode
+      end
+
+      should "updating should use the supplied api_key" do
+        stub_request(:post, "#{Stripe.api_base}/v1/customers")
+          .with(headers: { "Authorization" => "Bearer sk_test_local" })
+          .to_return(body: JSON.generate(customer_fixture))
+        Stripe::Customer.new("cus_123")
+        Stripe::Customer.update("cus_123", {}, api_key: "sk_test_local")
       end
 
       should "deleting should send no props and result in an object that has no props other deleted" do
@@ -385,7 +408,19 @@ module Stripe
         c.save
       end
 
-      should "add key to nested objects" do
+      should "passing in a stripe_account header should pass it through on update" do
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with(headers: { "Stripe-Account" => "acct_123" })
+          .to_return(body: JSON.generate(customer_fixture))
+        Stripe::Customer.retrieve("cus_123", stripe_account: "acct_123")
+
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with(headers: { "Stripe-Account" => "acct_123" })
+          .to_return(body: JSON.generate(customer_fixture))
+        Stripe::Customer.update("cus_123", { description: "FOO" })
+      end
+
+      should "add key to nested objects on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {
                                                 size: "l",
@@ -401,6 +436,20 @@ module Stripe
         acct.save
       end
 
+      should "add key to nested objects on update" do
+        Stripe::Account.construct_from(id: "myid",
+                                       business_profile: {
+                                         url: "example.com",
+                                         support_email: "test@example.com",
+                                       })
+
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
+          .with(body: { business_profile: { name: "Bob" } })
+          .to_return(body: JSON.generate("id" => "myid"))
+
+        Stripe::Account.update("myid", { business_profile: { name: "Bob" } })
+      end
+
       should "save nothing if nothing changes" do
         acct = Stripe::Account.construct_from(id: "acct_id",
                                               metadata: {
@@ -412,6 +461,19 @@ module Stripe
           .to_return(body: JSON.generate("id" => "acct_id"))
 
         acct.save
+      end
+
+      should "update nothing if nothing changes" do
+        Stripe::Account.construct_from(id: "acct_id",
+                                       metadata: {
+                                         key: "value",
+                                       })
+
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_id")
+          .with(body: {})
+          .to_return(body: JSON.generate("id" => "acct_id"))
+
+        Stripe::Account.update("acct_id")
       end
 
       should "not save nested API resources" do
@@ -429,7 +491,21 @@ module Stripe
         ch.save
       end
 
-      should "correctly handle replaced nested objects" do
+      should "not update nested API resources" do
+        Stripe::Charge.construct_from(id: "ch_id",
+                                      customer: {
+                                        object: "customer",
+                                        id: "customer_id",
+                                      })
+
+        stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_id")
+          .with(body: {})
+          .to_return(body: JSON.generate("id" => "ch_id"))
+
+        Stripe::Charge.update("ch_id", { customer: { description: "Bob" } })
+      end
+
+      should "correctly handle replaced nested objects on save" do
         acct = Stripe::Account.construct_from(
           id: "acct_123",
           company: {
@@ -449,7 +525,26 @@ module Stripe
         acct.save
       end
 
-      should "correctly handle array setting" do
+      should "correctly handle replaced nested objects on update" do
+        Stripe::Account.construct_from(
+          id: "acct_123",
+          company: {
+            name: "company_name",
+            address: {
+              line1: "test",
+              city: "San Francisco",
+            },
+          }
+        )
+
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/acct_123")
+          .with(body: { company: { address: { line1: "Test2", city: "" } } })
+          .to_return(body: JSON.generate("id" => "my_id"))
+
+        Stripe::Account.update("acct_123", { company: { address: { line1: "Test2" } } })
+      end
+
+      should "correctly handle array setting on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {})
 
@@ -461,7 +556,17 @@ module Stripe
         acct.save
       end
 
-      should "correctly handle array insertion" do
+      should "correctly handle array setting on update" do
+        Stripe::Subscription.construct_from(id: "myid")
+
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
+          .with(body: { items: [{ plan: "foo", quantity: 2 }] })
+          .to_return(body: JSON.generate("id" => "myid"))
+
+        Stripe::Subscription.update("myid", { items: [{ plan: "foo", quantity: 2 }] })
+      end
+
+      should "correctly handle array insertion on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {
                                                 additional_owners: [],
@@ -478,7 +583,20 @@ module Stripe
         acct.save
       end
 
-      should "correctly handle array updates" do
+      should "correctly handle array insertion on update" do
+        Stripe::Subscription.construct_from(id: "myid", items: [])
+
+        # Note that this isn't a perfect check because we're using webmock's
+        # data decoding, which isn't aware of the Stripe array encoding that we
+        # use here.
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
+          .with(body: { items: [{ plan: "foo", quantity: 2 }] })
+          .to_return(body: JSON.generate("id" => "myid"))
+
+        Stripe::Subscription.update("myid", { items: [{ plan: "foo", quantity: 2 }] })
+      end
+
+      should "correctly handle array updates on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {
                                                 additional_owners: [{ first_name: "Bob" }, { first_name: "Jane" }],
@@ -495,7 +613,24 @@ module Stripe
         acct.save
       end
 
-      should "correctly handle array noops" do
+      should "correctly handle array updates on update" do
+        Stripe::Subscription.construct_from(id: "myid",
+                                            items: [
+                                              { plan: "foo", quantity: 2 },
+                                              { plan: "bar", quantity: 2 },
+                                            ])
+
+        # Note that this isn't a perfect check because we're using webmock's
+        # data decoding, which isn't aware of the Stripe array encoding that we
+        # use here.
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
+          .with(body: { items: [{ plan: "foos", quantity: 3 }, { plan: "bar", quantity: 3 }] })
+          .to_return(body: JSON.generate("id" => "myid"))
+
+        Stripe::Subscription.update("myid", { items: [{ plan: "foos", quantity: 3 }, { plan: "bar", quantity: 3 }] })
+      end
+
+      should "correctly handle array noops on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {
                                                 additional_owners: [{ first_name: "Bob" }],
@@ -509,7 +644,17 @@ module Stripe
         acct.save
       end
 
-      should "correctly handle hash noops" do
+      should "correctly handle array noops on update" do
+        Stripe::Subscription.construct_from(id: "myid", items: [{ plan: "foo", quantity: 2 }])
+
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
+          .with(body: {})
+          .to_return(body: JSON.generate("id" => "myid"))
+
+        Stripe::Subscription.update("myid", {})
+      end
+
+      should "correctly handle hash noops on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {
                                                 address: { line1: "1 Two Three" },
@@ -520,6 +665,19 @@ module Stripe
           .to_return(body: JSON.generate("id" => "myid"))
 
         acct.save
+      end
+
+      should "correctly handle hash noops on update" do
+        Stripe::Account.construct_from(id: "myid",
+                                       legal_entity: {
+                                         address: { line1: "1 Two Three" },
+                                       })
+
+        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
+          .with(body: {})
+          .to_return(body: JSON.generate("id" => "myid"))
+
+        Stripe::Account.update("myid", {})
       end
 
       should "should create a new resource when an object without an id is saved" do

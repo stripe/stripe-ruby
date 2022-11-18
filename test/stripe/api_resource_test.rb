@@ -443,63 +443,53 @@ module Stripe
       end
 
       should "correctly handle array setting" do
-        acct = Stripe::Account.construct_from(id: "myid",
-                                              legal_entity: {})
+        Stripe::Subscription.construct_from(id: "myid")
 
-        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { legal_entity: { additional_owners: [{ first_name: "Bob" }] } })
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
+          .with(body: { items: [{ plan: "foo", quantity: 2 }] })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.legal_entity.additional_owners = [{ first_name: "Bob" }]
-        acct.save
+        Stripe::Subscription.update("myid", { items: [{ plan: "foo", quantity: 2 }] })
       end
 
       should "correctly handle array insertion" do
-        acct = Stripe::Account.construct_from(id: "myid",
-                                              legal_entity: {
-                                                additional_owners: [],
-                                              })
+        Stripe::Subscription.construct_from(id: "myid", items: [])
 
         # Note that this isn't a perfect check because we're using webmock's
         # data decoding, which isn't aware of the Stripe array encoding that we
         # use here.
-        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { legal_entity: { additional_owners: [{ first_name: "Bob" }] } })
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
+          .with(body: { items: [{ plan: "foo", quantity: 2 }] })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.legal_entity.additional_owners << { first_name: "Bob" }
-        acct.save
+        Stripe::Subscription.update("myid", { items: [{ plan: "foo", quantity: 2 }] })
       end
 
       should "correctly handle array updates" do
-        acct = Stripe::Account.construct_from(id: "myid",
-                                              legal_entity: {
-                                                additional_owners: [{ first_name: "Bob" }, { first_name: "Jane" }],
-                                              })
+        Stripe::Subscription.construct_from(id: "myid",
+                                            items: [
+                                              { plan: "foo", quantity: 2 },
+                                              { plan: "bar", quantity: 2 },
+                                            ])
 
         # Note that this isn't a perfect check because we're using webmock's
         # data decoding, which isn't aware of the Stripe array encoding that we
         # use here.
-        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { legal_entity: { additional_owners: [{ first_name: "Janet" }] } })
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
+          .with(body: { items: [{ plan: "foos", quantity: 3 }, { plan: "bar", quantity: 3 }] })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.legal_entity.additional_owners[1].first_name = "Janet"
-        acct.save
+        Stripe::Subscription.update("myid", { items: [{ plan: "foos", quantity: 3 }, { plan: "bar", quantity: 3 }] })
       end
 
       should "correctly handle array noops" do
-        acct = Stripe::Account.construct_from(id: "myid",
-                                              legal_entity: {
-                                                additional_owners: [{ first_name: "Bob" }],
-                                              },
-                                              currencies_supported: %w[usd cad])
+        Stripe::Subscription.construct_from(id: "myid", items: [{ plan: "foo", quantity: 2 }])
 
-        stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
+        stub_request(:post, "#{Stripe.api_base}/v1/subscriptions/myid")
           .with(body: {})
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.save
+        Stripe::Subscription.update("myid", {})
       end
 
       should "correctly handle hash noops" do
@@ -514,30 +504,6 @@ module Stripe
 
         Stripe::Account.update("myid", {})
       end
-
-      # should "should create a new resource when an object without an id is saved" do
-      #   Stripe::Account.construct_from(id: nil,
-      #                                  display_name: nil)
-
-      #   stub_request(:post, "#{Stripe.api_base}/v1/accounts")
-      #     .with(body: { display_name: "stripe" })
-      #     .to_return(body: JSON.generate("id" => "acct_123"))
-
-      #   # account.display_name = "stripe"
-      #   # account.save
-      #   Stripe::Account.update(nil, { display_name: "stripe" })
-      # end
-
-      # should "set attributes as part of save" do
-      #   account = Stripe::Account.construct_from(id: nil,
-      #                                            display_name: nil)
-
-      #   stub_request(:post, "#{Stripe.api_base}/v1/accounts")
-      #     .with(body: { display_name: "stripe", metadata: { key: "value" } })
-      #     .to_return(body: JSON.generate("id" => "acct_123"))
-
-      #   account.save(display_name: "stripe", metadata: { key: "value" })
-      # end
     end
 
     context "#request_stripe_object" do

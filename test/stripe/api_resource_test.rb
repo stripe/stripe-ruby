@@ -370,17 +370,16 @@ module Stripe
         Stripe::Customer.retrieve("cus_123", stripe_account: "acct_123")
       end
 
-      should "passing in a stripe_account header should pass it through on save" do
+      should "passing in a stripe_account header should pass it through on update" do
         stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(headers: { "Stripe-Account" => "acct_123" })
           .to_return(body: JSON.generate(customer_fixture))
-        c = Stripe::Customer.retrieve("cus_123", stripe_account: "acct_123")
+        Stripe::Customer.retrieve("cus_123", stripe_account: "acct_123")
 
         stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123")
           .with(headers: { "Stripe-Account" => "acct_123" })
           .to_return(body: JSON.generate(customer_fixture))
-        c.description = "FOO"
-        c.save
+        Stripe::Customer.update("cus_123", { description: "FOO" })
       end
 
       should "add key to nested objects" do
@@ -411,22 +410,21 @@ module Stripe
       end
 
       should "not save nested API resources" do
-        ch = Stripe::Charge.construct_from(id: "ch_id",
-                                           customer: {
-                                             object: "customer",
-                                             id: "customer_id",
-                                           })
+        Stripe::Charge.construct_from(id: "ch_id",
+                                      customer: {
+                                        object: "customer",
+                                        id: "customer_id",
+                                      })
 
         stub_request(:post, "#{Stripe.api_base}/v1/charges/ch_id")
           .with(body: {})
           .to_return(body: JSON.generate("id" => "ch_id"))
 
-        ch.customer.description = "Bob"
-        ch.save
+        Stripe::Charge.update("ch_id", { customer: { description: "Bob" } })
       end
 
       should "correctly handle replaced nested objects" do
-        acct = Stripe::Account.construct_from(
+        Stripe::Account.construct_from(
           id: "acct_123",
           company: {
             name: "company_name",
@@ -441,8 +439,7 @@ module Stripe
           .with(body: { company: { address: { line1: "Test2", city: "" } } })
           .to_return(body: JSON.generate("id" => "my_id"))
 
-        acct.company.address = { line1: "Test2" }
-        acct.save
+        Stripe::Account.update("acct_123", { company: { address: { line1: "Test2" } } })
       end
 
       should "correctly handle array setting" do
@@ -506,40 +503,41 @@ module Stripe
       end
 
       should "correctly handle hash noops" do
-        acct = Stripe::Account.construct_from(id: "myid",
-                                              legal_entity: {
-                                                address: { line1: "1 Two Three" },
-                                              })
+        Stripe::Account.construct_from(id: "myid",
+                                       legal_entity: {
+                                         address: { line1: "1 Two Three" },
+                                       })
 
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
           .with(body: {})
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.save
+        Stripe::Account.update("myid", {})
       end
 
-      should "should create a new resource when an object without an id is saved" do
-        account = Stripe::Account.construct_from(id: nil,
-                                                 display_name: nil)
+      # should "should create a new resource when an object without an id is saved" do
+      #   Stripe::Account.construct_from(id: nil,
+      #                                  display_name: nil)
 
-        stub_request(:post, "#{Stripe.api_base}/v1/accounts")
-          .with(body: { display_name: "stripe" })
-          .to_return(body: JSON.generate("id" => "acct_123"))
+      #   stub_request(:post, "#{Stripe.api_base}/v1/accounts")
+      #     .with(body: { display_name: "stripe" })
+      #     .to_return(body: JSON.generate("id" => "acct_123"))
 
-        account.display_name = "stripe"
-        account.save
-      end
+      #   # account.display_name = "stripe"
+      #   # account.save
+      #   Stripe::Account.update(nil, { display_name: "stripe" })
+      # end
 
-      should "set attributes as part of save" do
-        account = Stripe::Account.construct_from(id: nil,
-                                                 display_name: nil)
+      # should "set attributes as part of save" do
+      #   account = Stripe::Account.construct_from(id: nil,
+      #                                            display_name: nil)
 
-        stub_request(:post, "#{Stripe.api_base}/v1/accounts")
-          .with(body: { display_name: "stripe", metadata: { key: "value" } })
-          .to_return(body: JSON.generate("id" => "acct_123"))
+      #   stub_request(:post, "#{Stripe.api_base}/v1/accounts")
+      #     .with(body: { display_name: "stripe", metadata: { key: "value" } })
+      #     .to_return(body: JSON.generate("id" => "acct_123"))
 
-        account.save(display_name: "stripe", metadata: { key: "value" })
-      end
+      #   account.save(display_name: "stripe", metadata: { key: "value" })
+      # end
     end
 
     context "#request_stripe_object" do

@@ -408,7 +408,6 @@ module Stripe
         c.save
       end
 
-
       should "add key to nested objects on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {
@@ -481,7 +480,6 @@ module Stripe
         acct.save
       end
 
-
       should "correctly handle array setting on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {})
@@ -527,7 +525,6 @@ module Stripe
         acct.legal_entity.additional_owners[1].first_name = "Janet"
         acct.save
       end
-
 
       should "correctly handle array noops on save" do
         acct = Stripe::Account.construct_from(id: "myid",

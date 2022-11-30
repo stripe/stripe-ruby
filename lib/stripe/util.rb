@@ -133,6 +133,7 @@ module Stripe
       when Hash
         # Try converting to a known object class.  If none available, fall back
         # to generic StripeObject
+        data = symbolize_names(data)
         obj = object_classes.fetch(data[:object], StripeObject)
                             .construct_from(data, opts)
 

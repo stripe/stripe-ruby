@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.1.0-beta.1 - 2022-12-08
+* [#1153](https://github.com/stripe/stripe-ruby/pull/1153) API Updates for beta branch
+  * Updated stable APIs to the latest version
+* [#1146](https://github.com/stripe/stripe-ruby/pull/1146) API Updates for beta branch
+  * Updated stable APIs to the latest version
+
 ## 8.0.0 - 2022-11-16
 * [#1144](https://github.com/stripe/stripe-ruby/pull/1144) Next major release changes
 

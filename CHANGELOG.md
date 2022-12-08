@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.0.0 - 2022-11-16
+* [#1144](https://github.com/stripe/stripe-ruby/pull/1144) Next major release changes
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+
+"⚠️" symbol highlights breaking changes.
+
 ## 7.2.0-beta.5 - 2022-11-02
 * [#1139](https://github.com/stripe/stripe-ruby/pull/1139) API Updates for beta branch
   * Updated beta APIs to the latest stable version

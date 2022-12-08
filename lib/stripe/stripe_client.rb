@@ -669,7 +669,8 @@ module Stripe
         path: context.path,
         request_id: context.request_id,
         user_data: user_data || {},
-        response: resp
+        response: resp,
+        request_body: context.body
       )
       Stripe::Instrumentation.notify(:request_end, event)
 

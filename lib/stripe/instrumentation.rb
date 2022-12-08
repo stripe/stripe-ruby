@@ -34,6 +34,7 @@ module Stripe
       attr_reader :path
       attr_reader :request_id
       attr_reader :response
+      attr_reader :request_body
 
       # Arbitrary user-provided data in the form of a Ruby hash that's passed
       # from subscribers on `request_begin` to subscribers on `request_end`.
@@ -42,7 +43,7 @@ module Stripe
       attr_reader :user_data
 
       def initialize(duration:, http_status:, method:, num_retries:, path:,
-                     request_id:, user_data: nil, response: nil)
+                     request_id:, user_data: nil, response: nil, request_body: nil)
         @duration = duration
         @http_status = http_status
         @method = method
@@ -51,6 +52,7 @@ module Stripe
         @request_id = request_id
         @user_data = user_data
         @response = response
+        @request_body = request_body
         freeze
       end
     end

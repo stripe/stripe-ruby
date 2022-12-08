@@ -587,7 +587,7 @@ module Stripe
 
         log_response(context, request_start, http_status, resp.body, resp)
         notify_request_end(context, request_duration, http_status,
-                           num_retries, user_data)
+                           num_retries, user_data, resp)
 
         if config.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
@@ -614,7 +614,7 @@ module Stripe
           log_response_error(error_context, request_start, e)
         end
         notify_request_end(context, request_duration, http_status, num_retries,
-                           user_data)
+                           user_data, resp)
 
         if self.class.should_retry?(e,
                                     method: method,
@@ -657,7 +657,7 @@ module Stripe
     end
 
     private def notify_request_end(context, duration, http_status, num_retries,
-                                   user_data)
+                                   user_data, resp)
       return if !Instrumentation.any_subscribers?(:request_end) &&
                 !Instrumentation.any_subscribers?(:request)
 
@@ -668,7 +668,8 @@ module Stripe
         num_retries: num_retries,
         path: context.path,
         request_id: context.request_id,
-        user_data: user_data || {}
+        user_data: user_data || {},
+        response: resp
       )
       Stripe::Instrumentation.notify(:request_end, event)
 

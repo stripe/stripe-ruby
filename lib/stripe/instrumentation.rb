@@ -86,8 +86,8 @@ module Stripe
 
       def initialize(http_status:, response:)
         @http_status = http_status
-        @header = response.to_hash
-        @body = response.body
+        @header = response ? response.to_hash : nil
+        @body = response ? response.body : nil
       end
     end
 

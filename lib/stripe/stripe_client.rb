@@ -494,15 +494,16 @@ module Stripe
           end
         end
 
-      http_resp = execute_request_with_rescues(method, api_base, context) do
-        self.class
-            .default_connection_manager(config)
-            .execute_request(method, url,
-                             body: body,
-                             headers: headers,
-                             query: query,
-                             &response_block)
-      end
+      http_resp =
+        execute_request_with_rescues(method, api_base, headers, context) do
+          self.class
+              .default_connection_manager(config)
+              .execute_request(method, url,
+                               body: body,
+                               headers: headers,
+                               query: query,
+                               &response_block)
+        end
 
       [http_resp, api_key]
     end
@@ -564,7 +565,7 @@ module Stripe
       http_status >= 400
     end
 
-    private def execute_request_with_rescues(method, api_base, context)
+    private def execute_request_with_rescues(method, api_base, headers, context)
       num_retries = 0
 
       begin
@@ -587,7 +588,7 @@ module Stripe
 
         log_response(context, request_start, http_status, resp.body, resp)
         notify_request_end(context, request_duration, http_status,
-                           num_retries, user_data, resp)
+                           num_retries, user_data, resp, headers)
 
         if config.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
@@ -614,7 +615,7 @@ module Stripe
           log_response_error(error_context, request_start, e)
         end
         notify_request_end(context, request_duration, http_status, num_retries,
-                           user_data, resp)
+                           user_data, resp, headers)
 
         if self.class.should_retry?(e,
                                     method: method,
@@ -657,7 +658,7 @@ module Stripe
     end
 
     private def notify_request_end(context, duration, http_status, num_retries,
-                                   user_data, resp)
+                                   user_data, resp, headers)
       return if !Instrumentation.any_subscribers?(:request_end) &&
                 !Instrumentation.any_subscribers?(:request)
 
@@ -670,6 +671,7 @@ module Stripe
         request_id: context.request_id,
         user_data: user_data || {},
         response: resp,
+        request_header: headers,
         request_body: context.body
       )
       Stripe::Instrumentation.notify(:request_end, event)

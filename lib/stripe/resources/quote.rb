@@ -29,6 +29,15 @@ module Stripe
       )
     end
 
+    def draft_quote(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/draft", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def finalize_quote(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -56,6 +65,51 @@ module Stripe
       )
     end
 
+    def list_lines(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/lines", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def preview_invoice_lines(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoice_lines", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def preview_invoices(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoices", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def preview_subscription_schedules(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_subscription_schedules", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def reestimate(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/reestimate", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def self.accept(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -69,6 +123,15 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/quotes/%<quote>s/cancel", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.draft_quote(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/draft", { quote: CGI.escape(quote) }),
         params: params,
         opts: opts
       )
@@ -96,6 +159,51 @@ module Stripe
       request_stripe_object(
         method: :get,
         path: format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.list_lines(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/lines", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.preview_invoice_lines(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoice_lines", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.preview_invoices(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoices", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.preview_subscription_schedules(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_subscription_schedules", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.reestimate(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/reestimate", { quote: CGI.escape(quote) }),
         params: params,
         opts: opts
       )

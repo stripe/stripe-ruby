@@ -1,5 +1,15 @@
 # Changelog
 
+## 8.1.0-beta.2 - 2022-12-15
+* [#1156](https://github.com/stripe/stripe-ruby/pull/1156) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for new resources `TaxCalculation`, and `TaxTransaction`
+  * Add support for `create` and `list_line_items` methods on resource `TaxCalculation`
+  * Add support for `create_reversal`, `create`, and `retrieve` methods on resource `TaxTransaction`
+* [#1155](https://github.com/stripe/stripe-ruby/pull/1155) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for new resource `QuoteLine`.
+
 ## 8.1.0-beta.1 - 2022-12-08
 * [#1153](https://github.com/stripe/stripe-ruby/pull/1153) API Updates for beta branch
   * Updated stable APIs to the latest version

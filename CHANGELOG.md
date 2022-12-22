@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.1.0-beta.3 - 2022-12-22
+* [#1158](https://github.com/stripe/stripe-ruby/pull/1158) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Move `TaxCalculation` and `TaxTransaction` to `Tax::Calculation` and `Tax::Transaction`.
+
 ## 8.1.0-beta.2 - 2022-12-15
 * [#1156](https://github.com/stripe/stripe-ruby/pull/1156) API Updates for beta branch
   * Updated stable APIs to the latest version

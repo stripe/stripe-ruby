@@ -74,6 +74,15 @@ module Stripe
       )
     end
 
+    def mark_stale_quote(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/mark_stale", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def preview_invoice_lines(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -168,6 +177,15 @@ module Stripe
       request_stripe_object(
         method: :get,
         path: format("/v1/quotes/%<quote>s/lines", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.mark_stale_quote(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<quote>s/mark_stale", { quote: CGI.escape(quote) }),
         params: params,
         opts: opts
       )

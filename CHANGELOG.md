@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.1.0-beta.4 - 2023-01-05
+* [#1164](https://github.com/stripe/stripe-ruby/pull/1164) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for `mark_stale_quote` method on resource `Quote`
+
 ## 8.1.0-beta.3 - 2022-12-22
 * [#1158](https://github.com/stripe/stripe-ruby/pull/1158) API Updates for beta branch
   * Updated stable APIs to the latest version

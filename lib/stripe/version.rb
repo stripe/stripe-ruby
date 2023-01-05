@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Stripe
-  VERSION = "8.1.0-beta.3"
+  VERSION = "8.0.0"
 end

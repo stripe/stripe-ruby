@@ -43,22 +43,38 @@ module Stripe
       # in `request_end`.
       attr_reader :user_data
 
-      def initialize(duration:, http_status:, method:, num_retries:, path:,
-                     request_id:, user_data: nil, response: nil, request_header: nil, request_body: nil)
-        @duration = duration
+      def initialize(request_context:,
+                     num_retries:, user_data: nil)
+        @duration = request_context.duration
         @http_status = http_status
-        @method = method
+        @method = request_context.method
         @num_retries = num_retries
-        @path = path
-        @request_id = request_id
+        @path = request_context.path
+        @request_id = request_context.request_id
         @user_data = user_data
-        @response = response
-        @request_header = request_header
-        @request_body = request_body
+        @request_header = request_context.header
+        @request_body = request_context.body
         freeze
       end
     end
 
+    class RequestContext
+      attr_reader :duration
+      attr_reader :method
+      attr_reader :path
+      attr_reader :request_id
+      attr_reader :body
+      attr_reader :header
+
+      def initialize(duration:, context:, header:)
+        @duration = duration
+        @method = context.method
+        @path = context.path
+        @request_id = context.request_id
+        @body = context.body
+        @header = header
+      end
+    end
     # This class was renamed for consistency. This alias is here for backwards
     # compatibility.
     RequestEvent = RequestEndEvent

@@ -662,17 +662,17 @@ module Stripe
       return if !Instrumentation.any_subscribers?(:request_end) &&
                 !Instrumentation.any_subscribers?(:request)
 
-      event = Instrumentation::RequestEndEvent.new(
+      request_context = Stripe::Instrumentation::RequestContext.new(
         duration: duration,
+        context: context,
+        header: headers
+      )
+
+      event = Instrumentation::RequestEndEvent.new(
         http_status: http_status,
-        method: context.method,
+        request_context: request_context,
         num_retries: num_retries,
-        path: context.path,
-        request_id: context.request_id,
         user_data: user_data || {},
-        response: resp,
-        request_header: headers,
-        request_body: context.body
       )
       Stripe::Instrumentation.notify(:request_end, event)
 

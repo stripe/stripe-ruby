@@ -667,12 +667,16 @@ module Stripe
         context: context,
         header: headers
       )
+      response_context = Stripe::Instrumentation::ResponseContext.new(
+        http_status: http_status,
+        response: resp
+      )
 
       event = Instrumentation::RequestEndEvent.new(
-        http_status: http_status,
         request_context: request_context,
+        response_context: response_context,
         num_retries: num_retries,
-        user_data: user_data || {},
+        user_data: user_data || {}
       )
       Stripe::Instrumentation.notify(:request_end, event)
 

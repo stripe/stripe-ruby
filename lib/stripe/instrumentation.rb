@@ -33,6 +33,10 @@ module Stripe
       attr_reader :num_retries
       attr_reader :path
       attr_reader :request_id
+      attr_reader :response_header
+      attr_reader :response_body
+      attr_reader :request_header
+      attr_reader :request_body
 
       # Arbitrary user-provided data in the form of a Ruby hash that's passed
       # from subscribers on `request_begin` to subscribers on `request_end`.
@@ -40,16 +44,50 @@ module Stripe
       # in `request_end`.
       attr_reader :user_data
 
-      def initialize(duration:, http_status:, method:, num_retries:, path:,
-                     request_id:, user_data: nil)
-        @duration = duration
-        @http_status = http_status
-        @method = method
+      def initialize(request_context:, response_context:,
+                     num_retries:, user_data: nil)
+        @duration = request_context.duration
+        @http_status = response_context.http_status
+        @method = request_context.method
         @num_retries = num_retries
-        @path = path
-        @request_id = request_id
+        @path = request_context.path
+        @request_id = request_context.request_id
         @user_data = user_data
+        @response_header = response_context.header
+        @response_body = response_context.body
+        @request_header = request_context.header
+        @request_body = request_context.body
         freeze
+      end
+    end
+
+    class RequestContext
+      attr_reader :duration
+      attr_reader :method
+      attr_reader :path
+      attr_reader :request_id
+      attr_reader :body
+      attr_reader :header
+
+      def initialize(duration:, context:, header:)
+        @duration = duration
+        @method = context.method
+        @path = context.path
+        @request_id = context.request_id
+        @body = context.body
+        @header = header
+      end
+    end
+
+    class ResponseContext
+      attr_reader :http_status
+      attr_reader :body
+      attr_reader :header
+
+      def initialize(http_status:, response:)
+        @http_status = http_status
+        @header = response ? response.to_hash : nil
+        @body = response ? response.body : nil
       end
     end
 

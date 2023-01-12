@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.2.0-beta.1 - 2023-01-12
+* [#1167](https://github.com/stripe/stripe-ruby/pull/1167) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Change `quote.draft_quote` implementation to from calling `POST /v1/quotes/{quote}/draft` to `POST /v1/quotes/{quote}/mark_draft`
+  * Add support for `Tax::Register` resource
+
 ## 8.1.0 - 2023-01-12
 * [#1162](https://github.com/stripe/stripe-ruby/pull/1162) Improve request events instrumentation
 

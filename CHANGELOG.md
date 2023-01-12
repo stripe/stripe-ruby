@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.1.0 - 2023-01-12
+* [#1162](https://github.com/stripe/stripe-ruby/pull/1162) Improve request events instrumentation
+
 ## 8.1.0-beta.4 - 2023-01-05
 * [#1164](https://github.com/stripe/stripe-ruby/pull/1164) API Updates for beta branch
   * Updated stable APIs to the latest version

@@ -32,7 +32,7 @@ module Stripe
     def draft_quote(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/draft", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<quote>s/mark_draft", { quote: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -140,7 +140,7 @@ module Stripe
     def self.draft_quote(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/draft", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<quote>s/mark_draft", { quote: CGI.escape(quote) }),
         params: params,
         opts: opts
       )

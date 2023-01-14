@@ -47,6 +47,7 @@ module Stripe
     context "RequestEventBegin" do
       should "return a frozen object" do
         event = Stripe::Instrumentation::RequestBeginEvent.new(
+          object_name: "customer",
           method: :get,
           path: "/v1/test",
           user_data: nil
@@ -59,6 +60,7 @@ module Stripe
     context "RequestEventEnd" do
       should "return a frozen object" do
         mock_context = stub(
+          object_name: "customer",
           duration: 0.1,
           method: :get,
           path: "/v1/test",

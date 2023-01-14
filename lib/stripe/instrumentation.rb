@@ -4,6 +4,7 @@ module Stripe
   class Instrumentation
     # Event emitted on `request_begin` callback.
     class RequestBeginEvent
+      attr_reader :object_name
       attr_reader :method
       attr_reader :path
 
@@ -17,7 +18,8 @@ module Stripe
       # set by other subscribers.
       attr_reader :user_data
 
-      def initialize(method:, path:, user_data:)
+      def initialize(object_name:, method:, path:, user_data:)
+        @object_name = object_name
         @method = method
         @path = path
         @user_data = user_data
@@ -27,6 +29,7 @@ module Stripe
 
     # Event emitted on `request_end` callback.
     class RequestEndEvent
+      attr_reader :object_name
       attr_reader :duration
       attr_reader :http_status
       attr_reader :method
@@ -46,6 +49,7 @@ module Stripe
 
       def initialize(request_context:, response_context:,
                      num_retries:, user_data: nil)
+        @object_name = request_context.object_name
         @duration = request_context.duration
         @http_status = response_context.http_status
         @method = request_context.method
@@ -62,6 +66,7 @@ module Stripe
     end
 
     class RequestContext
+      attr_reader :object_name
       attr_reader :duration
       attr_reader :method
       attr_reader :path
@@ -70,6 +75,7 @@ module Stripe
       attr_reader :header
 
       def initialize(duration:, context:, header:)
+        @object_name = context.object_name
         @duration = duration
         @method = context.method
         @path = context.path

@@ -212,9 +212,10 @@ module Stripe
     end
 
     def execute_request(method, path,
+                        object_name: nil,
                         api_base: nil, api_key: nil, headers: {}, params: {})
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params
+        method, path, object_name, api_base, api_key, headers, params
       )
 
       begin
@@ -242,7 +243,8 @@ module Stripe
     # block is expected to do all the necessary body processing. If no block is
     # passed, then a StripeStreamResponse is returned containing an IO stream
     # with the response body.
-    def execute_request_stream(method, path,
+    def execute_request_stream(method, path, # rubocop:disable Metrics/ParameterLists
+                               object_name: nil,
                                api_base: nil, api_key: nil,
                                headers: {}, params: {},
                                &read_body_chunk_block)
@@ -252,7 +254,11 @@ module Stripe
       end
 
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params, &read_body_chunk_block
+        method, path,
+        object_name,
+        api_base, api_key,
+        headers, params,
+        &read_body_chunk_block
       )
 
       # When the read_body_chunk_block is given, we no longer have access to the
@@ -430,8 +436,10 @@ module Stripe
       pruned_contexts.count
     end
 
-    private def execute_request_internal(method, path,
-                                         api_base, api_key, headers, params,
+    private def execute_request_internal(method, path, # rubocop:disable Metrics/ParameterLists
+                                         object_name,
+                                         api_base, api_key,
+                                         headers, params,
                                          &read_body_chunk_block)
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
@@ -477,6 +485,7 @@ module Stripe
       context.api_version     = headers["Stripe-Version"]
       context.body            = body_log
       context.idempotency_key = headers["Idempotency-Key"]
+      context.object_name     = object_name
       context.method          = method
       context.path            = path
       context.query           = query
@@ -646,6 +655,7 @@ module Stripe
       return unless Instrumentation.any_subscribers?(:request_begin)
 
       event = Instrumentation::RequestBeginEvent.new(
+        object_name: context.object_name,
         method: context.method,
         path: context.path,
         user_data: {}
@@ -963,6 +973,7 @@ module Stripe
     # that we can log certain information. It's useful because it means that we
     # don't have to pass around as many parameters.
     class RequestLogContext
+      attr_accessor :object_name
       attr_accessor :body
       attr_accessor :account
       attr_accessor :api_key

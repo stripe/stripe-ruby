@@ -462,6 +462,7 @@ module Stripe
 
             client = StripeClient.new
             client.send(request_method, :post, "/v1/account",
+                        object_name: "account",
                         headers: { "Stripe-Account" => "bar" },
                         &@read_body_chunk_block)
           end
@@ -473,6 +474,7 @@ module Stripe
 
             client = StripeClient.new
             client.send(request_method, :post, "/v1/account",
+                        object_name: "account",
                         headers: { stripe_account: "bar" },
                         &@read_body_chunk_block)
           end
@@ -588,6 +590,7 @@ module Stripe
 
             client = StripeClient.new
             client.send(request_method, :post, "/v1/account",
+                        object_name: "account",
                         headers: {
                           "Idempotency-Key" => "abc",
                           "Stripe-Account" => "acct_123",
@@ -641,6 +644,7 @@ module Stripe
             client = StripeClient.new
             assert_raises Stripe::APIError do
               client.send(request_method, :post, "/v1/account",
+                          object_name: "account",
                           &@read_body_chunk_block)
             end
           end
@@ -698,6 +702,7 @@ module Stripe
 
               client = StripeClient.new
               client.send(request_method, :post, "/v1/account",
+                          object_name: "account",
                           &@read_body_chunk_block)
             ensure
               Stripe.stripe_account = old
@@ -712,6 +717,7 @@ module Stripe
 
             client = StripeClient.new
             client.send(request_method, :post, "/v1/account",
+                        object_name: "account",
                         headers: { stripe_account: stripe_account },
                         &@read_body_chunk_block)
           end
@@ -724,6 +730,7 @@ module Stripe
 
             client = StripeClient.new
             client.send(request_method, :post, "/v1/account",
+                        object_name: "account",
                         &@read_body_chunk_block)
           end
         end
@@ -761,6 +768,7 @@ module Stripe
 
               client = StripeClient.new
               client.send(request_method, :post, "/v1/account",
+                          object_name: "account",
                           &@read_body_chunk_block)
             ensure
               Stripe.app_info = old
@@ -777,6 +785,7 @@ module Stripe
 
             e = assert_raises Stripe::APIError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.message
@@ -792,6 +801,7 @@ module Stripe
 
             e = assert_raises Stripe::InvalidRequestError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal("req_123", e.request_id)
@@ -805,6 +815,7 @@ module Stripe
 
             e = assert_raises Stripe::APIConnectionError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base +
@@ -820,6 +831,7 @@ module Stripe
 
             e = assert_raises Stripe::APIError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.message
@@ -836,6 +848,7 @@ module Stripe
 
             e = assert_raises Stripe::IdempotencyError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal(400, e.http_status)
@@ -850,6 +863,7 @@ module Stripe
 
             e = assert_raises Stripe::InvalidRequestError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal(400, e.http_status)
@@ -864,6 +878,7 @@ module Stripe
 
             e = assert_raises Stripe::AuthenticationError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal(401, e.http_status)
@@ -878,6 +893,7 @@ module Stripe
 
             e = assert_raises Stripe::CardError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal(402, e.http_status)
@@ -894,6 +910,7 @@ module Stripe
 
             e = assert_raises Stripe::PermissionError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal(403, e.http_status)
@@ -908,6 +925,7 @@ module Stripe
 
             e = assert_raises Stripe::InvalidRequestError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal(404, e.http_status)
@@ -922,6 +940,7 @@ module Stripe
 
             e = assert_raises Stripe::RateLimitError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_equal(429, e.http_status)
@@ -1013,6 +1032,7 @@ module Stripe
               end.to_return(body: JSON.generate(object: "charge"))
             client = StripeClient.new
             client.send(request_method, :get, "/v1/charges/ch_123",
+                        object_name: "charge",
                         &@read_body_chunk_block)
           end
 
@@ -1023,6 +1043,7 @@ module Stripe
               .to_return(body: JSON.generate(object: "charge"))
             client = StripeClient.new
             client.send(request_method, :post, "/v1/charges",
+                        object_name: "charge",
                         &@read_body_chunk_block)
           end
 
@@ -1033,6 +1054,7 @@ module Stripe
               .to_return(body: JSON.generate(object: "charge"))
             client = StripeClient.new
             client.send(request_method, :delete, "/v1/charges/ch_123",
+                        object_name: "charge",
                         &@read_body_chunk_block)
           end
 
@@ -1049,6 +1071,7 @@ module Stripe
 
             client = StripeClient.new
             client.send(request_method, :post, "/v1/charges",
+                        object_name: "charge",
                         headers: { idempotency_key: "provided_key" },
                         &@read_body_chunk_block)
           end
@@ -1067,6 +1090,7 @@ module Stripe
             client = StripeClient.new
             err = assert_raises Stripe::APIConnectionError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
             assert_match(/Request was retried 2 times/, err.message)
@@ -1088,6 +1112,7 @@ module Stripe
 
             client = StripeClient.new
             client.send(request_method, :post, "/v1/charges",
+                        object_name: "charge",
                         &@read_body_chunk_block)
           end
 
@@ -1103,6 +1128,7 @@ module Stripe
             client = StripeClient.new
             assert_raises Stripe::APIConnectionError do
               client.send(request_method, :post, "/v1/charges",
+                          object_name: "charge",
                           &@read_body_chunk_block)
             end
           end
@@ -1112,6 +1138,7 @@ module Stripe
           should "allows empty strings in params" do
             client = StripeClient.new
             client.send(request_method, :get, "/v1/invoices/upcoming",
+                        object_name: "invoice",
                         params: { customer: "cus_123", coupon: "" },
                         &@read_body_chunk_block)
             assert_requested(
@@ -1127,6 +1154,7 @@ module Stripe
           should "filter nils in params" do
             client = StripeClient.new
             client.send(request_method, :get, "/v1/invoices/upcoming",
+                        object_name: "invoice",
                         params: { customer: "cus_123", coupon: nil },
                         &@read_body_chunk_block)
             assert_requested(
@@ -1141,6 +1169,7 @@ module Stripe
           should "merge query parameters in URL and params" do
             client = StripeClient.new
             client.send(request_method, :get, "/v1/invoices/upcoming?coupon=25OFF",
+                        object_name: "invoice",
                         params: { customer: "cus_123" },
                         &@read_body_chunk_block)
             assert_requested(
@@ -1156,6 +1185,7 @@ module Stripe
           should "prefer query parameters in params when specified in URL as well" do
             client = StripeClient.new
             client.send(request_method, :get, "/v1/invoices/upcoming?customer=cus_query",
+                        object_name: "invoice",
                         params: { customer: "cus_param" },
                         &@read_body_chunk_block)
             assert_requested(
@@ -1178,7 +1208,7 @@ module Stripe
         client = StripeClient.new
 
         e = assert_raises Stripe::APIError do
-          client.execute_request(:post, "/v1/charges")
+          client.execute_request(:post, "/v1/charges", object_name: "charge")
         end
         assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
       end
@@ -1189,7 +1219,7 @@ module Stripe
         client = StripeClient.new
 
         e = assert_raises ArgumentError do
-          client.execute_request_stream(:post, "/v1/charges")
+          client.execute_request_stream(:post, "/v1/charges", object_name: "charge")
         end
         assert_equal "execute_request_stream requires a read_body_chunk_block", e.message
       end
@@ -1202,7 +1232,7 @@ module Stripe
 
         accumulated_body = +""
 
-        resp, = client.execute_request_stream(:post, "/v1/charges") do |body_chunk|
+        resp, = client.execute_request_stream(:post, "/v1/charges", object_name: "charge") do |body_chunk|
           accumulated_body << body_chunk
         end
 

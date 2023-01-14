@@ -231,6 +231,7 @@ The library has various hooks that user code can tie into by passing a block to
 Invoked when an HTTP request starts. Receives `RequestBeginEvent` with the
 following properties:
 
+- `object_name`: The Stripe object, if applicable. (`String`)
 - `method`: HTTP method. (`Symbol`)
 - `path`: Request path. (`String`)
 - `user_data`: A hash on which users can set arbitrary data, and which will be
@@ -245,6 +246,7 @@ following properties:
 Invoked when an HTTP request finishes, regardless of whether it terminated with
 a success or error. Receives `RequestEndEvent` with the following properties:
 
+- `object_name`: The Stripe object, if applicable. (`String`)
 - `duration`: Request duration in seconds. (`Float`)
 - `http_status`: HTTP response code (`Integer`) if available, or `nil` in case
   of a lower level network error.
@@ -270,6 +272,7 @@ Stripe::Instrumentation.subscribe(:request_end) do |request_event|
   resource = path_parts.map { |part| part.match?(/\A[a-z_]+\z/) ? part : ":id" }.join("/")
 
   tags = {
+    object_name: request_event.object_name,
     method: request_event.method,
     resource: resource,
     code: request_event.http_status,

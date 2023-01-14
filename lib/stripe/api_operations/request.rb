@@ -43,6 +43,8 @@ module Stripe
 
           opts[:client] ||= StripeClient.active_client
 
+          object_name = self::OBJECT_NAME if defined?(self::OBJECT_NAME)
+
           headers = opts.clone
           api_key = headers.delete(:api_key)
           api_base = headers.delete(:api_base)
@@ -52,6 +54,7 @@ module Stripe
           resp, opts[:api_key] = client.send(
             client_request_method_sym,
             method, url,
+            object_name: object_name,
             api_base: api_base, api_key: api_key,
             headers: headers, params: params,
             &read_body_chunk_block

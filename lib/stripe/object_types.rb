@@ -99,6 +99,7 @@ module Stripe
         SubscriptionSchedule::OBJECT_NAME => SubscriptionSchedule,
         Tax::Calculation::OBJECT_NAME => Tax::Calculation,
         Tax::Registration::OBJECT_NAME => Tax::Registration,
+        Tax::Settings::OBJECT_NAME => Tax::Settings,
         Tax::Transaction::OBJECT_NAME => Tax::Transaction,
         TaxCode::OBJECT_NAME => TaxCode,
         TaxId::OBJECT_NAME => TaxId,

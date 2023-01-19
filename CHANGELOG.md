@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.2.0-beta.2 - 2023-01-19
+* [#1170](https://github.com/stripe/stripe-ruby/pull/1170) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for `Tax.Settings` resource.
+
 ## 8.2.0-beta.1 - 2023-01-12
 * [#1167](https://github.com/stripe/stripe-ruby/pull/1167) API Updates for beta branch
   * Updated stable APIs to the latest version

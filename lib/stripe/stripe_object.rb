@@ -429,13 +429,13 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    protected def initialize_from(values, opts, partial = false)
+    protected def initialize_from(values, opts)
       @opts = Util.normalize_opts(opts)
 
       # the `#send` is here so that we can keep this method private
       @original_values = self.class.send(:deep_copy, values)
 
-      removed = partial ? Set.new : Set.new(@values.keys - values.keys)
+      removed = Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)
 
       # Wipe old state before setting new.  This is useful for e.g. updating a

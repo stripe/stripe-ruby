@@ -51,7 +51,9 @@ module Stripe
         FinancialConnections::AccountOwner::OBJECT_NAME => FinancialConnections::AccountOwner,
         FinancialConnections::AccountOwnership::OBJECT_NAME =>
         FinancialConnections::AccountOwnership,
+        FinancialConnections::InferredBalance::OBJECT_NAME => FinancialConnections::InferredBalance,
         FinancialConnections::Session::OBJECT_NAME => FinancialConnections::Session,
+        FinancialConnections::Transaction::OBJECT_NAME => FinancialConnections::Transaction,
         FundingInstructions::OBJECT_NAME => FundingInstructions,
         GiftCards::Card::OBJECT_NAME => GiftCards::Card,
         GiftCards::Transaction::OBJECT_NAME => GiftCards::Transaction,

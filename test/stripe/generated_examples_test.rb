@@ -1876,6 +1876,15 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/subscriptions?limit=3"
       end
     end
+    context "Subscription.resume" do
+      should "support requests with args: id, proration_date, proration_behavior" do
+        Stripe::Subscription.resume(
+          "sub_xxxxxxxxxxxxx",
+          { proration_date: 1_675_400_000, proration_behavior: "always_invoice" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/subscriptions/sub_xxxxxxxxxxxxx/resume"
+      end
+    end
     context "Subscription.retrieve" do
       should "support requests with args: id" do
         Stripe::Subscription.retrieve("sub_xxxxxxxxxxxxx")

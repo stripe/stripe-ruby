@@ -6,8 +6,11 @@ module Stripe
     # A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     class Account < APIResource
       extend Stripe::APIOperations::List
+      extend Stripe::APIOperations::NestedResource
 
       OBJECT_NAME = "financial_connections.account"
+
+      nested_resource_class_methods :inferred_balance, operations: %i[list]
 
       def disconnect(params = {}, opts = {})
         request_stripe_object(

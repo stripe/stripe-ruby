@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.3.0-beta.1 - 2023-02-02
+* [#1174](https://github.com/stripe/stripe-ruby/pull/1174) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for new resource `FinancialConnections.Transaction`
+  * Add support for `list` method on resource `Transaction`
+
 ## 8.2.0 - 2023-02-02
 * [#1173](https://github.com/stripe/stripe-ruby/pull/1173) API Updates
   * Add support for `resume` method on resource `Subscription`

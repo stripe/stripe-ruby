@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.2.0 - 2023-02-02
+* [#1173](https://github.com/stripe/stripe-ruby/pull/1173) API Updates
+  * Add support for `resume` method on resource `Subscription`
+* [#1171](https://github.com/stripe/stripe-ruby/pull/1171) Remove unused `partial` param from `initialize_from`
+
+## 8.1.0 - 2023-01-12
+* [#1162](https://github.com/stripe/stripe-ruby/pull/1162) Improve request events instrumentation
+
 ## 8.0.0 - 2022-11-16
 * [#1144](https://github.com/stripe/stripe-ruby/pull/1144) Next major release changes
 

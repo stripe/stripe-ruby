@@ -253,7 +253,11 @@ a success or error. Receives `RequestEndEvent` with the following properties:
 - `path`: Request path. (`String`)
 - `user_data`: A hash on which users may have set arbitrary data in
   `request_begin`. See above for more information. (`Hash`)
-- `request_id`. HTTP request identifier.
+- `request_id`: HTTP request identifier. (`String`)
+- `response_header`: The response headers. (`Hash`)
+- `response_body` = The response body. (`String`)
+- `request_header` = The request headers. (`Hash`)
+- `request_body` = The request body. (`String`)
 
 #### Example
 

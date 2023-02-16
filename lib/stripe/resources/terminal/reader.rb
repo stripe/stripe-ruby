@@ -41,6 +41,15 @@ module Stripe
         )
       end
 
+      def refund_payment(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       def set_reader_display(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -72,6 +81,15 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.refund_payment(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )

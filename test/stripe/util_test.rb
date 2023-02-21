@@ -123,7 +123,7 @@ module Stripe
     end
 
     should "#convert_to_stripe_object should marshal hashes with string keys" do
-      obj = Util.convert_to_stripe_object({ 'object' => "account" }, {})
+      obj = Util.convert_to_stripe_object({ "object" => "account" }, {})
       assert obj.is_a?(Account)
     end
 

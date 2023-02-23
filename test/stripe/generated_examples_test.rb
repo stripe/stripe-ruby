@@ -826,6 +826,10 @@ module Stripe
         Stripe::Invoice.retrieve("in_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx?"
       end
+      should "support requests with args: id, expand" do
+        Stripe::Invoice.retrieve({ expand: ["customer"], id: "in_xxxxxxxxxxxxx" })
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx?expand[0]=customer"
+      end
     end
     context "Invoice.search" do
       should "support requests with args: query" do

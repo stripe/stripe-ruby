@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.3.0 - 2023-02-16
+* [#1175](https://github.com/stripe/stripe-ruby/pull/1175) API Updates
+  * Add support for `refund_payment` method on resource `Terminal.Reader`
+
 ## 8.3.0-beta.1 - 2023-02-02
 * [#1174](https://github.com/stripe/stripe-ruby/pull/1174) API Updates for beta branch
   * Updated stable APIs to the latest version

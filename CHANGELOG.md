@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.4.0-beta.2 - 2023-03-03
+* [#1183](https://github.com/stripe/stripe-ruby/pull/1183) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for new resources `Issuing.CardBundle` and `Issuing.CardDesign`
+  * Add support for `list` and `retrieve` methods on resource `CardBundle`
+  * Add support for `list`, `retrieve`, and `update` methods on resource `CardDesign`
+
 ## 8.4.0-beta.1 - 2023-02-23
 * [#1182](https://github.com/stripe/stripe-ruby/pull/1182) API Updates for beta branch
   * Updated stable APIs to the latest version

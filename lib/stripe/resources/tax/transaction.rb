@@ -35,15 +35,6 @@ module Stripe
           opts: opts
         )
       end
-
-      def self.list_transactions(params = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: "/v1/tax/transactions",
-          params: params,
-          opts: opts
-        )
-      end
     end
   end
 end

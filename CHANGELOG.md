@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.4.0-beta.3 - 2023-03-09
+* [#1184](https://github.com/stripe/stripe-ruby/pull/1184) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Remove support for `list_transactions` method on resource `Tax.Transaction`
+
 ## 8.4.0-beta.2 - 2023-03-03
 * [#1183](https://github.com/stripe/stripe-ruby/pull/1183) API Updates for beta branch
   * Updated stable APIs to the latest version

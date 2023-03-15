@@ -122,6 +122,11 @@ module Stripe
       assert obj.is_a?(ListObject)
     end
 
+    should "#convert_to_stripe_object should marshal hashes with string keys" do
+      obj = Util.convert_to_stripe_object({ "object" => "account" }, {})
+      assert obj.is_a?(Account)
+    end
+
     should "#convert_to_stripe_object should marshal other classes" do
       obj = Util.convert_to_stripe_object({ object: "account" }, {})
       assert obj.is_a?(Account)

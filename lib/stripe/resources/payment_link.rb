@@ -6,7 +6,7 @@ module Stripe
   #
   # When a customer opens a payment link it will open a new [checkout session](https://stripe.com/docs/api/checkout/sessions) to render the payment page. You can use [checkout session events](https://stripe.com/docs/api/events/types#event_types-checkout.session.completed) to track payments through payment links.
   #
-  # Related guide: [Payment Links API](https://stripe.com/docs/payments/payment-links/api)
+  # Related guide: [Payment Links API](https://stripe.com/docs/payment-links)
   class PaymentLink < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

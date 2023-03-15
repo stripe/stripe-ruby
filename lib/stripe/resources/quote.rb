@@ -83,10 +83,10 @@ module Stripe
       )
     end
 
-    def preview_invoice_lines(params = {}, opts = {})
+    def preview_invoice_lines(preview_invoice, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/preview_invoice_lines", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(self["id"]), preview_invoice: CGI.escape(preview_invoice) }),
         params: params,
         opts: opts
       )
@@ -191,10 +191,15 @@ module Stripe
       )
     end
 
-    def self.preview_invoice_lines(quote, params = {}, opts = {})
+    def self.preview_invoice_lines(
+      quote,
+      preview_invoice,
+      params = {},
+      opts = {}
+    )
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/preview_invoice_lines", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(quote), preview_invoice: CGI.escape(preview_invoice) }),
         params: params,
         opts: opts
       )

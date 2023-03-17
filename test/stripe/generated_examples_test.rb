@@ -2020,6 +2020,14 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
       end
     end
+    context "Tax.Transaction.create_from_calculation" do
+      should "support requests with args: calculation, reference" do
+        Stripe::Tax::Transaction.create_from_calculation(
+          { calculation: "xxx", reference: "yyy" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/tax/transactions/create_from_calculation"
+      end
+    end
     context "TaxCode.list" do
       should "support requests with args: limit" do
         Stripe::TaxCode.list({ limit: 3 })

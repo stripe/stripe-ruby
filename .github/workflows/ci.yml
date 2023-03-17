@@ -50,7 +50,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-    - uses: openapi/actions/stripe-mock@pakrym/Add_stripe-mock_shared_action
+    - uses: stripe/openapi/actions/stripe-mock@pakrym/Add_stripe-mock_shared_action
     - name: test
       run: make test
       env:
@@ -80,7 +80,7 @@ jobs:
       run: gem push gems/*.gem
       env:
         GEM_HOST_API_KEY: ${{secrets.GEM_HOST_API_KEY}}
-    - uses: openapi/actions/notify-release@pakrym/Add_stripe-mock_shared_action
+    - uses: stripe/openapi/actions/notify-release@pakrym/Add_stripe-mock_shared_action
       if: always()
       with:
         bot_token: ${{ secrets.SLACK_BOT_TOKEN }}

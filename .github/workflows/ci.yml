@@ -37,6 +37,10 @@ jobs:
       with:
         name: gems
         path: '*.gem'
+    - uses: stripe/openapi/actions/notify-release@pakrym/Add_stripe-mock_shared_action
+      if: always()
+      with:
+        bot_token: ${{ secrets.SLACK_BOT_TOKEN }}
 
   test:
     name: Test (${{ matrix.ruby-version }})

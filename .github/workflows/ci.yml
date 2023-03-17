@@ -50,10 +50,9 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-    - name: Start stripe-mock
-      run: docker run -d -p 12111-12112:12111-12112 stripe/stripe-mock && sleep 5
+    - uses: openapi/actions/stripe-mock@pakrym/Add_stripe-mock_shared_action
     - name: test
-      run: bundle install && bundle exec rake test
+      run: make test
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}

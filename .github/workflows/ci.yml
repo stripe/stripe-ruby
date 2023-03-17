@@ -50,10 +50,9 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-    - name: Start stripe-mock
-      run: docker run -d -p 12111-12112:12111-12112 stripe/stripe-mock && sleep 5
+    - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: bundle install && bundle exec rake test
+      run: make ci-test
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
@@ -81,3 +80,7 @@ jobs:
       run: gem push gems/*.gem
       env:
         GEM_HOST_API_KEY: ${{secrets.GEM_HOST_API_KEY}}
+    - uses: stripe/openapi/actions/notify-release@master
+      if: always()
+      with:
+        bot_token: ${{ secrets.SLACK_BOT_TOKEN }}

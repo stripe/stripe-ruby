@@ -18,6 +18,15 @@ module Stripe
         )
       end
 
+      def self.create_from_calculation(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/tax/transactions/create_from_calculation",
+          params: params,
+          opts: opts
+        )
+      end
+
       def self.create_reversal(params = {}, opts = {})
         request_stripe_object(
           method: :post,

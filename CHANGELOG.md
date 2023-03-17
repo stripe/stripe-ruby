@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.4.0-beta.4 - 2023-03-16
+* [#1189](https://github.com/stripe/stripe-ruby/pull/1189) Update generated code for beta (new)
+  * Add support for `create_from_calculation` method on resource `Tax.Transaction`
+* [#1188](https://github.com/stripe/stripe-ruby/pull/1188) Update generated code for beta (new)
+  * Remove support for resources `Capital.FinancingOffer` and `Capital.FinancingSummary`
+  * Remove support for `list`, `mark_delivered`, and `retrieve` methods on resource `FinancingOffer`
+  * Remove support for `retrieve` method on resource `FinancingSummary`
+* [#1187](https://github.com/stripe/stripe-ruby/pull/1187) Merge upstream master
+
 ## 8.4.0-beta.3 - 2023-03-09
 * [#1184](https://github.com/stripe/stripe-ruby/pull/1184) API Updates for beta branch
   * Updated stable APIs to the latest version

@@ -1543,6 +1543,12 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/quotes?limit=3"
       end
     end
+    context "Quote.preview_invoice_lines" do
+      should "support requests with args: quote, preview_invoice" do
+        Stripe::Quote.preview_invoice_lines("qt_xyz", "in_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines?"
+      end
+    end
     context "Quote.retrieve" do
       should "support requests with args: id" do
         Stripe::Quote.retrieve("qt_xxxxxxxxxxxxx")

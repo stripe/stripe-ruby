@@ -3,7 +3,7 @@
 
 module Stripe
   module Tax
-    # A Tax `Transaction` records the tax collected from or refunded to your customer.
+    # A Tax transaction records the tax collected from or refunded to your customer.
     class Transaction < APIResource
       extend Stripe::APIOperations::Create
 

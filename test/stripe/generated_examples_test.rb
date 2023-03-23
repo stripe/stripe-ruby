@@ -1543,6 +1543,12 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/quotes?limit=3"
       end
     end
+    context "Quote.preview_invoice_lines" do
+      should "support requests with args: quote, preview_invoice" do
+        Stripe::Quote.preview_invoice_lines("qt_xyz", "in_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines?"
+      end
+    end
     context "Quote.retrieve" do
       should "support requests with args: id" do
         Stripe::Quote.retrieve("qt_xxxxxxxxxxxxx")
@@ -2018,6 +2024,12 @@ module Stripe
           { end_behavior: "release" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
+      end
+    end
+    context "Tax.Calculation.list_line_items" do
+      should "support requests with args: calculation" do
+        Stripe::Tax::Calculation.list_line_items("xxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/tax/calculations/xxx/line_items?"
       end
     end
     context "Tax.Transaction.create_from_calculation" do

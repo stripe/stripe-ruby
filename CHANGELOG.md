@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.5.0-beta.1 - 2023-03-23
+* [#1194](https://github.com/stripe/stripe-ruby/pull/1194) Update generated code for beta (new)
+  * Add support for new resources `Tax.CalculationLineItem` and `Tax.TransactionLineItem`
+  * Add support for `collect_inputs` method on resource `Terminal.Reader`
+
 ## 8.4.0-beta.4 - 2023-03-16
 * [#1189](https://github.com/stripe/stripe-ruby/pull/1189) Update generated code for beta (new)
   * Add support for `create_from_calculation` method on resource `Tax.Transaction`

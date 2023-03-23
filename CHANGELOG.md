@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.4.0 - 2023-03-23
+* [#1197](https://github.com/stripe/stripe-ruby/pull/1197) Update generated code (new)
+  * Add support for new resources `Tax.CalculationLineItem`, `Tax.Calculation`, `Tax.TransactionLineItem`, and `Tax.Transaction`
+  * Add support for `create` and `list_line_items` methods on resource `Calculation`
+  * Add support for `create_from_calculation`, `create_reversal`, `create`, `list_line_items`, and `retrieve` methods on resource `Transaction`
+* [#1152](https://github.com/stripe/stripe-ruby/pull/1152) Symbolize hash keys inside `convert_to_stripe_object_with_params`
+
 ## 8.3.0 - 2023-02-16
 * [#1175](https://github.com/stripe/stripe-ruby/pull/1175) API Updates
   * Add support for `refund_payment` method on resource `Terminal.Reader`

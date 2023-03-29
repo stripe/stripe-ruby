@@ -72,7 +72,9 @@ module Stripe
         initialize_from(resp.data, opts)
       end
       extend Gem::Deprecate
-      deprecate :save, :update, 2022, 11
+      deprecate :save, "the `update` class method (for examples"\
+                " see https://github.com/stripe/stripe-ruby"\
+                "/wiki/Migration-guide-for-v8)", 2022, 11
 
       def self.included(base)
         # Set `metadata` as additive so that when it's set directly we remember

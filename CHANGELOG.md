@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.6.0-beta.1 - 2023-03-30
+* [#1202](https://github.com/stripe/stripe-ruby/pull/1202) Update generated code for beta
+
+
 ## 8.5.0 - 2023-03-30
 * [#1203](https://github.com/stripe/stripe-ruby/pull/1203) Update generated code
   * Remove support for `create` method on resource `Tax.Transaction`

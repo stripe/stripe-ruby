@@ -1,9 +1,22 @@
 # Changelog
 
+## 8.5.0 - 2023-03-30
+* [#1203](https://github.com/stripe/stripe-ruby/pull/1203) Update generated code
+  * Remove support for `create` method on resource `Tax.Transaction`
+    * This is not a breaking change, as this method was deprecated before the Tax Transactions API was released in favor of the `create_from_calculation` method.
+* [#1201](https://github.com/stripe/stripe-ruby/pull/1201) Update save deprecation message
+
 ## 8.5.0-beta.1 - 2023-03-23
 * [#1194](https://github.com/stripe/stripe-ruby/pull/1194) Update generated code for beta (new)
   * Add support for new resources `Tax.CalculationLineItem` and `Tax.TransactionLineItem`
   * Add support for `collect_inputs` method on resource `Terminal.Reader`
+
+## 8.4.0 - 2023-03-23
+* [#1197](https://github.com/stripe/stripe-ruby/pull/1197) Update generated code (new)
+  * Add support for new resources `Tax.CalculationLineItem`, `Tax.Calculation`, `Tax.TransactionLineItem`, and `Tax.Transaction`
+  * Add support for `create` and `list_line_items` methods on resource `Calculation`
+  * Add support for `create_from_calculation`, `create_reversal`, `create`, `list_line_items`, and `retrieve` methods on resource `Transaction`
+* [#1152](https://github.com/stripe/stripe-ruby/pull/1152) Symbolize hash keys inside `convert_to_stripe_object_with_params`
 
 ## 8.4.0-beta.4 - 2023-03-16
 * [#1189](https://github.com/stripe/stripe-ruby/pull/1189) Update generated code for beta (new)

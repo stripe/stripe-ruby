@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.5.0 - 2023-03-30
+* [#1203](https://github.com/stripe/stripe-ruby/pull/1203) Update generated code
+  * Remove support for `create` method on resource `Tax.Transaction`
+    * This is not a breaking change, as this method was deprecated before the Tax Transactions API was released in favor of the `create_from_calculation` method.
+* [#1201](https://github.com/stripe/stripe-ruby/pull/1201) Update save deprecation message
+
 ## 8.5.0-beta.1 - 2023-03-23
 * [#1194](https://github.com/stripe/stripe-ruby/pull/1194) Update generated code for beta (new)
   * Add support for new resources `Tax.CalculationLineItem` and `Tax.TransactionLineItem`

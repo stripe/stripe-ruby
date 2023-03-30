@@ -5,8 +5,6 @@ module Stripe
   module Tax
     # A Tax transaction records the tax collected from or refunded to your customer.
     class Transaction < APIResource
-      extend Stripe::APIOperations::Create
-
       OBJECT_NAME = "tax.transaction"
 
       def list_line_items(params = {}, opts = {})

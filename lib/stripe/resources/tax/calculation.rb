@@ -3,7 +3,9 @@
 
 module Stripe
   module Tax
-    # A Tax `Calculation` allows you to calculate the tax to collect from your customer.
+    # A Tax Calculation allows you to calculate the tax to collect from your customer.
+    #
+    # Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom).
     class Calculation < APIResource
       extend Stripe::APIOperations::Create
 

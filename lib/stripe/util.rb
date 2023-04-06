@@ -7,6 +7,8 @@ module Stripe
     # Options that a user is allowed to specify.
     OPTS_USER_SPECIFIED = Set[
       :api_key,
+      :auth_token,
+      :private_key,
       :idempotency_key,
       :stripe_account,
       :stripe_version
@@ -277,10 +279,14 @@ module Stripe
     # The secondary opts argument can either be a string or hash
     # Turn this value into an api_key and a set of headers
     def self.normalize_opts(opts)
+      puts opts.keys
+      puts opts
       case opts
       when String
         { api_key: opts }
       when Hash
+        puts opts.fetch(:api_key).nil? if opts.key?(:api_key)
+        puts opts.fetch(:auth_token) if opts.key?(:auth_token)
         check_api_key!(opts.fetch(:api_key)) if opts.key?(:api_key)
         # Explicitly use dup here instead of clone to avoid preserving freeze
         # state on input params.

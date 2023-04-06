@@ -440,9 +440,11 @@ module Stripe
 
       api_base ||= config.api_base
       api_key ||= config.api_key
+      auth_token ||= config.auth_token
+      private_key ||= config.private_key
       params = Util.objects_to_ids(params)
 
-      check_api_key!(api_key)
+      check_keys!(api_key, auth_token, private_key)
 
       body_params = nil
       query_params = nil
@@ -469,17 +471,31 @@ module Stripe
       body, body_log =
         body_params ? encode_body(body_params, headers) : [nil, nil]
 
+      unless api_key
+        headers = signing_headers(auth_token, private_key,
+                                  method, headers, body)
+                  .update(Util.normalize_headers(headers))
+      end
+
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
-      context = RequestLogContext.new
-      context.account         = headers["Stripe-Account"]
-      context.api_key         = api_key
-      context.api_version     = headers["Stripe-Version"]
-      context.body            = body_log
-      context.idempotency_key = headers["Idempotency-Key"]
-      context.method          = method
-      context.path            = path
-      context.query           = query
+      context = RequestLogContext.new(account: headers["Stripe-Account"],
+                                      api_key: api_key, auth_token: auth_token,
+                                      private_key: private_key,
+                                      api_version: headers["Stripe-Version"],
+                                      body: body_log,
+                                      idempotency_key: headers["Idempotency-Key"],
+                                      method: method, path: path, query: query)
+      # context.account         = headers["Stripe-Account"]
+      # context.api_key         = api_key
+      # context.auth_token      = auth_token
+      # context.private_key     = private_key
+      # context.api_version     = headers["Stripe-Version"]
+      # context.body            = body_log
+      # context.idempotency_key = headers["Idempotency-Key"]
+      # context.method          = method
+      # context.path            = path
+      # context.query           = query
 
       # A block can be passed in to read the content directly from the response.
       # We want to execute this block only when the response was actually
@@ -512,10 +528,26 @@ module Stripe
       (api_base || config.api_base) + url
     end
 
-    private def check_api_key!(api_key)
-      unless api_key
+    private def check_keys!(api_key, auth_token, private_key)
+      if api_key && (auth_token || private_key)
+        raise AuthenticationError, "Can't specify both API key " \
+          "and auth token / private key. Either set your API key" \
+          'using "Stripe.api_key = <API-KEY>", or set your auth token ' \
+          'and private key using "Stripe.auth_token = <AUTH-TOKEN>"' \
+          'and "Stripe.private_key = <PRIVATE-KEY>".'
+      end
+
+      unless api_key || (auth_token && private_key)
+        if auth_token || private_key
+          raise AuthenticationError, "Must provide both auth_token and " \
+           'private_key. Set your auth token using "Stripe.auth_token = ' \
+           '<AUTH-TOKEN>", and private key using "Stripe.private_key = ' \
+           '<PRIVATE-KEY>".'
+        end
+
+        # Default to missing API key error message for general users.
         raise AuthenticationError, "No API key provided. " \
-          'Set your API key using "Stripe.api_key = <API-KEY>". ' \
+        'Set your API key using "Stripe.api_key = <API-KEY>". ' \
           "You can generate API keys from the Stripe web interface. " \
           "See https://stripe.com/api for details, or email " \
           "support@stripe.com if you have any questions."
@@ -894,6 +926,61 @@ module Stripe
           :error => "#{e} (#{e.class})"
         )
       end
+      headers
+    end
+
+    private def signing_headers(auth_token, private_key, method, headers, body)
+      authorization_header_name = "Authorization"
+      content_type_header_name = "Content-Type"
+      stripe_context_header_name = "Stripe-Context"
+      stripe_account_header_name = "Stripe-Account"
+      content_digest_header_name = "Content-Digest"
+      signature_input_header_name = "Signature-Input"
+      signature_header_name = "Signature"
+
+      headers[authorization_header_name] = "STRIPE-V2-SIG " + auth_token
+
+      covered_headers = [content_type_header_name, content_digest_header_name,
+                         stripe_context_header_name, stripe_account_header_name,
+                         authorization_header_name,]
+
+      if method == "get"
+        covered_headers -= [content_type_header_name, content_digest_header_name]
+      end
+
+      covered_headers_lower_case = covered_headers.map { |string| %("#{string.downcase}") }
+      covered_headers_formatted = covered_headers_lower_case.join(" ")
+
+      if method != "get"
+        content = body || ""
+        digest = OpenSSL::Digest.new("SHA256").digest(content)
+        headers[content_digest_header_name] = %(sha-256=:#{Base64.strict_encode64(digest)}:)
+      end
+
+      # Calculate Signature Input
+      created = (Time.now.to_f / 1000).floor
+      signature_input = "(#{covered_headers_formatted});created=#{created}"
+
+      # Calculate signature base
+      inputs = covered_headers.map { |header| %("#{header.downcase}": #{headers[header]}) }.join("\n")
+      signature_base = %(#{inputs}\n"@signature-params": #{signature_input})
+
+      # Parse the DER-encoded data into an OpenSSL::ASN1::Sequence object
+      private_key_der = Base64.decode64(private_key)
+      asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
+
+      # Extract the octet string containing the private key
+      private_key_octet_string = asn1.value[2].value
+
+      private_key_binary = private_key_octet_string[2..-1] # skip the octet string tag and length bytes, https://github.com/openssl/openssl/issues/6357
+
+      key = Ed25519::SigningKey.new(private_key_binary)
+      encoded_signature_base = signature_base.encode(Encoding::UTF_8)
+
+      signature = key.sign(encoded_signature_base)
+
+      headers[signature_input_header_name] = "sig1=" + signature_input
+      headers[signature_header_name] = "sig1=:" + Base64.strict_encode64(signature) + ":"
 
       headers
     end
@@ -966,6 +1053,8 @@ module Stripe
       attr_accessor :body
       attr_accessor :account
       attr_accessor :api_key
+      attr_accessor :auth_token
+      attr_accessor :private_key
       attr_accessor :api_version
       attr_accessor :idempotency_key
       attr_accessor :method

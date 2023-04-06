@@ -49,6 +49,7 @@ module Stripe
           client = headers.delete(:client)
           # Assume all remaining opts must be headers
 
+          ## TODO: change this
           resp, opts[:api_key] = client.send(
             client_request_method_sym,
             method, url,

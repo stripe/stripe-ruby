@@ -13,6 +13,8 @@ require "set"
 require "socket"
 require "uri"
 require "forwardable"
+require "base64"
+require "ed25519"
 
 # Version
 require "stripe/api_version"
@@ -70,6 +72,8 @@ module Stripe
 
     # User configurable options
     def_delegators :@config, :api_key, :api_key=
+    def_delegators :@config, :auth_token, :auth_token=
+    def_delegators :@config, :private_key, :private_key=
     def_delegators :@config, :api_version, :api_version=
     def_delegators :@config, :stripe_account, :stripe_account=
     def_delegators :@config, :api_base, :api_base=

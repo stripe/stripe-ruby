@@ -541,7 +541,7 @@ module Stripe
 
         # Default to missing API key error message for general users.
         raise AuthenticationError, "No API key provided. " \
-        'Set your API key using "Stripe.api_key = <API-KEY>". ' \
+          'Set your API key using "Stripe.api_key = <API-KEY>". ' \
           "You can generate API keys from the Stripe web interface. " \
           "See https://stripe.com/api for details, or email " \
           "support@stripe.com if you have any questions."
@@ -924,59 +924,59 @@ module Stripe
     end
 
     private def signing_headers(auth_token, private_key, method, headers, body)
-      authorization_header_name = "Authorization"
-      content_type_header_name = "Content-Type"
-      stripe_context_header_name = "Stripe-Context"
-      stripe_account_header_name = "Stripe-Account"
-      content_digest_header_name = "Content-Digest"
-      signature_input_header_name = "Signature-Input"
-      signature_header_name = "Signature"
+      header_names = {
+        authorization: "Authorization",
+        content_type: "Content-Type",
+        stripe_context: "Stripe-Context",
+        stripe_account: "Stripe-Account",
+        content_digest: "Content-Digest",
+        signature_input: "Signature-Input",
+        signature: "Signature",
+      }
 
-      headers[authorization_header_name] = "STRIPE-V2-SIG " + auth_token
+      headers[header_names[:authorization]] = "STRIPE-V2-SIG #{auth_token}"
 
-      covered_headers = [content_type_header_name, content_digest_header_name,
-                         stripe_context_header_name, stripe_account_header_name,
-                         authorization_header_name,]
-
-      if method == "get"
-        covered_headers -= [content_type_header_name, content_digest_header_name]
-      end
-
-      covered_headers_lower_case = covered_headers.map { |string| %("#{string.downcase}") }
-      covered_headers_formatted = covered_headers_lower_case.join(" ")
+      covered_headers = [header_names[:stripe_context], header_names[:stripe_account],
+                         header_names[:authorization],]
 
       if method != "get"
+        covered_headers += [header_names[:content_type], header_names[:content_digest]]
         content = body || ""
         digest = OpenSSL::Digest.new("SHA256").digest(content)
-        headers[content_digest_header_name] = %(sha-256=:#{Base64.strict_encode64(digest)}:)
+        headers[header_names[:content_digest]] = %(sha-256=:#{Base64.strict_encode64(digest)}:)
       end
 
-      # Calculate Signature Input
+      covered_headers_formatted = covered_headers.map { |string| %("#{string.downcase}") }.join(" ")
+
       created = (Time.now.to_f / 1000).floor
       signature_input = "(#{covered_headers_formatted});created=#{created}"
 
-      # Calculate signature base
       inputs = covered_headers.map { |header| %("#{header.downcase}": #{headers[header]}) }.join("\n")
-      signature_base = %(#{inputs}\n"@signature-params": #{signature_input})
+      encoded_signature_base = %(#{inputs}\n"@signature-params": #{signature_input}).encode(Encoding::UTF_8)
 
-      # Parse the DER-encoded data into an OpenSSL::ASN1::Sequence object
-      private_key_der = Base64.decode64(private_key)
-      asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
-
-      # Extract the octet string containing the private key
-      private_key_octet_string = asn1.value[2].value
-
-      private_key_binary = private_key_octet_string[2..-1] # skip the octet string tag and length bytes, https://github.com/openssl/openssl/issues/6357
-
-      key = Ed25519::SigningKey.new(private_key_binary)
-      encoded_signature_base = signature_base.encode(Encoding::UTF_8)
+      key = get_signing_key(private_key)
 
       signature = key.sign(encoded_signature_base)
 
-      headers[signature_input_header_name] = "sig1=" + signature_input
-      headers[signature_header_name] = "sig1=:" + Base64.strict_encode64(signature) + ":"
+      headers[header_names[:signature_input]] = "sig1=#{signature_input}"
+      headers[header_names[:signature]] = "sig1=:#{Base64.strict_encode64(signature)}:"
 
       headers
+    end
+
+    private def get_signing_key(private_key)
+      private_key_der = Base64.decode64(private_key)
+      asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
+      private_key_octet_string = asn1.value[2].value
+
+      # The Ed25519::SigningKey initializer expects
+      # 32 bytes, and private_key_octet_string should
+      # contain 34 where the first 2 bytes contain the
+      # octet string tag and length. Skip the first 2
+      # bytes to create the signing key.
+      private_key_binary = private_key_octet_string[2..-1]
+
+      Ed25519::SigningKey.new(private_key_binary)
     end
 
     private def log_request(context, num_retries)

@@ -283,6 +283,8 @@ module Stripe
       when String
         { api_key: opts }
       when Hash
+        # If the user is using request signing for authentication,
+        # no need to check the api_key per request.
         if opts.key?(:client) && !opts.fetch(:client).config.auth_token
           check_api_key!(opts.fetch(:api_key)) if opts.key?(:api_key)
         end

@@ -49,7 +49,6 @@ module Stripe
           client = headers.delete(:client)
           # Assume all remaining opts must be headers
 
-          ## TODO: change this
           resp, opts[:api_key] = client.send(
             client_request_method_sym,
             method, url,
@@ -102,9 +101,7 @@ module Stripe
 
         private def warn_on_opts_in_params(params)
           Util::OPTS_USER_SPECIFIED.each do |opt|
-            if params.key?(opt)
-              warn("WARNING: '#{opt}' should be in opts instead of params.")
-            end
+            warn("WARNING: '#{opt}' should be in opts instead of params.") if params.key?(opt)
           end
         end
       end

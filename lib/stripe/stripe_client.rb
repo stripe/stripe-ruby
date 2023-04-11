@@ -479,23 +479,17 @@ module Stripe
 
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
-      context = RequestLogContext.new(account: headers["Stripe-Account"],
-                                      api_key: api_key, auth_token: auth_token,
-                                      private_key: private_key,
-                                      api_version: headers["Stripe-Version"],
-                                      body: body_log,
-                                      idempotency_key: headers["Idempotency-Key"],
-                                      method: method, path: path, query: query)
-      # context.account         = headers["Stripe-Account"]
-      # context.api_key         = api_key
-      # context.auth_token      = auth_token
-      # context.private_key     = private_key
-      # context.api_version     = headers["Stripe-Version"]
-      # context.body            = body_log
-      # context.idempotency_key = headers["Idempotency-Key"]
-      # context.method          = method
-      # context.path            = path
-      # context.query           = query
+      context = RequestLogContext.new
+      context.account         = headers["Stripe-Account"]
+      context.api_key         = api_key
+      context.auth_token      = auth_token
+      context.private_key     = private_key
+      context.api_version     = headers["Stripe-Version"]
+      context.body            = body_log
+      context.idempotency_key = headers["Idempotency-Key"]
+      context.method          = method
+      context.path            = path
+      context.query           = query
 
       # A block can be passed in to read the content directly from the response.
       # We want to execute this block only when the response was actually

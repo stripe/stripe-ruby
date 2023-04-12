@@ -17,6 +17,14 @@ module Stripe
         assert_equal client.config.open_timeout, 100
       end
 
+      should "allow auth token and private key to be set via a Hash" do
+        config = { auth_token: "keyinfo_test_123", private_key: "123" }
+        client = StripeClient.new(config)
+
+        assert_equal client.config.auth_token, "keyinfo_test_123"
+        assert_equal client.config.private_key, "123"
+      end
+
       should "support deprecated ConnectionManager objects" do
         assert StripeClient.new(Stripe::ConnectionManager.new).config.is_a?(Stripe::StripeConfiguration)
       end
@@ -475,6 +483,72 @@ module Stripe
             client.send(request_method, :post, "/v1/account",
                         headers: { stripe_account: "bar" },
                         &@read_body_chunk_block)
+          end
+        end
+
+        context "signing headers" do
+          setup do
+            StripeClient.any_instance.stubs(:content_digest).returns("digest")
+            StripeClient.any_instance.stubs(:created_time).returns(1_234_567_890)
+            StripeClient.any_instance.stubs(:encoded_signature).returns("signature")
+
+            Stripe.api_key = nil
+            Stripe.auth_token = "keyinfo_test_123"
+            Stripe.private_key = "123"
+          end
+
+          should "apply valid signing headers for get requests" do
+            stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123")
+              .to_return(body: JSON.generate(object: "charge"))
+
+            client = StripeClient.new
+            client.send(request_method, :get, "/v1/charges/ch_123",
+                        &@read_body_chunk_block)
+            assert_requested(
+              :get,
+              "#{Stripe.api_base}/v1/charges/ch_123",
+              headers: {
+                "Authorization" => "STRIPE-V2-SIG keyinfo_test_123",
+                "Signature" => "sig1=:signature:",
+                "Signature-Input" => 'sig1=("stripe-context" "stripe-account" "authorization");created=1234567890',
+              }
+            )
+          end
+
+          should "apply valid signing headers for post requests" do
+            # begin
+
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(object: "charge"))
+
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/charges",
+                        &@read_body_chunk_block)
+
+            assert_requested(
+              :post,
+              "#{Stripe.api_base}/v1/charges",
+              headers: {
+                "Authorization" => "STRIPE-V2-SIG keyinfo_test_123",
+                "Content-Digest" => "sha-256=:digest:",
+                "Signature" => "sig1=:signature:",
+                "Signature-Input" => 'sig1=("stripe-context" "stripe-account" "authorization" "content-type" "content-digest");created=1234567890',
+              }
+            )
+          end
+        end
+
+        context "encoded_signature" do
+          should "raise error if private_key is in invalid format" do
+            Stripe.api_key = nil
+            Stripe.auth_token = "keyinfo_test_123"
+            Stripe.private_key = "123"
+
+            client = StripeClient.new
+            assert_raises Stripe::AuthenticationError do
+              client.send(request_method, :post, "/v1/account",
+                          &@read_body_chunk_block)
+            end
           end
         end
 

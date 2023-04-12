@@ -939,44 +939,55 @@ module Stripe
       covered_headers = [header_names[:stripe_context], header_names[:stripe_account],
                          header_names[:authorization],]
 
-      if method != "get"
+      if method != :get
         covered_headers += [header_names[:content_type], header_names[:content_digest]]
         content = body || ""
-        digest = OpenSSL::Digest.new("SHA256").digest(content)
-        headers[header_names[:content_digest]] = %(sha-256=:#{Base64.strict_encode64(digest)}:)
+        headers[header_names[:content_digest]] = %(sha-256=:#{content_digest(content)}:)
       end
 
       covered_headers_formatted = covered_headers.map { |string| %("#{string.downcase}") }.join(" ")
 
-      created = (Time.now.to_f / 1000).floor
-      signature_input = "(#{covered_headers_formatted});created=#{created}"
+      signature_input = "(#{covered_headers_formatted});created=#{created_time}"
 
       inputs = covered_headers.map { |header| %("#{header.downcase}": #{headers[header]}) }.join("\n")
       encoded_signature_base = %(#{inputs}\n"@signature-params": #{signature_input}).encode(Encoding::UTF_8)
 
-      key = get_signing_key(private_key)
-
-      signature = key.sign(encoded_signature_base)
-
       headers[header_names[:signature_input]] = "sig1=#{signature_input}"
-      headers[header_names[:signature]] = "sig1=:#{Base64.strict_encode64(signature)}:"
+      headers[header_names[:signature]] = "sig1=:#{encoded_signature(private_key, encoded_signature_base)}:"
 
       headers
     end
 
-    private def get_signing_key(private_key)
-      private_key_der = Base64.decode64(private_key)
-      asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
-      private_key_octet_string = asn1.value[2].value
+    private def content_digest(content)
+      Base64.strict_encode64(OpenSSL::Digest.new("SHA256").digest(content))
+    end
 
-      # The Ed25519::SigningKey initializer expects
-      # 32 bytes, and private_key_octet_string should
-      # contain 34 where the first 2 bytes contain the
-      # octet string tag and length. Skip the first 2
-      # bytes to create the signing key.
-      private_key_binary = private_key_octet_string[2..-1]
+    private def created_time
+      Time.now.to_i
+    end
 
-      Ed25519::SigningKey.new(private_key_binary)
+    private def encoded_signature(private_key, encoded_signature_base)
+      key = nil
+      begin
+        private_key_der = Base64.decode64(private_key)
+        asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
+        private_key_octet_string = asn1.value[2].value
+
+        # The Ed25519::SigningKey initializer expects
+        # 32 bytes, and private_key_octet_string should
+        # contain 34 where the first 2 bytes contain the
+        # octet string tag and length. Skip the first 2
+        # bytes to create the signing key.
+        private_key_binary = private_key_octet_string[2..-1]
+        key = Ed25519::SigningKey.new(private_key_binary)
+      rescue StandardError => e
+        raise AuthenticationError, "Encountered '#{e.message} (#{e.class})' "\
+        "when calculating signing key from private key. Please ensure " \
+        "your private key matches the account private key "\
+        "found in ~/.config/stripe/config.toml."
+      end
+
+      Base64.strict_encode64(key.sign(encoded_signature_base))
     end
 
     private def log_request(context, num_retries)

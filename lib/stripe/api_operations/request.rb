@@ -101,7 +101,9 @@ module Stripe
 
         private def warn_on_opts_in_params(params)
           Util::OPTS_USER_SPECIFIED.each do |opt|
-            warn("WARNING: '#{opt}' should be in opts instead of params.") if params.key?(opt)
+            if params.key?(opt)
+              warn("WARNING: '#{opt}' should be in opts instead of params.")
+            end
           end
         end
       end

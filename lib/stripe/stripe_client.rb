@@ -936,24 +936,34 @@ module Stripe
 
       headers[header_names[:authorization]] = "STRIPE-V2-SIG #{auth_token}"
 
-      covered_headers = [header_names[:stripe_context], header_names[:stripe_account],
+      covered_headers = [header_names[:stripe_context],
+                         header_names[:stripe_account],
                          header_names[:authorization],]
 
       if method != :get
-        covered_headers += [header_names[:content_type], header_names[:content_digest]]
+        covered_headers += [header_names[:content_type],
+                            header_names[:content_digest],]
         content = body || ""
-        headers[header_names[:content_digest]] = %(sha-256=:#{content_digest(content)}:)
+        headers[header_names[:content_digest]] =
+          %(sha-256=:#{content_digest(content)}:)
       end
 
-      covered_headers_formatted = covered_headers.map { |string| %("#{string.downcase}") }.join(" ")
+      covered_headers_formatted = covered_headers
+                                  .map { |string| %("#{string.downcase}") }
+                                  .join(" ")
 
       signature_input = "(#{covered_headers_formatted});created=#{created_time}"
 
-      inputs = covered_headers.map { |header| %("#{header.downcase}": #{headers[header]}) }.join("\n")
-      encoded_signature_base = %(#{inputs}\n"@signature-params": #{signature_input}).encode(Encoding::UTF_8)
+      inputs = covered_headers
+               .map { |header| %("#{header.downcase}": #{headers[header]}) }
+               .join("\n")
+      encoded_signature_base = %(#{inputs}\n"@signature-params":
+                                 #{signature_input}).encode(Encoding::UTF_8)
 
       headers[header_names[:signature_input]] = "sig1=#{signature_input}"
-      headers[header_names[:signature]] = "sig1=:#{encoded_signature(private_key, encoded_signature_base)}:"
+      headers[header_names[:signature]] = "sig1=:#{encoded_signature(
+        private_key, encoded_signature_base
+      )}:"
 
       headers
     end

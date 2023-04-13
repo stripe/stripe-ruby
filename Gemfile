@@ -10,8 +10,7 @@ group :development do
   gem "rack", ">= 2.0.6"
   gem "rake"
 
-  # Update to 2.0.0 once it ships.
-  gem "shoulda-context", "2.0.0.rc4"
+  gem "shoulda-context", "2.0.0"
 
   gem "test-unit"
 

@@ -26,8 +26,6 @@ group :development do
   # up-to-date, but it's not the end of the world if it's not.
   gem "rubocop", "0.80"
 
-  gem "ed25519"
-
   platforms :mri do
     gem "byebug"
     gem "pry"

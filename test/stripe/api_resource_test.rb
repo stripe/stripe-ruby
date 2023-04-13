@@ -80,40 +80,18 @@ module Stripe
 
     should "not specifying api credentials should raise an exception" do
       Stripe.api_key = nil
-      Stripe.auth_token = nil
-      Stripe.private_key = nil
+      Stripe.authenticator = nil
       assert_raises Stripe::AuthenticationError do
         Stripe::Customer.new("cus_123").refresh
       end
     end
 
-    should "specifying both api_key and auth_token or private_key should raise an exception" do
+    should "specifying both api_key and authenticator should raise an exception" do
       Stripe.api_key = "sk_123"
-      Stripe.auth_token = "keyinfo_test_123"
-      Stripe.private_key = nil
 
-      assert_raises Stripe::AuthenticationError do
-        Stripe::Customer.new("cus_123").refresh
-      end
+      def no_op; end
 
-      Stripe.auth_token = nil
-      Stripe.private_key = "123"
-
-      assert_raises Stripe::AuthenticationError do
-        Stripe::Customer.new("cus_123").refresh
-      end
-    end
-
-    should "not specifying both auth_token and private_key should raise an exception" do
-      Stripe.auth_token = "keyinfo_test_123"
-      Stripe.private_key = nil
-
-      assert_raises Stripe::AuthenticationError do
-        Stripe::Customer.new("cus_123").refresh
-      end
-
-      Stripe.auth_token = nil
-      Stripe.private_key = "123"
+      Stripe.authenticator = method(:no_op)
 
       assert_raises Stripe::AuthenticationError do
         Stripe::Customer.new("cus_123").refresh

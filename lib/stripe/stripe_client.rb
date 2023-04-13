@@ -440,11 +440,10 @@ module Stripe
 
       api_base ||= config.api_base
       api_key ||= config.api_key
-      auth_token ||= config.auth_token
-      private_key ||= config.private_key
+      authenticator ||= config.authenticator
       params = Util.objects_to_ids(params)
 
-      check_keys!(api_key, auth_token, private_key)
+      check_keys!(api_key, authenticator)
 
       body_params = nil
       query_params = nil
@@ -471,19 +470,14 @@ module Stripe
       body, body_log =
         body_params ? encode_body(body_params, headers) : [nil, nil]
 
-      unless api_key
-        headers = signing_headers(auth_token, private_key,
-                                  method, headers, body)
-                  .update(Util.normalize_headers(headers))
-      end
+      authenticator.authenticate(method, headers, body) unless api_key
 
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
       context = RequestLogContext.new
       context.account         = headers["Stripe-Account"]
       context.api_key         = api_key
-      context.auth_token      = auth_token
-      context.private_key     = private_key
+      context.authenticator   = authenticator
       context.api_version     = headers["Stripe-Version"]
       context.body            = body_log
       context.idempotency_key = headers["Idempotency-Key"]
@@ -522,23 +516,15 @@ module Stripe
       (api_base || config.api_base) + url
     end
 
-    private def check_keys!(api_key, auth_token, private_key)
-      if api_key && (auth_token || private_key)
+    private def check_keys!(api_key, authenticator)
+      if api_key && authenticator
         raise AuthenticationError, "Can't specify both API key " \
-          "and auth token / private key. Either set your API key" \
-          'using "Stripe.api_key = <API-KEY>", or set your auth token ' \
-          'and private key using "Stripe.auth_token = <AUTH-TOKEN>"' \
-          'and "Stripe.private_key = <PRIVATE-KEY>".'
+          "and authenticator. Either set your API key" \
+          'using "Stripe.api_key = <API-KEY>", or set your authenticator ' \
+          'using "Stripe.authenticator = <AUTHENTICATOR>"' \
       end
 
-      unless api_key || (auth_token && private_key)
-        if auth_token || private_key
-          raise AuthenticationError, "Must provide both auth_token and " \
-           'private_key. Set your auth token using "Stripe.auth_token = ' \
-           '<AUTH-TOKEN>", and private key using "Stripe.private_key = ' \
-           '<PRIVATE-KEY>".'
-        end
-
+      unless api_key || authenticator
         # Default to missing API key error message for general users.
         raise AuthenticationError, "No API key provided. " \
           'Set your API key using "Stripe.api_key = <API-KEY>". ' \
@@ -923,82 +909,42 @@ module Stripe
       headers
     end
 
-    private def signing_headers(auth_token, private_key, method, headers, body)
-      header_names = {
-        authorization: "Authorization",
-        content_type: "Content-Type",
-        stripe_context: "Stripe-Context",
-        stripe_account: "Stripe-Account",
-        content_digest: "Content-Digest",
-        signature_input: "Signature-Input",
-        signature: "Signature",
-      }
+    # private def create_authenticator(auth_token, _sign, method, headers, body)
+    #   header_names = {
+    #     authorization: "Authorization",
+    #     content_type: "Content-Type",
+    #     stripe_context: "Stripe-Context",
+    #     stripe_account: "Stripe-Account",
+    #     content_digest: "Content-Digest",
+    #     signature_input: "Signature-Input",
+    #     signature: "Signature",
+    #   }
 
-      headers[header_names[:authorization]] = "STRIPE-V2-SIG #{auth_token}"
+    # end
 
-      covered_headers = [header_names[:stripe_context],
-                         header_names[:stripe_account],
-                         header_names[:authorization],]
+    # private def encoded_signature(private_key, encoded_signature_base)
+    #   key = nil
+    #   begin
+    #     private_key_der = Base64.decode64(private_key)
+    #     asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
+    #     private_key_octet_string = asn1.value[2].value
 
-      if method != :get
-        covered_headers += [header_names[:content_type],
-                            header_names[:content_digest],]
-        content = body || ""
-        headers[header_names[:content_digest]] =
-          %(sha-256=:#{content_digest(content)}:)
-      end
+    #     # The Ed25519::SigningKey initializer expects
+    #     # 32 bytes, and private_key_octet_string should
+    #     # contain 34 where the first 2 bytes contain the
+    #     # octet string tag and length. Skip the first 2
+    #     # bytes to create the signing key.
+    #     private_key_binary = private_key_octet_string[2..-1]
+    #     key = Ed25519::SigningKey.new(private_key_binary)
+    #   rescue StandardError => e
+    #     raise AuthenticationError, "Encountered '#{e.message} (#{e.class})' "\
+    #     "when calculating signing key from private key. Please ensure " \
+    #     "your private key matches the account private key "\
+    #     "found in ~/.config/stripe/config.toml."
+    #   end
 
-      covered_headers_formatted = covered_headers
-                                  .map { |string| %("#{string.downcase}") }
-                                  .join(" ")
-
-      signature_input = "(#{covered_headers_formatted});created=#{created_time}"
-
-      inputs = covered_headers
-               .map { |header| %("#{header.downcase}": #{headers[header]}) }
-               .join("\n")
-      encoded_signature_base = %(#{inputs}\n"@signature-params":
-                                 #{signature_input}).encode(Encoding::UTF_8)
-
-      headers[header_names[:signature_input]] = "sig1=#{signature_input}"
-      headers[header_names[:signature]] = "sig1=:#{encoded_signature(
-        private_key, encoded_signature_base
-      )}:"
-
-      headers
-    end
-
-    private def content_digest(content)
-      Base64.strict_encode64(OpenSSL::Digest.new("SHA256").digest(content))
-    end
-
-    private def created_time
-      Time.now.to_i
-    end
-
-    private def encoded_signature(private_key, encoded_signature_base)
-      key = nil
-      begin
-        private_key_der = Base64.decode64(private_key)
-        asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
-        private_key_octet_string = asn1.value[2].value
-
-        # The Ed25519::SigningKey initializer expects
-        # 32 bytes, and private_key_octet_string should
-        # contain 34 where the first 2 bytes contain the
-        # octet string tag and length. Skip the first 2
-        # bytes to create the signing key.
-        private_key_binary = private_key_octet_string[2..-1]
-        key = Ed25519::SigningKey.new(private_key_binary)
-      rescue StandardError => e
-        raise AuthenticationError, "Encountered '#{e.message} (#{e.class})' "\
-        "when calculating signing key from private key. Please ensure " \
-        "your private key matches the account private key "\
-        "found in ~/.config/stripe/config.toml."
-      end
-
-      Base64.strict_encode64(key.sign(encoded_signature_base))
-    end
+    #   Base64.strict_encode64(key.sign(encoded_signature_base))
+    # end
 
     private def log_request(context, num_retries)
       Util.log_info("Request to Stripe API",
@@ -1068,8 +1014,7 @@ module Stripe
       attr_accessor :body
       attr_accessor :account
       attr_accessor :api_key
-      attr_accessor :auth_token
-      attr_accessor :private_key
+      attr_accessor :authenticator
       attr_accessor :api_version
       attr_accessor :idempotency_key
       attr_accessor :method

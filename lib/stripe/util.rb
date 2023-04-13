@@ -7,8 +7,7 @@ module Stripe
     # Options that a user is allowed to specify.
     OPTS_USER_SPECIFIED = Set[
       :api_key,
-      :auth_token,
-      :private_key,
+      :authenticator,
       :idempotency_key,
       :stripe_account,
       :stripe_version
@@ -286,7 +285,7 @@ module Stripe
         # If the user is using request signing for authentication,
         # no need to check the api_key per request.
         if !(opts.key?(:client) &&
-           opts.fetch(:client).config.auth_token) &&
+           opts.fetch(:client).config.authenticator) &&
            opts.key?(:api_key)
           check_api_key!(opts.fetch(:api_key))
         end

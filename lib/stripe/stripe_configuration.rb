@@ -27,11 +27,10 @@ module Stripe
   class StripeConfiguration
     attr_accessor :api_key
     attr_accessor :api_version
-    attr_accessor :auth_token
+    attr_accessor :authenticator
     attr_accessor :client_id
     attr_accessor :enable_telemetry
     attr_accessor :logger
-    attr_accessor :private_key
     attr_accessor :stripe_account
 
     attr_reader :api_base
@@ -194,5 +193,10 @@ module Stripe
         .collect { |variable| instance_variable_get(variable) }
         .join
     end
+
+    # Setter for
+    # def set_authenticator(&block)
+    #   @authenticator = block
+    # end
   end
 end

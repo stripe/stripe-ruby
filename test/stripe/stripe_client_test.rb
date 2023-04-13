@@ -521,7 +521,7 @@ module Stripe
                 "Authorization" => "STRIPE-V2-SIG keyinfo_test_123",
                 "Content-Digest" => "sha-256=:digest:",
                 "Signature" => "sig1=:signature:",
-                "Signature-Input" => 'sig1=("content-type" "content-digest" "stripe-context" "stripe-account" "authorization");created=1234567890',
+                "Signature-Input" => 'sig1=("stripe-context" "stripe-account" "authorization" "content-type" "content-digest");created=1234567890',
               }
             )
           end

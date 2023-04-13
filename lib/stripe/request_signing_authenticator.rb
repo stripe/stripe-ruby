@@ -4,16 +4,6 @@ module Stripe
   class RequestSigningAuthenticator
     attr_reader :auth_token
 
-    attr_reader :authorization_header_name,
-                :content_type_header_name,
-                :stripe_context_header_name,
-                :stripe_account_header_name,
-                :content_digest_header_name,
-                :signature_input_header_name,
-                :signature_header_name,
-                :covered_headers,
-                :covered_headers_get
-
     def initialize(auth_token)
       @auth_token = case auth_token
                     when String
@@ -21,38 +11,32 @@ module Stripe
                     else
                       raise ArgumentError, "auth_token must be a string"
                     end
-
-      @authorization_header_name = "Authorization"
-      @content_type_header_name = "Content-Type"
-      @stripe_context_header_name = "Stripe-Context"
-      @stripe_account_header_name = "Stripe-Account"
-      @content_digest_header_name = "Content-Digest"
-      @signature_input_header_name = "Signature-Input"
-      @signature_header_name = "Signature"
-
-      @covered_headers = [@content_type_header_name,
-                          @content_digest_header_name,
-                          @stripe_context_header_name,
-                          @stripe_account_header_name,
-                          @authorization_header_name,]
-
-      @covered_headers_get = @covered_headers - [@content_type_header_name,
-                                                 @content_digest_header_name,]
     end
 
     def authenticate(method, headers, body)
+      authorization_header_name = "Authorization"
+      content_type_header_name = "Content-Type"
+      stripe_context_header_name = "Stripe-Context"
+      stripe_account_header_name = "Stripe-Account"
+      content_digest_header_name = "Content-Digest"
+      signature_input_header_name = "Signature-Input"
+      signature_header_name = "Signature"
+
+      covered_headers = [stripe_context_header_name,
+                         stripe_account_header_name,
+                         authorization_header_name,]
+
       headers[authorization_header_name] = "STRIPE-V2-SIG #{auth_token}"
 
-      covered_headers_unformatted = covered_headers_get
-
       if method != :get
-        covered_headers_unformatted = covered_headers
+        covered_headers += [content_type_header_name,
+                            content_digest_header_name,]
         content = body || ""
         headers[content_digest_header_name] =
           %(sha-256=:#{content_digest(content)}:)
       end
 
-      covered_headers_formatted = covered_headers_unformatted
+      covered_headers_formatted = covered_headers
                                   .map { |string| %("#{string.downcase}") }
                                   .join(" ")
 

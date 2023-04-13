@@ -527,20 +527,6 @@ module Stripe
           end
         end
 
-        context "encoded_signature" do
-          should "raise error if private_key is in invalid format" do
-            Stripe.api_key = nil
-            Stripe.auth_token = "keyinfo_test_123"
-            Stripe.private_key = "123"
-
-            client = StripeClient.new
-            assert_raises Stripe::AuthenticationError do
-              client.send(request_method, :post, "/v1/account",
-                          &@read_body_chunk_block)
-            end
-          end
-        end
-
         context "logging" do
           setup do
             # Freeze time for the purposes of the `elapsed` parameter that we

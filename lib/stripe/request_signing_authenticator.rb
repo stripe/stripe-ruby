@@ -2,6 +2,14 @@
 
 module Stripe
   class RequestSigningAuthenticator
+    AUTHORIZATION_HEADER_NAME = "Authorization"
+    CONTENT_TYPE_HEADER_NAME = "Content-Type"
+    STRIPE_CONTEXT_HEADER_NAME = "Stripe-Context"
+    STRIPE_ACCOUNT_HEADER_NAME = "Stripe-Account"
+    CONTENT_DIGEST_HEADER_NAME = "Content-Digest"
+    SIGNATURE_INPUT_HEADER_NAME = "Signature-Input"
+    SIGNATURE_HEADER_NAME = "Signature"
+
     attr_reader :auth_token
 
     def initialize(auth_token)
@@ -14,25 +22,17 @@ module Stripe
     end
 
     def authenticate(method, headers, body)
-      authorization_header_name = "Authorization"
-      content_type_header_name = "Content-Type"
-      stripe_context_header_name = "Stripe-Context"
-      stripe_account_header_name = "Stripe-Account"
-      content_digest_header_name = "Content-Digest"
-      signature_input_header_name = "Signature-Input"
-      signature_header_name = "Signature"
+      covered_headers = [STRIPE_CONTEXT_HEADER_NAME,
+                         STRIPE_ACCOUNT_HEADER_NAME,
+                         AUTHORIZATION_HEADER_NAME,]
 
-      covered_headers = [stripe_context_header_name,
-                         stripe_account_header_name,
-                         authorization_header_name,]
-
-      headers[authorization_header_name] = "STRIPE-V2-SIG #{auth_token}"
+      headers[AUTHORIZATION_HEADER_NAME] = "STRIPE-V2-SIG #{auth_token}"
 
       if method != :get
-        covered_headers += [content_type_header_name,
-                            content_digest_header_name,]
+        covered_headers += [CONTENT_TYPE_HEADER_NAME,
+                            CONTENT_DIGEST_HEADER_NAME,]
         content = body || ""
-        headers[content_digest_header_name] =
+        headers[CONTENT_DIGEST_HEADER_NAME] =
           %(sha-256=:#{content_digest(content)}:)
       end
 
@@ -49,9 +49,9 @@ module Stripe
       signature_base = %(#{inputs}\n"@signature-params": #{signature_input})
                        .encode(Encoding::UTF_8)
 
-      headers[signature_input_header_name] = "sig1=#{signature_input}"
+      headers[SIGNATURE_INPUT_HEADER_NAME] = "sig1=#{signature_input}"
 
-      headers[signature_header_name] =
+      headers[SIGNATURE_HEADER_NAME] =
         "sig1=:#{encoded_signature(signature_base)}:"
     end
 
@@ -65,7 +65,8 @@ module Stripe
     private def encoded_signature(signature_base)
       Base64.strict_encode64(sign(signature_base))
     rescue StandardError
-      raise AuthenticationError, "Error calculating request signature."
+      raise AuthenticationError, "Encountered '#{e.message} (#{e.class})' "\
+       "when calculating request signature."
     end
 
     private def content_digest(content)

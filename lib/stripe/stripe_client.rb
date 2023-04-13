@@ -909,43 +909,6 @@ module Stripe
       headers
     end
 
-    # private def create_authenticator(auth_token, _sign, method, headers, body)
-    #   header_names = {
-    #     authorization: "Authorization",
-    #     content_type: "Content-Type",
-    #     stripe_context: "Stripe-Context",
-    #     stripe_account: "Stripe-Account",
-    #     content_digest: "Content-Digest",
-    #     signature_input: "Signature-Input",
-    #     signature: "Signature",
-    #   }
-
-    # end
-
-    # private def encoded_signature(private_key, encoded_signature_base)
-    #   key = nil
-    #   begin
-    #     private_key_der = Base64.decode64(private_key)
-    #     asn1 = OpenSSL::ASN1.decode_all(private_key_der)[0]
-    #     private_key_octet_string = asn1.value[2].value
-
-    #     # The Ed25519::SigningKey initializer expects
-    #     # 32 bytes, and private_key_octet_string should
-    #     # contain 34 where the first 2 bytes contain the
-    #     # octet string tag and length. Skip the first 2
-    #     # bytes to create the signing key.
-    #     private_key_binary = private_key_octet_string[2..-1]
-    #     key = Ed25519::SigningKey.new(private_key_binary)
-    #   rescue StandardError => e
-    #     raise AuthenticationError, "Encountered '#{e.message} (#{e.class})' "\
-    #     "when calculating signing key from private key. Please ensure " \
-    #     "your private key matches the account private key "\
-    #     "found in ~/.config/stripe/config.toml."
-    #   end
-
-    #   Base64.strict_encode64(key.sign(encoded_signature_base))
-    # end
-
     private def log_request(context, num_retries)
       Util.log_info("Request to Stripe API",
                     account: context.account,

@@ -48,7 +48,8 @@ module Stripe
       if method != :get
         covered_headers_unformatted = covered_headers
         content = body || ""
-        headers[content_digest_header_name] = %(sha-256=:#{content_digest(content)}:)
+        headers[content_digest_header_name] =
+          %(sha-256=:#{content_digest(content)}:)
       end
 
       covered_headers_formatted = covered_headers_unformatted
@@ -66,7 +67,8 @@ module Stripe
 
       headers[signature_input_header_name] = "sig1=#{signature_input}"
 
-      headers[signature_header_name] = "sig1=:#{encoded_signature(signature_base)}:"
+      headers[signature_header_name] =
+        "sig1=:#{encoded_signature(signature_base)}:"
     end
 
     # To be overriden by the user with their own signing implementation

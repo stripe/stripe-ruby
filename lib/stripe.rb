@@ -72,7 +72,6 @@ module Stripe
 
     # User configurable options
     def_delegators :@config, :api_key, :api_key=
-    # def_delegators :@config, :authenticator, :authenticator=, :set_authenticator
     def_delegators :@config, :authenticator, :authenticator=
     def_delegators :@config, :api_version, :api_version=
     def_delegators :@config, :stripe_account, :stripe_account=

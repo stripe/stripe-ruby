@@ -193,10 +193,5 @@ module Stripe
         .collect { |variable| instance_variable_get(variable) }
         .join
     end
-
-    # Setter for
-    # def set_authenticator(&block)
-    #   @authenticator = block
-    # end
   end
 end

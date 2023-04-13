@@ -56,7 +56,11 @@ module Stripe
     end
 
     # To be overriden by the user with their own signing implementation
-    private def sign(_signature_base); end
+    private def sign(_signature_base)
+      raise NoMethodError, "`sign()` not implemented. Please override " \
+       "the `sign` method on Stripe::RequestSigningAuthenticator with your " \
+       "custom signing implementation."
+    end
 
     private def encoded_signature(signature_base)
       Base64.strict_encode64(sign(signature_base))

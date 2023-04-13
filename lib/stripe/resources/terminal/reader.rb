@@ -32,6 +32,24 @@ module Stripe
         )
       end
 
+      def collect_payment_method(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def confirm_payment_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       def process_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -81,6 +99,24 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.collect_payment_method(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.confirm_payment_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )

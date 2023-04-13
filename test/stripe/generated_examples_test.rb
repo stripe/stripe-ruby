@@ -1137,6 +1137,16 @@ module Stripe
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
       end
+      should "support requests with args: amount, currency, payment_method_data" do
+        Stripe::PaymentIntent.create(
+          {
+            amount: 200,
+            currency: "usd",
+            payment_method_data: { type: "p24", p24: { bank: "blik" } },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
+      end
     end
     context "PaymentIntent.increment_authorization" do
       should "support requests with args: amount, id" do

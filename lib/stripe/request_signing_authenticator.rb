@@ -59,9 +59,9 @@ module Stripe
     private def sign(_signature_base); end
 
     private def encoded_signature(signature_base)
-      Base64.strict_encode64(
-        sign(signature_base)
-      )
+      Base64.strict_encode64(sign(signature_base))
+    rescue StandardError
+      raise AuthenticationError, "Error calculating request signature."
     end
 
     private def content_digest(content)

@@ -906,6 +906,7 @@ module Stripe
           :error => "#{e} (#{e.class})"
         )
       end
+
       headers
     end
 

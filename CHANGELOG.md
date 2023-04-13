@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.6.0-beta.2 - 2023-04-13
+* [#1206](https://github.com/stripe/stripe-ruby/pull/1206) Update generated code for beta
+  * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `Terminal.Reader`
+* [#1205](https://github.com/stripe/stripe-ruby/pull/1205) Update generated code for beta
+
+
 ## 8.6.0-beta.1 - 2023-03-30
 * [#1202](https://github.com/stripe/stripe-ruby/pull/1202) Update generated code for beta
 

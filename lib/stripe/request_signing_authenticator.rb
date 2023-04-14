@@ -12,13 +12,14 @@ module Stripe
 
     attr_reader :auth_token
 
-    def initialize(auth_token)
+    def initialize(auth_token, sign_method)
       @auth_token = case auth_token
                     when String
                       auth_token
                     else
                       raise ArgumentError, "auth_token must be a string"
                     end
+      @sign_method = sign_method
     end
 
     def authenticate(method, headers, body)
@@ -55,11 +56,8 @@ module Stripe
         "sig1=:#{encoded_signature(signature_base)}:"
     end
 
-    # To be overriden by the user with their own signing implementation
-    private def sign(_signature_base)
-      raise NoMethodError, "`sign()` not implemented. Please override " \
-       "the `sign` method on Stripe::RequestSigningAuthenticator with your " \
-       "custom signing implementation."
+    private def sign(signature_base)
+      @sign_method.call(signature_base)
     end
 
     private def encoded_signature(signature_base)

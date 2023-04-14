@@ -485,7 +485,8 @@ module Stripe
             RequestSigningAuthenticator.any_instance.stubs(:encoded_signature).returns("signature")
 
             Stripe.api_key = nil
-            Stripe.authenticator = RequestSigningAuthenticator.new("keyinfo_test_123")
+            sign_lambda = -> {}
+            Stripe.authenticator = RequestSigningAuthenticator.new("keyinfo_test_123", sign_lambda)
           end
 
           should "apply valid signing headers for get requests" do

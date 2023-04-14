@@ -12,14 +12,14 @@ module Stripe
 
     attr_reader :auth_token
 
-    def initialize(auth_token, sign_method)
+    def initialize(auth_token, sign_lambda)
       @auth_token = case auth_token
                     when String
                       auth_token
                     else
                       raise ArgumentError, "auth_token must be a string"
                     end
-      @sign_method = sign_method
+      @sign_lambda = sign_lambda
     end
 
     def authenticate(method, headers, body)
@@ -57,7 +57,7 @@ module Stripe
     end
 
     private def sign(signature_base)
-      @sign_method.call(signature_base)
+      @sign_lambda.call(signature_base)
     end
 
     private def encoded_signature(signature_base)

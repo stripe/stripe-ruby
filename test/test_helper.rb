@@ -66,6 +66,8 @@ module Test
         Stripe.api_key = "sk_test_123"
         Stripe.api_base = "http://localhost:#{MOCK_PORT}"
 
+        Stripe.authenticator = nil
+
         stub_connect
       end
 

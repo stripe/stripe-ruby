@@ -27,6 +27,7 @@ module Stripe
   class StripeConfiguration
     attr_accessor :api_key
     attr_accessor :api_version
+    attr_accessor :authenticator
     attr_accessor :client_id
     attr_accessor :enable_telemetry
     attr_accessor :logger

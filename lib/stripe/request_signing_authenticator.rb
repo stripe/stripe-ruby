@@ -10,28 +10,33 @@ module Stripe
     SIGNATURE_INPUT_HEADER_NAME = "Signature-Input"
     SIGNATURE_HEADER_NAME = "Signature"
 
-    attr_reader :auth_token
+    attr_reader :auth_token, :sign_lambda
 
     def initialize(auth_token, sign_lambda)
-      @auth_token = case auth_token
-                    when String
-                      auth_token
-                    else
-                      raise ArgumentError, "auth_token must be a string"
-                    end
+      unless auth_token.is_a?(String)
+        raise ArgumentError, "auth_token must be a string"
+      end
+      unless sign_lambda.is_a?(Proc)
+        raise ArgumentError, "sign_lambda must be a lambda"
+      end
+
+      @auth_token = auth_token
       @sign_lambda = sign_lambda
     end
 
     def authenticate(method, headers, body)
-      covered_headers = [STRIPE_CONTEXT_HEADER_NAME,
+      covered_headers = [CONTENT_TYPE_HEADER_NAME,
+                         CONTENT_DIGEST_HEADER_NAME,
+                         STRIPE_CONTEXT_HEADER_NAME,
                          STRIPE_ACCOUNT_HEADER_NAME,
                          AUTHORIZATION_HEADER_NAME,]
 
       headers[AUTHORIZATION_HEADER_NAME] = "STRIPE-V2-SIG #{auth_token}"
 
-      if method != :get
-        covered_headers += [CONTENT_TYPE_HEADER_NAME,
+      if method == :get
+        covered_headers -= [CONTENT_TYPE_HEADER_NAME,
                             CONTENT_DIGEST_HEADER_NAME,]
+      else
         content = body || ""
         headers[CONTENT_DIGEST_HEADER_NAME] =
           %(sha-256=:#{content_digest(content)}:)

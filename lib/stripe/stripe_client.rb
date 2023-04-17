@@ -440,9 +440,10 @@ module Stripe
 
       api_base ||= config.api_base
       api_key ||= config.api_key
+      authenticator ||= config.authenticator
       params = Util.objects_to_ids(params)
 
-      check_api_key!(api_key)
+      check_keys!(api_key, authenticator)
 
       body_params = nil
       query_params = nil
@@ -469,11 +470,14 @@ module Stripe
       body, body_log =
         body_params ? encode_body(body_params, headers) : [nil, nil]
 
+      authenticator.authenticate(method, headers, body) unless api_key
+
       # stores information on the request we're about to make so that we don't
       # have to pass as many parameters around for logging.
       context = RequestLogContext.new
       context.account         = headers["Stripe-Account"]
       context.api_key         = api_key
+      context.authenticator   = authenticator
       context.api_version     = headers["Stripe-Version"]
       context.body            = body_log
       context.idempotency_key = headers["Idempotency-Key"]
@@ -512,8 +516,16 @@ module Stripe
       (api_base || config.api_base) + url
     end
 
-    private def check_api_key!(api_key)
-      unless api_key
+    private def check_keys!(api_key, authenticator)
+      if api_key && authenticator
+        raise AuthenticationError, "Can't specify both API key " \
+          "and authenticator. Either set your API key" \
+          'using "Stripe.api_key = <API-KEY>", or set your authenticator ' \
+          'using "Stripe.authenticator = <AUTHENTICATOR>"' \
+      end
+
+      unless api_key || authenticator
+        # Default to missing API key error message for general users.
         raise AuthenticationError, "No API key provided. " \
           'Set your API key using "Stripe.api_key = <API-KEY>". ' \
           "You can generate API keys from the Stripe web interface. " \
@@ -966,6 +978,7 @@ module Stripe
       attr_accessor :body
       attr_accessor :account
       attr_accessor :api_key
+      attr_accessor :authenticator
       attr_accessor :api_version
       attr_accessor :idempotency_key
       attr_accessor :method

@@ -478,6 +478,55 @@ module Stripe
           end
         end
 
+        context "signing headers" do
+          setup do
+            RequestSigningAuthenticator.any_instance.stubs(:content_digest).returns("digest")
+            RequestSigningAuthenticator.any_instance.stubs(:created_time).returns(1_234_567_890)
+            RequestSigningAuthenticator.any_instance.stubs(:encoded_signature).returns("signature")
+
+            Stripe.api_key = nil
+            Stripe.authenticator = RequestSigningAuthenticator.new("keyinfo_test_123", -> {})
+          end
+
+          should "apply valid signing headers for get requests" do
+            stub_request(:get, "#{Stripe.api_base}/v1/charges/ch_123")
+              .to_return(body: JSON.generate(object: "charge"))
+
+            client = StripeClient.new
+            client.send(request_method, :get, "/v1/charges/ch_123",
+                        &@read_body_chunk_block)
+            assert_requested(
+              :get,
+              "#{Stripe.api_base}/v1/charges/ch_123",
+              headers: {
+                "Authorization" => "STRIPE-V2-SIG keyinfo_test_123",
+                "Signature" => "sig1=:signature:",
+                "Signature-Input" => 'sig1=("stripe-context" "stripe-account" "authorization");created=1234567890',
+              }
+            )
+          end
+
+          should "apply valid signing headers for post requests" do
+            stub_request(:post, "#{Stripe.api_base}/v1/charges")
+              .to_return(body: JSON.generate(object: "charge"))
+
+            client = StripeClient.new
+            client.send(request_method, :post, "/v1/charges",
+                        &@read_body_chunk_block)
+
+            assert_requested(
+              :post,
+              "#{Stripe.api_base}/v1/charges",
+              headers: {
+                "Authorization" => "STRIPE-V2-SIG keyinfo_test_123",
+                "Content-Digest" => "sha-256=:digest:",
+                "Signature" => "sig1=:signature:",
+                "Signature-Input" => 'sig1=("content-type" "content-digest" "stripe-context" "stripe-account" "authorization");created=1234567890',
+              }
+            )
+          end
+        end
+
         context "logging" do
           setup do
             # Freeze time for the purposes of the `elapsed` parameter that we

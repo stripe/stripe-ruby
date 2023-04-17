@@ -13,6 +13,7 @@ require "set"
 require "socket"
 require "uri"
 require "forwardable"
+require "base64"
 
 # Version
 require "stripe/api_version"
@@ -44,6 +45,7 @@ require "stripe/api_resource_test_helpers"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
 require "stripe/stripe_configuration"
+require "stripe/request_signing_authenticator"
 
 # Named API resources
 require "stripe/resources"
@@ -70,6 +72,7 @@ module Stripe
 
     # User configurable options
     def_delegators :@config, :api_key, :api_key=
+    def_delegators :@config, :authenticator, :authenticator=
     def_delegators :@config, :api_version, :api_version=
     def_delegators :@config, :stripe_account, :stripe_account=
     def_delegators :@config, :api_base, :api_base=

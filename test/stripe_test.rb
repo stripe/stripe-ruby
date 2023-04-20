@@ -94,9 +94,14 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "allow logger to be configured" do
-      logger = Object.new
-      Stripe.logger = logger
-      assert_equal logger, Stripe.logger
+      old_logger = Stripe.logger
+      begin
+        logger = Object.new
+        Stripe.logger = logger
+        assert_equal logger, Stripe.logger
+      ensure
+        Stripe.logger = old_logger
+      end
     end
 
     should "allow proxy to be configured" do
@@ -132,6 +137,19 @@ class StripeTest < Test::Unit::TestCase
     should "allow client_id to be configured" do
       Stripe.client_id = "client"
       assert_equal "client", Stripe.client_id
+    end
+  end
+
+  context "raw_request" do
+    should "send request and return a response" do
+      expected_body = "{\"id\": \"acc_123\"}"
+      stub_request(:get, "#{Stripe.api_base}/v1/accounts/acc_123")
+        .to_return(body: expected_body)
+
+
+      resp = Stripe.raw_request(:get, "/v1/accounts/acc_123")
+
+      assert_equal resp.http_body, expected_body
     end
   end
 end

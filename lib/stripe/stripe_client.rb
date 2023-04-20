@@ -438,6 +438,7 @@ module Stripe
       raise ArgumentError, "path should be a string" \
       unless path.is_a?(String)
 
+      json = false
       api_base ||= config.api_base
       api_key ||= config.api_key
       authenticator ||= config.authenticator
@@ -468,7 +469,7 @@ module Stripe
       # a log-friendly variant of the encoded form. File objects are displayed
       # as such instead of as their file contents.
       body, body_log =
-        body_params ? encode_body(body_params, headers) : [nil, nil]
+        body_params ? encode_body(body_params, headers, json) : [nil, nil]
 
       authenticator.authenticate(method, headers, body) unless api_key
 
@@ -544,7 +545,7 @@ module Stripe
     # Encodes a set of body parameters using multipart if `Content-Type` is set
     # for that, or standard form-encoding otherwise. Returns the encoded body
     # and a version of the encoded body that's safe to be logged.
-    private def encode_body(body_params, headers)
+    private def encode_body(body_params, headers, json)
       body = nil
       flattened_params = Util.flatten_params(body_params)
 
@@ -560,15 +561,22 @@ module Stripe
         flattened_params =
           flattened_params.map { |k, v| [k, v.is_a?(String) ? v : v.to_s] }.to_h
 
+      elsif json
+        body = JSON.generate(body_params)
+        headers["Content-Type"] = "application/json"
       else
         body = Util.encode_parameters(body_params)
       end
 
-      # We don't use `Util.encode_parameters` partly as an optimization (to not
-      # redo work we've already done), and partly because the encoded forms of
-      # certain characters introduce a lot of visual noise and it's nice to
-      # have a clearer format for logs.
-      body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
+      if json
+        body_log = body
+      else
+        # We don't use `Util.encode_parameters` partly as an optimization (to not
+        # redo work we've already done), and partly because the encoded forms of
+        # certain characters introduce a lot of visual noise and it's nice to
+        # have a clearer format for logs.
+        body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
+      end
 
       [body, body_log]
     end

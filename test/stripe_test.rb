@@ -170,7 +170,18 @@ class StripeTest < Test::Unit::TestCase
         .with(body: "{\"p1\":1,\"p2\":\"string\"}")
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, {encoding: :json})
+      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { encoding: :json })
+
+      assert_equal resp.http_body, expected_body
+    end
+
+    should "send post request with json body and headers and return a response" do
+      expected_body = "{\"id\": \"acc_123\"}"
+      stub_request(:post, "#{Stripe.api_base}/v1/accounts/acc_123")
+        .with(body: "{\"p1\":1,\"p2\":\"string\"}", headers: { "Stripe-Account" => "bar" })
+        .to_return(body: expected_body)
+
+      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { encoding: :json, "Stripe-Account": "bar" })
 
       assert_equal resp.http_body, expected_body
     end

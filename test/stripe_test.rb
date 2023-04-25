@@ -141,13 +141,36 @@ class StripeTest < Test::Unit::TestCase
   end
 
   context "raw_request" do
-    should "send request and return a response" do
+    should "send get request and return a response" do
       expected_body = "{\"id\": \"acc_123\"}"
       stub_request(:get, "#{Stripe.api_base}/v1/accounts/acc_123")
         .to_return(body: expected_body)
 
 
       resp = Stripe.raw_request(:get, "/v1/accounts/acc_123")
+
+      assert_equal resp.http_body, expected_body
+    end
+
+    should "send post request with body and return a response" do
+      expected_body = "{\"id\": \"acc_123\"}"
+      stub_request(:post, "#{Stripe.api_base}/v1/accounts/acc_123")
+        .with(body: "p1=1&p2=string")
+        .to_return(body: expected_body)
+
+      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" })
+
+      assert_equal resp.http_body, expected_body
+    end
+
+
+    should "send post request with json body and return a response" do
+      expected_body = "{\"id\": \"acc_123\"}"
+      stub_request(:post, "#{Stripe.api_base}/v1/accounts/acc_123")
+        .with(body: "{\"p1\":1,\"p2\":\"string\"}")
+        .to_return(body: expected_body)
+
+      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, {encoding: :json})
 
       assert_equal resp.http_body, expected_body
     end

@@ -186,4 +186,43 @@ class StripeTest < Test::Unit::TestCase
       assert_equal resp.http_body, expected_body
     end
   end
+
+
+  context "deserialize" do
+    should "deserializes string into known object" do
+      expected_body = "{\"id\": \"acc_123\", \"object\": \"account\"}"
+
+      obj = Stripe.deserialize(expected_body)
+
+      assert_equal obj.class, Stripe::Account
+      assert_equal obj.id, "acc_123"
+    end
+
+    should "deserializes string into unknown object" do
+      expected_body = "{\"id\": \"acc_123\", \"object\": \"unknown\"}"
+
+      obj = Stripe.deserialize(expected_body)
+
+      assert_equal obj.class, Stripe::StripeObject
+      assert_equal obj.id, "acc_123"
+    end
+
+    should "deserializes hash into known object" do
+      expected_body = {"id" => "acc_123", "object" => "account"}
+
+      obj = Stripe.deserialize(expected_body)
+
+      assert_equal obj.class, Stripe::Account
+      assert_equal obj.id, "acc_123"
+    end
+
+    should "deserializes hash into unknown object" do
+      expected_body = {"id" => "acc_123", "object" => "unknown"}
+
+      obj = Stripe.deserialize(expected_body)
+
+      assert_equal obj.class, Stripe::StripeObject
+      assert_equal obj.id, "acc_123"
+    end
+  end
 end

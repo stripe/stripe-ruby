@@ -1365,6 +1365,17 @@ module Stripe
         )
         assert_requested :post, "#{Stripe.api_base}/v1/plans"
       end
+      should "support requests with args: amount, currency, interval, product2" do
+        Stripe::Plan.create(
+          {
+            amount: 2000,
+            currency: "usd",
+            interval: "month",
+            product: { name: "My product" },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/plans"
+      end
     end
     context "Plan.delete" do
       should "support requests with args: id" do

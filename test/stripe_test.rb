@@ -146,7 +146,6 @@ class StripeTest < Test::Unit::TestCase
       stub_request(:get, "#{Stripe.api_base}/v1/accounts/acc_123")
         .to_return(body: expected_body)
 
-
       resp = Stripe.raw_request(:get, "/v1/accounts/acc_123")
 
       assert_equal resp.http_body, expected_body
@@ -163,7 +162,6 @@ class StripeTest < Test::Unit::TestCase
       assert_equal resp.http_body, expected_body
     end
 
-
     should "send post request with json body and return a response" do
       expected_body = "{\"id\": \"acc_123\"}"
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/acc_123")
@@ -178,15 +176,28 @@ class StripeTest < Test::Unit::TestCase
     should "send post request with json body and headers and return a response" do
       expected_body = "{\"id\": \"acc_123\"}"
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/acc_123")
-        .with(body: "{\"p1\":1,\"p2\":\"string\"}", headers: { "Stripe-Account" => "bar" })
+        .with(body: "{\"p1\":1,\"p2\":\"string\"}", headers: { "Stripe-Account" => "bar" , "Content-Type" => "application/json"})
         .to_return(body: expected_body)
 
       resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { encoding: :json, "Stripe-Account": "bar" })
 
+      assert_equal expected_body, resp.http_body
+    end
+
+    should "send get request with json body" do
+      expected_body = "{\"id\": \"acc_123\"}"
+      req = nil
+
+      stub_request(:get, "#{Stripe.api_base}/v1/accounts/acc_123")
+        .with { |request| req = request; true }
+        .to_return(body: expected_body)
+
+      resp = Stripe.raw_request(:get, "/v1/accounts/acc_123", {}, { encoding: :json, "Stripe-Account": "bar" })
+
+      assert_not_equal req.headers["Content-Type"], "application/x-www-form-urlencoded"
       assert_equal resp.http_body, expected_body
     end
   end
-
 
   context "deserialize" do
     should "deserializes string into known object" do
@@ -208,7 +219,7 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "deserializes hash into known object" do
-      expected_body = {"id" => "acc_123", "object" => "account"}
+      expected_body = { "id" => "acc_123", "object" => "account" }
 
       obj = Stripe.deserialize(expected_body)
 
@@ -217,7 +228,7 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "deserializes hash into unknown object" do
-      expected_body = {"id" => "acc_123", "object" => "unknown"}
+      expected_body = { "id" => "acc_123", "object" => "unknown" }
 
       obj = Stripe.deserialize(expected_body)
 

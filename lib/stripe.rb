@@ -120,16 +120,35 @@ module Stripe
     }
   end
 
+  class Preview
+    PREVIEW_API_VERSION = "20230509T165653"
+
+    def self._get_default_opts(opts)
+      { stripe_version: PREVIEW_API_VERSION, encoding: :json }.merge(opts)
+    end
+
+    def self.get(url, opts = {})
+      Stripe.raw_request(:get, url, {}, _get_default_opts(opts))
+    end
+
+    def self.post(url, params = {}, opts = {})
+      Stripe.raw_request(:post, url, params, _get_default_opts(opts))
+    end
+
+    def self.delete(url, opts = {})
+      Stripe.raw_request(:delete, url, {}, _get_default_opts(opts))
+    end
+  end
 
   class RawRequest
     include Stripe::APIOperations::Request
 
-    def initialize()
+    def initialize
       @opts = {}
     end
 
     def execute(method, url, params = {}, opts = {})
-      resp, _ = execute_resource_request(method, url, params, opts)
+      resp, = execute_resource_request(method, url, params, opts)
 
       resp
     end

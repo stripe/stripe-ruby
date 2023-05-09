@@ -1579,6 +1579,12 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/quotes?limit=3"
       end
     end
+    context "Quote.list_line_items" do
+      should "support requests with args: id" do
+        Stripe::Quote.list_line_items("qt_xxxxxxxxxxxxx")
+        assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/line_items?"
+      end
+    end
     context "Quote.retrieve" do
       should "support requests with args: id" do
         Stripe::Quote.retrieve("qt_xxxxxxxxxxxxx")

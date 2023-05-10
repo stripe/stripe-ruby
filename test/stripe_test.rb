@@ -168,7 +168,7 @@ class StripeTest < Test::Unit::TestCase
         .with(body: "{\"p1\":1,\"p2\":\"string\"}")
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { encoding: :json })
+      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { api_mode: :preview })
 
       assert_equal resp.http_body, expected_body
     end
@@ -179,7 +179,7 @@ class StripeTest < Test::Unit::TestCase
         .with(body: "{\"p1\":1,\"p2\":\"string\"}", headers: { "Stripe-Account" => "bar" , "Content-Type" => "application/json"})
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { encoding: :json, "Stripe-Account": "bar" })
+      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { api_mode: :preview, "Stripe-Account": "bar" })
 
       assert_equal expected_body, resp.http_body
     end
@@ -192,7 +192,7 @@ class StripeTest < Test::Unit::TestCase
         .with { |request| req = request; true }
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:get, "/v1/accounts/acc_123", {}, { encoding: :json, "Stripe-Account": "bar" })
+      resp = Stripe.raw_request(:get, "/v1/accounts/acc_123", {}, { api_mode: :preview, "Stripe-Account": "bar" })
 
       assert_not_equal req.headers["Content-Type"], "application/x-www-form-urlencoded"
       assert_equal resp.http_body, expected_body

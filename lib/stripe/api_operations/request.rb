@@ -47,7 +47,7 @@ module Stripe
           api_key = headers.delete(:api_key)
           api_base = headers.delete(:api_base)
           client = headers.delete(:client)
-          encoding = headers.delete(:encoding)
+          api_mode = headers.delete(:api_mode)
           # Assume all remaining opts must be headers
 
           resp, opts[:api_key] = client.send(
@@ -55,7 +55,7 @@ module Stripe
             method, url,
             api_base: api_base, api_key: api_key,
             headers: headers, params: params,
-            encoding: encoding,
+            api_mode: api_mode,
             &read_body_chunk_block
           )
 

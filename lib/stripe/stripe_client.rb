@@ -212,9 +212,9 @@ module Stripe
     end
 
     def execute_request(method, path,
-                        api_base: nil, api_key: nil, headers: {}, params: {}, encoding: :form)
+                        api_base: nil, api_key: nil, headers: {}, params: {}, api_mode: nil)
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params, encoding
+        method, path, api_base, api_key, headers, params, api_mode
       )
 
       begin
@@ -245,7 +245,7 @@ module Stripe
     def execute_request_stream(method, path,
                                api_base: nil, api_key: nil,
                                headers: {}, params: {},
-                               encoding: :form,
+                               api_mode: nil,
                                &read_body_chunk_block)
       unless block_given?
         raise ArgumentError,
@@ -253,7 +253,7 @@ module Stripe
       end
 
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params, encoding, &read_body_chunk_block
+        method, path, api_base, api_key, headers, params, api_mode, &read_body_chunk_block
       )
 
       # When the read_body_chunk_block is given, we no longer have access to the
@@ -432,7 +432,7 @@ module Stripe
     end
 
     private def execute_request_internal(method, path,
-                                         api_base, api_key, headers, params, encoding,
+                                         api_base, api_key, headers, params, api_mode,
                                          &read_body_chunk_block)
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
@@ -460,19 +460,19 @@ module Stripe
       headers = request_headers(api_key, method)
                 .update(Util.normalize_headers(headers))
 
-      headers.delete("Content-Type") if encoding == :json && body_params.nil?
+      headers.delete("Content-Type") if api_mode == :preview && body_params.nil?
 
       url = api_url(path, api_base)
 
       # Merge given query parameters with any already encoded in the path.
       query = query_params ? Util.encode_parameters(query_params) : nil
 
-      # Encoding body parameters is a little more complex because we may have
+      # encoding body parameters is a little more complex because we may have
       # to send a multipart-encoded body. `body_log` is produced separately as
       # a log-friendly variant of the encoded form. File objects are displayed
       # as such instead of as their file contents.
       body, body_log =
-        body_params ? encode_body(body_params, headers, encoding) : [nil, nil]
+        body_params ? encode_body(body_params, headers, api_mode) : [nil, nil]
 
       authenticator.authenticate(method, headers, body) unless api_key
 
@@ -548,7 +548,7 @@ module Stripe
     # Encodes a set of body parameters using multipart if `Content-Type` is set
     # for that, or standard form-encoding otherwise. Returns the encoded body
     # and a version of the encoded body that's safe to be logged.
-    private def encode_body(body_params, headers, encoding)
+    private def encode_body(body_params, headers, api_mode)
       body = nil
       flattened_params = Util.flatten_params(body_params)
 
@@ -564,14 +564,14 @@ module Stripe
         flattened_params =
           flattened_params.map { |k, v| [k, v.is_a?(String) ? v : v.to_s] }.to_h
 
-      elsif encoding == :json
+      elsif api_mode == :preview
         body = JSON.generate(body_params)
         headers["Content-Type"] = "application/json"
       else
         body = Util.encode_parameters(body_params)
       end
 
-      if encoding == :json
+      if api_mode == :preview
         body_log = body
       else
         # We don't use `Util.encode_parameters` partly as an optimization (to not

@@ -124,7 +124,7 @@ module Stripe
     PREVIEW_API_VERSION = "20230509T165653"
 
     def self._get_default_opts(opts)
-      { stripe_version: PREVIEW_API_VERSION, encoding: :json }.merge(opts)
+      { stripe_version: PREVIEW_API_VERSION, api_mode: :preview }.merge(opts)
     end
 
     def self.get(url, opts = {})

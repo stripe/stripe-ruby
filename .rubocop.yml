@@ -41,6 +41,10 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Enabled: false
 
+Metrics/ParameterLists:
+  # There's 2 methods in `StripeClient` that have long parameter lists.
+  Max: 8
+
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline
 

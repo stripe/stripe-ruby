@@ -212,7 +212,8 @@ module Stripe
     end
 
     def execute_request(method, path,
-                        api_base: nil, api_key: nil, headers: {}, params: {}, api_mode: nil)
+                        api_base: nil, api_key: nil,
+                        headers: {}, params: {}, api_mode: nil)
       http_resp, api_key = execute_request_internal(
         method, path, api_base, api_key, headers, params, api_mode
       )
@@ -253,7 +254,8 @@ module Stripe
       end
 
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params, api_mode, &read_body_chunk_block
+        method, path, api_base, api_key,
+        headers, params, api_mode, &read_body_chunk_block
       )
 
       # When the read_body_chunk_block is given, we no longer have access to the
@@ -432,8 +434,8 @@ module Stripe
     end
 
     private def execute_request_internal(method, path,
-                                         api_base, api_key, headers, params, api_mode,
-                                         &read_body_chunk_block)
+                                         api_base, api_key, headers, params,
+                                         api_mode, &read_body_chunk_block)
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
       raise ArgumentError, "path should be a string" \
@@ -574,10 +576,10 @@ module Stripe
       if api_mode == :preview
         body_log = body
       else
-        # We don't use `Util.encode_parameters` partly as an optimization (to not
-        # redo work we've already done), and partly because the encoded forms of
-        # certain characters introduce a lot of visual noise and it's nice to
-        # have a clearer format for logs.
+        # We don't use `Util.encode_parameters` partly as an optimization (to
+        # not redo work we've already done), and partly because the encoded
+        # forms of certain characters introduce a lot of visual noise and it's
+        # nice to have a clearer format for logs.
         body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
       end
 
@@ -888,7 +890,8 @@ module Stripe
       headers = {
         "User-Agent" => user_agent,
         "Authorization" => "Bearer #{api_key}",
-        "Content-Type" => "application/x-www-form-urlencoded", # TODO: (major) don't set if method is not post
+        # TODO: (major) don't set Content-Type if method is not post
+        "Content-Type" => "application/x-www-form-urlencoded",
       }
 
       if config.enable_telemetry? && !@last_request_metrics.nil?

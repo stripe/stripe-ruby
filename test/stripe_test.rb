@@ -176,7 +176,7 @@ class StripeTest < Test::Unit::TestCase
     should "send post request with json body and headers and return a response" do
       expected_body = "{\"id\": \"acc_123\"}"
       stub_request(:post, "#{Stripe.api_base}/v1/accounts/acc_123")
-        .with(body: "{\"p1\":1,\"p2\":\"string\"}", headers: { "Stripe-Account" => "bar" , "Content-Type" => "application/json"})
+        .with(body: "{\"p1\":1,\"p2\":\"string\"}", headers: { "Stripe-Account" => "bar", "Content-Type" => "application/json" })
         .to_return(body: expected_body)
 
       resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { api_mode: :preview, "Stripe-Account": "bar" })
@@ -189,7 +189,7 @@ class StripeTest < Test::Unit::TestCase
       req = nil
 
       stub_request(:get, "#{Stripe.api_base}/v1/accounts/acc_123")
-        .with { |request| req = request; true }
+        .with { |request| req = request }
         .to_return(body: expected_body)
 
       resp = Stripe.raw_request(:get, "/v1/accounts/acc_123", {}, { api_mode: :preview, "Stripe-Account": "bar" })

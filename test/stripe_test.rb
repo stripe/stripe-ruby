@@ -148,7 +148,7 @@ class StripeTest < Test::Unit::TestCase
 
       resp = Stripe.raw_request(:get, "/v1/accounts/acc_123")
 
-      assert_equal resp.http_body, expected_body
+      assert_equal expected_body, resp.http_body
     end
 
     should "send post request with body and return a response" do
@@ -159,7 +159,7 @@ class StripeTest < Test::Unit::TestCase
 
       resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" })
 
-      assert_equal resp.http_body, expected_body
+      assert_equal expected_body, resp.http_body
     end
 
     should "send post request with json body and return a response" do
@@ -170,7 +170,7 @@ class StripeTest < Test::Unit::TestCase
 
       resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" }, { api_mode: :preview })
 
-      assert_equal resp.http_body, expected_body
+      assert_equal expected_body, resp.http_body
     end
 
     should "send post request with json body and headers and return a response" do

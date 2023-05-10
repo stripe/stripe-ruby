@@ -211,7 +211,7 @@ class StripeTest < Test::Unit::TestCase
       resp = Stripe::Preview.get("/v2/accounts/acc_123")
 
       assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
-      assert_equal Stripe::Preview::PREVIEW_API_VERSION, req.headers["Stripe-Version"]
+      assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
       assert_equal expected_body, resp.http_body
     end
 
@@ -226,7 +226,7 @@ class StripeTest < Test::Unit::TestCase
       resp = Stripe::Preview.post("/v2/accounts", { p1: 1, p2: "string" })
 
       assert_equal "application/json", req.headers["Content-Type"]
-      assert_equal Stripe::Preview::PREVIEW_API_VERSION, req.headers["Stripe-Version"]
+      assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
       assert_equal "{\"p1\":1,\"p2\":\"string\"}", req.body
       assert_equal expected_body, resp.http_body
     end
@@ -242,7 +242,7 @@ class StripeTest < Test::Unit::TestCase
       resp = Stripe::Preview.delete("/v2/accounts/acc_123")
 
       assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
-      assert_equal Stripe::Preview::PREVIEW_API_VERSION, req.headers["Stripe-Version"]
+      assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
       assert_equal expected_body, resp.http_body
     end
 

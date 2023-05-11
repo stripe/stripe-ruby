@@ -65,5 +65,21 @@ class PreviewTest < Test::Unit::TestCase
       assert_equal stripe_version_override, req.headers["Stripe-Version"]
       assert_equal expected_body, resp.http_body
     end
+
+    should "allow setting stripe_context for preview requests" do
+      expected_body = "{\"id\": \"acc_123\"}"
+      stripe_context = "acc_123"
+      req = nil
+
+      stub_request(:post, "#{Stripe.api_base}/v2/accounts")
+        .with { |request| req = request }
+        .to_return(body: expected_body)
+
+      Stripe::Preview.post("/v2/accounts", {}, { stripe_context: stripe_context })
+
+      assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
+      assert_equal stripe_context, req.headers["Stripe-Context"]
+      assert_equal expected_body, resp.http_body
+    end
   end
 end

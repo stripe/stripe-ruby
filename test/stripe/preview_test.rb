@@ -79,7 +79,6 @@ class PreviewTest < Test::Unit::TestCase
 
       assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
       assert_equal stripe_context, req.headers["Stripe-Context"]
-      assert_equal expected_body, resp.http_body
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "stripe/instrumentation"
-require "pry"
+
 module Stripe
   # StripeClient executes requests against the Stripe API and allows a user to
   # recover both a resource a call returns as well as a response object that

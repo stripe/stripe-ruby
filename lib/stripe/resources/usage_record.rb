@@ -5,7 +5,7 @@ module Stripe
   # Usage records allow you to report customer usage and metrics to Stripe for
   # metered billing of subscription prices.
   #
-  # Related guide: [Metered Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
+  # Related guide: [Metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing)
   class UsageRecord < APIResource
     OBJECT_NAME = "usage_record"
   end

@@ -33,7 +33,7 @@ module Stripe
   # More details on the customer's credit balance are
   # [here](https://stripe.com/docs/billing/customer/balance).
   #
-  # Related guide: [Send Invoices to Customers](https://stripe.com/docs/billing/invoices/sending).
+  # Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
   class Invoice < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete

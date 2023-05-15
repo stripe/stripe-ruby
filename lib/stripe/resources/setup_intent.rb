@@ -23,7 +23,7 @@ module Stripe
   # By using SetupIntents, you ensure that your customers experience the minimum set of required friction,
   # even as regulations change over time.
   #
-  # Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents).
+  # Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
   class SetupIntent < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

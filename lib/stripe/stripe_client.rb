@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "stripe/instrumentation"
-
+require "pry"
 module Stripe
   # StripeClient executes requests against the Stripe API and allows a user to
   # recover both a resource a call returns as well as a response object that
@@ -459,7 +459,7 @@ module Stripe
 
       query_params, path = merge_query_params(query_params, path)
 
-      headers = request_headers(api_key, method)
+      headers = request_headers(api_key, method, api_mode)
                 .update(Util.normalize_headers(headers))
 
       headers.delete("Content-Type") if api_mode == :preview && body_params.nil?
@@ -881,7 +881,7 @@ module Stripe
             message + "\n\n(Network error: #{error.message})"
     end
 
-    private def request_headers(api_key, method)
+    private def request_headers(api_key, method, api_mode)
       user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
       unless Stripe.app_info.nil?
         user_agent += " " + format_app_info(Stripe.app_info)
@@ -906,7 +906,12 @@ module Stripe
         headers["Idempotency-Key"] ||= SecureRandom.uuid
       end
 
-      headers["Stripe-Version"] = config.api_version if config.api_version
+      if api_mode == :preview
+        headers["Stripe-Version"] = ApiVersion::PREVIEW
+      elsif config.api_version
+        headers["Stripe-Version"] = config.api_version
+      end
+
       headers["Stripe-Account"] = config.stripe_account if config.stripe_account
 
       user_agent = @system_profiler.user_agent

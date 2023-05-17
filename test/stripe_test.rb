@@ -94,14 +94,9 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "allow logger to be configured" do
-      old_logger = Stripe.logger
-      begin
-        logger = Object.new
-        Stripe.logger = logger
-        assert_equal logger, Stripe.logger
-      ensure
-        Stripe.logger = old_logger
-      end
+      logger = Object.new
+      Stripe.logger = logger
+      assert_equal logger, Stripe.logger
     end
 
     should "allow proxy to be configured" do

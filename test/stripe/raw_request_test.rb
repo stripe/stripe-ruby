@@ -31,7 +31,7 @@ class RawRequestTest < Test::Unit::TestCase
       resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", { p1: 1, p2: "string" })
 
       assert_equal expected_body, resp.http_body
-      assert_equal 'application/x-www-form-urlencoded', req.headers["Content-Type"]
+      assert_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
       assert_equal Stripe::ApiVersion::CURRENT, req.headers["Stripe-Version"]
     end
 

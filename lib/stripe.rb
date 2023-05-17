@@ -122,7 +122,7 @@ module Stripe
 
   class Preview
     def self._get_default_opts(opts)
-      { stripe_version: ApiVersion::PREVIEW, api_mode: :preview }.merge(opts)
+      { api_mode: :preview }.merge(opts)
     end
 
     def self.get(url, opts = {})

@@ -14,7 +14,7 @@ class PreviewTest < Test::Unit::TestCase
 
       resp = Stripe::Preview.get("/v2/accounts/acc_123")
 
-      assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
+      assert_equal nil, req.headers["Content-Type"]
       assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
       assert_equal expected_body, resp.http_body
     end
@@ -45,7 +45,7 @@ class PreviewTest < Test::Unit::TestCase
 
       resp = Stripe::Preview.delete("/v2/accounts/acc_123")
 
-      assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
+      assert_equal nil, req.headers["Content-Type"]
       assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
       assert_equal expected_body, resp.http_body
     end
@@ -61,7 +61,7 @@ class PreviewTest < Test::Unit::TestCase
 
       resp = Stripe::Preview.post("/v2/accounts", {}, { stripe_version: stripe_version_override })
 
-      assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
+      assert_equal "application/json", req.headers["Content-Type"]
       assert_equal stripe_version_override, req.headers["Stripe-Version"]
       assert_equal expected_body, resp.http_body
     end
@@ -77,7 +77,7 @@ class PreviewTest < Test::Unit::TestCase
 
       Stripe::Preview.post("/v2/accounts", {}, { stripe_context: stripe_context })
 
-      assert_not_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
+      assert_equal "application/json", req.headers["Content-Type"]
       assert_equal stripe_context, req.headers["Stripe-Context"]
     end
   end

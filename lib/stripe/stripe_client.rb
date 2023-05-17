@@ -462,8 +462,6 @@ module Stripe
       headers = request_headers(api_key, method, api_mode)
                 .update(Util.normalize_headers(headers))
 
-      headers.delete("Content-Type") if api_mode == :preview && body_params.nil?
-
       url = api_url(path, api_base)
 
       # Merge given query parameters with any already encoded in the path.
@@ -890,9 +888,12 @@ module Stripe
       headers = {
         "User-Agent" => user_agent,
         "Authorization" => "Bearer #{api_key}",
-        # TODO: (major) don't set Content-Type if method is not post
-        "Content-Type" => "application/x-www-form-urlencoded",
       }
+
+      if api_mode != :preview
+        # TODO: (major) don't set Content-Type if method is not post
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+      end
 
       if config.enable_telemetry? && !@last_request_metrics.nil?
         headers["X-Stripe-Client-Telemetry"] = JSON.generate(

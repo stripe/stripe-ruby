@@ -467,7 +467,7 @@ module Stripe
       # Merge given query parameters with any already encoded in the path.
       query = query_params ? Util.encode_parameters(query_params) : nil
 
-      # encoding body parameters is a little more complex because we may have
+      # Encoding body parameters is a little more complex because we may have
       # to send a multipart-encoded body. `body_log` is produced separately as
       # a log-friendly variant of the encoded form. File objects are displayed
       # as such instead of as their file contents.

@@ -212,9 +212,10 @@ module Stripe
     end
 
     def execute_request(method, path,
-                        api_base: nil, api_key: nil, headers: {}, params: {})
+                        api_base: nil, api_key: nil,
+                        headers: {}, params: {}, api_mode: nil)
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params
+        method, path, api_base, api_key, headers, params, api_mode
       )
 
       begin
@@ -245,6 +246,7 @@ module Stripe
     def execute_request_stream(method, path,
                                api_base: nil, api_key: nil,
                                headers: {}, params: {},
+                               api_mode: nil,
                                &read_body_chunk_block)
       unless block_given?
         raise ArgumentError,
@@ -252,7 +254,8 @@ module Stripe
       end
 
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params, &read_body_chunk_block
+        method, path, api_base, api_key,
+        headers, params, api_mode, &read_body_chunk_block
       )
 
       # When the read_body_chunk_block is given, we no longer have access to the
@@ -432,7 +435,7 @@ module Stripe
 
     private def execute_request_internal(method, path,
                                          api_base, api_key, headers, params,
-                                         &read_body_chunk_block)
+                                         api_mode, &read_body_chunk_block)
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
       raise ArgumentError, "path should be a string" \
@@ -456,8 +459,9 @@ module Stripe
 
       query_params, path = merge_query_params(query_params, path)
 
-      headers = request_headers(api_key, method)
+      headers = request_headers(api_key, method, api_mode)
                 .update(Util.normalize_headers(headers))
+
       url = api_url(path, api_base)
 
       # Merge given query parameters with any already encoded in the path.
@@ -468,7 +472,7 @@ module Stripe
       # a log-friendly variant of the encoded form. File objects are displayed
       # as such instead of as their file contents.
       body, body_log =
-        body_params ? encode_body(body_params, headers) : [nil, nil]
+        body_params ? encode_body(body_params, headers, api_mode) : [nil, nil]
 
       authenticator.authenticate(method, headers, body) unless api_key
 
@@ -544,7 +548,7 @@ module Stripe
     # Encodes a set of body parameters using multipart if `Content-Type` is set
     # for that, or standard form-encoding otherwise. Returns the encoded body
     # and a version of the encoded body that's safe to be logged.
-    private def encode_body(body_params, headers)
+    private def encode_body(body_params, headers, api_mode)
       body = nil
       flattened_params = Util.flatten_params(body_params)
 
@@ -560,15 +564,22 @@ module Stripe
         flattened_params =
           flattened_params.map { |k, v| [k, v.is_a?(String) ? v : v.to_s] }.to_h
 
+      elsif api_mode == :preview
+        body = JSON.generate(body_params)
+        headers["Content-Type"] = "application/json"
       else
         body = Util.encode_parameters(body_params)
       end
 
-      # We don't use `Util.encode_parameters` partly as an optimization (to not
-      # redo work we've already done), and partly because the encoded forms of
-      # certain characters introduce a lot of visual noise and it's nice to
-      # have a clearer format for logs.
-      body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
+      if api_mode == :preview
+        body_log = body
+      else
+        # We don't use `Util.encode_parameters` partly as an optimization (to
+        # not redo work we've already done), and partly because the encoded
+        # forms of certain characters introduce a lot of visual noise and it's
+        # nice to have a clearer format for logs.
+        body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
+      end
 
       [body, body_log]
     end
@@ -868,7 +879,7 @@ module Stripe
             message + "\n\n(Network error: #{error.message})"
     end
 
-    private def request_headers(api_key, method)
+    private def request_headers(api_key, method, api_mode)
       user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
       unless Stripe.app_info.nil?
         user_agent += " " + format_app_info(Stripe.app_info)
@@ -877,8 +888,12 @@ module Stripe
       headers = {
         "User-Agent" => user_agent,
         "Authorization" => "Bearer #{api_key}",
-        "Content-Type" => "application/x-www-form-urlencoded",
       }
+
+      if api_mode != :preview
+        # TODO: (major) don't set Content-Type if method is not post
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+      end
 
       if config.enable_telemetry? && !@last_request_metrics.nil?
         headers["X-Stripe-Client-Telemetry"] = JSON.generate(
@@ -892,7 +907,12 @@ module Stripe
         headers["Idempotency-Key"] ||= SecureRandom.uuid
       end
 
-      headers["Stripe-Version"] = config.api_version if config.api_version
+      if api_mode == :preview
+        headers["Stripe-Version"] = ApiVersion::PREVIEW
+      elsif config.api_version
+        headers["Stripe-Version"] = config.api_version
+      end
+
       headers["Stripe-Account"] = config.stripe_account if config.stripe_account
 
       user_agent = @system_profiler.user_agent

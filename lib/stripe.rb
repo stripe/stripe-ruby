@@ -119,6 +119,49 @@ module Stripe
       version: version,
     }
   end
+
+  class Preview
+    def self._get_default_opts(opts)
+      { api_mode: :preview }.merge(opts)
+    end
+
+    def self.get(url, opts = {})
+      Stripe.raw_request(:get, url, {}, _get_default_opts(opts))
+    end
+
+    def self.post(url, params = {}, opts = {})
+      Stripe.raw_request(:post, url, params, _get_default_opts(opts))
+    end
+
+    def self.delete(url, opts = {})
+      Stripe.raw_request(:delete, url, {}, _get_default_opts(opts))
+    end
+  end
+
+  class RawRequest
+    include Stripe::APIOperations::Request
+
+    def initialize
+      @opts = {}
+    end
+
+    def execute(method, url, params = {}, opts = {})
+      resp, = execute_resource_request(method, url, params, opts)
+
+      resp
+    end
+  end
+
+  # Sends a request to Stripe REST API
+  def self.raw_request(method, url, params = {}, opts = {})
+    req = RawRequest.new
+    req.execute(method, url, params, opts)
+  end
+
+  def self.deserialize(data)
+    data = JSON.parse(data) if data.is_a?(String)
+    Util.convert_to_stripe_object(data, {})
+  end
 end
 
 Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

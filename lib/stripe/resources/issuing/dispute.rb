@@ -5,7 +5,7 @@ module Stripe
   module Issuing
     # As a [card issuer](https://stripe.com/docs/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
     #
-    # Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
+    # Related guide: [Issuing disputes](https://stripe.com/docs/issuing/purchases/disputes)
     class Dispute < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List

@@ -8,7 +8,7 @@ module Stripe
   # destinations on `Account` objects for [Custom accounts](https://stripe.com/docs/connect/custom-accounts).
   # They can be bank accounts or debit cards as well, and are documented in the links above.
   #
-  # Related guide: [Bank Debits and Transfers](https://stripe.com/docs/payments/bank-debits-transfers).
+  # Related guide: [Bank debits and transfers](https://stripe.com/docs/payments/bank-debits-transfers)
   class BankAccount < APIResource
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List

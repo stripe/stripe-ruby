@@ -5,7 +5,7 @@ module Stripe
   module Tax
     # A Tax Transaction records the tax collected from or refunded to your customer.
     #
-    # Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction).
+    # Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)
     class Transaction < APIResource
       OBJECT_NAME = "tax.transaction"
 

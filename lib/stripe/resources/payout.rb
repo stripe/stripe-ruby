@@ -9,7 +9,7 @@ module Stripe
   # schedules](https://stripe.com/docs/connect/manage-payout-schedule), depending on your country and
   # industry.
   #
-  # Related guide: [Receiving Payouts](https://stripe.com/docs/payouts).
+  # Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
   class Payout < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

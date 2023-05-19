@@ -7,7 +7,7 @@ module Stripe
     # your Stripe account, such as a completed purchase or refund, is represented by an Issuing
     # `Transaction` object.
     #
-    # Related guide: [Issued Card Transactions](https://stripe.com/docs/issuing/purchases/transactions).
+    # Related guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)
     class Transaction < APIResource
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save

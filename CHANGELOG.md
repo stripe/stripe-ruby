@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.6.0-beta.4 - 2023-05-19
+* [#1220](https://github.com/stripe/stripe-ruby/pull/1220) Update generated code for beta
+  * Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`
+* [#1217](https://github.com/stripe/stripe-ruby/pull/1217) Add raw_request
+* [#1216](https://github.com/stripe/stripe-ruby/pull/1216) Update generated code for beta
+* [#1214](https://github.com/stripe/stripe-ruby/pull/1214) Update generated code for beta
+
+
 ## 8.6.0-beta.3 - 2023-04-17
 * [#1211](https://github.com/stripe/stripe-ruby/pull/1211) Update generated code for beta
 * [#1210](https://github.com/stripe/stripe-ruby/pull/1210), [#1212](https://github.com/stripe/stripe-ruby/pull/1212), [#1213](https://github.com/stripe/stripe-ruby/pull/1213) Add support for request signing

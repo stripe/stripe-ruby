@@ -4,7 +4,7 @@
 module Stripe
   # Subscriptions allow you to charge a customer on a recurring basis.
   #
-  # Related guide: [Creating Subscriptions](https://stripe.com/docs/billing/subscriptions/creating).
+  # Related guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
   class Subscription < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

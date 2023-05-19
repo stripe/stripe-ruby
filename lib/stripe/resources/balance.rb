@@ -12,7 +12,7 @@ module Stripe
   # The available and pending amounts for each currency are broken down further by
   # payment source types.
   #
-  # Related guide: [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
+  # Related guide: [Understanding Connect account balances](https://stripe.com/docs/connect/account-balances)
   class Balance < SingletonAPIResource
     OBJECT_NAME = "balance"
   end

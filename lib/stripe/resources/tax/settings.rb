@@ -5,7 +5,7 @@ module Stripe
   module Tax
     # You can use Tax `Settings` to manage configurations used by Stripe Tax calculations.
     #
-    # Related guide: [Account settings](https://stripe.com/docs/tax/connect/settings).
+    # Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
     class Settings < SingletonAPIResource
       include Stripe::APIOperations::Save
 

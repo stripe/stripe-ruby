@@ -14,7 +14,7 @@ module Stripe
   # transfer only if the destination account has enough balance to cover the
   # reversal.
   #
-  # Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
+  # Related guide: [Reversing transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers)
   class Reversal < APIResource
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save

@@ -80,5 +80,16 @@ class PreviewTest < Test::Unit::TestCase
       assert_equal "application/json", req.headers["Content-Type"]
       assert_equal stripe_context, req.headers["Stripe-Context"]
     end
+
+    should "include developer_message in error message" do
+      expected_body = "{\"error\": {\"developer_message\": \"Unacceptable!\"}}"
+      stub_request(:get, "#{Stripe.api_base}/v2/accounts/acc_123")
+        .to_return(body: expected_body, status: 400)
+
+      e = assert_raises do
+        Stripe::Preview.get("/v2/accounts/acc_123")
+      end
+      assert_equal "Unacceptable!", e.message
+    end
   end
 end

@@ -25,6 +25,9 @@ group :development do
   # up-to-date, but it's not the end of the world if it's not.
   gem "rubocop", "0.80"
 
+  # jaro_winkler 1.5.5 installation fails for jruby
+  gem "jaro_winkler", "1.5.4"
+
   platforms :mri do
     gem "byebug"
     gem "pry"

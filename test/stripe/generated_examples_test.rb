@@ -2067,6 +2067,30 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
       end
     end
+    context "Tax.Calculation.create" do
+      should "support requests with args: currency, line_items, customer_details" do
+        Stripe::Tax::Calculation.create({
+          currency: "usd",
+          line_items: [
+            {
+              amount: 1000,
+              reference: "L1",
+            },
+          ],
+          customer_details: {
+            address: {
+              line1: "354 Oyster Point Blvd",
+              city: "South San Francisco",
+              state: "CA",
+              postal_code: "94080",
+              country: "US",
+            },
+            address_source: "shipping",
+          },
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/tax/calculations"
+      end
+    end
     context "Tax.Calculation.list_line_items" do
       should "support requests with args: calculation" do
         Stripe::Tax::Calculation.list_line_items("xxx")

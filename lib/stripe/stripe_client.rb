@@ -768,10 +768,11 @@ module Stripe
     end
 
     private def specific_api_error(resp, error_data, context)
+      message = error_data[:message] || error_data[:developer_message]
       Util.log_error("Stripe API error",
                      status: resp.http_status,
                      error_code: error_data[:code],
-                     error_message: error_data[:message],
+                     error_message: message,
                      error_param: error_data[:param],
                      error_type: error_data[:type],
                      idempotency_key: context.idempotency_key,
@@ -792,26 +793,26 @@ module Stripe
       when 400, 404
         case error_data[:type]
         when "idempotency_error"
-          IdempotencyError.new(error_data[:message], **opts)
+          IdempotencyError.new(message, **opts)
         else
           InvalidRequestError.new(
-            error_data[:message], error_data[:param],
+            message, error_data[:param],
             **opts
           )
         end
       when 401
-        AuthenticationError.new(error_data[:message], **opts)
+        AuthenticationError.new(message, **opts)
       when 402
         CardError.new(
-          error_data[:message], error_data[:param],
+          message, error_data[:param],
           **opts
         )
       when 403
-        PermissionError.new(error_data[:message], **opts)
+        PermissionError.new(message, **opts)
       when 429
-        RateLimitError.new(error_data[:message], **opts)
+        RateLimitError.new(message, **opts)
       else
-        APIError.new(error_data[:message], **opts)
+        APIError.new(message, **opts)
       end
     end
 

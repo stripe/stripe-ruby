@@ -331,7 +331,7 @@ If you would like to send a request to an undocumented API (for example you are 
 resp = Stripe.raw_request(:post, "/v1/beta_endpoint", {param: 123}, {stripe_version: "2022-11-15; feature_beta=v3"})
 
 # (Optional) resp is a StripeResponse. You can use `Stripe.deserialize` to get a StripeObject.
-deserialized_resp = Stripe.deserialize(resp)
+deserialized_resp = Stripe.deserialize(resp.http_body)
 ```
 
 ## Support

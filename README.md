@@ -323,6 +323,17 @@ If your beta feature requires a `Stripe-Version` header to be sent, use the `Str
 Stripe.api_version += "; feature_beta=v3"
 ```
 
+### Custom requests
+
+If you would like to send a request to an undocumented API (for example you are in a private beta), or if you prefer to bypass the method definitions in the library and specify your request details directly, you can use the `raw_request` method on `Stripe`.
+
+```ruby
+resp = Stripe.raw_request(:post, "/v1/beta_endpoint", {param: 123}, {stripe_version: "2022-11-15; feature_beta=v3"})
+
+# (Optional) resp is a StripeResponse. You can use `Stripe.deserialize` to get a StripeObject.
+deserialized_resp = Stripe.deserialize(resp)
+```
+
 ## Support
 
 New features and bug fixes are released on the latest major version of the Stripe Ruby library. If you are on an older major version, we recommend that you upgrade to the latest in order to use the new features and bug fixes including those for security vulnerabilities. Older major versions of the package will continue to be available for use, but will not be receiving any updates.

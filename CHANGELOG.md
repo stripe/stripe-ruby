@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.6.0-beta.5 - 2023-06-01
+* [#1227](https://github.com/stripe/stripe-ruby/pull/1227) Update generated code for beta
+* [#1228](https://github.com/stripe/stripe-ruby/pull/1228) Document raw_request
+* [#1222](https://github.com/stripe/stripe-ruby/pull/1222) Update generated code for beta
+* [#1224](https://github.com/stripe/stripe-ruby/pull/1224) Handle developer message in preview error responses
+
 ## 8.6.0-beta.4 - 2023-05-19
 * [#1220](https://github.com/stripe/stripe-ruby/pull/1220) Update generated code for beta
   * Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`

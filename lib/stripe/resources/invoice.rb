@@ -11,7 +11,7 @@ module Stripe
   # If your invoice is configured to be billed through automatic charges,
   # Stripe automatically finalizes your invoice and attempts payment. Note
   # that finalizing the invoice,
-  # [when automatic](https://stripe.com/docs/billing/invoices/workflow/#auto_advance), does
+  # [when automatic](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection), does
   # not happen immediately as the invoice is created. Stripe waits
   # until one hour after the last webhook was successfully sent (or the last
   # webhook timed out after failing). If you (and the platforms you may have

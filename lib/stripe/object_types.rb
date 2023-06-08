@@ -12,7 +12,6 @@ module Stripe
         SearchResultObject::OBJECT_NAME => SearchResultObject,
 
         # business objects
-        AcceptedFinancing::OBJECT_NAME => AcceptedFinancing,
         Account::OBJECT_NAME => Account,
         AccountLink::OBJECT_NAME => AccountLink,
         AccountSession::OBJECT_NAME => AccountSession,

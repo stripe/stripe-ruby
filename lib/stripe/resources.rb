@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+require "stripe/resources/accepted_financing"
 require "stripe/resources/account"
 require "stripe/resources/account_link"
 require "stripe/resources/account_session"

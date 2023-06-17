@@ -88,7 +88,7 @@ module Stripe
         val = Stripe::LEVEL_INFO
       end
 
-      levels = [Stripe::LEVEL_INFO, Stripe::LEVEL_DEBUG, Stripe::LEVEL_ERROR]
+      levels = [Stripe::LEVEL_INFO, Stripe::LEVEL_DEBUG]
 
       if !val.nil? && !levels.include?(val)
         raise ArgumentError,

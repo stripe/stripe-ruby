@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.6.0-beta.6 - 2023-06-22
+* [#1237](https://github.com/stripe/stripe-ruby/pull/1237) Update generated code for beta
+  * Add support for new resource `CustomerSession`
+  * Add support for `create` method on resource `CustomerSession`
+* [#1233](https://github.com/stripe/stripe-ruby/pull/1233) Update generated code for beta
+* [#1229](https://github.com/stripe/stripe-ruby/pull/1229) Update generated code for beta
+
 ## 8.6.0-beta.5 - 2023-06-01
 * [#1227](https://github.com/stripe/stripe-ruby/pull/1227) Update generated code for beta
 * [#1228](https://github.com/stripe/stripe-ruby/pull/1228) Document raw_request

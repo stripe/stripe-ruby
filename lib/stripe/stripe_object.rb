@@ -447,7 +447,7 @@ module Stripe
 
       # TODO: instead of definig all methods upfront, try defining them on the fly
       remove_accessors(removed)
-      add_accessors(added, values)
+      # add_accessors(added, values)
 
       removed.each do |k|
         @values.delete(k)

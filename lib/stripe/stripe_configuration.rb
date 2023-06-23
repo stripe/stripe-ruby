@@ -94,7 +94,8 @@ module Stripe
 
       if !val.nil? && !levels.include?(val)
         raise ArgumentError,
-              "log_level should only be set to `nil`, `debug` or `info`"
+              "log_level should only be set to `nil`, `debug`, `info`," \
+              " or `error`"
       end
       @log_level = val
     end

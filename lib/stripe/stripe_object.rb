@@ -147,7 +147,6 @@ module Stripe
     #   StripeObject. Defaults to true.
     def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
-        add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
         @values[k] = Util.convert_to_stripe_object(v, opts)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
@@ -443,11 +442,6 @@ module Stripe
       # Wipe old state before setting new.  This is useful for e.g. updating a
       # customer, where there is no persistent card parameter.  Mark those
       # values which don't persist as transient
-
-
-      # TODO: instead of definig all methods upfront, try defining them on the fly
-      remove_accessors(removed)
-      # add_accessors(added, values)
 
       removed.each do |k|
         @values.delete(k)

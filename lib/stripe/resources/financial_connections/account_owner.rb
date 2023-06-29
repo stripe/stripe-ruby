@@ -3,6 +3,7 @@
 
 module Stripe
   module FinancialConnections
+    # Describes an owner of an account.
     class AccountOwner < StripeObject
       OBJECT_NAME = "financial_connections.account_owner"
     end

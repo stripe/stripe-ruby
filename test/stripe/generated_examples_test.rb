@@ -30,12 +30,6 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/accounts?limit=3"
       end
     end
-    context "Account.persons" do
-      should "support requests with args: limit, parent_id" do
-        Stripe::Account.persons("acct_xxxxxxxxxxxxx", { limit: 3 })
-        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons?limit=3"
-      end
-    end
     context "Account.reject" do
       should "support requests with args: reason, id" do
         Stripe::Account.reject("acct_xxxxxxxxxxxxx", { reason: "fraud" })
@@ -1312,6 +1306,32 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx"
       end
     end
+    context "PaymentSource.update" do
+      should "support requests with args: customer, card, account_holder_name" do
+        Stripe::Customer.update_source(
+          "cus_123",
+          "card_123",
+          { account_holder_name: "Kamil" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/card_123"
+      end
+      should "support requests with args: metadata, parent_id, id" do
+        Stripe::Customer.update_source(
+          "cus_xxxxxxxxxxxxx",
+          "ba_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
+      end
+      should "support requests with args: name, parent_id, id" do
+        Stripe::Customer.update_source(
+          "cus_xxxxxxxxxxxxx",
+          "card_xxxxxxxxxxxxx",
+          { name: "Jenny Rosen" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
+      end
+    end
     context "Payout.cancel" do
       should "support requests with args: id" do
         Stripe::Payout.cancel("po_xxxxxxxxxxxxx")
@@ -1352,6 +1372,12 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx"
+      end
+    end
+    context "Person.list" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::Account.list_persons("acct_xxxxxxxxxxxxx", { limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons?limit=3"
       end
     end
     context "Person.retrieve" do

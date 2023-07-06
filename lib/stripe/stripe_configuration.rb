@@ -89,13 +89,16 @@ module Stripe
         val = Stripe::LEVEL_DEBUG
       elsif val == "info"
         val = Stripe::LEVEL_INFO
+      elsif val == "error"
+        val = Stripe::LEVEL_ERROR
       end
 
       levels = [Stripe::LEVEL_INFO, Stripe::LEVEL_DEBUG, Stripe::LEVEL_ERROR]
 
       if !val.nil? && !levels.include?(val)
         raise ArgumentError,
-              "log_level should only be set to `nil`, `debug` or `info`"
+              "log_level should only be set to `nil`, `debug`, `info`," \
+              " or `error`"
       end
       @log_level = val
     end

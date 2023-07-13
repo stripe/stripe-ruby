@@ -1,5 +1,34 @@
 # Changelog
 
+## 8.6.0 - 2023-07-13
+* [#1244](https://github.com/stripe/stripe-ruby/pull/1244) Update generated code
+  * Add support for new resource `Tax.Settings`
+  * Add support for `retrieve` and `update` methods on resource `Settings`
+* [#1241](https://github.com/stripe/stripe-ruby/pull/1241) Update generated code
+
+* [#1209](https://github.com/stripe/stripe-ruby/pull/1209) Update shoulda-context version
+* [#1235](https://github.com/stripe/stripe-ruby/pull/1235) Allow "error" string as log level
+* [#1238](https://github.com/stripe/stripe-ruby/pull/1238) Update log level error message to include `error`
+* [#1231](https://github.com/stripe/stripe-ruby/pull/1231) fix: variable typo in README for instrumentation
+* [#1234](https://github.com/stripe/stripe-ruby/pull/1234) Update generated code
+
+* [#1230](https://github.com/stripe/stripe-ruby/pull/1230) Update generated code
+  * Release specs are identical.
+* [#1226](https://github.com/stripe/stripe-ruby/pull/1226) Update generated code
+
+* [#1223](https://github.com/stripe/stripe-ruby/pull/1223) Update generated code
+
+* [#1225](https://github.com/stripe/stripe-ruby/pull/1225) Downgrade jaro_winkler
+* [#1219](https://github.com/stripe/stripe-ruby/pull/1219) Update generated code
+  
+  Documentation updates.
+* [#1215](https://github.com/stripe/stripe-ruby/pull/1215) Update generated code
+
+* [#1208](https://github.com/stripe/stripe-ruby/pull/1208) Update generated code
+
+* [#1204](https://github.com/stripe/stripe-ruby/pull/1204) Update generated code
+
+
 ## 8.5.0 - 2023-03-30
 * [#1203](https://github.com/stripe/stripe-ruby/pull/1203) Update generated code
   * Remove support for `create` method on resource `Tax.Transaction`

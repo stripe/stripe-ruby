@@ -30,6 +30,12 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/accounts?limit=3"
       end
     end
+    context "Account.persons" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::Account.persons("acct_xxxxxxxxxxxxx", { limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons?limit=3"
+      end
+    end
     context "Account.reject" do
       should "support requests with args: reason, id" do
         Stripe::Account.reject("acct_xxxxxxxxxxxxx", { reason: "fraud" })
@@ -603,6 +609,62 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Event.retrieve("evt_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/events/evt_xxxxxxxxxxxxx?"
+      end
+    end
+    context "ExternalAccount.create" do
+      should "support requests with args: external_account, parent_id" do
+        Stripe::Account.create_external_account(
+          "acct_xxxxxxxxxxxxx",
+          { external_account: "btok_xxxxxxxxxxxxx" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts"
+      end
+      should "support requests with args: external_account, parent_id2" do
+        Stripe::Account.create_external_account(
+          "acct_xxxxxxxxxxxxx",
+          { external_account: "tok_xxxx_debit" }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts"
+      end
+    end
+    context "ExternalAccount.delete" do
+      should "support requests with args: parent_id, id" do
+        Stripe::Account.delete_external_account(
+          "acct_xxxxxxxxxxxxx",
+          "ba_xxxxxxxxxxxxx"
+        )
+        assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx?"
+      end
+      should "support requests with args: parent_id, id2" do
+        Stripe::Account.delete_external_account(
+          "acct_xxxxxxxxxxxxx",
+          "card_xxxxxxxxxxxxx"
+        )
+        assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx?"
+      end
+    end
+    context "ExternalAccount.list" do
+      should "support requests with args: limit, parent_id" do
+        Stripe::Account.list_external_accounts("acct_xxxxxxxxxxxxx", { limit: 3 })
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?limit=3"
+      end
+    end
+    context "ExternalAccount.update" do
+      should "support requests with args: metadata, parent_id, id" do
+        Stripe::Account.update_external_account(
+          "acct_xxxxxxxxxxxxx",
+          "ba_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx"
+      end
+      should "support requests with args: metadata, parent_id, id2" do
+        Stripe::Account.update_external_account(
+          "acct_xxxxxxxxxxxxx",
+          "card_xxxxxxxxxxxxx",
+          { metadata: { order_id: "6735" } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx"
       end
     end
     context "File.list" do
@@ -1306,30 +1368,58 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx"
       end
     end
-    context "PaymentSource.update" do
-      should "support requests with args: customer, card, account_holder_name" do
-        Stripe::Customer.update_source(
-          "cus_123",
-          "card_123",
-          { account_holder_name: "Kamil" }
-        )
-        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/card_123"
-      end
-      should "support requests with args: metadata, parent_id, id" do
-        Stripe::Customer.update_source(
+    context "PaymentSource.create" do
+      should "support requests with args: source, parent_id" do
+        Stripe::Customer.create_source(
           "cus_xxxxxxxxxxxxx",
-          "ba_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
+          { source: "btok_xxxxxxxxxxxxx" }
         )
-        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources"
       end
-      should "support requests with args: name, parent_id, id" do
-        Stripe::Customer.update_source(
+      should "support requests with args: source, parent_id2" do
+        Stripe::Customer.create_source(
           "cus_xxxxxxxxxxxxx",
-          "card_xxxxxxxxxxxxx",
-          { name: "Jenny Rosen" }
+          { source: "tok_xxxx" }
         )
-        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources"
+      end
+    end
+    context "PaymentSource.list" do
+      should "support requests with args: object, limit, parent_id" do
+        Stripe::Customer.list_sources(
+          "cus_xxxxxxxxxxxxx",
+          {
+            object: "bank_account",
+            limit: 3,
+          }
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources?object=bank_account&limit=3"
+      end
+      should "support requests with args: object, limit, parent_id2" do
+        Stripe::Customer.list_sources(
+          "cus_xxxxxxxxxxxxx",
+          {
+            object: "card",
+            limit: 3,
+          }
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources?object=card&limit=3"
+      end
+    end
+    context "PaymentSource.retrieve" do
+      should "support requests with args: parent_id, id" do
+        Stripe::Customer.retrieve_source(
+          "cus_xxxxxxxxxxxxx",
+          "ba_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx?"
+      end
+      should "support requests with args: parent_id, id2" do
+        Stripe::Customer.retrieve_source(
+          "cus_xxxxxxxxxxxxx",
+          "card_xxxxxxxxxxxxx"
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx?"
       end
     end
     context "Payout.cancel" do
@@ -1372,12 +1462,6 @@ module Stripe
           { metadata: { order_id: "6735" } }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx"
-      end
-    end
-    context "Person.list" do
-      should "support requests with args: limit, parent_id" do
-        Stripe::Account.list_persons("acct_xxxxxxxxxxxxx", { limit: 3 })
-        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons?limit=3"
       end
     end
     context "Person.retrieve" do

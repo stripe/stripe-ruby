@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.7.0-beta.1 - 2023-07-13
+* [#1245](https://github.com/stripe/stripe-ruby/pull/1245) Update generated code for beta
+  Release specs are identical.
+* [#1243](https://github.com/stripe/stripe-ruby/pull/1243) Update generated code for beta
+  * Add support for new resource `PaymentMethodConfiguration`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PaymentMethodConfiguration`
+* [#1239](https://github.com/stripe/stripe-ruby/pull/1239) Update generated code for beta
+
+
 ## 8.6.0 - 2023-07-13
 * [#1244](https://github.com/stripe/stripe-ruby/pull/1244) Update generated code
   * Add support for new resource `Tax.Settings`

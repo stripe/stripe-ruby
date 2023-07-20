@@ -83,6 +83,18 @@ module Stripe
       )
     end
 
+    def pdf(params = {}, opts = {}, &read_body_chunk_block)
+      config = opts[:client]&.config || Stripe.config
+      opts = { api_base: config.uploads_base }.merge(opts)
+      request_stream(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts,
+        &read_body_chunk_block
+      )
+    end
+
     def preview_invoice_lines(preview_invoice, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -191,6 +203,18 @@ module Stripe
       )
     end
 
+    def self.pdf(quote, params = {}, opts = {}, &read_body_chunk_block)
+      config = opts[:client]&.config || Stripe.config
+      opts = { api_base: config.uploads_base }.merge(opts)
+      execute_resource_request_stream(
+        :get,
+        format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(quote) }),
+        params,
+        opts,
+        &read_body_chunk_block
+      )
+    end
+
     def self.preview_invoice_lines(
       quote,
       preview_invoice,
@@ -230,48 +254,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    def pdf(params = {}, opts = {}, &read_body_chunk_block)
-      unless block_given?
-        raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
-      end
-
-      config = opts[:client]&.config || Stripe.config
-
-      request_stream(
-        method: :get,
-        path: resource_url + "/pdf",
-        params: params,
-        opts: {
-          api_base: config.uploads_base,
-        }.merge(opts),
-        &read_body_chunk_block
-      )
-    end
-
-    def self.pdf(id, params = {}, opts = {}, &read_body_chunk_block)
-      unless id.is_a?(String)
-        raise ArgumentError,
-              "id should be a string representing the ID of an API resource"
-      end
-
-      unless block_given?
-        raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
-      end
-
-      config = opts[:client]&.config || Stripe.config
-
-      resp = execute_resource_request_stream(
-        :get,
-        "#{resource_url}/#{CGI.escape(id)}/pdf",
-        params,
-        {
-          api_base: config.uploads_base,
-        }.merge(opts),
-        &read_body_chunk_block
-      )
-      resp
     end
   end
 end

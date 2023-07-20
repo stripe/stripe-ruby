@@ -2,9 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Shipping rates describe the price of shipping presented to your customers and can be
-  # applied to [Checkout Sessions](https://stripe.com/docs/payments/checkout/shipping)
-  # and [Orders](https://stripe.com/docs/orders/shipping) to collect shipping costs.
+  # Shipping rates describe the price of shipping presented to your customers and
+  # applied to a purchase. For more information, see [Charge for shipping](https://stripe.com/docs/payments/during-payment/charge-shipping).
   class ShippingRate < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List

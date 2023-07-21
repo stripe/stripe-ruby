@@ -56,6 +56,18 @@ module Stripe
       )
     end
 
+    def pdf(params = {}, opts = {}, &read_body_chunk_block)
+      config = opts[:client]&.config || Stripe.config
+      opts = { api_base: config.uploads_base }.merge(opts)
+      request_stream(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts,
+        &read_body_chunk_block
+      )
+    end
+
     def self.accept(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -101,46 +113,16 @@ module Stripe
       )
     end
 
-    def pdf(params = {}, opts = {}, &read_body_chunk_block)
-      unless block_given?
-        raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
-      end
-
+    def self.pdf(quote, params = {}, opts = {}, &read_body_chunk_block)
       config = opts[:client]&.config || Stripe.config
-
-      request_stream(
-        method: :get,
-        path: resource_url + "/pdf",
-        params: params,
-        opts: {
-          api_base: config.uploads_base,
-        }.merge(opts),
-        &read_body_chunk_block
-      )
-    end
-
-    def self.pdf(id, params = {}, opts = {}, &read_body_chunk_block)
-      unless id.is_a?(String)
-        raise ArgumentError,
-              "id should be a string representing the ID of an API resource"
-      end
-
-      unless block_given?
-        raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the pdf method."
-      end
-
-      config = opts[:client]&.config || Stripe.config
-
-      resp = execute_resource_request_stream(
+      opts = { api_base: config.uploads_base }.merge(opts)
+      execute_resource_request_stream(
         :get,
-        "#{resource_url}/#{CGI.escape(id)}/pdf",
+        format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(quote) }),
         params,
-        {
-          api_base: config.uploads_base,
-        }.merge(opts),
+        opts,
         &read_body_chunk_block
       )
-      resp
     end
   end
 end

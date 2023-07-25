@@ -104,6 +104,7 @@ module Stripe
         SubscriptionItem::OBJECT_NAME => SubscriptionItem,
         SubscriptionSchedule::OBJECT_NAME => SubscriptionSchedule,
         Tax::Calculation::OBJECT_NAME => Tax::Calculation,
+        Tax::Form::OBJECT_NAME => Tax::Form,
         Tax::Registration::OBJECT_NAME => Tax::Registration,
         Tax::Settings::OBJECT_NAME => Tax::Settings,
         Tax::Transaction::OBJECT_NAME => Tax::Transaction,

@@ -2220,6 +2220,13 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/tax/calculations/xxx/line_items?"
       end
     end
+    context "Tax.Form.pdf" do
+      should "support requests with args: id" do
+        block_handler = {}
+        Stripe::Tax::Form.pdf("form_xxxxxxxxxxxxx", &block_handler)
+        assert_requested :get, "#{Stripe.api_base}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf?"
+      end
+    end
     context "Tax.Transaction.create_from_calculation" do
       should "support requests with args: calculation, reference" do
         Stripe::Tax::Transaction.create_from_calculation({

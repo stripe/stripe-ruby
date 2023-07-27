@@ -1695,6 +1695,13 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/line_items?"
       end
     end
+    context "Quote.pdf" do
+      should "support requests with args: id" do
+        block_handler = {}
+        Stripe::Quote.pdf("qt_xxxxxxxxxxxxx", &block_handler)
+        assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/pdf?"
+      end
+    end
     context "Quote.retrieve" do
       should "support requests with args: id" do
         Stripe::Quote.retrieve("qt_xxxxxxxxxxxxx")

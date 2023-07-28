@@ -768,7 +768,7 @@ module Stripe
     end
 
     private def specific_api_error(resp, error_data, context)
-      message = error_data[:message] || error_data[:developer_message]
+      message = error_data[:message]
       Util.log_error("Stripe API error",
                      status: resp.http_status,
                      error_code: error_data[:code],

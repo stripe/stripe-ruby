@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.7.0-beta.2 - 2023-07-28
+* [#1251](https://github.com/stripe/stripe-ruby/pull/1251) Update generated code for beta
+  * Add support for new resource `Tax.Form`
+  * Add support for `list`, `pdf`, and `retrieve` methods on resource `Form`
+* [#1249](https://github.com/stripe/stripe-ruby/pull/1249) Update generated code for beta
+* [#1246](https://github.com/stripe/stripe-ruby/pull/1246) Update generated code for beta
+
+
 ## 8.7.0-beta.1 - 2023-07-13
 * [#1245](https://github.com/stripe/stripe-ruby/pull/1245) Update generated code for beta
   Release specs are identical.

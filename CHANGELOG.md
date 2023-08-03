@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.7.0-beta.3 - 2023-08-03
+* [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
+  * Add support for `submit_card` test helper method on resource `Issuing.Card`
+* [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
+
 ## 8.7.0-beta.2 - 2023-07-28
 * [#1251](https://github.com/stripe/stripe-ruby/pull/1251) Update generated code for beta
   * Add support for new resource `Tax.Form`

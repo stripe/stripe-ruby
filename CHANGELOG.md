@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.7.0 - 2023-08-10
+* [#1256](https://github.com/stripe/stripe-ruby/pull/1256) Update generated code
+  Add resources `Tax::CalculationLineItem`, `Tax::TransactionLineItem`, and `Treasury::FinancialAccountFeatures`. These resources have no methods on them, but do represent the return type of methods elsewhere.
+
 ## 8.6.0 - 2023-07-13
 * [#1244](https://github.com/stripe/stripe-ruby/pull/1244) Update generated code
   * Add support for new resource `Tax.Settings`

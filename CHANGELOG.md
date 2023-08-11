@@ -4,6 +4,10 @@
 * [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
   * Updated stable APIs to the latest version
 
+## 8.7.0 - 2023-08-10
+* [#1256](https://github.com/stripe/stripe-ruby/pull/1256) Update generated code
+  Add resources `Tax::CalculationLineItem`, `Tax::TransactionLineItem`, and `Treasury::FinancialAccountFeatures`. These resources have no methods on them, but do represent the return type of methods elsewhere.
+
 ## 8.7.0-beta.3 - 2023-08-03
 * [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
   * Add support for `submit_card` test helper method on resource `Issuing.Card`
@@ -16,7 +20,6 @@
 * [#1249](https://github.com/stripe/stripe-ruby/pull/1249) Update generated code for beta
 * [#1246](https://github.com/stripe/stripe-ruby/pull/1246) Update generated code for beta
 
-
 ## 8.7.0-beta.1 - 2023-07-13
 * [#1245](https://github.com/stripe/stripe-ruby/pull/1245) Update generated code for beta
   Release specs are identical.
@@ -24,7 +27,6 @@
   * Add support for new resource `PaymentMethodConfiguration`
   * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PaymentMethodConfiguration`
 * [#1239](https://github.com/stripe/stripe-ruby/pull/1239) Update generated code for beta
-
 
 ## 8.6.0 - 2023-07-13
 * [#1244](https://github.com/stripe/stripe-ruby/pull/1244) Update generated code

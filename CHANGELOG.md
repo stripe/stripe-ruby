@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.8.0-beta.1 - 2023-08-10
+* [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
+  * Updated stable APIs to the latest version
+
 ## 8.7.0-beta.3 - 2023-08-03
 * [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
   * Add support for `submit_card` test helper method on resource `Issuing.Card`

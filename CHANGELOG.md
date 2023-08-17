@@ -26,7 +26,7 @@
   
      If you were already initializing stripe-ruby with an explicit API Version, upgrading to v9 will not affect your integration.
   
-     Read the [v9 migration guide](https://github.com/stripe-ruby/wiki/Migration-guide-for-v9) for more details.
+     Read the [v9 migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v9) for more details.
   
   Going forward, each major release of this library will be *pinned* by default to the latest Stripe API Version at the time of release.
   

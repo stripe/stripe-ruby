@@ -8,16 +8,8 @@ module Stripe
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
-    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "quote"
-
-    nested_resource_class_methods :todo,
-                                  operations: %i[list],
-                                  resource_plural: "TODO"
-    nested_resource_class_methods :todo,
-                                  operations: %i[list],
-                                  resource_plural: "TODO"
 
     def accept(params = {}, opts = {})
       request_stripe_object(
@@ -107,6 +99,24 @@ module Stripe
       request_stripe_object(
         method: :get,
         path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(self["id"]), preview_invoice: CGI.escape(preview_invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def preview_invoices(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoices", { quote: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def preview_subscription_schedules(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_subscription_schedules", { quote: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -214,6 +224,24 @@ module Stripe
       request_stripe_object(
         method: :get,
         path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(quote), preview_invoice: CGI.escape(preview_invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.preview_invoices(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoices", { quote: CGI.escape(quote) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.preview_subscription_schedules(quote, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_subscription_schedules", { quote: CGI.escape(quote) }),
         params: params,
         opts: opts
       )

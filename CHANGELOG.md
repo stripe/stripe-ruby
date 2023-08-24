@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.0.0-beta.1 - 2023-08-24
+* [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
+  * Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
+* [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
+
+
 ## 9.0.0 - 2023-08-16
 **⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
 

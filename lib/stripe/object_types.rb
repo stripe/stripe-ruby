@@ -86,6 +86,8 @@ module Stripe
         PromotionCode::OBJECT_NAME => PromotionCode,
         Quote::OBJECT_NAME => Quote,
         QuotePhase::OBJECT_NAME => QuotePhase,
+        QuotePreviewInvoice::OBJECT_NAME => QuotePreviewInvoice,
+        QuotePreviewSchedule::OBJECT_NAME => QuotePreviewSchedule,
         Radar::EarlyFraudWarning::OBJECT_NAME => Radar::EarlyFraudWarning,
         Radar::ValueList::OBJECT_NAME => Radar::ValueList,
         Radar::ValueListItem::OBJECT_NAME => Radar::ValueListItem,

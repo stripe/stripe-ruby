@@ -108,8 +108,9 @@ module Stripe
         end
 
         if tolerance && timestamp < Time.now - tolerance
+          formatted_timestamp = Time.at(timestamp).strftime("%F %T")
           raise SignatureVerificationError.new(
-            "Timestamp outside the tolerance zone (#{Time.at(timestamp)})",
+            "Timestamp outside the tolerance zone (#{formatted_timestamp})",
             header, http_body: payload
           )
         end

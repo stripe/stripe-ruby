@@ -35,6 +35,8 @@ module Stripe
   #
   # Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
   class QuotePreviewInvoice < APIResource
+    extend Stripe::APIOperations::List
+
     OBJECT_NAME = "quote_preview_invoice"
   end
 end

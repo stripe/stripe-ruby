@@ -1,4 +1,10 @@
 # Changelog
+## 9.1.0 - 2023-08-31
+* [#1266](https://github.com/stripe/stripe-ruby/pull/1266) Update generated code
+  * Add support for new resource `AccountSession`
+  * Add support for `create` method on resource `AccountSession`
+* [#1262](https://github.com/stripe/stripe-ruby/pull/1262) Explicitly format timestamp in SignatureVerificationError message
+
 
 ## 9.0.0 - 2023-08-16
 **⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**

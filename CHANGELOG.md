@@ -4,11 +4,11 @@
 * [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
   * Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`
 
-## 9.0.0-beta.1 - 2023-08-24
-* [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
-  * Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
-* [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
-
+## 9.1.0 - 2023-08-31
+* [#1266](https://github.com/stripe/stripe-ruby/pull/1266) Update generated code
+  * Add support for new resource `AccountSession`
+  * Add support for `create` method on resource `AccountSession`
+* [#1262](https://github.com/stripe/stripe-ruby/pull/1262) Explicitly format timestamp in SignatureVerificationError message
 
 ## 9.0.0 - 2023-08-16
 **⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
@@ -41,6 +41,11 @@
   Going forward, each major release of this library will be *pinned* by default to the latest Stripe API Version at the time of release.
   
   That is, instead of upgrading stripe-ruby and separately upgrading your Stripe API Version through the Stripe Dashboard. whenever you upgrade major versions of stripe-ruby, you should also upgrade your integration to be compatible with the latest Stripe API version.
+
+## 9.0.0-beta.1 - 2023-08-24
+* [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
+  * Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
+* [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
 
 ## 8.8.0-beta.1 - 2023-08-10
 * [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta

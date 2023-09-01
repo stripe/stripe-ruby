@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.2.0-beta.1 - 2023-08-31
+* [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
+  * Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`
+
 ## 9.0.0-beta.1 - 2023-08-24
 * [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
   * Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`

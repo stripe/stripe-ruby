@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.2.0 - 2023-09-07
+* [#1267](https://github.com/stripe/stripe-ruby/pull/1267) Update generated code
+  * Add support for new resource `PaymentMethodDomain`
+  * Add support for `create`, `list`, `retrieve`, `update`, and `validate` methods on resource `PaymentMethodDomain`
+
 ## 9.2.0-beta.1 - 2023-08-31
 * [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
   * Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`

@@ -66,6 +66,7 @@ module Stripe
         PaymentIntent::OBJECT_NAME => PaymentIntent,
         PaymentLink::OBJECT_NAME => PaymentLink,
         PaymentMethod::OBJECT_NAME => PaymentMethod,
+        PaymentMethodDomain::OBJECT_NAME => PaymentMethodDomain,
         Payout::OBJECT_NAME => Payout,
         Person::OBJECT_NAME => Person,
         Plan::OBJECT_NAME => Plan,

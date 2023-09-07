@@ -1,5 +1,22 @@
 # Changelog
 
+## 9.3.0-beta.1 - 2023-09-07
+* [#1269](https://github.com/stripe/stripe-ruby/pull/1269) Update generated code for beta
+  * Release specs are identical.
+* [#1268](https://github.com/stripe/stripe-ruby/pull/1268) Update generated code for beta
+  * Remove support for `submit_card` test helper method on resource `Issuing.Card`
+* [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
+  * Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`
+* [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
+  * Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
+* [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
+
+* [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
+
+* [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
+  * Add support for `submit_card` test helper method on resource `Issuing.Card`
+* [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
+
 ## 9.2.0 - 2023-09-07
 * [#1267](https://github.com/stripe/stripe-ruby/pull/1267) Update generated code
   * Add support for new resource `PaymentMethodDomain`

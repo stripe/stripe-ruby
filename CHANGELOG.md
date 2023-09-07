@@ -1,4 +1,9 @@
 # Changelog
+## 9.2.0 - 2023-09-07
+* [#1267](https://github.com/stripe/stripe-ruby/pull/1267) Update generated code
+  * Add support for new resource `PaymentMethodDomain`
+  * Add support for `create`, `list`, `retrieve`, `update`, and `validate` methods on resource `PaymentMethodDomain`
+
 ## 9.1.0 - 2023-08-31
 * [#1266](https://github.com/stripe/stripe-ruby/pull/1266) Update generated code
   * Add support for new resource `AccountSession`

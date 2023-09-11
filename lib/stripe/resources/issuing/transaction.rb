@@ -13,6 +13,50 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.transaction"
+
+      def test_helpers
+        TestHelpers.new(self)
+      end
+
+      class TestHelpers < APIResourceTestHelpers
+        RESOURCE_CLASS = Transaction
+
+        def self.create_force_capture(params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: "/v1/test_helpers/issuing/transactions/create_force_capture",
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.create_unlinked_refund(params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.refund(transaction, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/transactions/%<transaction>s/refund", { transaction: CGI.escape(transaction) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def refund(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/transactions/%<transaction>s/refund", { transaction: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+      end
     end
   end
 end

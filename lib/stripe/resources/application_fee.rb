@@ -8,6 +8,7 @@ module Stripe
 
     OBJECT_NAME = "application_fee"
 
-    nested_resource_class_methods :refund, operations: %i[create retrieve update list]
+    nested_resource_class_methods :refund,
+                                  operations: %i[create retrieve update list]
   end
 end

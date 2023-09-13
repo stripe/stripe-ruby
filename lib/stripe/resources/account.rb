@@ -23,7 +23,8 @@ module Stripe
     nested_resource_class_methods :capability,
                                   operations: %i[retrieve update list],
                                   resource_plural: "capabilities"
-    nested_resource_class_methods :person, operations: %i[create retrieve update delete list]
+    nested_resource_class_methods :person,
+                                  operations: %i[create retrieve update delete list]
 
     def persons(params = {}, opts = {})
       request_stripe_object(

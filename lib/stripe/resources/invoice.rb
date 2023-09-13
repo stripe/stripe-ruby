@@ -134,7 +134,12 @@ module Stripe
     end
 
     def self.upcoming(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/invoices/upcoming", params: params, opts: opts)
+      request_stripe_object(
+        method: :get,
+        path: "/v1/invoices/upcoming",
+        params: params,
+        opts: opts
+      )
     end
 
     def self.void_invoice(invoice, params = {}, opts = {})

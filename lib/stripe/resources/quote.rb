@@ -13,7 +13,8 @@ module Stripe
     OBJECT_NAME = "quote"
 
     nested_resource_class_methods :preview_invoice, operations: %i[list]
-    nested_resource_class_methods :preview_subscription_schedule, operations: %i[list]
+    nested_resource_class_methods :preview_subscription_schedule,
+                                  operations: %i[list]
 
     def accept(params = {}, opts = {})
       request_stripe_object(
@@ -201,7 +202,12 @@ module Stripe
       )
     end
 
-    def self.preview_invoice_lines(quote, preview_invoice, params = {}, opts = {})
+    def self.preview_invoice_lines(
+      quote,
+      preview_invoice,
+      params = {},
+      opts = {}
+    )
       request_stripe_object(
         method: :get,
         path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(quote), preview_invoice: CGI.escape(preview_invoice) }),

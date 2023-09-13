@@ -55,7 +55,11 @@ module Stripe
           )
         end
 
-        def self.return_outbound_transfer(outbound_transfer, params = {}, opts = {})
+        def self.return_outbound_transfer(
+          outbound_transfer,
+          params = {},
+          opts = {}
+        )
           request_stripe_object(
             method: :post,
             path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/return", { outbound_transfer: CGI.escape(outbound_transfer) }),

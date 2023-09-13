@@ -15,9 +15,12 @@ module Stripe
 
     OBJECT_NAME = "customer"
 
-    nested_resource_class_methods :balance_transaction, operations: %i[create retrieve update list]
-    nested_resource_class_methods :cash_balance_transaction, operations: %i[retrieve list]
-    nested_resource_class_methods :tax_id, operations: %i[create retrieve delete list]
+    nested_resource_class_methods :balance_transaction,
+                                  operations: %i[create retrieve update list]
+    nested_resource_class_methods :cash_balance_transaction,
+                                  operations: %i[retrieve list]
+    nested_resource_class_methods :tax_id,
+                                  operations: %i[create retrieve delete list]
 
     def create_funding_instructions(params = {}, opts = {})
       request_stripe_object(
@@ -82,7 +85,12 @@ module Stripe
       )
     end
 
-    def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {})
+    def self.retrieve_payment_method(
+      customer,
+      payment_method,
+      params = {},
+      opts = {}
+    )
       request_stripe_object(
         method: :get,
         path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),

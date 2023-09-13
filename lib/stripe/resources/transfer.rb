@@ -20,6 +20,7 @@ module Stripe
 
     OBJECT_NAME = "transfer"
 
-    nested_resource_class_methods :reversal, operations: %i[create retrieve update list]
+    nested_resource_class_methods :reversal,
+                                  operations: %i[create retrieve update list]
   end
 end

@@ -19,7 +19,8 @@ module Stripe
 
     OBJECT_NAME = "source"
 
-    nested_resource_class_methods :source_transaction, operations: %i[retrieve list]
+    nested_resource_class_methods :source_transaction,
+                                  operations: %i[retrieve list]
 
     def verify(params = {}, opts = {})
       request_stripe_object(

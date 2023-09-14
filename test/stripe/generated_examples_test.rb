@@ -910,10 +910,111 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve?"
       end
     end
+    context "Issuing.Authorization.capture" do
+      should "support requests with args: authorization, capture_amount, close_authorization, purchase_details" do
+        Stripe::Issuing::Authorization::TestHelpers.capture(
+          "example_authorization",
+          {
+            capture_amount: 100,
+            close_authorization: true,
+            purchase_details: {
+              flight: {
+                departure_at: 1_633_651_200,
+                passenger_name: "John Doe",
+                refundable: true,
+                segments: [
+                  {
+                    arrival_airport_code: "SFO",
+                    carrier: "Delta",
+                    departure_airport_code: "LAX",
+                    flight_number: "DL100",
+                    service_class: "Economy",
+                    stopover_allowed: true,
+                  },
+                ],
+                travel_agency: "Orbitz",
+              },
+              fuel: {
+                type: "diesel",
+                unit: "liter",
+                unit_cost_decimal: "3.5",
+                volume_decimal: "10",
+              },
+              lodging: {
+                check_in_at: 1_633_651_200,
+                nights: 2,
+              },
+              receipt: [
+                {
+                  description: "Room charge",
+                  quantity: "1",
+                  total: 200,
+                  unit_cost: 200,
+                },
+              ],
+              reference: "foo",
+            },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/capture"
+      end
+    end
+    context "Issuing.Authorization.create" do
+      should "support requests with args: amount, amount_details, authorization_method, card, currency, is_amount_controllable, merchant_data, network_data, verification_data, wallet" do
+        Stripe::Issuing::Authorization::TestHelpers.create({
+          amount: 100,
+          amount_details: {
+            atm_fee: 10,
+            cashback_amount: 5,
+          },
+          authorization_method: "chip",
+          card: "foo",
+          currency: "bar",
+          is_amount_controllable: true,
+          merchant_data: {
+            category: "ac_refrigeration_repair",
+            city: "foo",
+            country: "bar",
+            name: "foo",
+            network_id: "bar",
+            postal_code: "foo",
+            state: "bar",
+            terminal_id: "foo",
+          },
+          network_data: { acquiring_institution_id: "foo" },
+          verification_data: {
+            address_line1_check: "mismatch",
+            address_postal_code_check: "match",
+            cvc_check: "match",
+            expiry_check: "mismatch",
+          },
+          wallet: "apple_pay",
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations"
+      end
+    end
     context "Issuing.Authorization.decline" do
       should "support requests with args: id" do
         Stripe::Issuing::Authorization.decline("iauth_xxxxxxxxxxxxx")
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline?"
+      end
+    end
+    context "Issuing.Authorization.expire" do
+      should "support requests with args: authorization" do
+        Stripe::Issuing::Authorization::TestHelpers.expire("example_authorization")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/expire?"
+      end
+    end
+    context "Issuing.Authorization.increment" do
+      should "support requests with args: authorization, increment_amount, is_amount_controllable" do
+        Stripe::Issuing::Authorization::TestHelpers.increment(
+          "example_authorization",
+          {
+            increment_amount: 50,
+            is_amount_controllable: true,
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/increment"
       end
     end
     context "Issuing.Authorization.list" do
@@ -926,6 +1027,15 @@ module Stripe
       should "support requests with args: id" do
         Stripe::Issuing::Authorization.retrieve("iauth_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx?"
+      end
+    end
+    context "Issuing.Authorization.reverse" do
+      should "support requests with args: authorization, reverse_amount" do
+        Stripe::Issuing::Authorization::TestHelpers.reverse(
+          "example_authorization",
+          { reverse_amount: 20 }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/reverse"
       end
     end
     context "Issuing.Authorization.update" do
@@ -1054,10 +1164,130 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit?"
       end
     end
+    context "Issuing.Transaction.create_force_capture" do
+      should "support requests with args: amount, card, currency, merchant_data, purchase_details" do
+        Stripe::Issuing::Transaction::TestHelpers.create_force_capture({
+          amount: 100,
+          card: "foo",
+          currency: "bar",
+          merchant_data: {
+            category: "ac_refrigeration_repair",
+            city: "foo",
+            country: "US",
+            name: "foo",
+            network_id: "bar",
+            postal_code: "10001",
+            state: "NY",
+            terminal_id: "foo",
+          },
+          purchase_details: {
+            flight: {
+              departure_at: 1_633_651_200,
+              passenger_name: "John Doe",
+              refundable: true,
+              segments: [
+                {
+                  arrival_airport_code: "SFO",
+                  carrier: "Delta",
+                  departure_airport_code: "LAX",
+                  flight_number: "DL100",
+                  service_class: "Economy",
+                  stopover_allowed: true,
+                },
+              ],
+              travel_agency: "Orbitz",
+            },
+            fuel: {
+              type: "diesel",
+              unit: "liter",
+              unit_cost_decimal: "3.5",
+              volume_decimal: "10",
+            },
+            lodging: {
+              check_in_at: 1_533_651_200,
+              nights: 2,
+            },
+            receipt: [
+              {
+                description: "Room charge",
+                quantity: "1",
+                total: 200,
+                unit_cost: 200,
+              },
+            ],
+            reference: "foo",
+          },
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/transactions/create_force_capture"
+      end
+    end
+    context "Issuing.Transaction.create_unlinked_refund" do
+      should "support requests with args: amount, card, currency, merchant_data, purchase_details" do
+        Stripe::Issuing::Transaction::TestHelpers.create_unlinked_refund({
+          amount: 100,
+          card: "foo",
+          currency: "bar",
+          merchant_data: {
+            category: "ac_refrigeration_repair",
+            city: "foo",
+            country: "bar",
+            name: "foo",
+            network_id: "bar",
+            postal_code: "foo",
+            state: "bar",
+            terminal_id: "foo",
+          },
+          purchase_details: {
+            flight: {
+              departure_at: 1_533_651_200,
+              passenger_name: "John Doe",
+              refundable: true,
+              segments: [
+                {
+                  arrival_airport_code: "SFO",
+                  carrier: "Delta",
+                  departure_airport_code: "LAX",
+                  flight_number: "DL100",
+                  service_class: "Economy",
+                  stopover_allowed: true,
+                },
+              ],
+              travel_agency: "Orbitz",
+            },
+            fuel: {
+              type: "diesel",
+              unit: "liter",
+              unit_cost_decimal: "3.5",
+              volume_decimal: "10",
+            },
+            lodging: {
+              check_in_at: 1_533_651_200,
+              nights: 2,
+            },
+            receipt: [
+              {
+                description: "Room charge",
+                quantity: "1",
+                total: 200,
+                unit_cost: 200,
+              },
+            ],
+            reference: "foo",
+          },
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/transactions/create_unlinked_refund"
+      end
+    end
     context "Issuing.Transaction.list" do
       should "support requests with args: limit" do
         Stripe::Issuing::Transaction.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions?limit=3"
+      end
+    end
+    context "Issuing.Transaction.refund" do
+      should "support requests with args: transaction, refund_amount" do
+        Stripe::Issuing::Transaction::TestHelpers.refund("example_transaction", { refund_amount: 50 })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/transactions/example_transaction/refund"
       end
     end
     context "Issuing.Transaction.retrieve" do
@@ -1270,6 +1500,36 @@ module Stripe
       should "support requests with args: metadata, id" do
         Stripe::PaymentMethod.update("pm_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx"
+      end
+    end
+    context "PaymentMethodConfiguration.create" do
+      should "support requests with args: acss_debit, affirm" do
+        Stripe::PaymentMethodConfiguration.create({
+          acss_debit: { display_preference: { preference: "none" } },
+          affirm: { display_preference: { preference: "none" } },
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_method_configurations"
+      end
+    end
+    context "PaymentMethodConfiguration.list" do
+      should "support requests with args: application" do
+        Stripe::PaymentMethodConfiguration.list({ application: "foo" })
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_method_configurations?application=foo"
+      end
+    end
+    context "PaymentMethodConfiguration.retrieve" do
+      should "support requests with args: configuration" do
+        Stripe::PaymentMethodConfiguration.retrieve("foo")
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_method_configurations/foo?"
+      end
+    end
+    context "PaymentMethodConfiguration.update" do
+      should "support requests with args: configuration, acss_debit" do
+        Stripe::PaymentMethodConfiguration.update(
+          "foo",
+          { acss_debit: { display_preference: { preference: "on" } } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_method_configurations/foo"
       end
     end
     context "PaymentSource.create" do

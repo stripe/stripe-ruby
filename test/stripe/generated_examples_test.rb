@@ -969,7 +969,7 @@ module Stripe
           },
           authorization_method: "chip",
           card: "foo",
-          currency: "bar",
+          currency: "usd",
           is_amount_controllable: true,
           merchant_data: {
             category: "ac_refrigeration_repair",
@@ -1169,7 +1169,7 @@ module Stripe
         Stripe::Issuing::Transaction::TestHelpers.create_force_capture({
           amount: 100,
           card: "foo",
-          currency: "bar",
+          currency: "usd",
           merchant_data: {
             category: "ac_refrigeration_repair",
             city: "foo",
@@ -1226,7 +1226,7 @@ module Stripe
         Stripe::Issuing::Transaction::TestHelpers.create_unlinked_refund({
           amount: 100,
           card: "foo",
-          currency: "bar",
+          currency: "usd",
           merchant_data: {
             category: "ac_refrigeration_repair",
             city: "foo",

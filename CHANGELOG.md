@@ -1,5 +1,16 @@
 # Changelog
 
+## 9.4.0-beta.1 - 2023-09-14
+ * Updated stable APIs to the latest version
+
+## 9.3.0 - 2023-09-14
+* [#1272](https://github.com/stripe/stripe-ruby/pull/1272) Update generated code
+  * Add support for new resource `PaymentMethodConfiguration`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PaymentMethodConfiguration`
+* [#1271](https://github.com/stripe/stripe-ruby/pull/1271) Update generated code
+  * Add support for `capture`, `create`, `expire`, `increment`, and `reverse` test helper methods on resource `Issuing.Authorization`
+  * Add support for `create_force_capture`, `create_unlinked_refund`, and `refund` test helper methods on resource `Issuing.Transaction`
+
 ## 9.3.0-beta.1 - 2023-09-07
 * [#1269](https://github.com/stripe/stripe-ruby/pull/1269) Update generated code for beta
   * Release specs are identical.

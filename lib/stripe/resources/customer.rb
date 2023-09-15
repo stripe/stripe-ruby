@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
+  # This object represents a customer of your business. Use it to create recurring charges and track payments that belong to the same customer.
   #
   # Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
   class Customer < APIResource

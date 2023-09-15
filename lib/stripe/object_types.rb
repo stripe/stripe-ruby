@@ -32,6 +32,7 @@ module Stripe
         CashBalance::OBJECT_NAME => CashBalance,
         Charge::OBJECT_NAME => Charge,
         Checkout::Session::OBJECT_NAME => Checkout::Session,
+        ConfirmationToken::OBJECT_NAME => ConfirmationToken,
         CountrySpec::OBJECT_NAME => CountrySpec,
         Coupon::OBJECT_NAME => Coupon,
         CreditNote::OBJECT_NAME => CreditNote,

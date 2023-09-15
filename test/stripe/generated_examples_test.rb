@@ -1,6 +1,6 @@
+# File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-# File generated from our OpenAPI spec
 require ::File.expand_path("../test_helper", __dir__)
 module Stripe
   class CodegennedExampleTest < Test::Unit::TestCase
@@ -50,10 +50,7 @@ module Stripe
     end
     context "Account.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Account.update(
-          "acct_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Account.update("acct_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx"
       end
     end
@@ -88,10 +85,7 @@ module Stripe
     end
     context "ApplicationFeeRefund.retrieve" do
       should "support requests with args: parent_id, id" do
-        Stripe::ApplicationFee.retrieve_refund(
-          "fee_xxxxxxxxxxxxx",
-          "fr_xxxxxxxxxxxxx"
-        )
+        Stripe::ApplicationFee.retrieve_refund("fee_xxxxxxxxxxxxx", "fr_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx?"
       end
     end
@@ -230,20 +224,13 @@ module Stripe
     end
     context "Capability.retrieve" do
       should "support requests with args: parent_id, id" do
-        Stripe::Account.retrieve_capability(
-          "acct_xxxxxxxxxxxxx",
-          "card_payments"
-        )
+        Stripe::Account.retrieve_capability("acct_xxxxxxxxxxxxx", "card_payments")
         assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments?"
       end
     end
     context "Capability.update" do
       should "support requests with args: requested, parent_id, id" do
-        Stripe::Account.update_capability(
-          "acct_xxxxxxxxxxxxx",
-          "card_payments",
-          { requested: true }
-        )
+        Stripe::Account.update_capability("acct_xxxxxxxxxxxxx", "card_payments", { requested: true })
         assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments"
       end
     end
@@ -255,10 +242,7 @@ module Stripe
     end
     context "CashBalance.update" do
       should "support requests with args: customer, settings" do
-        Stripe::Customer.update_cash_balance(
-          "cus_123",
-          { settings: { reconciliation_mode: "manual" } }
-        )
+        Stripe::Customer.update_cash_balance("cus_123", { settings: { reconciliation_mode: "manual" } })
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
       end
     end
@@ -293,18 +277,13 @@ module Stripe
     end
     context "Charge.search" do
       should "support requests with args: query" do
-        Stripe::Charge.search({
-          query: "amount>999 AND metadata['order_id']:'6735'",
-        })
+        Stripe::Charge.search({ query: "amount>999 AND metadata['order_id']:'6735'" })
         assert_requested :get, "#{Stripe.api_base}/v1/charges/search?query=amount>999 AND metadata['order_id']:'6735'"
       end
     end
     context "Charge.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Charge.update(
-          "ch_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Charge.update("ch_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/charges/ch_xxxxxxxxxxxxx"
       end
     end
@@ -508,10 +487,7 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xyz/payment_methods?type=card"
       end
       should "support requests with args: type, parent_id" do
-        Stripe::Customer.list_payment_methods(
-          "cus_xxxxxxxxxxxxx",
-          { type: "card" }
-        )
+        Stripe::Customer.list_payment_methods("cus_xxxxxxxxxxxxx", { type: "card" })
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/payment_methods?type=card"
       end
     end
@@ -523,42 +499,29 @@ module Stripe
     end
     context "Customer.search" do
       should "support requests with args: query" do
-        Stripe::Customer.search({
-          query: "name:'fakename' AND metadata['foo']:'bar'",
-        })
+        Stripe::Customer.search({ query: "name:'fakename' AND metadata['foo']:'bar'" })
         assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name:'fakename' AND metadata['foo']:'bar'"
       end
       should "support requests with args: query2" do
-        Stripe::Customer.search({
-          query: "name:'fakename' AND metadata['foo']:'bar'",
-        })
+        Stripe::Customer.search({ query: "name:'fakename' AND metadata['foo']:'bar'" })
         assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name:'fakename' AND metadata['foo']:'bar'"
       end
     end
     context "Customer.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Customer.update(
-          "cus_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Customer.update("cus_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx"
       end
     end
     context "CustomerBalanceTransaction.list" do
       should "support requests with args: limit, parent_id" do
-        Stripe::Customer.list_balance_transactions(
-          "cus_xxxxxxxxxxxxx",
-          { limit: 3 }
-        )
+        Stripe::Customer.list_balance_transactions("cus_xxxxxxxxxxxxx", { limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions?limit=3"
       end
     end
     context "CustomerBalanceTransaction.retrieve" do
       should "support requests with args: parent_id, id" do
-        Stripe::Customer.retrieve_balance_transaction(
-          "cus_xxxxxxxxxxxxx",
-          "cbtxn_xxxxxxxxxxxxx"
-        )
+        Stripe::Customer.retrieve_balance_transaction("cus_xxxxxxxxxxxxx", "cbtxn_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx?"
       end
     end
@@ -592,10 +555,7 @@ module Stripe
     end
     context "Dispute.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Dispute.update(
-          "dp_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Dispute.update("dp_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx"
       end
     end
@@ -629,17 +589,11 @@ module Stripe
     end
     context "ExternalAccount.delete" do
       should "support requests with args: parent_id, id" do
-        Stripe::Account.delete_external_account(
-          "acct_xxxxxxxxxxxxx",
-          "ba_xxxxxxxxxxxxx"
-        )
+        Stripe::Account.delete_external_account("acct_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
         assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx?"
       end
       should "support requests with args: parent_id, id2" do
-        Stripe::Account.delete_external_account(
-          "acct_xxxxxxxxxxxxx",
-          "card_xxxxxxxxxxxxx"
-        )
+        Stripe::Account.delete_external_account("acct_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
         assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx?"
       end
     end
@@ -699,10 +653,7 @@ module Stripe
     end
     context "FileLink.update" do
       should "support requests with args: metadata, id" do
-        Stripe::FileLink.update(
-          "link_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::FileLink.update("link_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/file_links/link_xxxxxxxxxxxxx"
       end
     end
@@ -730,10 +681,7 @@ module Stripe
     end
     context "FinancialConnections.Account.list_owners" do
       should "support requests with args: account, ownership" do
-        Stripe::FinancialConnections::Account.list_owners(
-          "fca_xyz",
-          { ownership: "fcaowns_xyz" }
-        )
+        Stripe::FinancialConnections::Account.list_owners("fca_xyz", { ownership: "fcaowns_xyz" })
         assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xyz/owners?ownership=fcaowns_xyz"
       end
       should "support requests with args: limit, ownership, parent_id" do
@@ -749,10 +697,7 @@ module Stripe
     end
     context "FinancialConnections.Account.refresh_account" do
       should "support requests with args: account, features" do
-        Stripe::FinancialConnections::Account.refresh_account(
-          "fca_xyz",
-          { features: ["balance"] }
-        )
+        Stripe::FinancialConnections::Account.refresh_account("fca_xyz", { features: ["balance"] })
         assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xyz/refresh"
       end
     end
@@ -843,10 +788,7 @@ module Stripe
     end
     context "Identity.VerificationSession.update" do
       should "support requests with args: type, id" do
-        Stripe::Identity::VerificationSession.update(
-          "vs_xxxxxxxxxxxxx",
-          { type: "id_number" }
-        )
+        Stripe::Identity::VerificationSession.update("vs_xxxxxxxxxxxxx", { type: "id_number" })
         assert_requested :post, "#{Stripe.api_base}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx"
       end
     end
@@ -901,9 +843,7 @@ module Stripe
     end
     context "Invoice.search" do
       should "support requests with args: query" do
-        Stripe::Invoice.search({
-          query: "total>999 AND metadata['order_id']:'6735'",
-        })
+        Stripe::Invoice.search({ query: "total>999 AND metadata['order_id']:'6735'" })
         assert_requested :get, "#{Stripe.api_base}/v1/invoices/search?query=total>999 AND metadata['order_id']:'6735'"
       end
     end
@@ -921,10 +861,7 @@ module Stripe
     end
     context "Invoice.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Invoice.update(
-          "in_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Invoice.update("in_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx"
       end
     end
@@ -963,10 +900,7 @@ module Stripe
     end
     context "InvoiceItem.update" do
       should "support requests with args: metadata, id" do
-        Stripe::InvoiceItem.update(
-          "ii_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::InvoiceItem.update("ii_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
       end
     end
@@ -976,10 +910,111 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve?"
       end
     end
+    context "Issuing.Authorization.capture" do
+      should "support requests with args: authorization, capture_amount, close_authorization, purchase_details" do
+        Stripe::Issuing::Authorization::TestHelpers.capture(
+          "example_authorization",
+          {
+            capture_amount: 100,
+            close_authorization: true,
+            purchase_details: {
+              flight: {
+                departure_at: 1_633_651_200,
+                passenger_name: "John Doe",
+                refundable: true,
+                segments: [
+                  {
+                    arrival_airport_code: "SFO",
+                    carrier: "Delta",
+                    departure_airport_code: "LAX",
+                    flight_number: "DL100",
+                    service_class: "Economy",
+                    stopover_allowed: true,
+                  },
+                ],
+                travel_agency: "Orbitz",
+              },
+              fuel: {
+                type: "diesel",
+                unit: "liter",
+                unit_cost_decimal: "3.5",
+                volume_decimal: "10",
+              },
+              lodging: {
+                check_in_at: 1_633_651_200,
+                nights: 2,
+              },
+              receipt: [
+                {
+                  description: "Room charge",
+                  quantity: "1",
+                  total: 200,
+                  unit_cost: 200,
+                },
+              ],
+              reference: "foo",
+            },
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/capture"
+      end
+    end
+    context "Issuing.Authorization.create" do
+      should "support requests with args: amount, amount_details, authorization_method, card, currency, is_amount_controllable, merchant_data, network_data, verification_data, wallet" do
+        Stripe::Issuing::Authorization::TestHelpers.create({
+          amount: 100,
+          amount_details: {
+            atm_fee: 10,
+            cashback_amount: 5,
+          },
+          authorization_method: "chip",
+          card: "foo",
+          currency: "usd",
+          is_amount_controllable: true,
+          merchant_data: {
+            category: "ac_refrigeration_repair",
+            city: "foo",
+            country: "bar",
+            name: "foo",
+            network_id: "bar",
+            postal_code: "foo",
+            state: "bar",
+            terminal_id: "foo",
+          },
+          network_data: { acquiring_institution_id: "foo" },
+          verification_data: {
+            address_line1_check: "mismatch",
+            address_postal_code_check: "match",
+            cvc_check: "match",
+            expiry_check: "mismatch",
+          },
+          wallet: "apple_pay",
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations"
+      end
+    end
     context "Issuing.Authorization.decline" do
       should "support requests with args: id" do
         Stripe::Issuing::Authorization.decline("iauth_xxxxxxxxxxxxx")
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline?"
+      end
+    end
+    context "Issuing.Authorization.expire" do
+      should "support requests with args: authorization" do
+        Stripe::Issuing::Authorization::TestHelpers.expire("example_authorization")
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/expire?"
+      end
+    end
+    context "Issuing.Authorization.increment" do
+      should "support requests with args: authorization, increment_amount, is_amount_controllable" do
+        Stripe::Issuing::Authorization::TestHelpers.increment(
+          "example_authorization",
+          {
+            increment_amount: 50,
+            is_amount_controllable: true,
+          }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/increment"
       end
     end
     context "Issuing.Authorization.list" do
@@ -994,12 +1029,18 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx?"
       end
     end
+    context "Issuing.Authorization.reverse" do
+      should "support requests with args: authorization, reverse_amount" do
+        Stripe::Issuing::Authorization::TestHelpers.reverse(
+          "example_authorization",
+          { reverse_amount: 20 }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/reverse"
+      end
+    end
     context "Issuing.Authorization.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Issuing::Authorization.update(
-          "iauth_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Issuing::Authorization.update("iauth_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx"
       end
     end
@@ -1051,10 +1092,7 @@ module Stripe
     end
     context "Issuing.Card.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Issuing::Card.update(
-          "ic_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Issuing::Card.update("ic_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/cards/ic_xxxxxxxxxxxxx"
       end
     end
@@ -1092,10 +1130,7 @@ module Stripe
     end
     context "Issuing.Cardholder.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Issuing::Cardholder.update(
-          "ich_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Issuing::Cardholder.update("ich_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx"
       end
     end
@@ -1129,10 +1164,130 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit?"
       end
     end
+    context "Issuing.Transaction.create_force_capture" do
+      should "support requests with args: amount, card, currency, merchant_data, purchase_details" do
+        Stripe::Issuing::Transaction::TestHelpers.create_force_capture({
+          amount: 100,
+          card: "foo",
+          currency: "usd",
+          merchant_data: {
+            category: "ac_refrigeration_repair",
+            city: "foo",
+            country: "US",
+            name: "foo",
+            network_id: "bar",
+            postal_code: "10001",
+            state: "NY",
+            terminal_id: "foo",
+          },
+          purchase_details: {
+            flight: {
+              departure_at: 1_633_651_200,
+              passenger_name: "John Doe",
+              refundable: true,
+              segments: [
+                {
+                  arrival_airport_code: "SFO",
+                  carrier: "Delta",
+                  departure_airport_code: "LAX",
+                  flight_number: "DL100",
+                  service_class: "Economy",
+                  stopover_allowed: true,
+                },
+              ],
+              travel_agency: "Orbitz",
+            },
+            fuel: {
+              type: "diesel",
+              unit: "liter",
+              unit_cost_decimal: "3.5",
+              volume_decimal: "10",
+            },
+            lodging: {
+              check_in_at: 1_533_651_200,
+              nights: 2,
+            },
+            receipt: [
+              {
+                description: "Room charge",
+                quantity: "1",
+                total: 200,
+                unit_cost: 200,
+              },
+            ],
+            reference: "foo",
+          },
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/transactions/create_force_capture"
+      end
+    end
+    context "Issuing.Transaction.create_unlinked_refund" do
+      should "support requests with args: amount, card, currency, merchant_data, purchase_details" do
+        Stripe::Issuing::Transaction::TestHelpers.create_unlinked_refund({
+          amount: 100,
+          card: "foo",
+          currency: "usd",
+          merchant_data: {
+            category: "ac_refrigeration_repair",
+            city: "foo",
+            country: "bar",
+            name: "foo",
+            network_id: "bar",
+            postal_code: "foo",
+            state: "bar",
+            terminal_id: "foo",
+          },
+          purchase_details: {
+            flight: {
+              departure_at: 1_533_651_200,
+              passenger_name: "John Doe",
+              refundable: true,
+              segments: [
+                {
+                  arrival_airport_code: "SFO",
+                  carrier: "Delta",
+                  departure_airport_code: "LAX",
+                  flight_number: "DL100",
+                  service_class: "Economy",
+                  stopover_allowed: true,
+                },
+              ],
+              travel_agency: "Orbitz",
+            },
+            fuel: {
+              type: "diesel",
+              unit: "liter",
+              unit_cost_decimal: "3.5",
+              volume_decimal: "10",
+            },
+            lodging: {
+              check_in_at: 1_533_651_200,
+              nights: 2,
+            },
+            receipt: [
+              {
+                description: "Room charge",
+                quantity: "1",
+                total: 200,
+                unit_cost: 200,
+              },
+            ],
+            reference: "foo",
+          },
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/transactions/create_unlinked_refund"
+      end
+    end
     context "Issuing.Transaction.list" do
       should "support requests with args: limit" do
         Stripe::Issuing::Transaction.list({ limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions?limit=3"
+      end
+    end
+    context "Issuing.Transaction.refund" do
+      should "support requests with args: transaction, refund_amount" do
+        Stripe::Issuing::Transaction::TestHelpers.refund("example_transaction", { refund_amount: 50 })
+        assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/transactions/example_transaction/refund"
       end
     end
     context "Issuing.Transaction.retrieve" do
@@ -1143,10 +1298,7 @@ module Stripe
     end
     context "Issuing.Transaction.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Issuing::Transaction.update(
-          "ipi_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Issuing::Transaction.update("ipi_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx"
       end
     end
@@ -1176,10 +1328,7 @@ module Stripe
     end
     context "PaymentIntent.confirm" do
       should "support requests with args: payment_method, id" do
-        Stripe::PaymentIntent.confirm(
-          "pi_xxxxxxxxxxxxx",
-          { payment_method: "pm_card_visa" }
-        )
+        Stripe::PaymentIntent.confirm("pi_xxxxxxxxxxxxx", { payment_method: "pm_card_visa" })
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm"
       end
     end
@@ -1214,10 +1363,7 @@ module Stripe
     end
     context "PaymentIntent.increment_authorization" do
       should "support requests with args: amount, id" do
-        Stripe::PaymentIntent.increment_authorization(
-          "pi_xxxxxxxxxxxxx",
-          { amount: 2099 }
-        )
+        Stripe::PaymentIntent.increment_authorization("pi_xxxxxxxxxxxxx", { amount: 2099 })
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization"
       end
     end
@@ -1243,10 +1389,7 @@ module Stripe
     end
     context "PaymentIntent.update" do
       should "support requests with args: metadata, id" do
-        Stripe::PaymentIntent.update(
-          "pi_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::PaymentIntent.update("pi_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx"
       end
     end
@@ -1256,10 +1399,7 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits?"
       end
       should "support requests with args: amounts, id" do
-        Stripe::PaymentIntent.verify_microdeposits(
-          "pi_xxxxxxxxxxxxx",
-          { amounts: [32, 45] }
-        )
+        Stripe::PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx", { amounts: [32, 45] })
         assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits"
       end
     end
@@ -1317,10 +1457,7 @@ module Stripe
     end
     context "PaymentMethod.attach" do
       should "support requests with args: customer, id" do
-        Stripe::PaymentMethod.attach(
-          "pm_xxxxxxxxxxxxx",
-          { customer: "cus_xxxxxxxxxxxxx" }
-        )
+        Stripe::PaymentMethod.attach("pm_xxxxxxxxxxxxx", { customer: "cus_xxxxxxxxxxxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx/attach"
       end
     end
@@ -1361,26 +1498,47 @@ module Stripe
     end
     context "PaymentMethod.update" do
       should "support requests with args: metadata, id" do
-        Stripe::PaymentMethod.update(
-          "pm_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::PaymentMethod.update("pm_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx"
+      end
+    end
+    context "PaymentMethodConfiguration.create" do
+      should "support requests with args: acss_debit, affirm" do
+        Stripe::PaymentMethodConfiguration.create({
+          acss_debit: { display_preference: { preference: "none" } },
+          affirm: { display_preference: { preference: "none" } },
+        })
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_method_configurations"
+      end
+    end
+    context "PaymentMethodConfiguration.list" do
+      should "support requests with args: application" do
+        Stripe::PaymentMethodConfiguration.list({ application: "foo" })
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_method_configurations?application=foo"
+      end
+    end
+    context "PaymentMethodConfiguration.retrieve" do
+      should "support requests with args: configuration" do
+        Stripe::PaymentMethodConfiguration.retrieve("foo")
+        assert_requested :get, "#{Stripe.api_base}/v1/payment_method_configurations/foo?"
+      end
+    end
+    context "PaymentMethodConfiguration.update" do
+      should "support requests with args: configuration, acss_debit" do
+        Stripe::PaymentMethodConfiguration.update(
+          "foo",
+          { acss_debit: { display_preference: { preference: "on" } } }
+        )
+        assert_requested :post, "#{Stripe.api_base}/v1/payment_method_configurations/foo"
       end
     end
     context "PaymentSource.create" do
       should "support requests with args: source, parent_id" do
-        Stripe::Customer.create_source(
-          "cus_xxxxxxxxxxxxx",
-          { source: "btok_xxxxxxxxxxxxx" }
-        )
+        Stripe::Customer.create_source("cus_xxxxxxxxxxxxx", { source: "btok_xxxxxxxxxxxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources"
       end
       should "support requests with args: source, parent_id2" do
-        Stripe::Customer.create_source(
-          "cus_xxxxxxxxxxxxx",
-          { source: "tok_xxxx" }
-        )
+        Stripe::Customer.create_source("cus_xxxxxxxxxxxxx", { source: "tok_xxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources"
       end
     end
@@ -1408,17 +1566,11 @@ module Stripe
     end
     context "PaymentSource.retrieve" do
       should "support requests with args: parent_id, id" do
-        Stripe::Customer.retrieve_source(
-          "cus_xxxxxxxxxxxxx",
-          "ba_xxxxxxxxxxxxx"
-        )
+        Stripe::Customer.retrieve_source("cus_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx?"
       end
       should "support requests with args: parent_id, id2" do
-        Stripe::Customer.retrieve_source(
-          "cus_xxxxxxxxxxxxx",
-          "card_xxxxxxxxxxxxx"
-        )
+        Stripe::Customer.retrieve_source("cus_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx?"
       end
     end
@@ -1457,19 +1609,13 @@ module Stripe
     end
     context "Payout.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Payout.update(
-          "po_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Payout.update("po_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx"
       end
     end
     context "Person.retrieve" do
       should "support requests with args: parent_id, id" do
-        Stripe::Account.retrieve_person(
-          "acct_xxxxxxxxxxxxx",
-          "person_xxxxxxxxxxxxx"
-        )
+        Stripe::Account.retrieve_person("acct_xxxxxxxxxxxxx", "person_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx?"
       end
     end
@@ -1523,10 +1669,7 @@ module Stripe
     end
     context "Plan.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Plan.update(
-          "price_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Plan.update("price_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/plans/price_xxxxxxxxxxxxx"
       end
     end
@@ -1568,18 +1711,13 @@ module Stripe
     end
     context "Price.search" do
       should "support requests with args: query" do
-        Stripe::Price.search({
-          query: "active:'true' AND metadata['order_id']:'6735'",
-        })
+        Stripe::Price.search({ query: "active:'true' AND metadata['order_id']:'6735'" })
         assert_requested :get, "#{Stripe.api_base}/v1/prices/search?query=active:'true' AND metadata['order_id']:'6735'"
       end
     end
     context "Price.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Price.update(
-          "price_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Price.update("price_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/prices/price_xxxxxxxxxxxxx"
       end
     end
@@ -1609,18 +1747,13 @@ module Stripe
     end
     context "Product.search" do
       should "support requests with args: query" do
-        Stripe::Product.search({
-          query: "active:'true' AND metadata['order_id']:'6735'",
-        })
+        Stripe::Product.search({ query: "active:'true' AND metadata['order_id']:'6735'" })
         assert_requested :get, "#{Stripe.api_base}/v1/products/search?query=active:'true' AND metadata['order_id']:'6735'"
       end
     end
     context "Product.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Product.update(
-          "prod_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Product.update("prod_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/products/prod_xxxxxxxxxxxxx"
       end
     end
@@ -1644,10 +1777,7 @@ module Stripe
     end
     context "PromotionCode.update" do
       should "support requests with args: metadata, id" do
-        Stripe::PromotionCode.update(
-          "promo_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::PromotionCode.update("promo_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
       end
     end
@@ -1762,10 +1892,7 @@ module Stripe
     end
     context "Radar.ValueList.update" do
       should "support requests with args: name, id" do
-        Stripe::Radar::ValueList.update(
-          "rsl_xxxxxxxxxxxxx",
-          { name: "Updated IP Block List" }
-        )
+        Stripe::Radar::ValueList.update("rsl_xxxxxxxxxxxxx", { name: "Updated IP Block List" })
         assert_requested :post, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
       end
     end
@@ -1831,10 +1958,7 @@ module Stripe
     end
     context "Refund.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Refund.update(
-          "re_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Refund.update("re_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/refunds/re_xxxxxxxxxxxxx"
       end
     end
@@ -1882,10 +2006,7 @@ module Stripe
     end
     context "Reversal.retrieve" do
       should "support requests with args: parent_id, id" do
-        Stripe::Transfer.retrieve_reversal(
-          "tr_xxxxxxxxxxxxx",
-          "trr_xxxxxxxxxxxxx"
-        )
+        Stripe::Transfer.retrieve_reversal("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx?"
       end
     end
@@ -1934,10 +2055,7 @@ module Stripe
     end
     context "SetupIntent.confirm" do
       should "support requests with args: payment_method, id" do
-        Stripe::SetupIntent.confirm(
-          "seti_xxxxxxxxxxxxx",
-          { payment_method: "pm_card_visa" }
-        )
+        Stripe::SetupIntent.confirm("seti_xxxxxxxxxxxxx", { payment_method: "pm_card_visa" })
         assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm"
       end
     end
@@ -1961,10 +2079,7 @@ module Stripe
     end
     context "SetupIntent.update" do
       should "support requests with args: metadata, id" do
-        Stripe::SetupIntent.update(
-          "seti_xxxxxxxxxxxxx",
-          { metadata: { user_id: "3435453" } }
-        )
+        Stripe::SetupIntent.update("seti_xxxxxxxxxxxxx", { metadata: { user_id: "3435453" } })
         assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx"
       end
     end
@@ -1974,10 +2089,7 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits?"
       end
       should "support requests with args: amounts, id" do
-        Stripe::SetupIntent.verify_microdeposits(
-          "seti_xxxxxxxxxxxxx",
-          { amounts: [32, 45] }
-        )
+        Stripe::SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx", { amounts: [32, 45] })
         assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits"
       end
     end
@@ -2023,10 +2135,7 @@ module Stripe
     end
     context "ShippingRate.update" do
       should "support requests with args: metadata, id" do
-        Stripe::ShippingRate.update(
-          "shr_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::ShippingRate.update("shr_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/shipping_rates/shr_xxxxxxxxxxxxx"
       end
     end
@@ -2054,10 +2163,7 @@ module Stripe
     end
     context "Source.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Source.update(
-          "src_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Source.update("src_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/sources/src_xxxxxxxxxxxxx"
       end
     end
@@ -2092,10 +2198,7 @@ module Stripe
     end
     context "Subscription.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Subscription.update(
-          "sub_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Subscription.update("sub_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/subscriptions/sub_xxxxxxxxxxxxx"
       end
     end
@@ -2129,10 +2232,7 @@ module Stripe
     end
     context "SubscriptionItem.update" do
       should "support requests with args: metadata, id" do
-        Stripe::SubscriptionItem.update(
-          "si_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::SubscriptionItem.update("si_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_items/si_xxxxxxxxxxxxx"
       end
     end
@@ -2183,10 +2283,7 @@ module Stripe
     end
     context "SubscriptionSchedule.update" do
       should "support requests with args: end_behavior, id" do
-        Stripe::SubscriptionSchedule.update(
-          "sub_sched_xxxxxxxxxxxxx",
-          { end_behavior: "release" }
-        )
+        Stripe::SubscriptionSchedule.update("sub_sched_xxxxxxxxxxxxx", { end_behavior: "release" })
         assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
       end
     end
@@ -2262,10 +2359,7 @@ module Stripe
     end
     context "TaxId.retrieve" do
       should "support requests with args: id, parent_id" do
-        Stripe::Customer.retrieve_tax_id(
-          "cus_xxxxxxxxxxxxx",
-          "txi_xxxxxxxxxxxxx"
-        )
+        Stripe::Customer.retrieve_tax_id("cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx")
         assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx?"
       end
     end
@@ -2343,10 +2437,7 @@ module Stripe
     end
     context "Terminal.Configuration.update" do
       should "support requests with args: configuration, tipping" do
-        Stripe::Terminal::Configuration.update(
-          "uc_123",
-          { tipping: { usd: { fixed_amounts: [10] } } }
-        )
+        Stripe::Terminal::Configuration.update("uc_123", { tipping: { usd: { fixed_amounts: [10] } } })
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations/uc_123"
       end
       should "support requests with args: bbpos_wisepos_e, id" do
@@ -2398,10 +2489,7 @@ module Stripe
     end
     context "Terminal.Location.update" do
       should "support requests with args: display_name, id" do
-        Stripe::Terminal::Location.update(
-          "tml_xxxxxxxxxxxxx",
-          { display_name: "My First Store" }
-        )
+        Stripe::Terminal::Location.update("tml_xxxxxxxxxxxxx", { display_name: "My First Store" })
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
       end
     end
@@ -2462,10 +2550,7 @@ module Stripe
     end
     context "Terminal.Reader.update" do
       should "support requests with args: label, id" do
-        Stripe::Terminal::Reader.update(
-          "tmr_xxxxxxxxxxxxx",
-          { label: "Blue Rabbit" }
-        )
+        Stripe::Terminal::Reader.update("tmr_xxxxxxxxxxxxx", { label: "Blue Rabbit" })
         assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
       end
     end
@@ -2475,10 +2560,7 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz/advance"
       end
       should "support requests with args: frozen_time, id" do
-        Stripe::TestHelpers::TestClock.advance(
-          "clock_xxxxxxxxxxxxx",
-          { frozen_time: 1_675_552_261 }
-        )
+        Stripe::TestHelpers::TestClock.advance("clock_xxxxxxxxxxxxx", { frozen_time: 1_675_552_261 })
         assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance"
       end
     end
@@ -2647,18 +2729,13 @@ module Stripe
     end
     context "Transfer.update" do
       should "support requests with args: metadata, id" do
-        Stripe::Transfer.update(
-          "tr_xxxxxxxxxxxxx",
-          { metadata: { order_id: "6735" } }
-        )
+        Stripe::Transfer.update("tr_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx"
       end
     end
     context "Treasury.CreditReversal.create" do
       should "support requests with args: received_credit" do
-        Stripe::Treasury::CreditReversal.create({
-          received_credit: "rc_xxxxxxxxxxxxx",
-        })
+        Stripe::Treasury::CreditReversal.create({ received_credit: "rc_xxxxxxxxxxxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/credit_reversals"
       end
     end
@@ -2679,9 +2756,7 @@ module Stripe
     end
     context "Treasury.DebitReversal.create" do
       should "support requests with args: received_debit" do
-        Stripe::Treasury::DebitReversal.create({
-          received_debit: "rd_xxxxxxxxxxxxx",
-        })
+        Stripe::Treasury::DebitReversal.create({ received_debit: "rd_xxxxxxxxxxxxx" })
         assert_requested :post, "#{Stripe.api_base}/v1/treasury/debit_reversals"
       end
     end

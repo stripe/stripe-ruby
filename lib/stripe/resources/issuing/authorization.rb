@@ -49,6 +49,95 @@ module Stripe
           opts: opts
         )
       end
+
+      def test_helpers
+        TestHelpers.new(self)
+      end
+
+      class TestHelpers < APIResourceTestHelpers
+        RESOURCE_CLASS = Authorization
+
+        def self.capture(authorization, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(authorization) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.create(params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: "/v1/test_helpers/issuing/authorizations",
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.expire(authorization, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/expire", { authorization: CGI.escape(authorization) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.increment(authorization, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(authorization) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def self.reverse(authorization, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/reverse", { authorization: CGI.escape(authorization) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def capture(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def expire(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/expire", { authorization: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def increment(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        def reverse(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/reverse", { authorization: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+      end
     end
   end
 end

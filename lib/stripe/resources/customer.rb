@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
+  # This object represents a customer of your business. Use it to create recurring charges and track payments that belong to the same customer.
   #
   # Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
   class Customer < APIResource
@@ -15,12 +15,9 @@ module Stripe
 
     OBJECT_NAME = "customer"
 
-    nested_resource_class_methods :balance_transaction,
-                                  operations: %i[create retrieve update list]
-    nested_resource_class_methods :cash_balance_transaction,
-                                  operations: %i[retrieve list]
-    nested_resource_class_methods :tax_id,
-                                  operations: %i[create retrieve delete list]
+    nested_resource_class_methods :balance_transaction, operations: %i[create retrieve update list]
+    nested_resource_class_methods :cash_balance_transaction, operations: %i[retrieve list]
+    nested_resource_class_methods :tax_id, operations: %i[create retrieve delete list]
 
     def create_funding_instructions(params = {}, opts = {})
       request_stripe_object(
@@ -85,12 +82,7 @@ module Stripe
       )
     end
 
-    def self.retrieve_payment_method(
-      customer,
-      payment_method,
-      params = {},
-      opts = {}
-    )
+    def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),

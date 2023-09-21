@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.4.0-beta.2 - 2023-09-21
+* [#1273](https://github.com/stripe/stripe-ruby/pull/1273) Update generated code for beta
+
 ## 9.4.0-beta.1 - 2023-09-14
  * Updated stable APIs to the latest version
 

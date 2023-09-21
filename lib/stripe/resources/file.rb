@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This is an object representing a file hosted on Stripe's servers. The
-  # file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
-  # request (for example, when uploading dispute evidence) or it may have
-  # been created by Stripe (for example, the results of a [Sigma scheduled
+  # This object represents files hosted on Stripe's servers. You can upload
+  # files with the [create file](https://stripe.com/docs/api#create_file) request
+  # (for example, when uploading dispute evidence). Stripe also
+  # creates files independetly (for example, the results of a [Sigma scheduled
   # query](https://stripe.com/docs/api#scheduled_queries)).
   #
   # Related guide: [File upload guide](https://stripe.com/docs/file-upload)

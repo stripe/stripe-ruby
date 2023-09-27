@@ -2176,6 +2176,12 @@ module Stripe
         assert_requested :post, "#{Stripe.api_base}/v1/subscriptions"
       end
     end
+    context "Subscription.delete_discount" do
+      should "support requests with args: subscription_exposed_id" do
+        Stripe::Subscription.delete_discount("sub_xyz")
+        assert_requested :delete, "#{Stripe.api_base}/v1/subscriptions/sub_xyz/discount?"
+      end
+    end
     context "Subscription.list" do
       should "support requests with args: limit" do
         Stripe::Subscription.list({ limit: 3 })

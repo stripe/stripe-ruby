@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.4.0-beta.3 - 2023-09-28
+* [#1276](https://github.com/stripe/stripe-ruby/pull/1276) Update generated code for beta
+  * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
+
 ## 9.4.0-beta.2 - 2023-09-21
 * [#1273](https://github.com/stripe/stripe-ruby/pull/1273) Update generated code for beta
 

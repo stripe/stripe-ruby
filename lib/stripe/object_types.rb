@@ -50,10 +50,11 @@ module Stripe
         File::OBJECT_NAME_ALT => File,
         FileLink::OBJECT_NAME => FileLink,
         FinancialConnections::Account::OBJECT_NAME => FinancialConnections::Account,
+        FinancialConnections::AccountInferredBalance::OBJECT_NAME =>
+        FinancialConnections::AccountInferredBalance,
         FinancialConnections::AccountOwner::OBJECT_NAME => FinancialConnections::AccountOwner,
         FinancialConnections::AccountOwnership::OBJECT_NAME =>
         FinancialConnections::AccountOwnership,
-        FinancialConnections::InferredBalance::OBJECT_NAME => FinancialConnections::InferredBalance,
         FinancialConnections::Session::OBJECT_NAME => FinancialConnections::Session,
         FinancialConnections::Transaction::OBJECT_NAME => FinancialConnections::Transaction,
         FundingInstructions::OBJECT_NAME => FundingInstructions,

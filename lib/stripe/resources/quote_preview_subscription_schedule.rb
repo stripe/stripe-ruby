@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  class QuotePreviewSchedule < APIResource
+  class QuotePreviewSubscriptionSchedule < APIResource
     extend Stripe::APIOperations::List
 
-    OBJECT_NAME = "quote_preview_schedule"
+    OBJECT_NAME = "quote_preview_subscription_schedule"
   end
 end

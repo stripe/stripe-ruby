@@ -1832,12 +1832,6 @@ module Stripe
         assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/pdf?"
       end
     end
-    context "Quote.preview_invoice_lines" do
-      should "support requests with args: quote, preview_invoice" do
-        Stripe::Quote.preview_invoice_lines("qt_xyz", "in_xyz")
-        assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines?"
-      end
-    end
     context "Quote.retrieve" do
       should "support requests with args: id" do
         Stripe::Quote.retrieve("qt_xxxxxxxxxxxxx")
@@ -1848,6 +1842,12 @@ module Stripe
       should "support requests with args: metadata, id" do
         Stripe::Quote.update("qt_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
         assert_requested :post, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx"
+      end
+    end
+    context "QuotePreviewInvoice.list_lines" do
+      should "support requests with args: quote, preview_invoice" do
+        Stripe::Quote.list_lines_preview_invoice("qt_xyz", "in_xyz")
+        assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines?"
       end
     end
     context "Radar.EarlyFraudWarning.list" do

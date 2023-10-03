@@ -59,6 +59,7 @@ module Stripe
         Issuing::Card::OBJECT_NAME => Issuing::Card,
         Issuing::Cardholder::OBJECT_NAME => Issuing::Cardholder,
         Issuing::Dispute::OBJECT_NAME => Issuing::Dispute,
+        Issuing::Token::OBJECT_NAME => Issuing::Token,
         Issuing::Transaction::OBJECT_NAME => Issuing::Transaction,
         LineItem::OBJECT_NAME => LineItem,
         LoginLink::OBJECT_NAME => LoginLink,

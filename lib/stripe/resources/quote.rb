@@ -69,6 +69,15 @@ module Stripe
       )
     end
 
+    def list_preview_invoice_lines(preview_invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(self["id"]), preview_invoice: CGI.escape(preview_invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def mark_draft(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -96,15 +105,6 @@ module Stripe
         params: params,
         opts: opts,
         &read_body_chunk_block
-      )
-    end
-
-    def preview_invoice_lines(preview_invoice, params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(self["id"]), preview_invoice: CGI.escape(preview_invoice) }),
-        params: params,
-        opts: opts
       )
     end
 
@@ -171,6 +171,15 @@ module Stripe
       )
     end
 
+    def self.list_preview_invoice_lines(quote, preview_invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(quote), preview_invoice: CGI.escape(preview_invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def self.mark_draft(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -198,15 +207,6 @@ module Stripe
         params,
         opts,
         &read_body_chunk_block
-      )
-    end
-
-    def self.preview_invoice_lines(quote, preview_invoice, params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(quote), preview_invoice: CGI.escape(preview_invoice) }),
-        params: params,
-        opts: opts
       )
     end
 

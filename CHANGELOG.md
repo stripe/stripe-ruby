@@ -1,4 +1,9 @@
 # Changelog
+## 9.4.0 - 2023-10-05
+* [#1277](https://github.com/stripe/stripe-ruby/pull/1277) Update generated code
+  * Add support for new resources `Issuing.Token`
+  * Add support for `list`, `retrieve`, and `update` methods on resource `Token`
+
 ## 9.3.0 - 2023-09-14
 * [#1272](https://github.com/stripe/stripe-ruby/pull/1272) Update generated code
   * Add support for new resource `PaymentMethodConfiguration`

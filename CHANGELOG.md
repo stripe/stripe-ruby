@@ -1,5 +1,12 @@
 # Changelog
 
+## 9.5.0-beta.1 - 2023-10-05
+* [#1278](https://github.com/stripe/stripe-ruby/pull/1278) Update generated code for beta
+  * Add support for `mark_draft` and `mark_stale` methods on resource `Quote`
+  * Remove support for `draft_quote` and `mark_stale_quote` methods on resource `Quote`
+  * Rename `preview_invoice_lines` to `list_preview_invoice_lines` on resource  `Quote`
+
+
 ## 9.4.0-beta.3 - 2023-09-28
 * [#1276](https://github.com/stripe/stripe-ruby/pull/1276) Update generated code for beta
   * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`

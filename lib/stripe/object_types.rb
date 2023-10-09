@@ -14,6 +14,7 @@ module Stripe
         # business objects
         Account::OBJECT_NAME => Account,
         AccountLink::OBJECT_NAME => AccountLink,
+        AccountNotice::OBJECT_NAME => AccountNotice,
         AccountSession::OBJECT_NAME => AccountSession,
         ApplePayDomain::OBJECT_NAME => ApplePayDomain,
         ApplicationFee::OBJECT_NAME => ApplicationFee,
@@ -68,6 +69,7 @@ module Stripe
         Issuing::Authorization::OBJECT_NAME => Issuing::Authorization,
         Issuing::Card::OBJECT_NAME => Issuing::Card,
         Issuing::Cardholder::OBJECT_NAME => Issuing::Cardholder,
+        Issuing::CreditUnderwritingRecord::OBJECT_NAME => Issuing::CreditUnderwritingRecord,
         Issuing::Dispute::OBJECT_NAME => Issuing::Dispute,
         Issuing::PersonalizationDesign::OBJECT_NAME => Issuing::PersonalizationDesign,
         Issuing::PhysicalBundle::OBJECT_NAME => Issuing::PhysicalBundle,

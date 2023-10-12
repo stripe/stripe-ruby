@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.5.0-beta.2 - 2023-10-12
+* [#1280](https://github.com/stripe/stripe-ruby/pull/1280) Update generated code for beta
+  * Add support for new resources `AccountNotice` and `Issuing.CreditUnderwritingRecord`
+  * Add support for `list`, `retrieve`, and `update` methods on resource `AccountNotice`
+  * Add support for `correct`, `create_from_application`, `create_from_proactive_review`, `list`, `report_decision`, and `retrieve` methods on resource `CreditUnderwritingRecord`
+
 ## 9.5.0-beta.1 - 2023-10-05
 * [#1278](https://github.com/stripe/stripe-ruby/pull/1278) Update generated code for beta
   * Add support for `mark_draft` and `mark_stale` methods on resource `Quote`

@@ -602,6 +602,26 @@ module Stripe
         Stripe::Account.list_external_accounts("acct_xxxxxxxxxxxxx", { limit: 3 })
         assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?limit=3"
       end
+      should "support requests with args: object, limit, parent_id" do
+        Stripe::Account.list_external_accounts(
+          "acct_xxxxxxxxxxxxx",
+          {
+            object: "bank_account",
+            limit: 3,
+          }
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?object=bank_account&limit=3"
+      end
+      should "support requests with args: object, limit, parent_id2" do
+        Stripe::Account.list_external_accounts(
+          "acct_xxxxxxxxxxxxx",
+          {
+            object: "card",
+            limit: 3,
+          }
+        )
+        assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?object=card&limit=3"
+      end
     end
     context "ExternalAccount.update" do
       should "support requests with args: metadata, parent_id, id" do

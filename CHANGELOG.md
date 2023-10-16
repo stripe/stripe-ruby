@@ -1,5 +1,12 @@
 # Changelog
 
+## 10.0.0 - 2023-10-16
+* This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-ruby`.
+* [#1283](https://github.com/stripe/stripe-ruby/pull/1283) Update generated code
+  - Updated pinned API version
+* [#1281](https://github.com/stripe/stripe-ruby/pull/1281) Update generated code
+  * Documentation only changes
+
 ## 9.5.0-beta.2 - 2023-10-12
 * [#1280](https://github.com/stripe/stripe-ruby/pull/1280) Update generated code for beta
   * Add support for new resources `AccountNotice` and `Issuing.CreditUnderwritingRecord`

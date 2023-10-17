@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.1.0-beta.1 - 2023-10-17
+* [#1284](https://github.com/stripe/stripe-ruby/pull/1284) Update generated code for beta
+  - Update pinned API version to `2023-10-16`
+* [#1282](https://github.com/stripe/stripe-ruby/pull/1282) Update generated code for beta
+
 ## 10.0.0 - 2023-10-16
 * This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-ruby`.
 * [#1283](https://github.com/stripe/stripe-ruby/pull/1283) Update generated code

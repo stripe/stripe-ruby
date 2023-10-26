@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.1.0-beta.2 - 2023-10-26
+* [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
+  * Add support for new resource `Margin`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `Margin`
+
 ## 10.1.0-beta.1 - 2023-10-17
 * [#1284](https://github.com/stripe/stripe-ruby/pull/1284) Update generated code for beta
   - Update pinned API version to `2023-10-16`

@@ -4,6 +4,6 @@
 module Stripe
   module ApiVersion
     CURRENT = "2023-10-16"
-    PREVIEW = "2023-10-25.preview-v2"
+    PREVIEW = "2023-10-26.preview-v2"
   end
 end

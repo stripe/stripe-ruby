@@ -95,6 +95,7 @@ module Stripe
         SubscriptionSchedule::OBJECT_NAME => SubscriptionSchedule,
         Tax::Calculation::OBJECT_NAME => Tax::Calculation,
         Tax::CalculationLineItem::OBJECT_NAME => Tax::CalculationLineItem,
+        Tax::Registration::OBJECT_NAME => Tax::Registration,
         Tax::Settings::OBJECT_NAME => Tax::Settings,
         Tax::Transaction::OBJECT_NAME => Tax::Transaction,
         Tax::TransactionLineItem::OBJECT_NAME => Tax::TransactionLineItem,

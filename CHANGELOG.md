@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.1.0 - 2023-11-02
+* [#1286](https://github.com/stripe/stripe-ruby/pull/1286) Update generated code
+  * Add support for new resource `Tax.Registration`
+  * Add support for `create`, `list`, and `update` methods on resource `Registration`
+
 ## 10.1.0-beta.2 - 2023-10-26
 * [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
   * Add support for new resource `Margin`

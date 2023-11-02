@@ -40,8 +40,20 @@ module Stripe
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "invoice"
+
+    nested_resource_class_methods :payment, operations: %i[retrieve list]
+
+    def attach_payment_intent(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/attach_payment_intent", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
 
     def finalize_invoice(params = {}, opts = {})
       request_stripe_object(
@@ -83,6 +95,15 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.attach_payment_intent(invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/attach_payment_intent", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )

@@ -66,6 +66,7 @@ module Stripe
         Invoice::OBJECT_NAME => Invoice,
         InvoiceItem::OBJECT_NAME => InvoiceItem,
         InvoiceLineItem::OBJECT_NAME => InvoiceLineItem,
+        InvoicePayment::OBJECT_NAME => InvoicePayment,
         Issuing::Authorization::OBJECT_NAME => Issuing::Authorization,
         Issuing::Card::OBJECT_NAME => Issuing::Card,
         Issuing::Cardholder::OBJECT_NAME => Issuing::Cardholder,

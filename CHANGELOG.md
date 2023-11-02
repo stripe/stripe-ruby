@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.2.0-beta.1 - 2023-11-02
+* [#1287](https://github.com/stripe/stripe-ruby/pull/1287) Update generated code for beta
+  * Add support for `attach_payment_intent` method on resource `Invoice`
+* [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
+
 ## 10.1.0 - 2023-11-02
 * [#1286](https://github.com/stripe/stripe-ruby/pull/1286) Update generated code
   * Add support for new resource `Tax.Registration`

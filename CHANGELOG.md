@@ -1,4 +1,9 @@
 # Changelog
+## 10.1.0 - 2023-11-02
+* [#1286](https://github.com/stripe/stripe-ruby/pull/1286) Update generated code
+  * Add support for new resource `Tax.Registration`
+  * Add support for `create`, `list`, and `update` methods on resource `Registration`
+
 ## 10.0.0 - 2023-10-16
 * This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-ruby`.
 * [#1283](https://github.com/stripe/stripe-ruby/pull/1283) Update generated code

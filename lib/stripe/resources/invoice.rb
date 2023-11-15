@@ -45,6 +45,7 @@ module Stripe
     OBJECT_NAME = "invoice"
 
     nested_resource_class_methods :payment, operations: %i[retrieve list]
+    nested_resource_class_methods :line, operations: %i[update]
 
     def attach_payment_intent(params = {}, opts = {})
       request_stripe_object(

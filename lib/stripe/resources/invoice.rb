@@ -40,8 +40,11 @@ module Stripe
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "invoice"
+
+    nested_resource_class_methods :line, operations: %i[update]
 
     def finalize_invoice(params = {}, opts = {})
       request_stripe_object(

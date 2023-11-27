@@ -5,14 +5,14 @@ module Stripe
     module Request
       module ClassMethods
         def execute_resource_request(method, url,
-                                     params = {}, opts = {})
+                                     params = {}, opts = {}, usage = [])
           execute_resource_request_internal(
-            :execute_request, method, url, params, opts
+            :execute_request, method, url, params, opts, usage
           )
         end
 
-        def execute_resource_request_stream(method, url,
-                                            params = {}, opts = {},
+        def execute_resource_request_stream(method, url, 
+                                            params = {}, opts = {}, usage = [],
                                             &read_body_chunk_block)
           execute_resource_request_internal(
             :execute_request_stream,
@@ -20,18 +20,19 @@ module Stripe
             url,
             params,
             opts,
+            usage,
             &read_body_chunk_block
           )
         end
 
-        private def request_stripe_object(method:, path:, params:, opts: {})
-          resp, opts = execute_resource_request(method, path, params, opts)
+        private def request_stripe_object(method:, path:, params:, opts: {}, usage: [])
+          resp, opts = execute_resource_request(method, path, params, opts, usage)
           Util.convert_to_stripe_object_with_params(resp.data, params, opts)
         end
 
         private def execute_resource_request_internal(client_request_method_sym,
                                                       method, url,
-                                                      params, opts,
+                                                      params, opts, usage,
                                                       &read_body_chunk_block)
           params ||= {}
 
@@ -53,7 +54,7 @@ module Stripe
             client_request_method_sym,
             method, url,
             api_base: api_base, api_key: api_key,
-            headers: headers, params: params,
+            headers: headers, params: params, usage: usage,
             &read_body_chunk_block
           )
 
@@ -66,6 +67,7 @@ module Stripe
           [resp, opts_to_persist]
         end
 
+        # TODO (major)
         # This method used to be called `request`, but it's such a short name
         # that it eventually conflicted with the name of a field on an API
         # resource (specifically, `Event#request`), so it was renamed to
@@ -111,9 +113,9 @@ module Stripe
       end
 
       protected def execute_resource_request(method, url,
-                                             params = {}, opts = {})
+                                             params = {}, opts = {}, usage = [])
         opts = @opts.merge(Util.normalize_opts(opts))
-        self.class.execute_resource_request(method, url, params, opts)
+        self.class.execute_resource_request(method, url, params, opts, usage)
       end
 
       protected def execute_resource_request_stream(method, url,
@@ -125,8 +127,8 @@ module Stripe
         )
       end
 
-      private def request_stripe_object(method:, path:, params:, opts: {})
-        resp, opts = execute_resource_request(method, path, params, opts)
+      private def request_stripe_object(method:, path:, params:, opts: {}, usage: [])
+        resp, opts = execute_resource_request(method, path, params, opts, usage)
         Util.convert_to_stripe_object_with_params(resp.data, params, opts)
       end
 

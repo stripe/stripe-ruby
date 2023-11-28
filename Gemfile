@@ -28,7 +28,8 @@ group :development do
   gem "rubocop", "1.57.2" if RUBY_VERSION >= "2.7"
 
   # jaro_winkler 1.5.5 installation fails for jruby
-  gem "jaro_winkler", "1.5.4"
+  # don't install on truffleruby
+  gem "jaro_winkler", "1.5.4" unless RUBY_ENGINE == "truffleruby"
 
   platforms :mri do
     gem "byebug"

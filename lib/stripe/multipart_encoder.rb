@@ -106,22 +106,22 @@ module Stripe
     end
 
     private def write_field(name, data, filename:)
-      if !@first_field
-        @body << "\r\n"
-      else
+      if @first_field
         @first_field = false
+      else
+        @body << "\r\n"
       end
 
       @body << "--#{@boundary}\r\n"
 
       if filename
-        @body << %(Content-Disposition: form-data) +
+        @body << (%(Content-Disposition: form-data) +
                  %(; name="#{escape(name.to_s)}") +
-                 %(; filename="#{escape(filename)}"\r\n)
+                 %(; filename="#{escape(filename)}"\r\n))
         @body << %(Content-Type: application/octet-stream\r\n)
       else
-        @body << %(Content-Disposition: form-data) +
-                 %(; name="#{escape(name.to_s)}"\r\n)
+        @body << (%(Content-Disposition: form-data) +
+                 %(; name="#{escape(name.to_s)}"\r\n))
       end
 
       @body << "\r\n"

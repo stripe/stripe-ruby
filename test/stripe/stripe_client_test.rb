@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class StripeClientTest < Test::Unit::TestCase
@@ -449,9 +449,7 @@ module Stripe
     %w[execute_request execute_request_stream].each do |request_method|
       context "request processing for #{request_method}" do
         setup do
-          @read_body_chunk_block = if request_method == "execute_request_stream"
-                                     proc { |body_chunk| body_chunk }
-                                   end
+          @read_body_chunk_block = (proc { |body_chunk| body_chunk } if request_method == "execute_request_stream")
         end
 
         context "headers" do
@@ -506,7 +504,7 @@ module Stripe
                 data[:thread_object_id] == Thread.current.object_id &&
                 (data[:connection_manager_object_id].is_a? Numeric) &&
                 (data[:connection_object_id].is_a? Numeric) &&
-                data[:log_timestamp] == 0.0
+                data[:log_timestamp] == 0.0 # rubocop:todo Lint/FloatComparison
             end
 
             response_object_id = nil
@@ -520,7 +518,7 @@ module Stripe
                  data[:connection_manager_object_id] == connection_manager_data[:connection_manager_object_id] &&
                  data[:connection_object_id] == connection_manager_data[:connection_object_id] &&
                  (data[:response_object_id].is_a? Numeric) &&
-                 data[:log_timestamp] == 0.0
+                 data[:log_timestamp] == 0.0 # rubocop:todo Lint/FloatComparison
                 response_object_id = data[:response_object_id]
               end
             end
@@ -560,7 +558,7 @@ module Stripe
                  data[:process_id] == Process.pid &&
                  data[:thread_object_id] == Thread.current.object_id &&
                  data[:response_object_id] == response_object_id &&
-                 data[:log_timestamp] == 0.0
+                 data[:log_timestamp] == 0.0 # rubocop:todo Lint/FloatComparison
                 # Streaming requests have a different body.
                 if request_method == "execute_request_stream"
                   data[:body].is_a? Net::ReadAdapter
@@ -807,7 +805,7 @@ module Stripe
               client.send(request_method, :post, "/v1/charges",
                           &@read_body_chunk_block)
             end
-            assert_equal StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base +
+            assert_equal (StripeClient::ERROR_MESSAGE_CONNECTION % Stripe.api_base) +
                          "\n\n(Network error: Connection refused)",
                          e.message
           end
@@ -1251,7 +1249,7 @@ module Stripe
           StripeClient.current_thread_context.active_client = :stripe_client
 
           client = StripeClient.new
-          client.request {}
+          client.request {} # rubocop:todo Lint/EmptyBlock
 
           assert_equal :stripe_client,
                        StripeClient.current_thread_context.active_client
@@ -1344,7 +1342,7 @@ module Stripe
         client = StripeClient.new
         client.request do
           e = assert_raises(RuntimeError) do
-            client.request {}
+            client.request {} # rubocop:todo Lint/EmptyBlock
           end
           assert_equal "calls to StripeClient#request cannot be nested within a thread",
                        e.message
@@ -1360,7 +1358,7 @@ module Stripe
           Stripe.proxy = "http://user:pass@localhost:8080"
 
           client = StripeClient.new
-          client.request {}
+          client.request {} # rubocop:todo Lint/EmptyBlock
 
           connection = Stripe::StripeClient.default_connection_manager.connection_for(Stripe.api_base)
 

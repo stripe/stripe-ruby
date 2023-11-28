@@ -4,8 +4,7 @@ module Stripe
   class Instrumentation
     # Event emitted on `request_begin` callback.
     class RequestBeginEvent
-      attr_reader :method
-      attr_reader :path
+      attr_reader :method, :path
 
       # Arbitrary user-provided data in the form of a Ruby hash that's passed
       # from subscribers on `request_begin` to subscribers on `request_end`.
@@ -27,16 +26,8 @@ module Stripe
 
     # Event emitted on `request_end` callback.
     class RequestEndEvent
-      attr_reader :duration
-      attr_reader :http_status
-      attr_reader :method
-      attr_reader :num_retries
-      attr_reader :path
-      attr_reader :request_id
-      attr_reader :response_header
-      attr_reader :response_body
-      attr_reader :request_header
-      attr_reader :request_body
+      attr_reader :duration, :http_status, :method, :num_retries, :path, :request_id, :response_header, :response_body,
+                  :request_header, :request_body
 
       # Arbitrary user-provided data in the form of a Ruby hash that's passed
       # from subscribers on `request_begin` to subscribers on `request_end`.
@@ -62,12 +53,7 @@ module Stripe
     end
 
     class RequestContext
-      attr_reader :duration
-      attr_reader :method
-      attr_reader :path
-      attr_reader :request_id
-      attr_reader :body
-      attr_reader :header
+      attr_reader :duration, :method, :path, :request_id, :body, :header
 
       def initialize(duration:, context:, header:)
         @duration = duration
@@ -80,9 +66,7 @@ module Stripe
     end
 
     class ResponseContext
-      attr_reader :http_status
-      attr_reader :body
-      attr_reader :header
+      attr_reader :http_status, :body, :header
 
       def initialize(http_status:, response:)
         @http_status = http_status

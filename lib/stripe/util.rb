@@ -79,8 +79,8 @@ module Stripe
                 "id should be a string representing the ID of an API resource"
         end
 
-        url = "#{target.resource_url}/"\
-              "#{CGI.escape(id)}/"\
+        url = "#{target.resource_url}/" \
+              "#{CGI.escape(id)}/" \
               "#{CGI.escape(http_path)}"
 
         resp, opts = resource.execute_resource_request(
@@ -139,9 +139,7 @@ module Stripe
 
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages
-        if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject))
-          obj.filters = params.dup
-        end
+        obj.filters = params.dup if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject))
 
         obj
       else
@@ -153,7 +151,7 @@ module Stripe
       config = data.delete(:config) || Stripe.config
       logger = config.logger || Stripe.logger
       if !logger.nil? ||
-         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_ERROR
+         (!config.log_level.nil? && config.log_level <= Stripe::LEVEL_ERROR)
         log_internal(message, data, color: :cyan, level: Stripe::LEVEL_ERROR,
                                     logger: Stripe.logger, out: $stderr)
       end
@@ -163,7 +161,7 @@ module Stripe
       config = data.delete(:config) || Stripe.config
       logger = config.logger || Stripe.logger
       if !logger.nil? ||
-         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_INFO
+         (!config.log_level.nil? && config.log_level <= Stripe::LEVEL_INFO)
         log_internal(message, data, color: :cyan, level: Stripe::LEVEL_INFO,
                                     logger: Stripe.logger, out: $stdout)
       end
@@ -173,7 +171,7 @@ module Stripe
       config = data.delete(:config) || Stripe.config
       logger = config.logger || Stripe.logger
       if !logger.nil? ||
-         !config.log_level.nil? && config.log_level <= Stripe::LEVEL_DEBUG
+         (!config.log_level.nil? && config.log_level <= Stripe::LEVEL_DEBUG)
         log_internal(message, data, color: :blue, level: Stripe::LEVEL_DEBUG,
                                     logger: Stripe.logger, out: $stdout)
       end
@@ -185,10 +183,10 @@ module Stripe
         new_hash = {}
         object.each do |key, value|
           key = (begin
-                   key.to_sym
-                 rescue StandardError
-                   key
-                 end) || key
+            key.to_sym
+          rescue StandardError
+            key
+          end) || key
           new_hash[key] = symbolize_names(value)
         end
         new_hash

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class UtilTest < Test::Unit::TestCase
@@ -29,7 +29,7 @@ module Stripe
         e: [0, 1],
         f: "",
 
-        # note the empty hash won't even show up in the request
+        # NOTE: the empty hash won't even show up in the request
         g: [],
       }
       assert_equal(

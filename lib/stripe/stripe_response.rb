@@ -41,9 +41,7 @@ module Stripe
 
     def [](name)
       values = @hash[name.downcase]
-      if values && values.count > 1
-        warn("Duplicate header values for `#{name}`; returning only first")
-      end
+      warn("Duplicate header values for `#{name}`; returning only first") if values && values.count > 1
       values ? values.first : nil
     end
   end

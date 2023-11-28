@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class AccountTest < Test::Unit::TestCase
@@ -116,8 +116,7 @@ module Stripe
       should "serialize a new additional_owners" do
         obj = Stripe::Util.convert_to_stripe_object({
           object: "account",
-          legal_entity: Stripe::StripeObject.construct_from({
-          }),
+          legal_entity: Stripe::StripeObject.construct_from({}),
         }, {})
         obj.legal_entity.additional_owners = [
           { first_name: "Joe" },

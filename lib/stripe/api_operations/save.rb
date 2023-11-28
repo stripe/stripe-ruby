@@ -62,7 +62,7 @@ module Stripe
 
         values = serialize_params(self).merge(params)
 
-        # NOTE: that id gets removed here our call to #url above has already
+        # Please note that id gets removed here our call to #url above has already
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
 

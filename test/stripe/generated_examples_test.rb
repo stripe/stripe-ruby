@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 module Stripe
   class CodegennedExampleTest < Test::Unit::TestCase
     should "Test account links post" do

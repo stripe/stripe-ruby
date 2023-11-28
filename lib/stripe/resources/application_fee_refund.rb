@@ -15,7 +15,7 @@ module Stripe
 
     def resource_url
       "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds" \
-      "/#{CGI.escape(id)}"
+        "/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)

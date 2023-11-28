@@ -157,9 +157,7 @@ module Stripe
 
       connection.open_timeout = config.open_timeout
       connection.read_timeout = config.read_timeout
-      if connection.respond_to?(:write_timeout=)
-        connection.write_timeout = config.write_timeout
-      end
+      connection.write_timeout = config.write_timeout if connection.respond_to?(:write_timeout=)
 
       connection.use_ssl = uri.scheme == "https"
 
@@ -192,9 +190,9 @@ module Stripe
 
       @verify_ssl_warned = true
       warn("WARNING: Running without SSL cert verification. " \
-        "You should never do this in production. " \
-        "Execute `Stripe.verify_ssl_certs = true` to enable " \
-        "verification.")
+           "You should never do this in production. " \
+           "Execute `Stripe.verify_ssl_certs = true` to enable " \
+           "verification.")
     end
   end
 end

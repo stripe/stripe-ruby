@@ -11,7 +11,7 @@ module Stripe
           )
         end
 
-        def execute_resource_request_stream(method, url, 
+        def execute_resource_request_stream(method, url,
                                             params = {}, opts = {}, usage = [],
                                             &read_body_chunk_block)
           execute_resource_request_internal(
@@ -67,7 +67,7 @@ module Stripe
           [resp, opts_to_persist]
         end
 
-        # TODO (major)
+        # TODO: (major)
         # This method used to be called `request`, but it's such a short name
         # that it eventually conflicted with the name of a field on an API
         # resource (specifically, `Event#request`), so it was renamed to

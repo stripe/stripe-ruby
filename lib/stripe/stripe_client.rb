@@ -491,7 +491,6 @@ module Stripe
 
       http_resp =
         execute_request_with_rescues(method, api_base, headers, usage, context) do
-
           self.class
               .default_connection_manager(config)
               .execute_request(method, url,
@@ -1048,7 +1047,7 @@ module Stripe
       end
 
       def payload
-        { request_id: request_id, request_duration_ms: request_duration_ms, usage: usage}
+        { request_id: request_id, request_duration_ms: request_duration_ms, usage: usage }
       end
     end
   end

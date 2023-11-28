@@ -1410,7 +1410,7 @@ module Stripe
 
         cus = Stripe::Customer.new("cus_xyz")
         cus.description = "hello"
-        cus.save()
+        cus.save
         Stripe::Charge.list
 
         assert(!trace_metrics_header.nil?)

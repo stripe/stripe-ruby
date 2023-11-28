@@ -17,8 +17,25 @@ module Stripe
       self.class.resource_url
     end
 
-    def self.retrieve(opts = {})
-      instance = new(nil, Util.normalize_opts(opts))
+    def self.retrieve(paramsOrOpts = {}, definitelyOpts = nil)
+      opts = nil
+      params = nil
+      if !definitelyOpts.nil?
+        opts = definitelyOpts
+        params = paramsOrOpts
+      else
+        unrecognized_key = paramsOrOpts.keys.find { |k| !Util::OPTS_USER_SPECIFIED.include?(k) }
+        if unrecognized_key 
+          raise ArgumentError,
+            "Unrecognized request option: #{unrecognized_key}. Did you mean to specify this as retrieve params?" \
+            " If so, you must explicitly pass an opts hash as a second argument. For example: .retrieve({#{unrecognized_key}: 'foo'}, {})"
+        end
+
+        opts = paramsOrOpts
+      end
+
+
+      instance = new(params, Util.normalize_opts(opts))
       instance.refresh
       instance
     end

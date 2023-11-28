@@ -23,7 +23,9 @@ group :development do
   # `Gemfile.lock` checked in, so to prevent good builds from suddenly going
   # bad, pin to a specific version number here. Try to keep this relatively
   # up-to-date, but it's not the end of the world if it's not.
-  gem "rubocop", "1.57.2"
+  #
+  # The latest version of rubocop is only compatible with Ruby 2.7+
+  gem "rubocop", "1.57.2" if RUBY_VERSION >= "2.7"
 
   # jaro_winkler 1.5.5 installation fails for jruby
   gem "jaro_winkler", "1.5.4"

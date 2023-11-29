@@ -13,12 +13,8 @@ module Stripe
     attr_reader :auth_token, :sign_lambda
 
     def initialize(auth_token, sign_lambda)
-      unless auth_token.is_a?(String)
-        raise ArgumentError, "auth_token must be a string"
-      end
-      unless sign_lambda.is_a?(Proc)
-        raise ArgumentError, "sign_lambda must be a lambda"
-      end
+      raise ArgumentError, "auth_token must be a string" unless auth_token.is_a?(String)
+      raise ArgumentError, "sign_lambda must be a lambda" unless sign_lambda.is_a?(Proc)
 
       @auth_token = auth_token
       @sign_lambda = sign_lambda
@@ -68,8 +64,8 @@ module Stripe
     private def encoded_signature(signature_base)
       Base64.strict_encode64(sign(signature_base))
     rescue StandardError
-      raise AuthenticationError, "Encountered '#{e.message} (#{e.class})' "\
-       "when calculating request signature."
+      raise AuthenticationError, "Encountered '#{e.message} (#{e.class})' " \
+                                 "when calculating request signature."
     end
 
     private def content_digest(content)

@@ -123,17 +123,13 @@ module Stripe
     end
 
     def serialize_params_account(_obj, update_hash, options = {})
-      if (entity = @values[:legal_entity])
-        if (owners = entity[:additional_owners])
-          entity_update = update_hash[:legal_entity] ||= {}
-          entity_update[:additional_owners] =
-            serialize_additional_owners(entity, owners)
-        end
+      if (entity = @values[:legal_entity]) && (owners = entity[:additional_owners])
+        entity_update = update_hash[:legal_entity] ||= {}
+        entity_update[:additional_owners] =
+          serialize_additional_owners(entity, owners)
       end
-      if (individual = @values[:individual])
-        if individual.is_a?(Person) && !update_hash.key?(:individual)
-          update_hash[:individual] = individual.serialize_params(options)
-        end
+      if (individual = @values[:individual]) && (individual.is_a?(Person) && !update_hash.key?(:individual))
+        update_hash[:individual] = individual.serialize_params(options)
       end
       update_hash
     end

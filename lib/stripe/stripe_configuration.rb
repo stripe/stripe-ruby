@@ -25,27 +25,12 @@ module Stripe
   # If `.logger` is set, the value of `.log_level` is ignored. The decision on
   # what levels to print is entirely deferred to the logger.
   class StripeConfiguration
-    attr_accessor :api_key
-    attr_accessor :api_version
-    attr_accessor :authenticator
-    attr_accessor :client_id
-    attr_accessor :enable_telemetry
-    attr_accessor :logger
-    attr_accessor :stripe_account
+    attr_accessor :api_key, :api_version, :authenticator, :client_id, :enable_telemetry, :logger, :stripe_account
 
-    attr_reader :api_base
-    attr_reader :uploads_base
-    attr_reader :connect_base
-    attr_reader :ca_bundle_path
-    attr_reader :log_level
-    attr_reader :initial_network_retry_delay
-    attr_reader :max_network_retries
-    attr_reader :max_network_retry_delay
-    attr_reader :open_timeout
-    attr_reader :read_timeout
-    attr_reader :write_timeout
-    attr_reader :proxy
-    attr_reader :verify_ssl_certs
+    attr_reader :api_base, :uploads_base, :connect_base, :ca_bundle_path, :log_level, :initial_network_retry_delay,
+                # rubocop:todo Layout/LineLength
+                :max_network_retries, :max_network_retry_delay, :open_timeout, :read_timeout, :write_timeout, :proxy, :verify_ssl_certs
+    # rubocop:enable Layout/LineLength
 
     def self.setup
       new.tap do |instance|
@@ -97,8 +82,8 @@ module Stripe
 
       if !val.nil? && !levels.include?(val)
         raise ArgumentError,
-              "log_level should only be set to `nil`, `debug`, `info`," \
-              " or `error`"
+              "log_level should only be set to `nil`, `debug`, `info`, " \
+              "or `error`"
       end
       @log_level = val
     end
@@ -126,9 +111,7 @@ module Stripe
     end
 
     def write_timeout=(write_timeout)
-      unless Net::HTTP.instance_methods.include?(:write_timeout=)
-        raise NotImplementedError
-      end
+      raise NotImplementedError unless Net::HTTP.instance_methods.include?(:write_timeout=)
 
       @write_timeout = write_timeout
       StripeClient.clear_all_connection_managers(config: self)
@@ -179,10 +162,10 @@ module Stripe
     # and is itself not thread safe.
     def ca_store
       @ca_store ||= begin
-                      store = OpenSSL::X509::Store.new
-                      store.add_file(ca_bundle_path)
-                      store
-                    end
+        store = OpenSSL::X509::Store.new
+        store.add_file(ca_bundle_path)
+        store
+      end
     end
 
     def enable_telemetry?

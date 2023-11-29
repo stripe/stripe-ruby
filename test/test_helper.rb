@@ -15,10 +15,10 @@ require "stringio"
 require "shoulda/context"
 require "webmock/test_unit"
 
-PROJECT_ROOT = ::File.expand_path("../", __dir__)
+PROJECT_ROOT = File.expand_path("../", __dir__)
 
-require ::File.expand_path("test_data", __dir__)
-require ::File.expand_path("stripe_mock", __dir__)
+require File.expand_path("test_data", __dir__)
+require File.expand_path("stripe_mock", __dir__)
 
 MOCK_MINIMUM_VERSION = "0.109.0"
 MOCK_PORT = Stripe::StripeMock.start
@@ -36,18 +36,18 @@ begin
 
   if version.nil?
     abort("Couldn't find `Stripe-Mock-Version` in response from " \
-      "`localhost:#{MOCK_PORT}`. Is the service running there stripe-mock?")
+          "`localhost:#{MOCK_PORT}`. Is the service running there stripe-mock?")
   end
 
   if version != "master" &&
      Gem::Version.new(version) < Gem::Version.new(MOCK_MINIMUM_VERSION)
     abort("Your version of stripe-mock (#{version}) is too old. The minimum " \
-      "version to run this test suite is #{MOCK_MINIMUM_VERSION}. Please " \
-      "see its repository for upgrade instructions.")
+          "version to run this test suite is #{MOCK_MINIMUM_VERSION}. Please " \
+          "see its repository for upgrade instructions.")
   end
 rescue Errno::ECONNREFUSED
   abort("Couldn't reach stripe-mock at `localhost:#{MOCK_PORT}`. Is " \
-    "it running? Please see README for setup instructions.")
+        "it running? Please see README for setup instructions.")
 end
 
 Test::Unit.at_exit do

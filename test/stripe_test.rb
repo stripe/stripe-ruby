@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("test_helper", __dir__)
+require File.expand_path("test_helper", __dir__)
 
 class StripeTest < Test::Unit::TestCase
   should "allow app_info to be configured" do

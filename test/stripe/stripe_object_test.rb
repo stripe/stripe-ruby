@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class StripeObjectTest < Test::Unit::TestCase
@@ -108,7 +108,7 @@ module Stripe
       end
 
       should "return an instance of the same class" do
-        class TestObject < Stripe::StripeObject; end
+        class TestObject < Stripe::StripeObject; end # rubocop:todo Lint/ConstantDefinitionInBlock
 
         obj = TestObject.construct_from(id: 1)
         copy_obj = obj.class.send(:deep_copy, obj)
@@ -349,7 +349,7 @@ module Stripe
     end
 
     should "#serialize_params with StripeObject that's been replaced which is `metadata`" do
-      class WithAdditiveObjectParam < Stripe::StripeObject
+      class WithAdditiveObjectParam < Stripe::StripeObject # rubocop:todo Lint/ConstantDefinitionInBlock
         additive_object_param :metadata
       end
 
@@ -418,8 +418,8 @@ module Stripe
         obj.serialize_params
       end
       assert_equal "Cannot save property `customer` containing " \
-        "an API resource. It doesn't appear to be persisted and is " \
-        "not marked as `save_with_parent`.", e.message
+                   "an API resource. It doesn't appear to be persisted and is " \
+                   "not marked as `save_with_parent`.", e.message
     end
 
     should "#serialize_params takes a force option" do
@@ -434,7 +434,7 @@ module Stripe
       obj = Stripe::StripeObject.construct_from(id: "id",
                                                 metadata: Stripe::StripeObject.construct_from(foo: "bar"))
 
-      # note that `force` and `dirty!` are for different things, but are
+      # NOTE: that `force` and `dirty!` are for different things, but are
       # functionally equivalent
       obj.dirty!
 

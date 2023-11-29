@@ -18,12 +18,12 @@ module Stripe
       client_id = params[:client_id] || Stripe.client_id
       unless client_id
         raise AuthenticationError, "No client_id provided. " \
-          'Set your client_id using "Stripe.client_id = <CLIENT-ID>". ' \
-          "You can find your client_ids in your Stripe dashboard at " \
-          "https://dashboard.stripe.com/account/applications/settings, " \
-          "after registering your account as a platform. See " \
-          "https://stripe.com/docs/connect/standalone-accounts for details, " \
-          "or email support@stripe.com if you have any questions."
+                                   'Set your client_id using "Stripe.client_id = <CLIENT-ID>". ' \
+                                   "You can find your client_ids in your Stripe dashboard at " \
+                                   "https://dashboard.stripe.com/account/applications/settings, " \
+                                   "after registering your account as a platform. See " \
+                                   "https://stripe.com/docs/connect/standalone-accounts for details, " \
+                                   "or email support@stripe.com if you have any questions."
       end
       client_id
     end

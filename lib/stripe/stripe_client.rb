@@ -36,8 +36,7 @@ module Stripe
                 end
     end
 
-    attr_reader :config
-    attr_reader :options
+    attr_reader :config, :options
 
     # Gets a currently active `StripeClient`. Set for the current thread when
     # `StripeClient#request` is being run so that API operations being executed
@@ -80,9 +79,7 @@ module Stripe
             end
           end
 
-          if thread_context.default_connection_managers.empty?
-            pruned_contexts << thread_context
-          end
+          pruned_contexts << thread_context if thread_context.default_connection_managers.empty?
         end
 
         @thread_contexts_with_connection_managers.subtract(pruned_contexts)
@@ -120,7 +117,7 @@ module Stripe
       when Net::OpenTimeout, Net::ReadTimeout
         # Retry on timeout-related problems (either on open or read).
         true
-      when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET,
+      when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, # rubocop:todo Lint/DuplicateBranch
             Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError
         # Destination refused the connection, the connection was reset, or a
         # variety of other connection failures. This could occur from a single
@@ -290,21 +287,21 @@ module Stripe
 
     ERROR_MESSAGE_CONNECTION =
       "Unexpected error communicating when trying to connect to " \
-        "Stripe (%s). You may be seeing this message because your DNS is not " \
-        "working or you don't have an internet connection.  To check, try " \
-        "running `host stripe.com` from the command line."
+      "Stripe (%s). You may be seeing this message because your DNS is not " \
+      "working or you don't have an internet connection.  To check, try " \
+      "running `host stripe.com` from the command line."
     ERROR_MESSAGE_SSL =
       "Could not establish a secure connection to Stripe (%s), you " \
-        "may need to upgrade your OpenSSL version. To check, try running " \
-        "`openssl s_client -connect api.stripe.com:443` from the command " \
-        "line."
+      "may need to upgrade your OpenSSL version. To check, try running " \
+      "`openssl s_client -connect api.stripe.com:443` from the command " \
+      "line."
 
     # Common error suffix sared by both connect and read timeout messages.
     ERROR_MESSAGE_TIMEOUT_SUFFIX =
       "Please check your internet connection and try again. " \
-        "If this problem persists, you should check Stripe's service " \
-        "status at https://status.stripe.com, or let us know at " \
-        "support@stripe.com."
+      "If this problem persists, you should check Stripe's service " \
+      "status at https://status.stripe.com, or let us know at " \
+      "support@stripe.com."
 
     ERROR_MESSAGE_TIMEOUT_CONNECT = (
       "Timed out connecting to Stripe (%s). " +
@@ -496,9 +493,7 @@ module Stripe
       response_block =
         if block_given?
           lambda do |response|
-            unless should_handle_as_error(response.code.to_i)
-              response.read_body(&read_body_chunk_block)
-            end
+            response.read_body(&read_body_chunk_block) unless should_handle_as_error(response.code.to_i)
           end
         end
 
@@ -523,26 +518,26 @@ module Stripe
     private def check_keys!(api_key, authenticator)
       if api_key && authenticator
         raise AuthenticationError, "Can't specify both API key " \
-          "and authenticator. Either set your API key" \
-          'using "Stripe.api_key = <API-KEY>", or set your authenticator ' \
-          'using "Stripe.authenticator = <AUTHENTICATOR>"' \
+                                   "and authenticator. Either set your API key" \
+                                   'using "Stripe.api_key = <API-KEY>", or set your authenticator ' \
+                                   'using "Stripe.authenticator = <AUTHENTICATOR>"' \
       end
 
       unless api_key || authenticator
         # Default to missing API key error message for general users.
         raise AuthenticationError, "No API key provided. " \
-          'Set your API key using "Stripe.api_key = <API-KEY>". ' \
-          "You can generate API keys from the Stripe web interface. " \
-          "See https://stripe.com/api for details, or email " \
-          "support@stripe.com if you have any questions."
+                                   'Set your API key using "Stripe.api_key = <API-KEY>". ' \
+                                   "You can generate API keys from the Stripe web interface. " \
+                                   "See https://stripe.com/api for details, or email " \
+                                   "support@stripe.com if you have any questions."
       end
 
       return unless api_key =~ /\s/
 
       raise AuthenticationError, "Your API key is invalid, as it contains " \
-        "whitespace. (HINT: You can double-check your API key from the " \
-        "Stripe web interface. See https://stripe.com/api for details, or " \
-        "email support@stripe.com if you have any questions.)"
+                                 "whitespace. (HINT: You can double-check your API key from the " \
+                                 "Stripe web interface. See https://stripe.com/api for details, or " \
+                                 "email support@stripe.com if you have any questions.)"
     end
 
     # Encodes a set of body parameters using multipart if `Content-Type` is set
@@ -571,15 +566,15 @@ module Stripe
         body = Util.encode_parameters(body_params)
       end
 
-      if api_mode == :preview
-        body_log = body
-      else
-        # We don't use `Util.encode_parameters` partly as an optimization (to
-        # not redo work we've already done), and partly because the encoded
-        # forms of certain characters introduce a lot of visual noise and it's
-        # nice to have a clearer format for logs.
-        body_log = flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
-      end
+      body_log = if api_mode == :preview
+                   body
+                 else
+                   # We don't use `Util.encode_parameters` partly as an optimization (to
+                   # not redo work we've already done), and partly because the encoded
+                   # forms of certain characters introduce a lot of visual noise and it's
+                   # nice to have a clearer format for logs.
+                   flattened_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                 end
 
       [body, body_log]
     end
@@ -605,9 +600,7 @@ module Stripe
         http_status = resp.code.to_i
         context = context.dup_from_response_headers(resp)
 
-        if should_handle_as_error(http_status)
-          handle_error_response(resp, context)
-        end
+        handle_error_response(resp, context) if should_handle_as_error(http_status)
 
         log_response(context, request_start, http_status, resp.body, resp)
         notify_request_end(context, request_duration, http_status,
@@ -657,7 +650,7 @@ module Stripe
 
         # Only handle errors when we know we can do so, and re-raise otherwise.
         # This should be pretty infrequent.
-        else
+        else # rubocop:todo Lint/DuplicateBranch
           raise
         end
       end
@@ -868,7 +861,7 @@ module Stripe
 
       if errors.nil?
         message = "Unexpected error #{error.class.name} communicating " \
-          "with Stripe. Please let us know at support@stripe.com."
+                  "with Stripe. Please let us know at support@stripe.com."
       end
 
       api_base ||= config.api_base
@@ -882,9 +875,7 @@ module Stripe
 
     private def request_headers(api_key, method, api_mode)
       user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
-      unless Stripe.app_info.nil?
-        user_agent += " " + format_app_info(Stripe.app_info)
-      end
+      user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
 
       headers = {
         "User-Agent" => user_agent,
@@ -996,16 +987,8 @@ module Stripe
     # that we can log certain information. It's useful because it means that we
     # don't have to pass around as many parameters.
     class RequestLogContext
-      attr_accessor :body
-      attr_accessor :account
-      attr_accessor :api_key
-      attr_accessor :authenticator
-      attr_accessor :api_version
-      attr_accessor :idempotency_key
-      attr_accessor :method
-      attr_accessor :path
-      attr_accessor :query
-      attr_accessor :request_id
+      attr_accessor :body, :account, :api_key, :authenticator, :api_version, :idempotency_key, :method, :path, :query,
+                    :request_id
 
       # The idea with this method is that we might want to update some of
       # context information because a response that we've received from the API

@@ -14,7 +14,7 @@ module Stripe
       end
 
       "#{Customer.resource_url}/#{CGI.escape(customer)}/sources" \
-      "/#{CGI.escape(id)}"
+        "/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)

@@ -18,7 +18,7 @@ module Stripe
               "Tax IDs cannot be accessed without a customer ID."
       end
       "#{Customer.resource_url}/#{CGI.escape(customer)}/tax_ids" \
-      "/#{CGI.escape(id)}"
+        "/#{CGI.escape(id)}"
     end
 
     def self.retrieve(_id, _opts = {})

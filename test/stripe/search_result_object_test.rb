@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class SearchResultObjectTest < Test::Unit::TestCase
@@ -113,7 +113,7 @@ module Stripe
                                                    object: "search_result")
       list.filters = { limit: 3 }
       stub_request(:get, "#{Stripe.api_base}/things")
-        .with(query: { "limit": 3, page: "next_page_token_1" })
+        .with(query: { limit: 3, page: "next_page_token_1" })
         .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "search_result"))
       next_list = list.next_search_result_page
       assert_equal({ limit: 3, page: "next_page_token_1" }, next_list.filters)

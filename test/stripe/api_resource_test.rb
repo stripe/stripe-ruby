@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class ApiResourceTest < Test::Unit::TestCase
@@ -279,7 +279,7 @@ module Stripe
           Stripe::Charge.create({ amount: 100, currency: "usd" }, idempotency_key: :foo)
         end
         assert_equal "request option 'idempotency_key' should be a string value " \
-                       "(was a Symbol)",
+                     "(was a Symbol)",
                      e.message
       end
 
@@ -591,7 +591,7 @@ module Stripe
     end
 
     context "#request_stripe_object" do
-      class HelloTestAPIResource < APIResource
+      class HelloTestAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         OBJECT_NAME = "hello"
         def say_hello(params = {}, opts = {})
           request_stripe_object(
@@ -668,7 +668,7 @@ module Stripe
     end
 
     context "#request_stream" do
-      class StreamTestAPIResource < APIResource
+      class StreamTestAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         OBJECT_NAME = "stream"
         def read_stream(params = {}, opts = {}, &read_body_chunk_block)
           request_stream(
@@ -720,7 +720,7 @@ module Stripe
     end
 
     context "test helpers" do
-      class TestHelperAPIResource < APIResource
+      class TestHelperAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         OBJECT_NAME = "hello"
 
         def test_helpers

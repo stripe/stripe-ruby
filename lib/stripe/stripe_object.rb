@@ -320,8 +320,8 @@ module Stripe
               # Here we swallow that error and issue a warning so at least
               # the program doesn't crash.
               warn("WARNING: Unable to remove method `#{method_name}`; " \
-                "if custom, please consider renaming to a name that doesn't " \
-                "collide with an API property name.")
+                   "if custom, please consider renaming to a name that doesn't " \
+                   "collide with an API property name.")
             end
           end
         end
@@ -351,17 +351,15 @@ module Stripe
           define_method(:"#{k}=") do |v|
             if v == ""
               raise ArgumentError, "You cannot set #{k} to an empty string. " \
-                "We interpret empty strings as nil in requests. " \
-                "You may set (object).#{k} = nil to delete the property."
+                                   "We interpret empty strings as nil in requests. " \
+                                   "You may set (object).#{k} = nil to delete the property."
             end
             @values[k] = Util.convert_to_stripe_object(v, @opts)
             dirty_value!(@values[k])
             @unsaved_values.add(k)
           end
 
-          if [FalseClass, TrueClass].include?(values[k].class)
-            define_method(:"#{k}?") { @values[k] }
-          end
+          define_method(:"#{k}?") { @values[k] } if [FalseClass, TrueClass].include?(values[k].class)
         end
       end
     end
@@ -369,7 +367,6 @@ module Stripe
     # Disabling the cop because it's confused by the fact that the methods are
     # protected, but we do define `#respond_to_missing?` just below. Hopefully
     # this is fixed in more recent Rubocop versions.
-    # rubocop:disable Style/MissingRespondToMissing
     protected def method_missing(name, *args)
       # TODO: only allow setting in updateable classes.
       if name.to_s.end_with?("=")
@@ -405,16 +402,14 @@ module Stripe
 
         raise NoMethodError,
               e.message + ".  HINT: The '#{name}' attribute was set in the " \
-              "past, however.  It was then wiped when refreshing the object " \
-              "with the result returned by Stripe's API, probably as a " \
-              "result of a save().  The attributes currently available on " \
-              "this object are: #{@values.keys.join(', ')}"
+                          "past, however.  It was then wiped when refreshing the object " \
+                          "with the result returned by Stripe's API, probably as a " \
+                          "result of a save().  The attributes currently available on " \
+                          "this object are: #{@values.keys.join(', ')}"
       end
     end
-    # rubocop:enable Style/MissingRespondToMissing
-
     protected def respond_to_missing?(symbol, include_private = false)
-      @values && @values.key?(symbol) || super
+      (@values && @values.key?(symbol)) || super
     end
 
     # Re-initializes the object based on a hash of values (usually one that's
@@ -460,7 +455,8 @@ module Stripe
       self
     end
 
-    protected def serialize_params_value(value, original, unsaved, force,
+    # rubocop:todo Metrics/PerceivedComplexity
+    protected def serialize_params_value(value, original, unsaved, force, # rubocop:todo Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
                                          key: nil)
       if value.nil?
         ""
@@ -494,8 +490,8 @@ module Stripe
           value
         else
           raise ArgumentError, "Cannot save property `#{key}` containing " \
-            "an API resource. It doesn't appear to be persisted and is " \
-            "not marked as `save_with_parent`."
+                               "an API resource. It doesn't appear to be persisted and is " \
+                               "not marked as `save_with_parent`."
         end
 
       elsif value.is_a?(Array)
@@ -535,6 +531,7 @@ module Stripe
         value
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
 
     # Produces a deep copy of the given object including support for arrays,
     # hashes, and StripeObjects.

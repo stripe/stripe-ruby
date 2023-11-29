@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class RequestSigningAuthenticatorTest < Test::Unit::TestCase
@@ -44,15 +44,15 @@ module Stripe
         authenticator.authenticate(:post, headers, '{"string":"String!"}')
 
         assert_equal("\"content-type\": application/json\n" \
-                    "\"content-digest\": sha-256=:HA3i38j+04ac71IzPtG1JK8o4q9sPK0fYPmJHmci5bg=:\n" \
-                    "\"stripe-context\": \n" \
+                     "\"content-digest\": sha-256=:HA3i38j+04ac71IzPtG1JK8o4q9sPK0fYPmJHmci5bg=:\n" \
+                     "\"stripe-context\": \n" \
                      "\"stripe-account\": \n" \
                      "\"authorization\": STRIPE-V2-SIG keyid\n" \
                      "\"@signature-params\": (\"content-type\" \"content-digest\" \"stripe-context\" \"stripe-account\" \"authorization\");created=123456789",
                      signature_bases[0].force_encoding(Encoding::UTF_8))
 
         assert_equal('sig1=("content-type" "content-digest" "stripe-context" "stripe-account" "authorization");' \
-        "created=123456789", headers["Signature-Input"])
+                     "created=123456789", headers["Signature-Input"])
         assert_equal("sha-256=:HA3i38j+04ac71IzPtG1JK8o4q9sPK0fYPmJHmci5bg=:", headers["Content-Digest"])
         assert_equal("sig1=:AQIDBAU=:", headers["Signature"])
         assert_equal("STRIPE-V2-SIG keyid", headers["Authorization"])
@@ -70,15 +70,15 @@ module Stripe
         authenticator.authenticate(:delete, headers, nil)
 
         assert_equal("\"content-type\": application/json\n" \
-                    "\"content-digest\": sha-256=:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=:\n" \
-                    "\"stripe-context\": \n" \
-                      "\"stripe-account\": \n" \
-                      "\"authorization\": STRIPE-V2-SIG keyid\n" \
-                      "\"@signature-params\": (\"content-type\" \"content-digest\" \"stripe-context\" \"stripe-account\" \"authorization\");created=123456789",
+                     "\"content-digest\": sha-256=:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=:\n" \
+                     "\"stripe-context\": \n" \
+                     "\"stripe-account\": \n" \
+                     "\"authorization\": STRIPE-V2-SIG keyid\n" \
+                     "\"@signature-params\": (\"content-type\" \"content-digest\" \"stripe-context\" \"stripe-account\" \"authorization\");created=123456789",
                      signature_bases[0].force_encoding(Encoding::UTF_8))
 
         assert_equal('sig1=("content-type" "content-digest" "stripe-context" "stripe-account" "authorization");' \
-        "created=123456789", headers["Signature-Input"])
+                     "created=123456789", headers["Signature-Input"])
         assert_equal("sha-256=:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=:", headers["Content-Digest"])
         assert_equal("sig1=:AQIDBAU=:", headers["Signature"])
         assert_equal("STRIPE-V2-SIG keyid", headers["Authorization"])
@@ -96,13 +96,13 @@ module Stripe
         authenticator.authenticate(:get, headers, nil)
 
         assert_equal("\"stripe-context\": \n" \
-                      "\"stripe-account\": \n" \
-                      "\"authorization\": STRIPE-V2-SIG keyid\n" \
-                      "\"@signature-params\": (\"stripe-context\" \"stripe-account\" \"authorization\");created=123456789",
+                     "\"stripe-account\": \n" \
+                     "\"authorization\": STRIPE-V2-SIG keyid\n" \
+                     "\"@signature-params\": (\"stripe-context\" \"stripe-account\" \"authorization\");created=123456789",
                      signature_bases[0].force_encoding(Encoding::UTF_8))
 
         assert_equal('sig1=("stripe-context" "stripe-account" "authorization");' \
-        "created=123456789", headers["Signature-Input"])
+                     "created=123456789", headers["Signature-Input"])
         assert_nil(headers["Content-Digest"])
         assert_equal("sig1=:AQIDBAU=:", headers["Signature"])
         assert_equal("STRIPE-V2-SIG keyid", headers["Authorization"])

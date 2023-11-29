@@ -26,10 +26,8 @@ module Stripe
     end
 
     def self.create(params = {}, opts = {})
-      if params[:file] && !params[:file].is_a?(String)
-        unless params[:file].respond_to?(:read)
-          raise ArgumentError, "file must respond to `#read`"
-        end
+      if params[:file] && !params[:file].is_a?(String) && !params[:file].respond_to?(:read)
+        raise ArgumentError, "file must respond to `#read`"
       end
 
       config = opts[:client]&.config || Stripe.config

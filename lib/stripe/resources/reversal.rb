@@ -23,7 +23,7 @@ module Stripe
 
     def resource_url
       "#{Transfer.resource_url}/#{CGI.escape(transfer)}/reversals" \
-      "/#{CGI.escape(id)}"
+        "/#{CGI.escape(id)}"
     end
 
     def self.update(_id, _params = nil, _opts = nil)

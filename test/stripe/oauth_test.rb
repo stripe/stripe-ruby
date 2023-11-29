@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class OAuthTest < Test::Unit::TestCase
@@ -83,7 +83,7 @@ module Stripe
             "grant_type" => "authorization_code",
             "code" => "this_is_an_authorization_code",
           })
-          .with(headers: { "Authorization": "Bearer client_secret_override" })
+          .with(headers: { Authorization: "Bearer client_secret_override" })
           .to_return(body: JSON.generate(access_token: "another_access_token"))
 
         resp = OAuth.token(client_secret: "client_secret_override",

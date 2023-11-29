@@ -1038,7 +1038,7 @@ module Stripe
       # Request duration in milliseconds
       attr_accessor :request_duration_ms
 
-      # a list of strings describing behaviors we track
+      # list of names of tracked behaviors associated with this request
       attr_accessor :usage
 
       def initialize(request_id, request_duration_ms, usage: [])

@@ -4,22 +4,14 @@ module Stripe
   # StripeError is the base error from which all other more specific Stripe
   # errors derive.
   class StripeError < StandardError
-    attr_reader :message
+    attr_reader :message, :code, :error, :http_body, :http_headers, :http_status, :json_body, :request_id
 
     # Response contains a StripeResponse object that has some basic information
     # about the response that conveyed the error.
-    attr_accessor :response
-
-    attr_reader :code
-    attr_reader :error
-    attr_reader :http_body
-    attr_reader :http_headers
-    attr_reader :http_status
-    attr_reader :json_body # equivalent to #data
-    attr_reader :request_id
+    attr_accessor :response # equivalent to #data
 
     # Initializes a StripeError.
-    def initialize(message = nil, http_status: nil, http_body: nil,
+    def initialize(message = nil, http_status: nil, http_body: nil, # rubocop:todo Lint/MissingSuper
                    json_body: nil, http_headers: nil, code: nil)
       @message = message
       @http_status = http_status

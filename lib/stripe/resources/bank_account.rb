@@ -31,8 +31,8 @@ module Stripe
 
     def self.update(_id, _params = nil, _opts = nil)
       raise NotImplementedError,
-            "Bank accounts cannot be updated without a customer ID or an " \
-            " account ID. Update a bank account using " \
+            "Bank accounts cannot be updated without a customer ID or an  " \
+            "account ID. Update a bank account using " \
             "`Customer.update_source('customer_id', 'bank_account_id', " \
             "update_params)` or `Account.update_external_account(" \
             "'account_id', 'bank_account_id', update_params)`"

@@ -87,7 +87,7 @@ module Stripe
 
             raise ArgumentError,
                   "request option '#{opt}' should be a string value " \
-                    "(was a #{val.class})"
+                  "(was a #{val.class})"
           end
         end
 
@@ -96,14 +96,12 @@ module Stripe
 
           raise ArgumentError,
                 "request params should be either a Hash or nil " \
-                  "(was a #{params.class})"
+                "(was a #{params.class})"
         end
 
         private def warn_on_opts_in_params(params)
           Util::OPTS_USER_SPECIFIED.each do |opt|
-            if params.key?(opt)
-              warn("WARNING: '#{opt}' should be in opts instead of params.")
-            end
+            warn("WARNING: '#{opt}' should be in opts instead of params.") if params.key?(opt)
           end
         end
       end

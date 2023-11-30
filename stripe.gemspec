@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
     "github_repo" => "ssh://github.com/stripe/stripe-ruby",
     "homepage_uri" => "https://stripe.com/docs/api?lang=ruby",
     "source_code_uri" => "https://github.com/stripe/stripe-ruby",
-    "rubygems_mfa_required" => "true",
+    "rubygems_mfa_required" => "false",
   }
 
   ignored = Regexp.union(

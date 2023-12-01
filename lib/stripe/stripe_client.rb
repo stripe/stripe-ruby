@@ -1048,10 +1048,8 @@ module Stripe
       end
 
       def payload
-        ret = { request_id: request_id, request_duration_ms: request_duration_ms}
-        if !usage.nil? && !usage.empty?
-          ret[:usage] = usage
-        end
+        ret = { request_id: request_id, request_duration_ms: request_duration_ms }
+        ret[:usage] = usage if !usage.nil? && !usage.empty?
         ret
       end
     end

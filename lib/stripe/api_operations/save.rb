@@ -66,7 +66,7 @@ module Stripe
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
 
-        resp, opts = execute_resource_request(:post, save_url, values, opts)
+        resp, opts = execute_resource_request(:post, save_url, values, opts, ["save"])
         initialize_from(resp.data, opts)
       end
       extend Gem::Deprecate

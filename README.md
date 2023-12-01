@@ -291,10 +291,11 @@ Stripe.set_app_info('MyAwesomePlugin', version: '1.2.34', url: 'https://myawesom
 This information is passed along when the library makes calls to the Stripe
 API.
 
-### Request latency telemetry
+### Telemetry
 
-By default, the library sends request latency telemetry to Stripe. These
-numbers help Stripe improve the overall latency of its API for all users.
+By default, the library sends telemetry to Stripe regarding request latency and feature usage. These
+numbers help Stripe improve the overall latency of its API for all users, and
+improve popular features.
 
 You can disable this behavior if you prefer:
 

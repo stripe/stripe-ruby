@@ -1457,14 +1457,24 @@ module Stripe
           false
         end.to_return(body: JSON.generate(object: "charge"))
 
-        Stripe::Charge.list
+        cus = Stripe::Customer.new("cus_xyz")
+        cus.description = "hello"
+        cus.save
         Stripe::Charge.list
 
         assert(!trace_metrics_header.nil?)
 
         trace_payload = JSON.parse(trace_metrics_header)
+
         assert(trace_payload["last_request_metrics"]["request_id"] == "req_123")
         assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
+        assert(trace_payload["last_request_metrics"]["usage"] == ["save"])
+
+        Stripe::Charge.list
+        trace_payload = JSON.parse(trace_metrics_header)
+        assert(trace_payload["last_request_metrics"]["request_id"] == "req_123")
+        assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
+        assert(trace_payload["last_request_metrics"]["usage"].nil?)
       end
     end
 

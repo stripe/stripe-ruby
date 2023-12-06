@@ -210,9 +210,9 @@ module Stripe
 
     def execute_request(method, path,
                         api_base: nil, api_key: nil,
-                        headers: {}, params: {}, api_mode: nil)
+                        headers: {}, params: {}, api_mode: nil, usage: [])
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params, api_mode
+        method, path, api_base, api_key, headers, params, api_mode, usage
       )
 
       begin
@@ -241,7 +241,7 @@ module Stripe
     # passed, then a StripeStreamResponse is returned containing an IO stream
     # with the response body.
     def execute_request_stream(method, path,
-                               api_base: nil, api_key: nil,
+                               api_base: nil, api_key: nil, usage: [],
                                headers: {}, params: {},
                                api_mode: nil,
                                &read_body_chunk_block)
@@ -252,7 +252,7 @@ module Stripe
 
       http_resp, api_key = execute_request_internal(
         method, path, api_base, api_key,
-        headers, params, api_mode, &read_body_chunk_block
+        headers, params, api_mode, usage, &read_body_chunk_block
       )
 
       # When the read_body_chunk_block is given, we no longer have access to the
@@ -432,7 +432,7 @@ module Stripe
 
     private def execute_request_internal(method, path,
                                          api_base, api_key, headers, params,
-                                         api_mode, &read_body_chunk_block)
+                                         api_mode, usage, &read_body_chunk_block)
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
       raise ArgumentError, "path should be a string" \
@@ -498,7 +498,7 @@ module Stripe
         end
 
       http_resp =
-        execute_request_with_rescues(method, api_base, headers, context) do
+        execute_request_with_rescues(method, api_base, headers, usage, context) do
           self.class
               .default_connection_manager(config)
               .execute_request(method, url,
@@ -583,7 +583,7 @@ module Stripe
       http_status >= 400
     end
 
-    private def execute_request_with_rescues(method, api_base, headers, context)
+    private def execute_request_with_rescues(method, api_base, headers, usage, context)
       num_retries = 0
 
       begin
@@ -609,7 +609,7 @@ module Stripe
         if config.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
           @last_request_metrics =
-            StripeRequestMetrics.new(context.request_id, request_duration_ms)
+            StripeRequestMetrics.new(context.request_id, request_duration_ms, usage: usage)
         end
 
       # We rescue all exceptions from a request so that we have an easy spot to
@@ -1072,13 +1072,19 @@ module Stripe
       # Request duration in milliseconds
       attr_accessor :request_duration_ms
 
-      def initialize(request_id, request_duration_ms)
+      # list of names of tracked behaviors associated with this request
+      attr_accessor :usage
+
+      def initialize(request_id, request_duration_ms, usage: [])
         self.request_id = request_id
         self.request_duration_ms = request_duration_ms
+        self.usage = usage
       end
 
       def payload
-        { request_id: request_id, request_duration_ms: request_duration_ms }
+        ret = { request_id: request_id, request_duration_ms: request_duration_ms }
+        ret[:usage] = usage if !usage.nil? && !usage.empty?
+        ret
       end
     end
   end

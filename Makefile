@@ -5,7 +5,7 @@ update-version:
 
 codegen-format:
 	bundle install --quiet
-	bundle exec rubocop -o /dev/null --auto-correct
+	bundle exec rubocop -o /dev/null --autocorrect
 
 ci-test:
 	bundle install && bundle exec rake test

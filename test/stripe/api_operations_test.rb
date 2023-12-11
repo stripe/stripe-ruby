@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class ApiOperationsTest < Test::Unit::TestCase
@@ -40,7 +40,7 @@ module Stripe
     end
 
     context ".nested_resource_class_methods" do
-      class MainResource < APIResource
+      class MainResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         extend Stripe::APIOperations::NestedResource
         OBJECT_NAME = "mainresource"
         nested_resource_class_methods :nested,

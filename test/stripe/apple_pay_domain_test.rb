@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class ApplePayDomainTest < Test::Unit::TestCase
@@ -23,7 +23,7 @@ module Stripe
       assert domain.is_a?(Stripe::ApplePayDomain)
     end
 
-    should "be deletable" do
+    should "be deletable" do # rubocop:todo Lint/EmptyBlock
     end
 
     context "#delete" do

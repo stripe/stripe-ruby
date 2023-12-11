@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require ::File.expand_path("../test_helper", __dir__)
+require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class QuoteTest < Test::Unit::TestCase
@@ -191,7 +191,7 @@ module Stripe
 
         should "raise when no ID is passed" do
           assert_raises ArgumentError do
-            Stripe::Quote.pdf do |read_body_chunk|
+            Stripe::Quote.pdf do |read_body_chunk| # rubocop:todo Lint/EmptyBlock
             end
           end
         end

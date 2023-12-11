@@ -19,9 +19,7 @@ module Stripe
         #   {APIOperations::Request.execute_resource_request}.
         def update(id, params = {}, opts = {})
           params.each_key do |k|
-            if protected_fields.include?(k)
-              raise ArgumentError, "Cannot update protected field: #{k}"
-            end
+            raise ArgumentError, "Cannot update protected field: #{k}" if protected_fields.include?(k)
           end
 
           request_stripe_object(
@@ -64,17 +62,17 @@ module Stripe
 
         values = serialize_params(self).merge(params)
 
-        # note that id gets removed here our call to #url above has already
+        # Please note that id gets removed here our call to #url above has already
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
 
-        resp, opts = execute_resource_request(:post, save_url, values, opts)
+        resp, opts = execute_resource_request(:post, save_url, values, opts, ["save"])
         initialize_from(resp.data, opts)
       end
       extend Gem::Deprecate
-      deprecate :save, "the `update` class method (for examples"\
-                " see https://github.com/stripe/stripe-ruby"\
-                "/wiki/Migration-guide-for-v8)", 2022, 11
+      deprecate :save, "the `update` class method (for examples " \
+                       "see https://github.com/stripe/stripe-ruby" \
+                       "/wiki/Migration-guide-for-v8)", 2022, 11
 
       def self.included(base)
         # Set `metadata` as additive so that when it's set directly we remember

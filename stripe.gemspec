@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift(::File.join(::File.dirname(__FILE__), "lib"))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "stripe/version"
 
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "github_repo" => "ssh://github.com/stripe/stripe-ruby",
     "homepage_uri" => "https://stripe.com/docs/api?lang=ruby",
     "source_code_uri" => "https://github.com/stripe/stripe-ruby",
+    "rubygems_mfa_required" => "false",
   }
 
   ignored = Regexp.union(
@@ -36,6 +37,6 @@ Gem::Specification.new do |s|
   )
   s.files = `git ls-files`.split("\n").reject { |f| ignored.match(f) }
   s.executables   = `git ls-files -- bin/*`.split("\n")
-                                           .map { |f| ::File.basename(f) }
+                                           .map { |f| File.basename(f) }
   s.require_paths = ["lib"]
 end

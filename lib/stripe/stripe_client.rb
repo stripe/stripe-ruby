@@ -36,8 +36,7 @@ module Stripe
                 end
     end
 
-    attr_reader :config
-    attr_reader :options
+    attr_reader :config, :options
 
     # Gets a currently active `StripeClient`. Set for the current thread when
     # `StripeClient#request` is being run so that API operations being executed
@@ -80,9 +79,7 @@ module Stripe
             end
           end
 
-          if thread_context.default_connection_managers.empty?
-            pruned_contexts << thread_context
-          end
+          pruned_contexts << thread_context if thread_context.default_connection_managers.empty?
         end
 
         @thread_contexts_with_connection_managers.subtract(pruned_contexts)
@@ -120,7 +117,7 @@ module Stripe
       when Net::OpenTimeout, Net::ReadTimeout
         # Retry on timeout-related problems (either on open or read).
         true
-      when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET,
+      when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, # rubocop:todo Lint/DuplicateBranch
             Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError
         # Destination refused the connection, the connection was reset, or a
         # variety of other connection failures. This could occur from a single
@@ -212,9 +209,9 @@ module Stripe
     end
 
     def execute_request(method, path,
-                        api_base: nil, api_key: nil, headers: {}, params: {})
+                        api_base: nil, api_key: nil, headers: {}, params: {}, usage: [])
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params
+        method, path, api_base, api_key, headers, params, usage
       )
 
       begin
@@ -243,7 +240,7 @@ module Stripe
     # passed, then a StripeStreamResponse is returned containing an IO stream
     # with the response body.
     def execute_request_stream(method, path,
-                               api_base: nil, api_key: nil,
+                               api_base: nil, api_key: nil, usage: [],
                                headers: {}, params: {},
                                &read_body_chunk_block)
       unless block_given?
@@ -252,7 +249,7 @@ module Stripe
       end
 
       http_resp, api_key = execute_request_internal(
-        method, path, api_base, api_key, headers, params, &read_body_chunk_block
+        method, path, api_base, api_key, headers, params, usage, &read_body_chunk_block
       )
 
       # When the read_body_chunk_block is given, we no longer have access to the
@@ -287,21 +284,21 @@ module Stripe
 
     ERROR_MESSAGE_CONNECTION =
       "Unexpected error communicating when trying to connect to " \
-        "Stripe (%s). You may be seeing this message because your DNS is not " \
-        "working or you don't have an internet connection.  To check, try " \
-        "running `host stripe.com` from the command line."
+      "Stripe (%s). You may be seeing this message because your DNS is not " \
+      "working or you don't have an internet connection.  To check, try " \
+      "running `host stripe.com` from the command line."
     ERROR_MESSAGE_SSL =
       "Could not establish a secure connection to Stripe (%s), you " \
-        "may need to upgrade your OpenSSL version. To check, try running " \
-        "`openssl s_client -connect api.stripe.com:443` from the command " \
-        "line."
+      "may need to upgrade your OpenSSL version. To check, try running " \
+      "`openssl s_client -connect api.stripe.com:443` from the command " \
+      "line."
 
     # Common error suffix sared by both connect and read timeout messages.
     ERROR_MESSAGE_TIMEOUT_SUFFIX =
       "Please check your internet connection and try again. " \
-        "If this problem persists, you should check Stripe's service " \
-        "status at https://status.stripe.com, or let us know at " \
-        "support@stripe.com."
+      "If this problem persists, you should check Stripe's service " \
+      "status at https://status.stripe.com, or let us know at " \
+      "support@stripe.com."
 
     ERROR_MESSAGE_TIMEOUT_CONNECT = (
       "Timed out connecting to Stripe (%s). " +
@@ -431,7 +428,7 @@ module Stripe
     end
 
     private def execute_request_internal(method, path,
-                                         api_base, api_key, headers, params,
+                                         api_base, api_key, headers, params, usage,
                                          &read_body_chunk_block)
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
@@ -488,14 +485,12 @@ module Stripe
       response_block =
         if block_given?
           lambda do |response|
-            unless should_handle_as_error(response.code.to_i)
-              response.read_body(&read_body_chunk_block)
-            end
+            response.read_body(&read_body_chunk_block) unless should_handle_as_error(response.code.to_i)
           end
         end
 
       http_resp =
-        execute_request_with_rescues(method, api_base, headers, context) do
+        execute_request_with_rescues(method, api_base, headers, usage, context) do
           self.class
               .default_connection_manager(config)
               .execute_request(method, url,
@@ -515,18 +510,18 @@ module Stripe
     private def check_api_key!(api_key)
       unless api_key
         raise AuthenticationError, "No API key provided. " \
-          'Set your API key using "Stripe.api_key = <API-KEY>". ' \
-          "You can generate API keys from the Stripe web interface. " \
-          "See https://stripe.com/api for details, or email " \
-          "support@stripe.com if you have any questions."
+                                   'Set your API key using "Stripe.api_key = <API-KEY>". ' \
+                                   "You can generate API keys from the Stripe web interface. " \
+                                   "See https://stripe.com/api for details, or email " \
+                                   "support@stripe.com if you have any questions."
       end
 
       return unless api_key =~ /\s/
 
       raise AuthenticationError, "Your API key is invalid, as it contains " \
-        "whitespace. (HINT: You can double-check your API key from the " \
-        "Stripe web interface. See https://stripe.com/api for details, or " \
-        "email support@stripe.com if you have any questions.)"
+                                 "whitespace. (HINT: You can double-check your API key from the " \
+                                 "Stripe web interface. See https://stripe.com/api for details, or " \
+                                 "email support@stripe.com if you have any questions.)"
     end
 
     # Encodes a set of body parameters using multipart if `Content-Type` is set
@@ -565,7 +560,7 @@ module Stripe
       http_status >= 400
     end
 
-    private def execute_request_with_rescues(method, api_base, headers, context)
+    private def execute_request_with_rescues(method, api_base, headers, usage, context)
       num_retries = 0
 
       begin
@@ -582,9 +577,7 @@ module Stripe
         http_status = resp.code.to_i
         context = context.dup_from_response_headers(resp)
 
-        if should_handle_as_error(http_status)
-          handle_error_response(resp, context)
-        end
+        handle_error_response(resp, context) if should_handle_as_error(http_status)
 
         log_response(context, request_start, http_status, resp.body, resp)
         notify_request_end(context, request_duration, http_status,
@@ -593,7 +586,7 @@ module Stripe
         if config.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
           @last_request_metrics =
-            StripeRequestMetrics.new(context.request_id, request_duration_ms)
+            StripeRequestMetrics.new(context.request_id, request_duration_ms, usage: usage)
         end
 
       # We rescue all exceptions from a request so that we have an easy spot to
@@ -634,7 +627,7 @@ module Stripe
 
         # Only handle errors when we know we can do so, and re-raise otherwise.
         # This should be pretty infrequent.
-        else
+        else # rubocop:todo Lint/DuplicateBranch
           raise
         end
       end
@@ -844,7 +837,7 @@ module Stripe
 
       if errors.nil?
         message = "Unexpected error #{error.class.name} communicating " \
-          "with Stripe. Please let us know at support@stripe.com."
+                  "with Stripe. Please let us know at support@stripe.com."
       end
 
       api_base ||= config.api_base
@@ -858,9 +851,7 @@ module Stripe
 
     private def request_headers(api_key, method)
       user_agent = "Stripe/v1 RubyBindings/#{Stripe::VERSION}"
-      unless Stripe.app_info.nil?
-        user_agent += " " + format_app_info(Stripe.app_info)
-      end
+      user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
 
       headers = {
         "User-Agent" => user_agent,
@@ -963,15 +954,7 @@ module Stripe
     # that we can log certain information. It's useful because it means that we
     # don't have to pass around as many parameters.
     class RequestLogContext
-      attr_accessor :body
-      attr_accessor :account
-      attr_accessor :api_key
-      attr_accessor :api_version
-      attr_accessor :idempotency_key
-      attr_accessor :method
-      attr_accessor :path
-      attr_accessor :query
-      attr_accessor :request_id
+      attr_accessor :body, :account, :api_key, :api_version, :idempotency_key, :method, :path, :query, :request_id
 
       # The idea with this method is that we might want to update some of
       # context information because a response that we've received from the API
@@ -1055,13 +1038,19 @@ module Stripe
       # Request duration in milliseconds
       attr_accessor :request_duration_ms
 
-      def initialize(request_id, request_duration_ms)
+      # list of names of tracked behaviors associated with this request
+      attr_accessor :usage
+
+      def initialize(request_id, request_duration_ms, usage: [])
         self.request_id = request_id
         self.request_duration_ms = request_duration_ms
+        self.usage = usage
       end
 
       def payload
-        { request_id: request_id, request_duration_ms: request_duration_ms }
+        ret = { request_id: request_id, request_duration_ms: request_duration_ms }
+        ret[:usage] = usage if !usage.nil? && !usage.empty?
+        ret
       end
     end
   end

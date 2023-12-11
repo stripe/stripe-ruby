@@ -1,4 +1,17 @@
 # Changelog
+## 10.2.0 - 2023-11-30
+* [#1292](https://github.com/stripe/stripe-ruby/pull/1292) Update generated code
+  * Add support for new resources `Climate.Order`, `Climate.Product`, and `Climate.Supplier`
+  * Add support for `cancel`, `create`, `list`, `retrieve`, and `update` methods on resource `Order`
+  * Add support for `list` and `retrieve` methods on resources `Product` and `Supplier`
+* [#1295](https://github.com/stripe/stripe-ruby/pull/1295) Upgrade rubocop
+* [#1291](https://github.com/stripe/stripe-ruby/pull/1291) Update generated code
+
+* [#1290](https://github.com/stripe/stripe-ruby/pull/1290) Update generated code
+
+* [#1288](https://github.com/stripe/stripe-ruby/pull/1288) Update generated code
+
+
 ## 10.1.0 - 2023-11-02
 * [#1286](https://github.com/stripe/stripe-ruby/pull/1286) Update generated code
   * Add support for new resource `Tax.Registration`

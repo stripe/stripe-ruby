@@ -1,4 +1,7 @@
 # Changelog
+## 10.3.0 - 2023-12-14
+* [#1294](https://github.com/stripe/stripe-ruby/pull/1294) Support sending parameters inside singleton retrieve
+
 ## 10.2.0 - 2023-11-30
 * [#1292](https://github.com/stripe/stripe-ruby/pull/1292) Update generated code
   * Add support for new resources `Climate.Order`, `Climate.Product`, and `Climate.Supplier`

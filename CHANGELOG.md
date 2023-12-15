@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.3.0 - 2023-12-14
+* [#1294](https://github.com/stripe/stripe-ruby/pull/1294) Support sending parameters inside singleton retrieve
+
 ## 10.3.0-beta.1 - 2023-11-30
 * [#1298](https://github.com/stripe/stripe-ruby/pull/1298) Update generated code for beta
 * [#1296](https://github.com/stripe/stripe-ruby/pull/1296) Merge master into beta

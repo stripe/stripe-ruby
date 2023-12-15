@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.4.0-beta.1 - 2023-12-14
+ Updated stable APIs to the latest version
+
 ## 10.3.0 - 2023-12-14
 * [#1294](https://github.com/stripe/stripe-ruby/pull/1294) Support sending parameters inside singleton retrieve
 

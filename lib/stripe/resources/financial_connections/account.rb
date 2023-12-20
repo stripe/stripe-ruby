@@ -36,6 +36,24 @@ module Stripe
         )
       end
 
+      def subscribe(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/financial_connections/accounts/%<account>s/subscribe", { account: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def unsubscribe(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/financial_connections/accounts/%<account>s/unsubscribe", { account: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       def self.disconnect(account, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -58,6 +76,24 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/financial_connections/accounts/%<account>s/refresh", { account: CGI.escape(account) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.subscribe(account, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/financial_connections/accounts/%<account>s/subscribe", { account: CGI.escape(account) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.unsubscribe(account, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/financial_connections/accounts/%<account>s/unsubscribe", { account: CGI.escape(account) }),
           params: params,
           opts: opts
         )

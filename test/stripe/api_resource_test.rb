@@ -783,12 +783,10 @@ module Stripe
     end
 
     context "singleton resource" do
-
       class TestSingletonResource < SingletonAPIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         include Stripe::APIOperations::SingletonSave
         OBJECT_NAME = "test.singleton"
       end
-
 
       setup do
         Util.instance_variable_set(

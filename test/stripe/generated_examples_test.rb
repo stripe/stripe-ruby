@@ -1571,22 +1571,6 @@ module Stripe
       Stripe::TaxRate.update("txr_xxxxxxxxxxxxx", { active: false })
       assert_requested :post, "#{Stripe.api_base}/v1/tax_rates/txr_xxxxxxxxxxxxx"
     end
-    should "Test tax registrations get" do
-      Stripe::Tax::Registration.list({ status: "all" })
-      assert_requested :get, "#{Stripe.api_base}/v1/tax/registrations?status=all"
-    end
-    should "Test tax registrations post" do
-      Stripe::Tax::Registration.create({
-        country: "IE",
-        country_options: { ie: { type: "oss_union" } },
-        active_from: "now",
-      })
-      assert_requested :post, "#{Stripe.api_base}/v1/tax/registrations"
-    end
-    should "Test tax registrations post 2" do
-      Stripe::Tax::Registration.update("taxreg_xxxxxxxxxxxxx", { expires_at: "now" })
-      assert_requested :post, "#{Stripe.api_base}/v1/tax/registrations/taxreg_xxxxxxxxxxxxx"
-    end
     should "Test tax settings get" do
       Stripe::Tax::Settings.retrieve
       assert_requested :get, "#{Stripe.api_base}/v1/tax/settings?"

@@ -613,6 +613,14 @@ module Stripe
       Stripe::FinancialConnections::Account.refresh_account("fca_xyz", { features: ["balance"] })
       assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xyz/refresh"
     end
+    should "Test financial connections accounts subscribe post" do
+      Stripe::FinancialConnections::Account.subscribe("fa_123", { features: ["transactions"] })
+      assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fa_123/subscribe"
+    end
+    should "Test financial connections accounts unsubscribe post" do
+      Stripe::FinancialConnections::Account.unsubscribe("fa_123", { features: ["transactions"] })
+      assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fa_123/unsubscribe"
+    end
     should "Test financial connections sessions get" do
       Stripe::FinancialConnections::Session.retrieve("fcsess_xyz")
       assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/sessions/fcsess_xyz?"
@@ -641,6 +649,14 @@ module Stripe
         filters: { countries: ["US"] },
       })
       assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/sessions"
+    end
+    should "Test financial connections transactions get" do
+      Stripe::FinancialConnections::Transaction.retrieve("tr_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/transactions/tr_123?"
+    end
+    should "Test financial connections transactions get 2" do
+      Stripe::FinancialConnections::Transaction.list({ account: "fca_xyz" })
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/transactions?account=fca_xyz"
     end
     should "Test identity verification reports get" do
       Stripe::Identity::VerificationReport.list({ limit: 3 })
@@ -1570,6 +1586,22 @@ module Stripe
     should "Test tax rates post 2" do
       Stripe::TaxRate.update("txr_xxxxxxxxxxxxx", { active: false })
       assert_requested :post, "#{Stripe.api_base}/v1/tax_rates/txr_xxxxxxxxxxxxx"
+    end
+    should "Test tax registrations get" do
+      Stripe::Tax::Registration.list({ status: "all" })
+      assert_requested :get, "#{Stripe.api_base}/v1/tax/registrations?status=all"
+    end
+    should "Test tax registrations post" do
+      Stripe::Tax::Registration.create({
+        country: "IE",
+        country_options: { ie: { type: "oss_union" } },
+        active_from: "now",
+      })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax/registrations"
+    end
+    should "Test tax registrations post 2" do
+      Stripe::Tax::Registration.update("taxreg_xxxxxxxxxxxxx", { expires_at: "now" })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax/registrations/taxreg_xxxxxxxxxxxxx"
     end
     should "Test tax settings get" do
       Stripe::Tax::Settings.retrieve

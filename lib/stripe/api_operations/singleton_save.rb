@@ -33,7 +33,7 @@ module Stripe
       # The `save` method is DEPRECATED and will be removed in a future major
       # version of the library. Use the `update` method on the resource instead.
       #
-      # Creates or updates an API resource.
+      # Updates a singleton API resource.
       #
       # If the resource doesn't yet have an assigned ID and the resource is one
       # that can be created, then the method attempts to create the resource.

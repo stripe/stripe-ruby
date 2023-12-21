@@ -4,7 +4,7 @@ module Stripe
   module APIOperations
     module SingletonSave
       module ClassMethods
-        # Updates an API resource
+        # Updates a singleton API resource
         #
         # Updates the identified resource with the passed in parameters.
         #

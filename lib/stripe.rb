@@ -26,6 +26,7 @@ require "stripe/api_operations/list"
 require "stripe/api_operations/nested_resource"
 require "stripe/api_operations/request"
 require "stripe/api_operations/save"
+require "stripe/api_operations/singleton_save"
 require "stripe/api_operations/search"
 
 # API resource support classes

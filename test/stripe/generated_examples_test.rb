@@ -1571,6 +1571,14 @@ module Stripe
       Stripe::TaxRate.update("txr_xxxxxxxxxxxxx", { active: false })
       assert_requested :post, "#{Stripe.api_base}/v1/tax_rates/txr_xxxxxxxxxxxxx"
     end
+    should "Test tax settings get" do
+      Stripe::Tax::Settings.retrieve
+      assert_requested :get, "#{Stripe.api_base}/v1/tax/settings?"
+    end
+    should "Test tax settings post" do
+      Stripe::Tax::Settings.update({ defaults: { tax_code: "txcd_10000000" } })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax/settings"
+    end
     should "Test tax transactions create from calculation post" do
       Stripe::Tax::Transaction.create_from_calculation({
         calculation: "xxx",

@@ -782,6 +782,61 @@ module Stripe
       end
     end
 
+    context "singleton resource" do
+
+      class TestSingletonResource < SingletonAPIResource # rubocop:todo Lint/ConstantDefinitionInBlock
+        include Stripe::APIOperations::SingletonSave
+        OBJECT_NAME = "test.singleton"
+      end
+
+
+      setup do
+        Util.instance_variable_set(
+          :@object_classes,
+          Stripe::ObjectTypes.object_names_to_classes.merge(
+            "test.singleton" => TestSingletonResource
+          )
+        )
+      end
+      teardown do
+        Util.class.instance_variable_set(:@object_classes, Stripe::ObjectTypes.object_names_to_classes)
+      end
+
+      should "be retrievable" do
+        stub_request(:get, "#{Stripe.api_base}/v1/test/singleton")
+          .with(query: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate({ object: "test.singleton", result: "hi!" }))
+
+        settings = TestSingletonResource.retrieve({ foo: "bar" }, { stripe_account: "acct_hi" })
+        assert settings.is_a? TestSingletonResource
+        assert_equal "hi!", settings.result
+      end
+
+      should "be updatable" do
+        stub_request(:post, "#{Stripe.api_base}/v1/test/singleton")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
+          .to_return(body: JSON.generate({ object: "test.singleton", result: "hi!" }))
+
+        settings = TestSingletonResource.update({ foo: "bar" }, { stripe_account: "acct_hi" })
+        assert settings.is_a? TestSingletonResource
+        assert_equal "hi!", settings.result
+      end
+
+      should "be saveable" do
+        stub_request(:get, "#{Stripe.api_base}/v1/test/singleton")
+          .to_return(body: JSON.generate({ object: "test.singleton", result: "hi!" }))
+
+        stub_request(:post, "#{Stripe.api_base}/v1/test/singleton")
+          .with(body: { result: "hello" })
+          .to_return(body: JSON.generate({ object: "test.singleton", result: "hello" }))
+
+        settings = TestSingletonResource.retrieve
+        settings.result = "hello"
+        settings.save
+        assert_requested :post, "#{Stripe.api_base}/v1/test/singleton", times: 1
+      end
+    end
+
     @@fixtures = {} # rubocop:disable Style/ClassVars
     setup do
       if @@fixtures.empty?

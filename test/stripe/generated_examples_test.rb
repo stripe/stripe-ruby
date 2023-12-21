@@ -1571,6 +1571,30 @@ module Stripe
       Stripe::TaxRate.update("txr_xxxxxxxxxxxxx", { active: false })
       assert_requested :post, "#{Stripe.api_base}/v1/tax_rates/txr_xxxxxxxxxxxxx"
     end
+    should "Test tax registrations get" do
+      Stripe::Tax::Registration.list({ status: "all" })
+      assert_requested :get, "#{Stripe.api_base}/v1/tax/registrations?status=all"
+    end
+    should "Test tax registrations post" do
+      Stripe::Tax::Registration.create({
+        country: "IE",
+        country_options: { ie: { type: "oss_union" } },
+        active_from: "now",
+      })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax/registrations"
+    end
+    should "Test tax registrations post 2" do
+      Stripe::Tax::Registration.update("taxreg_xxxxxxxxxxxxx", { expires_at: "now" })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax/registrations/taxreg_xxxxxxxxxxxxx"
+    end
+    should "Test tax settings get" do
+      Stripe::Tax::Settings.retrieve
+      assert_requested :get, "#{Stripe.api_base}/v1/tax/settings?"
+    end
+    should "Test tax settings post" do
+      Stripe::Tax::Settings.update({ defaults: { tax_code: "txcd_10000000" } })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax/settings"
+    end
     should "Test tax transactions create from calculation post" do
       Stripe::Tax::Transaction.create_from_calculation({
         calculation: "xxx",

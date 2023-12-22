@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.5.0-beta.1 - 2023-12-22
+* [#1302](https://github.com/stripe/stripe-ruby/pull/1302) Update generated code for beta
+
 ## 10.4.0 - 2023-12-22
 * [#1303](https://github.com/stripe/stripe-ruby/pull/1303) Update generated code
   * Add support for new resource `FinancialConnections.Transaction`

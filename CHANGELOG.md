@@ -1,5 +1,12 @@
 # Changelog
 
+## 10.4.0 - 2023-12-22
+* [#1303](https://github.com/stripe/stripe-ruby/pull/1303) Update generated code
+  * Add support for new resource `FinancialConnections.Transaction`
+  * Add support for `list` and `retrieve` methods on resource `Transaction`
+  * Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`
+* [#1304](https://github.com/stripe/stripe-ruby/pull/1304) Add support for updatable singleton resources
+
 ## 10.4.0-beta.1 - 2023-12-14
  Updated stable APIs to the latest version
 

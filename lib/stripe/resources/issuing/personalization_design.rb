@@ -18,6 +18,7 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = PersonalizationDesign
 
+        # Updates the status of the specified testmode personalization design object to active.
         def self.activate(personalization_design, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -27,6 +28,7 @@ module Stripe
           )
         end
 
+        # Updates the status of the specified testmode personalization design object to inactive.
         def self.deactivate(personalization_design, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -36,6 +38,7 @@ module Stripe
           )
         end
 
+        # Updates the status of the specified testmode personalization design object to rejected.
         def self.reject(personalization_design, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -45,6 +48,7 @@ module Stripe
           )
         end
 
+        # Updates the status of the specified testmode personalization design object to active.
         def activate(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -54,6 +58,7 @@ module Stripe
           )
         end
 
+        # Updates the status of the specified testmode personalization design object to inactive.
         def deactivate(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -63,6 +68,7 @@ module Stripe
           )
         end
 
+        # Updates the status of the specified testmode personalization design object to rejected.
         def reject(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

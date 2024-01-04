@@ -11,6 +11,7 @@ module Stripe
 
       OBJECT_NAME = "issuing.credit_underwriting_record"
 
+      # Update a CreditUnderwritingRecord object to correct mistakes.
       def correct(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -20,6 +21,7 @@ module Stripe
         )
       end
 
+      # Update a CreditUnderwritingRecord object from a decision made on a credit application.
       def report_decision(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -29,6 +31,7 @@ module Stripe
         )
       end
 
+      # Update a CreditUnderwritingRecord object to correct mistakes.
       def self.correct(credit_underwriting_record, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -38,6 +41,7 @@ module Stripe
         )
       end
 
+      # Creates a CreditUnderwritingRecord object with information about a credit application submission.
       def self.create_from_application(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -47,6 +51,7 @@ module Stripe
         )
       end
 
+      # Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
       def self.create_from_proactive_review(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -56,6 +61,7 @@ module Stripe
         )
       end
 
+      # Update a CreditUnderwritingRecord object from a decision made on a credit application.
       def self.report_decision(credit_underwriting_record, params = {}, opts = {})
         request_stripe_object(
           method: :post,

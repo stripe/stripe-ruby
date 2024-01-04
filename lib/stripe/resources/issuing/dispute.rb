@@ -13,6 +13,7 @@ module Stripe
 
       OBJECT_NAME = "issuing.dispute"
 
+      # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
       def submit(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -22,6 +23,7 @@ module Stripe
         )
       end
 
+      # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
       def self.submit(dispute, params = {}, opts = {})
         request_stripe_object(
           method: :post,

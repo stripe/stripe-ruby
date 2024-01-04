@@ -14,6 +14,8 @@ module Stripe
 
       OBJECT_NAME = "issuing.authorization"
 
+      # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+      # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def approve(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -23,6 +25,8 @@ module Stripe
         )
       end
 
+      # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+      # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def decline(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -32,6 +36,8 @@ module Stripe
         )
       end
 
+      # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+      # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def self.approve(authorization, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -41,6 +47,8 @@ module Stripe
         )
       end
 
+      # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+      # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def self.decline(authorization, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -57,6 +65,7 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = Authorization
 
+        # Capture a test-mode authorization.
         def self.capture(authorization, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -66,6 +75,7 @@ module Stripe
           )
         end
 
+        # Create a test-mode authorization.
         def self.create(params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -75,6 +85,7 @@ module Stripe
           )
         end
 
+        # Expire a test-mode Authorization.
         def self.expire(authorization, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -84,6 +95,7 @@ module Stripe
           )
         end
 
+        # Increment a test-mode Authorization.
         def self.increment(authorization, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -93,6 +105,7 @@ module Stripe
           )
         end
 
+        # Reverse a test-mode Authorization.
         def self.reverse(authorization, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -102,6 +115,7 @@ module Stripe
           )
         end
 
+        # Capture a test-mode authorization.
         def capture(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -111,6 +125,7 @@ module Stripe
           )
         end
 
+        # Expire a test-mode Authorization.
         def expire(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -120,6 +135,7 @@ module Stripe
           )
         end
 
+        # Increment a test-mode Authorization.
         def increment(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -129,6 +145,7 @@ module Stripe
           )
         end
 
+        # Reverse a test-mode Authorization.
         def reverse(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

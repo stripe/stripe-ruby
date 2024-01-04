@@ -14,6 +14,7 @@ module Stripe
 
     OBJECT_NAME = "order"
 
+    # Cancels the order as well as the payment intent if one is attached.
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -23,6 +24,7 @@ module Stripe
       )
     end
 
+    # When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -32,6 +34,7 @@ module Stripe
       )
     end
 
+    # Reopens a submitted order.
     def reopen(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -41,6 +44,7 @@ module Stripe
       )
     end
 
+    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
     def submit(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -50,6 +54,7 @@ module Stripe
       )
     end
 
+    # Cancels the order as well as the payment intent if one is attached.
     def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -59,6 +64,7 @@ module Stripe
       )
     end
 
+    # When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def self.list_line_items(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -68,6 +74,7 @@ module Stripe
       )
     end
 
+    # Reopens a submitted order.
     def self.reopen(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -77,6 +84,7 @@ module Stripe
       )
     end
 
+    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
     def self.submit(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,

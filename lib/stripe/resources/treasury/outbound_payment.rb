@@ -12,6 +12,7 @@ module Stripe
 
       OBJECT_NAME = "treasury.outbound_payment"
 
+      # Cancel an OutboundPayment.
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -21,6 +22,7 @@ module Stripe
         )
       end
 
+      # Cancel an OutboundPayment.
       def self.cancel(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -37,6 +39,7 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = OutboundPayment
 
+        # Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
         def self.fail(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -46,6 +49,7 @@ module Stripe
           )
         end
 
+        # Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
         def self.post(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -55,6 +59,7 @@ module Stripe
           )
         end
 
+        # Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
         def self.return_outbound_payment(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -64,6 +69,7 @@ module Stripe
           )
         end
 
+        # Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -73,6 +79,7 @@ module Stripe
           )
         end
 
+        # Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
         def post(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -82,6 +89,7 @@ module Stripe
           )
         end
 
+        # Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
         def return_outbound_payment(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

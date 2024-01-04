@@ -16,6 +16,7 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = ReceivedDebit
 
+        # Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
         def self.create(params = {}, opts = {})
           request_stripe_object(
             method: :post,

@@ -14,6 +14,7 @@ module Stripe
 
       OBJECT_NAME = "terminal.reader"
 
+      # Cancels the current reader action.
       def cancel_action(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -23,6 +24,7 @@ module Stripe
         )
       end
 
+      # Initiates an input collection flow on a Reader.
       def collect_inputs(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -32,6 +34,7 @@ module Stripe
         )
       end
 
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
       def collect_payment_method(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -41,6 +44,7 @@ module Stripe
         )
       end
 
+      # Finalizes a payment on a Reader.
       def confirm_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -50,6 +54,7 @@ module Stripe
         )
       end
 
+      # Initiates a payment flow on a Reader.
       def process_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -59,6 +64,7 @@ module Stripe
         )
       end
 
+      # Initiates a setup intent flow on a Reader.
       def process_setup_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -68,6 +74,7 @@ module Stripe
         )
       end
 
+      # Initiates a refund on a Reader
       def refund_payment(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -77,6 +84,7 @@ module Stripe
         )
       end
 
+      # Sets reader display to show cart details.
       def set_reader_display(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -86,6 +94,7 @@ module Stripe
         )
       end
 
+      # Cancels the current reader action.
       def self.cancel_action(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -95,6 +104,7 @@ module Stripe
         )
       end
 
+      # Initiates an input collection flow on a Reader.
       def self.collect_inputs(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -104,6 +114,7 @@ module Stripe
         )
       end
 
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
       def self.collect_payment_method(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -113,6 +124,7 @@ module Stripe
         )
       end
 
+      # Finalizes a payment on a Reader.
       def self.confirm_payment_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -122,6 +134,7 @@ module Stripe
         )
       end
 
+      # Initiates a payment flow on a Reader.
       def self.process_payment_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -131,6 +144,7 @@ module Stripe
         )
       end
 
+      # Initiates a setup intent flow on a Reader.
       def self.process_setup_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -140,6 +154,7 @@ module Stripe
         )
       end
 
+      # Initiates a refund on a Reader
       def self.refund_payment(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -149,6 +164,7 @@ module Stripe
         )
       end
 
+      # Sets reader display to show cart details.
       def self.set_reader_display(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -165,6 +181,7 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = Reader
 
+        # Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         def self.present_payment_method(reader, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -174,6 +191,7 @@ module Stripe
           )
         end
 
+        # Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         def present_payment_method(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

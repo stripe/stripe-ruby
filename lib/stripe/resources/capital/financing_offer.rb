@@ -10,6 +10,8 @@ module Stripe
 
       OBJECT_NAME = "capital.financing_offer"
 
+      # Acknowledges that platform has received and delivered the financing_offer to
+      # the intended merchant recipient.
       def mark_delivered(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -19,6 +21,8 @@ module Stripe
         )
       end
 
+      # Acknowledges that platform has received and delivered the financing_offer to
+      # the intended merchant recipient.
       def self.mark_delivered(financing_offer, params = {}, opts = {})
         request_stripe_object(
           method: :post,

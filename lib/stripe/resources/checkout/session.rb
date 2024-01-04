@@ -23,6 +23,9 @@ module Stripe
 
       OBJECT_NAME = "checkout.session"
 
+      # A Session can be expired when it is in one of these statuses: open
+      #
+      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
       def expire(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -32,6 +35,7 @@ module Stripe
         )
       end
 
+      # When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
       def list_line_items(params = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -41,6 +45,9 @@ module Stripe
         )
       end
 
+      # A Session can be expired when it is in one of these statuses: open
+      #
+      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
       def self.expire(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -50,6 +57,7 @@ module Stripe
         )
       end
 
+      # When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
       def self.list_line_items(session, params = {}, opts = {})
         request_stripe_object(
           method: :get,

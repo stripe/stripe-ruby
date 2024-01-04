@@ -21,6 +21,7 @@ module Stripe
 
     nested_resource_class_methods :source_transaction, operations: %i[retrieve list]
 
+    # Verify a given source.
     def verify(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -30,6 +31,7 @@ module Stripe
       )
     end
 
+    # Verify a given source.
     def self.verify(source, params = {}, opts = {})
       request_stripe_object(
         method: :post,

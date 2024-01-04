@@ -25,6 +25,7 @@ module Stripe
                                   resource_plural: "capabilities"
     nested_resource_class_methods :person, operations: %i[create retrieve update delete list]
 
+    # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
     def persons(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -34,6 +35,9 @@ module Stripe
       )
     end
 
+    # With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+    #
+    # Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -43,6 +47,7 @@ module Stripe
       )
     end
 
+    # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
     def self.persons(account, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -52,6 +57,9 @@ module Stripe
       )
     end
 
+    # With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+    #
+    # Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
     def self.reject(account, params = {}, opts = {})
       request_stripe_object(
         method: :post,

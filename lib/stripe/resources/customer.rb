@@ -19,6 +19,9 @@ module Stripe
     nested_resource_class_methods :cash_balance_transaction, operations: %i[retrieve list]
     nested_resource_class_methods :tax_id, operations: %i[create retrieve delete list]
 
+    # Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+    # funding instructions will be created. If funding instructions have already been created for a given customer, the same
+    # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
     def create_funding_instructions(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -28,6 +31,7 @@ module Stripe
       )
     end
 
+    # Removes the currently applied discount on a customer.
     def delete_discount(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
@@ -37,6 +41,7 @@ module Stripe
       )
     end
 
+    # Returns a list of PaymentMethods for a given Customer
     def list_payment_methods(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -46,6 +51,7 @@ module Stripe
       )
     end
 
+    # Retrieves a PaymentMethod object for a given Customer.
     def retrieve_payment_method(payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -55,6 +61,9 @@ module Stripe
       )
     end
 
+    # Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+    # funding instructions will be created. If funding instructions have already been created for a given customer, the same
+    # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
     def self.create_funding_instructions(customer, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -64,6 +73,7 @@ module Stripe
       )
     end
 
+    # Removes the currently applied discount on a customer.
     def self.delete_discount(customer, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
@@ -73,6 +83,7 @@ module Stripe
       )
     end
 
+    # Returns a list of PaymentMethods for a given Customer
     def self.list_payment_methods(customer, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -82,6 +93,7 @@ module Stripe
       )
     end
 
+    # Retrieves a PaymentMethod object for a given Customer.
     def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -109,6 +121,7 @@ module Stripe
       search(params, opts).auto_paging_each(&blk)
     end
 
+    # Retrieves a customer's cash balance.
     def self.retrieve_cash_balance(customer, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -118,6 +131,7 @@ module Stripe
       )
     end
 
+    # Changes the settings on a customer's cash balance.
     def self.update_cash_balance(customer, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -134,6 +148,7 @@ module Stripe
     class TestHelpers < APIResourceTestHelpers
       RESOURCE_CLASS = Customer
 
+      # Create an incoming testmode bank transfer
       def self.fund_cash_balance(customer, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -143,6 +158,7 @@ module Stripe
         )
       end
 
+      # Create an incoming testmode bank transfer
       def fund_cash_balance(params = {}, opts = {})
         @resource.request_stripe_object(
           method: :post,

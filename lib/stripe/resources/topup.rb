@@ -14,6 +14,7 @@ module Stripe
 
     OBJECT_NAME = "topup"
 
+    # Cancels a top-up. Only pending top-ups can be canceled.
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -23,6 +24,7 @@ module Stripe
       )
     end
 
+    # Cancels a top-up. Only pending top-ups can be canceled.
     def self.cancel(topup, params = {}, opts = {})
       request_stripe_object(
         method: :post,

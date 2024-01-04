@@ -13,6 +13,9 @@ module Stripe
 
     OBJECT_NAME = "dispute"
 
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    #
+    # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     def close(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -22,6 +25,9 @@ module Stripe
       )
     end
 
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    #
+    # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     def self.close(dispute, params = {}, opts = {})
       request_stripe_object(
         method: :post,

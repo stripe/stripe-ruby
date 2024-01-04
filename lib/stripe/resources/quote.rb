@@ -11,6 +11,7 @@ module Stripe
 
     OBJECT_NAME = "quote"
 
+    # Accepts the specified quote.
     def accept(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -20,6 +21,7 @@ module Stripe
       )
     end
 
+    # Cancels the quote.
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -29,6 +31,7 @@ module Stripe
       )
     end
 
+    # Finalizes the quote.
     def finalize_quote(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -38,6 +41,7 @@ module Stripe
       )
     end
 
+    # When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
     def list_computed_upfront_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -47,6 +51,7 @@ module Stripe
       )
     end
 
+    # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -56,6 +61,7 @@ module Stripe
       )
     end
 
+    # Download the PDF for a finalized quote
     def pdf(params = {}, opts = {}, &read_body_chunk_block)
       config = opts[:client]&.config || Stripe.config
       opts = { api_base: config.uploads_base }.merge(opts)
@@ -68,6 +74,7 @@ module Stripe
       )
     end
 
+    # Accepts the specified quote.
     def self.accept(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -77,6 +84,7 @@ module Stripe
       )
     end
 
+    # Cancels the quote.
     def self.cancel(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -86,6 +94,7 @@ module Stripe
       )
     end
 
+    # Finalizes the quote.
     def self.finalize_quote(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -95,6 +104,7 @@ module Stripe
       )
     end
 
+    # When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
     def self.list_computed_upfront_line_items(quote, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -104,6 +114,7 @@ module Stripe
       )
     end
 
+    # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def self.list_line_items(quote, params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -113,6 +124,7 @@ module Stripe
       )
     end
 
+    # Download the PDF for a finalized quote
     def self.pdf(quote, params = {}, opts = {}, &read_body_chunk_block)
       config = opts[:client]&.config || Stripe.config
       opts = { api_base: config.uploads_base }.merge(opts)

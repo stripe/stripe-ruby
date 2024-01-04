@@ -12,6 +12,7 @@ module Stripe
 
     OBJECT_NAME = "subscription_schedule"
 
+    # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -21,6 +22,7 @@ module Stripe
       )
     end
 
+    # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
     def release(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -30,6 +32,7 @@ module Stripe
       )
     end
 
+    # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     def self.cancel(schedule, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -39,6 +42,7 @@ module Stripe
       )
     end
 
+    # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
     def self.release(schedule, params = {}, opts = {})
       request_stripe_object(
         method: :post,

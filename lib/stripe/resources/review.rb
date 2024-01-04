@@ -11,6 +11,7 @@ module Stripe
 
     OBJECT_NAME = "review"
 
+    # Approves a Review object, closing it and removing it from the list of reviews.
     def approve(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -20,6 +21,7 @@ module Stripe
       )
     end
 
+    # Approves a Review object, closing it and removing it from the list of reviews.
     def self.approve(review, params = {}, opts = {})
       request_stripe_object(
         method: :post,

@@ -21,6 +21,7 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = Transaction
 
+        # Allows the user to capture an arbitrary amount, also known as a forced capture.
         def self.create_force_capture(params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -30,6 +31,7 @@ module Stripe
           )
         end
 
+        # Allows the user to refund an arbitrary amount, also known as a unlinked refund.
         def self.create_unlinked_refund(params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -39,6 +41,7 @@ module Stripe
           )
         end
 
+        # Refund a test-mode Transaction.
         def self.refund(transaction, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -48,6 +51,7 @@ module Stripe
           )
         end
 
+        # Refund a test-mode Transaction.
         def refund(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

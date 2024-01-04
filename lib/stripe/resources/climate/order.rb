@@ -12,6 +12,10 @@ module Stripe
 
       OBJECT_NAME = "climate.order"
 
+      # Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+      # reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
+      # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
+      # provides 90 days advance notice and refunds the amount_total.
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -21,6 +25,10 @@ module Stripe
         )
       end
 
+      # Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
+      # reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
+      # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
+      # provides 90 days advance notice and refunds the amount_total.
       def self.cancel(order, params = {}, opts = {})
         request_stripe_object(
           method: :post,

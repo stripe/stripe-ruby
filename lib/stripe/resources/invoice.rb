@@ -43,6 +43,7 @@ module Stripe
 
     OBJECT_NAME = "invoice"
 
+    # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
     def finalize_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -52,6 +53,7 @@ module Stripe
       )
     end
 
+    # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
     def mark_uncollectible(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -61,6 +63,7 @@ module Stripe
       )
     end
 
+    # Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
     def pay(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -70,6 +73,9 @@ module Stripe
       )
     end
 
+    # Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
+    #
+    # Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
     def send_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -79,6 +85,7 @@ module Stripe
       )
     end
 
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     def void_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -88,6 +95,7 @@ module Stripe
       )
     end
 
+    # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
     def self.finalize_invoice(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -97,6 +105,7 @@ module Stripe
       )
     end
 
+    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def self.list_upcoming_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -106,6 +115,7 @@ module Stripe
       )
     end
 
+    # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
     def self.mark_uncollectible(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -115,6 +125,7 @@ module Stripe
       )
     end
 
+    # Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
     def self.pay(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -124,6 +135,9 @@ module Stripe
       )
     end
 
+    # Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
+    #
+    # Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
     def self.send_invoice(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -133,10 +147,16 @@ module Stripe
       )
     end
 
+    # At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
+    #
+    # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+    #
+    # You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a proration_date parameter when doing the actual subscription update. The value passed in should be the same as the subscription_proration_date returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date on the upcoming invoice resource.
     def self.upcoming(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/invoices/upcoming", params: params, opts: opts)
     end
 
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     def self.void_invoice(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,

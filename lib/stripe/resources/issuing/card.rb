@@ -18,6 +18,7 @@ module Stripe
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = Card
 
+        # Updates the shipping status of the specified Issuing Card object to delivered.
         def self.deliver_card(card, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -27,6 +28,7 @@ module Stripe
           )
         end
 
+        # Updates the shipping status of the specified Issuing Card object to failure.
         def self.fail_card(card, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -36,6 +38,7 @@ module Stripe
           )
         end
 
+        # Updates the shipping status of the specified Issuing Card object to returned.
         def self.return_card(card, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -45,6 +48,7 @@ module Stripe
           )
         end
 
+        # Updates the shipping status of the specified Issuing Card object to shipped.
         def self.ship_card(card, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -54,6 +58,7 @@ module Stripe
           )
         end
 
+        # Updates the shipping status of the specified Issuing Card object to delivered.
         def deliver_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -63,6 +68,7 @@ module Stripe
           )
         end
 
+        # Updates the shipping status of the specified Issuing Card object to failure.
         def fail_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -72,6 +78,7 @@ module Stripe
           )
         end
 
+        # Updates the shipping status of the specified Issuing Card object to returned.
         def return_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -81,6 +88,7 @@ module Stripe
           )
         end
 
+        # Updates the shipping status of the specified Issuing Card object to shipped.
         def ship_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

@@ -18,6 +18,7 @@ module Stripe
 
       OBJECT_NAME = "apps.secret"
 
+      # Deletes a secret from the secret store by name and scope.
       def self.delete_where(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -27,6 +28,7 @@ module Stripe
         )
       end
 
+      # Finds a secret in the secret store by name and scope.
       def self.find(params = {}, opts = {})
         request_stripe_object(
           method: :get,

@@ -9,6 +9,7 @@ module Stripe
     class Transaction < APIResource
       OBJECT_NAME = "tax.transaction"
 
+      # Retrieves the line items of a committed standalone transaction as a collection.
       def list_line_items(params = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -18,6 +19,7 @@ module Stripe
         )
       end
 
+      # Creates a Tax Transaction from a calculation.
       def self.create_from_calculation(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -27,6 +29,7 @@ module Stripe
         )
       end
 
+      # Partially or fully reverses a previously created Transaction.
       def self.create_reversal(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -36,6 +39,7 @@ module Stripe
         )
       end
 
+      # Retrieves the line items of a committed standalone transaction as a collection.
       def self.list_line_items(transaction, params = {}, opts = {})
         request_stripe_object(
           method: :get,

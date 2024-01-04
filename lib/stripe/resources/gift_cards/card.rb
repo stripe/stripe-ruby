@@ -12,6 +12,7 @@ module Stripe
 
       OBJECT_NAME = "gift_cards.card"
 
+      # Validates a gift card code, returning the matching gift card object if it exists.
       def self.validate(params = {}, opts = {})
         request_stripe_object(
           method: :post,

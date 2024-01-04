@@ -13,6 +13,7 @@ module Stripe
 
       OBJECT_NAME = "test_helpers.test_clock"
 
+      # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       def advance(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -22,6 +23,7 @@ module Stripe
         )
       end
 
+      # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       def self.advance(test_clock, params = {}, opts = {})
         request_stripe_object(
           method: :post,

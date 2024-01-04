@@ -11,6 +11,7 @@ module Stripe
 
       OBJECT_NAME = "tax.form"
 
+      # Download the PDF for a tax form.
       def pdf(params = {}, opts = {}, &read_body_chunk_block)
         config = opts[:client]&.config || Stripe.config
         opts = { api_base: config.uploads_base }.merge(opts)
@@ -23,6 +24,7 @@ module Stripe
         )
       end
 
+      # Download the PDF for a tax form.
       def self.pdf(id, params = {}, opts = {}, &read_body_chunk_block)
         config = opts[:client]&.config || Stripe.config
         opts = { api_base: config.uploads_base }.merge(opts)

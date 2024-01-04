@@ -12,6 +12,7 @@ module Stripe
 
       OBJECT_NAME = "treasury.financial_account"
 
+      # Retrieves Features information associated with the FinancialAccount.
       def retrieve_features(params = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -21,6 +22,7 @@ module Stripe
         )
       end
 
+      # Updates the Features associated with a FinancialAccount.
       def update_features(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -30,6 +32,7 @@ module Stripe
         )
       end
 
+      # Retrieves Features information associated with the FinancialAccount.
       def self.retrieve_features(financial_account, params = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -39,6 +42,7 @@ module Stripe
         )
       end
 
+      # Updates the Features associated with a FinancialAccount.
       def self.update_features(financial_account, params = {}, opts = {})
         request_stripe_object(
           method: :post,

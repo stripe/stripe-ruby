@@ -16,6 +16,7 @@ module Stripe
 
       OBJECT_NAME = "gift_cards.transaction"
 
+      # Cancel a gift card transaction
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -25,6 +26,7 @@ module Stripe
         )
       end
 
+      # Confirm a gift card transaction
       def confirm(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -34,6 +36,7 @@ module Stripe
         )
       end
 
+      # Cancel a gift card transaction
       def self.cancel(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -43,6 +46,7 @@ module Stripe
         )
       end
 
+      # Confirm a gift card transaction
       def self.confirm(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,

@@ -12,6 +12,7 @@ module Stripe
 
       nested_resource_class_methods :inferred_balance, operations: %i[list]
 
+      # Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
       def disconnect(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -21,6 +22,7 @@ module Stripe
         )
       end
 
+      # Lists all owners for a given Account
       def list_owners(params = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -30,6 +32,7 @@ module Stripe
         )
       end
 
+      # Refreshes the data associated with a Financial Connections Account.
       def refresh_account(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -39,6 +42,7 @@ module Stripe
         )
       end
 
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
       def subscribe(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -48,6 +52,7 @@ module Stripe
         )
       end
 
+      # Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
       def unsubscribe(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -57,6 +62,7 @@ module Stripe
         )
       end
 
+      # Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
       def self.disconnect(account, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -66,6 +72,7 @@ module Stripe
         )
       end
 
+      # Lists all owners for a given Account
       def self.list_owners(account, params = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -75,6 +82,7 @@ module Stripe
         )
       end
 
+      # Refreshes the data associated with a Financial Connections Account.
       def self.refresh_account(account, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -84,6 +92,7 @@ module Stripe
         )
       end
 
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
       def self.subscribe(account, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -93,6 +102,7 @@ module Stripe
         )
       end
 
+      # Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
       def self.unsubscribe(account, params = {}, opts = {})
         request_stripe_object(
           method: :post,

@@ -1,4 +1,8 @@
 # Changelog
+## 10.5.0 - 2024-01-04
+* [#1306](https://github.com/stripe/stripe-ruby/pull/1306) Update generated code
+  * Add support for `retrieve` method on resource `Tax.Registration`
+
 ## 10.4.0 - 2023-12-22
 * [#1303](https://github.com/stripe/stripe-ruby/pull/1303) Update generated code
   * Add support for new resource `FinancialConnections.Transaction`

@@ -108,5 +108,21 @@ class RawRequestTest < Test::Unit::TestCase
 
       assert_equal stripe_version_override, req.headers["Stripe-Version"]
     end
+    should "report usage" do
+      expected_body = "{\"id\": \"acc_123\"}"
+      telemetry_header = nil
+
+      Stripe.enable_telemetry = true
+
+      stub_request(:get, "#{Stripe.api_base}/v1/accounts/acc_124")
+        .with { |request| telemetry_header = request.headers["X-Stripe-Client-Telemetry"] }
+        .to_return(body: expected_body)
+
+      Stripe.raw_request(:get, "/v1/accounts/acc_123", {}, {})
+      Stripe.raw_request(:get, "/v1/accounts/acc_124", {}, {})
+      parsed_telemetry_header = JSON.parse(telemetry_header)
+
+      assert(parsed_telemetry_header["last_request_metrics"]["usage"] == ["raw_request"])
+    end
   end
 end

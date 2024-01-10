@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# TODO (major) Deprecated, Remove along with extends
+# TODO: (major) Deprecated, Remove along with extends
 module Stripe
   module APIOperations
     module Search

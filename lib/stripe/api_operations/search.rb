@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-# TODO: (major) Deprecated, Remove along with extends
 module Stripe
   module APIOperations
+    # TODO: (major) Deprecated, remove along with extends.
+    # Please use the search method fromw within the resource instead.
     module Search
       def _search(search_url, filters = {}, opts = {})
         request_stripe_object(
@@ -12,6 +13,9 @@ module Stripe
           opts: opts
         )
       end
+
+      extend Gem::Deprecate
+      deprecate :_search, "request_stripe_object", 2024, 1
     end
   end
 end

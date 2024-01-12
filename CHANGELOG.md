@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.7.0-beta.1 - 2024-01-12
+* [#1309](https://github.com/stripe/stripe-ruby/pull/1309) Update generated code for beta
+* [#1305](https://github.com/stripe/stripe-ruby/pull/1305) Update generated code for beta
+
 ## 10.6.0 - 2024-01-12
 * [#1310](https://github.com/stripe/stripe-ruby/pull/1310) Update generated code
   * Add support for new resource `CustomerSession`

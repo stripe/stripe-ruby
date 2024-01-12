@@ -39,6 +39,7 @@ module Stripe
         Customer::OBJECT_NAME => Customer,
         CustomerBalanceTransaction::OBJECT_NAME => CustomerBalanceTransaction,
         CustomerCashBalanceTransaction::OBJECT_NAME => CustomerCashBalanceTransaction,
+        CustomerSession::OBJECT_NAME => CustomerSession,
         Discount::OBJECT_NAME => Discount,
         Dispute::OBJECT_NAME => Dispute,
         EphemeralKey::OBJECT_NAME => EphemeralKey,

@@ -395,6 +395,13 @@ module Stripe
       Stripe::CreditNote.void_credit_note("cn_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe.api_base}/v1/credit_notes/cn_xxxxxxxxxxxxx/void?"
     end
+    should "Test customer sessions post" do
+      Stripe::CustomerSession.create({
+        customer: "cus_123",
+        components: { buy_button: { enabled: true } },
+      })
+      assert_requested :post, "#{Stripe.api_base}/v1/customer_sessions"
+    end
     should "Test customers balance transactions get" do
       Stripe::Customer.list_balance_transactions("cus_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions?limit=3"

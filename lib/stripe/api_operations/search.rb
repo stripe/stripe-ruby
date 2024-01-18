@@ -2,8 +2,8 @@
 
 module Stripe
   module APIOperations
-    # TODO: (major) Deprecated, remove along with extends.
-    # Please use the search method fromw within the resource instead.
+    # The _search method via API Operations is deprecated.
+    # Please use the search method from within the resource instead.
     module Search
       def _search(search_url, filters = {}, opts = {})
         request_stripe_object(

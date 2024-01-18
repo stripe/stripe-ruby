@@ -11,7 +11,6 @@ module Stripe
   # for a Standard or Express account, some parameters are no longer returned. These are marked as **Custom Only** or **Custom and Express**
   # below. Learn about the differences [between accounts](https://stripe.com/docs/connect/accounts).
   class Account < APIResource
-    extend Gem::Deprecate
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List

@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.7.0-beta.2 - 2024-01-19
+* [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
+
+
 ## 10.7.0-beta.1 - 2024-01-12
 * [#1309](https://github.com/stripe/stripe-ruby/pull/1309) Update generated code for beta
 * [#1305](https://github.com/stripe/stripe-ruby/pull/1305) Update generated code for beta

@@ -12,6 +12,7 @@ module Stripe
         SearchResultObject::OBJECT_NAME => SearchResultObject,
 
         # business objects
+        File::OBJECT_NAME_ALT => File,
         Account::OBJECT_NAME => Account,
         AccountLink::OBJECT_NAME => AccountLink,
         AccountNotice::OBJECT_NAME => AccountNotice,
@@ -51,7 +52,6 @@ module Stripe
         Event::OBJECT_NAME => Event,
         ExchangeRate::OBJECT_NAME => ExchangeRate,
         File::OBJECT_NAME => File,
-        File::OBJECT_NAME_ALT => File,
         FileLink::OBJECT_NAME => FileLink,
         FinancialConnections::Account::OBJECT_NAME => FinancialConnections::Account,
         FinancialConnections::AccountInferredBalance::OBJECT_NAME =>

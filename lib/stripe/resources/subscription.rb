@@ -84,7 +84,12 @@ module Stripe
     save_nested_resource :source
 
     def self.search(params = {}, opts = {})
-      _search("/v1/subscriptions/search", params, opts)
+      request_stripe_object(
+        method: :get,
+        path: "/v1/subscriptions/search",
+        params: params,
+        opts: opts
+      )
     end
 
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)

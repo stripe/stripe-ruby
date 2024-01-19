@@ -206,7 +206,7 @@ module Stripe
     end
 
     def self.search(params = {}, opts = {})
-      _search("/v1/invoices/search", params, opts)
+      request_stripe_object(method: :get, path: "/v1/invoices/search", params: params, opts: opts)
     end
 
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)

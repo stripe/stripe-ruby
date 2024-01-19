@@ -146,8 +146,8 @@ module Stripe
       @opts = {}
     end
 
-    def execute(method, url, params = {}, opts = {})
-      resp, = execute_resource_request(method, url, params, opts)
+    def execute(method, url, params = {}, opts = {}, usage = [])
+      resp, = execute_resource_request(method, url, params, opts, usage)
 
       resp
     end
@@ -156,7 +156,7 @@ module Stripe
   # Sends a request to Stripe REST API
   def self.raw_request(method, url, params = {}, opts = {})
     req = RawRequest.new
-    req.execute(method, url, params, opts)
+    req.execute(method, url, params, opts, ["raw_request"])
   end
 
   def self.deserialize(data)

@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.7.0-beta.3 - 2024-01-25
+* [#1313](https://github.com/stripe/stripe-ruby/pull/1313) Update generated code for beta
+  * Add support for `create_preview` method on resource `Invoice`
+* [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
+
 ## 10.7.0-beta.2 - 2024-01-19
 * [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
 

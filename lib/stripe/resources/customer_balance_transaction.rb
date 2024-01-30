@@ -9,7 +9,6 @@ module Stripe
   #
   # Related guide: [Customer balance](https://stripe.com/docs/billing/customer/balance)
   class CustomerBalanceTransaction < APIResource
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "customer_balance_transaction"

@@ -6,7 +6,6 @@ module Stripe
   #
   # Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities)
   class Capability < APIResource
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "capability"

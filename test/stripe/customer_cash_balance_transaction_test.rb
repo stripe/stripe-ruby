@@ -6,7 +6,7 @@ module Stripe
   class CustomerCashBalanceTransactionTest < Test::Unit::TestCase
     should "raise on #list" do
       assert_raises InvalidRequestError do
-        Stripe::CustomeCashBalanceTransaction.list
+        Stripe::CustomerCashBalanceTransaction.list
       end
     end
   end

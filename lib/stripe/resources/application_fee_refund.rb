@@ -8,7 +8,6 @@ module Stripe
   #
   # Related guide: [Refunding application fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
   class ApplicationFeeRefund < APIResource
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "fee_refund"

@@ -33,5 +33,11 @@ module Stripe
       assert_requested :post,
                        "#{Stripe.api_base}/v1/application_fees/#{@fee.id}/refunds/#{refund.id}"
     end
+
+    should "raise on #list" do
+      assert_raises InvalidRequestError do
+        Stripe::ApplicationFeeRefund.list
+      end
+    end
   end
 end

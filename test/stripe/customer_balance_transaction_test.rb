@@ -33,5 +33,11 @@ module Stripe
         Stripe::CustomerBalanceTransaction.update("cbtxn_123")
       end
     end
+
+    should "raise on #list" do
+      assert_raises InvalidRequestError do
+        Stripe::CustomerBalanceTransaction.list
+      end
+    end
   end
 end

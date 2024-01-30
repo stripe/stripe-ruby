@@ -34,6 +34,12 @@ module Stripe
       end
     end
 
+    should "raise on #list" do
+      assert_raises InvalidRequestError do
+        Stripe::Capability.list
+      end
+    end
+
     should "be saveable" do
       capability = Stripe::Account.retrieve_capability("acct_123", "acap_123")
       capability.requested = true

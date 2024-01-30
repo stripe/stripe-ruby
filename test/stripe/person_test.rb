@@ -34,6 +34,12 @@ module Stripe
       end
     end
 
+    should "raise on #list" do
+      assert_raises InvalidRequestError do
+        Stripe::Person.list
+      end
+    end
+
     should "be saveable" do
       account = Stripe::Account.retrieve("acct_123")
       person = account.persons.retrieve("person_123")

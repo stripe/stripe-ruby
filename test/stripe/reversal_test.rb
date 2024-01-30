@@ -39,5 +39,11 @@ module Stripe
       assert_requested :post,
                        "#{Stripe.api_base}/v1/transfers/#{reversal.transfer}/reversals/#{reversal.id}"
     end
+
+    should "raise on #list" do
+      assert_raises InvalidRequestError do
+        Stripe::Reversal.list
+      end
+    end
   end
 end

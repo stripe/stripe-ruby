@@ -27,5 +27,11 @@ module Stripe
         Stripe::TaxId.retrieve("txi_123")
       end
     end
+
+    should "raise on #list" do
+      assert_raises InvalidRequestError do
+        Stripe::TaxId.list
+      end
+    end
   end
 end

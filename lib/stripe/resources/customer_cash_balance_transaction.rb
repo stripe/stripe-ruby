@@ -7,8 +7,6 @@ module Stripe
   # represent when funds are moved into or out of this balance. This includes funding by the customer, allocation
   # to payments, and refunds to the customer.
   class CustomerCashBalanceTransaction < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "customer_cash_balance_transaction"
   end
 end

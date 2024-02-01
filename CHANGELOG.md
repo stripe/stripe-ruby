@@ -1,4 +1,9 @@
 # Changelog
+## 10.7.0 - 2024-02-01
+* [#1317](https://github.com/stripe/stripe-ruby/pull/1317) Remove list method in child resources
+  * Removes list method mixin from child resources, as these methods always return `InvalidRequestError` and never succeed
+* [#1311](https://github.com/stripe/stripe-ruby/pull/1311) Use the deprecation gem in search and clean up usage of the gem
+
 ## 10.6.0 - 2024-01-12
 * [#1310](https://github.com/stripe/stripe-ruby/pull/1310) Update generated code
   * Add support for new resource `CustomerSession`

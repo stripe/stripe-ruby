@@ -3,8 +3,6 @@
 
 module Stripe
   class QuotePreviewSubscriptionSchedule < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "quote_preview_subscription_schedule"
   end
 end

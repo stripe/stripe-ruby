@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.7.0 - 2024-02-01
+* [#1317](https://github.com/stripe/stripe-ruby/pull/1317) Remove list method in child resources
+  * Removes list method mixin from child resources, as these methods always return `InvalidRequestError` and never succeed
+* [#1311](https://github.com/stripe/stripe-ruby/pull/1311) Use the deprecation gem in search and clean up usage of the gem
+
 ## 10.7.0-beta.3 - 2024-01-25
 * [#1313](https://github.com/stripe/stripe-ruby/pull/1313) Update generated code for beta
   * Add support for `create_preview` method on resource `Invoice`
@@ -7,7 +12,6 @@
 
 ## 10.7.0-beta.2 - 2024-01-19
 * [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
-
 
 ## 10.7.0-beta.1 - 2024-01-12
 * [#1309](https://github.com/stripe/stripe-ruby/pull/1309) Update generated code for beta

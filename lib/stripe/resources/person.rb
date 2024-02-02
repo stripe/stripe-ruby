@@ -9,7 +9,6 @@ module Stripe
   #
   # Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/handling-api-verification#person-information)
   class Person < APIResource
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "person"

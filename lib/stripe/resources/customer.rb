@@ -17,6 +17,7 @@ module Stripe
 
     nested_resource_class_methods :balance_transaction, operations: %i[create retrieve update list]
     nested_resource_class_methods :cash_balance_transaction, operations: %i[retrieve list]
+    nested_resource_class_methods :entitlement, operations: %i[list]
     nested_resource_class_methods :tax_id, operations: %i[create retrieve delete list]
 
     # Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -136,6 +137,16 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Retrieve the entitlement summary for a customer
+    def self.retrieve_entitlement_summary(customer, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/entitlement_summary", { customer: CGI.escape(customer) }),
         params: params,
         opts: opts
       )

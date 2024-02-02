@@ -4,8 +4,6 @@
 module Stripe
   # The invoice payment object
   class InvoicePayment < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "invoice_payment"
   end
 end

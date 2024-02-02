@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.8.0-beta.1 - 2024-02-01
+* [#1318](https://github.com/stripe/stripe-ruby/pull/1318) Update generated code for beta
+  * Add support for new resources `Entitlements.Event` and `Entitlements.Feature`
+  * Add support for `create` method on resource `Event`
+  * Add support for `create` and `list` methods on resource `Feature`
+
 ## 10.7.0 - 2024-02-01
 * [#1317](https://github.com/stripe/stripe-ruby/pull/1317) Remove list method in child resources
   * Removes list method mixin from child resources, as these methods always return `InvalidRequestError` and never succeed

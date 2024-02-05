@@ -80,7 +80,7 @@ module Stripe
 
       params = filters.merge(page: next_page).merge(params)
 
-      _search(url, params, opts)
+      request_stripe_object(method: :get, path: url, params: params, opts: opts)
     end
   end
 end

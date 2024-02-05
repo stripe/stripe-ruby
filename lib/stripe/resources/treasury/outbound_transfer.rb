@@ -32,6 +32,26 @@ module Stripe
         )
       end
 
+      # Creates an OutboundTransfer.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/treasury/outbound_transfers",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of OutboundTransfers sent from the specified FinancialAccount.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/treasury/outbound_transfers",
+          params: filters,
+          opts: opts
+        )
+      end
+
       def test_helpers
         TestHelpers.new(self)
       end

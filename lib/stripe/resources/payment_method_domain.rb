@@ -42,5 +42,35 @@ module Stripe
         opts: opts
       )
     end
+
+    # Creates a payment method domain.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: "/v1/payment_method_domains",
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Lists the details of existing payment method domains.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/payment_method_domains",
+        params: filters,
+        opts: opts
+      )
+    end
+
+    # Updates an existing payment method domain.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_method_domains/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

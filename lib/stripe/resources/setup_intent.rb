@@ -119,5 +119,28 @@ module Stripe
         opts: opts
       )
     end
+
+    # Creates a SetupIntent object.
+    #
+    # After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
+    # it to collect any required permissions to charge the payment method later.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/setup_intents", params: params, opts: opts)
+    end
+
+    # Returns a list of SetupIntents.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/setup_intents", params: filters, opts: opts)
+    end
+
+    # Updates a SetupIntent object.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/setup_intents/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

@@ -46,5 +46,32 @@ module Stripe
             "or `Account.retrieve_external_account('account_id', " \
             "'bank_account_id')`"
     end
+
+    def self.delete(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: "#{resource_url}/#{id}",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def delete(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: resource_url.to_s,
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: resource_url.to_s,
+        params: filters,
+        opts: opts
+      )
+    end
   end
 end

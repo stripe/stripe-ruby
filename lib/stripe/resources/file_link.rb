@@ -11,5 +11,25 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "file_link"
+
+    # Creates a new file link object.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/file_links", params: params, opts: opts)
+    end
+
+    # Returns a list of file links.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/file_links", params: filters, opts: opts)
+    end
+
+    # Updates an existing file link object. Expired links can no longer be updated.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/file_links/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

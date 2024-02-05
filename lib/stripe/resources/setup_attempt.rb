@@ -10,5 +10,10 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "setup_attempt"
+
+    # Returns a list of SetupAttempts that associate with a provided SetupIntent.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/setup_attempts", params: filters, opts: opts)
+    end
   end
 end

@@ -30,6 +30,26 @@ module Stripe
         )
       end
 
+      # Creates an InboundTransfer.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/treasury/inbound_transfers",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of InboundTransfers sent from the specified FinancialAccount.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/treasury/inbound_transfers",
+          params: filters,
+          opts: opts
+        )
+      end
+
       def test_helpers
         TestHelpers.new(self)
       end

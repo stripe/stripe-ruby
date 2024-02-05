@@ -14,6 +14,26 @@ module Stripe
 
       OBJECT_NAME = "issuing.transaction"
 
+      # Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/issuing/transactions",
+          params: filters,
+          opts: opts
+        )
+      end
+
+      # Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/issuing/transactions/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       def test_helpers
         TestHelpers.new(self)
       end

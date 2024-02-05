@@ -1,4 +1,7 @@
 # Changelog
+## 10.7.1 - 2024-02-05
+* [#1320](https://github.com/stripe/stripe-ruby/pull/1320) Remove spurious _search deprecation messages (https://github.com/stripe/stripe-ruby/issues/1319)
+
 ## 10.7.0 - 2024-02-01
 * [#1317](https://github.com/stripe/stripe-ruby/pull/1317) Remove list method in child resources
   * Removes list method mixin from child resources, as these methods always return `InvalidRequestError` and never succeed

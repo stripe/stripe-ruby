@@ -16,5 +16,25 @@ module Stripe
       end
       super
     end
+
+    # Invalidates a short-lived API key for a given resource.
+    def self.delete(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/ephemeral_keys/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Invalidates a short-lived API key for a given resource.
+    def delete(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/ephemeral_keys/%<key>s", { key: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

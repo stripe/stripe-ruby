@@ -22,5 +22,35 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_method_configuration"
+
+    # Creates a payment method configuration
+    def self.create(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: "/v1/payment_method_configurations",
+        params: params,
+        opts: opts
+      )
+    end
+
+    # List payment method configurations
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/payment_method_configurations",
+        params: filters,
+        opts: opts
+      )
+    end
+
+    # Update payment method configuration
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_method_configurations/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

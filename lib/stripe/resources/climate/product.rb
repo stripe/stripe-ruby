@@ -9,6 +9,16 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "climate.product"
+
+      # Lists all available Climate product objects.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/climate/products",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

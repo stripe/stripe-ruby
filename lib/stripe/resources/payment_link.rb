@@ -33,5 +33,25 @@ module Stripe
         opts: opts
       )
     end
+
+    # Creates a payment link.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/payment_links", params: params, opts: opts)
+    end
+
+    # Returns a list of your payment links.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_links", params: filters, opts: opts)
+    end
+
+    # Updates a payment link.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_links/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

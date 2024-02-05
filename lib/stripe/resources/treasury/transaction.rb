@@ -8,6 +8,16 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "treasury.transaction"
+
+      # Retrieves a list of Transaction objects.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/treasury/transactions",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

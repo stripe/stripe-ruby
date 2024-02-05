@@ -93,5 +93,25 @@ module Stripe
         opts: opts
       )
     end
+
+    # Creates a new open order object.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/orders", params: params, opts: opts)
+    end
+
+    # Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/orders", params: filters, opts: opts)
+    end
+
+    # Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/orders/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

@@ -36,6 +36,11 @@ module Stripe
           &read_body_chunk_block
         )
       end
+
+      # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/tax/forms", params: filters, opts: opts)
+      end
     end
   end
 end

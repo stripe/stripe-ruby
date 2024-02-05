@@ -27,5 +27,10 @@ module Stripe
         opts: opts
       )
     end
+
+    # Returns a list of quote phases.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/quote_phases", params: filters, opts: opts)
+    end
   end
 end

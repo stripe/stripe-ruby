@@ -20,5 +20,45 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "invoiceitem"
+
+    # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/invoiceitems", params: params, opts: opts)
+    end
+
+    # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+    def self.delete(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/invoiceitems/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+    def delete(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/invoiceitems/%<invoiceitem>s", { invoiceitem: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/invoiceitems", params: filters, opts: opts)
+    end
+
+    # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoiceitems/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

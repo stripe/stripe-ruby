@@ -16,6 +16,26 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "reporting.report_run"
+
+      # Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/reporting/report_runs",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of Report Runs, with the most recent appearing first.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/reporting/report_runs",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

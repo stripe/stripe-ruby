@@ -71,5 +71,35 @@ module Stripe
         opts: opts
       )
     end
+
+    # Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: "/v1/subscription_schedules",
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Retrieves the list of your subscription schedules.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/subscription_schedules",
+        params: filters,
+        opts: opts
+      )
+    end
+
+    # Updates an existing subscription schedule.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

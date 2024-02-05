@@ -12,5 +12,10 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "country_spec"
+
+    # Lists all Country Spec objects available in the API.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/country_specs", params: filters, opts: opts)
+    end
   end
 end

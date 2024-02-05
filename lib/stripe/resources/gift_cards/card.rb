@@ -21,6 +21,36 @@ module Stripe
           opts: opts
         )
       end
+
+      # Creates a new gift card object.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/gift_cards/cards",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # List gift cards for an account
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/gift_cards/cards",
+          params: filters,
+          opts: opts
+        )
+      end
+
+      # Update a gift card
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/gift_cards/cards/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
     end
   end
 end

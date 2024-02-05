@@ -8,6 +8,16 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "issuing.physical_bundle"
+
+      # Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/issuing/physical_bundles",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

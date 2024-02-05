@@ -240,5 +240,25 @@ module Stripe
         opts: opts
       )
     end
+
+    # A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/quotes", params: params, opts: opts)
+    end
+
+    # Returns a list of your quotes.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/quotes", params: filters, opts: opts)
+    end
+
+    # A quote models prices and services for a customer.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/quotes/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

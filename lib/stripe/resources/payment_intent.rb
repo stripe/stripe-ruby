@@ -247,6 +247,25 @@ module Stripe
       )
     end
 
+    # Creates a PaymentIntent object.
+    #
+    # After the PaymentIntent is created, attach a payment method and [confirm](https://stripe.com/docs/api/payment_intents/confirm)
+    # to continue the payment. Learn more about <a href="/docs/payments/payment-intents">the available payment flows
+    # with the Payment Intents API.
+    #
+    # When you use confirm=true during creation, it's equivalent to creating
+    # and confirming the PaymentIntent in the same call. You can use any parameters
+    # available in the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) when you supply
+    # confirm=true.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/payment_intents", params: params, opts: opts)
+    end
+
+    # Returns a list of PaymentIntents.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_intents", params: filters, opts: opts)
+    end
+
     def self.search(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -258,6 +277,22 @@ module Stripe
 
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)
       search(params, opts).auto_paging_each(&blk)
+    end
+
+    # Updates properties on a PaymentIntent object without confirming.
+    #
+    # Depending on which properties you update, you might need to confirm the
+    # PaymentIntent again. For example, updating the payment_method
+    # always requires you to confirm the PaymentIntent again. If you prefer to
+    # update and confirm at the same time, we recommend updating properties through
+    # the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
     end
   end
 end

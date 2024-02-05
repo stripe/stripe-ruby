@@ -10,5 +10,20 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "account_notice"
+
+    # Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/account_notices", params: filters, opts: opts)
+    end
+
+    # Updates an AccountNotice object.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/account_notices/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

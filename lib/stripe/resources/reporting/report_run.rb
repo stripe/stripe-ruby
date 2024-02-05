@@ -16,6 +16,24 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "reporting.report_run"
+
+      def contents(params = {}, opts = {}, &read_body_chunk_block)
+        unless block_given?
+          raise ArgumentError, "A read_body_chunk_block block parameter is required when calling the contents method."
+        end
+
+        config = opts[:client]&.config || Stripe.config
+
+        request_stream(
+          method: :get,
+          path: "/v1/files/#{result.id}/contents",
+          params: params,
+          opts: {
+            api_base: config.uploads_base,
+          }.merge(opts),
+          &read_body_chunk_block
+        )
+      end
     end
   end
 end

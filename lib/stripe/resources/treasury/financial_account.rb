@@ -51,6 +51,36 @@ module Stripe
           opts: opts
         )
       end
+
+      # Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/treasury/financial_accounts",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of FinancialAccounts.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/treasury/financial_accounts",
+          params: filters,
+          opts: opts
+        )
+      end
+
+      # Updates the details of a FinancialAccount.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
     end
   end
 end

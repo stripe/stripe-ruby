@@ -77,5 +77,27 @@ module Stripe
         opts: opts
       )
     end
+
+    # Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
+    #
+    # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/payment_methods", params: params, opts: opts)
+    end
+
+    # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_methods", params: filters, opts: opts)
+    end
+
+    # Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_methods/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

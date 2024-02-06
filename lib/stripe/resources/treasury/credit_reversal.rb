@@ -9,6 +9,26 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "treasury.credit_reversal"
+
+      # Reverses a ReceivedCredit and creates a CreditReversal object.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/treasury/credit_reversals",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of CreditReversals.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/treasury/credit_reversals",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

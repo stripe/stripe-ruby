@@ -10,5 +10,10 @@ module Stripe
     extend Stripe::APIOperations::Create
 
     OBJECT_NAME = "account_link"
+
+    # Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/account_links", params: params, opts: opts)
+    end
   end
 end

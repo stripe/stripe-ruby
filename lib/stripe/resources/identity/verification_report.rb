@@ -18,6 +18,16 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "identity.verification_report"
+
+      # List all verification reports.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/identity/verification_reports",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

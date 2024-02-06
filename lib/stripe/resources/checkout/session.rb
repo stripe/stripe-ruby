@@ -66,6 +66,26 @@ module Stripe
           opts: opts
         )
       end
+
+      # Creates a Session object.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/checkout/sessions",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of Checkout Sessions.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/checkout/sessions",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

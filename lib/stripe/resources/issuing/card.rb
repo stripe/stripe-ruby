@@ -11,6 +11,26 @@ module Stripe
 
       OBJECT_NAME = "issuing.card"
 
+      # Creates an Issuing Card object.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(method: :post, path: "/v1/issuing/cards", params: params, opts: opts)
+      end
+
+      # Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/issuing/cards", params: filters, opts: opts)
+      end
+
+      # Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/issuing/cards/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       def test_helpers
         TestHelpers.new(self)
       end

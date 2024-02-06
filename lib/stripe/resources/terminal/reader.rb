@@ -114,6 +114,56 @@ module Stripe
         )
       end
 
+      # Creates a new Reader object.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/terminal/readers",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Deletes a Reader object.
+      def self.delete(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :delete,
+          path: format("/v1/terminal/readers/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Deletes a Reader object.
+      def delete(params = {}, opts = {})
+        request_stripe_object(
+          method: :delete,
+          path: format("/v1/terminal/readers/%<reader>s", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of Reader objects.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/terminal/readers",
+          params: filters,
+          opts: opts
+        )
+      end
+
+      # Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       def test_helpers
         TestHelpers.new(self)
       end

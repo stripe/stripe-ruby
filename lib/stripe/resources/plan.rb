@@ -17,5 +17,45 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "plan"
+
+    # You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/plans", params: params, opts: opts)
+    end
+
+    # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+    def self.delete(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/plans/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+    def delete(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/plans/%<plan>s", { plan: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Returns a list of your plans.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/plans", params: filters, opts: opts)
+    end
+
+    # Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/plans/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

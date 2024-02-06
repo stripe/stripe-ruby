@@ -7,5 +7,10 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "tax_code"
+
+    # A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/tax_codes", params: filters, opts: opts)
+    end
   end
 end

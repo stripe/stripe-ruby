@@ -26,5 +26,11 @@ module Stripe
     extend Stripe::APIOperations::Create
 
     OBJECT_NAME = "token"
+
+    # Creates a single-use token that represents a bank account's details.
+    # You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/tokens", params: params, opts: opts)
+    end
   end
 end

@@ -15,6 +15,16 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "reporting.report_type"
+
+      # Returns a full list of Report Types.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/reporting/report_types",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

@@ -21,6 +21,16 @@ module Stripe
       extend Stripe::APIOperations::Create
 
       OBJECT_NAME = "billing_portal.session"
+
+      # Creates a session of the customer portal.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/billing_portal/sessions",
+          params: params,
+          opts: opts
+        )
+      end
     end
   end
 end

@@ -11,6 +11,16 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "radar.early_fraud_warning"
+
+      # Returns a list of early fraud warnings.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/radar/early_fraud_warnings",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

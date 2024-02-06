@@ -9,6 +9,21 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.token"
+
+      # Lists all Issuing Token objects for a given card.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/issuing/tokens", params: filters, opts: opts)
+      end
+
+      # Attempts to update the specified Issuing Token object to the status specified.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/issuing/tokens/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
     end
   end
 end

@@ -166,12 +166,57 @@ module Stripe
       )
     end
 
+    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/invoices", params: params, opts: opts)
+    end
+
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    def self.delete(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    def delete(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/invoices", params: filters, opts: opts)
+    end
+
     def self.search(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/invoices/search", params: params, opts: opts)
     end
 
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)
       search(params, opts).auto_paging_each(&blk)
+    end
+
+    # Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+    # monetary values, as well as collection_method, become uneditable.
+    #
+    # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
+    # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+    # auto_advance=false.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
     end
   end
 end

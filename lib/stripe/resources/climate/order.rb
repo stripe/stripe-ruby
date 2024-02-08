@@ -37,6 +37,28 @@ module Stripe
           opts: opts
         )
       end
+
+      # Creates a Climate order object for a given Climate product. The order will be processed immediately
+      # after creation and payment will be deducted your Stripe balance.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(method: :post, path: "/v1/climate/orders", params: params, opts: opts)
+      end
+
+      # Lists all Climate order objects. The orders are returned sorted by creation date, with the
+      # most recently created orders appearing first.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/climate/orders", params: filters, opts: opts)
+      end
+
+      # Updates the specified order by setting the values of the parameters passed.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/climate/orders/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
     end
   end
 end

@@ -100,6 +100,45 @@ module Stripe
           opts: opts
         )
       end
+
+      # Creates a VerificationSession object.
+      #
+      # After the VerificationSession is created, display a verification modal using the session client_secret or send your users to the session's url.
+      #
+      # If your API key is in test mode, verification checks won't actually process, though everything else will occur as if in live mode.
+      #
+      # Related guide: [Verify your users' identity documents](https://stripe.com/docs/identity/verify-identity-documents)
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/identity/verification_sessions",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of VerificationSessions
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/identity/verification_sessions",
+          params: filters,
+          opts: opts
+        )
+      end
+
+      # Updates a VerificationSession object.
+      #
+      # When the session status is requires_input, you can use this method to update the
+      # verification check and options.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/identity/verification_sessions/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
     end
   end
 end

@@ -37,5 +37,10 @@ module Stripe
       }.merge(Util.normalize_opts(opts))
       super
     end
+
+    # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/files", params: filters, opts: opts)
+    end
   end
 end

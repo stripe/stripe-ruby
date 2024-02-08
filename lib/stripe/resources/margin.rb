@@ -10,5 +10,25 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "margin"
+
+    # Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/billing/margins", params: params, opts: opts)
+    end
+
+    # Retrieve a list of your margins.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/billing/margins", params: filters, opts: opts)
+    end
+
+    # Update the specified margin object. Certain fields of the margin object are not editable.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/billing/margins/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

@@ -42,12 +42,34 @@ module Stripe
       )
     end
 
+    # This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+    # to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
+    # object used to request payment.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/charges", params: params, opts: opts)
+    end
+
+    # Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/charges", params: filters, opts: opts)
+    end
+
     def self.search(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/charges/search", params: params, opts: opts)
     end
 
     def self.search_auto_paging_each(params = {}, opts = {}, &blk)
       search(params, opts).auto_paging_each(&blk)
+    end
+
+    # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/charges/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
     end
   end
 end

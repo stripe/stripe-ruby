@@ -21,5 +21,27 @@ module Stripe
     OBJECT_NAME = "transfer"
 
     nested_resource_class_methods :reversal, operations: %i[create retrieve update list]
+
+    # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/transfers", params: params, opts: opts)
+    end
+
+    # Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/transfers", params: filters, opts: opts)
+    end
+
+    # Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+    #
+    # This request accepts only metadata as an argument.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/transfers/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

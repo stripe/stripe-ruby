@@ -10,6 +10,26 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "entitlements.feature"
+
+      # Creates a feature
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/entitlements/features",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Retrieve a list of features
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/entitlements/features",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

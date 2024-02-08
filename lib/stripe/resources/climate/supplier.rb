@@ -8,6 +8,16 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "climate.supplier"
+
+      # Lists all available Climate supplier objects.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/climate/suppliers",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

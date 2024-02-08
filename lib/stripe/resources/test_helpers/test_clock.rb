@@ -32,6 +32,46 @@ module Stripe
           opts: opts
         )
       end
+
+      # Creates a new test clock that can be attached to new customers and quotes.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/test_helpers/test_clocks",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Deletes a test clock.
+      def self.delete(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :delete,
+          path: format("/v1/test_helpers/test_clocks/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Deletes a test clock.
+      def delete(params = {}, opts = {})
+        request_stripe_object(
+          method: :delete,
+          path: format("/v1/test_helpers/test_clocks/%<test_clock>s", { test_clock: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of your test clocks.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/test_helpers/test_clocks",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

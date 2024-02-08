@@ -33,5 +33,25 @@ module Stripe
         opts: opts
       )
     end
+
+    # Top up the balance of an account
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/topups", params: params, opts: opts)
+    end
+
+    # Returns a list of top-ups.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/topups", params: filters, opts: opts)
+    end
+
+    # Updates the metadata of a top-up. Other top-up details are not editable by design.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/topups/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
   end
 end

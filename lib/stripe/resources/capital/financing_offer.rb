@@ -31,6 +31,16 @@ module Stripe
           opts: opts
         )
       end
+
+      # Retrieves the financing offers available for Connected accounts that belong to your platform.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/capital/financing_offers",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

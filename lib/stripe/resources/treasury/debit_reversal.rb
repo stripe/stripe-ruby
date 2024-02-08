@@ -9,6 +9,26 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "treasury.debit_reversal"
+
+      # Reverses a ReceivedDebit and creates a DebitReversal object.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/treasury/debit_reversals",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of DebitReversals.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/treasury/debit_reversals",
+          params: filters,
+          opts: opts
+        )
+      end
     end
   end
 end

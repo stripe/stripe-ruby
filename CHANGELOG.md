@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.9.0-beta.1 - 2024-02-08
+* [#1321](https://github.com/stripe/stripe-ruby/pull/1321) Update generated code for beta
+  * Release specs are identical.
+
 ## 10.8.0-beta.1 - 2024-02-01
 * [#1318](https://github.com/stripe/stripe-ruby/pull/1318) Update generated code for beta
   * Add support for new resources `Entitlements.Event` and `Entitlements.Feature`

@@ -11,6 +11,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "subscription_schedule"
+    def self.object_name
+      "subscription_schedule"
+    end
 
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     def cancel(params = {}, opts = {})

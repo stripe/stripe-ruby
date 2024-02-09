@@ -11,6 +11,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "treasury.outbound_transfer"
+      def self.object_name
+        "treasury.outbound_transfer"
+      end
 
       # An OutboundTransfer can be canceled if the funds have not yet been paid out.
       def cancel(params = {}, opts = {})
@@ -58,6 +61,9 @@ module Stripe
 
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = OutboundTransfer
+        def self.resource_class
+          "OutboundTransfer"
+        end
 
         # Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         def self.fail(outbound_transfer, params = {}, opts = {})

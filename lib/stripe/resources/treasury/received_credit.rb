@@ -8,6 +8,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "treasury.received_credit"
+      def self.object_name
+        "treasury.received_credit"
+      end
 
       # Returns a list of ReceivedCredits.
       def self.list(filters = {}, opts = {})
@@ -25,6 +28,9 @@ module Stripe
 
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = ReceivedCredit
+        def self.resource_class
+          "ReceivedCredit"
+        end
 
         # Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
         def self.create(params = {}, opts = {})

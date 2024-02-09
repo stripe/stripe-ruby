@@ -21,6 +21,9 @@ module Stripe
       extend Stripe::APIOperations::Create
 
       OBJECT_NAME = "billing_portal.session"
+      def self.object_name
+        "billing_portal.session"
+      end
 
       # Creates a session of the customer portal.
       def self.create(params = {}, opts = {})

@@ -11,6 +11,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "scheduled_query_run"
+      def self.object_name
+        "scheduled_query_run"
+      end
 
       def self.resource_url
         "/v1/sigma/scheduled_query_runs"

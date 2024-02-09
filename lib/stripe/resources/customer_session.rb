@@ -8,6 +8,9 @@ module Stripe
     extend Stripe::APIOperations::Create
 
     OBJECT_NAME = "customer_session"
+    def self.object_name
+      "customer_session"
+    end
 
     # Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
     def self.create(params = {}, opts = {})

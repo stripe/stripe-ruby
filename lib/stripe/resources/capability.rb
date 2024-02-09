@@ -9,6 +9,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "capability"
+    def self.object_name
+      "capability"
+    end
 
     def resource_url
       if !respond_to?(:account) || account.nil?

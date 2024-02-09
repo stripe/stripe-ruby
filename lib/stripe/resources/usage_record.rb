@@ -8,5 +8,8 @@ module Stripe
   # Related guide: [Metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing)
   class UsageRecord < APIResource
     OBJECT_NAME = "usage_record"
+    def self.object_name
+      "usage_record"
+    end
   end
 end

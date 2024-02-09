@@ -20,6 +20,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "invoiceitem"
+    def self.object_name
+      "invoiceitem"
+    end
 
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     def self.create(params = {}, opts = {})

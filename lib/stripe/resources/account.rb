@@ -17,6 +17,9 @@ module Stripe
     extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "account"
+    def self.object_name
+      "account"
+    end
 
     nested_resource_class_methods :capability,
                                   operations: %i[retrieve update list],

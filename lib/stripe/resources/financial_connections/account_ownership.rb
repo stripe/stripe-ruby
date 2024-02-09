@@ -6,6 +6,9 @@ module Stripe
     # Describes a snapshot of the owners of an account at a particular point in time.
     class AccountOwnership < StripeObject
       OBJECT_NAME = "financial_connections.account_ownership"
+      def self.object_name
+        "financial_connections.account_ownership"
+      end
     end
   end
 end

@@ -6,6 +6,9 @@ module Stripe
   class ApiResourceTest < Test::Unit::TestCase
     class CustomMethodAPIResource < APIResource
       OBJECT_NAME = "custom_method"
+      def self.object_name
+        "custom_method"
+      end
       custom_method :my_method, http_verb: :post
     end
 
@@ -580,6 +583,10 @@ module Stripe
     context "#request_stripe_object" do
       class HelloTestAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         OBJECT_NAME = "hello"
+        def self.object_name
+          "hello"
+        end
+
         def say_hello(params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -657,6 +664,10 @@ module Stripe
     context "#request_stream" do
       class StreamTestAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         OBJECT_NAME = "stream"
+        def self.object_name
+          "stream"
+        end
+
         def read_stream(params = {}, opts = {}, &read_body_chunk_block)
           request_stream(
             method: :get,
@@ -710,12 +721,20 @@ module Stripe
       class TestHelperAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         OBJECT_NAME = "hello"
 
+        def self.object_name
+          "hello"
+        end
+
         def test_helpers
           TestHelpers.new(self)
         end
 
         class TestHelpers < APIResourceTestHelpers
           RESOURCE_CLASS = TestHelperAPIResource
+
+          def self.resource_class
+            TestHelperAPIResource
+          end
 
           custom_method :say_hello, http_verb: :post
 
@@ -786,6 +805,10 @@ module Stripe
       class TestSingletonResource < SingletonAPIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         include Stripe::APIOperations::SingletonSave
         OBJECT_NAME = "test.singleton"
+
+        def self.object_name
+          "test.singleton"
+        end
       end
 
       setup do

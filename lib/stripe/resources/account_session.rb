@@ -13,6 +13,9 @@ module Stripe
     extend Stripe::APIOperations::Create
 
     OBJECT_NAME = "account_session"
+    def self.object_name
+      "account_session"
+    end
 
     # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     def self.create(params = {}, opts = {})

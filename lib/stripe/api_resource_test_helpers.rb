@@ -31,12 +31,12 @@ module Stripe
     # adds a `capture` class method to the resource class that, when called,
     # will send a POST request to `/v1/<object_name>/capture`.
     def self.custom_method(name, http_verb:, http_path: nil)
-      Util.custom_method self::resource_class, self, name, http_verb, http_path
+      Util.custom_method resource_class, self, name, http_verb, http_path
     end
 
     def self.resource_url
       "/v1/test_helpers/" \
-        "#{self::resource_class.object_name.downcase.tr('.', '/')}s"
+        "#{resource_class.object_name.downcase.tr('.', '/')}s"
     end
 
     def resource_url

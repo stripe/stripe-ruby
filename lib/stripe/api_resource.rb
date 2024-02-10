@@ -11,9 +11,13 @@ module Stripe
     # for example, where this is allowed.
     attr_accessor :save_with_parent
 
+    # TODO: (major) Remove OBJECT_NAME and stop using const_get here
+    # This is a workaround to avoid breaking users who have defined their own
+    # APIResource subclasses with a custom OBJECT_NAME. We should never fallback
+    # on this case otherwise.
     OBJECT_NAME = ""
     def self.object_name
-      ""
+      const_get(:OBJECT_NAME)
     end
 
     def self.class_name

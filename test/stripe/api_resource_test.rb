@@ -717,6 +717,31 @@ module Stripe
       end
     end
 
+    context "custom API resource" do
+      class ByeTestAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
+        OBJECT_NAME = "bye"
+
+        def say_bye(params = {}, opts = {})
+          puts(resource_url)
+          request_stripe_object(
+            method: :post,
+            path: resource_url + "/say",
+            params: params,
+            opts: opts
+          )
+        end
+      end
+
+      should "make requests appropriately without a defined object_name method" do
+        stub_request(:post, "#{Stripe.api_base}/v1/byes/bye_123/say")
+          .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_bye" })
+          .to_return(body: JSON.generate("object" => "bye"))
+
+        bye = ByeTestAPIResource.new(id: "bye_123")
+        bye.say_bye({ foo: "bar" }, stripe_account: "acct_bye")
+      end
+    end
+
     context "test helpers" do
       class TestHelperAPIResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         OBJECT_NAME = "hello"

@@ -722,7 +722,6 @@ module Stripe
         OBJECT_NAME = "bye"
 
         def say_bye(params = {}, opts = {})
-          puts(resource_url)
           request_stripe_object(
             method: :post,
             path: resource_url + "/say",

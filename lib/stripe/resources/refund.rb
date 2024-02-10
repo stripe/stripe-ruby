@@ -13,6 +13,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "refund"
+    def self.object_name
+      "refund"
+    end
 
     # Cancels a refund with a status of requires_action.
     #
@@ -80,6 +83,9 @@ module Stripe
 
     class TestHelpers < APIResourceTestHelpers
       RESOURCE_CLASS = Refund
+      def self.resource_class
+        "Refund"
+      end
 
       # Expire a refund with a status of requires_action.
       def self.expire(refund, params = {}, opts = {})

@@ -8,5 +8,8 @@ module Stripe
   # to payments, and refunds to the customer.
   class CustomerCashBalanceTransaction < APIResource
     OBJECT_NAME = "customer_cash_balance_transaction"
+    def self.object_name
+      "customer_cash_balance_transaction"
+    end
   end
 end

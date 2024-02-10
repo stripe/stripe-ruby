@@ -10,6 +10,9 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "balance_transaction"
+    def self.object_name
+      "balance_transaction"
+    end
 
     # Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
     #

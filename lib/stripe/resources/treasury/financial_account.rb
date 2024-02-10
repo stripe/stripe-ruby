@@ -11,6 +11,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "treasury.financial_account"
+      def self.object_name
+        "treasury.financial_account"
+      end
 
       # Retrieves Features information associated with the FinancialAccount.
       def retrieve_features(params = {}, opts = {})

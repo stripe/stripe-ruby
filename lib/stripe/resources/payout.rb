@@ -16,6 +16,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payout"
+    def self.object_name
+      "payout"
+    end
 
     # You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
     def cancel(params = {}, opts = {})

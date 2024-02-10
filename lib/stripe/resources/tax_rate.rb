@@ -11,6 +11,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "tax_rate"
+    def self.object_name
+      "tax_rate"
+    end
 
     # Creates a new tax rate.
     def self.create(params = {}, opts = {})

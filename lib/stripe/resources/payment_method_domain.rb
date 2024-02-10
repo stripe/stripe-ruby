@@ -12,6 +12,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_method_domain"
+    def self.object_name
+      "payment_method_domain"
+    end
 
     # Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
     # The payment method doesn't appear in Elements for this domain until it is active.

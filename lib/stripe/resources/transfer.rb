@@ -19,6 +19,9 @@ module Stripe
     extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "transfer"
+    def self.object_name
+      "transfer"
+    end
 
     nested_resource_class_methods :reversal, operations: %i[create retrieve update list]
 

@@ -12,6 +12,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "customer_balance_transaction"
+    def self.object_name
+      "customer_balance_transaction"
+    end
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?

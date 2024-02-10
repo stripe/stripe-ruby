@@ -9,6 +9,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.token"
+      def self.object_name
+        "issuing.token"
+      end
 
       # Lists all Issuing Token objects for a given card.
       def self.list(filters = {}, opts = {})

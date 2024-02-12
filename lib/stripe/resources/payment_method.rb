@@ -13,6 +13,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_method"
+    def self.object_name
+      "payment_method"
+    end
 
     # Attaches a PaymentMethod object to a Customer.
     #

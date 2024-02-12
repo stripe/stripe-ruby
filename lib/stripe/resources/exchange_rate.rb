@@ -32,6 +32,9 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "exchange_rate"
+    def self.object_name
+      "exchange_rate"
+    end
 
     # Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
     def self.list(filters = {}, opts = {})

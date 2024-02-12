@@ -11,6 +11,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "fee_refund"
+    def self.object_name
+      "fee_refund"
+    end
 
     def resource_url
       "#{ApplicationFee.resource_url}/#{CGI.escape(fee)}/refunds" \

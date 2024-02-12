@@ -12,6 +12,9 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "country_spec"
+    def self.object_name
+      "country_spec"
+    end
 
     # Lists all Country Spec objects available in the API.
     def self.list(filters = {}, opts = {})

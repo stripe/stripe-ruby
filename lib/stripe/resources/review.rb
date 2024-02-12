@@ -10,6 +10,9 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "review"
+    def self.object_name
+      "review"
+    end
 
     # Approves a Review object, closing it and removing it from the list of reviews.
     def approve(params = {}, opts = {})

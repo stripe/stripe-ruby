@@ -11,6 +11,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "climate.order"
+      def self.object_name
+        "climate.order"
+      end
 
       # Cancels a Climate order. You can cancel an order within 30 days of creation. Stripe refunds the
       # reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier

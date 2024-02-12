@@ -20,6 +20,12 @@ module Stripe
       const_get(:OBJECT_NAME)
     end
 
+    OBJECT_NAME = ""
+
+    def self.object_name
+      ""
+    end
+
     def self.class_name
       name.split("::")[-1]
     end

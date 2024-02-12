@@ -31,8 +31,8 @@ group :development do
   # don't install on truffleruby
   gem "jaro_winkler", "1.5.4" unless RUBY_ENGINE == "truffleruby"
 
-  gem "sorbet", group: :development
-  gem "tapioca", require: false, group: %i[development test]
+  gem "sorbet-static"
+  gem "tapioca"
 
   platforms :mri do
     gem "byebug"

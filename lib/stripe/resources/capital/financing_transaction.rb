@@ -8,6 +8,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "capital.financing_transaction"
+      def self.object_name
+        "capital.financing_transaction"
+      end
 
       # Returns a list of financing transactions. The transactions are returned in sorted order,
       # with the most recent transactions appearing first.

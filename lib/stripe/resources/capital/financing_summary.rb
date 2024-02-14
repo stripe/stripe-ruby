@@ -7,6 +7,9 @@ module Stripe
     # platforms to read the state of Capital offered to their connected accounts.
     class FinancingSummary < SingletonAPIResource
       OBJECT_NAME = "capital.financing_summary"
+      def self.object_name
+        "capital.financing_summary"
+      end
     end
   end
 end

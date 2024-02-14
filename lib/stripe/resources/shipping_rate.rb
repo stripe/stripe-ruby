@@ -10,6 +10,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "shipping_rate"
+    def self.object_name
+      "shipping_rate"
+    end
 
     # Creates a new shipping rate object.
     def self.create(params = {}, opts = {})

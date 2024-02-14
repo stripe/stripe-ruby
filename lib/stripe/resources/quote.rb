@@ -11,6 +11,9 @@ module Stripe
     extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "quote"
+    def self.object_name
+      "quote"
+    end
 
     nested_resource_class_methods :preview_invoice, operations: %i[list]
     nested_resource_class_methods :preview_subscription_schedule, operations: %i[list]

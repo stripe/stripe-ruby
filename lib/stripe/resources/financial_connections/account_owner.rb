@@ -6,6 +6,9 @@ module Stripe
     # Describes an owner of an account.
     class AccountOwner < StripeObject
       OBJECT_NAME = "financial_connections.account_owner"
+      def self.object_name
+        "financial_connections.account_owner"
+      end
     end
   end
 end

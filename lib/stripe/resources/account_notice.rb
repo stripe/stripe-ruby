@@ -10,6 +10,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "account_notice"
+    def self.object_name
+      "account_notice"
+    end
 
     # Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
     def self.list(filters = {}, opts = {})

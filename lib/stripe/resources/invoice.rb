@@ -43,6 +43,9 @@ module Stripe
     extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "invoice"
+    def self.object_name
+      "invoice"
+    end
 
     nested_resource_class_methods :payment, operations: %i[retrieve list]
 

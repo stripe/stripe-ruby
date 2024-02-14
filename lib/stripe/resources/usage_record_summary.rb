@@ -4,5 +4,8 @@
 module Stripe
   class UsageRecordSummary < StripeObject
     OBJECT_NAME = "usage_record_summary"
+    def self.object_name
+      "usage_record_summary"
+    end
   end
 end

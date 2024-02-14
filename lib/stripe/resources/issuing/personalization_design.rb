@@ -10,6 +10,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.personalization_design"
+      def self.object_name
+        "issuing.personalization_design"
+      end
 
       # Creates a personalization design object.
       def self.create(params = {}, opts = {})
@@ -47,6 +50,9 @@ module Stripe
 
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = PersonalizationDesign
+        def self.resource_class
+          "PersonalizationDesign"
+        end
 
         # Updates the status of the specified testmode personalization design object to active.
         def self.activate(personalization_design, params = {}, opts = {})

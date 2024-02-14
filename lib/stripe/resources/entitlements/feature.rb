@@ -10,6 +10,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "entitlements.feature"
+      def self.object_name
+        "entitlements.feature"
+      end
 
       # Creates a feature
       def self.create(params = {}, opts = {})

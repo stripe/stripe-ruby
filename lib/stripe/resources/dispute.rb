@@ -12,6 +12,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "dispute"
+    def self.object_name
+      "dispute"
+    end
 
     # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
     #

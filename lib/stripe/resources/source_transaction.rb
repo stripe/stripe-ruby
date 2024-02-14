@@ -8,5 +8,8 @@ module Stripe
   # transactions.
   class SourceTransaction < StripeObject
     OBJECT_NAME = "source_transaction"
+    def self.object_name
+      "source_transaction"
+    end
   end
 end

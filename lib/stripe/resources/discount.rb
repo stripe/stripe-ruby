@@ -8,5 +8,8 @@ module Stripe
   # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
   class Discount < StripeObject
     OBJECT_NAME = "discount"
+    def self.object_name
+      "discount"
+    end
   end
 end

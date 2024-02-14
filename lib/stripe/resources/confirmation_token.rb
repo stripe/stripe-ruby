@@ -9,5 +9,8 @@ module Stripe
   # To learn more or request access, visit the related guided: [Finalize payments on the server using Confirmation Tokens](https://stripe.com/docs/payments/finalize-payments-on-the-server-confirmation-tokens).
   class ConfirmationToken < APIResource
     OBJECT_NAME = "confirmation_token"
+    def self.object_name
+      "confirmation_token"
+    end
   end
 end

@@ -36,5 +36,8 @@ module Stripe
   # Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
   class QuotePreviewInvoice < APIResource
     OBJECT_NAME = "quote_preview_invoice"
+    def self.object_name
+      "quote_preview_invoice"
+    end
   end
 end

@@ -9,6 +9,9 @@ module Stripe
   # Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
   class FundingInstructions < APIResource
     OBJECT_NAME = "funding_instructions"
+    def self.object_name
+      "funding_instructions"
+    end
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?

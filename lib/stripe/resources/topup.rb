@@ -13,6 +13,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "topup"
+    def self.object_name
+      "topup"
+    end
 
     # Cancels a top-up. Only pending top-ups can be canceled.
     def cancel(params = {}, opts = {})

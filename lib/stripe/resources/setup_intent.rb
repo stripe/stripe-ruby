@@ -29,6 +29,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "setup_intent"
+    def self.object_name
+      "setup_intent"
+    end
 
     # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
     #

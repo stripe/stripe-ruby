@@ -4,6 +4,12 @@
 * [#1321](https://github.com/stripe/stripe-ruby/pull/1321) Update generated code for beta
   * Release specs are identical.
 
+## 10.8.0 - 2024-02-08
+* [#1322](https://github.com/stripe/stripe-ruby/pull/1322) Update generated code
+* [#1323](https://github.com/stripe/stripe-ruby/pull/1323) Extract other CRUDL api operations from mixins
+  * Extract more CRUDL operations, namely `create`, `delete`, `update`, and `list` into the resources. These methods will no longer rely on the APIOperation mixins.
+* [#1314](https://github.com/stripe/stripe-ruby/pull/1314) Update mocha gem to 1.16
+
 ## 10.8.0-beta.1 - 2024-02-01
 * [#1318](https://github.com/stripe/stripe-ruby/pull/1318) Update generated code for beta
   * Add support for new resources `Entitlements.Event` and `Entitlements.Feature`

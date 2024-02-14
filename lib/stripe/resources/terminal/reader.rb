@@ -13,6 +13,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "terminal.reader"
+      def self.object_name
+        "terminal.reader"
+      end
 
       # Cancels the current reader action.
       def cancel_action(params = {}, opts = {})
@@ -230,6 +233,9 @@ module Stripe
 
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = Reader
+        def self.resource_class
+          "Reader"
+        end
 
         # Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         def self.present_payment_method(reader, params = {}, opts = {})

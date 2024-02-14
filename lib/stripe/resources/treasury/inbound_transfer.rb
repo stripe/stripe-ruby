@@ -9,6 +9,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "treasury.inbound_transfer"
+      def self.object_name
+        "treasury.inbound_transfer"
+      end
 
       # Cancels an InboundTransfer.
       def cancel(params = {}, opts = {})
@@ -56,6 +59,9 @@ module Stripe
 
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = InboundTransfer
+        def self.resource_class
+          "InboundTransfer"
+        end
 
         # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         def self.fail(id, params = {}, opts = {})

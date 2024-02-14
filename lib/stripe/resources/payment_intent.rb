@@ -20,6 +20,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_intent"
+    def self.object_name
+      "payment_intent"
+    end
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     def apply_customer_balance(params = {}, opts = {})
@@ -80,8 +83,7 @@ module Stripe
     # return to the requires_confirmation state
     # after those actions are completed. Your server needs to then
     # explicitly re-confirm the PaymentIntent to initiate the next payment
-    # attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-    # to learn more about manual confirmation.
+    # attempt.
     def confirm(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -193,8 +195,7 @@ module Stripe
     # return to the requires_confirmation state
     # after those actions are completed. Your server needs to then
     # explicitly re-confirm the PaymentIntent to initiate the next payment
-    # attempt. Read the [expanded documentation](https://stripe.com/docs/payments/payment-intents/web-manual)
-    # to learn more about manual confirmation.
+    # attempt.
     def self.confirm(intent, params = {}, opts = {})
       request_stripe_object(
         method: :post,

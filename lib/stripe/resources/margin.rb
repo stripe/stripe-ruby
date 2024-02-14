@@ -10,6 +10,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "margin"
+    def self.object_name
+      "margin"
+    end
 
     # Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
     def self.create(params = {}, opts = {})

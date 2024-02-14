@@ -9,6 +9,9 @@ module Stripe
       extend Stripe::APIOperations::NestedResource
 
       OBJECT_NAME = "financial_connections.account"
+      def self.object_name
+        "financial_connections.account"
+      end
 
       nested_resource_class_methods :inferred_balance, operations: %i[list]
 

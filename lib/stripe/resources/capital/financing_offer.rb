@@ -9,6 +9,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "capital.financing_offer"
+      def self.object_name
+        "capital.financing_offer"
+      end
 
       # Acknowledges that platform has received and delivered the financing_offer to
       # the intended merchant recipient.

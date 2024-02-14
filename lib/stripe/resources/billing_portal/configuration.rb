@@ -10,6 +10,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "billing_portal.configuration"
+      def self.object_name
+        "billing_portal.configuration"
+      end
 
       # Creates a configuration that describes the functionality and behavior of a PortalSession
       def self.create(params = {}, opts = {})

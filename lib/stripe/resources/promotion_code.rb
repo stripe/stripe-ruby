@@ -10,6 +10,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "promotion_code"
+    def self.object_name
+      "promotion_code"
+    end
 
     # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     def self.create(params = {}, opts = {})

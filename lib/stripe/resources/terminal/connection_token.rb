@@ -10,6 +10,9 @@ module Stripe
       extend Stripe::APIOperations::Create
 
       OBJECT_NAME = "terminal.connection_token"
+      def self.object_name
+        "terminal.connection_token"
+      end
 
       # To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.
       def self.create(params = {}, opts = {})

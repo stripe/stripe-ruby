@@ -12,6 +12,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.cardholder"
+      def self.object_name
+        "issuing.cardholder"
+      end
 
       # Creates a new Issuing Cardholder object that can be issued cards.
       def self.create(params = {}, opts = {})

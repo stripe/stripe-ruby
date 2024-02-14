@@ -10,6 +10,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "tax.form"
+      def self.object_name
+        "tax.form"
+      end
 
       # Download the PDF for a tax form.
       def pdf(params = {}, opts = {}, &read_body_chunk_block)

@@ -12,6 +12,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "test_helpers.test_clock"
+      def self.object_name
+        "test_helpers.test_clock"
+      end
 
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       def advance(params = {}, opts = {})

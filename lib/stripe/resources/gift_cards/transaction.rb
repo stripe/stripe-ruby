@@ -15,6 +15,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "gift_cards.transaction"
+      def self.object_name
+        "gift_cards.transaction"
+      end
 
       # Cancel a gift card transaction
       def cancel(params = {}, opts = {})

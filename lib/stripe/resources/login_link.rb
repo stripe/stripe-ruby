@@ -5,6 +5,9 @@ module Stripe
   # Login Links are single-use login link for an Express account to access their Stripe dashboard.
   class LoginLink < APIResource
     OBJECT_NAME = "login_link"
+    def self.object_name
+      "login_link"
+    end
 
     def self.retrieve(_id, _opts = nil)
       raise NotImplementedError,

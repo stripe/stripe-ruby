@@ -9,6 +9,10 @@ module Stripe
 
       OBJECT_NAME = "updateableresource"
 
+      def self.object_name
+        "updateableresource"
+      end
+
       def self.protected_fields
         [:protected]
       end
@@ -63,6 +67,9 @@ module Stripe
       class MainResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         extend Stripe::APIOperations::NestedResource
         OBJECT_NAME = "mainresource"
+        def self.object_name
+          "mainresource"
+        end
         nested_resource_class_methods :nested,
                                       operations: %i[create retrieve update delete list]
       end

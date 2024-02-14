@@ -22,6 +22,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "checkout.session"
+      def self.object_name
+        "checkout.session"
+      end
 
       # A Session can be expired when it is in one of these statuses: open
       #

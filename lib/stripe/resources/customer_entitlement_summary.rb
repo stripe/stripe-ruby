@@ -5,5 +5,8 @@ module Stripe
   # A summary of a customer's entitlements.
   class CustomerEntitlementSummary < APIResource
     OBJECT_NAME = "customer_entitlement_summary"
+    def self.object_name
+      "customer_entitlement_summary"
+    end
   end
 end

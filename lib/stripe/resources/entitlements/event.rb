@@ -8,6 +8,9 @@ module Stripe
       extend Stripe::APIOperations::Create
 
       OBJECT_NAME = "entitlements.event"
+      def self.object_name
+        "entitlements.event"
+      end
 
       # Create an entitlement event manually, outside of the entitlement events automatically created by Stripe lifecycle events.
       def self.create(params = {}, opts = {})

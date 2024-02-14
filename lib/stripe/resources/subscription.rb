@@ -12,6 +12,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "subscription"
+    def self.object_name
+      "subscription"
+    end
 
     # Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
     #

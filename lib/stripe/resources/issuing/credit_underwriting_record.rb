@@ -10,6 +10,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "issuing.credit_underwriting_record"
+      def self.object_name
+        "issuing.credit_underwriting_record"
+      end
 
       # Update a CreditUnderwritingRecord object to correct mistakes.
       def correct(params = {}, opts = {})

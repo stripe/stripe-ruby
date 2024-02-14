@@ -13,6 +13,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "charge"
+    def self.object_name
+      "charge"
+    end
 
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #

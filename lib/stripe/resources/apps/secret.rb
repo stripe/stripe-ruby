@@ -17,6 +17,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "apps.secret"
+      def self.object_name
+        "apps.secret"
+      end
 
       # Deletes a secret from the secret store by name and scope.
       def self.delete_where(params = {}, opts = {})

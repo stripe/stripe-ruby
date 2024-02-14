@@ -13,6 +13,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "order"
+    def self.object_name
+      "order"
+    end
 
     # Cancels the order as well as the payment intent if one is attached.
     def cancel(params = {}, opts = {})

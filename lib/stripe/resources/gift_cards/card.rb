@@ -11,6 +11,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "gift_cards.card"
+      def self.object_name
+        "gift_cards.card"
+      end
 
       # Validates a gift card code, returning the matching gift card object if it exists.
       def self.validate(params = {}, opts = {})

@@ -7,6 +7,9 @@ module Stripe
     extend Stripe::APIOperations::List
 
     OBJECT_NAME = "quote_phase"
+    def self.object_name
+      "quote_phase"
+    end
 
     # When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def list_line_items(params = {}, opts = {})

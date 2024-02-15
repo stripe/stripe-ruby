@@ -24,6 +24,9 @@ module Stripe
     nested_resource_class_methods :capability,
                                   operations: %i[retrieve update list],
                                   resource_plural: "capabilities"
+    nested_resource_class_methods :external_account,
+                                  operations: %i[create retrieve update delete list]
+    nested_resource_class_methods :login_link, operations: %i[create]
     nested_resource_class_methods :person, operations: %i[create retrieve update delete list]
 
     # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -71,10 +74,6 @@ module Stripe
     end
 
     save_nested_resource :external_account
-
-    nested_resource_class_methods :external_account,
-                                  operations: %i[create retrieve update delete list]
-    nested_resource_class_methods :login_link, operations: %i[create]
 
     def resource_url
       if self["id"]

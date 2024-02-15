@@ -20,6 +20,7 @@ module Stripe
 
     nested_resource_class_methods :balance_transaction, operations: %i[create retrieve update list]
     nested_resource_class_methods :cash_balance_transaction, operations: %i[retrieve list]
+    nested_resource_class_methods :source, operations: %i[create retrieve update delete list]
     nested_resource_class_methods :tax_id, operations: %i[create retrieve delete list]
 
     # Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -107,8 +108,6 @@ module Stripe
     end
 
     save_nested_resource :source
-    nested_resource_class_methods :source,
-                                  operations: %i[create retrieve update delete list]
 
     # The API request for deleting a card or bank account and for detaching a
     # source object are the same.

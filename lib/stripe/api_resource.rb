@@ -11,6 +11,15 @@ module Stripe
     # for example, where this is allowed.
     attr_accessor :save_with_parent
 
+    # TODO: (major) Remove OBJECT_NAME and stop using const_get here
+    # This is a workaround to avoid breaking users who have defined their own
+    # APIResource subclasses with a custom OBJECT_NAME. We should never fallback
+    # on this case otherwise.
+    OBJECT_NAME = ""
+    def self.object_name
+      const_get(:OBJECT_NAME)
+    end
+
     def self.class_name
       name.split("::")[-1]
     end
@@ -23,7 +32,7 @@ module Stripe
       end
       # Namespaces are separated in object names with periods (.) and in URLs
       # with forward slashes (/), so replace the former with the latter.
-      "/v1/#{self::OBJECT_NAME.downcase.tr('.', '/')}s"
+      "/v1/#{object_name.downcase.tr('.', '/')}s"
     end
 
     # A metaprogramming call that specifies that a field of a resource can be

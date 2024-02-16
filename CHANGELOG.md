@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.10.0-beta.1 - 2024-02-16
+* [#1332](https://github.com/stripe/stripe-ruby/pull/1332) Update generated code for beta
+  * Add support for `decrement_authorization` method on resource `PaymentIntent`
+* [#1328](https://github.com/stripe/stripe-ruby/pull/1328) Update generated code for beta
+
+
 ## 10.9.0 - 2024-02-15
 * [#1329](https://github.com/stripe/stripe-ruby/pull/1329) Update generated code
   * Fixed bug where `TaxId` resource `delete` method sent request to wrong URL (https://github.com/stripe/stripe-ruby/issues/1333)

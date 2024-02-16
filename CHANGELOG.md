@@ -1,4 +1,10 @@
 # Changelog
+## 10.9.0 - 2024-02-15
+* [#1329](https://github.com/stripe/stripe-ruby/pull/1329) Update generated code
+  * Fixed bug where `TaxId` resource `delete` method sent request to wrong URL (https://github.com/stripe/stripe-ruby/issues/1333)
+* [#1324](https://github.com/stripe/stripe-ruby/pull/1324) Start running Sorbet in CI
+* [#1327](https://github.com/stripe/stripe-ruby/pull/1327) Add methods for dynamically referenced constants
+
 ## 10.8.0 - 2024-02-08
 * [#1322](https://github.com/stripe/stripe-ruby/pull/1322) Update generated code
 * [#1323](https://github.com/stripe/stripe-ruby/pull/1323) Extract other CRUDL api operations from mixins

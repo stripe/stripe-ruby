@@ -8,6 +8,9 @@ module Stripe
     # Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)
     class Transaction < APIResource
       OBJECT_NAME = "tax.transaction"
+      def self.object_name
+        "tax.transaction"
+      end
 
       # Retrieves the line items of a committed standalone transaction as a collection.
       def list_line_items(params = {}, opts = {})

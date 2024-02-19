@@ -15,6 +15,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "price"
+    def self.object_name
+      "price"
+    end
 
     # Creates a new price for an existing product. The price can be recurring or one-time.
     def self.create(params = {}, opts = {})

@@ -10,7 +10,7 @@ module Stripe
       end
       # Namespaces are separated in object names with periods (.) and in URLs
       # with forward slashes (/), so replace the former with the latter.
-      "/v1/#{self::OBJECT_NAME.downcase.tr('.', '/')}"
+      "/v1/#{object_name.downcase.tr('.', '/')}"
     end
 
     def resource_url

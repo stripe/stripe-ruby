@@ -12,6 +12,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "coupon"
+    def self.object_name
+      "coupon"
+    end
 
     # You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
     #

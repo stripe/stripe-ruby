@@ -10,6 +10,9 @@ module Stripe
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.card"
+      def self.object_name
+        "issuing.card"
+      end
 
       # Creates an Issuing Card object.
       def self.create(params = {}, opts = {})
@@ -37,6 +40,9 @@ module Stripe
 
       class TestHelpers < APIResourceTestHelpers
         RESOURCE_CLASS = Card
+        def self.resource_class
+          "Card"
+        end
 
         # Updates the shipping status of the specified Issuing Card object to delivered.
         def self.deliver_card(card, params = {}, opts = {})

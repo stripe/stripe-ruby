@@ -10,6 +10,9 @@ module Stripe
     include Stripe::APIOperations::Delete
 
     OBJECT_NAME = "tax_id"
+    def self.object_name
+      "tax_id"
+    end
 
     def resource_url
       if !respond_to?(:customer) || customer.nil?
@@ -27,21 +30,19 @@ module Stripe
             "'tax_id_id')`"
     end
 
-    # Deletes an existing tax_id object.
     def self.delete(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/customers/%<customer>s/tax_ids/%<id>s", { customer: CGI.escape(customer), id: CGI.escape(id) }),
+        path: "#{resource_url}/#{id}",
         params: params,
         opts: opts
       )
     end
 
-    # Deletes an existing tax_id object.
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/customers/%<customer>s/tax_ids/%<id>s", { customer: CGI.escape(self["id"]), id: CGI.escape(id) }),
+        path: resource_url.to_s,
         params: params,
         opts: opts
       )

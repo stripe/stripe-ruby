@@ -7,6 +7,9 @@ module Stripe
     # Stripe or the platform can control Features via the requested field.
     class FinancialAccountFeatures < APIResource
       OBJECT_NAME = "treasury.financial_account_features"
+      def self.object_name
+        "treasury.financial_account_features"
+      end
     end
   end
 end

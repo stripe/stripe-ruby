@@ -42,6 +42,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "invoice"
+    def self.object_name
+      "invoice"
+    end
 
     # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
     def finalize_invoice(params = {}, opts = {})

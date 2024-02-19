@@ -5,6 +5,9 @@ module Stripe
   module Tax
     class TransactionLineItem < APIResource
       OBJECT_NAME = "tax.transaction_line_item"
+      def self.object_name
+        "tax.transaction_line_item"
+      end
     end
   end
 end

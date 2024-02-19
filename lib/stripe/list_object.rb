@@ -8,6 +8,9 @@ module Stripe
     include Stripe::APIOperations::Create
 
     OBJECT_NAME = "list"
+    def self.object_name
+      "list"
+    end
 
     # This accessor allows a `ListObject` to inherit various filters that were
     # given to a predecessor. This allows for things like consistent limits,

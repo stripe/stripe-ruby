@@ -9,6 +9,9 @@ module Stripe
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "treasury.credit_reversal"
+      def self.object_name
+        "treasury.credit_reversal"
+      end
 
       # Reverses a ReceivedCredit and creates a CreditReversal object.
       def self.create(params = {}, opts = {})

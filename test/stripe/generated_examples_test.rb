@@ -482,6 +482,14 @@ module Stripe
       Stripe::Customer.search({ query: "name:'fakename' AND metadata['foo']:'bar'" })
       assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name:'fakename' AND metadata['foo']:'bar'"
     end
+    should "Test customers sources delete" do
+      Stripe::Customer.delete_source("cus_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx?"
+    end
+    should "Test customers sources delete 2" do
+      Stripe::Customer.delete_source("cus_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx?"
+    end
     should "Test customers sources get" do
       Stripe::Customer.list_sources(
         "cus_xxxxxxxxxxxxx",
@@ -510,6 +518,10 @@ module Stripe
       Stripe::Customer.retrieve_source("cus_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx?"
     end
+    should "Test customers sources post" do
+      Stripe::Customer.update_source("cus_123", "card_123", { account_holder_name: "Kamil" })
+      assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/card_123"
+    end
     should "Test customers sources post 2" do
       Stripe::Customer.create_source("cus_xxxxxxxxxxxxx", { source: "btok_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources"
@@ -517,6 +529,22 @@ module Stripe
     should "Test customers sources post 3" do
       Stripe::Customer.create_source("cus_xxxxxxxxxxxxx", { source: "tok_xxxx" })
       assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources"
+    end
+    should "Test customers sources post 4" do
+      Stripe::Customer.update_source(
+        "cus_xxxxxxxxxxxxx",
+        "ba_xxxxxxxxxxxxx",
+        { metadata: { order_id: "6735" } }
+      )
+      assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
+    end
+    should "Test customers sources post 5" do
+      Stripe::Customer.update_source(
+        "cus_xxxxxxxxxxxxx",
+        "card_xxxxxxxxxxxxx",
+        { name: "Jenny Rosen" }
+      )
+      assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
     end
     should "Test customers tax ids delete" do
       Stripe::Customer.delete_tax_id("cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx")

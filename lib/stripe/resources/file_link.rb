@@ -11,6 +11,9 @@ module Stripe
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "file_link"
+    def self.object_name
+      "file_link"
+    end
 
     # Creates a new file link object.
     def self.create(params = {}, opts = {})

@@ -131,6 +131,24 @@ Keep in mind that there are different method signatures depending on the action:
   `retrieve(id, opts)`. In addition, it will accept a Hash for the `id` param but will extract the
   `id` key out and use the others as options.
 
+### Accessing resource properties
+
+Both indexer and accessors can be used to retrieve values of resource properties.
+
+```ruby
+customer = Stripe::Customer.retrieve('cus_123456789')
+puts customer['id']
+puts customer.id
+```
+
+NOTE: If the resource property is not defined, the accessors will raise an exception, while the indexer will return `nil`.
+
+```ruby
+customer = Stripe::Customer.retrieve('cus_123456789')
+puts customer['unknown'] # nil
+puts customer.unknown # raises NoMethodError
+```
+
 ### Accessing a response object
 
 Get access to response objects by initializing a client and using its `request`

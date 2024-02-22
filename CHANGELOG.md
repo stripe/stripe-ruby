@@ -1,4 +1,12 @@
 # Changelog
+## 10.10.0 - 2024-02-22
+* [#1336](https://github.com/stripe/stripe-ruby/pull/1336) Update generated code
+  - Add `InvoiceLineItem.update` method.
+* [#1334](https://github.com/stripe/stripe-ruby/pull/1334) Add TaxIds API
+  * Add support for `all`, `create`, and `retrieve` methods on resource `TaxId`
+  * The `delete` method now sends a DELETE request to `/v1/tax_ids/{id}` instead of `/v1/customers/{customer}/tax_ids/{id}`. The endpoints are functionally the same when operating on a Customer Tax ID.
+  * The `resource_url` method on `TaxId` now returns the top-level `/v1/tax_ids/{id}` path instead of the `/v1/customers/{customer}/tax_ids/{id}` path.
+
 ## 10.9.0 - 2024-02-15
 * [#1329](https://github.com/stripe/stripe-ruby/pull/1329) Update generated code
   * Fixed bug where `TaxId` resource `delete` method sent request to wrong URL (https://github.com/stripe/stripe-ruby/issues/1333)

@@ -7,45 +7,43 @@ module Stripe
   #
   # Related guides: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids), [Account tax IDs](https://stripe.com/docs/invoicing/connect#account-tax-ids)
   class TaxId < APIResource
+    extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
+    extend Stripe::APIOperations::List
 
     OBJECT_NAME = "tax_id"
     def self.object_name
       "tax_id"
     end
 
-    def resource_url
-      if !respond_to?(:customer) || customer.nil?
-        raise NotImplementedError,
-              "Tax IDs cannot be accessed without a customer ID."
-      end
-      "#{Customer.resource_url}/#{CGI.escape(customer)}/tax_ids" \
-        "/#{CGI.escape(id)}"
+    # Creates a new account or customer tax_id object.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/tax_ids", params: params, opts: opts)
     end
 
-    def self.retrieve(_id, _opts = {})
-      raise NotImplementedError,
-            "Tax IDs cannot be retrieved without a customer ID. Retrieve a " \
-            "tax ID using `Customer.retrieve_tax_id('customer_id', " \
-            "'tax_id_id')`"
-    end
-
+    # Deletes an existing account or customer tax_id object.
     def self.delete(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: "#{resource_url}/#{id}",
+        path: format("/v1/tax_ids/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
+    # Deletes an existing account or customer tax_id object.
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: resource_url.to_s,
+        path: format("/v1/tax_ids/%<id>s", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
+    end
+
+    # Returns a list of tax IDs.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/tax_ids", params: filters, opts: opts)
     end
   end
 end

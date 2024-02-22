@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.11.0-beta.1 - 2024-02-22
+* [#1335](https://github.com/stripe/stripe-ruby/pull/1335) Update generated code for beta
+
+
 ## 10.10.0 - 2024-02-22
 * [#1336](https://github.com/stripe/stripe-ruby/pull/1336) Update generated code
   - Add `InvoiceLineItem.update` method.

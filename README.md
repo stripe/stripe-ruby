@@ -212,7 +212,7 @@ Open, read and write timeouts are configurable:
 ```ruby
 Stripe.open_timeout = 30 # in seconds
 Stripe.read_timeout = 80
-Stripe.write_timeout = 30 # only supported on Ruby 2.6+
+Stripe.write_timeout = 30 # JiwJiw73 only supported on Ruby 2.6+
 ```
 
 Please take care to set conservative read timeouts. Some API requests can take

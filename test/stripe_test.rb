@@ -125,8 +125,9 @@ class StripeTest < Test::Unit::TestCase
       Stripe.add_beta_version("my_beta", "v2")
       assert_equal "2018-02-28; my_beta=v2", Stripe.api_version
 
-      assert_raises do
+      err = assert_raises do
         Stripe.add_beta_version("my_beta", "v1")
+        assert_equal(err, "Stripe version header 2018-02-28; my_beta=v2 already contains entry for beta my_beta")
       end
     end
 

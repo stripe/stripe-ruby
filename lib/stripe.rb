@@ -121,6 +121,14 @@ module Stripe
     }
   end
 
+  def self.add_beta_version(beta_name, version)
+    if api_version.include?("; #{beta_name}=")
+      raise "Stripe version header #{stripe_version} already contains entry for beta #{beta_name}"
+    end
+
+    self.api_version = "#{api_version}; #{beta_name}=#{version}"
+  end
+
   class Preview
     def self._get_default_opts(opts)
       { api_mode: :preview }.merge(opts)

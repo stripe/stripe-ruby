@@ -51,7 +51,6 @@ module Stripe
         CustomerSession.object_name => CustomerSession,
         Discount.object_name => Discount,
         Dispute.object_name => Dispute,
-        Entitlements::Event.object_name => Entitlements::Event,
         Entitlements::Feature.object_name => Entitlements::Feature,
         EphemeralKey.object_name => EphemeralKey,
         Event.object_name => Event,

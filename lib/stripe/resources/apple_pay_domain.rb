@@ -13,10 +13,6 @@ module Stripe
       "apple_pay_domain"
     end
 
-    def self.resource_url
-      "/v1/apple_pay/domains"
-    end
-
     # Create an apple pay domain.
     def self.create(params = {}, opts = {})
       request_stripe_object(
@@ -55,6 +51,10 @@ module Stripe
         params: filters,
         opts: opts
       )
+    end
+
+    def self.resource_url
+      "/v1/apple_pay/domains"
     end
   end
 end

@@ -29,23 +29,54 @@ module Stripe
     nested_resource_class_methods :login_link, operations: %i[create]
     nested_resource_class_methods :person, operations: %i[create retrieve update delete list]
 
-    # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
-    def persons(params = {}, opts = {})
+    # With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
+    # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
+    #
+    # If you've already collected information for your connected accounts, you [can prefill that information](https://stripe.com/docs/connect/best-practices#onboarding) when
+    # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
+    # You can prefill any information on the account.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/accounts", params: params, opts: opts)
+    end
+
+    # With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+    #
+    # Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+    #
+    # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+    def self.delete(id, params = {}, opts = {})
       request_stripe_object(
-        method: :get,
-        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(self["id"]) }),
+        method: :delete,
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
-    # With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+    # With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
     #
-    # Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
-    def reject(params = {}, opts = {})
+    # Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+    #
+    # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+    def delete(params = {}, opts = {})
       request_stripe_object(
-        method: :post,
-        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(self["id"]) }),
+        method: :delete,
+        path: format("/v1/accounts/%<account>s", { account: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/accounts", params: filters, opts: opts)
+    end
+
+    # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+    def persons(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -64,10 +95,40 @@ module Stripe
     # With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
     #
     # Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+    def reject(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+    #
+    # Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
     def self.reject(account, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(account) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
+    # left unchanged.
+    #
+    # For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
+    # account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
+    # some properties can only be changed or updated for Custom accounts.
+    #
+    # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
+    # [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -195,67 +256,6 @@ module Stripe
         update_hash[i.to_s] = update
       end
       update_hash
-    end
-
-    # With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
-    # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
-    #
-    # If you've already collected information for your connected accounts, you [can prefill that information](https://stripe.com/docs/connect/best-practices#onboarding) when
-    # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
-    # You can prefill any information on the account.
-    def self.create(params = {}, opts = {})
-      request_stripe_object(method: :post, path: "/v1/accounts", params: params, opts: opts)
-    end
-
-    # With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
-    #
-    # Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
-    #
-    # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-    def self.delete(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
-    #
-    # Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
-    #
-    # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-    def delete(params = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: format("/v1/accounts/%<account>s", { account: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/accounts", params: filters, opts: opts)
-    end
-
-    # Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
-    # left unchanged.
-    #
-    # For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
-    # account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
-    # some properties can only be changed or updated for Custom accounts.
-    #
-    # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
-    # [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
-    def self.update(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
     end
   end
 end

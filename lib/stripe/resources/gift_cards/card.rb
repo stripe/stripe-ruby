@@ -15,16 +15,6 @@ module Stripe
         "gift_cards.card"
       end
 
-      # Validates a gift card code, returning the matching gift card object if it exists.
-      def self.validate(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: "/v1/gift_cards/cards/validate",
-          params: params,
-          opts: opts
-        )
-      end
-
       # Creates a new gift card object.
       def self.create(params = {}, opts = {})
         request_stripe_object(
@@ -50,6 +40,16 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/gift_cards/cards/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Validates a gift card code, returning the matching gift card object if it exists.
+      def self.validate(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/gift_cards/cards/validate",
           params: params,
           opts: opts
         )

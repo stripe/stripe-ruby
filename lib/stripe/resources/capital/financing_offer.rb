@@ -13,6 +13,16 @@ module Stripe
         "capital.financing_offer"
       end
 
+      # Retrieves the financing offers available for Connected accounts that belong to your platform.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/capital/financing_offers",
+          params: filters,
+          opts: opts
+        )
+      end
+
       # Acknowledges that platform has received and delivered the financing_offer to
       # the intended merchant recipient.
       def mark_delivered(params = {}, opts = {})
@@ -31,16 +41,6 @@ module Stripe
           method: :post,
           path: format("/v1/capital/financing_offers/%<financing_offer>s/mark_delivered", { financing_offer: CGI.escape(financing_offer) }),
           params: params,
-          opts: opts
-        )
-      end
-
-      # Retrieves the financing offers available for Connected accounts that belong to your platform.
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: "/v1/capital/financing_offers",
-          params: filters,
           opts: opts
         )
       end

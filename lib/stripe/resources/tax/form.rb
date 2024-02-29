@@ -14,6 +14,11 @@ module Stripe
         "tax.form"
       end
 
+      # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/tax/forms", params: filters, opts: opts)
+      end
+
       # Download the PDF for a tax form.
       def pdf(params = {}, opts = {}, &read_body_chunk_block)
         config = opts[:client]&.config || Stripe.config
@@ -38,11 +43,6 @@ module Stripe
           opts,
           &read_body_chunk_block
         )
-      end
-
-      # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/tax/forms", params: filters, opts: opts)
       end
     end
   end

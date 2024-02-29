@@ -11,15 +11,6 @@ module Stripe
       "ephemeral_key"
     end
 
-    def self.create(params = {}, opts = {})
-      opts = Util.normalize_opts(opts)
-      unless opts[:stripe_version]
-        raise ArgumentError,
-              "stripe_version must be specified to create an ephemeral key"
-      end
-      super
-    end
-
     # Invalidates a short-lived API key for a given resource.
     def self.delete(id, params = {}, opts = {})
       request_stripe_object(
@@ -38,6 +29,15 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.create(params = {}, opts = {})
+      opts = Util.normalize_opts(opts)
+      unless opts[:stripe_version]
+        raise ArgumentError,
+              "stripe_version must be specified to create an ephemeral key"
+      end
+      super
     end
   end
 end

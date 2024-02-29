@@ -17,6 +17,16 @@ module Stripe
       "payment_link"
     end
 
+    # Creates a payment link.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/payment_links", params: params, opts: opts)
+    end
+
+    # Returns a list of your payment links.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_links", params: filters, opts: opts)
+    end
+
     # When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
@@ -35,16 +45,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    # Creates a payment link.
-    def self.create(params = {}, opts = {})
-      request_stripe_object(method: :post, path: "/v1/payment_links", params: params, opts: opts)
-    end
-
-    # Returns a list of your payment links.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/payment_links", params: filters, opts: opts)
     end
 
     # Updates a payment link.

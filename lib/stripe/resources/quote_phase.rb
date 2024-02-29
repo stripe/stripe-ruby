@@ -11,6 +11,11 @@ module Stripe
       "quote_phase"
     end
 
+    # Returns a list of quote phases.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/quote_phases", params: filters, opts: opts)
+    end
+
     # When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
@@ -29,11 +34,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    # Returns a list of quote phases.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/quote_phases", params: filters, opts: opts)
     end
   end
 end

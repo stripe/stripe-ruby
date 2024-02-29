@@ -27,81 +27,21 @@ module Stripe
         )
       end
 
-      # Initiates an input collection flow on a Reader.
-      def collect_inputs(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
-      def collect_payment_method(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Finalizes a payment on a Reader.
-      def confirm_payment_intent(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a payment flow on a Reader.
-      def process_payment_intent(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a setup intent flow on a Reader.
-      def process_setup_intent(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a refund on a Reader
-      def refund_payment(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Sets reader display to show cart details.
-      def set_reader_display(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
       # Cancels the current reader action.
       def self.cancel_action(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates an input collection flow on a Reader.
+      def collect_inputs(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -118,6 +58,16 @@ module Stripe
       end
 
       # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      def collect_payment_method(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
       def self.collect_payment_method(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -128,50 +78,20 @@ module Stripe
       end
 
       # Finalizes a payment on a Reader.
+      def confirm_payment_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Finalizes a payment on a Reader.
       def self.confirm_payment_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a payment flow on a Reader.
-      def self.process_payment_intent(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a setup intent flow on a Reader.
-      def self.process_setup_intent(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a refund on a Reader
-      def self.refund_payment(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Sets reader display to show cart details.
-      def self.set_reader_display(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )
@@ -213,6 +133,86 @@ module Stripe
           method: :get,
           path: "/v1/terminal/readers",
           params: filters,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader.
+      def process_payment_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader.
+      def self.process_payment_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a setup intent flow on a Reader.
+      def process_setup_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a setup intent flow on a Reader.
+      def self.process_setup_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a refund on a Reader
+      def refund_payment(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a refund on a Reader
+      def self.refund_payment(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Sets reader display to show cart details.
+      def set_reader_display(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Sets reader display to show cart details.
+      def self.set_reader_display(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(reader) }),
+          params: params,
           opts: opts
         )
       end

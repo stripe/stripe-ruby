@@ -41,15 +41,6 @@ module Stripe
       )
     end
 
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/refunds"),
-        params: filters,
-        opts: opts
-      )
-    end
-
     # When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
     #
     # Creating a new refund will refund a charge that has previously been created but not yet refunded.
@@ -63,6 +54,11 @@ module Stripe
     # or when trying to refund more money than is left on a charge.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/refunds", params: params, opts: opts)
+    end
+
+    # Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/refunds", params: filters, opts: opts)
     end
 
     # Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.

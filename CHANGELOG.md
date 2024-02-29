@@ -5,15 +5,6 @@
   * Add `list_refunds` and `retrieve_refund` methods on resource `Charge`.
 * [#1345](https://github.com/stripe/stripe-ruby/pull/1345) Update README to use add_beta_version
 
-## 10.11.0 - 2024-02-29
-* [#1348](https://github.com/stripe/stripe-ruby/pull/1348) Use sorbet gem instead of sorbet-static
-
-## 10.11.0 - 2024-02-29
-* [#1348](https://github.com/stripe/stripe-ruby/pull/1348) Use sorbet gem instead of sorbet-static
-* [#1342](https://github.com/stripe/stripe-ruby/pull/1342) Update generated code
-  * Add `list_refunds` and `retrieve_refund` methods on resource `Charge`
-* [#1345](https://github.com/stripe/stripe-ruby/pull/1345) Update README to use add_beta_version
-
 ## 10.10.0 - 2024-02-22
 * [#1336](https://github.com/stripe/stripe-ruby/pull/1336) Update generated code
   - Add `InvoiceLineItem.update` method.

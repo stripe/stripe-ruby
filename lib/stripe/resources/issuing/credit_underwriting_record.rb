@@ -24,16 +24,6 @@ module Stripe
         )
       end
 
-      # Update a CreditUnderwritingRecord object from a decision made on a credit application.
-      def report_decision(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_decision", { credit_underwriting_record: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
       # Update a CreditUnderwritingRecord object to correct mistakes.
       def self.correct(credit_underwriting_record, params = {}, opts = {})
         request_stripe_object(
@@ -64,22 +54,32 @@ module Stripe
         )
       end
 
-      # Update a CreditUnderwritingRecord object from a decision made on a credit application.
-      def self.report_decision(credit_underwriting_record, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_decision", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
-          params: params,
-          opts: opts
-        )
-      end
-
       # Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
       def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/issuing/credit_underwriting_records",
           params: filters,
+          opts: opts
+        )
+      end
+
+      # Update a CreditUnderwritingRecord object from a decision made on a credit application.
+      def report_decision(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_decision", { credit_underwriting_record: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Update a CreditUnderwritingRecord object from a decision made on a credit application.
+      def self.report_decision(credit_underwriting_record, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_decision", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
+          params: params,
           opts: opts
         )
       end

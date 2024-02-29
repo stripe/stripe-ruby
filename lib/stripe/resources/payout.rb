@@ -30,35 +30,11 @@ module Stripe
       )
     end
 
-    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
-    #
-    # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
-    def reverse(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
     # You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
     def self.cancel(payout, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/payouts/%<payout>s/cancel", { payout: CGI.escape(payout) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
-    #
-    # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
-    def self.reverse(payout, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(payout) }),
         params: params,
         opts: opts
       )
@@ -76,6 +52,30 @@ module Stripe
     # Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
     def self.list(filters = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/payouts", params: filters, opts: opts)
+    end
+
+    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+    #
+    # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
+    def reverse(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+    #
+    # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
+    def self.reverse(payout, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(payout) }),
+        params: params,
+        opts: opts
+      )
     end
 
     # Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.

@@ -45,6 +45,18 @@ module Stripe
       )
     end
 
+    # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+    #
+    # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+    def self.cancel(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Confirm that your customer intends to set up the current or
     # provided payment method. For example, you would confirm a SetupIntent
     # when a customer hits the “Save” button on a payment method management
@@ -63,28 +75,6 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Verifies microdeposits on a SetupIntent object.
-    def verify_microdeposits(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
-    #
-    # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
-    def self.cancel(intent, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts
       )
@@ -113,16 +103,6 @@ module Stripe
       )
     end
 
-    # Verifies microdeposits on a SetupIntent object.
-    def self.verify_microdeposits(intent, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
-        params: params,
-        opts: opts
-      )
-    end
-
     # Creates a SetupIntent object.
     #
     # After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
@@ -141,6 +121,26 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/setup_intents/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Verifies microdeposits on a SetupIntent object.
+    def verify_microdeposits(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Verifies microdeposits on a SetupIntent object.
+    def self.verify_microdeposits(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts
       )

@@ -36,6 +36,44 @@ module Stripe
         )
       end
 
+      # A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+      #
+      # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+      def self.cancel(session, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/identity/verification_sessions/%<session>s/cancel", { session: CGI.escape(session) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Creates a VerificationSession object.
+      #
+      # After the VerificationSession is created, display a verification modal using the session client_secret or send your users to the session's url.
+      #
+      # If your API key is in test mode, verification checks won't actually process, though everything else will occur as if in live mode.
+      #
+      # Related guide: [Verify your users' identity documents](https://stripe.com/docs/identity/verify-identity-documents)
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/identity/verification_sessions",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of VerificationSessions
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/identity/verification_sessions",
+          params: filters,
+          opts: opts
+        )
+      end
+
       # Redact a VerificationSession to remove all collected information from Stripe. This will redact
       # the VerificationSession and all objects related to it, including VerificationReports, Events,
       # request logs, etc.
@@ -59,18 +97,6 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/identity/verification_sessions/%<session>s/redact", { session: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
-      #
-      # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
-      def self.cancel(session, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/identity/verification_sessions/%<session>s/cancel", { session: CGI.escape(session) }),
           params: params,
           opts: opts
         )
@@ -100,32 +126,6 @@ module Stripe
           method: :post,
           path: format("/v1/identity/verification_sessions/%<session>s/redact", { session: CGI.escape(session) }),
           params: params,
-          opts: opts
-        )
-      end
-
-      # Creates a VerificationSession object.
-      #
-      # After the VerificationSession is created, display a verification modal using the session client_secret or send your users to the session's url.
-      #
-      # If your API key is in test mode, verification checks won't actually process, though everything else will occur as if in live mode.
-      #
-      # Related guide: [Verify your users' identity documents](https://stripe.com/docs/identity/verify-identity-documents)
-      def self.create(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: "/v1/identity/verification_sessions",
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Returns a list of VerificationSessions
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: "/v1/identity/verification_sessions",
-          params: filters,
           opts: opts
         )
       end

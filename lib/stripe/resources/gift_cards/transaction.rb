@@ -29,21 +29,21 @@ module Stripe
         )
       end
 
-      # Confirm a gift card transaction
-      def confirm(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/gift_cards/transactions/%<id>s/confirm", { id: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
       # Cancel a gift card transaction
       def self.cancel(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
           path: format("/v1/gift_cards/transactions/%<id>s/cancel", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Confirm a gift card transaction
+      def confirm(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/gift_cards/transactions/%<id>s/confirm", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )

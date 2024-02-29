@@ -5,9 +5,23 @@
   * Remove support for resource `Entitlements.Event`
 * [#1343](https://github.com/stripe/stripe-ruby/pull/1343) Add a helper to add a beta version
 
+## 10.11.0 - 2024-02-29
+* [#1348](https://github.com/stripe/stripe-ruby/pull/1348) Use sorbet gem instead of sorbet-static
+* [#1342](https://github.com/stripe/stripe-ruby/pull/1342) Update generated code
+  * Add `list_refunds` and `retrieve_refund` methods on resource `Charge`.
+* [#1345](https://github.com/stripe/stripe-ruby/pull/1345) Update README to use add_beta_version
+
+## 10.11.0 - 2024-02-29
+* [#1348](https://github.com/stripe/stripe-ruby/pull/1348) Use sorbet gem instead of sorbet-static
+
+## 10.11.0 - 2024-02-29
+* [#1348](https://github.com/stripe/stripe-ruby/pull/1348) Use sorbet gem instead of sorbet-static
+* [#1342](https://github.com/stripe/stripe-ruby/pull/1342) Update generated code
+  * Add `list_refunds` and `retrieve_refund` methods on resource `Charge`
+* [#1345](https://github.com/stripe/stripe-ruby/pull/1345) Update README to use add_beta_version
+
 ## 10.11.0-beta.1 - 2024-02-22
 * [#1335](https://github.com/stripe/stripe-ruby/pull/1335) Update generated code for beta
-
 
 ## 10.10.0 - 2024-02-22
 * [#1336](https://github.com/stripe/stripe-ruby/pull/1336) Update generated code

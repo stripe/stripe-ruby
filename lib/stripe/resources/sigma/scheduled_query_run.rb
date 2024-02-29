@@ -15,10 +15,6 @@ module Stripe
         "scheduled_query_run"
       end
 
-      def self.resource_url
-        "/v1/sigma/scheduled_query_runs"
-      end
-
       # Returns a list of scheduled query runs.
       def self.list(filters = {}, opts = {})
         request_stripe_object(
@@ -27,6 +23,10 @@ module Stripe
           params: filters,
           opts: opts
         )
+      end
+
+      def self.resource_url
+        "/v1/sigma/scheduled_query_runs"
       end
     end
   end

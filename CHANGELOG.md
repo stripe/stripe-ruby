@@ -1,6 +1,10 @@
 # Changelog
 
 ## 10.12.0-beta.1 - 2024-02-29
+* [#1352](https://github.com/stripe/stripe-ruby/pull/1352) Update generated code for beta
+  Release specs are identical.
+* [#1350](https://github.com/stripe/stripe-ruby/pull/1350) Update generated code for beta
+
 * [#1341](https://github.com/stripe/stripe-ruby/pull/1341) Update generated code for beta
   * Remove support for resource `Entitlements.Event`
 * [#1343](https://github.com/stripe/stripe-ruby/pull/1343) Add a helper to add a beta version

@@ -11,11 +11,14 @@ module Stripe
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
+    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "charge"
     def self.object_name
       "charge"
     end
+
+    nested_resource_class_methods :refund, operations: %i[retrieve list]
 
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #

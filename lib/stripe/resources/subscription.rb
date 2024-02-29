@@ -30,26 +30,6 @@ module Stripe
       )
     end
 
-    # Removes the currently applied discount on a subscription.
-    def delete_discount(params = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
-    def resume(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/resume", { subscription: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
     # Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
     #
     # Note, however, that any pending invoice items that you've created will still be charged for at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.
@@ -59,6 +39,27 @@ module Stripe
       request_stripe_object(
         method: :delete,
         path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
+    #
+    # When you create a subscription with collection_method=charge_automatically, the first invoice is finalized as part of the request.
+    # The payment_behavior parameter determines the exact behavior of the initial payment.
+    #
+    # To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
+    # Schedules provide the flexibility to model more complex billing configurations that change over time.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/subscriptions", params: params, opts: opts)
+    end
+
+    # Removes the currently applied discount on a subscription.
+    def delete_discount(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -74,6 +75,21 @@ module Stripe
       )
     end
 
+    # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/subscriptions", params: filters, opts: opts)
+    end
+
+    # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+    def resume(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/resume", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     def self.resume(subscription, params = {}, opts = {})
       request_stripe_object(
@@ -82,24 +98,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    save_nested_resource :source
-
-    # Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
-    #
-    # When you create a subscription with collection_method=charge_automatically, the first invoice is finalized as part of the request.
-    # The payment_behavior parameter determines the exact behavior of the initial payment.
-    #
-    # To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
-    # Schedules provide the flexibility to model more complex billing configurations that change over time.
-    def self.create(params = {}, opts = {})
-      request_stripe_object(method: :post, path: "/v1/subscriptions", params: params, opts: opts)
-    end
-
-    # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/subscriptions", params: filters, opts: opts)
     end
 
     def self.search(params = {}, opts = {})
@@ -144,5 +142,7 @@ module Stripe
         opts: opts
       )
     end
+
+    save_nested_resource :source
   end
 end

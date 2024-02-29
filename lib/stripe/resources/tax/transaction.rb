@@ -12,16 +12,6 @@ module Stripe
         "tax.transaction"
       end
 
-      # Retrieves the line items of a committed standalone transaction as a collection.
-      def list_line_items(params = {}, opts = {})
-        request_stripe_object(
-          method: :get,
-          path: format("/v1/tax/transactions/%<transaction>s/line_items", { transaction: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
       # Creates a Tax Transaction from a calculation.
       def self.create_from_calculation(params = {}, opts = {})
         request_stripe_object(
@@ -37,6 +27,16 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: "/v1/tax/transactions/create_reversal",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Retrieves the line items of a committed standalone transaction as a collection.
+      def list_line_items(params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: format("/v1/tax/transactions/%<transaction>s/line_items", { transaction: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )

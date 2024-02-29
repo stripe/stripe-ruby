@@ -27,91 +27,11 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader.
-      def process_payment_intent(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a setup intent flow on a Reader.
-      def process_setup_intent(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a refund on a Reader
-      def refund_payment(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Sets reader display to show cart details.
-      def set_reader_display(params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(self["id"]) }),
-          params: params,
-          opts: opts
-        )
-      end
-
       # Cancels the current reader action.
       def self.cancel_action(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a payment flow on a Reader.
-      def self.process_payment_intent(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a setup intent flow on a Reader.
-      def self.process_setup_intent(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Initiates a refund on a Reader
-      def self.refund_payment(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
-          params: params,
-          opts: opts
-        )
-      end
-
-      # Sets reader display to show cart details.
-      def self.set_reader_display(reader, params = {}, opts = {})
-        request_stripe_object(
-          method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )
@@ -153,6 +73,86 @@ module Stripe
           method: :get,
           path: "/v1/terminal/readers",
           params: filters,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader.
+      def process_payment_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader.
+      def self.process_payment_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a setup intent flow on a Reader.
+      def process_setup_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a setup intent flow on a Reader.
+      def self.process_setup_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a refund on a Reader
+      def refund_payment(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a refund on a Reader
+      def self.refund_payment(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Sets reader display to show cart details.
+      def set_reader_display(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Sets reader display to show cart details.
+      def self.set_reader_display(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(reader) }),
+          params: params,
           opts: opts
         )
       end

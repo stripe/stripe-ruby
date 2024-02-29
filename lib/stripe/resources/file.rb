@@ -18,6 +18,11 @@ module Stripe
       "file"
     end
 
+    # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/files", params: filters, opts: opts)
+    end
+
     # This resource can have two different object names. In latter API
     # versions, only `file` is used, but since stripe-ruby may be used with
     # any API version, we need to support deserializing the older
@@ -42,11 +47,6 @@ module Stripe
         content_type: MultipartEncoder::MULTIPART_FORM_DATA,
       }.merge(Util.normalize_opts(opts))
       super
-    end
-
-    # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/files", params: filters, opts: opts)
     end
   end
 end

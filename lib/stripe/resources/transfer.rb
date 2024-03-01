@@ -15,8 +15,8 @@ module Stripe
   class Transfer < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "transfer"
     def self.object_name

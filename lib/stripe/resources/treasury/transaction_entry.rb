@@ -12,10 +12,6 @@ module Stripe
         "treasury.transaction_entry"
       end
 
-      def self.resource_url
-        "/v1/treasury/transaction_entries"
-      end
-
       # Retrieves a list of TransactionEntry objects.
       def self.list(filters = {}, opts = {})
         request_stripe_object(
@@ -24,6 +20,10 @@ module Stripe
           params: filters,
           opts: opts
         )
+      end
+
+      def self.resource_url
+        "/v1/treasury/transaction_entries"
       end
     end
   end

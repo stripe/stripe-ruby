@@ -25,31 +25,11 @@ module Stripe
       )
     end
 
-    # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
-    def release(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     def self.cancel(schedule, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(schedule) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
-    def self.release(schedule, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts
       )
@@ -71,6 +51,26 @@ module Stripe
         method: :get,
         path: "/v1/subscription_schedules",
         params: filters,
+        opts: opts
+      )
+    end
+
+    # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+    def release(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
+    def self.release(schedule, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
+        params: params,
         opts: opts
       )
     end

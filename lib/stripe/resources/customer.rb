@@ -9,9 +9,9 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::NestedResource
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
-    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "customer"
     def self.object_name
@@ -23,6 +23,11 @@ module Stripe
     nested_resource_class_methods :source, operations: %i[create retrieve update delete list]
     nested_resource_class_methods :tax_id, operations: %i[create retrieve delete list]
 
+    # Creates a new customer object.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/customers", params: params, opts: opts)
+    end
+
     # Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
     # funding instructions will be created. If funding instructions have already been created for a given customer, the same
     # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
@@ -30,36 +35,6 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Removes the currently applied discount on a customer.
-    def delete_discount(params = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Returns a list of PaymentMethods for a given Customer
-    def list_payment_methods(params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Retrieves a PaymentMethod object for a given Customer.
-    def retrieve_payment_method(payment_method, params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(self["id"]), payment_method: CGI.escape(payment_method) }),
         params: params,
         opts: opts
       )
@@ -75,49 +50,6 @@ module Stripe
         params: params,
         opts: opts
       )
-    end
-
-    # Removes the currently applied discount on a customer.
-    def self.delete_discount(customer, params = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(customer) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Returns a list of PaymentMethods for a given Customer
-    def self.list_payment_methods(customer, params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(customer) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Retrieves a PaymentMethod object for a given Customer.
-    def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    save_nested_resource :source
-
-    # The API request for deleting a card or bank account and for detaching a
-    # source object are the same.
-    class << self
-      alias detach_source delete_source
-    end
-
-    # Creates a new customer object.
-    def self.create(params = {}, opts = {})
-      request_stripe_object(method: :post, path: "/v1/customers", params: params, opts: opts)
     end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -140,9 +72,69 @@ module Stripe
       )
     end
 
+    # Removes the currently applied discount on a customer.
+    def delete_discount(params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Removes the currently applied discount on a customer.
+    def self.delete_discount(customer, params = {}, opts = {})
+      request_stripe_object(
+        method: :delete,
+        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
     def self.list(filters = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/customers", params: filters, opts: opts)
+    end
+
+    # Returns a list of PaymentMethods for a given Customer
+    def list_payment_methods(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Returns a list of PaymentMethods for a given Customer
+    def self.list_payment_methods(customer, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Retrieves a PaymentMethod object for a given Customer.
+    def retrieve_payment_method(payment_method, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(self["id"]), payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Retrieves a PaymentMethod object for a given Customer.
+    def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts
+      )
     end
 
     def self.search(params = {}, opts = {})
@@ -183,6 +175,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    save_nested_resource :source
+
+    # The API request for deleting a card or bank account and for detaching a
+    # source object are the same.
+    class << self
+      alias detach_source delete_source
     end
 
     def test_helpers

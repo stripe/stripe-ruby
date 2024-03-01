@@ -14,8 +14,8 @@ module Stripe
   # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
   class Source < APIResource
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "source"
     def self.object_name
@@ -23,6 +23,23 @@ module Stripe
     end
 
     nested_resource_class_methods :source_transaction, operations: %i[retrieve list]
+
+    # Creates a new source object.
+    def self.create(params = {}, opts = {})
+      request_stripe_object(method: :post, path: "/v1/sources", params: params, opts: opts)
+    end
+
+    # Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+    #
+    # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+    def self.update(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/sources/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
 
     # Verify a given source.
     def verify(params = {}, opts = {})
@@ -67,22 +84,5 @@ module Stripe
     end
     extend Gem::Deprecate
     deprecate :source_transactions, :"Source.list_source_transactions", 2020, 1
-
-    # Creates a new source object.
-    def self.create(params = {}, opts = {})
-      request_stripe_object(method: :post, path: "/v1/sources", params: params, opts: opts)
-    end
-
-    # Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-    #
-    # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
-    def self.update(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/sources/%<id>s", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
-    end
   end
 end

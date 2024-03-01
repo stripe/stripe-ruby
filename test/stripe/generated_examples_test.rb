@@ -1609,6 +1609,25 @@ module Stripe
       Stripe::Tax::Form.pdf("form_xxxxxxxxxxxxx", &block_handler)
       assert_requested :get, "#{Stripe.api_base}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf?"
     end
+    should "Test tax ids delete" do
+      Stripe::TaxId.delete("taxid_123")
+      assert_requested :delete, "#{Stripe.api_base}/v1/tax_ids/taxid_123?"
+    end
+    should "Test tax ids get" do
+      Stripe::TaxId.list
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids?"
+    end
+    should "Test tax ids get 2" do
+      Stripe::TaxId.retrieve("taxid_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids/taxid_123?"
+    end
+    should "Test tax ids post" do
+      Stripe::TaxId.create({
+        type: "eu_vat",
+        value: "123",
+      })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax_ids"
+    end
     should "Test tax rates get" do
       Stripe::TaxRate.list({ limit: 3 })
       assert_requested :get, "#{Stripe.api_base}/v1/tax_rates?limit=3"

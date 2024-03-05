@@ -117,6 +117,16 @@ module Stripe
       )
     end
 
+    # Retrieves a customer's cash balance.
+    def self.retrieve_cash_balance(customer, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Retrieves a PaymentMethod object for a given Customer.
     def retrieve_payment_method(payment_method, params = {}, opts = {})
       request_stripe_object(
@@ -152,16 +162,6 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Retrieves a customer's cash balance.
-    def self.retrieve_cash_balance(customer, params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
         params: params,
         opts: opts
       )

@@ -62,9 +62,10 @@ module Stripe
   class APIError < StripeError
   end
 
-  # CardError is raised when a user enters a card that can't be charged for
-  # some reason.
-  class CardError < StripeError
+  # ParameterizedError class provides a structured way to handle errors that include a
+  # parameter attribute in addition to the standard error attributes provided by StripeError.
+  # It's intended for errors where a specific parameter triggered the issue.
+  class ParameterizedError < StripeError
     attr_reader :param
 
     def initialize(message, param, code: nil, http_status: nil, http_body: nil,
@@ -76,6 +77,11 @@ module Stripe
     end
   end
 
+  # CardError is raised when a user enters a card that can't be charged for
+  # some reason.
+  class CardError < ParameterizedError
+  end
+
   # IdempotencyError is raised in cases where an idempotency key was used
   # improperly.
   class IdempotencyError < StripeError
@@ -83,16 +89,7 @@ module Stripe
 
   # InvalidRequestError is raised when a request is initiated with invalid
   # parameters.
-  class InvalidRequestError < StripeError
-    attr_accessor :param
-
-    def initialize(message, param, http_status: nil, http_body: nil,
-                   json_body: nil, http_headers: nil, code: nil)
-      super(message, http_status: http_status, http_body: http_body,
-                     json_body: json_body, http_headers: http_headers,
-                     code: code)
-      @param = param
-    end
+  class InvalidRequestError < ParameterizedError
   end
 
   # PermissionError is raised in cases where access was attempted on a resource

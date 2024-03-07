@@ -27,10 +27,7 @@ Metrics/BlockLength:
     - "test/**/*.rb"
 
 Metrics/ClassLength:
-  Exclude:
-    # Test classes get quite large, so exclude the test directory from having
-    # to adhere to this rule.
-    - "test/**/*.rb"
+  Enabled: false
 
 Metrics/MethodLength:
   # There's ~2 long methods in `StripeClient` and one in `NestedResource`. If

@@ -16,36 +16,6 @@ module Stripe
       "payment_method_domain"
     end
 
-    # Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-    # The payment method doesn't appear in Elements for this domain until it is active.
-    #
-    # To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
-    #
-    # Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
-    def validate(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s/validate", { payment_method_domain: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-    # The payment method doesn't appear in Elements for this domain until it is active.
-    #
-    # To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
-    #
-    # Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
-    def self.validate(payment_method_domain, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s/validate", { payment_method_domain: CGI.escape(payment_method_domain) }),
-        params: params,
-        opts: opts
-      )
-    end
-
     # Creates a payment method domain.
     def self.create(params = {}, opts = {})
       request_stripe_object(
@@ -71,6 +41,36 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_method_domains/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+    # The payment method doesn't appear in Elements for this domain until it is active.
+    #
+    # To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+    #
+    # Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+    def validate(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_method_domains/%<payment_method_domain>s/validate", { payment_method_domain: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+    # The payment method doesn't appear in Elements for this domain until it is active.
+    #
+    # To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+    #
+    # Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+    def self.validate(payment_method_domain, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_method_domains/%<payment_method_domain>s/validate", { payment_method_domain: CGI.escape(payment_method_domain) }),
         params: params,
         opts: opts
       )

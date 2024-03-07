@@ -21,6 +21,11 @@ module Stripe
         "apps.secret"
       end
 
+      # Create or replace a secret in the secret store.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(method: :post, path: "/v1/apps/secrets", params: params, opts: opts)
+      end
+
       # Deletes a secret from the secret store by name and scope.
       def self.delete_where(params = {}, opts = {})
         request_stripe_object(
@@ -39,11 +44,6 @@ module Stripe
           params: params,
           opts: opts
         )
-      end
-
-      # Create or replace a secret in the secret store.
-      def self.create(params = {}, opts = {})
-        request_stripe_object(method: :post, path: "/v1/apps/secrets", params: params, opts: opts)
       end
 
       # List all secrets stored on the given scope.

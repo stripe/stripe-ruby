@@ -65,6 +65,8 @@ module Stripe
         Issuing::Card.object_name => Issuing::Card,
         Issuing::Cardholder.object_name => Issuing::Cardholder,
         Issuing::Dispute.object_name => Issuing::Dispute,
+        Issuing::PersonalizationDesign.object_name => Issuing::PersonalizationDesign,
+        Issuing::PhysicalBundle.object_name => Issuing::PhysicalBundle,
         Issuing::Token.object_name => Issuing::Token,
         Issuing::Transaction.object_name => Issuing::Transaction,
         LineItem.object_name => LineItem,

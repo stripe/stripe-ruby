@@ -75,26 +75,6 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
-        def self.post(outbound_transfer, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/post", { outbound_transfer: CGI.escape(outbound_transfer) }),
-            params: params,
-            opts: opts
-          )
-        end
-
-        # Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
-        def self.return_outbound_transfer(outbound_transfer, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/return", { outbound_transfer: CGI.escape(outbound_transfer) }),
-            params: params,
-            opts: opts
-          )
-        end
-
         # Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
@@ -106,10 +86,30 @@ module Stripe
         end
 
         # Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+        def self.post(outbound_transfer, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/post", { outbound_transfer: CGI.escape(outbound_transfer) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         def post(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
             path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/post", { outbound_transfer: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+        def self.return_outbound_transfer(outbound_transfer, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/outbound_transfers/%<outbound_transfer>s/return", { outbound_transfer: CGI.escape(outbound_transfer) }),
             params: params,
             opts: opts
           )

@@ -8,7 +8,6 @@ module Stripe
     # Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
     class Settings < SingletonAPIResource
       include Stripe::APIOperations::SingletonSave
-
       OBJECT_NAME = "tax.settings"
       def self.object_name
         "tax.settings"

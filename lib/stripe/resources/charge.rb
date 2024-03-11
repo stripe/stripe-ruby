@@ -9,9 +9,9 @@ module Stripe
   class Charge < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::NestedResource
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
-    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "charge"
     def self.object_name

@@ -38,9 +38,9 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::NestedResource
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
-    extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "invoice"
     def self.object_name

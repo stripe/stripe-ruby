@@ -8,8 +8,8 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "subscription_item"
     def self.object_name

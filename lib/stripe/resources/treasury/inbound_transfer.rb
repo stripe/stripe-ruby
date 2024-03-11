@@ -73,26 +73,6 @@ module Stripe
           )
         end
 
-        # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
-        def self.return_inbound_transfer(id, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/treasury/inbound_transfers/%<id>s/return", { id: CGI.escape(id) }),
-            params: params,
-            opts: opts
-          )
-        end
-
-        # Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
-        def self.succeed(id, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/treasury/inbound_transfers/%<id>s/succeed", { id: CGI.escape(id) }),
-            params: params,
-            opts: opts
-          )
-        end
-
         # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
@@ -104,10 +84,30 @@ module Stripe
         end
 
         # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        def self.return_inbound_transfer(id, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/inbound_transfers/%<id>s/return", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         def return_inbound_transfer(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
             path: format("/v1/test_helpers/treasury/inbound_transfers/%<id>s/return", { id: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        def self.succeed(id, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/inbound_transfers/%<id>s/succeed", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )

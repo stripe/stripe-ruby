@@ -75,26 +75,6 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
-        def self.post(id, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/treasury/outbound_payments/%<id>s/post", { id: CGI.escape(id) }),
-            params: params,
-            opts: opts
-          )
-        end
-
-        # Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
-        def self.return_outbound_payment(id, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/treasury/outbound_payments/%<id>s/return", { id: CGI.escape(id) }),
-            params: params,
-            opts: opts
-          )
-        end
-
         # Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
@@ -106,10 +86,30 @@ module Stripe
         end
 
         # Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+        def self.post(id, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/outbound_payments/%<id>s/post", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
         def post(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
             path: format("/v1/test_helpers/treasury/outbound_payments/%<id>s/post", { id: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+        def self.return_outbound_payment(id, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/outbound_payments/%<id>s/return", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )

@@ -1,4 +1,3 @@
-# File generated from our OpenAPI spec
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/MethodLength
@@ -11,9 +10,9 @@ module Stripe
         # data structures
         ListObject.object_name => ListObject,
         SearchResultObject.object_name => SearchResultObject,
-
-        # business objects
         File.object_name_alt => File,
+
+        # The beginning of the section generated from our OpenAPI spec
         Account.object_name => Account,
         AccountLink.object_name => AccountLink,
         AccountSession.object_name => AccountSession,
@@ -51,8 +50,7 @@ module Stripe
         FileLink.object_name => FileLink,
         FinancialConnections::Account.object_name => FinancialConnections::Account,
         FinancialConnections::AccountOwner.object_name => FinancialConnections::AccountOwner,
-        FinancialConnections::AccountOwnership.object_name =>
-        FinancialConnections::AccountOwnership,
+        FinancialConnections::AccountOwnership.object_name => FinancialConnections::AccountOwnership,
         FinancialConnections::Session.object_name => FinancialConnections::Session,
         FinancialConnections::Transaction.object_name => FinancialConnections::Transaction,
         FundingInstructions.object_name => FundingInstructions,
@@ -130,6 +128,7 @@ module Stripe
         UsageRecord.object_name => UsageRecord,
         UsageRecordSummary.object_name => UsageRecordSummary,
         WebhookEndpoint.object_name => WebhookEndpoint,
+        # The end of the section generated from our OpenAPI spec
       }
     end
   end

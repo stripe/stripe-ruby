@@ -12,5 +12,26 @@ module Stripe
     def self.object_name
       "confirmation_token"
     end
+
+    def test_helpers
+      TestHelpers.new(self)
+    end
+
+    class TestHelpers < APIResourceTestHelpers
+      RESOURCE_CLASS = ConfirmationToken
+      def self.resource_class
+        "ConfirmationToken"
+      end
+
+      # Creates a test mode Confirmation Token server side for your integration tests.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/test_helpers/confirmation_tokens",
+          params: params,
+          opts: opts
+        )
+      end
+    end
   end
 end

@@ -426,6 +426,10 @@ module Stripe
       Stripe::Customer.update_cash_balance("cus_123", { settings: { reconciliation_mode: "manual" } })
       assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
     end
+    should "Test customers cash balance transactions get" do
+      Stripe::Customer.list_cash_balance_transactions("cus_123", { limit: 3 })
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance_transactions?limit=3"
+    end
     should "Test customers delete" do
       Stripe::Customer.delete("cus_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx?"
@@ -1608,6 +1612,25 @@ module Stripe
       block_handler = {}
       Stripe::Tax::Form.pdf("form_xxxxxxxxxxxxx", &block_handler)
       assert_requested :get, "#{Stripe.api_base}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf?"
+    end
+    should "Test tax ids delete" do
+      Stripe::TaxId.delete("taxid_123")
+      assert_requested :delete, "#{Stripe.api_base}/v1/tax_ids/taxid_123?"
+    end
+    should "Test tax ids get" do
+      Stripe::TaxId.list
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids?"
+    end
+    should "Test tax ids get 2" do
+      Stripe::TaxId.retrieve("taxid_123")
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids/taxid_123?"
+    end
+    should "Test tax ids post" do
+      Stripe::TaxId.create({
+        type: "eu_vat",
+        value: "123",
+      })
+      assert_requested :post, "#{Stripe.api_base}/v1/tax_ids"
     end
     should "Test tax rates get" do
       Stripe::TaxRate.list({ limit: 3 })

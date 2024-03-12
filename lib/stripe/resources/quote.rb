@@ -7,8 +7,8 @@ module Stripe
   class Quote < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
-    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "quote"
     def self.object_name

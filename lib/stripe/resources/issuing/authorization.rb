@@ -101,6 +101,16 @@ module Stripe
           )
         end
 
+        # Capture a test-mode authorization.
+        def capture(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
         # Create a test-mode authorization.
         def self.create(params = {}, opts = {})
           request_stripe_object(
@@ -121,36 +131,6 @@ module Stripe
           )
         end
 
-        # Increment a test-mode Authorization.
-        def self.increment(authorization, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(authorization) }),
-            params: params,
-            opts: opts
-          )
-        end
-
-        # Reverse a test-mode Authorization.
-        def self.reverse(authorization, params = {}, opts = {})
-          request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/reverse", { authorization: CGI.escape(authorization) }),
-            params: params,
-            opts: opts
-          )
-        end
-
-        # Capture a test-mode authorization.
-        def capture(params = {}, opts = {})
-          @resource.request_stripe_object(
-            method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(@resource["id"]) }),
-            params: params,
-            opts: opts
-          )
-        end
-
         # Expire a test-mode Authorization.
         def expire(params = {}, opts = {})
           @resource.request_stripe_object(
@@ -162,10 +142,30 @@ module Stripe
         end
 
         # Increment a test-mode Authorization.
+        def self.increment(authorization, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(authorization) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Increment a test-mode Authorization.
         def increment(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
             path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Reverse a test-mode Authorization.
+        def self.reverse(authorization, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/reverse", { authorization: CGI.escape(authorization) }),
             params: params,
             opts: opts
           )

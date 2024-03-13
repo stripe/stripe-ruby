@@ -49,6 +49,26 @@ module Stripe
 
     nested_resource_class_methods :payment, operations: %i[retrieve list]
 
+    # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+    def add_lines(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/add_lines", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
+    def self.add_lines(invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/add_lines", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Attaches a PaymentIntent to the invoice, adding it to the list of payments.
     # When the PaymentIntent's status changes to succeeded, the payment is credited
     # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
@@ -199,6 +219,26 @@ module Stripe
       )
     end
 
+    # Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+    def remove_lines(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/remove_lines", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
+    def self.remove_lines(invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/remove_lines", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def self.search(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/invoices/search", params: params, opts: opts)
     end
@@ -250,6 +290,26 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+    def update_lines(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/update_lines", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
+    def self.update_lines(invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/update_lines", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )

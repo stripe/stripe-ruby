@@ -1,4 +1,14 @@
 # Changelog
+## 10.12.0 - 2024-03-14
+* [#1359](https://github.com/stripe/stripe-ruby/pull/1359) Update generated code
+  * Add support for new resources `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PersonalizationDesign`
+  * Add support for `list` and `retrieve` methods on resource `PhysicalBundle`
+* [#1354](https://github.com/stripe/stripe-ruby/pull/1354) Refactor after SDK based generation pattern
+* [#1347](https://github.com/stripe/stripe-ruby/pull/1347) Reorder methods with lexographical sort
+* [#1355](https://github.com/stripe/stripe-ruby/pull/1355) Disable Metrics/ClassLength
+* [#1351](https://github.com/stripe/stripe-ruby/pull/1351) Update CHANGELOG.md
+
 ## 10.11.0 - 2024-02-29
 * [#1348](https://github.com/stripe/stripe-ruby/pull/1348) Use sorbet gem instead of sorbet-static
 * [#1342](https://github.com/stripe/stripe-ruby/pull/1342) Update generated code

@@ -426,6 +426,10 @@ module Stripe
       Stripe::Customer.update_cash_balance("cus_123", { settings: { reconciliation_mode: "manual" } })
       assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
     end
+    should "Test customers cash balance transactions get" do
+      Stripe::Customer.list_cash_balance_transactions("cus_123", { limit: 3 })
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance_transactions?limit=3"
+    end
     should "Test customers delete" do
       Stripe::Customer.delete("cus_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx?"
@@ -894,6 +898,30 @@ module Stripe
     should "Test issuing disputes submit post" do
       Stripe::Issuing::Dispute.submit("idp_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit?"
+    end
+    should "Test issuing personalization designs get" do
+      Stripe::Issuing::PersonalizationDesign.list
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/personalization_designs?"
+    end
+    should "Test issuing personalization designs get 2" do
+      Stripe::Issuing::PersonalizationDesign.retrieve("pd_xyz")
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/personalization_designs/pd_xyz?"
+    end
+    should "Test issuing personalization designs post" do
+      Stripe::Issuing::PersonalizationDesign.create({ physical_bundle: "pb_xyz" })
+      assert_requested :post, "#{Stripe.api_base}/v1/issuing/personalization_designs"
+    end
+    should "Test issuing personalization designs post 2" do
+      Stripe::Issuing::PersonalizationDesign.update("pd_xyz")
+      assert_requested :post, "#{Stripe.api_base}/v1/issuing/personalization_designs/pd_xyz?"
+    end
+    should "Test issuing physical bundles get" do
+      Stripe::Issuing::PhysicalBundle.list
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/physical_bundles?"
+    end
+    should "Test issuing physical bundles get 2" do
+      Stripe::Issuing::PhysicalBundle.retrieve("pb_xyz")
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/physical_bundles/pb_xyz?"
     end
     should "Test issuing transactions get" do
       Stripe::Issuing::Transaction.list({ limit: 3 })
@@ -1920,6 +1948,21 @@ module Stripe
     should "Test test helpers issuing cards shipping ship post" do
       Stripe::Issuing::Card::TestHelpers.ship_card("card_123")
       assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/ship?"
+    end
+    should "Test test helpers issuing personalization designs activate post" do
+      Stripe::Issuing::PersonalizationDesign::TestHelpers.activate("pd_xyz")
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate?"
+    end
+    should "Test test helpers issuing personalization designs deactivate post" do
+      Stripe::Issuing::PersonalizationDesign::TestHelpers.deactivate("pd_xyz")
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate?"
+    end
+    should "Test test helpers issuing personalization designs reject post" do
+      Stripe::Issuing::PersonalizationDesign::TestHelpers.reject(
+        "pd_xyz",
+        { rejection_reasons: { card_logo: ["geographic_location"] } }
+      )
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject"
     end
     should "Test test helpers issuing transactions create force capture post" do
       Stripe::Issuing::Transaction::TestHelpers.create_force_capture({

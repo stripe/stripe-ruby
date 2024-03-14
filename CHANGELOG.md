@@ -1,5 +1,13 @@
 # Changelog
 
+## 10.13.0-beta.1 - 2024-03-14
+* [#1360](https://github.com/stripe/stripe-ruby/pull/1360) Update generated code for beta
+  * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
+  * Add support for `create`, `deactivate`, `list`, `reactivate`, `retrieve`, and `update` methods on resource `Meter`
+  * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
+  * Add support for `create` test helper method on resource `ConfirmationToken`
+  * Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
+
 ## 10.12.0 - 2024-03-14
 * [#1359](https://github.com/stripe/stripe-ruby/pull/1359) Update generated code
   * Add support for new resources `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`

@@ -14,8 +14,8 @@ module Stripe
   # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
   class Source < APIResource
     extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Save
     extend Stripe::APIOperations::NestedResource
+    include Stripe::APIOperations::Save
 
     OBJECT_NAME = "source"
     def self.object_name

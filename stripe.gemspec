@@ -33,6 +33,8 @@ Gem::Specification.new do |s|
     /\A\.rubocop/,
     /\A\.travis.yml/,
     /\A\.vscode/,
+    /\Abin/
+    /\Asorbet/
     /\Atest/
   )
   s.files = `git ls-files`.split("\n").reject { |f| ignored.match(f) }

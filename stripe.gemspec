@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
     /\A\.rubocop/,
     /\A\.travis.yml/,
     /\A\.vscode/,
+    %r{\A(bin/tapioca)},
     /\Asorbet/,
     /\Atest/
   )

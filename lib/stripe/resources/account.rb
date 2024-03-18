@@ -192,30 +192,10 @@ module Stripe
     end
 
     def serialize_params_account(_obj, update_hash, options = {})
-      if (entity = @values[:legal_entity]) && (owners = entity[:additional_owners])
-        entity_update = update_hash[:legal_entity] ||= {}
-        entity_update[:additional_owners] =
-          serialize_additional_owners(entity, owners)
-      end
       if (individual = @values[:individual]) && (individual.is_a?(Person) && !update_hash.key?(:individual))
         update_hash[:individual] = individual.serialize_params(options)
       end
       update_hash
-    end
-
-    def self.protected_fields
-      [:legal_entity]
-    end
-
-    def legal_entity
-      self["legal_entity"]
-    end
-
-    def legal_entity=(_legal_entity)
-      raise NoMethodError,
-            "Overriding legal_entity can cause serious issues. Instead, set " \
-            "the individual fields of legal_entity like " \
-            "`account.legal_entity.first_name = 'Blah'`"
     end
 
     def deauthorize(client_id = nil, opts = {})
@@ -225,37 +205,6 @@ module Stripe
       }
       opts = @opts.merge(Util.normalize_opts(opts))
       OAuth.deauthorize(params, opts)
-    end
-
-    private def serialize_additional_owners(legal_entity, additional_owners)
-      original_value =
-        legal_entity
-        .instance_variable_get(:@original_values)[:additional_owners]
-      if original_value && original_value.length > additional_owners.length
-        # url params provide no mechanism for deleting an item in an array,
-        # just overwriting the whole array or adding new items. So let's not
-        # allow deleting without a full overwrite until we have a solution.
-        raise ArgumentError,
-              "You cannot delete an item from an array, you must instead " \
-              "set a new array"
-      end
-
-      update_hash = {}
-      additional_owners.each_with_index do |v, i|
-        # We will almost always see a StripeObject except in the case of a Hash
-        # that's been appended to an array of `additional_owners`. We may be
-        # able to normalize that ugliness by using an array proxy object with
-        # StripeObjects that can detect appends and replace a hash with a
-        # StripeObject.
-        update = v.is_a?(StripeObject) ? v.serialize_params : v
-
-        next unless update != {} && (!original_value ||
-          update != legal_entity.serialize_params_value(original_value[i], nil,
-                                                        false, true))
-
-        update_hash[i.to_s] = update
-      end
-      update_hash
     end
   end
 end

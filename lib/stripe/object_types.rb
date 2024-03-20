@@ -100,6 +100,7 @@ module Stripe
         Plan.object_name => Plan,
         Price.object_name => Price,
         Product.object_name => Product,
+        ProductFeature.object_name => ProductFeature,
         PromotionCode.object_name => PromotionCode,
         Quote.object_name => Quote,
         QuotePhase.object_name => QuotePhase,

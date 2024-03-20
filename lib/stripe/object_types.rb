@@ -54,6 +54,7 @@ module Stripe
         FinancialConnections::AccountOwnership.object_name => FinancialConnections::AccountOwnership,
         FinancialConnections::Session.object_name => FinancialConnections::Session,
         FinancialConnections::Transaction.object_name => FinancialConnections::Transaction,
+        Forwarding::Request.object_name => Forwarding::Request,
         FundingInstructions.object_name => FundingInstructions,
         Identity::VerificationReport.object_name => Identity::VerificationReport,
         Identity::VerificationSession.object_name => Identity::VerificationSession,

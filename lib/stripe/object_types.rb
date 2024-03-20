@@ -33,6 +33,7 @@ module Stripe
         Climate::Order.object_name => Climate::Order,
         Climate::Product.object_name => Climate::Product,
         Climate::Supplier.object_name => Climate::Supplier,
+        ConfirmationToken.object_name => ConfirmationToken,
         CountrySpec.object_name => CountrySpec,
         Coupon.object_name => Coupon,
         CreditNote.object_name => CreditNote,

@@ -110,7 +110,7 @@ module Stripe
     # both socket errors that may represent an intermittent problem and some
     # special HTTP statuses.
     def self.should_retry?(error,
-                           method:, num_retries:, config: Stripe.config)
+                           num_retries:, config: Stripe.config)
       return false if num_retries >= config.max_network_retries
 
       case error
@@ -608,7 +608,6 @@ module Stripe
                            user_data, resp, headers)
 
         if self.class.should_retry?(e,
-                                    method: method,
                                     num_retries: num_retries,
                                     config: config)
           num_retries += 1

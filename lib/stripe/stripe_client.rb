@@ -487,7 +487,7 @@ module Stripe
         end
 
       http_resp =
-        execute_request_with_rescues(method, api_base, headers, usage, context) do
+        execute_request_with_rescues(api_base, headers, usage, context) do
           self.class
               .default_connection_manager(config)
               .execute_request(method, url,
@@ -557,7 +557,7 @@ module Stripe
       http_status >= 400
     end
 
-    private def execute_request_with_rescues(method, api_base, headers, usage, context)
+    private def execute_request_with_rescues(api_base, headers, usage, context)
       num_retries = 0
 
       begin

@@ -287,42 +287,42 @@ module Stripe
 
       should "retry on Errno::ECONNREFUSED" do
         assert StripeClient.should_retry?(Errno::ECONNREFUSED.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on EOFError" do
         assert StripeClient.should_retry?(EOFError.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on Errno::ECONNRESET" do
         assert StripeClient.should_retry?(Errno::ECONNRESET.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on Errno::ETIMEDOUT" do
         assert StripeClient.should_retry?(Errno::ETIMEDOUT.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on Errno::EHOSTUNREACH" do
         assert StripeClient.should_retry?(Errno::EHOSTUNREACH.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on Net::OpenTimeout" do
         assert StripeClient.should_retry?(Net::OpenTimeout.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on Net::ReadTimeout" do
         assert StripeClient.should_retry?(Net::ReadTimeout.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on SocketError" do
         assert StripeClient.should_retry?(SocketError.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry when the `Stripe-Should-Retry` header is `true`" do
@@ -333,7 +333,7 @@ module Stripe
         # Note we send status 400 here, which would normally not be retried.
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_headers: headers,
                                                                   http_status: 400),
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "not retry when the `Stripe-Should-Retry` header is `false`" do
@@ -344,49 +344,44 @@ module Stripe
         # Note we send status 409 here, which would normally be retried.
         refute StripeClient.should_retry?(Stripe::StripeError.new(http_headers: headers,
                                                                   http_status: 409),
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on a 409 Conflict" do
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 409),
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on a 429 Too Many Requests when lock timeout" do
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 429,
                                                                   code: "lock_timeout"),
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
-      should "retry on a 500 Internal Server Error when non-POST" do
+      should "retry on a 500 Internal Server Error" do
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
-                                          method: :get, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "retry on a 503 Service Unavailable" do
         assert StripeClient.should_retry?(Stripe::StripeError.new(http_status: 503),
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "not retry at maximum count" do
         refute StripeClient.should_retry?(RuntimeError.new,
-                                          method: :post, num_retries: Stripe.max_network_retries)
+                                          num_retries: Stripe.max_network_retries)
       end
 
       should "not retry on a certificate validation error" do
         refute StripeClient.should_retry?(OpenSSL::SSL::SSLError.new,
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
 
       should "not retry on a 429 Too Many Requests when not lock timeout" do
         refute StripeClient.should_retry?(Stripe::StripeError.new(http_status: 429,
                                                                   code: "rate_limited"),
-                                          method: :post, num_retries: 0)
-      end
-
-      should "not retry on a 500 Internal Server Error when POST" do
-        refute StripeClient.should_retry?(Stripe::StripeError.new(http_status: 500),
-                                          method: :post, num_retries: 0)
+                                          num_retries: 0)
       end
     end
 

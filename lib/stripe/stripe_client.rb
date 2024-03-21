@@ -143,15 +143,12 @@ module Stripe
         # These 429s are safe to retry.
         return true if error.http_status == 429 && error.code == "lock_timeout"
 
-        # 500 Internal Server Error
+        # Retry on 500, 503, and other internal errors.
         #
-        # We only bother retrying these for non-POST requests. POSTs end up
-        # being cached by the idempotency layer so there's no purpose in
-        # retrying them.
-        return true if error.http_status == 500 && method != :post
-
-        # 503 Service Unavailable
-        error.http_status == 503
+        # Note that we expect the stripe-should-retry header to be false
+        # in most cases when a 500 is returned, since our idempotency framework
+        # would typically replay it anyway.
+        true if error.http_status >= 500
       else
         false
       end

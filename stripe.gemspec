@@ -33,10 +33,13 @@ Gem::Specification.new do |s|
     /\A\.rubocop/,
     /\A\.travis.yml/,
     /\A\.vscode/,
+    %r{\A(bin/tapioca)},
+    /\Asorbet/,
     /\Atest/
   )
   s.files = `git ls-files`.split("\n").reject { |f| ignored.match(f) }
   s.executables   = `git ls-files -- bin/*`.split("\n")
                                            .map { |f| File.basename(f) }
+                                           .reject { |f| f == "tapioca" }
   s.require_paths = ["lib"]
 end

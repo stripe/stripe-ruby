@@ -124,7 +124,7 @@ module Stripe
       )
     end
 
-    # Download the PDF for a finalized quote
+    # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
     def pdf(params = {}, opts = {}, &read_body_chunk_block)
       config = opts[:client]&.config || Stripe.config
       opts = { api_base: config.uploads_base }.merge(opts)
@@ -137,7 +137,7 @@ module Stripe
       )
     end
 
-    # Download the PDF for a finalized quote
+    # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
     def self.pdf(quote, params = {}, opts = {}, &read_body_chunk_block)
       config = opts[:client]&.config || Stripe.config
       opts = { api_base: config.uploads_base }.merge(opts)

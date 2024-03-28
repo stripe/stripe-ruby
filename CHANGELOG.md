@@ -1,9 +1,22 @@
 # Changelog
 
+## 10.14.0 - 2024-03-28
+* [#1369](https://github.com/stripe/stripe-ruby/pull/1369) Update generated code
+  * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
+  * Add support for `create`, `deactivate`, `list`, `reactivate`, `retrieve`, and `update` methods on resource `Meter`
+  * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
+
 ## 10.14.0-beta.1 - 2024-03-21
 * [#1363](https://github.com/stripe/stripe-ruby/pull/1363) Update generated code for beta
   * Add support for new resources `Entitlements.ActiveEntitlementSummary` and `Entitlements.ActiveEntitlement`
   * Add support for `list` method on resource `ActiveEntitlement`
+
+## 10.13.0 - 2024-03-21
+* [#1367](https://github.com/stripe/stripe-ruby/pull/1367) Update generated code
+  * Add support for new resources `ConfirmationToken` and `Forwarding.Request`
+  * Add support for `retrieve` method on resource `ConfirmationToken`
+  * Add support for `create`, `list`, and `retrieve` methods on resource `Request`
+* [#1362](https://github.com/stripe/stripe-ruby/pull/1362) Exclude sorbet directory and tapioca script when packing gem
 
 ## 10.13.0-beta.1 - 2024-03-14
 * [#1360](https://github.com/stripe/stripe-ruby/pull/1360) Update generated code for beta

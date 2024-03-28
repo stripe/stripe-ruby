@@ -1,4 +1,10 @@
 # Changelog
+## 10.14.0 - 2024-03-28
+* [#1369](https://github.com/stripe/stripe-ruby/pull/1369) Update generated code
+  * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
+  * Add support for `create`, `deactivate`, `list`, `reactivate`, `retrieve`, and `update` methods on resource `Meter`
+  * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
+
 ## 10.13.0 - 2024-03-21
 * [#1367](https://github.com/stripe/stripe-ruby/pull/1367) Update generated code
   * Add support for new resources `ConfirmationToken` and `Forwarding.Request`

@@ -1,4 +1,10 @@
 # Changelog
+## 10.14.0 - 2024-03-28
+* [#1369](https://github.com/stripe/stripe-ruby/pull/1369) Update generated code
+  * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
+  * Add support for `create`, `deactivate`, `list`, `reactivate`, `retrieve`, and `update` methods on resource `Meter`
+  * Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
+
 ## 10.13.0 - 2024-03-21
 * [#1367](https://github.com/stripe/stripe-ruby/pull/1367) Update generated code
   * Add support for new resources `ConfirmationToken` and `Forwarding.Request`
@@ -123,32 +129,32 @@
 **⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
 
 * [#1253](https://github.com/stripe/stripe-ruby/pull/1253) [#1260](https://github.com/stripe/stripe-ruby/pull/1260) Pin latest API version as the default
-  
+
   In this release, Stripe API Version `2023-08-16` (the latest at time of release) will be sent by default on all requests. This is a significant change with wide ramifications. The API version affects the properties you see on responses, the parameters you are allowed to send on requests, and so on. The previous default was to use your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version).
-  
+
   To successfully upgrade to stripe-ruby v9, you must either
-  
+
   1. **(Recommended) Upgrade your integration to be compatible with API Version `2023-08-16`.**
-  
+
      Please read the API Changelog carefully for each API Version from `2023-08-16` back to your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version). Determine if you are using any of the APIs that have changed in a breaking way, and adjust your integration accordingly. Carefully test your changes with Stripe [Test Mode](https://stripe.com/docs/keys#test-live-modes) before deploying them to production.
-  
+
      You can read the [v9 migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v9) for more detailed instructions.
   2. **(Alternative option) Specify a version other than `2023-08-16` when initializing `stripe-ruby`.**
-  
+
      If you were previously initializing stripe-ruby without an explicit API Version, you can postpone modifying your integration by specifying a version equal to your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version). For example:
-  
+
      ```diff
        require 'stripe'
        Stripe.api_key = "sk_test_..."
      + Stripe.api_version = '2020-08-27'
      ```
-  
+
      If you were already initializing stripe-ruby with an explicit API Version, upgrading to v9 will not affect your integration.
-  
+
      Read the [v9 migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v9) for more details.
-  
+
   Going forward, each major release of this library will be *pinned* by default to the latest Stripe API Version at the time of release.
-  
+
   That is, instead of upgrading stripe-ruby and separately upgrading your Stripe API Version through the Stripe Dashboard. whenever you upgrade major versions of stripe-ruby, you should also upgrade your integration to be compatible with the latest Stripe API version.
 
 ## 8.7.0 - 2023-08-10
@@ -175,7 +181,7 @@
 
 * [#1225](https://github.com/stripe/stripe-ruby/pull/1225) Downgrade jaro_winkler
 * [#1219](https://github.com/stripe/stripe-ruby/pull/1219) Update generated code
-  
+
   Documentation updates.
 * [#1215](https://github.com/stripe/stripe-ruby/pull/1215) Update generated code
 
@@ -223,7 +229,7 @@ Breaking changes that arose during code generation of the library that we postpo
   refund = Stripe::Refund.retrieve("re_123")
   refund.description = "Refund description"
   refund.save
-  
+
   # after
   Stripe::Refund.update("re_123", description: "Refund description")
   ```
@@ -287,7 +293,7 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#1072](https://github.com/stripe/stripe-ruby/pull/1072) Trigger workflows on beta branches
 * [#1071](https://github.com/stripe/stripe-ruby/pull/1071) Use request_stripe_object for all requests
 * [#1070](https://github.com/stripe/stripe-ruby/pull/1070) API Updates
-  
+
   Switch from using meta-programing to generating explicit methods for custom methods.
 * [#1069](https://github.com/stripe/stripe-ruby/pull/1069) chore: Stop special implementation of Account.persons method.
 
@@ -303,15 +309,15 @@ Breaking changes that arose during code generation of the library that we postpo
   * Add support for new resources `Treasury.CreditReversal`, `Treasury.DebitReversal`, `Treasury.FinancialAccountFeatures`, `Treasury.FinancialAccount`, `Treasury.FlowDetails`, `Treasury.InboundTransfer`, `Treasury.OutboundPayment`, `Treasury.OutboundTransfer`, `Treasury.ReceivedCredit`, `Treasury.ReceivedDebit`, `Treasury.TransactionEntry`, and `Treasury.Transaction`
   * Add support for `retrieve_payment_method` method on resource `Customer`
   * Add support for `list_owners` and `list` methods on resource `FinancialConnections.Account`
-  
-  
+
+
 
 ## 6.0.0 - 2022-05-09
 * [#1056](https://github.com/stripe/stripe-ruby/pull/1056) API Updates
   Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-Guide-for-v6) contains more information.
-  
+
   (⚠️ = breaking changes):
-  * ⚠️ Replace the legacy `Order` API with the new `Order` API. 
+  * ⚠️ Replace the legacy `Order` API with the new `Order` API.
     * New methods: `cancel`, `list_line_items`, `reopen`, and `submit`
     * Removed methods: `pay` and `return_order`
     * Removed resources: `OrderItem` and `OrderReturn`
@@ -320,7 +326,7 @@ Breaking changes that arose during code generation of the library that we postpo
 ## 5.55.0 - 2022-05-05
 * [#1055](https://github.com/stripe/stripe-ruby/pull/1055) API Updates
   * Add support for new resources `FinancialConnections.AccountOwner`, `FinancialConnections.AccountOwnership`, `FinancialConnections.Account`, and `FinancialConnections.Session`
-  
+
 
 ## 5.54.0 - 2022-05-03
 * [#1053](https://github.com/stripe/stripe-ruby/pull/1053) API Updates
@@ -331,7 +337,7 @@ Breaking changes that arose during code generation of the library that we postpo
   * Add support for `expire` test helper method on resource `Refund`
 
 ## 5.52.0 - 2022-04-18
-* [#1046](https://github.com/stripe/stripe-ruby/pull/1046) [#1047](https://github.com/stripe/stripe-ruby/pull/1047) API Updates 
+* [#1046](https://github.com/stripe/stripe-ruby/pull/1046) [#1047](https://github.com/stripe/stripe-ruby/pull/1047) API Updates
   * Add support for new resources `FundingInstructions` and `Terminal.Configuration`
 
 ## 5.51.0 - 2022-04-15
@@ -353,7 +359,7 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#1040](https://github.com/stripe/stripe-ruby/pull/1040) API Updates
   * Add support for Search API
     * Add support for `search` method on resources `Charge`, `Customer`, `Invoice`, `PaymentIntent`, `Price`, `Product`, and `Subscription`
-  
+
 * [#1034](https://github.com/stripe/stripe-ruby/pull/1034) Add supporting classes for test helper generation
 
 ## 5.46.0 - 2022-03-23

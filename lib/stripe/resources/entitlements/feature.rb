@@ -8,6 +8,7 @@ module Stripe
     class Feature < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
+      include Stripe::APIOperations::Save
 
       OBJECT_NAME = "entitlements.feature"
       def self.object_name
@@ -30,6 +31,16 @@ module Stripe
           method: :get,
           path: "/v1/entitlements/features",
           params: filters,
+          opts: opts
+        )
+      end
+
+      # Update a feature's metadata or permanently deactivate it.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/entitlements/features/%<id>s", { id: CGI.escape(id) }),
+          params: params,
           opts: opts
         )
       end

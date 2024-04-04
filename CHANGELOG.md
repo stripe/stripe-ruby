@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.15.0-beta.1 - 2024-04-04
+* [#1373](https://github.com/stripe/stripe-ruby/pull/1373) Update generated code for beta
+  * Add support for `update` method on resource `Entitlements.Feature`
+* [#1370](https://github.com/stripe/stripe-ruby/pull/1370) Update generated code for beta
+
+
 ## 10.14.0 - 2024-03-28
 * [#1369](https://github.com/stripe/stripe-ruby/pull/1369) Update generated code
   * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`

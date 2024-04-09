@@ -62,7 +62,7 @@ module Stripe
         values = serialize_params(self).merge(params)
 
         resp, opts = execute_resource_request(:post, resource_url, values, opts, ["save"])
-        initialize_from(resp.data, opts)
+        initialize_from(resp.data, opts, resp)
       end
       extend Gem::Deprecate
       deprecate :save, "the `update` class method (for examples " \

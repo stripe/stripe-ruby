@@ -150,15 +150,13 @@ puts customer.unknown # raises NoMethodError
 
 ### Accessing a response object
 
-Get access to response objects by initializing a client and using its `request`
-method:
+Get access to response objects by using the `last_response` property of the returned resource:
 
 ```ruby
-client = Stripe::StripeClient.new
-customer, resp = client.request do
-  Stripe::Customer.retrieve('cus_123456789',)
-end
-puts resp.request_id
+customer = Stripe::Customer.retrieve('cus_123456789')
+
+print(customer.last_response.http_status) # to retrieve status code
+print(customer.last_response.http_headers) # to retrieve headers
 ```
 
 ### Configuring a proxy

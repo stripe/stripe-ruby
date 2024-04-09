@@ -67,7 +67,7 @@ module Stripe
         values.delete(:id)
 
         resp, opts = execute_resource_request(:post, save_url, values, opts, ["save"])
-        initialize_from(resp.data, opts)
+        initialize_from(resp.data, opts, resp)
       end
       extend Gem::Deprecate
       deprecate :save, "the `update` class method (for examples " \

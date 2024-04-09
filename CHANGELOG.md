@@ -1,10 +1,18 @@
 # Changelog
 
+## 10.15.0 - 2024-04-09
+* [#1377](https://github.com/stripe/stripe-ruby/pull/1377) Add last_response to StripeObject
+  * Users can now retrieve raw response from the returned resource, using the `last_response` property. See [README](https://github.com/stripe/stripe-ruby/blob/master/README.md) for an example.
+* [#1372](https://github.com/stripe/stripe-ruby/pull/1372) Update generated code
+  * Add support for new resources `Entitlements.ActiveEntitlement` and `Entitlements.Feature`
+  * Add support for `list` and `retrieve` methods on resource `ActiveEntitlement`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `Feature`
+* [#1366](https://github.com/stripe/stripe-ruby/pull/1366) Move executables to `exe` folder
+
 ## 10.15.0-beta.1 - 2024-04-04
 * [#1373](https://github.com/stripe/stripe-ruby/pull/1373) Update generated code for beta
   * Add support for `update` method on resource `Entitlements.Feature`
 * [#1370](https://github.com/stripe/stripe-ruby/pull/1370) Update generated code for beta
-
 
 ## 10.14.0 - 2024-03-28
 * [#1369](https://github.com/stripe/stripe-ruby/pull/1369) Update generated code

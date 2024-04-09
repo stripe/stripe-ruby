@@ -49,6 +49,7 @@ module Stripe
         # Make sure we start with a blank slate (state may have been left in
         # place by other tests).
         StripeClient.clear_all_connection_managers
+        Stripe.ca_store
 
         # Establish a base time.
         t = 0.0
@@ -117,6 +118,7 @@ module Stripe
         # Make sure we start with a blank slate (state may have been left in
         # place by other tests).
         StripeClient.clear_all_connection_managers
+        Stripe.ca_store
 
         # Establish a base time.
         t = 0.0

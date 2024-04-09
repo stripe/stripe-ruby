@@ -23,7 +23,7 @@ module Stripe
       "product"
     end
 
-    nested_resource_class_methods :feature, operations: %i[create delete list]
+    nested_resource_class_methods :feature, operations: %i[create retrieve delete list]
 
     # Creates a new product object.
     def self.create(params = {}, opts = {})

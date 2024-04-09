@@ -14,6 +14,7 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
+    extend Stripe::APIOperations::NestedResource
     extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
@@ -21,6 +22,8 @@ module Stripe
     def self.object_name
       "product"
     end
+
+    nested_resource_class_methods :feature, operations: %i[create retrieve delete list]
 
     # Creates a new product object.
     def self.create(params = {}, opts = {})

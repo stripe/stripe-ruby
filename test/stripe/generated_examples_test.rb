@@ -15,11 +15,11 @@ module Stripe
     end
     should "Test accounts capabilities get" do
       Stripe::Account.list_capabilities("acct_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities?"
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities"
     end
     should "Test accounts capabilities get 2" do
       Stripe::Account.retrieve_capability("acct_xxxxxxxxxxxxx", "card_payments")
-      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments?"
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments"
     end
     should "Test accounts capabilities post" do
       Stripe::Account.update_capability("acct_xxxxxxxxxxxxx", "card_payments", { requested: true })
@@ -27,15 +27,15 @@ module Stripe
     end
     should "Test accounts delete" do
       Stripe::Account.delete("acct_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx"
     end
     should "Test accounts external accounts delete" do
       Stripe::Account.delete_external_account("acct_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx"
     end
     should "Test accounts external accounts delete 2" do
       Stripe::Account.delete_external_account("acct_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx"
     end
     should "Test accounts external accounts get" do
       Stripe::Account.list_external_accounts("acct_xxxxxxxxxxxxx", { limit: 3 })
@@ -97,7 +97,7 @@ module Stripe
     end
     should "Test accounts get 2" do
       Stripe::Account.retrieve("acct_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx"
     end
     should "Test accounts persons get" do
       Stripe::Account.persons("acct_xxxxxxxxxxxxx", { limit: 3 })
@@ -105,7 +105,7 @@ module Stripe
     end
     should "Test accounts persons get 2" do
       Stripe::Account.retrieve_person("acct_xxxxxxxxxxxxx", "person_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx"
     end
     should "Test accounts persons post 2" do
       Stripe::Account.update_person(
@@ -141,7 +141,7 @@ module Stripe
     end
     should "Test application fees get 2" do
       Stripe::ApplicationFee.retrieve("fee_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx"
     end
     should "Test application fees refunds get" do
       Stripe::ApplicationFee.list_refunds("fee_xxxxxxxxxxxxx", { limit: 3 })
@@ -149,7 +149,7 @@ module Stripe
     end
     should "Test application fees refunds get 2" do
       Stripe::ApplicationFee.retrieve_refund("fee_xxxxxxxxxxxxx", "fr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx"
     end
     should "Test application fees refunds post 2" do
       Stripe::ApplicationFee.update_refund(
@@ -209,7 +209,7 @@ module Stripe
     end
     should "Test balance transactions get 2" do
       Stripe::BalanceTransaction.retrieve("txn_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/balance_transactions/txn_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/balance_transactions/txn_xxxxxxxxxxxxx"
     end
     should "Test billing portal configurations get" do
       Stripe::BillingPortal::Configuration.list({ limit: 3 })
@@ -217,7 +217,7 @@ module Stripe
     end
     should "Test billing portal configurations get 2" do
       Stripe::BillingPortal::Configuration.retrieve("bpc_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx"
     end
     should "Test billing portal configurations post" do
       Stripe::BillingPortal::Configuration.create({
@@ -256,7 +256,7 @@ module Stripe
     end
     should "Test charges capture post" do
       Stripe::Charge.capture("ch_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/charges/ch_xxxxxxxxxxxxx/capture?"
+      assert_requested :post, "#{Stripe.api_base}/v1/charges/ch_xxxxxxxxxxxxx/capture"
     end
     should "Test charges get" do
       Stripe::Charge.list({ limit: 3 })
@@ -264,7 +264,7 @@ module Stripe
     end
     should "Test charges get 2" do
       Stripe::Charge.retrieve("ch_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/charges/ch_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/charges/ch_xxxxxxxxxxxxx"
     end
     should "Test charges post" do
       Stripe::Charge.create({
@@ -281,15 +281,15 @@ module Stripe
     end
     should "Test charges search get" do
       Stripe::Charge.search({ query: "amount>999 AND metadata['order_id']:'6735'" })
-      assert_requested :get, "#{Stripe.api_base}/v1/charges/search?query=amount>999 AND metadata['order_id']:'6735'"
+      assert_requested :get, "#{Stripe.api_base}/v1/charges/search?query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
     end
     should "Test checkout sessions expire post" do
       Stripe::Checkout::Session.expire("sess_xyz")
-      assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions/sess_xyz/expire?"
+      assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions/sess_xyz/expire"
     end
     should "Test checkout sessions expire post 2" do
       Stripe::Checkout::Session.expire("cs_test_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire?"
+      assert_requested :post, "#{Stripe.api_base}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire"
     end
     should "Test checkout sessions get" do
       Stripe::Checkout::Session.list({ limit: 3 })
@@ -297,11 +297,11 @@ module Stripe
     end
     should "Test checkout sessions get 2" do
       Stripe::Checkout::Session.retrieve("cs_test_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx"
     end
     should "Test checkout sessions line items get" do
       Stripe::Checkout::Session.list_line_items("sess_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/sess_xyz/line_items?"
+      assert_requested :get, "#{Stripe.api_base}/v1/checkout/sessions/sess_xyz/line_items"
     end
     should "Test checkout sessions post" do
       Stripe::Checkout::Session.create({
@@ -348,11 +348,11 @@ module Stripe
     end
     should "Test country specs get 2" do
       Stripe::CountrySpec.retrieve("US")
-      assert_requested :get, "#{Stripe.api_base}/v1/country_specs/US?"
+      assert_requested :get, "#{Stripe.api_base}/v1/country_specs/US"
     end
     should "Test coupons delete" do
       Stripe::Coupon.delete("Z4OV52SU")
-      assert_requested :delete, "#{Stripe.api_base}/v1/coupons/Z4OV52SU?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/coupons/Z4OV52SU"
     end
     should "Test coupons get" do
       Stripe::Coupon.list({ limit: 3 })
@@ -360,7 +360,7 @@ module Stripe
     end
     should "Test coupons get 2" do
       Stripe::Coupon.retrieve("Z4OV52SU")
-      assert_requested :get, "#{Stripe.api_base}/v1/coupons/Z4OV52SU?"
+      assert_requested :get, "#{Stripe.api_base}/v1/coupons/Z4OV52SU"
     end
     should "Test coupons post" do
       Stripe::Coupon.create({
@@ -393,7 +393,7 @@ module Stripe
     end
     should "Test credit notes void post" do
       Stripe::CreditNote.void_credit_note("cn_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/credit_notes/cn_xxxxxxxxxxxxx/void?"
+      assert_requested :post, "#{Stripe.api_base}/v1/credit_notes/cn_xxxxxxxxxxxxx/void"
     end
     should "Test customer sessions post" do
       Stripe::CustomerSession.create({
@@ -408,7 +408,7 @@ module Stripe
     end
     should "Test customers balance transactions get 2" do
       Stripe::Customer.retrieve_balance_transaction("cus_xxxxxxxxxxxxx", "cbtxn_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx"
     end
     should "Test customers balance transactions post 2" do
       Stripe::Customer.update_balance_transaction(
@@ -420,7 +420,7 @@ module Stripe
     end
     should "Test customers cash balance get" do
       Stripe::Customer.retrieve_cash_balance("cus_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance?"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
     end
     should "Test customers cash balance post" do
       Stripe::Customer.update_cash_balance("cus_123", { settings: { reconciliation_mode: "manual" } })
@@ -432,7 +432,7 @@ module Stripe
     end
     should "Test customers delete" do
       Stripe::Customer.delete("cus_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx"
     end
     should "Test customers funding instructions post" do
       Stripe::Customer.create_funding_instructions(
@@ -458,7 +458,7 @@ module Stripe
     end
     should "Test customers get 3" do
       Stripe::Customer.retrieve("cus_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx"
     end
     should "Test customers payment methods get" do
       Stripe::Customer.list_payment_methods("cus_xyz", { type: "card" })
@@ -480,19 +480,19 @@ module Stripe
     end
     should "Test customers search get" do
       Stripe::Customer.search({ query: "name:'fakename' AND metadata['foo']:'bar'" })
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name:'fakename' AND metadata['foo']:'bar'"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27"
     end
     should "Test customers search get 2" do
       Stripe::Customer.search({ query: "name:'fakename' AND metadata['foo']:'bar'" })
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name:'fakename' AND metadata['foo']:'bar'"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/search?query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27"
     end
     should "Test customers sources delete" do
       Stripe::Customer.delete_source("cus_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
     end
     should "Test customers sources delete 2" do
       Stripe::Customer.delete_source("cus_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
     end
     should "Test customers sources get" do
       Stripe::Customer.list_sources(
@@ -516,11 +516,11 @@ module Stripe
     end
     should "Test customers sources get 3" do
       Stripe::Customer.retrieve_source("cus_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
     end
     should "Test customers sources get 4" do
       Stripe::Customer.retrieve_source("cus_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
     end
     should "Test customers sources post" do
       Stripe::Customer.update_source("cus_123", "card_123", { account_holder_name: "Kamil" })
@@ -552,7 +552,7 @@ module Stripe
     end
     should "Test customers tax ids delete" do
       Stripe::Customer.delete_tax_id("cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx"
     end
     should "Test customers tax ids get" do
       Stripe::Customer.list_tax_ids("cus_xxxxxxxxxxxxx", { limit: 3 })
@@ -560,11 +560,11 @@ module Stripe
     end
     should "Test customers tax ids get 2" do
       Stripe::Customer.retrieve_tax_id("cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx"
     end
     should "Test disputes close post" do
       Stripe::Dispute.close("dp_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx/close?"
+      assert_requested :post, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx/close"
     end
     should "Test disputes get" do
       Stripe::Dispute.list({ limit: 3 })
@@ -572,7 +572,7 @@ module Stripe
     end
     should "Test disputes get 2" do
       Stripe::Dispute.retrieve("dp_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/disputes/dp_xxxxxxxxxxxxx"
     end
     should "Test disputes post" do
       Stripe::Dispute.update("dp_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
@@ -584,7 +584,7 @@ module Stripe
     end
     should "Test events get 2" do
       Stripe::Event.retrieve("evt_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/events/evt_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/events/evt_xxxxxxxxxxxxx"
     end
     should "Test file links get" do
       Stripe::FileLink.list({ limit: 3 })
@@ -592,7 +592,7 @@ module Stripe
     end
     should "Test file links get 2" do
       Stripe::FileLink.retrieve("link_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/file_links/link_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/file_links/link_xxxxxxxxxxxxx"
     end
     should "Test file links post" do
       Stripe::FileLink.create({ file: "file_xxxxxxxxxxxxx" })
@@ -608,23 +608,23 @@ module Stripe
     end
     should "Test files get 2" do
       Stripe::File.retrieve("file_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/files/file_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/files/file_xxxxxxxxxxxxx"
     end
     should "Test financial connections accounts disconnect post" do
       Stripe::FinancialConnections::Account.disconnect("fca_xyz")
-      assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xyz/disconnect?"
+      assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xyz/disconnect"
     end
     should "Test financial connections accounts disconnect post 2" do
       Stripe::FinancialConnections::Account.disconnect("fca_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect?"
+      assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect"
     end
     should "Test financial connections accounts get" do
       Stripe::FinancialConnections::Account.list
-      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts?"
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts"
     end
     should "Test financial connections accounts get 2" do
       Stripe::FinancialConnections::Account.retrieve("fca_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xyz?"
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xyz"
     end
     should "Test financial connections accounts get 3" do
       Stripe::FinancialConnections::Account.list({ account_holder: { customer: "cus_xxxxxxxxxxxxx" } })
@@ -632,7 +632,7 @@ module Stripe
     end
     should "Test financial connections accounts get 4" do
       Stripe::FinancialConnections::Account.retrieve("fca_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx"
     end
     should "Test financial connections accounts owners get" do
       Stripe::FinancialConnections::Account.list_owners("fca_xyz", { ownership: "fcaowns_xyz" })
@@ -662,11 +662,11 @@ module Stripe
     end
     should "Test financial connections sessions get" do
       Stripe::FinancialConnections::Session.retrieve("fcsess_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/sessions/fcsess_xyz?"
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/sessions/fcsess_xyz"
     end
     should "Test financial connections sessions get 2" do
       Stripe::FinancialConnections::Session.retrieve("fcsess_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx"
     end
     should "Test financial connections sessions post" do
       Stripe::FinancialConnections::Session.create({
@@ -691,7 +691,7 @@ module Stripe
     end
     should "Test financial connections transactions get" do
       Stripe::FinancialConnections::Transaction.retrieve("tr_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/transactions/tr_123?"
+      assert_requested :get, "#{Stripe.api_base}/v1/financial_connections/transactions/tr_123"
     end
     should "Test financial connections transactions get 2" do
       Stripe::FinancialConnections::Transaction.list({ account: "fca_xyz" })
@@ -703,11 +703,11 @@ module Stripe
     end
     should "Test identity verification reports get 2" do
       Stripe::Identity::VerificationReport.retrieve("vr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/identity/verification_reports/vr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/identity/verification_reports/vr_xxxxxxxxxxxxx"
     end
     should "Test identity verification sessions cancel post" do
       Stripe::Identity::VerificationSession.cancel("vs_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel"
     end
     should "Test identity verification sessions get" do
       Stripe::Identity::VerificationSession.list({ limit: 3 })
@@ -715,7 +715,7 @@ module Stripe
     end
     should "Test identity verification sessions get 2" do
       Stripe::Identity::VerificationSession.retrieve("vs_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx"
     end
     should "Test identity verification sessions post" do
       Stripe::Identity::VerificationSession.create({ type: "document" })
@@ -727,11 +727,11 @@ module Stripe
     end
     should "Test identity verification sessions redact post" do
       Stripe::Identity::VerificationSession.redact("vs_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact?"
+      assert_requested :post, "#{Stripe.api_base}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact"
     end
     should "Test invoiceitems delete" do
       Stripe::InvoiceItem.delete("ii_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/invoiceitems/ii_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
     end
     should "Test invoiceitems get" do
       Stripe::InvoiceItem.list({ limit: 3 })
@@ -739,7 +739,7 @@ module Stripe
     end
     should "Test invoiceitems get 2" do
       Stripe::InvoiceItem.retrieve("ii_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/invoiceitems/ii_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
     end
     should "Test invoiceitems post" do
       Stripe::InvoiceItem.create({
@@ -754,11 +754,11 @@ module Stripe
     end
     should "Test invoices delete" do
       Stripe::Invoice.delete("in_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx"
     end
     should "Test invoices finalize post" do
       Stripe::Invoice.finalize_invoice("in_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/finalize?"
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/finalize"
     end
     should "Test invoices get" do
       Stripe::Invoice.list({ limit: 3 })
@@ -766,22 +766,22 @@ module Stripe
     end
     should "Test invoices get 2" do
       Stripe::Invoice.retrieve("in_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx"
     end
     should "Test invoices get 3" do
       Stripe::Invoice.retrieve({
         expand: ["customer"],
         id: "in_xxxxxxxxxxxxx",
       })
-      assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx?expand[0]=customer"
+      assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx?expand[]=customer"
     end
     should "Test invoices mark uncollectible post" do
       Stripe::Invoice.mark_uncollectible("in_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible?"
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible"
     end
     should "Test invoices pay post" do
       Stripe::Invoice.pay("in_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/pay?"
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/pay"
     end
     should "Test invoices post" do
       Stripe::Invoice.create({ customer: "cus_xxxxxxxxxxxxx" })
@@ -793,11 +793,11 @@ module Stripe
     end
     should "Test invoices search get" do
       Stripe::Invoice.search({ query: "total>999 AND metadata['order_id']:'6735'" })
-      assert_requested :get, "#{Stripe.api_base}/v1/invoices/search?query=total>999 AND metadata['order_id']:'6735'"
+      assert_requested :get, "#{Stripe.api_base}/v1/invoices/search?query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
     end
     should "Test invoices send post" do
       Stripe::Invoice.send_invoice("in_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/send?"
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/send"
     end
     should "Test invoices upcoming get" do
       Stripe::Invoice.upcoming({ customer: "cus_9utnxg47pWjV1e" })
@@ -805,15 +805,15 @@ module Stripe
     end
     should "Test invoices void post" do
       Stripe::Invoice.void_invoice("in_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/void?"
+      assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/void"
     end
     should "Test issuing authorizations approve post" do
       Stripe::Issuing::Authorization.approve("iauth_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve?"
+      assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve"
     end
     should "Test issuing authorizations decline post" do
       Stripe::Issuing::Authorization.decline("iauth_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline?"
+      assert_requested :post, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline"
     end
     should "Test issuing authorizations get" do
       Stripe::Issuing::Authorization.list({ limit: 3 })
@@ -821,7 +821,7 @@ module Stripe
     end
     should "Test issuing authorizations get 2" do
       Stripe::Issuing::Authorization.retrieve("iauth_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx"
     end
     should "Test issuing authorizations post" do
       Stripe::Issuing::Authorization.update("iauth_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
@@ -833,7 +833,7 @@ module Stripe
     end
     should "Test issuing cardholders get 2" do
       Stripe::Issuing::Cardholder.retrieve("ich_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx"
     end
     should "Test issuing cardholders post" do
       Stripe::Issuing::Cardholder.create({
@@ -863,7 +863,7 @@ module Stripe
     end
     should "Test issuing cards get 2" do
       Stripe::Issuing::Card.retrieve("ic_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/cards/ic_xxxxxxxxxxxxx"
     end
     should "Test issuing cards post" do
       Stripe::Issuing::Card.create({
@@ -883,7 +883,7 @@ module Stripe
     end
     should "Test issuing disputes get 2" do
       Stripe::Issuing::Dispute.retrieve("idp_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx"
     end
     should "Test issuing disputes post" do
       Stripe::Issuing::Dispute.create({
@@ -897,15 +897,15 @@ module Stripe
     end
     should "Test issuing disputes submit post" do
       Stripe::Issuing::Dispute.submit("idp_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit?"
+      assert_requested :post, "#{Stripe.api_base}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit"
     end
     should "Test issuing personalization designs get" do
       Stripe::Issuing::PersonalizationDesign.list
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/personalization_designs?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/personalization_designs"
     end
     should "Test issuing personalization designs get 2" do
       Stripe::Issuing::PersonalizationDesign.retrieve("pd_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/personalization_designs/pd_xyz?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/personalization_designs/pd_xyz"
     end
     should "Test issuing personalization designs post" do
       Stripe::Issuing::PersonalizationDesign.create({ physical_bundle: "pb_xyz" })
@@ -913,15 +913,15 @@ module Stripe
     end
     should "Test issuing personalization designs post 2" do
       Stripe::Issuing::PersonalizationDesign.update("pd_xyz")
-      assert_requested :post, "#{Stripe.api_base}/v1/issuing/personalization_designs/pd_xyz?"
+      assert_requested :post, "#{Stripe.api_base}/v1/issuing/personalization_designs/pd_xyz"
     end
     should "Test issuing physical bundles get" do
       Stripe::Issuing::PhysicalBundle.list
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/physical_bundles?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/physical_bundles"
     end
     should "Test issuing physical bundles get 2" do
       Stripe::Issuing::PhysicalBundle.retrieve("pb_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/physical_bundles/pb_xyz?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/physical_bundles/pb_xyz"
     end
     should "Test issuing transactions get" do
       Stripe::Issuing::Transaction.list({ limit: 3 })
@@ -929,7 +929,7 @@ module Stripe
     end
     should "Test issuing transactions get 2" do
       Stripe::Issuing::Transaction.retrieve("ipi_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx"
     end
     should "Test issuing transactions post" do
       Stripe::Issuing::Transaction.update("ipi_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
@@ -937,19 +937,19 @@ module Stripe
     end
     should "Test mandates get" do
       Stripe::Mandate.retrieve("mandate_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/mandates/mandate_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/mandates/mandate_xxxxxxxxxxxxx"
     end
     should "Test payment intents apply customer balance post" do
       Stripe::PaymentIntent.apply_customer_balance("pi_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance?"
+      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance"
     end
     should "Test payment intents cancel post" do
       Stripe::PaymentIntent.cancel("pi_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel"
     end
     should "Test payment intents capture post" do
       Stripe::PaymentIntent.capture("pi_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/capture?"
+      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/capture"
     end
     should "Test payment intents confirm post" do
       Stripe::PaymentIntent.confirm("pi_xxxxxxxxxxxxx", { payment_method: "pm_card_visa" })
@@ -961,7 +961,7 @@ module Stripe
     end
     should "Test payment intents get 2" do
       Stripe::PaymentIntent.retrieve("pi_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx"
     end
     should "Test payment intents increment authorization post" do
       Stripe::PaymentIntent.increment_authorization("pi_xxxxxxxxxxxxx", { amount: 2099 })
@@ -1002,11 +1002,11 @@ module Stripe
       Stripe::PaymentIntent.search({
         query: "status:'succeeded' AND metadata['order_id']:'6735'",
       })
-      assert_requested :get, "#{Stripe.api_base}/v1/payment_intents/search?query=status:'succeeded' AND metadata['order_id']:'6735'"
+      assert_requested :get, "#{Stripe.api_base}/v1/payment_intents/search?query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
     end
     should "Test payment intents verify microdeposits post" do
       Stripe::PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits?"
+      assert_requested :post, "#{Stripe.api_base}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits"
     end
     should "Test payment intents verify microdeposits post 2" do
       Stripe::PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx", { amounts: [32, 45] })
@@ -1014,7 +1014,7 @@ module Stripe
     end
     should "Test payment links get" do
       Stripe::PaymentLink.retrieve("pl_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz?"
+      assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz"
     end
     should "Test payment links get 2" do
       Stripe::PaymentLink.list({ limit: 3 })
@@ -1022,11 +1022,11 @@ module Stripe
     end
     should "Test payment links get 3" do
       Stripe::PaymentLink.retrieve("plink_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/payment_links/plink_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/payment_links/plink_xxxxxxxxxxxxx"
     end
     should "Test payment links line items get" do
       Stripe::PaymentLink.list_line_items("pl_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz/line_items?"
+      assert_requested :get, "#{Stripe.api_base}/v1/payment_links/pl_xyz/line_items"
     end
     should "Test payment links post" do
       Stripe::PaymentLink.create({
@@ -1060,7 +1060,7 @@ module Stripe
     end
     should "Test payment method configurations get 2" do
       Stripe::PaymentMethodConfiguration.retrieve("foo")
-      assert_requested :get, "#{Stripe.api_base}/v1/payment_method_configurations/foo?"
+      assert_requested :get, "#{Stripe.api_base}/v1/payment_method_configurations/foo"
     end
     should "Test payment method configurations post" do
       Stripe::PaymentMethodConfiguration.create({
@@ -1082,7 +1082,7 @@ module Stripe
     end
     should "Test payment methods detach post" do
       Stripe::PaymentMethod.detach("pm_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx/detach?"
+      assert_requested :post, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx/detach"
     end
     should "Test payment methods get" do
       Stripe::PaymentMethod.list({
@@ -1093,7 +1093,7 @@ module Stripe
     end
     should "Test payment methods get 2" do
       Stripe::PaymentMethod.retrieve("pm_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/payment_methods/pm_xxxxxxxxxxxxx"
     end
     should "Test payment methods post" do
       Stripe::PaymentMethod.create({
@@ -1113,7 +1113,7 @@ module Stripe
     end
     should "Test payouts cancel post" do
       Stripe::Payout.cancel("po_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx/cancel"
     end
     should "Test payouts get" do
       Stripe::Payout.list({ limit: 3 })
@@ -1121,7 +1121,7 @@ module Stripe
     end
     should "Test payouts get 2" do
       Stripe::Payout.retrieve("po_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx"
     end
     should "Test payouts post" do
       Stripe::Payout.create({
@@ -1136,11 +1136,11 @@ module Stripe
     end
     should "Test payouts reverse post" do
       Stripe::Payout.reverse("po_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx/reverse?"
+      assert_requested :post, "#{Stripe.api_base}/v1/payouts/po_xxxxxxxxxxxxx/reverse"
     end
     should "Test plans delete" do
       Stripe::Plan.delete("price_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/plans/price_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/plans/price_xxxxxxxxxxxxx"
     end
     should "Test plans get" do
       Stripe::Plan.list({ limit: 3 })
@@ -1148,7 +1148,7 @@ module Stripe
     end
     should "Test plans get 2" do
       Stripe::Plan.retrieve("price_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/plans/price_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/plans/price_xxxxxxxxxxxxx"
     end
     should "Test plans post" do
       Stripe::Plan.create({
@@ -1178,7 +1178,7 @@ module Stripe
     end
     should "Test prices get 2" do
       Stripe::Price.retrieve("price_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/prices/price_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/prices/price_xxxxxxxxxxxxx"
     end
     should "Test prices post" do
       Stripe::Price.create({
@@ -1208,11 +1208,11 @@ module Stripe
     end
     should "Test prices search get" do
       Stripe::Price.search({ query: "active:'true' AND metadata['order_id']:'6735'" })
-      assert_requested :get, "#{Stripe.api_base}/v1/prices/search?query=active:'true' AND metadata['order_id']:'6735'"
+      assert_requested :get, "#{Stripe.api_base}/v1/prices/search?query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
     end
     should "Test products delete" do
       Stripe::Product.delete("prod_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/products/prod_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/products/prod_xxxxxxxxxxxxx"
     end
     should "Test products get" do
       Stripe::Product.list({ limit: 3 })
@@ -1220,7 +1220,7 @@ module Stripe
     end
     should "Test products get 2" do
       Stripe::Product.retrieve("prod_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/products/prod_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/products/prod_xxxxxxxxxxxxx"
     end
     should "Test products post" do
       Stripe::Product.create({ name: "Gold Special" })
@@ -1232,7 +1232,7 @@ module Stripe
     end
     should "Test products search get" do
       Stripe::Product.search({ query: "active:'true' AND metadata['order_id']:'6735'" })
-      assert_requested :get, "#{Stripe.api_base}/v1/products/search?query=active:'true' AND metadata['order_id']:'6735'"
+      assert_requested :get, "#{Stripe.api_base}/v1/products/search?query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
     end
     should "Test promotion codes get" do
       Stripe::PromotionCode.list({ limit: 3 })
@@ -1240,7 +1240,7 @@ module Stripe
     end
     should "Test promotion codes get 2" do
       Stripe::PromotionCode.retrieve("promo_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/promotion_codes/promo_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
     end
     should "Test promotion codes post" do
       Stripe::PromotionCode.create({ coupon: "Z4OV52SU" })
@@ -1252,15 +1252,15 @@ module Stripe
     end
     should "Test quotes accept post" do
       Stripe::Quote.accept("qt_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/accept?"
+      assert_requested :post, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/accept"
     end
     should "Test quotes cancel post" do
       Stripe::Quote.cancel("qt_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/cancel"
     end
     should "Test quotes finalize post" do
       Stripe::Quote.finalize_quote("qt_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/finalize?"
+      assert_requested :post, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/finalize"
     end
     should "Test quotes get" do
       Stripe::Quote.list({ limit: 3 })
@@ -1268,16 +1268,16 @@ module Stripe
     end
     should "Test quotes get 2" do
       Stripe::Quote.retrieve("qt_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx"
     end
     should "Test quotes line items get" do
       Stripe::Quote.list_line_items("qt_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/line_items?"
+      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/line_items"
     end
     should "Test quotes pdf get" do
       block_handler = {}
       Stripe::Quote.pdf("qt_xxxxxxxxxxxxx", &block_handler)
-      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/pdf?"
+      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xxxxxxxxxxxxx/pdf"
     end
     should "Test quotes post" do
       Stripe::Quote.create({
@@ -1301,11 +1301,11 @@ module Stripe
     end
     should "Test radar early fraud warnings get 2" do
       Stripe::Radar::EarlyFraudWarning.retrieve("issfr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx"
     end
     should "Test radar value list items delete" do
       Stripe::Radar::ValueListItem.delete("rsli_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx"
     end
     should "Test radar value list items get" do
       Stripe::Radar::ValueListItem.list({
@@ -1316,7 +1316,7 @@ module Stripe
     end
     should "Test radar value list items get 2" do
       Stripe::Radar::ValueListItem.retrieve("rsli_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx"
     end
     should "Test radar value list items post" do
       Stripe::Radar::ValueListItem.create({
@@ -1327,7 +1327,7 @@ module Stripe
     end
     should "Test radar value lists delete" do
       Stripe::Radar::ValueList.delete("rsl_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
     end
     should "Test radar value lists get" do
       Stripe::Radar::ValueList.list({ limit: 3 })
@@ -1335,7 +1335,7 @@ module Stripe
     end
     should "Test radar value lists get 2" do
       Stripe::Radar::ValueList.retrieve("rsl_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
     end
     should "Test radar value lists post" do
       Stripe::Radar::ValueList.create({
@@ -1351,7 +1351,7 @@ module Stripe
     end
     should "Test refunds cancel post" do
       Stripe::Refund.cancel("re_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/refunds/re_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/refunds/re_xxxxxxxxxxxxx/cancel"
     end
     should "Test refunds get" do
       Stripe::Refund.list({ limit: 3 })
@@ -1359,7 +1359,7 @@ module Stripe
     end
     should "Test refunds get 2" do
       Stripe::Refund.retrieve("re_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/refunds/re_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/refunds/re_xxxxxxxxxxxxx"
     end
     should "Test refunds post" do
       Stripe::Refund.create({ charge: "ch_xxxxxxxxxxxxx" })
@@ -1375,7 +1375,7 @@ module Stripe
     end
     should "Test reporting report runs get 2" do
       Stripe::Reporting::ReportRun.retrieve("frr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_runs/frr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_runs/frr_xxxxxxxxxxxxx"
     end
     should "Test reporting report runs post" do
       Stripe::Reporting::ReportRun.create({
@@ -1389,15 +1389,15 @@ module Stripe
     end
     should "Test reporting report types get" do
       Stripe::Reporting::ReportType.list
-      assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_types?"
+      assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_types"
     end
     should "Test reporting report types get 2" do
       Stripe::Reporting::ReportType.retrieve("balance.summary.1")
-      assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_types/balance.summary.1?"
+      assert_requested :get, "#{Stripe.api_base}/v1/reporting/report_types/balance.summary.1"
     end
     should "Test reviews approve post" do
       Stripe::Review.approve("prv_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/reviews/prv_xxxxxxxxxxxxx/approve?"
+      assert_requested :post, "#{Stripe.api_base}/v1/reviews/prv_xxxxxxxxxxxxx/approve"
     end
     should "Test reviews get" do
       Stripe::Review.list({ limit: 3 })
@@ -1405,7 +1405,7 @@ module Stripe
     end
     should "Test reviews get 2" do
       Stripe::Review.retrieve("prv_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/reviews/prv_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/reviews/prv_xxxxxxxxxxxxx"
     end
     should "Test setup attempts get" do
       Stripe::SetupAttempt.list({
@@ -1416,7 +1416,7 @@ module Stripe
     end
     should "Test setup intents cancel post" do
       Stripe::SetupIntent.cancel("seti_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel"
     end
     should "Test setup intents confirm post" do
       Stripe::SetupIntent.confirm("seti_xxxxxxxxxxxxx", { payment_method: "pm_card_visa" })
@@ -1428,7 +1428,7 @@ module Stripe
     end
     should "Test setup intents get 2" do
       Stripe::SetupIntent.retrieve("seti_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx"
     end
     should "Test setup intents post" do
       Stripe::SetupIntent.create({ payment_method_types: ["card"] })
@@ -1440,7 +1440,7 @@ module Stripe
     end
     should "Test setup intents verify microdeposits post" do
       Stripe::SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits?"
+      assert_requested :post, "#{Stripe.api_base}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits"
     end
     should "Test setup intents verify microdeposits post 2" do
       Stripe::SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx", { amounts: [32, 45] })
@@ -1448,7 +1448,7 @@ module Stripe
     end
     should "Test shipping rates get" do
       Stripe::ShippingRate.list
-      assert_requested :get, "#{Stripe.api_base}/v1/shipping_rates?"
+      assert_requested :get, "#{Stripe.api_base}/v1/shipping_rates"
     end
     should "Test shipping rates get 2" do
       Stripe::ShippingRate.list({ limit: 3 })
@@ -1456,7 +1456,7 @@ module Stripe
     end
     should "Test shipping rates get 3" do
       Stripe::ShippingRate.retrieve("shr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/shipping_rates/shr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/shipping_rates/shr_xxxxxxxxxxxxx"
     end
     should "Test shipping rates post" do
       Stripe::ShippingRate.create({
@@ -1490,15 +1490,15 @@ module Stripe
     end
     should "Test sigma scheduled query runs get 2" do
       Stripe::Sigma::ScheduledQueryRun.retrieve("sqr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx"
     end
     should "Test sources get" do
       Stripe::Source.retrieve("src_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/sources/src_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/sources/src_xxxxxxxxxxxxx"
     end
     should "Test sources get 2" do
       Stripe::Source.retrieve("src_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/sources/src_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/sources/src_xxxxxxxxxxxxx"
     end
     should "Test sources post" do
       Stripe::Source.update("src_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
@@ -1506,7 +1506,7 @@ module Stripe
     end
     should "Test subscription items delete" do
       Stripe::SubscriptionItem.delete("si_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/subscription_items/si_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/subscription_items/si_xxxxxxxxxxxxx"
     end
     should "Test subscription items get" do
       Stripe::SubscriptionItem.list({ subscription: "sub_xxxxxxxxxxxxx" })
@@ -1514,7 +1514,7 @@ module Stripe
     end
     should "Test subscription items get 2" do
       Stripe::SubscriptionItem.retrieve("si_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/subscription_items/si_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/subscription_items/si_xxxxxxxxxxxxx"
     end
     should "Test subscription items post" do
       Stripe::SubscriptionItem.create({
@@ -1530,7 +1530,7 @@ module Stripe
     end
     should "Test subscription schedules cancel post" do
       Stripe::SubscriptionSchedule.cancel("sub_sched_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel"
     end
     should "Test subscription schedules get" do
       Stripe::SubscriptionSchedule.list({ limit: 3 })
@@ -1538,7 +1538,7 @@ module Stripe
     end
     should "Test subscription schedules get 2" do
       Stripe::SubscriptionSchedule.retrieve("sub_sched_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
     end
     should "Test subscription schedules post" do
       Stripe::SubscriptionSchedule.create({
@@ -1565,11 +1565,11 @@ module Stripe
     end
     should "Test subscription schedules release post" do
       Stripe::SubscriptionSchedule.release("sub_sched_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release?"
+      assert_requested :post, "#{Stripe.api_base}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release"
     end
     should "Test subscriptions discount delete" do
       Stripe::Subscription.delete_discount("sub_xyz")
-      assert_requested :delete, "#{Stripe.api_base}/v1/subscriptions/sub_xyz/discount?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/subscriptions/sub_xyz/discount"
     end
     should "Test subscriptions get" do
       Stripe::Subscription.list({ limit: 3 })
@@ -1577,7 +1577,7 @@ module Stripe
     end
     should "Test subscriptions get 2" do
       Stripe::Subscription.retrieve("sub_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/subscriptions/sub_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/subscriptions/sub_xxxxxxxxxxxxx"
     end
     should "Test subscriptions post" do
       Stripe::Subscription.create({
@@ -1592,11 +1592,11 @@ module Stripe
     end
     should "Test subscriptions search get" do
       Stripe::Subscription.search({ query: "status:'active' AND metadata['order_id']:'6735'" })
-      assert_requested :get, "#{Stripe.api_base}/v1/subscriptions/search?query=status:'active' AND metadata['order_id']:'6735'"
+      assert_requested :get, "#{Stripe.api_base}/v1/subscriptions/search?query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
     end
     should "Test tax calculations line items get" do
       Stripe::Tax::Calculation.list_line_items("xxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/tax/calculations/xxx/line_items?"
+      assert_requested :get, "#{Stripe.api_base}/v1/tax/calculations/xxx/line_items"
     end
     should "Test tax calculations post" do
       Stripe::Tax::Calculation.create({
@@ -1626,19 +1626,19 @@ module Stripe
     end
     should "Test tax codes get 2" do
       Stripe::TaxCode.retrieve("txcd_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/tax_codes/txcd_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_codes/txcd_xxxxxxxxxxxxx"
     end
     should "Test tax ids delete" do
       Stripe::TaxId.delete("taxid_123")
-      assert_requested :delete, "#{Stripe.api_base}/v1/tax_ids/taxid_123?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/tax_ids/taxid_123"
     end
     should "Test tax ids get" do
       Stripe::TaxId.list
-      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids?"
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids"
     end
     should "Test tax ids get 2" do
       Stripe::TaxId.retrieve("taxid_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids/taxid_123?"
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_ids/taxid_123"
     end
     should "Test tax ids post" do
       Stripe::TaxId.create({
@@ -1653,7 +1653,7 @@ module Stripe
     end
     should "Test tax rates get 2" do
       Stripe::TaxRate.retrieve("txr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/tax_rates/txr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/tax_rates/txr_xxxxxxxxxxxxx"
     end
     should "Test tax rates post" do
       Stripe::TaxRate.create({
@@ -1687,7 +1687,7 @@ module Stripe
     end
     should "Test tax settings get" do
       Stripe::Tax::Settings.retrieve
-      assert_requested :get, "#{Stripe.api_base}/v1/tax/settings?"
+      assert_requested :get, "#{Stripe.api_base}/v1/tax/settings"
     end
     should "Test tax settings post" do
       Stripe::Tax::Settings.update({ defaults: { tax_code: "txcd_10000000" } })
@@ -1702,19 +1702,19 @@ module Stripe
     end
     should "Test terminal configurations delete" do
       Stripe::Terminal::Configuration.delete("uc_123")
-      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/configurations/uc_123?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/configurations/uc_123"
     end
     should "Test terminal configurations delete 2" do
       Stripe::Terminal::Configuration.delete("tmc_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx"
     end
     should "Test terminal configurations get" do
       Stripe::Terminal::Configuration.list
-      assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations?"
+      assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations"
     end
     should "Test terminal configurations get 2" do
       Stripe::Terminal::Configuration.retrieve("uc_123")
-      assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations/uc_123?"
+      assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations/uc_123"
     end
     should "Test terminal configurations get 3" do
       Stripe::Terminal::Configuration.list({ limit: 3 })
@@ -1722,11 +1722,11 @@ module Stripe
     end
     should "Test terminal configurations get 4" do
       Stripe::Terminal::Configuration.retrieve("tmc_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx"
     end
     should "Test terminal configurations post" do
       Stripe::Terminal::Configuration.create
-      assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations?"
+      assert_requested :post, "#{Stripe.api_base}/v1/terminal/configurations"
     end
     should "Test terminal configurations post 2" do
       Stripe::Terminal::Configuration.update("uc_123", { tipping: { usd: { fixed_amounts: [10] } } })
@@ -1747,11 +1747,11 @@ module Stripe
     end
     should "Test terminal connection tokens post" do
       Stripe::Terminal::ConnectionToken.create
-      assert_requested :post, "#{Stripe.api_base}/v1/terminal/connection_tokens?"
+      assert_requested :post, "#{Stripe.api_base}/v1/terminal/connection_tokens"
     end
     should "Test terminal locations delete" do
       Stripe::Terminal::Location.delete("tml_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
     end
     should "Test terminal locations get" do
       Stripe::Terminal::Location.list({ limit: 3 })
@@ -1759,7 +1759,7 @@ module Stripe
     end
     should "Test terminal locations get 2" do
       Stripe::Terminal::Location.retrieve("tml_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
     end
     should "Test terminal locations post" do
       Stripe::Terminal::Location.create({
@@ -1780,11 +1780,11 @@ module Stripe
     end
     should "Test terminal readers cancel action post" do
       Stripe::Terminal::Reader.cancel_action("tmr_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action?"
+      assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action"
     end
     should "Test terminal readers delete" do
       Stripe::Terminal::Reader.delete("tmr_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
     end
     should "Test terminal readers get" do
       Stripe::Terminal::Reader.list({ limit: 3 })
@@ -1792,7 +1792,7 @@ module Stripe
     end
     should "Test terminal readers get 2" do
       Stripe::Terminal::Reader.retrieve("tmr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
     end
     should "Test terminal readers post" do
       Stripe::Terminal::Reader.create({
@@ -1882,7 +1882,7 @@ module Stripe
     end
     should "Test test helpers issuing authorizations expire post" do
       Stripe::Issuing::Authorization::TestHelpers.expire("example_authorization")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/expire?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/authorizations/example_authorization/expire"
     end
     should "Test test helpers issuing authorizations increment post" do
       Stripe::Issuing::Authorization::TestHelpers.increment(
@@ -1935,27 +1935,27 @@ module Stripe
     end
     should "Test test helpers issuing cards shipping deliver post" do
       Stripe::Issuing::Card::TestHelpers.deliver_card("card_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/deliver?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/deliver"
     end
     should "Test test helpers issuing cards shipping fail post" do
       Stripe::Issuing::Card::TestHelpers.fail_card("card_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/fail?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/fail"
     end
     should "Test test helpers issuing cards shipping return post" do
       Stripe::Issuing::Card::TestHelpers.return_card("card_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/return?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/return"
     end
     should "Test test helpers issuing cards shipping ship post" do
       Stripe::Issuing::Card::TestHelpers.ship_card("card_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/ship?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/cards/card_123/shipping/ship"
     end
     should "Test test helpers issuing personalization designs activate post" do
       Stripe::Issuing::PersonalizationDesign::TestHelpers.activate("pd_xyz")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate"
     end
     should "Test test helpers issuing personalization designs deactivate post" do
       Stripe::Issuing::PersonalizationDesign::TestHelpers.deactivate("pd_xyz")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate"
     end
     should "Test test helpers issuing personalization designs reject post" do
       Stripe::Issuing::PersonalizationDesign::TestHelpers.reject(
@@ -2080,7 +2080,7 @@ module Stripe
     end
     should "Test test helpers refunds expire post" do
       Stripe::Refund::TestHelpers.expire("re_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/refunds/re_123/expire?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/refunds/re_123/expire"
     end
     should "Test test helpers test clocks advance post" do
       Stripe::TestHelpers::TestClock.advance("clock_xyz", { frozen_time: 142 })
@@ -2092,19 +2092,19 @@ module Stripe
     end
     should "Test test helpers test clocks delete" do
       Stripe::TestHelpers::TestClock.delete("clock_xyz")
-      assert_requested :delete, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz"
     end
     should "Test test helpers test clocks delete 2" do
       Stripe::TestHelpers::TestClock.delete("clock_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx"
     end
     should "Test test helpers test clocks get" do
       Stripe::TestHelpers::TestClock.list
-      assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks?"
+      assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks"
     end
     should "Test test helpers test clocks get 2" do
       Stripe::TestHelpers::TestClock.retrieve("clock_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz?"
+      assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xyz"
     end
     should "Test test helpers test clocks get 3" do
       Stripe::TestHelpers::TestClock.list({ limit: 3 })
@@ -2112,7 +2112,7 @@ module Stripe
     end
     should "Test test helpers test clocks get 4" do
       Stripe::TestHelpers::TestClock.retrieve("clock_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx"
     end
     should "Test test helpers test clocks post" do
       Stripe::TestHelpers::TestClock.create({
@@ -2134,19 +2134,19 @@ module Stripe
     end
     should "Test test helpers treasury inbound transfers return post" do
       Stripe::Treasury::InboundTransfer::TestHelpers.return_inbound_transfer("ibt_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/inbound_transfers/ibt_123/return?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/inbound_transfers/ibt_123/return"
     end
     should "Test test helpers treasury inbound transfers succeed post" do
       Stripe::Treasury::InboundTransfer::TestHelpers.succeed("ibt_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed"
     end
     should "Test test helpers treasury outbound transfers fail post" do
       Stripe::Treasury::OutboundTransfer::TestHelpers.fail("obt_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/outbound_transfers/obt_123/fail?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/outbound_transfers/obt_123/fail"
     end
     should "Test test helpers treasury outbound transfers post post" do
       Stripe::Treasury::OutboundTransfer::TestHelpers.post("obt_123")
-      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/outbound_transfers/obt_123/post?"
+      assert_requested :post, "#{Stripe.api_base}/v1/test_helpers/treasury/outbound_transfers/obt_123/post"
     end
     should "Test test helpers treasury outbound transfers return post" do
       Stripe::Treasury::OutboundTransfer::TestHelpers.return_outbound_transfer(
@@ -2175,7 +2175,7 @@ module Stripe
     end
     should "Test tokens get" do
       Stripe::Token.retrieve("tok_xxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/tokens/tok_xxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/tokens/tok_xxxx"
     end
     should "Test tokens post" do
       Stripe::Token.create({
@@ -2233,7 +2233,7 @@ module Stripe
     end
     should "Test topups cancel post" do
       Stripe::Topup.cancel("tu_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/topups/tu_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/topups/tu_xxxxxxxxxxxxx/cancel"
     end
     should "Test topups get" do
       Stripe::Topup.list({ limit: 3 })
@@ -2241,7 +2241,7 @@ module Stripe
     end
     should "Test topups get 2" do
       Stripe::Topup.retrieve("tu_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/topups/tu_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/topups/tu_xxxxxxxxxxxxx"
     end
     should "Test topups post" do
       Stripe::Topup.create({
@@ -2262,7 +2262,7 @@ module Stripe
     end
     should "Test transfers get 2" do
       Stripe::Transfer.retrieve("tr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx"
     end
     should "Test transfers post" do
       Stripe::Transfer.create({
@@ -2283,7 +2283,7 @@ module Stripe
     end
     should "Test transfers reversals get 2" do
       Stripe::Transfer.retrieve_reversal("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
     end
     should "Test transfers reversals post 2" do
       Stripe::Transfer.update_reversal(
@@ -2302,7 +2302,7 @@ module Stripe
     end
     should "Test treasury credit reversals get 2" do
       Stripe::Treasury::CreditReversal.retrieve("credrev_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx"
     end
     should "Test treasury credit reversals post" do
       Stripe::Treasury::CreditReversal.create({ received_credit: "rc_xxxxxxxxxxxxx" })
@@ -2317,7 +2317,7 @@ module Stripe
     end
     should "Test treasury debit reversals get 2" do
       Stripe::Treasury::DebitReversal.retrieve("debrev_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx"
     end
     should "Test treasury debit reversals post" do
       Stripe::Treasury::DebitReversal.create({ received_debit: "rd_xxxxxxxxxxxxx" })
@@ -2325,7 +2325,7 @@ module Stripe
     end
     should "Test treasury financial accounts features get" do
       Stripe::Treasury::FinancialAccount.retrieve_features("fa_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features"
     end
     should "Test treasury financial accounts get" do
       Stripe::Treasury::FinancialAccount.list({ limit: 3 })
@@ -2333,7 +2333,7 @@ module Stripe
     end
     should "Test treasury financial accounts get 2" do
       Stripe::Treasury::FinancialAccount.retrieve("fa_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx"
     end
     should "Test treasury financial accounts post" do
       Stripe::Treasury::FinancialAccount.create({
@@ -2348,7 +2348,7 @@ module Stripe
     end
     should "Test treasury inbound transfers cancel post" do
       Stripe::Treasury::InboundTransfer.cancel("ibt_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel"
     end
     should "Test treasury inbound transfers get" do
       Stripe::Treasury::InboundTransfer.list({
@@ -2359,7 +2359,7 @@ module Stripe
     end
     should "Test treasury inbound transfers get 2" do
       Stripe::Treasury::InboundTransfer.retrieve("ibt_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx"
     end
     should "Test treasury inbound transfers post" do
       Stripe::Treasury::InboundTransfer.create({
@@ -2373,7 +2373,7 @@ module Stripe
     end
     should "Test treasury outbound payments cancel post" do
       Stripe::Treasury::OutboundPayment.cancel("bot_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel"
     end
     should "Test treasury outbound payments get" do
       Stripe::Treasury::OutboundPayment.list({
@@ -2384,7 +2384,7 @@ module Stripe
     end
     should "Test treasury outbound payments get 2" do
       Stripe::Treasury::OutboundPayment.retrieve("bot_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx"
     end
     should "Test treasury outbound payments post" do
       Stripe::Treasury::OutboundPayment.create({
@@ -2399,7 +2399,7 @@ module Stripe
     end
     should "Test treasury outbound transfers cancel post" do
       Stripe::Treasury::OutboundTransfer.cancel("obt_xxxxxxxxxxxxx")
-      assert_requested :post, "#{Stripe.api_base}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel?"
+      assert_requested :post, "#{Stripe.api_base}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel"
     end
     should "Test treasury outbound transfers get" do
       Stripe::Treasury::OutboundTransfer.list({
@@ -2410,7 +2410,7 @@ module Stripe
     end
     should "Test treasury outbound transfers get 2" do
       Stripe::Treasury::OutboundTransfer.retrieve("obt_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx"
     end
     should "Test treasury outbound transfers post" do
       Stripe::Treasury::OutboundTransfer.create({
@@ -2431,7 +2431,7 @@ module Stripe
     end
     should "Test treasury received credits get 2" do
       Stripe::Treasury::ReceivedCredit.retrieve("rc_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/received_credits/rc_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/received_credits/rc_xxxxxxxxxxxxx"
     end
     should "Test treasury received debits get" do
       Stripe::Treasury::ReceivedDebit.list({
@@ -2442,7 +2442,7 @@ module Stripe
     end
     should "Test treasury received debits get 2" do
       Stripe::Treasury::ReceivedDebit.retrieve("rd_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/received_debits/rd_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/received_debits/rd_xxxxxxxxxxxxx"
     end
     should "Test treasury transaction entries get" do
       Stripe::Treasury::TransactionEntry.list({
@@ -2453,7 +2453,7 @@ module Stripe
     end
     should "Test treasury transaction entries get 2" do
       Stripe::Treasury::TransactionEntry.retrieve("trxne_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx"
     end
     should "Test treasury transactions get" do
       Stripe::Treasury::Transaction.list({
@@ -2464,11 +2464,11 @@ module Stripe
     end
     should "Test treasury transactions get 2" do
       Stripe::Treasury::Transaction.retrieve("trxn_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/treasury/transactions/trxn_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/treasury/transactions/trxn_xxxxxxxxxxxxx"
     end
     should "Test webhook endpoints delete" do
       Stripe::WebhookEndpoint.delete("we_xxxxxxxxxxxxx")
-      assert_requested :delete, "#{Stripe.api_base}/v1/webhook_endpoints/we_xxxxxxxxxxxxx?"
+      assert_requested :delete, "#{Stripe.api_base}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
     end
     should "Test webhook endpoints get" do
       Stripe::WebhookEndpoint.list({ limit: 3 })
@@ -2476,7 +2476,7 @@ module Stripe
     end
     should "Test webhook endpoints get 2" do
       Stripe::WebhookEndpoint.retrieve("we_xxxxxxxxxxxxx")
-      assert_requested :get, "#{Stripe.api_base}/v1/webhook_endpoints/we_xxxxxxxxxxxxx?"
+      assert_requested :get, "#{Stripe.api_base}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
     end
     should "Test webhook endpoints post" do
       Stripe::WebhookEndpoint.create({

@@ -4,6 +4,8 @@ module Stripe
   class StripeObject
     include Enumerable
 
+    attr_reader :last_response
+
     @@permanent_attributes = Set.new([:id]) # rubocop:disable Style/ClassVars
 
     # The default :id method is deprecated and isn't useful to us
@@ -80,13 +82,14 @@ module Stripe
       @unsaved_values = Set.new
       @transient_values = Set.new
       @values[:id] = id if id
+      @last_response = nil
     end
 
-    def self.construct_from(values, opts = {})
+    def self.construct_from(values, opts = {}, last_response = nil)
       values = Stripe::Util.symbolize_names(values)
 
       # work around protected #initialize_from for now
-      new(values[:id]).send(:initialize_from, values, opts)
+      new(values[:id]).send(:initialize_from, values, opts, last_response)
     end
 
     # Determines the equality of two Stripe objects. Stripe objects are
@@ -424,7 +427,9 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    protected def initialize_from(values, opts)
+    protected def initialize_from(values, opts, last_response = nil)
+      @last_response = last_response
+
       @opts = Util.normalize_opts(opts)
 
       # the `#send` is here so that we can keep this method private

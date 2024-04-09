@@ -1590,6 +1590,10 @@ module Stripe
         charge = Stripe::Charge.list
         assert_not_nil charge.last_response
         assert charge.last_response.is_a?(Stripe::StripeResponse)
+        assert_equal 200, charge.last_response.http_status
+        assert_not_nil charge.last_response.http_headers
+        assert charge.last_response.http_headers.is_a?(Stripe::StripeResponseHeaders)
+        assert_not_nil charge.last_response.data
         assert_equal({ id: "ch_123", amount: "100" }, charge.last_response.data)
       end
     end

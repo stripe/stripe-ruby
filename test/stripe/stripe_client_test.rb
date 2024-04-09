@@ -1633,5 +1633,20 @@ module Stripe
         _ = StripeClient::SystemProfiler.uname_from_system_ver
       end
     end
+
+    context "#last_response" do
+      should "return last_response with StripeObjects" do
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: '{"id": "ch_123", "amount": "100"}')
+        charge = Stripe::Charge.list
+        assert_not_nil charge.last_response
+        assert charge.last_response.is_a?(Stripe::StripeResponse)
+        assert_equal 200, charge.last_response.http_status
+        assert_not_nil charge.last_response.http_headers
+        assert charge.last_response.http_headers.is_a?(Stripe::StripeResponseHeaders)
+        assert_not_nil charge.last_response.data
+        assert_equal({ id: "ch_123", amount: "100" }, charge.last_response.data)
+      end
+    end
   end
 end

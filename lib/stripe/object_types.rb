@@ -12,7 +12,7 @@ module Stripe
         SearchResultObject.object_name => SearchResultObject,
         File.object_name_alt => File,
 
-        # The beginning of the section generated from our OpenAPI spec
+        # object classes: The beginning of the section generated from our OpenAPI spec
         Account.object_name => Account,
         AccountLink.object_name => AccountLink,
         AccountSession.object_name => AccountSession,
@@ -139,7 +139,7 @@ module Stripe
         UsageRecord.object_name => UsageRecord,
         UsageRecordSummary.object_name => UsageRecordSummary,
         WebhookEndpoint.object_name => WebhookEndpoint,
-        # The end of the section generated from our OpenAPI spec
+        # object classes: The end of the section generated from our OpenAPI spec
       }
     end
   end

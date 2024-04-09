@@ -89,7 +89,7 @@ module Stripe
     def refresh
       resp, opts = execute_resource_request(:get, resource_url,
                                             @retrieve_params)
-      initialize_from(resp.data, opts)
+      initialize_from(resp.data, opts, resp)
     end
 
     def self.retrieve(id, opts = {})
@@ -104,9 +104,9 @@ module Stripe
 
       # If we're getting back this thing, update; otherwise, instantiate.
       if Util.object_name_matches_class?(resp.data[:object], self.class)
-        initialize_from(resp.data, opts)
+        initialize_from(resp.data, opts, resp)
       else
-        Util.convert_to_stripe_object_with_params(resp.data, params, opts)
+        Util.convert_to_stripe_object_with_params(resp.data, params, opts, resp)
       end
     end
 

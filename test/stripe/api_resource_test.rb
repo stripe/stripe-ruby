@@ -413,15 +413,17 @@ module Stripe
 
       should "add key to nested objects on save" do
         acct = Stripe::Account.construct_from(id: "myid",
-                                              capabilities: {
-                                                card_payments: "inactive",
+                                              legal_entity: {
+                                                size: "l",
+                                                score: 4,
+                                                height: 10,
                                               })
 
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { capabilities: { transfers: "inactive" } })
+          .with(body: { legal_entity: { first_name: "Bob" } })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.capabilities.transfers = "inactive"
+        acct.legal_entity.first_name = "Bob"
         acct.save
       end
 
@@ -483,54 +485,54 @@ module Stripe
 
       should "correctly handle array setting on save" do
         acct = Stripe::Account.construct_from(id: "myid",
-                                              external_accounts: {})
+                                              legal_entity: {})
 
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { external_accounts: { data: [{ id: "1234" }] } })
+          .with(body: { legal_entity: { additional_owners: [{ first_name: "Bob" }] } })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.external_accounts.data = [{ id: "1234" }]
+        acct.legal_entity.additional_owners = [{ first_name: "Bob" }]
         acct.save
       end
 
       should "correctly handle array insertion on save" do
         acct = Stripe::Account.construct_from(id: "myid",
-                                              external_accounts: {
-                                                data: [],
+                                              legal_entity: {
+                                                additional_owners: [],
                                               })
 
         # Note that this isn't a perfect check because we're using webmock's
         # data decoding, which isn't aware of the Stripe array encoding that we
         # use here.
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { external_accounts: { data: [{ id: "1234" }] } })
+          .with(body: { legal_entity: { additional_owners: [{ first_name: "Bob" }] } })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.external_accounts.data << { id: "1234" }
+        acct.legal_entity.additional_owners << { first_name: "Bob" }
         acct.save
       end
 
       should "correctly handle array updates on save" do
         acct = Stripe::Account.construct_from(id: "myid",
-                                              external_accounts: {
-                                                data: [{ account: "1234" }, { account: "5678" }],
+                                              legal_entity: {
+                                                additional_owners: [{ first_name: "Bob" }, { first_name: "Jane" }],
                                               })
 
         # Note that this isn't a perfect check because we're using webmock's
         # data decoding, which isn't aware of the Stripe array encoding that we
         # use here.
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")
-          .with(body: { external_accounts: { data: [{ account: "56789" }] } })
+          .with(body: { legal_entity: { additional_owners: [{ first_name: "Janet" }] } })
           .to_return(body: JSON.generate("id" => "myid"))
 
-        acct.external_accounts.data[1].account = "56789"
+        acct.legal_entity.additional_owners[1].first_name = "Janet"
         acct.save
       end
 
       should "correctly handle array noops on save" do
         acct = Stripe::Account.construct_from(id: "myid",
-                                              external_accounts: {
-                                                data: [{ id: "Bob" }],
+                                              legal_entity: {
+                                                additional_owners: [{ first_name: "Bob" }],
                                               },
                                               currencies_supported: %w[usd cad])
 
@@ -543,8 +545,8 @@ module Stripe
 
       should "correctly handle hash noops on save" do
         acct = Stripe::Account.construct_from(id: "myid",
-                                              settings: {
-                                                bacs_debit_payments: { display_name: "1 Two Three" },
+                                              legal_entity: {
+                                                address: { line1: "1 Two Three" },
                                               })
 
         stub_request(:post, "#{Stripe.api_base}/v1/accounts/myid")

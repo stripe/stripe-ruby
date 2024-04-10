@@ -95,7 +95,108 @@ module Stripe
       end
     end
 
+    context "#legal_entity=" do
+      should "disallow direct overrides" do
+        account = Stripe::Account.construct_from(
+          id: "acct_123",
+          legal_entity: {
+            first_name: "name",
+          }
+        )
+
+        assert_raise NoMethodError do
+          account.legal_entity = { first_name: "Blah" }
+        end
+
+        account.legal_entity.first_name = "Blah"
+      end
+    end
+
     context "#serialize_params" do
+      should "serialize a new additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+          legal_entity: Stripe::StripeObject.construct_from({}),
+        }, {})
+        obj.legal_entity.additional_owners = [
+          { first_name: "Joe" },
+          { first_name: "Jane" },
+        ]
+
+        expected = {
+          legal_entity: {
+            additional_owners: {
+              "0" => { first_name: "Joe" },
+              "1" => { first_name: "Jane" },
+            },
+          },
+        }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      should "serialize on an partially changed additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+          legal_entity: {
+            additional_owners: [
+              Stripe::StripeObject.construct_from(first_name: "Joe"),
+              Stripe::StripeObject.construct_from(first_name: "Jane"),
+            ],
+          },
+        }, {})
+        obj.legal_entity.additional_owners[1].first_name = "Stripe"
+
+        expected = {
+          legal_entity: {
+            additional_owners: {
+              "1" => { first_name: "Stripe" },
+            },
+          },
+        }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      should "serialize on an unchanged additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+          legal_entity: {
+            additional_owners: [
+              Stripe::StripeObject.construct_from(first_name: "Joe"),
+              Stripe::StripeObject.construct_from(first_name: "Jane"),
+            ],
+          },
+        }, {})
+
+        expected = {
+          legal_entity: {
+            additional_owners: {},
+          },
+        }
+        assert_equal(expected, obj.serialize_params)
+      end
+
+      # Note that the empty string that we send for this one has a special
+      # meaning for the server, which interprets it as an array unset.
+      should "serialize on an unset additional_owners" do
+        obj = Stripe::Util.convert_to_stripe_object({
+          object: "account",
+          legal_entity: {
+            additional_owners: [
+              Stripe::StripeObject.construct_from(first_name: "Joe"),
+              Stripe::StripeObject.construct_from(first_name: "Jane"),
+            ],
+          },
+        }, {})
+        obj.legal_entity.additional_owners = nil
+
+        expected = {
+          legal_entity: {
+            additional_owners: "",
+          },
+        }
+        assert_equal(expected, obj.serialize_params)
+      end
+
       should "serialize on a new individual" do
         obj = Stripe::Util.convert_to_stripe_object({
           object: "account",

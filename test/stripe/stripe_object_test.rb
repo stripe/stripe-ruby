@@ -506,5 +506,12 @@ module Stripe
       # Value still accessible with hash syntax
       assert_equal "something", obj.metadata[:class]
     end
+
+    context "#last_response" do
+      should "return raw response in last_response of object" do
+        obj = Stripe::StripeObject.construct_from({}, {}, { foo: "bar" })
+        assert_equal({ foo: "bar" }, obj.last_response)
+      end
+    end
   end
 end

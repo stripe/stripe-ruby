@@ -110,7 +110,7 @@ module Stripe
     # both socket errors that may represent an intermittent problem and some
     # special HTTP statuses.
     def self.should_retry?(error,
-                           method:, num_retries:, config: Stripe.config)
+                           num_retries:, config: Stripe.config)
       return false if num_retries >= config.max_network_retries
 
       case error
@@ -143,15 +143,12 @@ module Stripe
         # These 429s are safe to retry.
         return true if error.http_status == 429 && error.code == "lock_timeout"
 
-        # 500 Internal Server Error
+        # Retry on 500, 503, and other internal errors.
         #
-        # We only bother retrying these for non-POST requests. POSTs end up
-        # being cached by the idempotency layer so there's no purpose in
-        # retrying them.
-        return true if error.http_status == 500 && method != :post
-
-        # 503 Service Unavailable
-        error.http_status == 503
+        # Note that we expect the stripe-should-retry header to be false
+        # in most cases when a 500 is returned, since our idempotency framework
+        # would typically replay it anyway.
+        true if error.http_status >= 500
       else
         false
       end
@@ -498,7 +495,7 @@ module Stripe
         end
 
       http_resp =
-        execute_request_with_rescues(method, api_base, headers, usage, context) do
+        execute_request_with_rescues(api_base, headers, usage, context) do
           self.class
               .default_connection_manager(config)
               .execute_request(method, url,
@@ -583,7 +580,7 @@ module Stripe
       http_status >= 400
     end
 
-    private def execute_request_with_rescues(method, api_base, headers, usage, context)
+    private def execute_request_with_rescues(api_base, headers, usage, context)
       num_retries = 0
 
       begin
@@ -634,7 +631,6 @@ module Stripe
                            user_data, resp, headers)
 
         if self.class.should_retry?(e,
-                                    method: method,
                                     num_retries: num_retries,
                                     config: config)
           num_retries += 1

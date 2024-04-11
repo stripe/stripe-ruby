@@ -176,7 +176,7 @@ module Stripe
       request_stripe_object(method: :post, path: "/v1/payment_intents", params: params, opts: opts)
     end
 
-    # Perform an decremental authorization on an eligible
+    # Perform a decremental authorization on an eligible
     # [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
     # PaymentIntent's status must be requires_capture and
     # [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
@@ -191,7 +191,7 @@ module Stripe
     # The PaymentIntent will now be capturable up to the new authorized amount.
     #
     # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
-    # After it's captured, a PaymentIntent can no longer be decremented.
+    # After it's fully captured, a PaymentIntent can no longer be decremented.
     def decrement_authorization(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -201,7 +201,7 @@ module Stripe
       )
     end
 
-    # Perform an decremental authorization on an eligible
+    # Perform a decremental authorization on an eligible
     # [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
     # PaymentIntent's status must be requires_capture and
     # [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
@@ -216,7 +216,7 @@ module Stripe
     # The PaymentIntent will now be capturable up to the new authorized amount.
     #
     # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
-    # After it's captured, a PaymentIntent can no longer be decremented.
+    # After it's fully captured, a PaymentIntent can no longer be decremented.
     def self.decrement_authorization(intent, params = {}, opts = {})
       request_stripe_object(
         method: :post,

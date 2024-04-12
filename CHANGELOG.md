@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.1.0-beta.1 - 2024-04-11
+* [#1376](https://github.com/stripe/stripe-ruby/pull/1376) Update generated code for beta
+  * Add support for `retrieve` method on resources `Entitlements.ActiveEntitlement` and `Entitlements.Feature`
+
 ## 11.0.0 - 2024-04-10
 
 - [#1374](https://github.com/stripe/stripe-ruby/pull/1374)

@@ -3,8 +3,6 @@
 ## 11.1.0 - 2024-04-16
 * [#1379](https://github.com/stripe/stripe-ruby/pull/1379) Update generated code
   * Add support for new resource `Entitlements.ActiveEntitlementSummary`
-* [#1382](https://github.com/stripe/stripe-ruby/pull/1382) Revert Makefile change to allow autoformatting in codegen
-* [#1380](https://github.com/stripe/stripe-ruby/pull/1380) Rename section for object types
 
 ## 11.1.0-beta.1 - 2024-04-11
 * [#1376](https://github.com/stripe/stripe-ruby/pull/1376) Update generated code for beta

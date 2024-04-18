@@ -3,9 +3,9 @@
 
 module Stripe
   module Forwarding
-    # Instructs Stripe to make a request on your behalf using the destination URL and HTTP method in the config.
-    # A config is set up for each destination URL by Stripe at the time of onboarding. Stripe verifies requests with
-    # your credentials in the config, and injects card details from the payment_method into the request.
+    # Instructs Stripe to make a request on your behalf using the destination URL. The destination URL
+    # is activated by Stripe at the time of onboarding. Stripe verifies requests with your credentials
+    # provided during onboarding, and injects card details from the payment_method into the request.
     #
     # Stripe redacts all sensitive fields and headers, including authentication credentials and card numbers,
     # before storing the request and response data in the forwarding Request object, which are subject to a

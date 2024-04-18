@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.1.0 - 2024-04-16
+* [#1379](https://github.com/stripe/stripe-ruby/pull/1379) Update generated code
+  * Add support for new resource `Entitlements.ActiveEntitlementSummary`
+
 ## 11.1.0-beta.1 - 2024-04-11
 * [#1376](https://github.com/stripe/stripe-ruby/pull/1376) Update generated code for beta
   * Add support for `retrieve` method on resources `Entitlements.ActiveEntitlement` and `Entitlements.Feature`
@@ -2037,3 +2041,4 @@ Identical to 1.56.0 above. I incorrectly cut a patch-level release.
 <!--
 # vim: set tw=0:
 -->
+

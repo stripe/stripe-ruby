@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.3.0-beta.1 - 2024-04-18
+* [#1383](https://github.com/stripe/stripe-ruby/pull/1383) Update generated code for beta
+
+
 ## 11.1.0 - 2024-04-16
 * [#1379](https://github.com/stripe/stripe-ruby/pull/1379) Update generated code
   * Add support for new resource `Entitlements.ActiveEntitlementSummary`

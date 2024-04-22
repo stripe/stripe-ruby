@@ -19,7 +19,7 @@ module Stripe
   #
   # You can't store or use tokens more than once. To store card or bank account
   # information for later use, create [Customer](https://stripe.com/docs/api#customers)
-  # objects or [Custom accounts](https://stripe.com/docs/api#external_accounts).
+  # objects or [External accounts](https://stripe.com/api#external_accounts).
   # [Radar](https://stripe.com/docs/radar), our integrated solution for automatic fraud protection,
   # performs best with integrations that use client-side tokenization.
   class Token < APIResource
@@ -31,7 +31,7 @@ module Stripe
     end
 
     # Creates a single-use token that represents a bank account's details.
-    # You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
+    # You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/tokens", params: params, opts: opts)
     end

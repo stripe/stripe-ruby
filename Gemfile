@@ -29,7 +29,7 @@ group :development do
 
   # jaro_winkler 1.5.5 installation fails for jruby
   # don't install on truffleruby
-  gem "jaro_winkler", "1.5.4" unless RUBY_ENGINE == "truffleruby"
+  gem "jaro_winkler", "1.5.6" unless RUBY_ENGINE == "truffleruby"
 
   gem "sorbet"
   gem "tapioca"

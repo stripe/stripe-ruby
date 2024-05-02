@@ -54,11 +54,11 @@ module Stripe
           end
         when :retrieve
           define_singleton_method(:"retrieve_#{resource}") \
-              do |id, nested_id, opts = {}|
+              do |id, nested_id, params = {}, opts = {}|
             request_stripe_object(
               method: :get,
               path: send(resource_url_method, id, nested_id),
-              params: {},
+              params: params,
               opts: opts
             )
           end

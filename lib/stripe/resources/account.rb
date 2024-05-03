@@ -6,9 +6,14 @@ module Stripe
   # properties on the account like its current requirements or if the account is
   # enabled to make live charges or receive payouts.
   #
-  # For Custom accounts, the properties below are always returned. For other accounts, some properties are returned until that
-  # account has started to go through Connect Onboarding. Once you create an [Account Link](https://stripe.com/docs/api/account_links) or [Account Session](https://stripe.com/docs/api/account_sessions),
-  # some properties are only returned for Custom accounts. Learn about the differences [between accounts](https://stripe.com/docs/connect/accounts).
+  # For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+  # is `application`, which includes Custom accounts, the properties below are always
+  # returned.
+  #
+  # For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+  # is `stripe`, which includes Standard and Express accounts, some properties are only returned
+  # until you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions)
+  # to start Connect Onboarding. Learn about the [differences between accounts](https://stripe.com/connect/accounts).
   class Account < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -39,9 +44,11 @@ module Stripe
       request_stripe_object(method: :post, path: "/v1/accounts", params: params, opts: opts)
     end
 
-    # With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+    # With [Connect](https://stripe.com/connect), you can delete accounts you manage.
     #
-    # Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+    # Test-mode accounts can be deleted at any time.
+    #
+    # Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balanace_object) are zero.
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     def self.delete(id, params = {}, opts = {})
@@ -53,9 +60,11 @@ module Stripe
       )
     end
 
-    # With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+    # With [Connect](https://stripe.com/connect), you can delete accounts you manage.
     #
-    # Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+    # Test-mode accounts can be deleted at any time.
+    #
+    # Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balanace_object) are zero.
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     def delete(params = {}, opts = {})
@@ -92,9 +101,9 @@ module Stripe
       )
     end
 
-    # With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+    # With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -104,9 +113,9 @@ module Stripe
       )
     end
 
-    # With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+    # With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
     def self.reject(account, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -116,12 +125,16 @@ module Stripe
       )
     end
 
-    # Updates a [connected account](https://stripe.com/docs/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
+    # Updates a [connected account](https://stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
     #
-    # For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
-    # account has started to go through Connect Onboarding. Once you create an [Account Link or <a href="/docs/api/account_sessions">Account Session](https://stripe.com/docs/api/account_links),
-    # some properties can only be changed or updated for Custom accounts.
+    # For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+    # is application, which includes Custom accounts, you can update any information on the account.
+    #
+    # For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+    # is stripe, which includes Standard and Express accounts, you can update all information until you create
+    # an [Account Link or <a href="/api/account_sessions">Account Session](https://stripe.com/api/account_links) to start Connect onboarding,
+    # after which some properties can no longer be updated.
     #
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.

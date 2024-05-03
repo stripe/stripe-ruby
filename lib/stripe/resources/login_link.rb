@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Login Links are single-use login link for an Express account to access their Stripe dashboard.
+  # Login Links are single-use URLs for a connected account to access the Express Dashboard. The connected account's [account.controller.stripe_dashboard.type](https://stripe.com/api/accounts/object#account_object-controller-stripe_dashboard-type) must be `express` to have access to the Express Dashboard.
   class LoginLink < APIResource
     OBJECT_NAME = "login_link"
     def self.object_name

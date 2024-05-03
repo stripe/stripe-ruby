@@ -9,6 +9,7 @@ module Stripe
     #
     # Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
     class Authorization < APIResource
+      extend Gem::Deprecate
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
@@ -27,6 +28,7 @@ module Stripe
           opts: opts
         )
       end
+      deprecate :approve, :none, 2024, 3
 
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
@@ -37,6 +39,10 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+      class << self
+        extend Gem::Deprecate
+        deprecate :approve, :none, 2024, 3
       end
 
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -49,6 +55,7 @@ module Stripe
           opts: opts
         )
       end
+      deprecate :decline, :none, 2024, 3
 
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
@@ -59,6 +66,10 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+      class << self
+        extend Gem::Deprecate
+        deprecate :decline, :none, 2024, 3
       end
 
       # Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.

@@ -18,6 +18,11 @@ module Stripe
       @system_profiler = SystemProfiler.new
       @last_request_metrics = nil
 
+      # The following attribute is only used to log whether or not
+      # StripeClient#request has been called. To be removed in a
+      # future major version.
+      @usage = []
+
       @config = case config_arg
                 when Hash
                   Stripe.config.reverse_duplicate_merge(config_arg)
@@ -186,6 +191,7 @@ module Stripe
     #     charge, resp = client.request { Charge.create }
     #
     def request
+      @usage = ["stripe_client_request"]
       old_stripe_client = self.class.current_thread_context.active_client
       self.class.current_thread_context.active_client = self
 
@@ -200,6 +206,7 @@ module Stripe
         res = yield
         [res, self.class.current_thread_context.last_responses[object_id]]
       ensure
+        @usage = []
         self.class.current_thread_context.active_client = old_stripe_client
         self.class.current_thread_context.last_responses.delete(object_id)
       end
@@ -583,7 +590,7 @@ module Stripe
         if config.enable_telemetry? && context.request_id
           request_duration_ms = (request_duration * 1000).to_i
           @last_request_metrics =
-            StripeRequestMetrics.new(context.request_id, request_duration_ms, usage: usage)
+            StripeRequestMetrics.new(context.request_id, request_duration_ms, usage: usage + @usage)
         end
 
       # We rescue all exceptions from a request so that we have an easy spot to

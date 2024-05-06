@@ -123,7 +123,7 @@ module Stripe
       stub_request(:get, "#{Stripe.api_base}/v1/charges")
         .with(headers: { "Authorization" => "Bearer sk_test_iter_forwards_options" })
         .with(query: { starting_after: "ch_001" })
-        .to_return(body: JSON.generate(data: [{ id: "ch_002" }], has_more: false, url: "/things",
+        .to_return(body: JSON.generate(data: [{ id: "ch_002" }], has_more: false, url: "/v1/charges",
                                        object: "list"))
 
       list = Stripe::Charge.list({}, { api_key: "sk_test_iter_forwards_options" })

@@ -174,6 +174,18 @@ module Stripe
           ch = Stripe::Charge.retrieve("ch_123", "sk_test_local")
           ch.refunds.create
         end
+
+        should "use the per-object credential when making subsequent requests on the object" do
+          stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+            .with(headers: { "Authorization" => "Bearer sk_test_local", "Stripe-Account" => "acct_12345" })
+            .to_return(body: JSON.generate(charge_fixture))
+          stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
+            .with(headers: { "Authorization" => "Bearer sk_test_local", "Stripe-Account" => "acct_12345" })
+            .to_return(body: "{}")
+
+          cus = Stripe::Customer.retrieve("cus_123", { api_key: "sk_test_local", stripe_account: "acct_12345" })
+          cus.delete
+        end
       end
     end
 
@@ -794,7 +806,7 @@ module Stripe
         hello.test_helpers.say_hello({ foo: "bar" }, stripe_account: "acct_hi")
       end
 
-      should "forward opts" do
+      should "forward opts from constructor" do
         stub_request(:post, "#{Stripe.api_base}/v1/test_helpers/hellos/hi_123/say_hello")
           .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
           .to_return(body: JSON.generate("object" => "hello"))

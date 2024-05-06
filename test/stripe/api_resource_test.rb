@@ -806,7 +806,7 @@ module Stripe
         hello.test_helpers.say_hello({ foo: "bar" }, stripe_account: "acct_hi")
       end
 
-      should "forward opts from constructor" do
+      should "forward opts" do
         stub_request(:post, "#{Stripe.api_base}/v1/test_helpers/hellos/hi_123/say_hello")
           .with(body: { foo: "bar" }, headers: { "Stripe-Account" => "acct_hi" })
           .to_return(body: JSON.generate("object" => "hello"))

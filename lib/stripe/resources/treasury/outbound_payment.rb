@@ -124,6 +124,26 @@ module Stripe
             opts: opts
           )
         end
+
+        # Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+        def self.update(id, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/outbound_payments/%<id>s", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+        def update(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/treasury/outbound_payments/%<id>s", { id: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
       end
     end
   end

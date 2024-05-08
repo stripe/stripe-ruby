@@ -91,6 +91,7 @@ module Stripe
 
       should "define a retrieve method with only opts" do
         stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id")
+          .with(headers: { "Stripe-Account" => "acct_123" })
           .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
         nested_resource = MainResource.retrieve_nested("id", "nested_id", { stripe_account: "acct_123" })
         assert_equal "bar", nested_resource.foo
@@ -98,6 +99,7 @@ module Stripe
 
       should "define a retrieve method with both opts and params" do
         stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id?expand[]=reverse")
+          .with(headers: { "Stripe-Account" => "acct_123" })
           .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
         nested_resource = MainResource.retrieve_nested("id", "nested_id", { expand: ["reverse"] }, { stripe_account: "acct_123" })
         assert_equal "bar", nested_resource.foo
@@ -111,8 +113,6 @@ module Stripe
       end
 
       should "warns when attempting to retrieve and pass only params" do
-        # stub_request(:get, "#{Stripe.api_base}/v1/mainresources/id/nesteds/nested_id?expand[]=reverse")
-        #   .to_return(body: JSON.generate(id: "nested_id", object: "nested", foo: "bar"))
         exception = assert_raises(ArgumentError) do
           MainResource.retrieve_nested("id", "nested_id", { expand: ["reverse"] })
         end

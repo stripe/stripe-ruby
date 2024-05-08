@@ -65,8 +65,8 @@ module Stripe
                 raise ArgumentError,
                       "Unrecognized request option: #{unrecognized_key}. Did you mean to specify this as " \
                       "retrieve params? " \
-                      "If so, you must explicitly pass an opts hash as a third argument. " \
-                      "For example: .retrieve({#{unrecognized_key}: 'foo'}, {})"
+                      "If so, you must explicitly pass an opts hash as a fourth argument. " \
+                      "For example: .retrieve(#{id}, #{nested_id}, {#{unrecognized_key}: 'foo'}, {})"
               end
 
               opts = params_or_opts

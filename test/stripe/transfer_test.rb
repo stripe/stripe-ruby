@@ -84,5 +84,16 @@ module Stripe
         assert reversals.data.is_a?(Array)
       end
     end
+
+    should "retrieve a reversal with expand" do
+      reversal = Stripe::Transfer.retrieve_reversal(
+        "tr_123",
+        "trr_123",
+        { expand: %w[transfer] },
+        {}
+      )
+      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123?expand%5B%5D=transfer"
+      assert reversal.is_a?(Stripe::Reversal)
+    end
   end
 end

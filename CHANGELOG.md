@@ -1,4 +1,12 @@
 # Changelog
+## 11.4.0 - 2024-05-09
+* [#1397](https://github.com/stripe/stripe-ruby/pull/1397) Update generated code
+  * Add support for `update` test helper method on resources `Treasury.OutboundPayment` and `Treasury.OutboundTransfer`
+* [#1399](https://github.com/stripe/stripe-ruby/pull/1399) Pass params to transfer reversal
+  * Allow `Stripe::Transfer.retrieve_reversal()` to accept a params hash as the third argument, followed by opts. No changes to existing calls are necessary, but in a future major version this method will be updated to only accept params as the first argument. Fixes [#1393](https://github.com/stripe/stripe-ruby/issues/1393)
+* [#1389](https://github.com/stripe/stripe-ruby/pull/1389) Removed jaro_winkler as a dependency
+* [#1396](https://github.com/stripe/stripe-ruby/pull/1396) Start tracking `StripeClient#request` usage
+
 ## 11.3.0 - 2024-05-02
 * [#1387](https://github.com/stripe/stripe-ruby/pull/1387) Update generated code
 

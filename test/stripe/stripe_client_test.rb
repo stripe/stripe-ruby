@@ -1473,6 +1473,78 @@ module Stripe
         assert(!trace_payload["last_request_metrics"]["request_duration_ms"].nil?)
         assert(trace_payload["last_request_metrics"]["usage"].nil?)
       end
+
+      should "send metrics on #request" do
+        Stripe.enable_telemetry = true
+
+        trace_metrics_header = nil
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .with do |req|
+          trace_metrics_header = req.headers["X-Stripe-Client-Telemetry"]
+          false
+        end.to_return(body: JSON.generate(object: "charge"))
+
+        client = StripeClient.new
+        client.request do
+          Charge.create
+          Charge.list
+        end
+
+        assert_not_nil(trace_metrics_header)
+        trace_payload = JSON.parse(trace_metrics_header)
+        assert_equal(["stripe_client_request"], trace_payload["last_request_metrics"]["usage"])
+      end
+
+      should "not send metrics outside of #request block" do
+        Stripe.enable_telemetry = true
+
+        trace_metrics_header = nil
+
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .with do |req|
+          trace_metrics_header = req.headers["X-Stripe-Client-Telemetry"]
+          false
+        end.to_return(body: JSON.generate(object: "charge"))
+
+        client = StripeClient.new
+        client.request do
+          Charge.create
+          Charge.list
+        end
+
+        Charge.create
+        Charge.list
+
+        assert_not_nil(trace_metrics_header)
+        trace_payload = JSON.parse(trace_metrics_header)
+        assert_nil(trace_payload["last_request_metrics"]["usage"])
+      end
+
+      should "append stripe_client_request usage to existing usage" do
+        Stripe.enable_telemetry = true
+
+        trace_metrics_header = nil
+        stub_request(:get, "#{Stripe.api_base}/v1/charges")
+          .with do |req|
+          trace_metrics_header = req.headers["X-Stripe-Client-Telemetry"]
+          false
+        end.to_return(body: JSON.generate(object: "charge"))
+
+        client = StripeClient.new
+
+        client.request do
+          cus = Customer.new("cus_xyz")
+          cus.description = "hello"
+          cus.save
+          Charge.list
+        end
+
+        assert_not_nil(trace_metrics_header)
+        trace_payload = JSON.parse(trace_metrics_header)
+
+        assert(trace_payload["last_request_metrics"]["usage"] == %w[save stripe_client_request])
+      end
     end
 
     context "instrumentation" do

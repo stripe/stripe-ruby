@@ -3,6 +3,12 @@
 ## 11.4.0-beta.1 - 2024-05-02
 * [#1386](https://github.com/stripe/stripe-ruby/pull/1386) Update generated code for beta
 
+## 11.3.0 - 2024-05-02
+* [#1387](https://github.com/stripe/stripe-ruby/pull/1387) Update generated code
+
+* [#1392](https://github.com/stripe/stripe-ruby/pull/1392) Deprecate Ruby methods based on OpenAPI spec
+  - Mark as deprecated the `approve` and `decline` methods in `lib/stripe/resources/issuing/authorization.rb`. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+* [#1391](https://github.com/stripe/stripe-ruby/pull/1391) Add Ruby 3.3 to CI test matrix
 
 ## 11.3.0-beta.1 - 2024-04-18
 * [#1383](https://github.com/stripe/stripe-ruby/pull/1383) Update generated code for beta

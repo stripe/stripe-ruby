@@ -46,71 +46,71 @@ module Stripe
         when :create
           define_singleton_method(:"create_#{resource}") \
               do |id, params = {}, opts = {}|
-            request_stripe_object(
-              method: :post,
-              path: send(resource_url_method, id),
-              params: params,
-              opts: opts
-            )
-          end
+                request_stripe_object(
+                  method: :post,
+                  path: send(resource_url_method, id),
+                  params: params,
+                  opts: opts
+                )
+              end
         when :retrieve
           # TODO: (Major) Split params_or_opts to params and opts and get rid of the complicated way to add params
           define_singleton_method(:"retrieve_#{resource}") \
               do |id, nested_id, params_or_opts = {}, definitely_opts = nil|
-            opts = nil
-            params = nil
-            if definitely_opts.nil?
-              unrecognized_key = params_or_opts.keys.find { |k| !Util::OPTS_USER_SPECIFIED.include?(k) }
-              if unrecognized_key
-                raise ArgumentError,
-                      "Unrecognized request option: #{unrecognized_key}. Did you mean to specify this as " \
-                      "retrieve params? " \
-                      "If so, you must explicitly pass an opts hash as a fourth argument. " \
-                      "For example: .retrieve(#{id}, #{nested_id}, {#{unrecognized_key}: 'foo'}, {})"
-              end
+                opts = nil
+                params = nil
+                if definitely_opts.nil?
+                  unrecognized_key = params_or_opts.keys.find { |k| !Util::OPTS_USER_SPECIFIED.include?(k) }
+                  if unrecognized_key
+                    raise ArgumentError,
+                          "Unrecognized request option: #{unrecognized_key}. Did you mean to specify this as " \
+                          "retrieve params? " \
+                          "If so, you must explicitly pass an opts hash as a fourth argument. " \
+                          "For example: .retrieve(#{id}, #{nested_id}, {#{unrecognized_key}: 'foo'}, {})"
+                  end
 
-              opts = params_or_opts
-            else
-              opts = definitely_opts
-              params = params_or_opts
-            end
-            request_stripe_object(
-              method: :get,
-              path: send(resource_url_method, id, nested_id),
-              params: params,
-              opts: opts
-            )
-          end
+                  opts = params_or_opts
+                else
+                  opts = definitely_opts
+                  params = params_or_opts
+                end
+                request_stripe_object(
+                  method: :get,
+                  path: send(resource_url_method, id, nested_id),
+                  params: params,
+                  opts: opts
+                )
+              end
         when :update
           define_singleton_method(:"update_#{resource}") \
               do |id, nested_id, params = {}, opts = {}|
-            request_stripe_object(
-              method: :post,
-              path: send(resource_url_method, id, nested_id),
-              params: params,
-              opts: opts
-            )
-          end
+                request_stripe_object(
+                  method: :post,
+                  path: send(resource_url_method, id, nested_id),
+                  params: params,
+                  opts: opts
+                )
+              end
         when :delete
           define_singleton_method(:"delete_#{resource}") \
               do |id, nested_id, params = {}, opts = {}|
-            request_stripe_object(
-              method: :delete,
-              path: send(resource_url_method, id, nested_id),
-              params: params,
-              opts: opts
-            )
-          end
+                request_stripe_object(
+                  method: :delete,
+                  path: send(resource_url_method, id, nested_id),
+                  params: params,
+                  opts: opts
+                )
+              end
         when :list
           define_singleton_method(:"list_#{resource_plural}") \
               do |id, params = {}, opts = {}|
-            request_stripe_object(
-              method: :get,
-              path: send(resource_url_method, id),
-              params: params,
-              opts: opts
-            )
-          end
+                request_stripe_object(
+                  method: :get,
+                  path: send(resource_url_method, id),
+                  params: params,
+                  opts: opts
+                )
+              end
         else
           raise ArgumentError, "Unknown operation: #{operation.inspect}"
         end

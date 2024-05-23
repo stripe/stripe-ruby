@@ -1,5 +1,8 @@
 # Changelog
 
+## 11.5.0 - 2024-05-23
+* [#999](https://github.com/stripe/stripe-ruby/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
+
 ## 11.5.0-beta.1 - 2024-05-09
 * [#1395](https://github.com/stripe/stripe-ruby/pull/1395) Update generated code for beta
   * No new beta features. Merging changes from the main branch.

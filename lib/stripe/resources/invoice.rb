@@ -47,6 +47,7 @@ module Stripe
       "invoice"
     end
 
+    nested_resource_class_methods :line, operations: %i[list]
     nested_resource_class_methods :payment, operations: %i[retrieve list]
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.

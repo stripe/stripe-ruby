@@ -1,6 +1,6 @@
 # Changelog
 ## 11.5.0 - 2024-05-23
-* [#999](https://github.com/stripe/stripe-ruby/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
+* This release has no changes.
 
 ## 11.4.0 - 2024-05-09
 * [#1397](https://github.com/stripe/stripe-ruby/pull/1397) Update generated code
@@ -26,12 +26,12 @@
   * Add support for new resource `Entitlements.ActiveEntitlementSummary`
 
 ## 11.0.0 - 2024-04-10
-* [#1374](https://github.com/stripe/stripe-ruby/pull/1374) 
-  
+* [#1374](https://github.com/stripe/stripe-ruby/pull/1374)
+
   * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
-  
+
   ### ⚠️ Breaking changes
-  
+
   * When no `x-stripe-should-retry` header is set in the response, the library now retries all requests with `status >= 500`, not just non-POST methods.
 
 ## 10.15.0 - 2024-04-09

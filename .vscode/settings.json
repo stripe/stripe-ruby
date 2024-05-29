@@ -1,5 +1,8 @@
 {
   "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
   "files.trimTrailingWhitespace": true,
 
   // Rubocop settings

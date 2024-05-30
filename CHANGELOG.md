@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.7.0-beta.1 - 2024-05-30
+* [#1400](https://github.com/stripe/stripe-ruby/pull/1400) Update generated code for beta
+  * Keeping up with the changes from version 11.6.0
+
 ## 11.5.0 - 2024-05-23
 * This release has no changes.
 

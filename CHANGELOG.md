@@ -1,9 +1,19 @@
 # Changelog
 
+## 11.5.0 - 2024-05-23
+* This release has no changes.
+
 ## 11.5.0-beta.1 - 2024-05-09
 * [#1395](https://github.com/stripe/stripe-ruby/pull/1395) Update generated code for beta
   * No new beta features. Merging changes from the main branch.
 
+## 11.4.0 - 2024-05-09
+* [#1397](https://github.com/stripe/stripe-ruby/pull/1397) Update generated code
+  * Add support for `update` test helper method on resources `Treasury.OutboundPayment` and `Treasury.OutboundTransfer`
+* [#1399](https://github.com/stripe/stripe-ruby/pull/1399) Pass params to transfer reversal
+  * Allow `Stripe::Transfer.retrieve_reversal()` to accept a params hash as the third argument, followed by opts. No changes to existing calls are necessary, but in a future major version this method will be updated to only accept params as the first argument. Fixes [#1393](https://github.com/stripe/stripe-ruby/issues/1393)
+* [#1389](https://github.com/stripe/stripe-ruby/pull/1389) Removed jaro_winkler as a dependency
+* [#1396](https://github.com/stripe/stripe-ruby/pull/1396) Start tracking `StripeClient#request` usage
 
 ## 11.4.0-beta.1 - 2024-05-02
 * [#1386](https://github.com/stripe/stripe-ruby/pull/1386) Update generated code for beta
@@ -31,14 +41,13 @@
   * Add support for `retrieve` method on resources `Entitlements.ActiveEntitlement` and `Entitlements.Feature`
 
 ## 11.0.0 - 2024-04-10
+* [#1374](https://github.com/stripe/stripe-ruby/pull/1374)
 
-- [#1374](https://github.com/stripe/stripe-ruby/pull/1374)
-
-  - This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
+  * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
 
-  - When no `x-stripe-should-retry` header is set in the response, the library now retries all requests with `status >= 500`, not just non-POST methods.
+  * When no `x-stripe-should-retry` header is set in the response, the library now retries all requests with `status >= 500`, not just non-POST methods.
 
 ## 10.15.0 - 2024-04-09
 

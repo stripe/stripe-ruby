@@ -208,6 +208,15 @@ module Stripe
       end
     end
 
+    context ".list_line_items" do
+      should "retrieve invoice line items" do
+        line_items = Stripe::Invoice.list_lines("in_123")
+        assert_requested :get, "#{Stripe.api_base}/v1/invoices/in_123/lines"
+        assert line_items.data.is_a?(Array)
+        assert line_items.data[0].is_a?(Stripe::InvoiceLineItem)
+      end
+    end
+
     context "#void_invoice" do
       should "void invoice" do
         invoice = Stripe::Invoice.retrieve("in_123")

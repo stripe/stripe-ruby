@@ -1,7 +1,7 @@
 {
   "recommendations": [
     "rebornix.ruby",
-    "misogi.ruby-rubocop",
+    "LoranKloeze.ruby-rubocop-revived",
     "EditorConfig.editorconfig"
   ]
 }

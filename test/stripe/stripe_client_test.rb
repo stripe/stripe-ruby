@@ -1354,7 +1354,7 @@ module Stripe
 
         begin
           client = StripeClient.new
-          charge, resp = client.request { Charge.create }
+          client.request { Charge.create }
           message = "NOTE: Stripe::StripeClient#request is " \
                     "deprecated"
           assert_match Regexp.new(message), $stderr.string

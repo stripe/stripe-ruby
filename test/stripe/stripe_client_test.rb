@@ -1345,6 +1345,23 @@ module Stripe
                        e.message
         end
       end
+
+      should "warn that #request is deprecated" do
+        old_stderr = $stderr
+        $stderr = StringIO.new
+        stub_request(:post, "#{Stripe.api_base}/v1/charges")
+          .to_return(body: JSON.generate(object: "charge"))
+
+        begin
+          client = StripeClient.new
+          client.request { Charge.create }
+          message = "NOTE: Stripe::StripeClient#request is " \
+                    "deprecated"
+          assert_match Regexp.new(message), $stderr.string
+        ensure
+          $stderr = old_stderr
+        end
+      end
     end
 
     context "#proxy" do

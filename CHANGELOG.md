@@ -1,4 +1,8 @@
 # Changelog
+## 11.7.0 - 2024-06-13
+* [#1415](https://github.com/stripe/stripe-ruby/pull/1415) Deprecate StripeClient#request
+  * Add deprecation warning for `StripeClient#request`. This helper method will be removed in a future major version. To access response objects, use the `last_response` property on the returned resource instead. Refer to [Accessing a response object](https://github.com/stripe/stripe-ruby?tab=readme-ov-file#accessing-a-response-object) in the README for usage details.
+
 ## 11.6.0 - 2024-05-30
 * [#1404](https://github.com/stripe/stripe-ruby/pull/1404) Add method to list invoice line items
   * Add methods `list_lines()` on the class `Invoice` to list the invoice line items

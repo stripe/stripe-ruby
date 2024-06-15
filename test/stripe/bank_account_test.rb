@@ -31,6 +31,12 @@ module Stripe
         bank_account = bank_account.verify(amounts: [1, 2])
         assert bank_account.is_a?(Stripe::BankAccount)
       end
+
+      should "verify the account using the static method" do
+        bank_account = Stripe::BankAccount.verify(customer: "cus_123",
+                                                  id: "ba_123", amounts: [1, 2])
+        assert bank_account.is_a?(Stripe::BankAccount)
+      end
     end
   end
 end

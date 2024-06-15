@@ -25,6 +25,11 @@ module Stripe
       initialize_from(resp.data, opts)
     end
 
+    def self.verify(customer, id, params = {}, opts = {})
+      resp, opts = execute_resource_request(:post, "#{Customer.resource_url}/#{customer}/sources/#{id}/verify", params, opts)
+      initialize_from(resp.data, opts)
+    end
+
     def resource_url
       if respond_to?(:customer)
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"

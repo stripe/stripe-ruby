@@ -1,4 +1,15 @@
 # Changelog
+## 11.7.0 - 2024-06-13
+* [#1415](https://github.com/stripe/stripe-ruby/pull/1415) Deprecate StripeClient#request
+  * Add deprecation warning for `StripeClient#request`. This helper method will be removed in a future major version. To access response objects, use the `last_response` property on the returned resource instead. Refer to [Accessing a response object](https://github.com/stripe/stripe-ruby?tab=readme-ov-file#accessing-a-response-object) in the README for usage details.
+
+## 11.6.0 - 2024-05-30
+* [#1404](https://github.com/stripe/stripe-ruby/pull/1404) Add method to list invoice line items
+  * Add methods `list_lines()` on the class `Invoice` to list the invoice line items
+
+## 11.5.0 - 2024-05-23
+* This release has no changes.
+
 ## 11.4.0 - 2024-05-09
 * [#1397](https://github.com/stripe/stripe-ruby/pull/1397) Update generated code
   * Add support for `update` test helper method on resources `Treasury.OutboundPayment` and `Treasury.OutboundTransfer`
@@ -23,12 +34,12 @@
   * Add support for new resource `Entitlements.ActiveEntitlementSummary`
 
 ## 11.0.0 - 2024-04-10
-* [#1374](https://github.com/stripe/stripe-ruby/pull/1374) 
-  
+* [#1374](https://github.com/stripe/stripe-ruby/pull/1374)
+
   * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
-  
+
   ### ⚠️ Breaking changes
-  
+
   * When no `x-stripe-should-retry` header is set in the response, the library now retries all requests with `status >= 500`, not just non-POST methods.
 
 ## 10.15.0 - 2024-04-09

@@ -190,6 +190,7 @@ module Stripe
     #     client = StripeClient.new
     #     charge, resp = client.request { Charge.create }
     #
+
     def request
       @usage = ["stripe_client_request"]
       old_stripe_client = self.class.current_thread_context.active_client
@@ -211,6 +212,9 @@ module Stripe
         self.class.current_thread_context.last_responses.delete(object_id)
       end
     end
+    deprecate :request, "the `last_response` property on the returned resource (see " \
+                        "https://github.com/stripe/stripe-ruby?tab=readme-ov-file#accessing-a-response-object " \
+                        "for usage examples)", 2024, 6
 
     def execute_request(method, path,
                         api_base: nil, api_key: nil, headers: {}, params: {}, usage: [])

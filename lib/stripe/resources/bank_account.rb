@@ -21,13 +21,21 @@ module Stripe
     end
 
     def verify(params = {}, opts = {})
-      resp, opts = execute_resource_request(:post, resource_url + "/verify", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: "#{Customer.resource_url}/#{customer}/sources/#{id}/verify",
+        params: params,
+        opts: opts
+      )
     end
 
     def self.verify(customer, id, params = {}, opts = {})
-      resp, opts = execute_resource_request(:post, "#{Customer.resource_url}/#{customer}/sources/#{id}/verify", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: "#{Customer.resource_url}/#{customer}/sources/#{id}/verify",
+        params: params,
+        opts: opts
+      )
     end
 
     def resource_url

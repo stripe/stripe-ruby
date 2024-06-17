@@ -30,12 +30,14 @@ module Stripe
                                                           id: "ba_123")
         bank_account = bank_account.verify(amounts: [1, 2])
         assert bank_account.is_a?(Stripe::BankAccount)
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123/verify"
       end
 
       should "verify the account using the static method" do
         bank_account = Stripe::BankAccount.verify("cus_123",
                                                   "ba_123", amounts: [1, 2])
         assert bank_account.is_a?(Stripe::BankAccount)
+        assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/sources/ba_123/verify"
       end
     end
   end

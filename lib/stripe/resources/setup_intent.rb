@@ -35,7 +35,7 @@ module Stripe
 
     # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
     #
-    # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+    # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -47,7 +47,7 @@ module Stripe
 
     # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
     #
-    # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+    # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
     def self.cancel(intent, params = {}, opts = {})
       request_stripe_object(
         method: :post,

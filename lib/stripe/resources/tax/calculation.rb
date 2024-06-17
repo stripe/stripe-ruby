@@ -24,7 +24,7 @@ module Stripe
         )
       end
 
-      # Retrieves the line items of a persisted tax calculation as a collection.
+      # Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
       def list_line_items(params = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -34,7 +34,7 @@ module Stripe
         )
       end
 
-      # Retrieves the line items of a persisted tax calculation as a collection.
+      # Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
       def self.list_line_items(calculation, params = {}, opts = {})
         request_stripe_object(
           method: :get,

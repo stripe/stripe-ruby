@@ -366,7 +366,7 @@ module Stripe
       # garbage in `Thread.current`.
       attr_accessor :last_responses
 
-      # A map of connection mangers for the thread. Normally shared between
+      # A map of connection managers for the thread. Normally shared between
       # all `StripeClient` objects on a particular thread, and created so as to
       # minimize the number of open connections that an application needs.
       def default_connection_managers

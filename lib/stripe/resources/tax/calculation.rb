@@ -14,7 +14,7 @@ module Stripe
         "tax.calculation"
       end
 
-      # Calculates tax based on input and returns a Tax Calculation object.
+      # Calculates tax based on the input and returns a Tax Calculation object.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,

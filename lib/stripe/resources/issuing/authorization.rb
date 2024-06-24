@@ -152,6 +152,26 @@ module Stripe
           )
         end
 
+        # Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+        def self.finalize_amount(authorization, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/finalize_amount", { authorization: CGI.escape(authorization) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
+        def finalize_amount(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/finalize_amount", { authorization: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
         # Increment a test-mode Authorization.
         def self.increment(authorization, params = {}, opts = {})
           request_stripe_object(

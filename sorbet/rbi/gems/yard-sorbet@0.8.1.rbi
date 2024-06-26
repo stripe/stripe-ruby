@@ -381,7 +381,7 @@ class YARDSorbet::TStructProp < ::T::Struct
   const :types, T::Array[::String]
 
   class << self
-    # source://sorbet-runtime/0.5.11218/lib/types/struct.rb#13
+    # source://sorbet-runtime/0.5.11247/lib/types/struct.rb#13
     def inherited(s); end
   end
 end

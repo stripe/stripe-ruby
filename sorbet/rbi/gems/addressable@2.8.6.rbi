@@ -28,7 +28,7 @@ module Addressable::IDNA
     def to_unicode(input); end
 
     # @deprecated Use {String#unicode_normalize(:nfkc)} instead
-    def unicode_normalize_kc(*args, &block); end
+    def unicode_normalize_kc(*args, **_arg1, &block); end
 
     private
 

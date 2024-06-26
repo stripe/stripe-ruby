@@ -558,6 +558,36 @@ module Rake::DSL
 
   private
 
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def cd(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def chdir(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def chmod(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def chmod_R(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def chown(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def chown_R(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def copy(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def cp(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def cp_lr(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def cp_r(*args, **options, &block); end
+
   # Describes the next rake task.  Duplicate descriptions are discarded.
   # Descriptions are shown with <code>rake -T</code> (up to the first
   # sentence) and <code>rake -D</code> (the entire description).
@@ -619,6 +649,39 @@ module Rake::DSL
   # source://rake//lib/rake/dsl_definition.rb#183
   def import(*fns); end
 
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def install(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def link(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def ln(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def ln_s(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def ln_sf(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def ln_sr(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def makedirs(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def mkdir(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def mkdir_p(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def mkpath(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def move(*args, **options, &block); end
+
   # Declare a task that performs its prerequisites in
   # parallel. Multitasks does *not* guarantee that its prerequisites
   # will execute in any given order (which is obvious when you think
@@ -629,6 +692,9 @@ module Rake::DSL
   #
   # source://rake//lib/rake/dsl_definition.rb#112
   def multitask(*args, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def mv(*args, **options, &block); end
 
   # Create a new rake namespace and use it for evaluating the given
   # block.  Returns a NameSpace object that can be used to lookup
@@ -652,6 +718,39 @@ module Rake::DSL
   # source://rake//lib/rake/dsl_definition.rb#135
   def namespace(name = T.unsafe(nil), &block); end
 
+  # source://rake//lib/rake/file_utils_ext.rb#77
+  def nowrite(value = T.unsafe(nil)); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#123
+  def rake_check_options(options, *optdecl); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#116
+  def rake_output_message(message); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def remove(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def rm(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def rm_f(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def rm_r(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def rm_rf(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def rmdir(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def rmtree(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils.rb#98
+  def ruby(*args, **options, &block); end
+
   # Declare a rule for auto-tasks.
   #
   # Example:
@@ -661,6 +760,21 @@ module Rake::DSL
   #
   # source://rake//lib/rake/dsl_definition.rb#151
   def rule(*args, &block); end
+
+  # source://rake//lib/rake/file_utils.rb#110
+  def safe_ln(*args, **options); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def safe_unlink(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils.rb#43
+  def sh(*cmd, &block); end
+
+  # source://rake//lib/rake/file_utils.rb#126
+  def split_all(path); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def symlink(*args, **options, &block); end
 
   # :call-seq:
   #   task(task_name)
@@ -695,6 +809,15 @@ module Rake::DSL
   #
   # source://rake//lib/rake/dsl_definition.rb#59
   def task(*args, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
+  def touch(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#53
+  def verbose(value = T.unsafe(nil)); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#107
+  def when_writing(msg = T.unsafe(nil)); end
 end
 
 # Default Rakefile loader used by +import+.
@@ -728,6 +851,13 @@ class Rake::EarlyTime
 
   # source://rake//lib/rake/early_time.rb#16
   def to_s; end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # A FileCreationTask is a file task that when used as a dependency will be
@@ -735,7 +865,7 @@ end
 # not re-triggered if any of its dependencies are newer, nor does trigger
 # any rebuilds of tasks that depend on it whenever it is updated.
 #
-# source://rake//lib/rake/file_creation_task.rb#13
+# source://rake//lib/rake/file_creation_task.rb#12
 class Rake::FileCreationTask < ::Rake::FileTask
   # Is this file task needed?  Yes if it doesn't exist.
   #
@@ -1102,6 +1232,9 @@ class Rake::FileList
 
   # source://rake//lib/rake/file_list.rb#77
   def inspect(*args, &block); end
+
+  # source://rake//lib/rake/file_list.rb#77
+  def intersect?(*args, &block); end
 
   # source://rake//lib/rake/file_list.rb#77
   def intersection(*args, &block); end
@@ -1529,6 +1662,9 @@ module Rake::FileUtilsExt
   def ln_sf(*args, **options, &block); end
 
   # source://rake//lib/rake/file_utils_ext.rb#34
+  def ln_sr(*args, **options, &block); end
+
+  # source://rake//lib/rake/file_utils_ext.rb#34
   def makedirs(*args, **options, &block); end
 
   # source://rake//lib/rake/file_utils_ext.rb#34
@@ -1757,6 +1893,13 @@ class Rake::LateTime
 
   # source://rake//lib/rake/late_time.rb#12
   def to_s; end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # Polylithic linked list structure used to implement several data

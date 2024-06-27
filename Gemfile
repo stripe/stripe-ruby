@@ -5,7 +5,6 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
-  gem "coveralls_reborn", "~> 0.25.0" if RUBY_VERSION >= "3.1"
   gem "mocha", "~> 1.16.0"
   gem "rack", ">= 2.0.6"
   gem "rake"

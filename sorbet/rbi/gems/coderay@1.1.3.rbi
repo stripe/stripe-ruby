@@ -1260,8 +1260,6 @@ class CodeRay::Encoders::Statistic::TypeStats < ::Struct
   #
   # @param value [Object] the value to set the attribute count to.
   # @return [Object] the newly set value
-  #
-  # source://coderay//lib/coderay/encoders/statistic.rb#13
   def count=(_); end
 
   # Returns the value of attribute size
@@ -1273,13 +1271,12 @@ class CodeRay::Encoders::Statistic::TypeStats < ::Struct
   #
   # @param value [Object] the value to set the attribute size to.
   # @return [Object] the newly set value
-  #
-  # source://coderay//lib/coderay/encoders/statistic.rb#13
   def size=(_); end
 
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -2678,9 +2675,6 @@ CodeRay::Scanners::Ruby::Patterns::FLOAT_SUFFIX = T.let(T.unsafe(nil), Regexp)
 # source://coderay//lib/coderay/scanners/ruby/patterns.rb#57
 CodeRay::Scanners::Ruby::Patterns::GLOBAL_VARIABLE = T.let(T.unsafe(nil), Regexp)
 
-# NOTE: This is not completely correct, but
-# nobody needs heredoc delimiters ending with \n.
-#
 # source://coderay//lib/coderay/scanners/ruby/patterns.rb#116
 CodeRay::Scanners::Ruby::Patterns::HEREDOC_OPEN = T.let(T.unsafe(nil), Regexp)
 
@@ -2732,8 +2726,6 @@ CodeRay::Scanners::Ruby::Patterns::OBJECT_VARIABLE = T.let(T.unsafe(nil), Regexp
 # source://coderay//lib/coderay/scanners/ruby/patterns.rb#70
 CodeRay::Scanners::Ruby::Patterns::OCTAL = T.let(T.unsafe(nil), Regexp)
 
-# See http://murfy.de/ruby-constants.
-#
 # source://coderay//lib/coderay/scanners/ruby/patterns.rb#17
 CodeRay::Scanners::Ruby::Patterns::PREDEFINED_CONSTANTS = T.let(T.unsafe(nil), Array)
 
@@ -2758,9 +2750,6 @@ CodeRay::Scanners::Ruby::Patterns::SIMPLE_ESCAPE = T.let(T.unsafe(nil), Regexp)
 # source://coderay//lib/coderay/scanners/ruby/patterns.rb#79
 CodeRay::Scanners::Ruby::Patterns::SYMBOL = T.let(T.unsafe(nil), Regexp)
 
-# Checks for a valid value to follow. This enables
-# value_expected in method calls without parentheses.
-#
 # source://coderay//lib/coderay/scanners/ruby/patterns.rb#142
 CodeRay::Scanners::Ruby::Patterns::VALUE_FOLLOWS = T.let(T.unsafe(nil), Regexp)
 
@@ -3205,7 +3194,7 @@ CodeRay::TokenKinds = T.let(T.unsafe(nil), Hash)
 # You can serialize it to a JSON string and store it in a database, pass it
 # around to encode it more than once, send it to other algorithms...
 #
-# source://coderay//lib/coderay/tokens.rb#43
+# source://coderay//lib/coderay/tokens.rb#41
 class CodeRay::Tokens < ::Array
   # source://coderay//lib/coderay/tokens.rb#156
   def begin_group(kind); end

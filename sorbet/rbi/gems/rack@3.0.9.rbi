@@ -402,7 +402,7 @@ class Rack::BodyProxy
   # Delegate missing methods to the wrapped body.
   #
   # source://rack//lib/rack/body_proxy.rb#40
-  def method_missing(method_name, *args, &block); end
+  def method_missing(method_name, *args, **_arg2, &block); end
 
   private
 
@@ -563,7 +563,7 @@ class Rack::Builder
   # referenced in the application if required.
   #
   # source://rack//lib/rack/builder.rb#146
-  def use(middleware, *args, &block); end
+  def use(middleware, *args, **_arg2, &block); end
 
   # Takes a lambda or block that is used to warm-up the application. This block is called
   # before the Rack application is returned by to_app.
@@ -1152,7 +1152,7 @@ Rack::Directory::DIR_PAGE_HEADER = T.let(T.unsafe(nil), String)
 # Body class for directory entries, showing an index page with links
 # to each file.
 #
-# source://rack//lib/rack/directory.rb#52
+# source://rack//lib/rack/directory.rb#51
 class Rack::Directory::DirectoryBody < ::Struct
   # Yield strings for each part of the directory entry
   #
@@ -1553,6 +1553,11 @@ class Rack::Headers < ::Hash
   # source://rack//lib/rack/headers.rb#47
   def dig(key, *a); end
 
+  # :nocov:
+  #
+  # source://rack//lib/rack/headers.rb#143
+  def except(*a); end
+
   # source://rack//lib/rack/headers.rb#51
   def fetch(key, *default, &block); end
 
@@ -1928,29 +1933,29 @@ class Rack::Lint::Wrapper::StreamWrapper
   # source://rack//lib/rack/lint.rb#890
   def initialize(stream); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def <<(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def <<(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def close(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def close(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def close_read(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def close_read(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def close_write(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def close_write(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def closed?(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def closed?(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def flush(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def flush(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def read(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def read(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def write(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def write(*args, **_arg1, &block); end
 end
 
 # The semantics of these IO methods must be a best effort match to
@@ -2592,8 +2597,6 @@ class Rack::Multipart::Parser::MultipartInfo < ::Struct
   #
   # @param value [Object] the value to set the attribute params to.
   # @return [Object] the newly set value
-  #
-  # source://rack//lib/rack/multipart/parser.rb#82
   def params=(_); end
 
   # Returns the value of attribute tmp_files
@@ -2605,13 +2608,12 @@ class Rack::Multipart::Parser::MultipartInfo < ::Struct
   #
   # @param value [Object] the value to set the attribute tmp_files to.
   # @return [Object] the newly set value
-  #
-  # source://rack//lib/rack/multipart/parser.rb#82
   def tmp_files=(_); end
 
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -3144,20 +3146,8 @@ class Rack::Request
   # source://rack//lib/rack/request.rb#67
   def params; end
 
-  # source://rack//lib/rack/request.rb#67
-  def query; end
-
   # source://rack//lib/rack/request.rb#71
   def update_param(k, v); end
-
-  # source://yard/0.9.28/lib/yard/server/rack_adapter.rb#86
-  def version_supplied; end
-
-  # source://yard/0.9.28/lib/yard/server/rack_adapter.rb#86
-  def version_supplied=(_arg0); end
-
-  # source://yard/0.9.28/lib/yard/server/rack_adapter.rb#88
-  def xhr?; end
 
   class << self
     # The priority when checking forwarded headers. The default
@@ -4094,51 +4084,51 @@ module Rack::Response::Helpers
 
   protected
 
-  # source://rack//lib/rack/response.rb#351
+  # source://rack//lib/rack/response.rb#353
   def append(chunk); end
 
   # source://rack//lib/rack/response.rb#323
   def buffered_body!; end
 end
 
-# source://rack//lib/rack/response.rb#365
+# source://rack//lib/rack/response.rb#367
 class Rack::Response::Raw
   include ::Rack::Response::Helpers
 
   # @return [Raw] a new instance of Raw
   #
-  # source://rack//lib/rack/response.rb#371
+  # source://rack//lib/rack/response.rb#373
   def initialize(status, headers); end
 
-  # source://rack//lib/rack/response.rb#388
+  # source://rack//lib/rack/response.rb#390
   def delete_header(key); end
 
-  # source://rack//lib/rack/response.rb#380
+  # source://rack//lib/rack/response.rb#382
   def get_header(key); end
 
   # @return [Boolean]
   #
-  # source://rack//lib/rack/response.rb#376
+  # source://rack//lib/rack/response.rb#378
   def has_header?(key); end
 
   # Returns the value of attribute headers.
   #
-  # source://rack//lib/rack/response.rb#368
+  # source://rack//lib/rack/response.rb#370
   def headers; end
 
-  # source://rack//lib/rack/response.rb#384
+  # source://rack//lib/rack/response.rb#386
   def set_header(key, value); end
 
   # Returns the value of attribute status.
   #
-  # source://rack//lib/rack/response.rb#369
+  # source://rack//lib/rack/response.rb#371
   def status; end
 
   # Sets the attribute status
   #
   # @param value the value to set the attribute status to.
   #
-  # source://rack//lib/rack/response.rb#369
+  # source://rack//lib/rack/response.rb#371
   def status=(_arg0); end
 end
 
@@ -4751,7 +4741,7 @@ module Rack::Utils
 
   # :nocov:
   #
-  # source://rack//lib/rack/utils.rb#479
+  # source://rack//lib/rack/utils.rb#472
   def secure_compare(a, b); end
 
   # source://rack//lib/rack/utils.rb#202
@@ -5012,7 +5002,7 @@ module Rack::Utils
     # source://rack//lib/rack/utils.rb#424
     def rfc2822(time); end
 
-    # source://rack//lib/rack/utils.rb#479
+    # source://rack//lib/rack/utils.rb#472
     def secure_compare(a, b); end
 
     # source://rack//lib/rack/utils.rb#202

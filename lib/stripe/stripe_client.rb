@@ -190,6 +190,7 @@ module Stripe
     #     client = StripeClient.new
     #     charge, resp = client.request { Charge.create }
     #
+
     def request
       @usage = ["stripe_client_request"]
       old_stripe_client = self.class.current_thread_context.active_client
@@ -211,6 +212,9 @@ module Stripe
         self.class.current_thread_context.last_responses.delete(object_id)
       end
     end
+    deprecate :request, "the `last_response` property on the returned resource (see " \
+                        "https://github.com/stripe/stripe-ruby?tab=readme-ov-file#accessing-a-response-object " \
+                        "for usage examples)", 2024, 6
 
     def execute_request(method, path,
                         api_base: nil, api_key: nil,
@@ -365,7 +369,7 @@ module Stripe
       # garbage in `Thread.current`.
       attr_accessor :last_responses
 
-      # A map of connection mangers for the thread. Normally shared between
+      # A map of connection managers for the thread. Normally shared between
       # all `StripeClient` objects on a particular thread, and created so as to
       # minimize the number of open connections that an application needs.
       def default_connection_managers

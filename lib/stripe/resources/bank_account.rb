@@ -5,8 +5,7 @@ module Stripe
   # These bank accounts are payment methods on `Customer` objects.
   #
   # On the other hand [External Accounts](https://stripe.com/api#external_accounts) are transfer
-  # destinations on `Account` objects for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
-  # is `application`, which includes [Custom accounts](https://stripe.com/connect/custom-accounts).
+  # destinations on `Account` objects for connected accounts.
   # They can be bank accounts or debit cards as well, and are documented in the links above.
   #
   # Related guide: [Bank debits and transfers](https://stripe.com/payments/bank-debits-transfers)
@@ -21,8 +20,21 @@ module Stripe
     end
 
     def verify(params = {}, opts = {})
-      resp, opts = execute_resource_request(:post, resource_url + "/verify", params, opts)
-      initialize_from(resp.data, opts)
+      request_stripe_object(
+        method: :post,
+        path: "#{Customer.resource_url}/#{customer}/sources/#{id}/verify",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.verify(customer, id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: "#{Customer.resource_url}/#{customer}/sources/#{id}/verify",
+        params: params,
+        opts: opts
+      )
     end
 
     def resource_url
@@ -52,12 +64,12 @@ module Stripe
     end
 
     def self.delete(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: "#{resource_url}/#{id}",
-        params: params,
-        opts: opts
-      )
+      raise NotImplementedError,
+            "Bank accounts cannot be deleted without a customer ID or an " \
+            "account ID. Delete a bank account using " \
+            "`Customer.delete_source('customer_id', 'bank_account_id')` " \
+            "or `Account.delete_external_account('account_id', " \
+            "'bank_account_id')`"
     end
 
     def delete(params = {}, opts = {})
@@ -70,12 +82,11 @@ module Stripe
     end
 
     def self.list(filters = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: resource_url.to_s,
-        params: filters,
-        opts: opts
-      )
+      raise NotImplementedError,
+            "Bank accounts cannot be listed without a customer ID or an " \
+            "account ID. List bank accounts using " \
+            "`Customer.list_sources('customer_id')` " \
+            "or `Account.list_external_accounts('account_id')`"
     end
   end
 end

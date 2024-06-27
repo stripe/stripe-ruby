@@ -165,11 +165,11 @@ class Byebug::PryProcessor < ::Byebug::CommandProcessor
   # source://pry-byebug//lib/byebug/processors/pry_processor.rb#71
   def at_return(_return_value); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def bold(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def bold(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def output(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def output(*args, **_arg1, &block); end
 
   # Set up a number of navigational commands to be performed by Byebug.
   #
@@ -254,17 +254,17 @@ class Pry
   # source://pry/0.14.2/lib/pry/pry_instance.rb#32
   def binding_stack=(_arg0); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def color(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def color(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def color=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def color=(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def commands(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def commands(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def commands=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def commands=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#145
   def complete(str); end
@@ -284,11 +284,11 @@ class Pry
   # source://pry/0.14.2/lib/pry/pry_instance.rb#33
   def custom_completions=(_arg0); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def editor(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def editor(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def editor=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def editor=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#255
   def eval(line, options = T.unsafe(nil)); end
@@ -302,11 +302,11 @@ class Pry
   # source://pry/0.14.2/lib/pry/pry_instance.rb#286
   def evaluate_ruby(code); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def exception_handler(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def exception_handler(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def exception_handler=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def exception_handler=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#394
   def exec_hook(name, *args, &block); end
@@ -314,17 +314,17 @@ class Pry
   # source://pry/0.14.2/lib/pry/pry_instance.rb#42
   def exit_value; end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def extra_sticky_locals(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def extra_sticky_locals(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def extra_sticky_locals=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def extra_sticky_locals=(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def hooks(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def hooks(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def hooks=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def hooks=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#173
   def inject_local(name, value, binding); end
@@ -332,11 +332,11 @@ class Pry
   # source://pry/0.14.2/lib/pry/pry_instance.rb#201
   def inject_sticky_locals!; end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def input(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def input(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def input=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def input=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#45
   def input_ring; end
@@ -377,8 +377,8 @@ class Pry
   # source://pry/0.14.2/lib/pry/pry_instance.rb#538
   def output; end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def output=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def output=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#48
   def output_ring; end
@@ -386,17 +386,17 @@ class Pry
   # source://pry/0.14.2/lib/pry/pry_instance.rb#530
   def pager; end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def pager=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def pager=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#522
   def pop_prompt; end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def print(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def print(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def print=(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def print=(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/pry_instance.rb#325
   def process_command(val); end
@@ -500,17 +500,17 @@ class Pry
     # source://pry/0.14.2/lib/pry/pry_class.rb#22
     def cli=(_arg0); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def color(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def color(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def color=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def color=(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def commands(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def commands(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def commands=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def commands=(*args, **_arg1, &block); end
 
     # source://pry/0.14.2/lib/pry/pry_class.rb#25
     def config; end
@@ -539,11 +539,11 @@ class Pry
     # source://pry/0.14.2/lib/pry/pry_class.rb#18
     def custom_completions=(_arg0); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def editor(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def editor(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def editor=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def editor=(*args, **_arg1, &block); end
 
     # source://pry/0.14.2/lib/pry/pry_class.rb#21
     def eval_path; end
@@ -551,32 +551,32 @@ class Pry
     # source://pry/0.14.2/lib/pry/pry_class.rb#21
     def eval_path=(_arg0); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def exception_handler(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def exception_handler(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def exception_handler=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def exception_handler=(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def extra_sticky_locals(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def extra_sticky_locals(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def extra_sticky_locals=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def extra_sticky_locals=(*args, **_arg1, &block); end
 
     # source://pry/0.14.2/lib/pry/pry_class.rb#139
     def final_session_setup; end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def history(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def history(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def history=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def history=(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def hooks(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def hooks(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def hooks=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def hooks=(*args, **_arg1, &block); end
 
     # source://pry/0.14.2/lib/pry/pry_class.rb#375
     def in_critical_section?; end
@@ -590,11 +590,11 @@ class Pry
     # source://pry/0.14.2/lib/pry/pry_class.rb#129
     def initial_session_setup; end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def input(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def input(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def input=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def input=(*args, **_arg1, &block); end
 
     # source://pry/0.14.2/lib/pry/pry_class.rb#24
     def last_internal_error; end
@@ -632,35 +632,35 @@ class Pry
     # source://pry/0.14.2/lib/pry/pry_class.rb#55
     def main; end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def memory_size(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def memory_size(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def memory_size=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def memory_size=(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def output(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def output(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def output=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def output=(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def pager(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def pager(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def pager=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def pager=(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def print(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def print(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def print=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def print=(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def prompt(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def prompt(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.1/forwardable.rb#226
-    def prompt=(*args, &block); end
+    # source://forwardable/1.3.3/forwardable.rb#231
+    def prompt=(*args, **_arg1, &block); end
 
     # source://pry/0.14.2/lib/pry/pry_class.rb#23
     def quiet; end
@@ -816,11 +816,11 @@ class Pry::REPL
   # source://pry/0.14.2/lib/pry/repl.rb#22
   def initialize(pry, options = T.unsafe(nil)); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def input(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def input(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.1/forwardable.rb#226
-  def output(*args, &block); end
+  # source://forwardable/1.3.3/forwardable.rb#231
+  def output(*args, **_arg1, &block); end
 
   # source://pry/0.14.2/lib/pry/repl.rb#9
   def pry; end

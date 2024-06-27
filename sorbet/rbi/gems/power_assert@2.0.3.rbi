@@ -145,8 +145,6 @@ class PowerAssert::Context::Value < ::Struct
   #
   # @param value [Object] the value to set the attribute column to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/context.rb#8
   def column=(_); end
 
   # Returns the value of attribute display_offset
@@ -158,8 +156,6 @@ class PowerAssert::Context::Value < ::Struct
   #
   # @param value [Object] the value to set the attribute display_offset to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/context.rb#8
   def display_offset=(_); end
 
   # Returns the value of attribute lineno
@@ -171,8 +167,6 @@ class PowerAssert::Context::Value < ::Struct
   #
   # @param value [Object] the value to set the attribute lineno to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/context.rb#8
   def lineno=(_); end
 
   # Returns the value of attribute name
@@ -184,8 +178,6 @@ class PowerAssert::Context::Value < ::Struct
   #
   # @param value [Object] the value to set the attribute name to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/context.rb#8
   def name=(_); end
 
   # Returns the value of attribute value
@@ -197,13 +189,12 @@ class PowerAssert::Context::Value < ::Struct
   #
   # @param value [Object] the value to set the attribute value to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/context.rb#8
   def value=(_); end
 
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end
@@ -339,8 +330,6 @@ class PowerAssert::Parser::Ident < ::Struct
   #
   # @param value [Object] the value to set the attribute column to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/parser.rb#5
   def column=(_); end
 
   # Returns the value of attribute name
@@ -352,8 +341,6 @@ class PowerAssert::Parser::Ident < ::Struct
   #
   # @param value [Object] the value to set the attribute name to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/parser.rb#5
   def name=(_); end
 
   # Returns the value of attribute type
@@ -365,13 +352,12 @@ class PowerAssert::Parser::Ident < ::Struct
   #
   # @param value [Object] the value to set the attribute type to.
   # @return [Object] the newly set value
-  #
-  # source://power_assert//lib/power_assert/parser.rb#5
   def type=(_); end
 
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end

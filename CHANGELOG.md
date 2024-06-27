@@ -1,8 +1,40 @@
 # Changelog
 
+## 12.0.0 - 2024-06-24
+* [#1418](https://github.com/stripe/stripe-ruby/pull/1418) Add missing static method for verify on BankAccount
+* [#1419](https://github.com/stripe/stripe-ruby/pull/1419) 
+  
+  This release changes the pinned API version to 2024-06-20. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-06-20) and carefully review the API changes before upgrading.
+  
+  ### ⚠️ Breaking changes
+  
+  * Singleton `retrieve` method now requires `params` to be passed as the first argument. Existing calls to singleton `retrieve` method with only `opts` argument will have to be updated to account for the addition of `params` argument. 
+  ```ruby
+  params = { expand: ["available"] }
+  opts = { stripe_account: "acct_123" }
+  
+  # ❌ No longer works
+  Stripe::Balance.retrieve(opts)
+  
+  # ✅ Correct way to call retrieve method
+  Stripe::Balance.retrieve(params, opts)
+  ```
+  
+  ### Additions
+  
+  * Add support for `finalize_amount` test helper method on resource `Issuing.Authorization`
+
+## 11.7.0 - 2024-06-13
+* [#1415](https://github.com/stripe/stripe-ruby/pull/1415) Deprecate StripeClient#request
+  * Add deprecation warning for `StripeClient#request`. This helper method will be removed in a future major version. To access response objects, use the `last_response` property on the returned resource instead. Refer to [Accessing a response object](https://github.com/stripe/stripe-ruby?tab=readme-ov-file#accessing-a-response-object) in the README for usage details.
+
 ## 11.7.0-beta.1 - 2024-05-30
 * [#1400](https://github.com/stripe/stripe-ruby/pull/1400) Update generated code for beta
   * Keeping up with the changes from version 11.6.0
+
+## 11.6.0 - 2024-05-30
+* [#1404](https://github.com/stripe/stripe-ruby/pull/1404) Add method to list invoice line items
+  * Add methods `list_lines()` on the class `Invoice` to list the invoice line items
 
 ## 11.5.0 - 2024-05-23
 * This release has no changes.

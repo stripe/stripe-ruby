@@ -12,7 +12,7 @@ module Stripe
         "tax.transaction"
       end
 
-      # Creates a Tax Transaction from a calculation.
+      # Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
       def self.create_from_calculation(params = {}, opts = {})
         request_stripe_object(
           method: :post,

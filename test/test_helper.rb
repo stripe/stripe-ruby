@@ -1,13 +1,5 @@
 # frozen_string_literal: true
 
-# Report test coverage to coveralls for only one Ruby version to avoid
-# repeated builds. This also accounts for coveralls_reborn requiring
-# RUBY_VERSION >= 2.5.
-if ENV.key?("COVERALLS_REPO_TOKEN") && RUBY_VERSION.start_with?("3.1.")
-  require "coveralls"
-  Coveralls.wear!
-end
-
 require "stripe"
 require "test/unit"
 require "mocha/setup"

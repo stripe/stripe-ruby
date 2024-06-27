@@ -503,7 +503,7 @@ end
 # A subclass of Hash where all keys are converted into Symbols, and
 # optionally, all String values are converted into Symbols.
 #
-# source://yard//lib/yard/core_ext/symbol_hash.rb#8
+# source://yard//lib/yard/core_ext/symbol_hash.rb#4
 class SymbolHash < ::Hash
   # Creates a new SymbolHash object
   #
@@ -808,7 +808,7 @@ end
 #
 # @since 0.6.2
 #
-# source://yard//lib/yard/cli/config.rb#7
+# source://yard//lib/yard/cli/config.rb#6
 class YARD::CLI::Config < ::YARD::CLI::Command
   # @return [Config] a new instance of Config
   # @since 0.6.2
@@ -1129,7 +1129,7 @@ end
 # @see Graph#run
 # @since 0.6.0
 #
-# source://yard//lib/yard/cli/graph.rb#27
+# source://yard//lib/yard/cli/graph.rb#24
 class YARD::CLI::Graph < ::YARD::CLI::YardoptsCommand
   # Creates a new instance of the command-line utility
   #
@@ -1189,7 +1189,7 @@ end
 
 # Options to pass to the {Graph} CLI.
 #
-# source://yard//lib/yard/cli/graph.rb#6
+# source://yard//lib/yard/cli/graph.rb#5
 class YARD::CLI::GraphOptions < ::YARD::Templates::TemplateOptions
   # @return [String] any contents to pass to the digraph
   #
@@ -1329,7 +1329,7 @@ end
 #
 # @since 0.6.0
 #
-# source://yard//lib/yard/cli/server.rb#8
+# source://yard//lib/yard/cli/server.rb#7
 class YARD::CLI::Server < ::YARD::CLI::Command
   # Creates a new instance of the Server command line utility
   #
@@ -1632,7 +1632,7 @@ YARD::CLI::Stats::STATS_ORDER = T.let(T.unsafe(nil), Array)
 
 # A tool to view documentation in the console like `ri`
 #
-# source://yard//lib/yard/cli/yri.rb#9
+# source://yard//lib/yard/cli/yri.rb#7
 class YARD::CLI::YRI < ::YARD::CLI::Command
   # @return [YRI] a new instance of YRI
   #
@@ -1762,7 +1762,7 @@ YARD::CLI::YRI::DEFAULT_SEARCH_PATHS = T.let(T.unsafe(nil), Array)
 # source://yard//lib/yard/cli/yri.rb#15
 YARD::CLI::YRI::SEARCH_PATHS_FILE = T.let(T.unsafe(nil), String)
 
-# source://yard//lib/yard/cli/yardoc.rb#147
+# source://yard//lib/yard/cli/yardoc.rb#145
 class YARD::CLI::Yardoc < ::YARD::CLI::YardoptsCommand
   # Creates a new instance of the commandline utility
   #
@@ -2135,7 +2135,7 @@ end
 
 # Default options used in +yard doc+ command.
 #
-# source://yard//lib/yard/cli/yardoc.rb#10
+# source://yard//lib/yard/cli/yardoc.rb#8
 class YARD::CLI::YardocOptions < ::YARD::Templates::TemplateOptions
   # @return [CodeObjects::ExtraFileObject] the file object being rendered.
   #   The +object+ key is not used so that a file may be rendered in the context
@@ -2263,7 +2263,7 @@ end
 # @abstract
 # @since 0.8.3
 #
-# source://yard//lib/yard/cli/yardopts_command.rb#11
+# source://yard//lib/yard/cli/yardopts_command.rb#10
 class YARD::CLI::YardoptsCommand < ::YARD::CLI::Command
   # Creates a new command that reads .yardopts
   #
@@ -2937,7 +2937,7 @@ YARD::CodeObjects::CSEPQ = T.let(T.unsafe(nil), String)
 # A ClassObject represents a Ruby class in source code. It is a {ModuleObject}
 # with extra inheritance semantics through the superclass.
 #
-# source://yard//lib/yard/code_objects/class_object.rb#9
+# source://yard//lib/yard/code_objects/class_object.rb#7
 class YARD::CodeObjects::ClassObject < ::YARD::CodeObjects::NamespaceObject
   # Creates a new class object in +namespace+ with +name+
   #
@@ -3018,7 +3018,7 @@ end
 # Represents a class variable inside a namespace. The path is expressed
 # in the form "A::B::@@classvariable"
 #
-# source://yard//lib/yard/code_objects/class_variable_object.rb#8
+# source://yard//lib/yard/code_objects/class_variable_object.rb#7
 class YARD::CodeObjects::ClassVariableObject < ::YARD::CodeObjects::Base
   # @return [String] the class variable's value
   #
@@ -3034,7 +3034,7 @@ end
 # A list of code objects. This array acts like a set (no unique items)
 # but also disallows any {Proxy} objects from being added.
 #
-# source://yard//lib/yard/code_objects/base.rb#10
+# source://yard//lib/yard/code_objects/base.rb#6
 class YARD::CodeObjects::CodeObjectList < ::Array
   # Creates a new object list associated with a namespace
   #
@@ -3064,7 +3064,7 @@ end
 # A +ConstantObject+ represents a Ruby constant (not a module or class).
 # To access the constant's (source code) value, use {#value}.
 #
-# source://yard//lib/yard/code_objects/constant_object.rb#9
+# source://yard//lib/yard/code_objects/constant_object.rb#7
 class YARD::CodeObjects::ConstantObject < ::YARD::CodeObjects::Base
   # The source code representing the constant's value
   #
@@ -3431,7 +3431,7 @@ YARD::CodeObjects::MacroObject::MACRO_MATCH = T.let(T.unsafe(nil), Regexp)
 
 # Represents a Ruby method in source
 #
-# source://yard//lib/yard/code_objects/method_object.rb#10
+# source://yard//lib/yard/code_objects/method_object.rb#7
 class YARD::CodeObjects::MethodObject < ::YARD::CodeObjects::Base
   # Creates a new method object in +namespace+ with +name+ and an instance
   # or class +scope+
@@ -3604,7 +3604,7 @@ end
 
 # Represents a Ruby module.
 #
-# source://yard//lib/yard/code_objects/module_object.rb#11
+# source://yard//lib/yard/code_objects/module_object.rb#6
 class YARD::CodeObjects::ModuleObject < ::YARD::CodeObjects::NamespaceObject
   # Returns the inheritance tree of mixins.
   #
@@ -3769,7 +3769,7 @@ end
 # The two main Ruby objects that can act as namespaces are modules
 # ({ModuleObject}) and classes ({ClassObject}).
 #
-# source://yard//lib/yard/code_objects/namespace_object.rb#11
+# source://yard//lib/yard/code_objects/namespace_object.rb#9
 class YARD::CodeObjects::NamespaceObject < ::YARD::CodeObjects::Base
   # Creates a new namespace object inside +namespace+ with +name+.
   #
@@ -5915,7 +5915,7 @@ class YARD::Handlers::HandlerAborted < ::RuntimeError; end
 # an operation on an object's namespace but the namespace could
 # not be resolved.
 #
-# source://yard//lib/yard/handlers/base.rb#15
+# source://yard//lib/yard/handlers/base.rb#13
 class YARD::Handlers::NamespaceMissingError < ::YARD::Parser::UndocumentableError
   # @return [NamespaceMissingError] a new instance of NamespaceMissingError
   #
@@ -6503,7 +6503,7 @@ class YARD::Handlers::Ruby::Legacy::AttributeHandler < ::YARD::Handlers::Ruby::L
 #
 # @abstract See {Handlers::Base} for subclassing information.
 #
-# source://yard//lib/yard/handlers/ruby/legacy/base.rb#10
+# source://yard//lib/yard/handlers/ruby/legacy/base.rb#9
 class YARD::Handlers::Ruby::Legacy::Base < ::YARD::Handlers::Base
   include ::YARD::Parser::Ruby::Legacy::RubyToken
 
@@ -7459,7 +7459,7 @@ end
 # Handles console logging for info, warnings and errors.
 # Uses the stdlib Logger class in Ruby for all the backend logic.
 #
-# source://yard//lib/yard/logging.rb#12
+# source://yard//lib/yard/logging.rb#9
 class YARD::Logger < ::Logger
   # Creates a new logger
   #
@@ -7635,7 +7635,7 @@ class YARD::Logger < ::Logger
   # source://yard//lib/yard/logging.rb#201
   def format_log(sev, _time, _prog, msg); end
 
-  # source://logger/1.5.0/logger.rb#485
+  # source://logger/1.6.0/logger.rb#684
   def print_no_newline(msg); end
 
   class << self
@@ -9972,7 +9972,7 @@ end
 
 # source://yard//lib/yard/parser/ruby/ast_node.rb#479
 class YARD::Parser::Ruby::MethodDefinitionNode < ::YARD::Parser::Ruby::AstNode
-  def block(*_arg0); end
+  def block(n = T.unsafe(nil)); end
 
   # @return [Boolean]
   #
@@ -11360,7 +11360,7 @@ module YARD::Rake; end
 
 # The rake task to run {CLI::Yardoc} and generate documentation.
 #
-# source://yard//lib/yard/rake/yardoc_task.rb#10
+# source://yard//lib/yard/rake/yardoc_task.rb#8
 class YARD::Rake::YardocTask < ::Rake::TaskLib
   # Creates a new task with name +name+.
   #
@@ -12298,7 +12298,7 @@ end
 
 # Implements a serializer that reads from and writes to the filesystem.
 #
-# source://yard//lib/yard/serializers/file_system_serializer.rb#7
+# source://yard//lib/yard/serializers/file_system_serializer.rb#5
 class YARD::Serializers::FileSystemSerializer < ::YARD::Serializers::Base
   # Creates a new FileSystemSerializer with options
   #
@@ -12386,7 +12386,7 @@ end
 #   serializer = ProcessSerializer.new('less')
 #   serializer.serialize(object, "data!")
 #
-# source://yard//lib/yard/serializers/process_serializer.rb#12
+# source://yard//lib/yard/serializers/process_serializer.rb#9
 class YARD::Serializers::ProcessSerializer < ::YARD::Serializers::Base
   # Creates a new ProcessSerializer for the shell command +cmd+
   #
@@ -12405,7 +12405,7 @@ end
 
 # A serializer that writes data to standard output.
 #
-# source://yard//lib/yard/serializers/stdout_serializer.rb#9
+# source://yard//lib/yard/serializers/stdout_serializer.rb#5
 class YARD::Serializers::StdoutSerializer < ::YARD::Serializers::Base
   # Creates a serializer to print text to stdout
   #
@@ -17865,7 +17865,7 @@ end
 #
 # @see CLI::YardocOptions
 #
-# source://yard//lib/yard/templates/template_options.rb#11
+# source://yard//lib/yard/templates/template_options.rb#10
 class YARD::Templates::TemplateOptions < ::YARD::Options
   # @return [OpenStruct] an open struct containing any global state across all
   #   generated objects in a template.

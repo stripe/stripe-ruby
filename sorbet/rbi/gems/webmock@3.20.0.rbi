@@ -478,6 +478,13 @@ class WebMock::Config
   #
   # source://webmock//lib/webmock/config.rb#16
   def show_stubbing_instructions=(_arg0); end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # source://webmock//lib/webmock/deprecation.rb#4
@@ -585,6 +592,13 @@ class WebMock::HttpLibAdapterRegistry
 
   # source://webmock//lib/webmock/http_lib_adapters/http_lib_adapter_registry.rb#13
   def register(lib, adapter); end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # source://webmock//lib/webmock/http_lib_adapters/net_http.rb#10
@@ -985,6 +999,13 @@ class WebMock::RequestRegistry
 
   # source://webmock//lib/webmock/request_registry.rb#24
   def to_s; end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # source://webmock//lib/webmock/request_signature.rb#5
@@ -1345,6 +1366,13 @@ class WebMock::StubRegistry
 
   # source://webmock//lib/webmock/stub_registry.rb#72
   def request_stub_for(request_signature); end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # source://webmock//lib/webmock/stub_request_snippet.rb#4
@@ -1497,36 +1525,36 @@ class WebMock::Util::HashKeysStringifier
   end
 end
 
-# source://webmock//lib/webmock/util/headers.rb#9
+# source://webmock//lib/webmock/util/headers.rb#7
 class WebMock::Util::Headers
   class << self
-    # source://webmock//lib/webmock/util/headers.rb#61
+    # source://webmock//lib/webmock/util/headers.rb#59
     def basic_auth_header(*credentials); end
 
-    # source://webmock//lib/webmock/util/headers.rb#57
+    # source://webmock//lib/webmock/util/headers.rb#55
     def decode_userinfo_from_header(header); end
 
-    # source://webmock//lib/webmock/util/headers.rb#15
+    # source://webmock//lib/webmock/util/headers.rb#13
     def normalize_headers(headers); end
 
-    # source://webmock//lib/webmock/util/headers.rb#65
+    # source://webmock//lib/webmock/util/headers.rb#64
     def normalize_name(name); end
 
-    # source://webmock//lib/webmock/util/headers.rb#42
+    # source://webmock//lib/webmock/util/headers.rb#40
     def pp_headers_string(headers); end
 
-    # source://webmock//lib/webmock/util/headers.rb#28
+    # source://webmock//lib/webmock/util/headers.rb#26
     def sorted_headers_string(headers); end
   end
 end
 
-# source://webmock//lib/webmock/util/headers.rb#13
+# source://webmock//lib/webmock/util/headers.rb#11
 WebMock::Util::Headers::JOIN = T.let(T.unsafe(nil), String)
 
-# source://webmock//lib/webmock/util/headers.rb#12
+# source://webmock//lib/webmock/util/headers.rb#10
 WebMock::Util::Headers::NONSTANDARD_HEADER_DELIMITER = T.let(T.unsafe(nil), String)
 
-# source://webmock//lib/webmock/util/headers.rb#11
+# source://webmock//lib/webmock/util/headers.rb#9
 WebMock::Util::Headers::STANDARD_HEADER_DELIMITER = T.let(T.unsafe(nil), String)
 
 # source://webmock//lib/webmock/util/json.rb#12

@@ -113,8 +113,6 @@ class Netrc::Entry < ::Struct
   #
   # @param value [Object] the value to set the attribute login to.
   # @return [Object] the newly set value
-  #
-  # source://netrc//lib/netrc.rb#244
   def login=(_); end
 
   # Returns the value of attribute password
@@ -126,8 +124,6 @@ class Netrc::Entry < ::Struct
   #
   # @param value [Object] the value to set the attribute password to.
   # @return [Object] the newly set value
-  #
-  # source://netrc//lib/netrc.rb#244
   def password=(_); end
 
   def to_ary; end
@@ -135,6 +131,7 @@ class Netrc::Entry < ::Struct
   class << self
     def [](*_arg0); end
     def inspect; end
+    def keyword_init?; end
     def members; end
     def new(*_arg0); end
   end

@@ -7,8 +7,7 @@
 # source://erubi//lib/erubi.rb#3
 module Erubi
   class << self
-    # source://erubi//lib/erubi.rb#35
-    def h(value); end
+    def h(_arg0); end
   end
 end
 

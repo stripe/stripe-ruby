@@ -64,12 +64,12 @@ module Stripe
     end
 
     def self.delete(id, params = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: "#{resource_url}/#{id}",
-        params: params,
-        opts: opts
-      )
+      raise NotImplementedError,
+            "Bank accounts cannot be deleted without a customer ID or an " \
+            "account ID. Delete a bank account using " \
+            "`Customer.delete_source('customer_id', 'bank_account_id')` " \
+            "or `Account.delete_external_account('account_id', " \
+            "'bank_account_id')`"
     end
 
     def delete(params = {}, opts = {})
@@ -82,12 +82,11 @@ module Stripe
     end
 
     def self.list(filters = {}, opts = {})
-      request_stripe_object(
-        method: :delete,
-        path: resource_url.to_s,
-        params: filters,
-        opts: opts
-      )
+      raise NotImplementedError,
+            "Bank accounts cannot be listed without a customer ID or an " \
+            "account ID. List bank accounts using " \
+            "`Customer.list_sources('customer_id')` " \
+            "or `Account.list_external_accounts('account_id')`"
     end
   end
 end

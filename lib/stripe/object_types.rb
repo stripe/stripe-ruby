@@ -64,6 +64,7 @@ module Stripe
         FinancialConnections::AccountInferredBalance,
         FinancialConnections::AccountOwner.object_name => FinancialConnections::AccountOwner,
         FinancialConnections::AccountOwnership.object_name => FinancialConnections::AccountOwnership,
+        FinancialConnections::Institution.object_name => FinancialConnections::Institution,
         FinancialConnections::Session.object_name => FinancialConnections::Session,
         FinancialConnections::Transaction.object_name => FinancialConnections::Transaction,
         Forwarding::Request.object_name => Forwarding::Request,

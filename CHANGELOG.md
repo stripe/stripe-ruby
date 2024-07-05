@@ -1,5 +1,12 @@
 # Changelog
 
+## 12.2.0-beta.1 - 2024-07-05
+* [#1428](https://github.com/stripe/stripe-ruby/pull/1428) Update generated code for beta
+  * Add support for new resource `FinancialConnections.Institution`
+  * Add support for `list` and `retrieve` methods on resource `Institution`
+* [#1409](https://github.com/stripe/stripe-ruby/pull/1409) Update generated code for beta
+
+
 ## 12.0.0 - 2024-06-24
 * [#1418](https://github.com/stripe/stripe-ruby/pull/1418) Add missing static method for verify on BankAccount
 * [#1419](https://github.com/stripe/stripe-ruby/pull/1419) 

@@ -1,4 +1,19 @@
 # Changelog
+## 12.1.0 - 2024-07-05
+* [#1425](https://github.com/stripe/stripe-ruby/pull/1425) Update generated code
+  * Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
+* [#1420](https://github.com/stripe/stripe-ruby/pull/1420) Update static methods for delete/list on BankAccount/Card to throw NotImplementedError
+  * The below methods have been throwing `InvalidRequestError` because the urls used to make the requests have been buggy. Updating them to throw `NotImplementedError` instead just like their counterparts for update & retrieve because they cannot be implemented without the parent id. 
+  
+  Methods affected | Use these instead in the context of payment method | Use these in the context of external accounts
+  ------ | ------ | ----
+  Stripe:: BankAccount.delete | Stripe::Customer.delete_source | Stripe::Account.delete_external_account
+  Stripe:: BankAccount.list | Stripe::Customer.list_sources | Stripe::Customer.list_external_accounts
+  Stripe:: Card.delete | Stripe::Customer.delete_source | Stripe::Account.delete_external_account
+  Stripe:: Card.list | Stripe::Customer.list_sources | Stripe::Customer.list_external_accounts
+* [#1427](https://github.com/stripe/stripe-ruby/pull/1427) Regenerate rbis
+* [#1426](https://github.com/stripe/stripe-ruby/pull/1426) Remove coveralls and re-added JRuby
+
 ## 12.0.0 - 2024-06-24
 * [#1418](https://github.com/stripe/stripe-ruby/pull/1418) Add missing static method for verify on BankAccount
 * [#1419](https://github.com/stripe/stripe-ruby/pull/1419) 

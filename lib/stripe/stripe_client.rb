@@ -462,6 +462,7 @@ module Stripe
 
       headers = request_headers(api_key, method)
                 .update(Util.normalize_headers(headers))
+
       url = api_url(path, api_base)
 
       # Merge given query parameters with any already encoded in the path.
@@ -879,6 +880,7 @@ module Stripe
       end
 
       headers["Stripe-Version"] = config.api_version if config.api_version
+
       headers["Stripe-Account"] = config.stripe_account if config.stripe_account
 
       user_agent = @system_profiler.user_agent

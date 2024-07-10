@@ -117,6 +117,31 @@ module Stripe
       version: version,
     }
   end
+
+  class RawRequest
+    include Stripe::APIOperations::Request
+
+    def initialize
+      @opts = {}
+    end
+
+    def execute(method, url, params = {}, opts = {})
+      resp, = execute_resource_request(method, url, params, opts)
+
+      resp
+    end
+  end
+
+  # Sends a request to Stripe REST API
+  def self.raw_request(method, url, params = {}, opts = {})
+    req = RawRequest.new
+    req.execute(method, url, params, opts)
+  end
+
+  def self.deserialize(data)
+    data = JSON.parse(data) if data.is_a?(String)
+    Util.convert_to_stripe_object(data, {})
+  end
 end
 
 Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

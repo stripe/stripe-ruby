@@ -344,7 +344,7 @@ If you:
 
 - would like to send a request to an undocumented API (for example you are in a private beta)
 - prefer to bypass the method definitions in the library and specify your request details directly,
-- used the deprecated method `StripeClient.request` to specify your own requests
+- used the method `Stripe::APIResource.request(...)` to specify your own requests, which will soon be broken
 
 you can now use the `raw_request` method on `Stripe`.
 

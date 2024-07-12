@@ -1,5 +1,13 @@
 # Changelog
 
+## 12.2.0 - 2024-07-12
+* [#1430](https://github.com/stripe/stripe-ruby/pull/1430) Update generated code
+
+* [#1433](https://github.com/stripe/stripe-ruby/pull/1433) Add usage to raw_request call
+* [#1431](https://github.com/stripe/stripe-ruby/pull/1431) Add `raw_request`
+  
+  - Adds the ability to make raw requests to the Stripe API, by providing an HTTP method and url. This is an alternative to using `Stripe::APIResource.request(...)` to make custom requests, which is discouraged and will be broken in a future major version.
+
 ## 12.2.0-beta.1 - 2024-07-05
 * [#1428](https://github.com/stripe/stripe-ruby/pull/1428) Update generated code for beta
   * Add support for new resource `FinancialConnections.Institution`

@@ -3,7 +3,7 @@
 
 module Stripe
   module FinancialConnections
-    # An institution represents a banking institution which may be available for an end user to select in the Financial Connections authentication flow.
+    # An institution represents a financial institution to which an end user can connect using the Financial Connections authentication flow.
     class Institution < APIResource
       extend Stripe::APIOperations::List
 

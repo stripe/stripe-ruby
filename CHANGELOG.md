@@ -1,4 +1,12 @@
 # Changelog
+## 12.2.0 - 2024-07-12
+* [#1430](https://github.com/stripe/stripe-ruby/pull/1430) Update generated code
+
+* [#1433](https://github.com/stripe/stripe-ruby/pull/1433) Add usage to raw_request call
+* [#1431](https://github.com/stripe/stripe-ruby/pull/1431) Add `raw_request`
+  
+  - Adds the ability to make raw requests to the Stripe API, by providing an HTTP method and url. This is an alternative to using `Stripe::APIResource.request(...)` to make custom requests, which is discouraged and will be broken in a future major version.
+
 ## 12.1.0 - 2024-07-05
 * [#1425](https://github.com/stripe/stripe-ruby/pull/1425) Update generated code
   * Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`

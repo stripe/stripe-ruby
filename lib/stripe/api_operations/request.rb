@@ -78,6 +78,8 @@ module Stripe
         # place for backwards compatibility. Consider removing it on the next
         # major.
         alias request execute_resource_request
+        extend Gem::Deprecate
+        deprecate :request, "Stripe.raw_request", 2024, 7
 
         private def error_on_non_string_user_opts(opts)
           Util::OPTS_USER_SPECIFIED.each do |opt|
@@ -134,6 +136,8 @@ module Stripe
 
       # See notes on `alias` above.
       alias request execute_resource_request
+      extend Gem::Deprecate
+      deprecate :request, "Stripe.raw_request", 2024, 7
     end
   end
 end

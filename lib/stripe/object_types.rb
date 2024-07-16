@@ -124,6 +124,7 @@ module Stripe
         Subscription.object_name => Subscription,
         SubscriptionItem.object_name => SubscriptionItem,
         SubscriptionSchedule.object_name => SubscriptionSchedule,
+        Tax::Association.object_name => Tax::Association,
         Tax::Calculation.object_name => Tax::Calculation,
         Tax::CalculationLineItem.object_name => Tax::CalculationLineItem,
         Tax::Form.object_name => Tax::Form,

@@ -27,21 +27,7 @@
 * [#1419](https://github.com/stripe/stripe-ruby/pull/1419) 
   
   This release changes the pinned API version to 2024-06-20. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-06-20) and carefully review the API changes before upgrading.
-  
-  ### ⚠️ Breaking changes
-  
-  * Singleton `retrieve` method now requires `params` to be passed as the first argument. Existing calls to singleton `retrieve` method with only `opts` argument will have to be updated to account for the addition of `params` argument. 
-  ```ruby
-  params = { expand: ["available"] }
-  opts = { stripe_account: "acct_123" }
-  
-  # ❌ No longer works
-  Stripe::Balance.retrieve(opts)
-  
-  # ✅ Correct way to call retrieve method
-  Stripe::Balance.retrieve(params, opts)
-  ```
-  
+
   ### Additions
   
   * Add support for `finalize_amount` test helper method on resource `Issuing.Authorization`

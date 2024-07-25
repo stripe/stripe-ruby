@@ -1,4 +1,8 @@
 # Changelog
+## 12.4.0 - 2024-07-25
+* [#1437](https://github.com/stripe/stripe-ruby/pull/1437) Update generated code
+  * Add support for `update` method on resource `Checkout.Session`
+
 ## 12.3.0 - 2024-07-18
 * [#1436](https://github.com/stripe/stripe-ruby/pull/1436) Fixed changelog for major release 12.0.0
 * [#1435](https://github.com/stripe/stripe-ruby/pull/1435) Add deprecation warning for `APIResource.request`

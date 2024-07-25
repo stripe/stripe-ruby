@@ -20,6 +20,7 @@ module Stripe
     class Session < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
+      include Stripe::APIOperations::Save
 
       OBJECT_NAME = "checkout.session"
       def self.object_name
@@ -85,6 +86,16 @@ module Stripe
         request_stripe_object(
           method: :get,
           path: format("/v1/checkout/sessions/%<session>s/line_items", { session: CGI.escape(session) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Updates a Session object.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

@@ -56,7 +56,7 @@ module Stripe
       request_stripe_object(method: :post, path: "/v1/refunds", params: params, opts: opts)
     end
 
-    # Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.
+    # Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
     def self.list(filters = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/refunds", params: filters, opts: opts)
     end

@@ -1,5 +1,12 @@
 # Changelog
 
+## 12.5.0-beta.1 - 2024-07-25
+* [#1429](https://github.com/stripe/stripe-ruby/pull/1429) Update generated code for beta
+  * Add support for new resources `Billing.AlertTriggered`, `Billing.Alert`, and `Tax.Association`
+  * Add support for `activate`, `archive`, `create`, `deactivate`, `list`, and `retrieve` methods on resource `Alert`
+  * Add support for `find` method on resource `Association`
+* [#1434](https://github.com/stripe/stripe-ruby/pull/1434) Merge changes from stripe/stripe-ruby master
+
 ## 12.4.0 - 2024-07-25
 * [#1437](https://github.com/stripe/stripe-ruby/pull/1437) Update generated code
   * Add support for `update` method on resource `Checkout.Session`

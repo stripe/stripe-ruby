@@ -24,6 +24,7 @@ module Stripe
         Balance.object_name => Balance,
         BalanceTransaction.object_name => BalanceTransaction,
         BankAccount.object_name => BankAccount,
+        Billing::Alert.object_name => Billing::Alert,
         Billing::Meter.object_name => Billing::Meter,
         Billing::MeterEvent.object_name => Billing::MeterEvent,
         Billing::MeterEventAdjustment.object_name => Billing::MeterEventAdjustment,

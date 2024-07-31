@@ -70,6 +70,50 @@ module Stripe
       )
     end
 
+    # Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+    #
+    # For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+    # of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+    #
+    # For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+    # invoice's status becomes paid.
+    #
+    # If the PaymentIntent's status is already succeeded when it's attached, it's
+    # credited to the invoice immediately.
+    #
+    # See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+    def attach_payment(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+    #
+    # For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
+    # of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
+    #
+    # For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+    # invoice's status becomes paid.
+    #
+    # If the PaymentIntent's status is already succeeded when it's attached, it's
+    # credited to the invoice immediately.
+    #
+    # See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+    def self.attach_payment(invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Attaches a PaymentIntent to the invoice, adding it to the list of payments.
     # When the PaymentIntent's status changes to succeeded, the payment is credited
     # to the invoice, increasing its amount_paid. When the invoice is fully paid, the

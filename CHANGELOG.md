@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.5.0-beta.2 - 2024-08-01
+* [#1439](https://github.com/stripe/stripe-ruby/pull/1439) Update generated code for beta
+  * Add support for `attach_payment` method on resource `Invoice`
+
 ## 12.5.0-beta.1 - 2024-07-25
 * [#1429](https://github.com/stripe/stripe-ruby/pull/1429) Update generated code for beta
   * Add support for new resources `Billing.AlertTriggered`, `Billing.Alert`, and `Tax.Association`

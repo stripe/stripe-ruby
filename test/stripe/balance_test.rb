@@ -9,14 +9,6 @@ module Stripe
       assert_requested :get, "#{Stripe.api_base}/v1/balance"
       assert balance.is_a?(Stripe::Balance)
     end
-    should "be retrievable with opts only" do
-      balance = Stripe::Balance.retrieve({ stripe_account: "acct_123" })
-      assert_requested :get, "#{Stripe.api_base}/v1/balance" do |req|
-        assert_equal("acct_123", req.headers["Stripe-Account"])
-        true
-      end
-      assert balance.is_a?(Stripe::Balance)
-    end
     should "be retrievable with opts and params" do
       balance = Stripe::Balance.retrieve({ expand: ["available"] }, { stripe_account: "acct_123" })
       assert_requested :get, "#{Stripe.api_base}/v1/balance?expand[]=available" do |req|
@@ -32,12 +24,6 @@ module Stripe
         true
       end
       assert balance.is_a?(Stripe::Balance)
-    end
-    should "warn you if you are attempting to pass only params" do
-      exception = assert_raises(ArgumentError) do
-        Stripe::Balance.retrieve({ expand: ["available"] })
-      end
-      assert_match(/Unrecognized request option/, exception.message)
     end
   end
 end

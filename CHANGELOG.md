@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.5.0 - 2024-08-08
+* [#1440](https://github.com/stripe/stripe-ruby/pull/1440) Update generated code
+  * Add support for new resources `Billing.AlertTriggered` and `Billing.Alert`
+  * Add support for `activate`, `archive`, `create`, `deactivate`, `list`, and `retrieve` methods on resource `Alert`
+  * Add support for `retrieve` method on resource `Tax.Calculation`
+
 ## 12.5.0-beta.2 - 2024-08-01
 * [#1439](https://github.com/stripe/stripe-ruby/pull/1439) Update generated code for beta
   * Add support for `attach_payment` method on resource `Invoice`

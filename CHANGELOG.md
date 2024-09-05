@@ -1,5 +1,10 @@
 # Changelog
 
+## 12.6.0-beta.1 - 2024-09-05
+* [#1441](https://github.com/stripe/stripe-ruby/pull/1441) Update generated code for beta
+  * Add support for new resources `Billing.MeterErrorReport` and `Terminal.ReaderCollectedData`
+  * Add support for `retrieve` method on resource `ReaderCollectedData`
+
 ## 12.5.0 - 2024-08-08
 * [#1440](https://github.com/stripe/stripe-ruby/pull/1440) Update generated code
   * Add support for new resources `Billing.AlertTriggered` and `Billing.Alert`

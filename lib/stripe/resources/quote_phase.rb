@@ -4,16 +4,9 @@
 module Stripe
   # A quote phase describes the line items, coupons, and trialing status of a subscription for a predefined time period.
   class QuotePhase < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "quote_phase"
     def self.object_name
       "quote_phase"
-    end
-
-    # Returns a list of quote phases.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/quote_phases", params: filters, opts: opts)
     end
 
     # When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

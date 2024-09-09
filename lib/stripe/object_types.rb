@@ -78,6 +78,7 @@ module Stripe
         InvoiceItem.object_name => InvoiceItem,
         InvoiceLineItem.object_name => InvoiceLineItem,
         InvoicePayment.object_name => InvoicePayment,
+        InvoiceRenderingTemplate.object_name => InvoiceRenderingTemplate,
         Issuing::Authorization.object_name => Issuing::Authorization,
         Issuing::Card.object_name => Issuing::Card,
         Issuing::Cardholder.object_name => Issuing::Cardholder,

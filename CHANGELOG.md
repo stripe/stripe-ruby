@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.7.0-beta.1 - 2024-09-13
+* [#1446](https://github.com/stripe/stripe-ruby/pull/1446) Update generated code for beta
+  * Add support for new resources `Issuing.DisputeSettlementDetail` and `Issuing.Settlement`
+  * Add support for `list` and `retrieve` methods on resource `DisputeSettlementDetail`
+  * Remove support for `list` method on resource `QuotePhase`
+
 ## 12.6.0-beta.1 - 2024-09-05
 * [#1441](https://github.com/stripe/stripe-ruby/pull/1441) Update generated code for beta
   * Add support for new resources `Billing.MeterErrorReport` and `Terminal.ReaderCollectedData`

@@ -1,5 +1,10 @@
 # Changelog
 
+## 12.7.0-beta.2 - 2024-09-18
+* [#1449](https://github.com/stripe/stripe-ruby/pull/1449) Update generated code for beta
+  * Remove support for resource `QuotePhase`
+  * Remove support for `list_line_items` and `retrieve` methods on resource `QuotePhase`
+
 ## 12.7.0-beta.1 - 2024-09-13
 * [#1446](https://github.com/stripe/stripe-ruby/pull/1446) Update generated code for beta
   * Add support for new resources `Issuing.DisputeSettlementDetail` and `Issuing.Settlement`

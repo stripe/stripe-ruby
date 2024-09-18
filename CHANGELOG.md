@@ -6,6 +6,12 @@
   * Add support for `list` and `retrieve` methods on resource `DisputeSettlementDetail`
   * Remove support for `list` method on resource `QuotePhase`
 
+## 12.6.0 - 2024-09-12
+* [#1442](https://github.com/stripe/stripe-ruby/pull/1442) Update generated code
+  * Add support for new resource `InvoiceRenderingTemplate`
+  * Add support for `archive`, `list`, `retrieve`, and `unarchive` methods on resource `InvoiceRenderingTemplate`
+* [#1443](https://github.com/stripe/stripe-ruby/pull/1443) Removed v1/files override
+
 ## 12.6.0-beta.1 - 2024-09-05
 * [#1441](https://github.com/stripe/stripe-ruby/pull/1441) Update generated code for beta
   * Add support for new resources `Billing.MeterErrorReport` and `Terminal.ReaderCollectedData`

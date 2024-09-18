@@ -107,7 +107,6 @@ module Stripe
         ProductFeature.object_name => ProductFeature,
         PromotionCode.object_name => PromotionCode,
         Quote.object_name => Quote,
-        QuotePhase.object_name => QuotePhase,
         QuotePreviewInvoice.object_name => QuotePreviewInvoice,
         QuotePreviewSubscriptionSchedule.object_name => QuotePreviewSubscriptionSchedule,
         Radar::EarlyFraudWarning.object_name => Radar::EarlyFraudWarning,

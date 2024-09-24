@@ -149,31 +149,11 @@ module Stripe
         V2::ListObject.object_name => V2::ListObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
-        V2::Account.object_name => V2::Account,
-        V2::AccountLink.object_name => V2::AccountLink,
-        V2::Adjustment.object_name => V2::Adjustment,
         V2::Billing::MeterEventAdjustmentV2.object_name => V2::Billing::MeterEventAdjustmentV2,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
         V2::Billing::MeterEventV2.object_name => V2::Billing::MeterEventV2,
         V2::Event.object_name => V2::Event,
         V2::EventDestination.object_name => V2::EventDestination,
-        V2::FinancialAccount.object_name => V2::FinancialAccount,
-        V2::FinancialAccountBalance.object_name => V2::FinancialAccountBalance,
-        V2::FinancialAddress.object_name => V2::FinancialAddress,
-        V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
-        V2::FinancialAddressGeneratedMicrodeposits.object_name =>
-        V2::FinancialAddressGeneratedMicrodeposits,
-        V2::InboundTransfer.object_name => V2::InboundTransfer,
-        V2::OutboundPayment.object_name => V2::OutboundPayment,
-        V2::OutboundTransfer.object_name => V2::OutboundTransfer,
-        V2::PaymentMethods::Card.object_name => V2::PaymentMethods::Card,
-        V2::PaymentMethods::GbBankAccount.object_name => V2::PaymentMethods::GbBankAccount,
-        V2::PaymentMethods::OutboundDestination.object_name => V2::PaymentMethods::OutboundDestination,
-        V2::PaymentMethods::UsBankAccount.object_name => V2::PaymentMethods::UsBankAccount,
-        V2::ReceivedCredit.object_name => V2::ReceivedCredit,
-        V2::ReceivedDebit.object_name => V2::ReceivedDebit,
-        V2::Transaction.object_name => V2::Transaction,
-        V2::TransactionEntry.object_name => V2::TransactionEntry,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

@@ -171,56 +171,5 @@ module Stripe
   # class definitions: The beginning of the section generated from our OpenAPI spec
   class TemporarySessionExpiredError < StripeError
   end
-
-  class FinancialAccountNotOpenError < StripeError
-  end
-
-  class BlockedByStripeError < StripeError
-  end
-
-  class AlreadyCanceledError < StripeError
-  end
-
-  class NotCancelableError < StripeError
-  end
-
-  class InsufficientFundsError < StripeError
-  end
-
-  class QuotaExceededError < StripeError
-  end
-
-  class RecipientNotNotifiableError < StripeError
-  end
-
-  class FeatureNotEnabledError < StripeError
-  end
-
-  class InvalidPaymentMethodError < StripeError
-    attr_reader :invalid_param
-
-    def initialize(
-      message = nil,
-      http_body: nil,
-      http_status: nil,
-      json_body: nil,
-      http_headers: nil,
-      code: nil,
-      invalid_param: nil
-    )
-      super(
-        message,
-        http_body: http_body,
-        http_status: http_status,
-        json_body: json_body,
-        http_headers: http_headers,
-        code: code,
-      )
-      @invalid_param = invalid_param
-    end
-  end
-
-  class ControlledByDashboardError < StripeError
-  end
   # class definitions: The end of the section generated from our OpenAPI spec
 end

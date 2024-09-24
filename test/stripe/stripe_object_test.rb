@@ -557,7 +557,7 @@ module Stripe
 
         client = Stripe::StripeClient.new("sk_test_fake_key", stripe_account: "foo")
 
-        acc = client.accounts.retrieve("acc_123")
+        acc = client.v1.accounts.retrieve("acc_123")
         assert_equal "foo", req.headers["Stripe-Account"]
 
         obj = acc.instance_variable_get(:@requestor).execute_request(:get, "/v1/accounts/acc_123", :api)
@@ -574,7 +574,7 @@ module Stripe
 
         client = Stripe::StripeClient.new("sk_test_fake_key")
 
-        acc = client.accounts.retrieve("acc_123", {})
+        acc = client.v1.accounts.retrieve("acc_123", {})
 
         new_acc = acc.send(:_request, method: :get, path: "/v1/accounts/acc_123", opts: { stripe_account: "foo" }, base_address: :api)
         assert_equal "foo", req.headers["Stripe-Account"]

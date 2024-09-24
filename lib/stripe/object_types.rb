@@ -67,6 +67,7 @@ module Stripe
         Invoice.object_name => Invoice,
         InvoiceItem.object_name => InvoiceItem,
         InvoiceLineItem.object_name => InvoiceLineItem,
+        InvoiceRenderingTemplate.object_name => InvoiceRenderingTemplate,
         Issuing::Authorization.object_name => Issuing::Authorization,
         Issuing::Card.object_name => Issuing::Card,
         Issuing::Cardholder.object_name => Issuing::Cardholder,
@@ -148,10 +149,13 @@ module Stripe
         V2::ListObject.object_name => V2::ListObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
-        ThinEvent.object_name => ThinEvent,
         V2::Account.object_name => V2::Account,
         V2::AccountLink.object_name => V2::AccountLink,
         V2::Adjustment.object_name => V2::Adjustment,
+        V2::Billing::MeterEventAdjustmentV2.object_name => V2::Billing::MeterEventAdjustmentV2,
+        V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
+        V2::Billing::MeterEventV2.object_name => V2::Billing::MeterEventV2,
+        V2::Event.object_name => V2::Event,
         V2::EventDestination.object_name => V2::EventDestination,
         V2::FinancialAccount.object_name => V2::FinancialAccount,
         V2::FinancialAccountBalance.object_name => V2::FinancialAccountBalance,

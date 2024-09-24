@@ -11,7 +11,7 @@ module Stripe
 
         client = Stripe::StripeClient.new("sk_test_123")
 
-        acc = client.accounts.create
+        acc = client.v1.accounts.create
 
         assert acc.is_a?(Stripe::Account)
       end
@@ -28,14 +28,14 @@ module Stripe
       end
     end
 
-    class TestEventsBaseService < StripeService
+    class TestMeterEventsBaseService < StripeService
       def retrieve(foo, params = {}, opts = {})
         request(
           method: :get,
           path: "/v2/foo/#{foo}",
           params: params,
           opts: opts,
-          base_address: :events
+          base_address: :meter_events
         )
       end
     end
@@ -43,7 +43,7 @@ module Stripe
     class StripeClientDecorator
       def initialize(client)
         @client = client
-        @events_bases = TestEventsBaseService.new(client.instance_variable_get(:@requestor))
+        @meter_events_bases = TestMeterEventsBaseService.new(client.instance_variable_get(:@requestor))
       end
 
       def method_missing(method, *args, &block)
@@ -54,16 +54,16 @@ module Stripe
         @client.respond_to?(method, include_private) || super
       end
 
-      attr_reader :events_bases
+      attr_reader :meter_events_bases
     end
 
     context "base addresses" do
       should "be able to send to events base" do
-        stub_request(:get, "#{Stripe::DEFAULT_EVENTS_BASE}/v2/foo/foo_123")
+        stub_request(:get, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/foo/foo_123")
           .to_return(body: JSON.generate(object: "foo"))
 
         client = StripeClientDecorator.new(Stripe::StripeClient.new("sk_test_123"))
-        client.events_bases.retrieve("foo_123")
+        client.meter_events_bases.retrieve("foo_123")
       end
     end
   end

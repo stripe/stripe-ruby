@@ -55,27 +55,25 @@ module Stripe
         ]
         expected = Util.convert_to_stripe_object(arr, {}, api_mode: :v2)
 
-        list = TestV2ListObject.construct_from({
-          data: [{ id: 1 }],
-          next_page: "page_2",
-          # TODO: Uncomment when object name is added to list object responses
-          #  object: "list"
-        },
-                                               {}, nil, :v2, APIRequestor.new("sk_test_123"))
-        list.set_last_request("/v2/things", { limit: "3" })
+        list = TestV2ListObject
+               .construct_from({
+                 data: [{ id: 1 }],
+                 next_page_url: "/v2/things?limit=3&page=page_2",
+                 # TODO: Uncomment when object name is added to list object responses
+                 #  object: "list"
+               },
+                               {}, nil, :v2, APIRequestor.new("sk_test_123"))
 
         # The test will start with the synthetic list object above, and use it as
         # a starting point to fetch two more pages.
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things")
-          .with(query: { limit: "3", page: "page_2" })
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things?limit=3&page=page_2")
           .to_return(body: JSON.generate(
-            data: [{ id: 2 }, { id: 3 }, { id: 4 }], next_page: "page_3"
+            data: [{ id: 2 }, { id: 3 }, { id: 4 }], next_page_url: "/v2/things?limit=3&page=page_3"
             #  object: "list"
           ))
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things")
-          .with(query: { limit: "3", page: "page_3" })
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things?limit=3&page=page_3")
           .to_return(body: JSON.generate(
-            data: [{ id: 5 }, { id: 6 }], next_page: nil
+            data: [{ id: 5 }, { id: 6 }], next_page_url: nil
             #  object: "list"
           ))
 
@@ -92,14 +90,11 @@ module Stripe
 
         list = TestV2ListObject.construct_from({
           data: [{ id: 1 }],
-          next_page: "page_2",
-          #  object: "list"
+          next_page_url: "/v2/things?page=page_2", #  object: "list"
         }, {}, nil, :v2, APIRequestor.new("sk_test_123"))
-        list.set_last_request("/v2/things", {})
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things")
-          .with(query: { page: "page_2" })
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things?page=page_2")
           .to_return(
-            body: JSON.generate(data: [{ id: 2 }, { id: 3 }], next_page: nil)
+            body: JSON.generate(data: [{ id: 2 }, { id: 3 }], next_page_url: nil)
             # object: "list"
           )
 
@@ -116,44 +111,40 @@ module Stripe
       should "fetch a next page" do
         list = TestV2ListObject.construct_from({
           data: [{ id: 1 }],
-          next_page: "page_2",
+          next_page_url: "/v2/things?page=page_2",
           #  object: "list"
         }, {}, nil, :v2, APIRequestor.new("sk_test_123"))
-        list.set_last_request("/v2/things", {})
         list.requestor = APIRequestor.new("sk_test_123")
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things")
-          .with(query: { page: "page_2" })
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things?page=page_2")
           .to_return(body: JSON.generate(
-            data: [{ id: 2 }], next_page: nil
+            data: [{ id: 2 }], next_page_url: nil
             # object: "list"
           ))
         next_list = list.fetch_next_page
         refute next_list.empty?
       end
 
-      should "fetch a next page through #next_page and respect limit" do
+      should "fetch a next page through #next_page" do
         list = TestV2ListObject.construct_from({
           data: [{ id: 1 }],
-          next_page: "page_2",
+          next_page_url: "/v2/things?page=page_2",
           #  object: "list"
         }, {}, nil, :v2, APIRequestor.new("sk_test_123"))
-        list.set_last_request("/v2/things", { limit: "3" })
 
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things")
-          .with(query: { page: "page_2", limit: 3 })
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things?page=page_2")
           .to_return(body: JSON.generate(
-            data: [{ id: 2 }], next_page: nil
+            data: [{ id: 2 }], next_page_url: nil
             # object: "list"
           ))
 
         next_list = list.fetch_next_page
-        assert_equal({ limit: "3", page: "page_2" }, next_list.instance_variable_get(:@last_request)[:params])
+        assert_equal(next_list.data[0].id, 2)
       end
 
       should "fetch an empty page through #next_page" do
         list = TestV2ListObject.construct_from({
           data: [{ id: 1 }],
-          next_page: nil,
+          next_page_url: nil,
           #  object: "list"
         }, {}, nil, :v2)
         next_list = list.fetch_next_page
@@ -173,7 +164,7 @@ module Stripe
 
         stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
           .to_return(body: JSON.generate(
-            data: [{ id: 1 }], next_page: "page_2"
+            data: [{ id: 1 }], next_page_url: "/v2/financial_accounts?page=page_2"
             #  object: "list"
           ))
 
@@ -181,12 +172,12 @@ module Stripe
 
         list = client.v2.financial_accounts.list
 
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
-          .with(query: { page: "page_2" }) do |req|
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts?page=page_2")
+          .with do |req|
             req.headers["Authorization"] == "Bearer sk_test_iter"
           end
           .to_return(body: JSON.generate(
-            data: [{ id: 2 }, { id: 3 }, { id: 4 }], next_page: nil
+            data: [{ id: 2 }, { id: 3 }, { id: 4 }], next_page_url: nil
             #  object: "list"
           ))
 
@@ -195,17 +186,17 @@ module Stripe
 
       should "correctly deserialize ListObject contents" do
         stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
-          .to_return(body: JSON.generate(data: [{ id: 1, object: "financial_account" }], next_page: "page_2"))
+          .to_return(body: JSON.generate(data: [{ id: 1, object: "financial_account" }], next_page_url: "/v2/financial_accounts?page=page_2"))
 
         client = Stripe::StripeClient.new("sk_test_iter")
 
         list = client.v2.financial_accounts.list
 
         stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
-          .with(query: { page: "page_2" }) do |req|
+          .with do |req|
             req.headers["Authorization"] == "Bearer sk_test_iter"
           end
-          .to_return(body: JSON.generate(data: [{ id: 2, object: "financial_account" }, { id: 3, object: "financial_account" }, { id: 4, object: "financial_account" }], next_page: nil))
+          .to_return(body: JSON.generate(data: [{ id: 2, object: "financial_account" }, { id: 3, object: "financial_account" }, { id: 4, object: "financial_account" }], next_page_url: nil))
 
         list.each do |obj|
           assert_instance_of(Stripe::V2::FinancialAccount, obj)
@@ -213,33 +204,33 @@ module Stripe
       end
 
       # TODO: Should pass once StripeService respects options flowing
-      # should "respect per-request api key" do
-      #   arr = [
-      #     { id: 1 },
-      #     { id: 2 },
-      #   ]
-      #   expected = Util.convert_to_stripe_object(arr, {}, api_mode: :v2)
+      should "respect per-request api key" do
+        arr = [
+          { id: 1 },
+          { id: 2 },
+        ]
+        expected = Util.convert_to_stripe_object(arr, {}, api_mode: :v2)
 
-      #   stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
-      #     .with do |req|
-      #       req.headers["Authorization"] == "Bearer sk_test_iter_key"
-      #     end
-      #     .to_return(body: JSON.generate(data: [{ id: 1 }], next_page: "page_2",
-      #                                    object: "list"))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
+          .with do |req|
+            req.headers["Authorization"] == "Bearer sk_test_iter_key"
+          end
+          .to_return(body: JSON.generate(data: [{ id: 1 }], next_page_url: "/v2/financial_accounts?page=page_2",
+                                         object: "list"))
 
-      #   client = Stripe::StripeClient.new("sk_test_123")
+        client = Stripe::StripeClient.new("sk_test_123")
 
-      #   list = client.v2.financial_accounts.list({}, { api_key: "sk_test_iter_key" })
+        list = client.v2.financial_accounts.list({}, { api_key: "sk_test_iter_key" })
 
-      #   stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
-      #     .with(query: { page: "page_2" }) do |req|
-      #       req.headers["Authorization"] == "Bearer sk_test_iter_key"
-      #     end
-      #     .to_return(body: JSON.generate(data: [{ id: 2 }], next_page: nil,
-      #                                    object: "list"))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts?page=page_2")
+          .with do |req|
+            req.headers["Authorization"] == "Bearer sk_test_iter_key"
+          end
+          .to_return(body: JSON.generate(data: [{ id: 2 }], next_page_url: nil,
+                                         object: "list"))
 
-      #   assert_equal expected, list.auto_paging_each.to_a
-      # end
+        assert_equal expected, list.auto_paging_each.to_a
+      end
     end
   end
 end

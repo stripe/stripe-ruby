@@ -169,6 +169,9 @@ module Stripe
   end
 
   # class definitions: The beginning of the section generated from our OpenAPI spec
+  class TemporarySessionExpiredError < StripeError
+  end
+
   class FinancialAccountNotOpenError < StripeError
   end
 

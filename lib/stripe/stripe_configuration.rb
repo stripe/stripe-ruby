@@ -27,9 +27,9 @@ module Stripe
   class StripeConfiguration
     attr_accessor :api_key, :api_version, :client_id, :enable_telemetry, :logger, :stripe_account, :stripe_context
 
-    attr_reader :api_base, :uploads_base, :connect_base, :events_base, :base_addresses, :ca_bundle_path, :log_level,
-                :initial_network_retry_delay, :max_network_retries, :max_network_retry_delay, :open_timeout,
-                :read_timeout, :write_timeout, :proxy, :verify_ssl_certs
+    attr_reader :api_base, :uploads_base, :connect_base, :meter_events_base, :base_addresses, :ca_bundle_path,
+                :log_level, :initial_network_retry_delay, :max_network_retries, :max_network_retry_delay,
+                :open_timeout, :read_timeout, :write_timeout, :proxy, :verify_ssl_certs
 
     def self.setup
       new.tap do |instance|
@@ -46,7 +46,7 @@ module Stripe
         end
         instance.send("instance_variable_set", "@base_addresses",
                       { api: instance.api_base, connect: instance.connect_base,
-                        files: instance.uploads_base, events: instance.events_base, })
+                        files: instance.uploads_base, meter_events: instance.meter_events_base, })
       end
     end
 
@@ -67,8 +67,8 @@ module Stripe
       @api_base = DEFAULT_API_BASE
       @connect_base = DEFAULT_CONNECT_BASE
       @uploads_base = DEFAULT_UPLOAD_BASE
-      @events_base = DEFAULT_EVENTS_BASE
-      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base, events: @events_base }
+      @meter_events_base = DEFAULT_METER_EVENTS_BASE
+      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base, events: @meter_events_base }
     end
 
     def log_level=(val)
@@ -130,9 +130,9 @@ module Stripe
       APIRequestor.clear_all_connection_managers(config: self)
     end
 
-    def events_base=(events_base)
-      @events_base = events_base
-      @base_addresses[:events] = events_base
+    def meter_events_base=(meter_events_base)
+      @meter_events_base = meter_events_base
+      @base_addresses[:meter_events] = meter_events_base
       APIRequestor.clear_all_connection_managers(config: self)
     end
 

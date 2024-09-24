@@ -775,6 +775,24 @@ module Stripe
             client.send(request_method, :post, "/v1/account", :api,
                         &@read_body_chunk_block)
           end
+
+          should "not send it when it is set to nil on construction" do
+            client = APIRequestor.new({ api_key: "sk_test_123", stripe_account: nil })
+            headers = client.send(:request_headers, :get, :v2, { stripe_account: nil, headers: {} })
+            refute(headers.include?("Stripe-Account"))
+          end
+
+          should "not send it when it is set to nil after construction" do
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with do |req|
+                req.headers["Stripe-Account"].nil?
+              end.to_return(body: JSON.generate(object: "account"))
+
+            client = APIRequestor.new("sk_test_123")
+            client.config.stripe_account = nil
+            client.send(request_method, :post, "/v1/account", :api,
+                        &@read_body_chunk_block)
+          end
         end
 
         context "app_info" do

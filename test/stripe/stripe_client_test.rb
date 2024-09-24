@@ -37,7 +37,7 @@ module Stripe
         client = StripeClient.new("test_123")
         # uses current API version if not set
         assert_not_nil client.instance_variable_get(:@requestor).config.api_version
-        client.customers.list
+        client.v1.customers.list
         assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
       end
 
@@ -59,7 +59,7 @@ module Stripe
           .with { |request| req = request }
           .to_return(body: JSON.generate(object: "customer"))
 
-        client.customers.retrieve("cus_123")
+        client.v1.customers.retrieve("cus_123")
 
         assert_equal "Bearer test_123", req.headers["Authorization"]
         assert_equal "acct_123", req.headers["Stripe-Account"]
@@ -75,7 +75,7 @@ module Stripe
           .with { |request| req = request }
           .to_return(body: JSON.generate(object: "customer"))
 
-        client.customers.retrieve("cus_123", {}, { api_key: "test_456", stripe_version: "2024-03-15" })
+        client.v1.customers.retrieve("cus_123", {}, { api_key: "test_456", stripe_version: "2024-03-15" })
 
         assert_equal "Bearer test_456", req.headers["Authorization"]
         assert_equal "acct_123", req.headers["Stripe-Account"]
@@ -111,7 +111,7 @@ module Stripe
           .to_return(body: JSON.generate(object: "customer"))
 
         client = StripeClient.new("sk_test_456")
-        resp,  = client.customers.retrieve("cus_123")
+        resp,  = client.v1.customers.retrieve("cus_123")
 
         assert_equal nil, req.headers["Content-Type"]
         assert_equal Stripe::ApiVersion::CURRENT, req.headers["Stripe-Version"]
@@ -172,7 +172,7 @@ module Stripe
           idempotency_key: "idemp_123",
         }
         unchanged_opts = opts.dup
-        client.customers.retrieve("cus_123", {}, opts)
+        client.v1.customers.retrieve("cus_123", {}, opts)
 
         # original opts shouldn't be modified
         assert_equal unchanged_opts, opts
@@ -193,7 +193,7 @@ module Stripe
           stripe_context: "wksp_123",
           idempotency_key: "idemp_123",
         }
-        client.customers.retrieve("cus_123", {}, opts)
+        client.v1.customers.retrieve("cus_123", {}, opts)
 
         assert_equal "2019-12-03", req.headers["Stripe-Version"]
         assert_equal "Bearer sk_test_456", req.headers["Authorization"]
@@ -216,7 +216,7 @@ module Stripe
           "Stripe-Context" => "wksp_123",
           "Idempotency-Key" => "idemp_123",
         }
-        client.customers.retrieve("cus_123", {}, opts)
+        client.v1.customers.retrieve("cus_123", {}, opts)
 
         assert_equal "2019-12-03", req.headers["Stripe-Version"]
         assert_equal "acct_123", req.headers["Stripe-Account"]
@@ -234,7 +234,7 @@ module Stripe
 
         Stripe.api_base = Stripe::DEFAULT_API_BASE
         client = StripeClient.new("sk_test_123", stripe_account: "acct_123")
-        cus = client.customers.retrieve("cus_123")
+        cus = client.v1.customers.retrieve("cus_123")
         cus.delete
         assert_requested(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
         assert_equal "acct_123", req.headers["Stripe-Account"]
@@ -255,7 +255,7 @@ module Stripe
           api_key: "sk_test_456",
           stripe_account: "acct_123",
         }
-        cus = client.customers.retrieve("cus_123", {}, opts)
+        cus = client.v1.customers.retrieve("cus_123", {}, opts)
         cus.delete
         assert_requested(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
         assert_equal "acct_123", req.headers["Stripe-Account"]

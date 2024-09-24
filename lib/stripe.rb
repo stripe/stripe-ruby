@@ -50,6 +50,7 @@ require "stripe/api_resource_test_helpers"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
 require "stripe/stripe_configuration"
+require "stripe/thin_event"
 
 # Named API resources
 require "stripe/resources"
@@ -71,7 +72,7 @@ module Stripe
   DEFAULT_API_BASE = "https://api.stripe.com"
   DEFAULT_CONNECT_BASE = "https://connect.stripe.com"
   DEFAULT_UPLOAD_BASE = "https://files.stripe.com"
-  DEFAULT_EVENTS_BASE = "https://events.stripe.com"
+  DEFAULT_METER_EVENTS_BASE = "https://meter-events.stripe.com"
 
   @app_info = nil
 
@@ -89,7 +90,7 @@ module Stripe
     def_delegators :@config, :api_base, :api_base=
     def_delegators :@config, :uploads_base, :uploads_base=
     def_delegators :@config, :connect_base, :connect_base=
-    def_delegators :@config, :events_base, :events_base=
+    def_delegators :@config, :meter_events_base, :meter_events_base=
     def_delegators :@config, :open_timeout, :open_timeout=
     def_delegators :@config, :read_timeout, :read_timeout=
     def_delegators :@config, :write_timeout, :write_timeout=

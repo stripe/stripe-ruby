@@ -216,11 +216,8 @@ module Stripe
       store_last_response(object_id, resp)
 
       api_mode = Util.get_api_mode(path)
-      obj = Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
-                                                      api_mode: api_mode, requestor: self)
-
-      obj.set_last_request(path, params) if obj.is_a?(V2::ListObject)
-      obj
+      Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
+                                                api_mode: api_mode, requestor: self)
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class
@@ -855,6 +852,8 @@ module Stripe
       when "idempotency_error"
         IdempotencyError.new(error_data[:message], **opts)
       # switch cases: The beginning of the section generated from our OpenAPI spec
+      when "temporary_session_expired"
+        TemporarySessionExpiredError.new(error_data[:message], **opts)
       when "financial_account_not_open"
         FinancialAccountNotOpenError.new(error_data[:message], **opts)
       when "blocked_by_stripe"

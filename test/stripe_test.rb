@@ -124,9 +124,9 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "https://other.stripe.com", Stripe.connect_base
     end
 
-    should "allow events_base to be configured" do
-      Stripe.events_base = "https://other.stripe.com"
-      assert_equal "https://other.stripe.com", Stripe.events_base
+    should "allow meter_events_base to be configured" do
+      Stripe.meter_events_base = "https://other.stripe.com"
+      assert_equal "https://other.stripe.com", Stripe.meter_events_base
     end
 
     should "allow verify_ssl_certs to be configured" do

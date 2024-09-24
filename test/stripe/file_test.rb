@@ -44,7 +44,7 @@ module Stripe
           api_base: Stripe.api_base,
           uploads_base: Stripe.uploads_base
         )
-        file = client.files.create({
+        file = client.v1.files.create({
           purpose: "dispute_evidence",
           file: "my-file-contents",
           file_link_data: { create: true },

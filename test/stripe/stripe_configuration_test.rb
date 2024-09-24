@@ -20,7 +20,7 @@ module Stripe
         assert_equal "https://api.stripe.com", config.api_base
         assert_equal "https://connect.stripe.com", config.connect_base
         assert_equal "https://files.stripe.com", config.uploads_base
-        assert_equal "https://events.stripe.com", config.events_base
+        assert_equal "https://meter-events.stripe.com", config.meter_events_base
         assert !config.api_version.nil?
       end
 
@@ -55,7 +55,7 @@ module Stripe
             c.api_base = "test"
             c.uploads_base = "foo"
             c.connect_base = "bar"
-            c.events_base = "baz"
+            c.meter_events_base = "baz"
           end
 
           duped_config = config.reverse_duplicate_merge({ read_timeout: 500 })
@@ -63,7 +63,7 @@ module Stripe
           assert_equal config.base_addresses[:api], duped_config.base_addresses[:api]
           assert_equal config.base_addresses[:files], duped_config.base_addresses[:files]
           assert_equal config.base_addresses[:connect], duped_config.base_addresses[:connect]
-          assert_equal config.base_addresses[:events], duped_config.base_addresses[:events]
+          assert_equal config.base_addresses[:meter_events], duped_config.base_addresses[:meter_events]
           assert_equal 500, duped_config.read_timeout
         end
 
@@ -77,7 +77,7 @@ module Stripe
           assert_equal config.base_addresses[:api], duped_config.base_addresses[:api]
           assert_equal Stripe::DEFAULT_CONNECT_BASE, duped_config.base_addresses[:connect]
           assert_equal Stripe::DEFAULT_UPLOAD_BASE, duped_config.base_addresses[:files]
-          assert_equal Stripe::DEFAULT_EVENTS_BASE, duped_config.base_addresses[:events]
+          assert_equal Stripe::DEFAULT_METER_EVENTS_BASE, duped_config.base_addresses[:meter_events]
           assert_equal 500, duped_config.read_timeout
         end
 
@@ -90,7 +90,7 @@ module Stripe
           assert_equal Stripe.api_base, duped_config.base_addresses[:api]
           assert_equal Stripe.connect_base, duped_config.base_addresses[:connect]
           assert_equal Stripe.uploads_base, duped_config.base_addresses[:files]
-          assert_equal Stripe.events_base, duped_config.base_addresses[:events]
+          assert_equal Stripe.meter_events_base, duped_config.base_addresses[:meter_events]
 
           Stripe.api_base = old_api_base
         end
@@ -187,11 +187,11 @@ module Stripe
         config.connect_base = "https://other.stripe.com"
       end
 
-      should "clear when setting events_base" do
+      should "clear when setting meter_events_base" do
         config = Stripe::StripeConfiguration.setup
 
         APIRequestor.expects(:clear_all_connection_managers).with(config: config)
-        config.events_base = "https://other.stripe.com"
+        config.meter_events_base = "https://other.stripe.com"
       end
 
       should "clear when setting verify_ssl_certs" do

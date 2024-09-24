@@ -3,8 +3,6 @@
 module Stripe
   module V2
     class ListObject < StripeObject
-      attr_reader :last_request
-
       OBJECT_NAME = "list"
       def self.object_name
         "list"
@@ -14,11 +12,6 @@ module Stripe
       # there isn't a next page.
       def self.empty_list(opts = {})
         ListObject.construct_from({ data: [] }, opts, nil, :v2)
-      end
-
-      def initialize(*args)
-        super
-        @last_request = nil
       end
 
       def [](key)
@@ -32,13 +25,6 @@ module Stripe
                 "object with a 'data' (which is the data array). You likely " \
                 "want to call #data[#{key.inspect}])"
         end
-      end
-
-      def set_last_request(url, params)
-        # TODO: Params will no longer be necessary when
-        # next page is a URL and not a token.
-        # Coming soon to a V2 API near you.
-        @last_request = { url: url, params: params }
       end
 
       # Iterates through each resource in the page represented by the current
@@ -69,7 +55,7 @@ module Stripe
         loop do
           page.each(&blk)
 
-          break if page.next_page.nil?
+          break if page.next_page_url.nil?
 
           page = page.fetch_next_page
         end
@@ -84,16 +70,13 @@ module Stripe
       #
       # This method will try to respect the limit of the current page. If none
       # was given, the default limit will be fetched again.
-      def fetch_next_page(params = {}, opts = {})
-        return self.class.empty_list(opts) if next_page.nil?
-
-        new_params = @last_request[:params].merge(page: next_page).merge(params)
+      def fetch_next_page(opts = {})
+        return self.class.empty_list(opts) if next_page_url.nil?
 
         _request(
           method: :get,
-          path: last_request[:url],
-          base_address: :api,
-          params: new_params
+          path: next_page_url,
+          base_address: :api
         )
       end
     end

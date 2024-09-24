@@ -16,8 +16,13 @@ Layout/FirstHashElementIndentation:
 Layout/LineLength:
   Exclude:
     - "lib/stripe/object_types.rb"
+    - "lib/stripe/stripe_client.rb"
     - "lib/stripe/resources/**/*.rb"
+    - "lib/stripe/services/**/*.rb"
     - "test/**/*.rb"
+
+Metrics/AbcSize:
+  Enabled: false
 
 Metrics/BlockLength:
   Max: 40
@@ -29,11 +34,25 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Enabled: false
 
+# There are several methods with many branches in api_requestor due to
+# request logic.
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/stripe/api_requestor.rb"
+    - "lib/stripe/util.rb"
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/stripe/api_requestor.rb"
+    - "lib/stripe/util.rb"
+
 Metrics/MethodLength:
-  # There's ~2 long methods in `StripeClient` and one in `NestedResource`. If
+  # There's ~2 long methods in `APIRequestor` and one in `NestedResource`. If
   # we want to truncate those a little, we could move this to be closer to ~30
   # (but the default of 10 is probably too short).
   Max: 55
+  Exclude:
+    - "lib/stripe/services/v1_service.rb"
 
 Metrics/ModuleLength:
   Enabled: false
@@ -41,6 +60,11 @@ Metrics/ModuleLength:
 Metrics/ParameterLists:
   # There's 2 methods in `StripeClient` that have long parameter lists.
   Max: 8
+  # Optional parameters should be consistent across libraries, we need not be
+  # concerned about this. Was introduced with adding `base_address`
+  Exclude:
+    - "lib/stripe/api_operations/request.rb"
+    - "lib/stripe/stripe_object.rb"
 
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline

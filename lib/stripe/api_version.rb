@@ -4,6 +4,6 @@
 module Stripe
   module ApiVersion
     CURRENT = "2024-06-20"
-    PREVIEW = "cs_ubb_launch"
+    PREVIEW = "2024-09-30.acacia"
   end
 end

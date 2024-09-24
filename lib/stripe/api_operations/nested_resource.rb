@@ -60,7 +60,7 @@ module Stripe
             opts = nil
             params = nil
             if definitely_opts.nil?
-              unrecognized_key = params_or_opts.keys.find { |k| !Util::OPTS_USER_SPECIFIED.include?(k) }
+              unrecognized_key = params_or_opts.keys.find { |k| !RequestOptions::OPTS_USER_SPECIFIED.include?(k) }
               if unrecognized_key
                 raise ArgumentError,
                       "Unrecognized request option: #{unrecognized_key}. Did you mean to specify this as " \

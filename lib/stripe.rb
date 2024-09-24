@@ -31,13 +31,18 @@ require "stripe/api_operations/search"
 # API resource support classes
 require "stripe/errors"
 require "stripe/object_types"
+require "stripe/event_types"
+require "stripe/request_options"
 require "stripe/util"
 require "stripe/connection_manager"
 require "stripe/multipart_encoder"
+require "stripe/api_requestor"
+require "stripe/stripe_service"
 require "stripe/stripe_client"
 require "stripe/stripe_object"
 require "stripe/stripe_response"
 require "stripe/list_object"
+require "stripe/v2_list_object"
 require "stripe/search_result_object"
 require "stripe/error_object"
 require "stripe/api_resource"
@@ -48,9 +53,11 @@ require "stripe/stripe_configuration"
 
 # Named API resources
 require "stripe/resources"
+require "stripe/services"
 
 # OAuth
 require "stripe/oauth"
+require "stripe/services/oauth_service"
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"
@@ -59,6 +66,12 @@ module Stripe
   LEVEL_DEBUG = Logger::DEBUG
   LEVEL_ERROR = Logger::ERROR
   LEVEL_INFO = Logger::INFO
+
+  # API base constants
+  DEFAULT_API_BASE = "https://api.stripe.com"
+  DEFAULT_CONNECT_BASE = "https://connect.stripe.com"
+  DEFAULT_UPLOAD_BASE = "https://files.stripe.com"
+  DEFAULT_EVENTS_BASE = "https://events.stripe.com"
 
   @app_info = nil
 
@@ -76,6 +89,7 @@ module Stripe
     def_delegators :@config, :api_base, :api_base=
     def_delegators :@config, :uploads_base, :uploads_base=
     def_delegators :@config, :connect_base, :connect_base=
+    def_delegators :@config, :events_base, :events_base=
     def_delegators :@config, :open_timeout, :open_timeout=
     def_delegators :@config, :read_timeout, :read_timeout=
     def_delegators :@config, :write_timeout, :write_timeout=
@@ -119,28 +133,33 @@ module Stripe
   end
 
   class RawRequest
-    include Stripe::APIOperations::Request
-
     def initialize
       @opts = {}
     end
 
-    def execute(method, url, params = {}, opts = {}, usage = [])
-      resp, = execute_resource_request(method, url, params, opts, usage)
+    def execute(method, url, base_address: :api, params: {}, opts: {}, usage: [])
+      opts = Util.normalize_opts(opts)
+      req_opts = RequestOptions.extract_opts_from_hash(opts)
 
-      resp
+      requestor = APIRequestor.active_requestor
+      resp, = requestor.send(:execute_request_internal, method, url, base_address, params, req_opts,
+                             usage)
+
+      requestor.interpret_response(resp)
     end
   end
 
   # Sends a request to Stripe REST API
-  def self.raw_request(method, url, params = {}, opts = {})
+  # TODO: move to StripeClient
+  def self.raw_request(method, url, base_address: :api, params: {}, opts: {})
     req = RawRequest.new
-    req.execute(method, url, params, opts, ["raw_request"])
+    req.execute(method, url, base_address: base_address, params: params, opts: opts,
+                             usage: ["raw_request"])
   end
 
-  def self.deserialize(data)
+  def self.deserialize(data, api_mode: :v1)
     data = JSON.parse(data) if data.is_a?(String)
-    Util.convert_to_stripe_object(data, {})
+    Util.convert_to_stripe_object(data, {}, api_mode: api_mode)
   end
 end
 

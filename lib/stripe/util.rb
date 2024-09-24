@@ -4,26 +4,6 @@ require "cgi"
 
 module Stripe
   module Util
-    # Options that a user is allowed to specify.
-    OPTS_USER_SPECIFIED = Set[
-      :api_key,
-      :idempotency_key,
-      :stripe_account,
-      :stripe_version
-    ].freeze
-
-    # Options that should be copyable from one StripeObject to another
-    # including options that may be internal.
-    OPTS_COPYABLE = (
-      OPTS_USER_SPECIFIED + Set[:api_base]
-    ).freeze
-
-    # Options that should be persisted between API requests. This includes
-    # client, which is an object containing an HTTP client to reuse.
-    OPTS_PERSISTABLE = (
-      OPTS_USER_SPECIFIED + Set[:client] - Set[:idempotency_key]
-    ).freeze
-
     def self.objects_to_ids(obj)
       case obj
       when APIResource
@@ -41,6 +21,14 @@ module Stripe
 
     def self.object_classes
       @object_classes ||= Stripe::ObjectTypes.object_names_to_classes
+    end
+
+    def self.v2_object_classes
+      @v2_object_classes ||= Stripe::ObjectTypes.v2_object_names_to_classes
+    end
+
+    def self.thin_event_classes
+      @thin_event_classes ||= Stripe::EventTypes.thin_event_names_to_classes
     end
 
     def self.object_name_matches_class?(object_name, klass)
@@ -61,6 +49,7 @@ module Stripe
     #     custom_method :capture, http_verb: post
     # adds a `capture` class method to the resource class that, when called,
     # will send a POST request to `/v1/<object_name>/capture`.
+    # TODO: are we comfortable with deleting this?
     def self.custom_method(resource, target, name, http_verb, http_path)
       unless %i[get post delete].include?(http_verb)
         raise ArgumentError,
@@ -83,14 +72,13 @@ module Stripe
               "#{CGI.escape(id)}/" \
               "#{CGI.escape(http_path)}"
 
-        resp, opts = resource.execute_resource_request(
+        resource.execute_resource_request(
           http_verb,
           url,
+          :api,
           params,
           opts
         )
-
-        Util.convert_to_stripe_object_with_params(resp.data, params, opts, resp)
       end
     end
 
@@ -108,8 +96,8 @@ module Stripe
     #   will be reused on subsequent API calls.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
-    def self.convert_to_stripe_object(data, opts = {})
-      convert_to_stripe_object_with_params(data, {}, opts)
+    def self.convert_to_stripe_object(data, opts = {}, api_mode: :v1, requestor: nil)
+      convert_to_stripe_object_with_params(data, {}, opts, api_mode: api_mode, requestor: requestor)
     end
 
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or
@@ -124,18 +112,46 @@ module Stripe
     # * +data+ - Hash of fields and values to be converted into a StripeObject.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
-    def self.convert_to_stripe_object_with_params(data, params, opts = {}, last_response = nil)
+    # * +last_response+ - The raw response associated with the object.
+    # * +api_mode+ - The API mode to use when converting the object, either :v1 or :v2.
+    # * +requestor+ - The requestor to use when constructing the object.
+    def self.convert_to_stripe_object_with_params(
+      data,
+      params,
+      opts = {},
+      last_response = nil,
+      api_mode: :v1,
+      requestor: nil
+    )
       opts = normalize_opts(opts)
 
       case data
       when Array
-        data.map { |i| convert_to_stripe_object(i, opts) }
+        data.map { |i| convert_to_stripe_object(i, opts, api_mode: api_mode) }
       when Hash
+        # TODO: This is a terrible hack.
+        # Waiting on https://jira.corp.stripe.com/browse/API_SERVICES-3167 to add
+        # an object in v2 lists
+        if api_mode == :v2 && data.include?(:data) && data.include?(:next_page)
+          return V2::ListObject.construct_from(data, opts, last_response, api_mode, requestor)
+        end
+
         # Try converting to a known object class.  If none available, fall back
         # to generic StripeObject
         object_name = data[:object] || data["object"]
-        obj = object_classes.fetch(object_name, StripeObject)
-                            .construct_from(data, opts, last_response)
+        object_class = if api_mode == :v2
+                         if object_name == "event"
+                           thin_event_classes.fetch(data[:type] || data["type"])
+                         else
+                           v2_object_classes.fetch(
+                             object_name, StripeObject
+                           )
+                         end
+                       else
+                         object_classes.fetch(object_name, StripeObject)
+                       end
+
+        obj = object_class.construct_from(data, opts, last_response, api_mode, requestor)
 
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages
@@ -201,8 +217,8 @@ module Stripe
     # parameters in a URI or as form parameters in a request body. This mainly
     # involves escaping special characters from parameter keys and values (e.g.
     # `&`).
-    def self.encode_parameters(params)
-      Util.flatten_params(params)
+    def self.encode_parameters(params, api_mode)
+      Util.flatten_params(params, api_mode)
           .map { |k, v| "#{url_encode(k)}=#{url_encode(v)}" }.join("&")
     end
 
@@ -217,7 +233,7 @@ module Stripe
         gsub("%5B", "[").gsub("%5D", "]")
     end
 
-    def self.flatten_params(params, parent_key = nil)
+    def self.flatten_params(params, api_mode, parent_key = nil)
       result = []
 
       # do not sort the final output because arrays (and arrays of hashes
@@ -225,9 +241,9 @@ module Stripe
       params.each do |key, value|
         calculated_key = parent_key ? "#{parent_key}[#{key}]" : key.to_s
         if value.is_a?(Hash)
-          result += flatten_params(value, calculated_key)
+          result += flatten_params(value, api_mode, calculated_key)
         elsif value.is_a?(Array)
-          result += flatten_params_array(value, calculated_key)
+          result += flatten_params_array(value, api_mode, calculated_key)
         else
           result << [calculated_key, value]
         end
@@ -236,15 +252,19 @@ module Stripe
       result
     end
 
-    def self.flatten_params_array(value, calculated_key)
+    def self.flatten_params_array(value, api_mode, calculated_key)
       result = []
       value.each_with_index do |elem, i|
         if elem.is_a?(Hash)
-          result += flatten_params(elem, "#{calculated_key}[#{i}]")
+          result += flatten_params(elem, api_mode, "#{calculated_key}[#{i}]")
         elsif elem.is_a?(Array)
-          result += flatten_params_array(elem, calculated_key)
+          result += flatten_params_array(elem, calculated_key, api_mode)
         else
-          result << ["#{calculated_key}[#{i}]", elem]
+          result << if api_mode == :v2
+                      [calculated_key, elem]
+                    else
+                      ["#{calculated_key}[#{i}]", elem]
+                    end
         end
       end
       result
@@ -332,6 +352,15 @@ module Stripe
       res = 0
       str_b.each_byte { |byte| res |= byte ^ l.shift }
       res.zero?
+    end
+
+    # Returns either v1 or v2 as api_mode based on the given path
+    def self.get_api_mode(path)
+      if path.start_with?("/v2/")
+        :v2
+      else
+        :v1
+      end
     end
 
     #

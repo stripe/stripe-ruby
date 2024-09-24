@@ -48,10 +48,10 @@ module Stripe
         old_stderr = $stderr
         $stderr = StringIO.new
         begin
-          stub_request(:post, "#{Stripe.api_base}/v1/customers/search?query=foo:bar")
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/search?query=foo:bar")
             .to_return(body: JSON.generate(object: "customer"))
 
-          client = StripeClient.new
+          client = APIRequestor.new("sk_test_123")
           client.request { Customer._search("/v1/customers/search", query: "foo:bar") }
 
           message = "NOTE: Stripe::Customer._search is deprecated; use request_stripe_object " \

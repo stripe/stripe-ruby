@@ -24,6 +24,7 @@ module Stripe
         method: :post,
         path: "#{Customer.resource_url}/#{customer}/sources/#{id}/verify",
         params: params,
+        base_address: :api,
         opts: opts
       )
     end
@@ -33,6 +34,7 @@ module Stripe
         method: :post,
         path: "#{Customer.resource_url}/#{customer}/sources/#{id}/verify",
         params: params,
+        base_address: :api,
         opts: opts
       )
     end

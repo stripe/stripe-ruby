@@ -86,10 +86,9 @@ module Stripe
       "#{self.class.resource_url}/#{CGI.escape(id)}"
     end
 
+    # TODO: v2 objects can be refreshed -- the api mode should depend on the object here.
     def refresh
-      resp, opts = execute_resource_request(:get, resource_url,
-                                            @retrieve_params)
-      initialize_from(resp.data, opts, resp)
+      @requestor.execute_request_initialize_from(:get, resource_url, :api, self, params: @retrieve_params)
     end
 
     def self.retrieve(id, opts = {})
@@ -99,21 +98,15 @@ module Stripe
       instance
     end
 
-    def request_stripe_object(method:, path:, params:, opts: {})
-      resp, opts = execute_resource_request(method, path, params, opts)
-
-      # If we're getting back this thing, update; otherwise, instantiate.
-      if Util.object_name_matches_class?(resp.data[:object], self.class)
-        initialize_from(resp.data, opts, resp)
-      else
-        Util.convert_to_stripe_object_with_params(resp.data, params, opts, resp)
-      end
+    def request_stripe_object(method:, path:, params:, base_address: :api, opts: {})
+      APIRequestor.active_requestor.execute_request_initialize_from(method, path, base_address, self,
+                                                                    params: params, opts: opts)
     end
 
-    protected def request_stream(method:, path:, params:, opts: {},
+    protected def request_stream(method:, path:, params:, base_address: :api, opts: {},
                                  &read_body_chunk_block)
       resp, = execute_resource_request_stream(
-        method, path, params, opts, &read_body_chunk_block
+        method, path, base_address, params, opts, &read_body_chunk_block
       )
       resp
     end

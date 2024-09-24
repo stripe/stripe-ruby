@@ -178,7 +178,7 @@ module Stripe
         should "use the per-object credential when making subsequent requests on the object" do
           stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
             .with(headers: { "Authorization" => "Bearer sk_test_local", "Stripe-Account" => "acct_12345" })
-            .to_return(body: JSON.generate(charge_fixture))
+            .to_return(body: JSON.generate(customer_fixture))
           stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
             .with(headers: { "Authorization" => "Bearer sk_test_local", "Stripe-Account" => "acct_12345" })
             .to_return(body: "{}")

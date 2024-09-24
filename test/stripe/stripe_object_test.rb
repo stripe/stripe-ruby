@@ -61,7 +61,7 @@ module Stripe
         # it's not good to test methods with `#send` like this, but I've done
         # it in the interest of trying to keep `.deep_copy` as internal as
         # possible
-        copy_values = Stripe::StripeObject.send(:deep_copy, values)
+        copy_values = Stripe::StripeObject.send(:deep_copy, values, api_mode: :v1)
 
         # we can't compare the hashes directly because they have embedded
         # objects which are different from each other
@@ -95,12 +95,12 @@ module Stripe
       should "not copy a client" do
         opts = {
           api_key: "apikey",
-          client: StripeClient.active_client,
+          client: APIRequestor.active_requestor,
         }
         values = { id: 1, name: "Stripe" }
 
         obj = Stripe::StripeObject.construct_from(values, opts)
-        copy_obj = Stripe::StripeObject.send(:deep_copy, obj)
+        copy_obj = Stripe::StripeObject.send(:deep_copy, obj, api_mode: :v1)
 
         assert_equal values, copy_obj.instance_variable_get(:@values)
         assert_equal opts.reject { |k, _v| k == :client },
@@ -111,7 +111,7 @@ module Stripe
         class TestObject < Stripe::StripeObject; end # rubocop:todo Lint/ConstantDefinitionInBlock
 
         obj = TestObject.construct_from(id: 1)
-        copy_obj = obj.class.send(:deep_copy, obj)
+        copy_obj = obj.class.send(:deep_copy, obj, api_mode: :v1)
 
         assert_equal obj.class, copy_obj.class
       end
@@ -476,7 +476,7 @@ module Stripe
       obj = Stripe::StripeObject.construct_from(
         { id: 1, name: "Stripe" },
         api_key: "apikey",
-        client: StripeClient.active_client
+        client: APIRequestor.active_requestor
       )
       m = Marshal.load(Marshal.dump(obj))
       assert_equal 1, m.id
@@ -511,6 +511,91 @@ module Stripe
       should "return raw response in last_response of object" do
         obj = Stripe::StripeObject.construct_from({}, {}, { foo: "bar" })
         assert_equal({ foo: "bar" }, obj.last_response)
+      end
+    end
+
+    context "v2 construct_from" do
+      should "correctly initializes v2 objects with children" do
+        obj = Stripe::V2::FinancialAccount.construct_from(
+          {
+            id: "acc_123",
+            object: "financial_account",
+            balances: [
+              { object: "financial_account.balance" },
+            ],
+          },
+          {},
+          nil,
+          :v2
+        )
+
+        assert_instance_of Stripe::V2::FinancialAccount, obj
+        assert_instance_of Stripe::V2::FinancialAccountBalance, obj["balances"][0]
+      end
+    end
+
+    context "requestor" do
+      should "make requests on the object returned from services" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/accounts/acc_123")
+          .to_return(body: JSON.generate(object: "account"))
+
+        client = Stripe::StripeClient.new("fake_key")
+
+        acc = client.v2.accounts.retrieve("acc_123")
+
+        assert_not_nil acc.instance_variable_get(:@requestor)
+
+        obj = acc.instance_variable_get(:@requestor).execute_request(:get, "/v2/accounts/acc_123", :api)
+        assert_equal "fake_key", obj.instance_variable_get(:@opts)[:api_key]
+      end
+
+      should "use the same options" do
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acc_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "account"))
+
+        client = Stripe::StripeClient.new("sk_test_fake_key", stripe_account: "foo")
+
+        acc = client.accounts.retrieve("acc_123")
+        assert_equal "foo", req.headers["Stripe-Account"]
+
+        obj = acc.instance_variable_get(:@requestor).execute_request(:get, "/v1/accounts/acc_123", :api)
+
+        assert_equal "sk_test_fake_key", obj.instance_variable_get(:@opts)[:api_key]
+        assert_equal "foo", req.headers["Stripe-Account"]
+      end
+
+      should "carry through later request options" do
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acc_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "account"))
+
+        client = Stripe::StripeClient.new("sk_test_fake_key")
+
+        acc = client.accounts.retrieve("acc_123", {})
+
+        new_acc = acc.send(:_request, method: :get, path: "/v1/accounts/acc_123", opts: { stripe_account: "foo" }, base_address: :api)
+        assert_equal "foo", req.headers["Stripe-Account"]
+
+        new_acc.send(:_request, method: :get, path: "/v1/accounts/acc_123", base_address: :api)
+        assert_equal "foo", req.headers["Stripe-Account"]
+      end
+
+      should "use the same options for v2" do
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/accounts/acc_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "account"))
+
+        client = Stripe::StripeClient.new("sk_test_123", stripe_account: "foo")
+
+        acc = client.v2.accounts.retrieve("acc_123")
+        assert_equal "foo", req.headers["Stripe-Account"]
+
+        acc.instance_variable_get(:@requestor).execute_request(:get, "/v2/accounts/acc_123", :api)
+        assert_equal "foo", req.headers["Stripe-Account"]
       end
     end
   end

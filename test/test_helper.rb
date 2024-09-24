@@ -2,7 +2,7 @@
 
 require "stripe"
 require "test/unit"
-require "mocha/setup"
+require "mocha/test_unit"
 require "stringio"
 require "shoulda/context"
 require "webmock/test_unit"
@@ -69,6 +69,30 @@ module Test
       private def stub_connect
         stub_request(:any, /^#{Stripe.connect_base}/).to_return(body: "{}")
       end
+    end
+  end
+
+  # helpers for writing webhook-related tests
+  module WebhookHelpers
+    SECRET = "whsec_test_secret"
+
+    # calculate a verification header from a given payload
+    def self.generate_header(opts = {})
+      raise ArgumentError, "payload must be supplied!" unless opts[:payload]
+
+      opts[:timestamp] ||= Time.now
+      opts[:secret] ||= SECRET
+      opts[:scheme] ||= Stripe::Webhook::Signature::EXPECTED_SCHEME
+      opts[:signature] ||= Stripe::Webhook::Signature.compute_signature(
+        opts[:timestamp],
+        opts[:payload],
+        opts[:secret]
+      )
+      Stripe::Webhook::Signature.generate_header(
+        opts[:timestamp],
+        opts[:signature],
+        scheme: opts[:scheme]
+      )
     end
   end
 end

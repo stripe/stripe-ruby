@@ -48,7 +48,6 @@ class RawRequestTest < Test::Unit::TestCase
 
       assert_equal expected_body, resp.http_body
       assert_equal "application/json", req.headers["Content-Type"]
-      assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
     end
 
     should "send post request with json body and headers and return a response" do
@@ -64,7 +63,6 @@ class RawRequestTest < Test::Unit::TestCase
 
       assert_equal expected_body, resp.http_body
       assert_equal "application/json", req.headers["Content-Type"]
-      assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
       assert_equal "bar", req.headers["Stripe-Context"]
     end
 
@@ -91,8 +89,6 @@ class RawRequestTest < Test::Unit::TestCase
         .to_return(body: expected_body)
 
       Stripe.raw_request(:get, "/v2/core/events/evt_123")
-
-      assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
     end
 
     should "allow overriding stripe version for v2 endpoints" do

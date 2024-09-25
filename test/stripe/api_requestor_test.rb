@@ -640,7 +640,7 @@ module Stripe
             Util.expects(:log_info).with("Request to Stripe API",
                                          has_entries(config: kind_of(Stripe::StripeConfiguration),
                                                      account: nil,
-                                                     api_version: Stripe::ApiVersion::PREVIEW,
+                                                     api_version: Stripe::ApiVersion::CURRENT,
                                                      idempotency_key: nil,
                                                      method: :get,
                                                      num_retries: 0,

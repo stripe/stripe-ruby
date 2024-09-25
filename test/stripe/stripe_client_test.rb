@@ -132,7 +132,6 @@ module Stripe
         resp = client.v2.core.events.retrieve("evt_123")
 
         assert_equal nil, req.headers["Content-Type"]
-        assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
 
         assert resp.is_a?(Stripe::V2::Event)
         assert_equal "sk_test_123", resp.instance_variable_get(:@opts)[:api_key]

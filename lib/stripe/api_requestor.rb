@@ -457,9 +457,6 @@ module Stripe
                                          base_address, params, opts, usage,
                                          &read_body_chunk_block)
       api_mode = Util.get_api_mode(path)
-      # Special handling for "Stripe-Version" header when api_mode is v2.
-      # Always use v2 API version unless explicitly overridden by the user.
-      opts[:stripe_version] = ApiVersion::PREVIEW if api_mode == :v2 && !opts.key?(:stripe_version)
       opts = RequestOptions.merge_config_and_opts(config, opts)
 
       raise ArgumentError, "method should be a symbol" \

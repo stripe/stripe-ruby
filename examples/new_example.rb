@@ -1,5 +1,5 @@
-require 'stripe'
-require 'date'
+require "stripe"
+require "date"
 
 class NewExample
   attr_accessor :api_key
@@ -8,7 +8,7 @@ class NewExample
     @api_key = api_key
   end
 
-  def do_something_great()
+  def do_something_great
     puts "Hello World"
     # client = Stripe::StripeClient.new(api_key)
     # client.v1

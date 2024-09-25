@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "stripe"
 require "date"
 
@@ -17,7 +19,6 @@ end
 
 # Send meter events
 api_key = "{{API_KEY}}"
-customer_id = "{{CUSTOMER_ID}}"
 
 example = NewExample.new(api_key)
 example.do_something_great

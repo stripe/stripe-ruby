@@ -48,6 +48,23 @@ module Stripe
           },
           "data" => {
             "error" => "bufo",
+            "reason" => {
+              "error_count" => 1,
+              "error_types" => [
+                {
+                  "code" => "meter_event_invalid_value",
+                  "error_count" => 1,
+                  "sample_errors" => [
+                    {
+                      "error_message" => "choose a better value",
+                      "request" => {
+                        "identifier" => "a",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
           },
         }.to_json
       end
@@ -78,6 +95,7 @@ module Stripe
         assert ret_event.is_a?(Stripe::V1BillingMeterErrorReportTriggeredEvent)
 
         assert ret_event.data.error == "bufo"
+        assert ret_event.data.reason.error_types[0].code == "meter_event_invalid_value"
       end
 
       should "fetch object" do

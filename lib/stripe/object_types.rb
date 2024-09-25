@@ -153,7 +153,6 @@ module Stripe
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
         V2::Billing::MeterEventV2.object_name => V2::Billing::MeterEventV2,
         V2::Event.object_name => V2::Event,
-        V2::EventDestination.object_name => V2::EventDestination,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

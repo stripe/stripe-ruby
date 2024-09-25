@@ -4,9 +4,9 @@
 module Stripe
   module V2
     class Event < APIResource
-      OBJECT_NAME = "event"
+      OBJECT_NAME = "v2.core.event"
       def self.object_name
-        "event"
+        "v2.core.event"
       end
     end
   end

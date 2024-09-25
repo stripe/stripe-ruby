@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       class MeterEventService < StripeService
-        # Creates a meter event. Validates the event synchronously.
+        # Creates a meter event. Events are validated synchronously, but are processed asynchronously. Supports up to 1,000 events per second in livemode. For higher rate-limits, please use meter event streams instead.
         def create(params = {}, opts = {})
           request(
             method: :post,

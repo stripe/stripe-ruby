@@ -4,10 +4,10 @@
 module Stripe
   module V2
     module Billing
-      class MeterEventAdjustmentV2 < APIResource
-        OBJECT_NAME = "v2.billing.meter_event_adjustment"
+      class MeterEventAdjustment < APIResource
+        OBJECT_NAME = "billing.meter_event_adjustment"
         def self.object_name
-          "v2.billing.meter_event_adjustment"
+          "billing.meter_event_adjustment"
         end
       end
     end

@@ -149,9 +149,9 @@ module Stripe
         V2::ListObject.object_name => V2::ListObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
-        V2::Billing::MeterEventAdjustmentV2.object_name => V2::Billing::MeterEventAdjustmentV2,
+        V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
+        V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
-        V2::Billing::MeterEventV2.object_name => V2::Billing::MeterEventV2,
         V2::Event.object_name => V2::Event,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }

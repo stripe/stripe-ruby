@@ -1818,7 +1818,7 @@ module Stripe
         "tmr_xxxxxxxxxxxxx",
         {
           setup_intent: "seti_xxxxxxxxxxxxx",
-          customer_consent_collected: true,
+          allow_redisplay: "always",
         }
       )
       assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent"

@@ -636,7 +636,7 @@ module Stripe
           end
 
           should "produce logging on v2 error" do
-            path = "/v2/financial_addresses/faddr_xyz"
+            path = "/v2/foo"
             Util.expects(:log_info).with("Request to Stripe API",
                                          has_entries(config: kind_of(Stripe::StripeConfiguration),
                                                      account: nil,
@@ -659,9 +659,10 @@ module Stripe
 
             error_response = {
               error: {
-                type: "insufficient_funds",
-                code: "outbound_payment_insufficient_funds",
+                type: "temporary_session_expired",
+                code: "billing_meter_event_session_expired",
                 message: "you messed up",
+                param: "bar",
               },
             }
             error = error_response[:error]
@@ -680,7 +681,7 @@ module Stripe
 
             client = APIRequestor.new("sk_test_123")
 
-            assert_raises Stripe::InsufficientFundsError do
+            assert_raises Stripe::TemporarySessionExpiredError do
               client.send(request_method, :get, path, :api, &@read_body_chunk_block)
             end
           end

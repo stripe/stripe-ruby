@@ -10,64 +10,64 @@ module Stripe
       end
 
       should "raise when relevant" do
-        method = :get
-        path = "/v2/financial_addresses/faddr_xyz"
+        method = :post
+        path = "/v2/billing/meter_event_stream"
         error_response = {
           error: {
-            type: "insufficient_funds",
-            code: "outbound_payment_insufficient_funds",
-            message: "you messed up",
+            type: "temporary_session_expired",
+            code: "billing_meter_event_session_expired",
+            message: "expired",
           },
         }
 
-        stub_request(method, Stripe::DEFAULT_API_BASE + path)
+        stub_request(method, Stripe::DEFAULT_METER_EVENTS_BASE + path)
           .to_return(status: 400, body: error_response.to_json, headers: {})
 
-        e = assert_raises Stripe::InsufficientFundsError do
-          @client.v2.financial_addresses.retrieve("faddr_xyz")
+        e = assert_raises Stripe::TemporarySessionExpiredError do
+          @client.v2.billing.meter_event_stream.create
         end
 
-        assert_equal "outbound_payment_insufficient_funds", e.code
-        assert_equal "you messed up", e.message
+        assert_equal "billing_meter_event_session_expired", e.code
+        assert_equal "expired", e.message
 
-        assert_requested(method, Stripe::DEFAULT_API_BASE + path)
+        assert_requested(method, Stripe::DEFAULT_METER_EVENTS_BASE + path)
       end
 
+      # TODO: Use a v2 specific error once we have a v2 error with fields
       should "correctly set error fields" do
         method = :post
-        path = "/v2/payment_methods/us_bank_accounts"
+        path = "/v2/billing/meter_event_session"
 
         error_response = {
           error: {
-            type: "invalid_payment_method",
-            code: "invalid_us_bank_account",
-            message: "bank account is invalid",
-            invalid_param: "routing_number",
+            type: "invalid_fields",
+            code: "invalid_fields",
+            message: "bar is invalid",
+            param: "bar",
           },
         }
         stub_request(method, /.*#{path}/)
           .to_return(status: 400, body: error_response.to_json, headers: {})
 
-        e = assert_raises Stripe::InvalidPaymentMethodError do
-          @client.v2.payment_methods.us_bank_accounts.create(
-            { account_number: "123", routing_number: "456" }
+        e = assert_raises Stripe::InvalidRequestError do
+          @client.v2.billing.meter_event_session.create(
+            { bar: "123" }
           )
         end
-        assert_equal "routing_number", e.invalid_param
-        assert_equal "invalid_us_bank_account", e.code
-        assert_equal "bank account is invalid", e.message
+        assert_equal "bar", e.param
+        assert_equal "invalid_fields", e.code
+        assert_equal "bar is invalid", e.message
 
         assert_requested(method, Stripe::DEFAULT_API_BASE + path)
       end
 
       should "fall back to v1 errors" do
         method = :post
-        obp_id = "obp_123"
-        path = "/v2/outbound_payments/#{obp_id}/cancel"
+        path = "/v2/billing/meter_event_session"
 
         error_response = {
           error: {
-            code: "invalid_request",
+            code: "invalid_fields",
             message: "your request is invalid",
             param: "invalid_param",
           },
@@ -76,10 +76,10 @@ module Stripe
           .to_return(status: 400, body: error_response.to_json, headers: { "Request-Id" => "123" })
 
         e = assert_raises Stripe::InvalidRequestError do
-          @client.v2.outbound_payments.cancel(obp_id)
+          @client.v2.billing.meter_event_session.create({ bar: "123" })
         end
         assert_equal "invalid_param", e.param
-        assert_equal "invalid_request", e.code
+        assert_equal "invalid_fields", e.code
         assert_equal "your request is invalid", e.message
 
         assert_requested(method, Stripe::DEFAULT_API_BASE + path)

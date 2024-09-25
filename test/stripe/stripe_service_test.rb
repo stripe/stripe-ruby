@@ -17,14 +17,14 @@ module Stripe
       end
 
       should "correctly deserialize v2 account object" do
-        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/accounts")
-          .to_return(body: JSON.generate(object: "account"))
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session")
+          .to_return(body: JSON.generate(object: "billing.meter_event_session"))
 
         client = Stripe::StripeClient.new("sk_test_123")
 
-        acc = client.v2.accounts.create
+        session = client.v2.billing.meter_event_session.create
 
-        assert acc.is_a?(Stripe::V2::Account)
+        assert session.is_a?(Stripe::V2::Billing::MeterEventSession)
       end
     end
 

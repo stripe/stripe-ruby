@@ -178,12 +178,12 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "be able to deserialize v2 objects" do
-      expected_body = "{\"id\": \"acc_123\", \"object\": \"account\"}"
+      expected_body = "{\"id\": \"evt_123\", \"object\": \"v2.core.event\"}"
 
       obj = Stripe.deserialize(expected_body, api_mode: :v2)
 
-      assert_equal obj.class, Stripe::V2::Account
-      assert_equal obj.id, "acc_123"
+      assert_equal obj.class, Stripe::V2::Event
+      assert_equal obj.id, "evt_123"
     end
   end
 end

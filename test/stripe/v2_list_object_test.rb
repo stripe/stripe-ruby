@@ -10,7 +10,7 @@ module Stripe
     end
 
     should "provide #count via enumerable" do
-      list = Stripe::V2::ListObject.construct_from({ data: [{ object: "account" }] }, {}, nil, :v2)
+      list = Stripe::V2::ListObject.construct_from({ data: [{ object: "v2.core.event" }] }, {}, nil, :v2)
       assert_equal 1, list.count
     end
 
@@ -162,17 +162,17 @@ module Stripe
         ]
         expected = Util.convert_to_stripe_object(arr, {}, api_mode: :v2)
 
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=billing.meter")
           .to_return(body: JSON.generate(
-            data: [{ id: 1 }], next_page_url: "/v2/financial_accounts?page=page_2"
+            data: [{ id: 1 }], next_page_url: "/v2/core/events?object_id=billing.meter&page=page_2"
             #  object: "list"
           ))
 
         client = Stripe::StripeClient.new("sk_test_iter")
 
-        list = client.v2.financial_accounts.list
+        list = client.v2.core.events.list({ object_id: "billing.meter" })
 
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts?page=page_2")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=billing.meter&page=page_2")
           .with do |req|
             req.headers["Authorization"] == "Bearer sk_test_iter"
           end
@@ -185,25 +185,24 @@ module Stripe
       end
 
       should "correctly deserialize ListObject contents" do
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
-          .to_return(body: JSON.generate(data: [{ id: 1, object: "financial_account" }], next_page_url: "/v2/financial_accounts?page=page_2"))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events")
+          .to_return(body: JSON.generate(data: [{ id: 1, object: "v2.core.event" }], next_page_url: "/v2/core/events?page=page_2"))
 
         client = Stripe::StripeClient.new("sk_test_iter")
 
-        list = client.v2.financial_accounts.list
+        list = client.v2.core.events.list
 
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events")
           .with do |req|
             req.headers["Authorization"] == "Bearer sk_test_iter"
           end
-          .to_return(body: JSON.generate(data: [{ id: 2, object: "financial_account" }, { id: 3, object: "financial_account" }, { id: 4, object: "financial_account" }], next_page_url: nil))
+          .to_return(body: JSON.generate(data: [{ id: 2, object: "v2.core.event" }, { id: 3, object: "v2.core.event" }, { id: 4, object: "v2.core.event" }], next_page_url: nil))
 
         list.each do |obj|
-          assert_instance_of(Stripe::V2::FinancialAccount, obj)
+          assert_instance_of(Stripe::V2::Event, obj)
         end
       end
 
-      # TODO: Should pass once StripeService respects options flowing
       should "respect per-request api key" do
         arr = [
           { id: 1 },
@@ -211,18 +210,18 @@ module Stripe
         ]
         expected = Util.convert_to_stripe_object(arr, {}, api_mode: :v2)
 
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events")
           .with do |req|
             req.headers["Authorization"] == "Bearer sk_test_iter_key"
           end
-          .to_return(body: JSON.generate(data: [{ id: 1 }], next_page_url: "/v2/financial_accounts?page=page_2",
+          .to_return(body: JSON.generate(data: [{ id: 1 }], next_page_url: "/v2/core/events?page=page_2",
                                          object: "list"))
 
         client = Stripe::StripeClient.new("sk_test_123")
 
-        list = client.v2.financial_accounts.list({}, { api_key: "sk_test_iter_key" })
+        list = client.v2.core.events.list({}, { api_key: "sk_test_iter_key" })
 
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/financial_accounts?page=page_2")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events?page=page_2")
           .with do |req|
             req.headers["Authorization"] == "Bearer sk_test_iter_key"
           end

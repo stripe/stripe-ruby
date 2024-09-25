@@ -124,29 +124,29 @@ module Stripe
     context "v2" do
       should "return a result and response object" do
         req = nil
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/accounts/acc_123")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
           .with { |request| req = request }
-          .to_return(body: JSON.generate(object: "account"))
+          .to_return(body: JSON.generate(object: "v2.core.event"))
 
         client = StripeClient.new("sk_test_123")
-        resp = client.v2.accounts.retrieve("acc_123")
+        resp = client.v2.core.events.retrieve("evt_123")
 
         assert_equal nil, req.headers["Content-Type"]
         assert_equal Stripe::ApiVersion::PREVIEW, req.headers["Stripe-Version"]
 
-        assert resp.is_a?(Stripe::V2::Account)
+        assert resp.is_a?(Stripe::V2::Event)
         assert_equal "sk_test_123", resp.instance_variable_get(:@opts)[:api_key]
         assert_equal 200, resp.last_response.http_status
       end
 
       should "honor user-provided stripe version" do
         req = nil
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/accounts/acc_123")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
           .with { |request| req = request }
-          .to_return(body: JSON.generate(object: "account"))
+          .to_return(body: JSON.generate(object: "v2.core.event"))
 
         client = StripeClient.new("sk_test_123")
-        resp, = client.v2.accounts.retrieve("acc_123", {}, stripe_version: "2022-11-15")
+        resp, = client.v2.core.events.retrieve("evt_123", {}, stripe_version: "2022-11-15")
 
         assert_equal nil, req.headers["Content-Type"]
         assert_equal "2022-11-15", req.headers["Stripe-Version"]

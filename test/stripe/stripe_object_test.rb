@@ -514,38 +514,18 @@ module Stripe
       end
     end
 
-    context "v2 construct_from" do
-      should "correctly initializes v2 objects with children" do
-        obj = Stripe::V2::FinancialAccount.construct_from(
-          {
-            id: "acc_123",
-            object: "financial_account",
-            balances: [
-              { object: "financial_account.balance" },
-            ],
-          },
-          {},
-          nil,
-          :v2
-        )
-
-        assert_instance_of Stripe::V2::FinancialAccount, obj
-        assert_instance_of Stripe::V2::FinancialAccountBalance, obj["balances"][0]
-      end
-    end
-
     context "requestor" do
       should "make requests on the object returned from services" do
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/accounts/acc_123")
-          .to_return(body: JSON.generate(object: "account"))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+          .to_return(body: JSON.generate(object: "v2.core.event"))
 
         client = Stripe::StripeClient.new("fake_key")
 
-        acc = client.v2.accounts.retrieve("acc_123")
+        evt = client.v2.core.events.retrieve("evt_123")
 
-        assert_not_nil acc.instance_variable_get(:@requestor)
+        assert_not_nil evt.instance_variable_get(:@requestor)
 
-        obj = acc.instance_variable_get(:@requestor).execute_request(:get, "/v2/accounts/acc_123", :api)
+        obj = evt.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/events/evt_123", :api)
         assert_equal "fake_key", obj.instance_variable_get(:@opts)[:api_key]
       end
 
@@ -585,16 +565,16 @@ module Stripe
 
       should "use the same options for v2" do
         req = nil
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/accounts/acc_123")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
           .with { |request| req = request }
-          .to_return(body: JSON.generate(object: "account"))
+          .to_return(body: JSON.generate(object: "v2.core.event"))
 
         client = Stripe::StripeClient.new("sk_test_123", stripe_account: "foo")
 
-        acc = client.v2.accounts.retrieve("acc_123")
+        evt = client.v2.core.events.retrieve("evt_123")
         assert_equal "foo", req.headers["Stripe-Account"]
 
-        acc.instance_variable_get(:@requestor).execute_request(:get, "/v2/accounts/acc_123", :api)
+        evt.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/events/evt_123", :api)
         assert_equal "foo", req.headers["Stripe-Account"]
       end
     end

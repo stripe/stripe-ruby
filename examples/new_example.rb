@@ -1,5 +1,7 @@
-require 'stripe'
-require 'date'
+# frozen_string_literal: true
+
+require "stripe"
+require "date"
 
 class NewExample
   attr_accessor :api_key
@@ -8,7 +10,7 @@ class NewExample
     @api_key = api_key
   end
 
-  def do_something_great()
+  def do_something_great
     puts "Hello World"
     # client = Stripe::StripeClient.new(api_key)
     # client.v1
@@ -17,7 +19,6 @@ end
 
 # Send meter events
 api_key = "{{API_KEY}}"
-customer_id = "{{CUSTOMER_ID}}"
 
 example = NewExample.new(api_key)
 example.do_something_great

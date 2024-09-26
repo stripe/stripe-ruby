@@ -13,7 +13,7 @@ post "/webhook" do
   thin_event = client.parse_thin_event(webhook_body, sig_header, webhook_secret)
 
   # Fetch the event data to understand the failure
-  event = stripe.v2.core.events.retrieve(thin_event.id)
+  event = client.v2.core.events.retrieve(thin_event.id)
   if event.instance_of? Stripe::V1BillingMeterErrorReportTriggeredEvent
     meter = event.fetch_related_object
     meter_id = meter.id

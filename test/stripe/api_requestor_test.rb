@@ -1327,22 +1327,6 @@ module Stripe
       end
     end
 
-    context "#connection_manager" do
-      should "warn that #connection_manager is deprecated" do
-        old_stderr = $stderr
-        $stderr = StringIO.new
-        begin
-          client = APIRequestor.new("sk_test_123")
-          client.connection_manager
-          message = "NOTE: Stripe::APIRequestor#connection_manager is " \
-                    "deprecated"
-          assert_match Regexp.new(message), $stderr.string
-        ensure
-          $stderr = old_stderr
-        end
-      end
-    end
-
     context "#request" do
       should "return a result and response object" do
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")

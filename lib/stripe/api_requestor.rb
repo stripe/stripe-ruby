@@ -167,15 +167,6 @@ module Stripe
       [config.initial_network_retry_delay, sleep_seconds].max
     end
 
-    # Gets the connection manager in use for the current `APIRequestor`.
-    #
-    # This method is DEPRECATED and for backwards compatibility only.
-    def connection_manager
-      self.class.default_connection_manager
-    end
-    extend Gem::Deprecate
-    deprecate :connection_manager, :none, 2020, 9
-
     # Executes the API call within the given block. Usage looks like:
     #
     #     client = APIRequestor.new

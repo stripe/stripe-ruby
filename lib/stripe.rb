@@ -132,36 +132,6 @@ module Stripe
       version: version,
     }
   end
-
-  class RawRequest
-    def initialize
-      @opts = {}
-    end
-
-    def execute(method, url, base_address: :api, params: {}, opts: {}, usage: [])
-      opts = Util.normalize_opts(opts)
-      req_opts = RequestOptions.extract_opts_from_hash(opts)
-
-      requestor = APIRequestor.active_requestor
-      resp, = requestor.send(:execute_request_internal, method, url, base_address, params, req_opts,
-                             usage)
-
-      requestor.interpret_response(resp)
-    end
-  end
-
-  # Sends a request to Stripe REST API
-  # TODO: move to StripeClient
-  def self.raw_request(method, url, base_address: :api, params: {}, opts: {})
-    req = RawRequest.new
-    req.execute(method, url, base_address: base_address, params: params, opts: opts,
-                             usage: ["raw_request"])
-  end
-
-  def self.deserialize(data, api_mode: :v1)
-    data = JSON.parse(data) if data.is_a?(String)
-    Util.convert_to_stripe_object(data, {}, api_mode: api_mode)
-  end
 end
 
 Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

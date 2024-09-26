@@ -51,20 +51,6 @@ module Stripe
           )
         end
 
-        # TODO: (major)
-        # This method used to be called `request`, but it's such a short name
-        # that it eventually conflicted with the name of a field on an API
-        # resource (specifically, `Event#request`), so it was renamed to
-        # something more unique.
-        #
-        # The former name had been around for just about forever though, and
-        # although all internal uses have been renamed, I've left this alias in
-        # place for backwards compatibility. Consider removing it on the next
-        # major.
-        alias request execute_resource_request
-        extend Gem::Deprecate
-        deprecate :request, "StripeClient.raw_request", 2024, 7
-
         private def error_on_invalid_params(params)
           return if params.nil? || params.is_a?(Hash)
 
@@ -102,11 +88,6 @@ module Stripe
       private def request_stripe_object(method:, path:, params:, base_address: :api, opts: {}, usage: [])
         execute_resource_request(method, path, base_address, params, opts, usage)
       end
-
-      # See notes on `alias` above.
-      alias request execute_resource_request
-      extend Gem::Deprecate
-      deprecate :request, "StripeClient.raw_request", 2024, 7
     end
   end
 end

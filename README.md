@@ -346,10 +346,11 @@ If you:
 - prefer to bypass the method definitions in the library and specify your request details directly,
 - used the method `Stripe::APIResource.request(...)` to specify your own requests, which will soon be broken
 
-you can now use the `raw_request` method on `Stripe`.
+you can now use the `raw_request` method on `StripeClient`.
 
 ```ruby
-resp = Stripe.raw_request(:post, "/v1/beta_endpoint", {param: 123}, {stripe_version: "2022-11-15; feature_beta=v3"})
+client = Stripe::StripeClient.new(...)
+resp = client.raw_request(:post, "/v1/beta_endpoint", {param: 123}, {stripe_version: "2022-11-15; feature_beta=v3"})
 
 # (Optional) resp is a StripeResponse. You can use `Stripe.deserialize` to get a StripeObject.
 deserialized_resp = Stripe.deserialize(resp.http_body)

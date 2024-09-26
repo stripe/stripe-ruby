@@ -4,6 +4,12 @@ require File.expand_path("../test_helper", __dir__)
 
 class RawRequestTest < Test::Unit::TestCase
   context "raw_request" do
+    setup do
+      @client = Stripe::StripeClient.new("sk_test_raw_request",
+                                         api_base: Stripe.api_base,
+                                         uploads_base: Stripe.uploads_base)
+    end
+
     should "send get request and return a response" do
       expected_body = "{\"id\": \"acc_123\"}"
       req = nil
@@ -12,7 +18,7 @@ class RawRequestTest < Test::Unit::TestCase
         .with { |request| req = request }
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:get, "/v1/accounts/acc_123")
+      resp = @client.raw_request(:get, "/v1/accounts/acc_123")
 
       assert_equal expected_body, resp.http_body
       assert_nil req.headers["Content-Type"]
@@ -28,7 +34,7 @@ class RawRequestTest < Test::Unit::TestCase
         .with { |request| req = request }
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:post, "/v1/accounts/acc_123", params: { p1: 1, p2: "string" })
+      resp = @client.raw_request(:post, "/v1/accounts/acc_123", params: { p1: 1, p2: "string" })
 
       assert_equal expected_body, resp.http_body
       assert_equal "application/x-www-form-urlencoded", req.headers["Content-Type"]
@@ -44,7 +50,7 @@ class RawRequestTest < Test::Unit::TestCase
         .with { |request| req = request }
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:post, "/v2/billing/meter_event_session", params: { p1: 1, p2: "string" })
+      resp = @client.raw_request(:post, "/v2/billing/meter_event_session", params: { p1: 1, p2: "string" })
 
       assert_equal expected_body, resp.http_body
       assert_equal "application/json", req.headers["Content-Type"]
@@ -59,7 +65,7 @@ class RawRequestTest < Test::Unit::TestCase
         .with { |request| req = request }
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:post, "/v2/billing/meter_event_session", params: { p1: 1, p2: "string" }, opts: { "Stripe-Context": "bar" })
+      resp = @client.raw_request(:post, "/v2/billing/meter_event_session", params: { p1: 1, p2: "string" }, opts: { "Stripe-Context": "bar" })
 
       assert_equal expected_body, resp.http_body
       assert_equal "application/json", req.headers["Content-Type"]
@@ -74,7 +80,7 @@ class RawRequestTest < Test::Unit::TestCase
         .with { |request| req = request }
         .to_return(body: expected_body)
 
-      resp = Stripe.raw_request(:get, "/v2/core/events/evt_123", opts: { "Stripe-Account": "bar" })
+      resp = @client.raw_request(:get, "/v2/core/events/evt_123", opts: { "Stripe-Account": "bar" })
 
       assert_nil req.headers["Content-Type"]
       assert_equal expected_body, resp.http_body
@@ -88,7 +94,7 @@ class RawRequestTest < Test::Unit::TestCase
         .with { |request| req = request }
         .to_return(body: expected_body)
 
-      Stripe.raw_request(:get, "/v2/core/events/evt_123")
+      @client.raw_request(:get, "/v2/core/events/evt_123")
     end
 
     should "allow overriding stripe version for v2 endpoints" do
@@ -100,7 +106,7 @@ class RawRequestTest < Test::Unit::TestCase
         .to_return(body: expected_body)
 
       stripe_version_override = "2023-05-15.preview"
-      Stripe.raw_request(:get, "/v2/core/events/evt_123", opts: { stripe_version: stripe_version_override })
+      @client.raw_request(:get, "/v2/core/events/evt_123", opts: { stripe_version: stripe_version_override })
 
       assert_equal stripe_version_override, req.headers["Stripe-Version"]
     end
@@ -111,7 +117,7 @@ class RawRequestTest < Test::Unit::TestCase
       stub_request(:get, "#{Stripe.uploads_base}/v1/accounts/acc_123")
         .to_return(body: expected_body)
 
-      Stripe.raw_request(:get, "/v1/accounts/acc_123", base_address: :files)
+      @client.raw_request(:get, "/v1/accounts/acc_123", base_address: :files)
 
       assert_requested(:get, "#{Stripe.uploads_base}/v1/accounts/acc_123")
     end

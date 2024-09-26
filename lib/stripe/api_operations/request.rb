@@ -63,7 +63,7 @@ module Stripe
         # major.
         alias request execute_resource_request
         extend Gem::Deprecate
-        deprecate :request, "Stripe.raw_request", 2024, 7
+        deprecate :request, "StripeClient.raw_request", 2024, 7
 
         private def error_on_invalid_params(params)
           return if params.nil? || params.is_a?(Hash)
@@ -106,7 +106,7 @@ module Stripe
       # See notes on `alias` above.
       alias request execute_resource_request
       extend Gem::Deprecate
-      deprecate :request, "Stripe.raw_request", 2024, 7
+      deprecate :request, "StripeClient.raw_request", 2024, 7
     end
   end
 end

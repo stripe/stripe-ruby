@@ -78,5 +78,19 @@ module Stripe
       event_data = JSON.parse(payload, symbolize_names: true)
       Event.construct_from(event_data, {}, nil, :v1, @requestor)
     end
+
+    def raw_request(method, url, base_address: :api, params: {}, opts: {})
+      opts = Util.normalize_opts(opts)
+      req_opts = RequestOptions.extract_opts_from_hash(opts)
+
+      resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: ["raw_request"])
+
+      @requestor.interpret_response(resp)
+    end
+
+    def deserialize(data, api_mode: :v1)
+      data = JSON.parse(data) if data.is_a?(String)
+      Util.convert_to_stripe_object(data, {}, api_mode: api_mode)
+    end
   end
 end

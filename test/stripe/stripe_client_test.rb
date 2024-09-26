@@ -301,5 +301,56 @@ module Stripe
         assert construct_event.data == client_event.data
       end
     end
+
+    context "deserialize" do
+      setup do
+        @client = Stripe::StripeClient.new("sk_test_deserialize")
+      end
+      
+      should "deserializes string into known object" do
+        expected_body = "{\"id\": \"acc_123\", \"object\": \"account\"}"
+
+        obj = @client.deserialize(expected_body)
+
+        assert_equal obj.class, Stripe::Account
+        assert_equal obj.id, "acc_123"
+      end
+
+      should "deserializes string into unknown object" do
+        expected_body = "{\"id\": \"acc_123\", \"object\": \"unknown\"}"
+
+        obj = @client.deserialize(expected_body)
+
+        assert_equal obj.class, Stripe::StripeObject
+        assert_equal obj.id, "acc_123"
+      end
+
+      should "deserializes hash into known object" do
+        expected_body = { "id" => "acc_123", "object" => "account" }
+
+        obj = @client.deserialize(expected_body)
+
+        assert_equal obj.class, Stripe::Account
+        assert_equal obj.id, "acc_123"
+      end
+
+      should "deserializes hash into unknown object" do
+        expected_body = { "id" => "acc_123", "object" => "unknown" }
+
+        obj = @client.deserialize(expected_body)
+
+        assert_equal obj.class, Stripe::StripeObject
+        assert_equal obj.id, "acc_123"
+      end
+
+      should "be able to deserialize v2 objects" do
+        expected_body = "{\"id\": \"evt_123\", \"object\": \"v2.core.event\"}"
+
+        obj = @client.deserialize(expected_body, api_mode: :v2)
+
+        assert_equal obj.class, Stripe::V2::Event
+        assert_equal obj.id, "evt_123"
+      end
+    end
   end
 end

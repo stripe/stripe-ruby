@@ -1813,16 +1813,6 @@ module Stripe
       )
       assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent"
     end
-    should "Test terminal readers process setup intent post" do
-      Stripe::Terminal::Reader.process_setup_intent(
-        "tmr_xxxxxxxxxxxxx",
-        {
-          setup_intent: "seti_xxxxxxxxxxxxx",
-          customer_consent_collected: true,
-        }
-      )
-      assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent"
-    end
     should "Test test helpers customers fund cash balance post" do
       Stripe::Customer::TestHelpers.fund_cash_balance(
         "cus_123",

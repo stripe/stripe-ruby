@@ -306,7 +306,7 @@ module Stripe
       setup do
         @client = Stripe::StripeClient.new("sk_test_deserialize")
       end
-      
+
       should "deserializes string into known object" do
         expected_body = "{\"id\": \"acc_123\", \"object\": \"account\"}"
 

@@ -140,7 +140,7 @@ module Stripe
         # to generic StripeObject
         object_name = data[:object] || data["object"]
         object_class = if api_mode == :v2
-                         if object_name == "event"
+                         if object_name == "v2.core.event"
                            thin_event_classes.fetch(data[:type] || data["type"])
                          else
                            v2_object_classes.fetch(

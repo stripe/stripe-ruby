@@ -8,10 +8,8 @@ module Stripe
     # attr_readers: The beginning of the section generated from our OpenAPI spec
     attr_reader :v1
     attr_reader :v2
-    # attr_readers: The end of the section generated from our OpenAPI spec
 
-    # Comment to prevent OAuthService being grouped with generated accessors by Rubocop
-    attr_reader :oauth
+    # attr_readers: The end of the section generated from our OpenAPI spec
 
     # Initializes a new StripeClient
     def initialize(api_key,
@@ -42,7 +40,6 @@ module Stripe
       }.reject { |_k, v| v.nil? }
 
       @requestor = APIRequestor.new(config_opts)
-      @oauth = OAuthService.new(@requestor)
 
       # top-level services: The beginning of the section generated from our OpenAPI spec
       @v1 = Stripe::V1Services.new(@requestor)

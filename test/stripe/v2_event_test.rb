@@ -19,14 +19,14 @@ module Stripe
 
         @v2_payload_no_related_object = {
           "id" => "evt_234",
-          "object" => "event",
+          "object" => "v2.core.event",
           "type" => "financial_account.balance.opened",
           "created" => "2022-02-15T00:27:45.330Z",
         }.to_json
 
         @v2_push_payload = {
           "id" => "evt_234",
-          "object" => "event",
+          "object" => "v2.core.event",
           "type" => "v1.billing.meter.error_report_triggered",
           "created" => "2022-02-15T00:27:45.330Z",
           "related_object" => {
@@ -38,7 +38,7 @@ module Stripe
 
         @v2_pull_payload = {
           "id" => "evt_234",
-          "object" => "event",
+          "object" => "v2.core.event",
           "type" => "v1.billing.meter.error_report_triggered",
           "created" => "2022-02-15T00:27:45.330Z",
           "related_object" => {

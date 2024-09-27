@@ -70,8 +70,9 @@ module Stripe
 
       url = "#{Customer.resource_url}/#{CGI.escape(customer)}/sources" \
             "/#{CGI.escape(id)}"
-      resp, opts = execute_resource_request(:delete, url, params, opts)
-      initialize_from(resp.data, opts)
+      opts = Util.normalize_opts(opts)
+      APIRequestor.active_requestor.execute_request_initialize_from(:delete, url, :api, self,
+                                                                    params: params, opts: opts)
     end
 
     def source_transactions(params = {}, opts = {})

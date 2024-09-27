@@ -30,7 +30,7 @@ class StripeTest < Test::Unit::TestCase
       end
 
       should "return the max_network_retry_delay" do
-        assert_equal 2, Stripe.max_network_retry_delay
+        assert_equal 5, Stripe.max_network_retry_delay
       end
 
       should "return the initial_network_retry_delay" do
@@ -39,7 +39,7 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "allow ca_bundle_path to be configured" do
-      Stripe::StripeClient.expects(:clear_all_connection_managers)
+      Stripe::APIRequestor.expects(:clear_all_connection_managers)
       Stripe.ca_bundle_path = "/path/to/ca/bundle"
       assert_equal "/path/to/ca/bundle", Stripe.ca_bundle_path
     end
@@ -104,6 +104,11 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "http://proxy", Stripe.proxy
     end
 
+    should "allow api_version to be configured" do
+      Stripe.api_version = "2018-02-28"
+      assert_equal "2018-02-28", Stripe.api_version
+    end
+
     should "allow uploads_base to be configured" do
       Stripe.uploads_base = "https://other.stripe.com"
       assert_equal "https://other.stripe.com", Stripe.uploads_base
@@ -114,14 +119,14 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "https://other.stripe.com", Stripe.api_base
     end
 
-    should "allow api_version to be configured" do
-      Stripe.api_version = "2018-02-28"
-      assert_equal "2018-02-28", Stripe.api_version
-    end
-
     should "allow connect_base to be configured" do
       Stripe.connect_base = "https://other.stripe.com"
       assert_equal "https://other.stripe.com", Stripe.connect_base
+    end
+
+    should "allow meter_events_base to be configured" do
+      Stripe.meter_events_base = "https://other.stripe.com"
+      assert_equal "https://other.stripe.com", Stripe.meter_events_base
     end
 
     should "allow verify_ssl_certs to be configured" do
@@ -132,44 +137,6 @@ class StripeTest < Test::Unit::TestCase
     should "allow client_id to be configured" do
       Stripe.client_id = "client"
       assert_equal "client", Stripe.client_id
-    end
-  end
-
-  context "deserialize" do
-    should "deserializes string into known object" do
-      expected_body = "{\"id\": \"acc_123\", \"object\": \"account\"}"
-
-      obj = Stripe.deserialize(expected_body)
-
-      assert_equal obj.class, Stripe::Account
-      assert_equal obj.id, "acc_123"
-    end
-
-    should "deserializes string into unknown object" do
-      expected_body = "{\"id\": \"acc_123\", \"object\": \"unknown\"}"
-
-      obj = Stripe.deserialize(expected_body)
-
-      assert_equal obj.class, Stripe::StripeObject
-      assert_equal obj.id, "acc_123"
-    end
-
-    should "deserializes hash into known object" do
-      expected_body = { "id" => "acc_123", "object" => "account" }
-
-      obj = Stripe.deserialize(expected_body)
-
-      assert_equal obj.class, Stripe::Account
-      assert_equal obj.id, "acc_123"
-    end
-
-    should "deserializes hash into unknown object" do
-      expected_body = { "id" => "acc_123", "object" => "unknown" }
-
-      obj = Stripe.deserialize(expected_body)
-
-      assert_equal obj.class, Stripe::StripeObject
-      assert_equal obj.id, "acc_123"
     end
   end
 end

@@ -21,7 +21,7 @@ module Stripe
     # there isn't a next page in order to replicate the behavior of the API
     # when it attempts to return a page beyond the last.
     def self.empty_list(opts = {})
-      ListObject.construct_from({ data: [] }, opts)
+      ListObject.construct_from({ data: [] }, opts, nil, :v1)
     end
 
     def initialize(*args)
@@ -96,8 +96,7 @@ module Stripe
     def retrieve(id, opts = {})
       id, retrieve_params = Util.normalize_id(id)
       url = "#{resource_url}/#{CGI.escape(id)}"
-      resp, opts = execute_resource_request(:get, url, retrieve_params, opts)
-      Util.convert_to_stripe_object(resp.data, opts)
+      execute_resource_request(:get, url, :api, retrieve_params, opts)
     end
 
     # Fetches the next page in the resource list (if there is one).

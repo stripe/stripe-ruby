@@ -7,13 +7,13 @@ module Stripe
     context ".authorize_url" do
       should "return the authorize URL" do
         client = Stripe::StripeClient.new("sk_test_fake_key", client_id: "foo")
-        uri_str = client.oauth.authorize_url(scope: "read_write",
-                                             state: "csrf_token",
-                                             stripe_user: {
-                                               email: "test@example.com",
-                                               url: "https://example.com/profile/test",
-                                               country: "US",
-                                             })
+        uri_str = client.v1.oauth.authorize_url(scope: "read_write",
+                                                state: "csrf_token",
+                                                stripe_user: {
+                                                  email: "test@example.com",
+                                                  url: "https://example.com/profile/test",
+                                                  country: "US",
+                                                })
 
         uri = URI.parse(uri_str)
         params = CGI.parse(uri.query)
@@ -147,7 +147,7 @@ module Stripe
 
         client = Stripe::StripeClient.new("sk_test_fake_key", client_id: "foo", connect_base: "https://other.stripe.com")
 
-        resp = client.oauth.deauthorize({ stripe_user_id: "acct_test_deauth" })
+        resp = client.v1.oauth.deauthorize({ stripe_user_id: "acct_test_deauth" })
 
         assert_equal("acct_test_deauth", resp.stripe_user_id)
       end

@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 module Stripe
+  # Invoice Rendering Templates are used to configure how invoices are rendered on surfaces like the PDF. Invoice Rendering Templates
+  # can be created from within the Dashboard, and they can be used over the API when creating invoices.
   class InvoiceRenderingTemplate < APIResource
     extend Stripe::APIOperations::List
 

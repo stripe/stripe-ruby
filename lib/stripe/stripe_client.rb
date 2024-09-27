@@ -45,8 +45,8 @@ module Stripe
       @oauth = OAuthService.new(@requestor)
 
       # top-level services: The beginning of the section generated from our OpenAPI spec
-      @v1 = Stripe::V1Service.new(@requestor)
-      @v2 = Stripe::V2Service.new(@requestor)
+      @v1 = Stripe::V1Services.new(@requestor)
+      @v2 = Stripe::V2Services.new(@requestor)
       # top-level services: The end of the section generated from our OpenAPI spec
     end
 

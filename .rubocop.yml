@@ -52,7 +52,7 @@ Metrics/MethodLength:
   # (but the default of 10 is probably too short).
   Max: 55
   Exclude:
-    - "lib/stripe/services/v1_service.rb"
+    - "lib/stripe/services/v1_services.rb"
 
 Metrics/ModuleLength:
   Enabled: false

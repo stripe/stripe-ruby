@@ -5429,32 +5429,6 @@ module Stripe
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent"
     end
-    should "Test terminal readers process setup intent post" do
-      Stripe::Terminal::Reader.process_setup_intent(
-        "tmr_xxxxxxxxxxxxx",
-        {
-          setup_intent: "seti_xxxxxxxxxxxxx",
-          customer_consent_collected: true,
-        }
-      )
-      assert_requested :post, "#{Stripe.api_base}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent"
-    end
-    should "Test terminal readers process setup intent post (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent"
-      ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
-
-      client.v1.terminal.readers.process_setup_intent(
-        "tmr_xxxxxxxxxxxxx",
-        {
-          setup_intent: "seti_xxxxxxxxxxxxx",
-          customer_consent_collected: true,
-        }
-      )
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent"
-    end
     should "Test test helpers customers fund cash balance post" do
       Stripe::Customer::TestHelpers.fund_cash_balance(
         "cus_123",

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class V2Service < StripeService
+  class V2Services < StripeService
     attr_reader :billing, :core
 
     def initialize(requestor)

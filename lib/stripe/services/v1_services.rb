@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  class V1Service < StripeService
+  class V1Services < StripeService
     attr_reader :accounts, :account_links, :account_sessions, :apple_pay_domains, :application_fees, :apps, :balance, :balance_transactions, :billing, :billing_portal, :charges, :checkout, :climate, :confirmation_tokens, :test_helpers, :country_specs, :coupons, :credit_notes, :customers, :customer_sessions, :disputes, :entitlements, :ephemeral_keys, :events, :exchange_rates, :files, :file_links, :financial_connections, :forwarding, :identity, :invoices, :invoice_rendering_templates, :invoice_items, :issuing, :mandates, :payment_intents, :payment_links, :payment_methods, :payment_method_configurations, :payment_method_domains, :payouts, :plans, :prices, :products, :promotion_codes, :quotes, :radar, :refunds, :reporting, :reviews, :sigma, :setup_attempts, :setup_intents, :shipping_rates, :sources, :subscriptions, :subscription_items, :subscription_schedules, :tax, :tax_codes, :tax_ids, :tax_rates, :terminal, :tokens, :topups, :transfers, :treasury, :webhook_endpoints
 
     def initialize(requestor)

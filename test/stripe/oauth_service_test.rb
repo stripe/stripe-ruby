@@ -31,7 +31,7 @@ module Stripe
 
       should "optionally return an express path" do
         client = Stripe::StripeClient.new("sk_test_fake_key", client_id: "foo")
-        uri_str = client.oauth.authorize_url({}, express: true)
+        uri_str = client.v1.oauth.authorize_url({}, express: true)
 
         uri = URI.parse(uri_str)
         assert_equal("https", uri.scheme)
@@ -41,7 +41,7 @@ module Stripe
 
       should "override the api base path when connect_base opt is provided" do
         client = Stripe::StripeClient.new("sk_test_fake_key", client_id: "foo", connect_base: "https://other.stripe.com")
-        uri_str = client.oauth.authorize_url({})
+        uri_str = client.v1.oauth.authorize_url({})
 
         uri = URI.parse(uri_str)
         assert_equal("other.stripe.com", uri.host)
@@ -50,7 +50,7 @@ module Stripe
       should "warn when client id is not provided" do
         e = assert_raises(AuthenticationError) do
           client = Stripe::StripeClient.new("sk_test_fake_key")
-          client.oauth.authorize_url({})
+          client.v1.oauth.authorize_url({})
         end
         assert e.message.start_with?("No client_id provided. (HINT: ")
       end
@@ -75,8 +75,8 @@ module Stripe
                                          stripe_user_id: "acct_test",
                                          stripe_publishable_key: "pk_test"))
 
-        resp = client.oauth.token(grant_type: "authorization_code",
-                                  code: "this_is_an_authorization_code")
+        resp = client.v1.oauth.token(grant_type: "authorization_code",
+                                     code: "this_is_an_authorization_code")
         assert_equal("sk_access_token", resp.access_token)
       end
 
@@ -91,9 +91,9 @@ module Stripe
           .with(headers: { Authorization: "Bearer client_secret_override" })
           .to_return(body: JSON.generate(test: "test", access_token: "another_access_token"))
 
-        resp = client.oauth.token(client_secret: "client_secret_override",
-                                  grant_type: "authorization_code",
-                                  code: "this_is_an_authorization_code")
+        resp = client.v1.oauth.token(client_secret: "client_secret_override",
+                                     grant_type: "authorization_code",
+                                     code: "this_is_an_authorization_code")
         assert_equal("another_access_token", resp.access_token)
       end
 
@@ -113,7 +113,7 @@ module Stripe
 
         client = Stripe::StripeClient.new("sk_test_fake_key", connect_base: "https://other.stripe.com")
 
-        resp = client.oauth.token(
+        resp = client.v1.oauth.token(
           { grant_type: "authorization_code", code: "this_is_an_authorization_code" }
         )
 
@@ -133,7 +133,7 @@ module Stripe
           .to_return(body: JSON.generate(stripe_user_id: "acct_test_deauth"))
 
         client = Stripe::StripeClient.new("sk_test_fake_key", client_id: "foo")
-        resp = client.oauth.deauthorize(stripe_user_id: "acct_test_deauth")
+        resp = client.v1.oauth.deauthorize(stripe_user_id: "acct_test_deauth")
         assert_equal("acct_test_deauth", resp.stripe_user_id)
       end
 
@@ -155,7 +155,7 @@ module Stripe
       should "warn when client id is not provided" do
         e = assert_raises(AuthenticationError) do
           client = Stripe::StripeClient.new("sk_test_fake_key")
-          client.oauth.deauthorize({ stripe_user_id: "acct_test_no_client_id" })
+          client.v1.oauth.deauthorize({ stripe_user_id: "acct_test_no_client_id" })
         end
         assert e.message.start_with?("No client_id provided. (HINT: ")
       end

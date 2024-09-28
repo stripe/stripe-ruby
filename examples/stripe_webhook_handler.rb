@@ -20,7 +20,7 @@ post "/webhook" do
   if event.instance_of? Stripe::V1BillingMeterErrorReportTriggeredEvent
     meter = event.fetch_related_object
     meter_id = meter.id
-    puts 'Success!', meter_id
+    puts "Success!", meter_id
   end
 
   # Record the failures and alert your team

@@ -138,10 +138,11 @@ module Stripe
 
         # Try converting to a known object class.  If none available, fall back
         # to generic StripeObject
+        object_type = data[:type] || data["type"]
         object_name = data[:object] || data["object"]
         object_class = if api_mode == :v2
-                         if object_name == "event"
-                           thin_event_classes.fetch(data[:type] || data["type"])
+                         if object_name == "v2.core.event" && thin_event_classes.key?(object_type)
+                           thin_event_classes.fetch(object_type)
                          else
                            v2_object_classes.fetch(
                              object_name, StripeObject

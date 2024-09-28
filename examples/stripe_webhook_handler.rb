@@ -19,7 +19,8 @@ post "/webhook" do
   event = client.v2.core.events.retrieve(thin_event.id)
   if event.instance_of? Stripe::V1BillingMeterErrorReportTriggeredEvent
     meter = event.fetch_related_object
-    meter_id = meter.id # rubocop:disable Lint/UselessAssignment
+    meter_id = meter.id
+    puts "Success!", meter_id
   end
 
   # Record the failures and alert your team

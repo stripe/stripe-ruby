@@ -141,7 +141,7 @@ module Stripe
         object_type = data[:type] || data["type"]
         object_name = data[:object] || data["object"]
         object_class = if api_mode == :v2
-                         if object_name == "v2.core.event" and thin_event_classes.has_key? object_type
+                         if object_name == "v2.core.event" && thin_event_classes.has_key? object_type
                            thin_event_classes.fetch(object_type)
                          else
                            v2_object_classes.fetch(

@@ -48,17 +48,17 @@ module Stripe
       # Note that this method will make as many API calls as necessary to fetch
       # all resources. For more granular control, please see +each+ and
       # +fetch_next_page+.
-      def auto_paging_each(&blk)
-        return enum_for(:auto_paging_each) unless block_given?
+      def auto_paging_each
+        enum_for(:auto_paging_each) unless block_given?
 
-        page = self
-        loop do
-          page.each(&blk)
+        # page = self
+        # loop do
+        #   page.each(&blk)
 
-          break if page.next_page_url.nil?
+        #   break if page.next_page_url.nil?
 
-          page = page.fetch_next_page
-        end
+        #   page = page.fetch_next_page
+        # end
       end
 
       # Returns true if the page object contains no elements.

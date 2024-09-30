@@ -71,6 +71,7 @@ module Stripe
       # This method will try to respect the limit of the current page. If none
       # was given, the default limit will be fetched again.
       def fetch_next_page(opts = {})
+        Util.log_info("Fetching next page: #{next_page_url}")
         return self.class.empty_list(opts) if next_page_url.nil?
 
         _request(

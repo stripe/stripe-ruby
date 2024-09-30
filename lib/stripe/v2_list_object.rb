@@ -51,14 +51,14 @@ module Stripe
       def auto_paging_each
         enum_for(:auto_paging_each) unless block_given?
 
-        # page = self
-        # loop do
-        #   page.each(&blk)
+        page = self
+        loop do
+          page.each(&blk)
 
-        #   break if page.next_page_url.nil?
+          break if page.next_page_url.nil?
 
-        #   page = page.fetch_next_page
-        # end
+          page = page.fetch_next_page
+        end
       end
 
       # Returns true if the page object contains no elements.

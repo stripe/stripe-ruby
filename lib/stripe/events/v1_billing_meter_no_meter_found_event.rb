@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event occurs when an async usage event is missing a meter.
+  # This event occurs when async usage events have missing or invalid meter ids.
   class V1BillingMeterNoMeterFoundEvent < Stripe::V2::Event
     def self.lookup_type
       "v1.billing.meter.no_meter_found"

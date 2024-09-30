@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event occurs when an async usage event error report is generated.
+  # This event occurs when there are invalid async usage events for a given meter.
   class V1BillingMeterErrorReportTriggeredEvent < Stripe::V2::Event
     def self.lookup_type
       "v1.billing.meter.error_report_triggered"

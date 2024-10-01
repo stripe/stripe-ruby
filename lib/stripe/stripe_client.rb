@@ -19,6 +19,7 @@ module Stripe
                    api_base: nil,
                    uploads_base: nil,
                    connect_base: nil,
+                   meter_events_base: nil,
                    client_id: nil)
       unless api_key
         raise AuthenticationError, "No API key provided. " \
@@ -36,6 +37,7 @@ module Stripe
         api_base: api_base,
         uploads_base: uploads_base,
         connect_base: connect_base,
+        meter_events_base: meter_events_base,
         client_id: client_id,
       }.reject { |_k, v| v.nil? }
 

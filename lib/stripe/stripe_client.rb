@@ -65,19 +65,6 @@ module Stripe
       Stripe::ThinEvent.new(parsed)
     end
 
-    # Initializes an Event object from a JSON payload.
-    # This is the client-pattern equivalent of Webhook.construct_event
-    #
-    # This may raise JSON::ParserError if the payload is not valid JSON, or
-    # SignatureVerificationError if the signature verification fails.
-    def parse_snapshot_event(payload, sig_header, secret,
-                             tolerance: Webhook::DEFAULT_TOLERANCE)
-      Webhook::Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
-
-      event_data = JSON.parse(payload, symbolize_names: true)
-      Event.construct_from(event_data, {}, nil, :v1, @requestor)
-    end
-
     def raw_request(method, url, base_address: :api, params: {}, opts: {})
       opts = Util.normalize_opts(opts)
       req_opts = RequestOptions.extract_opts_from_hash(opts)

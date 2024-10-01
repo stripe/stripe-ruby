@@ -5,12 +5,10 @@ module Stripe
     module OAuthOperations
       extend APIOperations::Request::ClassMethods
 
-      def self.execute_resource_request(method, url, params, opts)
+      def self.execute_resource_request(method, url, base_address, params, opts)
         opts = Util.normalize_opts(opts)
-        opts[:client] ||= opts[:client] || StripeClient.active_client
-        opts[:api_base] ||= opts[:client].config.connect_base
 
-        super(method, url, params, opts)
+        super(method, url, base_address, params, opts)
       end
     end
 
@@ -29,15 +27,14 @@ module Stripe
     end
 
     def self.authorize_url(params = {}, opts = {})
-      client = opts[:client] || StripeClient.active_client
-      base = opts[:connect_base] || client.config.connect_base
+      base = opts[:connect_base] || APIRequestor.active_requestor.config.connect_base
 
       path = "/oauth/authorize"
       path = "/express" + path if opts[:express]
 
       params[:client_id] = get_client_id(params)
       params[:response_type] ||= "code"
-      query = Util.encode_parameters(params)
+      query = Util.encode_parameters(params, :v1)
 
       "#{base}#{path}?#{query}"
     end
@@ -45,21 +42,17 @@ module Stripe
     def self.token(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
       opts[:api_key] = params[:client_secret] if params[:client_secret]
-      resp, opts = OAuthOperations.execute_resource_request(
-        :post, "/oauth/token", params, opts
+      OAuthOperations.execute_resource_request(
+        :post, "/oauth/token", :connect, params, opts
       )
-      # This is just going to return a generic StripeObject, but that's okay
-      Util.convert_to_stripe_object(resp.data, opts)
     end
 
     def self.deauthorize(params = {}, opts = {})
       opts = Util.normalize_opts(opts)
       params[:client_id] = get_client_id(params)
-      resp, opts = OAuthOperations.execute_resource_request(
-        :post, "/oauth/deauthorize", params, opts
+      OAuthOperations.execute_resource_request(
+        :post, "/oauth/deauthorize", :connect, params, opts
       )
-      # This is just going to return a generic StripeObject, but that's okay
-      Util.convert_to_stripe_object(resp.data, opts)
     end
   end
 end

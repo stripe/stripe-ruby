@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
 
 module Stripe
   module ObjectTypes
@@ -24,6 +23,9 @@ module Stripe
         BalanceTransaction.object_name => BalanceTransaction,
         BankAccount.object_name => BankAccount,
         Billing::Alert.object_name => Billing::Alert,
+        Billing::CreditBalanceSummary.object_name => Billing::CreditBalanceSummary,
+        Billing::CreditBalanceTransaction.object_name => Billing::CreditBalanceTransaction,
+        Billing::CreditGrant.object_name => Billing::CreditGrant,
         Billing::Meter.object_name => Billing::Meter,
         Billing::MeterEvent.object_name => Billing::MeterEvent,
         Billing::MeterEventAdjustment.object_name => Billing::MeterEventAdjustment,
@@ -142,6 +144,19 @@ module Stripe
         UsageRecordSummary.object_name => UsageRecordSummary,
         WebhookEndpoint.object_name => WebhookEndpoint,
         # object classes: The end of the section generated from our OpenAPI spec
+      }
+    end
+
+    def self.v2_object_names_to_classes
+      {
+        V2::ListObject.object_name => V2::ListObject,
+
+        # v2 object classes: The beginning of the section generated from our OpenAPI spec
+        V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
+        V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
+        V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
+        V2::Event.object_name => V2::Event,
+        # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end
   end

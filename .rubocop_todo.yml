@@ -9,7 +9,7 @@
 # Offense count: 2
 Lint/HashCompareByIdentity:
   Exclude:
-    - 'lib/stripe/stripe_client.rb'
+    - 'lib/stripe/api_requestor.rb'
 
 # Offense count: 26
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
@@ -47,7 +47,7 @@ Style/CaseLikeIf:
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/CombinableLoops:
   Exclude:
-    - 'lib/stripe/stripe_client.rb'
+    - 'lib/stripe/api_requestor.rb'
 
 # Offense count: 39
 # Configuration parameters: AllowedConstants.
@@ -59,7 +59,7 @@ Style/Documentation:
 # Configuration parameters: AllowSplatArgument.
 Style/HashConversion:
   Exclude:
-    - 'lib/stripe/stripe_client.rb'
+    - 'lib/stripe/api_requestor.rb'
 
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -81,7 +81,7 @@ Style/StringConcatenation:
     - 'lib/stripe/oauth.rb'
     - 'lib/stripe/resources/bank_account.rb'
     - 'lib/stripe/resources/source.rb'
-    - 'lib/stripe/stripe_client.rb'
+    - 'lib/stripe/api_requestor.rb'
     - 'test/stripe/api_resource_test.rb'
     - 'test/stripe/stripe_client_test.rb'
     - 'test/stripe/webhook_test.rb'

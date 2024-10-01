@@ -11,7 +11,7 @@ module Stripe
     # attr_readers: The end of the section generated from our OpenAPI spec
 
     # Initializes a new StripeClient
-    def initialize(api_key,
+    def initialize(api_key, # rubocop:todo Metrics/ParameterLists
                    stripe_account: nil,
                    stripe_context: nil,
                    stripe_version: nil,

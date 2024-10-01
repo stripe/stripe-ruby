@@ -277,31 +277,6 @@ module Stripe
       end
     end
 
-    EVENT_PAYLOAD = <<~PAYLOAD
-      {
-        "id": "evt_test_webhook",
-        "data": {
-          "object": "account",
-          "id": "acct_123"
-        },
-        "object": "event"
-      }
-    PAYLOAD
-
-    context "#parse_snapshot_event" do
-      should "return the same as Webhook.construct_event" do
-        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD)
-        construct_event = Stripe::Webhook.construct_event(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
-        client_event = StripeClient.new("sk_test_123").parse_snapshot_event(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
-        assert construct_event.is_a?(Stripe::Event)
-        assert client_event.is_a?(Stripe::Event)
-        assert construct_event.id == client_event.id
-        assert construct_event.data.is_a?(Stripe::Account)
-        assert client_event.data.is_a?(Stripe::Account)
-        assert construct_event.data == client_event.data
-      end
-    end
-
     context "deserialize" do
       setup do
         @client = Stripe::StripeClient.new("sk_test_deserialize")

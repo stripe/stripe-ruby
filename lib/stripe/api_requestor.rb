@@ -191,6 +191,8 @@ module Stripe
         self.class.current_thread_context.last_responses.delete(object_id)
       end
     end
+    extend Gem::Deprecate
+    deprecate :request, "StripeClient#raw_request", 2024, 9
 
     def execute_request(method, path, base_address,
                         params: {}, opts: {}, usage: [])
@@ -212,6 +214,9 @@ module Stripe
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class
+    #
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
     def execute_request_initialize_from(method, path, base_address, object,
                                         params: {}, opts: {}, usage: [])
       opts = RequestOptions.combine_opts(object.instance_variable_get(:@opts), opts)

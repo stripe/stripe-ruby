@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# typed: true
 
 require "json"
 
@@ -12,13 +11,14 @@ module Stripe
     # attr_readers: The end of the section generated from our OpenAPI spec
 
     # Initializes a new StripeClient
-    def initialize(api_key,
+    def initialize(api_key, # rubocop:todo Metrics/ParameterLists
                    stripe_account: nil,
                    stripe_context: nil,
                    stripe_version: nil,
                    api_base: nil,
                    uploads_base: nil,
                    connect_base: nil,
+                   meter_events_base: nil,
                    client_id: nil)
       unless api_key
         raise AuthenticationError, "No API key provided. " \
@@ -36,6 +36,7 @@ module Stripe
         api_base: api_base,
         uploads_base: uploads_base,
         connect_base: connect_base,
+        meter_events_base: meter_events_base,
         client_id: client_id,
       }.reject { |_k, v| v.nil? }
 
@@ -47,10 +48,11 @@ module Stripe
       # top-level services: The end of the section generated from our OpenAPI spec
     end
 
-    # TODO: thread safety investigate
     def request(&block)
       @requestor.request(&block)
     end
+    extend Gem::Deprecate
+    deprecate :request, :raw_request, 2024, 9
 
     def parse_thin_event(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
       payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)

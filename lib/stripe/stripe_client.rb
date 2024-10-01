@@ -49,10 +49,11 @@ module Stripe
       # top-level services: The end of the section generated from our OpenAPI spec
     end
 
-    # TODO: thread safety investigate
     def request(&block)
       @requestor.request(&block)
     end
+    extend Gem::Deprecate
+    deprecate :request, :raw_request, 2024, 9
 
     def parse_thin_event(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
       payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)

@@ -127,27 +127,16 @@ module Stripe
     end
 
     context "uploads_base methods" do
-      setup do
-        # We don't point to the same host for the API and uploads in
-        # production, but `stripe-mock` supports both APIs.
-        Stripe.uploads_base = Stripe.api_base
-      end
-
       context "#pdf" do
         should "generate binary response for quote" do
           quote = Stripe::Quote.retrieve("qt_123")
           body = +""
 
-          # Set `api_base` to `nil` to ensure that these PDF requests are _not_ sent
-          # to the default API hostname.
-          Stripe.api_base = nil
+          Stripe.api_base = "http://foo.bar"
 
           quote.pdf do |read_body_chunk|
             body << read_body_chunk
           end
-
-          # Reset the API base.
-          Stripe.api_base = Stripe.uploads_base
 
           assert_requested :get,
                            "#{Stripe.uploads_base}/v1/quotes/#{quote.id}/pdf"
@@ -167,16 +156,11 @@ module Stripe
         should "generate binary response for quote" do
           body = +""
 
-          # Set `api_base` to `nil` to ensure that these PDF requests are _not_ sent
-          # to the default API hostname.
-          Stripe.api_base = nil
+          Stripe.api_base = "http://foo.bar"
 
           Stripe::Quote.pdf("qt_123") do |read_body_chunk|
             body << read_body_chunk
           end
-
-          # Reset the API base.
-          Stripe.api_base = Stripe.uploads_base
 
           assert_requested :get,
                            "#{Stripe.uploads_base}/v1/quotes/qt_123/pdf"

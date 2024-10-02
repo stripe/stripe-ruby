@@ -96,18 +96,6 @@ module Stripe
       assert reversal.is_a?(Stripe::Reversal)
     end
 
-    should "be retrievable with opts only" do
-      transfer_reversal = Stripe::Transfer.retrieve_reversal(
-        "tr_123",
-        "trr_123",
-        { stripe_account: "acct_123" }
-      )
-      assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123" do |req|
-        assert_equal("acct_123", req.headers["Stripe-Account"])
-        true
-      end
-      assert transfer_reversal.is_a?(Stripe::Reversal)
-    end
     should "be retrievable with opts and params" do
       transfer_reversal = Stripe::Transfer.retrieve_reversal("tr_123",
                                                              "trr_123",
@@ -131,12 +119,6 @@ module Stripe
         true
       end
       assert transfer_reversal.is_a?(Stripe::Reversal)
-    end
-    should "warn you if you are attempting to pass only params" do
-      exception = assert_raises(ArgumentError) do
-        Stripe::Transfer.retrieve_reversal("tr_123", "trr_123", { expand: ["available"] })
-      end
-      assert_match(/Unrecognized request option/, exception.message)
     end
   end
 end

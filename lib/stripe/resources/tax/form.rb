@@ -21,24 +21,24 @@ module Stripe
 
       # Download the PDF for a tax form.
       def pdf(params = {}, opts = {}, &read_body_chunk_block)
-        config = opts[:client]&.config || Stripe.config
-        opts = { api_base: config.uploads_base }.merge(opts)
+        opts = { api_base: APIRequestor.active_requestor.config.uploads_base }.merge(opts)
         request_stream(
           method: :get,
           path: format("/v1/tax/forms/%<id>s/pdf", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts,
+          base_address: :files,
           &read_body_chunk_block
         )
       end
 
       # Download the PDF for a tax form.
       def self.pdf(id, params = {}, opts = {}, &read_body_chunk_block)
-        config = opts[:client]&.config || Stripe.config
-        opts = { api_base: config.uploads_base }.merge(opts)
+        opts = { api_base: APIRequestor.active_requestor.config.uploads_base }.merge(opts)
         execute_resource_request_stream(
           :get,
           format("/v1/tax/forms/%<id>s/pdf", { id: CGI.escape(id) }),
+          :files,
           params,
           opts,
           &read_body_chunk_block

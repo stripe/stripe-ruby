@@ -38,6 +38,24 @@ module Stripe
         assert file.is_a?(Stripe::File)
       end
 
+      should "be createable with StripeClient" do
+        client = Stripe::StripeClient.new(
+          "sk_test_123",
+          api_base: Stripe.api_base,
+          uploads_base: Stripe.uploads_base
+        )
+        file = client.v1.files.create({
+          purpose: "dispute_evidence",
+          file: "my-file-contents",
+          file_link_data: { create: true },
+        })
+        assert_requested :post, "#{Stripe.uploads_base}/v1/files" do |req|
+          assert_match(%r{multipart/form-data}, req.headers["Content-Type"])
+          true
+        end
+        assert file.is_a?(Stripe::File)
+      end
+
       should "be creatable with a Tempfile" do
         tempfile = Tempfile.new("foo")
         tempfile.write("Hello world")

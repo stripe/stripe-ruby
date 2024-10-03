@@ -12,7 +12,7 @@ module Stripe
   class ConnectionManager
     # Timestamp (in seconds procured from the system's monotonic clock)
     # indicating when the connection manager last made a request. This is used
-    # by `StripeClient` to determine whether a connection manager should be
+    # by `APIRequestor` to determine whether a connection manager should be
     # garbage collected or not.
     attr_reader :last_used
     attr_reader :config

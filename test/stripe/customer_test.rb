@@ -236,11 +236,8 @@ module Stripe
         end
 
         should "retrieve with custom opts" do
-          # Assert that we're actually making a change by swapping out the API base.
-          assert Stripe.api_base != Stripe.connect_base
-
-          Stripe::Customer.retrieve_cash_balance("cus_123", {}, { api_base: Stripe.connect_base })
-          assert_requested :get, "#{Stripe.connect_base}/v1/customers/cus_123/cash_balance"
+          Stripe::Customer.retrieve_cash_balance("cus_123", {}, { idempotency_key: "key" })
+          assert_requested :get, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance"
         end
       end
 
@@ -254,16 +251,13 @@ module Stripe
         end
 
         should "update with ID, params and opts" do
-          # Assert that we're actually making a change by swapping out the API base.
-          assert Stripe.api_base != Stripe.connect_base
-
           Stripe::Customer.update_cash_balance(
             "cus_123",
             { settings: { reconciliation_mode: "manual" } },
-            { api_base: Stripe.connect_base }
+            { idempotency_key: "key" }
           )
 
-          assert_requested :post, "#{Stripe.connect_base}/v1/customers/cus_123/cash_balance" do |req|
+          assert_requested :post, "#{Stripe.api_base}/v1/customers/cus_123/cash_balance" do |req|
             req.body == "settings[reconciliation_mode]=manual"
           end
         end

@@ -46,11 +46,12 @@ module Stripe
 
       context "#with global version" do
         setup do
+          @old_api_version = Stripe.api_version
           Stripe.api_version = "2017-05-25"
         end
 
         teardown do
-          Stripe.api_version = nil
+          Stripe.api_version = @old_api_version
         end
 
         should "use the correct api version" do

@@ -72,7 +72,8 @@ module Stripe
       @additive_params.include?(name)
     end
 
-    def initialize(id = nil, opts = {})
+    def initialize(id = nil, opts = {}, api_mode = :v1, requestor = nil)
+      @api_mode = api_mode
       id, @retrieve_params = Util.normalize_id(id)
       @opts = Util.normalize_opts(opts)
       @original_values = {}
@@ -83,13 +84,14 @@ module Stripe
       @transient_values = Set.new
       @values[:id] = id if id
       @last_response = nil
+      @requestor = requestor || APIRequestor.active_requestor
     end
 
-    def self.construct_from(values, opts = {}, last_response = nil)
+    def self.construct_from(values, opts = {}, last_response = nil, api_mode = :v1, requestor = nil)
       values = Stripe::Util.symbolize_names(values)
 
       # work around protected #initialize_from for now
-      new(values[:id]).send(:initialize_from, values, opts, last_response)
+      new(values[:id]).send(:initialize_from, values, opts, last_response, api_mode: api_mode, requestor: requestor)
     end
 
     # Determines the equality of two Stripe objects. Stripe objects are
@@ -151,7 +153,7 @@ module Stripe
     def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
-        @values[k] = Util.convert_to_stripe_object(v, opts)
+        @values[k] = Util.convert_to_stripe_object(v, opts, api_mode: @api_mode)
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
       end
@@ -220,20 +222,22 @@ module Stripe
     # This allows us to remove certain features that cannot or should not be
     # serialized.
     def marshal_dump
-      # The StripeClient instance in @opts is not serializable and is not
+      # The APIRequestor instance in @opts is not serializable and is not
       # really a property of the StripeObject, so we exclude it when
       # dumping
       opts = @opts.clone
+
+      # TODO: (major) Remove the :client option. This is not explicitly supported as a user-specified option.
       opts.delete(:client)
       [@values, opts]
     end
 
     # Implements custom decoding for Ruby's Marshal. Consumes data that's
     # produced by #marshal_dump.
-    def marshal_load(data)
+    def marshal_load(data, api_mode: :v1)
       values, opts = data
-      initialize(values[:id])
-      initialize_from(values, opts)
+      initialize(values[:id], api_mode: api_mode)
+      initialize_from(values, opts, api_mode: api_mode, requestor: @requestor)
     end
 
     def serialize_params(options = {})
@@ -357,7 +361,7 @@ module Stripe
                                    "We interpret empty strings as nil in requests. " \
                                    "You may set (object).#{k} = nil to delete the property."
             end
-            @values[k] = Util.convert_to_stripe_object(v, @opts)
+            @values[k] = Util.convert_to_stripe_object(v, @opts, api_mode: @api_mode)
             dirty_value!(@values[k])
             @unsaved_values.add(k)
           end
@@ -427,13 +431,15 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    protected def initialize_from(values, opts, last_response = nil)
+    protected def initialize_from(values, opts, last_response = nil, api_mode:, requestor: nil)
+      @api_mode = api_mode
       @last_response = last_response
+      @requestor = requestor
 
       @opts = Util.normalize_opts(opts)
 
       # the `#send` is here so that we can keep this method private
-      @original_values = self.class.send(:deep_copy, values)
+      @original_values = self.class.send(:deep_copy, values, api_mode: api_mode)
 
       removed = Set.new(@values.keys - values.keys)
       added = Set.new(values.keys - @values.keys)
@@ -458,6 +464,18 @@ module Stripe
       end
 
       self
+    end
+
+    # Should only be for v2 events and lists, for now.
+    protected def _request(method:, path:, base_address:, params: {}, opts: {})
+      req_opts = RequestOptions.combine_opts(@opts, opts)
+      @requestor.execute_request(
+        method,
+        path,
+        base_address,
+        params: params,
+        opts: RequestOptions.extract_opts_from_hash(req_opts)
+      )
     end
 
     # rubocop:todo Metrics/PerceivedComplexity
@@ -540,21 +558,22 @@ module Stripe
 
     # Produces a deep copy of the given object including support for arrays,
     # hashes, and StripeObjects.
-    private_class_method def self.deep_copy(obj)
+    private_class_method def self.deep_copy(obj, api_mode:)
       case obj
       when Array
-        obj.map { |e| deep_copy(e) }
+        obj.map { |e| deep_copy(e, api_mode: api_mode) }
       when Hash
         obj.each_with_object({}) do |(k, v), copy|
-          copy[k] = deep_copy(v)
+          copy[k] = deep_copy(v, api_mode: api_mode)
           copy
         end
       when StripeObject
         obj.class.construct_from(
-          deep_copy(obj.instance_variable_get(:@values)),
-          obj.instance_variable_get(:@opts).select do |k, _v|
-            Util::OPTS_COPYABLE.include?(k)
-          end
+          deep_copy(obj.instance_variable_get(:@values), api_mode: api_mode),
+          RequestOptions.copyable(obj.instance_variable_get(:@opts)),
+          nil,
+          api_mode,
+          obj.instance_variable_get(:@requestor)
         )
       else
         obj

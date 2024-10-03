@@ -45,9 +45,8 @@ module Stripe
         assert_equal("/express/oauth/authorize", uri.path)
       end
 
-      should "override the api base path when a StripeClient is provided" do
-        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
-        uri_str = OAuth.authorize_url({}, client: client)
+      should "override the api base path when connect_base opt is provided" do
+        uri_str = OAuth.authorize_url({}, connect_base: "https://other.stripe.com")
 
         uri = URI.parse(uri_str)
         assert_equal("other.stripe.com", uri.host)
@@ -92,7 +91,7 @@ module Stripe
         assert_equal("another_access_token", resp.access_token)
       end
 
-      should "override the api base path when a StripeClient is provided" do
+      should "override the api base path when connect_base is set" do
         stub_request(:post, "https://other.stripe.com/oauth/token")
           .with(body: {
             "grant_type" => "authorization_code",
@@ -106,11 +105,14 @@ module Stripe
                                          stripe_user_id: "acct_test",
                                          stripe_publishable_key: "pk_test"))
 
-        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
+        old_base = Stripe.connect_base
+        Stripe.connect_base = "https://other.stripe.com"
+
         resp = OAuth.token(
-          { grant_type: "authorization_code", code: "this_is_an_authorization_code" },
-          client: client
+          { grant_type: "authorization_code", code: "this_is_an_authorization_code" }
         )
+
+        Stripe.connect_base = old_base
 
         assert_equal("sk_access_token", resp.access_token)
       end
@@ -131,7 +133,7 @@ module Stripe
         assert_equal("acct_test_deauth", resp.stripe_user_id)
       end
 
-      should "override the api base path when a StripeClient is provided" do
+      should "override the api base path when connect_base is set" do
         stub_request(:post, "https://other.stripe.com/oauth/deauthorize")
           .with(body: {
             "client_id" => "ca_test",
@@ -139,8 +141,12 @@ module Stripe
           })
           .to_return(body: JSON.generate(stripe_user_id: "acct_test_deauth"))
 
-        client = Stripe::StripeClient.new(connect_base: "https://other.stripe.com")
-        resp = OAuth.deauthorize({ stripe_user_id: "acct_test_deauth" }, client: client)
+        old_base = Stripe.connect_base
+        Stripe.connect_base = "https://other.stripe.com"
+
+        resp = OAuth.deauthorize({ stripe_user_id: "acct_test_deauth" })
+
+        Stripe.connect_base = old_base
 
         assert_equal("acct_test_deauth", resp.stripe_user_id)
       end

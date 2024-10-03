@@ -4,38 +4,38 @@ require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class UtilTest < Test::Unit::TestCase
-    context "OPTS_COPYABLE" do
-      should "include :apibase" do
-        assert_include Stripe::Util::OPTS_COPYABLE, :api_base
+    context "encode_parameters" do
+      should "#encode_parameters should prepare parameters for an HTTP request" do
+        params = {
+          a: 3,
+          b: "+foo?",
+          c: "bar&baz",
+          d: { a: "a", b: "b" },
+          e: [0, 1],
+          f: "",
+
+          # NOTE: the empty hash won't even show up in the request
+          g: [],
+        }
+        assert_equal(
+          "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[0]=0&e[1]=1&f=",
+          Stripe::Util.encode_parameters(params, :v1)
+        )
       end
-    end
 
-    context "OPTS_PERSISTABLE" do
-      should "include :client" do
-        assert_include Stripe::Util::OPTS_PERSISTABLE, :client
+      should "use correct array expansion for v2 query params" do
+        params = {
+          d: { a: "a", b: "b" },
+          e: [0, 1],
+
+          # NOTE: the empty hash won't even show up in the request
+          g: [],
+        }
+        assert_equal(
+          "d[a]=a&d[b]=b&e=0&e=1",
+          Stripe::Util.encode_parameters(params, :v2)
+        )
       end
-
-      should "not include :idempotency_key" do
-        refute_includes Stripe::Util::OPTS_PERSISTABLE, :idempotency_key
-      end
-    end
-
-    should "#encode_parameters should prepare parameters for an HTTP request" do
-      params = {
-        a: 3,
-        b: "+foo?",
-        c: "bar&baz",
-        d: { a: "a", b: "b" },
-        e: [0, 1],
-        f: "",
-
-        # NOTE: the empty hash won't even show up in the request
-        g: [],
-      }
-      assert_equal(
-        "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[0]=0&e[1]=1&f=",
-        Stripe::Util.encode_parameters(params)
-      )
     end
 
     should "#url_encode should prepare strings for HTTP" do
@@ -46,35 +46,45 @@ module Stripe
       assert_equal "foo[bar]", Stripe::Util.url_encode("foo[bar]")
     end
 
-    should "#flatten_params should encode parameters according to Rails convention" do
-      params = [
-        [:a, 3],
-        [:b, "foo?"],
-        [:c, "bar&baz"],
-        [:d, { a: "a", b: "b" }],
-        [:e, [0, 1]],
-        [:f, [
-          { foo: "1", ghi: "2" },
-          { foo: "3", bar: "4" },
-        ],],
-      ]
-      assert_equal([
-        ["a", 3],
-        ["b",        "foo?"],
-        ["c",        "bar&baz"],
-        ["d[a]",     "a"],
-        ["d[b]",     "b"],
-        ["e[0]",      0],
-        ["e[1]",      1],
+    context "#flatten_params" do
+      should "encode parameters according to Rails convention" do
+        params = [
+          [:a, 3],
+          [:b, "foo?"],
+          [:c, "bar&baz"],
+          [:d, { a: "a", b: "b" }],
+          [:e, [0, 1]],
+          [:f, [
+            { foo: "1", ghi: "2" },
+            { foo: "3", bar: "4" },
+          ],],
+        ]
+        assert_equal([
+          ["a", 3],
+          ["b",        "foo?"],
+          ["c",        "bar&baz"],
+          ["d[a]",     "a"],
+          ["d[b]",     "b"],
+          ["e[0]",      0],
+          ["e[1]",      1],
 
-        # *The key here is the order*. In order to be properly interpreted as
-        # an array of hashes on the server, everything from a single hash must
-        # come in at once. A duplicate key in an array triggers a new element.
-        ["f[0][foo]", "1"],
-        ["f[0][ghi]", "2"],
-        ["f[1][foo]", "3"],
-        ["f[1][bar]", "4"],
-      ], Stripe::Util.flatten_params(params))
+          # *The key here is the order*. In order to be properly interpreted as
+          # an array of hashes on the server, everything from a single hash must
+          # come in at once. A duplicate key in an array triggers a new element.
+          ["f[0][foo]", "1"],
+          ["f[0][ghi]", "2"],
+          ["f[1][foo]", "3"],
+          ["f[1][bar]", "4"],
+        ], Stripe::Util.flatten_params(params, :v1))
+      end
+
+      should "flatten v2 array parameters correctly" do
+        params = [
+          [:d, { a: "a", b: "b" }],
+          [:e, [0, 1]],
+        ]
+        assert_equal([["d[a]", "a"], ["d[b]", "b"], ["e", 0], ["e", 1]], Stripe::Util.flatten_params(params, :v2))
+      end
     end
 
     should "#symbolize_names should convert names to symbols" do

@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# meter_event_stream.py - use the high-throughput meter event stream to report create billing meter events.
+#
+# In this example, we:
+#   - create a meter event session and store the session's authentication token
+#   - define an event with a payload
+#   - use the meter_event_stream service accessor in StripeClient to create an event stream that reports this event
+#
+# This example expects a billing meter with an event_name of 'alpaca_ai_tokens'.  If you have
+# a different meter event name, you can change it before running this example.
+
 require "stripe"
 require "date"
 

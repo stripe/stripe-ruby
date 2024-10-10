@@ -32,5 +32,5 @@ end
 # Send meter events
 api_key = "{{API_KEY}}"
 
-example = NewExample.new(api_key)
+example = ExampleTemplate.new(api_key)
 example.do_something_great

@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    # A credit grant is a resource that records a grant of some credit to a customer.
+    # A credit grant is a resource that records a grant of billing credits to a customer.
     class CreditGrant < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List

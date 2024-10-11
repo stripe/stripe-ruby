@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    # Indicates the credit balance for credits granted to a customer.
+    # Indicates the billing credit balance for billing credits granted to a customer.
     class CreditBalanceSummary < SingletonAPIResource
       OBJECT_NAME = "billing.credit_balance_summary"
       def self.object_name

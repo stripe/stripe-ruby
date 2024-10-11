@@ -15,6 +15,17 @@ module Stripe
         )
       end
 
+      # Confirm an InboundTransfer.
+      def confirm(inbound_transfer, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/treasury/inbound_transfers/%<inbound_transfer>s/confirm", { inbound_transfer: CGI.escape(inbound_transfer) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
       # Creates an InboundTransfer.
       def create(params = {}, opts = {})
         request(

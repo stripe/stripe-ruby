@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 # typed: false
 
+# thinevent_webhook_handler.rb - receive and process thin events like the
+# v1.billing.meter.error_report_triggered event.
+#
+# In this example, we:
+#     - create a StripeClient called client
+#     - use client.parse_thin_event to parse the received thin event webhook body
+#     - call client.v2.core.events.retrieve to retrieve the full event object
+#     - if it is a V1BillingMeterErrorReportTriggeredEvent event type, call
+#       event.fetchRelatedObject to retrieve the Billing Meter object associated
+#       with the event.
+
 require "stripe"
 require "sinatra"
 

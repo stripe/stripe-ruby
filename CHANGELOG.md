@@ -1,4 +1,10 @@
 # Changelog
+## 13.0.1 - 2024-10-18
+* [#1471](https://github.com/stripe/stripe-ruby/pull/1471) update object tags for meter-related classes
+  
+  - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
+* [#1470](https://github.com/stripe/stripe-ruby/pull/1470) Cleaned up examples and added documentation
+
 ## 13.0.0 - 2024-10-01
 * [#1458](https://github.com/stripe/stripe-ruby/pull/1458) Support for APIs in the new API version 2024-09-30.acacia
   

@@ -18,7 +18,7 @@ module Stripe
 
       should "correctly deserialize v2 account object" do
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session")
-          .to_return(body: JSON.generate(object: "billing.meter_event_session"))
+          .to_return(body: JSON.generate(object: "v2.billing.meter_event_session"))
 
         client = Stripe::StripeClient.new("sk_test_123")
 

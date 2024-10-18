@@ -3,9 +3,20 @@
 module Stripe
   module V2
     class ListObject < StripeObject
+      attr_reader :last_request
+
       OBJECT_NAME = "list"
       def self.object_name
         "list"
+      end
+
+      def initialize(*args)
+        super
+        @last_request = nil
+      end
+
+      def set_last_request(url, params)
+        @last_request = { url: url, params: params }
       end
 
       # An empty list object. This is returned from +fetch_next_page+ when we know that
@@ -55,7 +66,9 @@ module Stripe
         loop do
           page.each(&blk)
 
-          break if page.next_page_url.nil?
+          if (page.respond_to?(:next_page_url) && page.next_page_url.nil?) || (page.respond_to?(:next_page) && page.next_page.nil?)
+            break
+          end
 
           page = page.fetch_next_page
         end
@@ -70,14 +83,26 @@ module Stripe
       #
       # This method will try to respect the limit of the current page. If none
       # was given, the default limit will be fetched again.
-      def fetch_next_page(opts = {})
-        return self.class.empty_list(opts) if next_page_url.nil?
+      def fetch_next_page(params = {}, opts = {})
+        if respond_to?(:next_page_url)
+          return self.class.empty_list(opts) if next_page_url.nil?
 
-        _request(
-          method: :get,
-          path: next_page_url,
-          base_address: :api
-        )
+          _request(
+            method: :get,
+            path: next_page_url,
+            base_address: :api
+          )
+        else
+          return self.class.empty_list(opts) if next_page.nil?
+
+          new_params = @last_request[:params].merge(page: next_page).merge(params)
+          _request(
+            method: :get,
+            path: last_request[:url],
+            base_address: :api,
+            params: new_params
+          )
+        end
       end
     end
   end

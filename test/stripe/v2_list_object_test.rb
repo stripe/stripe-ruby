@@ -105,6 +105,42 @@ module Stripe
 
         assert_equal expected, actual
       end
+
+      should "provide #auto_paging_each that works with next_page" do
+        arr = [
+          { id: 1 },
+          { id: 2 },
+          { id: 3 },
+          { id: 4 },
+          { id: 5 },
+          { id: 6 },
+        ]
+        expected = Util.convert_to_stripe_object(arr, {}, api_mode: :v2)
+
+        list = TestV2ListObject.construct_from({
+          data: [{ id: 1 }],
+          next_page: "page_2",
+        },
+                                               {}, nil, :v2, APIRequestor.new("sk_test_123"))
+        list.set_last_request("/v2/things", { limit: "3" })
+
+        # The test will start with the synthetic list object above, and use it as
+        # a starting point to fetch two more pages.
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things")
+          .with(query: { limit: "3", page: "page_2" })
+          .to_return(body: JSON.generate(
+            data: [{ id: 2 }, { id: 3 }, { id: 4 }], next_page: "page_3"
+            #  object: "list"
+          ))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things")
+          .with(query: { limit: "3", page: "page_3" })
+          .to_return(body: JSON.generate(
+            data: [{ id: 5 }, { id: 6 }], next_page: nil
+            #  object: "list"
+          ))
+
+        assert_equal expected, list.auto_paging_each.to_a
+      end
     end
 
     context "#fetch_next_page" do
@@ -178,6 +214,37 @@ module Stripe
           end
           .to_return(body: JSON.generate(
             data: [{ id: 2 }, { id: 3 }, { id: 4 }], next_page_url: nil
+            #  object: "list"
+          ))
+
+        assert_equal expected, list.auto_paging_each.to_a
+      end
+
+      should "correctly auto-paginate with next_page" do
+        arr = [
+          { id: 1 },
+          { id: 2 },
+          { id: 3 },
+          { id: 4 },
+        ]
+        expected = Util.convert_to_stripe_object(arr, {}, api_mode: :v2)
+
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events")
+          .to_return(body: JSON.generate(
+            data: [{ id: 1 }], next_page: "page_2"
+            #  object: "list"
+          ))
+
+        client = Stripe::StripeClient.new("sk_test_iter")
+
+        list = client.v2.core.events.list
+
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events")
+          .with(query: { page: "page_2" }) do |req|
+            req.headers["Authorization"] == "Bearer sk_test_iter"
+          end
+          .to_return(body: JSON.generate(
+            data: [{ id: 2 }, { id: 3 }, { id: 4 }], next_page: nil
             #  object: "list"
           ))
 

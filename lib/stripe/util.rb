@@ -132,7 +132,7 @@ module Stripe
         # TODO: This is a terrible hack.
         # Waiting on https://jira.corp.stripe.com/browse/API_SERVICES-3167 to add
         # an object in v2 lists
-        if api_mode == :v2 && data.include?(:data) && data.include?(:next_page_url)
+        if api_mode == :v2 && data.include?(:data) && (data.include?(:next_page_url) || data.include?(:next_page))
           return V2::ListObject.construct_from(data, opts, last_response, api_mode, requestor)
         end
 

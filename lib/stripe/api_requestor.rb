@@ -209,8 +209,11 @@ module Stripe
       store_last_response(object_id, resp)
 
       api_mode = Util.get_api_mode(path)
-      Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
-                                                api_mode: api_mode, requestor: self)
+      obj = Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
+                                                      api_mode: api_mode, requestor: self)
+
+      obj.set_last_request(path, params) if obj.is_a?(V2::ListObject)
+      obj
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class

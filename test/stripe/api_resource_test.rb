@@ -909,7 +909,7 @@ module Stripe
 
       should "raise an NotImplementedError on refresh" do
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session")
-          .to_return(body: JSON.generate(object: "billing.meter_event_session"))
+          .to_return(body: JSON.generate(object: "v2.billing.meter_event_session"))
 
         client = Stripe::StripeClient.new("sk_test_123")
         session = client.v2.billing.meter_event_session.create

@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.1.0-beta.3 - 2024-10-18
+* [#1469](https://github.com/stripe/stripe-ruby/pull/1469) Update generated code for beta
+
+
 ## 13.1.0-beta.2 - 2024-10-08
 * [#1468](https://github.com/stripe/stripe-ruby/pull/1468) Update generated code for beta
   * Add support for `submit_card` test helper method on resource `Issuing.Card`

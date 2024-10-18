@@ -6,9 +6,9 @@ module Stripe
     module Billing
       # Fix me empty_doc_string.
       class MeterEvent < APIResource
-        OBJECT_NAME = "billing.meter_event"
+        OBJECT_NAME = "v2.billing.meter_event"
         def self.object_name
-          "billing.meter_event"
+          "v2.billing.meter_event"
         end
       end
     end

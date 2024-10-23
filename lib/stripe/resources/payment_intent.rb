@@ -316,6 +316,26 @@ module Stripe
       search(params, opts).auto_paging_each(&blk)
     end
 
+    # Trigger an external action on a PaymentIntent.
+    def trigger_action(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Trigger an external action on a PaymentIntent.
+    def self.trigger_action(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Updates properties on a PaymentIntent object without confirming.
     #
     # Depending on which properties you update, you might need to confirm the

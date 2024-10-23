@@ -3,7 +3,7 @@
 
 module Stripe
   class AccountLoginLinkService < StripeService
-    # Creates a single-use login link for a connected account to access the Express Dashboard.
+    # Creates a login link for a connected account to access the Express Dashboard.
     #
     # You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
     def create(account, params = {}, opts = {})

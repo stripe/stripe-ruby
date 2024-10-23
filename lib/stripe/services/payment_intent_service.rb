@@ -199,6 +199,17 @@ module Stripe
       )
     end
 
+    # Trigger an external action on a PaymentIntent.
+    def trigger_action(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Updates properties on a PaymentIntent object without confirming.
     #
     # Depending on which properties you update, you might need to confirm the

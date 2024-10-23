@@ -110,7 +110,6 @@ module Stripe
       opts = Util.normalize_opts(opts)
       instance = new(id, opts)
       instance.refresh
-      instance
     end
 
     def request_stripe_object(method:, path:, params:, base_address: :api, opts: {})

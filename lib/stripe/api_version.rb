@@ -3,6 +3,6 @@
 
 module Stripe
   module ApiVersion
-    CURRENT = "2024-09-30.acacia"
+    CURRENT = "2024-10-28.acacia"
   end
 end

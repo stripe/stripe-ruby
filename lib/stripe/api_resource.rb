@@ -99,7 +99,13 @@ module Stripe
       end
 
       @obj = @requestor.execute_request_initialize_from(:get, resource_url, :api, self, params: @retrieve_params)
-      initialize_from(@obj.last_response.data, {}, @obj.lat_response, api_mode: :v1, requestor: @requestor)
+      initialize_from(
+        @obj.last_response.data,
+        @obj.instance_variable_get(:@opts),
+        @obj.last_response,
+        api_mode: :v1,
+        requestor: @requestor
+      )
     end
 
     def self.retrieve(id, opts = {})

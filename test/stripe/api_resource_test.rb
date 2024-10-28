@@ -931,7 +931,7 @@ module Stripe
           .to_return(body: JSON.generate({ id: "id", object: "custom_stripe_object", result: "hello" }))
 
         custom_stripe_object = CustomStripeObject.retrieve("id")
-        assert_instance_of Stripe::StripeObject, custom_stripe_object
+        assert_instance_of CustomStripeObject, custom_stripe_object
         assert_equal "hello", custom_stripe_object.result
       end
     end

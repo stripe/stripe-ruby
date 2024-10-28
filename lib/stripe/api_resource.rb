@@ -98,7 +98,8 @@ module Stripe
               "It is not possible to refresh v2 objects. Please retrieve the object using the StripeClient instead."
       end
 
-      @requestor.execute_request_initialize_from(:get, resource_url, :api, self, params: @retrieve_params)
+      @obj = @requestor.execute_request_initialize_from(:get, resource_url, :api, self, params: @retrieve_params)
+      initialize_from(@obj.last_response.data, {}, @obj.lat_response, api_mode: :v1, requestor: @requestor)
     end
 
     def self.retrieve(id, opts = {})

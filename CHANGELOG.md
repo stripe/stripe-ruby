@@ -1,4 +1,12 @@
 # Changelog
+## 13.1.0 - 2024-10-29
+* [#1472](https://github.com/stripe/stripe-ruby/pull/1472) Update generated code
+  * Add support for `submit_card` test helper method on resource `Issuing.Card`
+  * Add support for new resource `V2.EventDestinations`
+  * Add support for `create`, `retrieve`, `update`, `list`, `delete`, `disable`, `enable` and `ping` methods on resource `V2.EventDestinations`
+* [#1476](https://github.com/stripe/stripe-ruby/pull/1476) Fix APIResource#retrieve bug not returning instance of custom resources
+  * Fix bug in APIResource#refresh and APIResource#retrieve where they returned an instance of `StripeObject` for custom resources. They should now return the instance of the custom resource.
+
 ## 13.0.2 - 2024-10-23
 * [#1473](https://github.com/stripe/stripe-ruby/pull/1473) Always return the result of APIResource#refresh in APIResource.retrieve
   

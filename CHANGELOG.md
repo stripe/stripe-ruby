@@ -1,8 +1,15 @@
 # Changelog
 
+## 13.1.0 - 2024-10-29
+* [#1472](https://github.com/stripe/stripe-ruby/pull/1472) Update generated code
+  * Add support for `submit_card` test helper method on resource `Issuing.Card`
+  * Add support for new resource `V2.EventDestinations`
+  * Add support for `create`, `retrieve`, `update`, `list`, `delete`, `disable`, `enable` and `ping` methods on resource `V2.EventDestinations`
+* [#1476](https://github.com/stripe/stripe-ruby/pull/1476) Fix APIResource#retrieve bug not returning instance of custom resources
+  * Fix bug in APIResource#refresh and APIResource#retrieve where they returned an instance of `StripeObject` for custom resources. They should now return the instance of the custom resource.
+
 ## 13.1.0-beta.3 - 2024-10-18
 * [#1469](https://github.com/stripe/stripe-ruby/pull/1469) Update generated code for beta
-
 
 ## 13.1.0-beta.2 - 2024-10-08
 * [#1468](https://github.com/stripe/stripe-ruby/pull/1468) Update generated code for beta
@@ -22,6 +29,17 @@
     resp = client.raw_request(:post, "/v1/charges", params: {p1: "p1"}, opts: {stripe_account: "acct_123"})
     charge = client.deserialize(resp.data)
     ```
+
+## 13.0.2 - 2024-10-23
+* [#1473](https://github.com/stripe/stripe-ruby/pull/1473) Always return the result of APIResource#refresh in APIResource.retrieve
+  
+  * Fix bug where we would not return the mutated `self` object when calling `APIResource.retrieve`
+
+## 13.0.1 - 2024-10-18
+* [#1471](https://github.com/stripe/stripe-ruby/pull/1471) update object tags for meter-related classes
+  
+  - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
+* [#1470](https://github.com/stripe/stripe-ruby/pull/1470) Cleaned up examples and added documentation
 
 ## 13.0.0 - 2024-10-01
 * [#1458](https://github.com/stripe/stripe-ruby/pull/1458) Support for APIs in the new API version 2024-09-30.acacia

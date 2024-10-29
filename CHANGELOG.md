@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.0-beta.1 - 2024-10-29
+* [#1477](https://github.com/stripe/stripe-ruby/pull/1477) Update generated code for beta
+  * Add support for `trigger_action` method on resource `PaymentIntent`
+
 ## 13.1.0 - 2024-10-29
 * [#1472](https://github.com/stripe/stripe-ruby/pull/1472) Update generated code
   * Add support for `submit_card` test helper method on resource `Issuing.Card`

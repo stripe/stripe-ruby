@@ -1,4 +1,9 @@
 # Changelog
+## 13.0.2 - 2024-10-23
+* [#1473](https://github.com/stripe/stripe-ruby/pull/1473) Always return the result of APIResource#refresh in APIResource.retrieve
+  
+  * Fix bug where we would not return the mutated `self` object when calling `APIResource.retrieve`
+
 ## 13.0.1 - 2024-10-18
 * [#1471](https://github.com/stripe/stripe-ruby/pull/1471) update object tags for meter-related classes
   

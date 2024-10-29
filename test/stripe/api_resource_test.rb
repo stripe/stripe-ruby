@@ -919,6 +919,23 @@ module Stripe
       end
     end
 
+    class CustomStripeObject < APIResource
+      def self.resource_url
+        "/v1/custom_stripe_object"
+      end
+    end
+
+    context "custom class extending APIResource" do
+      should "return StripeObject instance when calling retrieve" do
+        stub_request(:get, "#{Stripe.api_base}/v1/custom_stripe_object/id")
+          .to_return(body: JSON.generate({ id: "id", object: "custom_stripe_object", result: "hello" }))
+
+        custom_stripe_object = CustomStripeObject.retrieve("id")
+        assert_instance_of CustomStripeObject, custom_stripe_object
+        assert_equal "hello", custom_stripe_object.result
+      end
+    end
+
     @@fixtures = {} # rubocop:disable Style/ClassVars
     setup do
       if @@fixtures.empty?

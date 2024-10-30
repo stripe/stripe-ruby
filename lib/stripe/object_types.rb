@@ -87,6 +87,7 @@ module Stripe
         Issuing::CreditUnderwritingRecord.object_name => Issuing::CreditUnderwritingRecord,
         Issuing::Dispute.object_name => Issuing::Dispute,
         Issuing::DisputeSettlementDetail.object_name => Issuing::DisputeSettlementDetail,
+        Issuing::FraudLiabilityDebit.object_name => Issuing::FraudLiabilityDebit,
         Issuing::PersonalizationDesign.object_name => Issuing::PersonalizationDesign,
         Issuing::PhysicalBundle.object_name => Issuing::PhysicalBundle,
         Issuing::Token.object_name => Issuing::Token,

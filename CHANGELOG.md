@@ -1,6 +1,6 @@
 # Changelog
 ## 13.1.0 - 2024-10-29
-* [#1472](https://github.com/stripe/stripe-ruby/pull/1472) Update generated code
+* [#1472](https://github.com/stripe/stripe-ruby/pull/1472) This release changes the pinned API version to `2024-10-28.acacia`.
   * Add support for `submit_card` test helper method on resource `Issuing.Card`
   * Add support for new resource `V2.EventDestinations`
   * Add support for `create`, `retrieve`, `update`, `list`, `delete`, `disable`, `enable` and `ping` methods on resource `V2.EventDestinations`

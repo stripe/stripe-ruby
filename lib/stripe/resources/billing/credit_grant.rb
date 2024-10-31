@@ -6,7 +6,6 @@ module Stripe
     # A credit grant is an API resource that documents the allocation of some billing credits to a customer.
     #
     # Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
-    # end
     class CreditGrant < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -27,7 +26,7 @@ module Stripe
         )
       end
 
-      # Expires a credit grant
+      # Expires a credit grant.
       def expire(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -37,7 +36,7 @@ module Stripe
         )
       end
 
-      # Expires a credit grant
+      # Expires a credit grant.
       def self.expire(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -47,7 +46,7 @@ module Stripe
         )
       end
 
-      # Retrieve a list of credit grants
+      # Retrieve a list of credit grants.
       def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
@@ -67,7 +66,7 @@ module Stripe
         )
       end
 
-      # Voids a credit grant
+      # Voids a credit grant.
       def void_grant(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -77,7 +76,7 @@ module Stripe
         )
       end
 
-      # Voids a credit grant
+      # Voids a credit grant.
       def self.void_grant(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,

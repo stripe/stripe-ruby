@@ -20,8 +20,8 @@ module Stripe
     end
 
     # Returns a list of your shipping rates.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/shipping_rates", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/shipping_rates", params: params, opts: opts)
     end
 
     # Updates an existing shipping rate object.

@@ -27,11 +27,11 @@ module Stripe
     end
 
     # Lists the details of existing payment method domains.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/payment_method_domains",
-        params: filters,
+        params: params,
         opts: opts
       )
     end

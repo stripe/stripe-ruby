@@ -112,8 +112,8 @@ module Stripe
     end
 
     # Returns a list of SetupIntents.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/setup_intents", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/setup_intents", params: params, opts: opts)
     end
 
     # Updates a SetupIntent object.

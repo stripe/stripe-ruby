@@ -67,11 +67,11 @@ module Stripe
       end
 
       # Returns a list of your test clocks.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/test_helpers/test_clocks",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

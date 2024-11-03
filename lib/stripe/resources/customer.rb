@@ -92,8 +92,8 @@ module Stripe
     end
 
     # Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/customers", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/customers", params: params, opts: opts)
     end
 
     # Returns a list of PaymentMethods for a given Customer

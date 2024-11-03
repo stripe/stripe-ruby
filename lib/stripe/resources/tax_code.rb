@@ -12,8 +12,8 @@ module Stripe
     end
 
     # A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/tax_codes", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/tax_codes", params: params, opts: opts)
     end
   end
 end

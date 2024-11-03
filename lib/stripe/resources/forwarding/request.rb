@@ -39,11 +39,11 @@ module Stripe
       end
 
       # Lists all ForwardingRequest objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/forwarding/requests",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

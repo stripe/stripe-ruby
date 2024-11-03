@@ -41,8 +41,8 @@ module Stripe
     end
 
     # Returns a list of your disputes.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/disputes", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/disputes", params: params, opts: opts)
     end
 
     # When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.

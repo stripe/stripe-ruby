@@ -13,11 +13,11 @@ module Stripe
       end
 
       # Lists all available Climate supplier objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/climate/suppliers",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

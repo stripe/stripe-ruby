@@ -14,8 +14,8 @@ module Stripe
       end
 
       # Lists all Issuing Token objects for a given card.
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/issuing/tokens", params: filters, opts: opts)
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/issuing/tokens", params: params, opts: opts)
       end
 
       # Attempts to update the specified Issuing Token object to the status specified.

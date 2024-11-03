@@ -46,11 +46,11 @@ module Stripe
       end
 
       # Returns a list of Configuration objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/terminal/configurations",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

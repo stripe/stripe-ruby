@@ -13,11 +13,11 @@ module Stripe
       end
 
       # Retrieve a list of credit balance transactions
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/billing/credit_balance_transactions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

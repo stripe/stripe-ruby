@@ -63,7 +63,7 @@ module Stripe
         idempotency_key: req_opts[:idempotency_key],
         stripe_account: req_opts[:stripe_account] || object_opts[:stripe_account],
         stripe_context: req_opts[:stripe_context] || object_opts[:stripe_context],
-        stripe_version: req_opts[:stripe_version] || object_opts[:api_version],
+        stripe_version: req_opts[:stripe_version] || object_opts[:stripe_version],
       }
 
       # Remove nil values from headers

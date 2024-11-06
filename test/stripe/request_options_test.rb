@@ -79,14 +79,13 @@ module Stripe
     end
 
     context "combine_opts" do
-      should "correctly set stripe_version in retrieve" do
-        Stripe::Account.retrieve("acc_123", stripe_version: "2022-11-15")
-
-        assert_requested(
-          :get,
-          "#{Stripe.api_base}/v1/accounts/acc_123",
-          headers: { "Stripe-Version" => "2022-11-15" }
-        )
+      should "correctly combine user specified options" do
+        object_opts = { api_key: "sk_123", stripe_version: "2022-11-15" }
+        request_opts = { api_key: "sk_456", stripe_account: "acct_123" }
+        combined = RequestOptions.combine_opts(object_opts, request_opts)
+        assert_equal(combined[:stripe_version], "2022-11-15")
+        assert_equal(combined[:api_key], "sk_456")
+        assert_equal(combined[:stripe_account], "acct_123")
       end
     end
   end

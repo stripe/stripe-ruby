@@ -1,4 +1,8 @@
 # Changelog
+## 13.1.1 - 2024-11-06
+* [#1483](https://github.com/stripe/stripe-ruby/pull/1483) Fix APIResource#retrieve not sending `stripe_version`
+* [#1478](https://github.com/stripe/stripe-ruby/pull/1478) Update changelog with a note on 2024-10-28.acacia API version
+
 ## 13.1.0 - 2024-10-29
 * [#1472](https://github.com/stripe/stripe-ruby/pull/1472) This release changes the pinned API version to `2024-10-28.acacia`.
   * Add support for `submit_card` test helper method on resource `Issuing.Card`

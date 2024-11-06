@@ -77,5 +77,17 @@ module Stripe
         assert_equal({ "A-Header" => "header", "B-Header" => "header" }, request_opts[:headers])
       end
     end
+
+    context "combine_opts" do
+      should "correctly set stripe_version in retrieve" do
+        Stripe::Account.retrieve("acc_123", stripe_version: "2022-11-15")
+
+        assert_requested(
+          :get,
+          "#{Stripe.api_base}/v1/accounts/acc_123",
+          headers: { "Stripe-Version" => "2022-11-15" }
+        )
+      end
+    end
   end
 end

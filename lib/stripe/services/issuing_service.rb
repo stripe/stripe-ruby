@@ -3,7 +3,7 @@
 
 module Stripe
   class IssuingService < StripeService
-    attr_reader :authorizations, :cards, :cardholders, :credit_underwriting_records, :disputes, :dispute_settlement_details, :personalization_designs, :physical_bundles, :tokens, :transactions
+    attr_reader :authorizations, :cards, :cardholders, :credit_underwriting_records, :disputes, :dispute_settlement_details, :fraud_liability_debits, :personalization_designs, :physical_bundles, :tokens, :transactions
 
     def initialize(requestor)
       super(requestor)
@@ -14,6 +14,7 @@ module Stripe
                                      .new(@requestor)
       @disputes = Stripe::Issuing::DisputeService.new(@requestor)
       @dispute_settlement_details = Stripe::Issuing::DisputeSettlementDetailService.new(@requestor)
+      @fraud_liability_debits = Stripe::Issuing::FraudLiabilityDebitService.new(@requestor)
       @personalization_designs = Stripe::Issuing::PersonalizationDesignService.new(@requestor)
       @physical_bundles = Stripe::Issuing::PhysicalBundleService.new(@requestor)
       @tokens = Stripe::Issuing::TokenService.new(@requestor)

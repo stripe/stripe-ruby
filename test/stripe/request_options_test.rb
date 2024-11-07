@@ -77,5 +77,16 @@ module Stripe
         assert_equal({ "A-Header" => "header", "B-Header" => "header" }, request_opts[:headers])
       end
     end
+
+    context "combine_opts" do
+      should "correctly combine user specified options" do
+        object_opts = { api_key: "sk_123", stripe_version: "2022-11-15" }
+        request_opts = { api_key: "sk_456", stripe_account: "acct_123" }
+        combined = RequestOptions.combine_opts(object_opts, request_opts)
+        assert_equal(combined[:stripe_version], "2022-11-15")
+        assert_equal(combined[:api_key], "sk_456")
+        assert_equal(combined[:stripe_account], "acct_123")
+      end
+    end
   end
 end

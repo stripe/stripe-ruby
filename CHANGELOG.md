@@ -1,5 +1,11 @@
 # Changelog
 
+## 13.2.0-beta.2 - 2024-11-07
+* [#1480](https://github.com/stripe/stripe-ruby/pull/1480) Update generated code for beta
+  * Add support for new resources `Issuing.FraudLiabilityDebit`, `PaymentAttemptRecord`, and `PaymentRecord`
+  * Add support for `list` and `retrieve` methods on resources `FraudLiabilityDebit` and `PaymentAttemptRecord`
+  * Add support for `report_payment_attempt_canceled`, `report_payment_attempt_failed`, `report_payment_attempt_guaranteed`, `report_payment_attempt`, `report_payment`, and `retrieve` methods on resource `PaymentRecord`
+
 ## 13.2.0-beta.1 - 2024-10-29
 * [#1477](https://github.com/stripe/stripe-ruby/pull/1477) Update generated code for beta
   * Add support for `trigger_action` method on resource `PaymentIntent`

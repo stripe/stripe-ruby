@@ -1,7 +1,7 @@
 {
   "recommendations": [
     "EditorConfig.editorconfig", // default
-    "shopify.ruby-lsp", // intellisense-like support (if you get it working)
+    "castwide.solargraph", // intellisense
     "sorbet.sorbet-vscode-extension", // typechecking, where applicable
     "LoranKloeze.ruby-rubocop-revived", // linting
     "SarahRidge.vscode-ruby-syntax" // Semantic syntax highlighting

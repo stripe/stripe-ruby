@@ -60,6 +60,17 @@ module Stripe
           )
         end
 
+        # Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
+        def respond(authorization, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/fraud_challenges/respond", { authorization: CGI.escape(authorization) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Reverse a test-mode Authorization.
         def reverse(authorization, params = {}, opts = {})
           request(

@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.0-beta.3 - 2024-11-14
+* [#1484](https://github.com/stripe/stripe-ruby/pull/1484) Update generated code for beta
+
+
 ## 13.2.0-beta.2 - 2024-11-07
 * [#1480](https://github.com/stripe/stripe-ruby/pull/1480) Update generated code for beta
   * Add support for new resources `Issuing.FraudLiabilityDebit`, `PaymentAttemptRecord`, and `PaymentRecord`

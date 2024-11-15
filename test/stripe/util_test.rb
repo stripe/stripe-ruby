@@ -16,9 +16,20 @@ module Stripe
 
           # NOTE: the empty hash won't even show up in the request
           g: [],
+
         }
         assert_equal(
           "a=3&b=%2Bfoo%3F&c=bar%26baz&d[a]=a&d[b]=b&e[0]=0&e[1]=1&f=",
+          Stripe::Util.encode_parameters(params, :v1)
+        )
+      end
+
+      should "correctly represent nested arrays" do
+        params = {
+          a: [[foo: "bar", baz: "qux"]],
+        }
+        assert_equal(
+          "a[0][foo]=bar&a[0][baz]=qux",
           Stripe::Util.encode_parameters(params, :v1)
         )
       end

@@ -3,7 +3,6 @@
 ## 13.2.0-beta.3 - 2024-11-14
 * [#1484](https://github.com/stripe/stripe-ruby/pull/1484) Update generated code for beta
 
-
 ## 13.2.0-beta.2 - 2024-11-07
 * [#1480](https://github.com/stripe/stripe-ruby/pull/1480) Update generated code for beta
   * Add support for new resources `Issuing.FraudLiabilityDebit`, `PaymentAttemptRecord`, and `PaymentRecord`
@@ -13,6 +12,10 @@
 ## 13.2.0-beta.1 - 2024-10-29
 * [#1477](https://github.com/stripe/stripe-ruby/pull/1477) Update generated code for beta
   * Add support for `trigger_action` method on resource `PaymentIntent`
+
+## 13.1.2 - 2024-11-15
+* [#1488](https://github.com/stripe/stripe-ruby/pull/1488) Fix incorrect key in param encoding
+* [#1487](https://github.com/stripe/stripe-ruby/pull/1487) Update VSCode default extensions to use solargraph instead of ruby lsp
 
 ## 13.1.1 - 2024-11-06
 * [#1483](https://github.com/stripe/stripe-ruby/pull/1483) Fix APIResource#retrieve not sending `stripe_version`

@@ -29,6 +29,8 @@ group :development do
   gem "sorbet"
   gem "tapioca"
 
+  gem "parlour"
+
   platforms :mri do
     gem "byebug"
     gem "pry"

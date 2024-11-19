@@ -66,6 +66,10 @@ Metrics/ParameterLists:
     - "lib/stripe/api_operations/request.rb"
     - "lib/stripe/stripe_object.rb"
 
+Naming/VariableNumber:
+  # We use a variety of variable number syntaxes
+  Enabled: false
+
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline
 

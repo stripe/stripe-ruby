@@ -1,24 +1,149 @@
 # Changelog
+## 13.1.2 - 2024-11-15
+* [#1488](https://github.com/stripe/stripe-ruby/pull/1488) Fix incorrect key in param encoding
+* [#1487](https://github.com/stripe/stripe-ruby/pull/1487) Update VSCode default extensions to use solargraph instead of ruby lsp
+
+## 13.1.1 - 2024-11-06
+* [#1483](https://github.com/stripe/stripe-ruby/pull/1483) Fix APIResource#retrieve not sending `stripe_version`
+* [#1478](https://github.com/stripe/stripe-ruby/pull/1478) Update changelog with a note on 2024-10-28.acacia API version
+
+## 13.1.0 - 2024-10-29
+* [#1472](https://github.com/stripe/stripe-ruby/pull/1472) This release changes the pinned API version to `2024-10-28.acacia`.
+  * Add support for `submit_card` test helper method on resource `Issuing.Card`
+  * Add support for new resource `V2.EventDestinations`
+  * Add support for `create`, `retrieve`, `update`, `list`, `delete`, `disable`, `enable` and `ping` methods on resource `V2.EventDestinations`
+* [#1476](https://github.com/stripe/stripe-ruby/pull/1476) Fix APIResource#retrieve bug not returning instance of custom resources
+  * Fix bug in APIResource#refresh and APIResource#retrieve where they returned an instance of `StripeObject` for custom resources. They should now return the instance of the custom resource.
+
+## 13.0.2 - 2024-10-23
+* [#1473](https://github.com/stripe/stripe-ruby/pull/1473) Always return the result of APIResource#refresh in APIResource.retrieve
+  
+  * Fix bug where we would not return the mutated `self` object when calling `APIResource.retrieve`
+
+## 13.0.1 - 2024-10-18
+* [#1471](https://github.com/stripe/stripe-ruby/pull/1471) update object tags for meter-related classes
+  
+  - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
+* [#1470](https://github.com/stripe/stripe-ruby/pull/1470) Cleaned up examples and added documentation
+
+## 13.0.0 - 2024-10-01
+* [#1458](https://github.com/stripe/stripe-ruby/pull/1458) Support for APIs in the new API version 2024-09-30.acacia
+  
+  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-09-30.acacia) and carefully review the API changes before upgrading.
+  
+  ### ⚠️ Breaking changes 
+  
+  Please refer to our [migration guide for v13](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v13) for more information about the backwards incompatible changes.
+  
+  #### ❗ `StripeClient` and related changes
+  * Move `StripeClient` and requestor logic to `APIRequestor`.
+    * `StripeClient#request` is still available, but is deprecated and will be removed. We encourage `StripeClient#raw_request` as a replacement (see other breaking changes for more detail).
+  * Repurpose and introduce `StripeClient` as the the entry-point to the service-based pattern, a new interface for calling the Stripe API with many benefits over the existing resource-based paradigm. Services are available under the `v1` and `v2` accessors.
+      * No global config: you can simultaneously use multiple clients with different configuration options (such as API keys)
+      * No extra API calls. All API endpoints can be accessed with a single method call. You don't have to call `retrieve` before doing an `update`.
+      * No static methods. Much easier mocking.
+  
+  #### Other breaking changes
+  
+  * Adjust default values around retries for HTTP requests. You can use the old defaults by setting them explicitly. New values are:
+    - max retries: `0` -> `2`
+    - max retry delay (seconds) `2` -> `5`
+  * Remove `StripeClient#connection_manager`. This was a legacy method from years ago.
+  * Singleton `retrieve` method now requires `params` to be passed as the first argument. Existing calls to singleton `retrieve` method with only `opts` argument will have to be updated to account for the addition of `params` argument. 
+      ```ruby
+      params = { expand: ["available"] }
+      opts = { stripe_account: "acct_123" }
+  
+      # ❌ No longer works
+      Stripe::Balance.retrieve(opts)
+  
+      # ✅ Correct way to call retrieve method
+      Stripe::Balance.retrieve(params, opts)
+      ```
+  * Moved the `Stripe.raw_request()` method that was recently added to `StripeClient`. This will use the configuration set on the StripeClient instead of the global configuration used before.
+  * Remove `APIResource.request`. Instead, use `StripeClient#raw_request` now.
+      ```ruby
+      # Instead of
+      Stripe::APIResource.request(:get, "/v1/endpoint", params, opts)
+  
+      # do
+      client = Stripe::StripeClient.new(...)
+      resp = client.raw_request(:get, "/v1/endpoint", params: params, opts: opts)
+      ```
+  * Add an additional parameter to `APIResource.execute_resource_request`. However, we discourage use of this in favor of `StripeClient#raw_request`.
+      ```ruby
+      APIResource.execute_resource_request(method, url, params = {}, opts = {}, usage = [])
+      # is now, with base_address being one of [:api, :files, :connect, :meter_events]
+      APIResource.execute_resource_request(method, url, base_address = :api, params = {}, opts = {}, usage = [])
+      ```
+  * Change parameters to `APIRequestor.execute_request` (previously `StripeClient.execute_request`). It now returns all request options from our internal request framework as the second value in the returned tuple, instead of only the API key used:
+    ```ruby
+    # Before
+    obj, api_key = StripeClient.execute_request(method, path, api_base: nil,
+                                                api_key: nil, headers: {}, params: {}, usage: [])
+  
+    # is now, with base_address being one of [:api, :files, :connect, :meter_events]
+  
+    obj, opts = APIRequestor.execute_request(method, path, base_address,
+                                            params: {}, opts: {}, usage: [])
+    puts(opts) # will output {api_key: "sk_test_123", stripe_account: "acct_123"}
+    ```
+  
+   
+  ### Additions
+  * Add support for new Usage Billing APIs `Billing.MeterEvent`, `Billing.MeterEventAdjustments`, `Billing.MeterEventSession`, `Billing.MeterEventStream` and the new Events API `Core.Events` in the [v2 namespace ](https://docs.corp.stripe.com/api-v2-overview)
+  * Add method `parse_thin_event()` on the `StripeClient` class to parse [thin events](https://docs.corp.stripe.com/event-destinations#events-overview). 
+
+
+## 12.6.0 - 2024-09-12
+* [#1442](https://github.com/stripe/stripe-ruby/pull/1442) Update generated code
+  * Add support for new resource `InvoiceRenderingTemplate`
+  * Add support for `archive`, `list`, `retrieve`, and `unarchive` methods on resource `InvoiceRenderingTemplate`
+* [#1443](https://github.com/stripe/stripe-ruby/pull/1443) Removed v1/files override
+
+## 12.5.0 - 2024-08-08
+* [#1440](https://github.com/stripe/stripe-ruby/pull/1440) Update generated code
+  * Add support for new resources `Billing.AlertTriggered` and `Billing.Alert`
+  * Add support for `activate`, `archive`, `create`, `deactivate`, `list`, and `retrieve` methods on resource `Alert`
+  * Add support for `retrieve` method on resource `Tax.Calculation`
+
+## 12.4.0 - 2024-07-25
+* [#1437](https://github.com/stripe/stripe-ruby/pull/1437) Update generated code
+  * Add support for `update` method on resource `Checkout.Session`
+
+## 12.3.0 - 2024-07-18
+* [#1436](https://github.com/stripe/stripe-ruby/pull/1436) Fixed changelog for major release 12.0.0
+* [#1435](https://github.com/stripe/stripe-ruby/pull/1435) Add deprecation warning for `APIResource.request`
+
+## 12.2.0 - 2024-07-12
+* [#1430](https://github.com/stripe/stripe-ruby/pull/1430) Update generated code
+
+* [#1433](https://github.com/stripe/stripe-ruby/pull/1433) Add usage to raw_request call
+* [#1431](https://github.com/stripe/stripe-ruby/pull/1431) Add `raw_request`
+  
+  - Adds the ability to make raw requests to the Stripe API, by providing an HTTP method and url. This is an alternative to using `Stripe::APIResource.request(...)` to make custom requests, which is discouraged and will be broken in a future major version.
+
+## 12.1.0 - 2024-07-05
+* [#1425](https://github.com/stripe/stripe-ruby/pull/1425) Update generated code
+  * Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
+* [#1420](https://github.com/stripe/stripe-ruby/pull/1420) Update static methods for delete/list on BankAccount/Card to throw NotImplementedError
+  * The below methods have been throwing `InvalidRequestError` because the urls used to make the requests have been buggy. Updating them to throw `NotImplementedError` instead just like their counterparts for update & retrieve because they cannot be implemented without the parent id. 
+  
+  Methods affected | Use these instead in the context of payment method | Use these in the context of external accounts
+  ------ | ------ | ----
+  Stripe:: BankAccount.delete | Stripe::Customer.delete_source | Stripe::Account.delete_external_account
+  Stripe:: BankAccount.list | Stripe::Customer.list_sources | Stripe::Customer.list_external_accounts
+  Stripe:: Card.delete | Stripe::Customer.delete_source | Stripe::Account.delete_external_account
+  Stripe:: Card.list | Stripe::Customer.list_sources | Stripe::Customer.list_external_accounts
+* [#1427](https://github.com/stripe/stripe-ruby/pull/1427) Regenerate rbis
+* [#1426](https://github.com/stripe/stripe-ruby/pull/1426) Remove coveralls and re-added JRuby
+
 ## 12.0.0 - 2024-06-24
 * [#1418](https://github.com/stripe/stripe-ruby/pull/1418) Add missing static method for verify on BankAccount
 * [#1419](https://github.com/stripe/stripe-ruby/pull/1419) 
   
   This release changes the pinned API version to 2024-06-20. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-06-20) and carefully review the API changes before upgrading.
-  
-  ### ⚠️ Breaking changes
-  
-  * Singleton `retrieve` method now requires `params` to be passed as the first argument. Existing calls to singleton `retrieve` method with only `opts` argument will have to be updated to account for the addition of `params` argument. 
-  ```ruby
-  params = { expand: ["available"] }
-  opts = { stripe_account: "acct_123" }
-  
-  # ❌ No longer works
-  Stripe::Balance.retrieve(opts)
-  
-  # ✅ Correct way to call retrieve method
-  Stripe::Balance.retrieve(params, opts)
-  ```
-  
+
   ### Additions
   
   * Add support for `finalize_amount` test helper method on resource `Issuing.Authorization`

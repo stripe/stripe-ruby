@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
+  # Invoice Line Items represent the individual lines within an [invoice](https://stripe.com/docs/api/invoices) and only exist within the context of an invoice.
+  #
+  # Each line item is backed by either an [invoice item](https://stripe.com/docs/api/invoiceitems) or a [subscription item](https://stripe.com/docs/api/subscription_items).
   class InvoiceLineItem < StripeObject
     include Stripe::APIOperations::Save
 

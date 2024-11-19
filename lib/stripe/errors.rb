@@ -27,7 +27,8 @@ module Stripe
     def construct_error_object
       return nil if @json_body.nil? || !@json_body.key?(:error)
 
-      ErrorObject.construct_from(@json_body[:error])
+      # ErrorObject is shared between v1 and v2, so use original object_classes to find
+      ErrorObject.construct_from(@json_body[:error], {}, nil, :v1)
     end
 
     # Whether the error was the result of an idempotent replay, meaning that it
@@ -130,7 +131,7 @@ module Stripe
       def construct_error_object
         return nil if @json_body.nil?
 
-        OAuthErrorObject.construct_from(@json_body)
+        OAuthErrorObject.construct_from(@json_body, {}, nil, :v1)
       end
     end
 
@@ -166,4 +167,9 @@ module Stripe
     class UnsupportedResponseTypeError < OAuthError
     end
   end
+
+  # class definitions: The beginning of the section generated from our OpenAPI spec
+  class TemporarySessionExpiredError < StripeError
+  end
+  # class definitions: The end of the section generated from our OpenAPI spec
 end

@@ -65,9 +65,10 @@ module Stripe
         # Please note that id gets removed here our call to #url above has already
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
-
-        resp, opts = execute_resource_request(:post, save_url, values, opts, ["save"])
-        initialize_from(resp.data, opts, resp)
+        opts = Util.normalize_opts(opts)
+        APIRequestor.active_requestor.execute_request_initialize_from(:post, save_url, :api, self,
+                                                                      params: values, opts: opts,
+                                                                      usage: ["save"])
       end
       extend Gem::Deprecate
       deprecate :save, "the `update` class method (for examples " \

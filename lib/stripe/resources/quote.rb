@@ -124,26 +124,26 @@ module Stripe
       )
     end
 
-    # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+    # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
     def pdf(params = {}, opts = {}, &read_body_chunk_block)
-      config = opts[:client]&.config || Stripe.config
-      opts = { api_base: config.uploads_base }.merge(opts)
+      opts = { api_base: APIRequestor.active_requestor.config.uploads_base }.merge(opts)
       request_stream(
         method: :get,
         path: format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(self["id"]) }),
         params: params,
         opts: opts,
+        base_address: :files,
         &read_body_chunk_block
       )
     end
 
-    # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.corp.stripe.com/quotes/overview#quote_pdf)
+    # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
     def self.pdf(quote, params = {}, opts = {}, &read_body_chunk_block)
-      config = opts[:client]&.config || Stripe.config
-      opts = { api_base: config.uploads_base }.merge(opts)
+      opts = { api_base: APIRequestor.active_requestor.config.uploads_base }.merge(opts)
       execute_resource_request_stream(
         :get,
         format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(quote) }),
+        :files,
         params,
         opts,
         &read_body_chunk_block

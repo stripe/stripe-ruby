@@ -25,12 +25,11 @@ module Stripe
   # If `.logger` is set, the value of `.log_level` is ignored. The decision on
   # what levels to print is entirely deferred to the logger.
   class StripeConfiguration
-    attr_accessor :api_key, :api_version, :client_id, :enable_telemetry, :logger, :stripe_account
+    attr_accessor :api_key, :api_version, :client_id, :enable_telemetry, :logger, :stripe_account, :stripe_context
 
-    attr_reader :api_base, :uploads_base, :connect_base, :ca_bundle_path, :log_level, :initial_network_retry_delay,
-                # rubocop:todo Layout/LineLength
-                :max_network_retries, :max_network_retry_delay, :open_timeout, :read_timeout, :write_timeout, :proxy, :verify_ssl_certs
-    # rubocop:enable Layout/LineLength
+    attr_reader :api_base, :uploads_base, :connect_base, :meter_events_base, :base_addresses, :ca_bundle_path,
+                :log_level, :initial_network_retry_delay, :max_network_retries, :max_network_retry_delay,
+                :open_timeout, :read_timeout, :write_timeout, :proxy, :verify_ssl_certs
 
     def self.setup
       new.tap do |instance|
@@ -45,6 +44,9 @@ module Stripe
         hash.each do |option, value|
           instance.public_send("#{option}=", value)
         end
+        instance.send("instance_variable_set", "@base_addresses",
+                      { api: instance.api_base, connect: instance.connect_base,
+                        files: instance.uploads_base, meter_events: instance.meter_events_base, })
       end
     end
 
@@ -54,17 +56,19 @@ module Stripe
       @enable_telemetry = true
       @verify_ssl_certs = true
 
-      @max_network_retries = 0
+      @max_network_retries = 2
       @initial_network_retry_delay = 0.5
-      @max_network_retry_delay = 2
+      @max_network_retry_delay = 5
 
       @open_timeout = 30
       @read_timeout = 80
       @write_timeout = 30
 
-      @api_base = "https://api.stripe.com"
-      @connect_base = "https://connect.stripe.com"
-      @uploads_base = "https://files.stripe.com"
+      @api_base = DEFAULT_API_BASE
+      @connect_base = DEFAULT_CONNECT_BASE
+      @uploads_base = DEFAULT_UPLOAD_BASE
+      @meter_events_base = DEFAULT_METER_EVENTS_BASE
+      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base, events: @meter_events_base }
     end
 
     def log_level=(val)
@@ -101,44 +105,53 @@ module Stripe
 
     def open_timeout=(open_timeout)
       @open_timeout = open_timeout
-      StripeClient.clear_all_connection_managers(config: self)
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def read_timeout=(read_timeout)
       @read_timeout = read_timeout
-      StripeClient.clear_all_connection_managers(config: self)
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def write_timeout=(write_timeout)
       raise NotImplementedError unless Net::HTTP.instance_methods.include?(:write_timeout=)
 
       @write_timeout = write_timeout
-      StripeClient.clear_all_connection_managers(config: self)
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def proxy=(proxy)
       @proxy = proxy
-      StripeClient.clear_all_connection_managers(config: self)
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def verify_ssl_certs=(verify_ssl_certs)
       @verify_ssl_certs = verify_ssl_certs
-      StripeClient.clear_all_connection_managers(config: self)
+      APIRequestor.clear_all_connection_managers(config: self)
+    end
+
+    def meter_events_base=(meter_events_base)
+      @meter_events_base = meter_events_base
+      @base_addresses[:meter_events] = meter_events_base
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def uploads_base=(uploads_base)
       @uploads_base = uploads_base
-      StripeClient.clear_all_connection_managers(config: self)
+      @base_addresses[:files] = uploads_base
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def connect_base=(connect_base)
       @connect_base = connect_base
-      StripeClient.clear_all_connection_managers(config: self)
+      @base_addresses[:connect] = connect_base
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def api_base=(api_base)
       @api_base = api_base
-      StripeClient.clear_all_connection_managers(config: self)
+      @base_addresses[:api] = api_base
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     def ca_bundle_path=(path)
@@ -147,7 +160,7 @@ module Stripe
       # empty this field so a new store is initialized
       @ca_store = nil
 
-      StripeClient.clear_all_connection_managers(config: self)
+      APIRequestor.clear_all_connection_managers(config: self)
     end
 
     # A certificate store initialized from the the bundle in #ca_bundle_path and

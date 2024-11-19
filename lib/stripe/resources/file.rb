@@ -18,6 +18,25 @@ module Stripe
       "file"
     end
 
+    # To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.
+    #
+    # All of Stripe's officially supported Client libraries support sending multipart/form-data.
+    def self.create(params = {}, opts = {})
+      if params[:file] && !params[:file].is_a?(String) && !params[:file].respond_to?(:read)
+        raise ArgumentError, "file must respond to `#read`"
+      end
+
+      opts = { content_type: MultipartEncoder::MULTIPART_FORM_DATA }.merge(Util.normalize_opts(opts))
+
+      request_stripe_object(
+        method: :post,
+        path: "/v1/files",
+        params: params,
+        opts: opts,
+        base_address: :files
+      )
+    end
+
     # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
     def self.list(filters = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/files", params: filters, opts: opts)
@@ -34,19 +53,6 @@ module Stripe
 
     def self.resource_url
       "/v1/files"
-    end
-
-    def self.create(params = {}, opts = {})
-      if params[:file] && !params[:file].is_a?(String) && !params[:file].respond_to?(:read)
-        raise ArgumentError, "file must respond to `#read`"
-      end
-
-      config = opts[:client]&.config || Stripe.config
-      opts = {
-        api_base: config.uploads_base,
-        content_type: MultipartEncoder::MULTIPART_FORM_DATA,
-      }.merge(Util.normalize_opts(opts))
-      super
     end
   end
 end

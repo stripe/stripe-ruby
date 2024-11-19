@@ -25,6 +25,12 @@ module Stripe
     end
 
     def self.resource_url
+      if name.include?("Stripe::V2")
+        raise NotImplementedError,
+              "V2 resources do not have a defined URL. Please use the StripeClient " \
+              "to make V2 requests"
+      end
+
       if self == APIResource
         raise NotImplementedError,
               "APIResource is an abstract class. You should perform actions " \
@@ -87,33 +93,41 @@ module Stripe
     end
 
     def refresh
-      resp, opts = execute_resource_request(:get, resource_url,
-                                            @retrieve_params)
-      initialize_from(resp.data, opts, resp)
+      if self.class.name.include?("Stripe::V2")
+        raise NotImplementedError,
+              "It is not possible to refresh v2 objects. Please retrieve the object using the StripeClient instead."
+      end
+
+      @obj = @requestor.execute_request_initialize_from(:get, resource_url, :api, self, params: @retrieve_params)
+      initialize_from(
+        @obj.last_response.data,
+        @obj.instance_variable_get(:@opts),
+        @obj.last_response,
+        api_mode: :v1,
+        requestor: @requestor
+      )
     end
 
     def self.retrieve(id, opts = {})
+      if name.include?("Stripe::V2")
+        raise NotImplementedError,
+              "It is not possible to retrieve v2 objects on the resource. Please use the StripeClient instead."
+      end
+
       opts = Util.normalize_opts(opts)
       instance = new(id, opts)
       instance.refresh
-      instance
     end
 
-    def request_stripe_object(method:, path:, params:, opts: {})
-      resp, opts = execute_resource_request(method, path, params, opts)
-
-      # If we're getting back this thing, update; otherwise, instantiate.
-      if Util.object_name_matches_class?(resp.data[:object], self.class)
-        initialize_from(resp.data, opts, resp)
-      else
-        Util.convert_to_stripe_object_with_params(resp.data, params, opts, resp)
-      end
+    def request_stripe_object(method:, path:, params:, base_address: :api, opts: {})
+      APIRequestor.active_requestor.execute_request_initialize_from(method, path, base_address, self,
+                                                                    params: params, opts: opts)
     end
 
-    protected def request_stream(method:, path:, params:, opts: {},
+    protected def request_stream(method:, path:, params:, base_address: :api, opts: {},
                                  &read_body_chunk_block)
       resp, = execute_resource_request_stream(
-        method, path, params, opts, &read_body_chunk_block
+        method, path, base_address, params, opts, &read_body_chunk_block
       )
       resp
     end

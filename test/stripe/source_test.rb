@@ -42,6 +42,9 @@ module Stripe
       end
 
       should "be deletable when attached to a customer" do
+        # stripe-mock returns the incorrect object (Account) for sources.detach
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123/sources/src_123")
+          .to_return(body: JSON.generate(id: "src_123", object: "source"))
         source = Stripe::Source.construct_from(customer: "cus_123",
                                                id: "src_123",
                                                object: "source")

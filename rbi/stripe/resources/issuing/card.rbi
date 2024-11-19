@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Issuing
     # You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.

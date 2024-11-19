@@ -116,8 +116,8 @@ module Stripe
     attr_reader :usage
 
     # Returns a list of SetupAttempts that associate with a provided SetupIntent.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/setup_attempts", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/setup_attempts", params: filters, opts: opts)
     end
   end
 end

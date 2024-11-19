@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Events are our way of letting you know when something interesting happens in
   # your account. When an interesting event occurs, we create a new `Event`

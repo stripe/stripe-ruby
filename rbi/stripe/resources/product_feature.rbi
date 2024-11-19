@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A product_feature represents an attachment between a feature and a product.
   # When a product is purchased that has a feature attached, Stripe will create an entitlement to the feature for the purchasing customer.

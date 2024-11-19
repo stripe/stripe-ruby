@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module TestHelpers
     # A test clock enables deterministic control over objects in testmode. With a test clock, you can create

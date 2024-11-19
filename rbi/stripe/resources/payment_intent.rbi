@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A PaymentIntent guides you through the process of collecting a payment from your customer.
   # We recommend that you create exactly one PaymentIntent for each order or

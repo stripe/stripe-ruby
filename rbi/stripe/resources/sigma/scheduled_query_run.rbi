@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Sigma
     # If you have [scheduled a Sigma query](https://stripe.com/docs/sigma/scheduled-queries), you'll

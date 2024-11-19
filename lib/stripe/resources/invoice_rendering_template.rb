@@ -50,11 +50,11 @@ module Stripe
     end
 
     # List all templates, ordered by creation date, with the most recently created template appearing first.
-    def self.list(params = {}, opts = {})
+    def self.list(filters = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/invoice_rendering_templates",
-        params: params,
+        params: filters,
         opts: opts
       )
     end

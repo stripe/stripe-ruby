@@ -56,11 +56,11 @@ module Stripe
       end
 
       # Returns a list of CreditReversals.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/credit_reversals",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

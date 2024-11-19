@@ -40,8 +40,8 @@ module Stripe
     end
 
     # Returns a list of file links.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/file_links", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/file_links", params: filters, opts: opts)
     end
 
     # Updates an existing file link object. Expired links can no longer be updated.

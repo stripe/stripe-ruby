@@ -33,11 +33,11 @@ module Stripe
       attr_reader :payment_intent
 
       # Returns a list of early fraud warnings.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/radar/early_fraud_warnings",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

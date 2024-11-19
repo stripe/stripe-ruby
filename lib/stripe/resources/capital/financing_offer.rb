@@ -59,11 +59,11 @@ module Stripe
       attr_reader :type
 
       # Retrieves the financing offers available for Connected accounts that belong to your platform.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/capital/financing_offers",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) that is
   # automatically applied to future invoices and payments using the `customer_balance` payment method.

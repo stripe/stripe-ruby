@@ -503,8 +503,8 @@ module Stripe
     end
 
     # Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/charges", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/charges", params: filters, opts: opts)
     end
 
     def self.search(params = {}, opts = {})

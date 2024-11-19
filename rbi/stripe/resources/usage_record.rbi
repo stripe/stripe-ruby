@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Usage records allow you to report customer usage and metrics to Stripe for
   # metered billing of subscription prices.

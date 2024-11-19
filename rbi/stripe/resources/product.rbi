@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Products describe the specific goods or services you offer to your customers.
   # For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.

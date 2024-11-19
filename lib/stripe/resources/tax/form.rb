@@ -90,8 +90,8 @@ module Stripe
       attr_reader :us_1099_nec
 
       # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
-      def self.list(params = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/tax/forms", params: params, opts: opts)
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/tax/forms", params: filters, opts: opts)
       end
 
       # Download the PDF for a tax form.

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A Payment Attempt Record represents an individual attempt at making a payment, on or off Stripe.
   # Each payment attempt tries to collect a fixed amount of money from a fixed customer and payment

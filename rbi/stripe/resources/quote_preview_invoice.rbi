@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Invoices are statements of amounts owed by a customer, and are either
   # generated one-off, or generated periodically from a subscription.

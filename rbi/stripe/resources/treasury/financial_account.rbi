@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Treasury
     # Stripe Treasury provides users with a container for money called a FinancialAccount that is separate from their Payments balance.

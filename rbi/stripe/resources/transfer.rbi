@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A `Transfer` object is created when you move funds between Stripe accounts as
   # part of Connect.

@@ -243,8 +243,8 @@ module Stripe
     end
 
     # Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/orders", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/orders", params: filters, opts: opts)
     end
 
     # When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

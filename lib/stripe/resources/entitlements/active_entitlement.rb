@@ -24,11 +24,11 @@ module Stripe
       attr_reader :object
 
       # Retrieve a list of active entitlements for a customer
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/entitlements/active_entitlements",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

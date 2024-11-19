@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # The `Charge` object represents a single attempt to move money into your Stripe account.
   # PaymentIntent confirmation is the most common way to create Charges, but transferring

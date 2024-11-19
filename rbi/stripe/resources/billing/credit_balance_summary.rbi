@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Billing
     # Indicates the billing credit balance for billing credits granted to a customer.

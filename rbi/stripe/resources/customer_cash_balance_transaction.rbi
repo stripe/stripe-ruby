@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Customers with certain payments enabled have a cash balance, representing funds that were paid
   # by the customer to a merchant, but have not yet been allocated to a payment. Cash Balance Transactions

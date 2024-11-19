@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Tokenization is the process Stripe uses to collect sensitive card or bank
   # account details, or personally identifiable information (PII), directly from

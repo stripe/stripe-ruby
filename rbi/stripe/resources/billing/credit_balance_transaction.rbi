@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Billing
     # A credit balance transaction is a resource representing a transaction (either a credit or a debit) against an existing credit grant.

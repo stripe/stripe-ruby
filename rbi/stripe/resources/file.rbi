@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # This object represents files hosted on Stripe's servers. You can upload
   # files with the [create file](https://stripe.com/docs/api#create_file) request

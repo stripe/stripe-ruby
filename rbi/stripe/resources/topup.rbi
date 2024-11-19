@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # To top up your Stripe balance, you create a top-up object. You can retrieve
   # individual top-ups, as well as list all top-ups. Top-ups are identified by a

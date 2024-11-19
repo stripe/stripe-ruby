@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # [Stripe Connect](https://stripe.com/docs/connect) platforms can reverse transfers made to a
   # connected account, either entirely or partially, and can also specify whether

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Issuing
     # Any use of an [issued card](https://stripe.com/docs/issuing) that results in funds entering or leaving

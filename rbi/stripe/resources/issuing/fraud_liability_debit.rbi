@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Issuing
     # A fraud liability debit occurs when Stripe debits a platform's account for fraud losses on Issuing transactions.

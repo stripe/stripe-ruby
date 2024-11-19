@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module BillingPortal
     # The Billing customer portal is a Stripe-hosted UI for subscription and

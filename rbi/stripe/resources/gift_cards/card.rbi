@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module GiftCards
     # A gift card represents a single gift card owned by a customer, including the

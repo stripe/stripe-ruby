@@ -69,11 +69,11 @@ module Stripe
       end
 
       # Returns a list of Location objects.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/terminal/locations",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Billing
     # A credit grant is an API resource that documents the allocation of some billing credits to a customer.

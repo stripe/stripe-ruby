@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Terminal
     # A Connection Token is used by the Stripe Terminal SDK to connect to a reader.

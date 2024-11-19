@@ -221,8 +221,8 @@ module Stripe
     end
 
     # Returns a list of your payment links.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/payment_links", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_links", params: filters, opts: opts)
     end
 
     # When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

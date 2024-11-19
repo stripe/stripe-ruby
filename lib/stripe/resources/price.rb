@@ -102,8 +102,8 @@ module Stripe
     end
 
     # Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/prices", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/prices", params: filters, opts: opts)
     end
 
     def self.search(params = {}, opts = {})

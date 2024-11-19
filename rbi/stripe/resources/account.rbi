@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # This is an object representing a Stripe account. You can retrieve it to see
   # properties on the account like its current requirements or if the account is

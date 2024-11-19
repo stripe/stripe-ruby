@@ -44,8 +44,8 @@ module Stripe
     attr_reader :verification_fields
 
     # Lists all Country Spec objects available in the API.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/country_specs", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/country_specs", params: filters, opts: opts)
     end
   end
 end

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # `ExchangeRate` objects allow you to determine the rates that Stripe is currently
   # using to convert from one currency to another. Since this number is variable

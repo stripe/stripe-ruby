@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Issuing
     # A Personalization Design is a logical grouping of a Physical Bundle, card logo, and carrier text that represents a product line.

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module FinancialConnections
     # A Transaction represents a real transaction that affects a Financial Connections Account balance.

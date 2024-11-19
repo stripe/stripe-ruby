@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Billing
     # A billing meter event represents a customer's usage of a product. Meter events are used to bill a customer based on their usage.

@@ -48,8 +48,8 @@ module Stripe
     attr_reader :refunds
 
     # Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/application_fees", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/application_fees", params: filters, opts: opts)
     end
   end
 end

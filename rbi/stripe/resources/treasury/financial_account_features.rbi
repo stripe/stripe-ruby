@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Treasury
     # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.

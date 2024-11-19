@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Reporting
     # The Report Type resource corresponds to a particular type of report, such as

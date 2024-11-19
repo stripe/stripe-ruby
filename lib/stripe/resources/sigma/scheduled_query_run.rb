@@ -42,11 +42,11 @@ module Stripe
       attr_reader :title
 
       # Returns a list of scheduled query runs.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/sigma/scheduled_query_runs",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

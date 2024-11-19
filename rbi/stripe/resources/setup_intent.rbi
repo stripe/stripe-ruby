@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
   # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.

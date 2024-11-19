@@ -95,11 +95,11 @@ module Stripe
       end
 
       # Returns a list of configurations that describe the functionality of the customer portal.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/billing_portal/configurations",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

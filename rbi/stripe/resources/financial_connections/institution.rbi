@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module FinancialConnections
     # An institution represents a financial institution to which an end user can connect using the Financial Connections authentication flow.

@@ -290,8 +290,8 @@ module Stripe
     end
 
     # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/subscriptions", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/subscriptions", params: filters, opts: opts)
     end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.

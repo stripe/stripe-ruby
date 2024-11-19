@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A payment method domain represents a web domain that you have registered with Stripe.
   # Stripe Elements use registered payment method domains to control where certain payment methods are shown.

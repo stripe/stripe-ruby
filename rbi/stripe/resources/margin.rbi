@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A (partner) margin represents a specific discount distributed in partner reseller programs to business partners who
   # resell products and services and earn a discount (margin) for doing so.

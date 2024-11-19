@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # `Application Fee Refund` objects allow you to refund an application fee that
   # has previously been created but not yet refunded. Funds will be refunded to

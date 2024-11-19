@@ -78,8 +78,13 @@ module Stripe
     end
 
     # Returns a list of your webhook endpoints.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/webhook_endpoints", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/webhook_endpoints",
+        params: filters,
+        opts: opts
+      )
     end
 
     # Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.

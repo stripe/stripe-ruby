@@ -89,8 +89,8 @@ module Stripe
       end
 
       # Retrieve a list of billing meters.
-      def self.list(params = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/billing/meters", params: params, opts: opts)
+      def self.list(filters = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/billing/meters", params: filters, opts: opts)
       end
 
       # Reactivates a billing meter

@@ -57,11 +57,11 @@ module Stripe
       attr_reader :type
 
       # Retrieve a list of credit balance transactions
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/billing/credit_balance_transactions",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

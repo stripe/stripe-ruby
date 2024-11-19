@@ -99,8 +99,8 @@ module Stripe
     end
 
     # Returns a list of your plans.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/plans", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/plans", params: filters, opts: opts)
     end
 
     # Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.

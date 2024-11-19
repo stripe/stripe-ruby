@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # You can configure [webhook endpoints](https://docs.stripe.com/webhooks/) via the API to be
   # notified about events that happen in your Stripe account or connected

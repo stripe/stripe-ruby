@@ -467,11 +467,11 @@ module Stripe
     end
 
     # List payment method configurations
-    def self.list(params = {}, opts = {})
+    def self.list(filters = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/payment_method_configurations",
-        params: params,
+        params: filters,
         opts: opts
       )
     end

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Refund objects allow you to refund a previously created charge that isn't
   # refunded yet. Funds are refunded to the credit or debit card that's

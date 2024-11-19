@@ -61,8 +61,8 @@ module Stripe
     end
 
     # Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/files", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/files", params: filters, opts: opts)
     end
 
     # This resource can have two different object names. In latter API

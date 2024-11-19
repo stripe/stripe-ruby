@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # An AccountSession allows a Connect platform to grant access to a connected account in Connect embedded components.
   #

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # `Source` objects allow you to accept a variety of payment methods. They
   # represent a customer's payment instrument, and can be used with the Stripe API

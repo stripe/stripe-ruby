@@ -64,11 +64,11 @@ module Stripe
       end
 
       # Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/radar/value_list_items",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

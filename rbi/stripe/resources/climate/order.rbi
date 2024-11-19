@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Climate
     # Orders represent your intent to purchase a particular Climate product. When you create an order, the

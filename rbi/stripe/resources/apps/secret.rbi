@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Apps
     # Secret Store is an API that allows Stripe Apps developers to securely persist secrets for use by UI Extensions and app backends.

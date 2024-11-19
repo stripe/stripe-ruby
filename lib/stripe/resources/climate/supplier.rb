@@ -31,11 +31,11 @@ module Stripe
       attr_reader :removal_pathway
 
       # Lists all available Climate supplier objects.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/climate/suppliers",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

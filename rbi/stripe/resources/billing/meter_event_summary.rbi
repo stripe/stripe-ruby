@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Billing
     # A billing meter event summary represents an aggregated view of a customer's billing meter events within a specified timeframe. It indicates how much

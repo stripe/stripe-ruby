@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
   #

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Tax
     # A Tax Calculation allows you to calculate the tax to collect from your customer.

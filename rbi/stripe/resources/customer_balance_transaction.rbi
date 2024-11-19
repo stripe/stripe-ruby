@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Each customer has a [Balance](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
   # which denotes a debit or credit that's automatically applied to their next invoice upon finalization.

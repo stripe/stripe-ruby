@@ -41,11 +41,11 @@ module Stripe
       end
 
       # Retrieve a list of features
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/entitlements/features",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

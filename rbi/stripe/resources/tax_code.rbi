@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # [Tax codes](https://stripe.com/docs/tax/tax-categories) classify goods and services for tax purposes.
   class TaxCode < APIResource

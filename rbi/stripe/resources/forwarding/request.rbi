@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Forwarding
     # Instructs Stripe to make a request on your behalf using the destination URL. The destination URL

@@ -125,8 +125,8 @@ module Stripe
     end
 
     # Returns a list of credit notes.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/credit_notes", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/credit_notes", params: filters, opts: opts)
     end
 
     # When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.

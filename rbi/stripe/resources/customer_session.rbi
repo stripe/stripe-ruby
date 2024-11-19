@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A Customer Session allows you to grant Stripe's frontend SDKs (like Stripe.js) client-side access
   # control over a Customer.

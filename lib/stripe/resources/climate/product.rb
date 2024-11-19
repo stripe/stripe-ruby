@@ -38,11 +38,11 @@ module Stripe
       attr_reader :suppliers
 
       # Lists all available Climate product objects.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/climate/products",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

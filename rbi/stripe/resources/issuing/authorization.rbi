@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Issuing
     # When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`

@@ -94,12 +94,10 @@ module Stripe
     end
 
     def resource_url
-      if !customer.nil?
+      if respond_to?(:customer)
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
-      elsif !account.nil?
+      elsif respond_to?(:account)
         "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
-      else
-        raise InvalidRequestError, "Could not determine which URL to request: [account, customer] field(s) are all null"
       end
     end
 
@@ -139,7 +137,7 @@ module Stripe
       )
     end
 
-    def self.list(params = {}, opts = {})
+    def self.list(filters = {}, opts = {})
       raise NotImplementedError,
             "Bank accounts cannot be listed without a customer ID or an " \
             "account ID. List bank accounts using " \

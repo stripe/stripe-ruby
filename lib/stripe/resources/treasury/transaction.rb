@@ -55,11 +55,11 @@ module Stripe
       attr_reader :status_transitions
 
       # Retrieves a list of Transaction objects.
-      def self.list(params = {}, opts = {})
+      def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/transactions",
-          params: params,
+          params: filters,
           opts: opts
         )
       end

@@ -909,8 +909,8 @@ module Stripe
     end
 
     # Returns a list of PaymentIntents.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/payment_intents", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_intents", params: filters, opts: opts)
     end
 
     def self.search(params = {}, opts = {})

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Radar
     # An early fraud warning indicates that the card issuer has notified us that a

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers) or account.
   # Customer and account tax IDs get displayed on related invoices and credit notes.

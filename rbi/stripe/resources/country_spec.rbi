@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # Stripe needs to collect certain pieces of information about each account
   # created. These requirements can differ depending on the account's country. The

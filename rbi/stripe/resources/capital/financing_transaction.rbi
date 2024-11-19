@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Capital
     # This is an object representing the details of a transaction on a Capital financing object.

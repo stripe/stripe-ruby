@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module BillingPortal
     # A portal configuration describes the functionality and behavior of a portal session.

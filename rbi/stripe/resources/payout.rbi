@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A `Payout` object is created when you receive funds from Stripe, or when you
   # initiate a payout to either a bank account or debit card of a [connected

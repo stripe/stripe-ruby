@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # An Order describes a purchase being made by a customer, including the
   # products & quantities being purchased, the order status, the payment information,

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module GiftCards
     # A gift card transaction represents a single transaction on a referenced gift card.

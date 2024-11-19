@@ -44,8 +44,8 @@ module Stripe
     attr_reader :rates
 
     # Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/exchange_rates", params: params, opts: opts)
+    def self.list(filters = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/exchange_rates", params: filters, opts: opts)
     end
   end
 end

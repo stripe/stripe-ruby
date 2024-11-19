@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module Tax
     # A Tax Transaction records the tax collected from or refunded to your customer.

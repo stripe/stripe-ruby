@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   # A dispute occurs when a customer questions your charge with their card issuer.
   # When this happens, you have the opportunity to respond to the dispute with

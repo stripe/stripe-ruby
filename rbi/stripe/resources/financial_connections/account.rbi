@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
+# typed: true
 module Stripe
   module FinancialConnections
     # A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.

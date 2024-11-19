@@ -35,9 +35,9 @@ module Stripe
   # for 30 days.
   class Event < APIResource
     class Data < Stripe::StripeObject
-      sig { returns(T::Hash[String, T.any()]) }
+      sig { returns(T::Hash[String, T.untyped]) }
       attr_reader :object
-      sig { returns(T::Hash[String, T.any()]) }
+      sig { returns(T::Hash[String, T.untyped]) }
       attr_reader :previous_attributes
     end
     class Reason < Stripe::StripeObject

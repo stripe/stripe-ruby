@@ -456,7 +456,7 @@ module Stripe
       attr_reader :swish_handle_redirect_or_display_qr_code
       sig { returns(String) }
       attr_reader :type
-      sig { returns(T::Hash[String, T.any()]) }
+      sig { returns(T::Hash[String, T.untyped]) }
       attr_reader :use_stripe_sdk
       sig { returns(VerifyWithMicrodeposits) }
       attr_reader :verify_with_microdeposits

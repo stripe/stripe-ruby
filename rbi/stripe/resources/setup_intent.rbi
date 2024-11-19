@@ -96,7 +96,7 @@ module Stripe
       attr_reader :redirect_to_url
       sig { returns(String) }
       attr_reader :type
-      sig { returns(T::Hash[String, T.any()]) }
+      sig { returns(T::Hash[String, T.untyped]) }
       attr_reader :use_stripe_sdk
       sig { returns(VerifyWithMicrodeposits) }
       attr_reader :verify_with_microdeposits

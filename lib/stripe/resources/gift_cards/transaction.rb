@@ -19,6 +19,45 @@ module Stripe
         "gift_cards.transaction"
       end
 
+      class CreatedBy < Stripe::StripeObject
+        class Checkout < Stripe::StripeObject
+          attr_reader :checkout_session, :line_item
+        end
+
+        class Order < Stripe::StripeObject
+          attr_reader :line_item, :order
+        end
+
+        class Payment < Stripe::StripeObject
+          attr_reader :payment_intent
+        end
+        attr_reader :checkout, :order, :payment, :type
+      end
+      # The amount of this transaction. A positive value indicates that funds were added to the gift card. A negative value indicates that funds were removed from the gift card.
+      attr_reader :amount
+      # Time at which the transaction was confirmed. Measured in seconds since the Unix epoch.
+      attr_reader :confirmed_at
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # The related Stripe objects that created this gift card transaction.
+      attr_reader :created_by
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      attr_reader :description
+      # The gift card that this transaction occurred on
+      attr_reader :gift_card
+      # Unique identifier for the object.
+      attr_reader :id
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # Status of this transaction, one of `held`, `confirmed`, or `canceled`.
+      attr_reader :status
+      # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+      attr_reader :transfer_group
+
       # Cancel a gift card transaction
       def cancel(params = {}, opts = {})
         request_stripe_object(
@@ -70,11 +109,11 @@ module Stripe
       end
 
       # List gift card transactions for a gift card
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/gift_cards/transactions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

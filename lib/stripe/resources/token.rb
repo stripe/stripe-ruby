@@ -30,6 +30,35 @@ module Stripe
       "token"
     end
 
+    # These bank accounts are payment methods on `Customer` objects.
+    #
+    # On the other hand [External Accounts](/api#external_accounts) are transfer
+    # destinations on `Account` objects for connected accounts.
+    # They can be bank accounts or debit cards as well, and are documented in the links above.
+    #
+    # Related guide: [Bank debits and transfers](/payments/bank-debits-transfers)
+    attr_reader :bank_account
+    # You can store multiple cards on a customer in order to charge the customer
+    # later. You can also store multiple debit cards on a recipient in order to
+    # transfer to those cards later.
+    #
+    # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
+    attr_reader :card
+    # IP address of the client that generates the token.
+    attr_reader :client_ip
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # Unique identifier for the object.
+    attr_reader :id
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Type of the token: `account`, `bank_account`, `card`, or `pii`.
+    attr_reader :type
+    # Determines if you have already used this token (you can only use tokens once).
+    attr_reader :used
+
     # Creates a single-use token that represents a bank account's details.
     # You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
     def self.create(params = {}, opts = {})

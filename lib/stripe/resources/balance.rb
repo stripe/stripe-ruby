@@ -18,5 +18,64 @@ module Stripe
     def self.object_name
       "balance"
     end
+
+    class Available < Stripe::StripeObject
+      class SourceTypes < Stripe::StripeObject
+        attr_reader :bank_account, :card, :fpx
+      end
+      attr_reader :amount, :currency, :source_types
+    end
+
+    class ConnectReserved < Stripe::StripeObject
+      class SourceTypes < Stripe::StripeObject
+        attr_reader :bank_account, :card, :fpx
+      end
+      attr_reader :amount, :currency, :source_types
+    end
+
+    class InstantAvailable < Stripe::StripeObject
+      class NetAvailable < Stripe::StripeObject
+        class SourceTypes < Stripe::StripeObject
+          attr_reader :bank_account, :card, :fpx
+        end
+        attr_reader :amount, :destination, :source_types
+      end
+
+      class SourceTypes < Stripe::StripeObject
+        attr_reader :bank_account, :card, :fpx
+      end
+      attr_reader :amount, :currency, :net_available, :source_types
+    end
+
+    class Issuing < Stripe::StripeObject
+      class Available < Stripe::StripeObject
+        class SourceTypes < Stripe::StripeObject
+          attr_reader :bank_account, :card, :fpx
+        end
+        attr_reader :amount, :currency, :source_types
+      end
+      attr_reader :available
+    end
+
+    class Pending < Stripe::StripeObject
+      class SourceTypes < Stripe::StripeObject
+        attr_reader :bank_account, :card, :fpx
+      end
+      attr_reader :amount, :currency, :source_types
+    end
+    # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
+    attr_reader :available
+    # Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
+    attr_reader :connect_reserved
+    # Funds that you can pay out using Instant Payouts.
+    attr_reader :instant_available
+    # Attribute for field issuing
+    attr_reader :issuing
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Funds that aren't available in the balance yet. You can find the pending balance for each currency and each payment type in the `source_types` property.
+    attr_reader :pending
   end
 end

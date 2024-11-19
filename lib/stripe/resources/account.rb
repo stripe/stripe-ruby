@@ -34,6 +34,236 @@ module Stripe
     nested_resource_class_methods :login_link, operations: %i[create]
     nested_resource_class_methods :person, operations: %i[create retrieve update delete list]
 
+    class BusinessProfile < Stripe::StripeObject
+      class AnnualRevenue < Stripe::StripeObject
+        attr_reader :amount, :currency, :fiscal_year_end
+      end
+
+      class MonthlyEstimatedRevenue < Stripe::StripeObject
+        attr_reader :amount, :currency
+      end
+
+      class SupportAddress < Stripe::StripeObject
+        attr_reader :city, :country, :line1, :line2, :postal_code, :state
+      end
+      attr_reader :annual_revenue, :estimated_worker_count, :mcc, :monthly_estimated_revenue, :name, :product_description, :support_address, :support_email, :support_phone, :support_url, :url
+    end
+
+    class Capabilities < Stripe::StripeObject
+      attr_reader :acss_debit_payments, :affirm_payments, :afterpay_clearpay_payments, :alma_payments, :amazon_pay_payments, :au_becs_debit_payments, :bacs_debit_payments, :bancontact_payments, :bank_transfer_payments, :blik_payments, :boleto_payments, :card_issuing, :card_payments, :cartes_bancaires_payments, :cashapp_payments, :eps_payments, :fpx_payments, :gb_bank_transfer_payments, :giropay_payments, :gopay_payments, :grabpay_payments, :id_bank_transfer_payments, :id_bank_transfer_payments_bca, :ideal_payments, :india_international_payments, :jcb_payments, :jp_bank_transfer_payments, :kakao_pay_payments, :klarna_payments, :konbini_payments, :kr_card_payments, :legacy_payments, :link_payments, :mb_way_payments, :mobilepay_payments, :multibanco_payments, :mx_bank_transfer_payments, :naver_pay_payments, :oxxo_payments, :p24_payments, :payco_payments, :paynow_payments, :paypal_payments, :payto_payments, :promptpay_payments, :qris_payments, :rechnung_payments, :revolut_pay_payments, :samsung_pay_payments, :sepa_bank_transfer_payments, :sepa_debit_payments, :shopeepay_payments, :sofort_payments, :swish_payments, :tax_reporting_us_1099_k, :tax_reporting_us_1099_misc, :transfers, :treasury, :treasury_evolve, :treasury_fifth_third, :treasury_goldman_sachs, :twint_payments, :us_bank_account_ach_payments, :us_bank_transfer_payments, :zip_payments
+    end
+
+    class Company < Stripe::StripeObject
+      class Address < Stripe::StripeObject
+        attr_reader :city, :country, :line1, :line2, :postal_code, :state
+      end
+
+      class AddressKana < Stripe::StripeObject
+        attr_reader :city, :country, :line1, :line2, :postal_code, :state, :town
+      end
+
+      class AddressKanji < Stripe::StripeObject
+        attr_reader :city, :country, :line1, :line2, :postal_code, :state, :town
+      end
+
+      class OwnershipDeclaration < Stripe::StripeObject
+        attr_reader :date, :ip, :user_agent
+      end
+
+      class Verification < Stripe::StripeObject
+        class Document < Stripe::StripeObject
+          attr_reader :back, :details, :details_code, :front
+        end
+        attr_reader :document
+      end
+      attr_reader :address, :address_kana, :address_kanji, :directors_provided, :executives_provided, :export_license_id, :export_purpose_code, :name, :name_kana, :name_kanji, :owners_provided, :ownership_declaration, :phone, :structure, :tax_id_provided, :tax_id_registrar, :vat_id_provided, :verification
+    end
+
+    class Controller < Stripe::StripeObject
+      class Application < Stripe::StripeObject
+        attr_reader :loss_liable, :onboarding_owner, :pricing_controls
+      end
+
+      class Dashboard < Stripe::StripeObject
+        attr_reader :type
+      end
+
+      class Fees < Stripe::StripeObject
+        attr_reader :payer
+      end
+
+      class Losses < Stripe::StripeObject
+        attr_reader :payments
+      end
+
+      class StripeDashboard < Stripe::StripeObject
+        attr_reader :type
+      end
+      attr_reader :application, :dashboard, :fees, :is_controller, :losses, :requirement_collection, :stripe_dashboard, :type
+    end
+
+    class FutureRequirements < Stripe::StripeObject
+      class Alternative < Stripe::StripeObject
+        attr_reader :alternative_fields_due, :original_fields_due
+      end
+
+      class Error < Stripe::StripeObject
+        attr_reader :code, :reason, :requirement
+      end
+      attr_reader :alternatives, :current_deadline, :currently_due, :disabled_reason, :errors, :eventually_due, :past_due, :pending_verification
+    end
+
+    class Groups < Stripe::StripeObject
+      attr_reader :payments_pricing
+    end
+
+    class Requirements < Stripe::StripeObject
+      class Alternative < Stripe::StripeObject
+        attr_reader :alternative_fields_due, :original_fields_due
+      end
+
+      class Error < Stripe::StripeObject
+        attr_reader :code, :reason, :requirement
+      end
+      attr_reader :alternatives, :current_deadline, :currently_due, :disabled_reason, :errors, :eventually_due, :past_due, :pending_verification
+    end
+
+    class RiskControls < Stripe::StripeObject
+      class Charges < Stripe::StripeObject
+        attr_reader :pause_requested
+      end
+
+      class Payouts < Stripe::StripeObject
+        attr_reader :pause_requested
+      end
+      attr_reader :charges, :payouts
+    end
+
+    class Settings < Stripe::StripeObject
+      class BacsDebitPayments < Stripe::StripeObject
+        attr_reader :display_name, :service_user_number
+      end
+
+      class BankBcaOnboarding < Stripe::StripeObject
+        attr_reader :account_holder_name, :business_account_number
+      end
+
+      class Branding < Stripe::StripeObject
+        attr_reader :icon, :logo, :primary_color, :secondary_color
+      end
+
+      class Capital < Stripe::StripeObject
+        attr_reader :payout_destination, :payout_destination_selector
+      end
+
+      class CardIssuing < Stripe::StripeObject
+        class TosAcceptance < Stripe::StripeObject
+          attr_reader :date, :ip, :user_agent
+        end
+        attr_reader :tos_acceptance
+      end
+
+      class CardPayments < Stripe::StripeObject
+        class DeclineOn < Stripe::StripeObject
+          attr_reader :avs_failure, :cvc_failure
+        end
+        attr_reader :decline_on, :statement_descriptor_prefix, :statement_descriptor_prefix_kana, :statement_descriptor_prefix_kanji
+      end
+
+      class Dashboard < Stripe::StripeObject
+        attr_reader :display_name, :timezone
+      end
+
+      class Invoices < Stripe::StripeObject
+        attr_reader :default_account_tax_ids
+      end
+
+      class Payments < Stripe::StripeObject
+        attr_reader :statement_descriptor, :statement_descriptor_kana, :statement_descriptor_kanji, :statement_descriptor_prefix_kana, :statement_descriptor_prefix_kanji
+      end
+
+      class Payouts < Stripe::StripeObject
+        class Schedule < Stripe::StripeObject
+          attr_reader :delay_days, :interval, :monthly_anchor, :weekly_anchor
+        end
+        attr_reader :debit_negative_balances, :schedule, :statement_descriptor
+      end
+
+      class SepaDebitPayments < Stripe::StripeObject
+        attr_reader :creditor_id
+      end
+
+      class TaxForms < Stripe::StripeObject
+        attr_reader :consented_to_paperless_delivery
+      end
+
+      class Treasury < Stripe::StripeObject
+        class TosAcceptance < Stripe::StripeObject
+          attr_reader :date, :ip, :user_agent
+        end
+        attr_reader :tos_acceptance
+      end
+      attr_reader :bacs_debit_payments, :bank_bca_onboarding, :branding, :capital, :card_issuing, :card_payments, :dashboard, :invoices, :payments, :payouts, :sepa_debit_payments, :tax_forms, :treasury
+    end
+
+    class TosAcceptance < Stripe::StripeObject
+      attr_reader :date, :ip, :service_agreement, :user_agent
+    end
+    # Business information about the account.
+    attr_reader :business_profile
+    # The business type. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property is only returned for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    attr_reader :business_type
+    # Attribute for field capabilities
+    attr_reader :capabilities
+    # Whether the account can process charges.
+    attr_reader :charges_enabled
+    # Attribute for field company
+    attr_reader :company
+    # Attribute for field controller
+    attr_reader :controller
+    # The account's country.
+    attr_reader :country
+    # Time at which the account was connected. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
+    attr_reader :default_currency
+    # Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](/connect/onboarding) to finish submitting account details.
+    attr_reader :details_submitted
+    # An email address associated with the account. It's not used for authentication and Stripe doesn't market to this field without explicit approval from the platform.
+    attr_reader :email
+    # External accounts (bank accounts and debit cards) currently attached to this account. External accounts are only returned for requests where `controller[is_controller]` is true.
+    attr_reader :external_accounts
+    # Attribute for field future_requirements
+    attr_reader :future_requirements
+    # The groups associated with the account.
+    attr_reader :groups
+    # Unique identifier for the object.
+    attr_reader :id
+    # This is an object representing a person associated with a Stripe account.
+    #
+    # A platform cannot access a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
+    #
+    # See the [Standard onboarding](/connect/standard-accounts) or [Express onboarding](/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](/connect/handling-api-verification#person-information).
+    attr_reader :individual
+    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Whether the funds in this account can be paid out.
+    attr_reader :payouts_enabled
+    # Attribute for field requirements
+    attr_reader :requirements
+    # Attribute for field risk_controls
+    attr_reader :risk_controls
+    # Options for customizing how the account functions within Stripe.
+    attr_reader :settings
+    # Attribute for field tos_acceptance
+    attr_reader :tos_acceptance
+    # The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
+    attr_reader :type
+    # Always true for a deleted object
+    attr_reader :deleted
+
     # With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #
@@ -77,8 +307,8 @@ module Stripe
     end
 
     # Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/accounts", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/accounts", params: params, opts: opts)
     end
 
     # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.

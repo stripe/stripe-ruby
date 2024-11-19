@@ -16,6 +16,33 @@ module Stripe
         "test_helpers.test_clock"
       end
 
+      class StatusDetails < Stripe::StripeObject
+        class Advancing < Stripe::StripeObject
+          attr_reader :target_frozen_time
+        end
+        attr_reader :advancing
+      end
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # Time at which this clock is scheduled to auto delete.
+      attr_reader :deletes_after
+      # Time at which all objects belonging to this clock are frozen.
+      attr_reader :frozen_time
+      # Unique identifier for the object.
+      attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+      # The custom name supplied at creation.
+      attr_reader :name
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # The status of the Test Clock.
+      attr_reader :status
+      # Attribute for field status_details
+      attr_reader :status_details
+      # Always true for a deleted object
+      attr_reader :deleted
+
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       def advance(params = {}, opts = {})
         request_stripe_object(
@@ -67,11 +94,11 @@ module Stripe
       end
 
       # Returns a list of your test clocks.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/test_helpers/test_clocks",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

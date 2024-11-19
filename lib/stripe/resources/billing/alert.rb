@@ -13,6 +13,27 @@ module Stripe
         "billing.alert"
       end
 
+      class UsageThreshold < Stripe::StripeObject
+        class Filter < Stripe::StripeObject
+          attr_reader :customer, :type
+        end
+        attr_reader :filters, :gte, :meter, :recurrence
+      end
+      # Defines the type of the alert.
+      attr_reader :alert_type
+      # Unique identifier for the object.
+      attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # Status of the alert. This can be active, inactive or archived.
+      attr_reader :status
+      # Title of the alert.
+      attr_reader :title
+      # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://stripe.com/docs/api/billing/meter).
+      attr_reader :usage_threshold
+
       # Reactivates this alert, allowing it to trigger again.
       def activate(params = {}, opts = {})
         request_stripe_object(
@@ -79,8 +100,8 @@ module Stripe
       end
 
       # Lists billing active and inactive alerts
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/billing/alerts", params: filters, opts: opts)
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/billing/alerts", params: params, opts: opts)
       end
     end
   end

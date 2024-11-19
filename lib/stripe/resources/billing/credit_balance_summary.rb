@@ -9,6 +9,31 @@ module Stripe
       def self.object_name
         "billing.credit_balance_summary"
       end
+
+      class Balance < Stripe::StripeObject
+        class AvailableBalance < Stripe::StripeObject
+          class Monetary < Stripe::StripeObject
+            attr_reader :currency, :value
+          end
+          attr_reader :monetary, :type
+        end
+
+        class LedgerBalance < Stripe::StripeObject
+          class Monetary < Stripe::StripeObject
+            attr_reader :currency, :value
+          end
+          attr_reader :monetary, :type
+        end
+        attr_reader :available_balance, :ledger_balance
+      end
+      # The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.
+      attr_reader :balances
+      # The customer the balance is for.
+      attr_reader :customer
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
     end
   end
 end

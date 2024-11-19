@@ -16,6 +16,63 @@ module Stripe
       "payment_method_domain"
     end
 
+    class AmazonPay < Stripe::StripeObject
+      class StatusDetails < Stripe::StripeObject
+        attr_reader :error_message
+      end
+      attr_reader :status, :status_details
+    end
+
+    class ApplePay < Stripe::StripeObject
+      class StatusDetails < Stripe::StripeObject
+        attr_reader :error_message
+      end
+      attr_reader :status, :status_details
+    end
+
+    class GooglePay < Stripe::StripeObject
+      class StatusDetails < Stripe::StripeObject
+        attr_reader :error_message
+      end
+      attr_reader :status, :status_details
+    end
+
+    class Link < Stripe::StripeObject
+      class StatusDetails < Stripe::StripeObject
+        attr_reader :error_message
+      end
+      attr_reader :status, :status_details
+    end
+
+    class Paypal < Stripe::StripeObject
+      class StatusDetails < Stripe::StripeObject
+        attr_reader :error_message
+      end
+      attr_reader :status, :status_details
+    end
+    # Indicates the status of a specific payment method on a payment method domain.
+    attr_reader :amazon_pay
+    # Indicates the status of a specific payment method on a payment method domain.
+    attr_reader :apple_pay
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # The domain name that this payment method domain object represents.
+    attr_reader :domain_name
+    # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
+    attr_reader :enabled
+    # Indicates the status of a specific payment method on a payment method domain.
+    attr_reader :google_pay
+    # Unique identifier for the object.
+    attr_reader :id
+    # Indicates the status of a specific payment method on a payment method domain.
+    attr_reader :link
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Indicates the status of a specific payment method on a payment method domain.
+    attr_reader :paypal
+
     # Creates a payment method domain.
     def self.create(params = {}, opts = {})
       request_stripe_object(
@@ -27,11 +84,11 @@ module Stripe
     end
 
     # Lists the details of existing payment method domains.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/payment_method_domains",
-        params: filters,
+        params: params,
         opts: opts
       )
     end

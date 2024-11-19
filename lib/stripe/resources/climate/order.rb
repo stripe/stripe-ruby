@@ -15,6 +15,61 @@ module Stripe
         "climate.order"
       end
 
+      class Beneficiary < Stripe::StripeObject
+        attr_reader :public_name
+      end
+
+      class DeliveryDetail < Stripe::StripeObject
+        class Location < Stripe::StripeObject
+          attr_reader :city, :country, :latitude, :longitude, :region
+        end
+        attr_reader :delivered_at, :location, :metric_tons, :registry_url, :supplier
+      end
+      # Total amount of [Frontier](https://frontierclimate.com/)'s service fees in the currency's smallest unit.
+      attr_reader :amount_fees
+      # Total amount of the carbon removal in the currency's smallest unit.
+      attr_reader :amount_subtotal
+      # Total amount of the order including fees in the currency's smallest unit.
+      attr_reader :amount_total
+      # Attribute for field beneficiary
+      attr_reader :beneficiary
+      # Time at which the order was canceled. Measured in seconds since the Unix epoch.
+      attr_reader :canceled_at
+      # Reason for the cancellation of this order.
+      attr_reader :cancellation_reason
+      # For delivered orders, a URL to a delivery certificate for the order.
+      attr_reader :certificate
+      # Time at which the order was confirmed. Measured in seconds since the Unix epoch.
+      attr_reader :confirmed_at
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase, representing the currency for this order.
+      attr_reader :currency
+      # Time at which the order's expected_delivery_year was delayed. Measured in seconds since the Unix epoch.
+      attr_reader :delayed_at
+      # Time at which the order was delivered. Measured in seconds since the Unix epoch.
+      attr_reader :delivered_at
+      # Details about the delivery of carbon removal for this order.
+      attr_reader :delivery_details
+      # The year this order is expected to be delivered.
+      attr_reader :expected_delivery_year
+      # Unique identifier for the object.
+      attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # Quantity of carbon removal that is included in this order.
+      attr_reader :metric_tons
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # Unique ID for the Climate `Product` this order is purchasing.
+      attr_reader :product
+      # Time at which the order's product was substituted for a different product. Measured in seconds since the Unix epoch.
+      attr_reader :product_substituted_at
+      # The current status of this order.
+      attr_reader :status
+
       # Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
       # reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
       # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
@@ -49,8 +104,8 @@ module Stripe
 
       # Lists all Climate order objects. The orders are returned sorted by creation date, with the
       # most recently created orders appearing first.
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/climate/orders", params: filters, opts: opts)
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/climate/orders", params: params, opts: opts)
       end
 
       # Updates the specified order by setting the values of the parameters passed.

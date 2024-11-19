@@ -14,9 +14,37 @@ module Stripe
       "account_notice"
     end
 
+    class Email < Stripe::StripeObject
+      attr_reader :plain_text, :recipient, :subject
+    end
+
+    class LinkedObjects < Stripe::StripeObject
+      attr_reader :capability, :issuing_credit_underwriting_record, :issuing_dispute
+    end
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # When present, the deadline for sending the notice to meet the relevant regulations.
+    attr_reader :deadline
+    # Information about the email when sent.
+    attr_reader :email
+    # Unique identifier for the object.
+    attr_reader :id
+    # Information about objects related to the notice.
+    attr_reader :linked_objects
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Reason the notice is being sent. The reason determines what copy the notice must contain. See the [regulated customer notices](https://stripe.com/docs/issuing/compliance-us/issuing-regulated-customer-notices) guide. All reasons might not apply to your integration, and Stripe might add new reasons in the future, so we recommend an internal warning when you receive an unknown reason.
+    attr_reader :reason
+    # Date when the notice was sent. When absent, you must send the notice, update the content of the email and date when it was sent.
+    attr_reader :sent_at
+
     # Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/account_notices", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/account_notices", params: params, opts: opts)
     end
 
     # Updates an AccountNotice object.

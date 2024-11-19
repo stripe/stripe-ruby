@@ -14,14 +14,49 @@ module Stripe
       "promotion_code"
     end
 
+    class Restrictions < Stripe::StripeObject
+      class CurrencyOptions < Stripe::StripeObject
+        attr_reader :minimum_amount
+      end
+      attr_reader :currency_options, :first_time_transaction, :minimum_amount, :minimum_amount_currency
+    end
+    # Whether the promotion code is currently active. A promotion code is only active if the coupon is also valid.
+    attr_reader :active
+    # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
+    attr_reader :code
+    # A coupon contains information about a percent-off or amount-off discount you
+    # might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
+    # [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
+    attr_reader :coupon
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # The customer that this promotion code can be used by.
+    attr_reader :customer
+    # Date at which the promotion code can no longer be redeemed.
+    attr_reader :expires_at
+    # Unique identifier for the object.
+    attr_reader :id
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+    # Maximum number of times this promotion code can be redeemed.
+    attr_reader :max_redemptions
+    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Attribute for field restrictions
+    attr_reader :restrictions
+    # Number of times this promotion code has been used.
+    attr_reader :times_redeemed
+
     # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/promotion_codes", params: params, opts: opts)
     end
 
     # Returns a list of your promotion codes.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/promotion_codes", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/promotion_codes", params: params, opts: opts)
     end
 
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.

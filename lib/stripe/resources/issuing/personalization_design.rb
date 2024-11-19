@@ -14,6 +14,44 @@ module Stripe
         "issuing.personalization_design"
       end
 
+      class CarrierText < Stripe::StripeObject
+        attr_reader :footer_body, :footer_title, :header_body, :header_title
+      end
+
+      class Preferences < Stripe::StripeObject
+        attr_reader :is_default, :is_platform_default
+      end
+
+      class RejectionReasons < Stripe::StripeObject
+        attr_reader :card_logo, :carrier_text
+      end
+      # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
+      attr_reader :card_logo
+      # Hash containing carrier text, for use with physical bundles that support carrier text.
+      attr_reader :carrier_text
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # Unique identifier for the object.
+      attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+      # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
+      attr_reader :lookup_key
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # Friendly display name.
+      attr_reader :name
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # The physical bundle object belonging to this personalization design.
+      attr_reader :physical_bundle
+      # Attribute for field preferences
+      attr_reader :preferences
+      # Attribute for field rejection_reasons
+      attr_reader :rejection_reasons
+      # Whether this personalization design can be used to create cards.
+      attr_reader :status
+
       # Creates a personalization design object.
       def self.create(params = {}, opts = {})
         request_stripe_object(
@@ -25,11 +63,11 @@ module Stripe
       end
 
       # Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/issuing/personalization_designs",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

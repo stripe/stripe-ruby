@@ -12,12 +12,47 @@ module Stripe
         "financial_connections.institution"
       end
 
+      class Features < Stripe::StripeObject
+        class Balances < Stripe::StripeObject
+          attr_reader :supported
+        end
+
+        class Ownership < Stripe::StripeObject
+          attr_reader :supported
+        end
+
+        class PaymentMethod < Stripe::StripeObject
+          attr_reader :supported
+        end
+
+        class Transactions < Stripe::StripeObject
+          attr_reader :supported
+        end
+        attr_reader :balances, :ownership, :payment_method, :transactions
+      end
+      # Attribute for field features
+      attr_reader :features
+      # Unique identifier for the object.
+      attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+      # The name of this institution.
+      attr_reader :name
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # A list of routing numbers which are known to correspond to this institution. Due to the many to many relationship between institutions and routing numbers, this list may not be comprehensive and routing numbers may also be shared between institutions.
+      attr_reader :routing_numbers
+      # The status of this institution in the Financial Connections authentication flow.
+      attr_reader :status
+      # A URL corresponding to this institution. This URL is also displayed in the authentication flow to help end users confirm that they are authenticating with the right institution.
+      attr_reader :url
+
       # Returns a list of Financial Connections Institution objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/financial_connections/institutions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

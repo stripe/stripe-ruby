@@ -11,5 +11,77 @@ module Stripe
     def self.object_name
       "customer_cash_balance_transaction"
     end
+
+    class AdjustedForOverdraft < Stripe::StripeObject
+      attr_reader :balance_transaction, :linked_transaction
+    end
+
+    class AppliedToPayment < Stripe::StripeObject
+      attr_reader :payment_intent
+    end
+
+    class Funded < Stripe::StripeObject
+      class BankTransfer < Stripe::StripeObject
+        class EuBankTransfer < Stripe::StripeObject
+          attr_reader :bic, :iban_last4, :sender_name
+        end
+
+        class GbBankTransfer < Stripe::StripeObject
+          attr_reader :account_number_last4, :sender_name, :sort_code
+        end
+
+        class JpBankTransfer < Stripe::StripeObject
+          attr_reader :sender_bank, :sender_branch, :sender_name
+        end
+
+        class UsBankTransfer < Stripe::StripeObject
+          attr_reader :network, :sender_name
+        end
+        attr_reader :eu_bank_transfer, :gb_bank_transfer, :jp_bank_transfer, :reference, :type, :us_bank_transfer
+      end
+      attr_reader :bank_transfer
+    end
+
+    class RefundedFromPayment < Stripe::StripeObject
+      attr_reader :refund
+    end
+
+    class TransferredToBalance < Stripe::StripeObject
+      attr_reader :balance_transaction
+    end
+
+    class UnappliedFromPayment < Stripe::StripeObject
+      attr_reader :payment_intent
+    end
+    # Attribute for field adjusted_for_overdraft
+    attr_reader :adjusted_for_overdraft
+    # Attribute for field applied_to_payment
+    attr_reader :applied_to_payment
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    attr_reader :currency
+    # The customer whose available cash balance changed as a result of this transaction.
+    attr_reader :customer
+    # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    attr_reader :ending_balance
+    # Attribute for field funded
+    attr_reader :funded
+    # Unique identifier for the object.
+    attr_reader :id
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+    # The amount by which the cash balance changed, represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
+    attr_reader :net_amount
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Attribute for field refunded_from_payment
+    attr_reader :refunded_from_payment
+    # Attribute for field transferred_to_balance
+    attr_reader :transferred_to_balance
+    # The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
+    attr_reader :type
+    # Attribute for field unapplied_from_payment
+    attr_reader :unapplied_from_payment
   end
 end

@@ -17,6 +17,26 @@ module Stripe
         "terminal.location"
       end
 
+      class Address < Stripe::StripeObject
+        attr_reader :city, :country, :line1, :line2, :postal_code, :state
+      end
+      # Attribute for field address
+      attr_reader :address
+      # The ID of a configuration that will be used to customize all readers in this location.
+      attr_reader :configuration_overrides
+      # The display name of the location.
+      attr_reader :display_name
+      # Unique identifier for the object.
+      attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # Always true for a deleted object
+      attr_reader :deleted
+
       # Creates a new Location object.
       # For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
       def self.create(params = {}, opts = {})
@@ -49,11 +69,11 @@ module Stripe
       end
 
       # Returns a list of Location objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/terminal/locations",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

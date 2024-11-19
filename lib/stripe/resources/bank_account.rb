@@ -94,10 +94,12 @@ module Stripe
     end
 
     def resource_url
-      if respond_to?(:customer)
+      if !customer.nil?
         "#{Customer.resource_url}/#{CGI.escape(customer)}/sources/#{CGI.escape(id)}"
-      elsif respond_to?(:account)
+      elsif !account.nil?
         "#{Account.resource_url}/#{CGI.escape(account)}/external_accounts/#{CGI.escape(id)}"
+      else
+        raise InvalidRequestError, "Could not determine which URL to request: [account, customer] field(s) are all null"
       end
     end
 

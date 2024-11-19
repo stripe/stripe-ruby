@@ -83,6 +83,7 @@ module Stripe
       @unsaved_values = Set.new
       @transient_values = Set.new
       @values[:id] = id if id
+      @id = id
       @last_response = nil
       @requestor = requestor || APIRequestor.active_requestor
     end
@@ -368,6 +369,10 @@ module Stripe
 
           define_method(:"#{k}?") { @values[k] } if [FalseClass, TrueClass].include?(values[k].class)
         end
+      end
+
+      keys.each do |k|
+        instance_variable_set(:"@#{k}", values[k])
       end
     end
 

@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Expires a credit grant
+      # Expires a credit grant.
       def expire(id, params = {}, opts = {})
         request(
           method: :post,
@@ -26,7 +26,7 @@ module Stripe
         )
       end
 
-      # Retrieve a list of credit grants
+      # Retrieve a list of credit grants.
       def list(params = {}, opts = {})
         request(
           method: :get,
@@ -59,7 +59,7 @@ module Stripe
         )
       end
 
-      # Voids a credit grant
+      # Voids a credit grant.
       def void_grant(id, params = {}, opts = {})
         request(
           method: :post,

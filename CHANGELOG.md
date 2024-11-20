@@ -1,4 +1,8 @@
 # Changelog
+## 13.1.2 - 2024-11-15
+* [#1488](https://github.com/stripe/stripe-ruby/pull/1488) Fix incorrect key in param encoding
+* [#1487](https://github.com/stripe/stripe-ruby/pull/1487) Update VSCode default extensions to use solargraph instead of ruby lsp
+
 ## 13.1.1 - 2024-11-06
 * [#1483](https://github.com/stripe/stripe-ruby/pull/1483) Fix APIResource#retrieve not sending `stripe_version`
 * [#1478](https://github.com/stripe/stripe-ruby/pull/1478) Update changelog with a note on 2024-10-28.acacia API version

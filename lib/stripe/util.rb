@@ -259,7 +259,7 @@ module Stripe
         if elem.is_a?(Hash)
           result += flatten_params(elem, api_mode, "#{calculated_key}[#{i}]")
         elsif elem.is_a?(Array)
-          result += flatten_params_array(elem, calculated_key, api_mode)
+          result += flatten_params_array(elem, api_mode, calculated_key)
         else
           result << if api_mode == :v2
                       [calculated_key, elem]

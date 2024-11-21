@@ -1,5 +1,8 @@
 # Changelog
 
+## 13.3.0-beta.1 - 2024-11-21
+* [#1489](https://github.com/stripe/stripe-ruby/pull/1489) Merging code from master to get the latest bug fixes.
+
 ## 13.2.0 - 2024-11-20
 * [#1486](https://github.com/stripe/stripe-ruby/pull/1486) This release changes the pinned API version to `2024-11-20.acacia`.
   * Add support for `respond` test helper method on resource `Issuing.Authorization`

@@ -15,37 +15,47 @@ module Stripe
     # Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
     class Secret < APIResource
       class Scope < Stripe::StripeObject
+        # The secret scope type.
         sig { returns(String) }
         attr_reader :type
+        # The user ID, if type is set to "user"
         sig { returns(String) }
         attr_reader :user
       end
-      sig { returns(Integer) }
       # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
       attr_reader :created
-      sig { returns(T::Boolean) }
+
       # If true, indicates that this secret has been deleted
-      attr_reader :deleted
-      sig { returns(T.nilable(Integer)) }
-      # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
-      attr_reader :expires_at
-      sig { returns(String) }
-      # Unique identifier for the object.
-      attr_reader :id
       sig { returns(T::Boolean) }
+      attr_reader :deleted
+
+      # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :expires_at
+
+      # Unique identifier for the object.
+      sig { returns(String) }
+      attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      sig { returns(T::Boolean) }
       attr_reader :livemode
-      sig { returns(String) }
+
       # A name for the secret that's unique within the scope.
-      attr_reader :name
       sig { returns(String) }
+      attr_reader :name
+
       # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
       attr_reader :object
-      sig { returns(T.nilable(String)) }
+
       # The plaintext secret value to be stored.
+      sig { returns(T.nilable(String)) }
       attr_reader :payload
-      sig { returns(Scope) }
+
       # Attribute for field scope
+      sig { returns(Scope) }
       attr_reader :scope
     end
   end

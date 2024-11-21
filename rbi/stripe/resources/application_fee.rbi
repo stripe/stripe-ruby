@@ -5,57 +5,74 @@
 module Stripe
   class ApplicationFee < APIResource
     class FeeSource < Stripe::StripeObject
+      # Charge ID that created this application fee.
       sig { returns(String) }
       attr_reader :charge
+      # Payout ID that created this application fee.
       sig { returns(String) }
       attr_reader :payout
+      # Type of object that created the application fee, either `charge` or `payout`.
       sig { returns(String) }
       attr_reader :type
     end
-    sig { returns(T.any(String, Stripe::Account)) }
     # ID of the Stripe account this fee was taken from.
+    sig { returns(T.any(String, Stripe::Account)) }
     attr_reader :account
-    sig { returns(Integer) }
+
     # Amount earned, in cents (or local equivalent).
+    sig { returns(Integer) }
     attr_reader :amount
-    sig { returns(Integer) }
+
     # Amount in cents (or local equivalent) refunded (can be less than the amount attribute on the fee if a partial refund was issued)
-    attr_reader :amount_refunded
-    sig { returns(T.any(String, Stripe::Application)) }
-    # ID of the Connect application that earned the fee.
-    attr_reader :application
-    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
-    # Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds).
-    attr_reader :balance_transaction
-    sig { returns(T.any(String, Stripe::Charge)) }
-    # ID of the charge that the application fee was taken from.
-    attr_reader :charge
     sig { returns(Integer) }
+    attr_reader :amount_refunded
+
+    # ID of the Connect application that earned the fee.
+    sig { returns(T.any(String, Stripe::Application)) }
+    attr_reader :application
+
+    # Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds).
+    sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
+    attr_reader :balance_transaction
+
+    # ID of the charge that the application fee was taken from.
+    sig { returns(T.any(String, Stripe::Charge)) }
+    attr_reader :charge
+
     # Time at which the object was created. Measured in seconds since the Unix epoch.
+    sig { returns(Integer) }
     attr_reader :created
-    sig { returns(String) }
+
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    sig { returns(String) }
     attr_reader :currency
-    sig { returns(T.nilable(FeeSource)) }
+
     # Polymorphic source of the application fee. Includes the ID of the object the application fee was created from.
+    sig { returns(T.nilable(FeeSource)) }
     attr_reader :fee_source
-    sig { returns(String) }
+
     # Unique identifier for the object.
-    attr_reader :id
-    sig { returns(T::Boolean) }
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    attr_reader :livemode
     sig { returns(String) }
-    # String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
-    # ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter.
-    attr_reader :originating_transaction
+    attr_reader :id
+
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
+    attr_reader :livemode
+
+    # String representing the object's type. Objects of the same type share the same value.
+    sig { returns(String) }
+    attr_reader :object
+
+    # ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter.
+    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
+    attr_reader :originating_transaction
+
     # Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false.
+    sig { returns(T::Boolean) }
     attr_reader :refunded
-    sig { returns(Stripe::ListObject) }
+
     # A list of refunds that have been applied to the fee.
+    sig { returns(Stripe::ListObject) }
     attr_reader :refunds
   end
 end

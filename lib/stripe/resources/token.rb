@@ -38,24 +38,32 @@ module Stripe
     #
     # Related guide: [Bank debits and transfers](/payments/bank-debits-transfers)
     attr_reader :bank_account
+
     # You can store multiple cards on a customer in order to charge the customer
     # later. You can also store multiple debit cards on a recipient in order to
     # transfer to those cards later.
     #
     # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
     attr_reader :card
+
     # IP address of the client that generates the token.
     attr_reader :client_ip
+
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+
     # Unique identifier for the object.
     attr_reader :id
+
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # Type of the token: `account`, `bank_account`, `card`, or `pii`.
     attr_reader :type
+
     # Determines if you have already used this token (you can only use tokens once).
     attr_reader :used
 

@@ -8,29 +8,36 @@ module Stripe
     #
     # Related guide: [Managing list items](https://stripe.com/docs/radar/lists#managing-list-items)
     class ValueListItem < APIResource
-      sig { returns(Integer) }
       # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
       attr_reader :created
-      sig { returns(String) }
+
       # The name or email address of the user who added this item to the value list.
+      sig { returns(String) }
       attr_reader :created_by
-      sig { returns(String) }
+
       # Unique identifier for the object.
+      sig { returns(String) }
       attr_reader :id
-      sig { returns(T::Boolean) }
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-      attr_reader :livemode
-      sig { returns(String) }
-      # String representing the object's type. Objects of the same type share the same value.
-      attr_reader :object
-      sig { returns(String) }
-      # The value of the item.
-      attr_reader :value
-      sig { returns(String) }
-      # The identifier of the value list this item belongs to.
-      attr_reader :value_list
       sig { returns(T::Boolean) }
+      attr_reader :livemode
+
+      # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
+      attr_reader :object
+
+      # The value of the item.
+      sig { returns(String) }
+      attr_reader :value
+
+      # The identifier of the value list this item belongs to.
+      sig { returns(String) }
+      attr_reader :value_list
+
       # Always true for a deleted object
+      sig { returns(T::Boolean) }
       attr_reader :deleted
     end
   end

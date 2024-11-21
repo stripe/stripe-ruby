@@ -11,8 +11,10 @@ module Stripe
 
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # The URL for the login link.
     attr_reader :url
 

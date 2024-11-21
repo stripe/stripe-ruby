@@ -14,36 +14,54 @@ module Stripe
 
       class Features < Stripe::StripeObject
         class Balances < Stripe::StripeObject
+          # Whether the given feature is supported by this institution.
           attr_reader :supported
         end
 
         class Ownership < Stripe::StripeObject
+          # Whether the given feature is supported by this institution.
           attr_reader :supported
         end
 
         class PaymentMethod < Stripe::StripeObject
+          # Whether the given feature is supported by this institution.
           attr_reader :supported
         end
 
         class Transactions < Stripe::StripeObject
+          # Whether the given feature is supported by this institution.
           attr_reader :supported
         end
-        attr_reader :balances, :ownership, :payment_method, :transactions
+        # Attribute for field balances
+        attr_reader :balances
+        # Attribute for field ownership
+        attr_reader :ownership
+        # Attribute for field payment_method
+        attr_reader :payment_method
+        # Attribute for field transactions
+        attr_reader :transactions
       end
       # Attribute for field features
       attr_reader :features
+
       # Unique identifier for the object.
       attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+
       # The name of this institution.
       attr_reader :name
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # A list of routing numbers which are known to correspond to this institution. Due to the many to many relationship between institutions and routing numbers, this list may not be comprehensive and routing numbers may also be shared between institutions.
       attr_reader :routing_numbers
+
       # The status of this institution in the Financial Connections authentication flow.
       attr_reader :status
+
       # A URL corresponding to this institution. This URL is also displayed in the authentication flow to help end users confirm that they are authenticating with the right institution.
       attr_reader :url
 

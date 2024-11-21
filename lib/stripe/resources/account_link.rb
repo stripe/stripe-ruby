@@ -16,10 +16,13 @@ module Stripe
 
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+
     # The timestamp at which this account link will expire.
     attr_reader :expires_at
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # The URL for the account link.
     attr_reader :url
 

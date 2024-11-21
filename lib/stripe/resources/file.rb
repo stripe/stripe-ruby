@@ -20,24 +20,34 @@ module Stripe
 
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+
     # The file expires and isn't available at this time in epoch seconds.
     attr_reader :expires_at
+
     # The suitable name for saving the file to a filesystem.
     attr_reader :filename
+
     # Unique identifier for the object.
     attr_reader :id
+
     # A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
     attr_reader :links
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
     attr_reader :purpose
+
     # The size of the file object in bytes.
     attr_reader :size
+
     # A suitable title for the document.
     attr_reader :title
+
     # The returned file type (for example, `csv`, `pdf`, `jpg`, or `png`).
     attr_reader :type
+
     # Use your live secret API key to download the file from this URL.
     attr_reader :url
 

@@ -15,22 +15,38 @@ module Stripe
 
       class UsageThreshold < Stripe::StripeObject
         class Filter < Stripe::StripeObject
-          attr_reader :customer, :type
+          # Limit the scope of the alert to this customer ID
+          attr_reader :customer
+          # Attribute for field type
+          attr_reader :type
         end
-        attr_reader :filters, :gte, :meter, :recurrence
+        # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
+        attr_reader :filters
+        # The value at which this alert will trigger.
+        attr_reader :gte
+        # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
+        attr_reader :meter
+        # Defines how the alert will behave.
+        attr_reader :recurrence
       end
       # Defines the type of the alert.
       attr_reader :alert_type
+
       # Unique identifier for the object.
       attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # Status of the alert. This can be active, inactive or archived.
       attr_reader :status
+
       # Title of the alert.
       attr_reader :title
+
       # Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://stripe.com/docs/api/billing/meter).
       attr_reader :usage_threshold
 

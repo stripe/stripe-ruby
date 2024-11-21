@@ -24,7 +24,6 @@ module Stripe
   # [Radar](https://stripe.com/docs/radar), our integrated solution for automatic fraud protection,
   # performs best with integrations that use client-side tokenization.
   class Token < APIResource
-    sig { returns(Stripe::BankAccount) }
     # These bank accounts are payment methods on `Customer` objects.
     #
     # On the other hand [External Accounts](/api#external_accounts) are transfer
@@ -32,34 +31,43 @@ module Stripe
     # They can be bank accounts or debit cards as well, and are documented in the links above.
     #
     # Related guide: [Bank debits and transfers](/payments/bank-debits-transfers)
+    sig { returns(Stripe::BankAccount) }
     attr_reader :bank_account
-    sig { returns(Stripe::Card) }
+
     # You can store multiple cards on a customer in order to charge the customer
     # later. You can also store multiple debit cards on a recipient in order to
     # transfer to those cards later.
     #
     # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
+    sig { returns(Stripe::Card) }
     attr_reader :card
-    sig { returns(T.nilable(String)) }
+
     # IP address of the client that generates the token.
+    sig { returns(T.nilable(String)) }
     attr_reader :client_ip
-    sig { returns(Integer) }
+
     # Time at which the object was created. Measured in seconds since the Unix epoch.
+    sig { returns(Integer) }
     attr_reader :created
-    sig { returns(String) }
+
     # Unique identifier for the object.
+    sig { returns(String) }
     attr_reader :id
-    sig { returns(T::Boolean) }
+
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    attr_reader :livemode
-    sig { returns(String) }
-    # String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    sig { returns(String) }
-    # Type of the token: `account`, `bank_account`, `card`, or `pii`.
-    attr_reader :type
     sig { returns(T::Boolean) }
+    attr_reader :livemode
+
+    # String representing the object's type. Objects of the same type share the same value.
+    sig { returns(String) }
+    attr_reader :object
+
+    # Type of the token: `account`, `bank_account`, `card`, or `pii`.
+    sig { returns(String) }
+    attr_reader :type
+
     # Determines if you have already used this token (you can only use tokens once).
+    sig { returns(T::Boolean) }
     attr_reader :used
   end
 end

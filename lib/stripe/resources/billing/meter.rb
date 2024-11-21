@@ -22,44 +22,62 @@ module Stripe
                                     resource_plural: "event_summaries"
 
       class CustomerMapping < Stripe::StripeObject
-        attr_reader :event_payload_key, :type
+        # The key in the meter event payload to use for mapping the event to a customer.
+        attr_reader :event_payload_key
+        # The method for mapping a meter event to a customer.
+        attr_reader :type
       end
 
       class DefaultAggregation < Stripe::StripeObject
+        # Specifies how events are aggregated.
         attr_reader :formula
       end
 
       class StatusTransitions < Stripe::StripeObject
+        # The time the meter was deactivated, if any. Measured in seconds since Unix epoch.
         attr_reader :deactivated_at
       end
 
       class ValueSettings < Stripe::StripeObject
+        # The key in the meter event payload to use as the value for this meter.
         attr_reader :event_payload_key
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+
       # Attribute for field customer_mapping
       attr_reader :customer_mapping
+
       # Attribute for field default_aggregation
       attr_reader :default_aggregation
+
       # The meter's name.
       attr_reader :display_name
+
       # The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
       attr_reader :event_name
+
       # The time window to pre-aggregate meter events for, if any.
       attr_reader :event_time_window
+
       # Unique identifier for the object.
       attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # The meter's status.
       attr_reader :status
+
       # Attribute for field status_transitions
       attr_reader :status_transitions
+
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       attr_reader :updated
+
       # Attribute for field value_settings
       attr_reader :value_settings
 

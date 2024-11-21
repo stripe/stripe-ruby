@@ -10,41 +10,52 @@ module Stripe
     class TestClock < APIResource
       class StatusDetails < Stripe::StripeObject
         class Advancing < Stripe::StripeObject
+          # The `frozen_time` that the Test Clock is advancing towards.
           sig { returns(Integer) }
           attr_reader :target_frozen_time
         end
+        # Attribute for field advancing
         sig { returns(Advancing) }
         attr_reader :advancing
       end
-      sig { returns(Integer) }
       # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
       attr_reader :created
-      sig { returns(Integer) }
+
       # Time at which this clock is scheduled to auto delete.
-      attr_reader :deletes_after
       sig { returns(Integer) }
+      attr_reader :deletes_after
+
       # Time at which all objects belonging to this clock are frozen.
+      sig { returns(Integer) }
       attr_reader :frozen_time
-      sig { returns(String) }
+
       # Unique identifier for the object.
+      sig { returns(String) }
       attr_reader :id
-      sig { returns(T::Boolean) }
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-      attr_reader :livemode
-      sig { returns(T.nilable(String)) }
-      # The custom name supplied at creation.
-      attr_reader :name
-      sig { returns(String) }
-      # String representing the object's type. Objects of the same type share the same value.
-      attr_reader :object
-      sig { returns(String) }
-      # The status of the Test Clock.
-      attr_reader :status
-      sig { returns(StatusDetails) }
-      # Attribute for field status_details
-      attr_reader :status_details
       sig { returns(T::Boolean) }
+      attr_reader :livemode
+
+      # The custom name supplied at creation.
+      sig { returns(T.nilable(String)) }
+      attr_reader :name
+
+      # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
+      attr_reader :object
+
+      # The status of the Test Clock.
+      sig { returns(String) }
+      attr_reader :status
+
+      # Attribute for field status_details
+      sig { returns(StatusDetails) }
+      attr_reader :status_details
+
       # Always true for a deleted object
+      sig { returns(T::Boolean) }
       attr_reader :deleted
     end
   end

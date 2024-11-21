@@ -8,17 +8,20 @@ module Stripe
   #
   # Related guide: [Connect Onboarding](https://stripe.com/docs/connect/custom/hosted-onboarding)
   class AccountLink < APIResource
-    sig { returns(Integer) }
     # Time at which the object was created. Measured in seconds since the Unix epoch.
-    attr_reader :created
     sig { returns(Integer) }
+    attr_reader :created
+
     # The timestamp at which this account link will expire.
+    sig { returns(Integer) }
     attr_reader :expires_at
-    sig { returns(String) }
+
     # String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
     sig { returns(String) }
+    attr_reader :object
+
     # The URL for the account link.
+    sig { returns(String) }
     attr_reader :url
   end
 end

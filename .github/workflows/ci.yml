@@ -1,4 +1,4 @@
-name: CI
+env: ci
 
 on:
   workflow_dispatch: {}

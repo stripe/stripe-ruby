@@ -1,5 +1,7 @@
-env: ci
+name: ci
 
+
+env: .
 on:
   workflow_dispatch: {}
   push:

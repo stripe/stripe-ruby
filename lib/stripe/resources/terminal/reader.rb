@@ -37,6 +37,66 @@ module Stripe
         )
       end
 
+      # Initiates an input collection flow on a Reader.
+      def collect_inputs(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates an input collection flow on a Reader.
+      def self.collect_inputs(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      def collect_payment_method(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+      def self.collect_payment_method(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Finalizes a payment on a Reader.
+      def confirm_payment_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Finalizes a payment on a Reader.
+      def self.confirm_payment_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       # Creates a new Reader object.
       def self.create(params = {}, opts = {})
         request_stripe_object(

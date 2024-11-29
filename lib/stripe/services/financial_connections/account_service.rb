@@ -4,10 +4,12 @@
 module Stripe
   module FinancialConnections
     class AccountService < StripeService
-      attr_reader :owners
+      attr_reader :inferred_balances, :owners
 
       def initialize(requestor)
         super(requestor)
+        @inferred_balances = Stripe::FinancialConnections::AccountInferredBalanceService
+                             .new(@requestor)
         @owners = Stripe::FinancialConnections::AccountOwnerService.new(@requestor)
       end
 

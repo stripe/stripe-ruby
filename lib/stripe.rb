@@ -13,6 +13,7 @@ require "set"
 require "socket"
 require "uri"
 require "forwardable"
+require "base64"
 
 # Version
 require "stripe/api_version"
@@ -50,6 +51,7 @@ require "stripe/api_resource_test_helpers"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
 require "stripe/stripe_configuration"
+require "stripe/request_signing_authenticator"
 require "stripe/thin_event"
 
 # Named API resources
@@ -85,6 +87,7 @@ module Stripe
 
     # User configurable options
     def_delegators :@config, :api_key, :api_key=
+    def_delegators :@config, :authenticator, :authenticator=
     def_delegators :@config, :api_version, :api_version=
     def_delegators :@config, :stripe_account, :stripe_account=
     def_delegators :@config, :api_base, :api_base=
@@ -131,6 +134,48 @@ module Stripe
       url: url,
       version: version,
     }
+  end
+
+  def self.add_beta_version(beta_name, version)
+    if api_version.include?("; #{beta_name}=")
+      raise "Stripe version header #{api_version} already contains entry for beta #{beta_name}"
+    end
+
+    self.api_version = "#{api_version}; #{beta_name}=#{version}"
+  end
+
+  class RawRequest
+    def initialize
+      @opts = {}
+    end
+
+    def execute(method, url, base_address: :api, params: {}, opts: {}, usage: [])
+      opts = Util.normalize_opts(opts)
+      req_opts = RequestOptions.extract_opts_from_hash(opts)
+
+      requestor = APIRequestor.active_requestor
+      resp, = requestor.send(:execute_request_internal, method, url, base_address, params, req_opts,
+                             usage)
+
+      requestor.interpret_response(resp)
+    end
+  end
+
+  # Sends a request to Stripe REST API
+  def self.raw_request(method, url, params = {}, opts = {}, base_address: :api)
+    req = RawRequest.new
+    req.execute(method, url, base_address: base_address, params: params, opts: opts,
+                             usage: ["raw_request"])
+  end
+
+  def self.deserialize(data, api_mode: :v1)
+    data = JSON.parse(data) if data.is_a?(String)
+    Util.convert_to_stripe_object(data, {}, api_mode: api_mode)
+  end
+  class << self
+    extend Gem::Deprecate
+    deprecate :raw_request, "StripeClient#raw_request", 2024, 9
+    deprecate :deserialize, "StripeClient#deserialize", 2024, 9
   end
 end
 

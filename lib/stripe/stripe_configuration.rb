@@ -25,7 +25,8 @@ module Stripe
   # If `.logger` is set, the value of `.log_level` is ignored. The decision on
   # what levels to print is entirely deferred to the logger.
   class StripeConfiguration
-    attr_accessor :api_key, :api_version, :client_id, :enable_telemetry, :logger, :stripe_account, :stripe_context
+    attr_accessor :api_key, :api_version, :authenticator, :client_id, :enable_telemetry, :logger,
+                  :stripe_account, :stripe_context
 
     attr_reader :api_base, :uploads_base, :connect_base, :meter_events_base, :base_addresses, :ca_bundle_path,
                 :log_level, :initial_network_retry_delay, :max_network_retries, :max_network_retry_delay,
@@ -52,6 +53,7 @@ module Stripe
 
     def initialize
       @api_version = ApiVersion::CURRENT
+
       @ca_bundle_path = Stripe::DEFAULT_CA_BUNDLE_PATH
       @enable_telemetry = true
       @verify_ssl_certs = true

@@ -99,6 +99,32 @@ module Stripe
       )
     end
 
+    # Perform a decremental authorization on an eligible
+    # [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+    # PaymentIntent's status must be requires_capture and
+    # [decremental_authorization.status](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+    # must be available.
+    #
+    # Decremental authorizations decrease the authorized amount on your customer's card
+    # to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+    #
+    # After decrement, the PaymentIntent object
+    # returns with the updated
+    # [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+    # The PaymentIntent will now be capturable up to the new authorized amount.
+    #
+    # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+    # After it's fully captured, a PaymentIntent can no longer be decremented.
+    def decrement_authorization(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Perform an incremental authorization on an eligible
     # [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
     # PaymentIntent's status must be requires_capture and
@@ -167,6 +193,17 @@ module Stripe
       request(
         method: :get,
         path: "/v1/payment_intents/search",
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # Trigger an external action on a PaymentIntent.
+    def trigger_action(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -15,6 +15,26 @@ module Stripe
       "subscription_schedule"
     end
 
+    # Amends an existing subscription schedule.
+    def amend(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Amends an existing subscription schedule.
+    def self.amend(schedule, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(schedule) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     def cancel(params = {}, opts = {})
       request_stripe_object(

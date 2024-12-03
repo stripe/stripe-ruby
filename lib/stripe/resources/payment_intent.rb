@@ -66,6 +66,10 @@ module Stripe
       attr_reader :doc_url
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       attr_reader :message
+      # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+      attr_reader :network_advice_code
+      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
       attr_reader :param
       # A PaymentIntent guides you through the process of collecting a payment from your customer.
@@ -214,8 +218,41 @@ module Stripe
           end
 
           class Iban < Stripe::StripeObject
+            class AccountHolderAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+
+            class BankAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+            # Attribute for field account_holder_address
+            attr_reader :account_holder_address
             # The name of the person or business that owns the bank account
             attr_reader :account_holder_name
+            # Attribute for field bank_address
+            attr_reader :bank_address
             # The BIC/SWIFT code of the account.
             attr_reader :bic
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -225,15 +262,83 @@ module Stripe
           end
 
           class SortCode < Stripe::StripeObject
+            class AccountHolderAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+
+            class BankAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+            # Attribute for field account_holder_address
+            attr_reader :account_holder_address
             # The name of the person or business that owns the bank account
             attr_reader :account_holder_name
             # The account number
             attr_reader :account_number
+            # Attribute for field bank_address
+            attr_reader :bank_address
             # The six-digit sort code
             attr_reader :sort_code
           end
 
           class Spei < Stripe::StripeObject
+            class AccountHolderAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+
+            class BankAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+            # Attribute for field account_holder_address
+            attr_reader :account_holder_address
+            # The account holder name
+            attr_reader :account_holder_name
+            # Attribute for field bank_address
+            attr_reader :bank_address
             # The three-digit bank code
             attr_reader :bank_code
             # The short banking institution name
@@ -289,12 +394,45 @@ module Stripe
           end
 
           class Zengin < Stripe::StripeObject
+            class AccountHolderAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+
+            class BankAddress < Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+            end
+            # Attribute for field account_holder_address
+            attr_reader :account_holder_address
             # The account holder name
             attr_reader :account_holder_name
             # The account number
             attr_reader :account_number
             # The bank account type. In Japan, this can only be `futsu` or `toza`.
             attr_reader :account_type
+            # Attribute for field bank_address
+            attr_reader :bank_address
             # The bank code of the account
             attr_reader :bank_code
             # The bank name of the account
@@ -974,6 +1112,8 @@ module Stripe
         attr_reader :request_multicapture
         # Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
         attr_reader :request_overcapture
+        # Request partial authorization on this PaymentIntent.
+        attr_reader :request_partial_authorization
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_reader :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
@@ -1457,7 +1597,7 @@ module Stripe
       end
 
       class Swish < Stripe::StripeObject
-        # The order ID displayed in the Swish app after the payment is authorized.
+        # A reference for this payment to be displayed in the Swish app.
         attr_reader :reference
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #

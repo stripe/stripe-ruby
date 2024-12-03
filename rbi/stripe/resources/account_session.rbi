@@ -14,7 +14,7 @@ module Stripe
     class Components < Stripe::StripeObject
       class AccountManagement < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+          # Disables Stripe user authentication for this embedded component. This feature can only be `true` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
@@ -30,7 +30,7 @@ module Stripe
       end
       class AccountOnboarding < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+          # Disables Stripe user authentication for this embedded component. This feature can only be `true` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
@@ -46,7 +46,7 @@ module Stripe
       end
       class Balances < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+          # Disables Stripe user authentication for this embedded component. This feature can only be `true` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
           # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
@@ -107,7 +107,7 @@ module Stripe
       end
       class NotificationBanner < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+          # Disables Stripe user authentication for this embedded component. This feature can only be `true` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
@@ -167,7 +167,7 @@ module Stripe
       end
       class Payouts < Stripe::StripeObject
         class Features < Stripe::StripeObject
-          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
+          # Disables Stripe user authentication for this embedded component. This feature can only be `true` for accounts where you’re responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise.
           sig { returns(T::Boolean) }
           attr_reader :disable_stripe_user_authentication
           # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.

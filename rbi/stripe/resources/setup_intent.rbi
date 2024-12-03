@@ -51,6 +51,12 @@ module Stripe
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       sig { returns(String) }
       attr_reader :message
+      # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+      sig { returns(String) }
+      attr_reader :network_advice_code
+      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      sig { returns(String) }
+      attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
       sig { returns(String) }
       attr_reader :param

@@ -90,6 +90,10 @@ module Stripe
         # The predicate to evaluate the payment against.
         attr_reader :predicate
       end
+      # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
+      attr_reader :network_advice_code
+      # For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      attr_reader :network_decline_code
       # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
       attr_reader :network_status
       # An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
@@ -170,7 +174,31 @@ module Stripe
       end
 
       class Alma < Stripe::StripeObject; end
-      class AmazonPay < Stripe::StripeObject; end
+
+      class AmazonPay < Stripe::StripeObject
+        class Funding < Stripe::StripeObject
+          class Card < Stripe::StripeObject
+            # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            attr_reader :brand
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            attr_reader :country
+            # Two-digit number representing the card's expiration month.
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            attr_reader :exp_year
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            attr_reader :funding
+            # The last four digits of the card.
+            attr_reader :last4
+          end
+          # Attribute for field card
+          attr_reader :card
+          # funding type of the underlying payment method.
+          attr_reader :type
+        end
+        # Attribute for field funding
+        attr_reader :funding
+      end
 
       class AuBecsDebit < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
@@ -278,6 +306,11 @@ module Stripe
           # The maximum amount that can be captured.
           attr_reader :maximum_amount_capturable
           # Indicates whether or not the authorized amount can be over-captured.
+          attr_reader :status
+        end
+
+        class PartialAuthorization < Stripe::StripeObject
+          # Indicates whether the transaction requested for partial authorization feature and the authorization outcome.
           attr_reader :status
         end
 
@@ -413,6 +446,8 @@ module Stripe
         end
         # The authorized amount.
         attr_reader :amount_authorized
+        # The latest amount intended to be authorized by this charge.
+        attr_reader :amount_requested
         # Authorization code on the charge.
         attr_reader :authorization_code
         # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -463,6 +498,8 @@ module Stripe
         attr_reader :network_token
         # Attribute for field overcapture
         attr_reader :overcapture
+        # Attribute for field partial_authorization
+        attr_reader :partial_authorization
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
@@ -886,7 +923,31 @@ module Stripe
 
       class Qris < Stripe::StripeObject; end
       class Rechnung < Stripe::StripeObject; end
-      class RevolutPay < Stripe::StripeObject; end
+
+      class RevolutPay < Stripe::StripeObject
+        class Funding < Stripe::StripeObject
+          class Card < Stripe::StripeObject
+            # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            attr_reader :brand
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            attr_reader :country
+            # Two-digit number representing the card's expiration month.
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            attr_reader :exp_year
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            attr_reader :funding
+            # The last four digits of the card.
+            attr_reader :last4
+          end
+          # Attribute for field card
+          attr_reader :card
+          # funding type of the underlying payment method.
+          attr_reader :type
+        end
+        # Attribute for field funding
+        attr_reader :funding
+      end
 
       class SamsungPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.

@@ -102,6 +102,12 @@ module Stripe
         sig { returns(String) }
         attr_reader :predicate
       end
+      # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
+      sig { returns(T.nilable(String)) }
+      attr_reader :network_advice_code
+      # For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      sig { returns(T.nilable(String)) }
+      attr_reader :network_decline_code
       # Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
       sig { returns(T.nilable(String)) }
       attr_reader :network_status
@@ -204,7 +210,39 @@ module Stripe
         attr_reader :transaction_id
       end
       class Alma < Stripe::StripeObject; end
-      class AmazonPay < Stripe::StripeObject; end
+      class AmazonPay < Stripe::StripeObject
+        class Funding < Stripe::StripeObject
+          class Card < Stripe::StripeObject
+            # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            sig { returns(T.nilable(String)) }
+            attr_reader :brand
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            sig { returns(T.nilable(String)) }
+            attr_reader :country
+            # Two-digit number representing the card's expiration month.
+            sig { returns(T.nilable(Integer)) }
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            sig { returns(T.nilable(Integer)) }
+            attr_reader :exp_year
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            sig { returns(T.nilable(String)) }
+            attr_reader :funding
+            # The last four digits of the card.
+            sig { returns(T.nilable(String)) }
+            attr_reader :last4
+          end
+          # Attribute for field card
+          sig { returns(Card) }
+          attr_reader :card
+          # funding type of the underlying payment method.
+          sig { returns(T.nilable(String)) }
+          attr_reader :type
+        end
+        # Attribute for field funding
+        sig { returns(Funding) }
+        attr_reader :funding
+      end
       class AuBecsDebit < Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
@@ -330,6 +368,11 @@ module Stripe
           sig { returns(Integer) }
           attr_reader :maximum_amount_capturable
           # Indicates whether or not the authorized amount can be over-captured.
+          sig { returns(String) }
+          attr_reader :status
+        end
+        class PartialAuthorization < Stripe::StripeObject
+          # Indicates whether the transaction requested for partial authorization feature and the authorization outcome.
           sig { returns(String) }
           attr_reader :status
         end
@@ -509,6 +552,9 @@ module Stripe
         # The authorized amount.
         sig { returns(T.nilable(Integer)) }
         attr_reader :amount_authorized
+        # The latest amount intended to be authorized by this charge.
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :amount_requested
         # Authorization code on the charge.
         sig { returns(T.nilable(String)) }
         attr_reader :authorization_code
@@ -582,6 +628,9 @@ module Stripe
         # Attribute for field overcapture
         sig { returns(Overcapture) }
         attr_reader :overcapture
+        # Attribute for field partial_authorization
+        sig { returns(PartialAuthorization) }
+        attr_reader :partial_authorization
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
         attr_reader :three_d_secure
@@ -1117,7 +1166,39 @@ module Stripe
       end
       class Qris < Stripe::StripeObject; end
       class Rechnung < Stripe::StripeObject; end
-      class RevolutPay < Stripe::StripeObject; end
+      class RevolutPay < Stripe::StripeObject
+        class Funding < Stripe::StripeObject
+          class Card < Stripe::StripeObject
+            # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            sig { returns(T.nilable(String)) }
+            attr_reader :brand
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            sig { returns(T.nilable(String)) }
+            attr_reader :country
+            # Two-digit number representing the card's expiration month.
+            sig { returns(T.nilable(Integer)) }
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            sig { returns(T.nilable(Integer)) }
+            attr_reader :exp_year
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            sig { returns(T.nilable(String)) }
+            attr_reader :funding
+            # The last four digits of the card.
+            sig { returns(T.nilable(String)) }
+            attr_reader :last4
+          end
+          # Attribute for field card
+          sig { returns(Card) }
+          attr_reader :card
+          # funding type of the underlying payment method.
+          sig { returns(T.nilable(String)) }
+          attr_reader :type
+        end
+        # Attribute for field funding
+        sig { returns(Funding) }
+        attr_reader :funding
+      end
       class SamsungPay < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }

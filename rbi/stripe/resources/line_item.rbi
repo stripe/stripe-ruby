@@ -5,6 +5,17 @@
 module Stripe
   # A line item.
   class LineItem < APIResource
+    class AdjustableQuantity < Stripe::StripeObject
+      # Attribute for field enabled
+      sig { returns(T::Boolean) }
+      attr_reader :enabled
+      # Attribute for field maximum
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :maximum
+      # Attribute for field minimum
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :minimum
+    end
     class Discount < Stripe::StripeObject
       # The amount discounted.
       sig { returns(Integer) }
@@ -15,6 +26,17 @@ module Stripe
       # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
       sig { returns(Stripe::Discount) }
       attr_reader :discount
+    end
+    class Display < Stripe::StripeObject
+      # Attribute for field description
+      sig { returns(T.nilable(String)) }
+      attr_reader :description
+      # Attribute for field images
+      sig { returns(T::Array[String]) }
+      attr_reader :images
+      # Attribute for field name
+      sig { returns(String) }
+      attr_reader :name
     end
     class Tax < Stripe::StripeObject
       # Amount of tax applied for this rate.
@@ -32,6 +54,10 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_reader :taxable_amount
     end
+    # Attribute for field adjustable_quantity
+    sig { returns(T.nilable(AdjustableQuantity)) }
+    attr_reader :adjustable_quantity
+
     # Total discount amount applied. If no discounts were applied, defaults to 0.
     sig { returns(Integer) }
     attr_reader :amount_discount
@@ -53,16 +79,24 @@ module Stripe
     attr_reader :currency
 
     # An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     attr_reader :description
 
     # The discounts applied to the line item.
     sig { returns(T::Array[Discount]) }
     attr_reader :discounts
 
+    # Attribute for field display
+    sig { returns(Display) }
+    attr_reader :display
+
     # Unique identifier for the object.
     sig { returns(String) }
     attr_reader :id
+
+    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    sig { returns(T.nilable(T::Hash[String, String])) }
+    attr_reader :metadata
 
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }

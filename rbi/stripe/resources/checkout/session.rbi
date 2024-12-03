@@ -1075,6 +1075,13 @@ module Stripe
       end
       class Permissions < Stripe::StripeObject
         class Update < Stripe::StripeObject
+          # Determines which entity is allowed to update the line items.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+          #
+          # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+          sig { returns(T.nilable(String)) }
+          attr_reader :line_items
           # Determines which entity is allowed to update the shipping details.
           #
           # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.

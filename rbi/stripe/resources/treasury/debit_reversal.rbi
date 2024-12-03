@@ -7,73 +7,57 @@ module Stripe
     # You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
     class DebitReversal < APIResource
       class LinkedFlows < Stripe::StripeObject
-        # Set if there is an Issuing dispute associated with the DebitReversal.
         sig { returns(T.nilable(String)) }
         attr_reader :issuing_dispute
       end
       class StatusTransitions < Stripe::StripeObject
-        # Timestamp describing when the DebitReversal changed status to `completed`.
         sig { returns(T.nilable(Integer)) }
         attr_reader :completed_at
       end
+      sig { returns(Integer) }
       # Amount (in cents) transferred.
-      sig { returns(Integer) }
       attr_reader :amount
-
-      # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
+      sig { returns(String) }
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-      sig { returns(String) }
       attr_reader :currency
-
+      sig { returns(T.nilable(String)) }
       # The FinancialAccount to reverse funds from.
-      sig { returns(T.nilable(String)) }
       attr_reader :financial_account
-
-      # A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
       sig { returns(T.nilable(String)) }
+      # A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
       attr_reader :hosted_regulatory_receipt_url
-
+      sig { returns(String) }
       # Unique identifier for the object.
-      sig { returns(String) }
       attr_reader :id
-
-      # Other flows linked to a DebitReversal.
       sig { returns(T.nilable(LinkedFlows)) }
+      # Other flows linked to a DebitReversal.
       attr_reader :linked_flows
-
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
-
+      sig { returns(String) }
       # The rails used to reverse the funds.
-      sig { returns(String) }
       attr_reader :network
-
+      sig { returns(String) }
       # String representing the object's type. Objects of the same type share the same value.
-      sig { returns(String) }
       attr_reader :object
-
+      sig { returns(String) }
       # The ReceivedDebit being reversed.
-      sig { returns(String) }
       attr_reader :received_debit
-
-      # Status of the DebitReversal
       sig { returns(String) }
+      # Status of the DebitReversal
       attr_reader :status
-
-      # Attribute for field status_transitions
       sig { returns(StatusTransitions) }
+      # Attribute for field status_transitions
       attr_reader :status_transitions
-
-      # The Transaction associated with this object.
       sig { returns(T.nilable(T.any(String, Stripe::Treasury::Transaction))) }
+      # The Transaction associated with this object.
       attr_reader :transaction
     end
   end

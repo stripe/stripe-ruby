@@ -29,71 +29,42 @@ module Stripe
       end
 
       class RequestContext < Stripe::StripeObject
-        # The time it took in milliseconds for the destination endpoint to respond.
-        attr_reader :destination_duration
-        # The IP address of the destination.
-        attr_reader :destination_ip_address
+        attr_reader :destination_duration, :destination_ip_address
       end
 
       class RequestDetails < Stripe::StripeObject
         class Header < Stripe::StripeObject
-          # The header name.
-          attr_reader :name
-          # The header value.
-          attr_reader :value
+          attr_reader :name, :value
         end
-        # The body payload to send to the destination endpoint.
-        attr_reader :body
-        # The headers to include in the forwarded request. Can be omitted if no additional headers (excluding Stripe-generated ones such as the Content-Type header) should be included.
-        attr_reader :headers
-        # The HTTP method used to call the destination endpoint.
-        attr_reader :http_method
+        attr_reader :body, :headers, :http_method
       end
 
       class ResponseDetails < Stripe::StripeObject
         class Header < Stripe::StripeObject
-          # The header name.
-          attr_reader :name
-          # The header value.
-          attr_reader :value
+          attr_reader :name, :value
         end
-        # The response body from the destination endpoint to Stripe.
-        attr_reader :body
-        # HTTP headers that the destination endpoint returned.
-        attr_reader :headers
-        # The HTTP status code that the destination endpoint returned.
-        attr_reader :status
+        attr_reader :body, :headers, :status
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
       # Unique identifier for the object.
       attr_reader :id
-
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
-
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-
       # The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
       attr_reader :payment_method
-
       # The field kinds to be replaced in the forwarded request.
       attr_reader :replacements
-
       # Context about the request from Stripe's servers to the destination endpoint.
       attr_reader :request_context
-
       # The request that was sent to the destination endpoint. We redact any sensitive fields.
       attr_reader :request_details
-
       # The response that the destination endpoint returned to us. We redact any sensitive fields.
       attr_reader :response_details
-
       # The destination URL for the forwarded request. Must be supported by the config.
       attr_reader :url
 

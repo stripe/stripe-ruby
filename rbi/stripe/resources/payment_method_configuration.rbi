@@ -20,1092 +20,809 @@ module Stripe
   class PaymentMethodConfiguration < APIResource
     class AcssDebit < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Affirm < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class AfterpayClearpay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Alipay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Alma < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class AmazonPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class ApplePay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class AuBecsDebit < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class BacsDebit < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Bancontact < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Blik < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Boleto < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Card < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class CartesBancaires < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Cashapp < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class CustomerBalance < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Eps < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Fpx < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Giropay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class GooglePay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Gopay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Grabpay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class IdBankTransfer < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Ideal < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Jcb < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Klarna < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Konbini < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Link < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Mobilepay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Multibanco < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Oxxo < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class P24 < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Paynow < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Paypal < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Payto < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Promptpay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Qris < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class RevolutPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class SepaDebit < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Shopeepay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Sofort < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Swish < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Twint < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class UsBankAccount < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class WechatPay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
     class Zip < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
-        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :overridable
-        # The account's display preference.
         sig { returns(String) }
         attr_reader :preference
-        # The effective display preference value.
         sig { returns(String) }
         attr_reader :value
       end
-      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
       sig { returns(T::Boolean) }
       attr_reader :available
-      # Attribute for field display_preference
       sig { returns(DisplayPreference) }
       attr_reader :display_preference
     end
-    # Attribute for field acss_debit
     sig { returns(AcssDebit) }
+    # Attribute for field acss_debit
     attr_reader :acss_debit
-
+    sig { returns(T::Boolean) }
     # Whether the configuration can be used for new payments.
-    sig { returns(T::Boolean) }
     attr_reader :active
-
-    # Attribute for field affirm
     sig { returns(Affirm) }
+    # Attribute for field affirm
     attr_reader :affirm
-
-    # Attribute for field afterpay_clearpay
     sig { returns(AfterpayClearpay) }
+    # Attribute for field afterpay_clearpay
     attr_reader :afterpay_clearpay
-
-    # Attribute for field alipay
     sig { returns(Alipay) }
+    # Attribute for field alipay
     attr_reader :alipay
-
-    # Attribute for field alma
     sig { returns(Alma) }
+    # Attribute for field alma
     attr_reader :alma
-
-    # Attribute for field amazon_pay
     sig { returns(AmazonPay) }
+    # Attribute for field amazon_pay
     attr_reader :amazon_pay
-
-    # Attribute for field apple_pay
     sig { returns(ApplePay) }
+    # Attribute for field apple_pay
     attr_reader :apple_pay
-
+    sig { returns(T.nilable(String)) }
     # For child configs, the Connect application associated with the configuration.
-    sig { returns(T.nilable(String)) }
     attr_reader :application
-
-    # Attribute for field au_becs_debit
     sig { returns(AuBecsDebit) }
+    # Attribute for field au_becs_debit
     attr_reader :au_becs_debit
-
-    # Attribute for field bacs_debit
     sig { returns(BacsDebit) }
+    # Attribute for field bacs_debit
     attr_reader :bacs_debit
-
-    # Attribute for field bancontact
     sig { returns(Bancontact) }
+    # Attribute for field bancontact
     attr_reader :bancontact
-
-    # Attribute for field blik
     sig { returns(Blik) }
+    # Attribute for field blik
     attr_reader :blik
-
-    # Attribute for field boleto
     sig { returns(Boleto) }
+    # Attribute for field boleto
     attr_reader :boleto
-
-    # Attribute for field card
     sig { returns(Card) }
+    # Attribute for field card
     attr_reader :card
-
-    # Attribute for field cartes_bancaires
     sig { returns(CartesBancaires) }
+    # Attribute for field cartes_bancaires
     attr_reader :cartes_bancaires
-
-    # Attribute for field cashapp
     sig { returns(Cashapp) }
+    # Attribute for field cashapp
     attr_reader :cashapp
-
-    # Attribute for field customer_balance
     sig { returns(CustomerBalance) }
+    # Attribute for field customer_balance
     attr_reader :customer_balance
-
-    # Attribute for field eps
     sig { returns(Eps) }
+    # Attribute for field eps
     attr_reader :eps
-
-    # Attribute for field fpx
     sig { returns(Fpx) }
+    # Attribute for field fpx
     attr_reader :fpx
-
-    # Attribute for field giropay
     sig { returns(Giropay) }
+    # Attribute for field giropay
     attr_reader :giropay
-
-    # Attribute for field google_pay
     sig { returns(GooglePay) }
+    # Attribute for field google_pay
     attr_reader :google_pay
-
-    # Attribute for field gopay
     sig { returns(Gopay) }
+    # Attribute for field gopay
     attr_reader :gopay
-
-    # Attribute for field grabpay
     sig { returns(Grabpay) }
+    # Attribute for field grabpay
     attr_reader :grabpay
-
+    sig { returns(String) }
     # Unique identifier for the object.
-    sig { returns(String) }
     attr_reader :id
-
-    # Attribute for field id_bank_transfer
     sig { returns(IdBankTransfer) }
+    # Attribute for field id_bank_transfer
     attr_reader :id_bank_transfer
-
-    # Attribute for field ideal
     sig { returns(Ideal) }
+    # Attribute for field ideal
     attr_reader :ideal
-
+    sig { returns(T::Boolean) }
     # The default configuration is used whenever a payment method configuration is not specified.
-    sig { returns(T::Boolean) }
     attr_reader :is_default
-
-    # Attribute for field jcb
     sig { returns(Jcb) }
+    # Attribute for field jcb
     attr_reader :jcb
-
-    # Attribute for field klarna
     sig { returns(Klarna) }
+    # Attribute for field klarna
     attr_reader :klarna
-
-    # Attribute for field konbini
     sig { returns(Konbini) }
+    # Attribute for field konbini
     attr_reader :konbini
-
-    # Attribute for field link
     sig { returns(Link) }
+    # Attribute for field link
     attr_reader :link
-
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-
-    # Attribute for field mobilepay
     sig { returns(Mobilepay) }
+    # Attribute for field mobilepay
     attr_reader :mobilepay
-
-    # Attribute for field multibanco
     sig { returns(Multibanco) }
+    # Attribute for field multibanco
     attr_reader :multibanco
-
+    sig { returns(String) }
     # The configuration's name.
-    sig { returns(String) }
     attr_reader :name
-
-    # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
+    # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-
-    # Attribute for field oxxo
     sig { returns(Oxxo) }
+    # Attribute for field oxxo
     attr_reader :oxxo
-
-    # Attribute for field p24
     sig { returns(P24) }
+    # Attribute for field p24
     attr_reader :p24
-
-    # For child configs, the configuration's parent configuration.
     sig { returns(T.nilable(String)) }
+    # For child configs, the configuration's parent configuration.
     attr_reader :parent
-
-    # Attribute for field paynow
     sig { returns(Paynow) }
+    # Attribute for field paynow
     attr_reader :paynow
-
-    # Attribute for field paypal
     sig { returns(Paypal) }
+    # Attribute for field paypal
     attr_reader :paypal
-
-    # Attribute for field payto
     sig { returns(Payto) }
+    # Attribute for field payto
     attr_reader :payto
-
-    # Attribute for field promptpay
     sig { returns(Promptpay) }
+    # Attribute for field promptpay
     attr_reader :promptpay
-
-    # Attribute for field qris
     sig { returns(Qris) }
+    # Attribute for field qris
     attr_reader :qris
-
-    # Attribute for field revolut_pay
     sig { returns(RevolutPay) }
+    # Attribute for field revolut_pay
     attr_reader :revolut_pay
-
-    # Attribute for field sepa_debit
     sig { returns(SepaDebit) }
+    # Attribute for field sepa_debit
     attr_reader :sepa_debit
-
-    # Attribute for field shopeepay
     sig { returns(Shopeepay) }
+    # Attribute for field shopeepay
     attr_reader :shopeepay
-
-    # Attribute for field sofort
     sig { returns(Sofort) }
+    # Attribute for field sofort
     attr_reader :sofort
-
-    # Attribute for field swish
     sig { returns(Swish) }
+    # Attribute for field swish
     attr_reader :swish
-
-    # Attribute for field twint
     sig { returns(Twint) }
+    # Attribute for field twint
     attr_reader :twint
-
-    # Attribute for field us_bank_account
     sig { returns(UsBankAccount) }
+    # Attribute for field us_bank_account
     attr_reader :us_bank_account
-
-    # Attribute for field wechat_pay
     sig { returns(WechatPay) }
+    # Attribute for field wechat_pay
     attr_reader :wechat_pay
-
-    # Attribute for field zip
     sig { returns(Zip) }
+    # Attribute for field zip
     attr_reader :zip
   end
 end

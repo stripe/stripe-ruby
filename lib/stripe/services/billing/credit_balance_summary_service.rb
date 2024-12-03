@@ -4,7 +4,7 @@
 module Stripe
   module Billing
     class CreditBalanceSummaryService < StripeService
-      # Retrieves the credit balance summary for a customer
+      # Retrieves the credit balance summary for a customer.
       def retrieve(params = {}, opts = {})
         request(
           method: :get,

@@ -18,39 +18,28 @@ module Stripe
 
       class StatusDetails < Stripe::StripeObject
         class Advancing < Stripe::StripeObject
-          # The `frozen_time` that the Test Clock is advancing towards.
           attr_reader :target_frozen_time
         end
-        # Attribute for field advancing
         attr_reader :advancing
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
       # Time at which this clock is scheduled to auto delete.
       attr_reader :deletes_after
-
       # Time at which all objects belonging to this clock are frozen.
       attr_reader :frozen_time
-
       # Unique identifier for the object.
       attr_reader :id
-
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-
       # The custom name supplied at creation.
       attr_reader :name
-
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-
       # The status of the Test Clock.
       attr_reader :status
-
       # Attribute for field status_details
       attr_reader :status_details
-
       # Always true for a deleted object
       attr_reader :deleted
 

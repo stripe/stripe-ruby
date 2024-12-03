@@ -9,5 +9,21 @@ module Stripe
     def self.object_name
       "product_feature"
     end
+
+    # A feature represents a monetizable ability or functionality in your system.
+    # Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
+    attr_reader :entitlement_feature
+
+    # Unique identifier for the object.
+    attr_reader :id
+
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+
+    # Always true for a deleted object
+    attr_reader :deleted
   end
 end

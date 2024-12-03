@@ -1,0 +1,138 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module Climate
+    # Orders represent your intent to purchase a particular Climate product. When you create an order, the
+    # payment is deducted from your merchant balance.
+    class Order < APIResource
+      class Beneficiary < Stripe::StripeObject
+        # Publicly displayable name for the end beneficiary of carbon removal.
+        sig { returns(String) }
+        attr_reader :public_name
+      end
+      class DeliveryDetail < Stripe::StripeObject
+        class Location < Stripe::StripeObject
+          # The city where the supplier is located.
+          sig { returns(T.nilable(String)) }
+          attr_reader :city
+          # Two-letter ISO code representing the country where the supplier is located.
+          sig { returns(String) }
+          attr_reader :country
+          # The geographic latitude where the supplier is located.
+          sig { returns(T.nilable(Float)) }
+          attr_reader :latitude
+          # The geographic longitude where the supplier is located.
+          sig { returns(T.nilable(Float)) }
+          attr_reader :longitude
+          # The state/county/province/region where the supplier is located.
+          sig { returns(T.nilable(String)) }
+          attr_reader :region
+        end
+        # Time at which the delivery occurred. Measured in seconds since the Unix epoch.
+        sig { returns(Integer) }
+        attr_reader :delivered_at
+        # Specific location of this delivery.
+        sig { returns(T.nilable(Location)) }
+        attr_reader :location
+        # Quantity of carbon removal supplied by this delivery.
+        sig { returns(String) }
+        attr_reader :metric_tons
+        # Once retired, a URL to the registry entry for the tons from this delivery.
+        sig { returns(T.nilable(String)) }
+        attr_reader :registry_url
+        # A supplier of carbon removal.
+        sig { returns(Stripe::Climate::Supplier) }
+        attr_reader :supplier
+      end
+      # Total amount of [Frontier](https://frontierclimate.com/)'s service fees in the currency's smallest unit.
+      sig { returns(Integer) }
+      attr_reader :amount_fees
+
+      # Total amount of the carbon removal in the currency's smallest unit.
+      sig { returns(Integer) }
+      attr_reader :amount_subtotal
+
+      # Total amount of the order including fees in the currency's smallest unit.
+      sig { returns(Integer) }
+      attr_reader :amount_total
+
+      # Attribute for field beneficiary
+      sig { returns(Beneficiary) }
+      attr_reader :beneficiary
+
+      # Time at which the order was canceled. Measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :canceled_at
+
+      # Reason for the cancellation of this order.
+      sig { returns(T.nilable(String)) }
+      attr_reader :cancellation_reason
+
+      # For delivered orders, a URL to a delivery certificate for the order.
+      sig { returns(T.nilable(String)) }
+      attr_reader :certificate
+
+      # Time at which the order was confirmed. Measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :confirmed_at
+
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      attr_reader :created
+
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase, representing the currency for this order.
+      sig { returns(String) }
+      attr_reader :currency
+
+      # Time at which the order's expected_delivery_year was delayed. Measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :delayed_at
+
+      # Time at which the order was delivered. Measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :delivered_at
+
+      # Details about the delivery of carbon removal for this order.
+      sig { returns(T::Array[DeliveryDetail]) }
+      attr_reader :delivery_details
+
+      # The year this order is expected to be delivered.
+      sig { returns(Integer) }
+      attr_reader :expected_delivery_year
+
+      # Unique identifier for the object.
+      sig { returns(String) }
+      attr_reader :id
+
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      sig { returns(T::Boolean) }
+      attr_reader :livemode
+
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T::Hash[String, String]) }
+      attr_reader :metadata
+
+      # Quantity of carbon removal that is included in this order.
+      sig { returns(String) }
+      attr_reader :metric_tons
+
+      # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
+      attr_reader :object
+
+      # Unique ID for the Climate `Product` this order is purchasing.
+      sig { returns(T.any(String, Stripe::Climate::Product)) }
+      attr_reader :product
+
+      # Time at which the order's product was substituted for a different product. Measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :product_substituted_at
+
+      # The current status of this order.
+      sig { returns(String) }
+      attr_reader :status
+    end
+  end
+end

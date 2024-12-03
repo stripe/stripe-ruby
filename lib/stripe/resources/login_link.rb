@@ -9,6 +9,15 @@ module Stripe
       "login_link"
     end
 
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+
+    # The URL for the login link.
+    attr_reader :url
+
     def self.retrieve(_id, _opts = nil)
       raise NotImplementedError,
             "Login links do not have IDs and cannot be retrieved. They can " \

@@ -36,6 +36,15 @@ module Stripe
       "exchange_rate"
     end
 
+    # Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
+    attr_reader :id
+
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+
+    # Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
+    attr_reader :rates
+
     # Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
     def self.list(filters = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/exchange_rates", params: filters, opts: opts)

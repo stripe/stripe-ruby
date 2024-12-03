@@ -13,5 +13,23 @@ module Stripe
     def self.object_name
       "usage_record"
     end
+
+    # Unique identifier for the object.
+    attr_reader :id
+
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+
+    # The usage quantity for the specified date.
+    attr_reader :quantity
+
+    # The ID of the subscription item this usage record contains data for.
+    attr_reader :subscription_item
+
+    # The timestamp when this usage occurred.
+    attr_reader :timestamp
   end
 end

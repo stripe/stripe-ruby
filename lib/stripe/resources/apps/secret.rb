@@ -21,6 +21,39 @@ module Stripe
         "apps.secret"
       end
 
+      class Scope < Stripe::StripeObject
+        # The secret scope type.
+        attr_reader :type
+        # The user ID, if type is set to "user"
+        attr_reader :user
+      end
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+
+      # If true, indicates that this secret has been deleted
+      attr_reader :deleted
+
+      # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
+      attr_reader :expires_at
+
+      # Unique identifier for the object.
+      attr_reader :id
+
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
+
+      # A name for the secret that's unique within the scope.
+      attr_reader :name
+
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+
+      # The plaintext secret value to be stored.
+      attr_reader :payload
+
+      # Attribute for field scope
+      attr_reader :scope
+
       # Create or replace a secret in the secret store.
       def self.create(params = {}, opts = {})
         request_stripe_object(method: :post, path: "/v1/apps/secrets", params: params, opts: opts)

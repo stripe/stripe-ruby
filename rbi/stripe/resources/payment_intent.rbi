@@ -837,7 +837,10 @@ module Stripe
         attr_reader :setup_future_usage
       end
       class BacsDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject; end
+        class MandateOptions < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :reference_prefix
+        end
         sig { returns(MandateOptions) }
         attr_reader :mandate_options
         sig { returns(String) }
@@ -1192,7 +1195,10 @@ module Stripe
         attr_reader :capture_method
       end
       class SepaDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject; end
+        class MandateOptions < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :reference_prefix
+        end
         sig { returns(MandateOptions) }
         attr_reader :mandate_options
         sig { returns(String) }

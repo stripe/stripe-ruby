@@ -327,7 +327,10 @@ module Stripe
           attr_reader :setup_future_usage
         end
         class BacsDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject; end
+          class MandateOptions < Stripe::StripeObject
+            sig { returns(String) }
+            attr_reader :reference_prefix
+          end
           sig { returns(MandateOptions) }
           attr_reader :mandate_options
           sig { returns(String) }
@@ -516,7 +519,10 @@ module Stripe
           attr_reader :capture_method
         end
         class SepaDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject; end
+          class MandateOptions < Stripe::StripeObject
+            sig { returns(String) }
+            attr_reader :reference_prefix
+          end
           sig { returns(MandateOptions) }
           attr_reader :mandate_options
           sig { returns(String) }
@@ -785,7 +791,7 @@ module Stripe
       # Session with your internal systems.
       attr_reader :client_reference_id
       sig { returns(T.nilable(String)) }
-      # The client secret of the Session. Use this with [initCustomCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+      # The client secret of the Session. Use this with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       sig { returns(T.nilable(CollectedInformation)) }
       # Information about the customer collected within the Checkout Session.

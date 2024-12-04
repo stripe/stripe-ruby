@@ -193,7 +193,10 @@ module Stripe
             attr_reader :subsellers
           end
           class SepaDebit < Stripe::StripeObject
-            class MandateOptions < Stripe::StripeObject; end
+            class MandateOptions < Stripe::StripeObject
+              sig { returns(String) }
+              attr_reader :reference_prefix
+            end
             sig { returns(MandateOptions) }
             attr_reader :mandate_options
             sig { returns(String) }

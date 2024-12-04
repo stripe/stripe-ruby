@@ -177,7 +177,9 @@ module Stripe
         end
 
         class BacsDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject; end
+          class MandateOptions < Stripe::StripeObject
+            attr_reader :reference_prefix
+          end
           attr_reader :mandate_options, :setup_future_usage
         end
 
@@ -302,7 +304,9 @@ module Stripe
         end
 
         class SepaDebit < Stripe::StripeObject
-          class MandateOptions < Stripe::StripeObject; end
+          class MandateOptions < Stripe::StripeObject
+            attr_reader :reference_prefix
+          end
           attr_reader :mandate_options, :setup_future_usage
         end
 
@@ -404,7 +408,7 @@ module Stripe
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
       attr_reader :client_reference_id
-      # The client secret of the Session. Use this with [initCustomCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+      # The client secret of the Session. Use this with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
       attr_reader :collected_information

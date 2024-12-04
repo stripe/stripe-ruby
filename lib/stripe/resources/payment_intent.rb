@@ -307,7 +307,9 @@ module Stripe
       end
 
       class BacsDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject; end
+        class MandateOptions < Stripe::StripeObject
+          attr_reader :reference_prefix
+        end
         attr_reader :mandate_options, :setup_future_usage
       end
 
@@ -491,7 +493,9 @@ module Stripe
       end
 
       class SepaDebit < Stripe::StripeObject
-        class MandateOptions < Stripe::StripeObject; end
+        class MandateOptions < Stripe::StripeObject
+          attr_reader :reference_prefix
+        end
         attr_reader :mandate_options, :setup_future_usage
       end
 

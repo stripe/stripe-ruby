@@ -1,5 +1,10 @@
 # Changelog
 
+## 13.3.0-beta.2 - 2024-12-05
+* [#1492](https://github.com/stripe/stripe-ruby/pull/1492) Update generated code for beta
+
+* [#1490](https://github.com/stripe/stripe-ruby/pull/1490) Add explicit attributes for fields in resources, and rbis for resources
+
 ## 13.3.0-beta.1 - 2024-11-21
 * [#1489](https://github.com/stripe/stripe-ruby/pull/1489) Merging code from master to get the latest bug fixes.
 

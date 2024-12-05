@@ -30,16 +30,14 @@ module Stripe
   #
   # *Using this Exchange Rates API beta for any purpose other than to transact on Stripe is strictly prohibited and constitutes a violation of Stripe's terms of service.*
   class ExchangeRate < APIResource
+    sig { returns(String) }
     # Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
-    sig { returns(String) }
     attr_reader :id
-
-    # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
+    # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-
-    # Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
     sig { returns(T::Hash[String, Float]) }
+    # Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
     attr_reader :rates
   end
 end

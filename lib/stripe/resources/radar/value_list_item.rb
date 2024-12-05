@@ -18,25 +18,18 @@ module Stripe
 
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
       # The name or email address of the user who added this item to the value list.
       attr_reader :created_by
-
       # Unique identifier for the object.
       attr_reader :id
-
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-
       # The value of the item.
       attr_reader :value
-
       # The identifier of the value list this item belongs to.
       attr_reader :value_list
-
       # Always true for a deleted object
       attr_reader :deleted
 

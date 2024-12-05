@@ -22,40 +22,28 @@ module Stripe
 
     # The API version events are rendered as for this webhook endpoint.
     attr_reader :api_version
-
     # The ID of the associated Connect application.
     attr_reader :application
-
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
-
     # An optional description of what the webhook is used for.
     attr_reader :description
-
     # The list of events to enable for this endpoint. `['*']` indicates that all events are enabled, except those that require explicit selection.
     attr_reader :enabled_events
-
     # Unique identifier for the object.
     attr_reader :id
-
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
-
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-
     # The endpoint's secret, used to generate [webhook signatures](https://docs.stripe.com/webhooks/signatures). Only returned at creation.
     attr_reader :secret
-
     # The status of the webhook. It can be `enabled` or `disabled`.
     attr_reader :status
-
     # The URL of the webhook endpoint.
     attr_reader :url
-
     # Always true for a deleted object
     attr_reader :deleted
 

@@ -35,99 +35,75 @@ module Stripe
   # for 30 days.
   class Event < APIResource
     class Data < Stripe::StripeObject
-      # Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
       sig { returns(T::Hash[String, T.untyped]) }
       attr_reader :object
-      # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
       sig { returns(T::Hash[String, T.untyped]) }
       attr_reader :previous_attributes
     end
     class Reason < Stripe::StripeObject
       class AutomationAction < Stripe::StripeObject
         class StripeSendWebhookCustomEvent < Stripe::StripeObject
-          # Set of key-value pairs attached to the action when creating an Automation.
           sig { returns(T.nilable(T::Hash[String, String])) }
           attr_reader :custom_data
         end
-        # Attribute for field stripe_send_webhook_custom_event
         sig { returns(StripeSendWebhookCustomEvent) }
         attr_reader :stripe_send_webhook_custom_event
-        # The trigger name of the automation that triggered this action.
-        #  Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
         sig { returns(String) }
         attr_reader :trigger
-        # The type of the `automation_action`.
         sig { returns(String) }
         attr_reader :type
       end
       class Request < Stripe::StripeObject
-        # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
         sig { returns(T.nilable(String)) }
         attr_reader :id
-        # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
         sig { returns(T.nilable(String)) }
         attr_reader :idempotency_key
       end
-      # Attribute for field automation_action
       sig { returns(AutomationAction) }
       attr_reader :automation_action
-      # Attribute for field request
       sig { returns(Request) }
       attr_reader :request
-      # The type of the reason for the event.
       sig { returns(String) }
       attr_reader :type
     end
     class Request < Stripe::StripeObject
-      # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
       sig { returns(T.nilable(String)) }
       attr_reader :id
-      # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
       sig { returns(T.nilable(String)) }
       attr_reader :idempotency_key
     end
+    sig { returns(String) }
     # The connected account that originates the event.
-    sig { returns(String) }
     attr_reader :account
-
-    # The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
     sig { returns(T.nilable(String)) }
+    # The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
     attr_reader :api_version
-
+    sig { returns(Integer) }
     # Time at which the object was created. Measured in seconds since the Unix epoch.
-    sig { returns(Integer) }
     attr_reader :created
-
-    # Attribute for field data
     sig { returns(Data) }
+    # Attribute for field data
     attr_reader :data
-
+    sig { returns(String) }
     # Unique identifier for the object.
-    sig { returns(String) }
     attr_reader :id
-
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-
+    sig { returns(String) }
     # String representing the object's type. Objects of the same type share the same value.
-    sig { returns(String) }
     attr_reader :object
-
-    # Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
     sig { returns(Integer) }
+    # Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
     attr_reader :pending_webhooks
-
-    # Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
     sig { returns(T.nilable(Reason)) }
+    # Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
     attr_reader :reason
-
-    # Information on the API request that triggers the event.
     sig { returns(T.nilable(Request)) }
+    # Information on the API request that triggers the event.
     attr_reader :request
-
-    # Description of the event (for example, `invoice.created` or `charge.refunded`).
     sig { returns(String) }
+    # Description of the event (for example, `invoice.created` or `charge.refunded`).
     attr_reader :type
   end
 end

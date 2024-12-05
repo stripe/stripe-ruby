@@ -13,13 +13,10 @@ module Stripe
 
     # A detailed description of which types of products the tax code represents.
     attr_reader :description
-
     # Unique identifier for the object.
     attr_reader :id
-
     # A short name for the tax code.
     attr_reader :name
-
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
 

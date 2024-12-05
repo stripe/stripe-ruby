@@ -15,47 +15,37 @@ module Stripe
     # Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
     class Secret < APIResource
       class Scope < Stripe::StripeObject
-        # The secret scope type.
         sig { returns(String) }
         attr_reader :type
-        # The user ID, if type is set to "user"
         sig { returns(String) }
         attr_reader :user
       end
-      # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
+      sig { returns(T::Boolean) }
       # If true, indicates that this secret has been deleted
-      sig { returns(T::Boolean) }
       attr_reader :deleted
-
-      # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
       sig { returns(T.nilable(Integer)) }
+      # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
       attr_reader :expires_at
-
+      sig { returns(String) }
       # Unique identifier for the object.
-      sig { returns(String) }
       attr_reader :id
-
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-
+      sig { returns(String) }
       # A name for the secret that's unique within the scope.
-      sig { returns(String) }
       attr_reader :name
-
-      # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
+      # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-
-      # The plaintext secret value to be stored.
       sig { returns(T.nilable(String)) }
+      # The plaintext secret value to be stored.
       attr_reader :payload
-
-      # Attribute for field scope
       sig { returns(Scope) }
+      # Attribute for field scope
       attr_reader :scope
     end
   end

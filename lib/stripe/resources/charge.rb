@@ -138,10 +138,6 @@ module Stripe
           attr_reader :maximum_amount_capturable, :status
         end
 
-        class PartialAuthorization < Stripe::StripeObject
-          attr_reader :status
-        end
-
         class ThreeDSecure < Stripe::StripeObject
           attr_reader :authentication_flow, :electronic_commerce_indicator, :exemption_indicator, :exemption_indicator_applied, :result, :result_reason, :transaction_id, :version
         end
@@ -177,7 +173,7 @@ module Stripe
           end
           attr_reader :amex_express_checkout, :apple_pay, :dynamic_last4, :google_pay, :link, :masterpass, :samsung_pay, :type, :visa_checkout
         end
-        attr_reader :amount_authorized, :amount_requested, :authorization_code, :brand, :capture_before, :checks, :country, :decremental_authorization, :description, :exp_month, :exp_year, :extended_authorization, :fingerprint, :funding, :iin, :incremental_authorization, :installments, :issuer, :last4, :mandate, :moto, :multicapture, :network, :network_token, :overcapture, :partial_authorization, :three_d_secure, :wallet
+        attr_reader :amount_authorized, :authorization_code, :brand, :capture_before, :checks, :country, :decremental_authorization, :description, :exp_month, :exp_year, :extended_authorization, :fingerprint, :funding, :iin, :incremental_authorization, :installments, :issuer, :last4, :mandate, :moto, :multicapture, :network, :network_token, :overcapture, :three_d_secure, :wallet
       end
 
       class CardPresent < Stripe::StripeObject

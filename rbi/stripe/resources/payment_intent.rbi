@@ -945,8 +945,6 @@ module Stripe
         attr_reader :request_multicapture
         sig { returns(String) }
         attr_reader :request_overcapture
-        sig { returns(String) }
-        attr_reader :request_partial_authorization
         sig { returns(T.nilable(String)) }
         attr_reader :request_three_d_secure
         sig { returns(T::Boolean) }

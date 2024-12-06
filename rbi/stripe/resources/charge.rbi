@@ -269,10 +269,6 @@ module Stripe
           sig { returns(String) }
           attr_reader :status
         end
-        class PartialAuthorization < Stripe::StripeObject
-          sig { returns(String) }
-          attr_reader :status
-        end
         class ThreeDSecure < Stripe::StripeObject
           sig { returns(T.nilable(String)) }
           attr_reader :authentication_flow
@@ -394,8 +390,6 @@ module Stripe
         end
         sig { returns(T.nilable(Integer)) }
         attr_reader :amount_authorized
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :amount_requested
         sig { returns(T.nilable(String)) }
         attr_reader :authorization_code
         sig { returns(T.nilable(String)) }
@@ -442,8 +436,6 @@ module Stripe
         attr_reader :network_token
         sig { returns(Overcapture) }
         attr_reader :overcapture
-        sig { returns(PartialAuthorization) }
-        attr_reader :partial_authorization
         sig { returns(T.nilable(ThreeDSecure)) }
         attr_reader :three_d_secure
         sig { returns(T.nilable(Wallet)) }

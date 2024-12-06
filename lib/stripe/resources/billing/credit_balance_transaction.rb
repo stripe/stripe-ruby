@@ -19,7 +19,11 @@ module Stripe
           end
           attr_reader :monetary, :type
         end
-        attr_reader :amount, :type
+
+        class CreditsApplicationInvoiceVoided < Stripe::StripeObject
+          attr_reader :invoice, :invoice_line_item
+        end
+        attr_reader :amount, :credits_application_invoice_voided, :type
       end
 
       class Debit < Stripe::StripeObject

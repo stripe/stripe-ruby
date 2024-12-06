@@ -19,8 +19,16 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class CreditsApplicationInvoiceVoided < Stripe::StripeObject
+          sig { returns(T.any(String, Stripe::Invoice)) }
+          attr_reader :invoice
+          sig { returns(String) }
+          attr_reader :invoice_line_item
+        end
         sig { returns(Amount) }
         attr_reader :amount
+        sig { returns(T.nilable(CreditsApplicationInvoiceVoided)) }
+        attr_reader :credits_application_invoice_voided
         sig { returns(String) }
         attr_reader :type
       end

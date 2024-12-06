@@ -9,7 +9,7 @@ module Stripe
     class FinancingSummary < SingletonAPIResource
       class Details < Stripe::StripeObject
         class CurrentRepaymentInterval < Stripe::StripeObject
-          sig { returns(Integer) }
+          sig { returns(Float) }
           attr_reader :due_at
           sig { returns(T.nilable(Integer)) }
           attr_reader :paid_amount
@@ -18,7 +18,7 @@ module Stripe
         end
         sig { returns(Integer) }
         attr_reader :advance_amount
-        sig { returns(T.nilable(Integer)) }
+        sig { returns(T.nilable(Float)) }
         attr_reader :advance_paid_out_at
         sig { returns(String) }
         attr_reader :currency
@@ -30,7 +30,7 @@ module Stripe
         attr_reader :paid_amount
         sig { returns(Integer) }
         attr_reader :remaining_amount
-        sig { returns(T.nilable(Integer)) }
+        sig { returns(T.nilable(Float)) }
         attr_reader :repayments_begin_at
         sig { returns(Float) }
         attr_reader :withhold_rate

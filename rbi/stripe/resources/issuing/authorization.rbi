@@ -100,6 +100,8 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :state
         sig { returns(T.nilable(String)) }
+        attr_reader :tax_id
+        sig { returns(T.nilable(String)) }
         attr_reader :terminal_id
         sig { returns(T.nilable(String)) }
         attr_reader :url

@@ -3,8 +3,7 @@
 
 module Stripe
   module Billing
-    # A billing meter event represents a customer's usage of a product. Meter events are used to bill a customer based on their usage.
-    # Meter events are associated with billing meters, which define the shape of the event's payload and how those events are aggregated for billing.
+    # Meter events represent actions that customers take in your system. You can use meter events to bill a customer based on their usage. Meter events are associated with billing meters, which define both the contents of the event's payload and how to aggregate those events.
     class MeterEvent < APIResource
       extend Stripe::APIOperations::Create
 
@@ -13,7 +12,7 @@ module Stripe
         "billing.meter_event"
       end
 
-      # Creates a billing meter event
+      # Creates a billing meter event.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,

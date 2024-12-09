@@ -11,7 +11,7 @@ module Stripe
         @event_summaries = Stripe::Billing::MeterEventSummaryService.new(@requestor)
       end
 
-      # Creates a billing meter
+      # Creates a billing meter.
       def create(params = {}, opts = {})
         request(
           method: :post,
@@ -22,7 +22,7 @@ module Stripe
         )
       end
 
-      # Deactivates a billing meter
+      # When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
       def deactivate(id, params = {}, opts = {})
         request(
           method: :post,
@@ -44,7 +44,7 @@ module Stripe
         )
       end
 
-      # Reactivates a billing meter
+      # When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
       def reactivate(id, params = {}, opts = {})
         request(
           method: :post,
@@ -55,7 +55,7 @@ module Stripe
         )
       end
 
-      # Retrieves a billing meter given an ID
+      # Retrieves a billing meter given an ID.
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
@@ -66,7 +66,7 @@ module Stripe
         )
       end
 
-      # Updates a billing meter
+      # Updates a billing meter.
       def update(id, params = {}, opts = {})
         request(
           method: :post,

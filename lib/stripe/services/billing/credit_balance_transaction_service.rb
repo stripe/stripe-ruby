@@ -4,7 +4,7 @@
 module Stripe
   module Billing
     class CreditBalanceTransactionService < StripeService
-      # Retrieve a list of credit balance transactions
+      # Retrieve a list of credit balance transactions.
       def list(params = {}, opts = {})
         request(
           method: :get,
@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Retrieves a credit balance transaction
+      # Retrieves a credit balance transaction.
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,

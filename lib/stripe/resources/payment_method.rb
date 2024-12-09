@@ -115,7 +115,7 @@ module Stripe
         end
         attr_reader :amex_express_checkout, :apple_pay, :dynamic_last4, :google_pay, :link, :masterpass, :samsung_pay, :type, :visa_checkout
       end
-      attr_reader :brand, :checks, :country, :description, :display_brand, :exp_month, :exp_year, :fingerprint, :funding, :generated_from, :iin, :issuer, :last4, :networks, :three_d_secure_usage, :wallet
+      attr_reader :brand, :checks, :country, :description, :display_brand, :exp_month, :exp_year, :fingerprint, :funding, :generated_from, :iin, :issuer, :last4, :networks, :regulated_status, :three_d_secure_usage, :wallet
     end
 
     class CardPresent < Stripe::StripeObject

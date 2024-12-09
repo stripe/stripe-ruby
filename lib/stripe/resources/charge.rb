@@ -173,7 +173,7 @@ module Stripe
           end
           attr_reader :amex_express_checkout, :apple_pay, :dynamic_last4, :google_pay, :link, :masterpass, :samsung_pay, :type, :visa_checkout
         end
-        attr_reader :amount_authorized, :authorization_code, :brand, :capture_before, :checks, :country, :decremental_authorization, :description, :exp_month, :exp_year, :extended_authorization, :fingerprint, :funding, :iin, :incremental_authorization, :installments, :issuer, :last4, :mandate, :moto, :multicapture, :network, :network_token, :overcapture, :three_d_secure, :wallet
+        attr_reader :amount_authorized, :authorization_code, :brand, :capture_before, :checks, :country, :decremental_authorization, :description, :exp_month, :exp_year, :extended_authorization, :fingerprint, :funding, :iin, :incremental_authorization, :installments, :issuer, :last4, :mandate, :moto, :multicapture, :network, :network_token, :overcapture, :regulated_status, :three_d_secure, :wallet
       end
 
       class CardPresent < Stripe::StripeObject

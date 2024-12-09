@@ -12,7 +12,7 @@ module Stripe
         "billing.credit_balance_transaction"
       end
 
-      # Retrieve a list of credit balance transactions
+      # Retrieve a list of credit balance transactions.
       def self.list(filters = {}, opts = {})
         request_stripe_object(
           method: :get,

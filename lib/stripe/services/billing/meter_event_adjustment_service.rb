@@ -4,7 +4,7 @@
 module Stripe
   module Billing
     class MeterEventAdjustmentService < StripeService
-      # Creates a billing meter event adjustment
+      # Creates a billing meter event adjustment.
       def create(params = {}, opts = {})
         request(
           method: :post,

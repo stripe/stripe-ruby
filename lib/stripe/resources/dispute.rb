@@ -34,7 +34,11 @@ module Stripe
           end
           attr_reader :disputed_transaction, :prior_undisputed_transactions
         end
-        attr_reader :visa_compelling_evidence_3
+
+        class VisaCompliance < Stripe::StripeObject
+          attr_reader :fee_acknowledged
+        end
+        attr_reader :visa_compelling_evidence_3, :visa_compliance
       end
       attr_reader :access_activity_log, :billing_address, :cancellation_policy, :cancellation_policy_disclosure, :cancellation_rebuttal, :customer_communication, :customer_email_address, :customer_name, :customer_purchase_ip, :customer_signature, :duplicate_charge_documentation, :duplicate_charge_explanation, :duplicate_charge_id, :enhanced_evidence, :product_description, :receipt, :refund_policy, :refund_policy_disclosure, :refund_refusal_explanation, :service_date, :service_documentation, :shipping_address, :shipping_carrier, :shipping_date, :shipping_documentation, :shipping_tracking_number, :uncategorized_file, :uncategorized_text
     end
@@ -44,7 +48,11 @@ module Stripe
         class VisaCompellingEvidence3 < Stripe::StripeObject
           attr_reader :required_actions, :status
         end
-        attr_reader :visa_compelling_evidence_3
+
+        class VisaCompliance < Stripe::StripeObject
+          attr_reader :status
+        end
+        attr_reader :visa_compelling_evidence_3, :visa_compliance
       end
       attr_reader :due_by, :enhanced_eligibility, :has_evidence, :past_due, :submission_count
     end

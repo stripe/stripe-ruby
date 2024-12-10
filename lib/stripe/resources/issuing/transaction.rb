@@ -22,7 +22,7 @@ module Stripe
       end
 
       class MerchantData < Stripe::StripeObject
-        attr_reader :category, :category_code, :city, :country, :name, :network_id, :postal_code, :state, :terminal_id, :url
+        attr_reader :category, :category_code, :city, :country, :name, :network_id, :postal_code, :state, :tax_id, :terminal_id, :url
       end
 
       class NetworkData < Stripe::StripeObject

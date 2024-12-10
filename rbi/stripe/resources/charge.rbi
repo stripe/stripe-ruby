@@ -440,6 +440,8 @@ module Stripe
         attr_reader :network
         sig { returns(T.nilable(NetworkToken)) }
         attr_reader :network_token
+        sig { returns(T.nilable(String)) }
+        attr_reader :network_transaction_id
         sig { returns(Overcapture) }
         attr_reader :overcapture
         sig { returns(PartialAuthorization) }

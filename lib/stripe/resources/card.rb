@@ -82,6 +82,8 @@ module Stripe
     attr_reader :networks
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # Status of a card based on the card issuer.
+    attr_reader :regulated_status
     # For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated.
     attr_reader :status
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.

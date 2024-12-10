@@ -26,12 +26,6 @@ module Stripe
       sig { returns(Integer) }
       attr_reader :value
     end
-    class AmountRefunded < Stripe::StripeObject
-      sig { returns(String) }
-      attr_reader :currency
-      sig { returns(Integer) }
-      attr_reader :value
-    end
     class AmountRequested < Stripe::StripeObject
       sig { returns(String) }
       attr_reader :currency
@@ -119,9 +113,6 @@ module Stripe
     sig { returns(AmountGuaranteed) }
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_guaranteed
-    sig { returns(AmountRefunded) }
-    # A representation of an amount of money, consisting of an amount and a currency.
-    attr_reader :amount_refunded
     sig { returns(AmountRequested) }
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_requested

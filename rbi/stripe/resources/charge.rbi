@@ -444,6 +444,8 @@ module Stripe
         attr_reader :overcapture
         sig { returns(PartialAuthorization) }
         attr_reader :partial_authorization
+        sig { returns(T.nilable(String)) }
+        attr_reader :regulated_status
         sig { returns(T.nilable(ThreeDSecure)) }
         attr_reader :three_d_secure
         sig { returns(T.nilable(Wallet)) }

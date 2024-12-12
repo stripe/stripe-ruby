@@ -53,18 +53,27 @@ Metrics/MethodLength:
   Max: 55
   Exclude:
     - "lib/stripe/services/v1_services.rb"
+  AllowedMethods:
+    - initialize
 
 Metrics/ModuleLength:
   Enabled: false
 
 Metrics/ParameterLists:
+  Enabled: False
   # There's 2 methods in `StripeClient` that have long parameter lists.
-  Max: 8
-  # Optional parameters should be consistent across libraries, we need not be
-  # concerned about this. Was introduced with adding `base_address`
-  Exclude:
-    - "lib/stripe/api_operations/request.rb"
-    - "lib/stripe/stripe_object.rb"
+  # Max: 8
+  # # Optional parameters should be consistent across libraries, we need not be
+  # # concerned about this. Was introduced with adding `base_address`
+  # Exclude:
+  #   - "lib/stripe/api_operations/request.rb"
+  #   - "lib/stripe/stripe_object.rb"
+  # AllowedMethods:
+  #   - initialize
+
+Naming/MethodParameterName:
+  # We have many parameters that are less than 3 characters for tax codes
+  Enabled: false
 
 Naming/VariableNumber:
   # We use a variety of variable number syntaxes

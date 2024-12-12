@@ -24,10 +24,6 @@ module Stripe
       attr_reader :currency, :value
     end
 
-    class AmountRefunded < Stripe::StripeObject
-      attr_reader :currency, :value
-    end
-
     class AmountRequested < Stripe::StripeObject
       attr_reader :currency, :value
     end
@@ -62,8 +58,6 @@ module Stripe
     attr_reader :amount_failed
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_guaranteed
-    # A representation of an amount of money, consisting of an amount and a currency.
-    attr_reader :amount_refunded
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_requested
     # Time at which the object was created. Measured in seconds since the Unix epoch.

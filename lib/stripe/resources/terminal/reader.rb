@@ -66,11 +66,11 @@ module Stripe
             end
             attr_reader :enable_customer_cancellation, :skip_tipping, :tipping
           end
-          attr_reader :collect_config, :payment_intent, :payment_method, :stripe_account
+          attr_reader :account, :collect_config, :payment_intent, :payment_method, :stripe_account
         end
 
         class ConfirmPaymentIntent < Stripe::StripeObject
-          attr_reader :payment_intent, :stripe_account
+          attr_reader :account, :payment_intent, :stripe_account
         end
 
         class ProcessPaymentIntent < Stripe::StripeObject
@@ -80,7 +80,7 @@ module Stripe
             end
             attr_reader :enable_customer_cancellation, :skip_tipping, :tipping
           end
-          attr_reader :payment_intent, :process_config, :stripe_account
+          attr_reader :account, :payment_intent, :process_config, :stripe_account
         end
 
         class ProcessSetupIntent < Stripe::StripeObject
@@ -94,7 +94,7 @@ module Stripe
           class RefundPaymentConfig < Stripe::StripeObject
             attr_reader :enable_customer_cancellation
           end
-          attr_reader :amount, :charge, :metadata, :payment_intent, :reason, :refund, :refund_application_fee, :refund_payment_config, :reverse_transfer, :stripe_account
+          attr_reader :account, :amount, :charge, :metadata, :payment_intent, :reason, :refund, :refund_application_fee, :refund_payment_config, :reverse_transfer, :stripe_account
         end
 
         class SetReaderDisplay < Stripe::StripeObject

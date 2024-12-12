@@ -38,6 +38,8 @@ module Stripe
     attr_reader :address_zip
     # If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     attr_reader :address_zip_check
+    # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+    attr_reader :allow_redisplay
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
     # Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
@@ -82,6 +84,8 @@ module Stripe
     attr_reader :networks
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # Status of a card based on the card issuer.
+    attr_reader :regulated_status
     # For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated.
     attr_reader :status
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.

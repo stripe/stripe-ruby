@@ -38,6 +38,8 @@ module Stripe
     attr_reader :address_zip
     # If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     attr_reader :address_zip_check
+    # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+    attr_reader :allow_redisplay
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
     # Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.

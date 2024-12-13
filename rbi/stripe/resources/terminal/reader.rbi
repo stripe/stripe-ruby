@@ -104,8 +104,6 @@ module Stripe
             sig { returns(Tipping) }
             attr_reader :tipping
           end
-          sig { returns(String) }
-          attr_reader :account
           sig { returns(CollectConfig) }
           attr_reader :collect_config
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
@@ -116,8 +114,6 @@ module Stripe
           attr_reader :stripe_account
         end
         class ConfirmPaymentIntent < Stripe::StripeObject
-          sig { returns(String) }
-          attr_reader :account
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
           attr_reader :payment_intent
           sig { returns(String) }
@@ -136,8 +132,6 @@ module Stripe
             sig { returns(Tipping) }
             attr_reader :tipping
           end
-          sig { returns(String) }
-          attr_reader :account
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
           attr_reader :payment_intent
           sig { returns(ProcessConfig) }
@@ -162,8 +156,6 @@ module Stripe
             sig { returns(T::Boolean) }
             attr_reader :enable_customer_cancellation
           end
-          sig { returns(String) }
-          attr_reader :account
           sig { returns(Integer) }
           attr_reader :amount
           sig { returns(T.any(String, Stripe::Charge)) }

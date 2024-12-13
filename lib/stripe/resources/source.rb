@@ -148,6 +148,8 @@ module Stripe
     attr_reader :acss_debit
     # Attribute for field alipay
     attr_reader :alipay
+    # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+    attr_reader :allow_redisplay
     # A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources.
     attr_reader :amount
     # Attribute for field au_becs_debit

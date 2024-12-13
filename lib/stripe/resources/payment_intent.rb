@@ -347,7 +347,7 @@ module Stripe
           end
           attr_reader :address, :phone
         end
-        attr_reader :capture_method, :installments, :mandate_options, :network, :request_decremental_authorization, :request_extended_authorization, :request_incremental_authorization, :request_multicapture, :request_overcapture, :request_three_d_secure, :require_cvc_recollection, :setup_future_usage, :statement_descriptor_suffix_kana, :statement_descriptor_suffix_kanji, :statement_details
+        attr_reader :capture_method, :installments, :mandate_options, :network, :request_decremental_authorization, :request_extended_authorization, :request_incremental_authorization, :request_multicapture, :request_overcapture, :request_partial_authorization, :request_three_d_secure, :require_cvc_recollection, :setup_future_usage, :statement_descriptor_suffix_kana, :statement_descriptor_suffix_kanji, :statement_details
       end
 
       class CardPresent < Stripe::StripeObject

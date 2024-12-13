@@ -81,8 +81,14 @@ module Stripe
           sig { returns(T::Array[PriorUndisputedTransaction]) }
           attr_reader :prior_undisputed_transactions
         end
+        class VisaCompliance < Stripe::StripeObject
+          sig { returns(T::Boolean) }
+          attr_reader :fee_acknowledged
+        end
         sig { returns(VisaCompellingEvidence3) }
         attr_reader :visa_compelling_evidence_3
+        sig { returns(VisaCompliance) }
+        attr_reader :visa_compliance
       end
       sig { returns(T.nilable(String)) }
       attr_reader :access_activity_log
@@ -149,8 +155,14 @@ module Stripe
           sig { returns(String) }
           attr_reader :status
         end
+        class VisaCompliance < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :status
+        end
         sig { returns(VisaCompellingEvidence3) }
         attr_reader :visa_compelling_evidence_3
+        sig { returns(VisaCompliance) }
+        attr_reader :visa_compliance
       end
       sig { returns(T.nilable(Integer)) }
       attr_reader :due_by

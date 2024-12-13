@@ -40,6 +40,9 @@ module Stripe
     sig { returns(T.nilable(String)) }
     # If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     attr_reader :address_zip_check
+    sig { returns(T.nilable(String)) }
+    # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+    attr_reader :allow_redisplay
     sig { returns(T.nilable(T::Array[String])) }
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
@@ -105,6 +108,9 @@ module Stripe
     sig { returns(String) }
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    sig { returns(T.nilable(String)) }
+    # Status of a card based on the card issuer.
+    attr_reader :regulated_status
     sig { returns(T.nilable(String)) }
     # For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated.
     attr_reader :status

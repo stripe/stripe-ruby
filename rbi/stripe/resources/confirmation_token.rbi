@@ -343,6 +343,8 @@ module Stripe
         attr_reader :last4
         sig { returns(T.nilable(Networks)) }
         attr_reader :networks
+        sig { returns(T.nilable(String)) }
+        attr_reader :regulated_status
         sig { returns(T.nilable(ThreeDSecureUsage)) }
         attr_reader :three_d_secure_usage
         sig { returns(T.nilable(Wallet)) }

@@ -109,11 +109,11 @@ module Stripe
       end
 
       # List gift card transactions for a gift card
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/gift_cards/transactions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

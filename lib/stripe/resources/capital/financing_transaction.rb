@@ -43,11 +43,11 @@ module Stripe
 
       # Returns a list of financing transactions. The transactions are returned in sorted order,
       # with the most recent transactions appearing first.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/capital/financing_transactions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

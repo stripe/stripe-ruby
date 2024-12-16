@@ -36,11 +36,11 @@ module Stripe
       attr_reader :settlement
 
       # Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/issuing/dispute_settlement_details",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

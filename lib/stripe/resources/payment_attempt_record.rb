@@ -88,11 +88,11 @@ module Stripe
     attr_reader :shipping_details
 
     # List all the Payment Attempt Records attached to the specified Payment Record.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/payment_attempt_records",
-        params: filters,
+        params: params,
         opts: opts
       )
     end

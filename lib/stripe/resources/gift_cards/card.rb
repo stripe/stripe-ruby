@@ -63,11 +63,11 @@ module Stripe
       end
 
       # List gift cards for an account
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/gift_cards/cards",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

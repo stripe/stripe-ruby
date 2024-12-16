@@ -11,6 +11,17 @@ module Stripe
         @features = Stripe::Treasury::FinancialAccountFeaturesService.new(@requestor)
       end
 
+      # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+      def close(financial_account, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(financial_account) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
       # Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
       def create(params = {}, opts = {})
         request(

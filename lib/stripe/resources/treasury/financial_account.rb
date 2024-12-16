@@ -53,10 +53,14 @@ module Stripe
       attr_reader :financial_addresses
       # Unique identifier for the object.
       attr_reader :id
+      # Attribute for field is_default
+      attr_reader :is_default
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+      # The nickname for the FinancialAccount.
+      attr_reader :nickname
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The array of paths to pending Features in the Features hash.
@@ -71,6 +75,26 @@ module Stripe
       attr_reader :status_details
       # The currencies the FinancialAccount can hold a balance in. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
       attr_reader :supported_currencies
+
+      # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+      def close(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+      def self.close(financial_account, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(financial_account) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       # Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
       def self.create(params = {}, opts = {})

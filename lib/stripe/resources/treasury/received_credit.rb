@@ -32,7 +32,7 @@ module Stripe
 
       class LinkedFlows < Stripe::StripeObject
         class SourceFlowDetails < Stripe::StripeObject
-          attr_reader :credit_reversal, :outbound_payment, :payout, :type
+          attr_reader :credit_reversal, :outbound_payment, :outbound_transfer, :payout, :type
         end
         attr_reader :credit_reversal, :issuing_authorization, :issuing_transaction, :source_flow, :source_flow_details, :source_flow_type
       end

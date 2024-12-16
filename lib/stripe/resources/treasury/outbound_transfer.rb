@@ -25,10 +25,14 @@ module Stripe
           attr_reader :address, :email, :name
         end
 
+        class FinancialAccount < Stripe::StripeObject
+          attr_reader :id, :network
+        end
+
         class UsBankAccount < Stripe::StripeObject
           attr_reader :account_holder_type, :account_type, :bank_name, :fingerprint, :last4, :mandate, :network, :routing_number
         end
-        attr_reader :billing_details, :type, :us_bank_account
+        attr_reader :billing_details, :financial_account, :type, :us_bank_account
       end
 
       class NetworkDetails < Stripe::StripeObject

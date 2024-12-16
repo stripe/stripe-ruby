@@ -46,11 +46,11 @@ module Stripe
       end
 
       # Returns a list of InboundTransfers sent from the specified FinancialAccount.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/inbound_transfers",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

@@ -51,8 +51,8 @@ module Stripe
     end
 
     # Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/products", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/products", params: params, opts: opts)
     end
 
     def self.search(params = {}, opts = {})

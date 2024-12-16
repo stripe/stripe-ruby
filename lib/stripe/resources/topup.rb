@@ -43,8 +43,8 @@ module Stripe
     end
 
     # Returns a list of top-ups.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/topups", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/topups", params: params, opts: opts)
     end
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.

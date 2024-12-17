@@ -309,6 +309,19 @@ module Stripe
         assert_equal obj.id, "acc_123"
       end
 
+      should "allow refresh on deserialized object" do
+        expected_body = "{\"id\": \"acc_123\", \"object\": \"account\"}"
+
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acc_123")
+          .to_return(status: 200, body: expected_body)
+
+        obj = @client.deserialize(expected_body)
+        obj = obj.refresh
+
+        assert_equal obj.class, Stripe::Account
+        assert_equal obj.id, "acc_123"
+      end
+
       should "deserializes hash into unknown object" do
         expected_body = { "id" => "acc_123", "object" => "unknown" }
 

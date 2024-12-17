@@ -21,92 +21,696 @@ module Stripe
         class CollectInputs < Stripe::StripeObject
           class Input < Stripe::StripeObject
             class CustomText < Stripe::StripeObject
-              attr_reader :description, :skip_button, :submit_button, :title
+              # Customize the default description for this input
+              attr_reader :description
+              # Customize the default label for this input's skip button
+              attr_reader :skip_button
+              # Customize the default label for this input's submit button
+              attr_reader :submit_button
+              # Customize the default title for this input
+              attr_reader :title
             end
 
             class Email < Stripe::StripeObject
+              # The collected email address
               attr_reader :value
             end
 
             class Numeric < Stripe::StripeObject
+              # The collected number
               attr_reader :value
             end
 
             class Phone < Stripe::StripeObject
+              # The collected phone number
               attr_reader :value
             end
 
             class Selection < Stripe::StripeObject
               class Choice < Stripe::StripeObject
-                attr_reader :style, :value
+                # The button style for the choice
+                attr_reader :style
+                # A value to be selected
+                attr_reader :value
               end
-              attr_reader :choices, :value
+              # List of possible choices to be selected
+              attr_reader :choices
+              # The value of the selected choice
+              attr_reader :value
             end
 
             class Signature < Stripe::StripeObject
+              # The File ID of a collected signature image
               attr_reader :value
             end
 
             class Text < Stripe::StripeObject
+              # The collected text value
               attr_reader :value
             end
 
             class Toggle < Stripe::StripeObject
-              attr_reader :default_value, :description, :title, :value
+              # The toggle's default value
+              attr_reader :default_value
+              # The toggle's description text
+              attr_reader :description
+              # The toggle's title text
+              attr_reader :title
+              # The toggle's collected value
+              attr_reader :value
             end
-            attr_reader :custom_text, :email, :numeric, :phone, :required, :selection, :signature, :skipped, :text, :toggles, :type
+            # Default text of input being collected.
+            attr_reader :custom_text
+            # Information about a email being collected using a reader
+            attr_reader :email
+            # Information about a number being collected using a reader
+            attr_reader :numeric
+            # Information about a phone number being collected using a reader
+            attr_reader :phone
+            # Indicate that this input is required, disabling the skip button.
+            attr_reader :required
+            # Information about a selection being collected using a reader
+            attr_reader :selection
+            # Information about a signature being collected using a reader
+            attr_reader :signature
+            # Indicate that this input was skipped by the user.
+            attr_reader :skipped
+            # Information about text being collected using a reader
+            attr_reader :text
+            # List of toggles being collected. Values are present if collection is complete.
+            attr_reader :toggles
+            # Type of input being collected.
+            attr_reader :type
           end
-          attr_reader :inputs, :metadata
+          # List of inputs to be collected.
+          attr_reader :inputs
+          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          attr_reader :metadata
         end
 
         class CollectPaymentMethod < Stripe::StripeObject
           class CollectConfig < Stripe::StripeObject
             class Tipping < Stripe::StripeObject
+              # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
             end
-            attr_reader :enable_customer_cancellation, :skip_tipping, :tipping
+            # Enable customer initiated cancellation when processing this payment.
+            attr_reader :enable_customer_cancellation
+            # Override showing a tipping selection screen on this transaction.
+            attr_reader :skip_tipping
+            # Represents a per-transaction tipping configuration
+            attr_reader :tipping
           end
-          attr_reader :account, :collect_config, :payment_intent, :payment_method, :stripe_account
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :collect_config
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+          # PaymentMethod objects represent your customer's payment instruments.
+          # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+          # Customer objects to store instrument details for future payments.
+          #
+          # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+          attr_reader :payment_method
+          # This field will be deprecated. Please use `account` instead.
+          attr_reader :stripe_account
         end
 
         class ConfirmPaymentIntent < Stripe::StripeObject
-          attr_reader :account, :payment_intent, :stripe_account
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+          # This field will be deprecated. Please use `account` instead.
+          attr_reader :stripe_account
         end
 
         class ProcessPaymentIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
             class Tipping < Stripe::StripeObject
+              # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
             end
-            attr_reader :enable_customer_cancellation, :skip_tipping, :tipping
+            # Enable customer initiated cancellation when processing this payment.
+            attr_reader :enable_customer_cancellation
+            # Override showing a tipping selection screen on this transaction.
+            attr_reader :skip_tipping
+            # Represents a per-transaction tipping configuration
+            attr_reader :tipping
           end
-          attr_reader :account, :payment_intent, :process_config, :stripe_account
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :process_config
+          # This field will be deprecated. Please use `account` instead.
+          attr_reader :stripe_account
         end
 
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
+            # Enable customer initiated cancellation when processing this SetupIntent.
             attr_reader :enable_customer_cancellation
           end
-          attr_reader :generated_card, :process_config, :setup_intent
+          # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
+          attr_reader :generated_card
+          # Represents a per-setup override of a reader configuration
+          attr_reader :process_config
+          # Most recent SetupIntent processed by the reader.
+          attr_reader :setup_intent
         end
 
         class RefundPayment < Stripe::StripeObject
           class RefundPaymentConfig < Stripe::StripeObject
+            # Enable customer initiated cancellation when refunding this payment.
             attr_reader :enable_customer_cancellation
           end
-          attr_reader :account, :amount, :charge, :metadata, :payment_intent, :reason, :refund, :refund_application_fee, :refund_payment_config, :reverse_transfer, :stripe_account
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # The amount being refunded.
+          attr_reader :amount
+          # Charge that is being refunded.
+          attr_reader :charge
+          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          attr_reader :metadata
+          # Payment intent that is being refunded.
+          attr_reader :payment_intent
+          # The reason for the refund.
+          attr_reader :reason
+          # Unique identifier for the refund object.
+          attr_reader :refund
+          # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
+          attr_reader :refund_application_fee
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :refund_payment_config
+          # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+          attr_reader :reverse_transfer
+          # This field will be deprecated. Please use `account` instead.
+          attr_reader :stripe_account
         end
 
         class SetReaderDisplay < Stripe::StripeObject
           class Cart < Stripe::StripeObject
             class LineItem < Stripe::StripeObject
-              attr_reader :amount, :description, :quantity
+              # The amount of the line item. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+              attr_reader :amount
+              # Description of the line item.
+              attr_reader :description
+              # The quantity of the line item.
+              attr_reader :quantity
             end
-            attr_reader :currency, :line_items, :tax, :total
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+            # List of line items in the cart.
+            attr_reader :line_items
+            # Tax amount for the entire cart. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            attr_reader :tax
+            # Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            attr_reader :total
           end
-          attr_reader :cart, :type
+          # Cart object to be displayed by the reader.
+          attr_reader :cart
+          # Type of information to be displayed by the reader.
+          attr_reader :type
         end
-        attr_reader :collect_inputs, :collect_payment_method, :confirm_payment_intent, :failure_code, :failure_message, :process_payment_intent, :process_setup_intent, :refund_payment, :set_reader_display, :status, :type
+        # Represents a reader action to collect customer inputs
+        attr_reader :collect_inputs
+        # Represents a reader action to collect a payment method
+        attr_reader :collect_payment_method
+        # Represents a reader action to confirm a payment
+        attr_reader :confirm_payment_intent
+        # Failure code, only set if status is `failed`.
+        attr_reader :failure_code
+        # Detailed failure message, only set if status is `failed`.
+        attr_reader :failure_message
+        # Represents a reader action to process a payment intent
+        attr_reader :process_payment_intent
+        # Represents a reader action to process a setup intent
+        attr_reader :process_setup_intent
+        # Represents a reader action to refund a payment
+        attr_reader :refund_payment
+        # Represents a reader action to set the reader display
+        attr_reader :set_reader_display
+        # Status of the action performed by the reader.
+        attr_reader :status
+        # Type of action performed by the reader.
+        attr_reader :type
+      end
+
+      class DeleteParams < Stripe::RequestParams
+      end
+
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class UpdateParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # The new label of the reader.
+        attr_accessor :label
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+
+        def initialize(expand: nil, label: nil, metadata: nil)
+          @expand = expand
+          @label = label
+          @metadata = metadata
+        end
+      end
+
+      class ListParams < Stripe::RequestParams
+        # Filters readers by device type
+        attr_accessor :device_type
+        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        attr_accessor :ending_before
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        attr_accessor :limit
+        # A location ID to filter the response list to only readers at the specific location
+        attr_accessor :location
+        # Filters readers by serial number
+        attr_accessor :serial_number
+        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        attr_accessor :starting_after
+        # A status filter to filter readers to only offline or online readers
+        attr_accessor :status
+
+        def initialize(
+          device_type: nil,
+          ending_before: nil,
+          expand: nil,
+          limit: nil,
+          location: nil,
+          serial_number: nil,
+          starting_after: nil,
+          status: nil
+        )
+          @device_type = device_type
+          @ending_before = ending_before
+          @expand = expand
+          @limit = limit
+          @location = location
+          @serial_number = serial_number
+          @starting_after = starting_after
+          @status = status
+        end
+      end
+
+      class CreateParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
+        attr_accessor :label
+        # The location to assign the reader to.
+        attr_accessor :location
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # A code generated by the reader used for registering to an account.
+        attr_accessor :registration_code
+
+        def initialize(
+          expand: nil,
+          label: nil,
+          location: nil,
+          metadata: nil,
+          registration_code: nil
+        )
+          @expand = expand
+          @label = label
+          @location = location
+          @metadata = metadata
+          @registration_code = registration_code
+        end
+      end
+
+      class CancelActionParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class CollectInputsParams < Stripe::RequestParams
+        class Input < Stripe::RequestParams
+          class CustomText < Stripe::RequestParams
+            # The description which will be displayed when collecting this input
+            attr_accessor :description
+            # The skip button text
+            attr_accessor :skip_button
+            # The submit button text
+            attr_accessor :submit_button
+            # The title which will be displayed when collecting this input
+            attr_accessor :title
+
+            def initialize(description: nil, skip_button: nil, submit_button: nil, title: nil)
+              @description = description
+              @skip_button = skip_button
+              @submit_button = submit_button
+              @title = title
+            end
+          end
+
+          class Selection < Stripe::RequestParams
+            class Choice < Stripe::RequestParams
+              # The style of the button which will be shown for this choice
+              attr_accessor :style
+              # The text which will be shown on the button for this choice
+              attr_accessor :value
+
+              def initialize(style: nil, value: nil)
+                @style = style
+                @value = value
+              end
+            end
+            # List of choices for the `selection` input
+            attr_accessor :choices
+
+            def initialize(choices: nil)
+              @choices = choices
+            end
+          end
+
+          class Toggle < Stripe::RequestParams
+            # The default value of the toggle
+            attr_accessor :default_value
+            # The description which will be displayed for the toggle
+            attr_accessor :description
+            # The title which will be displayed for the toggle
+            attr_accessor :title
+
+            def initialize(default_value: nil, description: nil, title: nil)
+              @default_value = default_value
+              @description = description
+              @title = title
+            end
+          end
+          # Customize the text which will be displayed while collecting this input
+          attr_accessor :custom_text
+          # Indicate that this input is required, disabling the skip button
+          attr_accessor :required
+          # Options for the `selection` input
+          attr_accessor :selection
+          # List of toggles to be displayed and customization for the toggles
+          attr_accessor :toggles
+          # The type of input to collect
+          attr_accessor :type
+
+          def initialize(custom_text: nil, required: nil, selection: nil, toggles: nil, type: nil)
+            @custom_text = custom_text
+            @required = required
+            @selection = selection
+            @toggles = toggles
+            @type = type
+          end
+        end
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # List of inputs to be collected using the Reader
+        attr_accessor :inputs
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+
+        def initialize(expand: nil, inputs: nil, metadata: nil)
+          @expand = expand
+          @inputs = inputs
+          @metadata = metadata
+        end
+      end
+
+      class CollectPaymentMethodParams < Stripe::RequestParams
+        class CollectConfig < Stripe::RequestParams
+          class Tipping < Stripe::RequestParams
+            # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+            attr_accessor :amount_eligible
+
+            def initialize(amount_eligible: nil)
+              @amount_eligible = amount_eligible
+            end
+          end
+          # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+          attr_accessor :allow_redisplay
+          # Enables cancel button on transaction screens.
+          attr_accessor :enable_customer_cancellation
+          # Override showing a tipping selection screen on this transaction.
+          attr_accessor :skip_tipping
+          # Tipping configuration for this transaction.
+          attr_accessor :tipping
+
+          def initialize(
+            allow_redisplay: nil,
+            enable_customer_cancellation: nil,
+            skip_tipping: nil,
+            tipping: nil
+          )
+            @allow_redisplay = allow_redisplay
+            @enable_customer_cancellation = enable_customer_cancellation
+            @skip_tipping = skip_tipping
+            @tipping = tipping
+          end
+        end
+        # Configuration overrides
+        attr_accessor :collect_config
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # PaymentIntent ID
+        attr_accessor :payment_intent
+
+        def initialize(collect_config: nil, expand: nil, payment_intent: nil)
+          @collect_config = collect_config
+          @expand = expand
+          @payment_intent = payment_intent
+        end
+      end
+
+      class ConfirmPaymentIntentParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # PaymentIntent ID
+        attr_accessor :payment_intent
+
+        def initialize(expand: nil, payment_intent: nil)
+          @expand = expand
+          @payment_intent = payment_intent
+        end
+      end
+
+      class ProcessPaymentIntentParams < Stripe::RequestParams
+        class ProcessConfig < Stripe::RequestParams
+          class Tipping < Stripe::RequestParams
+            # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+            attr_accessor :amount_eligible
+
+            def initialize(amount_eligible: nil)
+              @amount_eligible = amount_eligible
+            end
+          end
+          # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+          attr_accessor :allow_redisplay
+          # Enables cancel button on transaction screens.
+          attr_accessor :enable_customer_cancellation
+          # Override showing a tipping selection screen on this transaction.
+          attr_accessor :skip_tipping
+          # Tipping configuration for this transaction.
+          attr_accessor :tipping
+
+          def initialize(
+            allow_redisplay: nil,
+            enable_customer_cancellation: nil,
+            skip_tipping: nil,
+            tipping: nil
+          )
+            @allow_redisplay = allow_redisplay
+            @enable_customer_cancellation = enable_customer_cancellation
+            @skip_tipping = skip_tipping
+            @tipping = tipping
+          end
+        end
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # PaymentIntent ID
+        attr_accessor :payment_intent
+        # Configuration overrides
+        attr_accessor :process_config
+
+        def initialize(expand: nil, payment_intent: nil, process_config: nil)
+          @expand = expand
+          @payment_intent = payment_intent
+          @process_config = process_config
+        end
+      end
+
+      class ProcessSetupIntentParams < Stripe::RequestParams
+        class ProcessConfig < Stripe::RequestParams
+          # Enables cancel button on transaction screens.
+          attr_accessor :enable_customer_cancellation
+
+          def initialize(enable_customer_cancellation: nil)
+            @enable_customer_cancellation = enable_customer_cancellation
+          end
+        end
+        # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+        attr_accessor :allow_redisplay
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # Configuration overrides
+        attr_accessor :process_config
+        # SetupIntent ID
+        attr_accessor :setup_intent
+
+        def initialize(allow_redisplay: nil, expand: nil, process_config: nil, setup_intent: nil)
+          @allow_redisplay = allow_redisplay
+          @expand = expand
+          @process_config = process_config
+          @setup_intent = setup_intent
+        end
+      end
+
+      class RefundPaymentParams < Stripe::RequestParams
+        class RefundPaymentConfig < Stripe::RequestParams
+          # Enables cancel button on transaction screens.
+          attr_accessor :enable_customer_cancellation
+
+          def initialize(enable_customer_cancellation: nil)
+            @enable_customer_cancellation = enable_customer_cancellation
+          end
+        end
+        # A positive integer in __cents__ representing how much of this charge to refund.
+        attr_accessor :amount
+        # ID of the Charge to refund.
+        attr_accessor :charge
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # ID of the PaymentIntent to refund.
+        attr_accessor :payment_intent
+        # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
+        attr_accessor :refund_application_fee
+        # Configuration overrides
+        attr_accessor :refund_payment_config
+        # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+        attr_accessor :reverse_transfer
+
+        def initialize(
+          amount: nil,
+          charge: nil,
+          expand: nil,
+          metadata: nil,
+          payment_intent: nil,
+          refund_application_fee: nil,
+          refund_payment_config: nil,
+          reverse_transfer: nil
+        )
+          @amount = amount
+          @charge = charge
+          @expand = expand
+          @metadata = metadata
+          @payment_intent = payment_intent
+          @refund_application_fee = refund_application_fee
+          @refund_payment_config = refund_payment_config
+          @reverse_transfer = reverse_transfer
+        end
+      end
+
+      class SetReaderDisplayParams < Stripe::RequestParams
+        class Cart < Stripe::RequestParams
+          class LineItem < Stripe::RequestParams
+            # The price of the item in cents.
+            attr_accessor :amount
+            # The description or name of the item.
+            attr_accessor :description
+            # The quantity of the line item being purchased.
+            attr_accessor :quantity
+
+            def initialize(amount: nil, description: nil, quantity: nil)
+              @amount = amount
+              @description = description
+              @quantity = quantity
+            end
+          end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_accessor :currency
+          # Array of line items that were purchased.
+          attr_accessor :line_items
+          # The amount of tax in cents.
+          attr_accessor :tax
+          # Total balance of cart due in cents.
+          attr_accessor :total
+
+          def initialize(currency: nil, line_items: nil, tax: nil, total: nil)
+            @currency = currency
+            @line_items = line_items
+            @tax = tax
+            @total = total
+          end
+        end
+        # Cart
+        attr_accessor :cart
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # Type
+        attr_accessor :type
+
+        def initialize(cart: nil, expand: nil, type: nil)
+          @cart = cart
+          @expand = expand
+          @type = type
+        end
+      end
+
+      class PresentPaymentMethodParams < Stripe::RequestParams
+        class CardPresent < Stripe::RequestParams
+          # The card number, as a string without any separators.
+          attr_accessor :number
+
+          def initialize(number: nil)
+            @number = number
+          end
+        end
+
+        class InteracPresent < Stripe::RequestParams
+          # Card Number
+          attr_accessor :number
+
+          def initialize(number: nil)
+            @number = number
+          end
+        end
+        # Simulated on-reader tip amount.
+        attr_accessor :amount_tip
+        # Simulated data for the card_present payment method.
+        attr_accessor :card_present
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # Simulated data for the interac_present payment method.
+        attr_accessor :interac_present
+        # Simulated payment type.
+        attr_accessor :type
+
+        def initialize(
+          amount_tip: nil,
+          card_present: nil,
+          expand: nil,
+          interac_present: nil,
+          type: nil
+        )
+          @amount_tip = amount_tip
+          @card_present = card_present
+          @expand = expand
+          @interac_present = interac_present
+          @type = type
+        end
       end
       # The most recent action performed by the reader.
       attr_reader :action
@@ -246,11 +850,11 @@ module Stripe
       end
 
       # Returns a list of Reader objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/terminal/readers",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

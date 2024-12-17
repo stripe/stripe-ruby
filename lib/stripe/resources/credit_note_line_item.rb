@@ -10,15 +10,34 @@ module Stripe
     end
 
     class DiscountAmount < Stripe::StripeObject
-      attr_reader :amount, :discount
+      # The amount, in cents (or local equivalent), of the discount.
+      attr_reader :amount
+      # The discount that was applied to get this discount amount.
+      attr_reader :discount
     end
 
     class PretaxCreditAmount < Stripe::StripeObject
-      attr_reader :amount, :credit_balance_transaction, :discount, :type
+      # The amount, in cents (or local equivalent), of the pretax credit amount.
+      attr_reader :amount
+      # The credit balance transaction that was applied to get this pretax credit amount.
+      attr_reader :credit_balance_transaction
+      # The discount that was applied to get this pretax credit amount.
+      attr_reader :discount
+      # Type of the pretax credit amount referenced.
+      attr_reader :type
     end
 
     class TaxAmount < Stripe::StripeObject
-      attr_reader :amount, :inclusive, :tax_rate, :taxability_reason, :taxable_amount
+      # The amount, in cents (or local equivalent), of the tax.
+      attr_reader :amount
+      # Whether this tax amount is inclusive or exclusive.
+      attr_reader :inclusive
+      # The tax rate that was applied to get this tax amount.
+      attr_reader :tax_rate
+      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+      attr_reader :taxability_reason
+      # The amount on which tax is calculated, in cents (or local equivalent).
+      attr_reader :taxable_amount
     end
     # The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     attr_reader :amount

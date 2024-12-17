@@ -19,6 +19,23 @@ module Stripe
         "reporting.report_type"
       end
 
+      class ListParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
       # Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
       attr_reader :data_available_end
       # Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
@@ -39,11 +56,11 @@ module Stripe
       attr_reader :version
 
       # Returns a full list of Report Types.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/reporting/report_types",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

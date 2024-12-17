@@ -17,72 +17,298 @@ module Stripe
       class FinancialAddress < Stripe::StripeObject
         class Aba < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
 
           class BankAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
-          attr_reader :account_holder_address, :account_holder_name, :account_number, :account_type, :bank_address, :bank_name, :routing_number
+          # Attribute for field account_holder_address
+          attr_reader :account_holder_address
+          # The account holder name
+          attr_reader :account_holder_name
+          # The ABA account number
+          attr_reader :account_number
+          # The account type
+          attr_reader :account_type
+          # Attribute for field bank_address
+          attr_reader :bank_address
+          # The bank name
+          attr_reader :bank_name
+          # The ABA routing number
+          attr_reader :routing_number
         end
 
         class Iban < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
 
           class BankAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
-          attr_reader :account_holder_address, :account_holder_name, :bank_address, :bic, :country, :iban
+          # Attribute for field account_holder_address
+          attr_reader :account_holder_address
+          # The name of the person or business that owns the bank account
+          attr_reader :account_holder_name
+          # Attribute for field bank_address
+          attr_reader :bank_address
+          # The BIC/SWIFT code of the account.
+          attr_reader :bic
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_reader :country
+          # The IBAN of the account.
+          attr_reader :iban
         end
 
         class SortCode < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
 
           class BankAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
-          attr_reader :account_holder_address, :account_holder_name, :account_number, :bank_address, :sort_code
+          # Attribute for field account_holder_address
+          attr_reader :account_holder_address
+          # The name of the person or business that owns the bank account
+          attr_reader :account_holder_name
+          # The account number
+          attr_reader :account_number
+          # Attribute for field bank_address
+          attr_reader :bank_address
+          # The six-digit sort code
+          attr_reader :sort_code
         end
 
         class Spei < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
 
           class BankAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
-          attr_reader :account_holder_address, :account_holder_name, :bank_address, :bank_code, :bank_name, :clabe
+          # Attribute for field account_holder_address
+          attr_reader :account_holder_address
+          # The account holder name
+          attr_reader :account_holder_name
+          # Attribute for field bank_address
+          attr_reader :bank_address
+          # The three-digit bank code
+          attr_reader :bank_code
+          # The short banking institution name
+          attr_reader :bank_name
+          # The CLABE number
+          attr_reader :clabe
         end
 
         class Swift < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
 
           class BankAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
-          attr_reader :account_holder_address, :account_holder_name, :account_number, :account_type, :bank_address, :bank_name, :swift_code
+          # Attribute for field account_holder_address
+          attr_reader :account_holder_address
+          # The account holder name
+          attr_reader :account_holder_name
+          # The account number
+          attr_reader :account_number
+          # The account type
+          attr_reader :account_type
+          # Attribute for field bank_address
+          attr_reader :bank_address
+          # The bank name
+          attr_reader :bank_name
+          # The SWIFT code
+          attr_reader :swift_code
         end
 
         class Zengin < Stripe::StripeObject
           class AccountHolderAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
 
           class BankAddress < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
-          attr_reader :account_holder_address, :account_holder_name, :account_number, :account_type, :bank_address, :bank_code, :bank_name, :branch_code, :branch_name
+          # Attribute for field account_holder_address
+          attr_reader :account_holder_address
+          # The account holder name
+          attr_reader :account_holder_name
+          # The account number
+          attr_reader :account_number
+          # The bank account type. In Japan, this can only be `futsu` or `toza`.
+          attr_reader :account_type
+          # Attribute for field bank_address
+          attr_reader :bank_address
+          # The bank code of the account
+          attr_reader :bank_code
+          # The bank name of the account
+          attr_reader :bank_name
+          # The branch code of the account
+          attr_reader :branch_code
+          # The branch name of the account
+          attr_reader :branch_name
         end
-        attr_reader :aba, :iban, :sort_code, :spei, :supported_networks, :swift, :type, :zengin
+        # ABA Records contain U.S. bank account details per the ABA format.
+        attr_reader :aba
+        # Iban Records contain E.U. bank account details per the SEPA format.
+        attr_reader :iban
+        # Sort Code Records contain U.K. bank account details per the sort code format.
+        attr_reader :sort_code
+        # SPEI Records contain Mexico bank account details per the SPEI format.
+        attr_reader :spei
+        # The payment networks supported by this FinancialAddress
+        attr_reader :supported_networks
+        # SWIFT Records contain U.S. bank account details per the SWIFT format.
+        attr_reader :swift
+        # The type of financial address
+        attr_reader :type
+        # Zengin Records contain Japan bank account details per the Zengin format.
+        attr_reader :zengin
       end
-      attr_reader :country, :financial_addresses, :type
+      # The country of the bank account to fund
+      attr_reader :country
+      # A list of financial addresses that can be used to fund a particular balance
+      attr_reader :financial_addresses
+      # The bank_transfer type
+      attr_reader :type
     end
     # Attribute for field bank_transfer
     attr_reader :bank_transfer

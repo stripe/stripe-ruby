@@ -16,7 +16,165 @@ module Stripe
     end
 
     class FlatAmount < Stripe::StripeObject
-      attr_reader :amount, :currency
+      # Amount of the tax when the `rate_type` is `flat_amount`. This positive integer represents how much to charge in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+      attr_reader :amount
+      # Three-letter ISO currency code, in lowercase.
+      attr_reader :currency
+    end
+
+    class ListParams < Stripe::RequestParams
+      class Created < Stripe::RequestParams
+        # Minimum value to filter by (exclusive)
+        attr_accessor :gt
+        # Minimum value to filter by (inclusive)
+        attr_accessor :gte
+        # Maximum value to filter by (exclusive)
+        attr_accessor :lt
+        # Maximum value to filter by (inclusive)
+        attr_accessor :lte
+
+        def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
+          @gt = gt
+          @gte = gte
+          @lt = lt
+          @lte = lte
+        end
+      end
+      # Optional flag to filter by tax rates that are either active or inactive (archived).
+      attr_accessor :active
+      # Optional range for filtering created date.
+      attr_accessor :created
+      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+      attr_accessor :ending_before
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # Optional flag to filter by tax rates that are inclusive (or those that are not inclusive).
+      attr_accessor :inclusive
+      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+      attr_accessor :limit
+      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+      attr_accessor :starting_after
+
+      def initialize(
+        active: nil,
+        created: nil,
+        ending_before: nil,
+        expand: nil,
+        inclusive: nil,
+        limit: nil,
+        starting_after: nil
+      )
+        @active = active
+        @created = created
+        @ending_before = ending_before
+        @expand = expand
+        @inclusive = inclusive
+        @limit = limit
+        @starting_after = starting_after
+      end
+    end
+
+    class CreateParams < Stripe::RequestParams
+      # Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
+      attr_accessor :active
+      # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+      attr_accessor :country
+      # An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+      attr_accessor :description
+      # The display name of the tax rate, which will be shown to users.
+      attr_accessor :display_name
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # This specifies if the tax rate is inclusive or exclusive.
+      attr_accessor :inclusive
+      # The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice.
+      attr_accessor :jurisdiction
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      attr_accessor :metadata
+      # This represents the tax rate percent out of 100.
+      attr_accessor :percentage
+      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+      attr_accessor :state
+      # The high-level tax type, such as `vat` or `sales_tax`.
+      attr_accessor :tax_type
+
+      def initialize(
+        active: nil,
+        country: nil,
+        description: nil,
+        display_name: nil,
+        expand: nil,
+        inclusive: nil,
+        jurisdiction: nil,
+        metadata: nil,
+        percentage: nil,
+        state: nil,
+        tax_type: nil
+      )
+        @active = active
+        @country = country
+        @description = description
+        @display_name = display_name
+        @expand = expand
+        @inclusive = inclusive
+        @jurisdiction = jurisdiction
+        @metadata = metadata
+        @percentage = percentage
+        @state = state
+        @tax_type = tax_type
+      end
+    end
+
+    class RetrieveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
+    end
+
+    class UpdateParams < Stripe::RequestParams
+      # Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
+      attr_accessor :active
+      # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+      attr_accessor :country
+      # An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+      attr_accessor :description
+      # The display name of the tax rate, which will be shown to users.
+      attr_accessor :display_name
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice.
+      attr_accessor :jurisdiction
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      attr_accessor :metadata
+      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+      attr_accessor :state
+      # The high-level tax type, such as `vat` or `sales_tax`.
+      attr_accessor :tax_type
+
+      def initialize(
+        active: nil,
+        country: nil,
+        description: nil,
+        display_name: nil,
+        expand: nil,
+        jurisdiction: nil,
+        metadata: nil,
+        state: nil,
+        tax_type: nil
+      )
+        @active = active
+        @country = country
+        @description = description
+        @display_name = display_name
+        @expand = expand
+        @jurisdiction = jurisdiction
+        @metadata = metadata
+        @state = state
+        @tax_type = tax_type
+      end
     end
     # Defaults to `true`. When set to `false`, this tax rate cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
     attr_reader :active
@@ -63,8 +221,8 @@ module Stripe
     end
 
     # Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/tax_rates", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/tax_rates", params: params, opts: opts)
     end
 
     # Updates an existing tax rate.

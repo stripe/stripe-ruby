@@ -11,6 +11,14 @@ module Stripe
       "ephemeral_key"
     end
 
+    class DeleteParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
+    end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # Time at which the key will expire. Measured in seconds since the Unix epoch.

@@ -4,6 +4,15 @@
 module Stripe
   module TestHelpers
     class RefundService < StripeService
+      class ExpireParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
       # Expire a refund with a status of requires_action.
       def expire(refund, params = {}, opts = {})
         request(

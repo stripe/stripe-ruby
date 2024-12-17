@@ -10,11 +10,21 @@ module Stripe
     end
 
     class Payment < Stripe::StripeObject
-      attr_reader :charge, :payment_intent, :payment_record, :type
+      # ID of the successful charge for this payment when `type` is `charge`.
+      attr_reader :charge
+      # ID of the PaymentIntent associated with this payment when `type` is `payment_intent`. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
+      attr_reader :payment_intent
+      # ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
+      attr_reader :payment_record
+      # Type of payment object associated with this invoice payment.
+      attr_reader :type
     end
 
     class StatusTransitions < Stripe::StripeObject
-      attr_reader :canceled_at, :paid_at
+      # The time that the payment was canceled.
+      attr_reader :canceled_at
+      # The time that the payment succeeded.
+      attr_reader :paid_at
     end
     # Excess payment that was received for this invoice and credited to the customer’s `invoice_credit_balance`. This field is null until the payment is `paid`. Overpayment can happen when you attach more than one PaymentIntent to the invoice, and each of them succeeds. To avoid overpayment, cancel any PaymentIntents that you do not need before attaching more.
     attr_reader :amount_overpaid

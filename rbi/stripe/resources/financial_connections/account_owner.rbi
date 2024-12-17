@@ -6,29 +6,29 @@ module Stripe
   module FinancialConnections
     # Describes an owner of an account.
     class AccountOwner < StripeObject
-      sig { returns(T.nilable(String)) }
       # The email address of the owner.
+      sig { returns(T.nilable(String)) }
       attr_reader :email
-      sig { returns(String) }
       # Unique identifier for the object.
+      sig { returns(String) }
       attr_reader :id
-      sig { returns(String) }
       # The full name of the owner.
+      sig { returns(String) }
       attr_reader :name
-      sig { returns(String) }
       # String representing the object's type. Objects of the same type share the same value.
-      attr_reader :object
       sig { returns(String) }
+      attr_reader :object
       # The ownership object that this owner belongs to.
+      sig { returns(String) }
       attr_reader :ownership
-      sig { returns(T.nilable(String)) }
       # The raw phone number of the owner.
-      attr_reader :phone
       sig { returns(T.nilable(String)) }
+      attr_reader :phone
       # The raw physical address of the owner.
+      sig { returns(T.nilable(String)) }
       attr_reader :raw_address
-      sig { returns(T.nilable(Integer)) }
       # The timestamp of the refresh that updated this owner.
+      sig { returns(T.nilable(Integer)) }
       attr_reader :refreshed_at
     end
   end

@@ -21,47 +21,119 @@ module Stripe
 
     class Available < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        attr_reader :bank_account, :card, :fpx
+        # Amount for bank account.
+        attr_reader :bank_account
+        # Amount for card.
+        attr_reader :card
+        # Amount for FPX.
+        attr_reader :fpx
       end
-      attr_reader :amount, :currency, :source_types
+      # Balance amount.
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # Attribute for field source_types
+      attr_reader :source_types
     end
 
     class ConnectReserved < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        attr_reader :bank_account, :card, :fpx
+        # Amount for bank account.
+        attr_reader :bank_account
+        # Amount for card.
+        attr_reader :card
+        # Amount for FPX.
+        attr_reader :fpx
       end
-      attr_reader :amount, :currency, :source_types
+      # Balance amount.
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # Attribute for field source_types
+      attr_reader :source_types
     end
 
     class InstantAvailable < Stripe::StripeObject
       class NetAvailable < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
-          attr_reader :bank_account, :card, :fpx
+          # Amount for bank account.
+          attr_reader :bank_account
+          # Amount for card.
+          attr_reader :card
+          # Amount for FPX.
+          attr_reader :fpx
         end
-        attr_reader :amount, :destination, :source_types
+        # Net balance amount, subtracting fees from platform-set pricing.
+        attr_reader :amount
+        # ID of the external account for this net balance (not expandable).
+        attr_reader :destination
+        # Attribute for field source_types
+        attr_reader :source_types
       end
 
       class SourceTypes < Stripe::StripeObject
-        attr_reader :bank_account, :card, :fpx
+        # Amount for bank account.
+        attr_reader :bank_account
+        # Amount for card.
+        attr_reader :card
+        # Amount for FPX.
+        attr_reader :fpx
       end
-      attr_reader :amount, :currency, :net_available, :source_types
+      # Balance amount.
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # Breakdown of balance by destination.
+      attr_reader :net_available
+      # Attribute for field source_types
+      attr_reader :source_types
     end
 
     class Issuing < Stripe::StripeObject
       class Available < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
-          attr_reader :bank_account, :card, :fpx
+          # Amount for bank account.
+          attr_reader :bank_account
+          # Amount for card.
+          attr_reader :card
+          # Amount for FPX.
+          attr_reader :fpx
         end
-        attr_reader :amount, :currency, :source_types
+        # Balance amount.
+        attr_reader :amount
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_reader :currency
+        # Attribute for field source_types
+        attr_reader :source_types
       end
+      # Funds that are available for use.
       attr_reader :available
     end
 
     class Pending < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        attr_reader :bank_account, :card, :fpx
+        # Amount for bank account.
+        attr_reader :bank_account
+        # Amount for card.
+        attr_reader :card
+        # Amount for FPX.
+        attr_reader :fpx
       end
-      attr_reader :amount, :currency, :source_types
+      # Balance amount.
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # Attribute for field source_types
+      attr_reader :source_types
+    end
+
+    class RetrieveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
     end
     # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     attr_reader :available

@@ -21,16 +21,40 @@ module Stripe
 
     class FutureRequirements < Stripe::StripeObject
       class Error < Stripe::StripeObject
-        attr_reader :code, :reason, :requirement
+        # The code for the type of error.
+        attr_reader :code
+        # An informative message that indicates the error type and provides additional details about the error.
+        attr_reader :reason
+        # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+        attr_reader :requirement
       end
-      attr_reader :currently_due, :errors, :past_due, :pending_verification
+      # Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+      attr_reader :currently_due
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      attr_reader :errors
+      # Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+      attr_reader :past_due
+      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+      attr_reader :pending_verification
     end
 
     class Requirements < Stripe::StripeObject
       class Error < Stripe::StripeObject
-        attr_reader :code, :reason, :requirement
+        # The code for the type of error.
+        attr_reader :code
+        # An informative message that indicates the error type and provides additional details about the error.
+        attr_reader :reason
+        # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+        attr_reader :requirement
       end
-      attr_reader :currently_due, :errors, :past_due, :pending_verification
+      # Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+      attr_reader :currently_due
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      attr_reader :errors
+      # Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+      attr_reader :past_due
+      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+      attr_reader :pending_verification
     end
     # The ID of the account that the bank account is associated with.
     attr_reader :account
@@ -139,7 +163,7 @@ module Stripe
       )
     end
 
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       raise NotImplementedError,
             "Bank accounts cannot be listed without a customer ID or an " \
             "account ID. List bank accounts using " \

@@ -10,6 +10,7 @@ module Stripe
       end
 
       class Reversal < Stripe::StripeObject
+        # The `id` of the line item to reverse in the original transaction.
         attr_reader :original_line_item
       end
       # The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.

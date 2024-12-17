@@ -15,11 +15,83 @@ module Stripe
     end
 
     class IpAddressLocation < Stripe::StripeObject
-      attr_reader :city, :country, :latitude, :longitude, :region
+      # The city where the payment originated.
+      attr_reader :city
+      # Two-letter ISO code representing the country where the payment originated.
+      attr_reader :country
+      # The geographic latitude where the payment originated.
+      attr_reader :latitude
+      # The geographic longitude where the payment originated.
+      attr_reader :longitude
+      # The state/county/province/region where the payment originated.
+      attr_reader :region
     end
 
     class Session < Stripe::StripeObject
-      attr_reader :browser, :device, :platform, :version
+      # The browser used in this browser session (e.g., `Chrome`).
+      attr_reader :browser
+      # Information about the device used for the browser session (e.g., `Samsung SM-G930T`).
+      attr_reader :device
+      # The platform for the browser session (e.g., `Macintosh`).
+      attr_reader :platform
+      # The version for the browser session (e.g., `61.0.3163.100`).
+      attr_reader :version
+    end
+
+    class ListParams < Stripe::RequestParams
+      class Created < Stripe::RequestParams
+        # Minimum value to filter by (exclusive)
+        attr_accessor :gt
+        # Minimum value to filter by (inclusive)
+        attr_accessor :gte
+        # Maximum value to filter by (exclusive)
+        attr_accessor :lt
+        # Maximum value to filter by (inclusive)
+        attr_accessor :lte
+
+        def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
+          @gt = gt
+          @gte = gte
+          @lt = lt
+          @lte = lte
+        end
+      end
+      # Only return reviews that were created during the given date interval.
+      attr_accessor :created
+      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+      attr_accessor :ending_before
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+      attr_accessor :limit
+      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+      attr_accessor :starting_after
+
+      def initialize(created: nil, ending_before: nil, expand: nil, limit: nil, starting_after: nil)
+        @created = created
+        @ending_before = ending_before
+        @expand = expand
+        @limit = limit
+        @starting_after = starting_after
+      end
+    end
+
+    class RetrieveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
+    end
+
+    class ApproveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
     end
     # The ZIP or postal code of the card used, if applicable.
     attr_reader :billing_zip
@@ -71,8 +143,8 @@ module Stripe
     end
 
     # Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/reviews", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/reviews", params: params, opts: opts)
     end
   end
 end

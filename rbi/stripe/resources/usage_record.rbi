@@ -10,23 +10,23 @@ module Stripe
   #
   # This is our legacy usage-based billing API. See the [updated usage-based billing docs](https://docs.stripe.com/billing/subscriptions/usage-based).
   class UsageRecord < APIResource
-    sig { returns(String) }
     # Unique identifier for the object.
+    sig { returns(String) }
     attr_reader :id
-    sig { returns(T::Boolean) }
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    sig { returns(T::Boolean) }
     attr_reader :livemode
-    sig { returns(String) }
     # String representing the object's type. Objects of the same type share the same value.
-    attr_reader :object
-    sig { returns(Integer) }
-    # The usage quantity for the specified date.
-    attr_reader :quantity
     sig { returns(String) }
-    # The ID of the subscription item this usage record contains data for.
-    attr_reader :subscription_item
+    attr_reader :object
+    # The usage quantity for the specified date.
     sig { returns(Integer) }
+    attr_reader :quantity
+    # The ID of the subscription item this usage record contains data for.
+    sig { returns(String) }
+    attr_reader :subscription_item
     # The timestamp when this usage occurred.
+    sig { returns(Integer) }
     attr_reader :timestamp
   end
 end

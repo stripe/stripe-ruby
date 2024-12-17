@@ -30,6 +30,17 @@ module Stripe
         expected = { fun: { games: %w[chess go] }, team: "blue" }
         assert_equal expected, params.to_h
       end
+
+      should "make request with params class" do
+        stub_request(:post, "#{Stripe.api_base}/v1/customers")
+          .with do |req|
+            assert req.body == "name=foo"
+          end
+          .to_return(body: JSON.generate(object: "customer"))
+        params = Stripe::Customer::CreateParams.new(name: "foo")
+        cus = Stripe::Customer.create(params)
+        assert cus.is_a?(Stripe::Customer)
+      end
     end
   end
 end

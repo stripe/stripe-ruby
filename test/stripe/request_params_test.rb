@@ -3,12 +3,21 @@
 require File.expand_path("../test_helper", __dir__)
 
 module Stripe
-  class RequestOptionsTest < Test::Unit::TestCase
+  class RequestParamsTest < Test::Unit::TestCase
     class FooCreateParams < Stripe::RequestParams
       attr_accessor :fun, :team
 
+      def initialize(fun: nil, team: nil)
+        @fun = fun
+        @team = team
+      end
+
       class Fun < Stripe::RequestParams
         attr_accessor :games
+
+        def initialize(games: nil)
+          @games = games
+        end
       end
     end
 

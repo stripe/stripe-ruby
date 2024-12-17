@@ -21,6 +21,13 @@ Layout/LineLength:
     - "lib/stripe/services/**/*.rb"
     - "test/**/*.rb"
 
+
+Lint/MissingSuper:
+  Exclude:
+    - "lib/stripe/resources/**/*.rb"
+    - "lib/stripe/services/**/*.rb"
+    - "test/stripe/request_params_test.rb"
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -60,24 +67,27 @@ Metrics/ModuleLength:
   Enabled: false
 
 Metrics/ParameterLists:
-  Enabled: False
-  # There's 2 methods in `StripeClient` that have long parameter lists.
-  # Max: 8
-  # # Optional parameters should be consistent across libraries, we need not be
-  # # concerned about this. Was introduced with adding `base_address`
-  # Exclude:
-  #   - "lib/stripe/api_operations/request.rb"
-  #   - "lib/stripe/stripe_object.rb"
-  # AllowedMethods:
-  #   - initialize
+  Max: 8
+  # Optional parameters should be consistent across libraries, we need not be
+  # concerned about this. Was introduced with adding `base_address`
+  Exclude:
+    - "lib/stripe/api_operations/request.rb"
+    - "lib/stripe/stripe_object.rb"
+    - "lib/stripe/stripe_client.rb"
+    - "lib/stripe/resources/**/*.rb"
+    - "lib/stripe/services/**/*.rb"
 
 Naming/MethodParameterName:
   # We have many parameters that are less than 3 characters for tax codes
-  Enabled: false
+  Exclude:
+    - "lib/stripe/resources/**/*.rb"
+    - "lib/stripe/services/**/*.rb"
 
 Naming/VariableNumber:
   # We use a variety of variable number syntaxes
-  Enabled: false
+  Exclude:
+    - "lib/stripe/resources/**/*.rb"
+    - "lib/stripe/services/**/*.rb"
 
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline

@@ -41,25 +41,111 @@ module Stripe
     end
 
     class Data < Stripe::StripeObject
-      attr_reader :object, :previous_attributes
+      # Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
+      attr_reader :object
+      # Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
+      attr_reader :previous_attributes
     end
 
     class Reason < Stripe::StripeObject
       class AutomationAction < Stripe::StripeObject
         class StripeSendWebhookCustomEvent < Stripe::StripeObject
+          # Set of key-value pairs attached to the action when creating an Automation.
           attr_reader :custom_data
         end
-        attr_reader :stripe_send_webhook_custom_event, :trigger, :type
+        # Attribute for field stripe_send_webhook_custom_event
+        attr_reader :stripe_send_webhook_custom_event
+        # The trigger name of the automation that triggered this action.
+        #  Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
+        attr_reader :trigger
+        # The type of the `automation_action`.
+        attr_reader :type
       end
 
       class Request < Stripe::StripeObject
-        attr_reader :id, :idempotency_key
+        # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+        attr_reader :id
+        # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+        attr_reader :idempotency_key
       end
-      attr_reader :automation_action, :request, :type
+      # Attribute for field automation_action
+      attr_reader :automation_action
+      # Attribute for field request
+      attr_reader :request
+      # The type of the reason for the event.
+      attr_reader :type
     end
 
     class Request < Stripe::StripeObject
-      attr_reader :id, :idempotency_key
+      # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+      attr_reader :id
+      # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+      attr_reader :idempotency_key
+    end
+
+    class ListParams < Stripe::RequestParams
+      class Created < Stripe::RequestParams
+        # Minimum value to filter by (exclusive)
+        attr_accessor :gt
+        # Minimum value to filter by (inclusive)
+        attr_accessor :gte
+        # Maximum value to filter by (exclusive)
+        attr_accessor :lt
+        # Maximum value to filter by (inclusive)
+        attr_accessor :lte
+
+        def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
+          @gt = gt
+          @gte = gte
+          @lt = lt
+          @lte = lte
+        end
+      end
+      # Only return events that were created during the given date interval.
+      attr_accessor :created
+      # Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned.
+      attr_accessor :delivery_success
+      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+      attr_accessor :ending_before
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+      attr_accessor :limit
+      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+      attr_accessor :starting_after
+      # A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property.
+      attr_accessor :type
+      # An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both.
+      attr_accessor :types
+
+      def initialize(
+        created: nil,
+        delivery_success: nil,
+        ending_before: nil,
+        expand: nil,
+        limit: nil,
+        starting_after: nil,
+        type: nil,
+        types: nil
+      )
+        @created = created
+        @delivery_success = delivery_success
+        @ending_before = ending_before
+        @expand = expand
+        @limit = limit
+        @starting_after = starting_after
+        @type = type
+        @types = types
+      end
+    end
+
+    class RetrieveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
     end
     # The connected account that originates the event.
     attr_reader :account
@@ -85,8 +171,8 @@ module Stripe
     attr_reader :type
 
     # List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/events", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/events", params: params, opts: opts)
     end
   end
 end

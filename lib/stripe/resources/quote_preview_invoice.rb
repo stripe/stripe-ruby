@@ -41,79 +41,231 @@ module Stripe
     end
 
     class AmountsDue < Stripe::StripeObject
-      attr_reader :amount, :amount_paid, :amount_remaining, :days_until_due, :description, :due_date, :paid_at, :status
+      # Incremental amount due for this payment in cents (or local equivalent).
+      attr_reader :amount
+      # The amount in cents (or local equivalent) that was paid for this payment.
+      attr_reader :amount_paid
+      # The difference between the payment’s amount and amount_paid, in cents (or local equivalent).
+      attr_reader :amount_remaining
+      # Number of days from when invoice is finalized until the payment is due.
+      attr_reader :days_until_due
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      attr_reader :description
+      # Date on which a payment plan’s payment is due.
+      attr_reader :due_date
+      # Timestamp when the payment was paid.
+      attr_reader :paid_at
+      # The status of the payment, one of `open`, `paid`, or `past_due`
+      attr_reader :status
     end
 
     class AppliesTo < Stripe::StripeObject
-      attr_reader :new_reference, :subscription_schedule, :type
+      # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+      attr_reader :new_reference
+      # The ID of the schedule the line applies to.
+      attr_reader :subscription_schedule
+      # Describes whether the quote line is affecting a new schedule or an existing schedule.
+      attr_reader :type
     end
 
     class AutomaticTax < Stripe::StripeObject
       class Liability < Stripe::StripeObject
-        attr_reader :account, :type
+        # The connected account being referenced when `type` is `account`.
+        attr_reader :account
+        # Type of the account referenced.
+        attr_reader :type
       end
-      attr_reader :disabled_reason, :enabled, :liability, :status
+      # If Stripe disabled automatic tax, this enum describes why.
+      attr_reader :disabled_reason
+      # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+      attr_reader :enabled
+      # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+      attr_reader :liability
+      # The status of the most recent automated tax calculation for this invoice.
+      attr_reader :status
     end
 
     class CustomField < Stripe::StripeObject
-      attr_reader :name, :value
+      # The name of the custom field.
+      attr_reader :name
+      # The value of the custom field.
+      attr_reader :value
     end
 
     class CustomerAddress < Stripe::StripeObject
-      attr_reader :city, :country, :line1, :line2, :postal_code, :state
+      # City, district, suburb, town, or village.
+      attr_reader :city
+      # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+      attr_reader :country
+      # Address line 1 (e.g., street, PO Box, or company name).
+      attr_reader :line1
+      # Address line 2 (e.g., apartment, suite, unit, or building).
+      attr_reader :line2
+      # ZIP or postal code.
+      attr_reader :postal_code
+      # State, county, province, or region.
+      attr_reader :state
     end
 
     class CustomerShipping < Stripe::StripeObject
       class Address < Stripe::StripeObject
-        attr_reader :city, :country, :line1, :line2, :postal_code, :state
+        # City, district, suburb, town, or village.
+        attr_reader :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_reader :country
+        # Address line 1 (e.g., street, PO Box, or company name).
+        attr_reader :line1
+        # Address line 2 (e.g., apartment, suite, unit, or building).
+        attr_reader :line2
+        # ZIP or postal code.
+        attr_reader :postal_code
+        # State, county, province, or region.
+        attr_reader :state
       end
-      attr_reader :address, :carrier, :name, :phone, :tracking_number
+      # Attribute for field address
+      attr_reader :address
+      # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+      attr_reader :carrier
+      # Recipient name.
+      attr_reader :name
+      # Recipient phone (including extension).
+      attr_reader :phone
+      # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+      attr_reader :tracking_number
     end
 
     class CustomerTaxId < Stripe::StripeObject
-      attr_reader :type, :value
+      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
+      attr_reader :type
+      # The value of the tax ID.
+      attr_reader :value
     end
 
     class FromInvoice < Stripe::StripeObject
-      attr_reader :action, :invoice
+      # The relation between this invoice and the cloned invoice
+      attr_reader :action
+      # The invoice that was cloned.
+      attr_reader :invoice
     end
 
     class Issuer < Stripe::StripeObject
-      attr_reader :account, :type
+      # The connected account being referenced when `type` is `account`.
+      attr_reader :account
+      # Type of the account referenced.
+      attr_reader :type
     end
 
     class LastFinalizationError < Stripe::StripeObject
-      attr_reader :charge, :code, :decline_code, :doc_url, :message, :network_advice_code, :network_decline_code, :param, :payment_intent, :payment_method, :payment_method_type, :request_log_url, :setup_intent, :source, :type
+      # For card errors, the ID of the failed charge.
+      attr_reader :charge
+      # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+      attr_reader :code
+      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+      attr_reader :decline_code
+      # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+      attr_reader :doc_url
+      # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+      attr_reader :message
+      # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+      attr_reader :network_advice_code
+      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      attr_reader :network_decline_code
+      # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
+      attr_reader :param
+      # A PaymentIntent guides you through the process of collecting a payment from your customer.
+      # We recommend that you create exactly one PaymentIntent for each order or
+      # customer session in your system. You can reference the PaymentIntent later to
+      # see the history of payment attempts for a particular session.
+      #
+      # A PaymentIntent transitions through
+      # [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+      # throughout its lifetime as it interfaces with Stripe.js to perform
+      # authentication flows and ultimately creates at most one successful charge.
+      #
+      # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+      attr_reader :payment_intent
+      # PaymentMethod objects represent your customer's payment instruments.
+      # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+      # Customer objects to store instrument details for future payments.
+      #
+      # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+      attr_reader :payment_method
+      # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
+      attr_reader :payment_method_type
+      # A URL to the request log entry in your dashboard.
+      attr_reader :request_log_url
+      # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
+      # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
+      # Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+      #
+      # Create a SetupIntent when you're ready to collect your customer's payment credentials.
+      # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
+      # The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
+      # you through the setup process.
+      #
+      # Successful SetupIntents result in payment credentials that are optimized for future payments.
+      # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
+      # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+      # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
+      # If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+      # it automatically attaches the resulting payment method to that Customer after successful setup.
+      # We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+      # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
+      #
+      # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
+      #
+      # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
+      attr_reader :setup_intent
+      # Attribute for field source
+      attr_reader :source
+      # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+      attr_reader :type
     end
 
     class PaymentSettings < Stripe::StripeObject
       class PaymentMethodOptions < Stripe::StripeObject
         class AcssDebit < Stripe::StripeObject
           class MandateOptions < Stripe::StripeObject
+            # Transaction type of the mandate.
             attr_reader :transaction_type
           end
-          attr_reader :mandate_options, :verification_method
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+          # Bank account verification method.
+          attr_reader :verification_method
         end
 
         class Bancontact < Stripe::StripeObject
+          # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_reader :preferred_language
         end
 
         class Card < Stripe::StripeObject
           class Installments < Stripe::StripeObject
+            # Whether Installments are enabled for this Invoice.
             attr_reader :enabled
           end
-          attr_reader :installments, :request_three_d_secure
+          # Attribute for field installments
+          attr_reader :installments
+          # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+          attr_reader :request_three_d_secure
         end
 
         class CustomerBalance < Stripe::StripeObject
           class BankTransfer < Stripe::StripeObject
             class EuBankTransfer < Stripe::StripeObject
+              # The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
               attr_reader :country
             end
-            attr_reader :eu_bank_transfer, :type
+            # Attribute for field eu_bank_transfer
+            attr_reader :eu_bank_transfer
+            # The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+            attr_reader :type
           end
-          attr_reader :bank_transfer, :funding_type
+          # Attribute for field bank_transfer
+          attr_reader :bank_transfer
+          # The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+          attr_reader :funding_type
         end
 
         class IdBankTransfer < Stripe::StripeObject; end
@@ -123,74 +275,198 @@ module Stripe
         class UsBankAccount < Stripe::StripeObject
           class FinancialConnections < Stripe::StripeObject
             class Filters < Stripe::StripeObject
-              attr_reader :account_subcategories, :institution
+              # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+              attr_reader :account_subcategories
+              # The institution to use to filter for possible accounts to link.
+              attr_reader :institution
             end
-            attr_reader :filters, :permissions, :prefetch
+            # Attribute for field filters
+            attr_reader :filters
+            # The list of permissions to request. The `payment_method` permission must be included.
+            attr_reader :permissions
+            # Data features requested to be retrieved upon account creation.
+            attr_reader :prefetch
           end
-          attr_reader :financial_connections, :verification_method
+          # Attribute for field financial_connections
+          attr_reader :financial_connections
+          # Bank account verification method.
+          attr_reader :verification_method
         end
-        attr_reader :acss_debit, :bancontact, :card, :customer_balance, :id_bank_transfer, :konbini, :sepa_debit, :us_bank_account
+        # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :acss_debit
+        # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :bancontact
+        # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :card
+        # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :customer_balance
+        # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :id_bank_transfer
+        # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :konbini
+        # If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :sepa_debit
+        # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :us_bank_account
       end
-      attr_reader :default_mandate, :payment_method_options, :payment_method_types
+      # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
+      attr_reader :default_mandate
+      # Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
+      attr_reader :payment_method_options
+      # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
+      attr_reader :payment_method_types
     end
 
     class Rendering < Stripe::StripeObject
       class Pdf < Stripe::StripeObject
+        # Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
         attr_reader :page_size
       end
-      attr_reader :amount_tax_display, :pdf, :template, :template_version
+      # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+      attr_reader :amount_tax_display
+      # Invoice pdf rendering options
+      attr_reader :pdf
+      # ID of the rendering template that the invoice is formatted by.
+      attr_reader :template
+      # Version of the rendering template that the invoice is using.
+      attr_reader :template_version
     end
 
     class ShippingCost < Stripe::StripeObject
       class Tax < Stripe::StripeObject
-        attr_reader :amount, :rate, :taxability_reason, :taxable_amount
+        # Amount of tax applied for this rate.
+        attr_reader :amount
+        # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+        #
+        # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+        attr_reader :rate
+        # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        attr_reader :taxability_reason
+        # The amount on which tax is calculated, in cents (or local equivalent).
+        attr_reader :taxable_amount
       end
-      attr_reader :amount_subtotal, :amount_tax, :amount_total, :shipping_rate, :taxes
+      # Total shipping cost before any taxes are applied.
+      attr_reader :amount_subtotal
+      # Total tax amount applied due to shipping costs. If no tax was applied, defaults to 0.
+      attr_reader :amount_tax
+      # Total shipping cost after taxes are applied.
+      attr_reader :amount_total
+      # The ID of the ShippingRate for this invoice.
+      attr_reader :shipping_rate
+      # The taxes applied to the shipping rate.
+      attr_reader :taxes
     end
 
     class ShippingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
-        attr_reader :city, :country, :line1, :line2, :postal_code, :state
+        # City, district, suburb, town, or village.
+        attr_reader :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_reader :country
+        # Address line 1 (e.g., street, PO Box, or company name).
+        attr_reader :line1
+        # Address line 2 (e.g., apartment, suite, unit, or building).
+        attr_reader :line2
+        # ZIP or postal code.
+        attr_reader :postal_code
+        # State, county, province, or region.
+        attr_reader :state
       end
-      attr_reader :address, :carrier, :name, :phone, :tracking_number
+      # Attribute for field address
+      attr_reader :address
+      # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+      attr_reader :carrier
+      # Recipient name.
+      attr_reader :name
+      # Recipient phone (including extension).
+      attr_reader :phone
+      # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+      attr_reader :tracking_number
     end
 
     class StatusTransitions < Stripe::StripeObject
-      attr_reader :finalized_at, :marked_uncollectible_at, :paid_at, :voided_at
+      # The time that the invoice draft was finalized.
+      attr_reader :finalized_at
+      # The time that the invoice was marked uncollectible.
+      attr_reader :marked_uncollectible_at
+      # The time that the invoice was paid.
+      attr_reader :paid_at
+      # The time that the invoice was voided.
+      attr_reader :voided_at
     end
 
     class SubscriptionDetails < Stripe::StripeObject
       class PauseCollection < Stripe::StripeObject
-        attr_reader :behavior, :resumes_at
+        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+        attr_reader :behavior
+        # The time after which the subscription will resume collecting payments.
+        attr_reader :resumes_at
       end
-      attr_reader :metadata, :pause_collection
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+      #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+      attr_reader :metadata
+      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+      attr_reader :pause_collection
     end
 
     class ThresholdReason < Stripe::StripeObject
       class ItemReason < Stripe::StripeObject
-        attr_reader :line_item_ids, :usage_gte
+        # The IDs of the line items that triggered the threshold invoice.
+        attr_reader :line_item_ids
+        # The quantity threshold boundary that applied to the given line item.
+        attr_reader :usage_gte
       end
-      attr_reader :amount_gte, :item_reasons
+      # The total invoice amount threshold boundary if it triggered the threshold invoice.
+      attr_reader :amount_gte
+      # Indicates which line items triggered a threshold invoice.
+      attr_reader :item_reasons
     end
 
     class TotalDiscountAmount < Stripe::StripeObject
-      attr_reader :amount, :discount
+      # The amount, in cents (or local equivalent), of the discount.
+      attr_reader :amount
+      # The discount that was applied to get this discount amount.
+      attr_reader :discount
     end
 
     class TotalMarginAmount < Stripe::StripeObject
-      attr_reader :amount, :margin
+      # The amount, in cents (or local equivalent), of the reduction in line item amount.
+      attr_reader :amount
+      # The margin that was applied to get this margin amount.
+      attr_reader :margin
     end
 
     class TotalPretaxCreditAmount < Stripe::StripeObject
-      attr_reader :amount, :credit_balance_transaction, :discount, :margin, :type
+      # The amount, in cents (or local equivalent), of the pretax credit amount.
+      attr_reader :amount
+      # The credit balance transaction that was applied to get this pretax credit amount.
+      attr_reader :credit_balance_transaction
+      # The discount that was applied to get this pretax credit amount.
+      attr_reader :discount
+      # The margin that was applied to get this pretax credit amount.
+      attr_reader :margin
+      # Type of the pretax credit amount referenced.
+      attr_reader :type
     end
 
     class TotalTaxAmount < Stripe::StripeObject
-      attr_reader :amount, :inclusive, :tax_rate, :taxability_reason, :taxable_amount
+      # The amount, in cents (or local equivalent), of the tax.
+      attr_reader :amount
+      # Whether this tax amount is inclusive or exclusive.
+      attr_reader :inclusive
+      # The tax rate that was applied to get this tax amount.
+      attr_reader :tax_rate
+      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+      attr_reader :taxability_reason
+      # The amount on which tax is calculated, in cents (or local equivalent).
+      attr_reader :taxable_amount
     end
 
     class TransferData < Stripe::StripeObject
-      attr_reader :amount, :destination
+      # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
+      attr_reader :amount
+      # The account where funds from the payment will be transferred to upon payment success.
+      attr_reader :destination
     end
     # The country of the business associated with this invoice, most often the business creating the invoice.
     attr_reader :account_country

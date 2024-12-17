@@ -13,44 +13,81 @@ module Stripe
     end
 
     class AdjustedForOverdraft < Stripe::StripeObject
-      attr_reader :balance_transaction, :linked_transaction
+      # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
+      attr_reader :balance_transaction
+      # The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
+      attr_reader :linked_transaction
     end
 
     class AppliedToPayment < Stripe::StripeObject
+      # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
       attr_reader :payment_intent
     end
 
     class Funded < Stripe::StripeObject
       class BankTransfer < Stripe::StripeObject
         class EuBankTransfer < Stripe::StripeObject
-          attr_reader :bic, :iban_last4, :sender_name
+          # The BIC of the bank of the sender of the funding.
+          attr_reader :bic
+          # The last 4 digits of the IBAN of the sender of the funding.
+          attr_reader :iban_last4
+          # The full name of the sender, as supplied by the sending bank.
+          attr_reader :sender_name
         end
 
         class GbBankTransfer < Stripe::StripeObject
-          attr_reader :account_number_last4, :sender_name, :sort_code
+          # The last 4 digits of the account number of the sender of the funding.
+          attr_reader :account_number_last4
+          # The full name of the sender, as supplied by the sending bank.
+          attr_reader :sender_name
+          # The sort code of the bank of the sender of the funding
+          attr_reader :sort_code
         end
 
         class JpBankTransfer < Stripe::StripeObject
-          attr_reader :sender_bank, :sender_branch, :sender_name
+          # The name of the bank of the sender of the funding.
+          attr_reader :sender_bank
+          # The name of the bank branch of the sender of the funding.
+          attr_reader :sender_branch
+          # The full name of the sender, as supplied by the sending bank.
+          attr_reader :sender_name
         end
 
         class UsBankTransfer < Stripe::StripeObject
-          attr_reader :network, :sender_name
+          # The banking network used for this funding.
+          attr_reader :network
+          # The full name of the sender, as supplied by the sending bank.
+          attr_reader :sender_name
         end
-        attr_reader :eu_bank_transfer, :gb_bank_transfer, :jp_bank_transfer, :reference, :type, :us_bank_transfer
+        # Attribute for field eu_bank_transfer
+        attr_reader :eu_bank_transfer
+        # Attribute for field gb_bank_transfer
+        attr_reader :gb_bank_transfer
+        # Attribute for field jp_bank_transfer
+        attr_reader :jp_bank_transfer
+        # The user-supplied reference field on the bank transfer.
+        attr_reader :reference
+        # The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        attr_reader :type
+        # Attribute for field us_bank_transfer
+        attr_reader :us_bank_transfer
       end
+      # Attribute for field bank_transfer
       attr_reader :bank_transfer
     end
 
     class RefundedFromPayment < Stripe::StripeObject
+      # The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
       attr_reader :refund
     end
 
     class TransferredToBalance < Stripe::StripeObject
+      # The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
       attr_reader :balance_transaction
     end
 
     class UnappliedFromPayment < Stripe::StripeObject
+      # The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
       attr_reader :payment_intent
     end
     # Attribute for field adjusted_for_overdraft

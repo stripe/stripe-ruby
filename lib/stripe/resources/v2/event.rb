@@ -11,9 +11,15 @@ module Stripe
 
       class Reason < Stripe::StripeObject
         class Request < Stripe::StripeObject
-          attr_reader :id, :idempotency_key
+          # ID of the API request that caused the event.
+          attr_reader :id
+          # The idempotency key transmitted during the request.
+          attr_reader :idempotency_key
         end
-        attr_reader :type, :request
+        # Event reason type.
+        attr_reader :type
+        # Information on the API request that instigated the event.
+        attr_reader :request
       end
       # Authentication context needed to fetch the event or related object.
       attr_reader :context

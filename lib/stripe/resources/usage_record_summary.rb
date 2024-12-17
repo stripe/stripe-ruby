@@ -10,7 +10,10 @@ module Stripe
     end
 
     class Period < Stripe::StripeObject
-      attr_reader :end, :start
+      # The end date of this usage period. All usage up to and including this point in time is included.
+      attr_reader :end
+      # The start date of this usage period. All usage after this point in time is included.
+      attr_reader :start
     end
     # Unique identifier for the object.
     attr_reader :id

@@ -10,19 +10,44 @@ module Stripe
     end
 
     class AdjustableQuantity < Stripe::StripeObject
-      attr_reader :enabled, :maximum, :minimum
+      # Attribute for field enabled
+      attr_reader :enabled
+      # Attribute for field maximum
+      attr_reader :maximum
+      # Attribute for field minimum
+      attr_reader :minimum
     end
 
     class Discount < Stripe::StripeObject
-      attr_reader :amount, :discount
+      # The amount discounted.
+      attr_reader :amount
+      # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+      # It contains information about when the discount began, when it will end, and what it is applied to.
+      #
+      # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+      attr_reader :discount
     end
 
     class Display < Stripe::StripeObject
-      attr_reader :description, :images, :name
+      # Attribute for field description
+      attr_reader :description
+      # Attribute for field images
+      attr_reader :images
+      # Attribute for field name
+      attr_reader :name
     end
 
     class Tax < Stripe::StripeObject
-      attr_reader :amount, :rate, :taxability_reason, :taxable_amount
+      # Amount of tax applied for this rate.
+      attr_reader :amount
+      # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+      #
+      # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+      attr_reader :rate
+      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+      attr_reader :taxability_reason
+      # The amount on which tax is calculated, in cents (or local equivalent).
+      attr_reader :taxable_amount
     end
     # Attribute for field adjustable_quantity
     attr_reader :adjustable_quantity

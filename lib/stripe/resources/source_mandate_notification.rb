@@ -12,15 +12,22 @@ module Stripe
     end
 
     class AcssDebit < Stripe::StripeObject
+      # The statement descriptor associate with the debit.
       attr_reader :statement_descriptor
     end
 
     class BacsDebit < Stripe::StripeObject
+      # Last 4 digits of the account number associated with the debit.
       attr_reader :last4
     end
 
     class SepaDebit < Stripe::StripeObject
-      attr_reader :creditor_identifier, :last4, :mandate_reference
+      # SEPA creditor ID.
+      attr_reader :creditor_identifier
+      # Last 4 digits of the account number associated with the debit.
+      attr_reader :last4
+      # Mandate reference associated with the debit.
+      attr_reader :mandate_reference
     end
     # Attribute for field acss_debit
     attr_reader :acss_debit

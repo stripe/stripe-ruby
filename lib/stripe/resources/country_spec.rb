@@ -18,13 +18,49 @@ module Stripe
 
     class VerificationFields < Stripe::StripeObject
       class Company < Stripe::StripeObject
-        attr_reader :additional, :minimum
+        # Additional fields which are only required for some users.
+        attr_reader :additional
+        # Fields which every account must eventually provide.
+        attr_reader :minimum
       end
 
       class Individual < Stripe::StripeObject
-        attr_reader :additional, :minimum
+        # Additional fields which are only required for some users.
+        attr_reader :additional
+        # Fields which every account must eventually provide.
+        attr_reader :minimum
       end
-      attr_reader :company, :individual
+      # Attribute for field company
+      attr_reader :company
+      # Attribute for field individual
+      attr_reader :individual
+    end
+
+    class ListParams < Stripe::RequestParams
+      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+      attr_accessor :ending_before
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+      attr_accessor :limit
+      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+      attr_accessor :starting_after
+
+      def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil)
+        @ending_before = ending_before
+        @expand = expand
+        @limit = limit
+        @starting_after = starting_after
+      end
+    end
+
+    class RetrieveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
     end
     # The default currency for this country. This applies to both payment methods and bank accounts.
     attr_reader :default_currency
@@ -44,8 +80,8 @@ module Stripe
     attr_reader :verification_fields
 
     # Lists all Country Spec objects available in the API.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/country_specs", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/country_specs", params: params, opts: opts)
     end
   end
 end

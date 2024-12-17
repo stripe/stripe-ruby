@@ -15,9 +15,132 @@ module Stripe
 
       class UsageThreshold < Stripe::StripeObject
         class Filter < Stripe::StripeObject
-          attr_reader :customer, :type
+          # Limit the scope of the alert to this customer ID
+          attr_reader :customer
+          # Attribute for field type
+          attr_reader :type
         end
-        attr_reader :filters, :gte, :meter, :recurrence
+        # The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time.
+        attr_reader :filters
+        # The value at which this alert will trigger.
+        attr_reader :gte
+        # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
+        attr_reader :meter
+        # Defines how the alert will behave.
+        attr_reader :recurrence
+      end
+
+      class ListParams < Stripe::RequestParams
+        # Filter results to only include this type of alert.
+        attr_accessor :alert_type
+        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        attr_accessor :ending_before
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        attr_accessor :limit
+        # Filter results to only include alerts with the given meter.
+        attr_accessor :meter
+        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        attr_accessor :starting_after
+
+        def initialize(
+          alert_type: nil,
+          ending_before: nil,
+          expand: nil,
+          limit: nil,
+          meter: nil,
+          starting_after: nil
+        )
+          @alert_type = alert_type
+          @ending_before = ending_before
+          @expand = expand
+          @limit = limit
+          @meter = meter
+          @starting_after = starting_after
+        end
+      end
+
+      class CreateParams < Stripe::RequestParams
+        class UsageThreshold < Stripe::RequestParams
+          class Filter < Stripe::RequestParams
+            # Limit the scope to this usage alert only to this customer.
+            attr_accessor :customer
+            # What type of filter is being applied to this usage alert.
+            attr_accessor :type
+
+            def initialize(customer: nil, type: nil)
+              @customer = customer
+              @type = type
+            end
+          end
+          # The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
+          attr_accessor :filters
+          # Defines at which value the alert will fire.
+          attr_accessor :gte
+          # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
+          attr_accessor :meter
+          # Whether the alert should only fire only once, or once per billing cycle.
+          attr_accessor :recurrence
+
+          def initialize(filters: nil, gte: nil, meter: nil, recurrence: nil)
+            @filters = filters
+            @gte = gte
+            @meter = meter
+            @recurrence = recurrence
+          end
+        end
+        # The type of alert to create.
+        attr_accessor :alert_type
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # The title of the alert.
+        attr_accessor :title
+        # The configuration of the usage threshold.
+        attr_accessor :usage_threshold
+
+        def initialize(alert_type: nil, expand: nil, title: nil, usage_threshold: nil)
+          @alert_type = alert_type
+          @expand = expand
+          @title = title
+          @usage_threshold = usage_threshold
+        end
+      end
+
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class ActivateParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class ArchiveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class DeactivateParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
       end
       # Defines the type of the alert.
       attr_reader :alert_type
@@ -100,8 +223,8 @@ module Stripe
       end
 
       # Lists billing active and inactive alerts
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/billing/alerts", params: filters, opts: opts)
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/billing/alerts", params: params, opts: opts)
       end
     end
   end

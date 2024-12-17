@@ -18,6 +18,7 @@ module Stripe
     end
 
     class Networks < Stripe::StripeObject
+      # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
     end
     # The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
@@ -134,7 +135,7 @@ module Stripe
       )
     end
 
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       raise NotImplementedError,
             "Cards cannot be listed without a customer ID or an account " \
             "ID. List cards using `Customer.list_sources(" \

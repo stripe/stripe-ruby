@@ -13,77 +13,177 @@ module Stripe
 
       class CardIssuing < Stripe::StripeObject
         class StatusDetail < Stripe::StripeObject
-          attr_reader :code, :resolution, :restriction
+          # Represents the reason why the status is `pending` or `restricted`.
+          attr_reader :code
+          # Represents what the user should do, if anything, to activate the Feature.
+          attr_reader :resolution
+          # The `platform_restrictions` that are restricting this Feature.
+          attr_reader :restriction
         end
-        attr_reader :requested, :status, :status_details
+        # Whether the FinancialAccount should have the Feature.
+        attr_reader :requested
+        # Whether the Feature is operational.
+        attr_reader :status
+        # Additional details; includes at least one entry when the status is not `active`.
+        attr_reader :status_details
       end
 
       class DepositInsurance < Stripe::StripeObject
         class StatusDetail < Stripe::StripeObject
-          attr_reader :code, :resolution, :restriction
+          # Represents the reason why the status is `pending` or `restricted`.
+          attr_reader :code
+          # Represents what the user should do, if anything, to activate the Feature.
+          attr_reader :resolution
+          # The `platform_restrictions` that are restricting this Feature.
+          attr_reader :restriction
         end
-        attr_reader :requested, :status, :status_details
+        # Whether the FinancialAccount should have the Feature.
+        attr_reader :requested
+        # Whether the Feature is operational.
+        attr_reader :status
+        # Additional details; includes at least one entry when the status is not `active`.
+        attr_reader :status_details
       end
 
       class FinancialAddresses < Stripe::StripeObject
         class Aba < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
-            attr_reader :code, :resolution, :restriction
+            # Represents the reason why the status is `pending` or `restricted`.
+            attr_reader :code
+            # Represents what the user should do, if anything, to activate the Feature.
+            attr_reader :resolution
+            # The `platform_restrictions` that are restricting this Feature.
+            attr_reader :restriction
           end
-          attr_reader :bank, :requested, :status, :status_details
+          # Requested bank partner for this Financial Account
+          attr_reader :bank
+          # Whether the FinancialAccount should have the Feature.
+          attr_reader :requested
+          # Whether the Feature is operational.
+          attr_reader :status
+          # Additional details; includes at least one entry when the status is not `active`.
+          attr_reader :status_details
         end
+        # Toggle settings for enabling/disabling the ABA address feature
         attr_reader :aba
       end
 
       class InboundTransfers < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
-            attr_reader :code, :resolution, :restriction
+            # Represents the reason why the status is `pending` or `restricted`.
+            attr_reader :code
+            # Represents what the user should do, if anything, to activate the Feature.
+            attr_reader :resolution
+            # The `platform_restrictions` that are restricting this Feature.
+            attr_reader :restriction
           end
-          attr_reader :requested, :status, :status_details
+          # Whether the FinancialAccount should have the Feature.
+          attr_reader :requested
+          # Whether the Feature is operational.
+          attr_reader :status
+          # Additional details; includes at least one entry when the status is not `active`.
+          attr_reader :status_details
         end
+        # Toggle settings for enabling/disabling an inbound ACH specific feature
         attr_reader :ach
       end
 
       class IntraStripeFlows < Stripe::StripeObject
         class StatusDetail < Stripe::StripeObject
-          attr_reader :code, :resolution, :restriction
+          # Represents the reason why the status is `pending` or `restricted`.
+          attr_reader :code
+          # Represents what the user should do, if anything, to activate the Feature.
+          attr_reader :resolution
+          # The `platform_restrictions` that are restricting this Feature.
+          attr_reader :restriction
         end
-        attr_reader :requested, :status, :status_details
+        # Whether the FinancialAccount should have the Feature.
+        attr_reader :requested
+        # Whether the Feature is operational.
+        attr_reader :status
+        # Additional details; includes at least one entry when the status is not `active`.
+        attr_reader :status_details
       end
 
       class OutboundPayments < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
-            attr_reader :code, :resolution, :restriction
+            # Represents the reason why the status is `pending` or `restricted`.
+            attr_reader :code
+            # Represents what the user should do, if anything, to activate the Feature.
+            attr_reader :resolution
+            # The `platform_restrictions` that are restricting this Feature.
+            attr_reader :restriction
           end
-          attr_reader :requested, :status, :status_details
+          # Whether the FinancialAccount should have the Feature.
+          attr_reader :requested
+          # Whether the Feature is operational.
+          attr_reader :status
+          # Additional details; includes at least one entry when the status is not `active`.
+          attr_reader :status_details
         end
 
         class UsDomesticWire < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
-            attr_reader :code, :resolution, :restriction
+            # Represents the reason why the status is `pending` or `restricted`.
+            attr_reader :code
+            # Represents what the user should do, if anything, to activate the Feature.
+            attr_reader :resolution
+            # The `platform_restrictions` that are restricting this Feature.
+            attr_reader :restriction
           end
-          attr_reader :requested, :status, :status_details
+          # Whether the FinancialAccount should have the Feature.
+          attr_reader :requested
+          # Whether the Feature is operational.
+          attr_reader :status
+          # Additional details; includes at least one entry when the status is not `active`.
+          attr_reader :status_details
         end
-        attr_reader :ach, :us_domestic_wire
+        # Toggle settings for enabling/disabling an outbound ACH specific feature
+        attr_reader :ach
+        # Toggle settings for enabling/disabling a feature
+        attr_reader :us_domestic_wire
       end
 
       class OutboundTransfers < Stripe::StripeObject
         class Ach < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
-            attr_reader :code, :resolution, :restriction
+            # Represents the reason why the status is `pending` or `restricted`.
+            attr_reader :code
+            # Represents what the user should do, if anything, to activate the Feature.
+            attr_reader :resolution
+            # The `platform_restrictions` that are restricting this Feature.
+            attr_reader :restriction
           end
-          attr_reader :requested, :status, :status_details
+          # Whether the FinancialAccount should have the Feature.
+          attr_reader :requested
+          # Whether the Feature is operational.
+          attr_reader :status
+          # Additional details; includes at least one entry when the status is not `active`.
+          attr_reader :status_details
         end
 
         class UsDomesticWire < Stripe::StripeObject
           class StatusDetail < Stripe::StripeObject
-            attr_reader :code, :resolution, :restriction
+            # Represents the reason why the status is `pending` or `restricted`.
+            attr_reader :code
+            # Represents what the user should do, if anything, to activate the Feature.
+            attr_reader :resolution
+            # The `platform_restrictions` that are restricting this Feature.
+            attr_reader :restriction
           end
-          attr_reader :requested, :status, :status_details
+          # Whether the FinancialAccount should have the Feature.
+          attr_reader :requested
+          # Whether the Feature is operational.
+          attr_reader :status
+          # Additional details; includes at least one entry when the status is not `active`.
+          attr_reader :status_details
         end
-        attr_reader :ach, :us_domestic_wire
+        # Toggle settings for enabling/disabling an outbound ACH specific feature
+        attr_reader :ach
+        # Toggle settings for enabling/disabling a feature
+        attr_reader :us_domestic_wire
       end
       # Toggle settings for enabling/disabling a feature
       attr_reader :card_issuing

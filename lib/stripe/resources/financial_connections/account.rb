@@ -16,34 +16,207 @@ module Stripe
       nested_resource_class_methods :inferred_balance, operations: %i[list]
 
       class AccountHolder < Stripe::StripeObject
-        attr_reader :account, :customer, :type
+        # The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        attr_reader :account
+        # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        attr_reader :customer
+        # Type of account holder that this account belongs to.
+        attr_reader :type
       end
 
       class Balance < Stripe::StripeObject
         class Cash < Stripe::StripeObject
+          # The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
+          #
+          # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          #
+          # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           attr_reader :available
         end
 
         class Credit < Stripe::StripeObject
+          # The credit that has been used by the account holder.
+          #
+          # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          #
+          # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
           attr_reader :used
         end
-        attr_reader :as_of, :cash, :credit, :current, :type
+        # The time that the external institution calculated this balance. Measured in seconds since the Unix epoch.
+        attr_reader :as_of
+        # Attribute for field cash
+        attr_reader :cash
+        # Attribute for field credit
+        attr_reader :credit
+        # The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
+        #
+        # Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+        #
+        # Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
+        attr_reader :current
+        # The `type` of the balance. An additional hash is included on the balance with a name matching this value.
+        attr_reader :type
       end
 
       class BalanceRefresh < Stripe::StripeObject
-        attr_reader :last_attempted_at, :next_refresh_available_at, :status
+        # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        attr_reader :last_attempted_at
+        # Time at which the next balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        attr_reader :next_refresh_available_at
+        # The status of the last refresh attempt.
+        attr_reader :status
       end
 
       class InferredBalancesRefresh < Stripe::StripeObject
-        attr_reader :last_attempted_at, :next_refresh_available_at, :status
+        # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        attr_reader :last_attempted_at
+        # Time at which the next inferred balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        attr_reader :next_refresh_available_at
+        # The status of the last refresh attempt.
+        attr_reader :status
       end
 
       class OwnershipRefresh < Stripe::StripeObject
-        attr_reader :last_attempted_at, :next_refresh_available_at, :status
+        # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        attr_reader :last_attempted_at
+        # Time at which the next ownership refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        attr_reader :next_refresh_available_at
+        # The status of the last refresh attempt.
+        attr_reader :status
       end
 
       class TransactionRefresh < Stripe::StripeObject
-        attr_reader :id, :last_attempted_at, :next_refresh_available_at, :status
+        # Unique identifier for the object.
+        attr_reader :id
+        # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        attr_reader :last_attempted_at
+        # Time at which the next transaction refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        attr_reader :next_refresh_available_at
+        # The status of the last refresh attempt.
+        attr_reader :status
+      end
+
+      class ListParams < Stripe::RequestParams
+        class AccountHolder < Stripe::RequestParams
+          # The ID of the Stripe account whose accounts will be retrieved.
+          attr_accessor :account
+          # The ID of the Stripe customer whose accounts will be retrieved.
+          attr_accessor :customer
+
+          def initialize(account: nil, customer: nil)
+            @account = account
+            @customer = customer
+          end
+        end
+        # If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
+        attr_accessor :account_holder
+        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        attr_accessor :ending_before
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        attr_accessor :limit
+        # If present, only return accounts that were collected as part of the given session.
+        attr_accessor :session
+        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        attr_accessor :starting_after
+
+        def initialize(
+          account_holder: nil,
+          ending_before: nil,
+          expand: nil,
+          limit: nil,
+          session: nil,
+          starting_after: nil
+        )
+          @account_holder = account_holder
+          @ending_before = ending_before
+          @expand = expand
+          @limit = limit
+          @session = session
+          @starting_after = starting_after
+        end
+      end
+
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class ListOwnersParams < Stripe::RequestParams
+        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        attr_accessor :ending_before
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        attr_accessor :limit
+        # The ID of the ownership object to fetch owners from.
+        attr_accessor :ownership
+        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        attr_accessor :starting_after
+
+        def initialize(
+          ending_before: nil,
+          expand: nil,
+          limit: nil,
+          ownership: nil,
+          starting_after: nil
+        )
+          @ending_before = ending_before
+          @expand = expand
+          @limit = limit
+          @ownership = ownership
+          @starting_after = starting_after
+        end
+      end
+
+      class DisconnectParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class RefreshAccountParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # The list of account features that you would like to refresh.
+        attr_accessor :features
+
+        def initialize(expand: nil, features: nil)
+          @expand = expand
+          @features = features
+        end
+      end
+
+      class SubscribeParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # The list of account features to which you would like to subscribe.
+        attr_accessor :features
+
+        def initialize(expand: nil, features: nil)
+          @expand = expand
+          @features = features
+        end
+      end
+
+      class UnsubscribeParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # The list of account features from which you would like to unsubscribe.
+        attr_accessor :features
+
+        def initialize(expand: nil, features: nil)
+          @expand = expand
+          @features = features
+        end
       end
       # The account holder that this account belongs to.
       attr_reader :account_holder
@@ -120,11 +293,11 @@ module Stripe
       end
 
       # Returns a list of Financial Connections Account objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/financial_connections/accounts",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

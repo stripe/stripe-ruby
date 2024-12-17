@@ -15,37 +15,244 @@ module Stripe
       class InitiatingPaymentMethodDetails < Stripe::StripeObject
         class BillingDetails < Stripe::StripeObject
           class Address < Stripe::StripeObject
-            attr_reader :city, :country, :line1, :line2, :postal_code, :state
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
           end
-          attr_reader :address, :email, :name
+          # Attribute for field address
+          attr_reader :address
+          # Email address.
+          attr_reader :email
+          # Full name.
+          attr_reader :name
         end
 
         class FinancialAccount < Stripe::StripeObject
-          attr_reader :id, :network
+          # The FinancialAccount ID.
+          attr_reader :id
+          # The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
+          attr_reader :network
         end
 
         class UsBankAccount < Stripe::StripeObject
-          attr_reader :bank_name, :last4, :routing_number
+          # Bank name.
+          attr_reader :bank_name
+          # The last four digits of the bank account number.
+          attr_reader :last4
+          # The routing number for the bank account.
+          attr_reader :routing_number
         end
-        attr_reader :balance, :billing_details, :financial_account, :issuing_card, :type, :us_bank_account
+        # Set when `type` is `balance`.
+        attr_reader :balance
+        # Attribute for field billing_details
+        attr_reader :billing_details
+        # Attribute for field financial_account
+        attr_reader :financial_account
+        # Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID.
+        attr_reader :issuing_card
+        # Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
+        attr_reader :type
+        # Attribute for field us_bank_account
+        attr_reader :us_bank_account
       end
 
       class LinkedFlows < Stripe::StripeObject
         class SourceFlowDetails < Stripe::StripeObject
-          attr_reader :credit_reversal, :outbound_payment, :payout, :type
+          # You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
+          attr_reader :credit_reversal
+          # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
+          #
+          # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
+          #
+          # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
+          attr_reader :outbound_payment
+          # A `Payout` object is created when you receive funds from Stripe, or when you
+          # initiate a payout to either a bank account or debit card of a [connected
+          # Stripe account](/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
+          # and list all payouts. Payouts are made on [varying
+          # schedules](/docs/connect/manage-payout-schedule), depending on your country and
+          # industry.
+          #
+          # Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
+          attr_reader :payout
+          # The type of the source flow that originated the ReceivedCredit.
+          attr_reader :type
         end
-        attr_reader :credit_reversal, :issuing_authorization, :issuing_transaction, :source_flow, :source_flow_details, :source_flow_type
+        # The CreditReversal created as a result of this ReceivedCredit being reversed.
+        attr_reader :credit_reversal
+        # Set if the ReceivedCredit was created due to an [Issuing Authorization](https://stripe.com/docs/api#issuing_authorizations) object.
+        attr_reader :issuing_authorization
+        # Set if the ReceivedCredit is also viewable as an [Issuing transaction](https://stripe.com/docs/api#issuing_transactions) object.
+        attr_reader :issuing_transaction
+        # ID of the source flow. Set if `network` is `stripe` and the source flow is visible to the user. Examples of source flows include OutboundPayments, payouts, or CreditReversals.
+        attr_reader :source_flow
+        # The expandable object of the source flow.
+        attr_reader :source_flow_details
+        # The type of flow that originated the ReceivedCredit (for example, `outbound_payment`).
+        attr_reader :source_flow_type
       end
 
       class NetworkDetails < Stripe::StripeObject
         class Ach < Stripe::StripeObject
+          # ACH Addenda record
           attr_reader :addenda
         end
-        attr_reader :ach, :type
+        # Details about an ACH transaction.
+        attr_reader :ach
+        # The type of flow that originated the ReceivedCredit.
+        attr_reader :type
       end
 
       class ReversalDetails < Stripe::StripeObject
-        attr_reader :deadline, :restricted_reason
+        # Time before which a ReceivedCredit can be reversed.
+        attr_reader :deadline
+        # Set if a ReceivedCredit cannot be reversed.
+        attr_reader :restricted_reason
+      end
+
+      class ListParams < Stripe::RequestParams
+        class LinkedFlows < Stripe::RequestParams
+          # The source flow type.
+          attr_accessor :source_flow_type
+
+          def initialize(source_flow_type: nil)
+            @source_flow_type = source_flow_type
+          end
+        end
+        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        attr_accessor :ending_before
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # The FinancialAccount that received the funds.
+        attr_accessor :financial_account
+        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        attr_accessor :limit
+        # Only return ReceivedCredits described by the flow.
+        attr_accessor :linked_flows
+        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        attr_accessor :starting_after
+        # Only return ReceivedCredits that have the given status: `succeeded` or `failed`.
+        attr_accessor :status
+
+        def initialize(
+          ending_before: nil,
+          expand: nil,
+          financial_account: nil,
+          limit: nil,
+          linked_flows: nil,
+          starting_after: nil,
+          status: nil
+        )
+          @ending_before = ending_before
+          @expand = expand
+          @financial_account = financial_account
+          @limit = limit
+          @linked_flows = linked_flows
+          @starting_after = starting_after
+          @status = status
+        end
+      end
+
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class CreateParams < Stripe::RequestParams
+        class InitiatingPaymentMethodDetails < Stripe::RequestParams
+          class UsBankAccount < Stripe::RequestParams
+            # The bank account holder's name.
+            attr_accessor :account_holder_name
+            # The bank account number.
+            attr_accessor :account_number
+            # The bank account's routing number.
+            attr_accessor :routing_number
+
+            def initialize(account_holder_name: nil, account_number: nil, routing_number: nil)
+              @account_holder_name = account_holder_name
+              @account_number = account_number
+              @routing_number = routing_number
+            end
+          end
+          # The source type.
+          attr_accessor :type
+          # Optional fields for `us_bank_account`.
+          attr_accessor :us_bank_account
+
+          def initialize(type: nil, us_bank_account: nil)
+            @type = type
+            @us_bank_account = us_bank_account
+          end
+        end
+
+        class NetworkDetails < Stripe::RequestParams
+          class Ach < Stripe::RequestParams
+            # ACH Addenda record
+            attr_accessor :addenda
+
+            def initialize(addenda: nil)
+              @addenda = addenda
+            end
+          end
+          # Optional fields for `ach`.
+          attr_accessor :ach
+          # The type of flow that originated the ReceivedCredit.
+          attr_accessor :type
+
+          def initialize(ach: nil, type: nil)
+            @ach = ach
+            @type = type
+          end
+        end
+        # Amount (in cents) to be transferred.
+        attr_accessor :amount
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_accessor :currency
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        attr_accessor :description
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # The FinancialAccount to send funds to.
+        attr_accessor :financial_account
+        # Initiating payment method details for the object.
+        attr_accessor :initiating_payment_method_details
+        # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+        attr_accessor :network
+        # Details about the network used for the ReceivedCredit.
+        attr_accessor :network_details
+
+        def initialize(
+          amount: nil,
+          currency: nil,
+          description: nil,
+          expand: nil,
+          financial_account: nil,
+          initiating_payment_method_details: nil,
+          network: nil,
+          network_details: nil
+        )
+          @amount = amount
+          @currency = currency
+          @description = description
+          @expand = expand
+          @financial_account = financial_account
+          @initiating_payment_method_details = initiating_payment_method_details
+          @network = network
+          @network_details = network_details
+        end
       end
       # Amount (in cents) transferred.
       attr_reader :amount
@@ -83,11 +290,11 @@ module Stripe
       attr_reader :transaction
 
       # Returns a list of ReceivedCredits.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/received_credits",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

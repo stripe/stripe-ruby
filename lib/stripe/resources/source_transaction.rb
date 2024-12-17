@@ -13,23 +13,60 @@ module Stripe
     end
 
     class AchCreditTransfer < Stripe::StripeObject
-      attr_reader :customer_data, :fingerprint, :last4, :routing_number
+      # Customer data associated with the transfer.
+      attr_reader :customer_data
+      # Bank account fingerprint associated with the transfer.
+      attr_reader :fingerprint
+      # Last 4 digits of the account number associated with the transfer.
+      attr_reader :last4
+      # Routing number associated with the transfer.
+      attr_reader :routing_number
     end
 
     class ChfCreditTransfer < Stripe::StripeObject
-      attr_reader :reference, :sender_address_country, :sender_address_line1, :sender_iban, :sender_name
+      # Reference associated with the transfer.
+      attr_reader :reference
+      # Sender's country address.
+      attr_reader :sender_address_country
+      # Sender's line 1 address.
+      attr_reader :sender_address_line1
+      # Sender's bank account IBAN.
+      attr_reader :sender_iban
+      # Sender's name.
+      attr_reader :sender_name
     end
 
     class GbpCreditTransfer < Stripe::StripeObject
-      attr_reader :fingerprint, :funding_method, :last4, :reference, :sender_account_number, :sender_name, :sender_sort_code
+      # Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
+      attr_reader :fingerprint
+      # The credit transfer rails the sender used to push this transfer. The possible rails are: Faster Payments, BACS, CHAPS, and wire transfers. Currently only Faster Payments is supported.
+      attr_reader :funding_method
+      # Last 4 digits of sender account number associated with the transfer.
+      attr_reader :last4
+      # Sender entered arbitrary information about the transfer.
+      attr_reader :reference
+      # Sender account number associated with the transfer.
+      attr_reader :sender_account_number
+      # Sender name associated with the transfer.
+      attr_reader :sender_name
+      # Sender sort code associated with the transfer.
+      attr_reader :sender_sort_code
     end
 
     class PaperCheck < Stripe::StripeObject
-      attr_reader :available_at, :invoices
+      # Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
+      attr_reader :available_at
+      # Comma-separated list of invoice IDs associated with the paper check.
+      attr_reader :invoices
     end
 
     class SepaCreditTransfer < Stripe::StripeObject
-      attr_reader :reference, :sender_iban, :sender_name
+      # Reference associated with the transfer.
+      attr_reader :reference
+      # Sender's bank account IBAN.
+      attr_reader :sender_iban
+      # Sender's name.
+      attr_reader :sender_name
     end
     # Attribute for field ach_credit_transfer
     attr_reader :ach_credit_transfer

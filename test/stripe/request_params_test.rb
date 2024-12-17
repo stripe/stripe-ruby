@@ -31,6 +31,15 @@ module Stripe
         assert_equal expected, params.to_h
       end
 
+      should "convert nested lists" do
+        params = FooCreateParams.new(
+          fun: [FooCreateParams::Fun.new(games: "chess"), FooCreateParams::Fun.new(games: "go"), FooCreateParams::Fun.new(games: "sorry")],
+          team: 42
+        )
+        expected = { fun: [{ games: "chess" }, { games: "go" }, { games: "sorry" }], team: 42 }
+        assert_equal expected, params.to_h
+      end
+
       should "make request with params class" do
         stub_request(:post, "#{Stripe.api_base}/v1/customers")
           .with do |req|

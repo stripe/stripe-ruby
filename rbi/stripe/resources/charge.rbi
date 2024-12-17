@@ -3459,11 +3459,13 @@ module Stripe
      }
     def self.list(params = {}, opts = {}); end
 
-    sig { params(params: T.untyped, opts: T.untyped).returns(Stripe::SearchResultObject) }
+    sig {
+      params(params: T.any(::Stripe::Charge::SearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+     }
     def self.search(params = {}, opts = {}); end
 
     sig {
-      params(params: T.untyped, opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::Charge::SearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
      }
     def self.search_auto_paging_each(params = {}, opts = {}, &blk); end
 

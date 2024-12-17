@@ -958,7 +958,7 @@ module Stripe
 
     # Retrieves a customer's cash balance.
     sig {
-      params(customer: String, params: T.any(::Stripe::Customer::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).void
+      params(customer: String, params: T.any(::Stripe::Customer::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
      }
     def self.retrieve_cash_balance(customer, params = {}, opts = {}); end
 
@@ -974,11 +974,13 @@ module Stripe
      }
     def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {}); end
 
-    sig { params(params: T.untyped, opts: T.untyped).returns(Stripe::SearchResultObject) }
+    sig {
+      params(params: T.any(::Stripe::Customer::SearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SearchResultObject)
+     }
     def self.search(params = {}, opts = {}); end
 
     sig {
-      params(params: T.untyped, opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
+      params(params: T.any(::Stripe::Customer::SearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(Stripe::SearchResultObject)
      }
     def self.search_auto_paging_each(params = {}, opts = {}, &blk); end
 
@@ -992,7 +994,7 @@ module Stripe
 
     # Changes the settings on a customer's cash balance.
     sig {
-      params(customer: String, params: T.any(::Stripe::Customer::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).void
+      params(customer: String, params: T.any(::Stripe::Customer::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
      }
     def self.update_cash_balance(customer, params = {}, opts = {}); end
   end

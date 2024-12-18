@@ -1,4 +1,11 @@
 # Changelog
+## 13.3.0 - 2024-12-18
+* [#1500](https://github.com/stripe/stripe-ruby/pull/1500) This release changes the pinned API version to `2024-12-18.acacia`.
+
+* [#1507](https://github.com/stripe/stripe-ruby/pull/1507) Pass requestor to all deserialized objects including lists
+  
+  * Fixes bug where `StripeObject` retrieved from lists could not be used to make requests, such as `refresh`
+
 ## 13.2.0 - 2024-11-20
 * [#1486](https://github.com/stripe/stripe-ruby/pull/1486) This release changes the pinned API version to `2024-11-20.acacia`.
   * Add support for `respond` test helper method on resource `Issuing.Authorization`

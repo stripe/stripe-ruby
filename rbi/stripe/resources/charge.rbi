@@ -778,6 +778,8 @@ module Stripe
           attr_reader :state
         end
         sig { returns(T.nilable(String)) }
+        attr_reader :country
+        sig { returns(T.nilable(String)) }
         attr_reader :payer_email
         sig { returns(T.nilable(String)) }
         attr_reader :payer_id

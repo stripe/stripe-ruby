@@ -516,6 +516,8 @@ module Stripe
       class Paynow < Stripe::StripeObject; end
       class Paypal < Stripe::StripeObject
         sig { returns(T.nilable(String)) }
+        attr_reader :country
+        sig { returns(T.nilable(String)) }
         attr_reader :fingerprint
         sig { returns(T.nilable(String)) }
         attr_reader :payer_email

@@ -219,7 +219,7 @@ module Stripe
       class Paynow < Stripe::StripeObject; end
 
       class Paypal < Stripe::StripeObject
-        attr_reader :fingerprint, :payer_email, :payer_id, :verified_email
+        attr_reader :country, :fingerprint, :payer_email, :payer_id, :verified_email
       end
 
       class Payto < Stripe::StripeObject

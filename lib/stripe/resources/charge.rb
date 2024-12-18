@@ -308,7 +308,7 @@ module Stripe
         class VerifiedAddress < Stripe::StripeObject
           attr_reader :city, :country, :line1, :line2, :postal_code, :state
         end
-        attr_reader :payer_email, :payer_id, :payer_name, :seller_protection, :shipping, :transaction_id, :verified_address, :verified_email, :verified_name
+        attr_reader :country, :payer_email, :payer_id, :payer_name, :seller_protection, :shipping, :transaction_id, :verified_address, :verified_email, :verified_name
       end
 
       class Payto < Stripe::StripeObject

@@ -46,7 +46,7 @@ module Stripe
     end
 
     class LastPaymentError < Stripe::StripeObject
-      attr_reader :charge, :code, :decline_code, :doc_url, :message, :network_advice_code, :network_decline_code, :param, :payment_intent, :payment_method, :payment_method_type, :request_log_url, :setup_intent, :source, :type
+      attr_reader :advice_code, :charge, :code, :decline_code, :doc_url, :message, :network_advice_code, :network_decline_code, :param, :payment_intent, :payment_method, :payment_method_type, :request_log_url, :setup_intent, :source, :type
     end
 
     class NextAction < Stripe::StripeObject

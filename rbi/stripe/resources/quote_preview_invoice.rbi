@@ -144,6 +144,8 @@ module Stripe
     end
     class LastFinalizationError < Stripe::StripeObject
       sig { returns(String) }
+      attr_reader :advice_code
+      sig { returns(String) }
       attr_reader :charge
       sig { returns(String) }
       attr_reader :code

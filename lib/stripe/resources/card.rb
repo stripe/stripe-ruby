@@ -58,7 +58,7 @@ module Stripe
       )
     end
 
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       raise NotImplementedError,
             "Cards cannot be listed without a customer ID or an account " \
             "ID. List cards using `Customer.list_sources(" \

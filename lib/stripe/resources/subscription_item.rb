@@ -52,11 +52,11 @@ module Stripe
     end
 
     # Returns a list of your subscription items for a given subscription.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/subscription_items",
-        params: filters,
+        params: params,
         opts: opts
       )
     end

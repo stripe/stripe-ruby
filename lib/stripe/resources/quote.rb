@@ -80,8 +80,8 @@ module Stripe
     end
 
     # Returns a list of your quotes.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/quotes", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/quotes", params: params, opts: opts)
     end
 
     # When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.

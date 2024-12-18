@@ -77,8 +77,8 @@ module Stripe
     end
 
     # Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/accounts", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/accounts", params: params, opts: opts)
     end
 
     # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.

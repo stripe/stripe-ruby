@@ -16,11 +16,11 @@ module Stripe
       end
 
       # Returns a list of scheduled query runs.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/sigma/scheduled_query_runs",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

@@ -131,8 +131,8 @@ module Stripe
     end
 
     # You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/invoices", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/invoices", params: params, opts: opts)
     end
 
     # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

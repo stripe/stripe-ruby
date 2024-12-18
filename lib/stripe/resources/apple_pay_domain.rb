@@ -44,13 +44,8 @@ module Stripe
     end
 
     # List apple pay domains.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: "/v1/apple_pay/domains",
-        params: filters,
-        opts: opts
-      )
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/apple_pay/domains", params: params, opts: opts)
     end
 
     def self.resource_url

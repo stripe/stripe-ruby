@@ -50,8 +50,8 @@ module Stripe
     end
 
     # Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/invoiceitems", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/invoiceitems", params: params, opts: opts)
     end
 
     # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.

@@ -4,7 +4,7 @@
 module Stripe
   module Billing
     class CreditGrantService < StripeService
-      # Creates a credit grant
+      # Creates a credit grant.
       def create(params = {}, opts = {})
         request(
           method: :post,
@@ -37,7 +37,7 @@ module Stripe
         )
       end
 
-      # Retrieves a credit grant
+      # Retrieves a credit grant.
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
@@ -48,7 +48,7 @@ module Stripe
         )
       end
 
-      # Updates a credit grant
+      # Updates a credit grant.
       def update(id, params = {}, opts = {})
         request(
           method: :post,

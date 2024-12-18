@@ -46,11 +46,11 @@ module Stripe
     end
 
     # Retrieves the list of your subscription schedules.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/subscription_schedules",
-        params: filters,
+        params: params,
         opts: opts
       )
     end

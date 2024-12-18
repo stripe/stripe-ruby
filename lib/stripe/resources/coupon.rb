@@ -44,8 +44,8 @@ module Stripe
     end
 
     # Returns a list of your coupons.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/coupons", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/coupons", params: params, opts: opts)
     end
 
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.

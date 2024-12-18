@@ -62,11 +62,11 @@ module Stripe
       end
 
       # Returns a list of Checkout Sessions.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/checkout/sessions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

@@ -41,8 +41,8 @@ module Stripe
     end
 
     # List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/events", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/events", params: params, opts: opts)
     end
   end
 end

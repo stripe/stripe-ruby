@@ -308,7 +308,7 @@ module Stripe
         class VerifiedAddress < Stripe::StripeObject
           attr_reader :city, :country, :line1, :line2, :postal_code, :state
         end
-        attr_reader :payer_email, :payer_id, :payer_name, :seller_protection, :shipping, :transaction_id, :verified_address, :verified_email, :verified_name
+        attr_reader :country, :payer_email, :payer_id, :payer_name, :seller_protection, :shipping, :transaction_id, :verified_address, :verified_email, :verified_name
       end
 
       class Payto < Stripe::StripeObject
@@ -525,8 +525,8 @@ module Stripe
     end
 
     # Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/charges", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/charges", params: params, opts: opts)
     end
 
     def self.search(params = {}, opts = {})

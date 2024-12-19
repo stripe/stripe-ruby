@@ -33,6 +33,12 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_reader :name
         end
+        class FinancialAccount < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :id
+          sig { returns(String) }
+          attr_reader :network
+        end
         class UsBankAccount < Stripe::StripeObject
           sig { returns(T.nilable(String)) }
           attr_reader :account_holder_type
@@ -53,6 +59,8 @@ module Stripe
         end
         sig { returns(BillingDetails) }
         attr_reader :billing_details
+        sig { returns(FinancialAccount) }
+        attr_reader :financial_account
         sig { returns(String) }
         attr_reader :type
         sig { returns(UsBankAccount) }

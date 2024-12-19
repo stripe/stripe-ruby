@@ -47,11 +47,11 @@ module Stripe
       attr_reader :type
 
       # Retrieves a list of TransactionEntry objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/transaction_entries",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

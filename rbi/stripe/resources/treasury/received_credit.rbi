@@ -62,6 +62,8 @@ module Stripe
           attr_reader :credit_reversal
           sig { returns(Stripe::Treasury::OutboundPayment) }
           attr_reader :outbound_payment
+          sig { returns(Stripe::Treasury::OutboundTransfer) }
+          attr_reader :outbound_transfer
           sig { returns(Stripe::Payout) }
           attr_reader :payout
           sig { returns(String) }

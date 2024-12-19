@@ -15,6 +15,18 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Al < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Am < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Ao < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class At < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             sig { returns(String) }
@@ -26,6 +38,14 @@ module Stripe
           attr_reader :type
         end
         class Au < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Ba < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Bb < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
         end
@@ -53,6 +73,10 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Bs < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class By < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
@@ -64,6 +88,10 @@ module Stripe
           end
           sig { returns(ProvinceStandard) }
           attr_reader :province_standard
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Cd < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
         end
@@ -179,6 +207,10 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Gn < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Gr < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             sig { returns(String) }
@@ -245,6 +277,10 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Kh < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Kr < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
@@ -291,6 +327,18 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Me < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Mk < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Mr < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Mt < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             sig { returns(String) }
@@ -327,11 +375,19 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Np < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Nz < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
         end
         class Om < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Pe < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
         end
@@ -411,7 +467,19 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Sn < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Sr < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Th < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Tj < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
         end
@@ -420,6 +488,10 @@ module Stripe
           attr_reader :type
         end
         class Tz < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Ug < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
         end
@@ -453,6 +525,10 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Uy < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Uz < Stripe::StripeObject
           sig { returns(String) }
           attr_reader :type
@@ -465,22 +541,44 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Zm < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Zw < Stripe::StripeObject
+          sig { returns(String) }
+          attr_reader :type
+        end
         sig { returns(Ae) }
         attr_reader :ae
+        sig { returns(Al) }
+        attr_reader :al
+        sig { returns(Am) }
+        attr_reader :am
+        sig { returns(Ao) }
+        attr_reader :ao
         sig { returns(At) }
         attr_reader :at
         sig { returns(Au) }
         attr_reader :au
+        sig { returns(Ba) }
+        attr_reader :ba
+        sig { returns(Bb) }
+        attr_reader :bb
         sig { returns(Be) }
         attr_reader :be
         sig { returns(Bg) }
         attr_reader :bg
         sig { returns(Bh) }
         attr_reader :bh
+        sig { returns(Bs) }
+        attr_reader :bs
         sig { returns(By) }
         attr_reader :by
         sig { returns(Ca) }
         attr_reader :ca
+        sig { returns(Cd) }
+        attr_reader :cd
         sig { returns(Ch) }
         attr_reader :ch
         sig { returns(Cl) }
@@ -513,6 +611,8 @@ module Stripe
         attr_reader :gb
         sig { returns(Ge) }
         attr_reader :ge
+        sig { returns(Gn) }
+        attr_reader :gn
         sig { returns(Gr) }
         attr_reader :gr
         sig { returns(Hr) }
@@ -531,6 +631,8 @@ module Stripe
         attr_reader :jp
         sig { returns(Ke) }
         attr_reader :ke
+        sig { returns(Kh) }
+        attr_reader :kh
         sig { returns(Kr) }
         attr_reader :kr
         sig { returns(Kz) }
@@ -545,6 +647,12 @@ module Stripe
         attr_reader :ma
         sig { returns(Md) }
         attr_reader :md
+        sig { returns(Me) }
+        attr_reader :me
+        sig { returns(Mk) }
+        attr_reader :mk
+        sig { returns(Mr) }
+        attr_reader :mr
         sig { returns(Mt) }
         attr_reader :mt
         sig { returns(Mx) }
@@ -557,10 +665,14 @@ module Stripe
         attr_reader :nl
         sig { returns(No) }
         attr_reader :no
+        sig { returns(Np) }
+        attr_reader :np
         sig { returns(Nz) }
         attr_reader :nz
         sig { returns(Om) }
         attr_reader :om
+        sig { returns(Pe) }
+        attr_reader :pe
         sig { returns(Pl) }
         attr_reader :pl
         sig { returns(Pt) }
@@ -581,20 +693,34 @@ module Stripe
         attr_reader :si
         sig { returns(Sk) }
         attr_reader :sk
+        sig { returns(Sn) }
+        attr_reader :sn
+        sig { returns(Sr) }
+        attr_reader :sr
         sig { returns(Th) }
         attr_reader :th
+        sig { returns(Tj) }
+        attr_reader :tj
         sig { returns(Tr) }
         attr_reader :tr
         sig { returns(Tz) }
         attr_reader :tz
+        sig { returns(Ug) }
+        attr_reader :ug
         sig { returns(Us) }
         attr_reader :us
+        sig { returns(Uy) }
+        attr_reader :uy
         sig { returns(Uz) }
         attr_reader :uz
         sig { returns(Vn) }
         attr_reader :vn
         sig { returns(Za) }
         attr_reader :za
+        sig { returns(Zm) }
+        attr_reader :zm
+        sig { returns(Zw) }
+        attr_reader :zw
       end
       sig { returns(Integer) }
       # Time at which the registration becomes active. Measured in seconds since the Unix epoch.

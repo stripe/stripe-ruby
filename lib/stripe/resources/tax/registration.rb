@@ -23,6 +23,18 @@ module Stripe
           attr_reader :type
         end
 
+        class Al < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Am < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Ao < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class At < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             attr_reader :place_of_supply_scheme
@@ -31,6 +43,14 @@ module Stripe
         end
 
         class Au < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Ba < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Bb < Stripe::StripeObject
           attr_reader :type
         end
 
@@ -52,6 +72,10 @@ module Stripe
           attr_reader :type
         end
 
+        class Bs < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class By < Stripe::StripeObject
           attr_reader :type
         end
@@ -61,6 +85,10 @@ module Stripe
             attr_reader :province
           end
           attr_reader :province_standard, :type
+        end
+
+        class Cd < Stripe::StripeObject
+          attr_reader :type
         end
 
         class Ch < Stripe::StripeObject
@@ -151,6 +179,10 @@ module Stripe
           attr_reader :type
         end
 
+        class Gn < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class Gr < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             attr_reader :place_of_supply_scheme
@@ -202,6 +234,10 @@ module Stripe
           attr_reader :type
         end
 
+        class Kh < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class Kr < Stripe::StripeObject
           attr_reader :type
         end
@@ -239,6 +275,18 @@ module Stripe
           attr_reader :type
         end
 
+        class Me < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Mk < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Mr < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class Mt < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             attr_reader :place_of_supply_scheme
@@ -269,11 +317,19 @@ module Stripe
           attr_reader :type
         end
 
+        class Np < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class Nz < Stripe::StripeObject
           attr_reader :type
         end
 
         class Om < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Pe < Stripe::StripeObject
           attr_reader :type
         end
 
@@ -335,7 +391,19 @@ module Stripe
           attr_reader :standard, :type
         end
 
+        class Sn < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Sr < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class Th < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Tj < Stripe::StripeObject
           attr_reader :type
         end
 
@@ -344,6 +412,10 @@ module Stripe
         end
 
         class Tz < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Ug < Stripe::StripeObject
           attr_reader :type
         end
 
@@ -365,6 +437,10 @@ module Stripe
           attr_reader :local_amusement_tax, :local_lease_tax, :state, :state_sales_tax, :type
         end
 
+        class Uy < Stripe::StripeObject
+          attr_reader :type
+        end
+
         class Uz < Stripe::StripeObject
           attr_reader :type
         end
@@ -376,7 +452,15 @@ module Stripe
         class Za < Stripe::StripeObject
           attr_reader :type
         end
-        attr_reader :ae, :at, :au, :be, :bg, :bh, :by, :ca, :ch, :cl, :co, :cr, :cy, :cz, :de, :dk, :ec, :ee, :eg, :es, :fi, :fr, :gb, :ge, :gr, :hr, :hu, :id, :ie, :is, :it, :jp, :ke, :kr, :kz, :lt, :lu, :lv, :ma, :md, :mt, :mx, :my, :ng, :nl, :no, :nz, :om, :pl, :pt, :ro, :rs, :ru, :sa, :se, :sg, :si, :sk, :th, :tr, :tz, :us, :uz, :vn, :za
+
+        class Zm < Stripe::StripeObject
+          attr_reader :type
+        end
+
+        class Zw < Stripe::StripeObject
+          attr_reader :type
+        end
+        attr_reader :ae, :al, :am, :ao, :at, :au, :ba, :bb, :be, :bg, :bh, :bs, :by, :ca, :cd, :ch, :cl, :co, :cr, :cy, :cz, :de, :dk, :ec, :ee, :eg, :es, :fi, :fr, :gb, :ge, :gn, :gr, :hr, :hu, :id, :ie, :is, :it, :jp, :ke, :kh, :kr, :kz, :lt, :lu, :lv, :ma, :md, :me, :mk, :mr, :mt, :mx, :my, :ng, :nl, :no, :np, :nz, :om, :pe, :pl, :pt, :ro, :rs, :ru, :sa, :se, :sg, :si, :sk, :sn, :sr, :th, :tj, :tr, :tz, :ug, :us, :uy, :uz, :vn, :za, :zm, :zw
       end
       # Time at which the registration becomes active. Measured in seconds since the Unix epoch.
       attr_reader :active_from
@@ -408,11 +492,11 @@ module Stripe
       end
 
       # Returns a list of Tax Registration objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/tax/registrations",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

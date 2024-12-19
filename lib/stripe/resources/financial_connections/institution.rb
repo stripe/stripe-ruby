@@ -48,11 +48,11 @@ module Stripe
       attr_reader :url
 
       # Returns a list of Financial Connections Institution objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/financial_connections/institutions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

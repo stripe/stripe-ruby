@@ -25,10 +25,14 @@ module Stripe
           attr_reader :address, :email, :name
         end
 
+        class FinancialAccount < Stripe::StripeObject
+          attr_reader :id, :network
+        end
+
         class UsBankAccount < Stripe::StripeObject
           attr_reader :account_holder_type, :account_type, :bank_name, :fingerprint, :last4, :mandate, :network, :routing_number
         end
-        attr_reader :billing_details, :type, :us_bank_account
+        attr_reader :billing_details, :financial_account, :type, :us_bank_account
       end
 
       class NetworkDetails < Stripe::StripeObject
@@ -130,11 +134,11 @@ module Stripe
       end
 
       # Returns a list of OutboundTransfers sent from the specified FinancialAccount.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/outbound_transfers",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

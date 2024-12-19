@@ -38,7 +38,7 @@ module Stripe
     end
 
     class LastSetupError < Stripe::StripeObject
-      attr_reader :charge, :code, :decline_code, :doc_url, :message, :network_advice_code, :network_decline_code, :param, :payment_intent, :payment_method, :payment_method_type, :request_log_url, :setup_intent, :source, :type
+      attr_reader :advice_code, :charge, :code, :decline_code, :doc_url, :message, :network_advice_code, :network_decline_code, :param, :payment_intent, :payment_method, :payment_method_type, :request_log_url, :setup_intent, :source, :type
     end
 
     class NextAction < Stripe::StripeObject
@@ -270,8 +270,8 @@ module Stripe
     end
 
     # Returns a list of SetupIntents.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/setup_intents", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/setup_intents", params: params, opts: opts)
     end
 
     # Updates a SetupIntent object.

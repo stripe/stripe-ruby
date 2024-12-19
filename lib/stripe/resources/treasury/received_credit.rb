@@ -32,7 +32,7 @@ module Stripe
 
       class LinkedFlows < Stripe::StripeObject
         class SourceFlowDetails < Stripe::StripeObject
-          attr_reader :credit_reversal, :outbound_payment, :payout, :type
+          attr_reader :credit_reversal, :outbound_payment, :outbound_transfer, :payout, :type
         end
         attr_reader :credit_reversal, :issuing_authorization, :issuing_transaction, :source_flow, :source_flow_details, :source_flow_type
       end
@@ -83,11 +83,11 @@ module Stripe
       attr_reader :transaction
 
       # Returns a list of ReceivedCredits.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/received_credits",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

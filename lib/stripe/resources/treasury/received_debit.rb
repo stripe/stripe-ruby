@@ -80,11 +80,11 @@ module Stripe
       attr_reader :transaction
 
       # Returns a list of ReceivedDebits.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/received_debits",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

@@ -20,14 +20,19 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
+
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
+
           # Address line 1 (e.g., street, PO Box, or company name).
           attr_accessor :line1
+
           # Address line 2 (e.g., apartment, suite, unit, or building).
           attr_accessor :line2
+
           # ZIP or postal code.
           attr_accessor :postal_code
+
           # State, county, province, or region.
           attr_accessor :state
 
@@ -49,12 +54,16 @@ module Stripe
         end
         # The full address of the location. You can't change the location's `country`. If you need to modify the `country` field, create a new `Location` object and re-register any existing readers to that location.
         attr_accessor :address
+
         # The ID of a configuration that will be used to customize all readers in this location.
         attr_accessor :configuration_overrides
+
         # A name for the location.
         attr_accessor :display_name
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 
@@ -76,10 +85,13 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
 
@@ -95,14 +107,19 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
+
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
+
           # Address line 1 (e.g., street, PO Box, or company name).
           attr_accessor :line1
+
           # Address line 2 (e.g., apartment, suite, unit, or building).
           attr_accessor :line2
+
           # ZIP or postal code.
           attr_accessor :postal_code
+
           # State, county, province, or region.
           attr_accessor :state
 
@@ -124,12 +141,16 @@ module Stripe
         end
         # The full address of the location.
         attr_accessor :address
+
         # The ID of a configuration that will be used to customize all readers in this location.
         attr_accessor :configuration_overrides
+
         # A name for the location. Maximum length is 1000 characters.
         attr_accessor :display_name
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 

@@ -7,14 +7,19 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Returns objects associated with this FinancialAccount.
         attr_accessor :financial_account
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
+
         # Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
         attr_accessor :status
 
@@ -64,6 +69,7 @@ module Stripe
           end
           # Optional fields for `ach`.
           attr_accessor :ach
+
           # The type of flow that originated the OutboundTransfer.
           attr_accessor :type
 
@@ -74,22 +80,31 @@ module Stripe
         end
         # Amount (in cents) to be transferred.
         attr_accessor :amount
+
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
+
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
+
         # The PaymentMethod to use as the payment instrument for the OutboundTransfer.
         attr_accessor :destination_payment_method
+
         # Hash describing payment method configuration details.
         attr_accessor :destination_payment_method_options
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # The FinancialAccount to pull funds from.
         attr_accessor :financial_account
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # Details about the network used for the OutboundTransfer.
         attr_accessor :network_details
+
         # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
         attr_accessor :statement_descriptor
 

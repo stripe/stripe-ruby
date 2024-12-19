@@ -6,6 +6,7 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # The ID of the Payment Record.
       attr_accessor :payment_record
 

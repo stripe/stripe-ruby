@@ -8,6 +8,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -16,6 +17,7 @@ module Stripe
         # When the reported payment failed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         attr_accessor :failed_at
+
         sig { params(failed_at: Integer).void }
         def initialize(failed_at: nil); end
       end
@@ -23,6 +25,7 @@ module Stripe
         # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         attr_accessor :guaranteed_at
+
         sig { params(guaranteed_at: Integer).void }
         def initialize(guaranteed_at: nil); end
       end
@@ -32,21 +35,27 @@ module Stripe
             # City, district, suburb, town, or village.
             sig { returns(String) }
             attr_accessor :city
+
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(String) }
             attr_accessor :country
+
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(String) }
             attr_accessor :line1
+
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(String) }
             attr_accessor :line2
+
             # ZIP or postal code.
             sig { returns(String) }
             attr_accessor :postal_code
+
             # State, county, province, or region.
             sig { returns(String) }
             attr_accessor :state
+
             sig {
               params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
              }
@@ -64,15 +73,19 @@ module Stripe
             returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address)
            }
           attr_accessor :address
+
           # The billing email associated with the method of payment.
           sig { returns(String) }
           attr_accessor :email
+
           # The billing name associated with the method of payment.
           sig { returns(String) }
           attr_accessor :name
+
           # The billing phone number associated with the method of payment.
           sig { returns(String) }
           attr_accessor :phone
+
           sig {
             params(address: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails::Address, email: String, name: String, phone: String).void
            }
@@ -82,9 +95,11 @@ module Stripe
           # Display name for the custom (user-defined) payment method type used to make this payment.
           sig { returns(String) }
           attr_accessor :display_name
+
           # The custom payment method type associated with this payment.
           sig { returns(String) }
           attr_accessor :type
+
           sig { params(display_name: String, type: String).void }
           def initialize(display_name: nil, type: nil); end
         end
@@ -93,17 +108,21 @@ module Stripe
           returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails)
          }
         attr_accessor :billing_details
+
         # Information about the custom (user-defined) payment method used to make this payment.
         sig {
           returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails::Custom)
          }
         attr_accessor :custom
+
         # ID of the Stripe Payment Method used to make this payment.
         sig { returns(String) }
         attr_accessor :payment_method
+
         # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
         sig { returns(String) }
         attr_accessor :type
+
         sig {
           params(billing_details: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails, custom: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails::Custom, payment_method: String, type: String).void
          }
@@ -114,21 +133,27 @@ module Stripe
           # City, district, suburb, town, or village.
           sig { returns(String) }
           attr_accessor :city
+
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
           attr_accessor :country
+
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(String) }
           attr_accessor :line1
+
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(String) }
           attr_accessor :line2
+
           # ZIP or postal code.
           sig { returns(String) }
           attr_accessor :postal_code
+
           # State, county, province, or region.
           sig { returns(String) }
           attr_accessor :state
+
           sig {
             params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
            }
@@ -146,12 +171,15 @@ module Stripe
           returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::ShippingDetails::Address)
          }
         attr_accessor :address
+
         # The shipping recipient's name.
         sig { returns(String) }
         attr_accessor :name
+
         # The shipping recipient's phone number.
         sig { returns(String) }
         attr_accessor :phone
+
         sig {
           params(address: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::ShippingDetails::Address, name: String, phone: String).void
          }
@@ -160,32 +188,41 @@ module Stripe
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(String) }
       attr_accessor :description
+
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # Information about the payment attempt failure.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Failed) }
       attr_accessor :failed
+
       # Information about the payment attempt guarantee.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Guaranteed) }
       attr_accessor :guaranteed
+
       # When the reported payment was initiated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_accessor :initiated_at
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
+
       # The outcome of the reported payment.
       sig { returns(String) }
       attr_accessor :outcome
+
       # Information about the Payment Method debited for this payment.
       sig {
         returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails)
        }
       attr_accessor :payment_method_details
+
       # Shipping information for this payment.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentAttemptParams::ShippingDetails) }
       attr_accessor :shipping_details
+
       sig {
         params(description: String, expand: T::Array[String], failed: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Failed, guaranteed: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::Guaranteed, initiated_at: Integer, metadata: T::Hash[String, String], outcome: String, payment_method_details: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::PaymentMethodDetails, shipping_details: ::Stripe::PaymentRecordService::ReportPaymentAttemptParams::ShippingDetails).void
        }
@@ -205,12 +242,15 @@ module Stripe
       # When the reported payment was canceled. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_accessor :canceled_at
+
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # Attribute for param field metadata
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
+
       sig {
         params(canceled_at: Integer, expand: T::Array[String], metadata: T::Hash[String, String]).void
        }
@@ -220,12 +260,15 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_accessor :failed_at
+
       # Attribute for param field metadata
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
+
       sig {
         params(expand: T::Array[String], failed_at: Integer, metadata: T::Hash[String, String]).void
        }
@@ -235,12 +278,15 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_accessor :guaranteed_at
+
       # Attribute for param field metadata
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
+
       sig {
         params(expand: T::Array[String], guaranteed_at: Integer, metadata: T::Hash[String, String]).void
        }
@@ -251,9 +297,11 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
+
         # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
         sig { returns(Integer) }
         attr_accessor :value
+
         sig { params(currency: String, value: Integer).void }
         def initialize(currency: nil, value: nil); end
       end
@@ -261,15 +309,19 @@ module Stripe
         # The customer who made the payment.
         sig { returns(String) }
         attr_accessor :customer
+
         # The customer's phone number.
         sig { returns(String) }
         attr_accessor :email
+
         # The customer's name.
         sig { returns(String) }
         attr_accessor :name
+
         # The customer's phone number.
         sig { returns(String) }
         attr_accessor :phone
+
         sig { params(customer: String, email: String, name: String, phone: String).void }
         def initialize(customer: nil, email: nil, name: nil, phone: nil); end
       end
@@ -277,6 +329,7 @@ module Stripe
         # When the reported payment failed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         attr_accessor :failed_at
+
         sig { params(failed_at: Integer).void }
         def initialize(failed_at: nil); end
       end
@@ -284,6 +337,7 @@ module Stripe
         # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         attr_accessor :guaranteed_at
+
         sig { params(guaranteed_at: Integer).void }
         def initialize(guaranteed_at: nil); end
       end
@@ -293,21 +347,27 @@ module Stripe
             # City, district, suburb, town, or village.
             sig { returns(String) }
             attr_accessor :city
+
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(String) }
             attr_accessor :country
+
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(String) }
             attr_accessor :line1
+
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(String) }
             attr_accessor :line2
+
             # ZIP or postal code.
             sig { returns(String) }
             attr_accessor :postal_code
+
             # State, county, province, or region.
             sig { returns(String) }
             attr_accessor :state
+
             sig {
               params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
              }
@@ -325,15 +385,19 @@ module Stripe
             returns(::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails::BillingDetails::Address)
            }
           attr_accessor :address
+
           # The billing email associated with the method of payment.
           sig { returns(String) }
           attr_accessor :email
+
           # The billing name associated with the method of payment.
           sig { returns(String) }
           attr_accessor :name
+
           # The billing phone number associated with the method of payment.
           sig { returns(String) }
           attr_accessor :phone
+
           sig {
             params(address: ::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails::BillingDetails::Address, email: String, name: String, phone: String).void
            }
@@ -343,9 +407,11 @@ module Stripe
           # Display name for the custom (user-defined) payment method type used to make this payment.
           sig { returns(String) }
           attr_accessor :display_name
+
           # The custom payment method type associated with this payment.
           sig { returns(String) }
           attr_accessor :type
+
           sig { params(display_name: String, type: String).void }
           def initialize(display_name: nil, type: nil); end
         end
@@ -354,17 +420,21 @@ module Stripe
           returns(::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails::BillingDetails)
          }
         attr_accessor :billing_details
+
         # Information about the custom (user-defined) payment method used to make this payment.
         sig {
           returns(::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails::Custom)
          }
         attr_accessor :custom
+
         # ID of the Stripe Payment Method used to make this payment.
         sig { returns(String) }
         attr_accessor :payment_method
+
         # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
         sig { returns(String) }
         attr_accessor :type
+
         sig {
           params(billing_details: ::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails::BillingDetails, custom: ::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails::Custom, payment_method: String, type: String).void
          }
@@ -375,21 +445,27 @@ module Stripe
           # City, district, suburb, town, or village.
           sig { returns(String) }
           attr_accessor :city
+
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(String) }
           attr_accessor :country
+
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(String) }
           attr_accessor :line1
+
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(String) }
           attr_accessor :line2
+
           # ZIP or postal code.
           sig { returns(String) }
           attr_accessor :postal_code
+
           # State, county, province, or region.
           sig { returns(String) }
           attr_accessor :state
+
           sig {
             params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
            }
@@ -407,12 +483,15 @@ module Stripe
           returns(::Stripe::PaymentRecordService::ReportPaymentParams::ShippingDetails::Address)
          }
         attr_accessor :address
+
         # The shipping recipient's name.
         sig { returns(String) }
         attr_accessor :name
+
         # The shipping recipient's phone number.
         sig { returns(String) }
         attr_accessor :phone
+
         sig {
           params(address: ::Stripe::PaymentRecordService::ReportPaymentParams::ShippingDetails::Address, name: String, phone: String).void
          }
@@ -421,42 +500,55 @@ module Stripe
       # The amount you intend to collect for this payment.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentParams::AmountRequested) }
       attr_accessor :amount_requested
+
       # Customer information for this payment.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentParams::CustomerDetails) }
       attr_accessor :customer_details
+
       # Indicates whether the customer was present in your checkout flow during this payment.
       sig { returns(String) }
       attr_accessor :customer_presence
+
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(String) }
       attr_accessor :description
+
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # Information about the payment attempt failure.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentParams::Failed) }
       attr_accessor :failed
+
       # Information about the payment attempt guarantee.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentParams::Guaranteed) }
       attr_accessor :guaranteed
+
       # When the reported payment was initiated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_accessor :initiated_at
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
+
       # The outcome of the reported payment.
       sig { returns(String) }
       attr_accessor :outcome
+
       # Information about the Payment Method debited for this payment.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails) }
       attr_accessor :payment_method_details
+
       # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
       sig { returns(String) }
       attr_accessor :payment_reference
+
       # Shipping information for this payment.
       sig { returns(::Stripe::PaymentRecordService::ReportPaymentParams::ShippingDetails) }
       attr_accessor :shipping_details
+
       sig {
         params(amount_requested: ::Stripe::PaymentRecordService::ReportPaymentParams::AmountRequested, customer_details: ::Stripe::PaymentRecordService::ReportPaymentParams::CustomerDetails, customer_presence: String, description: String, expand: T::Array[String], failed: ::Stripe::PaymentRecordService::ReportPaymentParams::Failed, guaranteed: ::Stripe::PaymentRecordService::ReportPaymentParams::Guaranteed, initiated_at: Integer, metadata: T::Hash[String, String], outcome: String, payment_method_details: ::Stripe::PaymentRecordService::ReportPaymentParams::PaymentMethodDetails, payment_reference: String, shipping_details: ::Stripe::PaymentRecordService::ReportPaymentParams::ShippingDetails).void
        }

@@ -15,10 +15,12 @@ module Stripe
         end
         # Configuration for eu_bank_transfer funding type.
         attr_accessor :eu_bank_transfer
+
         # List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
         #
         # Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
         attr_accessor :requested_address_types
+
         # The type of the `bank_transfer`
         attr_accessor :type
 
@@ -30,10 +32,13 @@ module Stripe
       end
       # Additional parameters for `bank_transfer` funding types
       attr_accessor :bank_transfer
+
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # The `funding_type` to get the instructions for.
       attr_accessor :funding_type
 

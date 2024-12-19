@@ -23,6 +23,7 @@ module Stripe
       end
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # A hash of settings for this cash balance.
       attr_accessor :settings
 

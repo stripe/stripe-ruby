@@ -33,25 +33,32 @@ module Stripe
     # Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
     sig { returns(String) }
     attr_reader :id
+
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
+
     # Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
     sig { returns(T::Hash[String, Float]) }
     attr_reader :rates
+
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max.
       sig { returns(Integer) }
       attr_accessor :limit
+
       # A cursor for use in pagination. `starting_after` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with the exchange rate for currency X, your subsequent call can include `starting_after=X` in order to fetch the next page of the list.
       sig { returns(String) }
       attr_accessor :starting_after
+
       sig {
         params(ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
        }
@@ -61,6 +68,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end

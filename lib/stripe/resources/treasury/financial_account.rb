@@ -18,8 +18,10 @@ module Stripe
       class Balance < Stripe::StripeObject
         # Funds the user can spend right now.
         attr_reader :cash
+
         # Funds not spendable yet, but will become available at a later time.
         attr_reader :inbound_pending
+
         # Funds in the account, but not spendable because they are being held for pending outbound flows.
         attr_reader :outbound_pending
       end
@@ -28,19 +30,25 @@ module Stripe
         class Aba < Stripe::StripeObject
           # The name of the person or business that owns the bank account.
           attr_reader :account_holder_name
+
           # The account number.
           attr_reader :account_number
+
           # The last four characters of the account number.
           attr_reader :account_number_last4
+
           # Name of the bank.
           attr_reader :bank_name
+
           # Routing number for the account.
           attr_reader :routing_number
         end
         # ABA Records contain U.S. bank account details per the ABA format.
         attr_reader :aba
+
         # The list of networks that the address supports
         attr_reader :supported_networks
+
         # The type of financial address
         attr_reader :type
       end
@@ -48,6 +56,7 @@ module Stripe
       class PlatformRestrictions < Stripe::StripeObject
         # Restricts all inbound money movement.
         attr_reader :inbound_flows
+
         # Restricts all outbound money movement.
         attr_reader :outbound_flows
       end
@@ -65,10 +74,13 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
 
@@ -81,12 +93,16 @@ module Stripe
         end
         # Only return FinancialAccounts that were created during the given date interval.
         attr_accessor :created
+
         # An object ID cursor for use in pagination.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A limit ranging from 1 to 100 (defaults to 10).
         attr_accessor :limit
+
         # An object ID cursor for use in pagination.
         attr_accessor :starting_after
 
@@ -129,6 +145,7 @@ module Stripe
             class Aba < Stripe::RequestParams
               # Requested bank partner
               attr_accessor :bank
+
               # Whether the FinancialAccount should have the Feature.
               attr_accessor :requested
 
@@ -191,6 +208,7 @@ module Stripe
             end
             # Enables ACH transfers via the OutboundPayments API.
             attr_accessor :ach
+
             # Enables US domestic wire transfers via the OutboundPayments API.
             attr_accessor :us_domestic_wire
 
@@ -220,6 +238,7 @@ module Stripe
             end
             # Enables ACH transfers via the OutboundTransfers API.
             attr_accessor :ach
+
             # Enables US domestic wire transfers via the OutboundTransfers API.
             attr_accessor :us_domestic_wire
 
@@ -230,16 +249,22 @@ module Stripe
           end
           # Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
           attr_accessor :card_issuing
+
           # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
           attr_accessor :deposit_insurance
+
           # Contains Features that add FinancialAddresses to the FinancialAccount.
           attr_accessor :financial_addresses
+
           # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
           attr_accessor :inbound_transfers
+
           # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
           attr_accessor :intra_stripe_flows
+
           # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
           attr_accessor :outbound_payments
+
           # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
           attr_accessor :outbound_transfers
 
@@ -265,6 +290,7 @@ module Stripe
         class PlatformRestrictions < Stripe::RequestParams
           # Restricts all inbound money movement.
           attr_accessor :inbound_flows
+
           # Restricts all outbound money movement.
           attr_accessor :outbound_flows
 
@@ -275,14 +301,19 @@ module Stripe
         end
         # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
         attr_accessor :display_name
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Encodes whether a FinancialAccount has access to a particular feature. Stripe or the platform can control features via the requested field.
         attr_accessor :features
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         attr_accessor :platform_restrictions
+
         # The currencies the FinancialAccount can hold a balance in.
         attr_accessor :supported_currencies
 
@@ -336,6 +367,7 @@ module Stripe
             class Aba < Stripe::RequestParams
               # Requested bank partner
               attr_accessor :bank
+
               # Whether the FinancialAccount should have the Feature.
               attr_accessor :requested
 
@@ -398,6 +430,7 @@ module Stripe
             end
             # Enables ACH transfers via the OutboundPayments API.
             attr_accessor :ach
+
             # Enables US domestic wire transfers via the OutboundPayments API.
             attr_accessor :us_domestic_wire
 
@@ -427,6 +460,7 @@ module Stripe
             end
             # Enables ACH transfers via the OutboundTransfers API.
             attr_accessor :ach
+
             # Enables US domestic wire transfers via the OutboundTransfers API.
             attr_accessor :us_domestic_wire
 
@@ -437,16 +471,22 @@ module Stripe
           end
           # Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
           attr_accessor :card_issuing
+
           # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
           attr_accessor :deposit_insurance
+
           # Contains Features that add FinancialAddresses to the FinancialAccount.
           attr_accessor :financial_addresses
+
           # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
           attr_accessor :inbound_transfers
+
           # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
           attr_accessor :intra_stripe_flows
+
           # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
           attr_accessor :outbound_payments
+
           # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
           attr_accessor :outbound_transfers
 
@@ -472,6 +512,7 @@ module Stripe
         class PlatformRestrictions < Stripe::RequestParams
           # Restricts all inbound money movement.
           attr_accessor :inbound_flows
+
           # Restricts all outbound money movement.
           attr_accessor :outbound_flows
 
@@ -482,12 +523,16 @@ module Stripe
         end
         # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
         attr_accessor :display_name
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
         attr_accessor :features
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # The set of functionalities that the platform can restrict on the FinancialAccount.
         attr_accessor :platform_restrictions
 
@@ -538,6 +583,7 @@ module Stripe
           class Aba < Stripe::RequestParams
             # Requested bank partner
             attr_accessor :bank
+
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
@@ -600,6 +646,7 @@ module Stripe
           end
           # Enables ACH transfers via the OutboundPayments API.
           attr_accessor :ach
+
           # Enables US domestic wire transfers via the OutboundPayments API.
           attr_accessor :us_domestic_wire
 
@@ -629,6 +676,7 @@ module Stripe
           end
           # Enables ACH transfers via the OutboundTransfers API.
           attr_accessor :ach
+
           # Enables US domestic wire transfers via the OutboundTransfers API.
           attr_accessor :us_domestic_wire
 
@@ -639,18 +687,25 @@ module Stripe
         end
         # Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
         attr_accessor :card_issuing
+
         # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
         attr_accessor :deposit_insurance
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Contains Features that add FinancialAddresses to the FinancialAccount.
         attr_accessor :financial_addresses
+
         # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
         attr_accessor :inbound_transfers
+
         # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
         attr_accessor :intra_stripe_flows
+
         # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
         attr_accessor :outbound_payments
+
         # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         attr_accessor :outbound_transfers
 
@@ -676,37 +731,53 @@ module Stripe
       end
       # The array of paths to active Features in the Features hash.
       attr_reader :active_features
+
       # Balance information for the FinancialAccount
       attr_reader :balance
+
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       attr_reader :country
+
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+
       # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
       attr_reader :display_name
+
       # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
       # Stripe or the platform can control Features via the requested field.
       attr_reader :features
+
       # The set of credentials that resolve to a FinancialAccount.
       attr_reader :financial_addresses
+
       # Unique identifier for the object.
       attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # The array of paths to pending Features in the Features hash.
       attr_reader :pending_features
+
       # The set of functionalities that the platform can restrict on the FinancialAccount.
       attr_reader :platform_restrictions
+
       # The array of paths to restricted Features in the Features hash.
       attr_reader :restricted_features
+
       # Status of this FinancialAccount.
       attr_reader :status
+
       # Attribute for field status_details
       attr_reader :status_details
+
       # The currencies the FinancialAccount can hold a balance in. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
       attr_reader :supported_currencies
 

@@ -39,10 +39,13 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max.
       attr_accessor :limit
+
       # A cursor for use in pagination. `starting_after` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with the exchange rate for currency X, your subsequent call can include `starting_after=X` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -64,8 +67,10 @@ module Stripe
     end
     # Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
     attr_reader :id
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
     attr_reader :rates
 

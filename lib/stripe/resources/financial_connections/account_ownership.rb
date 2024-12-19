@@ -12,10 +12,13 @@ module Stripe
 
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+
       # Unique identifier for the object.
       attr_reader :id
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # A paginated list of owners for this account.
       attr_reader :owners
     end

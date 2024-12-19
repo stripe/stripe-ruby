@@ -7,12 +7,16 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # Only return credit grants for this customer.
         attr_accessor :customer
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
 
@@ -36,6 +40,7 @@ module Stripe
           class Monetary < Stripe::RequestParams
             # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
             attr_accessor :currency
+
             # A positive integer representing the amount of the credit grant.
             attr_accessor :value
 
@@ -46,6 +51,7 @@ module Stripe
           end
           # The monetary amount.
           attr_accessor :monetary
+
           # Specify the type of this amount. We currently only support `monetary` billing credits.
           attr_accessor :type
 
@@ -73,20 +79,28 @@ module Stripe
         end
         # Amount of this credit grant.
         attr_accessor :amount
+
         # Configuration specifying what this credit grant applies to.
         attr_accessor :applicability_config
+
         # The category of this credit grant.
         attr_accessor :category
+
         # ID of the customer to receive the billing credits.
         attr_accessor :customer
+
         # The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
         attr_accessor :effective_at
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # The time when the billing credits expire. If not specified, the billing credits don't expire.
         attr_accessor :expires_at
+
         # Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         attr_accessor :metadata
+
         # A descriptive name shown in the Dashboard.
         attr_accessor :name
 
@@ -125,8 +139,10 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
         attr_accessor :expires_at
+
         # Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         attr_accessor :metadata
 

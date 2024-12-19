@@ -23,6 +23,7 @@ module Stripe
       end
       # The status of the payment method on the domain.
       attr_reader :status
+
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
     end
@@ -34,6 +35,7 @@ module Stripe
       end
       # The status of the payment method on the domain.
       attr_reader :status
+
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
     end
@@ -45,6 +47,7 @@ module Stripe
       end
       # The status of the payment method on the domain.
       attr_reader :status
+
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
     end
@@ -56,6 +59,7 @@ module Stripe
       end
       # The status of the payment method on the domain.
       attr_reader :status
+
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
     end
@@ -67,6 +71,7 @@ module Stripe
       end
       # The status of the payment method on the domain.
       attr_reader :status
+
       # Contains additional details about the status of a payment method for a specific payment method domain.
       attr_reader :status_details
     end
@@ -74,14 +79,19 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # The domain name that this payment method domain object represents.
       attr_accessor :domain_name
+
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements
       attr_accessor :enabled
+
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
+
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -105,8 +115,10 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # The domain name that this payment method domain object represents.
       attr_accessor :domain_name
+
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
       attr_accessor :enabled
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 
@@ -129,6 +141,7 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
       attr_accessor :enabled
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 
@@ -148,24 +161,34 @@ module Stripe
     end
     # Indicates the status of a specific payment method on a payment method domain.
     attr_reader :amazon_pay
+
     # Indicates the status of a specific payment method on a payment method domain.
     attr_reader :apple_pay
+
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+
     # The domain name that this payment method domain object represents.
     attr_reader :domain_name
+
     # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
     attr_reader :enabled
+
     # Indicates the status of a specific payment method on a payment method domain.
     attr_reader :google_pay
+
     # Unique identifier for the object.
     attr_reader :id
+
     # Indicates the status of a specific payment method on a payment method domain.
     attr_reader :link
+
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # Indicates the status of a specific payment method on a payment method domain.
     attr_reader :paypal
 

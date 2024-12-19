@@ -20,6 +20,7 @@ module Stripe
         # A short machine-readable string giving the reason for the verification or user-session failure.
         sig { returns(T.nilable(String)) }
         attr_reader :code
+
         # A message that explains the reason for verification or user-session failure.
         sig { returns(T.nilable(String)) }
         attr_reader :reason
@@ -29,12 +30,15 @@ module Stripe
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
           sig { returns(T::Array[String]) }
           attr_reader :allowed_types
+
           # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
           sig { returns(T::Boolean) }
           attr_reader :require_id_number
+
           # Disable image uploads, identity document images have to be captured using the device’s camera.
           sig { returns(T::Boolean) }
           attr_reader :require_live_capture
+
           # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
           sig { returns(T::Boolean) }
           attr_reader :require_matching_selfie
@@ -53,12 +57,15 @@ module Stripe
         # Attribute for field document
         sig { returns(Document) }
         attr_reader :document
+
         # Attribute for field email
         sig { returns(Email) }
         attr_reader :email
+
         # Attribute for field id_number
         sig { returns(IdNumber) }
         attr_reader :id_number
+
         # Attribute for field phone
         sig { returns(Phone) }
         attr_reader :phone
@@ -67,6 +74,7 @@ module Stripe
         # Email of user being verified
         sig { returns(String) }
         attr_reader :email
+
         # Phone number of user being verified
         sig { returns(String) }
         attr_reader :phone
@@ -81,18 +89,23 @@ module Stripe
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           attr_reader :city
+
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           attr_reader :country
+
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
           attr_reader :line1
+
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
           attr_reader :line2
+
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           attr_reader :postal_code
+
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           attr_reader :state
@@ -101,9 +114,11 @@ module Stripe
           # Numerical day between 1 and 31.
           sig { returns(T.nilable(Integer)) }
           attr_reader :day
+
           # Numerical month between 1 and 12.
           sig { returns(T.nilable(Integer)) }
           attr_reader :month
+
           # The four-digit year.
           sig { returns(T.nilable(Integer)) }
           attr_reader :year
@@ -111,24 +126,31 @@ module Stripe
         # The user's verified address.
         sig { returns(T.nilable(Address)) }
         attr_reader :address
+
         # The user’s verified date of birth.
         sig { returns(T.nilable(Dob)) }
         attr_reader :dob
+
         # The user's verified email address
         sig { returns(T.nilable(String)) }
         attr_reader :email
+
         # The user's verified first name.
         sig { returns(T.nilable(String)) }
         attr_reader :first_name
+
         # The user's verified id number.
         sig { returns(T.nilable(String)) }
         attr_reader :id_number
+
         # The user's verified id number type.
         sig { returns(T.nilable(String)) }
         attr_reader :id_number_type
+
         # The user's verified last name.
         sig { returns(T.nilable(String)) }
         attr_reader :last_name
+
         # The user's verified phone number
         sig { returns(T.nilable(String)) }
         attr_reader :phone
@@ -136,100 +158,130 @@ module Stripe
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }
       attr_reader :client_reference_id
+
       # The short-lived client secret used by Stripe.js to [show a verification modal](https://stripe.com/docs/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don’t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://stripe.com/docs/identity/verification-sessions#client-secret) to learn more.
       sig { returns(T.nilable(String)) }
       attr_reader :client_secret
+
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_reader :created
+
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
+
       # If present, this property tells you the last error encountered when processing the verification.
       sig { returns(T.nilable(LastError)) }
       attr_reader :last_error
+
       # ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results)
       sig { returns(T.nilable(T.any(String, Stripe::Identity::VerificationReport))) }
       attr_reader :last_verification_report
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       attr_reader :metadata
+
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
+
       # A set of options for the session’s verification checks.
       sig { returns(T.nilable(Options)) }
       attr_reader :options
+
       # Details provided about the user being verified. These details may be shown to the user.
       sig { returns(T.nilable(ProvidedDetails)) }
       attr_reader :provided_details
+
       # Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
       sig { returns(T.nilable(Redaction)) }
       attr_reader :redaction
+
       # Token referencing a Customer resource.
       sig { returns(T.nilable(String)) }
       attr_reader :related_customer
+
       # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
       sig { returns(String) }
       attr_reader :status
+
       # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
       sig { returns(String) }
       attr_reader :type
+
       # The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.
       sig { returns(T.nilable(String)) }
       attr_reader :url
+
       # The configuration token of a verification flow from the dashboard.
       sig { returns(String) }
       attr_reader :verification_flow
+
       # The user’s verified data.
       sig { returns(T.nilable(VerifiedOutputs)) }
       attr_reader :verified_outputs
+
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :lte
+
           sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         sig { returns(String) }
         attr_accessor :client_reference_id
+
         # Only return VerificationSessions that were created during the given date interval.
         sig {
           returns(T.any(::Stripe::Identity::VerificationSession::ListParams::Created, Integer))
          }
         attr_accessor :created
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
+
         # Attribute for param field related_customer
         sig { returns(String) }
         attr_accessor :related_customer
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
+
         # Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
         sig { returns(String) }
         attr_accessor :status
+
         sig {
           params(client_reference_id: String, created: T.any(::Stripe::Identity::VerificationSession::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, related_customer: String, starting_after: String, status: String).void
          }
@@ -250,15 +302,19 @@ module Stripe
             # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
             sig { returns(T::Array[String]) }
             attr_accessor :allowed_types
+
             # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
             sig { returns(T::Boolean) }
             attr_accessor :require_id_number
+
             # Disable image uploads, identity document images have to be captured using the device’s camera.
             sig { returns(T::Boolean) }
             attr_accessor :require_live_capture
+
             # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
             sig { returns(T::Boolean) }
             attr_accessor :require_matching_selfie
+
             sig {
               params(allowed_types: T::Array[String], require_id_number: T::Boolean, require_live_capture: T::Boolean, require_matching_selfie: T::Boolean).void
              }
@@ -274,6 +330,7 @@ module Stripe
             returns(T.nilable(::Stripe::Identity::VerificationSession::CreateParams::Options::Document))
            }
           attr_accessor :document
+
           sig {
             params(document: T.nilable(::Stripe::Identity::VerificationSession::CreateParams::Options::Document)).void
            }
@@ -283,39 +340,50 @@ module Stripe
           # Email of user being verified
           sig { returns(String) }
           attr_accessor :email
+
           # Phone number of user being verified
           sig { returns(String) }
           attr_accessor :phone
+
           sig { params(email: String, phone: String).void }
           def initialize(email: nil, phone: nil); end
         end
         # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
         sig { returns(String) }
         attr_accessor :client_reference_id
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T::Hash[String, String]) }
         attr_accessor :metadata
+
         # A set of options for the session’s verification checks.
         sig { returns(::Stripe::Identity::VerificationSession::CreateParams::Options) }
         attr_accessor :options
+
         # Details provided about the user being verified. These details may be shown to the user.
         sig { returns(::Stripe::Identity::VerificationSession::CreateParams::ProvidedDetails) }
         attr_accessor :provided_details
+
         # Token referencing a Customer resource.
         sig { returns(String) }
         attr_accessor :related_customer
+
         # The URL that the user will be redirected to upon completing the verification flow.
         sig { returns(String) }
         attr_accessor :return_url
+
         # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
         sig { returns(String) }
         attr_accessor :type
+
         # The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
         sig { returns(String) }
         attr_accessor :verification_flow
+
         sig {
           params(client_reference_id: String, expand: T::Array[String], metadata: T::Hash[String, String], options: ::Stripe::Identity::VerificationSession::CreateParams::Options, provided_details: ::Stripe::Identity::VerificationSession::CreateParams::ProvidedDetails, related_customer: String, return_url: String, type: String, verification_flow: String).void
          }
@@ -335,6 +403,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -344,15 +413,19 @@ module Stripe
             # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
             sig { returns(T::Array[String]) }
             attr_accessor :allowed_types
+
             # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
             sig { returns(T::Boolean) }
             attr_accessor :require_id_number
+
             # Disable image uploads, identity document images have to be captured using the device’s camera.
             sig { returns(T::Boolean) }
             attr_accessor :require_live_capture
+
             # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
             sig { returns(T::Boolean) }
             attr_accessor :require_matching_selfie
+
             sig {
               params(allowed_types: T::Array[String], require_id_number: T::Boolean, require_live_capture: T::Boolean, require_matching_selfie: T::Boolean).void
              }
@@ -368,6 +441,7 @@ module Stripe
             returns(T.nilable(::Stripe::Identity::VerificationSession::UpdateParams::Options::Document))
            }
           attr_accessor :document
+
           sig {
             params(document: T.nilable(::Stripe::Identity::VerificationSession::UpdateParams::Options::Document)).void
            }
@@ -377,27 +451,34 @@ module Stripe
           # Email of user being verified
           sig { returns(String) }
           attr_accessor :email
+
           # Phone number of user being verified
           sig { returns(String) }
           attr_accessor :phone
+
           sig { params(email: String, phone: String).void }
           def initialize(email: nil, phone: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T::Hash[String, String]) }
         attr_accessor :metadata
+
         # A set of options for the session’s verification checks.
         sig { returns(::Stripe::Identity::VerificationSession::UpdateParams::Options) }
         attr_accessor :options
+
         # Details provided about the user being verified. These details may be shown to the user.
         sig { returns(::Stripe::Identity::VerificationSession::UpdateParams::ProvidedDetails) }
         attr_accessor :provided_details
+
         # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
         sig { returns(String) }
         attr_accessor :type
+
         sig {
           params(expand: T::Array[String], metadata: T::Hash[String, String], options: ::Stripe::Identity::VerificationSession::UpdateParams::Options, provided_details: ::Stripe::Identity::VerificationSession::UpdateParams::ProvidedDetails, type: String).void
          }
@@ -413,6 +494,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -420,6 +502,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end

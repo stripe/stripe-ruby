@@ -19,9 +19,11 @@ module Stripe
         # The AWS account ID.
         sig { returns(String) }
         attr_reader :aws_account_id
+
         # The ARN of the AWS event source.
         sig { returns(String) }
         attr_reader :aws_event_source_arn
+
         # The state of the AWS event source.
         sig { returns(String) }
         attr_reader :aws_event_source_status
@@ -30,6 +32,7 @@ module Stripe
         # The signing secret of the webhook endpoint, only includable on creation.
         sig { returns(T.nilable(String)) }
         attr_reader :signing_secret
+
         # The URL of the webhook endpoint, includable.
         sig { returns(T.nilable(String)) }
         attr_reader :url
@@ -37,51 +40,67 @@ module Stripe
       # Time at which the object was created.
       sig { returns(String) }
       attr_reader :created
+
       # An optional description of what the event destination is used for.
       sig { returns(String) }
       attr_reader :description
+
       # The list of events to enable for this endpoint.
       sig { returns(T::Array[String]) }
       attr_reader :enabled_events
+
       # Payload type of events being subscribed to.
       sig { returns(String) }
       attr_reader :event_payload
+
       # Where events should be routed from.
       sig { returns(T.nilable(T::Array[String])) }
       attr_reader :events_from
+
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
+
       # Metadata.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_reader :metadata
+
       # Event destination name.
       sig { returns(String) }
       attr_reader :name
+
       # String representing the object's type. Objects of the same type share the same value of the object field.
       sig { returns(String) }
       attr_reader :object
+
       # If using the snapshot event payload, the API version events are rendered as.
       sig { returns(T.nilable(String)) }
       attr_reader :snapshot_api_version
+
       # Status. It can be set to either enabled or disabled.
       sig { returns(String) }
       attr_reader :status
+
       # Additional information about event destination status.
       sig { returns(T.nilable(StatusDetails)) }
       attr_reader :status_details
+
       # Event destination type.
       sig { returns(String) }
       attr_reader :type
+
       # Time at which the object was last updated.
       sig { returns(String) }
       attr_reader :updated
+
       # Amazon EventBridge configuration.
       sig { returns(T.nilable(AmazonEventbridge)) }
       attr_reader :amazon_eventbridge
+
       # Webhook endpoint configuration.
       sig { returns(T.nilable(WebhookEndpoint)) }
       attr_reader :webhook_endpoint

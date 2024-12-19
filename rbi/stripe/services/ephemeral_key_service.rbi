@@ -8,6 +8,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -15,18 +16,23 @@ module Stripe
       # The ID of the Customer you'd like to modify using the resulting ephemeral key.
       sig { returns(String) }
       attr_accessor :customer
+
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # The ID of the Issuing Card you'd like to access using the resulting ephemeral key.
       sig { returns(String) }
       attr_accessor :issuing_card
+
       # A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information.
       sig { returns(String) }
       attr_accessor :nonce
+
       # The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key
       sig { returns(String) }
       attr_accessor :verification_session
+
       sig {
         params(customer: String, expand: T::Array[String], issuing_card: String, nonce: String, verification_session: String).void
        }

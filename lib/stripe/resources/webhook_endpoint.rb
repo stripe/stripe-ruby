@@ -35,14 +35,19 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       # An optional description of what the webhook is used for.
       attr_accessor :description
+
       # Disable the webhook endpoint if set to true.
       attr_accessor :disabled
+
       # The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection.
       attr_accessor :enabled_events
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       # The URL of the webhook endpoint.
       attr_accessor :url
 
@@ -66,10 +71,13 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
+
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -84,16 +92,22 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
       attr_accessor :api_version
+
       # Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`.
       attr_accessor :connect
+
       # An optional description of what the webhook is used for.
       attr_accessor :description
+
       # The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection.
       attr_accessor :enabled_events
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       # The URL of the webhook endpoint.
       attr_accessor :url
 
@@ -117,28 +131,40 @@ module Stripe
     end
     # The API version events are rendered as for this webhook endpoint.
     attr_reader :api_version
+
     # The ID of the associated Connect application.
     attr_reader :application
+
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+
     # An optional description of what the webhook is used for.
     attr_reader :description
+
     # The list of events to enable for this endpoint. `['*']` indicates that all events are enabled, except those that require explicit selection.
     attr_reader :enabled_events
+
     # Unique identifier for the object.
     attr_reader :id
+
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
+
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # The endpoint's secret, used to generate [webhook signatures](https://docs.stripe.com/webhooks/signatures). Only returned at creation.
     attr_reader :secret
+
     # The status of the webhook. It can be `enabled` or `disabled`.
     attr_reader :status
+
     # The URL of the webhook endpoint.
     attr_reader :url
+
     # Always true for a deleted object
     attr_reader :deleted
 

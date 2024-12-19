@@ -34,34 +34,49 @@ module Stripe
       end
       # The name of the person or business that owns the bank account.
       attr_accessor :account_holder_name
+
       # The type of entity that holds the account. This can be either `individual` or `company`.
       attr_accessor :account_holder_type
+
       # The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
       attr_accessor :account_type
+
       # City/District/Suburb/Town/Village.
       attr_accessor :address_city
+
       # Billing address country, if provided when creating card.
       attr_accessor :address_country
+
       # Address line 1 (Street address/PO Box/Company name).
       attr_accessor :address_line1
+
       # Address line 2 (Apartment/Suite/Unit/Building).
       attr_accessor :address_line2
+
       # State/County/Province/Region.
       attr_accessor :address_state
+
       # ZIP or postal code.
       attr_accessor :address_zip
+
       # When set to true, this becomes the default external account for its currency.
       attr_accessor :default_for_currency
+
       # Documents that may be submitted to satisfy various informational requests.
       attr_accessor :documents
+
       # Two digit number representing the card’s expiration month.
       attr_accessor :exp_month
+
       # Four digit number representing the card’s expiration year.
       attr_accessor :exp_year
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       # Cardholder name.
       attr_accessor :name
 
@@ -105,12 +120,16 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
+
       # Filter external accounts according to a particular object type.
       attr_accessor :object
+
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -127,16 +146,22 @@ module Stripe
       class BankAccount < Stripe::RequestParams
         # Attribute for param field object
         attr_accessor :object
+
         # The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
         attr_accessor :account_holder_name
+
         # The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
         attr_accessor :account_holder_type
+
         # The account number for the bank account, in string form. Must be a checking account.
         attr_accessor :account_number
+
         # The country in which the bank account is located.
         attr_accessor :country
+
         # The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
         attr_accessor :currency
+
         # The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
         attr_accessor :routing_number
 
@@ -162,30 +187,43 @@ module Stripe
       class Card < Stripe::RequestParams
         # Attribute for param field object
         attr_accessor :object
+
         # Attribute for param field address_city
         attr_accessor :address_city
+
         # Attribute for param field address_country
         attr_accessor :address_country
+
         # Attribute for param field address_line1
         attr_accessor :address_line1
+
         # Attribute for param field address_line2
         attr_accessor :address_line2
+
         # Attribute for param field address_state
         attr_accessor :address_state
+
         # Attribute for param field address_zip
         attr_accessor :address_zip
+
         # Attribute for param field currency
         attr_accessor :currency
+
         # Attribute for param field cvc
         attr_accessor :cvc
+
         # Attribute for param field exp_month
         attr_accessor :exp_month
+
         # Attribute for param field exp_year
         attr_accessor :exp_year
+
         # Attribute for param field name
         attr_accessor :name
+
         # Attribute for param field number
         attr_accessor :number
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
 
@@ -225,8 +263,10 @@ module Stripe
       class CardToken < Stripe::RequestParams
         # Attribute for param field object
         attr_accessor :object
+
         # Attribute for param field currency
         attr_accessor :currency
+
         # Attribute for param field token
         attr_accessor :token
 
@@ -238,10 +278,13 @@ module Stripe
       end
       # When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
       attr_accessor :default_for_currency
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # Please refer to full [documentation](https://stripe.com/docs/api) instead.
       attr_accessor :external_account
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
 

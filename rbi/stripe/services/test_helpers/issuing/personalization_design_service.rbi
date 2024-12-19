@@ -10,6 +10,7 @@ module Stripe
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
+
           sig { params(expand: T::Array[String]).void }
           def initialize(expand: nil); end
         end
@@ -17,6 +18,7 @@ module Stripe
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
+
           sig { params(expand: T::Array[String]).void }
           def initialize(expand: nil); end
         end
@@ -25,20 +27,24 @@ module Stripe
             # The reason(s) the card logo was rejected.
             sig { returns(T::Array[String]) }
             attr_accessor :card_logo
+
             # The reason(s) the carrier text was rejected.
             sig { returns(T::Array[String]) }
             attr_accessor :carrier_text
+
             sig { params(card_logo: T::Array[String], carrier_text: T::Array[String]).void }
             def initialize(card_logo: nil, carrier_text: nil); end
           end
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
+
           # The reason(s) the personalization design was rejected.
           sig {
             returns(::Stripe::TestHelpers::Issuing::PersonalizationDesignService::RejectParams::RejectionReasons)
            }
           attr_accessor :rejection_reasons
+
           sig {
             params(expand: T::Array[String], rejection_reasons: ::Stripe::TestHelpers::Issuing::PersonalizationDesignService::RejectParams::RejectionReasons).void
            }

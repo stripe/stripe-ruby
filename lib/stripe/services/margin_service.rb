@@ -6,12 +6,16 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # Only return margins that are active or inactive. For example, pass `true` to only list active margins.
       attr_accessor :active
+
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
+
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -27,12 +31,16 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # Whether the margin can be applied to invoices, invoice items, or invoice line items or not. Defaults to `true`.
       attr_accessor :active
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       # Name of the margin, which is displayed to customers, such as on invoices.
       attr_accessor :name
+
       # Percent that will be taken off the subtotal before tax (after all other discounts and promotions) of any invoice to which the margin is applied.
       attr_accessor :percent_off
 
@@ -57,10 +65,13 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       # Whether the margin can be applied to invoices, invoice items, or invoice line items or not.
       attr_accessor :active
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       # Name of the margin, which is displayed to customers, such as on invoices.
       attr_accessor :name
 

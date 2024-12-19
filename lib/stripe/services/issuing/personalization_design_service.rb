@@ -8,6 +8,7 @@ module Stripe
         class Preferences < Stripe::RequestParams
           # Only return the personalization design that's set as the default. A connected account uses the Connect platform's default design if no personalization design is set as the default.
           attr_accessor :is_default
+
           # Only return the personalization design that is set as the Connect platform's default. This parameter is only applicable to connected accounts.
           attr_accessor :is_platform_default
 
@@ -18,16 +19,22 @@ module Stripe
         end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # Only return personalization designs with the given lookup keys.
         attr_accessor :lookup_keys
+
         # Only return personalization designs with the given preferences.
         attr_accessor :preferences
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
+
         # Only return personalization designs with the given status.
         attr_accessor :status
 
@@ -54,10 +61,13 @@ module Stripe
         class CarrierText < Stripe::RequestParams
           # The footer body text of the carrier letter.
           attr_accessor :footer_body
+
           # The footer title text of the carrier letter.
           attr_accessor :footer_title
+
           # The header body text of the carrier letter.
           attr_accessor :header_body
+
           # The header title text of the carrier letter.
           attr_accessor :header_title
 
@@ -79,20 +89,28 @@ module Stripe
         end
         # The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
         attr_accessor :card_logo
+
         # Hash containing carrier text, for use with physical bundles that support carrier text.
         attr_accessor :carrier_text
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
         attr_accessor :lookup_key
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # Friendly display name.
         attr_accessor :name
+
         # The physical bundle object belonging to this personalization design.
         attr_accessor :physical_bundle
+
         # Information on whether this personalization design is used to create cards when one is not specified.
         attr_accessor :preferences
+
         # If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
         attr_accessor :transfer_lookup_key
 
@@ -132,10 +150,13 @@ module Stripe
         class CarrierText < Stripe::RequestParams
           # The footer body text of the carrier letter.
           attr_accessor :footer_body
+
           # The footer title text of the carrier letter.
           attr_accessor :footer_title
+
           # The header body text of the carrier letter.
           attr_accessor :header_body
+
           # The header title text of the carrier letter.
           attr_accessor :header_title
 
@@ -157,20 +178,28 @@ module Stripe
         end
         # The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
         attr_accessor :card_logo
+
         # Hash containing carrier text, for use with physical bundles that support carrier text.
         attr_accessor :carrier_text
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
         attr_accessor :lookup_key
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # Friendly display name. Providing an empty string will set the field to null.
         attr_accessor :name
+
         # The physical bundle object belonging to this personalization design.
         attr_accessor :physical_bundle
+
         # Information on whether this personalization design is used to create cards when one is not specified.
         attr_accessor :preferences
+
         # If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
         attr_accessor :transfer_lookup_key
 

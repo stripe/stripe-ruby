@@ -8,10 +8,13 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
 
@@ -24,18 +27,25 @@ module Stripe
         end
         # Only return OutboundPayments that were created during the given date interval.
         attr_accessor :created
+
         # Only return OutboundPayments sent to this customer.
         attr_accessor :customer
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Returns objects associated with this FinancialAccount.
         attr_accessor :financial_account
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
+
         # Only return OutboundPayments that have the given status: `processing`, `failed`, `posted`, `returned`, or `canceled`.
         attr_accessor :status
 
@@ -66,14 +76,19 @@ module Stripe
             class Address < Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
+
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
+
               # Address line 1 (e.g., street, PO Box, or company name).
               attr_accessor :line1
+
               # Address line 2 (e.g., apartment, suite, unit, or building).
               attr_accessor :line2
+
               # ZIP or postal code.
               attr_accessor :postal_code
+
               # State, county, province, or region.
               attr_accessor :state
 
@@ -95,10 +110,13 @@ module Stripe
             end
             # Billing address.
             attr_accessor :address
+
             # Email address.
             attr_accessor :email
+
             # Full name.
             attr_accessor :name
+
             # Billing phone number (including extension).
             attr_accessor :phone
 
@@ -113,12 +131,16 @@ module Stripe
           class UsBankAccount < Stripe::RequestParams
             # Account holder type: individual or company.
             attr_accessor :account_holder_type
+
             # Account number of the bank account.
             attr_accessor :account_number
+
             # Account type: checkings or savings. Defaults to checking if omitted.
             attr_accessor :account_type
+
             # The ID of a Financial Connections Account to use as a payment method.
             attr_accessor :financial_connections_account
+
             # Routing number of the bank account.
             attr_accessor :routing_number
 
@@ -138,12 +160,16 @@ module Stripe
           end
           # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
           attr_accessor :billing_details
+
           # Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
           attr_accessor :financial_account
+
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
+
           # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
           attr_accessor :type
+
           # Required hash if type is set to `us_bank_account`.
           attr_accessor :us_bank_account
 
@@ -182,6 +208,7 @@ module Stripe
         class EndUserDetails < Stripe::RequestParams
           # IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
           attr_accessor :ip_address
+
           # `True` if the OutboundPayment creation request is being made on behalf of an end user by a platform. Otherwise, `false`.
           attr_accessor :present
 
@@ -192,26 +219,37 @@ module Stripe
         end
         # Amount (in cents) to be transferred.
         attr_accessor :amount
+
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
+
         # ID of the customer to whom the OutboundPayment is sent. Must match the Customer attached to the `destination_payment_method` passed in.
         attr_accessor :customer
+
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
+
         # The PaymentMethod to use as the payment instrument for the OutboundPayment. Exclusive with `destination_payment_method_data`.
         attr_accessor :destination_payment_method
+
         # Hash used to generate the PaymentMethod to be used for this OutboundPayment. Exclusive with `destination_payment_method`.
         attr_accessor :destination_payment_method_data
+
         # Payment method-specific configuration for this OutboundPayment.
         attr_accessor :destination_payment_method_options
+
         # End user details.
         attr_accessor :end_user_details
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # The FinancialAccount to pull funds from.
         attr_accessor :financial_account
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is "payment".
         attr_accessor :statement_descriptor
 

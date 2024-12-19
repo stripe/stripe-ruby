@@ -10,9 +10,11 @@ module Stripe
         # The messaging shown to customers in the portal.
         sig { returns(T.nilable(String)) }
         attr_reader :headline
+
         # A link to the business’s publicly available privacy policy.
         sig { returns(T.nilable(String)) }
         attr_reader :privacy_policy_url
+
         # A link to the business’s publicly available terms of service.
         sig { returns(T.nilable(String)) }
         attr_reader :terms_of_service_url
@@ -22,6 +24,7 @@ module Stripe
           # The types of customer updates that are supported. When empty, customers are not updateable.
           sig { returns(T::Array[String]) }
           attr_reader :allowed_updates
+
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           attr_reader :enabled
@@ -41,6 +44,7 @@ module Stripe
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_reader :enabled
+
             # Which cancellation reasons will be given as options to the customer.
             sig { returns(T::Array[String]) }
             attr_reader :options
@@ -48,12 +52,15 @@ module Stripe
           # Attribute for field cancellation_reason
           sig { returns(CancellationReason) }
           attr_reader :cancellation_reason
+
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           attr_reader :enabled
+
           # Whether to cancel subscriptions immediately or at the end of the billing period.
           sig { returns(String) }
           attr_reader :mode
+
           # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`.
           sig { returns(String) }
           attr_reader :proration_behavior
@@ -63,6 +70,7 @@ module Stripe
             # The list of price IDs which, when subscribed to, a subscription can be updated.
             sig { returns(T::Array[String]) }
             attr_reader :prices
+
             # The product ID.
             sig { returns(String) }
             attr_reader :product
@@ -80,15 +88,19 @@ module Stripe
           # The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
           sig { returns(T::Array[String]) }
           attr_reader :default_allowed_updates
+
           # Whether the feature is enabled.
           sig { returns(T::Boolean) }
           attr_reader :enabled
+
           # The list of up to 10 products that support subscription updates.
           sig { returns(T.nilable(T::Array[Product])) }
           attr_reader :products
+
           # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
           sig { returns(String) }
           attr_reader :proration_behavior
+
           # Attribute for field schedule_at_period_end
           sig { returns(ScheduleAtPeriodEnd) }
           attr_reader :schedule_at_period_end
@@ -96,15 +108,19 @@ module Stripe
         # Attribute for field customer_update
         sig { returns(CustomerUpdate) }
         attr_reader :customer_update
+
         # Attribute for field invoice_history
         sig { returns(InvoiceHistory) }
         attr_reader :invoice_history
+
         # Attribute for field payment_method_update
         sig { returns(PaymentMethodUpdate) }
         attr_reader :payment_method_update
+
         # Attribute for field subscription_cancel
         sig { returns(SubscriptionCancel) }
         attr_reader :subscription_cancel
+
         # Attribute for field subscription_update
         sig { returns(SubscriptionUpdate) }
         attr_reader :subscription_update
@@ -115,6 +131,7 @@ module Stripe
         # If `false`, the previously generated `url`, if any, will be deactivated.
         sig { returns(T::Boolean) }
         attr_reader :enabled
+
         # A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://stripe.com/docs/api/customers/object#customer_object-email) and receive a link to their customer portal.
         sig { returns(T.nilable(String)) }
         attr_reader :url
@@ -122,61 +139,80 @@ module Stripe
       # Whether the configuration is active and can be used to create portal sessions.
       sig { returns(T::Boolean) }
       attr_reader :active
+
       # ID of the Connect Application that created the configuration.
       sig { returns(T.nilable(T.any(String, Stripe::Application))) }
       attr_reader :application
+
       # Attribute for field business_profile
       sig { returns(BusinessProfile) }
       attr_reader :business_profile
+
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_reader :created
+
       # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       sig { returns(T.nilable(String)) }
       attr_reader :default_return_url
+
       # Attribute for field features
       sig { returns(Features) }
       attr_reader :features
+
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
+
       # Whether the configuration is the default. If `true`, this configuration can be managed in the Dashboard and portal sessions will use this configuration unless it is overriden when creating the session.
       sig { returns(T::Boolean) }
       attr_reader :is_default
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
+
       # Attribute for field login_page
       sig { returns(LoginPage) }
       attr_reader :login_page
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_reader :metadata
+
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
+
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_reader :updated
+
       class ListParams < Stripe::RequestParams
         # Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations).
         sig { returns(T::Boolean) }
         attr_accessor :active
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Only return the default or non-default configurations (e.g., pass `true` to only list the default configuration).
         sig { returns(T::Boolean) }
         attr_accessor :is_default
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
+
         sig {
           params(active: T::Boolean, ending_before: String, expand: T::Array[String], is_default: T::Boolean, limit: Integer, starting_after: String).void
          }
@@ -194,12 +230,15 @@ module Stripe
           # The messaging shown to customers in the portal.
           sig { returns(T.nilable(String)) }
           attr_accessor :headline
+
           # A link to the business’s publicly available privacy policy.
           sig { returns(String) }
           attr_accessor :privacy_policy_url
+
           # A link to the business’s publicly available terms of service.
           sig { returns(String) }
           attr_accessor :terms_of_service_url
+
           sig {
             params(headline: T.nilable(String), privacy_policy_url: String, terms_of_service_url: String).void
            }
@@ -210,9 +249,11 @@ module Stripe
             # The types of customer updates that are supported. When empty, customers are not updateable.
             sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :allowed_updates
+
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             sig { params(allowed_updates: T.nilable(T::Array[String]), enabled: T::Boolean).void }
             def initialize(allowed_updates: nil, enabled: nil); end
           end
@@ -220,6 +261,7 @@ module Stripe
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             sig { params(enabled: T::Boolean).void }
             def initialize(enabled: nil); end
           end
@@ -227,6 +269,7 @@ module Stripe
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             sig { params(enabled: T::Boolean).void }
             def initialize(enabled: nil); end
           end
@@ -235,9 +278,11 @@ module Stripe
               # Whether the feature is enabled.
               sig { returns(T::Boolean) }
               attr_accessor :enabled
+
               # Which cancellation reasons will be given as options to the customer.
               sig { returns(T.nilable(T::Array[String])) }
               attr_accessor :options
+
               sig { params(enabled: T::Boolean, options: T.nilable(T::Array[String])).void }
               def initialize(enabled: nil, options: nil); end
             end
@@ -246,15 +291,19 @@ module Stripe
               returns(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionCancel::CancellationReason)
              }
             attr_accessor :cancellation_reason
+
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             # Whether to cancel subscriptions immediately or at the end of the billing period.
             sig { returns(String) }
             attr_accessor :mode
+
             # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
             sig { returns(String) }
             attr_accessor :proration_behavior
+
             sig {
               params(cancellation_reason: ::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionCancel::CancellationReason, enabled: T::Boolean, mode: String, proration_behavior: String).void
              }
@@ -270,9 +319,11 @@ module Stripe
               # The list of price IDs for the product that a subscription can be updated to.
               sig { returns(T::Array[String]) }
               attr_accessor :prices
+
               # The product id.
               sig { returns(String) }
               attr_accessor :product
+
               sig { params(prices: T::Array[String], product: String).void }
               def initialize(prices: nil, product: nil); end
             end
@@ -281,6 +332,7 @@ module Stripe
                 # The type of condition.
                 sig { returns(String) }
                 attr_accessor :type
+
                 sig { params(type: String).void }
                 def initialize(type: nil); end
               end
@@ -289,6 +341,7 @@ module Stripe
                 returns(T::Array[::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])
                }
               attr_accessor :conditions
+
               sig {
                 params(conditions: T::Array[::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]).void
                }
@@ -297,22 +350,27 @@ module Stripe
             # The types of subscription updates that are supported. When empty, subscriptions are not updateable.
             sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :default_allowed_updates
+
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             # The list of up to 10 products that support subscription updates.
             sig {
               returns(T.nilable(T::Array[::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::Product]))
              }
             attr_accessor :products
+
             # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
             sig { returns(String) }
             attr_accessor :proration_behavior
+
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             sig {
               returns(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)
              }
             attr_accessor :schedule_at_period_end
+
             sig {
               params(default_allowed_updates: T.nilable(T::Array[String]), enabled: T::Boolean, products: T.nilable(T::Array[::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::Product]), proration_behavior: String, schedule_at_period_end: ::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd).void
              }
@@ -329,26 +387,31 @@ module Stripe
             returns(::Stripe::BillingPortal::Configuration::CreateParams::Features::CustomerUpdate)
            }
           attr_accessor :customer_update
+
           # Information about showing the billing history in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::CreateParams::Features::InvoiceHistory)
            }
           attr_accessor :invoice_history
+
           # Information about updating payment methods in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::CreateParams::Features::PaymentMethodUpdate)
            }
           attr_accessor :payment_method_update
+
           # Information about canceling subscriptions in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionCancel)
            }
           attr_accessor :subscription_cancel
+
           # Information about updating subscriptions in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate)
            }
           attr_accessor :subscription_update
+
           sig {
             params(customer_update: ::Stripe::BillingPortal::Configuration::CreateParams::Features::CustomerUpdate, invoice_history: ::Stripe::BillingPortal::Configuration::CreateParams::Features::InvoiceHistory, payment_method_update: ::Stripe::BillingPortal::Configuration::CreateParams::Features::PaymentMethodUpdate, subscription_cancel: ::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionCancel, subscription_update: ::Stripe::BillingPortal::Configuration::CreateParams::Features::SubscriptionUpdate).void
            }
@@ -364,27 +427,34 @@ module Stripe
           # Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
+
           sig { params(enabled: T::Boolean).void }
           def initialize(enabled: nil); end
         end
         # The business information shown to customers in the portal.
         sig { returns(::Stripe::BillingPortal::Configuration::CreateParams::BusinessProfile) }
         attr_accessor :business_profile
+
         # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
         sig { returns(T.nilable(String)) }
         attr_accessor :default_return_url
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Information about the features available in the portal.
         sig { returns(::Stripe::BillingPortal::Configuration::CreateParams::Features) }
         attr_accessor :features
+
         # The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
         sig { returns(::Stripe::BillingPortal::Configuration::CreateParams::LoginPage) }
         attr_accessor :login_page
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T::Hash[String, String]) }
         attr_accessor :metadata
+
         sig {
           params(business_profile: ::Stripe::BillingPortal::Configuration::CreateParams::BusinessProfile, default_return_url: T.nilable(String), expand: T::Array[String], features: ::Stripe::BillingPortal::Configuration::CreateParams::Features, login_page: ::Stripe::BillingPortal::Configuration::CreateParams::LoginPage, metadata: T::Hash[String, String]).void
          }
@@ -401,6 +471,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -409,12 +480,15 @@ module Stripe
           # The messaging shown to customers in the portal.
           sig { returns(T.nilable(String)) }
           attr_accessor :headline
+
           # A link to the business’s publicly available privacy policy.
           sig { returns(T.nilable(String)) }
           attr_accessor :privacy_policy_url
+
           # A link to the business’s publicly available terms of service.
           sig { returns(T.nilable(String)) }
           attr_accessor :terms_of_service_url
+
           sig {
             params(headline: T.nilable(String), privacy_policy_url: T.nilable(String), terms_of_service_url: T.nilable(String)).void
            }
@@ -425,9 +499,11 @@ module Stripe
             # The types of customer updates that are supported. When empty, customers are not updateable.
             sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :allowed_updates
+
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             sig { params(allowed_updates: T.nilable(T::Array[String]), enabled: T::Boolean).void }
             def initialize(allowed_updates: nil, enabled: nil); end
           end
@@ -435,6 +511,7 @@ module Stripe
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             sig { params(enabled: T::Boolean).void }
             def initialize(enabled: nil); end
           end
@@ -442,6 +519,7 @@ module Stripe
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             sig { params(enabled: T::Boolean).void }
             def initialize(enabled: nil); end
           end
@@ -450,9 +528,11 @@ module Stripe
               # Whether the feature is enabled.
               sig { returns(T::Boolean) }
               attr_accessor :enabled
+
               # Which cancellation reasons will be given as options to the customer.
               sig { returns(T.nilable(T::Array[String])) }
               attr_accessor :options
+
               sig { params(enabled: T::Boolean, options: T.nilable(T::Array[String])).void }
               def initialize(enabled: nil, options: nil); end
             end
@@ -461,15 +541,19 @@ module Stripe
               returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionCancel::CancellationReason)
              }
             attr_accessor :cancellation_reason
+
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             # Whether to cancel subscriptions immediately or at the end of the billing period.
             sig { returns(String) }
             attr_accessor :mode
+
             # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
             sig { returns(String) }
             attr_accessor :proration_behavior
+
             sig {
               params(cancellation_reason: ::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionCancel::CancellationReason, enabled: T::Boolean, mode: String, proration_behavior: String).void
              }
@@ -485,9 +569,11 @@ module Stripe
               # The list of price IDs for the product that a subscription can be updated to.
               sig { returns(T::Array[String]) }
               attr_accessor :prices
+
               # The product id.
               sig { returns(String) }
               attr_accessor :product
+
               sig { params(prices: T::Array[String], product: String).void }
               def initialize(prices: nil, product: nil); end
             end
@@ -496,6 +582,7 @@ module Stripe
                 # The type of condition.
                 sig { returns(String) }
                 attr_accessor :type
+
                 sig { params(type: String).void }
                 def initialize(type: nil); end
               end
@@ -504,6 +591,7 @@ module Stripe
                 returns(T.nilable(T::Array[::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition]))
                }
               attr_accessor :conditions
+
               sig {
                 params(conditions: T.nilable(T::Array[::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd::Condition])).void
                }
@@ -512,22 +600,27 @@ module Stripe
             # The types of subscription updates that are supported. When empty, subscriptions are not updateable.
             sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :default_allowed_updates
+
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             attr_accessor :enabled
+
             # The list of up to 10 products that support subscription updates.
             sig {
               returns(T.nilable(T::Array[::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::Product]))
              }
             attr_accessor :products
+
             # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
             sig { returns(String) }
             attr_accessor :proration_behavior
+
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             sig {
               returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd)
              }
             attr_accessor :schedule_at_period_end
+
             sig {
               params(default_allowed_updates: T.nilable(T::Array[String]), enabled: T::Boolean, products: T.nilable(T::Array[::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::Product]), proration_behavior: String, schedule_at_period_end: ::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate::ScheduleAtPeriodEnd).void
              }
@@ -544,26 +637,31 @@ module Stripe
             returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features::CustomerUpdate)
            }
           attr_accessor :customer_update
+
           # Information about showing the billing history in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features::InvoiceHistory)
            }
           attr_accessor :invoice_history
+
           # Information about updating payment methods in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features::PaymentMethodUpdate)
            }
           attr_accessor :payment_method_update
+
           # Information about canceling subscriptions in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionCancel)
            }
           attr_accessor :subscription_cancel
+
           # Information about updating subscriptions in the portal.
           sig {
             returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate)
            }
           attr_accessor :subscription_update
+
           sig {
             params(customer_update: ::Stripe::BillingPortal::Configuration::UpdateParams::Features::CustomerUpdate, invoice_history: ::Stripe::BillingPortal::Configuration::UpdateParams::Features::InvoiceHistory, payment_method_update: ::Stripe::BillingPortal::Configuration::UpdateParams::Features::PaymentMethodUpdate, subscription_cancel: ::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionCancel, subscription_update: ::Stripe::BillingPortal::Configuration::UpdateParams::Features::SubscriptionUpdate).void
            }
@@ -581,30 +679,38 @@ module Stripe
           # Set to `false` to deactivate the `login_page.url`.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
+
           sig { params(enabled: T::Boolean).void }
           def initialize(enabled: nil); end
         end
         # Whether the configuration is active and can be used to create portal sessions.
         sig { returns(T::Boolean) }
         attr_accessor :active
+
         # The business information shown to customers in the portal.
         sig { returns(::Stripe::BillingPortal::Configuration::UpdateParams::BusinessProfile) }
         attr_accessor :business_profile
+
         # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
         sig { returns(T.nilable(String)) }
         attr_accessor :default_return_url
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Information about the features available in the portal.
         sig { returns(::Stripe::BillingPortal::Configuration::UpdateParams::Features) }
         attr_accessor :features
+
         # The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
         sig { returns(::Stripe::BillingPortal::Configuration::UpdateParams::LoginPage) }
         attr_accessor :login_page
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
+
         sig {
           params(active: T::Boolean, business_profile: ::Stripe::BillingPortal::Configuration::UpdateParams::BusinessProfile, default_return_url: T.nilable(String), expand: T::Array[String], features: ::Stripe::BillingPortal::Configuration::UpdateParams::Features, login_page: ::Stripe::BillingPortal::Configuration::UpdateParams::LoginPage, metadata: T.nilable(T::Hash[String, String])).void
          }

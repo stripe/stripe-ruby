@@ -12,6 +12,7 @@ module Stripe
         # Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
         sig { returns(T.nilable(String)) }
         attr_reader :tax_behavior
+
         # Default [tax code](https://stripe.com/docs/tax/tax-categories) used to classify your products and prices.
         sig { returns(T.nilable(String)) }
         attr_reader :tax_code
@@ -21,18 +22,23 @@ module Stripe
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
           attr_reader :city
+
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
           attr_reader :country
+
           # Address line 1 (e.g., street, PO Box, or company name).
           sig { returns(T.nilable(String)) }
           attr_reader :line1
+
           # Address line 2 (e.g., apartment, suite, unit, or building).
           sig { returns(T.nilable(String)) }
           attr_reader :line2
+
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
           attr_reader :postal_code
+
           # State, county, province, or region.
           sig { returns(T.nilable(String)) }
           attr_reader :state
@@ -51,6 +57,7 @@ module Stripe
         # Attribute for field active
         sig { returns(Active) }
         attr_reader :active
+
         # Attribute for field pending
         sig { returns(Pending) }
         attr_reader :pending
@@ -58,25 +65,32 @@ module Stripe
       # Attribute for field defaults
       sig { returns(Defaults) }
       attr_reader :defaults
+
       # The place where your business is located.
       sig { returns(T.nilable(HeadOffice)) }
       attr_reader :head_office
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
+
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
+
       # The status of the Tax `Settings`.
       sig { returns(String) }
       attr_reader :status
+
       # Attribute for field status_details
       sig { returns(StatusDetails) }
       attr_reader :status_details
+
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -85,9 +99,11 @@ module Stripe
           # Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
           sig { returns(String) }
           attr_accessor :tax_behavior
+
           # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
           sig { returns(String) }
           attr_accessor :tax_code
+
           sig { params(tax_behavior: String, tax_code: String).void }
           def initialize(tax_behavior: nil, tax_code: nil); end
         end
@@ -96,21 +112,27 @@ module Stripe
             # City, district, suburb, town, or village.
             sig { returns(String) }
             attr_accessor :city
+
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             sig { returns(String) }
             attr_accessor :country
+
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(String) }
             attr_accessor :line1
+
             # Address line 2 (e.g., apartment, suite, unit, or building).
             sig { returns(String) }
             attr_accessor :line2
+
             # ZIP or postal code.
             sig { returns(String) }
             attr_accessor :postal_code
+
             # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
             sig { returns(String) }
             attr_accessor :state
+
             sig {
               params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
              }
@@ -126,18 +148,22 @@ module Stripe
           # The location of the business for tax purposes.
           sig { returns(::Stripe::Tax::Settings::UpdateParams::HeadOffice::Address) }
           attr_accessor :address
+
           sig { params(address: ::Stripe::Tax::Settings::UpdateParams::HeadOffice::Address).void }
           def initialize(address: nil); end
         end
         # Default configuration to be used on Stripe Tax calculations.
         sig { returns(::Stripe::Tax::Settings::UpdateParams::Defaults) }
         attr_accessor :defaults
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # The place where your business is located.
         sig { returns(::Stripe::Tax::Settings::UpdateParams::HeadOffice) }
         attr_accessor :head_office
+
         sig {
           params(defaults: ::Stripe::Tax::Settings::UpdateParams::Defaults, expand: T::Array[String], head_office: ::Stripe::Tax::Settings::UpdateParams::HeadOffice).void
          }

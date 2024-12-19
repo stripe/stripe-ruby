@@ -32,10 +32,13 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         # The name of the value list for use in rules.
         attr_accessor :alias
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # The human-readable name of the value list.
         attr_accessor :name
 
@@ -51,10 +54,13 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
 
@@ -67,16 +73,22 @@ module Stripe
         end
         # The alias used to reference the value list when writing rules.
         attr_accessor :alias
+
         # A value contained within a value list - returns all value lists containing this value.
         attr_accessor :contains
+
         # Only return value lists that were created during the given date interval.
         attr_accessor :created
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
 
@@ -102,12 +114,16 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         # The name of the value list for use in rules.
         attr_accessor :alias
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Type of the items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
         attr_accessor :item_type
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # The human-readable name of the value list.
         attr_accessor :name
 
@@ -121,24 +137,34 @@ module Stripe
       end
       # The name of the value list for use in rules.
       attr_reader :alias
+
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+
       # The name or email address of the user who created this value list.
       attr_reader :created_by
+
       # Unique identifier for the object.
       attr_reader :id
+
       # The type of items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`.
       attr_reader :item_type
+
       # List of items contained within this value list.
       attr_reader :list_items
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+
       # The name of the value list.
       attr_reader :name
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # Always true for a deleted object
       attr_reader :deleted
 

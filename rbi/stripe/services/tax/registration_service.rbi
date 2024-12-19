@@ -9,18 +9,23 @@ module Stripe
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
+
         # The status of the Tax Registration.
         sig { returns(String) }
         attr_accessor :status
+
         sig {
           params(ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String).void
          }
@@ -38,6 +43,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -46,6 +52,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -54,9 +61,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::At::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::At::Standard, type: String).void
              }
@@ -66,6 +75,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -74,6 +84,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -82,9 +93,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Be::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Be::Standard, type: String).void
              }
@@ -95,6 +108,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -103,9 +117,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Bg::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Bg::Standard, type: String).void
              }
@@ -115,6 +131,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -122,6 +139,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -130,6 +148,7 @@ module Stripe
               # Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
               sig { returns(String) }
               attr_accessor :province
+
               sig { params(province: String).void }
               def initialize(province: nil); end
             end
@@ -138,9 +157,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ca::ProvinceStandard)
              }
             attr_accessor :province_standard
+
             # Type of registration to be created in Canada.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(province_standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ca::ProvinceStandard, type: String).void
              }
@@ -150,6 +171,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -157,6 +179,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -164,6 +187,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -171,6 +195,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -179,6 +204,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -187,9 +213,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cy::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cy::Standard, type: String).void
              }
@@ -200,6 +228,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -208,9 +237,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cz::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cz::Standard, type: String).void
              }
@@ -221,6 +252,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -229,9 +261,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::De::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::De::Standard, type: String).void
              }
@@ -242,6 +276,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -250,9 +285,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Dk::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Dk::Standard, type: String).void
              }
@@ -262,6 +299,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -270,6 +308,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -278,9 +317,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ee::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ee::Standard, type: String).void
              }
@@ -290,6 +331,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -298,6 +340,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -306,9 +349,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Es::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Es::Standard, type: String).void
              }
@@ -319,6 +364,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -327,9 +373,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fi::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fi::Standard, type: String).void
              }
@@ -340,6 +388,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -348,9 +397,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fr::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fr::Standard, type: String).void
              }
@@ -360,6 +411,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -367,6 +419,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -375,6 +428,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -383,9 +437,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Gr::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Gr::Standard, type: String).void
              }
@@ -396,6 +452,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -404,9 +461,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hr::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hr::Standard, type: String).void
              }
@@ -417,6 +476,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -425,9 +485,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hu::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hu::Standard, type: String).void
              }
@@ -437,6 +499,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -445,6 +508,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -453,9 +517,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ie::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ie::Standard, type: String).void
              }
@@ -465,6 +531,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -473,6 +540,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -481,9 +549,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::It::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::It::Standard, type: String).void
              }
@@ -493,6 +563,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -500,6 +571,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -507,6 +579,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -514,6 +587,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -522,6 +596,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -530,9 +605,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lt::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lt::Standard, type: String).void
              }
@@ -543,6 +620,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -551,9 +629,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lu::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lu::Standard, type: String).void
              }
@@ -564,6 +644,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -572,9 +653,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lv::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lv::Standard, type: String).void
              }
@@ -584,6 +667,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -591,6 +675,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -599,6 +684,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -607,9 +693,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Mt::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Mt::Standard, type: String).void
              }
@@ -619,6 +707,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -626,6 +715,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -633,6 +723,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -641,6 +732,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -649,9 +741,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Nl::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Nl::Standard, type: String).void
              }
@@ -661,6 +755,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -668,6 +763,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -675,6 +771,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -683,6 +780,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -691,9 +789,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pl::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pl::Standard, type: String).void
              }
@@ -704,6 +804,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -712,9 +813,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pt::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pt::Standard, type: String).void
              }
@@ -725,6 +828,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -733,9 +837,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ro::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ro::Standard, type: String).void
              }
@@ -745,6 +851,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -752,6 +859,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -759,6 +867,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -767,6 +876,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -775,9 +885,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Se::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Se::Standard, type: String).void
              }
@@ -787,6 +899,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -795,6 +908,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -803,9 +917,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Si::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Si::Standard, type: String).void
              }
@@ -816,6 +932,7 @@ module Stripe
               # Place of supply scheme used in an EU standard registration.
               sig { returns(String) }
               attr_accessor :place_of_supply_scheme
+
               sig { params(place_of_supply_scheme: String).void }
               def initialize(place_of_supply_scheme: nil); end
             end
@@ -824,9 +941,11 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sk::Standard)
              }
             attr_accessor :standard
+
             # Type of registration to be created in an EU country.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(standard: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sk::Standard, type: String).void
              }
@@ -836,6 +955,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -843,6 +963,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -850,6 +971,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -858,6 +980,7 @@ module Stripe
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago), `06613` (Bloomington), `21696` (East Dundee), `24582` (Evanston), and `68081` (Schiller Park).
               sig { returns(String) }
               attr_accessor :jurisdiction
+
               sig { params(jurisdiction: String).void }
               def initialize(jurisdiction: nil); end
             end
@@ -865,6 +988,7 @@ module Stripe
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
               sig { returns(String) }
               attr_accessor :jurisdiction
+
               sig { params(jurisdiction: String).void }
               def initialize(jurisdiction: nil); end
             end
@@ -873,9 +997,11 @@ module Stripe
                 # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
                 sig { returns(String) }
                 attr_accessor :jurisdiction
+
                 # The type of the election for the state sales tax registration.
                 sig { returns(String) }
                 attr_accessor :type
+
                 sig { params(jurisdiction: String, type: String).void }
                 def initialize(jurisdiction: nil, type: nil); end
               end
@@ -884,6 +1010,7 @@ module Stripe
                 returns(T::Array[::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::StateSalesTax::Election])
                }
               attr_accessor :elections
+
               sig {
                 params(elections: T::Array[::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::StateSalesTax::Election]).void
                }
@@ -894,22 +1021,27 @@ module Stripe
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::LocalAmusementTax)
              }
             attr_accessor :local_amusement_tax
+
             # Options for the local lease tax registration.
             sig {
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::LocalLeaseTax)
              }
             attr_accessor :local_lease_tax
+
             # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             sig { returns(String) }
             attr_accessor :state
+
             # Options for the state sales tax registration.
             sig {
               returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::StateSalesTax)
              }
             attr_accessor :state_sales_tax
+
             # Type of registration to be created in the US.
             sig { returns(String) }
             attr_accessor :type
+
             sig {
               params(local_amusement_tax: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::LocalAmusementTax, local_lease_tax: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::LocalLeaseTax, state: String, state_sales_tax: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us::StateSalesTax, type: String).void
              }
@@ -925,6 +1057,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -932,6 +1065,7 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
@@ -939,204 +1073,270 @@ module Stripe
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
+
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
           # Options for the registration in AE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ae) }
           attr_accessor :ae
+
           # Options for the registration in AT.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::At) }
           attr_accessor :at
+
           # Options for the registration in AU.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Au) }
           attr_accessor :au
+
           # Options for the registration in BE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Be) }
           attr_accessor :be
+
           # Options for the registration in BG.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Bg) }
           attr_accessor :bg
+
           # Options for the registration in BH.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Bh) }
           attr_accessor :bh
+
           # Options for the registration in BY.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::By) }
           attr_accessor :by
+
           # Options for the registration in CA.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ca) }
           attr_accessor :ca
+
           # Options for the registration in CH.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ch) }
           attr_accessor :ch
+
           # Options for the registration in CL.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cl) }
           attr_accessor :cl
+
           # Options for the registration in CO.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Co) }
           attr_accessor :co
+
           # Options for the registration in CR.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cr) }
           attr_accessor :cr
+
           # Options for the registration in CY.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cy) }
           attr_accessor :cy
+
           # Options for the registration in CZ.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cz) }
           attr_accessor :cz
+
           # Options for the registration in DE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::De) }
           attr_accessor :de
+
           # Options for the registration in DK.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Dk) }
           attr_accessor :dk
+
           # Options for the registration in EC.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ec) }
           attr_accessor :ec
+
           # Options for the registration in EE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ee) }
           attr_accessor :ee
+
           # Options for the registration in EG.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Eg) }
           attr_accessor :eg
+
           # Options for the registration in ES.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Es) }
           attr_accessor :es
+
           # Options for the registration in FI.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fi) }
           attr_accessor :fi
+
           # Options for the registration in FR.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fr) }
           attr_accessor :fr
+
           # Options for the registration in GB.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Gb) }
           attr_accessor :gb
+
           # Options for the registration in GE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ge) }
           attr_accessor :ge
+
           # Options for the registration in GR.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Gr) }
           attr_accessor :gr
+
           # Options for the registration in HR.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hr) }
           attr_accessor :hr
+
           # Options for the registration in HU.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hu) }
           attr_accessor :hu
+
           # Options for the registration in ID.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Id) }
           attr_accessor :id
+
           # Options for the registration in IE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ie) }
           attr_accessor :ie
+
           # Options for the registration in IS.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Is) }
           attr_accessor :is
+
           # Options for the registration in IT.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::It) }
           attr_accessor :it
+
           # Options for the registration in JP.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Jp) }
           attr_accessor :jp
+
           # Options for the registration in KE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ke) }
           attr_accessor :ke
+
           # Options for the registration in KR.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Kr) }
           attr_accessor :kr
+
           # Options for the registration in KZ.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Kz) }
           attr_accessor :kz
+
           # Options for the registration in LT.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lt) }
           attr_accessor :lt
+
           # Options for the registration in LU.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lu) }
           attr_accessor :lu
+
           # Options for the registration in LV.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lv) }
           attr_accessor :lv
+
           # Options for the registration in MA.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ma) }
           attr_accessor :ma
+
           # Options for the registration in MD.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Md) }
           attr_accessor :md
+
           # Options for the registration in MT.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Mt) }
           attr_accessor :mt
+
           # Options for the registration in MX.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Mx) }
           attr_accessor :mx
+
           # Options for the registration in MY.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::My) }
           attr_accessor :my
+
           # Options for the registration in NG.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ng) }
           attr_accessor :ng
+
           # Options for the registration in NL.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Nl) }
           attr_accessor :nl
+
           # Options for the registration in NO.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::No) }
           attr_accessor :no
+
           # Options for the registration in NZ.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Nz) }
           attr_accessor :nz
+
           # Options for the registration in OM.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Om) }
           attr_accessor :om
+
           # Options for the registration in PL.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pl) }
           attr_accessor :pl
+
           # Options for the registration in PT.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pt) }
           attr_accessor :pt
+
           # Options for the registration in RO.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ro) }
           attr_accessor :ro
+
           # Options for the registration in RS.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Rs) }
           attr_accessor :rs
+
           # Options for the registration in RU.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ru) }
           attr_accessor :ru
+
           # Options for the registration in SA.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sa) }
           attr_accessor :sa
+
           # Options for the registration in SE.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Se) }
           attr_accessor :se
+
           # Options for the registration in SG.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sg) }
           attr_accessor :sg
+
           # Options for the registration in SI.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Si) }
           attr_accessor :si
+
           # Options for the registration in SK.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sk) }
           attr_accessor :sk
+
           # Options for the registration in TH.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Th) }
           attr_accessor :th
+
           # Options for the registration in TR.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Tr) }
           attr_accessor :tr
+
           # Options for the registration in TZ.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Tz) }
           attr_accessor :tz
+
           # Options for the registration in US.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us) }
           attr_accessor :us
+
           # Options for the registration in UZ.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Uz) }
           attr_accessor :uz
+
           # Options for the registration in VN.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Vn) }
           attr_accessor :vn
+
           # Options for the registration in ZA.
           sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Za) }
           attr_accessor :za
+
           sig {
             params(ae: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ae, at: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::At, au: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Au, be: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Be, bg: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Bg, bh: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Bh, by: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::By, ca: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ca, ch: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ch, cl: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cl, co: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Co, cr: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cr, cy: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cy, cz: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Cz, de: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::De, dk: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Dk, ec: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ec, ee: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ee, eg: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Eg, es: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Es, fi: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fi, fr: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Fr, gb: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Gb, ge: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ge, gr: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Gr, hr: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hr, hu: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Hu, id: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Id, ie: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ie, is: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Is, it: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::It, jp: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Jp, ke: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ke, kr: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Kr, kz: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Kz, lt: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lt, lu: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lu, lv: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Lv, ma: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ma, md: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Md, mt: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Mt, mx: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Mx, my: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::My, ng: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ng, nl: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Nl, no: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::No, nz: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Nz, om: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Om, pl: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pl, pt: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Pt, ro: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ro, rs: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Rs, ru: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Ru, sa: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sa, se: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Se, sg: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sg, si: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Si, sk: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Sk, th: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Th, tr: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Tr, tz: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Tz, us: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Us, uz: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Uz, vn: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Vn, za: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions::Za).void
            }
@@ -1211,18 +1411,23 @@ module Stripe
         # Time at which the Tax Registration becomes active. It can be either `now` to indicate the current time, or a future timestamp measured in seconds since the Unix epoch.
         sig { returns(T.any(String, Integer)) }
         attr_accessor :active_from
+
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         sig { returns(String) }
         attr_accessor :country
+
         # Specific options for a registration in the specified `country`.
         sig { returns(::Stripe::Tax::RegistrationService::CreateParams::CountryOptions) }
         attr_accessor :country_options
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # If set, the Tax Registration stops being active at this time. If not set, the Tax Registration will be active indefinitely. Timestamp measured in seconds since the Unix epoch.
         sig { returns(Integer) }
         attr_accessor :expires_at
+
         sig {
           params(active_from: T.any(String, Integer), country: String, country_options: ::Stripe::Tax::RegistrationService::CreateParams::CountryOptions, expand: T::Array[String], expires_at: Integer).void
          }
@@ -1238,6 +1443,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -1245,12 +1451,15 @@ module Stripe
         # Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
         sig { returns(T.any(String, Integer)) }
         attr_accessor :active_from
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :expires_at
+
         sig {
           params(active_from: T.any(String, Integer), expand: T::Array[String], expires_at: T.nilable(T.any(String, Integer))).void
          }

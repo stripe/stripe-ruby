@@ -11,17 +11,20 @@ module Stripe
             # Reason for the failure.
             sig { returns(String) }
             attr_accessor :code
+
             sig { params(code: String).void }
             def initialize(code: nil); end
           end
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
+
           # Details about a failed InboundTransfer.
           sig {
             returns(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails)
            }
           attr_accessor :failure_details
+
           sig {
             params(expand: T::Array[String], failure_details: ::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails).void
            }
@@ -31,6 +34,7 @@ module Stripe
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
+
           sig { params(expand: T::Array[String]).void }
           def initialize(expand: nil); end
         end
@@ -38,6 +42,7 @@ module Stripe
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
+
           sig { params(expand: T::Array[String]).void }
           def initialize(expand: nil); end
         end

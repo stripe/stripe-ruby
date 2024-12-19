@@ -27,6 +27,7 @@ module Stripe
           class Aba < Stripe::RequestParams
             # Requested bank partner
             attr_accessor :bank
+
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
@@ -89,6 +90,7 @@ module Stripe
           end
           # Enables ACH transfers via the OutboundPayments API.
           attr_accessor :ach
+
           # Enables US domestic wire transfers via the OutboundPayments API.
           attr_accessor :us_domestic_wire
 
@@ -118,6 +120,7 @@ module Stripe
           end
           # Enables ACH transfers via the OutboundTransfers API.
           attr_accessor :ach
+
           # Enables US domestic wire transfers via the OutboundTransfers API.
           attr_accessor :us_domestic_wire
 
@@ -128,18 +131,25 @@ module Stripe
         end
         # Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
         attr_accessor :card_issuing
+
         # Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
         attr_accessor :deposit_insurance
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Contains Features that add FinancialAddresses to the FinancialAccount.
         attr_accessor :financial_addresses
+
         # Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
         attr_accessor :inbound_transfers
+
         # Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
         attr_accessor :intra_stripe_flows
+
         # Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
         attr_accessor :outbound_payments
+
         # Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
         attr_accessor :outbound_transfers
 

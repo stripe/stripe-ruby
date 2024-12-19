@@ -9,6 +9,7 @@ module Stripe
           class AmazonEventbridge < Stripe::RequestParams
             # The AWS account ID.
             attr_accessor :aws_account_id
+
             # The region of the AWS event source.
             attr_accessor :aws_region
 
@@ -28,24 +29,34 @@ module Stripe
           end
           # An optional description of what the event destination is used for.
           attr_accessor :description
+
           # The list of events to enable for this endpoint.
           attr_accessor :enabled_events
+
           # Payload type of events being subscribed to.
           attr_accessor :event_payload
+
           # Where events should be routed from.
           attr_accessor :events_from
+
           # Additional fields to include in the response.
           attr_accessor :include
+
           # Metadata.
           attr_accessor :metadata
+
           # Event destination name.
           attr_accessor :name
+
           # If using the snapshot event payload, the API version events are rendered as.
           attr_accessor :snapshot_api_version
+
           # Event destination type.
           attr_accessor :type
+
           # Amazon EventBridge configuration.
           attr_accessor :amazon_eventbridge
+
           # Webhook endpoint configuration.
           attr_accessor :webhook_endpoint
 
@@ -88,8 +99,10 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
           attr_accessor :include
+
           # The page size.
           attr_accessor :limit
+
           # The requested page.
           attr_accessor :page
 
@@ -123,14 +136,19 @@ module Stripe
           end
           # An optional description of what the event destination is used for.
           attr_accessor :description
+
           # The list of events to enable for this endpoint.
           attr_accessor :enabled_events
+
           # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
           attr_accessor :include
+
           # Metadata.
           attr_accessor :metadata
+
           # Event destination name.
           attr_accessor :name
+
           # Webhook endpoint configuration.
           attr_accessor :webhook_endpoint
 

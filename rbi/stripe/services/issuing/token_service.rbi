@@ -10,39 +10,50 @@ module Stripe
           # Minimum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :lte
+
           sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # The Issuing card identifier to list tokens for.
         sig { returns(String) }
         attr_accessor :card
+
         # Only return Issuing tokens that were created during the given date interval.
         sig { returns(T.any(::Stripe::Issuing::TokenService::ListParams::Created, Integer)) }
         attr_accessor :created
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
+
         # Select Issuing tokens with the given status.
         sig { returns(String) }
         attr_accessor :status
+
         sig {
           params(card: String, created: T.any(::Stripe::Issuing::TokenService::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String).void
          }
@@ -60,6 +71,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -67,9 +79,11 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Specifies which status the token should be updated to.
         sig { returns(String) }
         attr_accessor :status
+
         sig { params(expand: T::Array[String], status: String).void }
         def initialize(expand: nil, status: nil); end
       end

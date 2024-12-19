@@ -27,6 +27,7 @@ module Stripe
           class RejectionReasons < Stripe::RequestParams
             # The reason(s) the card logo was rejected.
             attr_accessor :card_logo
+
             # The reason(s) the carrier text was rejected.
             attr_accessor :carrier_text
 
@@ -37,6 +38,7 @@ module Stripe
           end
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
+
           # The reason(s) the personalization design was rejected.
           attr_accessor :rejection_reasons
 

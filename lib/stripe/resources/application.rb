@@ -10,10 +10,13 @@ module Stripe
 
     # Unique identifier for the object.
     attr_reader :id
+
     # The name of the application.
     attr_reader :name
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+
     # Always true for a deleted object
     attr_reader :deleted
   end

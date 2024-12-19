@@ -16,6 +16,7 @@ module Stripe
           end
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
+
           # Details about a failed InboundTransfer.
           attr_accessor :failure_details
 

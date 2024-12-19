@@ -8,6 +8,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -16,15 +17,18 @@ module Stripe
         # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
         sig { returns(String) }
         attr_accessor :reconciliation_mode
+
         sig { params(reconciliation_mode: String).void }
         def initialize(reconciliation_mode: nil); end
       end
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # A hash of settings for this cash balance.
       sig { returns(::Stripe::CustomerCashBalanceService::UpdateParams::Settings) }
       attr_accessor :settings
+
       sig {
         params(expand: T::Array[String], settings: ::Stripe::CustomerCashBalanceService::UpdateParams::Settings).void
        }

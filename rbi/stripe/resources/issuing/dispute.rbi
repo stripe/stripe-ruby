@@ -13,30 +13,39 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # Date when order was canceled.
           sig { returns(T.nilable(Integer)) }
           attr_reader :canceled_at
+
           # Whether the cardholder was provided with a cancellation policy.
           sig { returns(T.nilable(T::Boolean)) }
           attr_reader :cancellation_policy_provided
+
           # Reason for canceling the order.
           sig { returns(T.nilable(String)) }
           attr_reader :cancellation_reason
+
           # Date when the cardholder expected to receive the product.
           sig { returns(T.nilable(Integer)) }
           attr_reader :expected_at
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
+
           # Description of the merchandise or service that was purchased.
           sig { returns(T.nilable(String)) }
           attr_reader :product_description
+
           # Whether the product was a merchandise or service.
           sig { returns(T.nilable(String)) }
           attr_reader :product_type
+
           # Result of cardholder's attempt to return the product.
           sig { returns(T.nilable(String)) }
           attr_reader :return_status
+
           # Date when the product was returned or attempted to be returned.
           sig { returns(T.nilable(Integer)) }
           attr_reader :returned_at
@@ -45,18 +54,23 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :card_statement
+
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :cash_receipt
+
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :check_image
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
+
           # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
           sig { returns(T.nilable(String)) }
           attr_reader :original_transaction
@@ -65,6 +79,7 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
@@ -73,18 +88,23 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
+
           # Date when the product was received.
           sig { returns(T.nilable(Integer)) }
           attr_reader :received_at
+
           # Description of the cardholder's attempt to return the product.
           sig { returns(T.nilable(String)) }
           attr_reader :return_description
+
           # Result of cardholder's attempt to return the product.
           sig { returns(T.nilable(String)) }
           attr_reader :return_status
+
           # Date when the product was returned or attempted to be returned.
           sig { returns(T.nilable(Integer)) }
           attr_reader :returned_at
@@ -93,6 +113,7 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
@@ -101,15 +122,19 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # Date when the cardholder expected to receive the product.
           sig { returns(T.nilable(Integer)) }
           attr_reader :expected_at
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
+
           # Description of the merchandise or service that was purchased.
           sig { returns(T.nilable(String)) }
           attr_reader :product_description
+
           # Whether the product was a merchandise or service.
           sig { returns(T.nilable(String)) }
           attr_reader :product_type
@@ -118,12 +143,15 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
+
           # Description of the merchandise or service that was purchased.
           sig { returns(T.nilable(String)) }
           attr_reader :product_description
+
           # Whether the product was a merchandise or service.
           sig { returns(T.nilable(String)) }
           attr_reader :product_type
@@ -132,15 +160,19 @@ module Stripe
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
           sig { returns(T.nilable(T.any(String, Stripe::File))) }
           attr_reader :additional_documentation
+
           # Date when order was canceled.
           sig { returns(T.nilable(Integer)) }
           attr_reader :canceled_at
+
           # Reason for canceling the order.
           sig { returns(T.nilable(String)) }
           attr_reader :cancellation_reason
+
           # Explanation of why the cardholder is disputing this transaction.
           sig { returns(T.nilable(String)) }
           attr_reader :explanation
+
           # Date when the product was received.
           sig { returns(T.nilable(Integer)) }
           attr_reader :received_at
@@ -148,27 +180,35 @@ module Stripe
         # Attribute for field canceled
         sig { returns(Canceled) }
         attr_reader :canceled
+
         # Attribute for field duplicate
         sig { returns(Duplicate) }
         attr_reader :duplicate
+
         # Attribute for field fraudulent
         sig { returns(Fraudulent) }
         attr_reader :fraudulent
+
         # Attribute for field merchandise_not_as_described
         sig { returns(MerchandiseNotAsDescribed) }
         attr_reader :merchandise_not_as_described
+
         # Attribute for field no_valid_authorization
         sig { returns(NoValidAuthorization) }
         attr_reader :no_valid_authorization
+
         # Attribute for field not_received
         sig { returns(NotReceived) }
         attr_reader :not_received
+
         # Attribute for field other
         sig { returns(Other) }
         attr_reader :other
+
         # The reason for filing the dispute. Its value will match the field containing the evidence.
         sig { returns(String) }
         attr_reader :reason
+
         # Attribute for field service_not_as_described
         sig { returns(ServiceNotAsDescribed) }
         attr_reader :service_not_as_described
@@ -177,6 +217,7 @@ module Stripe
         # The Treasury [DebitReversal](https://stripe.com/docs/api/treasury/debit_reversals) representing this Issuing dispute
         sig { returns(T.nilable(String)) }
         attr_reader :debit_reversal
+
         # The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed.
         sig { returns(String) }
         attr_reader :received_debit
@@ -184,80 +225,104 @@ module Stripe
       # Disputed amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
       sig { returns(Integer) }
       attr_reader :amount
+
       # List of balance transactions associated with the dispute.
       sig { returns(T.nilable(T::Array[Stripe::BalanceTransaction])) }
       attr_reader :balance_transactions
+
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_reader :created
+
       # The currency the `transaction` was made in.
       sig { returns(String) }
       attr_reader :currency
+
       # Attribute for field evidence
       sig { returns(Evidence) }
       attr_reader :evidence
+
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
+
       # The enum that describes the dispute loss outcome. If the dispute is not lost, this field will be absent. New enum values may be added in the future, so be sure to handle unknown values.
       sig { returns(String) }
       attr_reader :loss_reason
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       attr_reader :metadata
+
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
+
       # Current status of the dispute.
       sig { returns(String) }
       attr_reader :status
+
       # The transaction being disputed.
       sig { returns(T.any(String, Stripe::Issuing::Transaction)) }
       attr_reader :transaction
+
       # [Treasury](https://stripe.com/docs/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
       sig { returns(T.nilable(Treasury)) }
       attr_reader :treasury
+
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :lte
+
           sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # Only return Issuing disputes that were created during the given date interval.
         sig { returns(T.any(::Stripe::Issuing::Dispute::ListParams::Created, Integer)) }
         attr_accessor :created
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
+
         # Select Issuing disputes with the given status.
         sig { returns(String) }
         attr_accessor :status
+
         # Select the Issuing dispute for the given transaction.
         sig { returns(String) }
         attr_accessor :transaction
+
         sig {
           params(created: T.any(::Stripe::Issuing::Dispute::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String, transaction: String).void
          }
@@ -277,33 +342,43 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Date when order was canceled.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :canceled_at
+
             # Whether the cardholder was provided with a cancellation policy.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :cancellation_policy_provided
+
             # Reason for canceling the order.
             sig { returns(T.nilable(String)) }
             attr_accessor :cancellation_reason
+
             # Date when the cardholder expected to receive the product.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :expected_at
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Description of the merchandise or service that was purchased.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_description
+
             # Whether the product was a merchandise or service.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_type
+
             # Result of cardholder's attempt to return the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :return_status
+
             # Date when the product was returned or attempted to be returned.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :returned_at
+
             sig {
               params(additional_documentation: T.nilable(String), canceled_at: T.nilable(Integer), cancellation_policy_provided: T.nilable(T::Boolean), cancellation_reason: T.nilable(String), expected_at: T.nilable(Integer), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String), return_status: T.nilable(String), returned_at: T.nilable(Integer)).void
              }
@@ -324,21 +399,27 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
             sig { returns(T.nilable(String)) }
             attr_accessor :card_statement
+
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
             sig { returns(T.nilable(String)) }
             attr_accessor :cash_receipt
+
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :check_image
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
             sig { returns(String) }
             attr_accessor :original_transaction
+
             sig {
               params(additional_documentation: T.nilable(String), card_statement: T.nilable(String), cash_receipt: T.nilable(String), check_image: T.nilable(String), explanation: T.nilable(String), original_transaction: String).void
              }
@@ -355,9 +436,11 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String)).void
              }
@@ -367,21 +450,27 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Date when the product was received.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :received_at
+
             # Description of the cardholder's attempt to return the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :return_description
+
             # Result of cardholder's attempt to return the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :return_status
+
             # Date when the product was returned or attempted to be returned.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :returned_at
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String), received_at: T.nilable(Integer), return_description: T.nilable(String), return_status: T.nilable(String), returned_at: T.nilable(Integer)).void
              }
@@ -398,9 +487,11 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String)).void
              }
@@ -410,18 +501,23 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Date when the cardholder expected to receive the product.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :expected_at
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Description of the merchandise or service that was purchased.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_description
+
             # Whether the product was a merchandise or service.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_type
+
             sig {
               params(additional_documentation: T.nilable(String), expected_at: T.nilable(Integer), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String)).void
              }
@@ -437,15 +533,19 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Description of the merchandise or service that was purchased.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_description
+
             # Whether the product was a merchandise or service.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_type
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String)).void
              }
@@ -460,18 +560,23 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Date when order was canceled.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :canceled_at
+
             # Reason for canceling the order.
             sig { returns(T.nilable(String)) }
             attr_accessor :cancellation_reason
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Date when the product was received.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :received_at
+
             sig {
               params(additional_documentation: T.nilable(String), canceled_at: T.nilable(Integer), cancellation_reason: T.nilable(String), explanation: T.nilable(String), received_at: T.nilable(Integer)).void
              }
@@ -486,38 +591,47 @@ module Stripe
           # Evidence provided when `reason` is 'canceled'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Canceled)) }
           attr_accessor :canceled
+
           # Evidence provided when `reason` is 'duplicate'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Duplicate)) }
           attr_accessor :duplicate
+
           # Evidence provided when `reason` is 'fraudulent'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Fraudulent)) }
           attr_accessor :fraudulent
+
           # Evidence provided when `reason` is 'merchandise_not_as_described'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::MerchandiseNotAsDescribed))
            }
           attr_accessor :merchandise_not_as_described
+
           # Evidence provided when `reason` is 'no_valid_authorization'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::NoValidAuthorization))
            }
           attr_accessor :no_valid_authorization
+
           # Evidence provided when `reason` is 'not_received'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::NotReceived))
            }
           attr_accessor :not_received
+
           # Evidence provided when `reason` is 'other'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Other)) }
           attr_accessor :other
+
           # The reason for filing the dispute. The evidence should be submitted in the field of the same name.
           sig { returns(String) }
           attr_accessor :reason
+
           # Evidence provided when `reason` is 'service_not_as_described'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::ServiceNotAsDescribed))
            }
           attr_accessor :service_not_as_described
+
           sig {
             params(canceled: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Canceled), duplicate: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Duplicate), fraudulent: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Fraudulent), merchandise_not_as_described: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::MerchandiseNotAsDescribed), no_valid_authorization: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::NoValidAuthorization), not_received: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::NotReceived), other: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::Other), reason: String, service_not_as_described: T.nilable(::Stripe::Issuing::Dispute::CreateParams::Evidence::ServiceNotAsDescribed)).void
            }
@@ -537,27 +651,34 @@ module Stripe
           # The ID of the ReceivedDebit to initiate an Issuings dispute for.
           sig { returns(String) }
           attr_accessor :received_debit
+
           sig { params(received_debit: String).void }
           def initialize(received_debit: nil); end
         end
         # The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If not set, defaults to the full transaction amount.
         sig { returns(Integer) }
         attr_accessor :amount
+
         # Evidence provided for the dispute.
         sig { returns(::Stripe::Issuing::Dispute::CreateParams::Evidence) }
         attr_accessor :evidence
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T::Hash[String, String]) }
         attr_accessor :metadata
+
         # The ID of the issuing transaction to create a dispute for. For transaction on Treasury FinancialAccounts, use `treasury.received_debit`.
         sig { returns(String) }
         attr_accessor :transaction
+
         # Params for disputes related to Treasury FinancialAccounts
         sig { returns(::Stripe::Issuing::Dispute::CreateParams::Treasury) }
         attr_accessor :treasury
+
         sig {
           params(amount: Integer, evidence: ::Stripe::Issuing::Dispute::CreateParams::Evidence, expand: T::Array[String], metadata: T::Hash[String, String], transaction: String, treasury: ::Stripe::Issuing::Dispute::CreateParams::Treasury).void
          }
@@ -574,6 +695,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -583,33 +705,43 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Date when order was canceled.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :canceled_at
+
             # Whether the cardholder was provided with a cancellation policy.
             sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :cancellation_policy_provided
+
             # Reason for canceling the order.
             sig { returns(T.nilable(String)) }
             attr_accessor :cancellation_reason
+
             # Date when the cardholder expected to receive the product.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :expected_at
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Description of the merchandise or service that was purchased.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_description
+
             # Whether the product was a merchandise or service.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_type
+
             # Result of cardholder's attempt to return the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :return_status
+
             # Date when the product was returned or attempted to be returned.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :returned_at
+
             sig {
               params(additional_documentation: T.nilable(String), canceled_at: T.nilable(Integer), cancellation_policy_provided: T.nilable(T::Boolean), cancellation_reason: T.nilable(String), expected_at: T.nilable(Integer), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String), return_status: T.nilable(String), returned_at: T.nilable(Integer)).void
              }
@@ -630,21 +762,27 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
             sig { returns(T.nilable(String)) }
             attr_accessor :card_statement
+
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
             sig { returns(T.nilable(String)) }
             attr_accessor :cash_receipt
+
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :check_image
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
             sig { returns(String) }
             attr_accessor :original_transaction
+
             sig {
               params(additional_documentation: T.nilable(String), card_statement: T.nilable(String), cash_receipt: T.nilable(String), check_image: T.nilable(String), explanation: T.nilable(String), original_transaction: String).void
              }
@@ -661,9 +799,11 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String)).void
              }
@@ -673,21 +813,27 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Date when the product was received.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :received_at
+
             # Description of the cardholder's attempt to return the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :return_description
+
             # Result of cardholder's attempt to return the product.
             sig { returns(T.nilable(String)) }
             attr_accessor :return_status
+
             # Date when the product was returned or attempted to be returned.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :returned_at
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String), received_at: T.nilable(Integer), return_description: T.nilable(String), return_status: T.nilable(String), returned_at: T.nilable(Integer)).void
              }
@@ -704,9 +850,11 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String)).void
              }
@@ -716,18 +864,23 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Date when the cardholder expected to receive the product.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :expected_at
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Description of the merchandise or service that was purchased.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_description
+
             # Whether the product was a merchandise or service.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_type
+
             sig {
               params(additional_documentation: T.nilable(String), expected_at: T.nilable(Integer), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String)).void
              }
@@ -743,15 +896,19 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Description of the merchandise or service that was purchased.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_description
+
             # Whether the product was a merchandise or service.
             sig { returns(T.nilable(String)) }
             attr_accessor :product_type
+
             sig {
               params(additional_documentation: T.nilable(String), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String)).void
              }
@@ -766,18 +923,23 @@ module Stripe
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             sig { returns(T.nilable(String)) }
             attr_accessor :additional_documentation
+
             # Date when order was canceled.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :canceled_at
+
             # Reason for canceling the order.
             sig { returns(T.nilable(String)) }
             attr_accessor :cancellation_reason
+
             # Explanation of why the cardholder is disputing this transaction.
             sig { returns(T.nilable(String)) }
             attr_accessor :explanation
+
             # Date when the product was received.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :received_at
+
             sig {
               params(additional_documentation: T.nilable(String), canceled_at: T.nilable(Integer), cancellation_reason: T.nilable(String), explanation: T.nilable(String), received_at: T.nilable(Integer)).void
              }
@@ -792,38 +954,47 @@ module Stripe
           # Evidence provided when `reason` is 'canceled'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Canceled)) }
           attr_accessor :canceled
+
           # Evidence provided when `reason` is 'duplicate'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Duplicate)) }
           attr_accessor :duplicate
+
           # Evidence provided when `reason` is 'fraudulent'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Fraudulent)) }
           attr_accessor :fraudulent
+
           # Evidence provided when `reason` is 'merchandise_not_as_described'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::MerchandiseNotAsDescribed))
            }
           attr_accessor :merchandise_not_as_described
+
           # Evidence provided when `reason` is 'no_valid_authorization'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::NoValidAuthorization))
            }
           attr_accessor :no_valid_authorization
+
           # Evidence provided when `reason` is 'not_received'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::NotReceived))
            }
           attr_accessor :not_received
+
           # Evidence provided when `reason` is 'other'.
           sig { returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Other)) }
           attr_accessor :other
+
           # The reason for filing the dispute. The evidence should be submitted in the field of the same name.
           sig { returns(String) }
           attr_accessor :reason
+
           # Evidence provided when `reason` is 'service_not_as_described'.
           sig {
             returns(T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::ServiceNotAsDescribed))
            }
           attr_accessor :service_not_as_described
+
           sig {
             params(canceled: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Canceled), duplicate: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Duplicate), fraudulent: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Fraudulent), merchandise_not_as_described: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::MerchandiseNotAsDescribed), no_valid_authorization: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::NoValidAuthorization), not_received: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::NotReceived), other: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::Other), reason: String, service_not_as_described: T.nilable(::Stripe::Issuing::Dispute::UpdateParams::Evidence::ServiceNotAsDescribed)).void
            }
@@ -842,15 +1013,19 @@ module Stripe
         # The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         sig { returns(Integer) }
         attr_accessor :amount
+
         # Evidence provided for the dispute.
         sig { returns(::Stripe::Issuing::Dispute::UpdateParams::Evidence) }
         attr_accessor :evidence
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
+
         sig {
           params(amount: Integer, evidence: ::Stripe::Issuing::Dispute::UpdateParams::Evidence, expand: T::Array[String], metadata: T.nilable(T::Hash[String, String])).void
          }
@@ -860,9 +1035,11 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
+
         sig { params(expand: T::Array[String], metadata: T.nilable(T::Hash[String, String])).void }
         def initialize(expand: nil, metadata: nil); end
       end

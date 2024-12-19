@@ -8,6 +8,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end

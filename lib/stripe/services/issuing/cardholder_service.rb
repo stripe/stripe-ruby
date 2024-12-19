@@ -8,10 +8,13 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
 
@@ -24,20 +27,28 @@ module Stripe
         end
         # Only return cardholders that were created during the given date interval.
         attr_accessor :created
+
         # Only return cardholders that have the given email address.
         attr_accessor :email
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # Only return cardholders that have the given phone number.
         attr_accessor :phone_number
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
+
         # Only return cardholders that have the given status. One of `active`, `inactive`, or `blocked`.
         attr_accessor :status
+
         # Only return cardholders that have the given type. One of `individual` or `company`.
         attr_accessor :type
 
@@ -69,14 +80,19 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
+
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
+
             # Address line 1 (e.g., street, PO Box, or company name).
             attr_accessor :line1
+
             # Address line 2 (e.g., apartment, suite, unit, or building).
             attr_accessor :line2
+
             # ZIP or postal code.
             attr_accessor :postal_code
+
             # State, county, province, or region.
             attr_accessor :state
 
@@ -118,8 +134,10 @@ module Stripe
             class UserTermsAcceptance < Stripe::RequestParams
               # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               attr_accessor :date
+
               # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               attr_accessor :ip
+
               # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
               attr_accessor :user_agent
 
@@ -140,8 +158,10 @@ module Stripe
           class Dob < Stripe::RequestParams
             # The day of birth, between 1 and 31.
             attr_accessor :day
+
             # The month of birth, between 1 and 12.
             attr_accessor :month
+
             # The four-digit year of birth.
             attr_accessor :year
 
@@ -156,6 +176,7 @@ module Stripe
             class Document < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               attr_accessor :back
+
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               attr_accessor :front
 
@@ -173,12 +194,16 @@ module Stripe
           end
           # Information related to the card_issuing program for this cardholder.
           attr_accessor :card_issuing
+
           # The date of birth of this cardholder. Cardholders must be older than 13 years old.
           attr_accessor :dob
+
           # The first name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           attr_accessor :first_name
+
           # The last name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           attr_accessor :last_name
+
           # Government-issued ID document for this cardholder.
           attr_accessor :verification
 
@@ -201,8 +226,10 @@ module Stripe
           class SpendingLimit < Stripe::RequestParams
             # Maximum amount allowed to spend per interval.
             attr_accessor :amount
+
             # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
             attr_accessor :categories
+
             # Interval (or event) to which the amount applies.
             attr_accessor :interval
 
@@ -214,14 +241,19 @@ module Stripe
           end
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
           attr_accessor :allowed_categories
+
           # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
           attr_accessor :allowed_merchant_countries
+
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
           attr_accessor :blocked_categories
+
           # Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
           attr_accessor :blocked_merchant_countries
+
           # Limit spending with amount-based rules that apply across this cardholder's cards.
           attr_accessor :spending_limits
+
           # Currency of amounts within `spending_limits`. Defaults to your merchant country's currency.
           attr_accessor :spending_limits_currency
 
@@ -243,28 +275,39 @@ module Stripe
         end
         # The cardholder's billing address.
         attr_accessor :billing
+
         # Additional information about a `company` cardholder.
         attr_accessor :company
+
         # The cardholder's email address.
         attr_accessor :email
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Additional information about an `individual` cardholder.
         attr_accessor :individual
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # The cardholder's name. This will be printed on cards issued to them. The maximum length of this field is 24 characters. This field cannot contain any special characters or numbers.
         attr_accessor :name
+
         # The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. This is required for all cardholders who will be creating EU cards.
         #  While phone number is optional if the cardholder will not be creating EU cards, note that this cardholder will not be eligible for 3DS without a phone number. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details.
         attr_accessor :phone_number
+
         # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
         #  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
         attr_accessor :preferred_locales
+
         # Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
         attr_accessor :spending_controls
+
         # Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`.
         attr_accessor :status
+
         # One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details.
         attr_accessor :type
 
@@ -311,14 +354,19 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
+
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
+
             # Address line 1 (e.g., street, PO Box, or company name).
             attr_accessor :line1
+
             # Address line 2 (e.g., apartment, suite, unit, or building).
             attr_accessor :line2
+
             # ZIP or postal code.
             attr_accessor :postal_code
+
             # State, county, province, or region.
             attr_accessor :state
 
@@ -360,8 +408,10 @@ module Stripe
             class UserTermsAcceptance < Stripe::RequestParams
               # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               attr_accessor :date
+
               # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
               attr_accessor :ip
+
               # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
               attr_accessor :user_agent
 
@@ -382,8 +432,10 @@ module Stripe
           class Dob < Stripe::RequestParams
             # The day of birth, between 1 and 31.
             attr_accessor :day
+
             # The month of birth, between 1 and 12.
             attr_accessor :month
+
             # The four-digit year of birth.
             attr_accessor :year
 
@@ -398,6 +450,7 @@ module Stripe
             class Document < Stripe::RequestParams
               # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               attr_accessor :back
+
               # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
               attr_accessor :front
 
@@ -415,12 +468,16 @@ module Stripe
           end
           # Information related to the card_issuing program for this cardholder.
           attr_accessor :card_issuing
+
           # The date of birth of this cardholder. Cardholders must be older than 13 years old.
           attr_accessor :dob
+
           # The first name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           attr_accessor :first_name
+
           # The last name of this cardholder. Required before activating Cards. This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
           attr_accessor :last_name
+
           # Government-issued ID document for this cardholder.
           attr_accessor :verification
 
@@ -443,8 +500,10 @@ module Stripe
           class SpendingLimit < Stripe::RequestParams
             # Maximum amount allowed to spend per interval.
             attr_accessor :amount
+
             # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
             attr_accessor :categories
+
             # Interval (or event) to which the amount applies.
             attr_accessor :interval
 
@@ -456,14 +515,19 @@ module Stripe
           end
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
           attr_accessor :allowed_categories
+
           # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
           attr_accessor :allowed_merchant_countries
+
           # Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
           attr_accessor :blocked_categories
+
           # Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
           attr_accessor :blocked_merchant_countries
+
           # Limit spending with amount-based rules that apply across this cardholder's cards.
           attr_accessor :spending_limits
+
           # Currency of amounts within `spending_limits`. Defaults to your merchant country's currency.
           attr_accessor :spending_limits_currency
 
@@ -485,23 +549,32 @@ module Stripe
         end
         # The cardholder's billing address.
         attr_accessor :billing
+
         # Additional information about a `company` cardholder.
         attr_accessor :company
+
         # The cardholder's email address.
         attr_accessor :email
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Additional information about an `individual` cardholder.
         attr_accessor :individual
+
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
+
         # The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure) for more details.
         attr_accessor :phone_number
+
         # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
         #  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
         attr_accessor :preferred_locales
+
         # Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
         attr_accessor :spending_controls
+
         # Specifies whether to permit authorizations on this cardholder's cards.
         attr_accessor :status
 

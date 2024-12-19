@@ -9,15 +9,19 @@ module Stripe
         # Minimum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :gt
+
         # Minimum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :gte
+
         # Maximum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :lt
+
         # Maximum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :lte
+
         sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
@@ -25,42 +29,54 @@ module Stripe
         # Minimum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :gt
+
         # Minimum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :gte
+
         # Maximum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :lt
+
         # Maximum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :lte
+
         sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return payouts that are expected to arrive during the given date interval.
       sig { returns(T.any(::Stripe::PayoutService::ListParams::ArrivalDate, Integer)) }
       attr_accessor :arrival_date
+
       # Only return payouts that were created during the given date interval.
       sig { returns(T.any(::Stripe::PayoutService::ListParams::Created, Integer)) }
       attr_accessor :created
+
       # The ID of an external account - only return payouts sent to this external account.
       sig { returns(String) }
       attr_accessor :destination
+
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(Integer) }
       attr_accessor :limit
+
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(String) }
       attr_accessor :starting_after
+
       # Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
       sig { returns(String) }
       attr_accessor :status
+
       sig {
         params(arrival_date: T.any(::Stripe::PayoutService::ListParams::ArrivalDate, Integer), created: T.any(::Stripe::PayoutService::ListParams::Created, Integer), destination: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String).void
        }
@@ -79,30 +95,39 @@ module Stripe
       # A positive integer in cents representing how much to payout.
       sig { returns(Integer) }
       attr_accessor :amount
+
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_accessor :currency
+
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(String) }
       attr_accessor :description
+
       # The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.
       sig { returns(String) }
       attr_accessor :destination
+
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
+
       # The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
       sig { returns(String) }
       attr_accessor :method
+
       # The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
       sig { returns(String) }
       attr_accessor :source_type
+
       # A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
       sig { returns(String) }
       attr_accessor :statement_descriptor
+
       sig {
         params(amount: Integer, currency: String, description: String, destination: String, expand: T::Array[String], metadata: T::Hash[String, String], method: String, source_type: String, statement_descriptor: String).void
        }
@@ -122,6 +147,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -129,9 +155,11 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
+
       sig { params(expand: T::Array[String], metadata: T.nilable(T::Hash[String, String])).void }
       def initialize(expand: nil, metadata: nil); end
     end
@@ -139,6 +167,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -146,9 +175,11 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
+
       sig { params(expand: T::Array[String], metadata: T::Hash[String, String]).void }
       def initialize(expand: nil, metadata: nil); end
     end

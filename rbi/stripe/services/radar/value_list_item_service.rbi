@@ -12,6 +12,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -20,39 +21,50 @@ module Stripe
           # Minimum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :gt
+
           # Minimum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :gte
+
           # Maximum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :lt
+
           # Maximum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :lte
+
           sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # Only return items that were created during the given date interval.
         sig { returns(T.any(::Stripe::Radar::ValueListItemService::ListParams::Created, Integer)) }
         attr_accessor :created
+
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
+
         # Return items belonging to the parent list whose value matches the specified value (using an "is like" match).
         sig { returns(String) }
         attr_accessor :value
+
         # Identifier for the parent value list this item belongs to.
         sig { returns(String) }
         attr_accessor :value_list
+
         sig {
           params(created: T.any(::Stripe::Radar::ValueListItemService::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, value: String, value_list: String).void
          }
@@ -70,12 +82,15 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
+
         # The value of the item (whose type must match the type of the parent value list).
         sig { returns(String) }
         attr_accessor :value
+
         # The identifier of the value list which the created item will be added to.
         sig { returns(String) }
         attr_accessor :value_list
+
         sig { params(expand: T::Array[String], value: String, value_list: String).void }
         def initialize(expand: nil, value: nil, value_list: nil); end
       end

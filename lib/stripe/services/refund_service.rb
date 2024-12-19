@@ -7,10 +7,13 @@ module Stripe
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         attr_accessor :gt
+
         # Minimum value to filter by (inclusive)
         attr_accessor :gte
+
         # Maximum value to filter by (exclusive)
         attr_accessor :lt
+
         # Maximum value to filter by (inclusive)
         attr_accessor :lte
 
@@ -23,16 +26,22 @@ module Stripe
       end
       # Only return refunds for the charge specified by this charge ID.
       attr_accessor :charge
+
       # Only return refunds that were created during the given date interval.
       attr_accessor :created
+
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
+
       # Only return refunds for the PaymentIntent specified by this ID.
       attr_accessor :payment_intent
+
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -58,26 +67,37 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # Attribute for param field amount
       attr_accessor :amount
+
       # The identifier of the charge to refund.
       attr_accessor :charge
+
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
+
       # Customer whose customer balance to refund from.
       attr_accessor :customer
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions.
       attr_accessor :instructions_email
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+
       # Origin of the refund
       attr_accessor :origin
+
       # The identifier of the PaymentIntent to refund.
       attr_accessor :payment_intent
+
       # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.
       attr_accessor :reason
+
       # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
       attr_accessor :refund_application_fee
+
       # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge.
       attr_accessor :reverse_transfer
 
@@ -122,6 +142,7 @@ module Stripe
     class UpdateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
 

@@ -28,6 +28,7 @@ module Stripe
       class RebootWindow < Stripe::StripeObject
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         attr_reader :end_hour
+
         # Integer between 0 to 23 that represents the start hour of the reboot time window.
         attr_reader :start_hour
       end
@@ -41,8 +42,10 @@ module Stripe
         class Aud < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -50,8 +53,10 @@ module Stripe
         class Cad < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -59,8 +64,10 @@ module Stripe
         class Chf < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -68,8 +75,10 @@ module Stripe
         class Czk < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -77,8 +86,10 @@ module Stripe
         class Dkk < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -86,8 +97,10 @@ module Stripe
         class Eur < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -95,8 +108,10 @@ module Stripe
         class Gbp < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -104,8 +119,10 @@ module Stripe
         class Hkd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -113,8 +130,10 @@ module Stripe
         class Myr < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -122,8 +141,10 @@ module Stripe
         class Nok < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -131,8 +152,10 @@ module Stripe
         class Nzd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -140,8 +163,10 @@ module Stripe
         class Pln < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -149,8 +174,10 @@ module Stripe
         class Sek < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -158,8 +185,10 @@ module Stripe
         class Sgd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
@@ -167,39 +196,55 @@ module Stripe
         class Usd < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
+
           # Percentages displayed when collecting a tip
           attr_reader :percentages
+
           # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
           attr_reader :smart_tip_threshold
         end
         # Attribute for field aud
         attr_reader :aud
+
         # Attribute for field cad
         attr_reader :cad
+
         # Attribute for field chf
         attr_reader :chf
+
         # Attribute for field czk
         attr_reader :czk
+
         # Attribute for field dkk
         attr_reader :dkk
+
         # Attribute for field eur
         attr_reader :eur
+
         # Attribute for field gbp
         attr_reader :gbp
+
         # Attribute for field hkd
         attr_reader :hkd
+
         # Attribute for field myr
         attr_reader :myr
+
         # Attribute for field nok
         attr_reader :nok
+
         # Attribute for field nzd
         attr_reader :nzd
+
         # Attribute for field pln
         attr_reader :pln
+
         # Attribute for field sek
         attr_reader :sek
+
         # Attribute for field sgd
         attr_reader :sgd
+
         # Attribute for field usd
         attr_reader :usd
       end
@@ -243,6 +288,7 @@ module Stripe
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
           attr_accessor :end_hour
+
           # Integer between 0 to 23 that represents the start hour of the reboot time window.
           attr_accessor :start_hour
 
@@ -265,8 +311,10 @@ module Stripe
           class Aud < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -280,8 +328,10 @@ module Stripe
           class Cad < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -295,8 +345,10 @@ module Stripe
           class Chf < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -310,8 +362,10 @@ module Stripe
           class Czk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -325,8 +379,10 @@ module Stripe
           class Dkk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -340,8 +396,10 @@ module Stripe
           class Eur < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -355,8 +413,10 @@ module Stripe
           class Gbp < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -370,8 +430,10 @@ module Stripe
           class Hkd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -385,8 +447,10 @@ module Stripe
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -400,8 +464,10 @@ module Stripe
           class Nok < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -415,8 +481,10 @@ module Stripe
           class Nzd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -430,8 +498,10 @@ module Stripe
           class Pln < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -445,8 +515,10 @@ module Stripe
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -460,8 +532,10 @@ module Stripe
           class Sgd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -475,8 +549,10 @@ module Stripe
           class Usd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -488,32 +564,46 @@ module Stripe
           end
           # Tipping configuration for AUD
           attr_accessor :aud
+
           # Tipping configuration for CAD
           attr_accessor :cad
+
           # Tipping configuration for CHF
           attr_accessor :chf
+
           # Tipping configuration for CZK
           attr_accessor :czk
+
           # Tipping configuration for DKK
           attr_accessor :dkk
+
           # Tipping configuration for EUR
           attr_accessor :eur
+
           # Tipping configuration for GBP
           attr_accessor :gbp
+
           # Tipping configuration for HKD
           attr_accessor :hkd
+
           # Tipping configuration for MYR
           attr_accessor :myr
+
           # Tipping configuration for NOK
           attr_accessor :nok
+
           # Tipping configuration for NZD
           attr_accessor :nzd
+
           # Tipping configuration for PLN
           attr_accessor :pln
+
           # Tipping configuration for SEK
           attr_accessor :sek
+
           # Tipping configuration for SGD
           attr_accessor :sgd
+
           # Tipping configuration for USD
           attr_accessor :usd
 
@@ -562,18 +652,25 @@ module Stripe
         end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         attr_accessor :bbpos_wisepos_e
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Name of the configuration
         attr_accessor :name
+
         # Configurations for collecting transactions offline.
         attr_accessor :offline
+
         # Reboot time settings for readers that support customized reboot time configuration.
         attr_accessor :reboot_window
+
         # An object containing device type specific settings for Stripe S700 readers
         attr_accessor :stripe_s700
+
         # Tipping configurations for readers supporting on-reader tips
         attr_accessor :tipping
+
         # An object containing device type specific settings for Verifone P400 readers
         attr_accessor :verifone_p400
 
@@ -601,12 +698,16 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # if present, only return the account default or non-default configurations.
         attr_accessor :is_account_default
+
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
+
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
 
@@ -647,6 +748,7 @@ module Stripe
         class RebootWindow < Stripe::RequestParams
           # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
           attr_accessor :end_hour
+
           # Integer between 0 to 23 that represents the start hour of the reboot time window.
           attr_accessor :start_hour
 
@@ -669,8 +771,10 @@ module Stripe
           class Aud < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -684,8 +788,10 @@ module Stripe
           class Cad < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -699,8 +805,10 @@ module Stripe
           class Chf < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -714,8 +822,10 @@ module Stripe
           class Czk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -729,8 +839,10 @@ module Stripe
           class Dkk < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -744,8 +856,10 @@ module Stripe
           class Eur < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -759,8 +873,10 @@ module Stripe
           class Gbp < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -774,8 +890,10 @@ module Stripe
           class Hkd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -789,8 +907,10 @@ module Stripe
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -804,8 +924,10 @@ module Stripe
           class Nok < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -819,8 +941,10 @@ module Stripe
           class Nzd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -834,8 +958,10 @@ module Stripe
           class Pln < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -849,8 +975,10 @@ module Stripe
           class Sek < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -864,8 +992,10 @@ module Stripe
           class Sgd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -879,8 +1009,10 @@ module Stripe
           class Usd < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
+
             # Percentages displayed when collecting a tip
             attr_accessor :percentages
+
             # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             attr_accessor :smart_tip_threshold
 
@@ -892,32 +1024,46 @@ module Stripe
           end
           # Tipping configuration for AUD
           attr_accessor :aud
+
           # Tipping configuration for CAD
           attr_accessor :cad
+
           # Tipping configuration for CHF
           attr_accessor :chf
+
           # Tipping configuration for CZK
           attr_accessor :czk
+
           # Tipping configuration for DKK
           attr_accessor :dkk
+
           # Tipping configuration for EUR
           attr_accessor :eur
+
           # Tipping configuration for GBP
           attr_accessor :gbp
+
           # Tipping configuration for HKD
           attr_accessor :hkd
+
           # Tipping configuration for MYR
           attr_accessor :myr
+
           # Tipping configuration for NOK
           attr_accessor :nok
+
           # Tipping configuration for NZD
           attr_accessor :nzd
+
           # Tipping configuration for PLN
           attr_accessor :pln
+
           # Tipping configuration for SEK
           attr_accessor :sek
+
           # Tipping configuration for SGD
           attr_accessor :sgd
+
           # Tipping configuration for USD
           attr_accessor :usd
 
@@ -966,18 +1112,25 @@ module Stripe
         end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         attr_accessor :bbpos_wisepos_e
+
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+
         # Name of the configuration
         attr_accessor :name
+
         # Configurations for collecting transactions offline.
         attr_accessor :offline
+
         # Reboot time settings for readers that support customized reboot time configuration.
         attr_accessor :reboot_window
+
         # An object containing device type specific settings for Stripe S700 readers
         attr_accessor :stripe_s700
+
         # Tipping configurations for readers supporting on-reader tips
         attr_accessor :tipping
+
         # An object containing device type specific settings for Verifone P400 readers
         attr_accessor :verifone_p400
 
@@ -1003,26 +1156,37 @@ module Stripe
       end
       # Attribute for field bbpos_wisepos_e
       attr_reader :bbpos_wisepos_e
+
       # Unique identifier for the object.
       attr_reader :id
+
       # Whether this Configuration is the default for your account
       attr_reader :is_account_default
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+
       # String indicating the name of the Configuration object, set by the user
       attr_reader :name
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # Attribute for field offline
       attr_reader :offline
+
       # Attribute for field reboot_window
       attr_reader :reboot_window
+
       # Attribute for field stripe_s700
       attr_reader :stripe_s700
+
       # Attribute for field tipping
       attr_reader :tipping
+
       # Attribute for field verifone_p400
       attr_reader :verifone_p400
+
       # Always true for a deleted object
       attr_reader :deleted
 

@@ -22,11 +22,13 @@ module Stripe
         class Features < Stripe::StripeObject
           # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
           attr_reader :disable_stripe_user_authentication
+
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
           attr_reader :external_account_collection
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -35,11 +37,13 @@ module Stripe
         class Features < Stripe::StripeObject
           # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
           attr_reader :disable_stripe_user_authentication
+
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
           attr_reader :external_account_collection
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -48,17 +52,22 @@ module Stripe
         class Features < Stripe::StripeObject
           # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
           attr_reader :disable_stripe_user_authentication
+
           # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
           attr_reader :edit_payout_schedule
+
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
           attr_reader :external_account_collection
+
           # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
           attr_reader :instant_payouts
+
           # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
           attr_reader :standard_payouts
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -67,6 +76,7 @@ module Stripe
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -75,6 +85,7 @@ module Stripe
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -83,6 +94,7 @@ module Stripe
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -91,6 +103,7 @@ module Stripe
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -99,11 +112,13 @@ module Stripe
         class Features < Stripe::StripeObject
           # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
           attr_reader :disable_stripe_user_authentication
+
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
           attr_reader :external_account_collection
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -112,15 +127,19 @@ module Stripe
         class Features < Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_reader :capture_payments
+
           # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
           attr_reader :destination_on_behalf_of_charge_management
+
           # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
           attr_reader :dispute_management
+
           # Whether to allow sending refunds. This is `true` by default.
           attr_reader :refund_management
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -129,15 +148,19 @@ module Stripe
         class Features < Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
           attr_reader :capture_payments
+
           # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
           attr_reader :destination_on_behalf_of_charge_management
+
           # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
           attr_reader :dispute_management
+
           # Whether to allow sending refunds. This is `true` by default.
           attr_reader :refund_management
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -146,17 +169,22 @@ module Stripe
         class Features < Stripe::StripeObject
           # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
           attr_reader :disable_stripe_user_authentication
+
           # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
           attr_reader :edit_payout_schedule
+
           # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
           attr_reader :external_account_collection
+
           # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
           attr_reader :instant_payouts
+
           # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
           attr_reader :standard_payouts
         end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -165,6 +193,7 @@ module Stripe
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -173,6 +202,7 @@ module Stripe
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
@@ -181,35 +211,49 @@ module Stripe
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
         attr_reader :enabled
+
         # Attribute for field features
         attr_reader :features
       end
       # Attribute for field account_management
       attr_reader :account_management
+
       # Attribute for field account_onboarding
       attr_reader :account_onboarding
+
       # Attribute for field balances
       attr_reader :balances
+
       # Attribute for field capital_financing
       attr_reader :capital_financing
+
       # Attribute for field capital_financing_application
       attr_reader :capital_financing_application
+
       # Attribute for field capital_financing_promotion
       attr_reader :capital_financing_promotion
+
       # Attribute for field documents
       attr_reader :documents
+
       # Attribute for field notification_banner
       attr_reader :notification_banner
+
       # Attribute for field payment_details
       attr_reader :payment_details
+
       # Attribute for field payments
       attr_reader :payments
+
       # Attribute for field payouts
       attr_reader :payouts
+
       # Attribute for field payouts_list
       attr_reader :payouts_list
+
       # Attribute for field tax_registrations
       attr_reader :tax_registrations
+
       # Attribute for field tax_settings
       attr_reader :tax_settings
     end
@@ -220,6 +264,7 @@ module Stripe
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
             attr_accessor :disable_stripe_user_authentication
+
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
             attr_accessor :external_account_collection
 
@@ -233,6 +278,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -246,6 +292,7 @@ module Stripe
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
             attr_accessor :disable_stripe_user_authentication
+
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
             attr_accessor :external_account_collection
 
@@ -259,6 +306,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -279,6 +327,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -299,6 +348,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -312,12 +362,16 @@ module Stripe
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
             attr_accessor :disable_stripe_user_authentication
+
             # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
             attr_accessor :edit_payout_schedule
+
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
             attr_accessor :external_account_collection
+
             # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
             attr_accessor :instant_payouts
+
             # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
             attr_accessor :standard_payouts
 
@@ -337,6 +391,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -351,6 +406,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -365,6 +421,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -379,6 +436,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -393,6 +451,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -407,6 +466,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -420,10 +480,13 @@ module Stripe
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
             attr_accessor :disable_stripe_user_authentication
+
             # Whether to allow external accounts to be linked for money transfer.
             attr_accessor :external_account_collection
+
             # Whether to allow sending money.
             attr_accessor :send_money
+
             # Whether to allow transferring balance.
             attr_accessor :transfer_balance
 
@@ -441,6 +504,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -461,6 +525,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -474,10 +539,13 @@ module Stripe
           class Features < Stripe::RequestParams
             # Whether to allow card management features.
             attr_accessor :card_management
+
             # Whether to allow card spend dispute management features.
             attr_accessor :card_spend_dispute_management
+
             # Whether to allow cardholder management features.
             attr_accessor :cardholder_management
+
             # Whether to allow spend control management features.
             attr_accessor :spend_control_management
 
@@ -495,6 +563,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -508,12 +577,16 @@ module Stripe
           class Features < Stripe::RequestParams
             # Whether to allow card management features.
             attr_accessor :card_management
+
             # Whether to allow card spend dispute management features.
             attr_accessor :card_spend_dispute_management
+
             # Whether to allow cardholder management features.
             attr_accessor :cardholder_management
+
             # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts.
             attr_accessor :disable_stripe_user_authentication
+
             # Whether to allow spend control management features.
             attr_accessor :spend_control_management
 
@@ -533,6 +606,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -546,6 +620,7 @@ module Stripe
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
             attr_accessor :disable_stripe_user_authentication
+
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
             attr_accessor :external_account_collection
 
@@ -559,6 +634,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -572,10 +648,13 @@ module Stripe
           class Features < Stripe::RequestParams
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
             attr_accessor :capture_payments
+
             # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
             attr_accessor :destination_on_behalf_of_charge_management
+
             # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
             attr_accessor :dispute_management
+
             # Whether to allow sending refunds. This is `true` by default.
             attr_accessor :refund_management
 
@@ -593,6 +672,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -607,6 +687,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -620,10 +701,13 @@ module Stripe
           class Features < Stripe::RequestParams
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
             attr_accessor :capture_payments
+
             # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
             attr_accessor :destination_on_behalf_of_charge_management
+
             # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
             attr_accessor :dispute_management
+
             # Whether to allow sending refunds. This is `true` by default.
             attr_accessor :refund_management
 
@@ -641,6 +725,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -654,12 +739,16 @@ module Stripe
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
             attr_accessor :disable_stripe_user_authentication
+
             # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
             attr_accessor :edit_payout_schedule
+
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
             attr_accessor :external_account_collection
+
             # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
             attr_accessor :instant_payouts
+
             # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
             attr_accessor :standard_payouts
 
@@ -679,6 +768,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -693,6 +783,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -713,6 +804,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # Attribute for param field features
           attr_accessor :features
 
@@ -727,6 +819,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -741,6 +834,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -755,6 +849,7 @@ module Stripe
           end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
+
           # The list of features enabled in the embedded component.
           attr_accessor :features
 
@@ -765,50 +860,73 @@ module Stripe
         end
         # Configuration for the account management embedded component.
         attr_accessor :account_management
+
         # Configuration for the account onboarding embedded component.
         attr_accessor :account_onboarding
+
         # Configuration for the app install component.
         attr_accessor :app_install
+
         # Configuration for the app viewport component.
         attr_accessor :app_viewport
+
         # Configuration for the balances embedded component.
         attr_accessor :balances
+
         # Configuration for the capital financing embedded component.
         attr_accessor :capital_financing
+
         # Configuration for the capital financing application embedded component.
         attr_accessor :capital_financing_application
+
         # Configuration for the capital financing promotion embedded component.
         attr_accessor :capital_financing_promotion
+
         # Configuration for the capital overview embedded component.
         attr_accessor :capital_overview
+
         # Configuration for the documents embedded component.
         attr_accessor :documents
+
         # Configuration for the financial account component.
         attr_accessor :financial_account
+
         # Configuration for the financial account transactions component.
         attr_accessor :financial_account_transactions
+
         # Configuration for the issuing card component.
         attr_accessor :issuing_card
+
         # Configuration for the issuing cards list component.
         attr_accessor :issuing_cards_list
+
         # Configuration for the notification banner embedded component.
         attr_accessor :notification_banner
+
         # Configuration for the payment details embedded component.
         attr_accessor :payment_details
+
         # Configuration for the payment method settings embedded component.
         attr_accessor :payment_method_settings
+
         # Configuration for the payments embedded component.
         attr_accessor :payments
+
         # Configuration for the payouts embedded component.
         attr_accessor :payouts
+
         # Configuration for the payouts list embedded component.
         attr_accessor :payouts_list
+
         # Configuration for the recipients component.
         attr_accessor :recipients
+
         # Configuration for the reporting chart embedded component.
         attr_accessor :reporting_chart
+
         # Configuration for the tax registrations embedded component.
         attr_accessor :tax_registrations
+
         # Configuration for the tax settings embedded component.
         attr_accessor :tax_settings
 
@@ -866,8 +984,10 @@ module Stripe
       end
       # The identifier of the account to create an Account Session for.
       attr_accessor :account
+
       # Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
       attr_accessor :components
+
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 
@@ -879,18 +999,23 @@ module Stripe
     end
     # The ID of the account the AccountSession was created for
     attr_reader :account
+
     # The client secret of this AccountSession. Used on the client to set up secure access to the given `account`.
     #
     # The client secret can be used to provide access to `account` from your frontend. It should not be stored, logged, or exposed to anyone other than the connected account. Make sure that you have TLS enabled on any page that includes the client secret.
     #
     # Refer to our docs to [setup Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
     attr_reader :client_secret
+
     # Attribute for field components
     attr_reader :components
+
     # The timestamp at which this AccountSession will expire.
     attr_reader :expires_at
+
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
+
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
 

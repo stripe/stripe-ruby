@@ -7,19 +7,14 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations).
         attr_accessor :active
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Only return the default or non-default configurations (e.g., pass `true` to only list the default configuration).
         attr_accessor :is_default
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
 
@@ -44,10 +39,8 @@ module Stripe
         class BusinessProfile < Stripe::RequestParams
           # The messaging shown to customers in the portal.
           attr_accessor :headline
-
           # A link to the business’s publicly available privacy policy.
           attr_accessor :privacy_policy_url
-
           # A link to the business’s publicly available terms of service.
           attr_accessor :terms_of_service_url
 
@@ -62,7 +55,6 @@ module Stripe
           class CustomerUpdate < Stripe::RequestParams
             # The types of customer updates that are supported. When empty, customers are not updateable.
             attr_accessor :allowed_updates
-
             # Whether the feature is enabled.
             attr_accessor :enabled
 
@@ -94,7 +86,6 @@ module Stripe
             class CancellationReason < Stripe::RequestParams
               # Whether the feature is enabled.
               attr_accessor :enabled
-
               # Which cancellation reasons will be given as options to the customer.
               attr_accessor :options
 
@@ -105,13 +96,10 @@ module Stripe
             end
             # Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
             attr_accessor :cancellation_reason
-
             # Whether the feature is enabled.
             attr_accessor :enabled
-
             # Whether to cancel subscriptions immediately or at the end of the billing period.
             attr_accessor :mode
-
             # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
             attr_accessor :proration_behavior
 
@@ -132,7 +120,6 @@ module Stripe
             class Product < Stripe::RequestParams
               # The list of price IDs for the product that a subscription can be updated to.
               attr_accessor :prices
-
               # The product id.
               attr_accessor :product
 
@@ -160,16 +147,12 @@ module Stripe
             end
             # The types of subscription updates that are supported. When empty, subscriptions are not updateable.
             attr_accessor :default_allowed_updates
-
             # Whether the feature is enabled.
             attr_accessor :enabled
-
             # The list of up to 10 products that support subscription updates.
             attr_accessor :products
-
             # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
             attr_accessor :proration_behavior
-
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             attr_accessor :schedule_at_period_end
 
@@ -189,16 +172,12 @@ module Stripe
           end
           # Information about updating the customer details in the portal.
           attr_accessor :customer_update
-
           # Information about showing the billing history in the portal.
           attr_accessor :invoice_history
-
           # Information about updating payment methods in the portal.
           attr_accessor :payment_method_update
-
           # Information about canceling subscriptions in the portal.
           attr_accessor :subscription_cancel
-
           # Information about updating subscriptions in the portal.
           attr_accessor :subscription_update
 
@@ -227,19 +206,14 @@ module Stripe
         end
         # The business information shown to customers in the portal.
         attr_accessor :business_profile
-
         # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
         attr_accessor :default_return_url
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Information about the features available in the portal.
         attr_accessor :features
-
         # The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
         attr_accessor :login_page
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 
@@ -273,10 +247,8 @@ module Stripe
         class BusinessProfile < Stripe::RequestParams
           # The messaging shown to customers in the portal.
           attr_accessor :headline
-
           # A link to the business’s publicly available privacy policy.
           attr_accessor :privacy_policy_url
-
           # A link to the business’s publicly available terms of service.
           attr_accessor :terms_of_service_url
 
@@ -291,7 +263,6 @@ module Stripe
           class CustomerUpdate < Stripe::RequestParams
             # The types of customer updates that are supported. When empty, customers are not updateable.
             attr_accessor :allowed_updates
-
             # Whether the feature is enabled.
             attr_accessor :enabled
 
@@ -323,7 +294,6 @@ module Stripe
             class CancellationReason < Stripe::RequestParams
               # Whether the feature is enabled.
               attr_accessor :enabled
-
               # Which cancellation reasons will be given as options to the customer.
               attr_accessor :options
 
@@ -334,13 +304,10 @@ module Stripe
             end
             # Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
             attr_accessor :cancellation_reason
-
             # Whether the feature is enabled.
             attr_accessor :enabled
-
             # Whether to cancel subscriptions immediately or at the end of the billing period.
             attr_accessor :mode
-
             # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
             attr_accessor :proration_behavior
 
@@ -361,7 +328,6 @@ module Stripe
             class Product < Stripe::RequestParams
               # The list of price IDs for the product that a subscription can be updated to.
               attr_accessor :prices
-
               # The product id.
               attr_accessor :product
 
@@ -389,16 +355,12 @@ module Stripe
             end
             # The types of subscription updates that are supported. When empty, subscriptions are not updateable.
             attr_accessor :default_allowed_updates
-
             # Whether the feature is enabled.
             attr_accessor :enabled
-
             # The list of up to 10 products that support subscription updates.
             attr_accessor :products
-
             # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
             attr_accessor :proration_behavior
-
             # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
             attr_accessor :schedule_at_period_end
 
@@ -418,16 +380,12 @@ module Stripe
           end
           # Information about updating the customer details in the portal.
           attr_accessor :customer_update
-
           # Information about showing the billing history in the portal.
           attr_accessor :invoice_history
-
           # Information about updating payment methods in the portal.
           attr_accessor :payment_method_update
-
           # Information about canceling subscriptions in the portal.
           attr_accessor :subscription_cancel
-
           # Information about updating subscriptions in the portal.
           attr_accessor :subscription_update
 
@@ -458,22 +416,16 @@ module Stripe
         end
         # Whether the configuration is active and can be used to create portal sessions.
         attr_accessor :active
-
         # The business information shown to customers in the portal.
         attr_accessor :business_profile
-
         # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
         attr_accessor :default_return_url
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Information about the features available in the portal.
         attr_accessor :features
-
         # The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
         attr_accessor :login_page
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 

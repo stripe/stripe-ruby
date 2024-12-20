@@ -29,10 +29,8 @@ module Stripe
       end
       # Attribute for field hosted_confirmation
       attr_reader :hosted_confirmation
-
       # Attribute for field redirect
       attr_reader :redirect
-
       # The specified behavior after the purchase is complete.
       attr_reader :type
     end
@@ -41,13 +39,11 @@ module Stripe
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
-
         # Type of the account referenced.
         attr_reader :type
       end
       # If `true`, tax will be calculated automatically using the customer's location.
       attr_reader :enabled
-
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_reader :liability
     end
@@ -61,10 +57,8 @@ module Stripe
       end
       # Settings related to the payment method reuse text shown in the Checkout UI.
       attr_reader :payment_method_reuse_agreement
-
       # If set to `auto`, enables the collection of customer consent for promotional communications.
       attr_reader :promotions
-
       # If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service.
       attr_reader :terms_of_service
     end
@@ -74,7 +68,6 @@ module Stripe
         class Option < Stripe::StripeObject
           # The label for the option, displayed to the customer. Up to 100 characters.
           attr_reader :label
-
           # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
           attr_reader :value
         end
@@ -85,7 +78,6 @@ module Stripe
       class Label < Stripe::StripeObject
         # Custom text for the label, displayed to the customer. Up to 50 characters.
         attr_reader :custom
-
         # The type of the label.
         attr_reader :type
       end
@@ -93,7 +85,6 @@ module Stripe
       class Numeric < Stripe::StripeObject
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
-
         # The minimum character length requirement for the customer's input.
         attr_reader :minimum_length
       end
@@ -101,28 +92,21 @@ module Stripe
       class Text < Stripe::StripeObject
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
-
         # The minimum character length requirement for the customer's input.
         attr_reader :minimum_length
       end
       # Attribute for field dropdown
       attr_reader :dropdown
-
       # String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
       attr_reader :key
-
       # Attribute for field label
       attr_reader :label
-
       # Attribute for field numeric
       attr_reader :numeric
-
       # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
       attr_reader :optional
-
       # Attribute for field text
       attr_reader :text
-
       # The type of the field.
       attr_reader :type
     end
@@ -149,13 +133,10 @@ module Stripe
       end
       # Custom text that should be displayed after the payment confirmation button.
       attr_reader :after_submit
-
       # Custom text that should be displayed alongside shipping address collection.
       attr_reader :shipping_address
-
       # Custom text that should be displayed alongside the payment confirmation button.
       attr_reader :submit
-
       # Custom text that should be displayed in place of the default terms of service agreement text.
       attr_reader :terms_of_service_acceptance
     end
@@ -165,7 +146,6 @@ module Stripe
         class CustomField < Stripe::StripeObject
           # The name of the custom field.
           attr_reader :name
-
           # The value of the custom field.
           attr_reader :value
         end
@@ -173,7 +153,6 @@ module Stripe
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
-
           # Type of the account referenced.
           attr_reader :type
         end
@@ -184,28 +163,21 @@ module Stripe
         end
         # The account tax IDs associated with the invoice.
         attr_reader :account_tax_ids
-
         # A list of up to 4 custom fields to be displayed on the invoice.
         attr_reader :custom_fields
-
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_reader :description
-
         # Footer to be displayed on the invoice.
         attr_reader :footer
-
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         attr_reader :issuer
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
-
         # Options for invoice PDF rendering.
         attr_reader :rendering_options
       end
       # Enable creating an invoice on successful payment.
       attr_reader :enabled
-
       # Configuration for the invoice. Default invoice values will be used if unspecified.
       attr_reader :invoice_data
     end
@@ -213,22 +185,16 @@ module Stripe
     class PaymentIntentData < Stripe::StripeObject
       # Indicates when the funds will be captured from the customer's account.
       attr_reader :capture_method
-
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_reader :description
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link.
       attr_reader :metadata
-
       # Indicates that you intend to make future payments with the payment method collected during checkout.
       attr_reader :setup_future_usage
-
       # For a non-card payment, information about the charge that appears on the customer's statement when this payment succeeds in creating a charge.
       attr_reader :statement_descriptor
-
       # For a card payment, information about the charge that appears on the customer's statement when this payment succeeds in creating a charge. Concatenated with the account's statement descriptor prefix to form the complete statement descriptor.
       attr_reader :statement_descriptor_suffix
-
       # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
       attr_reader :transfer_group
     end
@@ -242,7 +208,6 @@ module Stripe
       class CompletedSessions < Stripe::StripeObject
         # The current number of checkout sessions that have been completed on the payment link which count towards the `completed_sessions` restriction to be met.
         attr_reader :count
-
         # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
         attr_reader :limit
       end
@@ -258,7 +223,6 @@ module Stripe
     class ShippingOption < Stripe::StripeObject
       # A non-negative integer in cents representing how much to charge.
       attr_reader :shipping_amount
-
       # The ID of the Shipping Rate to use for this shipping option.
       attr_reader :shipping_rate
     end
@@ -268,7 +232,6 @@ module Stripe
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
-
           # Type of the account referenced.
           attr_reader :type
         end
@@ -286,16 +249,12 @@ module Stripe
       end
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
-
       # Attribute for field invoice_settings
       attr_reader :invoice_settings
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link.
       attr_reader :metadata
-
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
-
       # Settings related to subscription trials.
       attr_reader :trial_settings
     end
@@ -303,7 +262,6 @@ module Stripe
     class TaxIdCollection < Stripe::StripeObject
       # Indicates whether tax ID collection is enabled for the session.
       attr_reader :enabled
-
       # Attribute for field required
       attr_reader :required
     end
@@ -311,7 +269,6 @@ module Stripe
     class TransferData < Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_reader :amount
-
       # The connected account receiving the transfer.
       attr_reader :destination
     end
@@ -319,16 +276,12 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links).
       attr_accessor :active
-
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -362,10 +315,8 @@ module Stripe
         end
         # Configuration when `type=hosted_confirmation`.
         attr_accessor :hosted_confirmation
-
         # Configuration when `type=redirect`.
         attr_accessor :redirect
-
         # The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
         attr_accessor :type
 
@@ -380,7 +331,6 @@ module Stripe
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
-
           # Type of the account referenced in the request.
           attr_accessor :type
 
@@ -393,7 +343,6 @@ module Stripe
         #
         # Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         attr_accessor :enabled
-
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
 
@@ -415,12 +364,10 @@ module Stripe
         end
         # Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
         attr_accessor :payment_method_reuse_agreement
-
         # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         # Session will determine whether to display an option to opt into promotional communication
         # from the merchant depending on the customer's locale. Only available to US merchants.
         attr_accessor :promotions
-
         # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
         # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
         attr_accessor :terms_of_service
@@ -437,7 +384,6 @@ module Stripe
           class Option < Stripe::RequestParams
             # The label for the option, displayed to the customer. Up to 100 characters.
             attr_accessor :label
-
             # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
             attr_accessor :value
 
@@ -457,7 +403,6 @@ module Stripe
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
           attr_accessor :custom
-
           # The type of the label.
           attr_accessor :type
 
@@ -470,7 +415,6 @@ module Stripe
         class Numeric < Stripe::RequestParams
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
-
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
@@ -483,7 +427,6 @@ module Stripe
         class Text < Stripe::RequestParams
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
-
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
@@ -494,22 +437,16 @@ module Stripe
         end
         # Configuration for `type=dropdown` fields.
         attr_accessor :dropdown
-
         # String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
         attr_accessor :key
-
         # The label for the field, displayed to the customer.
         attr_accessor :label
-
         # Configuration for `type=numeric` fields.
         attr_accessor :numeric
-
         # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
         attr_accessor :optional
-
         # Configuration for `type=text` fields.
         attr_accessor :text
-
         # The type of the field.
         attr_accessor :type
 
@@ -570,13 +507,10 @@ module Stripe
         end
         # Custom text that should be displayed after the payment confirmation button.
         attr_accessor :after_submit
-
         # Custom text that should be displayed alongside shipping address collection.
         attr_accessor :shipping_address
-
         # Custom text that should be displayed alongside the payment confirmation button.
         attr_accessor :submit
-
         # Custom text that should be displayed in place of the default terms of service agreement text.
         attr_accessor :terms_of_service_acceptance
 
@@ -598,7 +532,6 @@ module Stripe
           class CustomField < Stripe::RequestParams
             # The name of the custom field. This may be up to 40 characters.
             attr_accessor :name
-
             # The value of the custom field. This may be up to 140 characters.
             attr_accessor :value
 
@@ -611,7 +544,6 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
-
             # Type of the account referenced in the request.
             attr_accessor :type
 
@@ -631,22 +563,16 @@ module Stripe
           end
           # The account tax IDs associated with the invoice.
           attr_accessor :account_tax_ids
-
           # Default custom fields to be displayed on invoices for this customer.
           attr_accessor :custom_fields
-
           # An arbitrary string attached to the object. Often useful for displaying to users.
           attr_accessor :description
-
           # Default footer to be displayed on invoices for this customer.
           attr_accessor :footer
-
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
-
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
-
           # Default options for invoice PDF rendering for this customer.
           attr_accessor :rendering_options
 
@@ -670,7 +596,6 @@ module Stripe
         end
         # Whether the feature is enabled
         attr_accessor :enabled
-
         # Invoice PDF configuration.
         attr_accessor :invoice_data
 
@@ -684,10 +609,8 @@ module Stripe
         class AdjustableQuantity < Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           attr_accessor :enabled
-
           # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
           attr_accessor :maximum
-
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
           attr_accessor :minimum
 
@@ -699,10 +622,8 @@ module Stripe
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during checkout.
         attr_accessor :adjustable_quantity
-
         # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
         attr_accessor :price
-
         # The quantity of the line item being purchased.
         attr_accessor :quantity
 
@@ -716,13 +637,10 @@ module Stripe
       class PaymentIntentData < Stripe::RequestParams
         # Controls when the funds will be captured from the customer's account.
         attr_accessor :capture_method
-
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata
-
         # Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
         #
         # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
@@ -735,15 +653,12 @@ module Stripe
         #
         # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         attr_accessor :setup_future_usage
-
         # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         #
         # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
         attr_accessor :statement_descriptor
-
         # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         attr_accessor :statement_descriptor_suffix
-
         # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         attr_accessor :transfer_group
 
@@ -816,7 +731,6 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
-
             # Type of the account referenced in the request.
             attr_accessor :type
 
@@ -851,16 +765,12 @@ module Stripe
         end
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         attr_accessor :description
-
         # All invoices will be billed using the specified settings.
         attr_accessor :invoice_settings
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata
-
         # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         attr_accessor :trial_period_days
-
         # Settings related to subscription trials.
         attr_accessor :trial_settings
 
@@ -882,7 +792,6 @@ module Stripe
       class TaxIdCollection < Stripe::RequestParams
         # Enable tax ID collection during checkout. Defaults to `false`.
         attr_accessor :enabled
-
         # Describes whether a tax ID is required during checkout. Defaults to `never`.
         attr_accessor :required
 
@@ -895,7 +804,6 @@ module Stripe
       class TransferData < Stripe::RequestParams
         # The amount that will be transferred automatically when a charge succeeds.
         attr_accessor :amount
-
         # If specified, successful charges will be attributed to the destination
         # account for tax reporting, and the funds from charges will be transferred
         # to the destination account. The ID of the resulting transfer will be
@@ -909,91 +817,64 @@ module Stripe
       end
       # Behavior after the purchase is complete.
       attr_accessor :after_completion
-
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
-
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Can only be applied when there are no line items with recurring prices.
       attr_accessor :application_fee_amount
-
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
       attr_accessor :application_fee_percent
-
       # Configuration for automatic tax collection.
       attr_accessor :automatic_tax
-
       # Configuration for collecting the customer's billing address. Defaults to `auto`.
       attr_accessor :billing_address_collection
-
       # Configure fields to gather active consent from customers.
       attr_accessor :consent_collection
-
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price.
       attr_accessor :currency
-
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
       attr_accessor :custom_fields
-
       # Display additional text for your customers using custom text.
       attr_accessor :custom_text
-
       # Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
       attr_accessor :customer_creation
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # The custom message to be displayed to a customer when a payment link is no longer active.
       attr_accessor :inactive_message
-
       # Generate a post-purchase Invoice for one-time payments.
       attr_accessor :invoice_creation
-
       # The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
       attr_accessor :line_items
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
       attr_accessor :metadata
-
       # The account on behalf of which to charge.
       attr_accessor :on_behalf_of
-
       # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
       attr_accessor :payment_intent_data
-
       # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
       #
       # Can only be set in `subscription` mode. Defaults to `always`.
       #
       # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
       attr_accessor :payment_method_collection
-
       # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)).
       attr_accessor :payment_method_types
-
       # Controls phone number collection settings during checkout.
       #
       # We recommend that you review your privacy policy and check with your legal contacts.
       attr_accessor :phone_number_collection
-
       # Settings that restrict the usage of a payment link.
       attr_accessor :restrictions
-
       # Configuration for collecting the customer's shipping address.
       attr_accessor :shipping_address_collection
-
       # The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
       attr_accessor :shipping_options
-
       # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
       attr_accessor :submit_type
-
       # When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
       attr_accessor :subscription_data
-
       # Controls tax ID collection during checkout.
       attr_accessor :tax_id_collection
-
       # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
       attr_accessor :transfer_data
 
@@ -1088,10 +969,8 @@ module Stripe
         end
         # Configuration when `type=hosted_confirmation`.
         attr_accessor :hosted_confirmation
-
         # Configuration when `type=redirect`.
         attr_accessor :redirect
-
         # The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
         attr_accessor :type
 
@@ -1106,7 +985,6 @@ module Stripe
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
-
           # Type of the account referenced in the request.
           attr_accessor :type
 
@@ -1119,7 +997,6 @@ module Stripe
         #
         # Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         attr_accessor :enabled
-
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
 
@@ -1134,7 +1011,6 @@ module Stripe
           class Option < Stripe::RequestParams
             # The label for the option, displayed to the customer. Up to 100 characters.
             attr_accessor :label
-
             # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
             attr_accessor :value
 
@@ -1154,7 +1030,6 @@ module Stripe
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
           attr_accessor :custom
-
           # The type of the label.
           attr_accessor :type
 
@@ -1167,7 +1042,6 @@ module Stripe
         class Numeric < Stripe::RequestParams
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
-
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
@@ -1180,7 +1054,6 @@ module Stripe
         class Text < Stripe::RequestParams
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
-
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
@@ -1191,22 +1064,16 @@ module Stripe
         end
         # Configuration for `type=dropdown` fields.
         attr_accessor :dropdown
-
         # String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
         attr_accessor :key
-
         # The label for the field, displayed to the customer.
         attr_accessor :label
-
         # Configuration for `type=numeric` fields.
         attr_accessor :numeric
-
         # Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
         attr_accessor :optional
-
         # Configuration for `type=text` fields.
         attr_accessor :text
-
         # The type of the field.
         attr_accessor :type
 
@@ -1267,13 +1134,10 @@ module Stripe
         end
         # Custom text that should be displayed after the payment confirmation button.
         attr_accessor :after_submit
-
         # Custom text that should be displayed alongside shipping address collection.
         attr_accessor :shipping_address
-
         # Custom text that should be displayed alongside the payment confirmation button.
         attr_accessor :submit
-
         # Custom text that should be displayed in place of the default terms of service agreement text.
         attr_accessor :terms_of_service_acceptance
 
@@ -1295,7 +1159,6 @@ module Stripe
           class CustomField < Stripe::RequestParams
             # The name of the custom field. This may be up to 40 characters.
             attr_accessor :name
-
             # The value of the custom field. This may be up to 140 characters.
             attr_accessor :value
 
@@ -1308,7 +1171,6 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
-
             # Type of the account referenced in the request.
             attr_accessor :type
 
@@ -1328,22 +1190,16 @@ module Stripe
           end
           # The account tax IDs associated with the invoice.
           attr_accessor :account_tax_ids
-
           # Default custom fields to be displayed on invoices for this customer.
           attr_accessor :custom_fields
-
           # An arbitrary string attached to the object. Often useful for displaying to users.
           attr_accessor :description
-
           # Default footer to be displayed on invoices for this customer.
           attr_accessor :footer
-
           # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
           attr_accessor :issuer
-
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
-
           # Default options for invoice PDF rendering for this customer.
           attr_accessor :rendering_options
 
@@ -1367,7 +1223,6 @@ module Stripe
         end
         # Whether the feature is enabled
         attr_accessor :enabled
-
         # Invoice PDF configuration.
         attr_accessor :invoice_data
 
@@ -1381,10 +1236,8 @@ module Stripe
         class AdjustableQuantity < Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative Integer.
           attr_accessor :enabled
-
           # The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
           attr_accessor :maximum
-
           # The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
           attr_accessor :minimum
 
@@ -1396,10 +1249,8 @@ module Stripe
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during checkout.
         attr_accessor :adjustable_quantity
-
         # The ID of an existing line item on the payment link.
         attr_accessor :id
-
         # The quantity of the line item being purchased.
         attr_accessor :quantity
 
@@ -1413,18 +1264,14 @@ module Stripe
       class PaymentIntentData < Stripe::RequestParams
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata
-
         # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         #
         # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
         attr_accessor :statement_descriptor
-
         # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
         attr_accessor :statement_descriptor_suffix
-
         # A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         attr_accessor :transfer_group
 
@@ -1475,7 +1322,6 @@ module Stripe
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
             attr_accessor :account
-
             # Type of the account referenced in the request.
             attr_accessor :type
 
@@ -1510,13 +1356,10 @@ module Stripe
         end
         # All invoices will be billed using the specified settings.
         attr_accessor :invoice_settings
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata
-
         # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         attr_accessor :trial_period_days
-
         # Settings related to subscription trials.
         attr_accessor :trial_settings
 
@@ -1536,7 +1379,6 @@ module Stripe
       class TaxIdCollection < Stripe::RequestParams
         # Enable tax ID collection during checkout. Defaults to `false`.
         attr_accessor :enabled
-
         # Describes whether a tax ID is required during checkout. Defaults to `never`.
         attr_accessor :required
 
@@ -1547,68 +1389,48 @@ module Stripe
       end
       # Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
       attr_accessor :active
-
       # Behavior after the purchase is complete.
       attr_accessor :after_completion
-
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
-
       # Configuration for automatic tax collection.
       attr_accessor :automatic_tax
-
       # Configuration for collecting the customer's billing address. Defaults to `auto`.
       attr_accessor :billing_address_collection
-
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
       attr_accessor :custom_fields
-
       # Display additional text for your customers using custom text.
       attr_accessor :custom_text
-
       # Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
       attr_accessor :customer_creation
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # The custom message to be displayed to a customer when a payment link is no longer active.
       attr_accessor :inactive_message
-
       # Generate a post-purchase Invoice for one-time payments.
       attr_accessor :invoice_creation
-
       # The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
       attr_accessor :line_items
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
       attr_accessor :metadata
-
       # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
       attr_accessor :payment_intent_data
-
       # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
       #
       # Can only be set in `subscription` mode. Defaults to `always`.
       #
       # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
       attr_accessor :payment_method_collection
-
       # The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
       attr_accessor :payment_method_types
-
       # Settings that restrict the usage of a payment link.
       attr_accessor :restrictions
-
       # Configuration for collecting the customer's shipping address.
       attr_accessor :shipping_address_collection
-
       # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
       attr_accessor :submit_type
-
       # When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
       attr_accessor :subscription_data
-
       # Controls tax ID collection during checkout.
       attr_accessor :tax_id_collection
 
@@ -1662,13 +1484,10 @@ module Stripe
     class ListLineItemsParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -1681,100 +1500,68 @@ module Stripe
     end
     # Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
     attr_reader :active
-
     # Attribute for field after_completion
     attr_reader :after_completion
-
     # Whether user redeemable promotion codes are enabled.
     attr_reader :allow_promotion_codes
-
     # The ID of the Connect application that created the Payment Link.
     attr_reader :application
-
     # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
     attr_reader :application_fee_amount
-
     # This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     attr_reader :application_fee_percent
-
     # Attribute for field automatic_tax
     attr_reader :automatic_tax
-
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
     attr_reader :billing_address_collection
-
     # When set, provides configuration to gather active consent from customers.
     attr_reader :consent_collection
-
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
-
     # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
     attr_reader :custom_fields
-
     # Attribute for field custom_text
     attr_reader :custom_text
-
     # Configuration for Customer creation during checkout.
     attr_reader :customer_creation
-
     # Unique identifier for the object.
     attr_reader :id
-
     # The custom message to be displayed to a customer when a payment link is no longer active.
     attr_reader :inactive_message
-
     # Configuration for creating invoice for payment mode payment links.
     attr_reader :invoice_creation
-
     # The line items representing what is being sold.
     attr_reader :line_items
-
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
-
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     attr_reader :on_behalf_of
-
     # Indicates the parameters to be passed to PaymentIntent creation during checkout.
     attr_reader :payment_intent_data
-
     # Configuration for collecting a payment method during checkout. Defaults to `always`.
     attr_reader :payment_method_collection
-
     # The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     attr_reader :payment_method_types
-
     # Attribute for field phone_number_collection
     attr_reader :phone_number_collection
-
     # Settings that restrict the usage of a payment link.
     attr_reader :restrictions
-
     # Configuration for collecting the customer's shipping address.
     attr_reader :shipping_address_collection
-
     # The shipping rate options applied to the session.
     attr_reader :shipping_options
-
     # Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button.
     attr_reader :submit_type
-
     # When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
     attr_reader :subscription_data
-
     # Attribute for field tax_id_collection
     attr_reader :tax_id_collection
-
     # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
     attr_reader :transfer_data
-
     # The public URL that can be shared with customers.
     attr_reader :url
 

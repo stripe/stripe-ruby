@@ -10,15 +10,12 @@ module Stripe
           # The page size.
           sig { returns(Integer) }
           attr_accessor :limit
-
           # Primary object ID used to retrieve related events.
           sig { returns(String) }
           attr_accessor :object_id
-
           # The requested page.
           sig { returns(String) }
           attr_accessor :page
-
           sig { params(limit: Integer, object_id: String, page: String).void }
           def initialize(limit: nil, object_id: nil, page: nil); end
         end

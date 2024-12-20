@@ -23,7 +23,6 @@ module Stripe
         class Checkout < Stripe::StripeObject
           # The Stripe CheckoutSession that created this object.
           attr_reader :checkout_session
-
           # The Stripe CheckoutSession LineItem that created this object.
           attr_reader :line_item
         end
@@ -31,7 +30,6 @@ module Stripe
         class Order < Stripe::StripeObject
           # The Stripe Order LineItem that created this object.
           attr_reader :line_item
-
           # The Stripe Order that created this object.
           attr_reader :order
         end
@@ -42,13 +40,10 @@ module Stripe
         end
         # Attribute for field checkout
         attr_reader :checkout
-
         # Attribute for field order
         attr_reader :order
-
         # Attribute for field payment
         attr_reader :payment
-
         # The type of event that created this object.
         attr_reader :type
       end
@@ -56,19 +51,14 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # The gift card to list transactions for.
         attr_accessor :gift_card
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
-
         # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         attr_accessor :transfer_group
 
@@ -101,7 +91,6 @@ module Stripe
           end
           # The details for the payment that created this object.
           attr_accessor :payment
-
           # The type of event that created this object.
           attr_accessor :type
 
@@ -112,28 +101,20 @@ module Stripe
         end
         # The amount of the transaction. A negative amount deducts funds, and a positive amount adds funds.
         attr_accessor :amount
-
         # Whether this is a confirmed transaction. A confirmed transaction immediately deducts from/adds to the `amount_available` on the gift card. Otherwise, it creates a held transaction that increments the `amount_held` on the gift card.
         attr_accessor :confirm
-
         # Related objects which created this transaction.
         attr_accessor :created_by
-
         # The currency of the transaction. This must match the currency of the gift card.
         attr_accessor :currency
-
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # The gift card to create a new transaction on.
         attr_accessor :gift_card
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-
         # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         attr_accessor :transfer_group
 
@@ -172,10 +153,8 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 
@@ -205,37 +184,26 @@ module Stripe
       end
       # The amount of this transaction. A positive value indicates that funds were added to the gift card. A negative value indicates that funds were removed from the gift card.
       attr_reader :amount
-
       # Time at which the transaction was confirmed. Measured in seconds since the Unix epoch.
       attr_reader :confirmed_at
-
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
       # The related Stripe objects that created this gift card transaction.
       attr_reader :created_by
-
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_reader :description
-
       # The gift card that this transaction occurred on
       attr_reader :gift_card
-
       # Unique identifier for the object.
       attr_reader :id
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
-
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-
       # Status of this transaction, one of `held`, `confirmed`, or `canceled`.
       attr_reader :status
-
       # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
       attr_reader :transfer_group
 

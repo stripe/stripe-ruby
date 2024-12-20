@@ -8,6 +8,13 @@
     * Add method parameter classes for all resources and service methods.
     * These changes are NOT breaking and are purely additive. The method parameter classes are not required, we still accept hashes as well as the new `RequestParams` classes. Any additional gated parameters are still available to pass via hash. Resource fields define publicly documented fields and other deserialized fields are still accessible.
 
+## 13.3.0 - 2024-12-18
+* [#1500](https://github.com/stripe/stripe-ruby/pull/1500) This release changes the pinned API version to `2024-12-18.acacia`.
+
+* [#1507](https://github.com/stripe/stripe-ruby/pull/1507) Pass requestor to all deserialized objects including lists
+  
+  * Fixes bug where `StripeObject` retrieved from lists could not be used to make requests, such as `refresh`
+
 ## 13.3.0-beta.3 - 2024-12-12
 * [#1499](https://github.com/stripe/stripe-ruby/pull/1499) Update generated code for beta
   * Add support for `AllowRedisplay` on `Card` and `Source`

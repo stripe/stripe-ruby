@@ -127,7 +127,7 @@ module Stripe
 
       case data
       when Array
-        data.map { |i| convert_to_stripe_object(i, opts, api_mode: api_mode) }
+        data.map { |i| convert_to_stripe_object(i, opts, api_mode: api_mode, requestor: requestor) }
       when Hash
         # TODO: This is a terrible hack.
         # Waiting on https://jira.corp.stripe.com/browse/API_SERVICES-3167 to add

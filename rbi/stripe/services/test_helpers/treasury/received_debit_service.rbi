@@ -12,15 +12,12 @@ module Stripe
               # The bank account holder's name.
               sig { returns(String) }
               attr_accessor :account_holder_name
-
               # The bank account number.
               sig { returns(String) }
               attr_accessor :account_number
-
               # The bank account's routing number.
               sig { returns(String) }
               attr_accessor :routing_number
-
               sig {
                 params(account_holder_name: String, account_number: String, routing_number: String).void
                }
@@ -33,13 +30,11 @@ module Stripe
             # The source type.
             sig { returns(String) }
             attr_accessor :type
-
             # Optional fields for `us_bank_account`.
             sig {
               returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount)
              }
             attr_accessor :us_bank_account
-
             sig {
               params(type: String, us_bank_account: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount).void
              }
@@ -50,7 +45,6 @@ module Stripe
               # Addenda record data associated with this ReceivedDebit.
               sig { returns(String) }
               attr_accessor :addenda
-
               sig { params(addenda: String).void }
               def initialize(addenda: nil); end
             end
@@ -59,11 +53,9 @@ module Stripe
               returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails::Ach)
              }
             attr_accessor :ach
-
             # The type of flow that originated the ReceivedDebit.
             sig { returns(String) }
             attr_accessor :type
-
             sig {
               params(ach: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails::Ach, type: String).void
              }
@@ -72,39 +64,31 @@ module Stripe
           # Amount (in cents) to be transferred.
           sig { returns(Integer) }
           attr_accessor :amount
-
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-
           # An arbitrary string attached to the object. Often useful for displaying to users.
           sig { returns(String) }
           attr_accessor :description
-
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
-
           # The FinancialAccount to pull funds from.
           sig { returns(String) }
           attr_accessor :financial_account
-
           # Initiating payment method details for the object.
           sig {
             returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails)
            }
           attr_accessor :initiating_payment_method_details
-
           # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           sig { returns(String) }
           attr_accessor :network
-
           # Details about the network used for the ReceivedDebit.
           sig {
             returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails)
            }
           attr_accessor :network_details
-
           sig {
             params(amount: Integer, currency: String, description: String, expand: T::Array[String], financial_account: String, initiating_payment_method_details: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails, network: String, network_details: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails).void
            }

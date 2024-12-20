@@ -14,6 +14,13 @@ module Stripe
       assert_equal 1, list.count
     end
 
+    should "be able to refresh objects in search" do
+      list = Stripe::Customer.search({ query: "name:'fakename'" })
+      assert_not_nil list.first.instance_variable_get(:@requestor)
+      cus = list.first.refresh
+      assert cus.is_a?(Stripe::Customer)
+    end
+
     should "provide #each" do
       arr = [
         { id: 1 },

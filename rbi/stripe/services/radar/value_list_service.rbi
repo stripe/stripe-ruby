@@ -12,7 +12,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -20,19 +19,15 @@ module Stripe
         # The name of the value list for use in rules.
         sig { returns(String) }
         attr_accessor :alias
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T::Hash[String, String]) }
         attr_accessor :metadata
-
         # The human-readable name of the value list.
         sig { returns(String) }
         attr_accessor :name
-
         sig {
           params(alias_: String, expand: T::Array[String], metadata: T::Hash[String, String], name: String).void
          }
@@ -43,50 +38,39 @@ module Stripe
           # Minimum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :gt
-
           # Minimum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :gte
-
           # Maximum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :lt
-
           # Maximum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :lte
-
           sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # The alias used to reference the value list when writing rules.
         sig { returns(String) }
         attr_accessor :alias
-
         # A value contained within a value list - returns all value lists containing this value.
         sig { returns(String) }
         attr_accessor :contains
-
         # Only return value lists that were created during the given date interval.
         sig { returns(T.any(::Stripe::Radar::ValueListService::ListParams::Created, Integer)) }
         attr_accessor :created
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
-
         sig {
           params(alias_: String, contains: String, created: T.any(::Stripe::Radar::ValueListService::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
          }
@@ -104,23 +88,18 @@ module Stripe
         # The name of the value list for use in rules.
         sig { returns(String) }
         attr_accessor :alias
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # Type of the items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
         sig { returns(String) }
         attr_accessor :item_type
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T::Hash[String, String]) }
         attr_accessor :metadata
-
         # The human-readable name of the value list.
         sig { returns(String) }
         attr_accessor :name
-
         sig {
           params(alias_: String, expand: T::Array[String], item_type: String, metadata: T::Hash[String, String], name: String).void
          }

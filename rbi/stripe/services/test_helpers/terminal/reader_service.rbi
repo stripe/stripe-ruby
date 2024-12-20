@@ -11,7 +11,6 @@ module Stripe
             # The card number, as a string without any separators.
             sig { returns(String) }
             attr_accessor :number
-
             sig { params(number: String).void }
             def initialize(number: nil); end
           end
@@ -19,34 +18,28 @@ module Stripe
             # Card Number
             sig { returns(String) }
             attr_accessor :number
-
             sig { params(number: String).void }
             def initialize(number: nil); end
           end
           # Simulated on-reader tip amount.
           sig { returns(Integer) }
           attr_accessor :amount_tip
-
           # Simulated data for the card_present payment method.
           sig {
             returns(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::CardPresent)
            }
           attr_accessor :card_present
-
           # Specifies which fields in the response should be expanded.
           sig { returns(T::Array[String]) }
           attr_accessor :expand
-
           # Simulated data for the interac_present payment method.
           sig {
             returns(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::InteracPresent)
            }
           attr_accessor :interac_present
-
           # Simulated payment type.
           sig { returns(String) }
           attr_accessor :type
-
           sig {
             params(amount_tip: Integer, card_present: ::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::CardPresent, expand: T::Array[String], interac_present: ::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::InteracPresent, type: String).void
            }

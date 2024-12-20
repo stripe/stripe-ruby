@@ -11,7 +11,6 @@ module Stripe
         # A unit of time.
         sig { returns(String) }
         attr_reader :unit
-
         # Must be greater than 0.
         sig { returns(Integer) }
         attr_reader :value
@@ -20,7 +19,6 @@ module Stripe
         # A unit of time.
         sig { returns(String) }
         attr_reader :unit
-
         # Must be greater than 0.
         sig { returns(Integer) }
         attr_reader :value
@@ -28,7 +26,6 @@ module Stripe
       # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
       sig { returns(T.nilable(Maximum)) }
       attr_reader :maximum
-
       # The lower bound of the estimated range. If empty, represents no lower bound.
       sig { returns(T.nilable(Minimum)) }
       attr_reader :minimum
@@ -38,7 +35,6 @@ module Stripe
         # A non-negative integer in cents representing how much to charge.
         sig { returns(Integer) }
         attr_reader :amount
-
         # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
         sig { returns(String) }
         attr_reader :tax_behavior
@@ -46,11 +42,9 @@ module Stripe
       # A non-negative integer in cents representing how much to charge.
       sig { returns(Integer) }
       attr_reader :amount
-
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_reader :currency
-
       # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(T::Hash[String, CurrencyOptions]) }
       attr_reader :currency_options
@@ -58,100 +52,77 @@ module Stripe
     # Whether the shipping rate can be used for new purchases. Defaults to `true`.
     sig { returns(T::Boolean) }
     attr_reader :active
-
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created
-
     # The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
     sig { returns(T.nilable(DeliveryEstimate)) }
     attr_reader :delivery_estimate
-
     # The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
     sig { returns(T.nilable(String)) }
     attr_reader :display_name
-
     # Attribute for field fixed_amount
     sig { returns(FixedAmount) }
     attr_reader :fixed_amount
-
     # Unique identifier for the object.
     sig { returns(String) }
     attr_reader :id
-
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     attr_reader :livemode
-
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     attr_reader :metadata
-
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
-
     # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     sig { returns(T.nilable(String)) }
     attr_reader :tax_behavior
-
     # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
     sig { returns(T.nilable(T.any(String, Stripe::TaxCode))) }
     attr_reader :tax_code
-
     # The type of calculation to use on the shipping rate.
     sig { returns(String) }
     attr_reader :type
-
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :gt
-
         # Minimum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :gte
-
         # Maximum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :lt
-
         # Maximum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :lte
-
         sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return shipping rates that are active or inactive.
       sig { returns(T::Boolean) }
       attr_accessor :active
-
       # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
       sig { returns(T.any(::Stripe::ShippingRate::ListParams::Created, Integer)) }
       attr_accessor :created
-
       # Only return shipping rates for the given currency.
       sig { returns(String) }
       attr_accessor :currency
-
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(Integer) }
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(String) }
       attr_accessor :starting_after
-
       sig {
         params(active: T::Boolean, created: T.any(::Stripe::ShippingRate::ListParams::Created, Integer), currency: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
        }
@@ -171,11 +142,9 @@ module Stripe
           # A unit of time.
           sig { returns(String) }
           attr_accessor :unit
-
           # Must be greater than 0.
           sig { returns(Integer) }
           attr_accessor :value
-
           sig { params(unit: String, value: Integer).void }
           def initialize(unit: nil, value: nil); end
         end
@@ -183,22 +152,18 @@ module Stripe
           # A unit of time.
           sig { returns(String) }
           attr_accessor :unit
-
           # Must be greater than 0.
           sig { returns(Integer) }
           attr_accessor :value
-
           sig { params(unit: String, value: Integer).void }
           def initialize(unit: nil, value: nil); end
         end
         # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
         sig { returns(::Stripe::ShippingRate::CreateParams::DeliveryEstimate::Maximum) }
         attr_accessor :maximum
-
         # The lower bound of the estimated range. If empty, represents no lower bound.
         sig { returns(::Stripe::ShippingRate::CreateParams::DeliveryEstimate::Minimum) }
         attr_accessor :minimum
-
         sig {
           params(maximum: ::Stripe::ShippingRate::CreateParams::DeliveryEstimate::Maximum, minimum: ::Stripe::ShippingRate::CreateParams::DeliveryEstimate::Minimum).void
          }
@@ -209,28 +174,23 @@ module Stripe
           # A non-negative integer in cents representing how much to charge.
           sig { returns(Integer) }
           attr_accessor :amount
-
           # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
           sig { returns(String) }
           attr_accessor :tax_behavior
-
           sig { params(amount: Integer, tax_behavior: String).void }
           def initialize(amount: nil, tax_behavior: nil); end
         end
         # A non-negative integer in cents representing how much to charge.
         sig { returns(Integer) }
         attr_accessor :amount
-
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-
         # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
         sig {
           returns(T::Hash[String, ::Stripe::ShippingRate::CreateParams::FixedAmount::CurrencyOptions])
          }
         attr_accessor :currency_options
-
         sig {
           params(amount: Integer, currency: String, currency_options: T::Hash[String, ::Stripe::ShippingRate::CreateParams::FixedAmount::CurrencyOptions]).void
          }
@@ -239,35 +199,27 @@ module Stripe
       # The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
       sig { returns(::Stripe::ShippingRate::CreateParams::DeliveryEstimate) }
       attr_accessor :delivery_estimate
-
       # The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
       sig { returns(String) }
       attr_accessor :display_name
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
       sig { returns(::Stripe::ShippingRate::CreateParams::FixedAmount) }
       attr_accessor :fixed_amount
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
-
       # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
       sig { returns(String) }
       attr_accessor :tax_behavior
-
       # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
       sig { returns(String) }
       attr_accessor :tax_code
-
       # The type of calculation to use on the shipping rate.
       sig { returns(String) }
       attr_accessor :type
-
       sig {
         params(delivery_estimate: ::Stripe::ShippingRate::CreateParams::DeliveryEstimate, display_name: String, expand: T::Array[String], fixed_amount: ::Stripe::ShippingRate::CreateParams::FixedAmount, metadata: T::Hash[String, String], tax_behavior: String, tax_code: String, type: String).void
        }
@@ -286,7 +238,6 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -296,11 +247,9 @@ module Stripe
           # A non-negative integer in cents representing how much to charge.
           sig { returns(Integer) }
           attr_accessor :amount
-
           # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
           sig { returns(String) }
           attr_accessor :tax_behavior
-
           sig { params(amount: Integer, tax_behavior: String).void }
           def initialize(amount: nil, tax_behavior: nil); end
         end
@@ -309,7 +258,6 @@ module Stripe
           returns(T::Hash[String, ::Stripe::ShippingRate::UpdateParams::FixedAmount::CurrencyOptions])
          }
         attr_accessor :currency_options
-
         sig {
           params(currency_options: T::Hash[String, ::Stripe::ShippingRate::UpdateParams::FixedAmount::CurrencyOptions]).void
          }
@@ -318,23 +266,18 @@ module Stripe
       # Whether the shipping rate can be used for new purchases. Defaults to `true`.
       sig { returns(T::Boolean) }
       attr_accessor :active
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
       sig { returns(::Stripe::ShippingRate::UpdateParams::FixedAmount) }
       attr_accessor :fixed_amount
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-
       # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
       sig { returns(String) }
       attr_accessor :tax_behavior
-
       sig {
         params(active: T::Boolean, expand: T::Array[String], fixed_amount: ::Stripe::ShippingRate::UpdateParams::FixedAmount, metadata: T.nilable(T::Hash[String, String]), tax_behavior: String).void
        }

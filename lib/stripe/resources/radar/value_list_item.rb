@@ -32,13 +32,10 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
-
           # Minimum value to filter by (inclusive)
           attr_accessor :gte
-
           # Maximum value to filter by (exclusive)
           attr_accessor :lt
-
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
 
@@ -51,22 +48,16 @@ module Stripe
         end
         # Only return items that were created during the given date interval.
         attr_accessor :created
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
-
         # Return items belonging to the parent list whose value matches the specified value (using an "is like" match).
         attr_accessor :value
-
         # Identifier for the parent value list this item belongs to.
         attr_accessor :value_list
 
@@ -92,10 +83,8 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # The value of the item (whose type must match the type of the parent value list).
         attr_accessor :value
-
         # The identifier of the value list which the created item will be added to.
         attr_accessor :value_list
 
@@ -107,25 +96,18 @@ module Stripe
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
       # The name or email address of the user who added this item to the value list.
       attr_reader :created_by
-
       # Unique identifier for the object.
       attr_reader :id
-
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
-
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-
       # The value of the item.
       attr_reader :value
-
       # The identifier of the value list this item belongs to.
       attr_reader :value_list
-
       # Always true for a deleted object
       attr_reader :deleted
 

@@ -11,7 +11,6 @@ module Stripe
             # The price type that credit grants can apply to. We currently only support the `metered` price type.
             sig { returns(String) }
             attr_accessor :price_type
-
             sig { params(price_type: String).void }
             def initialize(price_type: nil); end
           end
@@ -20,15 +19,12 @@ module Stripe
             returns(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope)
            }
           attr_accessor :applicability_scope
-
           # The credit grant for which to fetch credit balance summary.
           sig { returns(String) }
           attr_accessor :credit_grant
-
           # Specify the type of this filter.
           sig { returns(String) }
           attr_accessor :type
-
           sig {
             params(applicability_scope: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope, credit_grant: String, type: String).void
            }
@@ -37,15 +33,12 @@ module Stripe
         # The customer for which to fetch credit balance summary.
         sig { returns(String) }
         attr_accessor :customer
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # The filter criteria for the credit balance summary.
         sig { returns(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter) }
         attr_accessor :filter
-
         sig {
           params(customer: String, expand: T::Array[String], filter: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter).void
          }

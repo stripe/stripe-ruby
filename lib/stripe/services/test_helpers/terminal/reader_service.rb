@@ -25,16 +25,12 @@ module Stripe
           end
           # Simulated on-reader tip amount.
           attr_accessor :amount_tip
-
           # Simulated data for the card_present payment method.
           attr_accessor :card_present
-
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
-
           # Simulated data for the interac_present payment method.
           attr_accessor :interac_present
-
           # Simulated payment type.
           attr_accessor :type
 

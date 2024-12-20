@@ -16,25 +16,18 @@ module Stripe
         end
         # Specifies which event to cancel.
         attr_reader :cancel
-
         # The time the adjustment was created.
         attr_reader :created
-
         # The name of the meter event. Corresponds with the `event_name` field on a meter.
         attr_reader :event_name
-
         # The unique id of this meter event adjustment.
         attr_reader :id
-
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
-
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-
         # Open Enum. The meter event adjustment’s status.
         attr_reader :status
-
         # Open Enum. Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
         attr_reader :type
       end

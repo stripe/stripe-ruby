@@ -17,7 +17,6 @@ module Stripe
       # The status of the payment method on the domain.
       sig { returns(String) }
       attr_reader :status
-
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
       attr_reader :status_details
@@ -31,7 +30,6 @@ module Stripe
       # The status of the payment method on the domain.
       sig { returns(String) }
       attr_reader :status
-
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
       attr_reader :status_details
@@ -45,7 +43,6 @@ module Stripe
       # The status of the payment method on the domain.
       sig { returns(String) }
       attr_reader :status
-
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
       attr_reader :status_details
@@ -59,7 +56,6 @@ module Stripe
       # The status of the payment method on the domain.
       sig { returns(String) }
       attr_reader :status
-
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
       attr_reader :status_details
@@ -73,7 +69,6 @@ module Stripe
       # The status of the payment method on the domain.
       sig { returns(String) }
       attr_reader :status
-
       # Contains additional details about the status of a payment method for a specific payment method domain.
       sig { returns(StatusDetails) }
       attr_reader :status_details
@@ -81,72 +76,55 @@ module Stripe
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(AmazonPay) }
     attr_reader :amazon_pay
-
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(ApplePay) }
     attr_reader :apple_pay
-
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created
-
     # The domain name that this payment method domain object represents.
     sig { returns(String) }
     attr_reader :domain_name
-
     # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
     sig { returns(T::Boolean) }
     attr_reader :enabled
-
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(GooglePay) }
     attr_reader :google_pay
-
     # Unique identifier for the object.
     sig { returns(String) }
     attr_reader :id
-
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(Link) }
     attr_reader :link
-
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     attr_reader :livemode
-
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
-
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(Paypal) }
     attr_reader :paypal
-
     class ListParams < Stripe::RequestParams
       # The domain name that this payment method domain object represents.
       sig { returns(String) }
       attr_accessor :domain_name
-
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements
       sig { returns(T::Boolean) }
       attr_accessor :enabled
-
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(Integer) }
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(String) }
       attr_accessor :starting_after
-
       sig {
         params(domain_name: String, enabled: T::Boolean, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
        }
@@ -163,15 +141,12 @@ module Stripe
       # The domain name that this payment method domain object represents.
       sig { returns(String) }
       attr_accessor :domain_name
-
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
       sig { returns(T::Boolean) }
       attr_accessor :enabled
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(domain_name: String, enabled: T::Boolean, expand: T::Array[String]).void }
       def initialize(domain_name: nil, enabled: nil, expand: nil); end
     end
@@ -179,7 +154,6 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -187,11 +161,9 @@ module Stripe
       # Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
       sig { returns(T::Boolean) }
       attr_accessor :enabled
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(enabled: T::Boolean, expand: T::Array[String]).void }
       def initialize(enabled: nil, expand: nil); end
     end
@@ -199,7 +171,6 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end

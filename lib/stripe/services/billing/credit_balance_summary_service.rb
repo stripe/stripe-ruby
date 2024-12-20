@@ -16,10 +16,8 @@ module Stripe
           end
           # The billing credit applicability scope for which to fetch credit balance summary.
           attr_accessor :applicability_scope
-
           # The credit grant for which to fetch credit balance summary.
           attr_accessor :credit_grant
-
           # Specify the type of this filter.
           attr_accessor :type
 
@@ -31,10 +29,8 @@ module Stripe
         end
         # The customer for which to fetch credit balance summary.
         attr_accessor :customer
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # The filter criteria for the credit balance summary.
         attr_accessor :filter
 

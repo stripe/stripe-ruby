@@ -9,50 +9,39 @@ module Stripe
         # Minimum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :gt
-
         # Minimum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :gte
-
         # Maximum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :lt
-
         # Maximum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :lte
-
         sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return refunds for the charge specified by this charge ID.
       sig { returns(String) }
       attr_accessor :charge
-
       # Only return refunds that were created during the given date interval.
       sig { returns(T.any(::Stripe::RefundService::ListParams::Created, Integer)) }
       attr_accessor :created
-
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(Integer) }
       attr_accessor :limit
-
       # Only return refunds for the PaymentIntent specified by this ID.
       sig { returns(String) }
       attr_accessor :payment_intent
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(String) }
       attr_accessor :starting_after
-
       sig {
         params(charge: String, created: T.any(::Stripe::RefundService::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, payment_intent: String, starting_after: String).void
        }
@@ -70,51 +59,39 @@ module Stripe
       # Attribute for param field amount
       sig { returns(Integer) }
       attr_accessor :amount
-
       # The identifier of the charge to refund.
       sig { returns(String) }
       attr_accessor :charge
-
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_accessor :currency
-
       # Customer whose customer balance to refund from.
       sig { returns(String) }
       attr_accessor :customer
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions.
       sig { returns(String) }
       attr_accessor :instructions_email
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-
       # Origin of the refund
       sig { returns(String) }
       attr_accessor :origin
-
       # The identifier of the PaymentIntent to refund.
       sig { returns(String) }
       attr_accessor :payment_intent
-
       # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.
       sig { returns(String) }
       attr_accessor :reason
-
       # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
       sig { returns(T::Boolean) }
       attr_accessor :refund_application_fee
-
       # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge.
       sig { returns(T::Boolean) }
       attr_accessor :reverse_transfer
-
       sig {
         params(amount: Integer, charge: String, currency: String, customer: String, expand: T::Array[String], instructions_email: String, metadata: T.nilable(T::Hash[String, String]), origin: String, payment_intent: String, reason: String, refund_application_fee: T::Boolean, reverse_transfer: T::Boolean).void
        }
@@ -137,7 +114,6 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -145,11 +121,9 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-
       sig { params(expand: T::Array[String], metadata: T.nilable(T::Hash[String, String])).void }
       def initialize(expand: nil, metadata: nil); end
     end
@@ -157,7 +131,6 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end

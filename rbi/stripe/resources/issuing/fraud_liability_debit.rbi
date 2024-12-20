@@ -9,76 +9,59 @@ module Stripe
       # Debited amount. This is equal to the disputed amount and is given in the card’s currency and in the smallest currency unit.
       sig { returns(Integer) }
       attr_reader :amount
-
       # ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this debit.
       sig { returns(T.nilable(T.any(String, Stripe::BalanceTransaction))) }
       attr_reader :balance_transaction
-
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_reader :created
-
       # The currency of the debit. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_reader :currency
-
       # The ID of the linked dispute.
       sig { returns(String) }
       attr_reader :dispute
-
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
-
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
-
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
-
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :gt
-
           # Minimum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :gte
-
           # Maximum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :lt
-
           # Maximum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :lte
-
           sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # Only return Issuing Fraud Liability Debits that were created during the given date interval.
         sig { returns(T.any(::Stripe::Issuing::FraudLiabilityDebit::ListParams::Created, Integer)) }
         attr_accessor :created
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
-
         sig {
           params(created: T.any(::Stripe::Issuing::FraudLiabilityDebit::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
          }
@@ -94,7 +77,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end

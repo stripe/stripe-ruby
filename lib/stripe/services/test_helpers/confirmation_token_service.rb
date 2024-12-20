@@ -9,10 +9,8 @@ module Stripe
           class AcssDebit < Stripe::RequestParams
             # Customer's bank account number.
             attr_accessor :account_number
-
             # Institution number of the customer's bank.
             attr_accessor :institution_number
-
             # Transit number of the customer's bank.
             attr_accessor :transit_number
 
@@ -41,7 +39,6 @@ module Stripe
           class AuBecsDebit < Stripe::RequestParams
             # The account number for the bank account.
             attr_accessor :account_number
-
             # Bank-State-Branch number of the bank account.
             attr_accessor :bsb_number
 
@@ -54,7 +51,6 @@ module Stripe
           class BacsDebit < Stripe::RequestParams
             # Account number of the bank account that the funds will be debited from.
             attr_accessor :account_number
-
             # Sort code of the bank account. (e.g., `10-20-30`)
             attr_accessor :sort_code
 
@@ -71,19 +67,14 @@ module Stripe
             class Address < Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
-
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
               attr_accessor :country
-
               # Address line 1 (e.g., street, PO Box, or company name).
               attr_accessor :line1
-
               # Address line 2 (e.g., apartment, suite, unit, or building).
               attr_accessor :line2
-
               # ZIP or postal code.
               attr_accessor :postal_code
-
               # State, county, province, or region.
               attr_accessor :state
 
@@ -105,13 +96,10 @@ module Stripe
             end
             # Billing address.
             attr_accessor :address
-
             # Email address.
             attr_accessor :email
-
             # Full name.
             attr_accessor :name
-
             # Billing phone number (including extension).
             attr_accessor :phone
 
@@ -153,7 +141,6 @@ module Stripe
           class Fpx < Stripe::RequestParams
             # Account holder type for FPX transaction
             attr_accessor :account_holder_type
-
             # The customer's bank.
             attr_accessor :bank
 
@@ -200,10 +187,8 @@ module Stripe
             class Dob < Stripe::RequestParams
               # The day of birth, between 1 and 31.
               attr_accessor :day
-
               # The month of birth, between 1 and 12.
               attr_accessor :month
-
               # The four-digit year of birth.
               attr_accessor :year
 
@@ -272,10 +257,8 @@ module Stripe
           class Payto < Stripe::RequestParams
             # The account number for the bank account.
             attr_accessor :account_number
-
             # Bank-State-Branch number of the bank account.
             attr_accessor :bsb_number
-
             # The PayID alias for the bank account.
             attr_accessor :pay_id
 
@@ -308,10 +291,8 @@ module Stripe
             class Dob < Stripe::RequestParams
               # The day of birth, between 1 and 31.
               attr_accessor :day
-
               # The month of birth, between 1 and 12.
               attr_accessor :month
-
               # The four-digit year of birth.
               attr_accessor :year
 
@@ -365,16 +346,12 @@ module Stripe
           class UsBankAccount < Stripe::RequestParams
             # Account holder type: individual or company.
             attr_accessor :account_holder_type
-
             # Account number of the bank account.
             attr_accessor :account_number
-
             # Account type: checkings or savings. Defaults to checking if omitted.
             attr_accessor :account_type
-
             # The ID of a Financial Connections Account to use as a payment method.
             attr_accessor :financial_connections_account
-
             # Routing number of the bank account.
             attr_accessor :routing_number
 
@@ -400,166 +377,112 @@ module Stripe
           end
           # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
           attr_accessor :acss_debit
-
           # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
           attr_accessor :affirm
-
           # If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
           attr_accessor :afterpay_clearpay
-
           # If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
           attr_accessor :alipay
-
           # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
           attr_accessor :allow_redisplay
-
           # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
           attr_accessor :alma
-
           # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
           attr_accessor :amazon_pay
-
           # If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
           attr_accessor :au_becs_debit
-
           # If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
           attr_accessor :bacs_debit
-
           # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
           attr_accessor :bancontact
-
           # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
           attr_accessor :billing_details
-
           # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
           attr_accessor :blik
-
           # If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
           attr_accessor :boleto
-
           # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
           attr_accessor :cashapp
-
           # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
           attr_accessor :customer_balance
-
           # If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
           attr_accessor :eps
-
           # If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
           attr_accessor :fpx
-
           # If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
           attr_accessor :giropay
-
           # If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
           attr_accessor :gopay
-
           # If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
           attr_accessor :grabpay
-
           # If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
           attr_accessor :id_bank_transfer
-
           # If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
           attr_accessor :ideal
-
           # If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
           attr_accessor :interac_present
-
           # If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
           attr_accessor :kakao_pay
-
           # If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
           attr_accessor :klarna
-
           # If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
           attr_accessor :konbini
-
           # If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
           attr_accessor :kr_card
-
           # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
           attr_accessor :link
-
           # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
           attr_accessor :mb_way
-
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
-
           # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
           attr_accessor :mobilepay
-
           # If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
           attr_accessor :multibanco
-
           # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
           attr_accessor :naver_pay
-
           # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
           attr_accessor :oxxo
-
           # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
           attr_accessor :p24
-
           # If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
           attr_accessor :payco
-
           # If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
           attr_accessor :paynow
-
           # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
           attr_accessor :paypal
-
           # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
           attr_accessor :payto
-
           # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
           attr_accessor :pix
-
           # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
           attr_accessor :promptpay
-
           # If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
           attr_accessor :qris
-
           # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
           attr_accessor :radar_options
-
           # If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
           attr_accessor :rechnung
-
           # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
           attr_accessor :revolut_pay
-
           # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
           attr_accessor :samsung_pay
-
           # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
           attr_accessor :sepa_debit
-
           # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
           attr_accessor :shopeepay
-
           # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
           attr_accessor :sofort
-
           # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
           attr_accessor :swish
-
           # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
           attr_accessor :twint
-
           # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
           attr_accessor :type
-
           # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
           attr_accessor :us_bank_account
-
           # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
           attr_accessor :wechat_pay
-
           # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
           attr_accessor :zip
 
@@ -682,19 +605,14 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
-
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-
             # Address line 1 (e.g., street, PO Box, or company name).
             attr_accessor :line1
-
             # Address line 2 (e.g., apartment, suite, unit, or building).
             attr_accessor :line2
-
             # ZIP or postal code.
             attr_accessor :postal_code
-
             # State, county, province, or region.
             attr_accessor :state
 
@@ -716,10 +634,8 @@ module Stripe
           end
           # Shipping address
           attr_accessor :address
-
           # Recipient name.
           attr_accessor :name
-
           # Recipient phone (including extension)
           attr_accessor :phone
 
@@ -731,21 +647,16 @@ module Stripe
         end
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # ID of an existing PaymentMethod.
         attr_accessor :payment_method
-
         # If provided, this hash will be used to create a PaymentMethod.
         attr_accessor :payment_method_data
-
         # Return URL used to confirm the Intent.
         attr_accessor :return_url
-
         # Indicates that you intend to make future payments with this ConfirmationToken's payment method.
         #
         # The presence of this property will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
         attr_accessor :setup_future_usage
-
         # Shipping information for this ConfirmationToken.
         attr_accessor :shipping
 

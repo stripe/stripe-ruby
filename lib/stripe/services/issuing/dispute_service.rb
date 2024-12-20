@@ -8,13 +8,10 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
-
           # Minimum value to filter by (inclusive)
           attr_accessor :gte
-
           # Maximum value to filter by (exclusive)
           attr_accessor :lt
-
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
 
@@ -27,22 +24,16 @@ module Stripe
         end
         # Only return Issuing disputes that were created during the given date interval.
         attr_accessor :created
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
-
         # Select Issuing disputes with the given status.
         attr_accessor :status
-
         # Select the Issuing dispute for the given transaction.
         attr_accessor :transaction
 
@@ -70,31 +61,22 @@ module Stripe
           class Canceled < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Date when order was canceled.
             attr_accessor :canceled_at
-
             # Whether the cardholder was provided with a cancellation policy.
             attr_accessor :cancellation_policy_provided
-
             # Reason for canceling the order.
             attr_accessor :cancellation_reason
-
             # Date when the cardholder expected to receive the product.
             attr_accessor :expected_at
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Description of the merchandise or service that was purchased.
             attr_accessor :product_description
-
             # Whether the product was a merchandise or service.
             attr_accessor :product_type
-
             # Result of cardholder's attempt to return the product.
             attr_accessor :return_status
-
             # Date when the product was returned or attempted to be returned.
             attr_accessor :returned_at
 
@@ -126,19 +108,14 @@ module Stripe
           class Duplicate < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
             attr_accessor :card_statement
-
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
             attr_accessor :cash_receipt
-
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
             attr_accessor :check_image
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
             attr_accessor :original_transaction
 
@@ -162,7 +139,6 @@ module Stripe
           class Fraudulent < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
 
@@ -175,19 +151,14 @@ module Stripe
           class MerchandiseNotAsDescribed < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Date when the product was received.
             attr_accessor :received_at
-
             # Description of the cardholder's attempt to return the product.
             attr_accessor :return_description
-
             # Result of cardholder's attempt to return the product.
             attr_accessor :return_status
-
             # Date when the product was returned or attempted to be returned.
             attr_accessor :returned_at
 
@@ -211,7 +182,6 @@ module Stripe
           class NoValidAuthorization < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
 
@@ -224,16 +194,12 @@ module Stripe
           class NotReceived < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Date when the cardholder expected to receive the product.
             attr_accessor :expected_at
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Description of the merchandise or service that was purchased.
             attr_accessor :product_description
-
             # Whether the product was a merchandise or service.
             attr_accessor :product_type
 
@@ -255,13 +221,10 @@ module Stripe
           class Other < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Description of the merchandise or service that was purchased.
             attr_accessor :product_description
-
             # Whether the product was a merchandise or service.
             attr_accessor :product_type
 
@@ -281,16 +244,12 @@ module Stripe
           class ServiceNotAsDescribed < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Date when order was canceled.
             attr_accessor :canceled_at
-
             # Reason for canceling the order.
             attr_accessor :cancellation_reason
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Date when the product was received.
             attr_accessor :received_at
 
@@ -310,28 +269,20 @@ module Stripe
           end
           # Evidence provided when `reason` is 'canceled'.
           attr_accessor :canceled
-
           # Evidence provided when `reason` is 'duplicate'.
           attr_accessor :duplicate
-
           # Evidence provided when `reason` is 'fraudulent'.
           attr_accessor :fraudulent
-
           # Evidence provided when `reason` is 'merchandise_not_as_described'.
           attr_accessor :merchandise_not_as_described
-
           # Evidence provided when `reason` is 'no_valid_authorization'.
           attr_accessor :no_valid_authorization
-
           # Evidence provided when `reason` is 'not_received'.
           attr_accessor :not_received
-
           # Evidence provided when `reason` is 'other'.
           attr_accessor :other
-
           # The reason for filing the dispute. The evidence should be submitted in the field of the same name.
           attr_accessor :reason
-
           # Evidence provided when `reason` is 'service_not_as_described'.
           attr_accessor :service_not_as_described
 
@@ -368,19 +319,14 @@ module Stripe
         end
         # The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If not set, defaults to the full transaction amount.
         attr_accessor :amount
-
         # Evidence provided for the dispute.
         attr_accessor :evidence
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
-
         # The ID of the issuing transaction to create a dispute for. For transaction on Treasury FinancialAccounts, use `treasury.received_debit`.
         attr_accessor :transaction
-
         # Params for disputes related to Treasury FinancialAccounts
         attr_accessor :treasury
 
@@ -415,31 +361,22 @@ module Stripe
           class Canceled < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Date when order was canceled.
             attr_accessor :canceled_at
-
             # Whether the cardholder was provided with a cancellation policy.
             attr_accessor :cancellation_policy_provided
-
             # Reason for canceling the order.
             attr_accessor :cancellation_reason
-
             # Date when the cardholder expected to receive the product.
             attr_accessor :expected_at
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Description of the merchandise or service that was purchased.
             attr_accessor :product_description
-
             # Whether the product was a merchandise or service.
             attr_accessor :product_type
-
             # Result of cardholder's attempt to return the product.
             attr_accessor :return_status
-
             # Date when the product was returned or attempted to be returned.
             attr_accessor :returned_at
 
@@ -471,19 +408,14 @@ module Stripe
           class Duplicate < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
             attr_accessor :card_statement
-
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
             attr_accessor :cash_receipt
-
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
             attr_accessor :check_image
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
             attr_accessor :original_transaction
 
@@ -507,7 +439,6 @@ module Stripe
           class Fraudulent < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
 
@@ -520,19 +451,14 @@ module Stripe
           class MerchandiseNotAsDescribed < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Date when the product was received.
             attr_accessor :received_at
-
             # Description of the cardholder's attempt to return the product.
             attr_accessor :return_description
-
             # Result of cardholder's attempt to return the product.
             attr_accessor :return_status
-
             # Date when the product was returned or attempted to be returned.
             attr_accessor :returned_at
 
@@ -556,7 +482,6 @@ module Stripe
           class NoValidAuthorization < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
 
@@ -569,16 +494,12 @@ module Stripe
           class NotReceived < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Date when the cardholder expected to receive the product.
             attr_accessor :expected_at
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Description of the merchandise or service that was purchased.
             attr_accessor :product_description
-
             # Whether the product was a merchandise or service.
             attr_accessor :product_type
 
@@ -600,13 +521,10 @@ module Stripe
           class Other < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Description of the merchandise or service that was purchased.
             attr_accessor :product_description
-
             # Whether the product was a merchandise or service.
             attr_accessor :product_type
 
@@ -626,16 +544,12 @@ module Stripe
           class ServiceNotAsDescribed < Stripe::RequestParams
             # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             attr_accessor :additional_documentation
-
             # Date when order was canceled.
             attr_accessor :canceled_at
-
             # Reason for canceling the order.
             attr_accessor :cancellation_reason
-
             # Explanation of why the cardholder is disputing this transaction.
             attr_accessor :explanation
-
             # Date when the product was received.
             attr_accessor :received_at
 
@@ -655,28 +569,20 @@ module Stripe
           end
           # Evidence provided when `reason` is 'canceled'.
           attr_accessor :canceled
-
           # Evidence provided when `reason` is 'duplicate'.
           attr_accessor :duplicate
-
           # Evidence provided when `reason` is 'fraudulent'.
           attr_accessor :fraudulent
-
           # Evidence provided when `reason` is 'merchandise_not_as_described'.
           attr_accessor :merchandise_not_as_described
-
           # Evidence provided when `reason` is 'no_valid_authorization'.
           attr_accessor :no_valid_authorization
-
           # Evidence provided when `reason` is 'not_received'.
           attr_accessor :not_received
-
           # Evidence provided when `reason` is 'other'.
           attr_accessor :other
-
           # The reason for filing the dispute. The evidence should be submitted in the field of the same name.
           attr_accessor :reason
-
           # Evidence provided when `reason` is 'service_not_as_described'.
           attr_accessor :service_not_as_described
 
@@ -704,13 +610,10 @@ module Stripe
         end
         # The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         attr_accessor :amount
-
         # Evidence provided for the dispute.
         attr_accessor :evidence
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 
@@ -725,7 +628,6 @@ module Stripe
       class SubmitParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 

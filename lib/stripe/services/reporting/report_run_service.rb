@@ -8,13 +8,10 @@ module Stripe
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
           attr_accessor :gt
-
           # Minimum value to filter by (inclusive)
           attr_accessor :gte
-
           # Maximum value to filter by (exclusive)
           attr_accessor :lt
-
           # Maximum value to filter by (inclusive)
           attr_accessor :lte
 
@@ -27,16 +24,12 @@ module Stripe
         end
         # Only return Report Runs that were created during the given date interval.
         attr_accessor :created
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
 
@@ -59,25 +52,18 @@ module Stripe
         class Parameters < Stripe::RequestParams
           # The set of report columns to include in the report output. If omitted, the Report Type is run with its default column set.
           attr_accessor :columns
-
           # Connected account ID to filter for in the report run.
           attr_accessor :connected_account
-
           # Currency of objects to be included in the report run.
           attr_accessor :currency
-
           # Ending timestamp of data to be included in the report run (exclusive).
           attr_accessor :interval_end
-
           # Starting timestamp of data to be included in the report run.
           attr_accessor :interval_start
-
           # Payout ID by which to filter the report run.
           attr_accessor :payout
-
           # Category of balance transactions to be included in the report run.
           attr_accessor :reporting_category
-
           # Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
           attr_accessor :timezone
 
@@ -103,10 +89,8 @@ module Stripe
         end
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
         attr_accessor :parameters
-
         # The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
         attr_accessor :report_type
 

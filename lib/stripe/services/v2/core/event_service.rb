@@ -5,6 +5,26 @@ module Stripe
   module V2
     module Core
       class EventService < StripeService
+        class ListParams < Stripe::RequestParams
+          # The page size.
+          attr_accessor :limit
+
+          # Primary object ID used to retrieve related events.
+          attr_accessor :object_id
+
+          # The requested page.
+          attr_accessor :page
+
+          def initialize(limit: nil, object_id: nil, page: nil)
+            @limit = limit
+            @object_id = object_id
+            @page = page
+          end
+        end
+
+        class RetrieveParams < Stripe::RequestParams
+        end
+
         # List events, going back up to 30 days.
         def list(params = {}, opts = {})
           request(

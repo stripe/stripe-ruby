@@ -19,31 +19,56 @@ module Stripe
         "reporting.report_type"
       end
 
+      class ListParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
       # Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
       attr_reader :data_available_end
+
       # Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
       attr_reader :data_available_start
+
       # List of column names that are included by default when this Report Type gets run. (If the Report Type doesn't support the `columns` parameter, this will be null.)
       attr_reader :default_columns
+
       # The [ID of the Report Type](https://stripe.com/docs/reporting/statements/api#available-report-types), such as `balance.summary.1`.
       attr_reader :id
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
+
       # Human-readable name of the Report Type
       attr_reader :name
+
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+
       # When this Report Type was latest updated. Measured in seconds since the Unix epoch.
       attr_reader :updated
+
       # Version of the Report Type. Different versions report with the same ID will have the same purpose, but may take different run parameters or have different result schemas.
       attr_reader :version
 
       # Returns a full list of Report Types.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/reporting/report_types",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

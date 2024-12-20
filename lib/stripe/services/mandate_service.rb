@@ -3,6 +3,15 @@
 
 module Stripe
   class MandateService < StripeService
+    class RetrieveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
+    end
+
     # Retrieves a Mandate object.
     def retrieve(mandate, params = {}, opts = {})
       request(

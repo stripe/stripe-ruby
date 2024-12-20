@@ -35,8 +35,7 @@ Gem::Specification.new do |s|
     /\A\.vscode/,
     /\Abin/,
     /\Asorbet/,
-    /\Atest/,
-    /\Arbi/
+    /\Atest/
   )
   s.files = `git ls-files`.split("\n").grep_v(ignored)
   s.bindir = "exe"

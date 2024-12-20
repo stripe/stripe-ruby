@@ -1,0 +1,13 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  class TerminalService < StripeService
+    attr_reader :configurations
+    attr_reader :connection_tokens
+    attr_reader :locations
+    attr_reader :readers
+    attr_reader :reader_collected_data
+  end
+end

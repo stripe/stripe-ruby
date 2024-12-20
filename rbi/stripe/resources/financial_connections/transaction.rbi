@@ -7,47 +7,147 @@ module Stripe
     # A Transaction represents a real transaction that affects a Financial Connections Account balance.
     class Transaction < APIResource
       class StatusTransitions < Stripe::StripeObject
+        # Time at which this transaction posted. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         attr_reader :posted_at
+
+        # Time at which this transaction was voided. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
         attr_reader :void_at
       end
-      sig { returns(String) }
       # The ID of the Financial Connections Account this transaction belongs to.
+      sig { returns(String) }
       attr_reader :account
-      sig { returns(Integer) }
+
       # The amount of this transaction, in cents (or local equivalent).
+      sig { returns(Integer) }
       attr_reader :amount
-      sig { returns(String) }
+
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      sig { returns(String) }
       attr_reader :currency
-      sig { returns(String) }
+
       # The description of this transaction.
+      sig { returns(String) }
       attr_reader :description
-      sig { returns(String) }
+
       # Unique identifier for the object.
+      sig { returns(String) }
       attr_reader :id
-      sig { returns(T::Boolean) }
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      sig { returns(T::Boolean) }
       attr_reader :livemode
-      sig { returns(String) }
+
       # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
       attr_reader :object
-      sig { returns(String) }
+
       # The status of the transaction.
-      attr_reader :status
-      sig { returns(StatusTransitions) }
-      # Attribute for field status_transitions
-      attr_reader :status_transitions
-      sig { returns(Integer) }
-      # Time at which the transaction was transacted. Measured in seconds since the Unix epoch.
-      attr_reader :transacted_at
       sig { returns(String) }
-      # The token of the transaction refresh that last updated or created this transaction.
-      attr_reader :transaction_refresh
+      attr_reader :status
+
+      # Attribute for field status_transitions
+      sig { returns(StatusTransitions) }
+      attr_reader :status_transitions
+
+      # Time at which the transaction was transacted. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
+      attr_reader :transacted_at
+
+      # The token of the transaction refresh that last updated or created this transaction.
+      sig { returns(String) }
+      attr_reader :transaction_refresh
+
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
       attr_reader :updated
+
+      class ListParams < Stripe::RequestParams
+        class TransactedAt < Stripe::RequestParams
+          # Minimum value to filter by (exclusive)
+          sig { returns(Integer) }
+          attr_accessor :gt
+
+          # Minimum value to filter by (inclusive)
+          sig { returns(Integer) }
+          attr_accessor :gte
+
+          # Maximum value to filter by (exclusive)
+          sig { returns(Integer) }
+          attr_accessor :lt
+
+          # Maximum value to filter by (inclusive)
+          sig { returns(Integer) }
+          attr_accessor :lte
+
+          sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+          def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
+        end
+        class TransactionRefresh < Stripe::RequestParams
+          # Return results where the transactions were created or updated by a refresh that took place after this refresh (non-inclusive).
+          sig { returns(String) }
+          attr_accessor :after
+
+          sig { params(after: String).void }
+          def initialize(after: nil); end
+        end
+        # The ID of the Stripe account whose transactions will be retrieved.
+        sig { returns(String) }
+        attr_accessor :account
+
+        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        sig { returns(String) }
+        attr_accessor :ending_before
+
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T::Array[String]) }
+        attr_accessor :expand
+
+        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        sig { returns(Integer) }
+        attr_accessor :limit
+
+        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        sig { returns(String) }
+        attr_accessor :starting_after
+
+        # A filter on the list based on the object `transacted_at` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
+        sig {
+          returns(T.any(::Stripe::FinancialConnections::Transaction::ListParams::TransactedAt, Integer))
+         }
+        attr_accessor :transacted_at
+
+        # A filter on the list based on the object `transaction_refresh` field. The value can be a dictionary with the following options:
+        sig { returns(::Stripe::FinancialConnections::Transaction::ListParams::TransactionRefresh) }
+        attr_accessor :transaction_refresh
+
+        sig {
+          params(account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, transacted_at: T.any(::Stripe::FinancialConnections::Transaction::ListParams::TransactedAt, Integer), transaction_refresh: ::Stripe::FinancialConnections::Transaction::ListParams::TransactionRefresh).void
+         }
+        def initialize(
+          account: nil,
+          ending_before: nil,
+          expand: nil,
+          limit: nil,
+          starting_after: nil,
+          transacted_at: nil,
+          transaction_refresh: nil
+        ); end
+      end
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T::Array[String]) }
+        attr_accessor :expand
+
+        sig { params(expand: T::Array[String]).void }
+        def initialize(expand: nil); end
+      end
+      # Returns a list of Financial Connections Transaction objects.
+      sig {
+        params(params: T.any(::Stripe::FinancialConnections::Transaction::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
     end
   end
 end

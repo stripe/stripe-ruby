@@ -13,33 +13,63 @@ module Stripe
     # Note that certain report types can only be run based on your live-mode data (not test-mode
     # data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
     class ReportType < APIResource
-      sig { returns(Integer) }
       # Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
       attr_reader :data_available_end
-      sig { returns(Integer) }
+
       # Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
       attr_reader :data_available_start
-      sig { returns(T.nilable(T::Array[String])) }
+
       # List of column names that are included by default when this Report Type gets run. (If the Report Type doesn't support the `columns` parameter, this will be null.)
+      sig { returns(T.nilable(T::Array[String])) }
       attr_reader :default_columns
-      sig { returns(String) }
+
       # The [ID of the Report Type](https://stripe.com/docs/reporting/statements/api#available-report-types), such as `balance.summary.1`.
+      sig { returns(String) }
       attr_reader :id
-      sig { returns(T::Boolean) }
+
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      sig { returns(T::Boolean) }
       attr_reader :livemode
-      sig { returns(String) }
+
       # Human-readable name of the Report Type
-      attr_reader :name
       sig { returns(String) }
+      attr_reader :name
+
       # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
       attr_reader :object
-      sig { returns(Integer) }
+
       # When this Report Type was latest updated. Measured in seconds since the Unix epoch.
-      attr_reader :updated
       sig { returns(Integer) }
+      attr_reader :updated
+
       # Version of the Report Type. Different versions report with the same ID will have the same purpose, but may take different run parameters or have different result schemas.
+      sig { returns(Integer) }
       attr_reader :version
+
+      class ListParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T::Array[String]) }
+        attr_accessor :expand
+
+        sig { params(expand: T::Array[String]).void }
+        def initialize(expand: nil); end
+      end
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T::Array[String]) }
+        attr_accessor :expand
+
+        sig { params(expand: T::Array[String]).void }
+        def initialize(expand: nil); end
+      end
+      # Returns a full list of Report Types.
+      sig {
+        params(params: T.any(::Stripe::Reporting::ReportType::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
     end
   end
 end

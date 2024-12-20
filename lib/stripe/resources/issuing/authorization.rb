@@ -28,8 +28,8 @@ module Stripe
           opts: opts
         )
       end
-      deprecate :approve, :none, 2024, 3
 
+      deprecate :approve, :none, 2024, 3
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def self.approve(authorization, params = {}, opts = {})
@@ -40,6 +40,7 @@ module Stripe
           opts: opts
         )
       end
+
       class << self
         extend Gem::Deprecate
         deprecate :approve, :none, 2024, 3
@@ -55,8 +56,8 @@ module Stripe
           opts: opts
         )
       end
-      deprecate :decline, :none, 2024, 3
 
+      deprecate :decline, :none, 2024, 3
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def self.decline(authorization, params = {}, opts = {})
@@ -67,6 +68,7 @@ module Stripe
           opts: opts
         )
       end
+
       class << self
         extend Gem::Deprecate
         deprecate :decline, :none, 2024, 3

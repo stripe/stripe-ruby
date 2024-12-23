@@ -10,16 +10,12 @@ module Stripe
 
     # Attribute for field amount
     attr_reader :amount
-
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
-
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
-
     # Unique identifier for the object.
     attr_reader :id
-
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
   end

@@ -12,11 +12,9 @@ module Stripe
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
           attr_reader :code
-
           # Represents what the user should do, if anything, to activate the Feature.
           sig { returns(T.nilable(String)) }
           attr_reader :resolution
-
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(String) }
           attr_reader :restriction
@@ -24,11 +22,9 @@ module Stripe
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
         attr_reader :requested
-
         # Whether the Feature is operational.
         sig { returns(String) }
         attr_reader :status
-
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
         attr_reader :status_details
@@ -38,11 +34,9 @@ module Stripe
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
           attr_reader :code
-
           # Represents what the user should do, if anything, to activate the Feature.
           sig { returns(T.nilable(String)) }
           attr_reader :resolution
-
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(String) }
           attr_reader :restriction
@@ -50,11 +44,9 @@ module Stripe
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
         attr_reader :requested
-
         # Whether the Feature is operational.
         sig { returns(String) }
         attr_reader :status
-
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
         attr_reader :status_details
@@ -65,11 +57,9 @@ module Stripe
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             attr_reader :code
-
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
             attr_reader :resolution
-
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
             attr_reader :restriction
@@ -77,15 +67,12 @@ module Stripe
           # Requested bank partner for this Financial Account
           sig { returns(String) }
           attr_reader :bank
-
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           attr_reader :requested
-
           # Whether the Feature is operational.
           sig { returns(String) }
           attr_reader :status
-
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           attr_reader :status_details
@@ -100,11 +87,9 @@ module Stripe
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             attr_reader :code
-
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
             attr_reader :resolution
-
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
             attr_reader :restriction
@@ -112,11 +97,9 @@ module Stripe
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           attr_reader :requested
-
           # Whether the Feature is operational.
           sig { returns(String) }
           attr_reader :status
-
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           attr_reader :status_details
@@ -130,11 +113,9 @@ module Stripe
           # Represents the reason why the status is `pending` or `restricted`.
           sig { returns(String) }
           attr_reader :code
-
           # Represents what the user should do, if anything, to activate the Feature.
           sig { returns(T.nilable(String)) }
           attr_reader :resolution
-
           # The `platform_restrictions` that are restricting this Feature.
           sig { returns(String) }
           attr_reader :restriction
@@ -142,11 +123,9 @@ module Stripe
         # Whether the FinancialAccount should have the Feature.
         sig { returns(T::Boolean) }
         attr_reader :requested
-
         # Whether the Feature is operational.
         sig { returns(String) }
         attr_reader :status
-
         # Additional details; includes at least one entry when the status is not `active`.
         sig { returns(T::Array[StatusDetail]) }
         attr_reader :status_details
@@ -157,11 +136,9 @@ module Stripe
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             attr_reader :code
-
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
             attr_reader :resolution
-
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
             attr_reader :restriction
@@ -169,11 +146,9 @@ module Stripe
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           attr_reader :requested
-
           # Whether the Feature is operational.
           sig { returns(String) }
           attr_reader :status
-
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           attr_reader :status_details
@@ -183,11 +158,9 @@ module Stripe
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             attr_reader :code
-
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
             attr_reader :resolution
-
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
             attr_reader :restriction
@@ -195,11 +168,9 @@ module Stripe
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           attr_reader :requested
-
           # Whether the Feature is operational.
           sig { returns(String) }
           attr_reader :status
-
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           attr_reader :status_details
@@ -207,7 +178,6 @@ module Stripe
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         sig { returns(Ach) }
         attr_reader :ach
-
         # Toggle settings for enabling/disabling a feature
         sig { returns(UsDomesticWire) }
         attr_reader :us_domestic_wire
@@ -218,11 +188,9 @@ module Stripe
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             attr_reader :code
-
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
             attr_reader :resolution
-
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
             attr_reader :restriction
@@ -230,11 +198,9 @@ module Stripe
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           attr_reader :requested
-
           # Whether the Feature is operational.
           sig { returns(String) }
           attr_reader :status
-
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           attr_reader :status_details
@@ -244,11 +210,9 @@ module Stripe
             # Represents the reason why the status is `pending` or `restricted`.
             sig { returns(String) }
             attr_reader :code
-
             # Represents what the user should do, if anything, to activate the Feature.
             sig { returns(T.nilable(String)) }
             attr_reader :resolution
-
             # The `platform_restrictions` that are restricting this Feature.
             sig { returns(String) }
             attr_reader :restriction
@@ -256,11 +220,9 @@ module Stripe
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           attr_reader :requested
-
           # Whether the Feature is operational.
           sig { returns(String) }
           attr_reader :status
-
           # Additional details; includes at least one entry when the status is not `active`.
           sig { returns(T::Array[StatusDetail]) }
           attr_reader :status_details
@@ -268,7 +230,6 @@ module Stripe
         # Toggle settings for enabling/disabling an outbound ACH specific feature
         sig { returns(Ach) }
         attr_reader :ach
-
         # Toggle settings for enabling/disabling a feature
         sig { returns(UsDomesticWire) }
         attr_reader :us_domestic_wire
@@ -276,31 +237,24 @@ module Stripe
       # Toggle settings for enabling/disabling a feature
       sig { returns(CardIssuing) }
       attr_reader :card_issuing
-
       # Toggle settings for enabling/disabling a feature
       sig { returns(DepositInsurance) }
       attr_reader :deposit_insurance
-
       # Settings related to Financial Addresses features on a Financial Account
       sig { returns(FinancialAddresses) }
       attr_reader :financial_addresses
-
       # InboundTransfers contains inbound transfers features for a FinancialAccount.
       sig { returns(InboundTransfers) }
       attr_reader :inbound_transfers
-
       # Toggle settings for enabling/disabling a feature
       sig { returns(IntraStripeFlows) }
       attr_reader :intra_stripe_flows
-
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
-
       # Settings related to Outbound Payments features on a Financial Account
       sig { returns(OutboundPayments) }
       attr_reader :outbound_payments
-
       # OutboundTransfers contains outbound transfers features for a FinancialAccount.
       sig { returns(OutboundTransfers) }
       attr_reader :outbound_transfers

@@ -9,58 +9,45 @@ module Stripe
         # Minimum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :gt
-
         # Minimum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :gte
-
         # Maximum value to filter by (exclusive)
         sig { returns(Integer) }
         attr_accessor :lt
-
         # Maximum value to filter by (inclusive)
         sig { returns(Integer) }
         attr_accessor :lte
-
         sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Filter promotion codes by whether they are active.
       sig { returns(T::Boolean) }
       attr_accessor :active
-
       # Only return promotion codes that have this case-insensitive code.
       sig { returns(String) }
       attr_accessor :code
-
       # Only return promotion codes for this coupon.
       sig { returns(String) }
       attr_accessor :coupon
-
       # A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
       sig { returns(T.any(::Stripe::PromotionCodeService::ListParams::Created, Integer)) }
       attr_accessor :created
-
       # Only return promotion codes that are restricted to this customer.
       sig { returns(String) }
       attr_accessor :customer
-
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(Integer) }
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(String) }
       attr_accessor :starting_after
-
       sig {
         params(active: T::Boolean, code: String, coupon: String, created: T.any(::Stripe::PromotionCodeService::ListParams::Created, Integer), customer: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
        }
@@ -82,7 +69,6 @@ module Stripe
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
           sig { returns(Integer) }
           attr_accessor :minimum_amount
-
           sig { params(minimum_amount: Integer).void }
           def initialize(minimum_amount: nil); end
         end
@@ -91,19 +77,15 @@ module Stripe
           returns(T::Hash[String, ::Stripe::PromotionCodeService::CreateParams::Restrictions::CurrencyOptions])
          }
         attr_accessor :currency_options
-
         # A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices
         sig { returns(T::Boolean) }
         attr_accessor :first_time_transaction
-
         # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
         sig { returns(Integer) }
         attr_accessor :minimum_amount
-
         # Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
         sig { returns(String) }
         attr_accessor :minimum_amount_currency
-
         sig {
           params(currency_options: T::Hash[String, ::Stripe::PromotionCodeService::CreateParams::Restrictions::CurrencyOptions], first_time_transaction: T::Boolean, minimum_amount: Integer, minimum_amount_currency: String).void
          }
@@ -117,41 +99,32 @@ module Stripe
       # Whether the promotion code is currently active.
       sig { returns(T::Boolean) }
       attr_accessor :active
-
       # The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
       #
       # If left blank, we will generate one automatically.
       sig { returns(String) }
       attr_accessor :code
-
       # The coupon for this promotion code.
       sig { returns(String) }
       attr_accessor :coupon
-
       # The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
       sig { returns(String) }
       attr_accessor :customer
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # The timestamp at which this promotion code will expire. If the coupon has specified a `redeems_by`, then this value cannot be after the coupon's `redeems_by`.
       sig { returns(Integer) }
       attr_accessor :expires_at
-
       # A positive integer specifying the number of times the promotion code can be redeemed. If the coupon has specified a `max_redemptions`, then this value cannot be greater than the coupon's `max_redemptions`.
       sig { returns(Integer) }
       attr_accessor :max_redemptions
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T::Hash[String, String]) }
       attr_accessor :metadata
-
       # Settings that restrict the redemption of the promotion code.
       sig { returns(::Stripe::PromotionCodeService::CreateParams::Restrictions) }
       attr_accessor :restrictions
-
       sig {
         params(active: T::Boolean, code: String, coupon: String, customer: String, expand: T::Array[String], expires_at: Integer, max_redemptions: Integer, metadata: T::Hash[String, String], restrictions: ::Stripe::PromotionCodeService::CreateParams::Restrictions).void
        }
@@ -171,7 +144,6 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       sig { params(expand: T::Array[String]).void }
       def initialize(expand: nil); end
     end
@@ -181,7 +153,6 @@ module Stripe
           # Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
           sig { returns(Integer) }
           attr_accessor :minimum_amount
-
           sig { params(minimum_amount: Integer).void }
           def initialize(minimum_amount: nil); end
         end
@@ -190,7 +161,6 @@ module Stripe
           returns(T::Hash[String, ::Stripe::PromotionCodeService::UpdateParams::Restrictions::CurrencyOptions])
          }
         attr_accessor :currency_options
-
         sig {
           params(currency_options: T::Hash[String, ::Stripe::PromotionCodeService::UpdateParams::Restrictions::CurrencyOptions]).void
          }
@@ -199,19 +169,15 @@ module Stripe
       # Whether the promotion code is currently active. A promotion code can only be reactivated when the coupon is still valid and the promotion code is otherwise redeemable.
       sig { returns(T::Boolean) }
       attr_accessor :active
-
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-
       # Settings that restrict the redemption of the promotion code.
       sig { returns(::Stripe::PromotionCodeService::UpdateParams::Restrictions) }
       attr_accessor :restrictions
-
       sig {
         params(active: T::Boolean, expand: T::Array[String], metadata: T.nilable(T::Hash[String, String]), restrictions: ::Stripe::PromotionCodeService::UpdateParams::Restrictions).void
        }

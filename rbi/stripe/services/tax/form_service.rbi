@@ -10,42 +10,33 @@ module Stripe
           # The ID of the Stripe account whose forms will be retrieved.
           sig { returns(String) }
           attr_accessor :account
-
           # The external reference to the payee whose forms will be retrieved.
           sig { returns(String) }
           attr_accessor :external_reference
-
           # Specifies the payee type. Either `account` or `external_reference`.
           sig { returns(String) }
           attr_accessor :type
-
           sig { params(account: String, external_reference: String, type: String).void }
           def initialize(account: nil, external_reference: nil, type: nil); end
         end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
-
         # The payee whose volume is represented on the tax form.
         sig { returns(::Stripe::Tax::FormService::ListParams::Payee) }
         attr_accessor :payee
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
-
         # An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
         sig { returns(String) }
         attr_accessor :type
-
         sig {
           params(ending_before: String, expand: T::Array[String], limit: Integer, payee: ::Stripe::Tax::FormService::ListParams::Payee, starting_after: String, type: String).void
          }
@@ -62,7 +53,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -70,7 +60,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end

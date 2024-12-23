@@ -8,7 +8,6 @@ module Stripe
         class RefundParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
-
           # The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_accessor :refund_amount
 
@@ -22,28 +21,20 @@ module Stripe
           class MerchantData < Stripe::RequestParams
             # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
             attr_accessor :category
-
             # City where the seller is located
             attr_accessor :city
-
             # Country where the seller is located
             attr_accessor :country
-
             # Name of the seller
             attr_accessor :name
-
             # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
             attr_accessor :network_id
-
             # Postal code where the seller is located
             attr_accessor :postal_code
-
             # State where the seller is located
             attr_accessor :state
-
             # An ID assigned by the seller to the location of the sale.
             attr_accessor :terminal_id
-
             # URL provided by the merchant on a 3DS request
             attr_accessor :url
 
@@ -75,16 +66,12 @@ module Stripe
               class CardholderPromptData < Stripe::RequestParams
                 # Driver ID.
                 attr_accessor :driver_id
-
                 # Odometer reading.
                 attr_accessor :odometer
-
                 # An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
                 attr_accessor :unspecified_id
-
                 # User ID.
                 attr_accessor :user_id
-
                 # Vehicle number.
                 attr_accessor :vehicle_number
 
@@ -125,7 +112,6 @@ module Stripe
                 class Tax < Stripe::RequestParams
                   # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :local_amount_decimal
-
                   # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :national_amount_decimal
 
@@ -136,10 +122,8 @@ module Stripe
                 end
                 # Breakdown of fuel portion of the purchase.
                 attr_accessor :fuel
-
                 # Breakdown of non-fuel portion of the purchase.
                 attr_accessor :non_fuel
-
                 # Information about tax included in this transaction.
                 attr_accessor :tax
 
@@ -151,13 +135,10 @@ module Stripe
               end
               # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
               attr_accessor :cardholder_prompt_data
-
               # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
               attr_accessor :purchase_type
-
               # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
               attr_accessor :reported_breakdown
-
               # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
               attr_accessor :service_type
 
@@ -178,19 +159,14 @@ module Stripe
               class Segment < Stripe::RequestParams
                 # The three-letter IATA airport code of the flight's destination.
                 attr_accessor :arrival_airport_code
-
                 # The airline carrier code.
                 attr_accessor :carrier
-
                 # The three-letter IATA airport code that the flight departed from.
                 attr_accessor :departure_airport_code
-
                 # The flight number.
                 attr_accessor :flight_number
-
                 # The flight's service class.
                 attr_accessor :service_class
-
                 # Whether a stopover is allowed on this flight.
                 attr_accessor :stopover_allowed
 
@@ -212,16 +188,12 @@ module Stripe
               end
               # The time that the flight departed.
               attr_accessor :departure_at
-
               # The name of the passenger.
               attr_accessor :passenger_name
-
               # Whether the ticket is refundable.
               attr_accessor :refundable
-
               # The legs of the trip.
               attr_accessor :segments
-
               # The travel agency that issued the ticket.
               attr_accessor :travel_agency
 
@@ -243,16 +215,12 @@ module Stripe
             class Fuel < Stripe::RequestParams
               # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
               attr_accessor :industry_product_code
-
               # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
               attr_accessor :quantity_decimal
-
               # The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
               attr_accessor :type
-
               # The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
               attr_accessor :unit
-
               # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
               attr_accessor :unit_cost_decimal
 
@@ -274,7 +242,6 @@ module Stripe
             class Lodging < Stripe::RequestParams
               # The time of checking into the lodging.
               attr_accessor :check_in_at
-
               # The number of nights stayed at the lodging.
               attr_accessor :nights
 
@@ -287,13 +254,10 @@ module Stripe
             class Receipt < Stripe::RequestParams
               # Attribute for param field description
               attr_accessor :description
-
               # Attribute for param field quantity
               attr_accessor :quantity
-
               # Attribute for param field total
               attr_accessor :total
-
               # Attribute for param field unit_cost
               attr_accessor :unit_cost
 
@@ -306,19 +270,14 @@ module Stripe
             end
             # Fleet-specific information for transactions using Fleet cards.
             attr_accessor :fleet
-
             # Information about the flight that was purchased with this transaction.
             attr_accessor :flight
-
             # Information about fuel that was purchased with this transaction.
             attr_accessor :fuel
-
             # Information about lodging that was purchased with this transaction.
             attr_accessor :lodging
-
             # The line items in the purchase.
             attr_accessor :receipt
-
             # A merchant-specific order number.
             attr_accessor :reference
 
@@ -340,19 +299,14 @@ module Stripe
           end
           # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_accessor :amount
-
           # Card associated with this transaction.
           attr_accessor :card
-
           # The currency of the capture. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
-
           # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
           attr_accessor :merchant_data
-
           # Additional purchase information that is optionally provided by the merchant.
           attr_accessor :purchase_details
 
@@ -377,28 +331,20 @@ module Stripe
           class MerchantData < Stripe::RequestParams
             # A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
             attr_accessor :category
-
             # City where the seller is located
             attr_accessor :city
-
             # Country where the seller is located
             attr_accessor :country
-
             # Name of the seller
             attr_accessor :name
-
             # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
             attr_accessor :network_id
-
             # Postal code where the seller is located
             attr_accessor :postal_code
-
             # State where the seller is located
             attr_accessor :state
-
             # An ID assigned by the seller to the location of the sale.
             attr_accessor :terminal_id
-
             # URL provided by the merchant on a 3DS request
             attr_accessor :url
 
@@ -430,16 +376,12 @@ module Stripe
               class CardholderPromptData < Stripe::RequestParams
                 # Driver ID.
                 attr_accessor :driver_id
-
                 # Odometer reading.
                 attr_accessor :odometer
-
                 # An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type.
                 attr_accessor :unspecified_id
-
                 # User ID.
                 attr_accessor :user_id
-
                 # Vehicle number.
                 attr_accessor :vehicle_number
 
@@ -480,7 +422,6 @@ module Stripe
                 class Tax < Stripe::RequestParams
                   # Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :local_amount_decimal
-
                   # Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
                   attr_accessor :national_amount_decimal
 
@@ -491,10 +432,8 @@ module Stripe
                 end
                 # Breakdown of fuel portion of the purchase.
                 attr_accessor :fuel
-
                 # Breakdown of non-fuel portion of the purchase.
                 attr_accessor :non_fuel
-
                 # Information about tax included in this transaction.
                 attr_accessor :tax
 
@@ -506,13 +445,10 @@ module Stripe
               end
               # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
               attr_accessor :cardholder_prompt_data
-
               # The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
               attr_accessor :purchase_type
-
               # More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
               attr_accessor :reported_breakdown
-
               # The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
               attr_accessor :service_type
 
@@ -533,19 +469,14 @@ module Stripe
               class Segment < Stripe::RequestParams
                 # The three-letter IATA airport code of the flight's destination.
                 attr_accessor :arrival_airport_code
-
                 # The airline carrier code.
                 attr_accessor :carrier
-
                 # The three-letter IATA airport code that the flight departed from.
                 attr_accessor :departure_airport_code
-
                 # The flight number.
                 attr_accessor :flight_number
-
                 # The flight's service class.
                 attr_accessor :service_class
-
                 # Whether a stopover is allowed on this flight.
                 attr_accessor :stopover_allowed
 
@@ -567,16 +498,12 @@ module Stripe
               end
               # The time that the flight departed.
               attr_accessor :departure_at
-
               # The name of the passenger.
               attr_accessor :passenger_name
-
               # Whether the ticket is refundable.
               attr_accessor :refundable
-
               # The legs of the trip.
               attr_accessor :segments
-
               # The travel agency that issued the ticket.
               attr_accessor :travel_agency
 
@@ -598,16 +525,12 @@ module Stripe
             class Fuel < Stripe::RequestParams
               # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
               attr_accessor :industry_product_code
-
               # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
               attr_accessor :quantity_decimal
-
               # The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
               attr_accessor :type
-
               # The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
               attr_accessor :unit
-
               # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
               attr_accessor :unit_cost_decimal
 
@@ -629,7 +552,6 @@ module Stripe
             class Lodging < Stripe::RequestParams
               # The time of checking into the lodging.
               attr_accessor :check_in_at
-
               # The number of nights stayed at the lodging.
               attr_accessor :nights
 
@@ -642,13 +564,10 @@ module Stripe
             class Receipt < Stripe::RequestParams
               # Attribute for param field description
               attr_accessor :description
-
               # Attribute for param field quantity
               attr_accessor :quantity
-
               # Attribute for param field total
               attr_accessor :total
-
               # Attribute for param field unit_cost
               attr_accessor :unit_cost
 
@@ -661,19 +580,14 @@ module Stripe
             end
             # Fleet-specific information for transactions using Fleet cards.
             attr_accessor :fleet
-
             # Information about the flight that was purchased with this transaction.
             attr_accessor :flight
-
             # Information about fuel that was purchased with this transaction.
             attr_accessor :fuel
-
             # Information about lodging that was purchased with this transaction.
             attr_accessor :lodging
-
             # The line items in the purchase.
             attr_accessor :receipt
-
             # A merchant-specific order number.
             attr_accessor :reference
 
@@ -695,19 +609,14 @@ module Stripe
           end
           # The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           attr_accessor :amount
-
           # Card associated with this unlinked refund transaction.
           attr_accessor :card
-
           # The currency of the unlinked refund. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
-
           # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
           attr_accessor :merchant_data
-
           # Additional purchase information that is optionally provided by the merchant.
           attr_accessor :purchase_details
 

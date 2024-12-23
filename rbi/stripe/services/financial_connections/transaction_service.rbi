@@ -10,19 +10,15 @@ module Stripe
           # Minimum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :gt
-
           # Minimum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :gte
-
           # Maximum value to filter by (exclusive)
           sig { returns(Integer) }
           attr_accessor :lt
-
           # Maximum value to filter by (inclusive)
           sig { returns(Integer) }
           attr_accessor :lte
-
           sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
@@ -30,42 +26,34 @@ module Stripe
           # Return results where the transactions were created or updated by a refresh that took place after this refresh (non-inclusive).
           sig { returns(String) }
           attr_accessor :after
-
           sig { params(after: String).void }
           def initialize(after: nil); end
         end
         # The ID of the Stripe account whose transactions will be retrieved.
         sig { returns(String) }
         attr_accessor :account
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
-
         # A filter on the list based on the object `transacted_at` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
         sig {
           returns(T.any(::Stripe::FinancialConnections::TransactionService::ListParams::TransactedAt, Integer))
          }
         attr_accessor :transacted_at
-
         # A filter on the list based on the object `transaction_refresh` field. The value can be a dictionary with the following options:
         sig {
           returns(::Stripe::FinancialConnections::TransactionService::ListParams::TransactionRefresh)
          }
         attr_accessor :transaction_refresh
-
         sig {
           params(account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, transacted_at: T.any(::Stripe::FinancialConnections::TransactionService::ListParams::TransactedAt, Integer), transaction_refresh: ::Stripe::FinancialConnections::TransactionService::ListParams::TransactionRefresh).void
          }
@@ -83,7 +71,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end

@@ -19,7 +19,6 @@ module Stripe
         class Checkout < Stripe::StripeObject
           # The Stripe CheckoutSession that created this object.
           attr_reader :checkout_session
-
           # The Stripe CheckoutSession LineItem that created this object.
           attr_reader :line_item
         end
@@ -27,7 +26,6 @@ module Stripe
         class Order < Stripe::StripeObject
           # The Stripe Order LineItem that created this object.
           attr_reader :line_item
-
           # The Stripe Order that created this object.
           attr_reader :order
         end
@@ -38,13 +36,10 @@ module Stripe
         end
         # Attribute for field checkout
         attr_reader :checkout
-
         # Attribute for field order
         attr_reader :order
-
         # Attribute for field payment
         attr_reader :payment
-
         # The type of event that created this object.
         attr_reader :type
       end
@@ -52,13 +47,10 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
 
@@ -82,7 +74,6 @@ module Stripe
           end
           # The details for the payment that created this object.
           attr_accessor :payment
-
           # The type of event that created this object.
           attr_accessor :type
 
@@ -93,19 +84,14 @@ module Stripe
         end
         # The active state for the new gift card, defaults to false. The active state can be updated after creation.
         attr_accessor :active
-
         # Related objects which created this gift card.
         attr_accessor :created_by
-
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # The initial amount to load onto the new gift card, defaults to 0.
         attr_accessor :initial_amount
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 
@@ -138,10 +124,8 @@ module Stripe
       class UpdateParams < Stripe::RequestParams
         # The new active state for the gift card.
         attr_accessor :active
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
 
@@ -155,10 +139,8 @@ module Stripe
       class ValidateParams < Stripe::RequestParams
         # The gift card code to be validated.
         attr_accessor :code
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # The pin associated with the gift card. Not all gift cards have pins.
         attr_accessor :giftcard_pin
 
@@ -170,34 +152,24 @@ module Stripe
       end
       # Whether this gift card can be used or not.
       attr_reader :active
-
       # The amount of funds available for new transactions.
       attr_reader :amount_available
-
       # The amount of funds marked as held.
       attr_reader :amount_held
-
       # Code used to redeem this gift card.
       attr_reader :code
-
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-
       # The related Stripe objects that created this gift card.
       attr_reader :created_by
-
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-
       # Unique identifier for the object.
       attr_reader :id
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
-
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-
       # Transactions on this gift card.
       attr_reader :transactions
 

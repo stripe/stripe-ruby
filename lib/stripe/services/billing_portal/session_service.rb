@@ -26,10 +26,8 @@ module Stripe
             end
             # Configuration when `after_completion.type=hosted_confirmation`.
             attr_accessor :hosted_confirmation
-
             # Configuration when `after_completion.type=redirect`.
             attr_accessor :redirect
-
             # The specified behavior after the flow is completed.
             attr_accessor :type
 
@@ -52,7 +50,6 @@ module Stripe
               end
               # Configuration when `retention.type=coupon_offer`.
               attr_accessor :coupon_offer
-
               # Type of retention strategy to use with the customer.
               attr_accessor :type
 
@@ -63,7 +60,6 @@ module Stripe
             end
             # Specify a retention strategy to be used in the cancellation flow.
             attr_accessor :retention
-
             # The ID of the subscription to be canceled.
             attr_accessor :subscription
 
@@ -86,7 +82,6 @@ module Stripe
             class Discount < Stripe::RequestParams
               # The ID of the coupon to apply to this subscription update.
               attr_accessor :coupon
-
               # The ID of a promotion code to apply to this subscription update.
               attr_accessor :promotion_code
 
@@ -99,10 +94,8 @@ module Stripe
             class Item < Stripe::RequestParams
               # The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
               attr_accessor :id
-
               # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
               attr_accessor :price
-
               # [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
               attr_accessor :quantity
 
@@ -114,10 +107,8 @@ module Stripe
             end
             # The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
             attr_accessor :discounts
-
             # The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
             attr_accessor :items
-
             # The ID of the subscription to be updated.
             attr_accessor :subscription
 
@@ -129,16 +120,12 @@ module Stripe
           end
           # Behavior after the flow is completed.
           attr_accessor :after_completion
-
           # Configuration when `flow_data.type=subscription_cancel`.
           attr_accessor :subscription_cancel
-
           # Configuration when `flow_data.type=subscription_update`.
           attr_accessor :subscription_update
-
           # Configuration when `flow_data.type=subscription_update_confirm`.
           attr_accessor :subscription_update_confirm
-
           # Type of flow that the customer will go through.
           attr_accessor :type
 
@@ -158,22 +145,16 @@ module Stripe
         end
         # The ID of an existing [configuration](https://stripe.com/docs/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
         attr_accessor :configuration
-
         # The ID of an existing customer.
         attr_accessor :customer
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
         attr_accessor :flow_data
-
         # The IETF language tag of the locale customer portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used.
         attr_accessor :locale
-
         # The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.
         attr_accessor :on_behalf_of
-
         # The default URL to redirect customers to when they click on the portal's link to return to your website.
         attr_accessor :return_url
 

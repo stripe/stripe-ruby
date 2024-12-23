@@ -76,7 +76,7 @@ module Stripe
 
     def deserialize(data, api_mode: :v1)
       data = JSON.parse(data) if data.is_a?(String)
-      Util.convert_to_stripe_object(data, {}, api_mode: api_mode)
+      Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
     end
   end
 end

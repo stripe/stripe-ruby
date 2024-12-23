@@ -357,6 +357,17 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :town
       end
+      class DirectorshipDeclaration < Stripe::StripeObject
+        # The Unix timestamp marking when the directorship declaration attestation was made.
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :date
+        # The IP address from which the directorship declaration attestation was made.
+        sig { returns(T.nilable(String)) }
+        attr_reader :ip
+        # The user-agent string from the browser where the directorship declaration attestation was made.
+        sig { returns(T.nilable(String)) }
+        attr_reader :user_agent
+      end
       class OwnershipDeclaration < Stripe::StripeObject
         # The Unix timestamp marking when the beneficial owner attestation was made.
         sig { returns(T.nilable(Integer)) }
@@ -399,6 +410,9 @@ module Stripe
       # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
       sig { returns(T::Boolean) }
       attr_reader :directors_provided
+      # Attribute for field directorship_declaration
+      sig { returns(T.nilable(DirectorshipDeclaration)) }
+      attr_reader :directorship_declaration
       # Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
       sig { returns(T::Boolean) }
       attr_reader :executives_provided

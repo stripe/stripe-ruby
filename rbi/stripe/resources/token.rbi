@@ -243,6 +243,9 @@ module Stripe
           # Whether the user described by the data in the token has been shown the Ownership Declaration and indicated that it is correct.
           sig { returns(T::Boolean) }
           attr_accessor :ownership_declaration_shown_and_signed
+          # Attribute for param field ownership_exemption_reason
+          sig { returns(T.nilable(String)) }
+          attr_accessor :ownership_exemption_reason
           # The company's phone number (used for verification).
           sig { returns(String) }
           attr_accessor :phone
@@ -265,7 +268,7 @@ module Stripe
           sig { returns(::Stripe::Token::CreateParams::Account::Company::Verification) }
           attr_accessor :verification
           sig {
-            params(address: ::Stripe::Token::CreateParams::Account::Company::Address, address_kana: ::Stripe::Token::CreateParams::Account::Company::AddressKana, address_kanji: ::Stripe::Token::CreateParams::Account::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::Token::CreateParams::Account::Company::OwnershipDeclaration, ownership_declaration_shown_and_signed: T::Boolean, phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::Token::CreateParams::Account::Company::Verification).void
+            params(address: ::Stripe::Token::CreateParams::Account::Company::Address, address_kana: ::Stripe::Token::CreateParams::Account::Company::AddressKana, address_kanji: ::Stripe::Token::CreateParams::Account::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::Token::CreateParams::Account::Company::OwnershipDeclaration, ownership_declaration_shown_and_signed: T::Boolean, ownership_exemption_reason: T.nilable(String), phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::Token::CreateParams::Account::Company::Verification).void
            }
           def initialize(
             address: nil,
@@ -281,6 +284,7 @@ module Stripe
             owners_provided: nil,
             ownership_declaration: nil,
             ownership_declaration_shown_and_signed: nil,
+            ownership_exemption_reason: nil,
             phone: nil,
             registration_number: nil,
             structure: nil,

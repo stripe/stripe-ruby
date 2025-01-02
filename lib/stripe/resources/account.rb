@@ -332,6 +332,8 @@ module Stripe
       attr_reader :owners_provided
       # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
       attr_reader :ownership_declaration
+      # Attribute for field ownership_exemption_reason
+      attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_reader :phone
       # The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
@@ -1912,6 +1914,8 @@ module Stripe
         attr_accessor :owners_provided
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         attr_accessor :ownership_declaration
+        # Attribute for param field ownership_exemption_reason
+        attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -1940,6 +1944,7 @@ module Stripe
           name_kanji: nil,
           owners_provided: nil,
           ownership_declaration: nil,
+          ownership_exemption_reason: nil,
           phone: nil,
           registration_number: nil,
           structure: nil,
@@ -1960,6 +1965,7 @@ module Stripe
           @name_kanji = name_kanji
           @owners_provided = owners_provided
           @ownership_declaration = ownership_declaration
+          @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
           @registration_number = registration_number
           @structure = structure
@@ -4046,6 +4052,8 @@ module Stripe
         attr_accessor :owners_provided
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         attr_accessor :ownership_declaration
+        # Attribute for param field ownership_exemption_reason
+        attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -4074,6 +4082,7 @@ module Stripe
           name_kanji: nil,
           owners_provided: nil,
           ownership_declaration: nil,
+          ownership_exemption_reason: nil,
           phone: nil,
           registration_number: nil,
           structure: nil,
@@ -4094,6 +4103,7 @@ module Stripe
           @name_kanji = name_kanji
           @owners_provided = owners_provided
           @ownership_declaration = ownership_declaration
+          @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
           @registration_number = registration_number
           @structure = structure

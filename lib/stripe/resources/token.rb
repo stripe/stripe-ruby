@@ -203,6 +203,8 @@ module Stripe
           attr_accessor :ownership_declaration
           # Whether the user described by the data in the token has been shown the Ownership Declaration and indicated that it is correct.
           attr_accessor :ownership_declaration_shown_and_signed
+          # Attribute for param field ownership_exemption_reason
+          attr_accessor :ownership_exemption_reason
           # The company's phone number (used for verification).
           attr_accessor :phone
           # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -232,6 +234,7 @@ module Stripe
             owners_provided: nil,
             ownership_declaration: nil,
             ownership_declaration_shown_and_signed: nil,
+            ownership_exemption_reason: nil,
             phone: nil,
             registration_number: nil,
             structure: nil,
@@ -253,6 +256,7 @@ module Stripe
             @owners_provided = owners_provided
             @ownership_declaration = ownership_declaration
             @ownership_declaration_shown_and_signed = ownership_declaration_shown_and_signed
+            @ownership_exemption_reason = ownership_exemption_reason
             @phone = phone
             @registration_number = registration_number
             @structure = structure

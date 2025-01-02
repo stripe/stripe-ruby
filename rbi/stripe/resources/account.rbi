@@ -437,6 +437,9 @@ module Stripe
       # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
       sig { returns(T.nilable(OwnershipDeclaration)) }
       attr_reader :ownership_declaration
+      # Attribute for field ownership_exemption_reason
+      sig { returns(String) }
+      attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
       attr_reader :phone
@@ -2051,6 +2054,9 @@ module Stripe
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         sig { returns(::Stripe::Account::UpdateParams::Company::OwnershipDeclaration) }
         attr_accessor :ownership_declaration
+        # Attribute for param field ownership_exemption_reason
+        sig { returns(T.nilable(String)) }
+        attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         sig { returns(String) }
         attr_accessor :phone
@@ -2073,7 +2079,7 @@ module Stripe
         sig { returns(::Stripe::Account::UpdateParams::Company::Verification) }
         attr_accessor :verification
         sig {
-          params(address: ::Stripe::Account::UpdateParams::Company::Address, address_kana: ::Stripe::Account::UpdateParams::Company::AddressKana, address_kanji: ::Stripe::Account::UpdateParams::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::Account::UpdateParams::Company::OwnershipDeclaration, phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::Account::UpdateParams::Company::Verification).void
+          params(address: ::Stripe::Account::UpdateParams::Company::Address, address_kana: ::Stripe::Account::UpdateParams::Company::AddressKana, address_kanji: ::Stripe::Account::UpdateParams::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::Account::UpdateParams::Company::OwnershipDeclaration, ownership_exemption_reason: T.nilable(String), phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::Account::UpdateParams::Company::Verification).void
          }
         def initialize(
           address: nil,
@@ -2088,6 +2094,7 @@ module Stripe
           name_kanji: nil,
           owners_provided: nil,
           ownership_declaration: nil,
+          ownership_exemption_reason: nil,
           phone: nil,
           registration_number: nil,
           structure: nil,
@@ -4037,6 +4044,9 @@ module Stripe
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         sig { returns(::Stripe::Account::CreateParams::Company::OwnershipDeclaration) }
         attr_accessor :ownership_declaration
+        # Attribute for param field ownership_exemption_reason
+        sig { returns(T.nilable(String)) }
+        attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         sig { returns(String) }
         attr_accessor :phone
@@ -4059,7 +4069,7 @@ module Stripe
         sig { returns(::Stripe::Account::CreateParams::Company::Verification) }
         attr_accessor :verification
         sig {
-          params(address: ::Stripe::Account::CreateParams::Company::Address, address_kana: ::Stripe::Account::CreateParams::Company::AddressKana, address_kanji: ::Stripe::Account::CreateParams::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::Account::CreateParams::Company::OwnershipDeclaration, phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::Account::CreateParams::Company::Verification).void
+          params(address: ::Stripe::Account::CreateParams::Company::Address, address_kana: ::Stripe::Account::CreateParams::Company::AddressKana, address_kanji: ::Stripe::Account::CreateParams::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::Account::CreateParams::Company::OwnershipDeclaration, ownership_exemption_reason: T.nilable(String), phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::Account::CreateParams::Company::Verification).void
          }
         def initialize(
           address: nil,
@@ -4074,6 +4084,7 @@ module Stripe
           name_kanji: nil,
           owners_provided: nil,
           ownership_declaration: nil,
+          ownership_exemption_reason: nil,
           phone: nil,
           registration_number: nil,
           structure: nil,

@@ -314,7 +314,7 @@ module Stripe
       attr_reader :address_kanji
       # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
       attr_reader :directors_provided
-      # Attribute for field directorship_declaration
+      # This hash is used to attest that the director information provided to Stripe is both current and correct.
       attr_reader :directorship_declaration
       # Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
       attr_reader :executives_provided

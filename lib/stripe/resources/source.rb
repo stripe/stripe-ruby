@@ -121,6 +121,8 @@ module Stripe
       attr_reader :address_zip_check
       # Attribute for field brand
       attr_reader :brand
+      # Attribute for field brand_product
+      attr_reader :brand_product
       # Attribute for field country
       attr_reader :country
       # Attribute for field cvc_check
@@ -162,6 +164,8 @@ module Stripe
       attr_reader :authorization_response_code
       # Attribute for field brand
       attr_reader :brand
+      # Attribute for field brand_product
+      attr_reader :brand_product
       # Attribute for field country
       attr_reader :country
       # Attribute for field cvm_type
@@ -542,6 +546,8 @@ module Stripe
       attr_reader :authenticated
       # Attribute for field brand
       attr_reader :brand
+      # Attribute for field brand_product
+      attr_reader :brand_product
       # Attribute for field card
       attr_reader :card
       # Attribute for field country

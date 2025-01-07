@@ -144,6 +144,9 @@ module Stripe
       # Attribute for field brand
       sig { returns(T.nilable(String)) }
       attr_reader :brand
+      # Attribute for field brand_product
+      sig { returns(T.nilable(String)) }
+      attr_reader :brand_product
       # Attribute for field country
       sig { returns(T.nilable(String)) }
       attr_reader :country
@@ -203,6 +206,9 @@ module Stripe
       # Attribute for field brand
       sig { returns(T.nilable(String)) }
       attr_reader :brand
+      # Attribute for field brand_product
+      sig { returns(T.nilable(String)) }
+      attr_reader :brand_product
       # Attribute for field country
       sig { returns(T.nilable(String)) }
       attr_reader :country
@@ -725,6 +731,9 @@ module Stripe
       # Attribute for field brand
       sig { returns(T.nilable(String)) }
       attr_reader :brand
+      # Attribute for field brand_product
+      sig { returns(T.nilable(String)) }
+      attr_reader :brand_product
       # Attribute for field card
       sig { returns(T.nilable(String)) }
       attr_reader :card

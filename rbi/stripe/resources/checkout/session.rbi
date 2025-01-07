@@ -3143,6 +3143,8 @@ module Stripe
         end
         class PhoneNumberCollection < Stripe::RequestParams
           # Set to `true` to enable phone number collection.
+          #
+          # Can only be set in `payment` and `subscription` mode.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           sig { params(enabled: T::Boolean).void }

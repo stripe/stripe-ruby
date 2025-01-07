@@ -1716,6 +1716,8 @@ module Stripe
 
         class PhoneNumberCollection < Stripe::RequestParams
           # Set to `true` to enable phone number collection.
+          #
+          # Can only be set in `payment` and `subscription` mode.
           attr_accessor :enabled
 
           def initialize(enabled: nil)

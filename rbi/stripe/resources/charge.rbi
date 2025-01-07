@@ -102,6 +102,9 @@ module Stripe
         sig { returns(String) }
         attr_reader :predicate
       end
+      # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+      sig { returns(T.nilable(String)) }
+      attr_reader :advice_code
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
       sig { returns(T.nilable(String)) }
       attr_reader :network_advice_code

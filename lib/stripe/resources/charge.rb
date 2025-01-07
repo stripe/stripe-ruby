@@ -90,6 +90,8 @@ module Stripe
         # The predicate to evaluate the payment against.
         attr_reader :predicate
       end
+      # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+      attr_reader :advice_code
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
       attr_reader :network_advice_code
       # For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.

@@ -37,6 +37,26 @@ module Stripe
       end
     end
 
+    # Set options to the StripeClient configured options, if valid as a client option and provided
+    # Otherwise, for user configurable global options, set them to the global configuration
+    # For all other options, set them to the StripeConfiguration default value
+    def self.client_init(config_opts)
+      global = Stripe.config
+      imported_options = Stripe::USER_CONFIGURABLE_GLOBAL_OPTIONS - StripeClient::CLIENT_OPTIONS
+      StripeConfiguration.setup do |instance|
+        imported_options.each do |key|
+          if global.respond_to?(key)
+            instance.public_send("#{key}=", global.public_send(key))
+          end
+        end
+        StripeClient::CLIENT_OPTIONS.each do |key|
+          if config_opts.include?(key)
+            instance.public_send("#{key}=", config_opts[key])
+          end
+        end
+      end
+    end
+
     # Create a new config based off an existing one. This is useful when the
     # caller wants to override the global configuration
     def reverse_duplicate_merge(hash)

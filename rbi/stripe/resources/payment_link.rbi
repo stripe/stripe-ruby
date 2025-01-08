@@ -1410,6 +1410,13 @@ module Stripe
           transfer_group: nil
         ); end
       end
+      class PhoneNumberCollection < Stripe::RequestParams
+        # Set to `true` to enable phone number collection.
+        sig { returns(T::Boolean) }
+        attr_accessor :enabled
+        sig { params(enabled: T::Boolean).void }
+        def initialize(enabled: nil); end
+      end
       class Restrictions < Stripe::RequestParams
         class CompletedSessions < Stripe::RequestParams
           # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
@@ -1560,6 +1567,11 @@ module Stripe
       # The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
+      # Controls phone number collection settings during checkout.
+      #
+      # We recommend that you review your privacy policy and check with your legal contacts.
+      sig { returns(::Stripe::PaymentLink::UpdateParams::PhoneNumberCollection) }
+      attr_accessor :phone_number_collection
       # Settings that restrict the usage of a payment link.
       sig { returns(T.nilable(::Stripe::PaymentLink::UpdateParams::Restrictions)) }
       attr_accessor :restrictions
@@ -1576,7 +1588,7 @@ module Stripe
       sig { returns(::Stripe::PaymentLink::UpdateParams::TaxIdCollection) }
       attr_accessor :tax_id_collection
       sig {
-        params(active: T::Boolean, after_completion: ::Stripe::PaymentLink::UpdateParams::AfterCompletion, allow_promotion_codes: T::Boolean, automatic_tax: ::Stripe::PaymentLink::UpdateParams::AutomaticTax, billing_address_collection: String, custom_fields: T.nilable(T::Array[::Stripe::PaymentLink::UpdateParams::CustomField]), custom_text: ::Stripe::PaymentLink::UpdateParams::CustomText, customer_creation: String, expand: T::Array[String], inactive_message: T.nilable(String), invoice_creation: ::Stripe::PaymentLink::UpdateParams::InvoiceCreation, line_items: T::Array[::Stripe::PaymentLink::UpdateParams::LineItem], metadata: T::Hash[String, String], payment_intent_data: ::Stripe::PaymentLink::UpdateParams::PaymentIntentData, payment_method_collection: String, payment_method_types: T.nilable(T::Array[String]), restrictions: T.nilable(::Stripe::PaymentLink::UpdateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLink::UpdateParams::ShippingAddressCollection), submit_type: String, subscription_data: ::Stripe::PaymentLink::UpdateParams::SubscriptionData, tax_id_collection: ::Stripe::PaymentLink::UpdateParams::TaxIdCollection).void
+        params(active: T::Boolean, after_completion: ::Stripe::PaymentLink::UpdateParams::AfterCompletion, allow_promotion_codes: T::Boolean, automatic_tax: ::Stripe::PaymentLink::UpdateParams::AutomaticTax, billing_address_collection: String, custom_fields: T.nilable(T::Array[::Stripe::PaymentLink::UpdateParams::CustomField]), custom_text: ::Stripe::PaymentLink::UpdateParams::CustomText, customer_creation: String, expand: T::Array[String], inactive_message: T.nilable(String), invoice_creation: ::Stripe::PaymentLink::UpdateParams::InvoiceCreation, line_items: T::Array[::Stripe::PaymentLink::UpdateParams::LineItem], metadata: T::Hash[String, String], payment_intent_data: ::Stripe::PaymentLink::UpdateParams::PaymentIntentData, payment_method_collection: String, payment_method_types: T.nilable(T::Array[String]), phone_number_collection: ::Stripe::PaymentLink::UpdateParams::PhoneNumberCollection, restrictions: T.nilable(::Stripe::PaymentLink::UpdateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLink::UpdateParams::ShippingAddressCollection), submit_type: String, subscription_data: ::Stripe::PaymentLink::UpdateParams::SubscriptionData, tax_id_collection: ::Stripe::PaymentLink::UpdateParams::TaxIdCollection).void
        }
       def initialize(
         active: nil,
@@ -1595,6 +1607,7 @@ module Stripe
         payment_intent_data: nil,
         payment_method_collection: nil,
         payment_method_types: nil,
+        phone_number_collection: nil,
         restrictions: nil,
         shipping_address_collection: nil,
         submit_type: nil,

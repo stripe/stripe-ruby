@@ -1027,6 +1027,15 @@ module Stripe
         end
       end
 
+      class PhoneNumberCollection < Stripe::RequestParams
+        # Set to `true` to enable phone number collection.
+        attr_accessor :enabled
+
+        def initialize(enabled: nil)
+          @enabled = enabled
+        end
+      end
+
       class Restrictions < Stripe::RequestParams
         class CompletedSessions < Stripe::RequestParams
           # The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
@@ -1160,6 +1169,10 @@ module Stripe
       attr_accessor :payment_method_collection
       # The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
       attr_accessor :payment_method_types
+      # Controls phone number collection settings during checkout.
+      #
+      # We recommend that you review your privacy policy and check with your legal contacts.
+      attr_accessor :phone_number_collection
       # Settings that restrict the usage of a payment link.
       attr_accessor :restrictions
       # Configuration for collecting the customer's shipping address.
@@ -1188,6 +1201,7 @@ module Stripe
         payment_intent_data: nil,
         payment_method_collection: nil,
         payment_method_types: nil,
+        phone_number_collection: nil,
         restrictions: nil,
         shipping_address_collection: nil,
         submit_type: nil,
@@ -1210,6 +1224,7 @@ module Stripe
         @payment_intent_data = payment_intent_data
         @payment_method_collection = payment_method_collection
         @payment_method_types = payment_method_types
+        @phone_number_collection = phone_number_collection
         @restrictions = restrictions
         @shipping_address_collection = shipping_address_collection
         @submit_type = submit_type

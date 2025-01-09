@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: extractions/setup-just@v2
     - uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -52,7 +53,7 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: just ci-test
+      run: just test typecheck
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 

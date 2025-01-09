@@ -12,7 +12,7 @@ install *args:
 format: install
     bundle exec rubocop -o /dev/null --autocorrect
 
-test: install && typecheck
+test: install
     bundle exec rake test
 
 typecheck:
@@ -21,9 +21,6 @@ typecheck:
     } else { \
         "echo \"Ruby version < 2.7, skipping srb tc\"" \
     } }}
-
-alias ci-test := test
-
 
 # called by tooling
 [private]

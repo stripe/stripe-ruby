@@ -75,25 +75,25 @@ module Stripe
   DEFAULT_METER_EVENTS_BASE = "https://meter-events.stripe.com"
 
   # Options that can be configured globally by users
-  USER_CONFIGURABLE_GLOBAL_OPTIONS = Set.new([
-    :api_key,
-    :api_version,
-    :stripe_account,
-    :api_base,
-    :uploads_base,
-    :connect_base,
-    :meter_events_base,
-    :open_timeout,
-    :read_timeout,
-    :write_timeout,
-    :proxy,
-    :verify_ssl_certs,
-    :ca_bundle_path,
-    :log_level,
-    :logger,
-    :max_network_retries,
-    :enable_telemetry,
-    :client_id
+  USER_CONFIGURABLE_GLOBAL_OPTIONS = Set.new(%i[
+    api_key
+    api_version
+    stripe_account
+    api_base
+    uploads_base
+    connect_base
+    meter_events_base
+    open_timeout
+    read_timeout
+    write_timeout
+    proxy
+    verify_ssl_certs
+    ca_bundle_path
+    log_level
+    logger
+    max_network_retries
+    enable_telemetry
+    client_id
   ])
 
   @app_info = nil

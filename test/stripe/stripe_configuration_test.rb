@@ -120,20 +120,20 @@ module Stripe
         Stripe.api_key = "global_test_123"
         Stripe.stripe_account = "global_acct_123"
         Stripe.enable_telemetry = false
-        Stripe.open_timeout = 30000
+        Stripe.open_timeout = 30_000
         Stripe.uploads_base = "global_uploads_base.stripe.com"
 
         @client_opts[:api_key] = "client_test_123"
         @client_opts[:stripe_account] = "client_acct_123"
         @client_opts[:uploads_base] = "client_uploads_base.stripe.com"
-        @client_opts.reject! { |k, v| v.nil? }
+        @client_opts.reject! { |_k, v| v.nil? }
 
         client_config = Stripe::StripeConfiguration.client_init(@client_opts)
 
         assert_equal("client_test_123", client_config.api_key) # client api key
         assert_equal("client_acct_123", client_config.stripe_account) # client stripe account
         assert_equal(false, client_config.enable_telemetry) # global telemetry
-        assert_equal(30000, client_config.open_timeout) # global timeout
+        assert_equal(30_000, client_config.open_timeout) # global timeout
         assert_equal("client_uploads_base.stripe.com", client_config.base_addresses[:files]) # client uploads base
         assert_equal(Stripe::DEFAULT_API_BASE, client_config.base_addresses[:api]) # default api base
         assert_equal(ApiVersion::CURRENT, client_config.api_version) # default api version

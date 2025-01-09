@@ -45,9 +45,7 @@ module Stripe
       imported_options = USER_CONFIGURABLE_GLOBAL_OPTIONS - StripeClient::CLIENT_OPTIONS
       client_config = StripeConfiguration.setup do |instance|
         imported_options.each do |key|
-          if global_config.respond_to?(key)
-            instance.public_send("#{key}=", global_config.public_send(key))
-          end
+          instance.public_send("#{key}=", global_config.public_send(key)) if global_config.respond_to?(key)
         end
       end
       client_config.reverse_duplicate_merge(config_opts)
@@ -84,7 +82,8 @@ module Stripe
       @connect_base = DEFAULT_CONNECT_BASE
       @uploads_base = DEFAULT_UPLOAD_BASE
       @meter_events_base = DEFAULT_METER_EVENTS_BASE
-      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base, meter_events: @meter_events_base }
+      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base,
+                          meter_events: @meter_events_base, }
     end
 
     def log_level=(val)

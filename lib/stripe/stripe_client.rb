@@ -12,7 +12,7 @@ module Stripe
 
     # For internal use only. Does not provide a stable API and may be broken
     # with future non-major changes.
-    CLIENT_OPTIONS = Set.new([:api_key, :stripe_account, :stripe_context, :api_version, :api_base, :uploads_base, :connect_base, :meter_events_base, :client_id])
+    CLIENT_OPTIONS = Set.new(%i[api_key stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
 
     # Initializes a new StripeClient
     def initialize(api_key, # rubocop:todo Metrics/ParameterLists

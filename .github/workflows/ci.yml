@@ -52,7 +52,7 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: make ci-test
+      run: just ci-test
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 

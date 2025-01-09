@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.4.0-beta.2 - 2025-01-09
+* [#1504](https://github.com/stripe/stripe-ruby/pull/1504) Update generated code for beta
+  * Add support for `close` method on resource `Treasury.FinancialAccount`
+
 ## 13.4.0-beta.1 - 2024-12-20
 * Support parameter and resource fields with typed RBIs
     * [#1509](https://github.com/stripe/stripe-ruby/pull/1509) (beta) Publish RBIs with gem

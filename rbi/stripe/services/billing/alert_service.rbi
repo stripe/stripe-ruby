@@ -9,27 +9,21 @@ module Stripe
         # Filter results to only include this type of alert.
         sig { returns(String) }
         attr_accessor :alert_type
-
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
-
         # Filter results to only include alerts with the given meter.
         sig { returns(String) }
         attr_accessor :meter
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
-
         sig {
           params(alert_type: String, ending_before: String, expand: T::Array[String], limit: Integer, meter: String, starting_after: String).void
          }
@@ -48,11 +42,9 @@ module Stripe
             # Limit the scope to this usage alert only to this customer.
             sig { returns(String) }
             attr_accessor :customer
-
             # What type of filter is being applied to this usage alert.
             sig { returns(String) }
             attr_accessor :type
-
             sig { params(customer: String, type: String).void }
             def initialize(customer: nil, type: nil); end
           end
@@ -61,19 +53,15 @@ module Stripe
             returns(T::Array[::Stripe::Billing::AlertService::CreateParams::UsageThreshold::Filter])
            }
           attr_accessor :filters
-
           # Defines at which value the alert will fire.
           sig { returns(Integer) }
           attr_accessor :gte
-
           # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
           sig { returns(String) }
           attr_accessor :meter
-
           # Whether the alert should only fire only once, or once per billing cycle.
           sig { returns(String) }
           attr_accessor :recurrence
-
           sig {
             params(filters: T::Array[::Stripe::Billing::AlertService::CreateParams::UsageThreshold::Filter], gte: Integer, meter: String, recurrence: String).void
            }
@@ -82,19 +70,15 @@ module Stripe
         # The type of alert to create.
         sig { returns(String) }
         attr_accessor :alert_type
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # The title of the alert.
         sig { returns(String) }
         attr_accessor :title
-
         # The configuration of the usage threshold.
         sig { returns(::Stripe::Billing::AlertService::CreateParams::UsageThreshold) }
         attr_accessor :usage_threshold
-
         sig {
           params(alert_type: String, expand: T::Array[String], title: String, usage_threshold: ::Stripe::Billing::AlertService::CreateParams::UsageThreshold).void
          }
@@ -104,7 +88,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -112,7 +95,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -120,7 +102,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -128,7 +109,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end

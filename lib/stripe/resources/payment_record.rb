@@ -15,7 +15,6 @@ module Stripe
     class AmountCanceled < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-
       # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
       attr_reader :value
     end
@@ -23,7 +22,6 @@ module Stripe
     class AmountFailed < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-
       # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
       attr_reader :value
     end
@@ -31,7 +29,6 @@ module Stripe
     class AmountGuaranteed < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-
       # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
       attr_reader :value
     end
@@ -39,7 +36,6 @@ module Stripe
     class AmountRequested < Stripe::StripeObject
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-
       # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
       attr_reader :value
     end
@@ -47,13 +43,10 @@ module Stripe
     class CustomerDetails < Stripe::StripeObject
       # ID of the Stripe Customer associated with this payment.
       attr_reader :customer
-
       # The customer's email address.
       attr_reader :email
-
       # The customer's name.
       attr_reader :name
-
       # The customer's phone number.
       attr_reader :phone
     end
@@ -63,31 +56,23 @@ module Stripe
         class Address < Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
-
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-
           # Address line 1 (e.g., street, PO Box, or company name).
           attr_reader :line1
-
           # Address line 2 (e.g., apartment, suite, unit, or building).
           attr_reader :line2
-
           # ZIP or postal code.
           attr_reader :postal_code
-
           # State, county, province, or region.
           attr_reader :state
         end
         # A representation of a physical address.
         attr_reader :address
-
         # The billing email associated with the method of payment.
         attr_reader :email
-
         # The billing name associated with the method of payment.
         attr_reader :name
-
         # The billing phone number associated with the method of payment.
         attr_reader :phone
       end
@@ -95,19 +80,15 @@ module Stripe
       class Custom < Stripe::StripeObject
         # Display name for the custom (user-defined) payment method type used to make this payment.
         attr_reader :display_name
-
         # The custom payment method type associated with this payment.
         attr_reader :type
       end
       # The billing details associated with the method of payment.
       attr_reader :billing_details
-
       # Information about the custom (user-defined) payment method used to make this payment.
       attr_reader :custom
-
       # ID of the Stripe PaymentMethod used to make this payment.
       attr_reader :payment_method
-
       # The type of Payment Method used for this payment attempt.
       attr_reader :type
     end
@@ -116,28 +97,21 @@ module Stripe
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
-
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-
         # Address line 1 (e.g., street, PO Box, or company name).
         attr_reader :line1
-
         # Address line 2 (e.g., apartment, suite, unit, or building).
         attr_reader :line2
-
         # ZIP or postal code.
         attr_reader :postal_code
-
         # State, county, province, or region.
         attr_reader :state
       end
       # A representation of a physical address.
       attr_reader :address
-
       # The shipping recipient's name.
       attr_reader :name
-
       # The shipping recipient's phone number.
       attr_reader :phone
     end
@@ -175,19 +149,14 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
-
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-
             # Address line 1 (e.g., street, PO Box, or company name).
             attr_accessor :line1
-
             # Address line 2 (e.g., apartment, suite, unit, or building).
             attr_accessor :line2
-
             # ZIP or postal code.
             attr_accessor :postal_code
-
             # State, county, province, or region.
             attr_accessor :state
 
@@ -209,13 +178,10 @@ module Stripe
           end
           # The billing address associated with the method of payment.
           attr_accessor :address
-
           # The billing email associated with the method of payment.
           attr_accessor :email
-
           # The billing name associated with the method of payment.
           attr_accessor :name
-
           # The billing phone number associated with the method of payment.
           attr_accessor :phone
 
@@ -230,7 +196,6 @@ module Stripe
         class Custom < Stripe::RequestParams
           # Display name for the custom (user-defined) payment method type used to make this payment.
           attr_accessor :display_name
-
           # The custom payment method type associated with this payment.
           attr_accessor :type
 
@@ -241,13 +206,10 @@ module Stripe
         end
         # The billing details associated with the method of payment.
         attr_accessor :billing_details
-
         # Information about the custom (user-defined) payment method used to make this payment.
         attr_accessor :custom
-
         # ID of the Stripe Payment Method used to make this payment.
         attr_accessor :payment_method
-
         # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
         attr_accessor :type
 
@@ -263,19 +225,14 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
-
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-
           # Address line 1 (e.g., street, PO Box, or company name).
           attr_accessor :line1
-
           # Address line 2 (e.g., apartment, suite, unit, or building).
           attr_accessor :line2
-
           # ZIP or postal code.
           attr_accessor :postal_code
-
           # State, county, province, or region.
           attr_accessor :state
 
@@ -297,10 +254,8 @@ module Stripe
         end
         # The physical shipping address.
         attr_accessor :address
-
         # The shipping recipient's name.
         attr_accessor :name
-
         # The shipping recipient's phone number.
         attr_accessor :phone
 
@@ -312,28 +267,20 @@ module Stripe
       end
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # Information about the payment attempt failure.
       attr_accessor :failed
-
       # Information about the payment attempt guarantee.
       attr_accessor :guaranteed
-
       # When the reported payment was initiated. Measured in seconds since the Unix epoch.
       attr_accessor :initiated_at
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-
       # The outcome of the reported payment.
       attr_accessor :outcome
-
       # Information about the Payment Method debited for this payment.
       attr_accessor :payment_method_details
-
       # Shipping information for this payment.
       attr_accessor :shipping_details
 
@@ -363,10 +310,8 @@ module Stripe
     class ReportPaymentAttemptCanceledParams < Stripe::RequestParams
       # When the reported payment was canceled. Measured in seconds since the Unix epoch.
       attr_accessor :canceled_at
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # Attribute for param field metadata
       attr_accessor :metadata
 
@@ -380,10 +325,8 @@ module Stripe
     class ReportPaymentAttemptFailedParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       attr_accessor :failed_at
-
       # Attribute for param field metadata
       attr_accessor :metadata
 
@@ -397,10 +340,8 @@ module Stripe
     class ReportPaymentAttemptGuaranteedParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       attr_accessor :guaranteed_at
-
       # Attribute for param field metadata
       attr_accessor :metadata
 
@@ -415,7 +356,6 @@ module Stripe
       class AmountRequested < Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-
         # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
         attr_accessor :value
 
@@ -428,13 +368,10 @@ module Stripe
       class CustomerDetails < Stripe::RequestParams
         # The customer who made the payment.
         attr_accessor :customer
-
         # The customer's phone number.
         attr_accessor :email
-
         # The customer's name.
         attr_accessor :name
-
         # The customer's phone number.
         attr_accessor :phone
 
@@ -469,19 +406,14 @@ module Stripe
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
             attr_accessor :city
-
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :country
-
             # Address line 1 (e.g., street, PO Box, or company name).
             attr_accessor :line1
-
             # Address line 2 (e.g., apartment, suite, unit, or building).
             attr_accessor :line2
-
             # ZIP or postal code.
             attr_accessor :postal_code
-
             # State, county, province, or region.
             attr_accessor :state
 
@@ -503,13 +435,10 @@ module Stripe
           end
           # The billing address associated with the method of payment.
           attr_accessor :address
-
           # The billing email associated with the method of payment.
           attr_accessor :email
-
           # The billing name associated with the method of payment.
           attr_accessor :name
-
           # The billing phone number associated with the method of payment.
           attr_accessor :phone
 
@@ -524,7 +453,6 @@ module Stripe
         class Custom < Stripe::RequestParams
           # Display name for the custom (user-defined) payment method type used to make this payment.
           attr_accessor :display_name
-
           # The custom payment method type associated with this payment.
           attr_accessor :type
 
@@ -535,13 +463,10 @@ module Stripe
         end
         # The billing details associated with the method of payment.
         attr_accessor :billing_details
-
         # Information about the custom (user-defined) payment method used to make this payment.
         attr_accessor :custom
-
         # ID of the Stripe Payment Method used to make this payment.
         attr_accessor :payment_method
-
         # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
         attr_accessor :type
 
@@ -557,19 +482,14 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
-
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-
           # Address line 1 (e.g., street, PO Box, or company name).
           attr_accessor :line1
-
           # Address line 2 (e.g., apartment, suite, unit, or building).
           attr_accessor :line2
-
           # ZIP or postal code.
           attr_accessor :postal_code
-
           # State, county, province, or region.
           attr_accessor :state
 
@@ -591,10 +511,8 @@ module Stripe
         end
         # The physical shipping address.
         attr_accessor :address
-
         # The shipping recipient's name.
         attr_accessor :name
-
         # The shipping recipient's phone number.
         attr_accessor :phone
 
@@ -606,40 +524,28 @@ module Stripe
       end
       # The amount you intend to collect for this payment.
       attr_accessor :amount_requested
-
       # Customer information for this payment.
       attr_accessor :customer_details
-
       # Indicates whether the customer was present in your checkout flow during this payment.
       attr_accessor :customer_presence
-
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # Information about the payment attempt failure.
       attr_accessor :failed
-
       # Information about the payment attempt guarantee.
       attr_accessor :guaranteed
-
       # When the reported payment was initiated. Measured in seconds since the Unix epoch.
       attr_accessor :initiated_at
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-
       # The outcome of the reported payment.
       attr_accessor :outcome
-
       # Information about the Payment Method debited for this payment.
       attr_accessor :payment_method_details
-
       # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
       attr_accessor :payment_reference
-
       # Shipping information for this payment.
       attr_accessor :shipping_details
 
@@ -675,49 +581,34 @@ module Stripe
     end
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_canceled
-
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_failed
-
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_guaranteed
-
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_requested
-
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
-
     # Customer information for this payment.
     attr_reader :customer_details
-
     # Indicates whether the customer was present in your checkout flow during this payment.
     attr_reader :customer_presence
-
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
-
     # Unique identifier for the object.
     attr_reader :id
-
     # ID of the latest Payment Attempt Record attached to this Payment Record.
     attr_reader :latest_payment_attempt_record
-
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
-
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-
     # Information about the Payment Method debited for this payment.
     attr_reader :payment_method_details
-
     # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
     attr_reader :payment_reference
-
     # Shipping information for this payment.
     attr_reader :shipping_details
 

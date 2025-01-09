@@ -22,16 +22,13 @@ module Stripe
       class Liability < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
-
         # Type of the account referenced.
         attr_reader :type
       end
       # Automatically calculate taxes
       attr_reader :enabled
-
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_reader :liability
-
       # The status of the most recent automated tax calculation for this quote.
       attr_reader :status
     end
@@ -41,16 +38,13 @@ module Stripe
         class Failed < Stripe::StripeObject
           # The failure `code` is more granular than the `reason` provided and may correspond to a Stripe error code. For automation errors, this field is one of: `reverse_api_failure`, `reverse_api_deadline_exceeeded`, or `reverse_api_response_validation_error`, which are Stripe error codes and map to the error `message` field.
           attr_reader :failure_code
-
           # Information derived from the `failure_code` or a freeform message that explains the error as a human-readable English string. For example, "margin ID is not a valid ID".
           attr_reader :message
-
           # The reason the reestimation failed.
           attr_reader :reason
         end
         # When `status` is `failed`, provides details about the quote reestimation failure.
         attr_reader :failed
-
         # Latest status of the reestimation.
         attr_reader :status
       end
@@ -61,7 +55,6 @@ module Stripe
             class Discount < Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
-
               # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
@@ -72,48 +65,37 @@ module Stripe
             class Tax < Stripe::StripeObject
               # Amount of tax applied for this rate.
               attr_reader :amount
-
               # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
               #
               # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
               attr_reader :rate
-
               # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
               attr_reader :taxability_reason
-
               # The amount on which tax is calculated, in cents (or local equivalent).
               attr_reader :taxable_amount
             end
             # The aggregated discounts.
             attr_reader :discounts
-
             # The aggregated tax amounts by rate.
             attr_reader :taxes
           end
           # This is the sum of all the discounts.
           attr_reader :amount_discount
-
           # This is the sum of all the shipping amounts.
           attr_reader :amount_shipping
-
           # This is the sum of all the tax amounts.
           attr_reader :amount_tax
-
           # Attribute for field breakdown
           attr_reader :breakdown
         end
         # Total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
-
         # Total after discounts and taxes are applied.
         attr_reader :amount_total
-
         # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
         attr_reader :interval
-
         # The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
         attr_reader :interval_count
-
         # Attribute for field total_details
         attr_reader :total_details
       end
@@ -124,7 +106,6 @@ module Stripe
             class Discount < Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
-
               # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
@@ -135,57 +116,44 @@ module Stripe
             class Tax < Stripe::StripeObject
               # Amount of tax applied for this rate.
               attr_reader :amount
-
               # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
               #
               # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
               attr_reader :rate
-
               # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
               attr_reader :taxability_reason
-
               # The amount on which tax is calculated, in cents (or local equivalent).
               attr_reader :taxable_amount
             end
             # The aggregated discounts.
             attr_reader :discounts
-
             # The aggregated tax amounts by rate.
             attr_reader :taxes
           end
           # This is the sum of all the discounts.
           attr_reader :amount_discount
-
           # This is the sum of all the shipping amounts.
           attr_reader :amount_shipping
-
           # This is the sum of all the tax amounts.
           attr_reader :amount_tax
-
           # Attribute for field breakdown
           attr_reader :breakdown
         end
         # Total before any discounts or taxes are applied.
         attr_reader :amount_subtotal
-
         # Total after discounts and taxes are applied.
         attr_reader :amount_total
-
         # The line items that will appear on the next invoice after this quote is accepted. This does not include pending invoice items that exist on the customer but may still be included in the next invoice.
         attr_reader :line_items
-
         # Attribute for field total_details
         attr_reader :total_details
       end
       # Details of the most recent reestimate of the quote's preview schedules and upcoming invoices, including the status of Stripe's calculation.
       attr_reader :last_reestimation_details
-
       # The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
       attr_reader :recurring
-
       # The time at which the quote's estimated schedules and upcoming invoices were generated.
       attr_reader :updated_at
-
       # Attribute for field upfront
       attr_reader :upfront
     end
@@ -193,7 +161,6 @@ module Stripe
     class FromQuote < Stripe::StripeObject
       # Whether this quote is a revision of a different quote.
       attr_reader :is_revision
-
       # The quote that was cloned.
       attr_reader :quote
     end
@@ -202,13 +169,11 @@ module Stripe
       class Issuer < Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
-
         # Type of the account referenced.
         attr_reader :type
       end
       # Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       attr_reader :days_until_due
-
       # Attribute for field issuer
       attr_reader :issuer
     end
@@ -217,7 +182,6 @@ module Stripe
       class Canceled < Stripe::StripeObject
         # The reason this quote was marked as canceled.
         attr_reader :reason
-
         # Time at which the quote was marked as canceled. Measured in seconds since the Unix epoch.
         attr_reader :transitioned_at
       end
@@ -227,7 +191,6 @@ module Stripe
           class LinesInvalid < Stripe::StripeObject
             # The timestamp at which the lines were marked as invalid.
             attr_reader :invalid_at
-
             # The list of lines that became invalid at the given timestamp.
             attr_reader :lines
           end
@@ -243,49 +206,36 @@ module Stripe
           end
           # The ID of the line that is invalid if the stale reason type is `line_invalid`.
           attr_reader :line_invalid
-
           # The IDs of the lines that are invalid if the stale reason type is `lines_invalid`.
           attr_reader :lines_invalid
-
           # The user supplied mark stale reason.
           attr_reader :marked_stale
-
           # The ID of the subscription that was canceled.
           attr_reader :subscription_canceled
-
           # Attribute for field subscription_changed
           attr_reader :subscription_changed
-
           # The ID of the subscription that was expired.
           attr_reader :subscription_expired
-
           # The ID of the subscription schedule that was canceled.
           attr_reader :subscription_schedule_canceled
-
           # Attribute for field subscription_schedule_changed
           attr_reader :subscription_schedule_changed
-
           # The ID of the subscription schedule that was released.
           attr_reader :subscription_schedule_released
-
           # The reason the quote was marked as stale.
           attr_reader :type
         end
         # Time at which the quote expires. Measured in seconds since the Unix epoch.
         attr_reader :expires_at
-
         # The most recent reason this quote was marked as stale.
         attr_reader :last_reason
-
         # Time at which the stale reason was updated. Measured in seconds since the Unix epoch.
         attr_reader :last_updated_at
-
         # Time at which the quote was marked as stale. Measured in seconds since the Unix epoch.
         attr_reader :transitioned_at
       end
       # Attribute for field canceled
       attr_reader :canceled
-
       # Attribute for field stale
       attr_reader :stale
     end
@@ -293,10 +243,8 @@ module Stripe
     class StatusTransitions < Stripe::StripeObject
       # The time that the quote was accepted. Measured in seconds since Unix epoch.
       attr_reader :accepted_at
-
       # The time that the quote was canceled. Measured in seconds since Unix epoch.
       attr_reader :canceled_at
-
       # The time that the quote was finalized. Measured in seconds since Unix epoch.
       attr_reader :finalized_at
     end
@@ -310,13 +258,10 @@ module Stripe
           end
           # The materialized time.
           attr_reader :computed
-
           # The timestamp the given line starts at.
           attr_reader :line_starts_at
-
           # A precise Unix timestamp.
           attr_reader :timestamp
-
           # The type of method to specify the `bill_from` time.
           attr_reader :type
         end
@@ -325,7 +270,6 @@ module Stripe
           class Duration < Stripe::StripeObject
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_reader :interval
-
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_reader :interval_count
           end
@@ -336,22 +280,17 @@ module Stripe
           end
           # The materialized time.
           attr_reader :computed
-
           # Time span for the quote line starting from the `starts_at` date.
           attr_reader :duration
-
           # The timestamp the given line ends at.
           attr_reader :line_ends_at
-
           # A precise Unix timestamp.
           attr_reader :timestamp
-
           # The type of method to specify the `bill_until` time.
           attr_reader :type
         end
         # The start of the period to bill from when the Quote is accepted.
         attr_reader :bill_from
-
         # The end of the period to bill until when the Quote is accepted.
         attr_reader :bill_until
       end
@@ -362,34 +301,24 @@ module Stripe
       end
       # Describes the period to bill for upon accepting the quote.
       attr_reader :bill_on_acceptance
-
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       attr_reader :billing_behavior
-
       # Whether the subscription will always start a new billing period when the quote is accepted.
       attr_reader :billing_cycle_anchor
-
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
-
       # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
       attr_reader :effective_date
-
       # Behavior of the subscription schedule and underlying subscription when it ends.
       attr_reader :end_behavior
-
       # The id of the subscription that will be updated when the quote is accepted.
       attr_reader :from_subscription
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_reader :metadata
-
       # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
       attr_reader :prebilling
-
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior
-
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_reader :trial_period_days
     end
@@ -398,10 +327,8 @@ module Stripe
       class AppliesTo < Stripe::StripeObject
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         attr_reader :new_reference
-
         # The ID of the schedule the line applies to.
         attr_reader :subscription_schedule
-
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         attr_reader :type
       end
@@ -414,13 +341,10 @@ module Stripe
           end
           # The materialized time.
           attr_reader :computed
-
           # The timestamp the given line starts at.
           attr_reader :line_starts_at
-
           # A precise Unix timestamp.
           attr_reader :timestamp
-
           # The type of method to specify the `bill_from` time.
           attr_reader :type
         end
@@ -429,7 +353,6 @@ module Stripe
           class Duration < Stripe::StripeObject
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_reader :interval
-
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_reader :interval_count
           end
@@ -440,43 +363,32 @@ module Stripe
           end
           # The materialized time.
           attr_reader :computed
-
           # Time span for the quote line starting from the `starts_at` date.
           attr_reader :duration
-
           # The timestamp the given line ends at.
           attr_reader :line_ends_at
-
           # A precise Unix timestamp.
           attr_reader :timestamp
-
           # The type of method to specify the `bill_until` time.
           attr_reader :type
         end
         # The start of the period to bill from when the Quote is accepted.
         attr_reader :bill_from
-
         # The end of the period to bill until when the Quote is accepted.
         attr_reader :bill_until
       end
       # Attribute for field applies_to
       attr_reader :applies_to
-
       # Describes the period to bill for upon accepting the quote.
       attr_reader :bill_on_acceptance
-
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       attr_reader :billing_behavior
-
       # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       attr_reader :customer
-
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_reader :description
-
       # Behavior of the subscription schedule and underlying subscription when it ends.
       attr_reader :end_behavior
-
       # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
       attr_reader :proration_behavior
     end
@@ -485,16 +397,13 @@ module Stripe
       class AppliesTo < Stripe::StripeObject
         # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
         attr_reader :new_reference
-
         # The ID of the schedule the line applies to.
         attr_reader :subscription_schedule
-
         # Describes whether the quote line is affecting a new schedule or an existing schedule.
         attr_reader :type
       end
       # Attribute for field applies_to
       attr_reader :applies_to
-
       # The subscription schedule that was created or updated from this quote.
       attr_reader :subscription_schedule
     end
@@ -504,7 +413,6 @@ module Stripe
         class Discount < Stripe::StripeObject
           # The amount discounted.
           attr_reader :amount
-
           # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
           # It contains information about when the discount began, when it will end, and what it is applied to.
           #
@@ -515,33 +423,26 @@ module Stripe
         class Tax < Stripe::StripeObject
           # Amount of tax applied for this rate.
           attr_reader :amount
-
           # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
           #
           # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
           attr_reader :rate
-
           # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
           attr_reader :taxability_reason
-
           # The amount on which tax is calculated, in cents (or local equivalent).
           attr_reader :taxable_amount
         end
         # The aggregated discounts.
         attr_reader :discounts
-
         # The aggregated tax amounts by rate.
         attr_reader :taxes
       end
       # This is the sum of all the discounts.
       attr_reader :amount_discount
-
       # This is the sum of all the shipping amounts.
       attr_reader :amount_shipping
-
       # This is the sum of all the tax amounts.
       attr_reader :amount_tax
-
       # Attribute for field breakdown
       attr_reader :breakdown
     end
@@ -549,10 +450,8 @@ module Stripe
     class TransferData < Stripe::StripeObject
       # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
       attr_reader :amount
-
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount will be transferred to the destination.
       attr_reader :amount_percent
-
       # The account where funds from the payment will be transferred to upon payment success.
       attr_reader :destination
     end
@@ -560,25 +459,18 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # The ID of the customer whose quotes will be retrieved.
       attr_accessor :customer
-
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # The subscription which the quote updates.
       attr_accessor :from_subscription
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-
       # The status of the quote.
       attr_accessor :status
-
       # Provides a list of quotes that are associated with the specified test clock. The response will not include quotes with test clocks if this and the customer parameter is not set.
       attr_accessor :test_clock
 
@@ -608,7 +500,6 @@ module Stripe
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
-
           # Type of the account referenced in the request.
           attr_accessor :type
 
@@ -619,7 +510,6 @@ module Stripe
         end
         # Controls whether Stripe will automatically compute tax on the resulting invoices or subscriptions as well as the quote itself.
         attr_accessor :enabled
-
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
 
@@ -634,7 +524,6 @@ module Stripe
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
-
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
 
@@ -645,10 +534,8 @@ module Stripe
           end
           # Time span for the redeemed discount.
           attr_accessor :duration
-
           # A precise Unix timestamp for the discount to end. Must be in the future.
           attr_accessor :timestamp
-
           # The type of calculation made to determine when the discount ends.
           attr_accessor :type
 
@@ -660,13 +547,10 @@ module Stripe
         end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
-
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         attr_accessor :discount
-
         # Details to determine how long the discount should be applied for.
         attr_accessor :discount_end
-
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
 
@@ -681,7 +565,6 @@ module Stripe
       class FromQuote < Stripe::RequestParams
         # Whether this quote is a revision of the previous quote.
         attr_accessor :is_revision
-
         # The `id` of the quote that will be cloned.
         attr_accessor :quote
 
@@ -695,7 +578,6 @@ module Stripe
         class Issuer < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
-
           # Type of the account referenced in the request.
           attr_accessor :type
 
@@ -706,7 +588,6 @@ module Stripe
         end
         # Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
         attr_accessor :days_until_due
-
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         attr_accessor :issuer
 
@@ -729,16 +610,12 @@ module Stripe
             end
             # The coupon code to redeem.
             attr_accessor :coupon
-
             # An ID of an existing discount for a coupon that was already redeemed.
             attr_accessor :discount
-
             # Details to determine how long the discount should be applied for.
             attr_accessor :discount_end
-
             # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
             attr_accessor :index
-
             # The promotion code to redeem.
             attr_accessor :promotion_code
 
@@ -763,7 +640,6 @@ module Stripe
                 class Duration < Stripe::RequestParams
                   # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                   attr_accessor :interval
-
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   attr_accessor :interval_count
 
@@ -774,10 +650,8 @@ module Stripe
                 end
                 # Time span for the redeemed discount.
                 attr_accessor :duration
-
                 # A precise Unix timestamp for the discount to end. Must be in the future.
                 attr_accessor :timestamp
-
                 # The type of calculation made to determine when the discount ends.
                 attr_accessor :type
 
@@ -789,13 +663,10 @@ module Stripe
               end
               # ID of the coupon to create a new discount for.
               attr_accessor :coupon
-
               # ID of an existing discount on the object (or one of its ancestors) to reuse.
               attr_accessor :discount
-
               # Details to determine how long the discount should be applied for.
               attr_accessor :discount_end
-
               # ID of the promotion code to create a new discount for.
               attr_accessor :promotion_code
 
@@ -810,7 +681,6 @@ module Stripe
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               attr_accessor :converts_to
-
               # Determines the type of trial for this item.
               attr_accessor :type
 
@@ -821,19 +691,14 @@ module Stripe
             end
             # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
             attr_accessor :discounts
-
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             attr_accessor :metadata
-
             # The ID of the price object.
             attr_accessor :price
-
             # Quantity for this item.
             attr_accessor :quantity
-
             # The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
             attr_accessor :tax_rates
-
             # Options that configure the trial on the subscription item.
             attr_accessor :trial
 
@@ -857,10 +722,8 @@ module Stripe
           class RemoveDiscount < Stripe::RequestParams
             # The coupon code to remove from the `discounts` array.
             attr_accessor :coupon
-
             # The ID of a discount to remove from the `discounts` array.
             attr_accessor :discount
-
             # The ID of a promotion code to remove from the `discounts` array.
             attr_accessor :promotion_code
 
@@ -883,10 +746,8 @@ module Stripe
           class SetDiscount < Stripe::RequestParams
             # The coupon code to replace the `discounts` array with.
             attr_accessor :coupon
-
             # An ID of an existing discount to replace the `discounts` array with.
             attr_accessor :discount
-
             # An ID of an existing promotion code to replace the `discounts` array with.
             attr_accessor :promotion_code
 
@@ -903,7 +764,6 @@ module Stripe
                 class Duration < Stripe::RequestParams
                   # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                   attr_accessor :interval
-
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   attr_accessor :interval_count
 
@@ -914,10 +774,8 @@ module Stripe
                 end
                 # Time span for the redeemed discount.
                 attr_accessor :duration
-
                 # A precise Unix timestamp for the discount to end. Must be in the future.
                 attr_accessor :timestamp
-
                 # The type of calculation made to determine when the discount ends.
                 attr_accessor :type
 
@@ -929,13 +787,10 @@ module Stripe
               end
               # ID of the coupon to create a new discount for.
               attr_accessor :coupon
-
               # ID of an existing discount on the object (or one of its ancestors) to reuse.
               attr_accessor :discount
-
               # Details to determine how long the discount should be applied for.
               attr_accessor :discount_end
-
               # ID of the promotion code to create a new discount for.
               attr_accessor :promotion_code
 
@@ -950,7 +805,6 @@ module Stripe
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               attr_accessor :converts_to
-
               # Determines the type of trial for this item.
               attr_accessor :type
 
@@ -961,19 +815,14 @@ module Stripe
             end
             # If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
             attr_accessor :discounts
-
             # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
             attr_accessor :metadata
-
             # The ID of the price object.
             attr_accessor :price
-
             # If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
             attr_accessor :quantity
-
             # If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
             attr_accessor :tax_rates
-
             # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
             attr_accessor :trial
 
@@ -995,31 +844,22 @@ module Stripe
           end
           # Details for the `add_discount` type.
           attr_accessor :add_discount
-
           # Details for the `add_item` type.
           attr_accessor :add_item
-
           # Details for the `add_metadata` type: specify a hash of key-value pairs.
           attr_accessor :add_metadata
-
           # Details for the `remove_discount` type.
           attr_accessor :remove_discount
-
           # Details for the `remove_item` type.
           attr_accessor :remove_item
-
           # Details for the `remove_metadata` type: specify an array of metadata keys.
           attr_accessor :remove_metadata
-
           # Details for the `set_discounts` type.
           attr_accessor :set_discounts
-
           # Details for the `set_items` type.
           attr_accessor :set_items
-
           # Details for the `set_metadata` type: specify an array of key-value pairs.
           attr_accessor :set_metadata
-
           # The type of action the quote line performs.
           attr_accessor :type
 
@@ -1051,10 +891,8 @@ module Stripe
         class AppliesTo < Stripe::RequestParams
           # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
           attr_accessor :new_reference
-
           # The ID of the schedule the line applies to.
           attr_accessor :subscription_schedule
-
           # Describes whether the quote line is affecting a new schedule or an existing schedule.
           attr_accessor :type
 
@@ -1068,10 +906,8 @@ module Stripe
         class CancelSubscriptionSchedule < Stripe::RequestParams
           # Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
           attr_accessor :cancel_at
-
           # If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
           attr_accessor :invoice_now
-
           # If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
           attr_accessor :prorate
 
@@ -1095,7 +931,6 @@ module Stripe
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
-
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
 
@@ -1106,13 +941,10 @@ module Stripe
           end
           # Use the `end` time of a given discount.
           attr_accessor :discount_end
-
           # Time span for the quote line starting from the `starts_at` date.
           attr_accessor :duration
-
           # A precise Unix timestamp.
           attr_accessor :timestamp
-
           # Select a way to pass in `ends_at`.
           attr_accessor :type
 
@@ -1135,7 +967,6 @@ module Stripe
           end
           # Details of the pause_collection behavior to apply to the amendment.
           attr_accessor :set
-
           # Determines the type of the pause_collection amendment.
           attr_accessor :type
 
@@ -1165,13 +996,10 @@ module Stripe
           end
           # Use the `end` time of a given discount.
           attr_accessor :discount_end
-
           # The timestamp the given line ends at.
           attr_accessor :line_ends_at
-
           # A precise Unix timestamp.
           attr_accessor :timestamp
-
           # Select a way to pass in `starts_at`.
           attr_accessor :type
 
@@ -1201,31 +1029,22 @@ module Stripe
         end
         # An array of operations the quote line performs.
         attr_accessor :actions
-
         # Details to identify the subscription schedule the quote line applies to.
         attr_accessor :applies_to
-
         # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
         attr_accessor :billing_cycle_anchor
-
         # A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
         attr_accessor :cancel_subscription_schedule
-
         # Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
         attr_accessor :ends_at
-
         # Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
         attr_accessor :proration_behavior
-
         # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
         attr_accessor :set_pause_collection
-
         # Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
         attr_accessor :set_schedule_end
-
         # Details to identify the earliest timestamp where the proposed change should take effect.
         attr_accessor :starts_at
-
         # Settings related to subscription trials.
         attr_accessor :trial_settings
 
@@ -1260,7 +1079,6 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
-
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
 
@@ -1271,10 +1089,8 @@ module Stripe
             end
             # Time span for the redeemed discount.
             attr_accessor :duration
-
             # A precise Unix timestamp for the discount to end. Must be in the future.
             attr_accessor :timestamp
-
             # The type of calculation made to determine when the discount ends.
             attr_accessor :type
 
@@ -1286,13 +1102,10 @@ module Stripe
           end
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
-
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           attr_accessor :discount
-
           # Details to determine how long the discount should be applied for.
           attr_accessor :discount_end
-
           # ID of the promotion code to create a new discount for.
           attr_accessor :promotion_code
 
@@ -1308,7 +1121,6 @@ module Stripe
           class Recurring < Stripe::RequestParams
             # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
-
             # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
             attr_accessor :interval_count
 
@@ -1319,19 +1131,14 @@ module Stripe
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-
           # The ID of the product that this price will belong to.
           attr_accessor :product
-
           # The recurring components of a price such as `interval` and `interval_count`.
           attr_accessor :recurring
-
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           attr_accessor :tax_behavior
-
           # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
           attr_accessor :unit_amount
-
           # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
           attr_accessor :unit_amount_decimal
 
@@ -1353,16 +1160,12 @@ module Stripe
         end
         # The discounts applied to this line item.
         attr_accessor :discounts
-
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
-
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         attr_accessor :price_data
-
         # The quantity of the line item.
         attr_accessor :quantity
-
         # The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
         attr_accessor :tax_rates
 
@@ -1381,7 +1184,6 @@ module Stripe
             class LineStartsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -1392,10 +1194,8 @@ module Stripe
             end
             # Details of a Quote line to start the bill period from.
             attr_accessor :line_starts_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_from` time.
             attr_accessor :type
 
@@ -1410,7 +1210,6 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
-
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
 
@@ -1423,7 +1222,6 @@ module Stripe
             class LineEndsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -1434,13 +1232,10 @@ module Stripe
             end
             # Details of the duration over which to bill.
             attr_accessor :duration
-
             # Details of a Quote line item from which to bill until.
             attr_accessor :line_ends_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_until` time.
             attr_accessor :type
 
@@ -1453,7 +1248,6 @@ module Stripe
           end
           # The start of the period to bill from when the Quote is accepted.
           attr_accessor :bill_from
-
           # The end of the period to bill until when the Quote is accepted.
           attr_accessor :bill_until
 
@@ -1473,31 +1267,22 @@ module Stripe
         end
         # Describes the period to bill for upon accepting the quote.
         attr_accessor :bill_on_acceptance
-
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         attr_accessor :billing_behavior
-
         # When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         attr_accessor :billing_cycle_anchor
-
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         attr_accessor :description
-
         # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
         attr_accessor :effective_date
-
         # Behavior of the subscription schedule and underlying subscription when it ends.
         attr_accessor :end_behavior
-
         # The id of a subscription that the quote will update. By default, the quote will contain the state of the subscription (such as line items, collection method and billing thresholds) unless overridden.
         attr_accessor :from_subscription
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata
-
         # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
         attr_accessor :prebilling
-
         # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
         #
         # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -1506,7 +1291,6 @@ module Stripe
         #
         # Prorations can be disabled by passing `none`.
         attr_accessor :proration_behavior
-
         # Integer representing the number of trial period days before the customer is charged for the first time.
         attr_accessor :trial_period_days
 
@@ -1541,10 +1325,8 @@ module Stripe
         class AppliesTo < Stripe::RequestParams
           # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
           attr_accessor :new_reference
-
           # The ID of the schedule the line applies to.
           attr_accessor :subscription_schedule
-
           # Describes whether the quote line is affecting a new schedule or an existing schedule.
           attr_accessor :type
 
@@ -1560,7 +1342,6 @@ module Stripe
             class LineStartsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -1571,10 +1352,8 @@ module Stripe
             end
             # Details of a Quote line to start the bill period from.
             attr_accessor :line_starts_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_from` time.
             attr_accessor :type
 
@@ -1589,7 +1368,6 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
-
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
 
@@ -1602,7 +1380,6 @@ module Stripe
             class LineEndsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -1613,13 +1390,10 @@ module Stripe
             end
             # Details of the duration over which to bill.
             attr_accessor :duration
-
             # Details of a Quote line item from which to bill until.
             attr_accessor :line_ends_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_until` time.
             attr_accessor :type
 
@@ -1632,7 +1406,6 @@ module Stripe
           end
           # The start of the period to bill from when the Quote is accepted.
           attr_accessor :bill_from
-
           # The end of the period to bill until when the Quote is accepted.
           attr_accessor :bill_until
 
@@ -1643,22 +1416,16 @@ module Stripe
         end
         # Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
         attr_accessor :applies_to
-
         # Describes the period to bill for upon accepting the quote.
         attr_accessor :bill_on_acceptance
-
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         attr_accessor :billing_behavior
-
         # The customer the Subscription Data override applies to. This is only relevant when `applies_to.type=new_reference`.
         attr_accessor :customer
-
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         attr_accessor :description
-
         # Behavior of the subscription schedule and underlying subscription when it ends.
         attr_accessor :end_behavior
-
         # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
         #
         # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -1690,10 +1457,8 @@ module Stripe
       class TransferData < Stripe::RequestParams
         # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
         attr_accessor :amount
-
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.
         attr_accessor :amount_percent
-
         # ID of an existing, connected Stripe account.
         attr_accessor :destination
 
@@ -1705,70 +1470,48 @@ module Stripe
       end
       # Set to true to allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
       attr_accessor :allow_backdated_lines
-
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
       attr_accessor :application_fee_amount
-
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
       attr_accessor :application_fee_percent
-
       # Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
       attr_accessor :automatic_tax
-
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
       attr_accessor :collection_method
-
       # The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       attr_accessor :customer
-
       # The tax rates that will apply to any line item that does not have `tax_rates` set.
       attr_accessor :default_tax_rates
-
       # A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
       attr_accessor :description
-
       # The discounts applied to the quote.
       attr_accessor :discounts
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch. If no value is passed, the default expiration date configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
       attr_accessor :expires_at
-
       # A footer that will be displayed on the quote PDF. If no value is passed, the default footer configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
       attr_accessor :footer
-
       # Clone an existing quote. The new quote will be created in `status=draft`. When using this parameter, you cannot specify any other parameters except for `expires_at`.
       attr_accessor :from_quote
-
       # A header that will be displayed on the quote PDF. If no value is passed, the default header configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
       attr_accessor :header
-
       # All invoices will be billed using the specified settings.
       attr_accessor :invoice_settings
-
       # A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
       attr_accessor :line_items
-
       # A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
       attr_accessor :lines
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-
       # The account on behalf of which to charge.
       attr_accessor :on_behalf_of
-
       # When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
       attr_accessor :subscription_data
-
       # List representing overrides for `subscription_data` configurations for specific subscription schedules.
       attr_accessor :subscription_data_overrides
-
       # ID of the test clock to attach to the quote.
       attr_accessor :test_clock
-
       # The data with which to automatically create a Transfer for each of the invoices.
       attr_accessor :transfer_data
 
@@ -1837,7 +1580,6 @@ module Stripe
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
-
           # Type of the account referenced in the request.
           attr_accessor :type
 
@@ -1848,7 +1590,6 @@ module Stripe
         end
         # Controls whether Stripe will automatically compute tax on the resulting invoices or subscriptions as well as the quote itself.
         attr_accessor :enabled
-
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
 
@@ -1863,7 +1604,6 @@ module Stripe
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
-
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
 
@@ -1874,10 +1614,8 @@ module Stripe
           end
           # Time span for the redeemed discount.
           attr_accessor :duration
-
           # A precise Unix timestamp for the discount to end. Must be in the future.
           attr_accessor :timestamp
-
           # The type of calculation made to determine when the discount ends.
           attr_accessor :type
 
@@ -1889,13 +1627,10 @@ module Stripe
         end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
-
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         attr_accessor :discount
-
         # Details to determine how long the discount should be applied for.
         attr_accessor :discount_end
-
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
 
@@ -1911,7 +1646,6 @@ module Stripe
         class Issuer < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           attr_accessor :account
-
           # Type of the account referenced in the request.
           attr_accessor :type
 
@@ -1922,7 +1656,6 @@ module Stripe
         end
         # Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
         attr_accessor :days_until_due
-
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         attr_accessor :issuer
 
@@ -1945,16 +1678,12 @@ module Stripe
             end
             # The coupon code to redeem.
             attr_accessor :coupon
-
             # An ID of an existing discount for a coupon that was already redeemed.
             attr_accessor :discount
-
             # Details to determine how long the discount should be applied for.
             attr_accessor :discount_end
-
             # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
             attr_accessor :index
-
             # The promotion code to redeem.
             attr_accessor :promotion_code
 
@@ -1979,7 +1708,6 @@ module Stripe
                 class Duration < Stripe::RequestParams
                   # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                   attr_accessor :interval
-
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   attr_accessor :interval_count
 
@@ -1990,10 +1718,8 @@ module Stripe
                 end
                 # Time span for the redeemed discount.
                 attr_accessor :duration
-
                 # A precise Unix timestamp for the discount to end. Must be in the future.
                 attr_accessor :timestamp
-
                 # The type of calculation made to determine when the discount ends.
                 attr_accessor :type
 
@@ -2005,13 +1731,10 @@ module Stripe
               end
               # ID of the coupon to create a new discount for.
               attr_accessor :coupon
-
               # ID of an existing discount on the object (or one of its ancestors) to reuse.
               attr_accessor :discount
-
               # Details to determine how long the discount should be applied for.
               attr_accessor :discount_end
-
               # ID of the promotion code to create a new discount for.
               attr_accessor :promotion_code
 
@@ -2026,7 +1749,6 @@ module Stripe
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               attr_accessor :converts_to
-
               # Determines the type of trial for this item.
               attr_accessor :type
 
@@ -2037,19 +1759,14 @@ module Stripe
             end
             # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
             attr_accessor :discounts
-
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             attr_accessor :metadata
-
             # The ID of the price object.
             attr_accessor :price
-
             # Quantity for this item.
             attr_accessor :quantity
-
             # The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
             attr_accessor :tax_rates
-
             # Options that configure the trial on the subscription item.
             attr_accessor :trial
 
@@ -2073,10 +1790,8 @@ module Stripe
           class RemoveDiscount < Stripe::RequestParams
             # The coupon code to remove from the `discounts` array.
             attr_accessor :coupon
-
             # The ID of a discount to remove from the `discounts` array.
             attr_accessor :discount
-
             # The ID of a promotion code to remove from the `discounts` array.
             attr_accessor :promotion_code
 
@@ -2099,10 +1814,8 @@ module Stripe
           class SetDiscount < Stripe::RequestParams
             # The coupon code to replace the `discounts` array with.
             attr_accessor :coupon
-
             # An ID of an existing discount to replace the `discounts` array with.
             attr_accessor :discount
-
             # An ID of an existing promotion code to replace the `discounts` array with.
             attr_accessor :promotion_code
 
@@ -2119,7 +1832,6 @@ module Stripe
                 class Duration < Stripe::RequestParams
                   # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                   attr_accessor :interval
-
                   # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                   attr_accessor :interval_count
 
@@ -2130,10 +1842,8 @@ module Stripe
                 end
                 # Time span for the redeemed discount.
                 attr_accessor :duration
-
                 # A precise Unix timestamp for the discount to end. Must be in the future.
                 attr_accessor :timestamp
-
                 # The type of calculation made to determine when the discount ends.
                 attr_accessor :type
 
@@ -2145,13 +1855,10 @@ module Stripe
               end
               # ID of the coupon to create a new discount for.
               attr_accessor :coupon
-
               # ID of an existing discount on the object (or one of its ancestors) to reuse.
               attr_accessor :discount
-
               # Details to determine how long the discount should be applied for.
               attr_accessor :discount_end
-
               # ID of the promotion code to create a new discount for.
               attr_accessor :promotion_code
 
@@ -2166,7 +1873,6 @@ module Stripe
             class Trial < Stripe::RequestParams
               # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
               attr_accessor :converts_to
-
               # Determines the type of trial for this item.
               attr_accessor :type
 
@@ -2177,19 +1883,14 @@ module Stripe
             end
             # If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
             attr_accessor :discounts
-
             # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
             attr_accessor :metadata
-
             # The ID of the price object.
             attr_accessor :price
-
             # If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
             attr_accessor :quantity
-
             # If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
             attr_accessor :tax_rates
-
             # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
             attr_accessor :trial
 
@@ -2211,31 +1912,22 @@ module Stripe
           end
           # Details for the `add_discount` type.
           attr_accessor :add_discount
-
           # Details for the `add_item` type.
           attr_accessor :add_item
-
           # Details for the `add_metadata` type: specify a hash of key-value pairs.
           attr_accessor :add_metadata
-
           # Details for the `remove_discount` type.
           attr_accessor :remove_discount
-
           # Details for the `remove_item` type.
           attr_accessor :remove_item
-
           # Details for the `remove_metadata` type: specify an array of metadata keys.
           attr_accessor :remove_metadata
-
           # Details for the `set_discounts` type.
           attr_accessor :set_discounts
-
           # Details for the `set_items` type.
           attr_accessor :set_items
-
           # Details for the `set_metadata` type: specify an array of key-value pairs.
           attr_accessor :set_metadata
-
           # The type of action the quote line performs.
           attr_accessor :type
 
@@ -2267,10 +1959,8 @@ module Stripe
         class AppliesTo < Stripe::RequestParams
           # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
           attr_accessor :new_reference
-
           # The ID of the schedule the line applies to.
           attr_accessor :subscription_schedule
-
           # Describes whether the quote line is affecting a new schedule or an existing schedule.
           attr_accessor :type
 
@@ -2284,10 +1974,8 @@ module Stripe
         class CancelSubscriptionSchedule < Stripe::RequestParams
           # Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
           attr_accessor :cancel_at
-
           # If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
           attr_accessor :invoice_now
-
           # If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
           attr_accessor :prorate
 
@@ -2311,7 +1999,6 @@ module Stripe
           class Duration < Stripe::RequestParams
             # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
-
             # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
             attr_accessor :interval_count
 
@@ -2322,13 +2009,10 @@ module Stripe
           end
           # Use the `end` time of a given discount.
           attr_accessor :discount_end
-
           # Time span for the quote line starting from the `starts_at` date.
           attr_accessor :duration
-
           # A precise Unix timestamp.
           attr_accessor :timestamp
-
           # Select a way to pass in `ends_at`.
           attr_accessor :type
 
@@ -2351,7 +2035,6 @@ module Stripe
           end
           # Details of the pause_collection behavior to apply to the amendment.
           attr_accessor :set
-
           # Determines the type of the pause_collection amendment.
           attr_accessor :type
 
@@ -2374,7 +2057,6 @@ module Stripe
           class LineEndsAt < Stripe::RequestParams
             # The ID of a quote line.
             attr_accessor :id
-
             # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
             attr_accessor :index
 
@@ -2385,13 +2067,10 @@ module Stripe
           end
           # Use the `end` time of a given discount.
           attr_accessor :discount_end
-
           # The timestamp the given line ends at.
           attr_accessor :line_ends_at
-
           # A precise Unix timestamp.
           attr_accessor :timestamp
-
           # Select a way to pass in `starts_at`.
           attr_accessor :type
 
@@ -2421,34 +2100,24 @@ module Stripe
         end
         # An array of operations the quote line performs.
         attr_accessor :actions
-
         # Details to identify the subscription schedule the quote line applies to.
         attr_accessor :applies_to
-
         # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
         attr_accessor :billing_cycle_anchor
-
         # A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
         attr_accessor :cancel_subscription_schedule
-
         # Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
         attr_accessor :ends_at
-
         # The ID of an existing line on the quote.
         attr_accessor :id
-
         # Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
         attr_accessor :proration_behavior
-
         # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
         attr_accessor :set_pause_collection
-
         # Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
         attr_accessor :set_schedule_end
-
         # Details to identify the earliest timestamp where the proposed change should take effect.
         attr_accessor :starts_at
-
         # Settings related to subscription trials.
         attr_accessor :trial_settings
 
@@ -2485,7 +2154,6 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
-
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
 
@@ -2496,10 +2164,8 @@ module Stripe
             end
             # Time span for the redeemed discount.
             attr_accessor :duration
-
             # A precise Unix timestamp for the discount to end. Must be in the future.
             attr_accessor :timestamp
-
             # The type of calculation made to determine when the discount ends.
             attr_accessor :type
 
@@ -2511,13 +2177,10 @@ module Stripe
           end
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
-
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           attr_accessor :discount
-
           # Details to determine how long the discount should be applied for.
           attr_accessor :discount_end
-
           # ID of the promotion code to create a new discount for.
           attr_accessor :promotion_code
 
@@ -2533,7 +2196,6 @@ module Stripe
           class Recurring < Stripe::RequestParams
             # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
             attr_accessor :interval
-
             # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
             attr_accessor :interval_count
 
@@ -2544,19 +2206,14 @@ module Stripe
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-
           # The ID of the product that this price will belong to.
           attr_accessor :product
-
           # The recurring components of a price such as `interval` and `interval_count`.
           attr_accessor :recurring
-
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           attr_accessor :tax_behavior
-
           # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
           attr_accessor :unit_amount
-
           # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
           attr_accessor :unit_amount_decimal
 
@@ -2578,19 +2235,14 @@ module Stripe
         end
         # The discounts applied to this line item.
         attr_accessor :discounts
-
         # The ID of an existing line item on the quote.
         attr_accessor :id
-
         # The ID of the price object. One of `price` or `price_data` is required.
         attr_accessor :price
-
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
         attr_accessor :price_data
-
         # The quantity of the line item.
         attr_accessor :quantity
-
         # The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
         attr_accessor :tax_rates
 
@@ -2617,7 +2269,6 @@ module Stripe
             class LineStartsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -2628,10 +2279,8 @@ module Stripe
             end
             # Details of a Quote line to start the bill period from.
             attr_accessor :line_starts_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_from` time.
             attr_accessor :type
 
@@ -2646,7 +2295,6 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
-
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
 
@@ -2659,7 +2307,6 @@ module Stripe
             class LineEndsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -2670,13 +2317,10 @@ module Stripe
             end
             # Details of the duration over which to bill.
             attr_accessor :duration
-
             # Details of a Quote line item from which to bill until.
             attr_accessor :line_ends_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_until` time.
             attr_accessor :type
 
@@ -2689,7 +2333,6 @@ module Stripe
           end
           # The start of the period to bill from when the Quote is accepted.
           attr_accessor :bill_from
-
           # The end of the period to bill until when the Quote is accepted.
           attr_accessor :bill_until
 
@@ -2709,28 +2352,20 @@ module Stripe
         end
         # Describes the period to bill for upon accepting the quote.
         attr_accessor :bill_on_acceptance
-
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         attr_accessor :billing_behavior
-
         # When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         attr_accessor :billing_cycle_anchor
-
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         attr_accessor :description
-
         # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
         attr_accessor :effective_date
-
         # Behavior of the subscription schedule and underlying subscription when it ends.
         attr_accessor :end_behavior
-
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         attr_accessor :metadata
-
         # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
         attr_accessor :prebilling
-
         # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
         #
         # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -2739,7 +2374,6 @@ module Stripe
         #
         # Prorations can be disabled by passing `none`.
         attr_accessor :proration_behavior
-
         # Integer representing the number of trial period days before the customer is charged for the first time.
         attr_accessor :trial_period_days
 
@@ -2772,10 +2406,8 @@ module Stripe
         class AppliesTo < Stripe::RequestParams
           # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
           attr_accessor :new_reference
-
           # The ID of the schedule the line applies to.
           attr_accessor :subscription_schedule
-
           # Describes whether the quote line is affecting a new schedule or an existing schedule.
           attr_accessor :type
 
@@ -2791,7 +2423,6 @@ module Stripe
             class LineStartsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -2802,10 +2433,8 @@ module Stripe
             end
             # Details of a Quote line to start the bill period from.
             attr_accessor :line_starts_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_from` time.
             attr_accessor :type
 
@@ -2820,7 +2449,6 @@ module Stripe
             class Duration < Stripe::RequestParams
               # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
               attr_accessor :interval
-
               # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
               attr_accessor :interval_count
 
@@ -2833,7 +2461,6 @@ module Stripe
             class LineEndsAt < Stripe::RequestParams
               # The ID of a quote line.
               attr_accessor :id
-
               # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
               attr_accessor :index
 
@@ -2844,13 +2471,10 @@ module Stripe
             end
             # Details of the duration over which to bill.
             attr_accessor :duration
-
             # Details of a Quote line item from which to bill until.
             attr_accessor :line_ends_at
-
             # A precise Unix timestamp.
             attr_accessor :timestamp
-
             # The type of method to specify the `bill_until` time.
             attr_accessor :type
 
@@ -2863,7 +2487,6 @@ module Stripe
           end
           # The start of the period to bill from when the Quote is accepted.
           attr_accessor :bill_from
-
           # The end of the period to bill until when the Quote is accepted.
           attr_accessor :bill_until
 
@@ -2874,22 +2497,16 @@ module Stripe
         end
         # Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
         attr_accessor :applies_to
-
         # Describes the period to bill for upon accepting the quote.
         attr_accessor :bill_on_acceptance
-
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         attr_accessor :billing_behavior
-
         # The customer the Subscription Data override applies to.
         attr_accessor :customer
-
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         attr_accessor :description
-
         # Behavior of the subscription schedule and underlying subscription when it ends.
         attr_accessor :end_behavior
-
         # Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
         #
         # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -2921,10 +2538,8 @@ module Stripe
       class TransferData < Stripe::RequestParams
         # The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
         attr_accessor :amount
-
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.
         attr_accessor :amount_percent
-
         # ID of an existing, connected Stripe account.
         attr_accessor :destination
 
@@ -2936,64 +2551,44 @@ module Stripe
       end
       # Set to true to allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
       attr_accessor :allow_backdated_lines
-
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
       attr_accessor :application_fee_amount
-
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
       attr_accessor :application_fee_percent
-
       # Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
       attr_accessor :automatic_tax
-
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
       attr_accessor :collection_method
-
       # The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       attr_accessor :customer
-
       # The tax rates that will apply to any line item that does not have `tax_rates` set.
       attr_accessor :default_tax_rates
-
       # A description that will be displayed on the quote PDF.
       attr_accessor :description
-
       # The discounts applied to the quote.
       attr_accessor :discounts
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
       attr_accessor :expires_at
-
       # A footer that will be displayed on the quote PDF.
       attr_accessor :footer
-
       # A header that will be displayed on the quote PDF.
       attr_accessor :header
-
       # All invoices will be billed using the specified settings.
       attr_accessor :invoice_settings
-
       # A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
       attr_accessor :line_items
-
       # A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
       attr_accessor :lines
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-
       # The account on behalf of which to charge.
       attr_accessor :on_behalf_of
-
       # When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
       attr_accessor :subscription_data
-
       # List representing overrides for `subscription_data` configurations for specific subscription schedules.
       attr_accessor :subscription_data_overrides
-
       # The data with which to automatically create a Transfer for each of the invoices.
       attr_accessor :transfer_data
 
@@ -3047,13 +2642,10 @@ module Stripe
     class ListComputedUpfrontLineItemsParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -3068,13 +2660,10 @@ module Stripe
     class ListLineItemsParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -3089,13 +2678,10 @@ module Stripe
     class ListLinesParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -3128,7 +2714,6 @@ module Stripe
     class FinalizeQuoteParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
       attr_accessor :expires_at
 
@@ -3150,7 +2735,6 @@ module Stripe
     class MarkStaleParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # Reason the Quote is being marked stale.
       attr_accessor :reason
 
@@ -3181,13 +2765,10 @@ module Stripe
     class ListPreviewInvoiceLinesParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -3200,121 +2781,82 @@ module Stripe
     end
     # Allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
     attr_reader :allow_backdated_lines
-
     # Total before any discounts or taxes are applied.
     attr_reader :amount_subtotal
-
     # Total after discounts and taxes are applied.
     attr_reader :amount_total
-
     # ID of the Connect Application that created the quote.
     attr_reader :application
-
     # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Only applicable if there are no line items with recurring prices on the quote.
     attr_reader :application_fee_amount
-
     # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote.
     attr_reader :application_fee_percent
-
     # Attribute for field automatic_tax
     attr_reader :automatic_tax
-
     # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
     attr_reader :collection_method
-
     # Attribute for field computed
     attr_reader :computed
-
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
-
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
-
     # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
     attr_reader :customer
-
     # The tax rates applied to this quote.
     attr_reader :default_tax_rates
-
     # A description that will be displayed on the quote PDF.
     attr_reader :description
-
     # The discounts applied to this quote.
     attr_reader :discounts
-
     # The date on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
     attr_reader :expires_at
-
     # A footer that will be displayed on the quote PDF.
     attr_reader :footer
-
     # Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details.
     attr_reader :from_quote
-
     # A header that will be displayed on the quote PDF.
     attr_reader :header
-
     # Unique identifier for the object.
     attr_reader :id
-
     # The invoice that was created from this quote.
     attr_reader :invoice
-
     # Attribute for field invoice_settings
     attr_reader :invoice_settings
-
     # A list of items the customer is being quoted for.
     attr_reader :line_items
-
     # A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
     attr_reader :lines
-
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
-
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
-
     # A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize).
     attr_reader :number
-
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     attr_reader :on_behalf_of
-
     # The status of the quote.
     attr_reader :status
-
     # Details on when and why a quote has been marked as stale or canceled.
     attr_reader :status_details
-
     # Attribute for field status_transitions
     attr_reader :status_transitions
-
     # The subscription that was created or updated from this quote.
     attr_reader :subscription
-
     # Attribute for field subscription_data
     attr_reader :subscription_data
-
     # List representing overrides for `subscription_data` configurations for specific subscription schedules.
     attr_reader :subscription_data_overrides
-
     # The subscription schedule that was created or updated from this quote.
     attr_reader :subscription_schedule
-
     # The subscription schedules that were created or updated from this quote.
     attr_reader :subscription_schedules
-
     # ID of the test clock this quote belongs to.
     attr_reader :test_clock
-
     # Attribute for field total_details
     attr_reader :total_details
-
     # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the invoices.
     attr_reader :transfer_data
 

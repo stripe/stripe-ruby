@@ -8,10 +8,8 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # The page size.
           attr_accessor :limit
-
           # Primary object ID used to retrieve related events.
           attr_accessor :object_id
-
           # The requested page.
           attr_accessor :page
 

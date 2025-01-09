@@ -10,23 +10,18 @@ module Stripe
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
         sig { returns(Integer) }
         attr_accessor :limit
-
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
-
         # Filter results to only include meters with the given status.
         sig { returns(String) }
         attr_accessor :status
-
         sig {
           params(ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String).void
          }
@@ -43,11 +38,9 @@ module Stripe
           # The key in the meter event payload to use for mapping the event to a customer.
           sig { returns(String) }
           attr_accessor :event_payload_key
-
           # The method for mapping a meter event to a customer. Must be `by_id`.
           sig { returns(String) }
           attr_accessor :type
-
           sig { params(event_payload_key: String, type: String).void }
           def initialize(event_payload_key: nil, type: nil); end
         end
@@ -55,7 +48,6 @@ module Stripe
           # Specifies how events are aggregated. Allowed values are `count` to count the number of events and `sum` to sum each event's value.
           sig { returns(String) }
           attr_accessor :formula
-
           sig { params(formula: String).void }
           def initialize(formula: nil); end
         end
@@ -63,38 +55,30 @@ module Stripe
           # The key in the usage event payload to use as the value for this meter. For example, if the event payload contains usage on a `bytes_used` field, then set the event_payload_key to "bytes_used".
           sig { returns(String) }
           attr_accessor :event_payload_key
-
           sig { params(event_payload_key: String).void }
           def initialize(event_payload_key: nil); end
         end
         # Fields that specify how to map a meter event to a customer.
         sig { returns(::Stripe::Billing::MeterService::CreateParams::CustomerMapping) }
         attr_accessor :customer_mapping
-
         # The default settings to aggregate a meter's events with.
         sig { returns(::Stripe::Billing::MeterService::CreateParams::DefaultAggregation) }
         attr_accessor :default_aggregation
-
         # The meter’s name. Not visible to the customer.
         sig { returns(String) }
         attr_accessor :display_name
-
         # The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
         sig { returns(String) }
         attr_accessor :event_name
-
         # The time window to pre-aggregate meter events for, if any.
         sig { returns(String) }
         attr_accessor :event_time_window
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         # Fields that specify how to calculate a meter event's value.
         sig { returns(::Stripe::Billing::MeterService::CreateParams::ValueSettings) }
         attr_accessor :value_settings
-
         sig {
           params(customer_mapping: ::Stripe::Billing::MeterService::CreateParams::CustomerMapping, default_aggregation: ::Stripe::Billing::MeterService::CreateParams::DefaultAggregation, display_name: String, event_name: String, event_time_window: String, expand: T::Array[String], value_settings: ::Stripe::Billing::MeterService::CreateParams::ValueSettings).void
          }
@@ -112,7 +96,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -120,11 +103,9 @@ module Stripe
         # The meter’s name. Not visible to the customer.
         sig { returns(String) }
         attr_accessor :display_name
-
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(display_name: String, expand: T::Array[String]).void }
         def initialize(display_name: nil, expand: nil); end
       end
@@ -132,7 +113,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
@@ -140,7 +120,6 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end

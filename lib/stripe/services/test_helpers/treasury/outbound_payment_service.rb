@@ -19,10 +19,8 @@ module Stripe
             class UsDomesticWire < Stripe::RequestParams
               # CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
               attr_accessor :chips
-
               # IMAD for funds sent over the `us_domestic_wire` network.
               attr_accessor :imad
-
               # OMAD for funds sent over the `us_domestic_wire` network.
               attr_accessor :omad
 
@@ -34,10 +32,8 @@ module Stripe
             end
             # ACH network tracking details.
             attr_accessor :ach
-
             # The US bank account network used to send funds.
             attr_accessor :type
-
             # US domestic wire network tracking details.
             attr_accessor :us_domestic_wire
 
@@ -49,7 +45,6 @@ module Stripe
           end
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
-
           # Details about network-specific tracking information.
           attr_accessor :tracking_details
 
@@ -88,7 +83,6 @@ module Stripe
           end
           # Specifies which fields in the response should be expanded.
           attr_accessor :expand
-
           # Optional hash to set the return code.
           attr_accessor :returned_details
 

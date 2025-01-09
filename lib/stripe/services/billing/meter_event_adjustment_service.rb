@@ -15,13 +15,10 @@ module Stripe
         end
         # Specifies which event to cancel.
         attr_accessor :cancel
-
         # The name of the meter event. Corresponds with the `event_name` field on a meter.
         attr_accessor :event_name
-
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-
         # Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
         attr_accessor :type
 

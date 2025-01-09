@@ -6,16 +6,12 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-
       # Filter sources according to a particular object type.
       attr_accessor :object
-
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
 
@@ -31,13 +27,10 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-
       # Please refer to full [documentation](https://stripe.com/docs/api) instead.
       attr_accessor :source
-
       # Attribute for param field validate
       attr_accessor :validate
 
@@ -63,19 +56,14 @@ module Stripe
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
-
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-
           # Address line 1 (e.g., street, PO Box, or company name).
           attr_accessor :line1
-
           # Address line 2 (e.g., apartment, suite, unit, or building).
           attr_accessor :line2
-
           # ZIP or postal code.
           attr_accessor :postal_code
-
           # State, county, province, or region.
           attr_accessor :state
 
@@ -97,13 +85,10 @@ module Stripe
         end
         # Owner's address.
         attr_accessor :address
-
         # Owner's email address.
         attr_accessor :email
-
         # Owner's full name.
         attr_accessor :name
-
         # Owner's phone number.
         attr_accessor :phone
 
@@ -116,43 +101,30 @@ module Stripe
       end
       # The name of the person or business that owns the bank account.
       attr_accessor :account_holder_name
-
       # The type of entity that holds the account. This can be either `individual` or `company`.
       attr_accessor :account_holder_type
-
       # City/District/Suburb/Town/Village.
       attr_accessor :address_city
-
       # Billing address country, if provided when creating card.
       attr_accessor :address_country
-
       # Address line 1 (Street address/PO Box/Company name).
       attr_accessor :address_line1
-
       # Address line 2 (Apartment/Suite/Unit/Building).
       attr_accessor :address_line2
-
       # State/County/Province/Region.
       attr_accessor :address_state
-
       # ZIP or postal code.
       attr_accessor :address_zip
-
       # Two digit number representing the card’s expiration month.
       attr_accessor :exp_month
-
       # Four digit number representing the card’s expiration year.
       attr_accessor :exp_year
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-
       # Cardholder name.
       attr_accessor :name
-
       # Attribute for param field owner
       attr_accessor :owner
 
@@ -201,7 +173,6 @@ module Stripe
     class VerifyParams < Stripe::RequestParams
       # Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
       attr_accessor :amounts
-
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 

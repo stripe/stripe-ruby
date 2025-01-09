@@ -97,6 +97,50 @@ module Stripe
       end
     end
 
+    context "client_init" do
+      setup do
+        @client_opts = StripeClient::CLIENT_OPTIONS.to_h { |k| [k, nil] }
+        @old_api_key = Stripe.api_key
+        @old_stripe_account = Stripe.stripe_account
+        @old_enable_telemetry = Stripe.instance_variable_get(:@enable_telemetry)
+        @old_open_timeout = Stripe.open_timeout
+        @old_uploads_base = Stripe.uploads_base
+      end
+
+      teardown do
+        Stripe.api_key = @old_api_key
+        Stripe.stripe_account = @old_stripe_account
+        Stripe.enable_telemetry = @old_enable_telemetry
+        Stripe.open_timeout = @old_open_timeout
+        Stripe.uploads_base = @old_uploads_base
+      end
+
+      should "correctly set options for the client" do
+        # mix of default, global, client options
+        Stripe.api_key = "global_test_123"
+        Stripe.stripe_account = "global_acct_123"
+        Stripe.enable_telemetry = false
+        Stripe.open_timeout = 30000
+        Stripe.uploads_base = "global_uploads_base.stripe.com"
+
+        @client_opts[:api_key] = "client_test_123"
+        @client_opts[:stripe_account] = "client_acct_123"
+        @client_opts[:uploads_base] = "client_uploads_base.stripe.com"
+        @client_opts.reject! { |k, v| v.nil? }
+
+        client_config = Stripe::StripeConfiguration.client_init(@client_opts)
+
+        assert_equal("client_test_123", client_config.api_key) # client api key
+        assert_equal("client_acct_123", client_config.stripe_account) # client stripe account
+        assert_equal(false, client_config.enable_telemetry) # global telemetry
+        assert_equal(30000, client_config.open_timeout) # global timeout
+        assert_equal("client_uploads_base.stripe.com", client_config.base_addresses[:files]) # client uploads base
+        assert_equal(Stripe::DEFAULT_API_BASE, client_config.base_addresses[:api]) # default api base
+        assert_equal(ApiVersion::CURRENT, client_config.api_version) # default api version
+        assert_equal(Stripe::DEFAULT_CA_BUNDLE_PATH, client_config.ca_bundle_path) # default ca bundle path
+      end
+    end
+
     context "#max_network_retries=" do
       should "coerce the option into an integer" do
         config = Stripe::StripeConfiguration.setup

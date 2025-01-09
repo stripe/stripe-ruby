@@ -47,7 +47,6 @@ module Stripe
         client = StripeClient.new("test_123")
         assert_equal "test_123", client.instance_variable_get(:@requestor).config.api_key
         assert_nil client.instance_variable_get(:@requestor).config.stripe_account
-        assert_equal 30, client.instance_variable_get(:@requestor).config.open_timeout
       end
 
       should "use client config options" do

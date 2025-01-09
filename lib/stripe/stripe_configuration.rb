@@ -41,20 +41,16 @@ module Stripe
     # Otherwise, for user configurable global options, set them to the global configuration
     # For all other options, set them to the StripeConfiguration default value
     def self.client_init(config_opts)
-      global = Stripe.config
-      imported_options = Stripe::USER_CONFIGURABLE_GLOBAL_OPTIONS - StripeClient::CLIENT_OPTIONS
-      StripeConfiguration.setup do |instance|
+      global_config = Stripe.config
+      imported_options = USER_CONFIGURABLE_GLOBAL_OPTIONS - StripeClient::CLIENT_OPTIONS
+      client_config = StripeConfiguration.setup do |instance|
         imported_options.each do |key|
-          if global.respond_to?(key)
-            instance.public_send("#{key}=", global.public_send(key))
-          end
-        end
-        StripeClient::CLIENT_OPTIONS.each do |key|
-          if config_opts.include?(key)
-            instance.public_send("#{key}=", config_opts[key])
+          if global_config.respond_to?(key)
+            instance.public_send("#{key}=", global_config.public_send(key))
           end
         end
       end
+      client_config.reverse_duplicate_merge(config_opts)
     end
 
     # Create a new config based off an existing one. This is useful when the
@@ -88,7 +84,7 @@ module Stripe
       @connect_base = DEFAULT_CONNECT_BASE
       @uploads_base = DEFAULT_UPLOAD_BASE
       @meter_events_base = DEFAULT_METER_EVENTS_BASE
-      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base, events: @meter_events_base }
+      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base, meter_events: @meter_events_base }
     end
 
     def log_level=(val)

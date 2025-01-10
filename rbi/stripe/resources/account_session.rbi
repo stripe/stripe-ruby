@@ -105,6 +105,88 @@ module Stripe
         sig { returns(Features) }
         attr_reader :features
       end
+      class FinancialAccount < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          sig { returns(T::Boolean) }
+          attr_reader :disable_stripe_user_authentication
+          # Whether to allow external accounts to be linked for money transfer.
+          sig { returns(T::Boolean) }
+          attr_reader :external_account_collection
+          # Whether to allow sending money.
+          sig { returns(T::Boolean) }
+          attr_reader :send_money
+          # Whether to allow transferring balance.
+          sig { returns(T::Boolean) }
+          attr_reader :transfer_balance
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
+      class FinancialAccountTransactions < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow card spend dispute management features.
+          sig { returns(T::Boolean) }
+          attr_reader :card_spend_dispute_management
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
+      class IssuingCard < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow card management features.
+          sig { returns(T::Boolean) }
+          attr_reader :card_management
+          # Whether to allow card spend dispute management features.
+          sig { returns(T::Boolean) }
+          attr_reader :card_spend_dispute_management
+          # Whether to allow cardholder management features.
+          sig { returns(T::Boolean) }
+          attr_reader :cardholder_management
+          # Whether to allow spend control management features.
+          sig { returns(T::Boolean) }
+          attr_reader :spend_control_management
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
+      class IssuingCardsList < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow card management features.
+          sig { returns(T::Boolean) }
+          attr_reader :card_management
+          # Whether to allow card spend dispute management features.
+          sig { returns(T::Boolean) }
+          attr_reader :card_spend_dispute_management
+          # Whether to allow cardholder management features.
+          sig { returns(T::Boolean) }
+          attr_reader :cardholder_management
+          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts.
+          sig { returns(T::Boolean) }
+          attr_reader :disable_stripe_user_authentication
+          # Whether to allow spend control management features.
+          sig { returns(T::Boolean) }
+          attr_reader :spend_control_management
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
       class NotificationBanner < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
@@ -238,6 +320,18 @@ module Stripe
       # Attribute for field documents
       sig { returns(Documents) }
       attr_reader :documents
+      # Attribute for field financial_account
+      sig { returns(FinancialAccount) }
+      attr_reader :financial_account
+      # Attribute for field financial_account_transactions
+      sig { returns(FinancialAccountTransactions) }
+      attr_reader :financial_account_transactions
+      # Attribute for field issuing_card
+      sig { returns(IssuingCard) }
+      attr_reader :issuing_card
+      # Attribute for field issuing_cards_list
+      sig { returns(IssuingCardsList) }
+      attr_reader :issuing_cards_list
       # Attribute for field notification_banner
       sig { returns(NotificationBanner) }
       attr_reader :notification_banner
@@ -910,18 +1004,18 @@ module Stripe
         # Configuration for the documents embedded component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::Documents) }
         attr_accessor :documents
-        # Configuration for the financial account component.
+        # Configuration for the financial account embedded component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::FinancialAccount) }
         attr_accessor :financial_account
-        # Configuration for the financial account transactions component.
+        # Configuration for the financial account transactions embedded component.
         sig {
           returns(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions)
          }
         attr_accessor :financial_account_transactions
-        # Configuration for the issuing card component.
+        # Configuration for the issuing card embedded component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::IssuingCard) }
         attr_accessor :issuing_card
-        # Configuration for the issuing cards list component.
+        # Configuration for the issuing cards list embedded component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList) }
         attr_accessor :issuing_cards_list
         # Configuration for the notification banner embedded component.

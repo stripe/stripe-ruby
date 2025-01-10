@@ -95,6 +95,70 @@ module Stripe
         attr_reader :features
       end
 
+      class FinancialAccount < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+          attr_reader :disable_stripe_user_authentication
+          # Whether to allow external accounts to be linked for money transfer.
+          attr_reader :external_account_collection
+          # Whether to allow sending money.
+          attr_reader :send_money
+          # Whether to allow transferring balance.
+          attr_reader :transfer_balance
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
+      class FinancialAccountTransactions < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow card spend dispute management features.
+          attr_reader :card_spend_dispute_management
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
+      class IssuingCard < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow card management features.
+          attr_reader :card_management
+          # Whether to allow card spend dispute management features.
+          attr_reader :card_spend_dispute_management
+          # Whether to allow cardholder management features.
+          attr_reader :cardholder_management
+          # Whether to allow spend control management features.
+          attr_reader :spend_control_management
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
+      class IssuingCardsList < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow card management features.
+          attr_reader :card_management
+          # Whether to allow card spend dispute management features.
+          attr_reader :card_spend_dispute_management
+          # Whether to allow cardholder management features.
+          attr_reader :cardholder_management
+          # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts.
+          attr_reader :disable_stripe_user_authentication
+          # Whether to allow spend control management features.
+          attr_reader :spend_control_management
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
       class NotificationBanner < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
@@ -198,6 +262,14 @@ module Stripe
       attr_reader :capital_financing_promotion
       # Attribute for field documents
       attr_reader :documents
+      # Attribute for field financial_account
+      attr_reader :financial_account
+      # Attribute for field financial_account_transactions
+      attr_reader :financial_account_transactions
+      # Attribute for field issuing_card
+      attr_reader :issuing_card
+      # Attribute for field issuing_cards_list
+      attr_reader :issuing_cards_list
       # Attribute for field notification_banner
       attr_reader :notification_banner
       # Attribute for field payment_details
@@ -783,13 +855,13 @@ module Stripe
         attr_accessor :capital_overview
         # Configuration for the documents embedded component.
         attr_accessor :documents
-        # Configuration for the financial account component.
+        # Configuration for the financial account embedded component.
         attr_accessor :financial_account
-        # Configuration for the financial account transactions component.
+        # Configuration for the financial account transactions embedded component.
         attr_accessor :financial_account_transactions
-        # Configuration for the issuing card component.
+        # Configuration for the issuing card embedded component.
         attr_accessor :issuing_card
-        # Configuration for the issuing cards list component.
+        # Configuration for the issuing cards list embedded component.
         attr_accessor :issuing_cards_list
         # Configuration for the notification banner embedded component.
         attr_accessor :notification_banner

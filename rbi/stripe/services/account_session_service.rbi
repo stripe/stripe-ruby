@@ -656,18 +656,18 @@ module Stripe
         # Configuration for the documents embedded component.
         sig { returns(::Stripe::AccountSessionService::CreateParams::Components::Documents) }
         attr_accessor :documents
-        # Configuration for the financial account component.
+        # Configuration for the financial account embedded component.
         sig { returns(::Stripe::AccountSessionService::CreateParams::Components::FinancialAccount) }
         attr_accessor :financial_account
-        # Configuration for the financial account transactions component.
+        # Configuration for the financial account transactions embedded component.
         sig {
           returns(::Stripe::AccountSessionService::CreateParams::Components::FinancialAccountTransactions)
          }
         attr_accessor :financial_account_transactions
-        # Configuration for the issuing card component.
+        # Configuration for the issuing card embedded component.
         sig { returns(::Stripe::AccountSessionService::CreateParams::Components::IssuingCard) }
         attr_accessor :issuing_card
-        # Configuration for the issuing cards list component.
+        # Configuration for the issuing cards list embedded component.
         sig { returns(::Stripe::AccountSessionService::CreateParams::Components::IssuingCardsList) }
         attr_accessor :issuing_cards_list
         # Configuration for the notification banner embedded component.

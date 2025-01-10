@@ -572,13 +572,13 @@ module Stripe
         attr_accessor :capital_overview
         # Configuration for the documents embedded component.
         attr_accessor :documents
-        # Configuration for the financial account component.
+        # Configuration for the financial account embedded component.
         attr_accessor :financial_account
-        # Configuration for the financial account transactions component.
+        # Configuration for the financial account transactions embedded component.
         attr_accessor :financial_account_transactions
-        # Configuration for the issuing card component.
+        # Configuration for the issuing card embedded component.
         attr_accessor :issuing_card
-        # Configuration for the issuing cards list component.
+        # Configuration for the issuing cards list embedded component.
         attr_accessor :issuing_cards_list
         # Configuration for the notification banner embedded component.
         attr_accessor :notification_banner

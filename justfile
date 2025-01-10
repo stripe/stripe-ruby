@@ -8,19 +8,25 @@ _default:
 install *args:
     bundle install {{ if is_dependency() == "true" {"--quiet"} else {""} }} {{ args }}
 
-# mass-format files
-format: install
-    bundle exec rubocop -o /dev/null --autocorrect
-
+# ⭐ run all unit tests
 test: install
     bundle exec rake test
 
-lint: install
-    bundle exec rake rubocop
+# check linting / formatting status of files
+format-check *args: install
+    bundle exec rubocop {{ args }}
+alias lint-check := format-check
+
+# ⭐ check style & formatting for all files, fixing what we can
+lint: (format-check "--autocorrect")
+
+# copy of `lint` with less output
+format: (format-check "--format quiet --autocorrect")
 
 update-certs: install
     bundle exec rake update_certs
 
+# run sorbet to check type definitions
 typecheck:
     {{ if semver_matches(`ruby -e "puts RUBY_VERSION"`, ">=2.7") == "true" { \
         "bundle exec srb tc" \

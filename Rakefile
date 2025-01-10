@@ -8,6 +8,7 @@ Rake::TestTask.new do |t|
   t.pattern = "./test/**/*_test.rb"
 end
 
+# I think we can remove this; we'll run rubocop directly
 if RUBY_VERSION >= "2.7.0"
   require "rubocop/rake_task"
   RuboCop::RakeTask.new

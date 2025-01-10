@@ -394,7 +394,7 @@ Run the linter:
 
 ```sh
 just lint
-# or: bundle exec rake rubocop
+# or: bundle exec rubocop
 ```
 
 Update bundled CA certificates from the [Mozilla cURL release][curl]:

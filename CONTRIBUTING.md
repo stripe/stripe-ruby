@@ -4,7 +4,7 @@ We welcome contributions and suggestions to this project. Your contributions can
 
 Once you have submitted a pull request, sign the Contributor License Agreement (CLA) by clicking on the badge in the comment from @CLAassistant.
 
-Please also make sure that any pull request has a corresponding issue filled out with the necessary context. [Click here to create one](issues/new/choose).
+Please also make sure that any pull request has a corresponding issue filled out with the necessary context. [Click here to create one](https://www.github.com/stripe/stripe-ruby/issues/new/choose).
 
 ## Generated code
 

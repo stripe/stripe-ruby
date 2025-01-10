@@ -15,6 +15,12 @@ format: install
 test: install
     bundle exec rake test
 
+lint: install
+    bundle exec rake rubocop
+
+update-certs: install
+    bundle exec rake update_certs
+
 typecheck:
     {{ if semver_matches(`ruby -e "puts RUBY_VERSION"`, ">=2.7") == "true" { \
         "bundle exec srb tc" \

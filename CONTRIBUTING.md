@@ -8,11 +8,11 @@ Please also make sure that any pull request has a corresponding issue filled out
 
 ## Generated code
 
-This project has a combination of hand-written code and code generated from our private code generator. Any generated files will have a comment that says "File generated from our OpenAPI spec." Generated blocks of code within hand-written files will be between a comments that says "The beginning of the section generated from our OpenAPI spec" and "The end of the section generated from our OpenAPI spec". If your contribution involves changes to generated code, please call this out in the issue or PR as we will likely need to make a change to our code generator before accepting the contribution.
+This project has a combination of hand-written code and code generated from our private code generator. Any generated files will have a comment that says `File generated from our OpenAPI spec.` Generated blocks of code within hand-written files will be between a comments that says `The beginning of the section generated from our OpenAPI spec` and `The end of the section generated from our OpenAPI spec`. If your contribution involves changes to generated code, please call this out in the issue or pull request as we will likely need to make a change to our code generator before accepting the contribution.
 
-## Supported platforms
+## Compatibility with supported platforms
 
-This project supports a range of platform versions. Contributions are expected to support the same platform versions. If your contribution uses a platform API that is only available in newer versions, try to identify a polyfill or legacy library that will ensure it supports older versions. We are unable to accept contributions that change the platform versions this project supports.
+This project supports a wide range of platform versions, and we are unable to accept any contribution that only works on a subset of these versions. If your contribution needs to use a platform API or feature that is only available in some of the supported versions, please call this out explicitly in the issue or pull request. We will do our best to figure out how to help you out here, or plan to accept your pull request later when we can drop support for older versions.
 
 ## Set up your dev environment
 

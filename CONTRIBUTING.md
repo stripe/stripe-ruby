@@ -4,7 +4,7 @@ We welcome contributions and suggestions to this project. Your contributions can
 
 Once you have submitted a pull request, sign the Contributor License Agreement (CLA) by clicking on the badge in the comment from @CLAassistant.
 
-Please also make sure that any pull request has a corresponding issue filled out with the necessary context. [Click here to create one](/issues/new/choose).
+Please also make sure that any pull request has a corresponding issue filled out with the necessary context. [Click here to create one](issues/new/choose).
 
 ## Generated code
 
@@ -12,4 +12,4 @@ This project has a combination of hand-written code and code generated from our 
 
 ## Set up your dev environment
 
-Please refer to this project's [README.md](/README.md#development) for instructions on how to set up your development environment.
+Please refer to this project's [README.md](README.md#development) for instructions on how to set up your development environment.

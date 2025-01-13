@@ -1543,7 +1543,6 @@ module Stripe
         stub_request(:any, /.*/)
           .with do |req|
             metrics_header = req.headers["X-Stripe-Client-Telemetry"]
-            puts JSON.parse(metrics_header)["last_request_metrics"]["request_id"] unless metrics_header.nil?
             metrics.push(JSON.parse(metrics_header)["last_request_metrics"]["request_id"]) if metrics_header
 
             true

@@ -96,6 +96,7 @@ module Stripe
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
           assert_equal "2022-02-15T00:27:45.330Z", event.created
+          assert_nil event.reason
         end
 
         should "parse v2 events with livemode and reason" do
@@ -106,9 +107,9 @@ module Stripe
           assert_equal "2022-02-15T00:27:45.330Z", event.created
           assert_true event.livemode
           assert_not_nil event.reason
-          assert_equal "a.b.c", event.reason[:type]
-          assert_equal "r_123", event.reason[:request][:id]
-          assert_equal "key", event.reason[:request][:idempotency_key]
+          assert_equal "a.b.c", event.reason.type
+          assert_equal "r_123", event.reason.request.id
+          assert_equal "key", event.reason.request.idempotency_key
         end
 
         should "raise a JSON::ParserError from an invalid JSON payload" do

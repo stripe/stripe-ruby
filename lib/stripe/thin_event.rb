@@ -2,7 +2,7 @@
 
 module Stripe
   class ThinEvent
-    attr_reader :id, :type, :created, :context, :related_object
+    attr_reader :id, :type, :created, :context, :related_object, :livemode, :reason
 
     def initialize(event_payload = {})
       @id = event_payload[:id]

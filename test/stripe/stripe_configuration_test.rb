@@ -99,7 +99,7 @@ module Stripe
 
     context "client_init" do
       setup do
-        @client_opts = StripeClient::CLIENT_OPTIONS.to_h { |k| [k, nil] }
+        @client_opts = Hash[StripeClient::CLIENT_OPTIONS.map { |k| [k, nil] }]
         @old_api_key = Stripe.api_key
         @old_stripe_account = Stripe.stripe_account
         @old_enable_telemetry = Stripe.instance_variable_get(:@enable_telemetry)

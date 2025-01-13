@@ -99,7 +99,7 @@ module Stripe
 
     context "client_init" do
       setup do
-        @client_opts = Hash[StripeClient::CLIENT_OPTIONS.map { |k| [k, nil] }]
+        @client_opts = Hash[StripeClient::CLIENT_OPTIONS.map { |k| [k, nil] }] # rubocop:todo Style/HashConversion - necessary for Ruby <= 2.5
         @old_api_key = Stripe.api_key
         @old_stripe_account = Stripe.stripe_account
         @old_enable_telemetry = Stripe.instance_variable_get(:@enable_telemetry)

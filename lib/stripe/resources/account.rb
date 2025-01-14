@@ -172,6 +172,8 @@ module Stripe
       attr_reader :oxxo_payments
       # The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
       attr_reader :p24_payments
+      # The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
+      attr_reader :pay_by_bank_payments
       # The status of the Payco capability of the account, or whether the account can directly process Payco payments.
       attr_reader :payco_payments
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
@@ -1178,6 +1180,15 @@ module Stripe
           end
         end
 
+        class PayByBankPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaycoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1484,6 +1495,8 @@ module Stripe
         attr_accessor :oxxo_payments
         # The p24_payments capability.
         attr_accessor :p24_payments
+        # The pay_by_bank_payments capability.
+        attr_accessor :pay_by_bank_payments
         # The payco_payments capability.
         attr_accessor :payco_payments
         # The paynow_payments capability.
@@ -1577,6 +1590,7 @@ module Stripe
           naver_pay_payments: nil,
           oxxo_payments: nil,
           p24_payments: nil,
+          pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
@@ -1644,6 +1658,7 @@ module Stripe
           @naver_pay_payments = naver_pay_payments
           @oxxo_payments = oxxo_payments
           @p24_payments = p24_payments
+          @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
@@ -3316,6 +3331,15 @@ module Stripe
           end
         end
 
+        class PayByBankPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaycoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3622,6 +3646,8 @@ module Stripe
         attr_accessor :oxxo_payments
         # The p24_payments capability.
         attr_accessor :p24_payments
+        # The pay_by_bank_payments capability.
+        attr_accessor :pay_by_bank_payments
         # The payco_payments capability.
         attr_accessor :payco_payments
         # The paynow_payments capability.
@@ -3715,6 +3741,7 @@ module Stripe
           naver_pay_payments: nil,
           oxxo_payments: nil,
           p24_payments: nil,
+          pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
@@ -3782,6 +3809,7 @@ module Stripe
           @naver_pay_payments = naver_pay_payments
           @oxxo_payments = oxxo_payments
           @p24_payments = p24_payments
+          @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments

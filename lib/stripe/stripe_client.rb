@@ -10,6 +10,10 @@ module Stripe
 
     # attr_readers: The end of the section generated from our OpenAPI spec
 
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    CLIENT_OPTIONS = Set.new(%i[api_key stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
+
     # Initializes a new StripeClient
     def initialize(api_key,
                    stripe_account: nil,
@@ -40,7 +44,8 @@ module Stripe
         client_id: client_id,
       }.reject { |_k, v| v.nil? }
 
-      @requestor = APIRequestor.new(config_opts)
+      config = StripeConfiguration.client_init(config_opts)
+      @requestor = APIRequestor.new(config)
 
       # top-level services: The beginning of the section generated from our OpenAPI spec
       @v1 = Stripe::V1Services.new(@requestor)

@@ -552,6 +552,20 @@ module Stripe
             @features = features
           end
         end
+
+        class TaxThresholdMonitoring < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
         # Configuration for the account management embedded component.
         attr_accessor :account_management
         # Configuration for the account onboarding embedded component.
@@ -600,6 +614,8 @@ module Stripe
         attr_accessor :tax_registrations
         # Configuration for the tax settings embedded component.
         attr_accessor :tax_settings
+        # Configuration for the tax threshold monitoring embedded component.
+        attr_accessor :tax_threshold_monitoring
 
         def initialize(
           account_management: nil,
@@ -625,7 +641,8 @@ module Stripe
           recipients: nil,
           reporting_chart: nil,
           tax_registrations: nil,
-          tax_settings: nil
+          tax_settings: nil,
+          tax_threshold_monitoring: nil
         )
           @account_management = account_management
           @account_onboarding = account_onboarding
@@ -651,6 +668,7 @@ module Stripe
           @reporting_chart = reporting_chart
           @tax_registrations = tax_registrations
           @tax_settings = tax_settings
+          @tax_threshold_monitoring = tax_threshold_monitoring
         end
       end
       # The identifier of the account to create an Account Session for.

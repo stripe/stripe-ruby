@@ -970,6 +970,23 @@ module Stripe
            }
           def initialize(enabled: nil, features: nil); end
         end
+        class TaxThresholdMonitoring < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+
+          end
+          # Whether the embedded component is enabled.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          sig {
+            returns(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring::Features)
+           }
+          attr_accessor :features
+          sig {
+            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring::Features).void
+           }
+          def initialize(enabled: nil, features: nil); end
+        end
         # Configuration for the account management embedded component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::AccountManagement) }
         attr_accessor :account_management
@@ -1048,8 +1065,11 @@ module Stripe
         # Configuration for the tax settings embedded component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::TaxSettings) }
         attr_accessor :tax_settings
+        # Configuration for the tax threshold monitoring embedded component.
+        sig { returns(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring) }
+        attr_accessor :tax_threshold_monitoring
         sig {
-          params(account_management: ::Stripe::AccountSession::CreateParams::Components::AccountManagement, account_onboarding: ::Stripe::AccountSession::CreateParams::Components::AccountOnboarding, app_install: ::Stripe::AccountSession::CreateParams::Components::AppInstall, app_viewport: ::Stripe::AccountSession::CreateParams::Components::AppViewport, balances: ::Stripe::AccountSession::CreateParams::Components::Balances, capital_financing: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancing, capital_financing_application: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication, capital_financing_promotion: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion, capital_overview: ::Stripe::AccountSession::CreateParams::Components::CapitalOverview, documents: ::Stripe::AccountSession::CreateParams::Components::Documents, financial_account: ::Stripe::AccountSession::CreateParams::Components::FinancialAccount, financial_account_transactions: ::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions, issuing_card: ::Stripe::AccountSession::CreateParams::Components::IssuingCard, issuing_cards_list: ::Stripe::AccountSession::CreateParams::Components::IssuingCardsList, notification_banner: ::Stripe::AccountSession::CreateParams::Components::NotificationBanner, payment_details: ::Stripe::AccountSession::CreateParams::Components::PaymentDetails, payment_method_settings: ::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings, payments: ::Stripe::AccountSession::CreateParams::Components::Payments, payouts: ::Stripe::AccountSession::CreateParams::Components::Payouts, payouts_list: ::Stripe::AccountSession::CreateParams::Components::PayoutsList, recipients: ::Stripe::AccountSession::CreateParams::Components::Recipients, reporting_chart: ::Stripe::AccountSession::CreateParams::Components::ReportingChart, tax_registrations: ::Stripe::AccountSession::CreateParams::Components::TaxRegistrations, tax_settings: ::Stripe::AccountSession::CreateParams::Components::TaxSettings).void
+          params(account_management: ::Stripe::AccountSession::CreateParams::Components::AccountManagement, account_onboarding: ::Stripe::AccountSession::CreateParams::Components::AccountOnboarding, app_install: ::Stripe::AccountSession::CreateParams::Components::AppInstall, app_viewport: ::Stripe::AccountSession::CreateParams::Components::AppViewport, balances: ::Stripe::AccountSession::CreateParams::Components::Balances, capital_financing: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancing, capital_financing_application: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication, capital_financing_promotion: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion, capital_overview: ::Stripe::AccountSession::CreateParams::Components::CapitalOverview, documents: ::Stripe::AccountSession::CreateParams::Components::Documents, financial_account: ::Stripe::AccountSession::CreateParams::Components::FinancialAccount, financial_account_transactions: ::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions, issuing_card: ::Stripe::AccountSession::CreateParams::Components::IssuingCard, issuing_cards_list: ::Stripe::AccountSession::CreateParams::Components::IssuingCardsList, notification_banner: ::Stripe::AccountSession::CreateParams::Components::NotificationBanner, payment_details: ::Stripe::AccountSession::CreateParams::Components::PaymentDetails, payment_method_settings: ::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings, payments: ::Stripe::AccountSession::CreateParams::Components::Payments, payouts: ::Stripe::AccountSession::CreateParams::Components::Payouts, payouts_list: ::Stripe::AccountSession::CreateParams::Components::PayoutsList, recipients: ::Stripe::AccountSession::CreateParams::Components::Recipients, reporting_chart: ::Stripe::AccountSession::CreateParams::Components::ReportingChart, tax_registrations: ::Stripe::AccountSession::CreateParams::Components::TaxRegistrations, tax_settings: ::Stripe::AccountSession::CreateParams::Components::TaxSettings, tax_threshold_monitoring: ::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring).void
          }
         def initialize(
           account_management: nil,
@@ -1075,7 +1095,8 @@ module Stripe
           recipients: nil,
           reporting_chart: nil,
           tax_registrations: nil,
-          tax_settings: nil
+          tax_settings: nil,
+          tax_threshold_monitoring: nil
         ); end
       end
       # The identifier of the account to create an Account Session for.

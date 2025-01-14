@@ -12,6 +12,14 @@
     * Add method parameter classes for all resources and service methods.
     * These changes are NOT breaking and are purely additive. The method parameter classes are not required, we still accept hashes as well as the new `RequestParams` classes. Any additional gated parameters are still available to pass via hash. Resource fields define publicly documented fields and other deserialized fields are still accessible.
 
+## 13.3.1 - 2025-01-13
+* [#1512](https://github.com/stripe/stripe-ruby/pull/1512) Import global configuration for options not available on StripeClient options
+  * Fixes bug where `StripeClient` was not falling back to global options for options that are not available to be set per-client
+* [#1516](https://github.com/stripe/stripe-ruby/pull/1516) ThinEvent reason and livemode
+  - Add `livemode` and optional `reason` fields to ThinEvent
+* [#1518](https://github.com/stripe/stripe-ruby/pull/1518) Pin ubuntu version in Test action
+* [#1508](https://github.com/stripe/stripe-ruby/pull/1508) Added pull request template
+
 ## 13.3.0 - 2024-12-18
 * [#1500](https://github.com/stripe/stripe-ruby/pull/1500) This release changes the pinned API version to `2024-12-18.acacia`.
 

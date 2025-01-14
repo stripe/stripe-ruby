@@ -273,6 +273,13 @@ module Stripe
         attr_reader :tax_ids
       end
 
+      class Discount < Stripe::StripeObject
+        # Coupon attached to the Checkout Session.
+        attr_reader :coupon
+        # Promotion code attached to the Checkout Session.
+        attr_reader :promotion_code
+      end
+
       class InvoiceCreation < Stripe::StripeObject
         class InvoiceData < Stripe::StripeObject
           class CustomField < Stripe::StripeObject
@@ -3600,6 +3607,8 @@ module Stripe
       # on file. To access information about the customer once the payment flow is
       # complete, use the `customer` attribute.
       attr_reader :customer_email
+      # List of coupons and promotion codes attached to the Checkout Session.
+      attr_reader :discounts
       # The timestamp at which the Checkout Session will expire.
       attr_reader :expires_at
       # Unique identifier for the object.

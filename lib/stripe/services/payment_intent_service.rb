@@ -1034,6 +1034,9 @@ module Stripe
           end
         end
 
+        class PayByBank < Stripe::RequestParams
+        end
+
         class Payco < Stripe::RequestParams
         end
 
@@ -1234,6 +1237,8 @@ module Stripe
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         attr_accessor :p24
+        # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        attr_accessor :pay_by_bank
         # If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         attr_accessor :payco
         # If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
@@ -1311,6 +1316,7 @@ module Stripe
           naver_pay: nil,
           oxxo: nil,
           p24: nil,
+          pay_by_bank: nil,
           payco: nil,
           paynow: nil,
           paypal: nil,
@@ -1367,6 +1373,7 @@ module Stripe
           @naver_pay = naver_pay
           @oxxo = oxxo
           @p24 = p24
+          @pay_by_bank = pay_by_bank
           @payco = payco
           @paynow = paynow
           @paypal = paypal
@@ -2409,6 +2416,9 @@ module Stripe
           end
         end
 
+        class PayByBank < Stripe::RequestParams
+        end
+
         class Payco < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
@@ -2992,6 +3002,8 @@ module Stripe
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
         attr_accessor :p24
+        # If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
+        attr_accessor :pay_by_bank
         # If this is a `payco` PaymentMethod, this sub-hash contains details about the PAYCO payment method options.
         attr_accessor :payco
         # If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
@@ -3064,6 +3076,7 @@ module Stripe
           naver_pay: nil,
           oxxo: nil,
           p24: nil,
+          pay_by_bank: nil,
           payco: nil,
           paynow: nil,
           paypal: nil,
@@ -3117,6 +3130,7 @@ module Stripe
           @naver_pay = naver_pay
           @oxxo = oxxo
           @p24 = p24
+          @pay_by_bank = pay_by_bank
           @payco = payco
           @paynow = paynow
           @paypal = paypal
@@ -4355,6 +4369,9 @@ module Stripe
           end
         end
 
+        class PayByBank < Stripe::RequestParams
+        end
+
         class Payco < Stripe::RequestParams
         end
 
@@ -4555,6 +4572,8 @@ module Stripe
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         attr_accessor :p24
+        # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        attr_accessor :pay_by_bank
         # If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         attr_accessor :payco
         # If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
@@ -4632,6 +4651,7 @@ module Stripe
           naver_pay: nil,
           oxxo: nil,
           p24: nil,
+          pay_by_bank: nil,
           payco: nil,
           paynow: nil,
           paypal: nil,
@@ -4688,6 +4708,7 @@ module Stripe
           @naver_pay = naver_pay
           @oxxo = oxxo
           @p24 = p24
+          @pay_by_bank = pay_by_bank
           @payco = payco
           @paynow = paynow
           @paypal = paypal
@@ -5730,6 +5751,9 @@ module Stripe
           end
         end
 
+        class PayByBank < Stripe::RequestParams
+        end
+
         class Payco < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
@@ -6313,6 +6337,8 @@ module Stripe
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
         attr_accessor :p24
+        # If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
+        attr_accessor :pay_by_bank
         # If this is a `payco` PaymentMethod, this sub-hash contains details about the PAYCO payment method options.
         attr_accessor :payco
         # If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
@@ -6385,6 +6411,7 @@ module Stripe
           naver_pay: nil,
           oxxo: nil,
           p24: nil,
+          pay_by_bank: nil,
           payco: nil,
           paynow: nil,
           paypal: nil,
@@ -6438,6 +6465,7 @@ module Stripe
           @naver_pay = naver_pay
           @oxxo = oxxo
           @p24 = p24
+          @pay_by_bank = pay_by_bank
           @payco = payco
           @paynow = paynow
           @paypal = paypal
@@ -8396,6 +8424,9 @@ module Stripe
           end
         end
 
+        class PayByBank < Stripe::RequestParams
+        end
+
         class Payco < Stripe::RequestParams
         end
 
@@ -8596,6 +8627,8 @@ module Stripe
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         attr_accessor :p24
+        # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        attr_accessor :pay_by_bank
         # If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         attr_accessor :payco
         # If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
@@ -8673,6 +8706,7 @@ module Stripe
           naver_pay: nil,
           oxxo: nil,
           p24: nil,
+          pay_by_bank: nil,
           payco: nil,
           paynow: nil,
           paypal: nil,
@@ -8729,6 +8763,7 @@ module Stripe
           @naver_pay = naver_pay
           @oxxo = oxxo
           @p24 = p24
+          @pay_by_bank = pay_by_bank
           @payco = payco
           @paynow = paynow
           @paypal = paypal
@@ -9771,6 +9806,9 @@ module Stripe
           end
         end
 
+        class PayByBank < Stripe::RequestParams
+        end
+
         class Payco < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
@@ -10354,6 +10392,8 @@ module Stripe
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
         attr_accessor :p24
+        # If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
+        attr_accessor :pay_by_bank
         # If this is a `payco` PaymentMethod, this sub-hash contains details about the PAYCO payment method options.
         attr_accessor :payco
         # If this is a `paynow` PaymentMethod, this sub-hash contains details about the PayNow payment method options.
@@ -10426,6 +10466,7 @@ module Stripe
           naver_pay: nil,
           oxxo: nil,
           p24: nil,
+          pay_by_bank: nil,
           payco: nil,
           paynow: nil,
           paypal: nil,
@@ -10479,6 +10520,7 @@ module Stripe
           @naver_pay = naver_pay
           @oxxo = oxxo
           @p24 = p24
+          @pay_by_bank = pay_by_bank
           @payco = payco
           @paynow = paynow
           @paypal = paypal

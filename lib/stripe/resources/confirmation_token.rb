@@ -566,6 +566,7 @@ module Stripe
         attr_reader :bank
       end
 
+      class PayByBank < Stripe::StripeObject; end
       class Payco < Stripe::StripeObject; end
       class Paynow < Stripe::StripeObject; end
 
@@ -760,6 +761,8 @@ module Stripe
       attr_reader :oxxo
       # Attribute for field p24
       attr_reader :p24
+      # Attribute for field pay_by_bank
+      attr_reader :pay_by_bank
       # Attribute for field payco
       attr_reader :payco
       # Attribute for field paynow
@@ -1073,6 +1076,9 @@ module Stripe
           end
         end
 
+        class PayByBank < Stripe::RequestParams
+        end
+
         class Payco < Stripe::RequestParams
         end
 
@@ -1273,6 +1279,8 @@ module Stripe
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         attr_accessor :p24
+        # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        attr_accessor :pay_by_bank
         # If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
         attr_accessor :payco
         # If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
@@ -1350,6 +1358,7 @@ module Stripe
           naver_pay: nil,
           oxxo: nil,
           p24: nil,
+          pay_by_bank: nil,
           payco: nil,
           paynow: nil,
           paypal: nil,
@@ -1406,6 +1415,7 @@ module Stripe
           @naver_pay = naver_pay
           @oxxo = oxxo
           @p24 = p24
+          @pay_by_bank = pay_by_bank
           @payco = payco
           @paynow = paynow
           @paypal = paypal

@@ -831,6 +831,8 @@ module Stripe
         attr_reader :verified_name
       end
 
+      class PayByBank < Stripe::StripeObject; end
+
       class Payco < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         attr_reader :buyer_id
@@ -1125,6 +1127,8 @@ module Stripe
       attr_reader :oxxo
       # Attribute for field p24
       attr_reader :p24
+      # Attribute for field pay_by_bank
+      attr_reader :pay_by_bank
       # Attribute for field payco
       attr_reader :payco
       # Attribute for field paynow

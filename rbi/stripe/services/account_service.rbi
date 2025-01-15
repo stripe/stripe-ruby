@@ -1111,6 +1111,19 @@ module Stripe
             town: nil
           ); end
         end
+        class DirectorshipDeclaration < Stripe::RequestParams
+          # The Unix timestamp marking when the directorship declaration attestation was made.
+          sig { returns(Integer) }
+          attr_accessor :date
+          # The IP address from which the directorship declaration attestation was made.
+          sig { returns(String) }
+          attr_accessor :ip
+          # The user agent of the browser from which the directorship declaration attestation was made.
+          sig { returns(String) }
+          attr_accessor :user_agent
+          sig { params(date: Integer, ip: String, user_agent: String).void }
+          def initialize(date: nil, ip: nil, user_agent: nil); end
+        end
         class OwnershipDeclaration < Stripe::RequestParams
           # The Unix timestamp marking when the beneficial owner attestation was made.
           sig { returns(Integer) }
@@ -1155,6 +1168,9 @@ module Stripe
         # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         sig { returns(T::Boolean) }
         attr_accessor :directors_provided
+        # This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        sig { returns(::Stripe::AccountService::UpdateParams::Company::DirectorshipDeclaration) }
+        attr_accessor :directorship_declaration
         # Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](/api/persons) for accounts with a `relationship.executive` requirement.
         sig { returns(T::Boolean) }
         attr_accessor :executives_provided
@@ -1204,13 +1220,14 @@ module Stripe
         sig { returns(::Stripe::AccountService::UpdateParams::Company::Verification) }
         attr_accessor :verification
         sig {
-          params(address: ::Stripe::AccountService::UpdateParams::Company::Address, address_kana: ::Stripe::AccountService::UpdateParams::Company::AddressKana, address_kanji: ::Stripe::AccountService::UpdateParams::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::AccountService::UpdateParams::Company::OwnershipDeclaration, ownership_exemption_reason: T.nilable(String), phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::AccountService::UpdateParams::Company::Verification).void
+          params(address: ::Stripe::AccountService::UpdateParams::Company::Address, address_kana: ::Stripe::AccountService::UpdateParams::Company::AddressKana, address_kanji: ::Stripe::AccountService::UpdateParams::Company::AddressKanji, directors_provided: T::Boolean, directorship_declaration: ::Stripe::AccountService::UpdateParams::Company::DirectorshipDeclaration, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::AccountService::UpdateParams::Company::OwnershipDeclaration, ownership_exemption_reason: T.nilable(String), phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::AccountService::UpdateParams::Company::Verification).void
          }
         def initialize(
           address: nil,
           address_kana: nil,
           address_kanji: nil,
           directors_provided: nil,
+          directorship_declaration: nil,
           executives_provided: nil,
           export_license_id: nil,
           export_purpose_code: nil,
@@ -3153,6 +3170,19 @@ module Stripe
             town: nil
           ); end
         end
+        class DirectorshipDeclaration < Stripe::RequestParams
+          # The Unix timestamp marking when the directorship declaration attestation was made.
+          sig { returns(Integer) }
+          attr_accessor :date
+          # The IP address from which the directorship declaration attestation was made.
+          sig { returns(String) }
+          attr_accessor :ip
+          # The user agent of the browser from which the directorship declaration attestation was made.
+          sig { returns(String) }
+          attr_accessor :user_agent
+          sig { params(date: Integer, ip: String, user_agent: String).void }
+          def initialize(date: nil, ip: nil, user_agent: nil); end
+        end
         class OwnershipDeclaration < Stripe::RequestParams
           # The Unix timestamp marking when the beneficial owner attestation was made.
           sig { returns(Integer) }
@@ -3197,6 +3227,9 @@ module Stripe
         # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         sig { returns(T::Boolean) }
         attr_accessor :directors_provided
+        # This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        sig { returns(::Stripe::AccountService::CreateParams::Company::DirectorshipDeclaration) }
+        attr_accessor :directorship_declaration
         # Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](/api/persons) for accounts with a `relationship.executive` requirement.
         sig { returns(T::Boolean) }
         attr_accessor :executives_provided
@@ -3246,13 +3279,14 @@ module Stripe
         sig { returns(::Stripe::AccountService::CreateParams::Company::Verification) }
         attr_accessor :verification
         sig {
-          params(address: ::Stripe::AccountService::CreateParams::Company::Address, address_kana: ::Stripe::AccountService::CreateParams::Company::AddressKana, address_kanji: ::Stripe::AccountService::CreateParams::Company::AddressKanji, directors_provided: T::Boolean, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::AccountService::CreateParams::Company::OwnershipDeclaration, ownership_exemption_reason: T.nilable(String), phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::AccountService::CreateParams::Company::Verification).void
+          params(address: ::Stripe::AccountService::CreateParams::Company::Address, address_kana: ::Stripe::AccountService::CreateParams::Company::AddressKana, address_kanji: ::Stripe::AccountService::CreateParams::Company::AddressKanji, directors_provided: T::Boolean, directorship_declaration: ::Stripe::AccountService::CreateParams::Company::DirectorshipDeclaration, executives_provided: T::Boolean, export_license_id: String, export_purpose_code: String, name: String, name_kana: String, name_kanji: String, owners_provided: T::Boolean, ownership_declaration: ::Stripe::AccountService::CreateParams::Company::OwnershipDeclaration, ownership_exemption_reason: T.nilable(String), phone: String, registration_number: String, structure: T.nilable(String), tax_id: String, tax_id_registrar: String, vat_id: String, verification: ::Stripe::AccountService::CreateParams::Company::Verification).void
          }
         def initialize(
           address: nil,
           address_kana: nil,
           address_kanji: nil,
           directors_provided: nil,
+          directorship_declaration: nil,
           executives_provided: nil,
           export_license_id: nil,
           export_purpose_code: nil,

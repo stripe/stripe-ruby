@@ -1871,6 +1871,21 @@ module Stripe
           end
         end
 
+        class DirectorshipDeclaration < Stripe::RequestParams
+          # The Unix timestamp marking when the directorship declaration attestation was made.
+          attr_accessor :date
+          # The IP address from which the directorship declaration attestation was made.
+          attr_accessor :ip
+          # The user agent of the browser from which the directorship declaration attestation was made.
+          attr_accessor :user_agent
+
+          def initialize(date: nil, ip: nil, user_agent: nil)
+            @date = date
+            @ip = ip
+            @user_agent = user_agent
+          end
+        end
+
         class OwnershipDeclaration < Stripe::RequestParams
           # The Unix timestamp marking when the beneficial owner attestation was made.
           attr_accessor :date
@@ -1913,6 +1928,8 @@ module Stripe
         attr_accessor :address_kanji
         # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         attr_accessor :directors_provided
+        # This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        attr_accessor :directorship_declaration
         # Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](/api/persons) for accounts with a `relationship.executive` requirement.
         attr_accessor :executives_provided
         # The export license ID number of the company, also referred as Import Export Code (India only).
@@ -1951,6 +1968,7 @@ module Stripe
           address_kana: nil,
           address_kanji: nil,
           directors_provided: nil,
+          directorship_declaration: nil,
           executives_provided: nil,
           export_license_id: nil,
           export_purpose_code: nil,
@@ -1972,6 +1990,7 @@ module Stripe
           @address_kana = address_kana
           @address_kanji = address_kanji
           @directors_provided = directors_provided
+          @directorship_declaration = directorship_declaration
           @executives_provided = executives_provided
           @export_license_id = export_license_id
           @export_purpose_code = export_purpose_code
@@ -4022,6 +4041,21 @@ module Stripe
           end
         end
 
+        class DirectorshipDeclaration < Stripe::RequestParams
+          # The Unix timestamp marking when the directorship declaration attestation was made.
+          attr_accessor :date
+          # The IP address from which the directorship declaration attestation was made.
+          attr_accessor :ip
+          # The user agent of the browser from which the directorship declaration attestation was made.
+          attr_accessor :user_agent
+
+          def initialize(date: nil, ip: nil, user_agent: nil)
+            @date = date
+            @ip = ip
+            @user_agent = user_agent
+          end
+        end
+
         class OwnershipDeclaration < Stripe::RequestParams
           # The Unix timestamp marking when the beneficial owner attestation was made.
           attr_accessor :date
@@ -4064,6 +4098,8 @@ module Stripe
         attr_accessor :address_kanji
         # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         attr_accessor :directors_provided
+        # This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        attr_accessor :directorship_declaration
         # Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](/api/persons) for accounts with a `relationship.executive` requirement.
         attr_accessor :executives_provided
         # The export license ID number of the company, also referred as Import Export Code (India only).
@@ -4102,6 +4138,7 @@ module Stripe
           address_kana: nil,
           address_kanji: nil,
           directors_provided: nil,
+          directorship_declaration: nil,
           executives_provided: nil,
           export_license_id: nil,
           export_purpose_code: nil,
@@ -4123,6 +4160,7 @@ module Stripe
           @address_kana = address_kana
           @address_kanji = address_kanji
           @directors_provided = directors_provided
+          @directorship_declaration = directorship_declaration
           @executives_provided = executives_provided
           @export_license_id = export_license_id
           @export_purpose_code = export_purpose_code

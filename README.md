@@ -362,6 +362,8 @@ New features and bug fixes are released on the latest major version of the Strip
 
 ## Development
 
+[Contribution guidelines for this project](CONTRIBUTING.md)
+
 The test suite depends on [stripe-mock], so make sure to fetch and run it from a
 background terminal ([stripe-mock's README][stripe-mock] also contains
 instructions for installing via Homebrew and other methods):

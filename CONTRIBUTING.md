@@ -1,10 +1,12 @@
 # Contributing
 
-We welcome contributions and suggestions to this project. Your contributions can be code changes in a pull request or reporting bugs and feature requests.
+We welcome bug reports, feature requests, and code contributions in a pull request.
 
-Once you have submitted a pull request, sign the Contributor License Agreement (CLA) by clicking on the badge in the comment from @CLAassistant.
+For most pull requests, we request that you identify or create an associated issue that has the necessary context. We use these issues to reach agreement on an approach and save the PR author from having to redo work. Fixing typos or documentation issues likely do not need an issue; for any issue that introduces substantial code changes, changes the public interface, or if you aren't sure, please find or [create an issue](https://www.github.com/stripe/stripe-ruby/issues/new/choose).
 
-Please also make sure that any pull request has a corresponding issue filled out with the necessary context. [Click here to create one](https://www.github.com/stripe/stripe-ruby/issues/new/choose).
+## Contributor License Agreement
+
+All contributors must sign the Contributor License Agreement (CLA) before we can accept their contribution. If you have not yet signed the agremenet, you will be given an option to do so when you open a pull request. You can then sign by clicking on the badge in the comment from @CLAassistant.
 
 ## Generated code
 
@@ -12,9 +14,9 @@ This project has a combination of manually maintained code and code generated fr
 
 To identify files with purely generated code, look for the comment `File generated from our OpenAPI spec.` at the start of the file. Generated blocks of code within hand-written files will be between comments that say `The beginning of the section generated from our OpenAPI spec` and `The end of the section generated from our OpenAPI spec`. 
 
-## Compatibility with supported platforms
+## Compatibility with supported language and runtime versions
 
-This project supports a wide range of platform versions, and we are unable to accept any contribution that only works on a subset of these versions. If your contribution needs to use a platform API or feature that is only available in some of the supported versions, please call this out explicitly in the issue or pull request. We will do our best to figure out how to help you out here, or plan to accept your pull request later when we can drop support for older versions.
+This project supports a [many different langauge and runtime versions](README.md#requirements) and we are unable to accept any contribution that does not work on _all_ supported versions. If, after discussing the approach in the associated issue, your change must use an API / feature that isn't available in all supported versions, please call this out explicitly in the issue or pull request so we can help figure out the best way forward.
 
 ## Set up your dev environment
 

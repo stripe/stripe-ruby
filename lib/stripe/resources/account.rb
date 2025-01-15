@@ -2073,6 +2073,15 @@ module Stripe
             @files = files
           end
         end
+
+        class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
         # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         attr_accessor :bank_account_ownership_verification
         # One or more documents that demonstrate proof of a company's license to operate.
@@ -2087,6 +2096,8 @@ module Stripe
         attr_accessor :company_tax_id_verification
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
+        # One or more documents that demonstrate proof of ultimate beneficial ownership.
+        attr_accessor :proof_of_ultimate_beneficial_ownership
 
         def initialize(
           bank_account_ownership_verification: nil,
@@ -2095,7 +2106,8 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
-          proof_of_registration: nil
+          proof_of_registration: nil,
+          proof_of_ultimate_beneficial_ownership: nil
         )
           @bank_account_ownership_verification = bank_account_ownership_verification
           @company_license = company_license
@@ -2104,6 +2116,7 @@ module Stripe
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
           @proof_of_registration = proof_of_registration
+          @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end
       end
 
@@ -4324,6 +4337,15 @@ module Stripe
             @files = files
           end
         end
+
+        class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
         # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         attr_accessor :bank_account_ownership_verification
         # One or more documents that demonstrate proof of a company's license to operate.
@@ -4338,6 +4360,8 @@ module Stripe
         attr_accessor :company_tax_id_verification
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
+        # One or more documents that demonstrate proof of ultimate beneficial ownership.
+        attr_accessor :proof_of_ultimate_beneficial_ownership
 
         def initialize(
           bank_account_ownership_verification: nil,
@@ -4346,7 +4370,8 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
-          proof_of_registration: nil
+          proof_of_registration: nil,
+          proof_of_ultimate_beneficial_ownership: nil
         )
           @bank_account_ownership_verification = bank_account_ownership_verification
           @company_license = company_license
@@ -4355,6 +4380,7 @@ module Stripe
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
           @proof_of_registration = proof_of_registration
+          @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end
       end
 

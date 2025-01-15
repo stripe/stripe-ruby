@@ -1296,6 +1296,13 @@ module Stripe
           sig { params(files: T::Array[String]).void }
           def initialize(files: nil); end
         end
+        class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          sig { returns(T::Array[String]) }
+          attr_accessor :files
+          sig { params(files: T::Array[String]).void }
+          def initialize(files: nil); end
+        end
         # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         sig {
           returns(::Stripe::AccountService::UpdateParams::Documents::BankAccountOwnershipVerification)
@@ -1323,8 +1330,13 @@ module Stripe
         # One or more documents showing the company’s proof of registration with the national business registry.
         sig { returns(::Stripe::AccountService::UpdateParams::Documents::ProofOfRegistration) }
         attr_accessor :proof_of_registration
+        # One or more documents that demonstrate proof of ultimate beneficial ownership.
         sig {
-          params(bank_account_ownership_verification: ::Stripe::AccountService::UpdateParams::Documents::BankAccountOwnershipVerification, company_license: ::Stripe::AccountService::UpdateParams::Documents::CompanyLicense, company_memorandum_of_association: ::Stripe::AccountService::UpdateParams::Documents::CompanyMemorandumOfAssociation, company_ministerial_decree: ::Stripe::AccountService::UpdateParams::Documents::CompanyMinisterialDecree, company_registration_verification: ::Stripe::AccountService::UpdateParams::Documents::CompanyRegistrationVerification, company_tax_id_verification: ::Stripe::AccountService::UpdateParams::Documents::CompanyTaxIdVerification, proof_of_registration: ::Stripe::AccountService::UpdateParams::Documents::ProofOfRegistration).void
+          returns(::Stripe::AccountService::UpdateParams::Documents::ProofOfUltimateBeneficialOwnership)
+         }
+        attr_accessor :proof_of_ultimate_beneficial_ownership
+        sig {
+          params(bank_account_ownership_verification: ::Stripe::AccountService::UpdateParams::Documents::BankAccountOwnershipVerification, company_license: ::Stripe::AccountService::UpdateParams::Documents::CompanyLicense, company_memorandum_of_association: ::Stripe::AccountService::UpdateParams::Documents::CompanyMemorandumOfAssociation, company_ministerial_decree: ::Stripe::AccountService::UpdateParams::Documents::CompanyMinisterialDecree, company_registration_verification: ::Stripe::AccountService::UpdateParams::Documents::CompanyRegistrationVerification, company_tax_id_verification: ::Stripe::AccountService::UpdateParams::Documents::CompanyTaxIdVerification, proof_of_registration: ::Stripe::AccountService::UpdateParams::Documents::ProofOfRegistration, proof_of_ultimate_beneficial_ownership: ::Stripe::AccountService::UpdateParams::Documents::ProofOfUltimateBeneficialOwnership).void
          }
         def initialize(
           bank_account_ownership_verification: nil,
@@ -1333,7 +1345,8 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
-          proof_of_registration: nil
+          proof_of_registration: nil,
+          proof_of_ultimate_beneficial_ownership: nil
         ); end
       end
       class Groups < Stripe::RequestParams
@@ -3429,6 +3442,13 @@ module Stripe
           sig { params(files: T::Array[String]).void }
           def initialize(files: nil); end
         end
+        class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          sig { returns(T::Array[String]) }
+          attr_accessor :files
+          sig { params(files: T::Array[String]).void }
+          def initialize(files: nil); end
+        end
         # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         sig {
           returns(::Stripe::AccountService::CreateParams::Documents::BankAccountOwnershipVerification)
@@ -3456,8 +3476,13 @@ module Stripe
         # One or more documents showing the company’s proof of registration with the national business registry.
         sig { returns(::Stripe::AccountService::CreateParams::Documents::ProofOfRegistration) }
         attr_accessor :proof_of_registration
+        # One or more documents that demonstrate proof of ultimate beneficial ownership.
         sig {
-          params(bank_account_ownership_verification: ::Stripe::AccountService::CreateParams::Documents::BankAccountOwnershipVerification, company_license: ::Stripe::AccountService::CreateParams::Documents::CompanyLicense, company_memorandum_of_association: ::Stripe::AccountService::CreateParams::Documents::CompanyMemorandumOfAssociation, company_ministerial_decree: ::Stripe::AccountService::CreateParams::Documents::CompanyMinisterialDecree, company_registration_verification: ::Stripe::AccountService::CreateParams::Documents::CompanyRegistrationVerification, company_tax_id_verification: ::Stripe::AccountService::CreateParams::Documents::CompanyTaxIdVerification, proof_of_registration: ::Stripe::AccountService::CreateParams::Documents::ProofOfRegistration).void
+          returns(::Stripe::AccountService::CreateParams::Documents::ProofOfUltimateBeneficialOwnership)
+         }
+        attr_accessor :proof_of_ultimate_beneficial_ownership
+        sig {
+          params(bank_account_ownership_verification: ::Stripe::AccountService::CreateParams::Documents::BankAccountOwnershipVerification, company_license: ::Stripe::AccountService::CreateParams::Documents::CompanyLicense, company_memorandum_of_association: ::Stripe::AccountService::CreateParams::Documents::CompanyMemorandumOfAssociation, company_ministerial_decree: ::Stripe::AccountService::CreateParams::Documents::CompanyMinisterialDecree, company_registration_verification: ::Stripe::AccountService::CreateParams::Documents::CompanyRegistrationVerification, company_tax_id_verification: ::Stripe::AccountService::CreateParams::Documents::CompanyTaxIdVerification, proof_of_registration: ::Stripe::AccountService::CreateParams::Documents::ProofOfRegistration, proof_of_ultimate_beneficial_ownership: ::Stripe::AccountService::CreateParams::Documents::ProofOfUltimateBeneficialOwnership).void
          }
         def initialize(
           bank_account_ownership_verification: nil,
@@ -3466,7 +3491,8 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
-          proof_of_registration: nil
+          proof_of_registration: nil,
+          proof_of_ultimate_beneficial_ownership: nil
         ); end
       end
       class Groups < Stripe::RequestParams

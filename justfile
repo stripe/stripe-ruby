@@ -27,7 +27,7 @@ update-certs: install
     bundle exec rake update_certs
 
 # run sorbet to check type definitions
-typecheck:
+typecheck: install
     {{ if semver_matches(`ruby -e "puts RUBY_VERSION"`, ">=2.7") == "true" { \
         "bundle exec srb tc" \
     } else { \

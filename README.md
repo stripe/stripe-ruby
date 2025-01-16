@@ -364,19 +364,20 @@ New features and bug fixes are released on the latest major version of the Strip
 
 [Contribution guidelines for this project](CONTRIBUTING.md)
 
-The test suite depends on [stripe-mock], so make sure to fetch and run it from a
-background terminal ([stripe-mock's README][stripe-mock] also contains
-instructions for installing via Homebrew and other methods):
+The test suite depends on [stripe-mock], so make sure to fetch and run it from a background terminal ([stripe-mock's README][stripe-mock] also contains instructions for installing via Homebrew and other methods):
 
 ```sh
 go install github.com/stripe/stripe-mock@latest
 stripe-mock
 ```
 
+We use [just](https://github.com/casey/just) for common development tasks. You can install it or run the underlying commands directly (by copying them from the `justfile`). Common tasks include:
+
 Run all tests:
 
 ```sh
-bundle exec rake test
+just test
+# or: bundle exec rake test
 ```
 
 Run a single test suite:
@@ -394,13 +395,15 @@ bundle exec ruby -Ilib/ test/stripe/util_test.rb -n /should.convert.names.to.sym
 Run the linter:
 
 ```sh
-bundle exec rake rubocop
+just lint
+# or: bundle exec rubocop
 ```
 
 Update bundled CA certificates from the [Mozilla cURL release][curl]:
 
 ```sh
-bundle exec rake update_certs
+just update-certs
+# or: bundle exec rake update_certs
 ```
 
 Update the bundled [stripe-mock] by editing the version number found in

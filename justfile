@@ -20,8 +20,10 @@ alias lint-check := format-check
 # ⭐ check style & formatting for all files, fixing what we can
 lint: (format-check "--autocorrect")
 
+# NOTE: "-o /dev/null" is vital - rubocop has super noisy output and codegen will crash when formatting ruby if everything gets printed
+# so, we send all its output to the void
 # copy of `lint` with less output
-format: (format-check "--format quiet --autocorrect")
+format: (format-check "-o /dev/null --autocorrect")
 
 update-certs: install
     bundle exec rake update_certs

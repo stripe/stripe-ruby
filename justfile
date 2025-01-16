@@ -1,6 +1,6 @@
 set quiet
 
-import? '../sdk-codegen/justfile'
+import? '../sdk-codegen/utils.just'
 
 _default:
     just --list --unsorted

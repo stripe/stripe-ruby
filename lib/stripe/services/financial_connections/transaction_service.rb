@@ -31,7 +31,7 @@ module Stripe
             @after = after
           end
         end
-        # The ID of the Stripe account whose transactions will be retrieved.
+        # The ID of the Financial Connections Account whose transactions will be retrieved.
         attr_accessor :account
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before

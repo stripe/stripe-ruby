@@ -1266,6 +1266,9 @@ module Stripe
             end
           end
 
+          class PayByBank < Stripe::RequestParams
+          end
+
           class Payco < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             attr_accessor :capture_method
@@ -1578,6 +1581,8 @@ module Stripe
           attr_accessor :oxxo
           # contains details about the P24 payment method options.
           attr_accessor :p24
+          # contains details about the Pay By Bank payment method options.
+          attr_accessor :pay_by_bank
           # contains details about the PAYCO payment method options.
           attr_accessor :payco
           # contains details about the PayNow payment method options.
@@ -1631,6 +1636,7 @@ module Stripe
             naver_pay: nil,
             oxxo: nil,
             p24: nil,
+            pay_by_bank: nil,
             payco: nil,
             paynow: nil,
             paypal: nil,
@@ -1671,6 +1677,7 @@ module Stripe
             @naver_pay = naver_pay
             @oxxo = oxxo
             @p24 = p24
+            @pay_by_bank = pay_by_bank
             @payco = payco
             @paynow = paynow
             @paypal = paypal

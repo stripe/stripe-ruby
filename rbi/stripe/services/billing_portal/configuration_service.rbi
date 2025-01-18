@@ -99,7 +99,7 @@ module Stripe
             # Whether to cancel subscriptions immediately or at the end of the billing period.
             sig { returns(String) }
             attr_accessor :mode
-            # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+            # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
             sig { returns(String) }
             attr_accessor :proration_behavior
             sig {
@@ -316,7 +316,7 @@ module Stripe
             # Whether to cancel subscriptions immediately or at the end of the billing period.
             sig { returns(String) }
             attr_accessor :mode
-            # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+            # Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
             sig { returns(String) }
             attr_accessor :proration_behavior
             sig {

@@ -552,6 +552,20 @@ module Stripe
             @features = features
           end
         end
+
+        class TaxThresholdMonitoring < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
         # Configuration for the account management embedded component.
         attr_accessor :account_management
         # Configuration for the account onboarding embedded component.
@@ -572,13 +586,13 @@ module Stripe
         attr_accessor :capital_overview
         # Configuration for the documents embedded component.
         attr_accessor :documents
-        # Configuration for the financial account component.
+        # Configuration for the financial account embedded component.
         attr_accessor :financial_account
-        # Configuration for the financial account transactions component.
+        # Configuration for the financial account transactions embedded component.
         attr_accessor :financial_account_transactions
-        # Configuration for the issuing card component.
+        # Configuration for the issuing card embedded component.
         attr_accessor :issuing_card
-        # Configuration for the issuing cards list component.
+        # Configuration for the issuing cards list embedded component.
         attr_accessor :issuing_cards_list
         # Configuration for the notification banner embedded component.
         attr_accessor :notification_banner
@@ -600,6 +614,8 @@ module Stripe
         attr_accessor :tax_registrations
         # Configuration for the tax settings embedded component.
         attr_accessor :tax_settings
+        # Configuration for the tax threshold monitoring embedded component.
+        attr_accessor :tax_threshold_monitoring
 
         def initialize(
           account_management: nil,
@@ -625,7 +641,8 @@ module Stripe
           recipients: nil,
           reporting_chart: nil,
           tax_registrations: nil,
-          tax_settings: nil
+          tax_settings: nil,
+          tax_threshold_monitoring: nil
         )
           @account_management = account_management
           @account_onboarding = account_onboarding
@@ -651,6 +668,7 @@ module Stripe
           @reporting_chart = reporting_chart
           @tax_registrations = tax_registrations
           @tax_settings = tax_settings
+          @tax_threshold_monitoring = tax_threshold_monitoring
         end
       end
       # The identifier of the account to create an Account Session for.

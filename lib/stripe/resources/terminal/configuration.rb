@@ -110,6 +110,15 @@ module Stripe
           attr_reader :smart_tip_threshold
         end
 
+        class Jpy < Stripe::StripeObject
+          # Fixed amounts displayed when collecting a tip
+          attr_reader :fixed_amounts
+          # Percentages displayed when collecting a tip
+          attr_reader :percentages
+          # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+          attr_reader :smart_tip_threshold
+        end
+
         class Myr < Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
           attr_reader :fixed_amounts
@@ -188,6 +197,8 @@ module Stripe
         attr_reader :gbp
         # Attribute for field hkd
         attr_reader :hkd
+        # Attribute for field jpy
+        attr_reader :jpy
         # Attribute for field myr
         attr_reader :myr
         # Attribute for field nok
@@ -382,6 +393,21 @@ module Stripe
             end
           end
 
+          class Jpy < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -502,6 +528,8 @@ module Stripe
           attr_accessor :gbp
           # Tipping configuration for HKD
           attr_accessor :hkd
+          # Tipping configuration for JPY
+          attr_accessor :jpy
           # Tipping configuration for MYR
           attr_accessor :myr
           # Tipping configuration for NOK
@@ -526,6 +554,7 @@ module Stripe
             eur: nil,
             gbp: nil,
             hkd: nil,
+            jpy: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
@@ -542,6 +571,7 @@ module Stripe
             @eur = eur
             @gbp = gbp
             @hkd = hkd
+            @jpy = jpy
             @myr = myr
             @nok = nok
             @nzd = nzd
@@ -786,6 +816,21 @@ module Stripe
             end
           end
 
+          class Jpy < Stripe::RequestParams
+            # Fixed amounts displayed when collecting a tip
+            attr_accessor :fixed_amounts
+            # Percentages displayed when collecting a tip
+            attr_accessor :percentages
+            # Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            attr_accessor :smart_tip_threshold
+
+            def initialize(fixed_amounts: nil, percentages: nil, smart_tip_threshold: nil)
+              @fixed_amounts = fixed_amounts
+              @percentages = percentages
+              @smart_tip_threshold = smart_tip_threshold
+            end
+          end
+
           class Myr < Stripe::RequestParams
             # Fixed amounts displayed when collecting a tip
             attr_accessor :fixed_amounts
@@ -906,6 +951,8 @@ module Stripe
           attr_accessor :gbp
           # Tipping configuration for HKD
           attr_accessor :hkd
+          # Tipping configuration for JPY
+          attr_accessor :jpy
           # Tipping configuration for MYR
           attr_accessor :myr
           # Tipping configuration for NOK
@@ -930,6 +977,7 @@ module Stripe
             eur: nil,
             gbp: nil,
             hkd: nil,
+            jpy: nil,
             myr: nil,
             nok: nil,
             nzd: nil,
@@ -946,6 +994,7 @@ module Stripe
             @eur = eur
             @gbp = gbp
             @hkd = hkd
+            @jpy = jpy
             @myr = myr
             @nok = nok
             @nzd = nzd

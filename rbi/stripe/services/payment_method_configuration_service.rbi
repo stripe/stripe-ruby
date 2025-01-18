@@ -626,6 +626,24 @@ module Stripe
          }
         def initialize(display_preference: nil); end
       end
+      class PayByBank < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(String) }
+          attr_accessor :preference
+          sig { params(preference: String).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(::Stripe::PaymentMethodConfigurationService::CreateParams::PayByBank::DisplayPreference)
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: ::Stripe::PaymentMethodConfigurationService::CreateParams::PayByBank::DisplayPreference).void
+         }
+        def initialize(display_preference: nil); end
+      end
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -986,6 +1004,9 @@ module Stripe
       # Configuration's parent configuration. Specify to create a child configuration.
       sig { returns(String) }
       attr_accessor :parent
+      # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+      sig { returns(::Stripe::PaymentMethodConfigurationService::CreateParams::PayByBank) }
+      attr_accessor :pay_by_bank
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
       sig { returns(::Stripe::PaymentMethodConfigurationService::CreateParams::Paynow) }
       attr_accessor :paynow
@@ -1029,7 +1050,7 @@ module Stripe
       sig { returns(::Stripe::PaymentMethodConfigurationService::CreateParams::Zip) }
       attr_accessor :zip
       sig {
-        params(acss_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::AcssDebit, affirm: ::Stripe::PaymentMethodConfigurationService::CreateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethodConfigurationService::CreateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Alipay, alma: ::Stripe::PaymentMethodConfigurationService::CreateParams::Alma, amazon_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::AmazonPay, apple_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePay, apple_pay_later: ::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePayLater, au_becs_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::BacsDebit, bancontact: ::Stripe::PaymentMethodConfigurationService::CreateParams::Bancontact, blik: ::Stripe::PaymentMethodConfigurationService::CreateParams::Blik, boleto: ::Stripe::PaymentMethodConfigurationService::CreateParams::Boleto, card: ::Stripe::PaymentMethodConfigurationService::CreateParams::Card, cartes_bancaires: ::Stripe::PaymentMethodConfigurationService::CreateParams::CartesBancaires, cashapp: ::Stripe::PaymentMethodConfigurationService::CreateParams::Cashapp, customer_balance: ::Stripe::PaymentMethodConfigurationService::CreateParams::CustomerBalance, eps: ::Stripe::PaymentMethodConfigurationService::CreateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethodConfigurationService::CreateParams::Fpx, giropay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Giropay, google_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::GooglePay, gopay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Gopay, grabpay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethodConfigurationService::CreateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethodConfigurationService::CreateParams::Ideal, jcb: ::Stripe::PaymentMethodConfigurationService::CreateParams::Jcb, klarna: ::Stripe::PaymentMethodConfigurationService::CreateParams::Klarna, konbini: ::Stripe::PaymentMethodConfigurationService::CreateParams::Konbini, link: ::Stripe::PaymentMethodConfigurationService::CreateParams::Link, mobilepay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Mobilepay, multibanco: ::Stripe::PaymentMethodConfigurationService::CreateParams::Multibanco, name: String, oxxo: ::Stripe::PaymentMethodConfigurationService::CreateParams::Oxxo, p24: ::Stripe::PaymentMethodConfigurationService::CreateParams::P24, parent: String, paynow: ::Stripe::PaymentMethodConfigurationService::CreateParams::Paynow, paypal: ::Stripe::PaymentMethodConfigurationService::CreateParams::Paypal, payto: ::Stripe::PaymentMethodConfigurationService::CreateParams::Payto, promptpay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Promptpay, qris: ::Stripe::PaymentMethodConfigurationService::CreateParams::Qris, revolut_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::RevolutPay, sepa_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Shopeepay, sofort: ::Stripe::PaymentMethodConfigurationService::CreateParams::Sofort, swish: ::Stripe::PaymentMethodConfigurationService::CreateParams::Swish, twint: ::Stripe::PaymentMethodConfigurationService::CreateParams::Twint, us_bank_account: ::Stripe::PaymentMethodConfigurationService::CreateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::WechatPay, zip: ::Stripe::PaymentMethodConfigurationService::CreateParams::Zip).void
+        params(acss_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::AcssDebit, affirm: ::Stripe::PaymentMethodConfigurationService::CreateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethodConfigurationService::CreateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Alipay, alma: ::Stripe::PaymentMethodConfigurationService::CreateParams::Alma, amazon_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::AmazonPay, apple_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePay, apple_pay_later: ::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePayLater, au_becs_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::BacsDebit, bancontact: ::Stripe::PaymentMethodConfigurationService::CreateParams::Bancontact, blik: ::Stripe::PaymentMethodConfigurationService::CreateParams::Blik, boleto: ::Stripe::PaymentMethodConfigurationService::CreateParams::Boleto, card: ::Stripe::PaymentMethodConfigurationService::CreateParams::Card, cartes_bancaires: ::Stripe::PaymentMethodConfigurationService::CreateParams::CartesBancaires, cashapp: ::Stripe::PaymentMethodConfigurationService::CreateParams::Cashapp, customer_balance: ::Stripe::PaymentMethodConfigurationService::CreateParams::CustomerBalance, eps: ::Stripe::PaymentMethodConfigurationService::CreateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethodConfigurationService::CreateParams::Fpx, giropay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Giropay, google_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::GooglePay, gopay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Gopay, grabpay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethodConfigurationService::CreateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethodConfigurationService::CreateParams::Ideal, jcb: ::Stripe::PaymentMethodConfigurationService::CreateParams::Jcb, klarna: ::Stripe::PaymentMethodConfigurationService::CreateParams::Klarna, konbini: ::Stripe::PaymentMethodConfigurationService::CreateParams::Konbini, link: ::Stripe::PaymentMethodConfigurationService::CreateParams::Link, mobilepay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Mobilepay, multibanco: ::Stripe::PaymentMethodConfigurationService::CreateParams::Multibanco, name: String, oxxo: ::Stripe::PaymentMethodConfigurationService::CreateParams::Oxxo, p24: ::Stripe::PaymentMethodConfigurationService::CreateParams::P24, parent: String, pay_by_bank: ::Stripe::PaymentMethodConfigurationService::CreateParams::PayByBank, paynow: ::Stripe::PaymentMethodConfigurationService::CreateParams::Paynow, paypal: ::Stripe::PaymentMethodConfigurationService::CreateParams::Paypal, payto: ::Stripe::PaymentMethodConfigurationService::CreateParams::Payto, promptpay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Promptpay, qris: ::Stripe::PaymentMethodConfigurationService::CreateParams::Qris, revolut_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::RevolutPay, sepa_debit: ::Stripe::PaymentMethodConfigurationService::CreateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethodConfigurationService::CreateParams::Shopeepay, sofort: ::Stripe::PaymentMethodConfigurationService::CreateParams::Sofort, swish: ::Stripe::PaymentMethodConfigurationService::CreateParams::Swish, twint: ::Stripe::PaymentMethodConfigurationService::CreateParams::Twint, us_bank_account: ::Stripe::PaymentMethodConfigurationService::CreateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethodConfigurationService::CreateParams::WechatPay, zip: ::Stripe::PaymentMethodConfigurationService::CreateParams::Zip).void
        }
       def initialize(
         acss_debit: nil,
@@ -1068,6 +1089,7 @@ module Stripe
         oxxo: nil,
         p24: nil,
         parent: nil,
+        pay_by_bank: nil,
         paynow: nil,
         paypal: nil,
         payto: nil,
@@ -1686,6 +1708,24 @@ module Stripe
          }
         def initialize(display_preference: nil); end
       end
+      class PayByBank < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(String) }
+          attr_accessor :preference
+          sig { params(preference: String).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(::Stripe::PaymentMethodConfigurationService::UpdateParams::PayByBank::DisplayPreference)
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: ::Stripe::PaymentMethodConfigurationService::UpdateParams::PayByBank::DisplayPreference).void
+         }
+        def initialize(display_preference: nil); end
+      end
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -2046,6 +2086,9 @@ module Stripe
       # Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
       sig { returns(::Stripe::PaymentMethodConfigurationService::UpdateParams::P24) }
       attr_accessor :p24
+      # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+      sig { returns(::Stripe::PaymentMethodConfigurationService::UpdateParams::PayByBank) }
+      attr_accessor :pay_by_bank
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
       sig { returns(::Stripe::PaymentMethodConfigurationService::UpdateParams::Paynow) }
       attr_accessor :paynow
@@ -2089,7 +2132,7 @@ module Stripe
       sig { returns(::Stripe::PaymentMethodConfigurationService::UpdateParams::Zip) }
       attr_accessor :zip
       sig {
-        params(acss_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AcssDebit, active: T::Boolean, affirm: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Alipay, alma: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Alma, amazon_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AmazonPay, apple_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePay, apple_pay_later: ::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePayLater, au_becs_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::BacsDebit, bancontact: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Bancontact, blik: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Blik, boleto: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Boleto, card: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Card, cartes_bancaires: ::Stripe::PaymentMethodConfigurationService::UpdateParams::CartesBancaires, cashapp: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Cashapp, customer_balance: ::Stripe::PaymentMethodConfigurationService::UpdateParams::CustomerBalance, eps: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Fpx, giropay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Giropay, google_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::GooglePay, gopay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Gopay, grabpay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethodConfigurationService::UpdateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Ideal, jcb: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Jcb, klarna: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Klarna, konbini: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Konbini, link: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Link, mobilepay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Mobilepay, multibanco: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Multibanco, name: String, oxxo: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Oxxo, p24: ::Stripe::PaymentMethodConfigurationService::UpdateParams::P24, paynow: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Paynow, paypal: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Paypal, payto: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Payto, promptpay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Promptpay, qris: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Qris, revolut_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::RevolutPay, sepa_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Shopeepay, sofort: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Sofort, swish: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Swish, twint: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Twint, us_bank_account: ::Stripe::PaymentMethodConfigurationService::UpdateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::WechatPay, zip: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Zip).void
+        params(acss_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AcssDebit, active: T::Boolean, affirm: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Alipay, alma: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Alma, amazon_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AmazonPay, apple_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePay, apple_pay_later: ::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePayLater, au_becs_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::BacsDebit, bancontact: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Bancontact, blik: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Blik, boleto: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Boleto, card: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Card, cartes_bancaires: ::Stripe::PaymentMethodConfigurationService::UpdateParams::CartesBancaires, cashapp: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Cashapp, customer_balance: ::Stripe::PaymentMethodConfigurationService::UpdateParams::CustomerBalance, eps: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Fpx, giropay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Giropay, google_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::GooglePay, gopay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Gopay, grabpay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethodConfigurationService::UpdateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Ideal, jcb: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Jcb, klarna: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Klarna, konbini: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Konbini, link: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Link, mobilepay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Mobilepay, multibanco: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Multibanco, name: String, oxxo: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Oxxo, p24: ::Stripe::PaymentMethodConfigurationService::UpdateParams::P24, pay_by_bank: ::Stripe::PaymentMethodConfigurationService::UpdateParams::PayByBank, paynow: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Paynow, paypal: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Paypal, payto: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Payto, promptpay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Promptpay, qris: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Qris, revolut_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::RevolutPay, sepa_debit: ::Stripe::PaymentMethodConfigurationService::UpdateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Shopeepay, sofort: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Sofort, swish: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Swish, twint: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Twint, us_bank_account: ::Stripe::PaymentMethodConfigurationService::UpdateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethodConfigurationService::UpdateParams::WechatPay, zip: ::Stripe::PaymentMethodConfigurationService::UpdateParams::Zip).void
        }
       def initialize(
         acss_debit: nil,
@@ -2128,6 +2171,7 @@ module Stripe
         name: nil,
         oxxo: nil,
         p24: nil,
+        pay_by_bank: nil,
         paynow: nil,
         paypal: nil,
         payto: nil,

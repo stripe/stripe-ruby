@@ -330,6 +330,14 @@ module Stripe
         sig { returns(T.nilable(T::Array[TaxId])) }
         attr_reader :tax_ids
       end
+      class Discount < Stripe::StripeObject
+        # Coupon attached to the Checkout Session.
+        sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
+        attr_reader :coupon
+        # Promotion code attached to the Checkout Session.
+        sig { returns(T.nilable(T.any(String, Stripe::PromotionCode))) }
+        attr_reader :promotion_code
+      end
       class InvoiceCreation < Stripe::StripeObject
         class InvoiceData < Stripe::StripeObject
           class CustomField < Stripe::StripeObject
@@ -1120,7 +1128,7 @@ module Stripe
       end
       class ShippingAddressCollection < Stripe::StripeObject
         # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        # shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        # shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SY, UM, VI`.
         sig { returns(T::Array[String]) }
         attr_reader :allowed_countries
       end
@@ -1335,6 +1343,9 @@ module Stripe
       # complete, use the `customer` attribute.
       sig { returns(T.nilable(String)) }
       attr_reader :customer_email
+      # List of coupons and promotion codes attached to the Checkout Session.
+      sig { returns(T.nilable(T::Array[Discount])) }
+      attr_reader :discounts
       # The timestamp at which the Checkout Session will expire.
       sig { returns(Integer) }
       attr_reader :expires_at
@@ -2676,6 +2687,9 @@ module Stripe
             sig { params(setup_future_usage: String, tos_shown_and_accepted: T::Boolean).void }
             def initialize(setup_future_usage: nil, tos_shown_and_accepted: nil); end
           end
+          class PayByBank < Stripe::RequestParams
+
+          end
           class Payco < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             sig { returns(String) }
@@ -3023,6 +3037,11 @@ module Stripe
           # contains details about the P24 payment method options.
           sig { returns(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::P24) }
           attr_accessor :p24
+          # contains details about the Pay By Bank payment method options.
+          sig {
+            returns(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::PayByBank)
+           }
+          attr_accessor :pay_by_bank
           # contains details about the PAYCO payment method options.
           sig { returns(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payco) }
           attr_accessor :payco
@@ -3070,7 +3089,7 @@ module Stripe
            }
           attr_accessor :wechat_pay
           sig {
-            params(acss_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AcssDebit, affirm: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Affirm, afterpay_clearpay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AfterpayClearpay, alipay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alipay, amazon_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AmazonPay, au_becs_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AuBecsDebit, bacs_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::BacsDebit, bancontact: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Bancontact, boleto: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Boleto, card: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card, cashapp: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Cashapp, customer_balance: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::CustomerBalance, eps: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Eps, fpx: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Fpx, giropay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Giropay, grabpay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Grabpay, ideal: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Ideal, kakao_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KakaoPay, klarna: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Klarna, konbini: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Konbini, kr_card: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KrCard, link: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Link, mobilepay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Mobilepay, multibanco: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Multibanco, naver_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::NaverPay, oxxo: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Oxxo, p24: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::P24, payco: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payco, paynow: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paynow, paypal: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paypal, payto: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payto, pix: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Pix, revolut_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::RevolutPay, samsung_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SamsungPay, sepa_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SepaDebit, sofort: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Sofort, swish: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Swish, us_bank_account: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::UsBankAccount, wechat_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::WechatPay).void
+            params(acss_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AcssDebit, affirm: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Affirm, afterpay_clearpay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AfterpayClearpay, alipay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Alipay, amazon_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AmazonPay, au_becs_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::AuBecsDebit, bacs_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::BacsDebit, bancontact: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Bancontact, boleto: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Boleto, card: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Card, cashapp: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Cashapp, customer_balance: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::CustomerBalance, eps: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Eps, fpx: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Fpx, giropay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Giropay, grabpay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Grabpay, ideal: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Ideal, kakao_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KakaoPay, klarna: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Klarna, konbini: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Konbini, kr_card: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::KrCard, link: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Link, mobilepay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Mobilepay, multibanco: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Multibanco, naver_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::NaverPay, oxxo: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Oxxo, p24: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::P24, pay_by_bank: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::PayByBank, payco: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payco, paynow: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paynow, paypal: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Paypal, payto: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Payto, pix: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Pix, revolut_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::RevolutPay, samsung_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SamsungPay, sepa_debit: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::SepaDebit, sofort: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Sofort, swish: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::Swish, us_bank_account: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::UsBankAccount, wechat_pay: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions::WechatPay).void
            }
           def initialize(
             acss_debit: nil,
@@ -3100,6 +3119,7 @@ module Stripe
             naver_pay: nil,
             oxxo: nil,
             p24: nil,
+            pay_by_bank: nil,
             payco: nil,
             paynow: nil,
             paypal: nil,

@@ -172,6 +172,8 @@ module Stripe
       attr_reader :oxxo_payments
       # The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
       attr_reader :p24_payments
+      # The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
+      attr_reader :pay_by_bank_payments
       # The status of the Payco capability of the account, or whether the account can directly process Payco payments.
       attr_reader :payco_payments
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
@@ -1178,6 +1180,15 @@ module Stripe
           end
         end
 
+        class PayByBankPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaycoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1484,6 +1495,8 @@ module Stripe
         attr_accessor :oxxo_payments
         # The p24_payments capability.
         attr_accessor :p24_payments
+        # The pay_by_bank_payments capability.
+        attr_accessor :pay_by_bank_payments
         # The payco_payments capability.
         attr_accessor :payco_payments
         # The paynow_payments capability.
@@ -1577,6 +1590,7 @@ module Stripe
           naver_pay_payments: nil,
           oxxo_payments: nil,
           p24_payments: nil,
+          pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
@@ -1644,6 +1658,7 @@ module Stripe
           @naver_pay_payments = naver_pay_payments
           @oxxo_payments = oxxo_payments
           @p24_payments = p24_payments
+          @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
@@ -1856,6 +1871,21 @@ module Stripe
           end
         end
 
+        class DirectorshipDeclaration < Stripe::RequestParams
+          # The Unix timestamp marking when the directorship declaration attestation was made.
+          attr_accessor :date
+          # The IP address from which the directorship declaration attestation was made.
+          attr_accessor :ip
+          # The user agent of the browser from which the directorship declaration attestation was made.
+          attr_accessor :user_agent
+
+          def initialize(date: nil, ip: nil, user_agent: nil)
+            @date = date
+            @ip = ip
+            @user_agent = user_agent
+          end
+        end
+
         class OwnershipDeclaration < Stripe::RequestParams
           # The Unix timestamp marking when the beneficial owner attestation was made.
           attr_accessor :date
@@ -1898,6 +1928,8 @@ module Stripe
         attr_accessor :address_kanji
         # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         attr_accessor :directors_provided
+        # This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        attr_accessor :directorship_declaration
         # Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](/api/persons) for accounts with a `relationship.executive` requirement.
         attr_accessor :executives_provided
         # The export license ID number of the company, also referred as Import Export Code (India only).
@@ -1936,6 +1968,7 @@ module Stripe
           address_kana: nil,
           address_kanji: nil,
           directors_provided: nil,
+          directorship_declaration: nil,
           executives_provided: nil,
           export_license_id: nil,
           export_purpose_code: nil,
@@ -1957,6 +1990,7 @@ module Stripe
           @address_kana = address_kana
           @address_kanji = address_kanji
           @directors_provided = directors_provided
+          @directorship_declaration = directorship_declaration
           @executives_provided = executives_provided
           @export_license_id = export_license_id
           @export_purpose_code = export_purpose_code
@@ -2039,6 +2073,15 @@ module Stripe
             @files = files
           end
         end
+
+        class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
         # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         attr_accessor :bank_account_ownership_verification
         # One or more documents that demonstrate proof of a company's license to operate.
@@ -2053,6 +2096,8 @@ module Stripe
         attr_accessor :company_tax_id_verification
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
+        # One or more documents that demonstrate proof of ultimate beneficial ownership.
+        attr_accessor :proof_of_ultimate_beneficial_ownership
 
         def initialize(
           bank_account_ownership_verification: nil,
@@ -2061,7 +2106,8 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
-          proof_of_registration: nil
+          proof_of_registration: nil,
+          proof_of_ultimate_beneficial_ownership: nil
         )
           @bank_account_ownership_verification = bank_account_ownership_verification
           @company_license = company_license
@@ -2070,6 +2116,7 @@ module Stripe
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
           @proof_of_registration = proof_of_registration
+          @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end
       end
 
@@ -3316,6 +3363,15 @@ module Stripe
           end
         end
 
+        class PayByBankPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PaycoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3622,6 +3678,8 @@ module Stripe
         attr_accessor :oxxo_payments
         # The p24_payments capability.
         attr_accessor :p24_payments
+        # The pay_by_bank_payments capability.
+        attr_accessor :pay_by_bank_payments
         # The payco_payments capability.
         attr_accessor :payco_payments
         # The paynow_payments capability.
@@ -3715,6 +3773,7 @@ module Stripe
           naver_pay_payments: nil,
           oxxo_payments: nil,
           p24_payments: nil,
+          pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
           paypal_payments: nil,
@@ -3782,6 +3841,7 @@ module Stripe
           @naver_pay_payments = naver_pay_payments
           @oxxo_payments = oxxo_payments
           @p24_payments = p24_payments
+          @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
           @paypal_payments = paypal_payments
@@ -3994,6 +4054,21 @@ module Stripe
           end
         end
 
+        class DirectorshipDeclaration < Stripe::RequestParams
+          # The Unix timestamp marking when the directorship declaration attestation was made.
+          attr_accessor :date
+          # The IP address from which the directorship declaration attestation was made.
+          attr_accessor :ip
+          # The user agent of the browser from which the directorship declaration attestation was made.
+          attr_accessor :user_agent
+
+          def initialize(date: nil, ip: nil, user_agent: nil)
+            @date = date
+            @ip = ip
+            @user_agent = user_agent
+          end
+        end
+
         class OwnershipDeclaration < Stripe::RequestParams
           # The Unix timestamp marking when the beneficial owner attestation was made.
           attr_accessor :date
@@ -4036,6 +4111,8 @@ module Stripe
         attr_accessor :address_kanji
         # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         attr_accessor :directors_provided
+        # This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        attr_accessor :directorship_declaration
         # Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](/api/persons) for accounts with a `relationship.executive` requirement.
         attr_accessor :executives_provided
         # The export license ID number of the company, also referred as Import Export Code (India only).
@@ -4074,6 +4151,7 @@ module Stripe
           address_kana: nil,
           address_kanji: nil,
           directors_provided: nil,
+          directorship_declaration: nil,
           executives_provided: nil,
           export_license_id: nil,
           export_purpose_code: nil,
@@ -4095,6 +4173,7 @@ module Stripe
           @address_kana = address_kana
           @address_kanji = address_kanji
           @directors_provided = directors_provided
+          @directorship_declaration = directorship_declaration
           @executives_provided = executives_provided
           @export_license_id = export_license_id
           @export_purpose_code = export_purpose_code
@@ -4258,6 +4337,15 @@ module Stripe
             @files = files
           end
         end
+
+        class ProofOfUltimateBeneficialOwnership < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
         # One or more documents that support the [Bank account ownership verification](https://support.stripe.com/questions/bank-account-ownership-verification) requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
         attr_accessor :bank_account_ownership_verification
         # One or more documents that demonstrate proof of a company's license to operate.
@@ -4272,6 +4360,8 @@ module Stripe
         attr_accessor :company_tax_id_verification
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
+        # One or more documents that demonstrate proof of ultimate beneficial ownership.
+        attr_accessor :proof_of_ultimate_beneficial_ownership
 
         def initialize(
           bank_account_ownership_verification: nil,
@@ -4280,7 +4370,8 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
-          proof_of_registration: nil
+          proof_of_registration: nil,
+          proof_of_ultimate_beneficial_ownership: nil
         )
           @bank_account_ownership_verification = bank_account_ownership_verification
           @company_license = company_license
@@ -4289,6 +4380,7 @@ module Stripe
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
           @proof_of_registration = proof_of_registration
+          @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end
       end
 

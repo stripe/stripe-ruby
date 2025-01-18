@@ -1054,6 +1054,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :verified_name
       end
+      class PayByBank < Stripe::StripeObject; end
       class Payco < Stripe::StripeObject
         # A unique identifier for the buyer as determined by the local payment processor.
         sig { returns(T.nilable(String)) }
@@ -1436,6 +1437,9 @@ module Stripe
       # Attribute for field p24
       sig { returns(P24) }
       attr_reader :p24
+      # Attribute for field pay_by_bank
+      sig { returns(PayByBank) }
+      attr_reader :pay_by_bank
       # Attribute for field payco
       sig { returns(Payco) }
       attr_reader :payco

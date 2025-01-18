@@ -541,6 +541,7 @@ module Stripe
       attr_reader :bank
     end
 
+    class PayByBank < Stripe::StripeObject; end
     class Payco < Stripe::StripeObject; end
     class Paynow < Stripe::StripeObject; end
 
@@ -977,6 +978,9 @@ module Stripe
         end
       end
 
+      class PayByBank < Stripe::RequestParams
+      end
+
       class Payco < Stripe::RequestParams
       end
 
@@ -1183,6 +1187,8 @@ module Stripe
       attr_accessor :oxxo
       # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
       attr_accessor :p24
+      # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+      attr_accessor :pay_by_bank
       # If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
       attr_accessor :payco
       # The PaymentMethod to share.
@@ -1265,6 +1271,7 @@ module Stripe
         naver_pay: nil,
         oxxo: nil,
         p24: nil,
+        pay_by_bank: nil,
         payco: nil,
         payment_method: nil,
         paynow: nil,
@@ -1325,6 +1332,7 @@ module Stripe
         @naver_pay = naver_pay
         @oxxo = oxxo
         @p24 = p24
+        @pay_by_bank = pay_by_bank
         @payco = payco
         @payment_method = payment_method
         @paynow = paynow
@@ -1442,6 +1450,9 @@ module Stripe
         end
       end
 
+      class PayByBank < Stripe::RequestParams
+      end
+
       class Payto < Stripe::RequestParams
         # The account number for the bank account.
         attr_accessor :account_number
@@ -1482,6 +1493,8 @@ module Stripe
       attr_accessor :metadata
       # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
       attr_accessor :naver_pay
+      # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+      attr_accessor :pay_by_bank
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -1495,6 +1508,7 @@ module Stripe
         link: nil,
         metadata: nil,
         naver_pay: nil,
+        pay_by_bank: nil,
         payto: nil,
         us_bank_account: nil
       )
@@ -1505,6 +1519,7 @@ module Stripe
         @link = link
         @metadata = metadata
         @naver_pay = naver_pay
+        @pay_by_bank = pay_by_bank
         @payto = payto
         @us_bank_account = us_bank_account
       end
@@ -1614,6 +1629,8 @@ module Stripe
     attr_reader :oxxo
     # Attribute for field p24
     attr_reader :p24
+    # Attribute for field pay_by_bank
+    attr_reader :pay_by_bank
     # Attribute for field payco
     attr_reader :payco
     # Attribute for field paynow

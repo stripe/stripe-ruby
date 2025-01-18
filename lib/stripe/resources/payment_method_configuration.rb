@@ -506,6 +506,21 @@ module Stripe
       attr_reader :display_preference
     end
 
+    class PayByBank < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
     class Paynow < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1305,6 +1320,23 @@ module Stripe
         end
       end
 
+      class PayByBank < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1614,6 +1646,8 @@ module Stripe
       attr_accessor :p24
       # Configuration's parent configuration. Specify to create a child configuration.
       attr_accessor :parent
+      # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+      attr_accessor :pay_by_bank
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
@@ -1680,6 +1714,7 @@ module Stripe
         oxxo: nil,
         p24: nil,
         parent: nil,
+        pay_by_bank: nil,
         paynow: nil,
         paypal: nil,
         payto: nil,
@@ -1731,6 +1766,7 @@ module Stripe
         @oxxo = oxxo
         @p24 = p24
         @parent = parent
+        @pay_by_bank = pay_by_bank
         @paynow = paynow
         @paypal = paypal
         @payto = payto
@@ -2319,6 +2355,23 @@ module Stripe
         end
       end
 
+      class PayByBank < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -2628,6 +2681,8 @@ module Stripe
       attr_accessor :oxxo
       # Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
       attr_accessor :p24
+      # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+      attr_accessor :pay_by_bank
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
@@ -2694,6 +2749,7 @@ module Stripe
         name: nil,
         oxxo: nil,
         p24: nil,
+        pay_by_bank: nil,
         paynow: nil,
         paypal: nil,
         payto: nil,
@@ -2745,6 +2801,7 @@ module Stripe
         @name = name
         @oxxo = oxxo
         @p24 = p24
+        @pay_by_bank = pay_by_bank
         @paynow = paynow
         @paypal = paypal
         @payto = payto
@@ -2841,6 +2898,8 @@ module Stripe
     attr_reader :p24
     # For child configs, the configuration's parent configuration.
     attr_reader :parent
+    # Attribute for field pay_by_bank
+    attr_reader :pay_by_bank
     # Attribute for field paynow
     attr_reader :paynow
     # Attribute for field paypal

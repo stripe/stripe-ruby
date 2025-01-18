@@ -273,6 +273,13 @@ module Stripe
         attr_reader :tax_ids
       end
 
+      class Discount < Stripe::StripeObject
+        # Coupon attached to the Checkout Session.
+        attr_reader :coupon
+        # Promotion code attached to the Checkout Session.
+        attr_reader :promotion_code
+      end
+
       class InvoiceCreation < Stripe::StripeObject
         class InvoiceData < Stripe::StripeObject
           class CustomField < Stripe::StripeObject
@@ -955,7 +962,7 @@ module Stripe
 
       class ShippingAddressCollection < Stripe::StripeObject
         # An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        # shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        # shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SY, UM, VI`.
         attr_reader :allowed_countries
       end
 
@@ -2319,6 +2326,9 @@ module Stripe
             end
           end
 
+          class PayByBank < Stripe::RequestParams
+          end
+
           class Payco < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             attr_accessor :capture_method
@@ -2631,6 +2641,8 @@ module Stripe
           attr_accessor :oxxo
           # contains details about the P24 payment method options.
           attr_accessor :p24
+          # contains details about the Pay By Bank payment method options.
+          attr_accessor :pay_by_bank
           # contains details about the PAYCO payment method options.
           attr_accessor :payco
           # contains details about the PayNow payment method options.
@@ -2684,6 +2696,7 @@ module Stripe
             naver_pay: nil,
             oxxo: nil,
             p24: nil,
+            pay_by_bank: nil,
             payco: nil,
             paynow: nil,
             paypal: nil,
@@ -2724,6 +2737,7 @@ module Stripe
             @naver_pay = naver_pay
             @oxxo = oxxo
             @p24 = p24
+            @pay_by_bank = pay_by_bank
             @payco = payco
             @paynow = paynow
             @paypal = paypal
@@ -3600,6 +3614,8 @@ module Stripe
       # on file. To access information about the customer once the payment flow is
       # complete, use the `customer` attribute.
       attr_reader :customer_email
+      # List of coupons and promotion codes attached to the Checkout Session.
+      attr_reader :discounts
       # The timestamp at which the Checkout Session will expire.
       attr_reader :expires_at
       # Unique identifier for the object.

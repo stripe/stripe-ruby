@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.4.0-beta.3 - 2025-01-17
+* [#1514](https://github.com/stripe/stripe-ruby/pull/1514) Update generated code for beta
+
+
 ## 13.4.0-beta.2 - 2025-01-09
 * [#1504](https://github.com/stripe/stripe-ruby/pull/1504) Update generated code for beta
   * Add support for `close` method on resource `Treasury.FinancialAccount`

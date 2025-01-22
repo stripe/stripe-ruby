@@ -834,6 +834,46 @@ module Stripe
               Stripe.app_info = old
             end
           end
+
+          should "send app_info if set on the APIRequestor's config" do
+            begin
+              old = Stripe.app_info
+              Stripe.app_info = nil
+
+              custom_config = Stripe::StripeConfiguration.setup do |c|
+                c.app_info = {
+                  name: "MyAwesomePluginInConfig",
+                  partner_id: "partner_4567",
+                  url: "https://myawesomeplugininconfig.info",
+                  version: "4.5.6",
+                }
+              end
+
+              stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+                .with do |req|
+                  expect_user_agent =
+                    "Stripe/v1 RubyBindings/#{Stripe::VERSION}" \
+                    "MyAwesomePluginInConfig/4.5.6 (https://myawesomeplugininconfig.info)"
+                  assert_equal expect_user_agent, req.headers["User-Agent"]
+
+                  data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"], symbolize_names: true)
+                  assert_equal({
+                    name: "MyAwesomePluginInConfig",
+                    partner_id: "partner_4567",
+                    url: "https://myawesomeplugininconfig.info",
+                    version: "4.5.6",
+                  }, data[:application])
+
+                  true
+                end
+                .to_return(body: JSON.generate(object: "account"))
+
+              client = APIRequestor.new(custom_config)
+              client.execute_request(:post, "/v1/account", :api)
+            ensure
+              Stripe.app_info = old
+            end
+          end
         end
 
         context "error handling" do

@@ -30,6 +30,8 @@ module Stripe
                 else
                   raise ArgumentError, "Can't handle argument: #{config_arg}"
                 end
+
+      @app_info = config.app_info
     end
 
     attr_reader :config, :options
@@ -918,7 +920,7 @@ module Stripe
 
     private def request_headers(method, api_mode, req_opts)
       user_agent = "Stripe/#{api_mode} RubyBindings/#{Stripe::VERSION}"
-      user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
+      user_agent += " " + format_app_info(fetch_app_info) unless fetch_app_info.nil?
 
       headers = {
         "User-Agent" => user_agent,
@@ -961,6 +963,10 @@ module Stripe
       end
 
       headers.update(req_opts[:headers])
+    end
+
+    private def fetch_app_info
+      @app_info || Stripe.app_info
     end
 
     private def log_request(context, num_retries)
@@ -1090,7 +1096,7 @@ module Stripe
                        "(#{RUBY_RELEASE_DATE})"
 
         {
-          application: Stripe.app_info,
+          application: fetch_app_info,
           bindings_version: Stripe::VERSION,
           lang: "ruby",
           lang_version: lang_version,

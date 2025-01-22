@@ -21,10 +21,12 @@ module Stripe
         @orig_stripe_account = Stripe.stripe_account
         @orig_open_timeout = Stripe.open_timeout
         @orig_api_version = Stripe.api_version
+        @orig_app_info = Stripe.app_info
 
         Stripe.api_key = "DONT_USE_THIS_KEY"
         Stripe.stripe_account = "DONT_USE_THIS_ACCOUNT"
         Stripe.open_timeout = 30_000
+        Stripe.app_info = nil
       end
 
       teardown do
@@ -32,6 +34,7 @@ module Stripe
         Stripe.stripe_account = @orig_stripe_account
         Stripe.open_timeout = @orig_open_timeout
         Stripe.api_version = @orig_api_version
+        Stripe.app_info = @orig_app_info
       end
 
       should "use default config options" do
@@ -111,6 +114,50 @@ module Stripe
         client = StripeClient.new("test_123")
 
         refute_equal APIRequestor.active_requestor, client.instance_variable_get(:@requestor)
+      end
+
+      should "use client app_info over global app_info" do
+        Stripe.app_info = { name: "global_app", version: "1.2.3" }
+        client_app_info = { name: "client_app", version: "4.5.6" }
+        client = StripeClient.new("test_123", app_info: client_app_info)
+
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "customer"))
+
+        client.v1.customers.retrieve("cus_123")
+
+        assert_match(%r{client_app/4\.5\.6}, req.headers["User-Agent"])
+        assert_no_match(/global_app/, req.headers["User-Agent"])
+      end
+
+      should "fall back to global app_info when client app_info not provided" do
+        Stripe.app_info = { name: "global_app", version: "1.2.3" }
+        client = StripeClient.new("test_123")
+
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "customer"))
+
+        client.v1.customers.retrieve("cus_123")
+
+        assert_match(%r{global_app/1\.2\.3}, req.headers["User-Agent"])
+      end
+
+      should "work with no app_info set" do
+        Stripe.app_info = nil
+        client = StripeClient.new("test_123")
+
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "customer"))
+
+        client.v1.customers.retrieve("cus_123")
+
+        assert_no_match(%r{app/}, req.headers["User-Agent"])
       end
     end
 

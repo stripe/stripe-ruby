@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.4.0-beta.4 - 2025-01-23
+* [#1523](https://github.com/stripe/stripe-ruby/pull/1523) Update generated code for beta
+  * Removed support for `stripe_account` from `Stripe::Terminal::Reader`. Use `account` instead. 
+
 ## 13.4.0-beta.3 - 2025-01-17
 * [#1514](https://github.com/stripe/stripe-ruby/pull/1514) Update generated code for beta
 

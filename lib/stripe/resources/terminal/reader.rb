@@ -133,8 +133,6 @@ module Stripe
           #
           # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
           attr_reader :payment_method
-          # This field will be deprecated. Please use `account` instead.
-          attr_reader :stripe_account
         end
 
         class ConfirmPaymentIntent < Stripe::StripeObject
@@ -142,8 +140,6 @@ module Stripe
           attr_reader :account
           # Most recent PaymentIntent processed by the reader.
           attr_reader :payment_intent
-          # This field will be deprecated. Please use `account` instead.
-          attr_reader :stripe_account
         end
 
         class ProcessPaymentIntent < Stripe::StripeObject
@@ -165,8 +161,6 @@ module Stripe
           attr_reader :payment_intent
           # Represents a per-transaction override of a reader configuration
           attr_reader :process_config
-          # This field will be deprecated. Please use `account` instead.
-          attr_reader :stripe_account
         end
 
         class ProcessSetupIntent < Stripe::StripeObject
@@ -207,8 +201,6 @@ module Stripe
           attr_reader :refund_payment_config
           # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
           attr_reader :reverse_transfer
-          # This field will be deprecated. Please use `account` instead.
-          attr_reader :stripe_account
         end
 
         class SetReaderDisplay < Stripe::StripeObject

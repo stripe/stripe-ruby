@@ -154,9 +154,6 @@ module Stripe
           # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
           sig { returns(Stripe::PaymentMethod) }
           attr_reader :payment_method
-          # This field will be deprecated. Please use `account` instead.
-          sig { returns(String) }
-          attr_reader :stripe_account
         end
         class ConfirmPaymentIntent < Stripe::StripeObject
           # Account the payment intent belongs to.
@@ -165,9 +162,6 @@ module Stripe
           # Most recent PaymentIntent processed by the reader.
           sig { returns(T.any(String, Stripe::PaymentIntent)) }
           attr_reader :payment_intent
-          # This field will be deprecated. Please use `account` instead.
-          sig { returns(String) }
-          attr_reader :stripe_account
         end
         class ProcessPaymentIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
@@ -195,9 +189,6 @@ module Stripe
           # Represents a per-transaction override of a reader configuration
           sig { returns(ProcessConfig) }
           attr_reader :process_config
-          # This field will be deprecated. Please use `account` instead.
-          sig { returns(String) }
-          attr_reader :stripe_account
         end
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
@@ -251,9 +242,6 @@ module Stripe
           # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
           sig { returns(T::Boolean) }
           attr_reader :reverse_transfer
-          # This field will be deprecated. Please use `account` instead.
-          sig { returns(String) }
-          attr_reader :stripe_account
         end
         class SetReaderDisplay < Stripe::StripeObject
           class Cart < Stripe::StripeObject

@@ -3730,7 +3730,7 @@ module Stripe
       # The ID of the PaymentIntent to attach to the invoice.
       sig { returns(String) }
       attr_accessor :payment_intent
-      # The ID of the PaymentRecord to detach from the invoice.
+      # The ID of the PaymentRecord to attach to the invoice.
       sig { returns(String) }
       attr_accessor :payment_record
       # The PaymentRecord data for attaching an out of band payment to the invoice.

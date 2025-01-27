@@ -151,10 +151,10 @@ module Stripe
     end
 
     # A quote models prices and services for a customer.
-    def self.update(id, params = {}, opts = {})
+    def self.update(quote, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/quotes/%<quote>s", { quote: CGI.escape(quote) }),
         params: params,
         opts: opts
       )

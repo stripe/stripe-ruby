@@ -37,6 +37,25 @@ module Stripe
       end
     end
 
+    # Set options to the StripeClient configured options, if valid as a client option and provided
+    # Otherwise, for user configurable global options, set them to the global configuration
+    # For all other options, set them to the StripeConfiguration default value
+    def self.client_init(config_opts)
+      global_config = Stripe.config
+      imported_options = USER_CONFIGURABLE_GLOBAL_OPTIONS - StripeClient::CLIENT_OPTIONS
+      client_config = StripeConfiguration.setup do |instance|
+        imported_options.each do |key|
+          begin
+            instance.public_send("#{key}=", global_config.public_send(key)) if global_config.respond_to?(key)
+          rescue NotImplementedError => e
+            # In Ruby <= 2.5, we can't set write_timeout on Net::HTTP, log an error and continue
+            Util.log_error("Failed to set #{key} on client configuration: #{e}")
+          end
+        end
+      end
+      client_config.reverse_duplicate_merge(config_opts)
+    end
+
     # Create a new config based off an existing one. This is useful when the
     # caller wants to override the global configuration
     def reverse_duplicate_merge(hash)
@@ -68,7 +87,8 @@ module Stripe
       @connect_base = DEFAULT_CONNECT_BASE
       @uploads_base = DEFAULT_UPLOAD_BASE
       @meter_events_base = DEFAULT_METER_EVENTS_BASE
-      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base, events: @meter_events_base }
+      @base_addresses = { api: @api_base, connect: @connect_base, files: @uploads_base,
+                          meter_events: @meter_events_base, }
     end
 
     def log_level=(val)

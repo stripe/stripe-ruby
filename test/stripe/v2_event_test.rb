@@ -36,6 +36,26 @@ module Stripe
           },
         }.to_json
 
+        @v2_push_payload_with_livemode_and_reason = {
+          "id" => "evt_234",
+          "object" => "v2.core.event",
+          "type" => "v1.billing.meter.error_report_triggered",
+          "created" => "2022-02-15T00:27:45.330Z",
+          "related_object" => {
+            "id" => "mtr_123",
+            "type" => "billing.meter",
+            "url" => "/v1/billing/meters/mtr_123",
+          },
+          "livemode" => true,
+          "reason" => {
+            "type" => "a.b.c",
+            "request" => {
+              "id" => "r_123",
+              "idempotency_key" => "key",
+            },
+          },
+        }.to_json
+
         @v2_pull_payload = {
           "id" => "evt_234",
           "object" => "v2.core.event",
@@ -76,6 +96,20 @@ module Stripe
           assert_equal "evt_234", event.id
           assert_equal "v1.billing.meter.error_report_triggered", event.type
           assert_equal "2022-02-15T00:27:45.330Z", event.created
+          assert_nil event.reason
+        end
+
+        should "parse v2 events with livemode and reason" do
+          event = parse_signed_event(@v2_push_payload_with_livemode_and_reason)
+          assert event.is_a?(Stripe::ThinEvent)
+          assert_equal "evt_234", event.id
+          assert_equal "v1.billing.meter.error_report_triggered", event.type
+          assert_equal "2022-02-15T00:27:45.330Z", event.created
+          assert_true event.livemode
+          assert_not_nil event.reason
+          assert_equal "a.b.c", event.reason.type
+          assert_equal "r_123", event.reason.request.id
+          assert_equal "key", event.reason.request.idempotency_key
         end
 
         should "raise a JSON::ParserError from an invalid JSON payload" do

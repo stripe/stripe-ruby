@@ -194,10 +194,10 @@ module Stripe
       end
 
       # Attempts to update the specified Issuing Token object to the status specified.
-      def self.update(id, params = {}, opts = {})
+      def self.update(token, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/tokens/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/tokens/%<token>s", { token: CGI.escape(token) }),
           params: params,
           opts: opts
         )

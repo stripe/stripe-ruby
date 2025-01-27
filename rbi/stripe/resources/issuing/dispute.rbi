@@ -892,9 +892,9 @@ module Stripe
 
       # Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
       sig {
-        params(id: String, params: T.any(::Stripe::Issuing::Dispute::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Dispute)
+        params(dispute: String, params: T.any(::Stripe::Issuing::Dispute::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Dispute)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(dispute, params = {}, opts = {}); end
     end
   end
 end

@@ -31,9 +31,9 @@ module Stripe
     end
     # Invalidates a short-lived API key for a given resource.
     sig {
-      params(id: String, params: T.any(::Stripe::EphemeralKey::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
+      params(key: String, params: T.any(::Stripe::EphemeralKey::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::EphemeralKey)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(key, params = {}, opts = {}); end
 
     # Invalidates a short-lived API key for a given resource.
     sig {

@@ -5114,9 +5114,9 @@ module Stripe
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     sig {
-      params(id: String, params: T.any(::Stripe::Account::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::Account::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(account, params = {}, opts = {}); end
 
     # With [Connect](https://stripe.com/connect), you can delete accounts you manage.
     #
@@ -5178,8 +5178,8 @@ module Stripe
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
     sig {
-      params(id: String, params: T.any(::Stripe::Account::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
+      params(account: String, params: T.any(::Stripe::Account::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Account)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(account, params = {}, opts = {}); end
   end
 end

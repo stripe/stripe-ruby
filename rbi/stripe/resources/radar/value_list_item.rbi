@@ -114,9 +114,9 @@ module Stripe
 
       # Deletes a ValueListItem object, removing it from its parent value list.
       sig {
-        params(id: String, params: T.any(::Stripe::Radar::ValueListItem::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueListItem)
+        params(item: String, params: T.any(::Stripe::Radar::ValueListItem::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueListItem)
        }
-      def self.delete(id, params = {}, opts = {}); end
+      def self.delete(item, params = {}, opts = {}); end
 
       # Deletes a ValueListItem object, removing it from its parent value list.
       sig {

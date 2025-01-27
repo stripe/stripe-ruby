@@ -138,10 +138,10 @@ module Stripe
     end
 
     # Updates an existing file link object. Expired links can no longer be updated.
-    def self.update(id, params = {}, opts = {})
+    def self.update(link, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/file_links/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/file_links/%<link>s", { link: CGI.escape(link) }),
         params: params,
         opts: opts
       )

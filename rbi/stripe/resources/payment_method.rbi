@@ -1919,8 +1919,8 @@ module Stripe
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
     sig {
-      params(id: String, params: T.any(::Stripe::PaymentMethod::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethod::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(payment_method, params = {}, opts = {}); end
   end
 end

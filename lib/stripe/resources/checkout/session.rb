@@ -3762,10 +3762,10 @@ module Stripe
       end
 
       # Updates a Session object.
-      def self.update(id, params = {}, opts = {})
+      def self.update(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/checkout/sessions/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/checkout/sessions/%<session>s", { session: CGI.escape(session) }),
           params: params,
           opts: opts
         )

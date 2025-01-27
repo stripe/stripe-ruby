@@ -757,8 +757,8 @@ module Stripe
     #
     # Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://stripe.com/docs/disputes/categories).
     sig {
-      params(id: String, params: T.any(::Stripe::Dispute::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Dispute)
+      params(dispute: String, params: T.any(::Stripe::Dispute::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Dispute)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(dispute, params = {}, opts = {}); end
   end
 end

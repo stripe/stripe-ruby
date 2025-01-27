@@ -4007,9 +4007,9 @@ module Stripe
 
       # Updates a Session object.
       sig {
-        params(id: String, params: T.any(::Stripe::Checkout::Session::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
+        params(session: String, params: T.any(::Stripe::Checkout::Session::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(session, params = {}, opts = {}); end
     end
   end
 end

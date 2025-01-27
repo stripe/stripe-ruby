@@ -1258,9 +1258,9 @@ module Stripe
 
       # Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(id: String, params: T.any(::Stripe::Issuing::Authorization::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Authorization)
+        params(authorization: String, params: T.any(::Stripe::Issuing::Authorization::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Authorization)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(authorization, params = {}, opts = {}); end
     end
   end
 end

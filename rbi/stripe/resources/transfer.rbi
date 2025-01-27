@@ -197,8 +197,8 @@ module Stripe
     #
     # This request accepts only metadata as an argument.
     sig {
-      params(id: String, params: T.any(::Stripe::Transfer::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Transfer)
+      params(transfer: String, params: T.any(::Stripe::Transfer::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Transfer)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(transfer, params = {}, opts = {}); end
   end
 end

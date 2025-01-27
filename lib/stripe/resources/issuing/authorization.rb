@@ -1198,10 +1198,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(id, params = {}, opts = {})
+      def self.update(authorization, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/authorizations/%<authorization>s", { authorization: CGI.escape(authorization) }),
           params: params,
           opts: opts
         )

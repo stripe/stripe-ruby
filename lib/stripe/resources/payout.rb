@@ -297,10 +297,10 @@ module Stripe
     end
 
     # Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
-    def self.update(id, params = {}, opts = {})
+    def self.update(payout, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payouts/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payouts/%<payout>s", { payout: CGI.escape(payout) }),
         params: params,
         opts: opts
       )

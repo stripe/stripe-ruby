@@ -205,9 +205,9 @@ module Stripe
 
       # Deletes a Location object.
       sig {
-        params(id: String, params: T.any(::Stripe::Terminal::Location::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Location)
+        params(location: String, params: T.any(::Stripe::Terminal::Location::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Location)
        }
-      def self.delete(id, params = {}, opts = {}); end
+      def self.delete(location, params = {}, opts = {}); end
 
       # Deletes a Location object.
       sig {
@@ -223,9 +223,9 @@ module Stripe
 
       # Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(id: String, params: T.any(::Stripe::Terminal::Location::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Location)
+        params(location: String, params: T.any(::Stripe::Terminal::Location::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Location)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(location, params = {}, opts = {}); end
     end
   end
 end

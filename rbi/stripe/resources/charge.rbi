@@ -3481,8 +3481,8 @@ module Stripe
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     sig {
-      params(id: String, params: T.any(::Stripe::Charge::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
+      params(charge: String, params: T.any(::Stripe::Charge::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(charge, params = {}, opts = {}); end
   end
 end

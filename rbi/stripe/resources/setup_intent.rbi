@@ -4043,9 +4043,9 @@ module Stripe
 
     # Updates a SetupIntent object.
     sig {
-      params(id: String, params: T.any(::Stripe::SetupIntent::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
+      params(intent: String, params: T.any(::Stripe::SetupIntent::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SetupIntent)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(intent, params = {}, opts = {}); end
 
     # Verifies microdeposits on a SetupIntent object.
     sig {

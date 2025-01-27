@@ -360,9 +360,9 @@ module Stripe
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
     sig {
-      params(id: String, params: T.any(::Stripe::Plan::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
+      params(plan: String, params: T.any(::Stripe::Plan::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(plan, params = {}, opts = {}); end
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
     sig {
@@ -378,8 +378,8 @@ module Stripe
 
     # Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
     sig {
-      params(id: String, params: T.any(::Stripe::Plan::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
+      params(plan: String, params: T.any(::Stripe::Plan::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Plan)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(plan, params = {}, opts = {}); end
   end
 end

@@ -8778,9 +8778,9 @@ module Stripe
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
     sig {
-      params(id: String, params: T.any(::Stripe::Invoice::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
+      params(invoice: String, params: T.any(::Stripe::Invoice::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(invoice, params = {}, opts = {}); end
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
     sig {
@@ -8893,9 +8893,9 @@ module Stripe
     # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
     sig {
-      params(id: String, params: T.any(::Stripe::Invoice::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
+      params(invoice: String, params: T.any(::Stripe::Invoice::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(invoice, params = {}, opts = {}); end
 
     # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
     sig {

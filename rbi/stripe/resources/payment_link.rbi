@@ -1659,8 +1659,8 @@ module Stripe
 
     # Updates a payment link.
     sig {
-      params(id: String, params: T.any(::Stripe::PaymentLink::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentLink)
+      params(payment_link: String, params: T.any(::Stripe::PaymentLink::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentLink)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(payment_link, params = {}, opts = {}); end
   end
 end

@@ -3179,8 +3179,8 @@ module Stripe
 
     # A quote models prices and services for a customer.
     sig {
-      params(id: String, params: T.any(::Stripe::Quote::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
+      params(quote: String, params: T.any(::Stripe::Quote::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Quote)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(quote, params = {}, opts = {}); end
   end
 end

@@ -153,10 +153,10 @@ module Stripe
       end
 
       # Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
-      def self.delete(id, params = {}, opts = {})
+      def self.delete(value_list, params = {}, opts = {})
         request_stripe_object(
           method: :delete,
-          path: format("/v1/radar/value_lists/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
           params: params,
           opts: opts
         )
@@ -183,10 +183,10 @@ module Stripe
       end
 
       # Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
-      def self.update(id, params = {}, opts = {})
+      def self.update(value_list, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/radar/value_lists/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
           params: params,
           opts: opts
         )

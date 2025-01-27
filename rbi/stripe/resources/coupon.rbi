@@ -232,9 +232,9 @@ module Stripe
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
     sig {
-      params(id: String, params: T.any(::Stripe::Coupon::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
+      params(coupon: String, params: T.any(::Stripe::Coupon::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(coupon, params = {}, opts = {}); end
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
     sig {
@@ -250,8 +250,8 @@ module Stripe
 
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
     sig {
-      params(id: String, params: T.any(::Stripe::Coupon::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
+      params(coupon: String, params: T.any(::Stripe::Coupon::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Coupon)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(coupon, params = {}, opts = {}); end
   end
 end

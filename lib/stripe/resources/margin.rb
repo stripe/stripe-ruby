@@ -112,10 +112,10 @@ module Stripe
     end
 
     # Update the specified margin object. Certain fields of the margin object are not editable.
-    def self.update(id, params = {}, opts = {})
+    def self.update(margin, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/billing/margins/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/billing/margins/%<margin>s", { margin: CGI.escape(margin) }),
         params: params,
         opts: opts
       )

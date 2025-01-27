@@ -3099,10 +3099,10 @@ module Stripe
     end
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-    def self.update(id, params = {}, opts = {})
+    def self.update(charge, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/charges/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/charges/%<charge>s", { charge: CGI.escape(charge) }),
         params: params,
         opts: opts
       )

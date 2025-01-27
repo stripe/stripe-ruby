@@ -119,9 +119,9 @@ module Stripe
 
       # Deletes a test clock.
       sig {
-        params(id: String, params: T.any(::Stripe::TestHelpers::TestClock::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TestHelpers::TestClock)
+        params(test_clock: String, params: T.any(::Stripe::TestHelpers::TestClock::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::TestHelpers::TestClock)
        }
-      def self.delete(id, params = {}, opts = {}); end
+      def self.delete(test_clock, params = {}, opts = {}); end
 
       # Deletes a test clock.
       sig {

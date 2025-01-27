@@ -325,9 +325,9 @@ module Stripe
 
       # Updates a card personalization object.
       sig {
-        params(id: String, params: T.any(::Stripe::Issuing::PersonalizationDesign::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::PersonalizationDesign)
+        params(personalization_design: String, params: T.any(::Stripe::Issuing::PersonalizationDesign::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::PersonalizationDesign)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(personalization_design, params = {}, opts = {}); end
     end
   end
 end

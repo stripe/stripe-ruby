@@ -1524,9 +1524,9 @@ module Stripe
     #
     # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
     sig {
-      params(id: String, params: T.any(::Stripe::Source::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Source)
+      params(source: String, params: T.any(::Stripe::Source::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Source)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(source, params = {}, opts = {}); end
 
     # Verify a given source.
     sig {

@@ -149,9 +149,9 @@ module Stripe
 
       # Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
       sig {
-        params(id: String, params: T.any(::Stripe::Radar::ValueList::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
+        params(value_list: String, params: T.any(::Stripe::Radar::ValueList::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
        }
-      def self.delete(id, params = {}, opts = {}); end
+      def self.delete(value_list, params = {}, opts = {}); end
 
       # Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
       sig {
@@ -167,9 +167,9 @@ module Stripe
 
       # Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
       sig {
-        params(id: String, params: T.any(::Stripe::Radar::ValueList::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
+        params(value_list: String, params: T.any(::Stripe::Radar::ValueList::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::ValueList)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(value_list, params = {}, opts = {}); end
     end
   end
 end

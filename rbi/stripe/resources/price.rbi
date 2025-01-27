@@ -724,8 +724,8 @@ module Stripe
 
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
     sig {
-      params(id: String, params: T.any(::Stripe::Price::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Price)
+      params(price: String, params: T.any(::Stripe::Price::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Price)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(price, params = {}, opts = {}); end
   end
 end

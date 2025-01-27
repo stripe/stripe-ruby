@@ -27,10 +27,10 @@ module Stripe
     end
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(plan, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/plans/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/plans/%<plan>s", { plan: CGI.escape(plan) }),
         params: params,
         opts: opts
       )
@@ -52,10 +52,10 @@ module Stripe
     end
 
     # Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
-    def self.update(id, params = {}, opts = {})
+    def self.update(plan, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/plans/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/plans/%<plan>s", { plan: CGI.escape(plan) }),
         params: params,
         opts: opts
       )

@@ -48,10 +48,10 @@ module Stripe
     end
 
     # Updates a payment link.
-    def self.update(id, params = {}, opts = {})
+    def self.update(payment_link, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_links/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_links/%<payment_link>s", { payment_link: CGI.escape(payment_link) }),
         params: params,
         opts: opts
       )

@@ -32,10 +32,10 @@ module Stripe
     end
 
     # Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(item, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscription_items/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
         params: params,
         opts: opts
       )
@@ -62,10 +62,10 @@ module Stripe
     end
 
     # Updates the plan or quantity of an item on a current subscription.
-    def self.update(id, params = {}, opts = {})
+    def self.update(item, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscription_items/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
         params: params,
         opts: opts
       )

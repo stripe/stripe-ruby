@@ -57,10 +57,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
-      def self.update(id, params = {}, opts = {})
+      def self.update(dispute, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/disputes/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/disputes/%<dispute>s", { dispute: CGI.escape(dispute) }),
           params: params,
           opts: opts
         )

@@ -64,10 +64,10 @@ module Stripe
     # Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
     #
     # This request only accepts metadata as an argument.
-    def self.update(id, params = {}, opts = {})
+    def self.update(refund, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/refunds/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/refunds/%<refund>s", { refund: CGI.escape(refund) }),
         params: params,
         opts: opts
       )

@@ -25,10 +25,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(id, params = {}, opts = {})
+      def self.update(card, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/cards/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/cards/%<card>s", { card: CGI.escape(card) }),
           params: params,
           opts: opts
         )

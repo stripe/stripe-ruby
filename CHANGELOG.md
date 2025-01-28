@@ -1,4 +1,8 @@
 # Changelog
+## 13.4.1 - 2025-01-28
+* [#1528](https://github.com/stripe/stripe-ruby/pull/1528) Update generated code
+  * ⚠️ Bugfix: `invoice` and `line_item_id` can be passed to `update` method in `InvoiceLineItem`.
+
 ## 13.4.0 - 2025-01-27
 * [#1510](https://github.com/stripe/stripe-ruby/pull/1510) Update generated code
   * Add support for `close` method on resource `Treasury.FinancialAccount`
@@ -6,8 +10,6 @@
 * [#1519](https://github.com/stripe/stripe-ruby/pull/1519) Fixed typos in CONTRIBUTING.MD
 * [#1513](https://github.com/stripe/stripe-ruby/pull/1513) add justfile
 * [#1515](https://github.com/stripe/stripe-ruby/pull/1515) Added CONTRIBUTING.md file
-* Other:
-  * ⚠️  Bugfix: `invoice` and `line_item_id` can be passed to `update` method in `InvoiceLineItem`.
 
 ## 13.3.1 - 2025-01-13
 * [#1512](https://github.com/stripe/stripe-ruby/pull/1512) Import global configuration for options not available on StripeClient options

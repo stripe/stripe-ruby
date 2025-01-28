@@ -94,10 +94,10 @@ module Stripe
     end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
-    def self.update(id, params = {}, opts = {})
+    def self.update(payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
         params: params,
         opts: opts
       )

@@ -273,10 +273,10 @@ module Stripe
     # always requires you to confirm the PaymentIntent again. If you prefer to
     # update and confirm at the same time, we recommend updating properties through
     # the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
-    def self.update(id, params = {}, opts = {})
+    def self.update(intent, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts
       )

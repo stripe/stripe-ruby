@@ -48,10 +48,10 @@ module Stripe
     end
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.
-    def self.update(id, params = {}, opts = {})
+    def self.update(topup, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/topups/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/topups/%<topup>s", { topup: CGI.escape(topup) }),
         params: params,
         opts: opts
       )

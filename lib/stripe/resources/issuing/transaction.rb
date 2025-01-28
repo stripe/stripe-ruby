@@ -28,10 +28,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(id, params = {}, opts = {})
+      def self.update(transaction, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/transactions/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/transactions/%<transaction>s", { transaction: CGI.escape(transaction) }),
           params: params,
           opts: opts
         )

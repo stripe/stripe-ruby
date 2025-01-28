@@ -38,10 +38,10 @@ module Stripe
     # Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts only metadata as an argument.
-    def self.update(id, params = {}, opts = {})
+    def self.update(transfer, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/transfers/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/transfers/%<transfer>s", { transfer: CGI.escape(transfer) }),
         params: params,
         opts: opts
       )

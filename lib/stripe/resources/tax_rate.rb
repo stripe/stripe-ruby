@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Updates an existing tax rate.
-    def self.update(id, params = {}, opts = {})
+    def self.update(tax_rate, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/tax_rates/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/tax_rates/%<tax_rate>s", { tax_rate: CGI.escape(tax_rate) }),
         params: params,
         opts: opts
       )

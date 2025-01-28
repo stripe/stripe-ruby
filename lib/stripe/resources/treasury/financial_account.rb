@@ -76,10 +76,10 @@ module Stripe
       end
 
       # Updates the details of a FinancialAccount.
-      def self.update(id, params = {}, opts = {})
+      def self.update(financial_account, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s", { financial_account: CGI.escape(financial_account) }),
           params: params,
           opts: opts
         )

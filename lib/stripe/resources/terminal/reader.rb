@@ -48,10 +48,10 @@ module Stripe
       end
 
       # Deletes a Reader object.
-      def self.delete(id, params = {}, opts = {})
+      def self.delete(reader, params = {}, opts = {})
         request_stripe_object(
           method: :delete,
-          path: format("/v1/terminal/readers/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/terminal/readers/%<reader>s", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )
@@ -158,10 +158,10 @@ module Stripe
       end
 
       # Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(id, params = {}, opts = {})
+      def self.update(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/terminal/readers/%<reader>s", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )

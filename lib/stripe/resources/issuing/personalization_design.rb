@@ -35,10 +35,10 @@ module Stripe
       end
 
       # Updates a card personalization object.
-      def self.update(id, params = {}, opts = {})
+      def self.update(personalization_design, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/personalization_designs/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/personalization_designs/%<personalization_design>s", { personalization_design: CGI.escape(personalization_design) }),
           params: params,
           opts: opts
         )

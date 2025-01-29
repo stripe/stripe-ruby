@@ -17,13 +17,13 @@ module Stripe
   class Balance < SingletonAPIResource
     class Available < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(Integer) }
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         sig { returns(Integer) }
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(Integer) }
         attr_reader :fpx
       end
@@ -39,13 +39,13 @@ module Stripe
     end
     class ConnectReserved < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(Integer) }
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         sig { returns(Integer) }
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(Integer) }
         attr_reader :fpx
       end
@@ -62,13 +62,13 @@ module Stripe
     class InstantAvailable < Stripe::StripeObject
       class NetAvailable < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
-          # Amount for bank account.
+          # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           sig { returns(Integer) }
           attr_reader :bank_account
-          # Amount for card.
+          # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
           sig { returns(Integer) }
           attr_reader :card
-          # Amount for FPX.
+          # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           sig { returns(Integer) }
           attr_reader :fpx
         end
@@ -83,13 +83,13 @@ module Stripe
         attr_reader :source_types
       end
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(Integer) }
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         sig { returns(Integer) }
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(Integer) }
         attr_reader :fpx
       end
@@ -109,13 +109,13 @@ module Stripe
     class Issuing < Stripe::StripeObject
       class Available < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
-          # Amount for bank account.
+          # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           sig { returns(Integer) }
           attr_reader :bank_account
-          # Amount for card.
+          # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
           sig { returns(Integer) }
           attr_reader :card
-          # Amount for FPX.
+          # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           sig { returns(Integer) }
           attr_reader :fpx
         end
@@ -135,13 +135,13 @@ module Stripe
     end
     class Pending < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         sig { returns(Integer) }
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         sig { returns(Integer) }
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         sig { returns(Integer) }
         attr_reader :fpx
       end

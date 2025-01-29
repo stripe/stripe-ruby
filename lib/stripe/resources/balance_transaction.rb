@@ -17,11 +17,11 @@ module Stripe
     # Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
     #
     # Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/balance_transactions",
-        params: filters,
+        params: params,
         opts: opts
       )
     end

@@ -1,4 +1,31 @@
 # Changelog
+## 13.4.1 - 2025-01-28
+* [#1528](https://github.com/stripe/stripe-ruby/pull/1528) Update generated code
+  * ⚠️ Bugfix: `invoice` and `line_item_id` can be passed to `update` method in `InvoiceLineItem`.
+
+## 13.4.0 - 2025-01-27
+* [#1510](https://github.com/stripe/stripe-ruby/pull/1510) Update generated code
+  * Add support for `close` method on resource `Treasury.FinancialAccount`
+* [#1521](https://github.com/stripe/stripe-ruby/pull/1521) pipe rubocop output to devnull
+* [#1519](https://github.com/stripe/stripe-ruby/pull/1519) Fixed typos in CONTRIBUTING.MD
+* [#1513](https://github.com/stripe/stripe-ruby/pull/1513) add justfile
+* [#1515](https://github.com/stripe/stripe-ruby/pull/1515) Added CONTRIBUTING.md file
+
+## 13.3.1 - 2025-01-13
+* [#1512](https://github.com/stripe/stripe-ruby/pull/1512) Import global configuration for options not available on StripeClient options
+  * Fixes bug where `StripeClient` was not falling back to global options for options that are not available to be set per-client
+* [#1516](https://github.com/stripe/stripe-ruby/pull/1516) ThinEvent reason and livemode
+  - Add `livemode` and optional `reason` fields to ThinEvent
+* [#1518](https://github.com/stripe/stripe-ruby/pull/1518) Pin ubuntu version in Test action
+* [#1508](https://github.com/stripe/stripe-ruby/pull/1508) Added pull request template
+
+## 13.3.0 - 2024-12-18
+* [#1500](https://github.com/stripe/stripe-ruby/pull/1500) This release changes the pinned API version to `2024-12-18.acacia`.
+
+* [#1507](https://github.com/stripe/stripe-ruby/pull/1507) Pass requestor to all deserialized objects including lists
+  
+  * Fixes bug where `StripeObject` retrieved from lists could not be used to make requests, such as `refresh`
+
 ## 13.2.0 - 2024-11-20
 * [#1486](https://github.com/stripe/stripe-ruby/pull/1486) This release changes the pinned API version to `2024-11-20.acacia`.
   * Add support for `respond` test helper method on resource `Issuing.Authorization`

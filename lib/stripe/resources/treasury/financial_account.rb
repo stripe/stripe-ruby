@@ -15,6 +15,26 @@ module Stripe
         "treasury.financial_account"
       end
 
+      # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+      def close(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+      def self.close(financial_account, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(financial_account) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       # Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
       def self.create(params = {}, opts = {})
         request_stripe_object(
@@ -26,11 +46,11 @@ module Stripe
       end
 
       # Returns a list of FinancialAccounts.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/treasury/financial_accounts",
-          params: filters,
+          params: params,
           opts: opts
         )
       end
@@ -56,10 +76,10 @@ module Stripe
       end
 
       # Updates the details of a FinancialAccount.
-      def self.update(id, params = {}, opts = {})
+      def self.update(financial_account, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/treasury/financial_accounts/%<financial_account>s", { financial_account: CGI.escape(financial_account) }),
           params: params,
           opts: opts
         )

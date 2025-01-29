@@ -91,10 +91,10 @@ module Stripe
     end
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )
@@ -131,8 +131,8 @@ module Stripe
     end
 
     # You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/invoices", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/invoices", params: params, opts: opts)
     end
 
     # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -254,10 +254,10 @@ module Stripe
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
-    def self.update(id, params = {}, opts = {})
+    def self.update(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )

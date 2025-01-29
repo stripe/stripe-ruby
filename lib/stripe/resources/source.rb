@@ -32,10 +32,10 @@ module Stripe
     # Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
-    def self.update(id, params = {}, opts = {})
+    def self.update(source, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/sources/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/sources/%<source>s", { source: CGI.escape(source) }),
         params: params,
         opts: opts
       )

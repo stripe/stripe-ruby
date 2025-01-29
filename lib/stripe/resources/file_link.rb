@@ -21,15 +21,15 @@ module Stripe
     end
 
     # Returns a list of file links.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/file_links", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/file_links", params: params, opts: opts)
     end
 
     # Updates an existing file link object. Expired links can no longer be updated.
-    def self.update(id, params = {}, opts = {})
+    def self.update(link, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/file_links/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/file_links/%<link>s", { link: CGI.escape(link) }),
         params: params,
         opts: opts
       )

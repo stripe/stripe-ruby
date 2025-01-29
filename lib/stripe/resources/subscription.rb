@@ -76,8 +76,8 @@ module Stripe
     end
 
     # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/subscriptions", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/subscriptions", params: params, opts: opts)
     end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -134,10 +134,10 @@ module Stripe
     # If you don't want to prorate, set the proration_behavior option to none. With this option, the customer is billed 100 on May 1 and 200 on June 1. Similarly, if you set proration_behavior to none when switching between different billing intervals (for example, from monthly to yearly), we don't generate any credits for the old subscription's unused time. We still reset the billing date and bill immediately for the new subscription.
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://stripe.com/docs/rate-limits) instead.
-    def self.update(id, params = {}, opts = {})
+    def self.update(subscription_exposed_id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
         params: params,
         opts: opts
       )

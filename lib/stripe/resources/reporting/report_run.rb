@@ -31,11 +31,11 @@ module Stripe
       end
 
       # Returns a list of Report Runs, with the most recent appearing first.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/reporting/report_runs",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

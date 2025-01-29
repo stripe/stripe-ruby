@@ -89,15 +89,15 @@ module Stripe
     end
 
     # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/payment_methods", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_methods", params: params, opts: opts)
     end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
-    def self.update(id, params = {}, opts = {})
+    def self.update(payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
         params: params,
         opts: opts
       )

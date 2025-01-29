@@ -24,10 +24,10 @@ module Stripe
     end
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(coupon, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/coupons/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(coupon) }),
         params: params,
         opts: opts
       )
@@ -44,15 +44,15 @@ module Stripe
     end
 
     # Returns a list of your coupons.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/coupons", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/coupons", params: params, opts: opts)
     end
 
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
-    def self.update(id, params = {}, opts = {})
+    def self.update(coupon, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/coupons/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(coupon) }),
         params: params,
         opts: opts
       )

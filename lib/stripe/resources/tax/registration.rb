@@ -29,11 +29,11 @@ module Stripe
       end
 
       # Returns a list of Tax Registration objects.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/tax/registrations",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

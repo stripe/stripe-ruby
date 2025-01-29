@@ -20,6 +20,7 @@ module Stripe
         @orig_api_key = Stripe.api_key
         @orig_stripe_account = Stripe.stripe_account
         @orig_open_timeout = Stripe.open_timeout
+        @orig_api_version = Stripe.api_version
 
         Stripe.api_key = "DONT_USE_THIS_KEY"
         Stripe.stripe_account = "DONT_USE_THIS_ACCOUNT"
@@ -30,6 +31,7 @@ module Stripe
         Stripe.api_key = @orig_api_key
         Stripe.stripe_account = @orig_stripe_account
         Stripe.open_timeout = @orig_open_timeout
+        Stripe.api_version = @orig_api_version
       end
 
       should "use default config options" do
@@ -45,7 +47,6 @@ module Stripe
         client = StripeClient.new("test_123")
         assert_equal "test_123", client.instance_variable_get(:@requestor).config.api_key
         assert_nil client.instance_variable_get(:@requestor).config.stripe_account
-        assert_equal 30, client.instance_variable_get(:@requestor).config.open_timeout
       end
 
       should "use client config options" do
@@ -65,6 +66,30 @@ module Stripe
         assert_equal "acct_123", req.headers["Stripe-Account"]
         assert_equal "wksp_123", req.headers["Stripe-Context"]
         assert_equal "2022-11-15", req.headers["Stripe-Version"]
+      end
+
+      should "use global config options for options unavailable in client" do
+        Stripe.api_key = "NOT_THIS_KEY"
+        Stripe.stripe_account = "NOT_THIS_ACCOUNT"
+        Stripe.api_version = "2022-11-15"
+        client = StripeClient.new("test_123", stripe_account: "acct_123")
+        # Imported from global options
+        assert_equal 30_000, client.instance_variable_get(:@requestor).config.open_timeout
+        # Not set in client options, not imported from global
+        assert_equal client.instance_variable_get(:@requestor).config.api_base, Stripe::DEFAULT_API_BASE
+        assert_equal client.instance_variable_get(:@requestor).config.api_version, Stripe::ApiVersion::CURRENT
+
+        req = nil
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(object: "customer"))
+
+        client.v1.customers.retrieve("cus_123")
+
+        # Set in client options
+        assert_equal "Bearer test_123", req.headers["Authorization"]
+        assert_equal "acct_123", req.headers["Stripe-Account"]
+        assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
       end
 
       should "request options overrides client config options" do
@@ -304,6 +329,19 @@ module Stripe
         expected_body = { "id" => "acc_123", "object" => "account" }
 
         obj = @client.deserialize(expected_body)
+
+        assert_equal obj.class, Stripe::Account
+        assert_equal obj.id, "acc_123"
+      end
+
+      should "allow refresh on deserialized object" do
+        expected_body = "{\"id\": \"acc_123\", \"object\": \"account\"}"
+
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acc_123")
+          .to_return(status: 200, body: expected_body)
+
+        obj = @client.deserialize(expected_body)
+        obj = obj.refresh
 
         assert_equal obj.class, Stripe::Account
         assert_equal obj.id, "acc_123"

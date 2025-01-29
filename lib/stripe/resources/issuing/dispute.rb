@@ -27,11 +27,11 @@ module Stripe
       end
 
       # Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/issuing/disputes",
-          params: filters,
+          params: params,
           opts: opts
         )
       end
@@ -57,10 +57,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
-      def self.update(id, params = {}, opts = {})
+      def self.update(dispute, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/disputes/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/disputes/%<dispute>s", { dispute: CGI.escape(dispute) }),
           params: params,
           opts: opts
         )

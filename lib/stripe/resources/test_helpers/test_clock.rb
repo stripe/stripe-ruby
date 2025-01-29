@@ -47,10 +47,10 @@ module Stripe
       end
 
       # Deletes a test clock.
-      def self.delete(id, params = {}, opts = {})
+      def self.delete(test_clock, params = {}, opts = {})
         request_stripe_object(
           method: :delete,
-          path: format("/v1/test_helpers/test_clocks/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/test_helpers/test_clocks/%<test_clock>s", { test_clock: CGI.escape(test_clock) }),
           params: params,
           opts: opts
         )
@@ -67,11 +67,11 @@ module Stripe
       end
 
       # Returns a list of your test clocks.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/test_helpers/test_clocks",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

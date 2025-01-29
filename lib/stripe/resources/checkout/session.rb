@@ -62,11 +62,11 @@ module Stripe
       end
 
       # Returns a list of Checkout Sessions.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/checkout/sessions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end
@@ -92,10 +92,10 @@ module Stripe
       end
 
       # Updates a Session object.
-      def self.update(id, params = {}, opts = {})
+      def self.update(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/checkout/sessions/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/checkout/sessions/%<session>s", { session: CGI.escape(session) }),
           params: params,
           opts: opts
         )

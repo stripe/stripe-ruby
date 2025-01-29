@@ -3,7 +3,7 @@
 
 module Stripe
   module Billing
-    # A billing meter is a resource that allows you to track usage of a particular event. For example, you might create a billing meter to track the number of API calls made by a particular user. You can then attach the billing meter to a price and attach the price to a subscription to charge the user for the number of API calls they make.
+    # Meters specify how to aggregate meter events over a billing period. Meter events represent the actions that customers take in your system. Meters attach to prices and form the basis of the bill.
     #
     # Related guide: [Usage based billing](https://docs.stripe.com/billing/subscriptions/usage-based)
     class Meter < APIResource
@@ -21,12 +21,12 @@ module Stripe
                                     operations: %i[list],
                                     resource_plural: "event_summaries"
 
-      # Creates a billing meter
+      # Creates a billing meter.
       def self.create(params = {}, opts = {})
         request_stripe_object(method: :post, path: "/v1/billing/meters", params: params, opts: opts)
       end
 
-      # Deactivates a billing meter
+      # When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
       def deactivate(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -36,7 +36,7 @@ module Stripe
         )
       end
 
-      # Deactivates a billing meter
+      # When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
       def self.deactivate(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -47,11 +47,11 @@ module Stripe
       end
 
       # Retrieve a list of billing meters.
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/billing/meters", params: filters, opts: opts)
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/billing/meters", params: params, opts: opts)
       end
 
-      # Reactivates a billing meter
+      # When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
       def reactivate(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -61,7 +61,7 @@ module Stripe
         )
       end
 
-      # Reactivates a billing meter
+      # When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
       def self.reactivate(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -71,7 +71,7 @@ module Stripe
         )
       end
 
-      # Updates a billing meter
+      # Updates a billing meter.
       def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,

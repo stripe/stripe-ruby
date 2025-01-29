@@ -21,15 +21,15 @@ module Stripe
     end
 
     # Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/tax_rates", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/tax_rates", params: params, opts: opts)
     end
 
     # Updates an existing tax rate.
-    def self.update(id, params = {}, opts = {})
+    def self.update(tax_rate, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/tax_rates/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/tax_rates/%<tax_rate>s", { tax_rate: CGI.escape(tax_rate) }),
         params: params,
         opts: opts
       )

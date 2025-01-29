@@ -56,8 +56,8 @@ module Stripe
     end
 
     # Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/charges", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/charges", params: params, opts: opts)
     end
 
     def self.search(params = {}, opts = {})
@@ -69,10 +69,10 @@ module Stripe
     end
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-    def self.update(id, params = {}, opts = {})
+    def self.update(charge, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/charges/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/charges/%<charge>s", { charge: CGI.escape(charge) }),
         params: params,
         opts: opts
       )

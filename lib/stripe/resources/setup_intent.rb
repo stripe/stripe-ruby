@@ -1367,7 +1367,7 @@ module Stripe
                 @mode = mode
               end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             attr_accessor :filters
             # Customize manual entry behavior
             attr_accessor :manual_entry
@@ -2519,7 +2519,7 @@ module Stripe
                 @mode = mode
               end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             attr_accessor :filters
             # Customize manual entry behavior
             attr_accessor :manual_entry
@@ -3661,7 +3661,7 @@ module Stripe
                 @mode = mode
               end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             attr_accessor :filters
             # Customize manual entry behavior
             attr_accessor :manual_entry

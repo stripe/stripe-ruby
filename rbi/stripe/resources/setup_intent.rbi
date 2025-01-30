@@ -1510,7 +1510,7 @@ module Stripe
               sig { params(mode: String).void }
               def initialize(mode: nil); end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
               returns(::Stripe::SetupIntent::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)
              }
@@ -2655,7 +2655,7 @@ module Stripe
               sig { params(mode: String).void }
               def initialize(mode: nil); end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
               returns(::Stripe::SetupIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)
              }
@@ -3796,7 +3796,7 @@ module Stripe
               sig { params(mode: String).void }
               def initialize(mode: nil); end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
               returns(::Stripe::SetupIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)
              }

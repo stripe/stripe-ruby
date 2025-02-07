@@ -57,11 +57,25 @@ module Stripe
         end
         class ApplicabilityConfig < Stripe::RequestParams
           class Scope < Stripe::RequestParams
+            class Price < Stripe::RequestParams
+              # The price ID this credit grant should apply to.
+              sig { returns(String) }
+              attr_accessor :id
+              sig { params(id: String).void }
+              def initialize(id: nil); end
+            end
             # The price type that credit grants can apply to. We currently only support the `metered` price type.
             sig { returns(String) }
             attr_accessor :price_type
-            sig { params(price_type: String).void }
-            def initialize(price_type: nil); end
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            sig {
+              returns(T::Array[::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig::Scope::Price])
+             }
+            attr_accessor :prices
+            sig {
+              params(price_type: String, prices: T::Array[::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig::Scope::Price]).void
+             }
+            def initialize(price_type: nil, prices: nil); end
           end
           # Specify the scope of this applicability config.
           sig {

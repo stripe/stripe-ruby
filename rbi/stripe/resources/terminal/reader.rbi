@@ -866,9 +866,9 @@ module Stripe
 
       # Deletes a Reader object.
       sig {
-        params(id: String, params: T.any(::Stripe::Terminal::Reader::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+        params(reader: String, params: T.any(::Stripe::Terminal::Reader::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
        }
-      def self.delete(id, params = {}, opts = {}); end
+      def self.delete(reader, params = {}, opts = {}); end
 
       # Deletes a Reader object.
       sig {
@@ -932,9 +932,9 @@ module Stripe
 
       # Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(id: String, params: T.any(::Stripe::Terminal::Reader::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+        params(reader: String, params: T.any(::Stripe::Terminal::Reader::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(reader, params = {}, opts = {}); end
     end
   end
 end

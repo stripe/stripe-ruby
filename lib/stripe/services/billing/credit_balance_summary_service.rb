@@ -7,11 +7,22 @@ module Stripe
       class RetrieveParams < Stripe::RequestParams
         class Filter < Stripe::RequestParams
           class ApplicabilityScope < Stripe::RequestParams
+            class Price < Stripe::RequestParams
+              # The price ID this credit grant should apply to.
+              attr_accessor :id
+
+              def initialize(id: nil)
+                @id = id
+              end
+            end
             # The price type that credit grants can apply to. We currently only support the `metered` price type.
             attr_accessor :price_type
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            attr_accessor :prices
 
-            def initialize(price_type: nil)
+            def initialize(price_type: nil, prices: nil)
               @price_type = price_type
+              @prices = prices
             end
           end
           # The billing credit applicability scope for which to fetch credit balance summary.

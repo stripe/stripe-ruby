@@ -111,7 +111,7 @@ module Stripe
         attr_accessor :filters
         # Settings for configuring Session-specific limits.
         attr_accessor :limits
-        # Settings for configuring manual entry of account details for this Session.
+        # Customize manual entry behavior
         attr_accessor :manual_entry
         # List of data features that you would like to request access to.
         #

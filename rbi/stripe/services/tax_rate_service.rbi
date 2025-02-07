@@ -83,7 +83,7 @@ module Stripe
       # This represents the tax rate percent out of 100.
       sig { returns(Float) }
       attr_accessor :percentage
-      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
       sig { returns(String) }
       attr_accessor :state
       # The high-level tax type, such as `vat` or `sales_tax`.
@@ -135,7 +135,7 @@ module Stripe
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
       sig { returns(String) }
       attr_accessor :state
       # The high-level tax type, such as `vat` or `sales_tax`.

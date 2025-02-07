@@ -632,9 +632,9 @@ module Stripe
 
       # Updates a configuration that describes the functionality of the customer portal.
       sig {
-        params(id: String, params: T.any(::Stripe::BillingPortal::Configuration::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BillingPortal::Configuration)
+        params(configuration: String, params: T.any(::Stripe::BillingPortal::Configuration::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BillingPortal::Configuration)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(configuration, params = {}, opts = {}); end
     end
   end
 end

@@ -78,9 +78,9 @@ module Stripe
 
     # Delete an apple pay domain.
     sig {
-      params(id: String, params: T.any(::Stripe::ApplePayDomain::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplePayDomain)
+      params(domain: String, params: T.any(::Stripe::ApplePayDomain::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ApplePayDomain)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(domain, params = {}, opts = {}); end
 
     # Delete an apple pay domain.
     sig {

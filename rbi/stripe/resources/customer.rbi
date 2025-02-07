@@ -916,9 +916,9 @@ module Stripe
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
-      params(id: String, params: T.any(::Stripe::Customer::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(customer: String, params: T.any(::Stripe::Customer::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(customer, params = {}, opts = {}); end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
@@ -988,9 +988,9 @@ module Stripe
     #
     # This request accepts mostly the same arguments as the customer creation call.
     sig {
-      params(id: String, params: T.any(::Stripe::Customer::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
+      params(customer: String, params: T.any(::Stripe::Customer::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Customer)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(customer, params = {}, opts = {}); end
 
     # Changes the settings on a customer's cash balance.
     sig {

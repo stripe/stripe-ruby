@@ -892,10 +892,10 @@ module Stripe
     end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(customer, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(customer) }),
         params: params,
         opts: opts
       )
@@ -997,10 +997,10 @@ module Stripe
     # Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
     #
     # This request accepts mostly the same arguments as the customer creation call.
-    def self.update(id, params = {}, opts = {})
+    def self.update(customer, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(customer) }),
         params: params,
         opts: opts
       )

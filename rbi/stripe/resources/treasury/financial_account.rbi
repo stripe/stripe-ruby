@@ -850,9 +850,9 @@ module Stripe
 
       # Updates the details of a FinancialAccount.
       sig {
-        params(id: String, params: T.any(::Stripe::Treasury::FinancialAccount::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccount)
+        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccount::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccount)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(financial_account, params = {}, opts = {}); end
 
       # Updates the Features associated with a FinancialAccount.
       sig {

@@ -339,9 +339,9 @@ module Stripe
       class Tax < Stripe::StripeObject
         # Amount of tax applied for this rate.
         attr_reader :amount
-        # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+        # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
         #
-        # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+        # Related guide: [Tax rates](/billing/taxes/tax-rates)
         attr_reader :rate
         # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
         attr_reader :taxability_reason
@@ -5842,7 +5842,7 @@ module Stripe
       attr_accessor :expand
       # The ID of the PaymentIntent to attach to the invoice.
       attr_accessor :payment_intent
-      # The ID of the PaymentRecord to detach from the invoice.
+      # The ID of the PaymentRecord to attach to the invoice.
       attr_accessor :payment_record
       # The PaymentRecord data for attaching an out of band payment to the invoice.
       attr_accessor :payment_record_data
@@ -8169,10 +8169,10 @@ module Stripe
     end
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )
@@ -8332,10 +8332,10 @@ module Stripe
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
-    def self.update(id, params = {}, opts = {})
+    def self.update(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )

@@ -182,6 +182,8 @@ module Stripe
           class Card < Stripe::StripeObject
             # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             attr_reader :brand
+            # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+            attr_reader :brand_product
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             attr_reader :country
             # Two-digit number representing the card's expiration month.
@@ -939,6 +941,8 @@ module Stripe
           class Card < Stripe::StripeObject
             # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             attr_reader :brand
+            # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+            attr_reader :brand_product
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             attr_reader :country
             # Two-digit number representing the card's expiration month.
@@ -3099,10 +3103,10 @@ module Stripe
     end
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-    def self.update(id, params = {}, opts = {})
+    def self.update(charge, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/charges/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/charges/%<charge>s", { charge: CGI.escape(charge) }),
         params: params,
         opts: opts
       )

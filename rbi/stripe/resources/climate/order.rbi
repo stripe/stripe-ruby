@@ -242,9 +242,9 @@ module Stripe
 
       # Updates the specified order by setting the values of the parameters passed.
       sig {
-        params(id: String, params: T.any(::Stripe::Climate::Order::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Climate::Order)
+        params(order: String, params: T.any(::Stripe::Climate::Order::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Climate::Order)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(order, params = {}, opts = {}); end
     end
   end
 end

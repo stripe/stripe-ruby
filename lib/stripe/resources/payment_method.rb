@@ -200,7 +200,7 @@ module Stripe
       end
 
       class Networks < Stripe::StripeObject
-        # All available networks for the card.
+        # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
         attr_reader :available
         # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
         attr_reader :preferred
@@ -357,7 +357,7 @@ module Stripe
 
     class CardPresent < Stripe::StripeObject
       class Networks < Stripe::StripeObject
-        # All available networks for the card.
+        # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
         attr_reader :available
         # The preferred network for the card.
         attr_reader :preferred
@@ -457,7 +457,7 @@ module Stripe
 
     class InteracPresent < Stripe::StripeObject
       class Networks < Stripe::StripeObject
-        # All available networks for the card.
+        # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
         attr_reader :available
         # The preferred network for the card.
         attr_reader :preferred
@@ -1749,10 +1749,10 @@ module Stripe
     end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
-    def self.update(id, params = {}, opts = {})
+    def self.update(payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
         params: params,
         opts: opts
       )

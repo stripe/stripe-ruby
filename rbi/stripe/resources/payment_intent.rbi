@@ -5244,7 +5244,7 @@ module Stripe
               sig { params(mode: String).void }
               def initialize(mode: nil); end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
               returns(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)
              }
@@ -8652,7 +8652,7 @@ module Stripe
               sig { params(mode: String).void }
               def initialize(mode: nil); end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
               returns(::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)
              }
@@ -12799,7 +12799,7 @@ module Stripe
               sig { params(mode: String).void }
               def initialize(mode: nil); end
             end
-            # Provide filters for the linked accounts that the customer can select for the payment method
+            # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
               returns(::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::FinancialConnections::Filters)
              }
@@ -13876,9 +13876,9 @@ module Stripe
     # update and confirm at the same time, we recommend updating properties through
     # the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
     sig {
-      params(id: String, params: T.any(::Stripe::PaymentIntent::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentIntent)
+      params(intent: String, params: T.any(::Stripe::PaymentIntent::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentIntent)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(intent, params = {}, opts = {}); end
 
     # Verifies microdeposits on a PaymentIntent object.
     sig {

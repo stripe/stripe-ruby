@@ -21,11 +21,11 @@ module Stripe
 
     class Available < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
       end
       # Balance amount.
@@ -38,11 +38,11 @@ module Stripe
 
     class ConnectReserved < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
       end
       # Balance amount.
@@ -56,11 +56,11 @@ module Stripe
     class InstantAvailable < Stripe::StripeObject
       class NetAvailable < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
-          # Amount for bank account.
+          # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           attr_reader :bank_account
-          # Amount for card.
+          # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
           attr_reader :card
-          # Amount for FPX.
+          # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           attr_reader :fpx
         end
         # Net balance amount, subtracting fees from platform-set pricing.
@@ -72,11 +72,11 @@ module Stripe
       end
 
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
       end
       # Balance amount.
@@ -92,11 +92,11 @@ module Stripe
     class Issuing < Stripe::StripeObject
       class Available < Stripe::StripeObject
         class SourceTypes < Stripe::StripeObject
-          # Amount for bank account.
+          # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
           attr_reader :bank_account
-          # Amount for card.
+          # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
           attr_reader :card
-          # Amount for FPX.
+          # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
           attr_reader :fpx
         end
         # Balance amount.
@@ -112,11 +112,11 @@ module Stripe
 
     class Pending < Stripe::StripeObject
       class SourceTypes < Stripe::StripeObject
-        # Amount for bank account.
+        # Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
         attr_reader :bank_account
-        # Amount for card.
+        # Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
         attr_reader :card
-        # Amount for FPX.
+        # Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
         attr_reader :fpx
       end
       # Balance amount.

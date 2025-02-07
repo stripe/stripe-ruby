@@ -2646,8 +2646,8 @@ module Stripe
 
     # Updates an existing subscription schedule.
     sig {
-      params(id: String, params: T.any(::Stripe::SubscriptionSchedule::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SubscriptionSchedule)
+      params(schedule: String, params: T.any(::Stripe::SubscriptionSchedule::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SubscriptionSchedule)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(schedule, params = {}, opts = {}); end
   end
 end

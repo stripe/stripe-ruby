@@ -247,7 +247,7 @@ module Stripe
         attr_reader :setup_attempt
       end
       class Networks < Stripe::StripeObject
-        # All available networks for the card.
+        # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
         sig { returns(T::Array[String]) }
         attr_reader :available
         # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
@@ -457,7 +457,7 @@ module Stripe
     end
     class CardPresent < Stripe::StripeObject
       class Networks < Stripe::StripeObject
-        # All available networks for the card.
+        # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
         sig { returns(T::Array[String]) }
         attr_reader :available
         # The preferred network for the card.
@@ -580,7 +580,7 @@ module Stripe
     end
     class InteracPresent < Stripe::StripeObject
       class Networks < Stripe::StripeObject
-        # All available networks for the card.
+        # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
         sig { returns(T::Array[String]) }
         attr_reader :available
         # The preferred network for the card.
@@ -1919,8 +1919,8 @@ module Stripe
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
     sig {
-      params(id: String, params: T.any(::Stripe::PaymentMethod::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethod::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethod)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(payment_method, params = {}, opts = {}); end
   end
 end

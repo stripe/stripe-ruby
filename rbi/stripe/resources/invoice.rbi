@@ -400,9 +400,9 @@ module Stripe
         # Amount of tax applied for this rate.
         sig { returns(Integer) }
         attr_reader :amount
-        # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+        # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
         #
-        # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+        # Related guide: [Tax rates](/billing/taxes/tax-rates)
         sig { returns(Stripe::TaxRate) }
         attr_reader :rate
         # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -6543,7 +6543,7 @@ module Stripe
       # The ID of the PaymentIntent to attach to the invoice.
       sig { returns(String) }
       attr_accessor :payment_intent
-      # The ID of the PaymentRecord to detach from the invoice.
+      # The ID of the PaymentRecord to attach to the invoice.
       sig { returns(String) }
       attr_accessor :payment_record
       # The PaymentRecord data for attaching an out of band payment to the invoice.
@@ -8778,9 +8778,9 @@ module Stripe
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
     sig {
-      params(id: String, params: T.any(::Stripe::Invoice::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
+      params(invoice: String, params: T.any(::Stripe::Invoice::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(invoice, params = {}, opts = {}); end
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
     sig {
@@ -8893,9 +8893,9 @@ module Stripe
     # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
     sig {
-      params(id: String, params: T.any(::Stripe::Invoice::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
+      params(invoice: String, params: T.any(::Stripe::Invoice::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(invoice, params = {}, opts = {}); end
 
     # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
     sig {

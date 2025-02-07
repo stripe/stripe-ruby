@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+  # Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
   #
-  # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+  # Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
   class TaxRate < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -93,7 +93,7 @@ module Stripe
       attr_accessor :metadata
       # This represents the tax rate percent out of 100.
       attr_accessor :percentage
-      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
       attr_accessor :state
       # The high-level tax type, such as `vat` or `sales_tax`.
       attr_accessor :tax_type
@@ -149,7 +149,7 @@ module Stripe
       attr_accessor :jurisdiction
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+      # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
       attr_accessor :state
       # The high-level tax type, such as `vat` or `sales_tax`.
       attr_accessor :tax_type
@@ -210,7 +210,7 @@ module Stripe
     attr_reader :percentage
     # Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
     attr_reader :rate_type
-    # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+    # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
     attr_reader :state
     # The high-level tax type, such as `vat` or `sales_tax`.
     attr_reader :tax_type
@@ -226,10 +226,10 @@ module Stripe
     end
 
     # Updates an existing tax rate.
-    def self.update(id, params = {}, opts = {})
+    def self.update(tax_rate, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/tax_rates/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/tax_rates/%<tax_rate>s", { tax_rate: CGI.escape(tax_rate) }),
         params: params,
         opts: opts
       )

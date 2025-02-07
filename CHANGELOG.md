@@ -1,12 +1,23 @@
 # Changelog
 
+## 13.4.1 - 2025-01-28
+* [#1528](https://github.com/stripe/stripe-ruby/pull/1528) Update generated code
+  * ⚠️ Bugfix: `invoice` and `line_item_id` can be passed to `update` method in `InvoiceLineItem`.
+
+## 13.4.0 - 2025-01-27
+* [#1510](https://github.com/stripe/stripe-ruby/pull/1510) Update generated code
+  * Add support for `close` method on resource `Treasury.FinancialAccount`
+* [#1521](https://github.com/stripe/stripe-ruby/pull/1521) pipe rubocop output to devnull
+* [#1519](https://github.com/stripe/stripe-ruby/pull/1519) Fixed typos in CONTRIBUTING.MD
+* [#1513](https://github.com/stripe/stripe-ruby/pull/1513) add justfile
+* [#1515](https://github.com/stripe/stripe-ruby/pull/1515) Added CONTRIBUTING.md file
+
 ## 13.4.0-beta.4 - 2025-01-23
 * [#1523](https://github.com/stripe/stripe-ruby/pull/1523) Update generated code for beta
-  * Removed support for `stripe_account` from `Stripe::Terminal::Reader`. Use `account` instead. 
+  * Removed support for `stripe_account` from `Stripe::Terminal::Reader`. Use `account` instead.
 
 ## 13.4.0-beta.3 - 2025-01-17
 * [#1514](https://github.com/stripe/stripe-ruby/pull/1514) Update generated code for beta
-
 
 ## 13.4.0-beta.2 - 2025-01-09
 * [#1504](https://github.com/stripe/stripe-ruby/pull/1504) Update generated code for beta

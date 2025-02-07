@@ -292,8 +292,8 @@ module Stripe
 
     # Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
     sig {
-      params(id: String, params: T.any(::Stripe::Payout::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
+      params(payout: String, params: T.any(::Stripe::Payout::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(payout, params = {}, opts = {}); end
   end
 end

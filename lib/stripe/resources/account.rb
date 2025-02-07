@@ -484,6 +484,8 @@ module Stripe
       attr_reader :charges
       # Attribute for field payouts
       attr_reader :payouts
+      # Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://stripe.com/docs/connect/)
+      attr_reader :rejected_reason
     end
 
     class Settings < Stripe::StripeObject
@@ -5214,10 +5216,10 @@ module Stripe
     # Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(account, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/accounts/%<account>s", { account: CGI.escape(account) }),
         params: params,
         opts: opts
       )
@@ -5301,10 +5303,10 @@ module Stripe
     #
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
-    def self.update(id, params = {}, opts = {})
+    def self.update(account, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/accounts/%<account>s", { account: CGI.escape(account) }),
         params: params,
         opts: opts
       )

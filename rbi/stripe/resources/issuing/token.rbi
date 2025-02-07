@@ -223,9 +223,9 @@ module Stripe
 
       # Attempts to update the specified Issuing Token object to the status specified.
       sig {
-        params(id: String, params: T.any(::Stripe::Issuing::Token::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Token)
+        params(token: String, params: T.any(::Stripe::Issuing::Token::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Token)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(token, params = {}, opts = {}); end
     end
   end
 end

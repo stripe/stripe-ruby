@@ -453,9 +453,9 @@ module Stripe
 
     # Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
     sig {
-      params(id: String, params: T.any(::Stripe::SubscriptionItem::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SubscriptionItem)
+      params(item: String, params: T.any(::Stripe::SubscriptionItem::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SubscriptionItem)
      }
-    def self.delete(id, params = {}, opts = {}); end
+    def self.delete(item, params = {}, opts = {}); end
 
     # Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
     sig {
@@ -471,8 +471,8 @@ module Stripe
 
     # Updates the plan or quantity of an item on a current subscription.
     sig {
-      params(id: String, params: T.any(::Stripe::SubscriptionItem::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SubscriptionItem)
+      params(item: String, params: T.any(::Stripe::SubscriptionItem::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::SubscriptionItem)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(item, params = {}, opts = {}); end
   end
 end

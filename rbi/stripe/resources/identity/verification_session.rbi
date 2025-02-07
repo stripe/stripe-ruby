@@ -510,9 +510,9 @@ module Stripe
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
       sig {
-        params(id: String, params: T.any(::Stripe::Identity::VerificationSession::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSession::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(session, params = {}, opts = {}); end
     end
   end
 end

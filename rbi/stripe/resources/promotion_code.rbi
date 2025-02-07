@@ -259,8 +259,8 @@ module Stripe
 
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
     sig {
-      params(id: String, params: T.any(::Stripe::PromotionCode::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PromotionCode)
+      params(promotion_code: String, params: T.any(::Stripe::PromotionCode::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PromotionCode)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(promotion_code, params = {}, opts = {}); end
   end
 end

@@ -508,8 +508,8 @@ module Stripe
     #
     # This request only accepts metadata as an argument.
     sig {
-      params(id: String, params: T.any(::Stripe::Refund::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Refund)
+      params(refund: String, params: T.any(::Stripe::Refund::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Refund)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(refund, params = {}, opts = {}); end
   end
 end

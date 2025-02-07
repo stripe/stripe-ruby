@@ -724,9 +724,9 @@ module Stripe
 
       # Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(id: String, params: T.any(::Stripe::Issuing::Cardholder::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Cardholder)
+        params(cardholder: String, params: T.any(::Stripe::Issuing::Cardholder::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Issuing::Cardholder)
        }
-      def self.update(id, params = {}, opts = {}); end
+      def self.update(cardholder, params = {}, opts = {}); end
     end
   end
 end

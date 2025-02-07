@@ -2301,8 +2301,8 @@ module Stripe
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://stripe.com/docs/rate-limits) instead.
     sig {
-      params(id: String, params: T.any(::Stripe::Subscription::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+      params(subscription_exposed_id: String, params: T.any(::Stripe::Subscription::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(subscription_exposed_id, params = {}, opts = {}); end
   end
 end

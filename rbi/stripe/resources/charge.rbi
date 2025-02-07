@@ -219,6 +219,9 @@ module Stripe
             # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             sig { returns(T.nilable(String)) }
             attr_reader :brand
+            # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+            sig { returns(T.nilable(String)) }
+            attr_reader :brand_product
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             sig { returns(T.nilable(String)) }
             attr_reader :country
@@ -1185,6 +1188,9 @@ module Stripe
             # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             sig { returns(T.nilable(String)) }
             attr_reader :brand
+            # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+            sig { returns(T.nilable(String)) }
+            attr_reader :brand_product
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             sig { returns(T.nilable(String)) }
             attr_reader :country
@@ -3481,8 +3487,8 @@ module Stripe
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     sig {
-      params(id: String, params: T.any(::Stripe::Charge::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
+      params(charge: String, params: T.any(::Stripe::Charge::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(charge, params = {}, opts = {}); end
   end
 end

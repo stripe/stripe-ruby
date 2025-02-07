@@ -218,8 +218,8 @@ module Stripe
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.
     sig {
-      params(id: String, params: T.any(::Stripe::Topup::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Topup)
+      params(topup: String, params: T.any(::Stripe::Topup::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Topup)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(topup, params = {}, opts = {}); end
   end
 end

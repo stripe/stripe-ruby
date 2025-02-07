@@ -188,9 +188,9 @@ module Stripe
 
     # Updates an existing payment method domain.
     sig {
-      params(id: String, params: T.any(::Stripe::PaymentMethodDomain::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
+      params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomain::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(payment_method_domain, params = {}, opts = {}); end
 
     # Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
     # The payment method doesn't appear in Elements for this domain until it is active.

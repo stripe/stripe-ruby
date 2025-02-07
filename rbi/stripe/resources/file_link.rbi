@@ -139,8 +139,8 @@ module Stripe
 
     # Updates an existing file link object. Expired links can no longer be updated.
     sig {
-      params(id: String, params: T.any(::Stripe::FileLink::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FileLink)
+      params(link: String, params: T.any(::Stripe::FileLink::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::FileLink)
      }
-    def self.update(id, params = {}, opts = {}); end
+    def self.update(link, params = {}, opts = {}); end
   end
 end

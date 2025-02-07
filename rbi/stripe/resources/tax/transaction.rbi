@@ -95,7 +95,7 @@ module Stripe
             # Indicates the level of the jurisdiction imposing the tax.
             sig { returns(String) }
             attr_reader :level
-            # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+            # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
             sig { returns(T.nilable(String)) }
             attr_reader :state
           end

@@ -26,9 +26,17 @@ module Stripe
       end
       class ApplicabilityConfig < Stripe::StripeObject
         class Scope < Stripe::StripeObject
+          class Price < Stripe::StripeObject
+            # Unique identifier for the object.
+            sig { returns(T.nilable(String)) }
+            attr_reader :id
+          end
           # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
           sig { returns(String) }
           attr_reader :price_type
+          # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+          sig { returns(T::Array[Price]) }
+          attr_reader :prices
         end
         # Attribute for field scope
         sig { returns(Scope) }
@@ -131,11 +139,25 @@ module Stripe
         end
         class ApplicabilityConfig < Stripe::RequestParams
           class Scope < Stripe::RequestParams
+            class Price < Stripe::RequestParams
+              # The price ID this credit grant should apply to.
+              sig { returns(String) }
+              attr_accessor :id
+              sig { params(id: String).void }
+              def initialize(id: nil); end
+            end
             # The price type that credit grants can apply to. We currently only support the `metered` price type.
             sig { returns(String) }
             attr_accessor :price_type
-            sig { params(price_type: String).void }
-            def initialize(price_type: nil); end
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            sig {
+              returns(T::Array[::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig::Scope::Price])
+             }
+            attr_accessor :prices
+            sig {
+              params(price_type: String, prices: T::Array[::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig::Scope::Price]).void
+             }
+            def initialize(price_type: nil, prices: nil); end
           end
           # Specify the scope of this applicability config.
           sig { returns(::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig::Scope) }

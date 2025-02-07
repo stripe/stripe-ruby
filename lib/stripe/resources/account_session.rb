@@ -774,6 +774,20 @@ module Stripe
           end
         end
 
+        class ProductTaxCodeSelector < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class Recipients < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow sending money.
@@ -889,6 +903,8 @@ module Stripe
         attr_accessor :payouts
         # Configuration for the payouts list embedded component.
         attr_accessor :payouts_list
+        # Configuration for the product tax code selector embedded component.
+        attr_accessor :product_tax_code_selector
         # Configuration for the recipients component.
         attr_accessor :recipients
         # Configuration for the reporting chart embedded component.
@@ -921,6 +937,7 @@ module Stripe
           payments: nil,
           payouts: nil,
           payouts_list: nil,
+          product_tax_code_selector: nil,
           recipients: nil,
           reporting_chart: nil,
           tax_registrations: nil,
@@ -947,6 +964,7 @@ module Stripe
           @payments = payments
           @payouts = payouts
           @payouts_list = payouts_list
+          @product_tax_code_selector = product_tax_code_selector
           @recipients = recipients
           @reporting_chart = reporting_chart
           @tax_registrations = tax_registrations

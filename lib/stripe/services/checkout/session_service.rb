@@ -911,6 +911,15 @@ module Stripe
                 @enabled = enabled
               end
             end
+
+            class Restrictions < Stripe::RequestParams
+              # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+              attr_accessor :brands_blocked
+
+              def initialize(brands_blocked: nil)
+                @brands_blocked = brands_blocked
+              end
+            end
             # Installment options for card payments
             attr_accessor :installments
             # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
@@ -925,6 +934,8 @@ module Stripe
             attr_accessor :request_overcapture
             # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             attr_accessor :request_three_d_secure
+            # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+            attr_accessor :restrictions
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
             # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -946,6 +957,7 @@ module Stripe
               request_multicapture: nil,
               request_overcapture: nil,
               request_three_d_secure: nil,
+              restrictions: nil,
               setup_future_usage: nil,
               statement_descriptor_suffix_kana: nil,
               statement_descriptor_suffix_kanji: nil
@@ -957,6 +969,7 @@ module Stripe
               @request_multicapture = request_multicapture
               @request_overcapture = request_overcapture
               @request_three_d_secure = request_three_d_secure
+              @restrictions = restrictions
               @setup_future_usage = setup_future_usage
               @statement_descriptor_suffix_kana = statement_descriptor_suffix_kana
               @statement_descriptor_suffix_kanji = statement_descriptor_suffix_kanji

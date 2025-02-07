@@ -339,9 +339,9 @@ module Stripe
       class Tax < Stripe::StripeObject
         # Amount of tax applied for this rate.
         attr_reader :amount
-        # Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+        # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
         #
-        # Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+        # Related guide: [Tax rates](/billing/taxes/tax-rates)
         attr_reader :rate
         # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
         attr_reader :taxability_reason

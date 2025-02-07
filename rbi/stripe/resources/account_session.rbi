@@ -902,6 +902,23 @@ module Stripe
            }
           def initialize(enabled: nil, features: nil); end
         end
+        class ProductTaxCodeSelector < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+
+          end
+          # Whether the embedded component is enabled.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          sig {
+            returns(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector::Features)
+           }
+          attr_accessor :features
+          sig {
+            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector::Features).void
+           }
+          def initialize(enabled: nil, features: nil); end
+        end
         class Recipients < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow sending money.
@@ -1053,6 +1070,9 @@ module Stripe
         # Configuration for the payouts list embedded component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::PayoutsList) }
         attr_accessor :payouts_list
+        # Configuration for the product tax code selector embedded component.
+        sig { returns(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector) }
+        attr_accessor :product_tax_code_selector
         # Configuration for the recipients component.
         sig { returns(::Stripe::AccountSession::CreateParams::Components::Recipients) }
         attr_accessor :recipients
@@ -1069,7 +1089,7 @@ module Stripe
         sig { returns(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring) }
         attr_accessor :tax_threshold_monitoring
         sig {
-          params(account_management: ::Stripe::AccountSession::CreateParams::Components::AccountManagement, account_onboarding: ::Stripe::AccountSession::CreateParams::Components::AccountOnboarding, app_install: ::Stripe::AccountSession::CreateParams::Components::AppInstall, app_viewport: ::Stripe::AccountSession::CreateParams::Components::AppViewport, balances: ::Stripe::AccountSession::CreateParams::Components::Balances, capital_financing: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancing, capital_financing_application: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication, capital_financing_promotion: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion, capital_overview: ::Stripe::AccountSession::CreateParams::Components::CapitalOverview, documents: ::Stripe::AccountSession::CreateParams::Components::Documents, financial_account: ::Stripe::AccountSession::CreateParams::Components::FinancialAccount, financial_account_transactions: ::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions, issuing_card: ::Stripe::AccountSession::CreateParams::Components::IssuingCard, issuing_cards_list: ::Stripe::AccountSession::CreateParams::Components::IssuingCardsList, notification_banner: ::Stripe::AccountSession::CreateParams::Components::NotificationBanner, payment_details: ::Stripe::AccountSession::CreateParams::Components::PaymentDetails, payment_method_settings: ::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings, payments: ::Stripe::AccountSession::CreateParams::Components::Payments, payouts: ::Stripe::AccountSession::CreateParams::Components::Payouts, payouts_list: ::Stripe::AccountSession::CreateParams::Components::PayoutsList, recipients: ::Stripe::AccountSession::CreateParams::Components::Recipients, reporting_chart: ::Stripe::AccountSession::CreateParams::Components::ReportingChart, tax_registrations: ::Stripe::AccountSession::CreateParams::Components::TaxRegistrations, tax_settings: ::Stripe::AccountSession::CreateParams::Components::TaxSettings, tax_threshold_monitoring: ::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring).void
+          params(account_management: ::Stripe::AccountSession::CreateParams::Components::AccountManagement, account_onboarding: ::Stripe::AccountSession::CreateParams::Components::AccountOnboarding, app_install: ::Stripe::AccountSession::CreateParams::Components::AppInstall, app_viewport: ::Stripe::AccountSession::CreateParams::Components::AppViewport, balances: ::Stripe::AccountSession::CreateParams::Components::Balances, capital_financing: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancing, capital_financing_application: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication, capital_financing_promotion: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion, capital_overview: ::Stripe::AccountSession::CreateParams::Components::CapitalOverview, documents: ::Stripe::AccountSession::CreateParams::Components::Documents, financial_account: ::Stripe::AccountSession::CreateParams::Components::FinancialAccount, financial_account_transactions: ::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions, issuing_card: ::Stripe::AccountSession::CreateParams::Components::IssuingCard, issuing_cards_list: ::Stripe::AccountSession::CreateParams::Components::IssuingCardsList, notification_banner: ::Stripe::AccountSession::CreateParams::Components::NotificationBanner, payment_details: ::Stripe::AccountSession::CreateParams::Components::PaymentDetails, payment_method_settings: ::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings, payments: ::Stripe::AccountSession::CreateParams::Components::Payments, payouts: ::Stripe::AccountSession::CreateParams::Components::Payouts, payouts_list: ::Stripe::AccountSession::CreateParams::Components::PayoutsList, product_tax_code_selector: ::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector, recipients: ::Stripe::AccountSession::CreateParams::Components::Recipients, reporting_chart: ::Stripe::AccountSession::CreateParams::Components::ReportingChart, tax_registrations: ::Stripe::AccountSession::CreateParams::Components::TaxRegistrations, tax_settings: ::Stripe::AccountSession::CreateParams::Components::TaxSettings, tax_threshold_monitoring: ::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring).void
          }
         def initialize(
           account_management: nil,
@@ -1092,6 +1112,7 @@ module Stripe
           payments: nil,
           payouts: nil,
           payouts_list: nil,
+          product_tax_code_selector: nil,
           recipients: nil,
           reporting_chart: nil,
           tax_registrations: nil,

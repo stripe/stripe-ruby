@@ -17,7 +17,7 @@ module Stripe
           attr_reader :display_name
           # Indicates the level of the jurisdiction imposing the tax.
           attr_reader :level
-          # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+          # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
           attr_reader :state
         end
 

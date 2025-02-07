@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.5.0-beta.1 - 2025-02-07
+* [#1527](https://github.com/stripe/stripe-ruby/pull/1527) Update generated code for beta
+
+
 ## 13.4.1 - 2025-01-28
 * [#1528](https://github.com/stripe/stripe-ruby/pull/1528) Update generated code
   * ⚠️ Bugfix: `invoice` and `line_item_id` can be passed to `update` method in `InvoiceLineItem`.

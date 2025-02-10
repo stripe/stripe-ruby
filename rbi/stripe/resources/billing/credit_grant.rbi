@@ -78,6 +78,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
+      # The priority for applying this credit grant. The highest priority is 0 and the lowest is 100.
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :priority
       # ID of the test clock this credit grant belongs to.
       sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
       attr_reader :test_clock
@@ -194,8 +197,11 @@ module Stripe
         # A descriptive name shown in the Dashboard.
         sig { returns(String) }
         attr_accessor :name
+        # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        sig { returns(Integer) }
+        attr_accessor :priority
         sig {
-          params(amount: ::Stripe::Billing::CreditGrant::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String).void
+          params(amount: ::Stripe::Billing::CreditGrant::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String, priority: Integer).void
          }
         def initialize(
           amount: nil,
@@ -206,7 +212,8 @@ module Stripe
           expand: nil,
           expires_at: nil,
           metadata: nil,
-          name: nil
+          name: nil,
+          priority: nil
         ); end
       end
       class RetrieveParams < Stripe::RequestParams

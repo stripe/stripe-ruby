@@ -114,8 +114,11 @@ module Stripe
         # A descriptive name shown in the Dashboard.
         sig { returns(String) }
         attr_accessor :name
+        # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        sig { returns(Integer) }
+        attr_accessor :priority
         sig {
-          params(amount: ::Stripe::Billing::CreditGrantService::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String).void
+          params(amount: ::Stripe::Billing::CreditGrantService::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String, priority: Integer).void
          }
         def initialize(
           amount: nil,
@@ -126,7 +129,8 @@ module Stripe
           expand: nil,
           expires_at: nil,
           metadata: nil,
-          name: nil
+          name: nil,
+          priority: nil
         ); end
       end
       class RetrieveParams < Stripe::RequestParams

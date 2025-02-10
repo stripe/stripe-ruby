@@ -100,6 +100,8 @@ module Stripe
         attr_accessor :metadata
         # A descriptive name shown in the Dashboard.
         attr_accessor :name
+        # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        attr_accessor :priority
 
         def initialize(
           amount: nil,
@@ -110,7 +112,8 @@ module Stripe
           expand: nil,
           expires_at: nil,
           metadata: nil,
-          name: nil
+          name: nil,
+          priority: nil
         )
           @amount = amount
           @applicability_config = applicability_config
@@ -121,6 +124,7 @@ module Stripe
           @expires_at = expires_at
           @metadata = metadata
           @name = name
+          @priority = priority
         end
       end
 

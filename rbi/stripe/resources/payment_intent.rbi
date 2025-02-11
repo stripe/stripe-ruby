@@ -1166,6 +1166,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(String) }
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        sig { returns(String) }
+        attr_reader :target_date
         # Bank account verification method.
         sig { returns(String) }
         attr_reader :verification_method
@@ -1245,6 +1248,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(String) }
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        sig { returns(String) }
+        attr_reader :target_date
       end
       class BacsDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
@@ -1264,6 +1270,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(String) }
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        sig { returns(String) }
+        attr_reader :target_date
       end
       class Bancontact < Stripe::StripeObject
         # Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -1945,6 +1954,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(String) }
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        sig { returns(String) }
+        attr_reader :target_date
       end
       class Shopeepay < Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2050,6 +2062,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(String) }
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        sig { returns(String) }
+        attr_reader :target_date
         # Bank account verification method.
         sig { returns(String) }
         attr_reader :verification_method
@@ -3887,15 +3902,19 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           # Bank account verification method.
           sig { returns(String) }
           attr_accessor :verification_method
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), verification_method: String).void
+            params(mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
            }
           def initialize(
             mandate_options: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           ); end
         end
@@ -4014,8 +4033,11 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
-          sig { params(setup_future_usage: T.nilable(String)).void }
-          def initialize(setup_future_usage: nil); end
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
+          sig { params(setup_future_usage: T.nilable(String), target_date: String).void }
+          def initialize(setup_future_usage: nil, target_date: nil); end
         end
         class BacsDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
@@ -4041,10 +4063,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+            params(mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil); end
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
         end
         class Bancontact < Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -5152,10 +5177,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+            params(mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil); end
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
         end
         class Shopeepay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5317,11 +5345,14 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           # Bank account verification method.
           sig { returns(String) }
           attr_accessor :verification_method
           sig {
-            params(financial_connections: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::UsBankAccount::MandateOptions, networks: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::UsBankAccount::Networks, preferred_settlement_speed: T.nilable(String), setup_future_usage: T.nilable(String), verification_method: String).void
+            params(financial_connections: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, mandate_options: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::UsBankAccount::MandateOptions, networks: ::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions::UsBankAccount::Networks, preferred_settlement_speed: T.nilable(String), setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
            }
           def initialize(
             financial_connections: nil,
@@ -5329,6 +5360,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           ); end
         end
@@ -7295,15 +7327,19 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           # Bank account verification method.
           sig { returns(String) }
           attr_accessor :verification_method
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), verification_method: String).void
+            params(mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
            }
           def initialize(
             mandate_options: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           ); end
         end
@@ -7422,8 +7458,11 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
-          sig { params(setup_future_usage: T.nilable(String)).void }
-          def initialize(setup_future_usage: nil); end
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
+          sig { params(setup_future_usage: T.nilable(String), target_date: String).void }
+          def initialize(setup_future_usage: nil, target_date: nil); end
         end
         class BacsDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
@@ -7449,10 +7488,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+            params(mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil); end
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
         end
         class Bancontact < Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -8560,10 +8602,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+            params(mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil); end
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
         end
         class Shopeepay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -8725,11 +8770,14 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           # Bank account verification method.
           sig { returns(String) }
           attr_accessor :verification_method
           sig {
-            params(financial_connections: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::MandateOptions, networks: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::Networks, preferred_settlement_speed: T.nilable(String), setup_future_usage: T.nilable(String), verification_method: String).void
+            params(financial_connections: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, mandate_options: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::MandateOptions, networks: ::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions::UsBankAccount::Networks, preferred_settlement_speed: T.nilable(String), setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
            }
           def initialize(
             financial_connections: nil,
@@ -8737,6 +8785,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           ); end
         end
@@ -11442,15 +11491,19 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           # Bank account verification method.
           sig { returns(String) }
           attr_accessor :verification_method
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), verification_method: String).void
+            params(mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
            }
           def initialize(
             mandate_options: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           ); end
         end
@@ -11569,8 +11622,11 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
-          sig { params(setup_future_usage: T.nilable(String)).void }
-          def initialize(setup_future_usage: nil); end
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
+          sig { params(setup_future_usage: T.nilable(String), target_date: String).void }
+          def initialize(setup_future_usage: nil, target_date: nil); end
         end
         class BacsDebit < Stripe::RequestParams
           class MandateOptions < Stripe::RequestParams
@@ -11596,10 +11652,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+            params(mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil); end
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
         end
         class Bancontact < Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -12707,10 +12766,13 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           sig {
-            params(mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+            params(mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil); end
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
         end
         class Shopeepay < Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -12872,11 +12934,14 @@ module Stripe
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           sig { returns(T.nilable(String)) }
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(String) }
+          attr_accessor :target_date
           # Bank account verification method.
           sig { returns(String) }
           attr_accessor :verification_method
           sig {
-            params(financial_connections: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::MandateOptions, networks: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::Networks, preferred_settlement_speed: T.nilable(String), setup_future_usage: T.nilable(String), verification_method: String).void
+            params(financial_connections: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, mandate_options: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::MandateOptions, networks: ::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions::UsBankAccount::Networks, preferred_settlement_speed: T.nilable(String), setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
            }
           def initialize(
             financial_connections: nil,
@@ -12884,6 +12949,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           ); end
         end

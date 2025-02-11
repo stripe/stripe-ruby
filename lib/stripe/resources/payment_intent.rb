@@ -898,6 +898,8 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        attr_reader :target_date
         # Bank account verification method.
         attr_reader :verification_method
       end
@@ -971,6 +973,8 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        attr_reader :target_date
       end
 
       class BacsDebit < Stripe::StripeObject
@@ -988,6 +992,8 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        attr_reader :target_date
       end
 
       class Bancontact < Stripe::StripeObject
@@ -1580,6 +1586,8 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        attr_reader :target_date
       end
 
       class Shopeepay < Stripe::StripeObject
@@ -1673,6 +1681,8 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        attr_reader :target_date
         # Bank account verification method.
         attr_reader :verification_method
       end
@@ -3295,12 +3305,20 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, verification_method: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -3423,9 +3441,12 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(setup_future_usage: nil)
+          def initialize(setup_future_usage: nil, target_date: nil)
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -3450,10 +3471,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -4571,10 +4595,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -4735,6 +4762,8 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
@@ -4744,6 +4773,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           )
             @financial_connections = financial_connections
@@ -4751,6 +4781,7 @@ module Stripe
             @networks = networks
             @preferred_settlement_speed = preferred_settlement_speed
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -6630,12 +6661,20 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, verification_method: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -6758,9 +6797,12 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(setup_future_usage: nil)
+          def initialize(setup_future_usage: nil, target_date: nil)
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -6785,10 +6827,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -7906,10 +7951,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -8070,6 +8118,8 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
@@ -8079,6 +8129,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           )
             @financial_connections = financial_connections
@@ -8086,6 +8137,7 @@ module Stripe
             @networks = networks
             @preferred_settlement_speed = preferred_settlement_speed
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -10685,12 +10737,20 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, verification_method: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -10813,9 +10873,12 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(setup_future_usage: nil)
+          def initialize(setup_future_usage: nil, target_date: nil)
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -10840,10 +10903,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -11961,10 +12027,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -12125,6 +12194,8 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
@@ -12134,6 +12205,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           )
             @financial_connections = financial_connections
@@ -12141,6 +12213,7 @@ module Stripe
             @networks = networks
             @preferred_settlement_speed = preferred_settlement_speed
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end

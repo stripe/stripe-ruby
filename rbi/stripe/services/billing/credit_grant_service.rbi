@@ -90,7 +90,7 @@ module Stripe
         # Amount of this credit grant.
         sig { returns(::Stripe::Billing::CreditGrantService::CreateParams::Amount) }
         attr_accessor :amount
-        # Configuration specifying what this credit grant applies to.
+        # Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
         sig { returns(::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig) }
         attr_accessor :applicability_config
         # The category of this credit grant.

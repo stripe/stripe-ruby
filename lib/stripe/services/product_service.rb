@@ -286,6 +286,8 @@ module Stripe
         attr_accessor :currency_options
         # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
         attr_accessor :custom_unit_amount
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
         # The recurring components of a price such as `interval` and `interval_count`.
         attr_accessor :recurring
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -299,6 +301,7 @@ module Stripe
           currency: nil,
           currency_options: nil,
           custom_unit_amount: nil,
+          metadata: nil,
           recurring: nil,
           tax_behavior: nil,
           unit_amount: nil,
@@ -307,6 +310,7 @@ module Stripe
           @currency = currency
           @currency_options = currency_options
           @custom_unit_amount = custom_unit_amount
+          @metadata = metadata
           @recurring = recurring
           @tax_behavior = tax_behavior
           @unit_amount = unit_amount

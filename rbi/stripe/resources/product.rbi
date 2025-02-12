@@ -397,6 +397,9 @@ module Stripe
         # When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
         sig { returns(::Stripe::Product::CreateParams::DefaultPriceData::CustomUnitAmount) }
         attr_accessor :custom_unit_amount
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        sig { returns(T::Hash[String, String]) }
+        attr_accessor :metadata
         # The recurring components of a price such as `interval` and `interval_count`.
         sig { returns(::Stripe::Product::CreateParams::DefaultPriceData::Recurring) }
         attr_accessor :recurring
@@ -410,12 +413,13 @@ module Stripe
         sig { returns(String) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(currency: String, currency_options: T::Hash[String, ::Stripe::Product::CreateParams::DefaultPriceData::CurrencyOptions], custom_unit_amount: ::Stripe::Product::CreateParams::DefaultPriceData::CustomUnitAmount, recurring: ::Stripe::Product::CreateParams::DefaultPriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
+          params(currency: String, currency_options: T::Hash[String, ::Stripe::Product::CreateParams::DefaultPriceData::CurrencyOptions], custom_unit_amount: ::Stripe::Product::CreateParams::DefaultPriceData::CustomUnitAmount, metadata: T::Hash[String, String], recurring: ::Stripe::Product::CreateParams::DefaultPriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
          }
         def initialize(
           currency: nil,
           currency_options: nil,
           custom_unit_amount: nil,
+          metadata: nil,
           recurring: nil,
           tax_behavior: nil,
           unit_amount: nil,

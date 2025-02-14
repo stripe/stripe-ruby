@@ -632,7 +632,7 @@ module Stripe
       sig { returns(Payouts) }
       attr_reader :payouts
       # Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://stripe.com/docs/connect/)
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_reader :rejected_reason
     end
     class Settings < Stripe::StripeObject

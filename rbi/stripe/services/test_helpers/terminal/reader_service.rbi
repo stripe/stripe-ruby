@@ -51,11 +51,27 @@ module Stripe
             type: nil
           ); end
         end
+        class SucceedInputCollectionParams < Stripe::RequestParams
+          # Specifies which fields in the response should be expanded.
+          sig { returns(T::Array[String]) }
+          attr_accessor :expand
+          # Skip behavior for input collection.
+          sig { returns(String) }
+          attr_accessor :skip_non_required_inputs
+          sig { params(expand: T::Array[String], skip_non_required_inputs: String).void }
+          def initialize(expand: nil, skip_non_required_inputs: nil); end
+        end
         # Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         sig {
           params(reader: String, params: T.any(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
          }
         def present_payment_method(reader, params = {}, opts = {}); end
+
+        # Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+        sig {
+          params(reader: String, params: T.any(::Stripe::TestHelpers::Terminal::ReaderService::SucceedInputCollectionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+         }
+        def succeed_input_collection(reader, params = {}, opts = {}); end
       end
     end
   end

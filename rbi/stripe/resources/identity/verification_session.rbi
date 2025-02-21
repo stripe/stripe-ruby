@@ -169,7 +169,7 @@ module Stripe
       # Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
       sig { returns(T.nilable(Redaction)) }
       attr_reader :redaction
-      # Token referencing a Customer resource.
+      # Customer ID
       sig { returns(T.nilable(String)) }
       attr_reader :related_customer
       # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
@@ -304,7 +304,7 @@ module Stripe
         # Details provided about the user being verified. These details may be shown to the user.
         sig { returns(::Stripe::Identity::VerificationSession::CreateParams::ProvidedDetails) }
         attr_accessor :provided_details
-        # Token referencing a Customer resource.
+        # Customer ID
         sig { returns(String) }
         attr_accessor :related_customer
         # The URL that the user will be redirected to upon completing the verification flow.

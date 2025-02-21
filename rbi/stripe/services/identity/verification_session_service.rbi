@@ -124,7 +124,7 @@ module Stripe
           returns(::Stripe::Identity::VerificationSessionService::CreateParams::ProvidedDetails)
          }
         attr_accessor :provided_details
-        # Token referencing a Customer resource.
+        # Customer ID
         sig { returns(String) }
         attr_accessor :related_customer
         # The URL that the user will be redirected to upon completing the verification flow.

@@ -1,4 +1,11 @@
 # Changelog
+## 13.5.0 - 2025-02-24
+* [#1534](https://github.com/stripe/stripe-ruby/pull/1534) Update generated code
+  * Fixed `Stripe::InvoiceLineItem.update` method. 
+* [#1536](https://github.com/stripe/stripe-ruby/pull/1536) Fix InvoiceLineItem parent class
+  * Fix bug where `Stripe::InvoiceLineItem` had the incorrect parent class, making it error when `update` was called
+* [#1533](https://github.com/stripe/stripe-ruby/pull/1533) add codeowners file
+
 ## 13.4.1 - 2025-01-28
 * [#1528](https://github.com/stripe/stripe-ruby/pull/1528) Update generated code
   * ⚠️ Bugfix: `invoice` and `line_item_id` can be passed to `update` method in `InvoiceLineItem`.

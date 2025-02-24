@@ -820,6 +820,13 @@ module Stripe
         sig { params(expand: T::Array[String], skip_non_required_inputs: String).void }
         def initialize(expand: nil, skip_non_required_inputs: nil); end
       end
+      class TimeoutInputCollectionParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T::Array[String]) }
+        attr_accessor :expand
+        sig { params(expand: T::Array[String]).void }
+        def initialize(expand: nil); end
+      end
       # Cancels the current reader action.
       sig {
         params(params: T.any(::Stripe::Terminal::Reader::CancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)

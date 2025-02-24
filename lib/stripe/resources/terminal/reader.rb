@@ -716,6 +716,15 @@ module Stripe
           @skip_non_required_inputs = skip_non_required_inputs
         end
       end
+
+      class TimeoutInputCollectionParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
       # The most recent action performed by the reader.
       attr_reader :action
       # The current software version of the reader.
@@ -998,6 +1007,26 @@ module Stripe
           @resource.request_stripe_object(
             method: :post,
             path: format("/v1/test_helpers/terminal/readers/%<reader>s/succeed_input_collection", { reader: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Completes an input collection with a timeout error on a simulated reader.
+        def self.timeout_input_collection(reader, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(reader) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Completes an input collection with a timeout error on a simulated reader.
+        def timeout_input_collection(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

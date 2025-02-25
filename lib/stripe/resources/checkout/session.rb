@@ -82,14 +82,8 @@ module Stripe
           end
           # Attribute for field address
           attr_reader :address
-          # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-          attr_reader :carrier
-          # Recipient name.
+          # Customer name.
           attr_reader :name
-          # Recipient phone (including extension).
-          attr_reader :phone
-          # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-          attr_reader :tracking_number
         end
 
         class TaxId < Stripe::StripeObject
@@ -3555,7 +3549,7 @@ module Stripe
         #
         # To update an existing line item, specify its `id` along with the new values of the fields to update.
         #
-        # To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        # To add a new line item, specify a `price` and `quantity`.
         #
         # To remove an existing line item, omit the line item's ID from the retransmitted array.
         #

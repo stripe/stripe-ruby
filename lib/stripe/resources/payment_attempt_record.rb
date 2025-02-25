@@ -79,6 +79,63 @@ module Stripe
         attr_reader :phone
       end
 
+      class Card < Stripe::StripeObject
+        class Checks < Stripe::StripeObject
+          # Attribute for field address_line1_check
+          attr_reader :address_line1_check
+          # Attribute for field address_postal_code_check
+          attr_reader :address_postal_code_check
+          # Attribute for field cvc_check
+          attr_reader :cvc_check
+        end
+
+        class NetworkToken < Stripe::StripeObject
+          # Attribute for field used
+          attr_reader :used
+        end
+
+        class ThreeDSecure < Stripe::StripeObject
+          # Attribute for field authentication_flow
+          attr_reader :authentication_flow
+          # Attribute for field result
+          attr_reader :result
+          # Attribute for field result_reason
+          attr_reader :result_reason
+          # Attribute for field version
+          attr_reader :version
+        end
+        # Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        attr_reader :brand
+        # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
+        attr_reader :capture_before
+        # Check results by Card networks on Card address and CVC at time of payment.
+        attr_reader :checks
+        # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+        attr_reader :country
+        # Two-digit number representing the card's expiration month.
+        attr_reader :exp_month
+        # Four-digit number representing the card's expiration year.
+        attr_reader :exp_year
+        # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+        #
+        # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+        attr_reader :fingerprint
+        # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+        attr_reader :funding
+        # The last four digits of the card.
+        attr_reader :last4
+        # True if this payment was marked as MOTO and out of scope for SCA.
+        attr_reader :moto
+        # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        attr_reader :network
+        # If this card has network token credentials, this contains the details of the network token credentials.
+        attr_reader :network_token
+        # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+        attr_reader :network_transaction_id
+        # Populated if this transaction used 3D Secure authentication.
+        attr_reader :three_d_secure
+      end
+
       class Custom < Stripe::StripeObject
         # Display name for the custom (user-defined) payment method type used to make this payment.
         attr_reader :display_name
@@ -87,7 +144,11 @@ module Stripe
       end
       # The billing details associated with the method of payment.
       attr_reader :billing_details
-      # Information about the custom (user-defined) payment method used to make this payment.
+      # Details of the card used for this payment attempt.
+      attr_reader :card
+      # Custom Payment Methods represent Payment Method types not modeled directly in
+      # the Stripe API. This resource consists of details about the custom payment method
+      # used for this payment attempt.
       attr_reader :custom
       # ID of the Stripe PaymentMethod used to make this payment.
       attr_reader :payment_method

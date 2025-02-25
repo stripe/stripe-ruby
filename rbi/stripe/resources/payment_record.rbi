@@ -250,7 +250,7 @@ module Stripe
     sig { returns(String) }
     attr_reader :id
     # ID of the latest Payment Attempt Record attached to this Payment Record.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     attr_reader :latest_payment_attempt_record
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }

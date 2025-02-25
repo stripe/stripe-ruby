@@ -262,7 +262,7 @@ module Stripe
     sig { returns(T.nilable(PaymentMethodDetails)) }
     attr_reader :payment_method_details
     # ID of the Payment Record this Payment Attempt Record belongs to.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     attr_reader :payment_record
     # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
     sig { returns(T.nilable(String)) }

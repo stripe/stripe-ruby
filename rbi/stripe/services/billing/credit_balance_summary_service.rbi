@@ -15,10 +15,10 @@ module Stripe
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type.
+            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             sig { returns(String) }
             attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             sig {
               returns(T::Array[::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter::ApplicabilityScope::Price])
              }

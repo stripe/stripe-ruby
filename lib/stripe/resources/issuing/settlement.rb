@@ -36,6 +36,10 @@ module Stripe
       attr_reader :network_settlement_identifier
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # The total amount of any additional ad-hoc fees accessed by the card network.
+      attr_reader :other_fees_amount
+      # The total number of additional ad-hoc fees accessed by the card network.
+      attr_reader :other_fees_count
       # One of `international` or `uk_national_net`.
       attr_reader :settlement_service
       # The current processing status of this settlement.

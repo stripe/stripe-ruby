@@ -260,6 +260,59 @@ module Stripe
         sig { returns(T.any(String, Stripe::File)) }
         attr_reader :splashscreen
       end
+      class Wifi < Stripe::StripeObject
+        class EnterpriseEapPeap < Stripe::StripeObject
+          # A File ID representing a PEM file containing the server certificate
+          sig { returns(String) }
+          attr_reader :ca_certificate_file
+          # Password for connecting to the WiFi network
+          sig { returns(String) }
+          attr_reader :password
+          # Name of the WiFi network
+          sig { returns(String) }
+          attr_reader :ssid
+          # Username for connecting to the WiFi network
+          sig { returns(String) }
+          attr_reader :username
+        end
+        class EnterpriseEapTls < Stripe::StripeObject
+          # A File ID representing a PEM file containing the server certificate
+          sig { returns(String) }
+          attr_reader :ca_certificate_file
+          # A File ID representing a PEM file containing the client certificate
+          sig { returns(String) }
+          attr_reader :client_certificate_file
+          # A File ID representing a PEM file containing the client RSA private key
+          sig { returns(String) }
+          attr_reader :private_key_file
+          # Password for the private key file
+          sig { returns(String) }
+          attr_reader :private_key_file_password
+          # Name of the WiFi network
+          sig { returns(String) }
+          attr_reader :ssid
+        end
+        class PersonalPsk < Stripe::StripeObject
+          # Password for connecting to the WiFi network
+          sig { returns(String) }
+          attr_reader :password
+          # Name of the WiFi network
+          sig { returns(String) }
+          attr_reader :ssid
+        end
+        # Attribute for field enterprise_eap_peap
+        sig { returns(EnterpriseEapPeap) }
+        attr_reader :enterprise_eap_peap
+        # Attribute for field enterprise_eap_tls
+        sig { returns(EnterpriseEapTls) }
+        attr_reader :enterprise_eap_tls
+        # Attribute for field personal_psk
+        sig { returns(PersonalPsk) }
+        attr_reader :personal_psk
+        # Security type of the WiFi network. The hash with the corresponding name contains the credentials for this security type.
+        sig { returns(String) }
+        attr_reader :type
+      end
       # Attribute for field bbpos_wisepos_e
       sig { returns(BbposWiseposE) }
       attr_reader :bbpos_wisepos_e
@@ -293,6 +346,9 @@ module Stripe
       # Attribute for field verifone_p400
       sig { returns(VerifoneP400) }
       attr_reader :verifone_p400
+      # Attribute for field wifi
+      sig { returns(Wifi) }
+      attr_reader :wifi
       # Always true for a deleted object
       sig { returns(T::Boolean) }
       attr_reader :deleted
@@ -656,6 +712,84 @@ module Stripe
           sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
+        class Wifi < Stripe::RequestParams
+          class EnterpriseEapPeap < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            sig { returns(String) }
+            attr_accessor :ca_certificate_file
+            # Password for connecting to the WiFi network
+            sig { returns(String) }
+            attr_accessor :password
+            # Name of the WiFi network
+            sig { returns(String) }
+            attr_accessor :ssid
+            # Username for connecting to the WiFi network
+            sig { returns(String) }
+            attr_accessor :username
+            sig {
+              params(ca_certificate_file: String, password: String, ssid: String, username: String).void
+             }
+            def initialize(ca_certificate_file: nil, password: nil, ssid: nil, username: nil); end
+          end
+          class EnterpriseEapTls < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            sig { returns(String) }
+            attr_accessor :ca_certificate_file
+            # A File ID representing a PEM file containing the client certificate
+            sig { returns(String) }
+            attr_accessor :client_certificate_file
+            # A File ID representing a PEM file containing the client RSA private key
+            sig { returns(String) }
+            attr_accessor :private_key_file
+            # Password for the private key file
+            sig { returns(String) }
+            attr_accessor :private_key_file_password
+            # Name of the WiFi network
+            sig { returns(String) }
+            attr_accessor :ssid
+            sig {
+              params(ca_certificate_file: String, client_certificate_file: String, private_key_file: String, private_key_file_password: String, ssid: String).void
+             }
+            def initialize(
+              ca_certificate_file: nil,
+              client_certificate_file: nil,
+              private_key_file: nil,
+              private_key_file_password: nil,
+              ssid: nil
+            ); end
+          end
+          class PersonalPsk < Stripe::RequestParams
+            # Password for connecting to the WiFi network
+            sig { returns(String) }
+            attr_accessor :password
+            # Name of the WiFi network
+            sig { returns(String) }
+            attr_accessor :ssid
+            sig { params(password: String, ssid: String).void }
+            def initialize(password: nil, ssid: nil); end
+          end
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+          sig { returns(::Stripe::Terminal::Configuration::UpdateParams::Wifi::EnterpriseEapPeap) }
+          attr_accessor :enterprise_eap_peap
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+          sig { returns(::Stripe::Terminal::Configuration::UpdateParams::Wifi::EnterpriseEapTls) }
+          attr_accessor :enterprise_eap_tls
+          # Credentials for a WPA-Personal WiFi network.
+          sig { returns(::Stripe::Terminal::Configuration::UpdateParams::Wifi::PersonalPsk) }
+          attr_accessor :personal_psk
+          # Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+          sig { returns(String) }
+          attr_accessor :type
+          sig {
+            params(enterprise_eap_peap: ::Stripe::Terminal::Configuration::UpdateParams::Wifi::EnterpriseEapPeap, enterprise_eap_tls: ::Stripe::Terminal::Configuration::UpdateParams::Wifi::EnterpriseEapTls, personal_psk: ::Stripe::Terminal::Configuration::UpdateParams::Wifi::PersonalPsk, type: String).void
+           }
+          def initialize(
+            enterprise_eap_peap: nil,
+            enterprise_eap_tls: nil,
+            personal_psk: nil,
+            type: nil
+          ); end
+        end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE)) }
         attr_accessor :bbpos_wisepos_e
@@ -680,8 +814,11 @@ module Stripe
         # An object containing device type specific settings for Verifone P400 readers
         sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400)) }
         attr_accessor :verifone_p400
+        # Configurations for connecting to a WiFi network.
+        sig { returns(T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Wifi)) }
+        attr_accessor :wifi
         sig {
-          params(bbpos_wisepos_e: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE), expand: T::Array[String], name: String, offline: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Offline), reboot_window: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::StripeS700), tipping: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping), verifone_p400: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400)).void
+          params(bbpos_wisepos_e: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::BbposWiseposE), expand: T::Array[String], name: String, offline: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Offline), reboot_window: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::RebootWindow), stripe_s700: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::StripeS700), tipping: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Tipping), verifone_p400: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::VerifoneP400), wifi: T.nilable(::Stripe::Terminal::Configuration::UpdateParams::Wifi)).void
          }
         def initialize(
           bbpos_wisepos_e: nil,
@@ -691,7 +828,8 @@ module Stripe
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,
-          verifone_p400: nil
+          verifone_p400: nil,
+          wifi: nil
         ); end
       end
       class ListParams < Stripe::RequestParams
@@ -1071,6 +1209,84 @@ module Stripe
           sig { params(splashscreen: T.nilable(String)).void }
           def initialize(splashscreen: nil); end
         end
+        class Wifi < Stripe::RequestParams
+          class EnterpriseEapPeap < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            sig { returns(String) }
+            attr_accessor :ca_certificate_file
+            # Password for connecting to the WiFi network
+            sig { returns(String) }
+            attr_accessor :password
+            # Name of the WiFi network
+            sig { returns(String) }
+            attr_accessor :ssid
+            # Username for connecting to the WiFi network
+            sig { returns(String) }
+            attr_accessor :username
+            sig {
+              params(ca_certificate_file: String, password: String, ssid: String, username: String).void
+             }
+            def initialize(ca_certificate_file: nil, password: nil, ssid: nil, username: nil); end
+          end
+          class EnterpriseEapTls < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            sig { returns(String) }
+            attr_accessor :ca_certificate_file
+            # A File ID representing a PEM file containing the client certificate
+            sig { returns(String) }
+            attr_accessor :client_certificate_file
+            # A File ID representing a PEM file containing the client RSA private key
+            sig { returns(String) }
+            attr_accessor :private_key_file
+            # Password for the private key file
+            sig { returns(String) }
+            attr_accessor :private_key_file_password
+            # Name of the WiFi network
+            sig { returns(String) }
+            attr_accessor :ssid
+            sig {
+              params(ca_certificate_file: String, client_certificate_file: String, private_key_file: String, private_key_file_password: String, ssid: String).void
+             }
+            def initialize(
+              ca_certificate_file: nil,
+              client_certificate_file: nil,
+              private_key_file: nil,
+              private_key_file_password: nil,
+              ssid: nil
+            ); end
+          end
+          class PersonalPsk < Stripe::RequestParams
+            # Password for connecting to the WiFi network
+            sig { returns(String) }
+            attr_accessor :password
+            # Name of the WiFi network
+            sig { returns(String) }
+            attr_accessor :ssid
+            sig { params(password: String, ssid: String).void }
+            def initialize(password: nil, ssid: nil); end
+          end
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+          sig { returns(::Stripe::Terminal::Configuration::CreateParams::Wifi::EnterpriseEapPeap) }
+          attr_accessor :enterprise_eap_peap
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+          sig { returns(::Stripe::Terminal::Configuration::CreateParams::Wifi::EnterpriseEapTls) }
+          attr_accessor :enterprise_eap_tls
+          # Credentials for a WPA-Personal WiFi network.
+          sig { returns(::Stripe::Terminal::Configuration::CreateParams::Wifi::PersonalPsk) }
+          attr_accessor :personal_psk
+          # Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+          sig { returns(String) }
+          attr_accessor :type
+          sig {
+            params(enterprise_eap_peap: ::Stripe::Terminal::Configuration::CreateParams::Wifi::EnterpriseEapPeap, enterprise_eap_tls: ::Stripe::Terminal::Configuration::CreateParams::Wifi::EnterpriseEapTls, personal_psk: ::Stripe::Terminal::Configuration::CreateParams::Wifi::PersonalPsk, type: String).void
+           }
+          def initialize(
+            enterprise_eap_peap: nil,
+            enterprise_eap_tls: nil,
+            personal_psk: nil,
+            type: nil
+          ); end
+        end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         sig { returns(::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE) }
         attr_accessor :bbpos_wisepos_e
@@ -1095,8 +1311,11 @@ module Stripe
         # An object containing device type specific settings for Verifone P400 readers
         sig { returns(::Stripe::Terminal::Configuration::CreateParams::VerifoneP400) }
         attr_accessor :verifone_p400
+        # Configurations for connecting to a WiFi network.
+        sig { returns(T.nilable(::Stripe::Terminal::Configuration::CreateParams::Wifi)) }
+        attr_accessor :wifi
         sig {
-          params(bbpos_wisepos_e: ::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE, expand: T::Array[String], name: String, offline: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Offline), reboot_window: ::Stripe::Terminal::Configuration::CreateParams::RebootWindow, stripe_s700: ::Stripe::Terminal::Configuration::CreateParams::StripeS700, tipping: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping), verifone_p400: ::Stripe::Terminal::Configuration::CreateParams::VerifoneP400).void
+          params(bbpos_wisepos_e: ::Stripe::Terminal::Configuration::CreateParams::BbposWiseposE, expand: T::Array[String], name: String, offline: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Offline), reboot_window: ::Stripe::Terminal::Configuration::CreateParams::RebootWindow, stripe_s700: ::Stripe::Terminal::Configuration::CreateParams::StripeS700, tipping: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Tipping), verifone_p400: ::Stripe::Terminal::Configuration::CreateParams::VerifoneP400, wifi: T.nilable(::Stripe::Terminal::Configuration::CreateParams::Wifi)).void
          }
         def initialize(
           bbpos_wisepos_e: nil,
@@ -1106,7 +1325,8 @@ module Stripe
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,
-          verifone_p400: nil
+          verifone_p400: nil,
+          wifi: nil
         ); end
       end
       # Creates a new Configuration object.

@@ -45,6 +45,12 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
+      # The total amount of any additional ad-hoc fees accessed by the card network.
+      sig { returns(Integer) }
+      attr_reader :other_fees_amount
+      # The total number of additional ad-hoc fees accessed by the card network.
+      sig { returns(Integer) }
+      attr_reader :other_fees_count
       # One of `international` or `uk_national_net`.
       sig { returns(String) }
       attr_reader :settlement_service

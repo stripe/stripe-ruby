@@ -23,7 +23,7 @@ module Stripe
       attr_reader :id
       # The total interchange received as reimbursement for the transactions.
       sig { returns(Integer) }
-      attr_reader :interchange_fees
+      attr_reader :interchange_fees_amount
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
@@ -32,13 +32,13 @@ module Stripe
       attr_reader :metadata
       # The total net amount required to settle with the network.
       sig { returns(Integer) }
-      attr_reader :net_total
+      attr_reader :net_total_amount
       # The card network for this settlement report. One of ["visa", "maestro"]
       sig { returns(String) }
       attr_reader :network
       # The total amount of fees owed to the network.
       sig { returns(Integer) }
-      attr_reader :network_fees
+      attr_reader :network_fees_amount
       # The Settlement Identification Number assigned by the network.
       sig { returns(String) }
       attr_reader :network_settlement_identifier
@@ -57,12 +57,12 @@ module Stripe
       # The current processing status of this settlement.
       sig { returns(String) }
       attr_reader :status
+      # The total transaction amount reflected in this settlement.
+      sig { returns(Integer) }
+      attr_reader :transaction_amount
       # The total number of transactions reflected in this settlement.
       sig { returns(Integer) }
       attr_reader :transaction_count
-      # The total transaction amount reflected in this settlement.
-      sig { returns(Integer) }
-      attr_reader :transaction_volume
     end
   end
 end

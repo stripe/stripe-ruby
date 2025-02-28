@@ -21,17 +21,17 @@ module Stripe
       # Unique identifier for the object.
       attr_reader :id
       # The total interchange received as reimbursement for the transactions.
-      attr_reader :interchange_fees
+      attr_reader :interchange_fees_amount
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # The total net amount required to settle with the network.
-      attr_reader :net_total
+      attr_reader :net_total_amount
       # The card network for this settlement report. One of ["visa", "maestro"]
       attr_reader :network
       # The total amount of fees owed to the network.
-      attr_reader :network_fees
+      attr_reader :network_fees_amount
       # The Settlement Identification Number assigned by the network.
       attr_reader :network_settlement_identifier
       # String representing the object's type. Objects of the same type share the same value.
@@ -44,10 +44,10 @@ module Stripe
       attr_reader :settlement_service
       # The current processing status of this settlement.
       attr_reader :status
+      # The total transaction amount reflected in this settlement.
+      attr_reader :transaction_amount
       # The total number of transactions reflected in this settlement.
       attr_reader :transaction_count
-      # The total transaction amount reflected in this settlement.
-      attr_reader :transaction_volume
     end
   end
 end

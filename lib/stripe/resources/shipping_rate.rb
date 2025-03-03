@@ -20,15 +20,15 @@ module Stripe
     end
 
     # Returns a list of your shipping rates.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/shipping_rates", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/shipping_rates", params: params, opts: opts)
     end
 
     # Updates an existing shipping rate object.
-    def self.update(id, params = {}, opts = {})
+    def self.update(shipping_rate_token, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/shipping_rates/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/shipping_rates/%<shipping_rate_token>s", { shipping_rate_token: CGI.escape(shipping_rate_token) }),
         params: params,
         opts: opts
       )

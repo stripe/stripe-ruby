@@ -16,7 +16,7 @@ module Stripe
         "billing.credit_grant"
       end
 
-      # Creates a credit grant
+      # Creates a credit grant.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -47,16 +47,16 @@ module Stripe
       end
 
       # Retrieve a list of credit grants.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/billing/credit_grants",
-          params: filters,
+          params: params,
           opts: opts
         )
       end
 
-      # Updates a credit grant
+      # Updates a credit grant.
       def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,

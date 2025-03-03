@@ -31,17 +31,17 @@ module Stripe
     end
 
     # Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/transfers", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/transfers", params: params, opts: opts)
     end
 
     # Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts only metadata as an argument.
-    def self.update(id, params = {}, opts = {})
+    def self.update(transfer, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/transfers/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/transfers/%<transfer>s", { transfer: CGI.escape(transfer) }),
         params: params,
         opts: opts
       )

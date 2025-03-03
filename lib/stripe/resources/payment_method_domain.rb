@@ -27,20 +27,20 @@ module Stripe
     end
 
     # Lists the details of existing payment method domains.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/payment_method_domains",
-        params: filters,
+        params: params,
         opts: opts
       )
     end
 
     # Updates an existing payment method domain.
-    def self.update(id, params = {}, opts = {})
+    def self.update(payment_method_domain, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_method_domains/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_method_domains/%<payment_method_domain>s", { payment_method_domain: CGI.escape(payment_method_domain) }),
         params: params,
         opts: opts
       )

@@ -37,20 +37,20 @@ module Stripe
     end
 
     # List payment method configurations
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/payment_method_configurations",
-        params: filters,
+        params: params,
         opts: opts
       )
     end
 
     # Update payment method configuration
-    def self.update(id, params = {}, opts = {})
+    def self.update(configuration, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_method_configurations/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_method_configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
         params: params,
         opts: opts
       )

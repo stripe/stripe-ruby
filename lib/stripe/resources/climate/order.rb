@@ -49,15 +49,15 @@ module Stripe
 
       # Lists all Climate order objects. The orders are returned sorted by creation date, with the
       # most recently created orders appearing first.
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/climate/orders", params: filters, opts: opts)
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/climate/orders", params: params, opts: opts)
       end
 
       # Updates the specified order by setting the values of the parameters passed.
-      def self.update(id, params = {}, opts = {})
+      def self.update(order, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/climate/orders/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/climate/orders/%<order>s", { order: CGI.escape(order) }),
           params: params,
           opts: opts
         )

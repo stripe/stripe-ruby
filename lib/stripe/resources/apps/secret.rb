@@ -47,8 +47,8 @@ module Stripe
       end
 
       # List all secrets stored on the given scope.
-      def self.list(filters = {}, opts = {})
-        request_stripe_object(method: :get, path: "/v1/apps/secrets", params: filters, opts: opts)
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/apps/secrets", params: params, opts: opts)
       end
     end
   end

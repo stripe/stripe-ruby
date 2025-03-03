@@ -28,8 +28,8 @@ module Stripe
           opts: opts
         )
       end
-      deprecate :approve, :none, 2024, 3
 
+      deprecate :approve, :none, 2024, 3
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def self.approve(authorization, params = {}, opts = {})
@@ -40,6 +40,7 @@ module Stripe
           opts: opts
         )
       end
+
       class << self
         extend Gem::Deprecate
         deprecate :approve, :none, 2024, 3
@@ -55,8 +56,8 @@ module Stripe
           opts: opts
         )
       end
-      deprecate :decline, :none, 2024, 3
 
+      deprecate :decline, :none, 2024, 3
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
       def self.decline(authorization, params = {}, opts = {})
@@ -67,26 +68,27 @@ module Stripe
           opts: opts
         )
       end
+
       class << self
         extend Gem::Deprecate
         deprecate :decline, :none, 2024, 3
       end
 
       # Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/issuing/authorizations",
-          params: filters,
+          params: params,
           opts: opts
         )
       end
 
       # Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(id, params = {}, opts = {})
+      def self.update(authorization, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/issuing/authorizations/%<authorization>s", { authorization: CGI.escape(authorization) }),
           params: params,
           opts: opts
         )

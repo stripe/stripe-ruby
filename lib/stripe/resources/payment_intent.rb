@@ -249,8 +249,8 @@ module Stripe
     end
 
     # Returns a list of PaymentIntents.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/payment_intents", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_intents", params: params, opts: opts)
     end
 
     def self.search(params = {}, opts = {})
@@ -273,10 +273,10 @@ module Stripe
     # always requires you to confirm the PaymentIntent again. If you prefer to
     # update and confirm at the same time, we recommend updating properties through
     # the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
-    def self.update(id, params = {}, opts = {})
+    def self.update(intent, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts
       )

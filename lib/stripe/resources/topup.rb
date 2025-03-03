@@ -43,15 +43,15 @@ module Stripe
     end
 
     # Returns a list of top-ups.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/topups", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/topups", params: params, opts: opts)
     end
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.
-    def self.update(id, params = {}, opts = {})
+    def self.update(topup, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/topups/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/topups/%<topup>s", { topup: CGI.escape(topup) }),
         params: params,
         opts: opts
       )

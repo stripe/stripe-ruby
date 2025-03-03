@@ -12,7 +12,7 @@ module Stripe
         "billing.meter_event_adjustment"
       end
 
-      # Creates a billing meter event adjustment
+      # Creates a billing meter event adjustment.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,

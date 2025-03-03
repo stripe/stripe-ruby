@@ -25,8 +25,8 @@ module Stripe
     end
 
     # Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/prices", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/prices", params: params, opts: opts)
     end
 
     def self.search(params = {}, opts = {})
@@ -38,10 +38,10 @@ module Stripe
     end
 
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
-    def self.update(id, params = {}, opts = {})
+    def self.update(price, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/prices/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/prices/%<price>s", { price: CGI.escape(price) }),
         params: params,
         opts: opts
       )

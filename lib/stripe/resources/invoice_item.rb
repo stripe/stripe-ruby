@@ -30,10 +30,10 @@ module Stripe
     end
 
     # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
-    def self.delete(id, params = {}, opts = {})
+    def self.delete(invoiceitem, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/invoiceitems/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/invoiceitems/%<invoiceitem>s", { invoiceitem: CGI.escape(invoiceitem) }),
         params: params,
         opts: opts
       )
@@ -50,15 +50,15 @@ module Stripe
     end
 
     # Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
-    def self.list(filters = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/invoiceitems", params: filters, opts: opts)
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/invoiceitems", params: params, opts: opts)
     end
 
     # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
-    def self.update(id, params = {}, opts = {})
+    def self.update(invoiceitem, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoiceitems/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/invoiceitems/%<invoiceitem>s", { invoiceitem: CGI.escape(invoiceitem) }),
         params: params,
         opts: opts
       )

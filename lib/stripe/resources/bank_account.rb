@@ -81,7 +81,7 @@ module Stripe
       )
     end
 
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       raise NotImplementedError,
             "Bank accounts cannot be listed without a customer ID or an " \
             "account ID. List bank accounts using " \

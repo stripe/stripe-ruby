@@ -23,11 +23,11 @@ module Stripe
       end
 
       # List all verification reports.
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/identity/verification_reports",
-          params: filters,
+          params: params,
           opts: opts
         )
       end

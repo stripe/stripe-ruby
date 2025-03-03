@@ -46,11 +46,11 @@ module Stripe
     end
 
     # Retrieves the list of your subscription schedules.
-    def self.list(filters = {}, opts = {})
+    def self.list(params = {}, opts = {})
       request_stripe_object(
         method: :get,
         path: "/v1/subscription_schedules",
-        params: filters,
+        params: params,
         opts: opts
       )
     end
@@ -76,10 +76,10 @@ module Stripe
     end
 
     # Updates an existing subscription schedule.
-    def self.update(id, params = {}, opts = {})
+    def self.update(schedule, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscription_schedules/%<id>s", { id: CGI.escape(id) }),
+        path: format("/v1/subscription_schedules/%<schedule>s", { schedule: CGI.escape(schedule) }),
         params: params,
         opts: opts
       )

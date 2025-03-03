@@ -65,11 +65,11 @@ module Stripe
       end
 
       # Returns a list of VerificationSessions
-      def self.list(filters = {}, opts = {})
+      def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,
           path: "/v1/identity/verification_sessions",
-          params: filters,
+          params: params,
           opts: opts
         )
       end
@@ -134,10 +134,10 @@ module Stripe
       #
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
-      def self.update(id, params = {}, opts = {})
+      def self.update(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/identity/verification_sessions/%<id>s", { id: CGI.escape(id) }),
+          path: format("/v1/identity/verification_sessions/%<session>s", { session: CGI.escape(session) }),
           params: params,
           opts: opts
         )

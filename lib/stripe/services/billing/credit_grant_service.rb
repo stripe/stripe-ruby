@@ -65,9 +65,9 @@ module Stripe
                 @id = id
               end
             end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type.
+            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             attr_accessor :prices
 
             def initialize(price_type: nil, prices: nil)
@@ -84,7 +84,7 @@ module Stripe
         end
         # Amount of this credit grant.
         attr_accessor :amount
-        # Configuration specifying what this credit grant applies to.
+        # Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
         attr_accessor :applicability_config
         # The category of this credit grant.
         attr_accessor :category
@@ -100,6 +100,8 @@ module Stripe
         attr_accessor :metadata
         # A descriptive name shown in the Dashboard.
         attr_accessor :name
+        # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        attr_accessor :priority
 
         def initialize(
           amount: nil,
@@ -110,7 +112,8 @@ module Stripe
           expand: nil,
           expires_at: nil,
           metadata: nil,
-          name: nil
+          name: nil,
+          priority: nil
         )
           @amount = amount
           @applicability_config = applicability_config
@@ -121,6 +124,7 @@ module Stripe
           @expires_at = expires_at
           @metadata = metadata
           @name = name
+          @priority = priority
         end
       end
 

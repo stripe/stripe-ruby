@@ -64,10 +64,10 @@ module Stripe
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type.
+            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             sig { returns(String) }
             attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             sig {
               returns(T::Array[::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig::Scope::Price])
              }
@@ -90,7 +90,7 @@ module Stripe
         # Amount of this credit grant.
         sig { returns(::Stripe::Billing::CreditGrantService::CreateParams::Amount) }
         attr_accessor :amount
-        # Configuration specifying what this credit grant applies to.
+        # Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
         sig { returns(::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig) }
         attr_accessor :applicability_config
         # The category of this credit grant.
@@ -114,8 +114,11 @@ module Stripe
         # A descriptive name shown in the Dashboard.
         sig { returns(String) }
         attr_accessor :name
+        # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        sig { returns(Integer) }
+        attr_accessor :priority
         sig {
-          params(amount: ::Stripe::Billing::CreditGrantService::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String).void
+          params(amount: ::Stripe::Billing::CreditGrantService::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String, priority: Integer).void
          }
         def initialize(
           amount: nil,
@@ -126,7 +129,8 @@ module Stripe
           expand: nil,
           expires_at: nil,
           metadata: nil,
-          name: nil
+          name: nil,
+          priority: nil
         ); end
       end
       class RetrieveParams < Stripe::RequestParams

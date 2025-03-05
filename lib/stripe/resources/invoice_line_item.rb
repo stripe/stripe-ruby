@@ -5,7 +5,7 @@ module Stripe
   # Invoice Line Items represent the individual lines within an [invoice](https://stripe.com/docs/api/invoices) and only exist within the context of an invoice.
   #
   # Each line item is backed by either an [invoice item](https://stripe.com/docs/api/invoiceitems) or a [subscription item](https://stripe.com/docs/api/subscription_items).
-  class InvoiceLineItem < StripeObject
+  class InvoiceLineItem < APIResource
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "line_item"

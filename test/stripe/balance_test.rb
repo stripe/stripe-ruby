@@ -25,5 +25,19 @@ module Stripe
       end
       assert balance.is_a?(Stripe::Balance)
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { Stripe::Balance.retrieve(nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { Stripe::Balance.retrieve("") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { Stripe::Balance.retrieve(123) }
+      end
+    end
   end
 end

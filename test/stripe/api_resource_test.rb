@@ -965,5 +965,25 @@ module Stripe
       @@fixtures[key] = obj.instance_variable_get(:@values).freeze
       @@fixtures[key]
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { Stripe::Customer.create(email: nil) }
+        assert_raises(ArgumentError) { Stripe::Charge.create(amount: nil, currency: "usd", source: "tok_visa") }
+        assert_raises(ArgumentError) { Stripe::Invoice.create(customer: nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { Stripe::Customer.create(email: "") }
+        assert_raises(ArgumentError) { Stripe::Charge.create(amount: "", currency: "usd", source: "tok_visa") }
+        assert_raises(ArgumentError) { Stripe::Invoice.create(customer: "") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { Stripe::Customer.create(email: 123) }
+        assert_raises(TypeError) { Stripe::Charge.create(amount: "one hundred", currency: "usd", source: "tok_visa") }
+        assert_raises(TypeError) { Stripe::Invoice.create(customer: 123) }
+      end
+    end
   end
 end

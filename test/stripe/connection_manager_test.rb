@@ -228,5 +228,28 @@ module Stripe
         assert_equal t + 1.0, manager.last_used
       end
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { @manager.execute_request(nil, "#{Stripe.api_base}/path") }
+        assert_raises(ArgumentError) { @manager.execute_request(:post, nil) }
+        assert_raises(ArgumentError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", body: nil) }
+        assert_raises(ArgumentError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", headers: nil) }
+        assert_raises(ArgumentError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", query: nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { @manager.execute_request(:post, "") }
+        assert_raises(ArgumentError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", body: "") }
+        assert_raises(ArgumentError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", headers: {}) }
+        assert_raises(ArgumentError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", query: "") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", body: 123) }
+        assert_raises(TypeError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", headers: "foo") }
+        assert_raises(TypeError) { @manager.execute_request(:post, "#{Stripe.api_base}/path", query: 123) }
+      end
+    end
   end
 end

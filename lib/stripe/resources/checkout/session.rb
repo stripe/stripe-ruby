@@ -1002,6 +1002,33 @@ module Stripe
         attr_reader :taxes
       end
 
+      class ShippingDetails < Stripe::StripeObject
+        class Address < Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          attr_reader :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_reader :country
+          # Address line 1 (e.g., street, PO Box, or company name).
+          attr_reader :line1
+          # Address line 2 (e.g., apartment, suite, unit, or building).
+          attr_reader :line2
+          # ZIP or postal code.
+          attr_reader :postal_code
+          # State, county, province, or region.
+          attr_reader :state
+        end
+        # Attribute for field address
+        attr_reader :address
+        # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        attr_reader :carrier
+        # Recipient name.
+        attr_reader :name
+        # Recipient phone (including extension).
+        attr_reader :phone
+        # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        attr_reader :tracking_number
+      end
+
       class ShippingOption < Stripe::StripeObject
         # A non-negative integer in cents representing how much to charge.
         attr_reader :shipping_amount
@@ -3687,6 +3714,8 @@ module Stripe
       attr_reader :shipping_address_collection
       # The details of the customer cost of shipping, including the customer chosen ShippingRate.
       attr_reader :shipping_cost
+      # Shipping information for this Checkout Session.
+      attr_reader :shipping_details
       # The shipping rate options applied to this Session.
       attr_reader :shipping_options
       # The status of the Checkout Session, one of `open`, `complete`, or `expired`.

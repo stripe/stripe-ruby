@@ -1306,6 +1306,9 @@ module Stripe
     # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
     sig { returns(T.nilable(String)) }
     attr_reader :payment_reference
+    # Indicates who reported the payment.
+    sig { returns(String) }
+    attr_reader :reported_by
     # Shipping information for this payment.
     sig { returns(T.nilable(ShippingDetails)) }
     attr_reader :shipping_details

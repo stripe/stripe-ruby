@@ -1035,6 +1035,8 @@ module Stripe
     attr_reader :payment_record
     # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
     attr_reader :payment_reference
+    # Indicates who reported the payment.
+    attr_reader :reported_by
     # Shipping information for this payment.
     attr_reader :shipping_details
 

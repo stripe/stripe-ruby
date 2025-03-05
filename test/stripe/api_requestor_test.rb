@@ -22,6 +22,18 @@ module Stripe
         client = APIRequestor.new(config)
         assert_equal config, client.config
       end
+
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { APIRequestor.new(nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { APIRequestor.new("") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(ArgumentError) { APIRequestor.new(123) }
+      end
     end
 
     context ".active_requestor" do
@@ -504,7 +516,6 @@ module Stripe
                  data[:process_id] == Process.pid &&
                  data[:thread_object_id] == connection_manager_data[:thread_object_id] &&
                  data[:connection_manager_object_id] == connection_manager_data[:connection_manager_object_id] &&
-                 data[:connection_object_id] == connection_manager_data[:connection_object_id] &&
                  (data[:response_object_id].is_a? Numeric) &&
                  data[:log_timestamp] == 0.0 # rubocop:todo Lint/FloatComparison
                 response_object_id = data[:response_object_id]

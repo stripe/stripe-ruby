@@ -41,6 +41,21 @@ module Stripe
         end
         assert_equal "Cannot update protected field: protected", e.message
       end
+
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { UpdateableResource.update(nil, foo: "bar") }
+        assert_raises(ArgumentError) { UpdateableResource.update("id", nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { UpdateableResource.update("", foo: "bar") }
+        assert_raises(ArgumentError) { UpdateableResource.update("id", "") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { UpdateableResource.update(123, foo: "bar") }
+        assert_raises(TypeError) { UpdateableResource.update("id", 123) }
+      end
     end
 
     context ".search" do

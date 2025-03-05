@@ -16,5 +16,22 @@ module Stripe
       assert_requested :get, "#{Stripe.api_base}/v1/balance_transactions/txn_123"
       assert balance_transaction.is_a?(Stripe::BalanceTransaction)
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { Stripe::BalanceTransaction.retrieve(nil) }
+        assert_raises(ArgumentError) { Stripe::BalanceTransaction.list(limit: nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { Stripe::BalanceTransaction.retrieve("") }
+        assert_raises(ArgumentError) { Stripe::BalanceTransaction.list(limit: "") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { Stripe::BalanceTransaction.retrieve(123) }
+        assert_raises(TypeError) { Stripe::BalanceTransaction.list(limit: "ten") }
+      end
+    end
   end
 end

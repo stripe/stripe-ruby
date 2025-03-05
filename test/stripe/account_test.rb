@@ -407,5 +407,25 @@ module Stripe
         assert persons.data.is_a?(Array)
       end
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { Stripe::Account.create(metadata: nil, type: nil) }
+        assert_raises(ArgumentError) { Stripe::Account.update("acct_123", metadata: nil) }
+        assert_raises(ArgumentError) { Stripe::Account.create_person("acct_123", first_name: nil, last_name: nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { Stripe::Account.create(metadata: {}, type: "") }
+        assert_raises(ArgumentError) { Stripe::Account.update("acct_123", metadata: {}) }
+        assert_raises(ArgumentError) { Stripe::Account.create_person("acct_123", first_name: "", last_name: "") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { Stripe::Account.create(metadata: {}, type: 123) }
+        assert_raises(TypeError) { Stripe::Account.update("acct_123", metadata: 123) }
+        assert_raises(TypeError) { Stripe::Account.create_person("acct_123", first_name: 123, last_name: 123) }
+      end
+    end
   end
 end

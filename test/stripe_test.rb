@@ -139,4 +139,24 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "client", Stripe.client_id
     end
   end
+
+  context "invalid inputs" do
+    should "handle null values gracefully" do
+      assert_raises(ArgumentError) { Stripe.api_key = nil }
+      assert_raises(ArgumentError) { Stripe.api_version = nil }
+      assert_raises(ArgumentError) { Stripe.stripe_account = nil }
+    end
+
+    should "handle empty strings gracefully" do
+      assert_raises(ArgumentError) { Stripe.api_key = "" }
+      assert_raises(ArgumentError) { Stripe.api_version = "" }
+      assert_raises(ArgumentError) { Stripe.stripe_account = "" }
+    end
+
+    should "handle incorrect data types gracefully" do
+      assert_raises(TypeError) { Stripe.api_key = 123 }
+      assert_raises(TypeError) { Stripe.api_version = 123 }
+      assert_raises(TypeError) { Stripe.stripe_account = 123 }
+    end
+  end
 end

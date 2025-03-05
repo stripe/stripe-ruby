@@ -41,5 +41,22 @@ module Stripe
       assert_requested :post,
                        "#{Stripe.api_base}/v1/accounts/#{capability.account}/capabilities/#{capability.id}"
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { Stripe::Capability.construct_from(id: nil, account: nil) }
+        assert_raises(ArgumentError) { Stripe::Capability.update(nil, {}) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { Stripe::Capability.construct_from(id: "", account: "") }
+        assert_raises(ArgumentError) { Stripe::Capability.update("", {}) }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { Stripe::Capability.construct_from(id: 123, account: 123) }
+        assert_raises(TypeError) { Stripe::Capability.update(123, {}) }
+      end
+    end
   end
 end

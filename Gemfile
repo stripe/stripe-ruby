@@ -26,6 +26,8 @@ group :development do
   # The latest version of rubocop is only compatible with Ruby 2.7+
   gem "rubocop", "1.57.2" if RUBY_VERSION >= "2.7"
 
+  gem "simplecov", "~> 0.21.2"
+
   gem "sorbet"
   gem "tapioca"
 

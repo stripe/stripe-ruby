@@ -54,5 +54,34 @@ module Stripe
         assert refunds.data.is_a?(Array)
       end
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.create_refund(nil) }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.retrieve_refund(nil, "fr_123") }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.retrieve_refund("fee_123", nil) }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.update_refund(nil, "fr_123", metadata: { foo: "bar" }) }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.update_refund("fee_123", nil, metadata: { foo: "bar" }) }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.list_refunds(nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.create_refund("") }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.retrieve_refund("", "fr_123") }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.retrieve_refund("fee_123", "") }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.update_refund("", "fr_123", metadata: { foo: "bar" }) }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.update_refund("fee_123", "", metadata: { foo: "bar" }) }
+        assert_raises(ArgumentError) { Stripe::ApplicationFee.list_refunds("") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { Stripe::ApplicationFee.create_refund(123) }
+        assert_raises(TypeError) { Stripe::ApplicationFee.retrieve_refund(123, "fr_123") }
+        assert_raises(TypeError) { Stripe::ApplicationFee.retrieve_refund("fee_123", 123) }
+        assert_raises(TypeError) { Stripe::ApplicationFee.update_refund(123, "fr_123", metadata: { foo: "bar" }) }
+        assert_raises(TypeError) { Stripe::ApplicationFee.update_refund("fee_123", 123, metadata: { foo: "bar" }) }
+        assert_raises(TypeError) { Stripe::ApplicationFee.list_refunds(123) }
+      end
+    end
   end
 end

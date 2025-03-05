@@ -75,5 +75,25 @@ module Stripe
         assert charge.is_a?(Stripe::Charge)
       end
     end
+
+    context "invalid inputs" do
+      should "handle null values gracefully" do
+        assert_raises(ArgumentError) { Stripe::Charge.create(amount: nil, currency: "USD", source: "src_123") }
+        assert_raises(ArgumentError) { Stripe::Charge.update("ch_123", amount: nil) }
+        assert_raises(ArgumentError) { Stripe::Charge.capture("ch_123", amount: nil) }
+      end
+
+      should "handle empty strings gracefully" do
+        assert_raises(ArgumentError) { Stripe::Charge.create(amount: "", currency: "USD", source: "src_123") }
+        assert_raises(ArgumentError) { Stripe::Charge.update("ch_123", amount: "") }
+        assert_raises(ArgumentError) { Stripe::Charge.capture("ch_123", amount: "") }
+      end
+
+      should "handle incorrect data types gracefully" do
+        assert_raises(TypeError) { Stripe::Charge.create(amount: "one hundred", currency: "USD", source: "src_123") }
+        assert_raises(TypeError) { Stripe::Charge.update("ch_123", amount: "one hundred") }
+        assert_raises(TypeError) { Stripe::Charge.capture("ch_123", amount: "one hundred") }
+      end
+    end
   end
 end

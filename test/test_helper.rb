@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "simplecov"
+SimpleCov.start
+
 require "stripe"
 require "test/unit"
 require "mocha/test_unit"

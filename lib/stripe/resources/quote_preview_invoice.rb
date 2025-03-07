@@ -616,7 +616,7 @@ module Stripe
     attr_reader :status
     # Attribute for field status_transitions
     attr_reader :status_transitions
-    # Attribute for field subscription
+    # The subscription that this invoice was prepared for, if any.
     attr_reader :subscription
     # Details about the subscription that created this invoice.
     attr_reader :subscription_details

@@ -798,7 +798,7 @@ module Stripe
     # Attribute for field status_transitions
     sig { returns(StatusTransitions) }
     attr_reader :status_transitions
-    # Attribute for field subscription
+    # The subscription that this invoice was prepared for, if any.
     sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
     attr_reader :subscription
     # Details about the subscription that created this invoice.

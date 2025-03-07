@@ -2586,15 +2586,15 @@ module Stripe
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
-      # Creates a Session object.
+      # Creates a Checkout Session object.
       sig {
         params(params: T.any(::Stripe::Checkout::SessionService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
       def create(params = {}, opts = {}); end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::SessionService::ExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
@@ -2606,13 +2606,13 @@ module Stripe
        }
       def list(params = {}, opts = {}); end
 
-      # Retrieves a Session object.
+      # Retrieves a Checkout Session object.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::SessionService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
       def retrieve(session, params = {}, opts = {}); end
 
-      # Updates a Session object.
+      # Updates a Checkout Session object.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::SessionService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }

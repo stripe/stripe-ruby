@@ -1179,43 +1179,6 @@ module Stripe
         sig { returns(T::Array[Tax]) }
         attr_reader :taxes
       end
-      class ShippingDetails < Stripe::StripeObject
-        class Address < Stripe::StripeObject
-          # City, district, suburb, town, or village.
-          sig { returns(T.nilable(String)) }
-          attr_reader :city
-          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          sig { returns(T.nilable(String)) }
-          attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
-          sig { returns(T.nilable(String)) }
-          attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
-          sig { returns(T.nilable(String)) }
-          attr_reader :line2
-          # ZIP or postal code.
-          sig { returns(T.nilable(String)) }
-          attr_reader :postal_code
-          # State, county, province, or region.
-          sig { returns(T.nilable(String)) }
-          attr_reader :state
-        end
-        # Attribute for field address
-        sig { returns(Address) }
-        attr_reader :address
-        # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        sig { returns(T.nilable(String)) }
-        attr_reader :carrier
-        # Recipient name.
-        sig { returns(String) }
-        attr_reader :name
-        # Recipient phone (including extension).
-        sig { returns(T.nilable(String)) }
-        attr_reader :phone
-        # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        sig { returns(T.nilable(String)) }
-        attr_reader :tracking_number
-      end
       class ShippingOption < Stripe::StripeObject
         # A non-negative integer in cents representing how much to charge.
         sig { returns(Integer) }
@@ -1442,9 +1405,6 @@ module Stripe
       # The details of the customer cost of shipping, including the customer chosen ShippingRate.
       sig { returns(T.nilable(ShippingCost)) }
       attr_reader :shipping_cost
-      # Shipping information for this Checkout Session.
-      sig { returns(T.nilable(ShippingDetails)) }
-      attr_reader :shipping_details
       # The shipping rate options applied to this Session.
       sig { returns(T::Array[ShippingOption]) }
       attr_reader :shipping_options

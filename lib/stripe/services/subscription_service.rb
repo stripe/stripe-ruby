@@ -656,8 +656,6 @@ module Stripe
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-      attr_accessor :cancel_at_period_end
       # Details about why this subscription was cancelled
       attr_accessor :cancellation_details
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
@@ -726,7 +724,6 @@ module Stripe
         billing_cycle_anchor: nil,
         billing_thresholds: nil,
         cancel_at: nil,
-        cancel_at_period_end: nil,
         cancellation_details: nil,
         collection_method: nil,
         coupon: nil,
@@ -761,7 +758,6 @@ module Stripe
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
-        @cancel_at_period_end = cancel_at_period_end
         @cancellation_details = cancellation_details
         @collection_method = collection_method
         @coupon = coupon
@@ -1540,8 +1536,6 @@ module Stripe
       attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-      attr_accessor :cancel_at_period_end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
       attr_accessor :collection_method
       # The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
@@ -1616,7 +1610,6 @@ module Stripe
         billing_cycle_anchor_config: nil,
         billing_thresholds: nil,
         cancel_at: nil,
-        cancel_at_period_end: nil,
         collection_method: nil,
         coupon: nil,
         currency: nil,
@@ -1653,7 +1646,6 @@ module Stripe
         @billing_cycle_anchor_config = billing_cycle_anchor_config
         @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
-        @cancel_at_period_end = cancel_at_period_end
         @collection_method = collection_method
         @coupon = coupon
         @currency = currency

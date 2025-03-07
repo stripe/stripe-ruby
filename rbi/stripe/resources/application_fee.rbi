@@ -11,7 +11,7 @@ module Stripe
       # Payout ID that created this application fee.
       sig { returns(String) }
       attr_reader :payout
-      # Type of object that created the application fee, either `charge` or `payout`.
+      # Type of object that created the application fee.
       sig { returns(String) }
       attr_reader :type
     end

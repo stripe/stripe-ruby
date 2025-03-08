@@ -446,10 +446,6 @@ module Stripe
     attr_reader :object
     # Attribute for field period
     attr_reader :period
-    # If the invoice item is a proration, the plan of the subscription that the proration was computed for.
-    attr_reader :plan
-    # The price of the invoice item.
-    attr_reader :price
     # Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
     attr_reader :proration
     # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.

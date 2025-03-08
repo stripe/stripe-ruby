@@ -65,12 +65,6 @@ module Stripe
     # Attribute for field period
     sig { returns(Period) }
     attr_reader :period
-    # If the invoice item is a proration, the plan of the subscription that the proration was computed for.
-    sig { returns(T.nilable(Stripe::Plan)) }
-    attr_reader :plan
-    # The price of the invoice item.
-    sig { returns(T.nilable(Stripe::Price)) }
-    attr_reader :price
     # Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
     sig { returns(T::Boolean) }
     attr_reader :proration

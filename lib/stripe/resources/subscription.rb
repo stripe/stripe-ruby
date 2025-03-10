@@ -1972,8 +1972,6 @@ module Stripe
     attr_reader :billing_thresholds
     # A date in the future at which the subscription will automatically get canceled
     attr_reader :cancel_at
-    # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field is deprecated in a new version, please use `cancel_at` instead.
-    attr_reader :cancel_at_period_end
     # If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
     attr_reader :canceled_at
     # Details about why this subscription was cancelled

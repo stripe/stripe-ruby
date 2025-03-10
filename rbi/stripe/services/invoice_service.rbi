@@ -3115,7 +3115,7 @@ module Stripe
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         sig { returns(T::Boolean) }
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
@@ -3372,7 +3372,7 @@ module Stripe
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :subscription_cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
       sig { returns(T::Boolean) }
       attr_accessor :subscription_cancel_at_period_end
       # This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
@@ -5767,7 +5767,7 @@ module Stripe
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         sig { returns(T::Boolean) }
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.

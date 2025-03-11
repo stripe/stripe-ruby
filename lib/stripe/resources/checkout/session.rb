@@ -1535,9 +1535,9 @@ module Stripe
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
-            # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
             attr_accessor :product
-            # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+            # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
             attr_accessor :product_data
             # The recurring components of a price such as `interval` and `interval_count`.
             attr_accessor :recurring

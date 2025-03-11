@@ -458,10 +458,6 @@ module Stripe
     attr_reader :tax_rates
     # ID of the test clock this invoice item belongs to.
     attr_reader :test_clock
-    # Unit amount (in the `currency` specified) of the invoice item.
-    attr_reader :unit_amount
-    # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-    attr_reader :unit_amount_decimal
     # Always true for a deleted object
     attr_reader :deleted
 

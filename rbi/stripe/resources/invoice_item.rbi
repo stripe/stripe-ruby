@@ -83,12 +83,6 @@ module Stripe
     # ID of the test clock this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
     attr_reader :test_clock
-    # Unit amount (in the `currency` specified) of the invoice item.
-    sig { returns(T.nilable(Integer)) }
-    attr_reader :unit_amount
-    # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-    sig { returns(T.nilable(String)) }
-    attr_reader :unit_amount_decimal
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted

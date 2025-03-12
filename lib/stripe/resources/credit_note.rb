@@ -65,19 +65,6 @@ module Stripe
       attr_reader :taxes
     end
 
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
-      attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      attr_reader :tax_rate
-      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-      attr_reader :taxability_reason
-      # The amount on which tax is calculated, in cents (or local equivalent).
-      attr_reader :taxable_amount
-    end
-
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
@@ -664,8 +651,6 @@ module Stripe
     attr_reader :subtotal
     # The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     attr_reader :subtotal_excluding_tax
-    # The aggregate amounts calculated per tax rate for all line items.
-    attr_reader :tax_amounts
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
     attr_reader :total
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, excluding tax, but including discounts.

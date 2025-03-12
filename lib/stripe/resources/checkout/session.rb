@@ -3595,7 +3595,8 @@ module Stripe
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
       attr_reader :client_reference_id
-      # The client secret of the Session. Use this with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
+      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
       attr_reader :collected_information
@@ -3706,7 +3707,7 @@ module Stripe
       attr_reader :total_details
       # The UI mode of the Session. Defaults to `hosted`.
       attr_reader :ui_mode
-      # The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       attr_reader :url
 

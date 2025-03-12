@@ -291,8 +291,6 @@ module Stripe
     end
     # The amount, in cents (or local equivalent).
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    attr_reader :amount_excluding_tax
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
     # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -343,8 +341,6 @@ module Stripe
     attr_reader :tax_rates
     # A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
     attr_reader :type
-    # The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
-    attr_reader :unit_amount_excluding_tax
 
     # Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
     # so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice

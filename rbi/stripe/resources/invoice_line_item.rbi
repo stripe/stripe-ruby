@@ -81,9 +81,6 @@ module Stripe
     # The amount, in cents (or local equivalent).
     sig { returns(Integer) }
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(Integer)) }
-    attr_reader :amount_excluding_tax
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     attr_reader :currency
@@ -159,9 +156,6 @@ module Stripe
     # A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
     sig { returns(String) }
     attr_reader :type
-    # The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(String)) }
-    attr_reader :unit_amount_excluding_tax
     class UpdateParams < Stripe::RequestParams
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams

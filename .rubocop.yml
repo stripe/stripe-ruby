@@ -53,6 +53,15 @@ Metrics/MethodLength:
   Max: 55
   Exclude:
     - "lib/stripe/services/v1_services.rb"
+    - "lib/stripe/event_types.rb"
+
+# TODO(xavdid): remove this once the first `basil` release is out
+Naming/MethodName:
+  # these endpoints are removed soon so we pulled their overrides, meaning their names are wrong
+  # that won't make it out to users, but it's breaking linting/formatting in the meantime
+  Exclude:
+    - "lib/stripe/services/invoice_service.rb"
+    - "lib/stripe/resources/invoice.rb"
 
 Metrics/ModuleLength:
   Enabled: false

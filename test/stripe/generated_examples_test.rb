@@ -2389,20 +2389,6 @@ module Stripe
       client.v1.invoices.send_invoice("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/send"
     end
-    should "Test invoices upcoming get" do
-      Stripe::Invoice.upcoming({ customer: "cus_9utnxg47pWjV1e" })
-      assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
-    end
-    should "Test invoices upcoming get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
-      ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
-
-      client.v1.invoices.upcoming({ customer: "cus_9utnxg47pWjV1e" })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
-    end
     should "Test invoices void post" do
       Stripe::Invoice.void_invoice("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe.api_base}/v1/invoices/in_xxxxxxxxxxxxx/void"

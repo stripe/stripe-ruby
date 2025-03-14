@@ -27,29 +27,9 @@ module Stripe
       sig { returns(String) }
       attr_reader :type
     end
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
-      sig { returns(Integer) }
-      attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      sig { returns(T::Boolean) }
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      sig { returns(T.any(String, Stripe::TaxRate)) }
-      attr_reader :tax_rate
-      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-      sig { returns(T.nilable(String)) }
-      attr_reader :taxability_reason
-      # The amount on which tax is calculated, in cents (or local equivalent).
-      sig { returns(T.nilable(Integer)) }
-      attr_reader :taxable_amount
-    end
     # The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     sig { returns(Integer) }
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount being credited for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(Integer)) }
-    attr_reader :amount_excluding_tax
     # Description of the item being credited.
     sig { returns(T.nilable(String)) }
     attr_reader :description
@@ -77,9 +57,6 @@ module Stripe
     # The number of units of product being credited.
     sig { returns(T.nilable(Integer)) }
     attr_reader :quantity
-    # The amount of tax calculated per tax rate for this line item
-    sig { returns(T::Array[TaxAmount]) }
-    attr_reader :tax_amounts
     # The tax rates which apply to the line item.
     sig { returns(T::Array[Stripe::TaxRate]) }
     attr_reader :tax_rates
@@ -92,8 +69,5 @@ module Stripe
     # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     sig { returns(T.nilable(String)) }
     attr_reader :unit_amount_decimal
-    # The amount in cents (or local equivalent) representing the unit amount being credited for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(String)) }
-    attr_reader :unit_amount_excluding_tax
   end
 end

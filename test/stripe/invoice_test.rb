@@ -192,21 +192,21 @@ module Stripe
       end
     end
 
-    context ".list_upcoming_line_items" do
-      should "retrieve upcoming invoices" do
-        line_items = Stripe::Invoice.list_upcoming_line_items(
-          customer: "cus_123",
-          subscription: "sub_123"
-        )
-        assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming/lines",
-                         query: {
-                           customer: "cus_123",
-                           subscription: "sub_123",
-                         }
-        assert line_items.data.is_a?(Array)
-        assert line_items.data[0].is_a?(Stripe::InvoiceLineItem)
-      end
-    end
+    # context ".list_upcoming_line_items" do
+    #   should "retrieve upcoming invoices" do
+    #     line_items = Stripe::Invoice.list_upcoming_line_items(
+    #       customer: "cus_123",
+    #       subscription: "sub_123"
+    #     )
+    #     assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming/lines",
+    #                      query: {
+    #                        customer: "cus_123",
+    #                        subscription: "sub_123",
+    #                      }
+    #     assert line_items.data.is_a?(Array)
+    #     assert line_items.data[0].is_a?(Stripe::InvoiceLineItem)
+    #   end
+    # end
 
     context ".list_line_items" do
       should "retrieve invoice line items" do

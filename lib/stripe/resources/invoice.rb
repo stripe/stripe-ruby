@@ -3055,8 +3055,6 @@ module Stripe
           attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           attr_accessor :collection_method
-          # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-          attr_accessor :coupon
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
           # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -3103,7 +3101,6 @@ module Stripe
             billing_cycle_anchor: nil,
             billing_thresholds: nil,
             collection_method: nil,
-            coupon: nil,
             currency: nil,
             default_payment_method: nil,
             default_tax_rates: nil,
@@ -3130,7 +3127,6 @@ module Stripe
             @billing_cycle_anchor = billing_cycle_anchor
             @billing_thresholds = billing_thresholds
             @collection_method = collection_method
-            @coupon = coupon
             @currency = currency
             @default_payment_method = default_payment_method
             @default_tax_rates = default_tax_rates
@@ -3388,7 +3384,7 @@ module Stripe
         attr_accessor :billing_cycle_anchor
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
         attr_accessor :cancel_now
@@ -3592,8 +3588,6 @@ module Stripe
       end
       # Settings for automatic tax lookup for this invoice preview.
       attr_accessor :automatic_tax
-      # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      attr_accessor :coupon
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       attr_accessor :currency
       # The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
@@ -3622,7 +3616,7 @@ module Stripe
       attr_accessor :subscription_billing_cycle_anchor
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
       attr_accessor :subscription_cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
       attr_accessor :subscription_cancel_at_period_end
       # This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
       attr_accessor :subscription_cancel_now
@@ -3649,7 +3643,6 @@ module Stripe
 
       def initialize(
         automatic_tax: nil,
-        coupon: nil,
         currency: nil,
         customer: nil,
         customer_details: nil,
@@ -3678,7 +3671,6 @@ module Stripe
         subscription_trial_from_plan: nil
       )
         @automatic_tax = automatic_tax
-        @coupon = coupon
         @currency = currency
         @customer = customer
         @customer_details = customer_details
@@ -3708,7 +3700,7 @@ module Stripe
       end
     end
 
-    class ListUpcomingLineItemsParams < Stripe::RequestParams
+    class UpcomingLinesParams < Stripe::RequestParams
       class AutomaticTax < Stripe::RequestParams
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
@@ -4907,8 +4899,6 @@ module Stripe
           attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           attr_accessor :collection_method
-          # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-          attr_accessor :coupon
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
           # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -4955,7 +4945,6 @@ module Stripe
             billing_cycle_anchor: nil,
             billing_thresholds: nil,
             collection_method: nil,
-            coupon: nil,
             currency: nil,
             default_payment_method: nil,
             default_tax_rates: nil,
@@ -4982,7 +4971,6 @@ module Stripe
             @billing_cycle_anchor = billing_cycle_anchor
             @billing_thresholds = billing_thresholds
             @collection_method = collection_method
-            @coupon = coupon
             @currency = currency
             @default_payment_method = default_payment_method
             @default_tax_rates = default_tax_rates
@@ -5240,7 +5228,7 @@ module Stripe
         attr_accessor :billing_cycle_anchor
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
         attr_accessor :cancel_now
@@ -5444,8 +5432,6 @@ module Stripe
       end
       # Settings for automatic tax lookup for this invoice preview.
       attr_accessor :automatic_tax
-      # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      attr_accessor :coupon
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       attr_accessor :currency
       # The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
@@ -5480,7 +5466,7 @@ module Stripe
       attr_accessor :subscription_billing_cycle_anchor
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
       attr_accessor :subscription_cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
       attr_accessor :subscription_cancel_at_period_end
       # This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
       attr_accessor :subscription_cancel_now
@@ -5507,7 +5493,6 @@ module Stripe
 
       def initialize(
         automatic_tax: nil,
-        coupon: nil,
         currency: nil,
         customer: nil,
         customer_details: nil,
@@ -5539,7 +5524,6 @@ module Stripe
         subscription_trial_from_plan: nil
       )
         @automatic_tax = automatic_tax
-        @coupon = coupon
         @currency = currency
         @customer = customer
         @customer_details = customer_details
@@ -5652,9 +5636,9 @@ module Stripe
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-          # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
           attr_accessor :product
-          # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+          # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
           attr_accessor :product_data
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           attr_accessor :tax_behavior
@@ -5750,9 +5734,9 @@ module Stripe
         attr_accessor :metadata
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         attr_accessor :period
-        # The ID of the price object. One of `price` or `price_data` is required.
+        # The ID of the price object.
         attr_accessor :price
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         attr_accessor :price_data
         # Non-negative integer. The quantity of units for the line item.
         attr_accessor :quantity
@@ -6050,9 +6034,9 @@ module Stripe
           end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-          # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
           attr_accessor :product
-          # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+          # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
           attr_accessor :product_data
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
           attr_accessor :tax_behavior
@@ -6148,9 +6132,9 @@ module Stripe
         attr_accessor :metadata
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         attr_accessor :period
-        # The ID of the price object. One of `price` or `price_data` is required.
+        # The ID of the price object.
         attr_accessor :price
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         attr_accessor :price_data
         # Non-negative integer. The quantity of units for the line item.
         attr_accessor :quantity
@@ -7411,8 +7395,6 @@ module Stripe
           attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           attr_accessor :collection_method
-          # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-          attr_accessor :coupon
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
           # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -7459,7 +7441,6 @@ module Stripe
             billing_cycle_anchor: nil,
             billing_thresholds: nil,
             collection_method: nil,
-            coupon: nil,
             currency: nil,
             default_payment_method: nil,
             default_tax_rates: nil,
@@ -7486,7 +7467,6 @@ module Stripe
             @billing_cycle_anchor = billing_cycle_anchor
             @billing_thresholds = billing_thresholds
             @collection_method = collection_method
-            @coupon = coupon
             @currency = currency
             @default_payment_method = default_payment_method
             @default_tax_rates = default_tax_rates
@@ -7744,7 +7724,7 @@ module Stripe
         attr_accessor :billing_cycle_anchor
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
         attr_accessor :cancel_now
@@ -7795,8 +7775,6 @@ module Stripe
       end
       # Settings for automatic tax lookup for this invoice preview.
       attr_accessor :automatic_tax
-      # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      attr_accessor :coupon
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       attr_accessor :currency
       # The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
@@ -7826,7 +7804,6 @@ module Stripe
 
       def initialize(
         automatic_tax: nil,
-        coupon: nil,
         currency: nil,
         customer: nil,
         customer_details: nil,
@@ -7842,7 +7819,6 @@ module Stripe
         subscription_details: nil
       )
         @automatic_tax = automatic_tax
-        @coupon = coupon
         @currency = currency
         @customer = customer
         @customer_details = customer_details
@@ -7866,7 +7842,7 @@ module Stripe
     attr_reader :account_tax_ids
     # Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
     attr_reader :amount_due
-    # Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
+    # Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     attr_reader :amount_overpaid
     # The amount, in cents (or local equivalent), that was paid.
     attr_reader :amount_paid
@@ -7936,8 +7912,6 @@ module Stripe
     attr_reader :default_tax_rates
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     attr_reader :description
-    # Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
-    attr_reader :discount
     # The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
@@ -8213,16 +8187,6 @@ module Stripe
       request_stripe_object(method: :get, path: "/v1/invoices", params: params, opts: opts)
     end
 
-    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    def self.list_upcoming_line_items(params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: "/v1/invoices/upcoming/lines",
-        params: params,
-        opts: opts
-      )
-    end
-
     # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
     def mark_uncollectible(params = {}, opts = {})
       request_stripe_object(
@@ -8324,6 +8288,16 @@ module Stripe
     # Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
     def self.upcoming(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/invoices/upcoming", params: params, opts: opts)
+    end
+
+    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+    def self.upcomingLines(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/invoices/upcoming/lines",
+        params: params,
+        opts: opts
+      )
     end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),

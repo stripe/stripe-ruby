@@ -582,7 +582,7 @@ module Stripe
     # Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
     sig { returns(Integer) }
     attr_reader :amount_due
-    # Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
+    # Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     sig { returns(Integer) }
     attr_reader :amount_overpaid
     # The amount, in cents (or local equivalent), that was paid.
@@ -685,9 +685,6 @@ module Stripe
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     sig { returns(T.nilable(String)) }
     attr_reader :description
-    # Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
-    sig { returns(T.nilable(Stripe::Discount)) }
-    attr_reader :discount
     # The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T::Array[T.any(String, Stripe::Discount)]) }
     attr_reader :discounts
@@ -3583,9 +3580,6 @@ module Stripe
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           sig { returns(String) }
           attr_accessor :collection_method
-          # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-          sig { returns(String) }
-          attr_accessor :coupon
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
@@ -3650,7 +3644,7 @@ module Stripe
           sig { returns(::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::TrialSettings) }
           attr_accessor :trial_settings
           sig {
-            params(add_invoice_items: T::Array[::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::BillingThresholds), collection_method: String, coupon: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::InvoiceSettings, items: T::Array[::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::TrialSettings).void
+            params(add_invoice_items: T::Array[::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::BillingThresholds), collection_method: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::InvoiceSettings, items: T::Array[::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::Invoice::UpcomingParams::ScheduleDetails::Phase::TrialSettings).void
            }
           def initialize(
             add_invoice_items: nil,
@@ -3659,7 +3653,6 @@ module Stripe
             billing_cycle_anchor: nil,
             billing_thresholds: nil,
             collection_method: nil,
-            coupon: nil,
             currency: nil,
             default_payment_method: nil,
             default_tax_rates: nil,
@@ -3930,7 +3923,7 @@ module Stripe
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         sig { returns(T::Boolean) }
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
@@ -4138,9 +4131,6 @@ module Stripe
       # Settings for automatic tax lookup for this invoice preview.
       sig { returns(::Stripe::Invoice::UpcomingParams::AutomaticTax) }
       attr_accessor :automatic_tax
-      # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      sig { returns(String) }
-      attr_accessor :coupon
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       sig { returns(String) }
       attr_accessor :currency
@@ -4183,7 +4173,7 @@ module Stripe
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :subscription_cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
       sig { returns(T::Boolean) }
       attr_accessor :subscription_cancel_at_period_end
       # This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
@@ -4220,11 +4210,10 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :subscription_trial_from_plan
       sig {
-        params(automatic_tax: ::Stripe::Invoice::UpcomingParams::AutomaticTax, coupon: String, currency: String, customer: String, customer_details: ::Stripe::Invoice::UpcomingParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingParams::Discount]), expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::UpcomingParams::InvoiceItem], issuer: ::Stripe::Invoice::UpcomingParams::Issuer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::UpcomingParams::ScheduleDetails, subscription: String, subscription_billing_cycle_anchor: T.any(String, Integer), subscription_cancel_at: T.nilable(Integer), subscription_cancel_at_period_end: T::Boolean, subscription_cancel_now: T::Boolean, subscription_default_tax_rates: T.nilable(T::Array[String]), subscription_details: ::Stripe::Invoice::UpcomingParams::SubscriptionDetails, subscription_items: T::Array[::Stripe::Invoice::UpcomingParams::SubscriptionItem], subscription_prebilling: ::Stripe::Invoice::UpcomingParams::SubscriptionPrebilling, subscription_proration_behavior: String, subscription_proration_date: Integer, subscription_resume_at: String, subscription_start_date: Integer, subscription_trial_end: T.any(String, Integer), subscription_trial_from_plan: T::Boolean).void
+        params(automatic_tax: ::Stripe::Invoice::UpcomingParams::AutomaticTax, currency: String, customer: String, customer_details: ::Stripe::Invoice::UpcomingParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingParams::Discount]), expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::UpcomingParams::InvoiceItem], issuer: ::Stripe::Invoice::UpcomingParams::Issuer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::UpcomingParams::ScheduleDetails, subscription: String, subscription_billing_cycle_anchor: T.any(String, Integer), subscription_cancel_at: T.nilable(Integer), subscription_cancel_at_period_end: T::Boolean, subscription_cancel_now: T::Boolean, subscription_default_tax_rates: T.nilable(T::Array[String]), subscription_details: ::Stripe::Invoice::UpcomingParams::SubscriptionDetails, subscription_items: T::Array[::Stripe::Invoice::UpcomingParams::SubscriptionItem], subscription_prebilling: ::Stripe::Invoice::UpcomingParams::SubscriptionPrebilling, subscription_proration_behavior: String, subscription_proration_date: Integer, subscription_resume_at: String, subscription_start_date: Integer, subscription_trial_end: T.any(String, Integer), subscription_trial_from_plan: T::Boolean).void
        }
       def initialize(
         automatic_tax: nil,
-        coupon: nil,
         currency: nil,
         customer: nil,
         customer_details: nil,
@@ -4253,7 +4242,7 @@ module Stripe
         subscription_trial_from_plan: nil
       ); end
     end
-    class ListUpcomingLineItemsParams < Stripe::RequestParams
+    class UpcomingLinesParams < Stripe::RequestParams
       class AutomaticTax < Stripe::RequestParams
         class Liability < Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
@@ -4269,10 +4258,10 @@ module Stripe
         sig { returns(T::Boolean) }
         attr_accessor :enabled
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::AutomaticTax::Liability) }
+        sig { returns(::Stripe::Invoice::UpcomingLinesParams::AutomaticTax::Liability) }
         attr_accessor :liability
         sig {
-          params(enabled: T::Boolean, liability: ::Stripe::Invoice::ListUpcomingLineItemsParams::AutomaticTax::Liability).void
+          params(enabled: T::Boolean, liability: ::Stripe::Invoice::UpcomingLinesParams::AutomaticTax::Liability).void
          }
         def initialize(enabled: nil, liability: nil); end
       end
@@ -4342,7 +4331,7 @@ module Stripe
           end
           # Customer shipping address.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Shipping::Address)
+            returns(::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Shipping::Address)
            }
           attr_accessor :address
           # Customer name.
@@ -4352,7 +4341,7 @@ module Stripe
           sig { returns(String) }
           attr_accessor :phone
           sig {
-            params(address: ::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Shipping::Address, name: String, phone: String).void
+            params(address: ::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Shipping::Address, name: String, phone: String).void
            }
           def initialize(address: nil, name: nil, phone: nil); end
         end
@@ -4374,28 +4363,24 @@ module Stripe
           def initialize(type: nil, value: nil); end
         end
         # The customer's address.
-        sig {
-          returns(T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Address))
-         }
+        sig { returns(T.nilable(::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Address)) }
         attr_accessor :address
         # The customer's shipping information. Appears on invoices emailed to this customer.
         sig {
-          returns(T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Shipping))
+          returns(T.nilable(::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Shipping))
          }
         attr_accessor :shipping
         # Tax details about the customer.
-        sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Tax) }
+        sig { returns(::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Tax) }
         attr_accessor :tax
         # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
         sig { returns(T.nilable(String)) }
         attr_accessor :tax_exempt
         # The customer's tax IDs.
-        sig {
-          returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::TaxId])
-         }
+        sig { returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::TaxId]) }
         attr_accessor :tax_ids
         sig {
-          params(address: T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Address), shipping: T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Shipping), tax: ::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::Tax, tax_exempt: T.nilable(String), tax_ids: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails::TaxId]).void
+          params(address: T.nilable(::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Address), shipping: T.nilable(::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Shipping), tax: ::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::Tax, tax_exempt: T.nilable(String), tax_ids: T::Array[::Stripe::Invoice::UpcomingLinesParams::CustomerDetails::TaxId]).void
          }
         def initialize(address: nil, shipping: nil, tax: nil, tax_exempt: nil, tax_ids: nil); end
       end
@@ -4412,9 +4397,7 @@ module Stripe
             def initialize(interval: nil, interval_count: nil); end
           end
           # Time span for the redeemed discount.
-          sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::Discount::DiscountEnd::Duration)
-           }
+          sig { returns(::Stripe::Invoice::UpcomingLinesParams::Discount::DiscountEnd::Duration) }
           attr_accessor :duration
           # A precise Unix timestamp for the discount to end. Must be in the future.
           sig { returns(Integer) }
@@ -4423,7 +4406,7 @@ module Stripe
           sig { returns(String) }
           attr_accessor :type
           sig {
-            params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+            params(duration: ::Stripe::Invoice::UpcomingLinesParams::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
            }
           def initialize(duration: nil, timestamp: nil, type: nil); end
         end
@@ -4434,13 +4417,13 @@ module Stripe
         sig { returns(String) }
         attr_accessor :discount
         # Details to determine how long the discount should be applied for.
-        sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::Discount::DiscountEnd) }
+        sig { returns(::Stripe::Invoice::UpcomingLinesParams::Discount::DiscountEnd) }
         attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         sig { returns(String) }
         attr_accessor :promotion_code
         sig {
-          params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::Discount::DiscountEnd, promotion_code: String).void
+          params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::Discount::DiscountEnd, promotion_code: String).void
          }
         def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
       end
@@ -4459,7 +4442,7 @@ module Stripe
             end
             # Time span for the redeemed discount.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Discount::DiscountEnd::Duration)
+              returns(::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Discount::DiscountEnd::Duration)
              }
             attr_accessor :duration
             # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -4469,7 +4452,7 @@ module Stripe
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+              params(duration: ::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
              }
             def initialize(duration: nil, timestamp: nil, type: nil); end
           end
@@ -4481,14 +4464,14 @@ module Stripe
           attr_accessor :discount
           # Details to determine how long the discount should be applied for.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Discount::DiscountEnd)
+            returns(::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Discount::DiscountEnd)
            }
           attr_accessor :discount_end
           # ID of the promotion code to create a new discount for.
           sig { returns(String) }
           attr_accessor :promotion_code
           sig {
-            params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Discount::DiscountEnd, promotion_code: String).void
+            params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Discount::DiscountEnd, promotion_code: String).void
            }
           def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
         end
@@ -4543,7 +4526,7 @@ module Stripe
         attr_accessor :discountable
         # The coupons to redeem into discounts for the invoice item in the preview.
         sig {
-          returns(T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Discount]))
+          returns(T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Discount]))
          }
         attr_accessor :discounts
         # The ID of the invoice item to update in preview. If not specified, a new invoice item will be added to the preview of the upcoming invoice.
@@ -4553,13 +4536,13 @@ module Stripe
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
-        sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Period) }
+        sig { returns(::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Period) }
         attr_accessor :period
         # The ID of the price object. One of `price` or `price_data` is required.
         sig { returns(String) }
         attr_accessor :price
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::PriceData) }
+        sig { returns(::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::PriceData) }
         attr_accessor :price_data
         # Non-negative integer. The quantity of units for the invoice item.
         sig { returns(Integer) }
@@ -4580,7 +4563,7 @@ module Stripe
         sig { returns(String) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(amount: Integer, currency: String, description: String, discountable: T::Boolean, discounts: T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Discount]), invoiceitem: String, metadata: T.nilable(T::Hash[String, String]), period: ::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::Period, price: String, price_data: ::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem::PriceData, quantity: Integer, tax_behavior: String, tax_code: T.nilable(String), tax_rates: T.nilable(T::Array[String]), unit_amount: Integer, unit_amount_decimal: String).void
+          params(amount: Integer, currency: String, description: String, discountable: T::Boolean, discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Discount]), invoiceitem: String, metadata: T.nilable(T::Hash[String, String]), period: ::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::Period, price: String, price_data: ::Stripe::Invoice::UpcomingLinesParams::InvoiceItem::PriceData, quantity: Integer, tax_behavior: String, tax_code: T.nilable(String), tax_rates: T.nilable(T::Array[String]), unit_amount: Integer, unit_amount_decimal: String).void
          }
         def initialize(
           amount: nil,
@@ -4633,12 +4616,12 @@ module Stripe
             end
             # Use the `end` time of a given discount.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd)
              }
             attr_accessor :discount_end
             # Time span for the amendment starting from the `amendment_start`.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentEnd::Duration)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentEnd::Duration)
              }
             attr_accessor :duration
             # A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
@@ -4648,7 +4631,7 @@ module Stripe
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd, duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentEnd::Duration, timestamp: Integer, type: String).void
+              params(discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd, duration: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentEnd::Duration, timestamp: Integer, type: String).void
              }
             def initialize(discount_end: nil, duration: nil, timestamp: nil, type: nil); end
           end
@@ -4669,12 +4652,12 @@ module Stripe
             end
             # Details of another amendment in the same array, immediately after which this amendment should begin.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd)
              }
             attr_accessor :amendment_end
             # Use the `end` time of a given discount.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd)
              }
             attr_accessor :discount_end
             # A precise Unix timestamp for the amendment to start.
@@ -4684,7 +4667,7 @@ module Stripe
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(amendment_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd, timestamp: Integer, type: String).void
+              params(amendment_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd, discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd, timestamp: Integer, type: String).void
              }
             def initialize(amendment_end: nil, discount_end: nil, timestamp: nil, type: nil); end
           end
@@ -4705,7 +4688,7 @@ module Stripe
               attr_accessor :discount
               # Details to determine how long the discount should be applied for.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd)
+                returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd)
                }
               attr_accessor :discount_end
               # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
@@ -4715,7 +4698,7 @@ module Stripe
               sig { returns(String) }
               attr_accessor :promotion_code
               sig {
-                params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd, index: Integer, promotion_code: String).void
+                params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd, index: Integer, promotion_code: String).void
                }
               def initialize(
                 coupon: nil,
@@ -4753,24 +4736,24 @@ module Stripe
             end
             # Details of the discount to add.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Add)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Add)
              }
             attr_accessor :add
             # Details of the discount to remove.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Remove)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Remove)
              }
             attr_accessor :remove
             # Details of the discount to replace the existing discounts with.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Set)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Set)
              }
             attr_accessor :set
             # Determines the type of discount action.
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(add: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Add, remove: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Remove, set: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction::Set, type: String).void
+              params(add: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Add, remove: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Remove, set: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction::Set, type: String).void
              }
             def initialize(add: nil, remove: nil, set: nil, type: nil); end
           end
@@ -4790,7 +4773,7 @@ module Stripe
                   end
                   # Time span for the redeemed discount.
                   sig {
-                    returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration)
+                    returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration)
                    }
                   attr_accessor :duration
                   # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -4800,7 +4783,7 @@ module Stripe
                   sig { returns(String) }
                   attr_accessor :type
                   sig {
-                    params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+                    params(duration: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
                    }
                   def initialize(duration: nil, timestamp: nil, type: nil); end
                 end
@@ -4812,14 +4795,14 @@ module Stripe
                 attr_accessor :discount
                 # Details to determine how long the discount should be applied for.
                 sig {
-                  returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd)
+                  returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd)
                  }
                 attr_accessor :discount_end
                 # ID of the promotion code to create a new discount for.
                 sig { returns(String) }
                 attr_accessor :promotion_code
                 sig {
-                  params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd, promotion_code: String).void
+                  params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd, promotion_code: String).void
                  }
                 def initialize(
                   coupon: nil,
@@ -4840,7 +4823,7 @@ module Stripe
               end
               # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
               sig {
-                returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Discount])
+                returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Discount])
                }
               attr_accessor :discounts
               # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -4857,11 +4840,11 @@ module Stripe
               attr_accessor :tax_rates
               # Options that configure the trial on the subscription item.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Trial)
+                returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Trial)
                }
               attr_accessor :trial
               sig {
-                params(discounts: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Discount], metadata: T::Hash[String, String], price: String, quantity: Integer, tax_rates: T::Array[String], trial: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add::Trial).void
+                params(discounts: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Discount], metadata: T::Hash[String, String], price: String, quantity: Integer, tax_rates: T::Array[String], trial: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add::Trial).void
                }
               def initialize(
                 discounts: nil,
@@ -4894,7 +4877,7 @@ module Stripe
                   end
                   # Time span for the redeemed discount.
                   sig {
-                    returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration)
+                    returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration)
                    }
                   attr_accessor :duration
                   # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -4904,7 +4887,7 @@ module Stripe
                   sig { returns(String) }
                   attr_accessor :type
                   sig {
-                    params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+                    params(duration: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
                    }
                   def initialize(duration: nil, timestamp: nil, type: nil); end
                 end
@@ -4916,14 +4899,14 @@ module Stripe
                 attr_accessor :discount
                 # Details to determine how long the discount should be applied for.
                 sig {
-                  returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd)
+                  returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd)
                  }
                 attr_accessor :discount_end
                 # ID of the promotion code to create a new discount for.
                 sig { returns(String) }
                 attr_accessor :promotion_code
                 sig {
-                  params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd, promotion_code: String).void
+                  params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd, promotion_code: String).void
                  }
                 def initialize(
                   coupon: nil,
@@ -4944,7 +4927,7 @@ module Stripe
               end
               # If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
               sig {
-                returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Discount])
+                returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Discount])
                }
               attr_accessor :discounts
               # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
@@ -4961,11 +4944,11 @@ module Stripe
               attr_accessor :tax_rates
               # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Trial)
+                returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Trial)
                }
               attr_accessor :trial
               sig {
-                params(discounts: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Discount], metadata: T::Hash[String, String], price: String, quantity: Integer, tax_rates: T::Array[String], trial: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set::Trial).void
+                params(discounts: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Discount], metadata: T::Hash[String, String], price: String, quantity: Integer, tax_rates: T::Array[String], trial: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set::Trial).void
                }
               def initialize(
                 discounts: nil,
@@ -4978,24 +4961,24 @@ module Stripe
             end
             # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add)
              }
             attr_accessor :add
             # Details of the subscription item to remove.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Remove)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Remove)
              }
             attr_accessor :remove
             # Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set)
              }
             attr_accessor :set
             # Determines the type of item action.
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(add: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Add, remove: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Remove, set: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction::Set, type: String).void
+              params(add: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Add, remove: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Remove, set: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction::Set, type: String).void
              }
             def initialize(add: nil, remove: nil, set: nil, type: nil); end
           end
@@ -5027,14 +5010,14 @@ module Stripe
             end
             # Details of the pause_collection behavior to apply to the amendment.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::SetPauseCollection::Set)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::SetPauseCollection::Set)
              }
             attr_accessor :set
             # Determines the type of the pause_collection amendment.
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(set: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::SetPauseCollection::Set, type: String).void
+              params(set: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::SetPauseCollection::Set, type: String).void
              }
             def initialize(set: nil, type: nil); end
           end
@@ -5048,22 +5031,22 @@ module Stripe
             end
             # Defines how the subscription should behave when a trial ends.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior)
              }
             attr_accessor :end_behavior
             sig {
-              params(end_behavior: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior).void
+              params(end_behavior: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior).void
              }
             def initialize(end_behavior: nil); end
           end
           # Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentEnd)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentEnd)
            }
           attr_accessor :amendment_end
           # Details to identify the earliest timestamp where the proposed change should take effect.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentStart)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentStart)
            }
           attr_accessor :amendment_start
           # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
@@ -5071,17 +5054,17 @@ module Stripe
           attr_accessor :billing_cycle_anchor
           # Changes to the coupons being redeemed or discounts being applied during the amendment time span.
           sig {
-            returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction])
+            returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction])
            }
           attr_accessor :discount_actions
           # Changes to the subscription items during the amendment time span.
           sig {
-            returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction])
+            returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction])
            }
           attr_accessor :item_actions
           # Instructions for how to modify phase metadata
           sig {
-            returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::MetadataAction])
+            returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::MetadataAction])
            }
           attr_accessor :metadata_actions
           # Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
@@ -5089,7 +5072,7 @@ module Stripe
           attr_accessor :proration_behavior
           # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::SetPauseCollection)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::SetPauseCollection)
            }
           attr_accessor :set_pause_collection
           # Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
@@ -5097,11 +5080,11 @@ module Stripe
           attr_accessor :set_schedule_end
           # Settings related to subscription trials.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::TrialSettings)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::TrialSettings)
            }
           attr_accessor :trial_settings
           sig {
-            params(amendment_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentEnd, amendment_start: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::AmendmentStart, billing_cycle_anchor: String, discount_actions: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::DiscountAction], item_actions: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::ItemAction], metadata_actions: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::MetadataAction], proration_behavior: String, set_pause_collection: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::SetPauseCollection, set_schedule_end: String, trial_settings: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment::TrialSettings).void
+            params(amendment_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentEnd, amendment_start: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::AmendmentStart, billing_cycle_anchor: String, discount_actions: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::DiscountAction], item_actions: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::ItemAction], metadata_actions: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::MetadataAction], proration_behavior: String, set_pause_collection: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::SetPauseCollection, set_schedule_end: String, trial_settings: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment::TrialSettings).void
            }
           def initialize(
             amendment_end: nil,
@@ -5132,7 +5115,7 @@ module Stripe
                 end
                 # Time span for the redeemed discount.
                 sig {
-                  returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration)
+                  returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration)
                  }
                 attr_accessor :duration
                 # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -5142,7 +5125,7 @@ module Stripe
                 sig { returns(String) }
                 attr_accessor :type
                 sig {
-                  params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+                  params(duration: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
                  }
                 def initialize(duration: nil, timestamp: nil, type: nil); end
               end
@@ -5154,14 +5137,14 @@ module Stripe
               attr_accessor :discount
               # Details to determine how long the discount should be applied for.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd)
+                returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd)
                }
               attr_accessor :discount_end
               # ID of the promotion code to create a new discount for.
               sig { returns(String) }
               attr_accessor :promotion_code
               sig {
-                params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd, promotion_code: String).void
+                params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd, promotion_code: String).void
                }
               def initialize(
                 coupon: nil,
@@ -5199,7 +5182,7 @@ module Stripe
             end
             # The coupons to redeem into discounts for the item.
             sig {
-              returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::Discount])
+              returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::Discount])
              }
             attr_accessor :discounts
             # The ID of the price object. One of `price` or `price_data` is required.
@@ -5207,7 +5190,7 @@ module Stripe
             attr_accessor :price
             # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData)
              }
             attr_accessor :price_data
             # Quantity for this item. Defaults to 1.
@@ -5217,7 +5200,7 @@ module Stripe
             sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :tax_rates
             sig {
-              params(discounts: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::Discount], price: String, price_data: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String])).void
+              params(discounts: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::Discount], price: String, price_data: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String])).void
              }
             def initialize(
               discounts: nil,
@@ -5243,11 +5226,11 @@ module Stripe
             attr_accessor :enabled
             # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AutomaticTax::Liability)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AutomaticTax::Liability)
              }
             attr_accessor :liability
             sig {
-              params(enabled: T::Boolean, liability: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AutomaticTax::Liability).void
+              params(enabled: T::Boolean, liability: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AutomaticTax::Liability).void
              }
             def initialize(enabled: nil, liability: nil); end
           end
@@ -5275,7 +5258,7 @@ module Stripe
               end
               # Time span for the redeemed discount.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration)
+                returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration)
                }
               attr_accessor :duration
               # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -5285,7 +5268,7 @@ module Stripe
               sig { returns(String) }
               attr_accessor :type
               sig {
-                params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+                params(duration: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
                }
               def initialize(duration: nil, timestamp: nil, type: nil); end
             end
@@ -5297,14 +5280,14 @@ module Stripe
             attr_accessor :discount
             # Details to determine how long the discount should be applied for.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Discount::DiscountEnd)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Discount::DiscountEnd)
              }
             attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             sig { returns(String) }
             attr_accessor :promotion_code
             sig {
-              params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Discount::DiscountEnd, promotion_code: String).void
+              params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Discount::DiscountEnd, promotion_code: String).void
              }
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
           end
@@ -5327,11 +5310,11 @@ module Stripe
             attr_accessor :days_until_due
             # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::InvoiceSettings::Issuer)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::InvoiceSettings::Issuer)
              }
             attr_accessor :issuer
             sig {
-              params(account_tax_ids: T.nilable(T::Array[String]), days_until_due: Integer, issuer: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::InvoiceSettings::Issuer).void
+              params(account_tax_ids: T.nilable(T::Array[String]), days_until_due: Integer, issuer: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::InvoiceSettings::Issuer).void
              }
             def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
           end
@@ -5357,7 +5340,7 @@ module Stripe
                 end
                 # Time span for the redeemed discount.
                 sig {
-                  returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration)
+                  returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration)
                  }
                 attr_accessor :duration
                 # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -5367,7 +5350,7 @@ module Stripe
                 sig { returns(String) }
                 attr_accessor :type
                 sig {
-                  params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+                  params(duration: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
                  }
                 def initialize(duration: nil, timestamp: nil, type: nil); end
               end
@@ -5379,14 +5362,14 @@ module Stripe
               attr_accessor :discount
               # Details to determine how long the discount should be applied for.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd)
+                returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd)
                }
               attr_accessor :discount_end
               # ID of the promotion code to create a new discount for.
               sig { returns(String) }
               attr_accessor :promotion_code
               sig {
-                params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd, promotion_code: String).void
+                params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd, promotion_code: String).void
                }
               def initialize(
                 coupon: nil,
@@ -5414,7 +5397,7 @@ module Stripe
               attr_accessor :product
               # The recurring components of a price such as `interval` and `interval_count`.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::PriceData::Recurring)
+                returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::PriceData::Recurring)
                }
               attr_accessor :recurring
               # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -5427,7 +5410,7 @@ module Stripe
               sig { returns(String) }
               attr_accessor :unit_amount_decimal
               sig {
-                params(currency: String, product: String, recurring: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::PriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
+                params(currency: String, product: String, recurring: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::PriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
                }
               def initialize(
                 currency: nil,
@@ -5450,12 +5433,12 @@ module Stripe
             end
             # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
             sig {
-              returns(T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::BillingThresholds))
+              returns(T.nilable(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::BillingThresholds))
              }
             attr_accessor :billing_thresholds
             # The coupons to redeem into discounts for the subscription item.
             sig {
-              returns(T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Discount]))
+              returns(T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Discount]))
              }
             attr_accessor :discounts
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -5469,7 +5452,7 @@ module Stripe
             attr_accessor :price
             # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::PriceData)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::PriceData)
              }
             attr_accessor :price_data
             # Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
@@ -5480,11 +5463,11 @@ module Stripe
             attr_accessor :tax_rates
             # Options that configure the trial on the subscription item.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Trial)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Trial)
              }
             attr_accessor :trial
             sig {
-              params(billing_thresholds: T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::BillingThresholds), discounts: T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Discount]), metadata: T::Hash[String, String], plan: String, price: String, price_data: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String]), trial: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item::Trial).void
+              params(billing_thresholds: T.nilable(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::BillingThresholds), discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Discount]), metadata: T::Hash[String, String], plan: String, price: String, price_data: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String]), trial: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item::Trial).void
              }
             def initialize(
               billing_thresholds: nil,
@@ -5525,17 +5508,17 @@ module Stripe
             end
             # Defines how the subscription should behave when a trial ends.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::TrialSettings::EndBehavior)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::TrialSettings::EndBehavior)
              }
             attr_accessor :end_behavior
             sig {
-              params(end_behavior: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::TrialSettings::EndBehavior).void
+              params(end_behavior: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::TrialSettings::EndBehavior).void
              }
             def initialize(end_behavior: nil); end
           end
           # A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
           sig {
-            returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem])
+            returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem])
            }
           attr_accessor :add_invoice_items
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
@@ -5543,7 +5526,7 @@ module Stripe
           attr_accessor :application_fee_percent
           # Automatic tax settings for this phase.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AutomaticTax)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AutomaticTax)
            }
           attr_accessor :automatic_tax
           # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
@@ -5551,15 +5534,12 @@ module Stripe
           attr_accessor :billing_cycle_anchor
           # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
           sig {
-            returns(T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::BillingThresholds))
+            returns(T.nilable(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::BillingThresholds))
            }
           attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           sig { returns(String) }
           attr_accessor :collection_method
-          # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-          sig { returns(String) }
-          attr_accessor :coupon
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
@@ -5574,7 +5554,7 @@ module Stripe
           attr_accessor :description
           # The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
           sig {
-            returns(T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Discount]))
+            returns(T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Discount]))
            }
           attr_accessor :discounts
           # The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -5582,12 +5562,12 @@ module Stripe
           attr_accessor :end_date
           # All invoices will be billed using the specified settings.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::InvoiceSettings)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::InvoiceSettings)
            }
           attr_accessor :invoice_settings
           # List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
           sig {
-            returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item])
+            returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item])
            }
           attr_accessor :items
           # Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
@@ -5601,7 +5581,7 @@ module Stripe
           attr_accessor :on_behalf_of
           # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::PauseCollection)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::PauseCollection)
            }
           attr_accessor :pause_collection
           # Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
@@ -5612,7 +5592,7 @@ module Stripe
           attr_accessor :start_date
           # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::TransferData)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::TransferData)
            }
           attr_accessor :transfer_data
           # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
@@ -5626,11 +5606,11 @@ module Stripe
           attr_accessor :trial_end
           # Settings related to subscription trials.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::TrialSettings)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::TrialSettings)
            }
           attr_accessor :trial_settings
           sig {
-            params(add_invoice_items: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::BillingThresholds), collection_method: String, coupon: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::InvoiceSettings, items: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase::TrialSettings).void
+            params(add_invoice_items: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::BillingThresholds), collection_method: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::InvoiceSettings, items: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase::TrialSettings).void
            }
           def initialize(
             add_invoice_items: nil,
@@ -5639,7 +5619,6 @@ module Stripe
             billing_cycle_anchor: nil,
             billing_thresholds: nil,
             collection_method: nil,
-            coupon: nil,
             currency: nil,
             default_payment_method: nil,
             default_tax_rates: nil,
@@ -5682,12 +5661,12 @@ module Stripe
             end
             # End the prebilled period when a specified amendment ends.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd)
              }
             attr_accessor :amendment_end
             # Time span for prebilling, starting from `bill_from`.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling::BillUntil::Duration)
+              returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling::BillUntil::Duration)
              }
             attr_accessor :duration
             # End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
@@ -5697,26 +5676,26 @@ module Stripe
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(amendment_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd, duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling::BillUntil::Duration, timestamp: Integer, type: String).void
+              params(amendment_end: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd, duration: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling::BillUntil::Duration, timestamp: Integer, type: String).void
              }
             def initialize(amendment_end: nil, duration: nil, timestamp: nil, type: nil); end
           end
           # The end of the prebilled time period.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling::BillUntil)
+            returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling::BillUntil)
            }
           attr_accessor :bill_until
           # This is used to determine the number of billing cycles to prebill.
           sig { returns(Integer) }
           attr_accessor :iterations
           sig {
-            params(bill_until: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling::BillUntil, iterations: Integer).void
+            params(bill_until: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling::BillUntil, iterations: Integer).void
            }
           def initialize(bill_until: nil, iterations: nil); end
         end
         # Changes to apply to the phases of the subscription schedule, in the order provided.
         sig {
-          returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment])
+          returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment])
          }
         attr_accessor :amendments
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
@@ -5726,20 +5705,18 @@ module Stripe
         sig { returns(String) }
         attr_accessor :end_behavior
         # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
-        sig {
-          returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase])
-         }
+        sig { returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase]) }
         attr_accessor :phases
         # Provide any time periods to bill in advance.
         sig {
-          returns(T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling]))
+          returns(T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling]))
          }
         attr_accessor :prebilling
         # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
         sig { returns(String) }
         attr_accessor :proration_behavior
         sig {
-          params(amendments: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Amendment], billing_behavior: String, end_behavior: String, phases: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Phase], prebilling: T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails::Prebilling]), proration_behavior: String).void
+          params(amendments: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Amendment], billing_behavior: String, end_behavior: String, phases: T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Phase], prebilling: T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails::Prebilling]), proration_behavior: String).void
          }
         def initialize(
           amendments: nil,
@@ -5773,7 +5750,7 @@ module Stripe
               end
               # Time span for the redeemed discount.
               sig {
-                returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration)
+                returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration)
                }
               attr_accessor :duration
               # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -5783,7 +5760,7 @@ module Stripe
               sig { returns(String) }
               attr_accessor :type
               sig {
-                params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+                params(duration: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
                }
               def initialize(duration: nil, timestamp: nil, type: nil); end
             end
@@ -5795,14 +5772,14 @@ module Stripe
             attr_accessor :discount
             # Details to determine how long the discount should be applied for.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::Discount::DiscountEnd)
+              returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::Discount::DiscountEnd)
              }
             attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             sig { returns(String) }
             attr_accessor :promotion_code
             sig {
-              params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::Discount::DiscountEnd, promotion_code: String).void
+              params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::Discount::DiscountEnd, promotion_code: String).void
              }
             def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
           end
@@ -5825,7 +5802,7 @@ module Stripe
             attr_accessor :product
             # The recurring components of a price such as `interval` and `interval_count`.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::PriceData::Recurring)
+              returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::PriceData::Recurring)
              }
             attr_accessor :recurring
             # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -5838,7 +5815,7 @@ module Stripe
             sig { returns(String) }
             attr_accessor :unit_amount_decimal
             sig {
-              params(currency: String, product: String, recurring: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::PriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
+              params(currency: String, product: String, recurring: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::PriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
              }
             def initialize(
               currency: nil,
@@ -5851,7 +5828,7 @@ module Stripe
           end
           # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
           sig {
-            returns(T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::BillingThresholds))
+            returns(T.nilable(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::BillingThresholds))
            }
           attr_accessor :billing_thresholds
           # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
@@ -5862,7 +5839,7 @@ module Stripe
           attr_accessor :deleted
           # The coupons to redeem into discounts for the subscription item.
           sig {
-            returns(T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::Discount]))
+            returns(T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::Discount]))
            }
           attr_accessor :discounts
           # Subscription item to update.
@@ -5879,7 +5856,7 @@ module Stripe
           attr_accessor :price
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::PriceData)
+            returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::PriceData)
            }
           attr_accessor :price_data
           # Quantity for this item.
@@ -5889,7 +5866,7 @@ module Stripe
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :tax_rates
           sig {
-            params(billing_thresholds: T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::BillingThresholds), clear_usage: T::Boolean, deleted: T::Boolean, discounts: T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::Discount]), id: String, metadata: T.nilable(T::Hash[String, String]), plan: String, price: String, price_data: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String])).void
+            params(billing_thresholds: T.nilable(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::BillingThresholds), clear_usage: T::Boolean, deleted: T::Boolean, discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::Discount]), id: String, metadata: T.nilable(T::Hash[String, String]), plan: String, price: String, price_data: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String])).void
            }
           def initialize(
             billing_thresholds: nil,
@@ -5918,7 +5895,7 @@ module Stripe
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         sig { returns(T::Boolean) }
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
@@ -5928,14 +5905,10 @@ module Stripe
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :default_tax_rates
         # A list of up to 20 subscription items, each with an attached price.
-        sig {
-          returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item])
-         }
+        sig { returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item]) }
         attr_accessor :items
         # The pre-billing to apply to the subscription as a preview.
-        sig {
-          returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Prebilling)
-         }
+        sig { returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Prebilling) }
         attr_accessor :prebilling
         # Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
         sig { returns(String) }
@@ -5953,7 +5926,7 @@ module Stripe
         sig { returns(T.any(String, Integer)) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.any(String, Integer), cancel_at: T.nilable(Integer), cancel_at_period_end: T::Boolean, cancel_now: T::Boolean, default_tax_rates: T.nilable(T::Array[String]), items: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Item], prebilling: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails::Prebilling, proration_behavior: String, proration_date: Integer, resume_at: String, start_date: Integer, trial_end: T.any(String, Integer)).void
+          params(billing_cycle_anchor: T.any(String, Integer), cancel_at: T.nilable(Integer), cancel_at_period_end: T::Boolean, cancel_now: T::Boolean, default_tax_rates: T.nilable(T::Array[String]), items: T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Item], prebilling: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails::Prebilling, proration_behavior: String, proration_date: Integer, resume_at: String, start_date: Integer, trial_end: T.any(String, Integer)).void
          }
         def initialize(
           billing_cycle_anchor: nil,
@@ -5992,7 +5965,7 @@ module Stripe
             end
             # Time span for the redeemed discount.
             sig {
-              returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::Discount::DiscountEnd::Duration)
+              returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::Discount::DiscountEnd::Duration)
              }
             attr_accessor :duration
             # A precise Unix timestamp for the discount to end. Must be in the future.
@@ -6002,7 +5975,7 @@ module Stripe
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(duration: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
+              params(duration: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::Discount::DiscountEnd::Duration, timestamp: Integer, type: String).void
              }
             def initialize(duration: nil, timestamp: nil, type: nil); end
           end
@@ -6014,14 +5987,14 @@ module Stripe
           attr_accessor :discount
           # Details to determine how long the discount should be applied for.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::Discount::DiscountEnd)
+            returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::Discount::DiscountEnd)
            }
           attr_accessor :discount_end
           # ID of the promotion code to create a new discount for.
           sig { returns(String) }
           attr_accessor :promotion_code
           sig {
-            params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::Discount::DiscountEnd, promotion_code: String).void
+            params(coupon: String, discount: String, discount_end: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::Discount::DiscountEnd, promotion_code: String).void
            }
           def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
         end
@@ -6044,7 +6017,7 @@ module Stripe
           attr_accessor :product
           # The recurring components of a price such as `interval` and `interval_count`.
           sig {
-            returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::PriceData::Recurring)
+            returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::PriceData::Recurring)
            }
           attr_accessor :recurring
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -6057,7 +6030,7 @@ module Stripe
           sig { returns(String) }
           attr_accessor :unit_amount_decimal
           sig {
-            params(currency: String, product: String, recurring: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::PriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
+            params(currency: String, product: String, recurring: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::PriceData::Recurring, tax_behavior: String, unit_amount: Integer, unit_amount_decimal: String).void
            }
           def initialize(
             currency: nil,
@@ -6070,7 +6043,7 @@ module Stripe
         end
         # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         sig {
-          returns(T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::BillingThresholds))
+          returns(T.nilable(::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::BillingThresholds))
          }
         attr_accessor :billing_thresholds
         # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
@@ -6081,7 +6054,7 @@ module Stripe
         attr_accessor :deleted
         # The coupons to redeem into discounts for the subscription item.
         sig {
-          returns(T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::Discount]))
+          returns(T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::Discount]))
          }
         attr_accessor :discounts
         # Subscription item to update.
@@ -6097,7 +6070,7 @@ module Stripe
         sig { returns(String) }
         attr_accessor :price
         # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::PriceData) }
+        sig { returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::PriceData) }
         attr_accessor :price_data
         # Quantity for this item.
         sig { returns(Integer) }
@@ -6106,7 +6079,7 @@ module Stripe
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :tax_rates
         sig {
-          params(billing_thresholds: T.nilable(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::BillingThresholds), clear_usage: T::Boolean, deleted: T::Boolean, discounts: T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::Discount]), id: String, metadata: T.nilable(T::Hash[String, String]), plan: String, price: String, price_data: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String])).void
+          params(billing_thresholds: T.nilable(::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::BillingThresholds), clear_usage: T::Boolean, deleted: T::Boolean, discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::Discount]), id: String, metadata: T.nilable(T::Hash[String, String]), plan: String, price: String, price_data: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem::PriceData, quantity: Integer, tax_rates: T.nilable(T::Array[String])).void
          }
         def initialize(
           billing_thresholds: nil,
@@ -6130,11 +6103,8 @@ module Stripe
         def initialize(iterations: nil); end
       end
       # Settings for automatic tax lookup for this invoice preview.
-      sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::AutomaticTax) }
+      sig { returns(::Stripe::Invoice::UpcomingLinesParams::AutomaticTax) }
       attr_accessor :automatic_tax
-      # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      sig { returns(String) }
-      attr_accessor :coupon
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       sig { returns(String) }
       attr_accessor :currency
@@ -6142,10 +6112,10 @@ module Stripe
       sig { returns(String) }
       attr_accessor :customer
       # Details about the customer you want to invoice or overrides for an existing customer. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
-      sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails) }
+      sig { returns(::Stripe::Invoice::UpcomingLinesParams::CustomerDetails) }
       attr_accessor :customer_details
       # The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
-      sig { returns(T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::Discount])) }
+      sig { returns(T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::Discount])) }
       attr_accessor :discounts
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
@@ -6154,10 +6124,10 @@ module Stripe
       sig { returns(T::Array[String]) }
       attr_accessor :expand
       # List of invoice items to add or update in the upcoming invoice preview (up to 250).
-      sig { returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem]) }
+      sig { returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::InvoiceItem]) }
       attr_accessor :invoice_items
       # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-      sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::Issuer) }
+      sig { returns(::Stripe::Invoice::UpcomingLinesParams::Issuer) }
       attr_accessor :issuer
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(Integer) }
@@ -6172,7 +6142,7 @@ module Stripe
       sig { returns(String) }
       attr_accessor :schedule
       # The schedule creation or modification params to apply as a preview. Cannot be used with `subscription` or `subscription_` prefixed fields.
-      sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails) }
+      sig { returns(::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails) }
       attr_accessor :schedule_details
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(String) }
@@ -6186,7 +6156,7 @@ module Stripe
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :subscription_cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
       sig { returns(T::Boolean) }
       attr_accessor :subscription_cancel_at_period_end
       # This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
@@ -6196,13 +6166,13 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :subscription_default_tax_rates
       # The subscription creation or modification params to apply as a preview. Cannot be used with `schedule` or `schedule_details` fields.
-      sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails) }
+      sig { returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails) }
       attr_accessor :subscription_details
       # A list of up to 20 subscription items, each with an attached price. This field has been deprecated and will be removed in a future API version. Use `subscription_details.items` instead.
-      sig { returns(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem]) }
+      sig { returns(T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem]) }
       attr_accessor :subscription_items
       # The pre-billing to apply to the subscription as a preview. This field has been deprecated and will be removed in a future API version. Use `subscription_details.prebilling` instead.
-      sig { returns(::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionPrebilling) }
+      sig { returns(::Stripe::Invoice::UpcomingLinesParams::SubscriptionPrebilling) }
       attr_accessor :subscription_prebilling
       # Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_behavior` instead.
       sig { returns(String) }
@@ -6223,11 +6193,10 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :subscription_trial_from_plan
       sig {
-        params(automatic_tax: ::Stripe::Invoice::ListUpcomingLineItemsParams::AutomaticTax, coupon: String, currency: String, customer: String, customer_details: ::Stripe::Invoice::ListUpcomingLineItemsParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::Discount]), ending_before: String, expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::InvoiceItem], issuer: ::Stripe::Invoice::ListUpcomingLineItemsParams::Issuer, limit: Integer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::ListUpcomingLineItemsParams::ScheduleDetails, starting_after: String, subscription: String, subscription_billing_cycle_anchor: T.any(String, Integer), subscription_cancel_at: T.nilable(Integer), subscription_cancel_at_period_end: T::Boolean, subscription_cancel_now: T::Boolean, subscription_default_tax_rates: T.nilable(T::Array[String]), subscription_details: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionDetails, subscription_items: T::Array[::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionItem], subscription_prebilling: ::Stripe::Invoice::ListUpcomingLineItemsParams::SubscriptionPrebilling, subscription_proration_behavior: String, subscription_proration_date: Integer, subscription_resume_at: String, subscription_start_date: Integer, subscription_trial_end: T.any(String, Integer), subscription_trial_from_plan: T::Boolean).void
+        params(automatic_tax: ::Stripe::Invoice::UpcomingLinesParams::AutomaticTax, currency: String, customer: String, customer_details: ::Stripe::Invoice::UpcomingLinesParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::UpcomingLinesParams::Discount]), ending_before: String, expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::UpcomingLinesParams::InvoiceItem], issuer: ::Stripe::Invoice::UpcomingLinesParams::Issuer, limit: Integer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::UpcomingLinesParams::ScheduleDetails, starting_after: String, subscription: String, subscription_billing_cycle_anchor: T.any(String, Integer), subscription_cancel_at: T.nilable(Integer), subscription_cancel_at_period_end: T::Boolean, subscription_cancel_now: T::Boolean, subscription_default_tax_rates: T.nilable(T::Array[String]), subscription_details: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionDetails, subscription_items: T::Array[::Stripe::Invoice::UpcomingLinesParams::SubscriptionItem], subscription_prebilling: ::Stripe::Invoice::UpcomingLinesParams::SubscriptionPrebilling, subscription_proration_behavior: String, subscription_proration_date: Integer, subscription_resume_at: String, subscription_start_date: Integer, subscription_trial_end: T.any(String, Integer), subscription_trial_from_plan: T::Boolean).void
        }
       def initialize(
         automatic_tax: nil,
-        coupon: nil,
         currency: nil,
         customer: nil,
         customer_details: nil,
@@ -6347,10 +6316,10 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
           sig { returns(String) }
           attr_accessor :product
-          # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+          # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
           sig { returns(::Stripe::Invoice::AddLinesParams::Line::PriceData::ProductData) }
           attr_accessor :product_data
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -6454,10 +6423,10 @@ module Stripe
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         sig { returns(::Stripe::Invoice::AddLinesParams::Line::Period) }
         attr_accessor :period
-        # The ID of the price object. One of `price` or `price_data` is required.
+        # The ID of the price object.
         sig { returns(String) }
         attr_accessor :price
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         sig { returns(::Stripe::Invoice::AddLinesParams::Line::PriceData) }
         attr_accessor :price_data
         # Non-negative integer. The quantity of units for the line item.
@@ -6749,10 +6718,10 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
           sig { returns(String) }
           attr_accessor :product
-          # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+          # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
           sig { returns(::Stripe::Invoice::UpdateLinesParams::Line::PriceData::ProductData) }
           attr_accessor :product_data
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -6856,10 +6825,10 @@ module Stripe
         # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         sig { returns(::Stripe::Invoice::UpdateLinesParams::Line::Period) }
         attr_accessor :period
-        # The ID of the price object. One of `price` or `price_data` is required.
+        # The ID of the price object.
         sig { returns(String) }
         attr_accessor :price
-        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         sig { returns(::Stripe::Invoice::UpdateLinesParams::Line::PriceData) }
         attr_accessor :price_data
         # Non-negative integer. The quantity of units for the line item.
@@ -8209,9 +8178,6 @@ module Stripe
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           sig { returns(String) }
           attr_accessor :collection_method
-          # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-          sig { returns(String) }
-          attr_accessor :coupon
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
@@ -8282,7 +8248,7 @@ module Stripe
            }
           attr_accessor :trial_settings
           sig {
-            params(add_invoice_items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds), collection_method: String, coupon: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings, items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TrialSettings).void
+            params(add_invoice_items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds), collection_method: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings, items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TrialSettings).void
            }
           def initialize(
             add_invoice_items: nil,
@@ -8291,7 +8257,6 @@ module Stripe
             billing_cycle_anchor: nil,
             billing_thresholds: nil,
             collection_method: nil,
-            coupon: nil,
             currency: nil,
             default_payment_method: nil,
             default_tax_rates: nil,
@@ -8568,7 +8533,7 @@ module Stripe
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         sig { returns(T.nilable(Integer)) }
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         sig { returns(T::Boolean) }
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
@@ -8619,9 +8584,6 @@ module Stripe
       # Settings for automatic tax lookup for this invoice preview.
       sig { returns(::Stripe::Invoice::CreatePreviewParams::AutomaticTax) }
       attr_accessor :automatic_tax
-      # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      sig { returns(String) }
-      attr_accessor :coupon
       # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
       sig { returns(String) }
       attr_accessor :currency
@@ -8662,11 +8624,10 @@ module Stripe
       sig { returns(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails) }
       attr_accessor :subscription_details
       sig {
-        params(automatic_tax: ::Stripe::Invoice::CreatePreviewParams::AutomaticTax, coupon: String, currency: String, customer: String, customer_details: ::Stripe::Invoice::CreatePreviewParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::Discount]), expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::CreatePreviewParams::InvoiceItem], issuer: ::Stripe::Invoice::CreatePreviewParams::Issuer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails, subscription: String, subscription_details: ::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails).void
+        params(automatic_tax: ::Stripe::Invoice::CreatePreviewParams::AutomaticTax, currency: String, customer: String, customer_details: ::Stripe::Invoice::CreatePreviewParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::Discount]), expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::CreatePreviewParams::InvoiceItem], issuer: ::Stripe::Invoice::CreatePreviewParams::Issuer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails, subscription: String, subscription_details: ::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails).void
        }
       def initialize(
         automatic_tax: nil,
-        coupon: nil,
         currency: nil,
         customer: nil,
         customer_details: nil,
@@ -8806,12 +8767,6 @@ module Stripe
      }
     def self.list(params = {}, opts = {}); end
 
-    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    sig {
-      params(params: T.any(::Stripe::Invoice::ListUpcomingLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
-     }
-    def self.list_upcoming_line_items(params = {}, opts = {}); end
-
     # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
     sig {
       params(params: T.any(::Stripe::Invoice::MarkUncollectibleParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
@@ -8885,6 +8840,12 @@ module Stripe
       params(params: T.any(::Stripe::Invoice::UpcomingParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
     def self.upcoming(params = {}, opts = {}); end
+
+    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+    sig {
+      params(params: T.any(::Stripe::Invoice::UpcomingLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+     }
+    def self.upcomingLines(params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
     # monetary values, as well as collection_method, become uneditable.

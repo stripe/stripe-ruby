@@ -127,7 +127,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # ID of the product this price belongs to.
+          # ID of the [Product](https://docs.stripe.com/api/products) this [Price](https://docs.stripe.com/api/prices) belongs to.
           #
           # Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
           sig { returns(String) }
@@ -223,24 +223,24 @@ module Stripe
           returns(T.nilable(T::Array[::Stripe::OrderService::CreateParams::LineItem::Discount]))
          }
         attr_accessor :discounts
-        # The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+        # The ID of a [Price](https://docs.stripe.com/api/prices) to add to the Order.
         #
         # The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
         sig { returns(String) }
         attr_accessor :price
         # Data used to generate a new Price object inline.
         #
-        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create a Product upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define Products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
         #
-        # Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        # Each time you pass `price_data` we create a Price for the Product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         sig { returns(::Stripe::OrderService::CreateParams::LineItem::PriceData) }
         attr_accessor :price_data
-        # The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+        # The ID of a [Product](https://docs.stripe.com/api/products) to add to the Order.
         #
-        # The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        # The Product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
         sig { returns(String) }
         attr_accessor :product
-        # Defines a Product inline and adds it to the Order.
+        # Defines a [Product](https://docs.stripe.com/api/products) inline and adds it to the Order.
         #
         # `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
         #
@@ -312,15 +312,19 @@ module Stripe
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
               sig { returns(T.nilable(String)) }
               attr_accessor :setup_future_usage
+              # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+              sig { returns(String) }
+              attr_accessor :target_date
               # Bank account verification method.
               sig { returns(String) }
               attr_accessor :verification_method
               sig {
-                params(mandate_options: ::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), verification_method: String).void
+                params(mandate_options: ::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
                }
               def initialize(
                 mandate_options: nil,
                 setup_future_usage: nil,
+                target_date: nil,
                 verification_method: nil
               ); end
             end
@@ -686,10 +690,13 @@ module Stripe
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
               sig { returns(T.nilable(String)) }
               attr_accessor :setup_future_usage
+              # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+              sig { returns(String) }
+              attr_accessor :target_date
               sig {
-                params(mandate_options: ::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+                params(mandate_options: ::Stripe::OrderService::CreateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
                }
-              def initialize(mandate_options: nil, setup_future_usage: nil); end
+              def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
             end
             class Sofort < Stripe::RequestParams
               # Language shown to the payer on redirect.
@@ -1230,7 +1237,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # ID of the product this price belongs to.
+          # ID of the [Product](https://docs.stripe.com/api/products) this [Price](https://docs.stripe.com/api/prices) belongs to.
           #
           # Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
           sig { returns(String) }
@@ -1329,24 +1336,24 @@ module Stripe
         # The ID of an existing line item on the order.
         sig { returns(String) }
         attr_accessor :id
-        # The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+        # The ID of a [Price](https://docs.stripe.com/api/prices) to add to the Order.
         #
         # The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
         sig { returns(String) }
         attr_accessor :price
         # Data used to generate a new Price object inline.
         #
-        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create a Product upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define Products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
         #
-        # Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        # Each time you pass `price_data` we create a Price for the Product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         sig { returns(::Stripe::OrderService::UpdateParams::LineItem::PriceData) }
         attr_accessor :price_data
-        # The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+        # The ID of a [Product](https://docs.stripe.com/api/products) to add to the Order.
         #
-        # The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        # The Product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
         sig { returns(String) }
         attr_accessor :product
-        # Defines a Product inline and adds it to the Order.
+        # Defines a [Product](https://docs.stripe.com/api/products) inline and adds it to the Order.
         #
         # `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
         #
@@ -1419,15 +1426,19 @@ module Stripe
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
               sig { returns(T.nilable(String)) }
               attr_accessor :setup_future_usage
+              # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+              sig { returns(String) }
+              attr_accessor :target_date
               # Bank account verification method.
               sig { returns(String) }
               attr_accessor :verification_method
               sig {
-                params(mandate_options: ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), verification_method: String).void
+                params(mandate_options: ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String, verification_method: String).void
                }
               def initialize(
                 mandate_options: nil,
                 setup_future_usage: nil,
+                target_date: nil,
                 verification_method: nil
               ); end
             end
@@ -1793,10 +1804,13 @@ module Stripe
               # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
               sig { returns(T.nilable(String)) }
               attr_accessor :setup_future_usage
+              # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+              sig { returns(String) }
+              attr_accessor :target_date
               sig {
-                params(mandate_options: ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String)).void
+                params(mandate_options: ::Stripe::OrderService::UpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: T.nilable(String), target_date: String).void
                }
-              def initialize(mandate_options: nil, setup_future_usage: nil); end
+              def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
             end
             class Sofort < Stripe::RequestParams
               # Language shown to the payer on redirect.

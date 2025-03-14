@@ -12,6 +12,11 @@ module Stripe
         "issuing.dispute_settlement_detail"
       end
 
+      class NetworkData < Stripe::StripeObject
+        # The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
+        attr_reader :processing_date
+      end
+
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
@@ -65,6 +70,8 @@ module Stripe
       attr_reader :livemode
       # The card network for this dispute settlement detail. One of ["visa", "mastercard", "maestro"]
       attr_reader :network
+      # Details about the transaction, such as processing dates, set by the card network.
+      attr_reader :network_data
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The ID of the linked card network settlement.

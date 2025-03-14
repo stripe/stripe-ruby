@@ -478,7 +478,7 @@ module Stripe
     attr_reader :account_tax_ids
     # Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
     attr_reader :amount_due
-    # Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
+    # Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     attr_reader :amount_overpaid
     # The amount, in cents (or local equivalent), that was paid.
     attr_reader :amount_paid
@@ -544,8 +544,6 @@ module Stripe
     attr_reader :default_tax_rates
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     attr_reader :description
-    # Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
-    attr_reader :discount
     # The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
@@ -616,7 +614,7 @@ module Stripe
     attr_reader :status
     # Attribute for field status_transitions
     attr_reader :status_transitions
-    # Attribute for field subscription
+    # The subscription that this invoice was prepared for, if any.
     attr_reader :subscription
     # Details about the subscription that created this invoice.
     attr_reader :subscription_details

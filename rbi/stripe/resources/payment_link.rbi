@@ -74,6 +74,9 @@ module Stripe
           sig { returns(String) }
           attr_reader :value
         end
+        # The value that will pre-fill on the payment page.
+        sig { returns(T.nilable(String)) }
+        attr_reader :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         sig { returns(T::Array[Option]) }
         attr_reader :options
@@ -87,6 +90,9 @@ module Stripe
         attr_reader :type
       end
       class Numeric < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        sig { returns(T.nilable(String)) }
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         sig { returns(T.nilable(Integer)) }
         attr_reader :maximum_length
@@ -95,6 +101,9 @@ module Stripe
         attr_reader :minimum_length
       end
       class Text < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        sig { returns(T.nilable(String)) }
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         sig { returns(T.nilable(Integer)) }
         attr_reader :maximum_length
@@ -544,15 +553,18 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          sig { returns(String) }
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           sig {
             returns(T::Array[::Stripe::PaymentLink::CreateParams::CustomField::Dropdown::Option])
            }
           attr_accessor :options
           sig {
-            params(options: T::Array[::Stripe::PaymentLink::CreateParams::CustomField::Dropdown::Option]).void
+            params(default_value: String, options: T::Array[::Stripe::PaymentLink::CreateParams::CustomField::Dropdown::Option]).void
            }
-          def initialize(options: nil); end
+          def initialize(default_value: nil, options: nil); end
         end
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
@@ -565,24 +577,34 @@ module Stripe
           def initialize(custom: nil, type: nil); end
         end
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(String) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(Integer) }
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           sig { returns(Integer) }
           attr_accessor :minimum_length
-          sig { params(maximum_length: Integer, minimum_length: Integer).void }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          sig {
+            params(default_value: String, maximum_length: Integer, minimum_length: Integer).void
+           }
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(String) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(Integer) }
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           sig { returns(Integer) }
           attr_accessor :minimum_length
-          sig { params(maximum_length: Integer, minimum_length: Integer).void }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          sig {
+            params(default_value: String, maximum_length: Integer, minimum_length: Integer).void
+           }
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         # Configuration for `type=dropdown` fields.
         sig { returns(::Stripe::PaymentLink::CreateParams::CustomField::Dropdown) }
@@ -1148,15 +1170,18 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          sig { returns(String) }
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           sig {
             returns(T::Array[::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown::Option])
            }
           attr_accessor :options
           sig {
-            params(options: T::Array[::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown::Option]).void
+            params(default_value: String, options: T::Array[::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown::Option]).void
            }
-          def initialize(options: nil); end
+          def initialize(default_value: nil, options: nil); end
         end
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
@@ -1169,24 +1194,34 @@ module Stripe
           def initialize(custom: nil, type: nil); end
         end
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(String) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(Integer) }
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           sig { returns(Integer) }
           attr_accessor :minimum_length
-          sig { params(maximum_length: Integer, minimum_length: Integer).void }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          sig {
+            params(default_value: String, maximum_length: Integer, minimum_length: Integer).void
+           }
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(String) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(Integer) }
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           sig { returns(Integer) }
           attr_accessor :minimum_length
-          sig { params(maximum_length: Integer, minimum_length: Integer).void }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          sig {
+            params(default_value: String, maximum_length: Integer, minimum_length: Integer).void
+           }
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         # Configuration for `type=dropdown` fields.
         sig { returns(::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown) }

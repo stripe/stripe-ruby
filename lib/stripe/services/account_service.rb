@@ -1938,9 +1938,12 @@ module Stripe
         class Invoices < Stripe::RequestParams
           # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
           attr_accessor :default_account_tax_ids
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          attr_accessor :hosted_payment_method_save
 
-          def initialize(default_account_tax_ids: nil)
+          def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil)
             @default_account_tax_ids = default_account_tax_ids
+            @hosted_payment_method_save = hosted_payment_method_save
           end
         end
 
@@ -4208,6 +4211,15 @@ module Stripe
           end
         end
 
+        class Invoices < Stripe::RequestParams
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          attr_accessor :hosted_payment_method_save
+
+          def initialize(hosted_payment_method_save: nil)
+            @hosted_payment_method_save = hosted_payment_method_save
+          end
+        end
+
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
           attr_accessor :statement_descriptor
@@ -4302,6 +4314,8 @@ module Stripe
         attr_accessor :card_issuing
         # Settings specific to card charging on the account.
         attr_accessor :card_payments
+        # Settings specific to the account’s use of Invoices.
+        attr_accessor :invoices
         # Settings that apply across payment methods for charging on the account.
         attr_accessor :payments
         # Settings specific to the account's payouts.
@@ -4318,6 +4332,7 @@ module Stripe
           capital: nil,
           card_issuing: nil,
           card_payments: nil,
+          invoices: nil,
           payments: nil,
           payouts: nil,
           tax_forms: nil,
@@ -4329,6 +4344,7 @@ module Stripe
           @capital = capital
           @card_issuing = card_issuing
           @card_payments = card_payments
+          @invoices = invoices
           @payments = payments
           @payouts = payouts
           @tax_forms = tax_forms

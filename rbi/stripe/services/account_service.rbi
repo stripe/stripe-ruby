@@ -1800,8 +1800,13 @@ module Stripe
           # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :default_account_tax_ids
-          sig { params(default_account_tax_ids: T.nilable(T::Array[String])).void }
-          def initialize(default_account_tax_ids: nil); end
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          sig { returns(String) }
+          attr_accessor :hosted_payment_method_save
+          sig {
+            params(default_account_tax_ids: T.nilable(T::Array[String]), hosted_payment_method_save: String).void
+           }
+          def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil); end
         end
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -3942,6 +3947,13 @@ module Stripe
             statement_descriptor_prefix_kanji: nil
           ); end
         end
+        class Invoices < Stripe::RequestParams
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          sig { returns(String) }
+          attr_accessor :hosted_payment_method_save
+          sig { params(hosted_payment_method_save: String).void }
+          def initialize(hosted_payment_method_save: nil); end
+        end
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
           sig { returns(String) }
@@ -4050,6 +4062,9 @@ module Stripe
         # Settings specific to card charging on the account.
         sig { returns(::Stripe::AccountService::CreateParams::Settings::CardPayments) }
         attr_accessor :card_payments
+        # Settings specific to the account’s use of Invoices.
+        sig { returns(::Stripe::AccountService::CreateParams::Settings::Invoices) }
+        attr_accessor :invoices
         # Settings that apply across payment methods for charging on the account.
         sig { returns(::Stripe::AccountService::CreateParams::Settings::Payments) }
         attr_accessor :payments
@@ -4063,7 +4078,7 @@ module Stripe
         sig { returns(::Stripe::AccountService::CreateParams::Settings::Treasury) }
         attr_accessor :treasury
         sig {
-          params(bacs_debit_payments: ::Stripe::AccountService::CreateParams::Settings::BacsDebitPayments, bank_bca_onboarding: ::Stripe::AccountService::CreateParams::Settings::BankBcaOnboarding, branding: ::Stripe::AccountService::CreateParams::Settings::Branding, capital: ::Stripe::AccountService::CreateParams::Settings::Capital, card_issuing: ::Stripe::AccountService::CreateParams::Settings::CardIssuing, card_payments: ::Stripe::AccountService::CreateParams::Settings::CardPayments, payments: ::Stripe::AccountService::CreateParams::Settings::Payments, payouts: ::Stripe::AccountService::CreateParams::Settings::Payouts, tax_forms: ::Stripe::AccountService::CreateParams::Settings::TaxForms, treasury: ::Stripe::AccountService::CreateParams::Settings::Treasury).void
+          params(bacs_debit_payments: ::Stripe::AccountService::CreateParams::Settings::BacsDebitPayments, bank_bca_onboarding: ::Stripe::AccountService::CreateParams::Settings::BankBcaOnboarding, branding: ::Stripe::AccountService::CreateParams::Settings::Branding, capital: ::Stripe::AccountService::CreateParams::Settings::Capital, card_issuing: ::Stripe::AccountService::CreateParams::Settings::CardIssuing, card_payments: ::Stripe::AccountService::CreateParams::Settings::CardPayments, invoices: ::Stripe::AccountService::CreateParams::Settings::Invoices, payments: ::Stripe::AccountService::CreateParams::Settings::Payments, payouts: ::Stripe::AccountService::CreateParams::Settings::Payouts, tax_forms: ::Stripe::AccountService::CreateParams::Settings::TaxForms, treasury: ::Stripe::AccountService::CreateParams::Settings::Treasury).void
          }
         def initialize(
           bacs_debit_payments: nil,
@@ -4072,6 +4087,7 @@ module Stripe
           capital: nil,
           card_issuing: nil,
           card_payments: nil,
+          invoices: nil,
           payments: nil,
           payouts: nil,
           tax_forms: nil,

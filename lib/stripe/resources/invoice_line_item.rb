@@ -5,7 +5,7 @@ module Stripe
   # Invoice Line Items represent the individual lines within an [invoice](https://stripe.com/docs/api/invoices) and only exist within the context of an invoice.
   #
   # Each line item is backed by either an [invoice item](https://stripe.com/docs/api/invoiceitems) or a [subscription item](https://stripe.com/docs/api/subscription_items).
-  class InvoiceLineItem < StripeObject
+  class InvoiceLineItem < APIResource
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "line_item"
@@ -56,19 +56,6 @@ module Stripe
       end
       # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
       attr_reader :credited_items
-    end
-
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
-      attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      attr_reader :tax_rate
-      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-      attr_reader :taxability_reason
-      # The amount on which tax is calculated, in cents (or local equivalent).
-      attr_reader :taxable_amount
     end
 
     class UpdateParams < Stripe::RequestParams
@@ -150,9 +137,9 @@ module Stripe
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         attr_accessor :product
-        # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         attr_accessor :product_data
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         attr_accessor :tax_behavior
@@ -248,9 +235,9 @@ module Stripe
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
+      # The ID of the price object.
       attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       attr_accessor :price_data
       # Non-negative integer. The quantity of units for the line item.
       attr_accessor :quantity
@@ -291,8 +278,6 @@ module Stripe
     end
     # The amount, in cents (or local equivalent).
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    attr_reader :amount_excluding_tax
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
     # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -321,12 +306,8 @@ module Stripe
     attr_reader :object
     # Attribute for field period
     attr_reader :period
-    # The plan of the subscription, if the line item is a subscription or a proration.
-    attr_reader :plan
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
     attr_reader :pretax_credit_amounts
-    # The price of the line item.
-    attr_reader :price
     # Whether this is a proration.
     attr_reader :proration
     # Additional details for proration line items
@@ -337,14 +318,8 @@ module Stripe
     attr_reader :subscription
     # The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
     attr_reader :subscription_item
-    # The amount of tax calculated per tax rate for this line item
-    attr_reader :tax_amounts
-    # The tax rates which apply to the line item.
-    attr_reader :tax_rates
     # A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
     attr_reader :type
-    # The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
-    attr_reader :unit_amount_excluding_tax
 
     # Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
     # so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice

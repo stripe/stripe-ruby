@@ -3,12 +3,11 @@
 
 module Stripe
   class InvoiceService < StripeService
-    attr_reader :line_items, :upcoming_lines
+    attr_reader :line_items
 
     def initialize(requestor)
       super(requestor)
       @line_items = Stripe::InvoiceLineItemService.new(@requestor)
-      @upcoming_lines = Stripe::InvoiceUpcomingLinesService.new(@requestor)
     end
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -153,6 +152,17 @@ module Stripe
       request(
         method: :get,
         path: "/v1/invoices/upcoming",
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+    def upcomingLines(params = {}, opts = {})
+      request(
+        method: :get,
+        path: "/v1/invoices/upcoming/lines",
         params: params,
         opts: opts,
         base_address: :api

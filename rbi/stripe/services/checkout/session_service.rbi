@@ -769,16 +769,20 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             # Verification method for the intent
             sig { returns(String) }
             attr_accessor :verification_method
             sig {
-              params(currency: String, mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: String, verification_method: String).void
+              params(currency: String, mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: String, target_date: String, verification_method: String).void
              }
             def initialize(
               currency: nil,
               mandate_options: nil,
               setup_future_usage: nil,
+              target_date: nil,
               verification_method: nil
             ); end
           end
@@ -844,8 +848,11 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
-            sig { params(setup_future_usage: String).void }
-            def initialize(setup_future_usage: nil); end
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
+            sig { params(setup_future_usage: String, target_date: String).void }
+            def initialize(setup_future_usage: nil, target_date: nil); end
           end
           class BacsDebit < Stripe::RequestParams
             class MandateOptions < Stripe::RequestParams
@@ -869,10 +876,13 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             sig {
-              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: String).void
+              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: String, target_date: String).void
              }
-            def initialize(mandate_options: nil, setup_future_usage: nil); end
+            def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
           end
           class Bancontact < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1424,10 +1434,13 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             sig {
-              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: String).void
+              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: String, target_date: String).void
              }
-            def initialize(mandate_options: nil, setup_future_usage: nil); end
+            def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
           end
           class Sofort < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1474,15 +1487,19 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             # Verification method for the intent
             sig { returns(String) }
             attr_accessor :verification_method
             sig {
-              params(financial_connections: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, setup_future_usage: String, verification_method: String).void
+              params(financial_connections: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, setup_future_usage: String, target_date: String, verification_method: String).void
              }
             def initialize(
               financial_connections: nil,
               setup_future_usage: nil,
+              target_date: nil,
               verification_method: nil
             ); end
           end

@@ -26,12 +26,16 @@ group :development do
   # The latest version of rubocop is only compatible with Ruby 2.7+
   gem "rubocop", "1.57.2" if RUBY_VERSION >= "2.7"
 
-  gem "sorbet"
-  gem "tapioca", "0.16.0"
+  gem "sorbet", require: false
+  gem "tapioca", require: false
 
   platforms :mri do
     gem "byebug"
     gem "pry"
     gem "pry-byebug"
+  end
+
+  platforms :jruby do
+    gem "rbi", "0.2.4"
   end
 end

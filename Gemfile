@@ -34,4 +34,8 @@ group :development do
     gem "pry"
     gem "pry-byebug"
   end
+
+  platforms :jruby do
+    gem "rbi", "0.2.4" # jruby does not support rbs, a new dependency in 0.3.0
+  end
 end

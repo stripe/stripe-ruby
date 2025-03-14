@@ -27,7 +27,7 @@ group :development do
   gem "rubocop", "1.57.2" if RUBY_VERSION >= "2.7"
 
   gem "sorbet"
-  gem "tapioca"
+  gem "tapioca", "0.16.0"
 
   platforms :mri do
     gem "byebug"

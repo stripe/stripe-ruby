@@ -71,6 +71,8 @@ module Stripe
           # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
           attr_reader :value
         end
+        # The value that will pre-fill on the payment page.
+        attr_reader :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         attr_reader :options
       end
@@ -83,6 +85,8 @@ module Stripe
       end
 
       class Numeric < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
         # The minimum character length requirement for the customer's input.
@@ -90,6 +94,8 @@ module Stripe
       end
 
       class Text < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
         # The minimum character length requirement for the customer's input.
@@ -392,10 +398,13 @@ module Stripe
               @value = value
             end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
 
-          def initialize(options: nil)
+          def initialize(default_value: nil, options: nil)
+            @default_value = default_value
             @options = options
           end
         end
@@ -413,24 +422,30 @@ module Stripe
         end
 
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
 
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
@@ -1019,10 +1034,13 @@ module Stripe
               @value = value
             end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
 
-          def initialize(options: nil)
+          def initialize(default_value: nil, options: nil)
+            @default_value = default_value
             @options = options
           end
         end
@@ -1040,24 +1058,30 @@ module Stripe
         end
 
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
 
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end

@@ -264,8 +264,6 @@ module Stripe
       attr_reader :billing_thresholds
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       attr_reader :collection_method
-      # ID of the coupon to use during this phase of the subscription schedule.
-      attr_reader :coupon
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
       # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -943,8 +941,6 @@ module Stripe
         attr_accessor :billing_thresholds
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         attr_accessor :collection_method
-        # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        attr_accessor :coupon
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -989,7 +985,6 @@ module Stripe
           billing_cycle_anchor: nil,
           billing_thresholds: nil,
           collection_method: nil,
-          coupon: nil,
           currency: nil,
           default_payment_method: nil,
           default_tax_rates: nil,
@@ -1015,7 +1010,6 @@ module Stripe
           @billing_cycle_anchor = billing_cycle_anchor
           @billing_thresholds = billing_thresholds
           @collection_method = collection_method
-          @coupon = coupon
           @currency = currency
           @default_payment_method = default_payment_method
           @default_tax_rates = default_tax_rates
@@ -1615,8 +1609,6 @@ module Stripe
         attr_accessor :billing_thresholds
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         attr_accessor :collection_method
-        # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        attr_accessor :coupon
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -1663,7 +1655,6 @@ module Stripe
           billing_cycle_anchor: nil,
           billing_thresholds: nil,
           collection_method: nil,
-          coupon: nil,
           currency: nil,
           default_payment_method: nil,
           default_tax_rates: nil,
@@ -1690,7 +1681,6 @@ module Stripe
           @billing_cycle_anchor = billing_cycle_anchor
           @billing_thresholds = billing_thresholds
           @collection_method = collection_method
-          @coupon = coupon
           @currency = currency
           @default_payment_method = default_payment_method
           @default_tax_rates = default_tax_rates

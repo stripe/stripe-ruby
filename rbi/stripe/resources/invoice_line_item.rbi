@@ -6,7 +6,7 @@ module Stripe
   # Invoice Line Items represent the individual lines within an [invoice](https://stripe.com/docs/api/invoices) and only exist within the context of an invoice.
   #
   # Each line item is backed by either an [invoice item](https://stripe.com/docs/api/invoiceitems) or a [subscription item](https://stripe.com/docs/api/subscription_items).
-  class InvoiceLineItem < StripeObject
+  class InvoiceLineItem < APIResource
     class DiscountAmount < Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       sig { returns(Integer) }
@@ -61,29 +61,9 @@ module Stripe
       sig { returns(T.nilable(CreditedItems)) }
       attr_reader :credited_items
     end
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
-      sig { returns(Integer) }
-      attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      sig { returns(T::Boolean) }
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      sig { returns(T.any(String, Stripe::TaxRate)) }
-      attr_reader :tax_rate
-      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-      sig { returns(T.nilable(String)) }
-      attr_reader :taxability_reason
-      # The amount on which tax is calculated, in cents (or local equivalent).
-      sig { returns(T.nilable(Integer)) }
-      attr_reader :taxable_amount
-    end
     # The amount, in cents (or local equivalent).
     sig { returns(Integer) }
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(Integer)) }
-    attr_reader :amount_excluding_tax
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     attr_reader :currency
@@ -126,15 +106,9 @@ module Stripe
     # Attribute for field period
     sig { returns(Period) }
     attr_reader :period
-    # The plan of the subscription, if the line item is a subscription or a proration.
-    sig { returns(T.nilable(Stripe::Plan)) }
-    attr_reader :plan
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
     sig { returns(T.nilable(T::Array[PretaxCreditAmount])) }
     attr_reader :pretax_credit_amounts
-    # The price of the line item.
-    sig { returns(T.nilable(Stripe::Price)) }
-    attr_reader :price
     # Whether this is a proration.
     sig { returns(T::Boolean) }
     attr_reader :proration
@@ -150,18 +124,9 @@ module Stripe
     # The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
     sig { returns(T.any(String, Stripe::SubscriptionItem)) }
     attr_reader :subscription_item
-    # The amount of tax calculated per tax rate for this line item
-    sig { returns(T::Array[TaxAmount]) }
-    attr_reader :tax_amounts
-    # The tax rates which apply to the line item.
-    sig { returns(T::Array[Stripe::TaxRate]) }
-    attr_reader :tax_rates
     # A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
     sig { returns(String) }
     attr_reader :type
-    # The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(String)) }
-    attr_reader :unit_amount_excluding_tax
     class UpdateParams < Stripe::RequestParams
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
@@ -247,10 +212,10 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         sig { returns(String) }
         attr_accessor :product
-        # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         sig { returns(::Stripe::InvoiceLineItem::UpdateParams::PriceData::ProductData) }
         attr_accessor :product_data
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -354,10 +319,10 @@ module Stripe
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(::Stripe::InvoiceLineItem::UpdateParams::Period) }
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
+      # The ID of the price object.
       sig { returns(String) }
       attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       sig { returns(::Stripe::InvoiceLineItem::UpdateParams::PriceData) }
       attr_accessor :price_data
       # Non-negative integer. The quantity of units for the line item.

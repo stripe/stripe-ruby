@@ -1435,12 +1435,20 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, verification_method: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -1563,9 +1571,12 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(setup_future_usage: nil)
+          def initialize(setup_future_usage: nil, target_date: nil)
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -1590,10 +1601,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -2711,10 +2725,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -2875,6 +2892,8 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
@@ -2884,6 +2903,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           )
             @financial_connections = financial_connections
@@ -2891,6 +2911,7 @@ module Stripe
             @networks = networks
             @preferred_settlement_speed = preferred_settlement_speed
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -3234,7 +3255,7 @@ module Stripe
       end
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -4770,12 +4791,20 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, verification_method: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -4898,9 +4927,12 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(setup_future_usage: nil)
+          def initialize(setup_future_usage: nil, target_date: nil)
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -4925,10 +4957,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -6046,10 +6081,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -6210,6 +6248,8 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
@@ -6219,6 +6259,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           )
             @financial_connections = financial_connections
@@ -6226,6 +6267,7 @@ module Stripe
             @networks = networks
             @preferred_settlement_speed = preferred_settlement_speed
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -6548,7 +6590,7 @@ module Stripe
       end
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -7406,9 +7448,9 @@ module Stripe
           @amount = amount
         end
       end
-      # The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount is automatically refunded. Defaults to the full `amount_capturable` if it's not provided.
+      # The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Defaults to the full `amount_capturable` if it's not provided.
       attr_accessor :amount_to_capture
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -8825,12 +8867,20 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, verification_method: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -8953,9 +9003,12 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(setup_future_usage: nil)
+          def initialize(setup_future_usage: nil, target_date: nil)
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -8980,10 +9033,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -10101,10 +10157,13 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
 
-          def initialize(mandate_options: nil, setup_future_usage: nil)
+          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -10265,6 +10324,8 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
           # Bank account verification method.
           attr_accessor :verification_method
 
@@ -10274,6 +10335,7 @@ module Stripe
             networks: nil,
             preferred_settlement_speed: nil,
             setup_future_usage: nil,
+            target_date: nil,
             verification_method: nil
           )
             @financial_connections = financial_connections
@@ -10281,6 +10343,7 @@ module Stripe
             @networks = networks
             @preferred_settlement_speed = preferred_settlement_speed
             @setup_future_usage = setup_future_usage
+            @target_date = target_date
             @verification_method = verification_method
           end
         end
@@ -10601,7 +10664,7 @@ module Stripe
           @tracking_number = tracking_number
         end
       end
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -10737,7 +10800,7 @@ module Stripe
       end
       # The updated total amount that you intend to collect from the cardholder. This amount must be smaller than the currently authorized amount and greater than the already captured amount.
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -10823,7 +10886,7 @@ module Stripe
       end
       # The updated total amount that you intend to collect from the cardholder. This amount must be greater than the currently authorized amount.
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows

@@ -129,10 +129,13 @@ module Stripe
               @value = value
             end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
 
-          def initialize(options: nil)
+          def initialize(default_value: nil, options: nil)
+            @default_value = default_value
             @options = options
           end
         end
@@ -150,24 +153,30 @@ module Stripe
         end
 
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
 
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
@@ -756,10 +765,13 @@ module Stripe
               @value = value
             end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
 
-          def initialize(options: nil)
+          def initialize(default_value: nil, options: nil)
+            @default_value = default_value
             @options = options
           end
         end
@@ -777,24 +789,30 @@ module Stripe
         end
 
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
 
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end

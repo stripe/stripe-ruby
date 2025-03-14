@@ -933,7 +933,7 @@ module Stripe
       attr_reader :object
       # Additional purchase information that is optionally provided by the merchant.
       attr_reader :purchase_details
-      # Attribute for field settlement
+      # The ID of the [settlement](https://stripe.com/docs/api/issuing/settlements) to which this transaction belongs.
       attr_reader :settlement
       # [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
       attr_reader :token

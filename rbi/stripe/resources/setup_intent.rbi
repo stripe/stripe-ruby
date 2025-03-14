@@ -1699,6 +1699,8 @@ module Stripe
       sig { returns(String) }
       attr_accessor :return_url
       # If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
+      #
+      # Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
       sig { returns(::Stripe::SetupIntent::CreateParams::SingleUse) }
       attr_accessor :single_use
       # Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`.

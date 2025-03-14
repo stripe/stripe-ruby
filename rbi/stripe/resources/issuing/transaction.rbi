@@ -282,7 +282,7 @@ module Stripe
       # Additional purchase information that is optionally provided by the merchant.
       sig { returns(T.nilable(PurchaseDetails)) }
       attr_reader :purchase_details
-      # Attribute for field settlement
+      # The ID of the [settlement](https://stripe.com/docs/api/issuing/settlements) to which this transaction belongs.
       sig { returns(T.nilable(T.any(String, Stripe::Issuing::Settlement))) }
       attr_reader :settlement
       # [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.

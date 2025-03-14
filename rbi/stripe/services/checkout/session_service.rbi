@@ -487,10 +487,10 @@ module Stripe
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             attr_accessor :currency
-            # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
             sig { returns(String) }
             attr_accessor :product
-            # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+            # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
             sig {
               returns(::Stripe::Checkout::SessionService::CreateParams::LineItem::PriceData::ProductData)
              }
@@ -632,7 +632,7 @@ module Stripe
             sig { params(amount: Integer, destination: String).void }
             def initialize(amount: nil, destination: nil); end
           end
-          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
           sig { returns(Integer) }
           attr_accessor :application_fee_amount
           # Controls when the funds will be captured from the customer's account.
@@ -769,16 +769,20 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             # Verification method for the intent
             sig { returns(String) }
             attr_accessor :verification_method
             sig {
-              params(currency: String, mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: String, verification_method: String).void
+              params(currency: String, mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::AcssDebit::MandateOptions, setup_future_usage: String, target_date: String, verification_method: String).void
              }
             def initialize(
               currency: nil,
               mandate_options: nil,
               setup_future_usage: nil,
+              target_date: nil,
               verification_method: nil
             ); end
           end
@@ -844,8 +848,11 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
-            sig { params(setup_future_usage: String).void }
-            def initialize(setup_future_usage: nil); end
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
+            sig { params(setup_future_usage: String, target_date: String).void }
+            def initialize(setup_future_usage: nil, target_date: nil); end
           end
           class BacsDebit < Stripe::RequestParams
             class MandateOptions < Stripe::RequestParams
@@ -869,10 +876,13 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             sig {
-              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: String).void
+              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::BacsDebit::MandateOptions, setup_future_usage: String, target_date: String).void
              }
-            def initialize(mandate_options: nil, setup_future_usage: nil); end
+            def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
           end
           class Bancontact < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1424,10 +1434,13 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             sig {
-              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: String).void
+              params(mandate_options: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::SepaDebit::MandateOptions, setup_future_usage: String, target_date: String).void
              }
-            def initialize(mandate_options: nil, setup_future_usage: nil); end
+            def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
           end
           class Sofort < Stripe::RequestParams
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1474,15 +1487,19 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             sig { returns(String) }
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            sig { returns(String) }
+            attr_accessor :target_date
             # Verification method for the intent
             sig { returns(String) }
             attr_accessor :verification_method
             sig {
-              params(financial_connections: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, setup_future_usage: String, verification_method: String).void
+              params(financial_connections: ::Stripe::Checkout::SessionService::CreateParams::PaymentMethodOptions::UsBankAccount::FinancialConnections, setup_future_usage: String, target_date: String, verification_method: String).void
              }
             def initialize(
               financial_connections: nil,
               setup_future_usage: nil,
+              target_date: nil,
               verification_method: nil
             ); end
           end
@@ -2226,9 +2243,10 @@ module Stripe
         # The shipping rate options to apply to this Session. Up to a maximum of 5.
         sig { returns(T::Array[::Stripe::Checkout::SessionService::CreateParams::ShippingOption]) }
         attr_accessor :shipping_options
-        # Describes the type of transaction being performed by Checkout in order to customize
-        # relevant text on the page, such as the submit button. `submit_type` can only be
-        # specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        # Describes the type of transaction being performed by Checkout in order
+        # to customize relevant text on the page, such as the submit button.
+        #  `submit_type` can only be specified on Checkout Sessions in
+        # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         sig { returns(String) }
         attr_accessor :submit_type
         # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
@@ -2535,7 +2553,7 @@ module Stripe
         #
         # To update an existing line item, specify its `id` along with the new values of the fields to update.
         #
-        # To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        # To add a new line item, specify a `price` and `quantity`.
         #
         # To remove an existing line item, omit the line item's ID from the retransmitted array.
         #
@@ -2568,15 +2586,15 @@ module Stripe
         sig { params(expand: T::Array[String]).void }
         def initialize(expand: nil); end
       end
-      # Creates a Session object.
+      # Creates a Checkout Session object.
       sig {
         params(params: T.any(::Stripe::Checkout::SessionService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
       def create(params = {}, opts = {}); end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::SessionService::ExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
@@ -2588,13 +2606,13 @@ module Stripe
        }
       def list(params = {}, opts = {}); end
 
-      # Retrieves a Session object.
+      # Retrieves a Checkout Session object.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::SessionService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
       def retrieve(session, params = {}, opts = {}); end
 
-      # Updates a Session object.
+      # Updates a Checkout Session object.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::SessionService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }

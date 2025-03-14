@@ -70,23 +70,6 @@ module Stripe
       sig { returns(T::Array[Tax]) }
       attr_reader :taxes
     end
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
-      sig { returns(Integer) }
-      attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      sig { returns(T::Boolean) }
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      sig { returns(T.any(String, Stripe::TaxRate)) }
-      attr_reader :tax_rate
-      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-      sig { returns(T.nilable(String)) }
-      attr_reader :taxability_reason
-      # The amount on which tax is calculated, in cents (or local equivalent).
-      sig { returns(T.nilable(Integer)) }
-      attr_reader :taxable_amount
-    end
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax.
     sig { returns(Integer) }
     attr_reader :amount
@@ -174,9 +157,6 @@ module Stripe
     # The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     sig { returns(T.nilable(Integer)) }
     attr_reader :subtotal_excluding_tax
-    # The aggregate amounts calculated per tax rate for all line items.
-    sig { returns(T::Array[TaxAmount]) }
-    attr_reader :tax_amounts
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
     sig { returns(Integer) }
     attr_reader :total

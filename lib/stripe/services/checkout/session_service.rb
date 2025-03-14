@@ -491,9 +491,9 @@ module Stripe
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
-            # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
             attr_accessor :product
-            # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+            # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
             attr_accessor :product_data
             # The recurring components of a price such as `interval` and `interval_count`.
             attr_accessor :recurring
@@ -622,7 +622,7 @@ module Stripe
               @destination = destination
             end
           end
-          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
           attr_accessor :application_fee_amount
           # Controls when the funds will be captured from the customer's account.
           attr_accessor :capture_method
@@ -751,6 +751,8 @@ module Stripe
             #
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            attr_accessor :target_date
             # Verification method for the intent
             attr_accessor :verification_method
 
@@ -758,11 +760,13 @@ module Stripe
               currency: nil,
               mandate_options: nil,
               setup_future_usage: nil,
+              target_date: nil,
               verification_method: nil
             )
               @currency = currency
               @mandate_options = mandate_options
               @setup_future_usage = setup_future_usage
+              @target_date = target_date
               @verification_method = verification_method
             end
           end
@@ -836,9 +840,12 @@ module Stripe
             #
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            attr_accessor :target_date
 
-            def initialize(setup_future_usage: nil)
+            def initialize(setup_future_usage: nil, target_date: nil)
               @setup_future_usage = setup_future_usage
+              @target_date = target_date
             end
           end
 
@@ -861,10 +868,13 @@ module Stripe
             #
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            attr_accessor :target_date
 
-            def initialize(mandate_options: nil, setup_future_usage: nil)
+            def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
               @mandate_options = mandate_options
               @setup_future_usage = setup_future_usage
+              @target_date = target_date
             end
           end
 
@@ -1453,10 +1463,13 @@ module Stripe
             #
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            attr_accessor :target_date
 
-            def initialize(mandate_options: nil, setup_future_usage: nil)
+            def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
               @mandate_options = mandate_options
               @setup_future_usage = setup_future_usage
+              @target_date = target_date
             end
           end
 
@@ -1506,16 +1519,20 @@ module Stripe
             #
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             attr_accessor :setup_future_usage
+            # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            attr_accessor :target_date
             # Verification method for the intent
             attr_accessor :verification_method
 
             def initialize(
               financial_connections: nil,
               setup_future_usage: nil,
+              target_date: nil,
               verification_method: nil
             )
               @financial_connections = financial_connections
               @setup_future_usage = setup_future_usage
+              @target_date = target_date
               @verification_method = verification_method
             end
           end
@@ -2133,9 +2150,10 @@ module Stripe
         attr_accessor :shipping_address_collection
         # The shipping rate options to apply to this Session. Up to a maximum of 5.
         attr_accessor :shipping_options
-        # Describes the type of transaction being performed by Checkout in order to customize
-        # relevant text on the page, such as the submit button. `submit_type` can only be
-        # specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        # Describes the type of transaction being performed by Checkout in order
+        # to customize relevant text on the page, such as the submit button.
+        #  `submit_type` can only be specified on Checkout Sessions in
+        # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         attr_accessor :submit_type
         # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
         attr_accessor :subscription_data
@@ -2461,7 +2479,7 @@ module Stripe
         #
         # To update an existing line item, specify its `id` along with the new values of the fields to update.
         #
-        # To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        # To add a new line item, specify a `price` and `quantity`.
         #
         # To remove an existing line item, omit the line item's ID from the retransmitted array.
         #
@@ -2496,7 +2514,7 @@ module Stripe
         end
       end
 
-      # Creates a Session object.
+      # Creates a Checkout Session object.
       def create(params = {}, opts = {})
         request(
           method: :post,
@@ -2507,9 +2525,9 @@ module Stripe
         )
       end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       def expire(session, params = {}, opts = {})
         request(
           method: :post,
@@ -2531,7 +2549,7 @@ module Stripe
         )
       end
 
-      # Retrieves a Session object.
+      # Retrieves a Checkout Session object.
       def retrieve(session, params = {}, opts = {})
         request(
           method: :get,
@@ -2542,7 +2560,7 @@ module Stripe
         )
       end
 
-      # Updates a Session object.
+      # Updates a Checkout Session object.
       def update(session, params = {}, opts = {})
         request(
           method: :post,

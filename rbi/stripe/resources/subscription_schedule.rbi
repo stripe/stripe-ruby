@@ -327,9 +327,6 @@ module Stripe
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       sig { returns(T.nilable(String)) }
       attr_reader :collection_method
-      # ID of the coupon to use during this phase of the subscription schedule.
-      sig { returns(T.nilable(T.any(String, Stripe::Coupon))) }
-      attr_reader :coupon
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_reader :currency
@@ -1120,9 +1117,6 @@ module Stripe
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         sig { returns(String) }
         attr_accessor :collection_method
-        # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        sig { returns(String) }
-        attr_accessor :coupon
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
@@ -1180,7 +1174,7 @@ module Stripe
         sig { returns(::Stripe::SubscriptionSchedule::CreateParams::Phase::TrialSettings) }
         attr_accessor :trial_settings
         sig {
-          params(add_invoice_items: T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::SubscriptionSchedule::CreateParams::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::BillingThresholds), collection_method: String, coupon: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Discount]), end_date: Integer, invoice_settings: ::Stripe::SubscriptionSchedule::CreateParams::Phase::InvoiceSettings, items: T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::SubscriptionSchedule::CreateParams::Phase::PauseCollection, proration_behavior: String, transfer_data: ::Stripe::SubscriptionSchedule::CreateParams::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: Integer, trial_settings: ::Stripe::SubscriptionSchedule::CreateParams::Phase::TrialSettings).void
+          params(add_invoice_items: T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::SubscriptionSchedule::CreateParams::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Phase::BillingThresholds), collection_method: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Discount]), end_date: Integer, invoice_settings: ::Stripe::SubscriptionSchedule::CreateParams::Phase::InvoiceSettings, items: T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::SubscriptionSchedule::CreateParams::Phase::PauseCollection, proration_behavior: String, transfer_data: ::Stripe::SubscriptionSchedule::CreateParams::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: Integer, trial_settings: ::Stripe::SubscriptionSchedule::CreateParams::Phase::TrialSettings).void
          }
         def initialize(
           add_invoice_items: nil,
@@ -1189,7 +1183,6 @@ module Stripe
           billing_cycle_anchor: nil,
           billing_thresholds: nil,
           collection_method: nil,
-          coupon: nil,
           currency: nil,
           default_payment_method: nil,
           default_tax_rates: nil,
@@ -1823,9 +1816,6 @@ module Stripe
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         sig { returns(String) }
         attr_accessor :collection_method
-        # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        sig { returns(String) }
-        attr_accessor :coupon
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
@@ -1886,7 +1876,7 @@ module Stripe
         sig { returns(::Stripe::SubscriptionSchedule::UpdateParams::Phase::TrialSettings) }
         attr_accessor :trial_settings
         sig {
-          params(add_invoice_items: T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::BillingThresholds), collection_method: String, coupon: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::InvoiceSettings, items: T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::TrialSettings).void
+          params(add_invoice_items: T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::AddInvoiceItem], application_fee_percent: Float, automatic_tax: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::AutomaticTax, billing_cycle_anchor: String, billing_thresholds: T.nilable(::Stripe::SubscriptionSchedule::UpdateParams::Phase::BillingThresholds), collection_method: String, currency: String, default_payment_method: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Discount]), end_date: T.any(Integer, String), invoice_settings: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::InvoiceSettings, items: T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase::Item], iterations: Integer, metadata: T::Hash[String, String], on_behalf_of: String, pause_collection: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::PauseCollection, proration_behavior: String, start_date: T.any(Integer, String), transfer_data: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::TransferData, trial: T::Boolean, trial_continuation: String, trial_end: T.any(Integer, String), trial_settings: ::Stripe::SubscriptionSchedule::UpdateParams::Phase::TrialSettings).void
          }
         def initialize(
           add_invoice_items: nil,
@@ -1895,7 +1885,6 @@ module Stripe
           billing_cycle_anchor: nil,
           billing_thresholds: nil,
           collection_method: nil,
-          coupon: nil,
           currency: nil,
           default_payment_method: nil,
           default_tax_rates: nil,

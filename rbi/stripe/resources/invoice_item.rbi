@@ -65,12 +65,6 @@ module Stripe
     # Attribute for field period
     sig { returns(Period) }
     attr_reader :period
-    # If the invoice item is a proration, the plan of the subscription that the proration was computed for.
-    sig { returns(T.nilable(Stripe::Plan)) }
-    attr_reader :plan
-    # The price of the invoice item.
-    sig { returns(T.nilable(Stripe::Price)) }
-    attr_reader :price
     # Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
     sig { returns(T::Boolean) }
     attr_reader :proration
@@ -89,12 +83,6 @@ module Stripe
     # ID of the test clock this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, Stripe::TestHelpers::TestClock))) }
     attr_reader :test_clock
-    # Unit amount (in the `currency` specified) of the invoice item.
-    sig { returns(T.nilable(Integer)) }
-    attr_reader :unit_amount
-    # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-    sig { returns(T.nilable(String)) }
-    attr_reader :unit_amount_decimal
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
@@ -213,10 +201,10 @@ module Stripe
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(::Stripe::InvoiceItem::UpdateParams::Period) }
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
+      # The ID of the price object.
       sig { returns(String) }
       attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       sig { returns(::Stripe::InvoiceItem::UpdateParams::PriceData) }
       attr_accessor :price_data
       # Non-negative integer. The quantity of units for the invoice item.
@@ -234,7 +222,7 @@ module Stripe
       # The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
       sig { returns(Integer) }
       attr_accessor :unit_amount
-      # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+      # The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
       sig { returns(String) }
       attr_accessor :unit_amount_decimal
       sig {
@@ -428,10 +416,10 @@ module Stripe
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(::Stripe::InvoiceItem::CreateParams::Period) }
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
+      # The ID of the price object.
       sig { returns(String) }
       attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       sig { returns(::Stripe::InvoiceItem::CreateParams::PriceData) }
       attr_accessor :price_data
       # Non-negative integer. The quantity of units for the invoice item.
@@ -452,7 +440,7 @@ module Stripe
       # The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice.
       sig { returns(Integer) }
       attr_accessor :unit_amount
-      # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+      # The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
       sig { returns(String) }
       attr_accessor :unit_amount_decimal
       sig {

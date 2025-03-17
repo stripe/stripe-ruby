@@ -227,7 +227,7 @@ module Stripe
         attr_accessor :options
         # Details provided about the user being verified. These details may be shown to the user.
         attr_accessor :provided_details
-        # Token referencing a Customer resource.
+        # Customer ID
         attr_accessor :related_customer
         # The URL that the user will be redirected to upon completing the verification flow.
         attr_accessor :return_url
@@ -372,7 +372,7 @@ module Stripe
       attr_reader :provided_details
       # Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
       attr_reader :redaction
-      # Token referencing a Customer resource.
+      # Customer ID
       attr_reader :related_customer
       # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
       attr_reader :status

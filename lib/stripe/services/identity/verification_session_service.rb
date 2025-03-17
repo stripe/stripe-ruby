@@ -113,7 +113,7 @@ module Stripe
         attr_accessor :options
         # Details provided about the user being verified. These details may be shown to the user.
         attr_accessor :provided_details
-        # Token referencing a Customer resource.
+        # Customer ID
         attr_accessor :related_customer
         # The URL that the user will be redirected to upon completing the verification flow.
         attr_accessor :return_url

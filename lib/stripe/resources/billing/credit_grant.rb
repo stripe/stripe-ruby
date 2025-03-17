@@ -124,7 +124,7 @@ module Stripe
         end
         # Amount of this credit grant.
         attr_accessor :amount
-        # Configuration specifying what this credit grant applies to.
+        # Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
         attr_accessor :applicability_config
         # The category of this credit grant.
         attr_accessor :category
@@ -140,6 +140,8 @@ module Stripe
         attr_accessor :metadata
         # A descriptive name shown in the Dashboard.
         attr_accessor :name
+        # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        attr_accessor :priority
 
         def initialize(
           amount: nil,
@@ -150,7 +152,8 @@ module Stripe
           expand: nil,
           expires_at: nil,
           metadata: nil,
-          name: nil
+          name: nil,
+          priority: nil
         )
           @amount = amount
           @applicability_config = applicability_config
@@ -161,6 +164,7 @@ module Stripe
           @expires_at = expires_at
           @metadata = metadata
           @name = name
+          @priority = priority
         end
       end
 
@@ -229,6 +233,8 @@ module Stripe
       attr_reader :name
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # The priority for applying this credit grant. The highest priority is 0 and the lowest is 100.
+      attr_reader :priority
       # ID of the test clock this credit grant belongs to.
       attr_reader :test_clock
       # Time at which the object was last updated. Measured in seconds since the Unix epoch.

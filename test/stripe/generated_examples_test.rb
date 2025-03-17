@@ -1033,8 +1033,7 @@ module Stripe
     should "Test coupons post" do
       Stripe::Coupon.create({
         percent_off: 25.5,
-        duration: "repeating",
-        duration_in_months: 3,
+        duration: "once",
       })
       assert_requested :post, "#{Stripe.api_base}/v1/coupons"
     end
@@ -1044,8 +1043,7 @@ module Stripe
 
       client.v1.coupons.create({
         percent_off: 25.5,
-        duration: "repeating",
-        duration_in_months: 3,
+        duration: "once",
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/coupons"
     end

@@ -1,5 +1,12 @@
 # Changelog
 
+## 13.6.0-beta.1 - 2025-03-18
+* [#1550](https://github.com/stripe/stripe-ruby/pull/1550) Merge from stripe-ruby master
+* [#1546](https://github.com/stripe/stripe-ruby/pull/1546) Beta SDK updates between Open API versions 1473 and 1505
+  
+  * Add support for `succeed_input_collection` and `timeout_input_collection` test helper methods on resource `Terminal.Reader`
+* [#1545](https://github.com/stripe/stripe-ruby/pull/1545) fix ruby merge conflict for beta
+
 ## 13.5.0-beta.1 - 2025-02-07
 * [#1527](https://github.com/stripe/stripe-ruby/pull/1527) Update generated code for beta
 

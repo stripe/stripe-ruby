@@ -2211,20 +2211,14 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
     end
     should "Test invoiceitems post" do
-      Stripe::InvoiceItem.create({
-        customer: "cus_xxxxxxxxxxxxx",
-        price: "price_xxxxxxxxxxxxx",
-      })
+      Stripe::InvoiceItem.create({ customer: "cus_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe.api_base}/v1/invoiceitems"
     end
     should "Test invoiceitems post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems").to_return(body: "{}")
       client = StripeClient.new("sk_test_123")
 
-      client.v1.invoice_items.create({
-        customer: "cus_xxxxxxxxxxxxx",
-        price: "price_xxxxxxxxxxxxx",
-      })
+      client.v1.invoice_items.create({ customer: "cus_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems"
     end
     should "Test invoiceitems post 2" do

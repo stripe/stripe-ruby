@@ -3,14 +3,6 @@
 
 module Stripe
   class SubscriptionItemService < StripeService
-    attr_reader :usage_records, :usage_record_summaries
-
-    def initialize(requestor)
-      super(requestor)
-      @usage_records = Stripe::SubscriptionItemUsageRecordService.new(@requestor)
-      @usage_record_summaries = Stripe::SubscriptionItemUsageRecordSummaryService.new(@requestor)
-    end
-
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     def create(params = {}, opts = {})
       request(

@@ -70,6 +70,7 @@ module Stripe
         Invoice.object_name => Invoice,
         InvoiceItem.object_name => InvoiceItem,
         InvoiceLineItem.object_name => InvoiceLineItem,
+        InvoicePayment.object_name => InvoicePayment,
         InvoiceRenderingTemplate.object_name => InvoiceRenderingTemplate,
         Issuing::Authorization.object_name => Issuing::Authorization,
         Issuing::Card.object_name => Issuing::Card,
@@ -140,8 +141,6 @@ module Stripe
         Treasury::ReceivedDebit.object_name => Treasury::ReceivedDebit,
         Treasury::Transaction.object_name => Treasury::Transaction,
         Treasury::TransactionEntry.object_name => Treasury::TransactionEntry,
-        UsageRecord.object_name => UsageRecord,
-        UsageRecordSummary.object_name => UsageRecordSummary,
         WebhookEndpoint.object_name => WebhookEndpoint,
         # object classes: The end of the section generated from our OpenAPI spec
       }

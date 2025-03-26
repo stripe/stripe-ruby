@@ -93,13 +93,16 @@ module Stripe
       # The ID of an existing customer for which to create the Customer Session.
       sig { returns(String) }
       attr_accessor :customer
+      # The ID of an existing Account for which to create the Customer Session.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
       sig {
-        params(components: ::Stripe::CustomerSessionService::CreateParams::Components, customer: String, expand: T::Array[String]).void
+        params(components: ::Stripe::CustomerSessionService::CreateParams::Components, customer: String, customer_account: String, expand: T::Array[String]).void
        }
-      def initialize(components: nil, customer: nil, expand: nil); end
+      def initialize(components: nil, customer: nil, customer_account: nil, expand: nil); end
     end
     # Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
     sig {

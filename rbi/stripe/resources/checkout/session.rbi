@@ -1348,6 +1348,9 @@ module Stripe
       # the Session was created.
       sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
       attr_reader :customer
+      # The ID of the account for this Session.
+      sig { returns(T.nilable(String)) }
+      attr_reader :customer_account
       # Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
       sig { returns(T.nilable(String)) }
       attr_reader :customer_creation
@@ -1513,6 +1516,9 @@ module Stripe
         # Only return the Checkout Sessions for the Customer specified.
         sig { returns(String) }
         attr_accessor :customer
+        # Only return the Checkout Sessions for the Account specified.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Only return the Checkout Sessions for the Customer details specified.
         sig { returns(::Stripe::Checkout::Session::ListParams::CustomerDetails) }
         attr_accessor :customer_details
@@ -1541,11 +1547,12 @@ module Stripe
         sig { returns(String) }
         attr_accessor :subscription
         sig {
-          params(created: T.any(::Stripe::Checkout::Session::ListParams::Created, Integer), customer: String, customer_details: ::Stripe::Checkout::Session::ListParams::CustomerDetails, ending_before: String, expand: T::Array[String], limit: Integer, payment_intent: String, payment_link: String, starting_after: String, status: String, subscription: String).void
+          params(created: T.any(::Stripe::Checkout::Session::ListParams::Created, Integer), customer: String, customer_account: String, customer_details: ::Stripe::Checkout::Session::ListParams::CustomerDetails, ending_before: String, expand: T::Array[String], limit: Integer, payment_intent: String, payment_link: String, starting_after: String, status: String, subscription: String).void
          }
         def initialize(
           created: nil,
           customer: nil,
+          customer_account: nil,
           customer_details: nil,
           ending_before: nil,
           expand: nil,
@@ -3582,6 +3589,9 @@ module Stripe
         # You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
         sig { returns(String) }
         attr_accessor :customer
+        # ID of an existing Account, if one exists. Has the same behavior as `customer`.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
         #
         # When a Customer is not created, you can still retrieve email, address, and other customer data entered in Checkout
@@ -3727,7 +3737,7 @@ module Stripe
         sig { returns(String) }
         attr_accessor :ui_mode
         sig {
-          params(adaptive_pricing: ::Stripe::Checkout::Session::CreateParams::AdaptivePricing, after_expiration: ::Stripe::Checkout::Session::CreateParams::AfterExpiration, allow_promotion_codes: T::Boolean, automatic_tax: ::Stripe::Checkout::Session::CreateParams::AutomaticTax, billing_address_collection: String, cancel_url: String, client_reference_id: String, consent_collection: ::Stripe::Checkout::Session::CreateParams::ConsentCollection, currency: String, custom_fields: T::Array[::Stripe::Checkout::Session::CreateParams::CustomField], custom_text: ::Stripe::Checkout::Session::CreateParams::CustomText, customer: String, customer_creation: String, customer_email: String, customer_update: ::Stripe::Checkout::Session::CreateParams::CustomerUpdate, discounts: T::Array[::Stripe::Checkout::Session::CreateParams::Discount], expand: T::Array[String], expires_at: Integer, invoice_creation: ::Stripe::Checkout::Session::CreateParams::InvoiceCreation, line_items: T::Array[::Stripe::Checkout::Session::CreateParams::LineItem], locale: String, metadata: T::Hash[String, String], mode: String, optional_items: T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem], payment_intent_data: ::Stripe::Checkout::Session::CreateParams::PaymentIntentData, payment_method_collection: String, payment_method_configuration: String, payment_method_data: ::Stripe::Checkout::Session::CreateParams::PaymentMethodData, payment_method_options: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions, payment_method_types: T::Array[String], permissions: ::Stripe::Checkout::Session::CreateParams::Permissions, phone_number_collection: ::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection, redirect_on_completion: String, return_url: String, saved_payment_method_options: ::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions, setup_intent_data: ::Stripe::Checkout::Session::CreateParams::SetupIntentData, shipping_address_collection: ::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection, shipping_options: T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption], submit_type: String, subscription_data: ::Stripe::Checkout::Session::CreateParams::SubscriptionData, success_url: String, tax_id_collection: ::Stripe::Checkout::Session::CreateParams::TaxIdCollection, ui_mode: String).void
+          params(adaptive_pricing: ::Stripe::Checkout::Session::CreateParams::AdaptivePricing, after_expiration: ::Stripe::Checkout::Session::CreateParams::AfterExpiration, allow_promotion_codes: T::Boolean, automatic_tax: ::Stripe::Checkout::Session::CreateParams::AutomaticTax, billing_address_collection: String, cancel_url: String, client_reference_id: String, consent_collection: ::Stripe::Checkout::Session::CreateParams::ConsentCollection, currency: String, custom_fields: T::Array[::Stripe::Checkout::Session::CreateParams::CustomField], custom_text: ::Stripe::Checkout::Session::CreateParams::CustomText, customer: String, customer_account: String, customer_creation: String, customer_email: String, customer_update: ::Stripe::Checkout::Session::CreateParams::CustomerUpdate, discounts: T::Array[::Stripe::Checkout::Session::CreateParams::Discount], expand: T::Array[String], expires_at: Integer, invoice_creation: ::Stripe::Checkout::Session::CreateParams::InvoiceCreation, line_items: T::Array[::Stripe::Checkout::Session::CreateParams::LineItem], locale: String, metadata: T::Hash[String, String], mode: String, optional_items: T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem], payment_intent_data: ::Stripe::Checkout::Session::CreateParams::PaymentIntentData, payment_method_collection: String, payment_method_configuration: String, payment_method_data: ::Stripe::Checkout::Session::CreateParams::PaymentMethodData, payment_method_options: ::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions, payment_method_types: T::Array[String], permissions: ::Stripe::Checkout::Session::CreateParams::Permissions, phone_number_collection: ::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection, redirect_on_completion: String, return_url: String, saved_payment_method_options: ::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions, setup_intent_data: ::Stripe::Checkout::Session::CreateParams::SetupIntentData, shipping_address_collection: ::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection, shipping_options: T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption], submit_type: String, subscription_data: ::Stripe::Checkout::Session::CreateParams::SubscriptionData, success_url: String, tax_id_collection: ::Stripe::Checkout::Session::CreateParams::TaxIdCollection, ui_mode: String).void
          }
         def initialize(
           adaptive_pricing: nil,
@@ -3742,6 +3752,7 @@ module Stripe
           custom_fields: nil,
           custom_text: nil,
           customer: nil,
+          customer_account: nil,
           customer_creation: nil,
           customer_email: nil,
           customer_update: nil,

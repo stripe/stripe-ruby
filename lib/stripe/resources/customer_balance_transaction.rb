@@ -28,6 +28,8 @@ module Stripe
     attr_reader :currency
     # The ID of the customer the transaction belongs to.
     attr_reader :customer
+    # Attribute for field customer_account
+    attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
     # The customer's `balance` after the transaction was applied. A negative value decreases the amount due on the customer's next invoice. A positive value increases the amount due on the customer's next invoice.

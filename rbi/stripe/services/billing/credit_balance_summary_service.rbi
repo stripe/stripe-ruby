@@ -47,6 +47,9 @@ module Stripe
         # The customer for which to fetch credit balance summary.
         sig { returns(String) }
         attr_accessor :customer
+        # The account for which to fetch credit balance summary.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
@@ -54,9 +57,9 @@ module Stripe
         sig { returns(::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter) }
         attr_accessor :filter
         sig {
-          params(customer: String, expand: T::Array[String], filter: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter).void
+          params(customer: String, customer_account: String, expand: T::Array[String], filter: ::Stripe::Billing::CreditBalanceSummaryService::RetrieveParams::Filter).void
          }
-        def initialize(customer: nil, expand: nil, filter: nil); end
+        def initialize(customer: nil, customer_account: nil, expand: nil, filter: nil); end
       end
       # Retrieves the credit balance summary for a customer.
       sig {

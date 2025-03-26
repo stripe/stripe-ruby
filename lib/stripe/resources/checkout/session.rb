@@ -1118,6 +1118,8 @@ module Stripe
         attr_accessor :created
         # Only return the Checkout Sessions for the Customer specified.
         attr_accessor :customer
+        # Only return the Checkout Sessions for the Account specified.
+        attr_accessor :customer_account
         # Only return the Checkout Sessions for the Customer details specified.
         attr_accessor :customer_details
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -1140,6 +1142,7 @@ module Stripe
         def initialize(
           created: nil,
           customer: nil,
+          customer_account: nil,
           customer_details: nil,
           ending_before: nil,
           expand: nil,
@@ -1152,6 +1155,7 @@ module Stripe
         )
           @created = created
           @customer = customer
+          @customer_account = customer_account
           @customer_details = customer_details
           @ending_before = ending_before
           @expand = expand
@@ -3174,6 +3178,8 @@ module Stripe
         #
         # You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
         attr_accessor :customer
+        # ID of an existing Account, if one exists. Has the same behavior as `customer`.
+        attr_accessor :customer_account
         # Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
         #
         # When a Customer is not created, you can still retrieve email, address, and other customer data entered in Checkout
@@ -3301,6 +3307,7 @@ module Stripe
           custom_fields: nil,
           custom_text: nil,
           customer: nil,
+          customer_account: nil,
           customer_creation: nil,
           customer_email: nil,
           customer_update: nil,
@@ -3345,6 +3352,7 @@ module Stripe
           @custom_fields = custom_fields
           @custom_text = custom_text
           @customer = customer
+          @customer_account = customer_account
           @customer_creation = customer_creation
           @customer_email = customer_email
           @customer_update = customer_update
@@ -3698,6 +3706,8 @@ module Stripe
       # during the payment flow unless an existing customer was provided when
       # the Session was created.
       attr_reader :customer
+      # The ID of the account for this Session.
+      attr_reader :customer_account
       # Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
       attr_reader :customer_creation
       # The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode.

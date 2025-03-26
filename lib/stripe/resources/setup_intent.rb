@@ -357,6 +357,8 @@ module Stripe
       attr_accessor :created
       # Only return SetupIntents for the customer specified by this customer ID.
       attr_accessor :customer
+      # Only return SetupIntents for the account specified by this customer ID.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -372,6 +374,7 @@ module Stripe
         attach_to_self: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -381,6 +384,7 @@ module Stripe
         @attach_to_self = attach_to_self
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @limit = limit
@@ -1553,6 +1557,10 @@ module Stripe
       #
       # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
       attr_accessor :customer
+      # ID of the Account this SetupIntent belongs to, if one exists.
+      #
+      # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
@@ -1595,6 +1603,7 @@ module Stripe
         confirm: nil,
         confirmation_token: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         flow_directions: nil,
@@ -1616,6 +1625,7 @@ module Stripe
         @confirm = confirm
         @confirmation_token = confirmation_token
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @expand = expand
         @flow_directions = flow_directions
@@ -2736,6 +2746,10 @@ module Stripe
       #
       # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
       attr_accessor :customer
+      # ID of the Account this SetupIntent belongs to, if one exists.
+      #
+      # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
@@ -2761,6 +2775,7 @@ module Stripe
       def initialize(
         attach_to_self: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         flow_directions: nil,
@@ -2773,6 +2788,7 @@ module Stripe
       )
         @attach_to_self = attach_to_self
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @expand = expand
         @flow_directions = flow_directions
@@ -3996,6 +4012,10 @@ module Stripe
     #
     # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
     attr_reader :customer
+    # ID of the Account this SetupIntent belongs to, if one exists.
+    #
+    # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+    attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
     # Indicates the directions of money movement for which this payment method is intended to be used.

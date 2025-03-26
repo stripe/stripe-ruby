@@ -19,12 +19,15 @@ module Stripe
           attr_accessor :account
           # The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
           attr_accessor :customer
+          # The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
+          attr_accessor :customer_account
           # Type of account holder to collect accounts for.
           attr_accessor :type
 
-          def initialize(account: nil, customer: nil, type: nil)
+          def initialize(account: nil, customer: nil, customer_account: nil, type: nil)
             @account = account
             @customer = customer
+            @customer_account = customer_account
             @type = type
           end
         end

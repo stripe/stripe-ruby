@@ -100,6 +100,8 @@ module Stripe
     attr_reader :currency
     # The customer whose available cash balance changed as a result of this transaction.
     attr_reader :customer
+    # Attribute for field customer_account
+    attr_reader :customer_account
     # The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     attr_reader :ending_balance
     # Attribute for field funded

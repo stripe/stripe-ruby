@@ -28,6 +28,9 @@ module Stripe
     # The ID of the customer the transaction belongs to.
     sig { returns(T.any(String, Stripe::Customer)) }
     attr_reader :customer
+    # Attribute for field customer_account
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     attr_reader :description

@@ -545,6 +545,8 @@ module Stripe
     attr_reader :currency
     # Custom fields displayed on the invoice.
     attr_reader :custom_fields
+    # The ID of the account who will be billed.
+    attr_reader :customer_account
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     attr_reader :customer_address
     # The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.

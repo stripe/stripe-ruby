@@ -15,8 +15,11 @@ module Stripe
           # The ID of the Stripe customer whose accounts will be retrieved.
           sig { returns(String) }
           attr_accessor :customer
-          sig { params(account: String, customer: String).void }
-          def initialize(account: nil, customer: nil); end
+          # The Account ID of the Stripe customer whose accounts will be retrieved.
+          sig { returns(String) }
+          attr_accessor :customer_account
+          sig { params(account: String, customer: String, customer_account: String).void }
+          def initialize(account: nil, customer: nil, customer_account: nil); end
         end
         # If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
         sig { returns(::Stripe::FinancialConnections::AccountService::ListParams::AccountHolder) }

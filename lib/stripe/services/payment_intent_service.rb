@@ -25,6 +25,8 @@ module Stripe
       attr_accessor :created
       # Only return PaymentIntents for the customer that this customer ID specifies.
       attr_accessor :customer
+      # Only return PaymentIntents for the account that this ID specifies.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -37,6 +39,7 @@ module Stripe
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -44,6 +47,7 @@ module Stripe
       )
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @limit = limit
@@ -3361,6 +3365,12 @@ module Stripe
       #
       # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
       attr_accessor :customer
+      # ID of the Account this PaymentIntent belongs to, if one exists.
+      #
+      # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+      #
+      # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
@@ -3436,6 +3446,7 @@ module Stripe
         confirmation_token: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         error_on_requires_action: nil,
         expand: nil,
@@ -3472,6 +3483,7 @@ module Stripe
         @confirmation_token = confirmation_token
         @currency = currency
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @error_on_requires_action = error_on_requires_action
         @expand = expand
@@ -6768,6 +6780,12 @@ module Stripe
       #
       # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
       attr_accessor :customer
+      # ID of the Account this PaymentIntent belongs to, if one exists.
+      #
+      # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+      #
+      # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
@@ -6822,6 +6840,7 @@ module Stripe
         capture_method: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         mandate_data: nil,
@@ -6846,6 +6865,7 @@ module Stripe
         @capture_method = capture_method
         @currency = currency
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @expand = expand
         @mandate_data = mandate_data

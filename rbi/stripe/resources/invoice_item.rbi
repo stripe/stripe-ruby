@@ -67,6 +67,9 @@ module Stripe
     # The ID of the customer who will be billed when this invoice item is billed.
     sig { returns(T.any(String, Stripe::Customer)) }
     attr_reader :customer
+    # The ID of the account who will be billed when this invoice item is billed.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :date
@@ -308,6 +311,9 @@ module Stripe
       # The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
       sig { returns(String) }
       attr_accessor :customer
+      # The identifier of the account whose invoice items to return. If none is provided, all invoice items will be returned.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
@@ -327,11 +333,12 @@ module Stripe
       sig { returns(String) }
       attr_accessor :starting_after
       sig {
-        params(created: T.any(::Stripe::InvoiceItem::ListParams::Created, Integer), customer: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, pending: T::Boolean, starting_after: String).void
+        params(created: T.any(::Stripe::InvoiceItem::ListParams::Created, Integer), customer: String, customer_account: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, pending: T::Boolean, starting_after: String).void
        }
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         invoice: nil,
@@ -437,6 +444,9 @@ module Stripe
       # The ID of the customer who will be billed when this invoice item is billed.
       sig { returns(String) }
       attr_accessor :customer
+      # The ID of the account who will be billed when this invoice item is billed.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
       sig { returns(String) }
       attr_accessor :description
@@ -486,12 +496,13 @@ module Stripe
       sig { returns(String) }
       attr_accessor :unit_amount_decimal
       sig {
-        params(amount: Integer, currency: String, customer: String, description: String, discountable: T::Boolean, discounts: T.nilable(T::Array[::Stripe::InvoiceItem::CreateParams::Discount]), expand: T::Array[String], invoice: String, margins: T::Array[String], metadata: T.nilable(T::Hash[String, String]), period: ::Stripe::InvoiceItem::CreateParams::Period, price_data: ::Stripe::InvoiceItem::CreateParams::PriceData, pricing: ::Stripe::InvoiceItem::CreateParams::Pricing, quantity: Integer, subscription: String, tax_behavior: String, tax_code: T.nilable(String), tax_rates: T::Array[String], unit_amount_decimal: String).void
+        params(amount: Integer, currency: String, customer: String, customer_account: String, description: String, discountable: T::Boolean, discounts: T.nilable(T::Array[::Stripe::InvoiceItem::CreateParams::Discount]), expand: T::Array[String], invoice: String, margins: T::Array[String], metadata: T.nilable(T::Hash[String, String]), period: ::Stripe::InvoiceItem::CreateParams::Period, price_data: ::Stripe::InvoiceItem::CreateParams::PriceData, pricing: ::Stripe::InvoiceItem::CreateParams::Pricing, quantity: Integer, subscription: String, tax_behavior: String, tax_code: T.nilable(String), tax_rates: T::Array[String], unit_amount_decimal: String).void
        }
       def initialize(
         amount: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         discountable: nil,
         discounts: nil,

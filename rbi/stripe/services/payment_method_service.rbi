@@ -869,11 +869,14 @@ module Stripe
       # The ID of the customer to which to attach the PaymentMethod.
       sig { returns(String) }
       attr_accessor :customer
+      # The ID of the account to which to attach the PaymentMethod.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-      sig { params(customer: String, expand: T::Array[String]).void }
-      def initialize(customer: nil, expand: nil); end
+      sig { params(customer: String, customer_account: String, expand: T::Array[String]).void }
+      def initialize(customer: nil, customer_account: nil, expand: nil); end
     end
     class DetachParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.

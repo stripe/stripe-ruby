@@ -395,6 +395,9 @@ module Stripe
     # ID of the customer who owns the subscription schedule.
     sig { returns(T.any(String, Stripe::Customer)) }
     attr_reader :customer
+    # ID of the account who owns the subscription schedule.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # Attribute for field default_settings
     sig { returns(DefaultSettings) }
     attr_reader :default_settings

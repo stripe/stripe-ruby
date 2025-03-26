@@ -19,6 +19,9 @@ module Stripe
     # The ID of the customer associated with this discount.
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     attr_reader :customer
+    # The ID of the account associated with this discount.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     sig { returns(T.nilable(Integer)) }
     attr_reader :end

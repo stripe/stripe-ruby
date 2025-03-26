@@ -366,6 +366,8 @@ module Stripe
       attr_accessor :created
       # Only return subscription schedules for the given customer.
       attr_accessor :customer
+      # Only return subscription schedules for the given account.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -384,6 +386,7 @@ module Stripe
         completed_at: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -395,6 +398,7 @@ module Stripe
         @completed_at = completed_at
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @limit = limit
@@ -976,6 +980,8 @@ module Stripe
       attr_accessor :billing_behavior
       # The identifier of the customer to create the subscription schedule for.
       attr_accessor :customer
+      # The identifier of the account to create the subscription schedule for.
+      attr_accessor :customer_account
       # Object representing the subscription schedule's default settings.
       attr_accessor :default_settings
       # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -996,6 +1002,7 @@ module Stripe
       def initialize(
         billing_behavior: nil,
         customer: nil,
+        customer_account: nil,
         default_settings: nil,
         end_behavior: nil,
         expand: nil,
@@ -1007,6 +1014,7 @@ module Stripe
       )
         @billing_behavior = billing_behavior
         @customer = customer
+        @customer_account = customer_account
         @default_settings = default_settings
         @end_behavior = end_behavior
         @expand = expand
@@ -2243,6 +2251,8 @@ module Stripe
     attr_reader :current_phase
     # ID of the customer who owns the subscription schedule.
     attr_reader :customer
+    # ID of the account who owns the subscription schedule.
+    attr_reader :customer_account
     # Attribute for field default_settings
     attr_reader :default_settings
     # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.

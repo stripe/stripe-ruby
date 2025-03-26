@@ -19,10 +19,13 @@ module Stripe
           attr_accessor :account
           # The ID of the Stripe customer whose accounts will be retrieved.
           attr_accessor :customer
+          # The Account ID of the Stripe customer whose accounts will be retrieved.
+          attr_accessor :customer_account
 
-          def initialize(account: nil, customer: nil)
+          def initialize(account: nil, customer: nil, customer_account: nil)
             @account = account
             @customer = customer
+            @customer_account = customer_account
           end
         end
         # If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.

@@ -83,6 +83,9 @@ module Stripe
       # Only return subscription schedules for the given customer.
       sig { returns(String) }
       attr_accessor :customer
+      # Only return subscription schedules for the given account.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
@@ -102,13 +105,14 @@ module Stripe
       sig { returns(String) }
       attr_accessor :starting_after
       sig {
-        params(canceled_at: T.any(::Stripe::SubscriptionScheduleService::ListParams::CanceledAt, Integer), completed_at: T.any(::Stripe::SubscriptionScheduleService::ListParams::CompletedAt, Integer), created: T.any(::Stripe::SubscriptionScheduleService::ListParams::Created, Integer), customer: String, ending_before: String, expand: T::Array[String], limit: Integer, released_at: T.any(::Stripe::SubscriptionScheduleService::ListParams::ReleasedAt, Integer), scheduled: T::Boolean, starting_after: String).void
+        params(canceled_at: T.any(::Stripe::SubscriptionScheduleService::ListParams::CanceledAt, Integer), completed_at: T.any(::Stripe::SubscriptionScheduleService::ListParams::CompletedAt, Integer), created: T.any(::Stripe::SubscriptionScheduleService::ListParams::Created, Integer), customer: String, customer_account: String, ending_before: String, expand: T::Array[String], limit: Integer, released_at: T.any(::Stripe::SubscriptionScheduleService::ListParams::ReleasedAt, Integer), scheduled: T::Boolean, starting_after: String).void
        }
       def initialize(
         canceled_at: nil,
         completed_at: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -728,6 +732,9 @@ module Stripe
       # The identifier of the customer to create the subscription schedule for.
       sig { returns(String) }
       attr_accessor :customer
+      # The identifier of the account to create the subscription schedule for.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # Object representing the subscription schedule's default settings.
       sig { returns(::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings) }
       attr_accessor :default_settings
@@ -753,11 +760,12 @@ module Stripe
       sig { returns(T.any(Integer, String)) }
       attr_accessor :start_date
       sig {
-        params(billing_behavior: String, customer: String, default_settings: ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings, end_behavior: String, expand: T::Array[String], from_subscription: String, metadata: T.nilable(T::Hash[String, String]), phases: T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase], prebilling: ::Stripe::SubscriptionScheduleService::CreateParams::Prebilling, start_date: T.any(Integer, String)).void
+        params(billing_behavior: String, customer: String, customer_account: String, default_settings: ::Stripe::SubscriptionScheduleService::CreateParams::DefaultSettings, end_behavior: String, expand: T::Array[String], from_subscription: String, metadata: T.nilable(T::Hash[String, String]), phases: T::Array[::Stripe::SubscriptionScheduleService::CreateParams::Phase], prebilling: ::Stripe::SubscriptionScheduleService::CreateParams::Prebilling, start_date: T.any(Integer, String)).void
        }
       def initialize(
         billing_behavior: nil,
         customer: nil,
+        customer_account: nil,
         default_settings: nil,
         end_behavior: nil,
         expand: nil,

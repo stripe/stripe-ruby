@@ -42,6 +42,9 @@ module Stripe
         # Attribute for param field related_customer
         sig { returns(String) }
         attr_accessor :related_customer
+        # Attribute for param field related_customer_account
+        sig { returns(String) }
+        attr_accessor :related_customer_account
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         sig { returns(String) }
         attr_accessor :starting_after
@@ -49,7 +52,7 @@ module Stripe
         sig { returns(String) }
         attr_accessor :status
         sig {
-          params(client_reference_id: String, created: T.any(::Stripe::Identity::VerificationSessionService::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, related_customer: String, starting_after: String, status: String).void
+          params(client_reference_id: String, created: T.any(::Stripe::Identity::VerificationSessionService::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, related_customer: String, related_customer_account: String, starting_after: String, status: String).void
          }
         def initialize(
           client_reference_id: nil,
@@ -58,6 +61,7 @@ module Stripe
           expand: nil,
           limit: nil,
           related_customer: nil,
+          related_customer_account: nil,
           starting_after: nil,
           status: nil
         ); end
@@ -127,6 +131,9 @@ module Stripe
         # Customer ID
         sig { returns(String) }
         attr_accessor :related_customer
+        # Token referencing a Customer Account resource.
+        sig { returns(String) }
+        attr_accessor :related_customer_account
         # The URL that the user will be redirected to upon completing the verification flow.
         sig { returns(String) }
         attr_accessor :return_url
@@ -137,7 +144,7 @@ module Stripe
         sig { returns(String) }
         attr_accessor :verification_flow
         sig {
-          params(client_reference_id: String, expand: T::Array[String], metadata: T::Hash[String, String], options: ::Stripe::Identity::VerificationSessionService::CreateParams::Options, provided_details: ::Stripe::Identity::VerificationSessionService::CreateParams::ProvidedDetails, related_customer: String, return_url: String, type: String, verification_flow: String).void
+          params(client_reference_id: String, expand: T::Array[String], metadata: T::Hash[String, String], options: ::Stripe::Identity::VerificationSessionService::CreateParams::Options, provided_details: ::Stripe::Identity::VerificationSessionService::CreateParams::ProvidedDetails, related_customer: String, related_customer_account: String, return_url: String, type: String, verification_flow: String).void
          }
         def initialize(
           client_reference_id: nil,
@@ -146,6 +153,7 @@ module Stripe
           options: nil,
           provided_details: nil,
           related_customer: nil,
+          related_customer_account: nil,
           return_url: nil,
           type: nil,
           verification_flow: nil

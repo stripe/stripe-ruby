@@ -32,6 +32,9 @@ module Stripe
       # Only return SetupIntents for the customer specified by this customer ID.
       sig { returns(String) }
       attr_accessor :customer
+      # Only return SetupIntents for the account specified by this customer ID.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
@@ -48,12 +51,13 @@ module Stripe
       sig { returns(String) }
       attr_accessor :starting_after
       sig {
-        params(attach_to_self: T::Boolean, created: T.any(::Stripe::SetupIntentService::ListParams::Created, Integer), customer: String, ending_before: String, expand: T::Array[String], limit: Integer, payment_method: String, starting_after: String).void
+        params(attach_to_self: T::Boolean, created: T.any(::Stripe::SetupIntentService::ListParams::Created, Integer), customer: String, customer_account: String, ending_before: String, expand: T::Array[String], limit: Integer, payment_method: String, starting_after: String).void
        }
       def initialize(
         attach_to_self: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -1249,6 +1253,11 @@ module Stripe
       # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
       sig { returns(String) }
       attr_accessor :customer
+      # ID of the Account this SetupIntent belongs to, if one exists.
+      #
+      # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(String) }
       attr_accessor :description
@@ -1300,7 +1309,7 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(attach_to_self: T::Boolean, automatic_payment_methods: ::Stripe::SetupIntentService::CreateParams::AutomaticPaymentMethods, confirm: T::Boolean, confirmation_token: String, customer: String, description: String, expand: T::Array[String], flow_directions: T::Array[String], mandate_data: T.nilable(::Stripe::SetupIntentService::CreateParams::MandateData), metadata: T::Hash[String, String], on_behalf_of: String, payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::SetupIntentService::CreateParams::PaymentMethodData, payment_method_options: ::Stripe::SetupIntentService::CreateParams::PaymentMethodOptions, payment_method_types: T::Array[String], return_url: String, single_use: ::Stripe::SetupIntentService::CreateParams::SingleUse, usage: String, use_stripe_sdk: T::Boolean).void
+        params(attach_to_self: T::Boolean, automatic_payment_methods: ::Stripe::SetupIntentService::CreateParams::AutomaticPaymentMethods, confirm: T::Boolean, confirmation_token: String, customer: String, customer_account: String, description: String, expand: T::Array[String], flow_directions: T::Array[String], mandate_data: T.nilable(::Stripe::SetupIntentService::CreateParams::MandateData), metadata: T::Hash[String, String], on_behalf_of: String, payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::SetupIntentService::CreateParams::PaymentMethodData, payment_method_options: ::Stripe::SetupIntentService::CreateParams::PaymentMethodOptions, payment_method_types: T::Array[String], return_url: String, single_use: ::Stripe::SetupIntentService::CreateParams::SingleUse, usage: String, use_stripe_sdk: T::Boolean).void
        }
       def initialize(
         attach_to_self: nil,
@@ -1308,6 +1317,7 @@ module Stripe
         confirm: nil,
         confirmation_token: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         flow_directions: nil,
@@ -2446,6 +2456,11 @@ module Stripe
       # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
       sig { returns(String) }
       attr_accessor :customer
+      # ID of the Account this SetupIntent belongs to, if one exists.
+      #
+      # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(String) }
       attr_accessor :description
@@ -2477,11 +2492,12 @@ module Stripe
       sig { returns(T::Array[String]) }
       attr_accessor :payment_method_types
       sig {
-        params(attach_to_self: T::Boolean, customer: String, description: String, expand: T::Array[String], flow_directions: T::Array[String], metadata: T.nilable(T::Hash[String, String]), payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::SetupIntentService::UpdateParams::PaymentMethodData, payment_method_options: ::Stripe::SetupIntentService::UpdateParams::PaymentMethodOptions, payment_method_types: T::Array[String]).void
+        params(attach_to_self: T::Boolean, customer: String, customer_account: String, description: String, expand: T::Array[String], flow_directions: T::Array[String], metadata: T.nilable(T::Hash[String, String]), payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::SetupIntentService::UpdateParams::PaymentMethodData, payment_method_options: ::Stripe::SetupIntentService::UpdateParams::PaymentMethodOptions, payment_method_types: T::Array[String]).void
        }
       def initialize(
         attach_to_self: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         flow_directions: nil,

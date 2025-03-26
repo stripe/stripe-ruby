@@ -29,6 +29,9 @@ module Stripe
       # Only return credit notes for the customer specified by this customer ID.
       sig { returns(String) }
       attr_accessor :customer
+      # Only return credit notes for the account specified by this account ID.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
@@ -45,11 +48,12 @@ module Stripe
       sig { returns(String) }
       attr_accessor :starting_after
       sig {
-        params(created: T.any(::Stripe::CreditNoteService::ListParams::Created, Integer), customer: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, starting_after: String).void
+        params(created: T.any(::Stripe::CreditNoteService::ListParams::Created, Integer), customer: String, customer_account: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, starting_after: String).void
        }
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         invoice: nil,

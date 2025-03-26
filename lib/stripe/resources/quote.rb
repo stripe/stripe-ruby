@@ -461,6 +461,8 @@ module Stripe
     class ListParams < Stripe::RequestParams
       # The ID of the customer whose quotes will be retrieved.
       attr_accessor :customer
+      # The ID of the account whose quotes will be retrieved.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -478,6 +480,7 @@ module Stripe
 
       def initialize(
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         from_subscription: nil,
@@ -487,6 +490,7 @@ module Stripe
         test_clock: nil
       )
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @from_subscription = from_subscription
@@ -1482,6 +1486,8 @@ module Stripe
       attr_accessor :collection_method
       # The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       attr_accessor :customer
+      # The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+      attr_accessor :customer_account
       # The tax rates that will apply to any line item that does not have `tax_rates` set.
       attr_accessor :default_tax_rates
       # A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
@@ -1524,6 +1530,7 @@ module Stripe
         automatic_tax: nil,
         collection_method: nil,
         customer: nil,
+        customer_account: nil,
         default_tax_rates: nil,
         description: nil,
         discounts: nil,
@@ -1548,6 +1555,7 @@ module Stripe
         @automatic_tax = automatic_tax
         @collection_method = collection_method
         @customer = customer
+        @customer_account = customer_account
         @default_tax_rates = default_tax_rates
         @description = description
         @discounts = discounts
@@ -2563,6 +2571,8 @@ module Stripe
       attr_accessor :collection_method
       # The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       attr_accessor :customer
+      # The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+      attr_accessor :customer_account
       # The tax rates that will apply to any line item that does not have `tax_rates` set.
       attr_accessor :default_tax_rates
       # A description that will be displayed on the quote PDF.
@@ -2601,6 +2611,7 @@ module Stripe
         automatic_tax: nil,
         collection_method: nil,
         customer: nil,
+        customer_account: nil,
         default_tax_rates: nil,
         description: nil,
         discounts: nil,
@@ -2623,6 +2634,7 @@ module Stripe
         @automatic_tax = automatic_tax
         @collection_method = collection_method
         @customer = customer
+        @customer_account = customer_account
         @default_tax_rates = default_tax_rates
         @description = description
         @discounts = discounts
@@ -2805,6 +2817,8 @@ module Stripe
     attr_reader :currency
     # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
     attr_reader :customer
+    # The account which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+    attr_reader :customer_account
     # The tax rates applied to this quote.
     attr_reader :default_tax_rates
     # A description that will be displayed on the quote PDF.

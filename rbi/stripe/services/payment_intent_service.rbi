@@ -27,6 +27,9 @@ module Stripe
       # Only return PaymentIntents for the customer that this customer ID specifies.
       sig { returns(String) }
       attr_accessor :customer
+      # Only return PaymentIntents for the account that this ID specifies.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
@@ -40,11 +43,12 @@ module Stripe
       sig { returns(String) }
       attr_accessor :starting_after
       sig {
-        params(created: T.any(::Stripe::PaymentIntentService::ListParams::Created, Integer), customer: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+        params(created: T.any(::Stripe::PaymentIntentService::ListParams::Created, Integer), customer: String, customer_account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
        }
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -3490,6 +3494,13 @@ module Stripe
       # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
       sig { returns(String) }
       attr_accessor :customer
+      # ID of the Account this PaymentIntent belongs to, if one exists.
+      #
+      # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+      #
+      # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(String) }
       attr_accessor :description
@@ -3579,7 +3590,7 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(amount: Integer, application_fee_amount: Integer, async_workflows: ::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows, automatic_payment_methods: ::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods, capture_method: String, confirm: T::Boolean, confirmation_method: String, confirmation_token: String, currency: String, customer: String, description: String, error_on_requires_action: T::Boolean, expand: T::Array[String], mandate: String, mandate_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::MandateData), metadata: T::Hash[String, String], off_session: T.any(T::Boolean, String), on_behalf_of: String, payment_details: ::Stripe::PaymentIntentService::CreateParams::PaymentDetails, payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::PaymentIntentService::CreateParams::PaymentMethodData, payment_method_options: ::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions, payment_method_types: T::Array[String], radar_options: ::Stripe::PaymentIntentService::CreateParams::RadarOptions, receipt_email: String, return_url: String, secret_key_confirmation: String, setup_future_usage: String, shipping: ::Stripe::PaymentIntentService::CreateParams::Shipping, statement_descriptor: String, statement_descriptor_suffix: String, transfer_data: ::Stripe::PaymentIntentService::CreateParams::TransferData, transfer_group: String, use_stripe_sdk: T::Boolean).void
+        params(amount: Integer, application_fee_amount: Integer, async_workflows: ::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows, automatic_payment_methods: ::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods, capture_method: String, confirm: T::Boolean, confirmation_method: String, confirmation_token: String, currency: String, customer: String, customer_account: String, description: String, error_on_requires_action: T::Boolean, expand: T::Array[String], mandate: String, mandate_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::MandateData), metadata: T::Hash[String, String], off_session: T.any(T::Boolean, String), on_behalf_of: String, payment_details: ::Stripe::PaymentIntentService::CreateParams::PaymentDetails, payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::PaymentIntentService::CreateParams::PaymentMethodData, payment_method_options: ::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions, payment_method_types: T::Array[String], radar_options: ::Stripe::PaymentIntentService::CreateParams::RadarOptions, receipt_email: String, return_url: String, secret_key_confirmation: String, setup_future_usage: String, shipping: ::Stripe::PaymentIntentService::CreateParams::Shipping, statement_descriptor: String, statement_descriptor_suffix: String, transfer_data: ::Stripe::PaymentIntentService::CreateParams::TransferData, transfer_group: String, use_stripe_sdk: T::Boolean).void
        }
       def initialize(
         amount: nil,
@@ -3592,6 +3603,7 @@ module Stripe
         confirmation_token: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         error_on_requires_action: nil,
         expand: nil,
@@ -7012,6 +7024,13 @@ module Stripe
       # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
       sig { returns(String) }
       attr_accessor :customer
+      # ID of the Account this PaymentIntent belongs to, if one exists.
+      #
+      # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+      #
+      # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(String) }
       attr_accessor :description
@@ -7076,7 +7095,7 @@ module Stripe
       sig { returns(String) }
       attr_accessor :transfer_group
       sig {
-        params(amount: Integer, application_fee_amount: T.nilable(Integer), async_workflows: ::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows, capture_method: String, currency: String, customer: String, description: String, expand: T::Array[String], mandate_data: ::Stripe::PaymentIntentService::UpdateParams::MandateData, metadata: T.nilable(T::Hash[String, String]), payment_details: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails), payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::PaymentIntentService::UpdateParams::PaymentMethodData, payment_method_options: ::Stripe::PaymentIntentService::UpdateParams::PaymentMethodOptions, payment_method_types: T::Array[String], receipt_email: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::UpdateParams::Shipping), statement_descriptor: String, statement_descriptor_suffix: String, transfer_data: ::Stripe::PaymentIntentService::UpdateParams::TransferData, transfer_group: String).void
+        params(amount: Integer, application_fee_amount: T.nilable(Integer), async_workflows: ::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows, capture_method: String, currency: String, customer: String, customer_account: String, description: String, expand: T::Array[String], mandate_data: ::Stripe::PaymentIntentService::UpdateParams::MandateData, metadata: T.nilable(T::Hash[String, String]), payment_details: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails), payment_method: String, payment_method_configuration: String, payment_method_data: ::Stripe::PaymentIntentService::UpdateParams::PaymentMethodData, payment_method_options: ::Stripe::PaymentIntentService::UpdateParams::PaymentMethodOptions, payment_method_types: T::Array[String], receipt_email: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::UpdateParams::Shipping), statement_descriptor: String, statement_descriptor_suffix: String, transfer_data: ::Stripe::PaymentIntentService::UpdateParams::TransferData, transfer_group: String).void
        }
       def initialize(
         amount: nil,
@@ -7085,6 +7104,7 @@ module Stripe
         capture_method: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         mandate_data: nil,

@@ -791,6 +791,8 @@ module Stripe
     attr_reader :created
     # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) the customer can be charged in for recurring billing purposes.
     attr_reader :currency
+    # Attribute for field customer_account
+    attr_reader :customer_account
     # ID of the default payment source for the customer.
     #
     # If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.

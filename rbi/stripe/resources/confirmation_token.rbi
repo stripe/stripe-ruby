@@ -938,6 +938,9 @@ module Stripe
       # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
       sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
       attr_reader :customer
+      # Attribute for field customer_account
+      sig { returns(T.nilable(String)) }
+      attr_reader :customer_account
       # Attribute for field customer_balance
       sig { returns(CustomerBalance) }
       attr_reader :customer_balance

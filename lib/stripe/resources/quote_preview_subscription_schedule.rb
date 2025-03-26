@@ -303,6 +303,8 @@ module Stripe
     attr_reader :current_phase
     # ID of the customer who owns the subscription schedule.
     attr_reader :customer
+    # ID of the account who owns the subscription schedule.
+    attr_reader :customer_account
     # Attribute for field default_settings
     attr_reader :default_settings
     # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.

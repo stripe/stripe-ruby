@@ -78,13 +78,16 @@ module Stripe
         end
         # The customer for which to fetch credit balance summary.
         attr_accessor :customer
+        # The account for which to fetch credit balance summary.
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The filter criteria for the credit balance summary.
         attr_accessor :filter
 
-        def initialize(customer: nil, expand: nil, filter: nil)
+        def initialize(customer: nil, customer_account: nil, expand: nil, filter: nil)
           @customer = customer
+          @customer_account = customer_account
           @expand = expand
           @filter = filter
         end
@@ -93,6 +96,8 @@ module Stripe
       attr_reader :balances
       # The customer the balance is for.
       attr_reader :customer
+      # The account the balance is for.
+      attr_reader :customer_account
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.

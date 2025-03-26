@@ -742,6 +742,8 @@ module Stripe
       attr_reader :cashapp
       # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
       attr_reader :customer
+      # Attribute for field customer_account
+      attr_reader :customer_account
       # Attribute for field customer_balance
       attr_reader :customer_balance
       # Attribute for field eps

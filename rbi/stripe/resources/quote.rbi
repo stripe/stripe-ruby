@@ -608,6 +608,9 @@ module Stripe
     # The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     attr_reader :customer
+    # The account which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # The tax rates applied to this quote.
     sig { returns(T::Array[T.any(String, Stripe::TaxRate)]) }
     attr_reader :default_tax_rates
@@ -696,6 +699,9 @@ module Stripe
       # The ID of the customer whose quotes will be retrieved.
       sig { returns(String) }
       attr_accessor :customer
+      # The ID of the account whose quotes will be retrieved.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
@@ -718,10 +724,11 @@ module Stripe
       sig { returns(String) }
       attr_accessor :test_clock
       sig {
-        params(customer: String, ending_before: String, expand: T::Array[String], from_subscription: String, limit: Integer, starting_after: String, status: String, test_clock: String).void
+        params(customer: String, customer_account: String, ending_before: String, expand: T::Array[String], from_subscription: String, limit: Integer, starting_after: String, status: String, test_clock: String).void
        }
       def initialize(
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         from_subscription: nil,
@@ -1740,6 +1747,9 @@ module Stripe
       # The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       sig { returns(String) }
       attr_accessor :customer
+      # The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # The tax rates that will apply to any line item that does not have `tax_rates` set.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :default_tax_rates
@@ -1792,7 +1802,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Quote::CreateParams::TransferData)) }
       attr_accessor :transfer_data
       sig {
-        params(allow_backdated_lines: T::Boolean, application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: ::Stripe::Quote::CreateParams::AutomaticTax, collection_method: String, customer: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Quote::CreateParams::Discount]), expand: T::Array[String], expires_at: Integer, footer: T.nilable(String), from_quote: ::Stripe::Quote::CreateParams::FromQuote, header: T.nilable(String), invoice_settings: ::Stripe::Quote::CreateParams::InvoiceSettings, line_items: T::Array[::Stripe::Quote::CreateParams::LineItem], lines: T::Array[::Stripe::Quote::CreateParams::Line], metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), subscription_data: ::Stripe::Quote::CreateParams::SubscriptionData, subscription_data_overrides: T::Array[::Stripe::Quote::CreateParams::SubscriptionDataOverride], test_clock: String, transfer_data: T.nilable(::Stripe::Quote::CreateParams::TransferData)).void
+        params(allow_backdated_lines: T::Boolean, application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: ::Stripe::Quote::CreateParams::AutomaticTax, collection_method: String, customer: String, customer_account: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Quote::CreateParams::Discount]), expand: T::Array[String], expires_at: Integer, footer: T.nilable(String), from_quote: ::Stripe::Quote::CreateParams::FromQuote, header: T.nilable(String), invoice_settings: ::Stripe::Quote::CreateParams::InvoiceSettings, line_items: T::Array[::Stripe::Quote::CreateParams::LineItem], lines: T::Array[::Stripe::Quote::CreateParams::Line], metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), subscription_data: ::Stripe::Quote::CreateParams::SubscriptionData, subscription_data_overrides: T::Array[::Stripe::Quote::CreateParams::SubscriptionDataOverride], test_clock: String, transfer_data: T.nilable(::Stripe::Quote::CreateParams::TransferData)).void
        }
       def initialize(
         allow_backdated_lines: nil,
@@ -1801,6 +1811,7 @@ module Stripe
         automatic_tax: nil,
         collection_method: nil,
         customer: nil,
+        customer_account: nil,
         default_tax_rates: nil,
         description: nil,
         discounts: nil,
@@ -2837,6 +2848,9 @@ module Stripe
       # The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
       sig { returns(String) }
       attr_accessor :customer
+      # The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # The tax rates that will apply to any line item that does not have `tax_rates` set.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :default_tax_rates
@@ -2883,7 +2897,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Quote::UpdateParams::TransferData)) }
       attr_accessor :transfer_data
       sig {
-        params(allow_backdated_lines: T::Boolean, application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: ::Stripe::Quote::UpdateParams::AutomaticTax, collection_method: String, customer: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Quote::UpdateParams::Discount]), expand: T::Array[String], expires_at: Integer, footer: T.nilable(String), header: T.nilable(String), invoice_settings: ::Stripe::Quote::UpdateParams::InvoiceSettings, line_items: T::Array[::Stripe::Quote::UpdateParams::LineItem], lines: T::Array[::Stripe::Quote::UpdateParams::Line], metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), subscription_data: ::Stripe::Quote::UpdateParams::SubscriptionData, subscription_data_overrides: T.nilable(T::Array[::Stripe::Quote::UpdateParams::SubscriptionDataOverride]), transfer_data: T.nilable(::Stripe::Quote::UpdateParams::TransferData)).void
+        params(allow_backdated_lines: T::Boolean, application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: ::Stripe::Quote::UpdateParams::AutomaticTax, collection_method: String, customer: String, customer_account: String, default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T::Array[::Stripe::Quote::UpdateParams::Discount]), expand: T::Array[String], expires_at: Integer, footer: T.nilable(String), header: T.nilable(String), invoice_settings: ::Stripe::Quote::UpdateParams::InvoiceSettings, line_items: T::Array[::Stripe::Quote::UpdateParams::LineItem], lines: T::Array[::Stripe::Quote::UpdateParams::Line], metadata: T::Hash[String, String], on_behalf_of: T.nilable(String), subscription_data: ::Stripe::Quote::UpdateParams::SubscriptionData, subscription_data_overrides: T.nilable(T::Array[::Stripe::Quote::UpdateParams::SubscriptionDataOverride]), transfer_data: T.nilable(::Stripe::Quote::UpdateParams::TransferData)).void
        }
       def initialize(
         allow_backdated_lines: nil,
@@ -2892,6 +2906,7 @@ module Stripe
         automatic_tax: nil,
         collection_method: nil,
         customer: nil,
+        customer_account: nil,
         default_tax_rates: nil,
         description: nil,
         discounts: nil,

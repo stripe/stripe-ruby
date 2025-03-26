@@ -677,6 +677,9 @@ module Stripe
     # The ID of the customer who will be billed.
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     attr_reader :customer
+    # The ID of the account who will be billed.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(CustomerAddress)) }
     attr_reader :customer_address
@@ -1563,6 +1566,9 @@ module Stripe
       # Only return invoices for the customer specified by this customer ID.
       sig { returns(String) }
       attr_accessor :customer
+      # Attribute for param field customer_account
+      sig { returns(String) }
+      attr_accessor :customer_account
       # Attribute for param field due_date
       sig { returns(T.any(::Stripe::Invoice::ListParams::DueDate, Integer)) }
       attr_accessor :due_date
@@ -1585,12 +1591,13 @@ module Stripe
       sig { returns(String) }
       attr_accessor :subscription
       sig {
-        params(collection_method: String, created: T.any(::Stripe::Invoice::ListParams::Created, Integer), customer: String, due_date: T.any(::Stripe::Invoice::ListParams::DueDate, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String, subscription: String).void
+        params(collection_method: String, created: T.any(::Stripe::Invoice::ListParams::Created, Integer), customer: String, customer_account: String, due_date: T.any(::Stripe::Invoice::ListParams::DueDate, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String, subscription: String).void
        }
       def initialize(
         collection_method: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         due_date: nil,
         ending_before: nil,
         expand: nil,
@@ -2173,6 +2180,9 @@ module Stripe
       # The ID of the customer who will be billed.
       sig { returns(String) }
       attr_accessor :customer
+      # The ID of the account who will be billed.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`.
       sig { returns(Integer) }
       attr_accessor :days_until_due
@@ -2246,7 +2256,7 @@ module Stripe
       sig { returns(::Stripe::Invoice::CreateParams::TransferData) }
       attr_accessor :transfer_data
       sig {
-        params(account_tax_ids: T.nilable(T::Array[String]), amounts_due: T.nilable(T::Array[::Stripe::Invoice::CreateParams::AmountsDue]), application_fee_amount: Integer, auto_advance: T::Boolean, automatic_tax: ::Stripe::Invoice::CreateParams::AutomaticTax, automatically_finalizes_at: Integer, collection_method: String, currency: String, custom_fields: T.nilable(T::Array[::Stripe::Invoice::CreateParams::CustomField]), customer: String, days_until_due: Integer, default_margins: T::Array[String], default_payment_method: String, default_source: String, default_tax_rates: T::Array[String], description: String, discounts: T.nilable(T::Array[::Stripe::Invoice::CreateParams::Discount]), due_date: Integer, effective_at: Integer, expand: T::Array[String], footer: String, from_invoice: ::Stripe::Invoice::CreateParams::FromInvoice, issuer: ::Stripe::Invoice::CreateParams::Issuer, metadata: T.nilable(T::Hash[String, String]), number: String, on_behalf_of: String, payment_settings: ::Stripe::Invoice::CreateParams::PaymentSettings, pending_invoice_items_behavior: String, rendering: ::Stripe::Invoice::CreateParams::Rendering, shipping_cost: ::Stripe::Invoice::CreateParams::ShippingCost, shipping_details: ::Stripe::Invoice::CreateParams::ShippingDetails, statement_descriptor: String, subscription: String, transfer_data: ::Stripe::Invoice::CreateParams::TransferData).void
+        params(account_tax_ids: T.nilable(T::Array[String]), amounts_due: T.nilable(T::Array[::Stripe::Invoice::CreateParams::AmountsDue]), application_fee_amount: Integer, auto_advance: T::Boolean, automatic_tax: ::Stripe::Invoice::CreateParams::AutomaticTax, automatically_finalizes_at: Integer, collection_method: String, currency: String, custom_fields: T.nilable(T::Array[::Stripe::Invoice::CreateParams::CustomField]), customer: String, customer_account: String, days_until_due: Integer, default_margins: T::Array[String], default_payment_method: String, default_source: String, default_tax_rates: T::Array[String], description: String, discounts: T.nilable(T::Array[::Stripe::Invoice::CreateParams::Discount]), due_date: Integer, effective_at: Integer, expand: T::Array[String], footer: String, from_invoice: ::Stripe::Invoice::CreateParams::FromInvoice, issuer: ::Stripe::Invoice::CreateParams::Issuer, metadata: T.nilable(T::Hash[String, String]), number: String, on_behalf_of: String, payment_settings: ::Stripe::Invoice::CreateParams::PaymentSettings, pending_invoice_items_behavior: String, rendering: ::Stripe::Invoice::CreateParams::Rendering, shipping_cost: ::Stripe::Invoice::CreateParams::ShippingCost, shipping_details: ::Stripe::Invoice::CreateParams::ShippingDetails, statement_descriptor: String, subscription: String, transfer_data: ::Stripe::Invoice::CreateParams::TransferData).void
        }
       def initialize(
         account_tax_ids: nil,
@@ -2259,6 +2269,7 @@ module Stripe
         currency: nil,
         custom_fields: nil,
         customer: nil,
+        customer_account: nil,
         days_until_due: nil,
         default_margins: nil,
         default_payment_method: nil,
@@ -4659,6 +4670,9 @@ module Stripe
       # The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
       sig { returns(String) }
       attr_accessor :customer
+      # The identifier of the account whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_account`, `customer_details`, `subscription`, or `schedule` must be set.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # Details about the customer you want to invoice or overrides for an existing customer. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
       sig { returns(::Stripe::Invoice::CreatePreviewParams::CustomerDetails) }
       attr_accessor :customer_details
@@ -4693,12 +4707,13 @@ module Stripe
       sig { returns(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails) }
       attr_accessor :subscription_details
       sig {
-        params(automatic_tax: ::Stripe::Invoice::CreatePreviewParams::AutomaticTax, currency: String, customer: String, customer_details: ::Stripe::Invoice::CreatePreviewParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::Discount]), expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::CreatePreviewParams::InvoiceItem], issuer: ::Stripe::Invoice::CreatePreviewParams::Issuer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails, subscription: String, subscription_details: ::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails).void
+        params(automatic_tax: ::Stripe::Invoice::CreatePreviewParams::AutomaticTax, currency: String, customer: String, customer_account: String, customer_details: ::Stripe::Invoice::CreatePreviewParams::CustomerDetails, discounts: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::Discount]), expand: T::Array[String], invoice_items: T::Array[::Stripe::Invoice::CreatePreviewParams::InvoiceItem], issuer: ::Stripe::Invoice::CreatePreviewParams::Issuer, on_behalf_of: T.nilable(String), preview_mode: String, schedule: String, schedule_details: ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails, subscription: String, subscription_details: ::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails).void
        }
       def initialize(
         automatic_tax: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         customer_details: nil,
         discounts: nil,
         expand: nil,

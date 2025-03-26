@@ -20,11 +20,16 @@ module Stripe
           # The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
           sig { returns(String) }
           attr_accessor :customer
+          # The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
+          sig { returns(String) }
+          attr_accessor :customer_account
           # Type of account holder to collect accounts for.
           sig { returns(String) }
           attr_accessor :type
-          sig { params(account: String, customer: String, type: String).void }
-          def initialize(account: nil, customer: nil, type: nil); end
+          sig {
+            params(account: String, customer: String, customer_account: String, type: String).void
+           }
+          def initialize(account: nil, customer: nil, customer_account: nil, type: nil); end
         end
         class Filters < Stripe::RequestParams
           # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.

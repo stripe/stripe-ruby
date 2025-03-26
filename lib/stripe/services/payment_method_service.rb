@@ -899,11 +899,14 @@ module Stripe
     class AttachParams < Stripe::RequestParams
       # The ID of the customer to which to attach the PaymentMethod.
       attr_accessor :customer
+      # The ID of the account to which to attach the PaymentMethod.
+      attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
 
-      def initialize(customer: nil, expand: nil)
+      def initialize(customer: nil, customer_account: nil, expand: nil)
         @customer = customer
+        @customer_account = customer_account
         @expand = expand
       end
     end

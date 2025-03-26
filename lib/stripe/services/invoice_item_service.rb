@@ -194,6 +194,8 @@ module Stripe
       attr_accessor :created
       # The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
       attr_accessor :customer
+      # The identifier of the account whose invoice items to return. If none is provided, all invoice items will be returned.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -210,6 +212,7 @@ module Stripe
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         invoice: nil,
@@ -219,6 +222,7 @@ module Stripe
       )
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @invoice = invoice
@@ -325,6 +329,8 @@ module Stripe
       attr_accessor :currency
       # The ID of the customer who will be billed when this invoice item is billed.
       attr_accessor :customer
+      # The ID of the account who will be billed when this invoice item is billed.
+      attr_accessor :customer_account
       # An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
       attr_accessor :description
       # Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items.
@@ -362,6 +368,7 @@ module Stripe
         amount: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         discountable: nil,
         discounts: nil,
@@ -382,6 +389,7 @@ module Stripe
         @amount = amount
         @currency = currency
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @discountable = discountable
         @discounts = discounts

@@ -685,6 +685,9 @@ module Stripe
     # Custom fields displayed on the invoice.
     sig { returns(T.nilable(T::Array[CustomField])) }
     attr_reader :custom_fields
+    # The ID of the account who will be billed.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(CustomerAddress)) }
     attr_reader :customer_address

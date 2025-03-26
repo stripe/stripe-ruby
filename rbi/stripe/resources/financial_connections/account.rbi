@@ -13,6 +13,9 @@ module Stripe
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
         sig { returns(T.any(String, Stripe::Customer)) }
         attr_reader :customer
+        # Attribute for field customer_account
+        sig { returns(String) }
+        attr_reader :customer_account
         # Type of account holder that this account belongs to.
         sig { returns(String) }
         attr_reader :type
@@ -184,8 +187,11 @@ module Stripe
           # The ID of the Stripe customer whose accounts will be retrieved.
           sig { returns(String) }
           attr_accessor :customer
-          sig { params(account: String, customer: String).void }
-          def initialize(account: nil, customer: nil); end
+          # The Account ID of the Stripe customer whose accounts will be retrieved.
+          sig { returns(String) }
+          attr_accessor :customer_account
+          sig { params(account: String, customer: String, customer_account: String).void }
+          def initialize(account: nil, customer: nil, customer_account: nil); end
         end
         # If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
         sig { returns(::Stripe::FinancialConnections::Account::ListParams::AccountHolder) }

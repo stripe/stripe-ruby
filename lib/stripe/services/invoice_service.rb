@@ -685,6 +685,8 @@ module Stripe
       attr_accessor :created
       # Only return invoices for the customer specified by this customer ID.
       attr_accessor :customer
+      # Attribute for param field customer_account
+      attr_accessor :customer_account
       # Attribute for param field due_date
       attr_accessor :due_date
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -704,6 +706,7 @@ module Stripe
         collection_method: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         due_date: nil,
         ending_before: nil,
         expand: nil,
@@ -715,6 +718,7 @@ module Stripe
         @collection_method = collection_method
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @due_date = due_date
         @ending_before = ending_before
         @expand = expand
@@ -1255,6 +1259,8 @@ module Stripe
       attr_accessor :custom_fields
       # The ID of the customer who will be billed.
       attr_accessor :customer
+      # The ID of the account who will be billed.
+      attr_accessor :customer_account
       # The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`.
       attr_accessor :days_until_due
       # The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
@@ -1315,6 +1321,7 @@ module Stripe
         currency: nil,
         custom_fields: nil,
         customer: nil,
+        customer_account: nil,
         days_until_due: nil,
         default_margins: nil,
         default_payment_method: nil,
@@ -1350,6 +1357,7 @@ module Stripe
         @currency = currency
         @custom_fields = custom_fields
         @customer = customer
+        @customer_account = customer_account
         @days_until_due = days_until_due
         @default_margins = default_margins
         @default_payment_method = default_payment_method
@@ -3618,6 +3626,8 @@ module Stripe
       attr_accessor :currency
       # The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
       attr_accessor :customer
+      # The identifier of the account whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_account`, `customer_details`, `subscription`, or `schedule` must be set.
+      attr_accessor :customer_account
       # Details about the customer you want to invoice or overrides for an existing customer. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
       attr_accessor :customer_details
       # The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
@@ -3645,6 +3655,7 @@ module Stripe
         automatic_tax: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         customer_details: nil,
         discounts: nil,
         expand: nil,
@@ -3660,6 +3671,7 @@ module Stripe
         @automatic_tax = automatic_tax
         @currency = currency
         @customer = customer
+        @customer_account = customer_account
         @customer_details = customer_details
         @discounts = discounts
         @expand = expand

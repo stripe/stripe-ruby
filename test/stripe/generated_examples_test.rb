@@ -8091,7 +8091,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods_bank_account_spec"
       ).to_return(
-        body: '{"countries":{"undefined":{"fields":[{"local_name":"local_name","local_name_human":"local_name_human","max_length":1111390753,"min_length":711577229,"placeholder":"placeholder","stripe_name":"stripe_name","validation_regex":"validation_regex"}]}},"object":"v2.money_management.payout_methods_bank_account_spec"}',
+        body: '{"countries":{"undefined":{"fields":[{"local_name":"local_name","local_name_human":{"content":"content","localization_key":"localization_key"},"max_length":1111390753,"min_length":711577229,"placeholder":"placeholder","stripe_name":"stripe_name","validation_regex":"validation_regex"}]}},"object":"v2.money_management.payout_methods_bank_account_spec"}',
         status: 200
       )
       client = StripeClient.new("sk_test_123")

@@ -9,11 +9,19 @@ module Stripe
       class PayoutMethodsBankAccountSpec < APIResource
         class Countries < Stripe::StripeObject
           class Field < Stripe::StripeObject
+            class LocalNameHuman < Stripe::StripeObject
+              # Attribute for field content
+              sig { returns(String) }
+              attr_reader :content
+              # Attribute for field localization_key
+              sig { returns(String) }
+              attr_reader :localization_key
+            end
             # The local name of the field.
             sig { returns(String) }
             attr_reader :local_name
             # The human readable local name of the field.
-            sig { returns(String) }
+            sig { returns(LocalNameHuman) }
             attr_reader :local_name_human
             # The maximum length of the field.
             sig { returns(Integer) }

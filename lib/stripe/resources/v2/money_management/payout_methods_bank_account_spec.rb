@@ -13,6 +13,12 @@ module Stripe
 
         class Countries < Stripe::StripeObject
           class Field < Stripe::StripeObject
+            class LocalNameHuman < Stripe::StripeObject
+              # Attribute for field content
+              attr_reader :content
+              # Attribute for field localization_key
+              attr_reader :localization_key
+            end
             # The local name of the field.
             attr_reader :local_name
             # The human readable local name of the field.

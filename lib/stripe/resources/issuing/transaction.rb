@@ -9,7 +9,6 @@ module Stripe
     #
     # Related guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)
     class Transaction < APIResource
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.transaction"

@@ -8,8 +8,6 @@ module Stripe
     # runs. The webhook contains a `ScheduledQueryRun` object, which you can use to
     # retrieve the query results.
     class ScheduledQueryRun < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "scheduled_query_run"
       def self.object_name
         "scheduled_query_run"

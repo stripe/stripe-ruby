@@ -24,8 +24,6 @@ module Stripe
   #
   # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
   class SetupIntent < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "setup_intent"

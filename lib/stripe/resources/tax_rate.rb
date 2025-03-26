@@ -6,8 +6,6 @@ module Stripe
   #
   # Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
   class TaxRate < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "tax_rate"

@@ -5,8 +5,6 @@ module Stripe
   module Treasury
     # ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
     class ReceivedDebit < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "treasury.received_debit"
       def self.object_name
         "treasury.received_debit"

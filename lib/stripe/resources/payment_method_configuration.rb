@@ -17,8 +17,6 @@ module Stripe
   # - [Multiple configurations on dynamic payment methods](https://stripe.com/docs/payments/multiple-payment-method-configs)
   # - [Multiple configurations for your Connect accounts](https://stripe.com/docs/connect/multiple-payment-method-configurations)
   class PaymentMethodConfiguration < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_method_configuration"

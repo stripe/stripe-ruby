@@ -11,9 +11,6 @@ module Stripe
   #
   # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and prices](https://stripe.com/docs/products-prices/overview).
   class Plan < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "plan"

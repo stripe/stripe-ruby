@@ -3,9 +3,6 @@
 
 module Stripe
   class EphemeralKey < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-
     OBJECT_NAME = "ephemeral_key"
     def self.object_name
       "ephemeral_key"
@@ -37,7 +34,12 @@ module Stripe
         raise ArgumentError,
               "stripe_version must be specified to create an ephemeral key"
       end
-      super
+      request_stripe_object(
+        method: :post,
+        path: "/v1/ephemeral_keys",
+        params: params,
+        opts: opts
+      )
     end
   end
 end

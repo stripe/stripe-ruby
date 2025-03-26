@@ -7,8 +7,6 @@ module Stripe
     #
     # Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
     class CreditGrant < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "billing.credit_grant"

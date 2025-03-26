@@ -43,26 +43,6 @@ module Stripe
       end
     end
 
-    context ".search" do
-      should "warn that ._search is deprecated" do
-        old_stderr = $stderr
-        $stderr = StringIO.new
-        begin
-          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/search?query=foo:bar")
-            .to_return(body: JSON.generate(object: "customer"))
-
-          client = APIRequestor.new("sk_test_123")
-          client.request { Customer._search("/v1/customers/search", query: "foo:bar") }
-
-          message = "NOTE: Stripe::Customer._search is deprecated; use request_stripe_object " \
-                    "instead. It will be removed on or after 2024-01."
-          assert_match Regexp.new(message), $stderr.string
-        ensure
-          $stderr = old_stderr
-        end
-      end
-    end
-
     context ".nested_resource_class_methods" do
       class MainResource < APIResource # rubocop:todo Lint/ConstantDefinitionInBlock
         extend Stripe::APIOperations::NestedResource

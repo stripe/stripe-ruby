@@ -5,8 +5,6 @@ module Stripe
   # Invoice Rendering Templates are used to configure how invoices are rendered on surfaces like the PDF. Invoice Rendering Templates
   # can be created from within the Dashboard, and they can be used over the API when creating invoices.
   class InvoiceRenderingTemplate < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "invoice_rendering_template"
     def self.object_name
       "invoice_rendering_template"

@@ -9,9 +9,6 @@ module Stripe
     #
     # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
     class OutboundPayment < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "treasury.outbound_payment"
       def self.object_name
         "treasury.outbound_payment"

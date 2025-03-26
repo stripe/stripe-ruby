@@ -8,8 +8,6 @@ module Stripe
   #
   # Related guide: [Refunds](https://stripe.com/docs/refunds)
   class Refund < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "refund"

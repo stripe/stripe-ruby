@@ -7,10 +7,6 @@ module Stripe
     #
     # Related guide: [Managing list items](https://stripe.com/docs/radar/lists#managing-list-items)
     class ValueListItem < APIResource
-      extend Stripe::APIOperations::Create
-      include Stripe::APIOperations::Delete
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "radar.value_list_item"
       def self.object_name
         "radar.value_list_item"

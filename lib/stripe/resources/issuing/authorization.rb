@@ -10,7 +10,6 @@ module Stripe
     # Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
     class Authorization < APIResource
       extend Gem::Deprecate
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.authorization"

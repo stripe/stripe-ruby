@@ -7,9 +7,6 @@ module Stripe
     #
     # Related guide: [Connecting to a reader](https://stripe.com/docs/terminal/payments/connect-reader)
     class Reader < APIResource
-      extend Stripe::APIOperations::Create
-      include Stripe::APIOperations::Delete
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "terminal.reader"

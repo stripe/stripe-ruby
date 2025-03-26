@@ -33,8 +33,6 @@ module Stripe
   # We only guarantee access to events through the [Retrieve Event API](https://stripe.com/docs/api#retrieve_event)
   # for 30 days.
   class Event < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "event"
     def self.object_name
       "event"

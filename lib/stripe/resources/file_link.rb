@@ -6,8 +6,6 @@ module Stripe
   # create a `FileLink`. `FileLink`s contain a URL that you can use to
   # retrieve the contents of the file without authentication.
   class FileLink < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "file_link"

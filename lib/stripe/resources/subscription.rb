@@ -6,9 +6,6 @@ module Stripe
   #
   # Related guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
   class Subscription < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
-    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "subscription"

@@ -7,8 +7,6 @@ module Stripe
     #
     # Related guide: [Usage based billing](https://docs.stripe.com/billing/subscriptions/usage-based)
     class Meter < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       extend Stripe::APIOperations::NestedResource
       include Stripe::APIOperations::Save
 

@@ -7,10 +7,6 @@ module Stripe
   #
   # Related guides: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids), [Account tax IDs](https://stripe.com/docs/invoicing/connect#account-tax-ids)
   class TaxId < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "tax_id"
     def self.object_name
       "tax_id"

@@ -7,9 +7,6 @@ module Stripe
     #
     # Related guide: [Default Stripe lists](https://stripe.com/docs/radar/lists#managing-list-items)
     class ValueList < APIResource
-      extend Stripe::APIOperations::Create
-      include Stripe::APIOperations::Delete
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "radar.value_list"

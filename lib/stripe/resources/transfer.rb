@@ -13,8 +13,6 @@ module Stripe
   #
   # Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
   class Transfer < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
     include Stripe::APIOperations::Save
 

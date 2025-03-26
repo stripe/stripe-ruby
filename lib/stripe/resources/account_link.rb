@@ -7,8 +7,6 @@ module Stripe
   #
   # Related guide: [Connect Onboarding](https://stripe.com/docs/connect/custom/hosted-onboarding)
   class AccountLink < APIResource
-    extend Stripe::APIOperations::Create
-
     OBJECT_NAME = "account_link"
     def self.object_name
       "account_link"

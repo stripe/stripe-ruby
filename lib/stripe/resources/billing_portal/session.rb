@@ -18,8 +18,6 @@ module Stripe
     #
     # Related guide: [Customer management](https://stripe.com/customer-management)
     class Session < APIResource
-      extend Stripe::APIOperations::Create
-
       OBJECT_NAME = "billing_portal.session"
       def self.object_name
         "billing_portal.session"

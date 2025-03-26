@@ -4,10 +4,6 @@
 module Stripe
   # Domains registered for Apple Pay on the Web
   class ApplePayDomain < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "apple_pay_domain"
     def self.object_name
       "apple_pay_domain"

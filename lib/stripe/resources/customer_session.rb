@@ -9,8 +9,6 @@ module Stripe
   # [Customer Session with the Pricing Table](https://stripe.com/payments/checkout/pricing-table#customer-session),
   # [Customer Session with the Buy Button](https://stripe.com/payment-links/buy-button#pass-an-existing-customer).
   class CustomerSession < APIResource
-    extend Stripe::APIOperations::Create
-
     OBJECT_NAME = "customer_session"
     def self.object_name
       "customer_session"

@@ -8,7 +8,6 @@ module Stripe
   #
   # Related guide: [Disputes and fraud](https://stripe.com/docs/disputes)
   class Dispute < APIResource
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "dispute"

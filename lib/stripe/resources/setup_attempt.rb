@@ -7,8 +7,6 @@ module Stripe
   # SetupAttempts to inspect details of a specific attempt at setting up a
   # payment method using a SetupIntent.
   class SetupAttempt < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "setup_attempt"
     def self.object_name
       "setup_attempt"

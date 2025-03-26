@@ -12,9 +12,6 @@ module Stripe
     # Note that certain report types can only be run based on your live-mode data (not test-mode
     # data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
     class ReportRun < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "reporting.report_run"
       def self.object_name
         "reporting.report_run"

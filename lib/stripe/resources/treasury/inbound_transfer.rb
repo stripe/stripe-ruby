@@ -7,9 +7,6 @@ module Stripe
     #
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     class InboundTransfer < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "treasury.inbound_transfer"
       def self.object_name
         "treasury.inbound_transfer"

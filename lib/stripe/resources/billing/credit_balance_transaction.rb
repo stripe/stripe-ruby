@@ -5,8 +5,6 @@ module Stripe
   module Billing
     # A credit balance transaction is a resource representing a transaction (either a credit or a debit) against an existing credit grant.
     class CreditBalanceTransaction < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "billing.credit_balance_transaction"
       def self.object_name
         "billing.credit_balance_transaction"

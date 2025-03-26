@@ -6,8 +6,6 @@ module Stripe
     # Orders represent your intent to purchase a particular Climate product. When you create an order, the
     # payment is deducted from your merchant balance.
     class Order < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "climate.order"

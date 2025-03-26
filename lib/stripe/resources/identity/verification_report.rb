@@ -15,8 +15,6 @@ module Stripe
     #
     # Related guide: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
     class VerificationReport < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "identity.verification_report"
       def self.object_name
         "identity.verification_report"

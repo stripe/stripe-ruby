@@ -5,8 +5,6 @@ module Stripe
   module Billing
     # Meter events represent actions that customers take in your system. You can use meter events to bill a customer based on their usage. Meter events are associated with billing meters, which define both the contents of the event's payload and how to aggregate those events.
     class MeterEvent < APIResource
-      extend Stripe::APIOperations::Create
-
       OBJECT_NAME = "billing.meter_event"
       def self.object_name
         "billing.meter_event"

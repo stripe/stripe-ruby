@@ -9,9 +9,6 @@ module Stripe
   #
   # Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/products-prices/overview).
   class Price < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
-    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "price"

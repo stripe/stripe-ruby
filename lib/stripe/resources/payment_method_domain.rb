@@ -7,8 +7,6 @@ module Stripe
   #
   # Related guide: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
   class PaymentMethodDomain < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_method_domain"

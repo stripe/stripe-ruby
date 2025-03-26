@@ -3,7 +3,6 @@
 
 module Stripe
   class ApplicationFee < APIResource
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
 
     OBJECT_NAME = "application_fee"

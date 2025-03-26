@@ -10,9 +10,6 @@ module Stripe
   #
   # Related guide: [File upload guide](https://stripe.com/docs/file-upload)
   class File < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "file"
     def self.object_name
       "file"

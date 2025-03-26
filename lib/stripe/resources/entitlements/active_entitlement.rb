@@ -5,8 +5,6 @@ module Stripe
   module Entitlements
     # An active entitlement describes access to a feature for a customer.
     class ActiveEntitlement < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "entitlements.active_entitlement"
       def self.object_name
         "entitlements.active_entitlement"

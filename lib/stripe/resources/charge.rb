@@ -7,10 +7,7 @@ module Stripe
   # money to a different Stripe account through Connect also creates Charges.
   # Some legacy payment flows create Charges directly, which is not recommended for new integrations.
   class Charge < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
-    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "charge"

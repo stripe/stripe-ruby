@@ -14,9 +14,6 @@ module Stripe
   #
   # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
   class PaymentIntent < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
-    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_intent"

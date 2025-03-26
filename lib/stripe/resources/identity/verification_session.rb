@@ -15,8 +15,6 @@ module Stripe
     #
     # Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
     class VerificationSession < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "identity.verification_session"

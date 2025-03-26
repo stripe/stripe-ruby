@@ -5,8 +5,6 @@ module Stripe
   module Issuing
     # A Personalization Design is a logical grouping of a Physical Bundle, card logo, and carrier text that represents a product line.
     class PersonalizationDesign < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.personalization_design"

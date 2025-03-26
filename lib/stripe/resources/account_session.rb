@@ -10,8 +10,6 @@ module Stripe
   #
   # Related guide: [Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components)
   class AccountSession < APIResource
-    extend Stripe::APIOperations::Create
-
     OBJECT_NAME = "account_session"
     def self.object_name
       "account_session"

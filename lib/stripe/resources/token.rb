@@ -23,8 +23,6 @@ module Stripe
   # [Radar](https://stripe.com/docs/radar), our integrated solution for automatic fraud protection,
   # performs best with integrations that use client-side tokenization.
   class Token < APIResource
-    extend Stripe::APIOperations::Create
-
     OBJECT_NAME = "token"
     def self.object_name
       "token"

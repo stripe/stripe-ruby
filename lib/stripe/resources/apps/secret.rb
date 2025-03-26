@@ -13,9 +13,6 @@ module Stripe
     #
     # Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
     class Secret < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "apps.secret"
       def self.object_name
         "apps.secret"

@@ -7,8 +7,6 @@ module Stripe
   #
   # Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
   class BalanceTransaction < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "balance_transaction"
     def self.object_name
       "balance_transaction"

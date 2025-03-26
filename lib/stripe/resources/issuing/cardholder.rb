@@ -7,8 +7,6 @@ module Stripe
     #
     # Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
     class Cardholder < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "issuing.cardholder"

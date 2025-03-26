@@ -7,8 +7,6 @@ module Stripe
     #
     # Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)
     class Calculation < APIResource
-      extend Stripe::APIOperations::Create
-
       OBJECT_NAME = "tax.calculation"
       def self.object_name
         "tax.calculation"

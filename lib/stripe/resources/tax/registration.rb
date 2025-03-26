@@ -9,8 +9,6 @@ module Stripe
     #
     # Related guide: [Using the Registrations API](https://stripe.com/docs/tax/registrations-api)
     class Registration < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "tax.registration"

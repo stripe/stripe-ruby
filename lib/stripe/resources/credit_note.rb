@@ -6,8 +6,6 @@ module Stripe
   #
   # Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
   class CreditNote < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "credit_note"

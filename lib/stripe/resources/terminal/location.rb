@@ -7,9 +7,6 @@ module Stripe
     #
     # Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
     class Location < APIResource
-      extend Stripe::APIOperations::Create
-      include Stripe::APIOperations::Delete
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "terminal.location"

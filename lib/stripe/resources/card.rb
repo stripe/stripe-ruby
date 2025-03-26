@@ -8,8 +8,6 @@ module Stripe
   #
   # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
   class Card < APIResource
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "card"

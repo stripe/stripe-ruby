@@ -6,8 +6,6 @@ module Stripe
     # A Climate product represents a type of carbon removal unit available for reservation.
     # You can retrieve it to see the current price and availability.
     class Product < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "climate.product"
       def self.object_name
         "climate.product"

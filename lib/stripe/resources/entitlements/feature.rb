@@ -6,8 +6,6 @@ module Stripe
     # A feature represents a monetizable ability or functionality in your system.
     # Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
     class Feature < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "entitlements.feature"

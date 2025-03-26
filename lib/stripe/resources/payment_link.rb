@@ -8,8 +8,6 @@ module Stripe
   #
   # Related guide: [Payment Links API](https://stripe.com/docs/payment-links)
   class PaymentLink < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payment_link"

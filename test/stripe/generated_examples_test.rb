@@ -1033,8 +1033,7 @@ module Stripe
     should "Test coupons post" do
       Stripe::Coupon.create({
         percent_off: 25.5,
-        duration: "repeating",
-        duration_in_months: 3,
+        duration: "once",
       })
       assert_requested :post, "#{Stripe.api_base}/v1/coupons"
     end
@@ -1044,8 +1043,7 @@ module Stripe
 
       client.v1.coupons.create({
         percent_off: 25.5,
-        duration: "repeating",
-        duration_in_months: 3,
+        duration: "once",
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/coupons"
     end
@@ -2213,20 +2211,14 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
     end
     should "Test invoiceitems post" do
-      Stripe::InvoiceItem.create({
-        customer: "cus_xxxxxxxxxxxxx",
-        price: "price_xxxxxxxxxxxxx",
-      })
+      Stripe::InvoiceItem.create({ customer: "cus_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe.api_base}/v1/invoiceitems"
     end
     should "Test invoiceitems post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems").to_return(body: "{}")
       client = StripeClient.new("sk_test_123")
 
-      client.v1.invoice_items.create({
-        customer: "cus_xxxxxxxxxxxxx",
-        price: "price_xxxxxxxxxxxxx",
-      })
+      client.v1.invoice_items.create({ customer: "cus_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems"
     end
     should "Test invoiceitems post 2" do
@@ -2388,20 +2380,6 @@ module Stripe
 
       client.v1.invoices.send_invoice("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/send"
-    end
-    should "Test invoices upcoming get" do
-      Stripe::Invoice.upcoming({ customer: "cus_9utnxg47pWjV1e" })
-      assert_requested :get, "#{Stripe.api_base}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
-    end
-    should "Test invoices upcoming get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
-      ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
-
-      client.v1.invoices.upcoming({ customer: "cus_9utnxg47pWjV1e" })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/upcoming?customer=cus_9utnxg47pWjV1e"
     end
     should "Test invoices void post" do
       Stripe::Invoice.void_invoice("in_xxxxxxxxxxxxx")
@@ -7282,6 +7260,207 @@ module Stripe
         { url: "https://example.com/new_endpoint" }
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
+    end
+    should "Test v2 billing meter event session post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session").to_return(
+        body: '{"authentication_token":"authentication_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.billing.meter_event_session"}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.billing.meter_event_session.create
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session"
+    end
+    should "Test v2 billing meter event adjustment post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_adjustments"
+      ).to_return(
+        body: '{"cancel":{"identifier":"identifier"},"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","id":"obj_123","livemode":true,"object":"v2.billing.meter_event_adjustment","status":"complete","type":"cancel"}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.billing.meter_event_adjustments.create({
+        cancel: { identifier: "identifier" },
+        event_name: "event_name",
+        type: "cancel",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_adjustments"
+    end
+    should "Test v2 billing meter event stream post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
+      ).to_return(body: "{}", status: 200)
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.billing.meter_event_stream.create({
+        events: [
+          {
+            event_name: "event_name",
+            identifier: "identifier",
+            payload: { undefined: "payload" },
+            timestamp: "1970-01-01T15:18:46.294Z",
+          },
+        ],
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
+    end
+    should "Test v2 billing meter event post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","livemode":true,"object":"v2.billing.meter_event","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.billing.meter_events.create({
+        event_name: "event_name",
+        payload: { undefined: "payload" },
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_events"
+    end
+    should "Test v2 core event destination post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.create({
+        enabled_events: ["enabled_events"],
+        event_payload: "thin",
+        name: "name",
+        type: "amazon_eventbridge",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations"
+    end
+    should "Test v2 core event destination delete (service)" do
+      stub_request(
+        :delete,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.delete("id_123")
+      assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+    end
+    should "Test v2 core event destination post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/disable"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.disable("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/disable"
+    end
+    should "Test v2 core event destination post 3 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/enable"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.enable("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/enable"
+    end
+    should "Test v2 core event destination get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations").to_return(
+        body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations"
+    end
+    should "Test v2 core event destination post 4 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
+      ).to_return(
+        body: '{"context":null,"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":null,"type":"type"}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.ping("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
+    end
+    should "Test v2 core event destination get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123").to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+    end
+    should "Test v2 core event destination post 5 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+      ).to_return(
+        body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.event_destinations.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
+    end
+    should "Test v2 core event get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events").to_return(
+        body: '{"data":[{"context":null,"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":null,"type":"type"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.events.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events"
+    end
+    should "Test v2 core event get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123").to_return(
+        body: '{"context":null,"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":null,"type":"type"}',
+        status: 200
+      )
+      client = StripeClient.new("sk_test_123")
+
+      client.v2.core.events.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123"
+    end
+    should "Test temporary session expired error (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
+      ).to_return(
+        body: '{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
+        status: 400
+      )
+      client = StripeClient.new("sk_test_123")
+
+      assert_raises Stripe::TemporarySessionExpiredError do
+        client.v2.billing.meter_event_stream.create({
+          events: [
+            {
+              event_name: "event_name",
+              payload: { undefined: "payload" },
+            },
+          ],
+        })
+      end
+      assert_requested :post, "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
     end
   end
 end

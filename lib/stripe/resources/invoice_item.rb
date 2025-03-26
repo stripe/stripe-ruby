@@ -14,9 +14,6 @@ module Stripe
   #
   # Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "invoiceitem"

@@ -20,9 +20,6 @@ module Stripe
     #
     # Related guide: [Forward card details to third-party API endpoints](https://docs.stripe.com/payments/forwarding).
     class Request < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "forwarding.request"
       def self.object_name
         "forwarding.request"

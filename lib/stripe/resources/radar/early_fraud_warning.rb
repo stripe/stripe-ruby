@@ -8,8 +8,6 @@ module Stripe
     #
     # Related guide: [Early fraud warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings)
     class EarlyFraudWarning < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "radar.early_fraud_warning"
       def self.object_name
         "radar.early_fraud_warning"

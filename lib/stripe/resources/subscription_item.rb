@@ -5,9 +5,6 @@ module Stripe
   # Subscription items allow you to create customer subscriptions with more than
   # one plan, making it easy to represent complex billing relationships.
   class SubscriptionItem < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
     include Stripe::APIOperations::Save
 

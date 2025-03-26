@@ -15,9 +15,6 @@ module Stripe
   # until you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions)
   # to start Connect Onboarding. Learn about the [differences between accounts](https://stripe.com/connect/accounts).
   class Account < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
     include Stripe::APIOperations::Save
 

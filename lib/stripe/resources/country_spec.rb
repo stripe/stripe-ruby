@@ -9,8 +9,6 @@ module Stripe
   # You can also view the information from this API call as [an online
   # guide](https://stripe.com/docs/connect/required-verification-information).
   class CountrySpec < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "country_spec"
     def self.object_name
       "country_spec"

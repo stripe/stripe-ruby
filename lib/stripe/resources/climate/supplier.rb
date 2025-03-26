@@ -5,8 +5,6 @@ module Stripe
   module Climate
     # A supplier of carbon removal.
     class Supplier < APIResource
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "climate.supplier"
       def self.object_name
         "climate.supplier"

@@ -7,8 +7,6 @@ module Stripe
   # Learn more about [Radar](https://stripe.com/radar) and reviewing payments
   # [here](https://stripe.com/docs/radar/reviews).
   class Review < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "review"
     def self.object_name
       "review"

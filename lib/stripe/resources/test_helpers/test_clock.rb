@@ -7,10 +7,6 @@ module Stripe
     # objects at a frozen time in the past or future, and advance to a specific future time to observe webhooks and state changes. After the clock advances,
     # you can either validate the current state of your scenario (and test your assumptions), change the current state of your scenario (and test more complex scenarios), or keep advancing forward in time.
     class TestClock < APIResource
-      extend Stripe::APIOperations::Create
-      include Stripe::APIOperations::Delete
-      extend Stripe::APIOperations::List
-
       OBJECT_NAME = "test_helpers.test_clock"
       def self.object_name
         "test_helpers.test_clock"

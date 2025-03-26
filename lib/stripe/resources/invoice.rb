@@ -35,11 +35,7 @@ module Stripe
   #
   # Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
   class Invoice < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
-    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "invoice"
@@ -133,16 +129,6 @@ module Stripe
     # You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/invoices", params: params, opts: opts)
-    end
-
-    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    def self.list_upcoming_line_items(params = {}, opts = {})
-      request_stripe_object(
-        method: :get,
-        path: "/v1/invoices/upcoming/lines",
-        params: params,
-        opts: opts
-      )
     end
 
     # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -246,6 +232,16 @@ module Stripe
     # Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
     def self.upcoming(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/invoices/upcoming", params: params, opts: opts)
+    end
+
+    # When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+    def self.upcomingLines(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/invoices/upcoming/lines",
+        params: params,
+        opts: opts
+      )
     end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),

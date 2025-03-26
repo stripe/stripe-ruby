@@ -11,11 +11,7 @@ module Stripe
   # [accept payments with Checkout](https://stripe.com/docs/payments/accept-a-payment#create-product-prices-upfront),
   # and more about [Products and Prices](https://stripe.com/docs/products-prices/overview)
   class Product < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource
-    extend Stripe::APIOperations::Search
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "product"

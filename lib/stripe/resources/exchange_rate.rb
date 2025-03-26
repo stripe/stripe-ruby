@@ -29,8 +29,6 @@ module Stripe
   #
   # *Using this Exchange Rates API beta for any purpose other than to transact on Stripe is strictly prohibited and constitutes a violation of Stripe's terms of service.*
   class ExchangeRate < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "exchange_rate"
     def self.object_name
       "exchange_rate"

@@ -4,8 +4,6 @@
 module Stripe
   # [Tax codes](https://stripe.com/docs/tax/tax-categories) classify goods and services for tax purposes.
   class TaxCode < APIResource
-    extend Stripe::APIOperations::List
-
     OBJECT_NAME = "tax_code"
     def self.object_name
       "tax_code"

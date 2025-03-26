@@ -7,8 +7,6 @@ module Stripe
     #
     # Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
     class ConnectionToken < APIResource
-      extend Stripe::APIOperations::Create
-
       OBJECT_NAME = "terminal.connection_token"
       def self.object_name
         "terminal.connection_token"

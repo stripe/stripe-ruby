@@ -10,9 +10,6 @@ module Stripe
   #
   # Related guide: [Setting up webhooks](https://docs.stripe.com/webhooks/configure)
   class WebhookEndpoint < APIResource
-    extend Stripe::APIOperations::Create
-    include Stripe::APIOperations::Delete
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "webhook_endpoint"

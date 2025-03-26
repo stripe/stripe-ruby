@@ -18,8 +18,6 @@ module Stripe
     #
     # Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
     class Session < APIResource
-      extend Stripe::APIOperations::Create
-      extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "checkout.session"

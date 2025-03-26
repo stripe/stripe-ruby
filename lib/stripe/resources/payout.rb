@@ -11,8 +11,6 @@ module Stripe
   #
   # Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
   class Payout < APIResource
-    extend Stripe::APIOperations::Create
-    extend Stripe::APIOperations::List
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "payout"

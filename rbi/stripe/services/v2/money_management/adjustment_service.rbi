@@ -57,7 +57,7 @@ module Stripe
 
         # Retrieves the details of an Adjustment by ID.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::AdjustmentService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Adjustment)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::AdjustmentService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::Adjustment)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

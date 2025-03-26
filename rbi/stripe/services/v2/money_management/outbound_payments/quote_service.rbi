@@ -69,7 +69,7 @@ module Stripe
           end
           # Creates an OutboundPaymentQuote usable in an OutboundPayment.
           sig {
-            params(params: T.any(::Stripe::V2::MoneyManagement::OutboundPayments::QuoteService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::OutboundPaymentQuote)
+            params(params: T.any(::Stripe::V2::MoneyManagement::OutboundPayments::QuoteService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundPaymentQuote)
            }
           def create(params = {}, opts = {}); end
         end

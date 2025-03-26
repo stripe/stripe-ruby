@@ -52,7 +52,7 @@ module Stripe
 
         # Retrieves the details of a TransactionEntry by ID.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionEntryService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::TransactionEntry)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionEntryService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::TransactionEntry)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

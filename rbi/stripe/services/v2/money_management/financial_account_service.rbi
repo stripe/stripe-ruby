@@ -24,7 +24,7 @@ module Stripe
 
         # Retrieves the details of an existing FinancialAccount.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::FinancialAccount)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::FinancialAccount)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

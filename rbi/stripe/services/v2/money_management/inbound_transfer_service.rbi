@@ -88,7 +88,7 @@ module Stripe
         #
         # ** raises BlockedByStripeError
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::InboundTransfer)
+          params(params: T.any(::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::InboundTransfer)
          }
         def create(params = {}, opts = {}); end
 
@@ -100,7 +100,7 @@ module Stripe
 
         # Retrieve an InboundTransfer by ID.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::InboundTransferService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::InboundTransfer)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::InboundTransferService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::InboundTransfer)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

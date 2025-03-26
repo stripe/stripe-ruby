@@ -149,7 +149,7 @@ module Stripe
         # ** raises AlreadyCanceledError
         # ** raises NotCancelableError
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentService::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::OutboundPayment)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentService::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundPayment)
          }
         def cancel(id, params = {}, opts = {}); end
 
@@ -160,7 +160,7 @@ module Stripe
         # ** raises RecipientNotNotifiableError
         # ** raises FeatureNotEnabledError
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::OutboundPayment)
+          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundPayment)
          }
         def create(params = {}, opts = {}); end
 
@@ -172,7 +172,7 @@ module Stripe
 
         # Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment create or list response.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::OutboundPayment)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundPayment)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

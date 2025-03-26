@@ -24,7 +24,7 @@ module Stripe
 
         # Retrieves a single ReceivedDebit by ID.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::ReceivedDebitService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ReceivedDebit)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::ReceivedDebitService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::ReceivedDebit)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

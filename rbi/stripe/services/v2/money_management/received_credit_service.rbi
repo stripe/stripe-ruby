@@ -53,7 +53,7 @@ module Stripe
 
         # Retrieve a ReceivedCredit by ID.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::ReceivedCreditService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ReceivedCredit)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::ReceivedCreditService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::ReceivedCredit)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

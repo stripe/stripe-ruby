@@ -40,7 +40,7 @@ module Stripe
         #
         # ** raises FinancialAccountNotOpenError
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAddressService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::FinancialAddress)
+          params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAddressService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::FinancialAddress)
          }
         def create(params = {}, opts = {}); end
 
@@ -52,7 +52,7 @@ module Stripe
 
         # Retrieve a FinancialAddress. By default, the FinancialAddress will be returned in it's unexpanded state, revealing only the last 4 digits of the account number.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAddressService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::FinancialAddress)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAddressService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::FinancialAddress)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

@@ -125,7 +125,7 @@ module Stripe
         # ** raises AlreadyCanceledError
         # ** raises NotCancelableError
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferService::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::OutboundTransfer)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferService::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundTransfer)
          }
         def cancel(id, params = {}, opts = {}); end
 
@@ -133,7 +133,7 @@ module Stripe
         #
         # ** raises InsufficientFundsError
         sig {
-          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::OutboundTransfer)
+          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundTransfer)
          }
         def create(params = {}, opts = {}); end
 
@@ -145,7 +145,7 @@ module Stripe
 
         # Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundPayment create or list response.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::OutboundTransfer)
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundTransfer)
          }
         def retrieve(id, params = {}, opts = {}); end
       end

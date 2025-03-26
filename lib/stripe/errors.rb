@@ -31,13 +31,6 @@ module Stripe
       ErrorObject.construct_from(@json_body[:error], {}, nil, :v1)
     end
 
-    # Whether the error was the result of an idempotent replay, meaning that it
-    # originally occurred on a previous request and is being replayed back
-    # because the user sent the same idempotency key for this one.
-    def idempotent_replayed?
-      @idempotent_replayed
-    end
-
     def to_s
       status_string = @http_status.nil? ? "" : "(Status #{@http_status}) "
       id_string = @request_id.nil? ? "" : "(Request #{@request_id}) "

@@ -811,6 +811,13 @@ module Stripe
 
       class StripeAccount < Stripe::StripeObject; end
 
+      class StripeBalance < Stripe::StripeObject
+        # The connected account ID whose Stripe balance to use as the source of payment
+        attr_reader :account
+        # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+        attr_reader :source_type
+      end
+
       class Swish < Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         attr_reader :fingerprint
@@ -969,6 +976,8 @@ module Stripe
       attr_reader :sofort
       # Attribute for field stripe_account
       attr_reader :stripe_account
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint

@@ -1635,6 +1635,17 @@ module Stripe
         attr_reader :setup_future_usage
       end
 
+      class StripeBalance < Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+      end
+
       class Swish < Stripe::StripeObject
         # A reference for this payment to be displayed in the Swish app.
         attr_reader :reference
@@ -1831,6 +1842,8 @@ module Stripe
       attr_reader :shopeepay
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint
@@ -3070,6 +3083,18 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
+          end
+        end
+
         class Swish < Stripe::RequestParams
         end
 
@@ -3214,6 +3239,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -3281,6 +3308,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -3341,6 +3369,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -4754,6 +4783,23 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Swish < Stripe::RequestParams
           # A reference for this payment to be displayed in the Swish app.
           attr_accessor :reference
@@ -5035,6 +5081,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
         attr_accessor :sofort
+        # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+        attr_accessor :stripe_balance
         # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         attr_accessor :swish
         # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -5096,6 +5144,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           us_bank_account: nil,
@@ -5151,6 +5200,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @us_bank_account = us_bank_account
@@ -6516,6 +6566,18 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
+          end
+        end
+
         class Swish < Stripe::RequestParams
         end
 
@@ -6660,6 +6722,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -6727,6 +6791,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -6787,6 +6852,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -8200,6 +8266,23 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Swish < Stripe::RequestParams
           # A reference for this payment to be displayed in the Swish app.
           attr_accessor :reference
@@ -8481,6 +8564,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
         attr_accessor :sofort
+        # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+        attr_accessor :stripe_balance
         # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         attr_accessor :swish
         # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -8542,6 +8627,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           us_bank_account: nil,
@@ -8597,6 +8683,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @us_bank_account = us_bank_account
@@ -10682,6 +10769,18 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
+          end
+        end
+
         class Swish < Stripe::RequestParams
         end
 
@@ -10826,6 +10925,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -10893,6 +10994,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -10953,6 +11055,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -12366,6 +12469,23 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Swish < Stripe::RequestParams
           # A reference for this payment to be displayed in the Swish app.
           attr_accessor :reference
@@ -12647,6 +12767,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
         attr_accessor :sofort
+        # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+        attr_accessor :stripe_balance
         # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         attr_accessor :swish
         # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -12708,6 +12830,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           us_bank_account: nil,
@@ -12763,6 +12886,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @us_bank_account = us_bank_account

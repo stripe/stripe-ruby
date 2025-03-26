@@ -204,6 +204,8 @@ module Stripe
       attr_reader :shopeepay_payments
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       attr_reader :sofort_payments
+      # The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
+      attr_reader :stripe_balance_payments
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
       attr_reader :swish_payments
       # The status of the tax reporting 1099-K (US) capability of the account.
@@ -1332,6 +1334,15 @@ module Stripe
           end
         end
 
+        class StripeBalancePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class SwishPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1553,6 +1564,8 @@ module Stripe
         attr_accessor :shopeepay_payments
         # The sofort_payments capability.
         attr_accessor :sofort_payments
+        # The stripe_balance_payments capability.
+        attr_accessor :stripe_balance_payments
         # The swish_payments capability.
         attr_accessor :swish_payments
         # The tax_reporting_us_1099_k capability.
@@ -1636,6 +1649,7 @@ module Stripe
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
           sofort_payments: nil,
+          stripe_balance_payments: nil,
           swish_payments: nil,
           tax_reporting_us_1099_k: nil,
           tax_reporting_us_1099_misc: nil,
@@ -1706,6 +1720,7 @@ module Stripe
           @sepa_debit_payments = sepa_debit_payments
           @shopeepay_payments = shopeepay_payments
           @sofort_payments = sofort_payments
+          @stripe_balance_payments = stripe_balance_payments
           @swish_payments = swish_payments
           @tax_reporting_us_1099_k = tax_reporting_us_1099_k
           @tax_reporting_us_1099_misc = tax_reporting_us_1099_misc
@@ -3544,6 +3559,15 @@ module Stripe
           end
         end
 
+        class StripeBalancePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class SwishPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3765,6 +3789,8 @@ module Stripe
         attr_accessor :shopeepay_payments
         # The sofort_payments capability.
         attr_accessor :sofort_payments
+        # The stripe_balance_payments capability.
+        attr_accessor :stripe_balance_payments
         # The swish_payments capability.
         attr_accessor :swish_payments
         # The tax_reporting_us_1099_k capability.
@@ -3848,6 +3874,7 @@ module Stripe
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
           sofort_payments: nil,
+          stripe_balance_payments: nil,
           swish_payments: nil,
           tax_reporting_us_1099_k: nil,
           tax_reporting_us_1099_misc: nil,
@@ -3918,6 +3945,7 @@ module Stripe
           @sepa_debit_payments = sepa_debit_payments
           @shopeepay_payments = shopeepay_payments
           @sofort_payments = sofort_payments
+          @stripe_balance_payments = stripe_balance_payments
           @swish_payments = swish_payments
           @tax_reporting_us_1099_k = tax_reporting_us_1099_k
           @tax_reporting_us_1099_misc = tax_reporting_us_1099_misc

@@ -661,6 +661,13 @@ module Stripe
         attr_reader :country
       end
 
+      class StripeBalance < Stripe::StripeObject
+        # The connected account ID whose Stripe balance to use as the source of payment
+        attr_reader :account
+        # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+        attr_reader :source_type
+      end
+
       class Swish < Stripe::StripeObject; end
       class Twint < Stripe::StripeObject; end
 
@@ -816,6 +823,8 @@ module Stripe
       attr_reader :shopeepay
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint
@@ -1235,6 +1244,18 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
+          end
+        end
+
         class Swish < Stripe::RequestParams
         end
 
@@ -1379,6 +1400,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -1446,6 +1469,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -1506,6 +1530,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type

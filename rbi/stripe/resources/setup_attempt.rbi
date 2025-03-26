@@ -230,6 +230,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :verified_name
       end
+      class StripeBalance < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject; end
       # Attribute for field acss_debit
       sig { returns(AcssDebit) }
@@ -297,6 +298,9 @@ module Stripe
       # Attribute for field sofort
       sig { returns(Sofort) }
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      sig { returns(StripeBalance) }
+      attr_reader :stripe_balance
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       sig { returns(String) }
       attr_reader :type

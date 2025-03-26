@@ -193,6 +193,7 @@ module Stripe
         attr_reader :verified_name
       end
 
+      class StripeBalance < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject; end
       # Attribute for field acss_debit
       attr_reader :acss_debit
@@ -238,6 +239,8 @@ module Stripe
       attr_reader :sepa_debit
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       attr_reader :type
       # Attribute for field us_bank_account

@@ -827,6 +827,14 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :country
       end
+      class StripeBalance < Stripe::StripeObject
+        # The connected account ID whose Stripe balance to use as the source of payment
+        sig { returns(T.nilable(String)) }
+        attr_reader :account
+        # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+        sig { returns(String) }
+        attr_reader :source_type
+      end
       class Swish < Stripe::StripeObject; end
       class Twint < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject
@@ -1049,6 +1057,9 @@ module Stripe
       # Attribute for field sofort
       sig { returns(Sofort) }
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      sig { returns(StripeBalance) }
+      attr_reader :stripe_balance
       # Attribute for field swish
       sig { returns(Swish) }
       attr_reader :swish
@@ -1500,6 +1511,16 @@ module Stripe
           sig { params(country: String).void }
           def initialize(country: nil); end
         end
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          sig { returns(String) }
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          sig { returns(String) }
+          attr_accessor :source_type
+          sig { params(account: String, source_type: String).void }
+          def initialize(account: nil, source_type: nil); end
+        end
         class Swish < Stripe::RequestParams
 
         end
@@ -1708,6 +1729,9 @@ module Stripe
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Sofort) }
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::StripeBalance) }
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Swish) }
         attr_accessor :swish
@@ -1727,7 +1751,7 @@ module Stripe
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Zip) }
         attr_accessor :zip
         sig {
-          params(acss_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AcssDebit, affirm: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Affirm, afterpay_clearpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AfterpayClearpay, alipay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alipay, allow_redisplay: String, alma: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alma, amazon_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AmazonPay, au_becs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AuBecsDebit, bacs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BacsDebit, bancontact: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Bancontact, billie: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Billie, billing_details: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails, blik: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Blik, boleto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Boleto, cashapp: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Cashapp, customer_balance: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::CustomerBalance, eps: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Eps, fpx: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Fpx, giropay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Giropay, gopay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Gopay, grabpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Grabpay, id_bank_transfer: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::IdBankTransfer, ideal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Ideal, interac_present: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::InteracPresent, kakao_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KakaoPay, klarna: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Klarna, konbini: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Konbini, kr_card: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KrCard, link: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Link, mb_way: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::MbWay, metadata: T::Hash[String, String], mobilepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Mobilepay, multibanco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Multibanco, naver_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NaverPay, nz_bank_account: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NzBankAccount, oxxo: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Oxxo, p24: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::P24, pay_by_bank: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::PayByBank, payco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payco, paynow: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paynow, paypal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paypal, payto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payto, pix: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Pix, promptpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Promptpay, qris: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Qris, radar_options: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RadarOptions, rechnung: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Rechnung, revolut_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RevolutPay, samsung_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SamsungPay, satispay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Satispay, sepa_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SepaDebit, shopeepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Shopeepay, sofort: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Sofort, swish: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Swish, twint: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Twint, type: String, us_bank_account: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::UsBankAccount, wechat_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::WechatPay, zip: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Zip).void
+          params(acss_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AcssDebit, affirm: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Affirm, afterpay_clearpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AfterpayClearpay, alipay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alipay, allow_redisplay: String, alma: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alma, amazon_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AmazonPay, au_becs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AuBecsDebit, bacs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BacsDebit, bancontact: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Bancontact, billie: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Billie, billing_details: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails, blik: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Blik, boleto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Boleto, cashapp: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Cashapp, customer_balance: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::CustomerBalance, eps: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Eps, fpx: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Fpx, giropay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Giropay, gopay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Gopay, grabpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Grabpay, id_bank_transfer: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::IdBankTransfer, ideal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Ideal, interac_present: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::InteracPresent, kakao_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KakaoPay, klarna: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Klarna, konbini: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Konbini, kr_card: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KrCard, link: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Link, mb_way: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::MbWay, metadata: T::Hash[String, String], mobilepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Mobilepay, multibanco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Multibanco, naver_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NaverPay, nz_bank_account: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NzBankAccount, oxxo: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Oxxo, p24: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::P24, pay_by_bank: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::PayByBank, payco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payco, paynow: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paynow, paypal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paypal, payto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payto, pix: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Pix, promptpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Promptpay, qris: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Qris, radar_options: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RadarOptions, rechnung: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Rechnung, revolut_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RevolutPay, samsung_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SamsungPay, satispay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Satispay, sepa_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SepaDebit, shopeepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Shopeepay, sofort: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Sofort, stripe_balance: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::StripeBalance, swish: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Swish, twint: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Twint, type: String, us_bank_account: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::UsBankAccount, wechat_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::WechatPay, zip: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Zip).void
          }
         def initialize(
           acss_debit: nil,
@@ -1783,6 +1807,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,

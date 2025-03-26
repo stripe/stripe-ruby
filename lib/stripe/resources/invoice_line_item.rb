@@ -39,13 +39,13 @@ module Stripe
           # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
           attr_reader :credited_items
         end
-        # Attribute for field invoice_item
+        # The invoice item that generated this line item
         attr_reader :invoice_item
-        # Whether this is a proration.
+        # Whether this is a proration
         attr_reader :proration
         # Additional details for proration line items
         attr_reader :proration_details
-        # Attribute for field subscription
+        # The subscription that the invoice item belongs to
         attr_reader :subscription
       end
 
@@ -60,22 +60,22 @@ module Stripe
           # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
           attr_reader :credited_items
         end
-        # Attribute for field invoice_item
+        # The invoice item that generated this line item
         attr_reader :invoice_item
-        # Whether this is a proration.
+        # Whether this is a proration
         attr_reader :proration
         # Additional details for proration line items
         attr_reader :proration_details
-        # Attribute for field subscription
+        # The subscription that the subscription item belongs to
         attr_reader :subscription
-        # Attribute for field subscription_item
+        # The subscription item that generated this line item
         attr_reader :subscription_item
       end
-      # Attribute for field invoice_item_details
+      # Details about the invoice item that generated this line item
       attr_reader :invoice_item_details
-      # Attribute for field subscription_item_details
+      # Details about the subscription item that generated this line item
       attr_reader :subscription_item_details
-      # Attribute for field type
+      # The type of parent that generated this line item
       attr_reader :type
     end
 

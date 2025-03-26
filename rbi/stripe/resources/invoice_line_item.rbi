@@ -38,16 +38,16 @@ module Stripe
           sig { returns(T.nilable(CreditedItems)) }
           attr_reader :credited_items
         end
-        # Attribute for field invoice_item
+        # The invoice item that generated this line item
         sig { returns(String) }
         attr_reader :invoice_item
-        # Whether this is a proration.
+        # Whether this is a proration
         sig { returns(T::Boolean) }
         attr_reader :proration
         # Additional details for proration line items
         sig { returns(T.nilable(ProrationDetails)) }
         attr_reader :proration_details
-        # Attribute for field subscription
+        # The subscription that the invoice item belongs to
         sig { returns(T.nilable(String)) }
         attr_reader :subscription
       end
@@ -65,29 +65,29 @@ module Stripe
           sig { returns(T.nilable(CreditedItems)) }
           attr_reader :credited_items
         end
-        # Attribute for field invoice_item
+        # The invoice item that generated this line item
         sig { returns(T.nilable(String)) }
         attr_reader :invoice_item
-        # Whether this is a proration.
+        # Whether this is a proration
         sig { returns(T::Boolean) }
         attr_reader :proration
         # Additional details for proration line items
         sig { returns(T.nilable(ProrationDetails)) }
         attr_reader :proration_details
-        # Attribute for field subscription
+        # The subscription that the subscription item belongs to
         sig { returns(String) }
         attr_reader :subscription
-        # Attribute for field subscription_item
+        # The subscription item that generated this line item
         sig { returns(String) }
         attr_reader :subscription_item
       end
-      # Attribute for field invoice_item_details
+      # Details about the invoice item that generated this line item
       sig { returns(T.nilable(InvoiceItemDetails)) }
       attr_reader :invoice_item_details
-      # Attribute for field subscription_item_details
+      # Details about the subscription item that generated this line item
       sig { returns(T.nilable(SubscriptionItemDetails)) }
       attr_reader :subscription_item_details
-      # Attribute for field type
+      # The type of parent that generated this line item
       sig { returns(String) }
       attr_reader :type
     end

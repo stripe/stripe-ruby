@@ -236,31 +236,32 @@ module Stripe
 
     class Parent < Stripe::StripeObject
       class QuoteDetails < Stripe::StripeObject
-        # Attribute for field quote
+        # The quote that generated this invoice
         attr_reader :quote
       end
 
       class SubscriptionDetails < Stripe::StripeObject
         class PauseCollection < Stripe::StripeObject
-          # Attribute for field behavior
+          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
           attr_reader :behavior
-          # Attribute for field resumes_at
+          # The time after which the subscription will resume collecting payments.
           attr_reader :resumes_at
         end
-        # Attribute for field metadata
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
         attr_reader :metadata
-        # Attribute for field pause_collection
+        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         attr_reader :pause_collection
-        # Attribute for field subscription
+        # The subscription that generated this invoice
         attr_reader :subscription
-        # Attribute for field subscription_proration_date
+        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         attr_reader :subscription_proration_date
       end
-      # Attribute for field quote_details
+      # Details about the quote that generated this invoice
       attr_reader :quote_details
-      # Attribute for field subscription_details
+      # Details about the subscription that generated this invoice
       attr_reader :subscription_details
-      # Attribute for field type
+      # The type of parent that generated this invoice
       attr_reader :type
     end
 

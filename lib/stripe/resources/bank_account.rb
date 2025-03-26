@@ -56,7 +56,7 @@ module Stripe
       # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
       attr_reader :pending_verification
     end
-    # The ID of the account that the bank account is associated with.
+    # The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](/api/external_account_bank_accounts/object) where [controller.is_controller](/api/accounts/object#account_object-controller-is_controller) is `true`.
     attr_reader :account
     # The name of the person or business that owns the bank account.
     attr_reader :account_holder_name

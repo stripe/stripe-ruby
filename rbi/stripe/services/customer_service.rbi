@@ -182,9 +182,6 @@ module Stripe
       # Balance information and default balance settings for this customer.
       sig { returns(::Stripe::CustomerService::UpdateParams::CashBalance) }
       attr_accessor :cash_balance
-      # Attribute for param field coupon
-      sig { returns(String) }
-      attr_accessor :coupon
       # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
       #
       # Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
@@ -222,9 +219,6 @@ module Stripe
       # Customer's preferred languages, ordered by preference.
       sig { returns(T::Array[String]) }
       attr_accessor :preferred_locales
-      # The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
-      sig { returns(String) }
-      attr_accessor :promotion_code
       # The customer's shipping information. Appears on invoices emailed to this customer.
       sig { returns(T.nilable(::Stripe::CustomerService::UpdateParams::Shipping)) }
       attr_accessor :shipping
@@ -241,13 +235,12 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :validate
       sig {
-        params(address: T.nilable(::Stripe::CustomerService::UpdateParams::Address), balance: Integer, cash_balance: ::Stripe::CustomerService::UpdateParams::CashBalance, coupon: String, default_source: String, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::CustomerService::UpdateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, phone: String, preferred_locales: T::Array[String], promotion_code: String, shipping: T.nilable(::Stripe::CustomerService::UpdateParams::Shipping), source: String, tax: ::Stripe::CustomerService::UpdateParams::Tax, tax_exempt: T.nilable(String), validate: T::Boolean).void
+        params(address: T.nilable(::Stripe::CustomerService::UpdateParams::Address), balance: Integer, cash_balance: ::Stripe::CustomerService::UpdateParams::CashBalance, default_source: String, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::CustomerService::UpdateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, phone: String, preferred_locales: T::Array[String], shipping: T.nilable(::Stripe::CustomerService::UpdateParams::Shipping), source: String, tax: ::Stripe::CustomerService::UpdateParams::Tax, tax_exempt: T.nilable(String), validate: T::Boolean).void
        }
       def initialize(
         address: nil,
         balance: nil,
         cash_balance: nil,
-        coupon: nil,
         default_source: nil,
         description: nil,
         email: nil,
@@ -259,7 +252,6 @@ module Stripe
         next_invoice_sequence: nil,
         phone: nil,
         preferred_locales: nil,
-        promotion_code: nil,
         shipping: nil,
         source: nil,
         tax: nil,
@@ -492,9 +484,6 @@ module Stripe
       # Balance information and default balance settings for this customer.
       sig { returns(::Stripe::CustomerService::CreateParams::CashBalance) }
       attr_accessor :cash_balance
-      # Attribute for param field coupon
-      sig { returns(String) }
-      attr_accessor :coupon
       # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
       sig { returns(String) }
       attr_accessor :description
@@ -528,9 +517,6 @@ module Stripe
       # Customer's preferred languages, ordered by preference.
       sig { returns(T::Array[String]) }
       attr_accessor :preferred_locales
-      # The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
-      sig { returns(String) }
-      attr_accessor :promotion_code
       # The customer's shipping information. Appears on invoices emailed to this customer.
       sig { returns(T.nilable(::Stripe::CustomerService::CreateParams::Shipping)) }
       attr_accessor :shipping
@@ -553,13 +539,12 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :validate
       sig {
-        params(address: T.nilable(::Stripe::CustomerService::CreateParams::Address), balance: Integer, cash_balance: ::Stripe::CustomerService::CreateParams::CashBalance, coupon: String, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::CustomerService::CreateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, payment_method: String, phone: String, preferred_locales: T::Array[String], promotion_code: String, shipping: T.nilable(::Stripe::CustomerService::CreateParams::Shipping), source: String, tax: ::Stripe::CustomerService::CreateParams::Tax, tax_exempt: T.nilable(String), tax_id_data: T::Array[::Stripe::CustomerService::CreateParams::TaxIdDatum], test_clock: String, validate: T::Boolean).void
+        params(address: T.nilable(::Stripe::CustomerService::CreateParams::Address), balance: Integer, cash_balance: ::Stripe::CustomerService::CreateParams::CashBalance, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::CustomerService::CreateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, payment_method: String, phone: String, preferred_locales: T::Array[String], shipping: T.nilable(::Stripe::CustomerService::CreateParams::Shipping), source: String, tax: ::Stripe::CustomerService::CreateParams::Tax, tax_exempt: T.nilable(String), tax_id_data: T::Array[::Stripe::CustomerService::CreateParams::TaxIdDatum], test_clock: String, validate: T::Boolean).void
        }
       def initialize(
         address: nil,
         balance: nil,
         cash_balance: nil,
-        coupon: nil,
         description: nil,
         email: nil,
         expand: nil,
@@ -571,7 +556,6 @@ module Stripe
         payment_method: nil,
         phone: nil,
         preferred_locales: nil,
-        promotion_code: nil,
         shipping: nil,
         source: nil,
         tax: nil,

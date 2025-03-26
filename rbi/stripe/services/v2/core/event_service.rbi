@@ -13,11 +13,8 @@ module Stripe
           # Primary object ID used to retrieve related events.
           sig { returns(String) }
           attr_accessor :object_id
-          # The requested page.
-          sig { returns(String) }
-          attr_accessor :page
-          sig { params(limit: Integer, object_id: String, page: String).void }
-          def initialize(limit: nil, object_id: nil, page: nil); end
+          sig { params(limit: Integer, object_id: String).void }
+          def initialize(limit: nil, object_id: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
 

@@ -97,7 +97,7 @@ module Stripe
     attr_reader :billing_zip
     # The charge associated with this review.
     attr_reader :charge
-    # The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
+    # The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, or `canceled`.
     attr_reader :closed_reason
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
@@ -117,7 +117,7 @@ module Stripe
     attr_reader :opened_reason
     # The PaymentIntent ID associated with this review, if one exists.
     attr_reader :payment_intent
-    # The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
+    # The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, or `canceled`.
     attr_reader :reason
     # Information related to the browsing session of the user who initiated the payment.
     attr_reader :session

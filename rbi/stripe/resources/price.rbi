@@ -78,9 +78,6 @@ module Stripe
       attr_reader :price
     end
     class Recurring < Stripe::StripeObject
-      # Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-      sig { returns(T.nilable(String)) }
-      attr_reader :aggregate_usage
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
       sig { returns(String) }
       attr_reader :interval
@@ -400,9 +397,6 @@ module Stripe
         ); end
       end
       class Recurring < Stripe::RequestParams
-        # Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-        sig { returns(String) }
-        attr_accessor :aggregate_usage
         # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         sig { returns(String) }
         attr_accessor :interval
@@ -419,10 +413,9 @@ module Stripe
         sig { returns(String) }
         attr_accessor :usage_type
         sig {
-          params(aggregate_usage: String, interval: String, interval_count: Integer, meter: String, trial_period_days: Integer, usage_type: String).void
+          params(interval: String, interval_count: Integer, meter: String, trial_period_days: Integer, usage_type: String).void
          }
         def initialize(
-          aggregate_usage: nil,
           interval: nil,
           interval_count: nil,
           meter: nil,
@@ -494,7 +487,7 @@ module Stripe
       # A brief description of the price, hidden from customers.
       sig { returns(String) }
       attr_accessor :nickname
-      # The ID of the product that this price will belong to.
+      # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
       sig { returns(String) }
       attr_accessor :product
       # These fields can be used to create a new product that this price will belong to.
@@ -700,7 +693,7 @@ module Stripe
       sig { params(expand: T::Array[String], limit: Integer, page: String, query: String).void }
       def initialize(expand: nil, limit: nil, page: nil, query: nil); end
     end
-    # Creates a new price for an existing product. The price can be recurring or one-time.
+    # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     sig {
       params(params: T.any(::Stripe::Price::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Price)
      }

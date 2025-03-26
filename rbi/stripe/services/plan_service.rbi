@@ -174,9 +174,6 @@ module Stripe
       # Whether the plan is currently available for new subscriptions. Defaults to `true`.
       sig { returns(T::Boolean) }
       attr_accessor :active
-      # Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
-      sig { returns(String) }
-      attr_accessor :aggregate_usage
       # A positive integer in cents (or local equivalent) (or 0 for a free plan) representing how much to charge on a recurring basis.
       sig { returns(Integer) }
       attr_accessor :amount
@@ -229,11 +226,10 @@ module Stripe
       sig { returns(String) }
       attr_accessor :usage_type
       sig {
-        params(active: T::Boolean, aggregate_usage: String, amount: Integer, amount_decimal: String, billing_scheme: String, currency: String, expand: T::Array[String], id: String, interval: String, interval_count: Integer, metadata: T.nilable(T::Hash[String, String]), meter: String, nickname: String, product: T.any(::Stripe::PlanService::CreateParams::Product, String), tiers: T::Array[::Stripe::PlanService::CreateParams::Tier], tiers_mode: String, transform_usage: ::Stripe::PlanService::CreateParams::TransformUsage, trial_period_days: Integer, usage_type: String).void
+        params(active: T::Boolean, amount: Integer, amount_decimal: String, billing_scheme: String, currency: String, expand: T::Array[String], id: String, interval: String, interval_count: Integer, metadata: T.nilable(T::Hash[String, String]), meter: String, nickname: String, product: T.any(::Stripe::PlanService::CreateParams::Product, String), tiers: T::Array[::Stripe::PlanService::CreateParams::Tier], tiers_mode: String, transform_usage: ::Stripe::PlanService::CreateParams::TransformUsage, trial_period_days: Integer, usage_type: String).void
        }
       def initialize(
         active: nil,
-        aggregate_usage: nil,
         amount: nil,
         amount_decimal: nil,
         billing_scheme: nil,

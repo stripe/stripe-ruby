@@ -37,6 +37,13 @@ module Stripe
       attr_reader :name
     end
 
+    class TaxCalculationReference < Stripe::StripeObject
+      # The calculation identifier for tax calculation response.
+      attr_reader :calculation_id
+      # The calculation identifier for tax calculation response line item.
+      attr_reader :calculation_item_id
+    end
+
     class Tax < Stripe::StripeObject
       # Amount of tax applied for this rate.
       attr_reader :amount
@@ -81,6 +88,8 @@ module Stripe
     attr_reader :product
     # The quantity of products being purchased.
     attr_reader :quantity
+    # The tax calculation identifiers of the line item.
+    attr_reader :tax_calculation_reference
     # The taxes applied to the line item.
     attr_reader :taxes
   end

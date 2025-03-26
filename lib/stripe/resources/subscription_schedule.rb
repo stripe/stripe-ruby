@@ -38,13 +38,6 @@ module Stripe
         attr_reader :liability
       end
 
-      class BillingThresholds < Stripe::StripeObject
-        # Monetary threshold that triggers the subscription to create an invoice
-        attr_reader :amount_gte
-        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
-        attr_reader :reset_billing_cycle_anchor
-      end
-
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
@@ -72,8 +65,6 @@ module Stripe
       attr_reader :automatic_tax
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-      attr_reader :billing_thresholds
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       attr_reader :collection_method
       # ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -146,13 +137,6 @@ module Stripe
         attr_reader :liability
       end
 
-      class BillingThresholds < Stripe::StripeObject
-        # Monetary threshold that triggers the subscription to create an invoice
-        attr_reader :amount_gte
-        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
-        attr_reader :reset_billing_cycle_anchor
-      end
-
       class Discount < Stripe::StripeObject
         class DiscountEnd < Stripe::StripeObject
           # The discount end timestamp.
@@ -186,11 +170,6 @@ module Stripe
       end
 
       class Item < Stripe::StripeObject
-        class BillingThresholds < Stripe::StripeObject
-          # Usage threshold that triggers the subscription to create an invoice
-          attr_reader :usage_gte
-        end
-
         class Discount < Stripe::StripeObject
           class DiscountEnd < Stripe::StripeObject
             # The discount end timestamp.
@@ -214,8 +193,6 @@ module Stripe
           # Determines the type of trial for this item.
           attr_reader :type
         end
-        # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-        attr_reader :billing_thresholds
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         attr_reader :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
@@ -260,12 +237,8 @@ module Stripe
       attr_reader :automatic_tax
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-      attr_reader :billing_thresholds
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       attr_reader :collection_method
-      # ID of the coupon to use during this phase of the subscription schedule.
-      attr_reader :coupon
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
       # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -456,18 +429,6 @@ module Stripe
           end
         end
 
-        class BillingThresholds < Stripe::RequestParams
-          # Monetary threshold that triggers the subscription to advance to a new billing period
-          attr_accessor :amount_gte
-          # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-          attr_accessor :reset_billing_cycle_anchor
-
-          def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
-            @amount_gte = amount_gte
-            @reset_billing_cycle_anchor = reset_billing_cycle_anchor
-          end
-        end
-
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
@@ -511,8 +472,6 @@ module Stripe
         attr_accessor :automatic_tax
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         attr_accessor :billing_cycle_anchor
-        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        attr_accessor :billing_thresholds
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         attr_accessor :collection_method
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -530,7 +489,6 @@ module Stripe
           application_fee_percent: nil,
           automatic_tax: nil,
           billing_cycle_anchor: nil,
-          billing_thresholds: nil,
           collection_method: nil,
           default_payment_method: nil,
           description: nil,
@@ -541,7 +499,6 @@ module Stripe
           @application_fee_percent = application_fee_percent
           @automatic_tax = automatic_tax
           @billing_cycle_anchor = billing_cycle_anchor
-          @billing_thresholds = billing_thresholds
           @collection_method = collection_method
           @default_payment_method = default_payment_method
           @description = description
@@ -599,7 +556,7 @@ module Stripe
           class PriceData < Stripe::RequestParams
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
-            # The ID of the product that this price will belong to.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             attr_accessor :product
             # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
             attr_accessor :tax_behavior
@@ -662,18 +619,6 @@ module Stripe
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
-          end
-        end
-
-        class BillingThresholds < Stripe::RequestParams
-          # Monetary threshold that triggers the subscription to advance to a new billing period
-          attr_accessor :amount_gte
-          # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-          attr_accessor :reset_billing_cycle_anchor
-
-          def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
-            @amount_gte = amount_gte
-            @reset_billing_cycle_anchor = reset_billing_cycle_anchor
           end
         end
 
@@ -747,15 +692,6 @@ module Stripe
         end
 
         class Item < Stripe::RequestParams
-          class BillingThresholds < Stripe::RequestParams
-            # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-            attr_accessor :usage_gte
-
-            def initialize(usage_gte: nil)
-              @usage_gte = usage_gte
-            end
-          end
-
           class Discount < Stripe::RequestParams
             class DiscountEnd < Stripe::RequestParams
               class Duration < Stripe::RequestParams
@@ -813,7 +749,7 @@ module Stripe
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
-            # The ID of the product that this price will belong to.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             attr_accessor :product
             # The recurring components of a price such as `interval` and `interval_count`.
             attr_accessor :recurring
@@ -852,8 +788,6 @@ module Stripe
               @type = type
             end
           end
-          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-          attr_accessor :billing_thresholds
           # The coupons to redeem into discounts for the subscription item.
           attr_accessor :discounts
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -872,7 +806,6 @@ module Stripe
           attr_accessor :trial
 
           def initialize(
-            billing_thresholds: nil,
             discounts: nil,
             metadata: nil,
             plan: nil,
@@ -882,7 +815,6 @@ module Stripe
             tax_rates: nil,
             trial: nil
           )
-            @billing_thresholds = billing_thresholds
             @discounts = discounts
             @metadata = metadata
             @plan = plan
@@ -939,12 +871,8 @@ module Stripe
         attr_accessor :automatic_tax
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         attr_accessor :billing_cycle_anchor
-        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        attr_accessor :billing_thresholds
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         attr_accessor :collection_method
-        # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        attr_accessor :coupon
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -987,9 +915,7 @@ module Stripe
           application_fee_percent: nil,
           automatic_tax: nil,
           billing_cycle_anchor: nil,
-          billing_thresholds: nil,
           collection_method: nil,
-          coupon: nil,
           currency: nil,
           default_payment_method: nil,
           default_tax_rates: nil,
@@ -1013,9 +939,7 @@ module Stripe
           @application_fee_percent = application_fee_percent
           @automatic_tax = automatic_tax
           @billing_cycle_anchor = billing_cycle_anchor
-          @billing_thresholds = billing_thresholds
           @collection_method = collection_method
-          @coupon = coupon
           @currency = currency
           @default_payment_method = default_payment_method
           @default_tax_rates = default_tax_rates
@@ -1128,18 +1052,6 @@ module Stripe
           end
         end
 
-        class BillingThresholds < Stripe::RequestParams
-          # Monetary threshold that triggers the subscription to advance to a new billing period
-          attr_accessor :amount_gte
-          # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-          attr_accessor :reset_billing_cycle_anchor
-
-          def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
-            @amount_gte = amount_gte
-            @reset_billing_cycle_anchor = reset_billing_cycle_anchor
-          end
-        end
-
         class InvoiceSettings < Stripe::RequestParams
           class Issuer < Stripe::RequestParams
             # The connected account being referenced when `type` is `account`.
@@ -1183,8 +1095,6 @@ module Stripe
         attr_accessor :automatic_tax
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         attr_accessor :billing_cycle_anchor
-        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        attr_accessor :billing_thresholds
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         attr_accessor :collection_method
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -1202,7 +1112,6 @@ module Stripe
           application_fee_percent: nil,
           automatic_tax: nil,
           billing_cycle_anchor: nil,
-          billing_thresholds: nil,
           collection_method: nil,
           default_payment_method: nil,
           description: nil,
@@ -1213,7 +1122,6 @@ module Stripe
           @application_fee_percent = application_fee_percent
           @automatic_tax = automatic_tax
           @billing_cycle_anchor = billing_cycle_anchor
-          @billing_thresholds = billing_thresholds
           @collection_method = collection_method
           @default_payment_method = default_payment_method
           @description = description
@@ -1271,7 +1179,7 @@ module Stripe
           class PriceData < Stripe::RequestParams
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
-            # The ID of the product that this price will belong to.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             attr_accessor :product
             # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
             attr_accessor :tax_behavior
@@ -1334,18 +1242,6 @@ module Stripe
           def initialize(enabled: nil, liability: nil)
             @enabled = enabled
             @liability = liability
-          end
-        end
-
-        class BillingThresholds < Stripe::RequestParams
-          # Monetary threshold that triggers the subscription to advance to a new billing period
-          attr_accessor :amount_gte
-          # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-          attr_accessor :reset_billing_cycle_anchor
-
-          def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
-            @amount_gte = amount_gte
-            @reset_billing_cycle_anchor = reset_billing_cycle_anchor
           end
         end
 
@@ -1419,15 +1315,6 @@ module Stripe
         end
 
         class Item < Stripe::RequestParams
-          class BillingThresholds < Stripe::RequestParams
-            # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-            attr_accessor :usage_gte
-
-            def initialize(usage_gte: nil)
-              @usage_gte = usage_gte
-            end
-          end
-
           class Discount < Stripe::RequestParams
             class DiscountEnd < Stripe::RequestParams
               class Duration < Stripe::RequestParams
@@ -1485,7 +1372,7 @@ module Stripe
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
-            # The ID of the product that this price will belong to.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
             attr_accessor :product
             # The recurring components of a price such as `interval` and `interval_count`.
             attr_accessor :recurring
@@ -1524,8 +1411,6 @@ module Stripe
               @type = type
             end
           end
-          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-          attr_accessor :billing_thresholds
           # The coupons to redeem into discounts for the subscription item.
           attr_accessor :discounts
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -1544,7 +1429,6 @@ module Stripe
           attr_accessor :trial
 
           def initialize(
-            billing_thresholds: nil,
             discounts: nil,
             metadata: nil,
             plan: nil,
@@ -1554,7 +1438,6 @@ module Stripe
             tax_rates: nil,
             trial: nil
           )
-            @billing_thresholds = billing_thresholds
             @discounts = discounts
             @metadata = metadata
             @plan = plan
@@ -1611,12 +1494,8 @@ module Stripe
         attr_accessor :automatic_tax
         # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         attr_accessor :billing_cycle_anchor
-        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        attr_accessor :billing_thresholds
         # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         attr_accessor :collection_method
-        # The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        attr_accessor :coupon
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
         # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -1661,9 +1540,7 @@ module Stripe
           application_fee_percent: nil,
           automatic_tax: nil,
           billing_cycle_anchor: nil,
-          billing_thresholds: nil,
           collection_method: nil,
-          coupon: nil,
           currency: nil,
           default_payment_method: nil,
           default_tax_rates: nil,
@@ -1688,9 +1565,7 @@ module Stripe
           @application_fee_percent = application_fee_percent
           @automatic_tax = automatic_tax
           @billing_cycle_anchor = billing_cycle_anchor
-          @billing_thresholds = billing_thresholds
           @collection_method = collection_method
-          @coupon = coupon
           @currency = currency
           @default_payment_method = default_payment_method
           @default_tax_rates = default_tax_rates

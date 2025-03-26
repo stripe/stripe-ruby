@@ -112,9 +112,6 @@ module Stripe
       # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
       sig { returns(String) }
       attr_accessor :duration
-      # Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
-      sig { returns(Integer) }
-      attr_accessor :duration_in_months
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
@@ -137,7 +134,7 @@ module Stripe
       sig { returns(Integer) }
       attr_accessor :redeem_by
       sig {
-        params(amount_off: Integer, applies_to: ::Stripe::CouponService::CreateParams::AppliesTo, currency: String, currency_options: T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions], duration: String, duration_in_months: Integer, expand: T::Array[String], id: String, max_redemptions: Integer, metadata: T.nilable(T::Hash[String, String]), name: String, percent_off: Float, redeem_by: Integer).void
+        params(amount_off: Integer, applies_to: ::Stripe::CouponService::CreateParams::AppliesTo, currency: String, currency_options: T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions], duration: String, expand: T::Array[String], id: String, max_redemptions: Integer, metadata: T.nilable(T::Hash[String, String]), name: String, percent_off: Float, redeem_by: Integer).void
        }
       def initialize(
         amount_off: nil,
@@ -145,7 +142,6 @@ module Stripe
         currency: nil,
         currency_options: nil,
         duration: nil,
-        duration_in_months: nil,
         expand: nil,
         id: nil,
         max_redemptions: nil,

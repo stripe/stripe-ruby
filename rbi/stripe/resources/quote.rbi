@@ -21,6 +21,9 @@ module Stripe
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       sig { returns(T.nilable(Liability)) }
       attr_reader :liability
+      # The tax provider powering automatic tax.
+      sig { returns(T.nilable(String)) }
+      attr_reader :provider
       # The status of the most recent automated tax calculation for this quote.
       sig { returns(T.nilable(String)) }
       attr_reader :status
@@ -1365,7 +1368,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # The recurring components of a price such as `interval` and `interval_count`.
@@ -2458,7 +2461,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # The recurring components of a price such as `interval` and `interval_count`.

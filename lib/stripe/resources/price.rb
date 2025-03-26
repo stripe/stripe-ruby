@@ -72,8 +72,6 @@ module Stripe
     end
 
     class Recurring < Stripe::StripeObject
-      # Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-      attr_reader :aggregate_usage
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
       attr_reader :interval
       # The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
@@ -317,8 +315,6 @@ module Stripe
       end
 
       class Recurring < Stripe::RequestParams
-        # Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-        attr_accessor :aggregate_usage
         # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
         attr_accessor :interval
         # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
@@ -331,14 +327,12 @@ module Stripe
         attr_accessor :usage_type
 
         def initialize(
-          aggregate_usage: nil,
           interval: nil,
           interval_count: nil,
           meter: nil,
           trial_period_days: nil,
           usage_type: nil
         )
-          @aggregate_usage = aggregate_usage
           @interval = interval
           @interval_count = interval_count
           @meter = meter
@@ -403,7 +397,7 @@ module Stripe
       attr_accessor :metadata
       # A brief description of the price, hidden from customers.
       attr_accessor :nickname
-      # The ID of the product that this price will belong to.
+      # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
       attr_accessor :product
       # These fields can be used to create a new product that this price will belong to.
       attr_accessor :product_data
@@ -668,7 +662,7 @@ module Stripe
     # Always true for a deleted object
     attr_reader :deleted
 
-    # Creates a new price for an existing product. The price can be recurring or one-time.
+    # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/prices", params: params, opts: opts)
     end

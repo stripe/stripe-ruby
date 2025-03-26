@@ -94,11 +94,8 @@ module Stripe
           # The page size.
           sig { returns(Integer) }
           attr_accessor :limit
-          # The requested page.
-          sig { returns(String) }
-          attr_accessor :page
-          sig { params(include: T::Array[String], limit: Integer, page: String).void }
-          def initialize(include: nil, limit: nil, page: nil); end
+          sig { params(include: T::Array[String], limit: Integer).void }
+          def initialize(include: nil, limit: nil); end
         end
         class PingParams < Stripe::RequestParams
 

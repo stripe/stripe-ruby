@@ -65,17 +65,23 @@ module Stripe
       attr_reader :taxes
     end
 
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
+    class TotalTax < Stripe::StripeObject
+      class TaxRateDetails < Stripe::StripeObject
+        # Attribute for field tax_rate
+        attr_reader :tax_rate
+      end
+      # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      attr_reader :tax_rate
+      # Whether this tax is inclusive or exclusive.
+      attr_reader :tax_behavior
+      # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+      attr_reader :tax_rate_details
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       attr_reader :taxable_amount
+      # The type of tax information.
+      attr_reader :type
     end
 
     class ListParams < Stripe::RequestParams
@@ -230,8 +236,6 @@ module Stripe
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
@@ -251,7 +255,6 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
         refunds: nil,
         shipping_cost: nil
@@ -267,7 +270,6 @@ module Stripe
         @metadata = metadata
         @out_of_band_amount = out_of_band_amount
         @reason = reason
-        @refund = refund
         @refund_amount = refund_amount
         @refunds = refunds
         @shipping_cost = shipping_cost
@@ -398,8 +400,6 @@ module Stripe
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
@@ -419,7 +419,6 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
         refunds: nil,
         shipping_cost: nil
@@ -435,7 +434,6 @@ module Stripe
         @metadata = metadata
         @out_of_band_amount = out_of_band_amount
         @reason = reason
-        @refund = refund
         @refund_amount = refund_amount
         @refunds = refunds
         @shipping_cost = shipping_cost
@@ -546,8 +544,6 @@ module Stripe
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
@@ -571,7 +567,6 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
         refunds: nil,
         shipping_cost: nil,
@@ -590,7 +585,6 @@ module Stripe
         @metadata = metadata
         @out_of_band_amount = out_of_band_amount
         @reason = reason
-        @refund = refund
         @refund_amount = refund_amount
         @refunds = refunds
         @shipping_cost = shipping_cost
@@ -652,8 +646,6 @@ module Stripe
     attr_reader :pretax_credit_amounts
     # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
     attr_reader :reason
-    # Refund related to this credit note.
-    attr_reader :refund
     # Refunds related to this credit note.
     attr_reader :refunds
     # The details of the cost of shipping, including the ShippingRate applied to the invoice.
@@ -664,12 +656,12 @@ module Stripe
     attr_reader :subtotal
     # The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     attr_reader :subtotal_excluding_tax
-    # The aggregate amounts calculated per tax rate for all line items.
-    attr_reader :tax_amounts
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
     attr_reader :total
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, excluding tax, but including discounts.
     attr_reader :total_excluding_tax
+    # The aggregate tax information for all line items.
+    attr_reader :total_taxes
     # Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
     attr_reader :type
     # The time that the credit note was voided.

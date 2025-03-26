@@ -163,8 +163,6 @@ module Stripe
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
@@ -184,7 +182,6 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
         refunds: nil,
         shipping_cost: nil
@@ -200,7 +197,6 @@ module Stripe
         @metadata = metadata
         @out_of_band_amount = out_of_band_amount
         @reason = reason
-        @refund = refund
         @refund_amount = refund_amount
         @refunds = refunds
         @shipping_cost = shipping_cost
@@ -331,8 +327,6 @@ module Stripe
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
@@ -352,7 +346,6 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
         refunds: nil,
         shipping_cost: nil
@@ -368,7 +361,6 @@ module Stripe
         @metadata = metadata
         @out_of_band_amount = out_of_band_amount
         @reason = reason
-        @refund = refund
         @refund_amount = refund_amount
         @refunds = refunds
         @shipping_cost = shipping_cost

@@ -247,6 +247,8 @@ module Stripe
         attr_reader :verified_name
       end
 
+      class Billie < Stripe::StripeObject; end
+
       class Blik < Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         attr_reader :buyer_id
@@ -817,6 +819,21 @@ module Stripe
         attr_reader :buyer_id
       end
 
+      class NzBankAccount < Stripe::StripeObject
+        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+        attr_reader :account_holder_name
+        # The numeric code for the bank account's bank.
+        attr_reader :bank_code
+        # The name of the bank.
+        attr_reader :bank_name
+        # The numeric code for the bank account's bank branch.
+        attr_reader :branch_code
+        # Last four digits of the bank account number.
+        attr_reader :last4
+        # The suffix of the bank account number.
+        attr_reader :suffix
+      end
+
       class Oxxo < Stripe::StripeObject
         # OXXO reference number
         attr_reader :number
@@ -968,6 +985,8 @@ module Stripe
         attr_reader :buyer_id
       end
 
+      class Satispay < Stripe::StripeObject; end
+
       class SepaCreditTransfer < Stripe::StripeObject
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
@@ -1081,6 +1100,8 @@ module Stripe
       attr_reader :bacs_debit
       # Attribute for field bancontact
       attr_reader :bancontact
+      # Attribute for field billie
+      attr_reader :billie
       # Attribute for field blik
       attr_reader :blik
       # Attribute for field boleto
@@ -1127,6 +1148,8 @@ module Stripe
       attr_reader :multibanco
       # Attribute for field naver_pay
       attr_reader :naver_pay
+      # Attribute for field nz_bank_account
+      attr_reader :nz_bank_account
       # Attribute for field oxxo
       attr_reader :oxxo
       # Attribute for field p24
@@ -1153,6 +1176,8 @@ module Stripe
       attr_reader :revolut_pay
       # Attribute for field samsung_pay
       attr_reader :samsung_pay
+      # Attribute for field satispay
+      attr_reader :satispay
       # Attribute for field sepa_credit_transfer
       attr_reader :sepa_credit_transfer
       # Attribute for field sepa_debit
@@ -1179,6 +1204,13 @@ module Stripe
       attr_reader :wechat_pay
       # Attribute for field zip
       attr_reader :zip
+    end
+
+    class PresentmentDetails < Stripe::StripeObject
+      # Amount intended to be collected by this payment, denominated in presentment_currency.
+      attr_reader :presentment_amount
+      # Currency presented to the customer during payment.
+      attr_reader :presentment_currency
     end
 
     class RadarOptions < Stripe::StripeObject
@@ -2908,7 +2940,7 @@ module Stripe
           @amount = amount
         end
       end
-      # The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
+      # The amount to capture, which must be less than or equal to the original amount.
       attr_accessor :amount
       # An application fee to add on to this charge.
       attr_accessor :application_fee
@@ -2997,8 +3029,6 @@ module Stripe
     attr_reader :fraud_details
     # Unique identifier for the object.
     attr_reader :id
-    # ID of the invoice this charge is for if one exists.
-    attr_reader :invoice
     # Attribute for field level3
     attr_reader :level3
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -3019,6 +3049,8 @@ module Stripe
     attr_reader :payment_method
     # Details about the payment method at the time of the transaction.
     attr_reader :payment_method_details
+    # Attribute for field presentment_details
+    attr_reader :presentment_details
     # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
     attr_reader :radar_options
     # This is the email address that the receipt for this charge was sent to.

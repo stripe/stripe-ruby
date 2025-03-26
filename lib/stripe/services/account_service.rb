@@ -260,6 +260,15 @@ module Stripe
           end
         end
 
+        class BilliePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class BlikPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -629,6 +638,15 @@ module Stripe
           end
         end
 
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -792,6 +810,8 @@ module Stripe
         attr_accessor :bancontact_payments
         # The bank_transfer_payments capability.
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        attr_accessor :billie_payments
         # The blik_payments capability.
         attr_accessor :blik_payments
         # The boleto_payments capability.
@@ -874,6 +894,8 @@ module Stripe
         attr_accessor :revolut_pay_payments
         # The samsung_pay_payments capability.
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         attr_accessor :sepa_bank_transfer_payments
         # The sepa_debit_payments capability.
@@ -918,6 +940,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -959,6 +982,7 @@ module Stripe
           rechnung_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
@@ -986,6 +1010,7 @@ module Stripe
           @bacs_debit_payments = bacs_debit_payments
           @bancontact_payments = bancontact_payments
           @bank_transfer_payments = bank_transfer_payments
+          @billie_payments = billie_payments
           @blik_payments = blik_payments
           @boleto_payments = boleto_payments
           @card_issuing = card_issuing
@@ -1027,6 +1052,7 @@ module Stripe
           @rechnung_payments = rechnung_payments
           @revolut_pay_payments = revolut_pay_payments
           @samsung_pay_payments = samsung_pay_payments
+          @satispay_payments = satispay_payments
           @sepa_bank_transfer_payments = sepa_bank_transfer_payments
           @sepa_debit_payments = sepa_debit_payments
           @shopeepay_payments = shopeepay_payments
@@ -1305,7 +1331,7 @@ module Stripe
         attr_accessor :owners_provided
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
@@ -1938,9 +1964,12 @@ module Stripe
         class Invoices < Stripe::RequestParams
           # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
           attr_accessor :default_account_tax_ids
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          attr_accessor :hosted_payment_method_save
 
-          def initialize(default_account_tax_ids: nil)
+          def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil)
             @default_account_tax_ids = default_account_tax_ids
+            @hosted_payment_method_save = hosted_payment_method_save
           end
         end
 
@@ -2452,6 +2481,15 @@ module Stripe
           end
         end
 
+        class BilliePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class BlikPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -2821,6 +2859,15 @@ module Stripe
           end
         end
 
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -2984,6 +3031,8 @@ module Stripe
         attr_accessor :bancontact_payments
         # The bank_transfer_payments capability.
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        attr_accessor :billie_payments
         # The blik_payments capability.
         attr_accessor :blik_payments
         # The boleto_payments capability.
@@ -3066,6 +3115,8 @@ module Stripe
         attr_accessor :revolut_pay_payments
         # The samsung_pay_payments capability.
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         attr_accessor :sepa_bank_transfer_payments
         # The sepa_debit_payments capability.
@@ -3110,6 +3161,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -3151,6 +3203,7 @@ module Stripe
           rechnung_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
@@ -3178,6 +3231,7 @@ module Stripe
           @bacs_debit_payments = bacs_debit_payments
           @bancontact_payments = bancontact_payments
           @bank_transfer_payments = bank_transfer_payments
+          @billie_payments = billie_payments
           @blik_payments = blik_payments
           @boleto_payments = boleto_payments
           @card_issuing = card_issuing
@@ -3219,6 +3273,7 @@ module Stripe
           @rechnung_payments = rechnung_payments
           @revolut_pay_payments = revolut_pay_payments
           @samsung_pay_payments = samsung_pay_payments
+          @satispay_payments = satispay_payments
           @sepa_bank_transfer_payments = sepa_bank_transfer_payments
           @sepa_debit_payments = sepa_debit_payments
           @shopeepay_payments = shopeepay_payments
@@ -3497,7 +3552,7 @@ module Stripe
         attr_accessor :owners_provided
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
@@ -4208,6 +4263,15 @@ module Stripe
           end
         end
 
+        class Invoices < Stripe::RequestParams
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          attr_accessor :hosted_payment_method_save
+
+          def initialize(hosted_payment_method_save: nil)
+            @hosted_payment_method_save = hosted_payment_method_save
+          end
+        end
+
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
           attr_accessor :statement_descriptor
@@ -4302,6 +4366,8 @@ module Stripe
         attr_accessor :card_issuing
         # Settings specific to card charging on the account.
         attr_accessor :card_payments
+        # Settings specific to the account’s use of Invoices.
+        attr_accessor :invoices
         # Settings that apply across payment methods for charging on the account.
         attr_accessor :payments
         # Settings specific to the account's payouts.
@@ -4318,6 +4384,7 @@ module Stripe
           capital: nil,
           card_issuing: nil,
           card_payments: nil,
+          invoices: nil,
           payments: nil,
           payouts: nil,
           tax_forms: nil,
@@ -4329,6 +4396,7 @@ module Stripe
           @capital = capital
           @card_issuing = card_issuing
           @card_payments = card_payments
+          @invoices = invoices
           @payments = payments
           @payouts = payouts
           @tax_forms = tax_forms

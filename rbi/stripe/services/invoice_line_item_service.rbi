@@ -109,10 +109,10 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         sig { returns(String) }
         attr_accessor :product
-        # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         sig { returns(::Stripe::InvoiceLineItemService::UpdateParams::PriceData::ProductData) }
         attr_accessor :product_data
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -136,6 +136,13 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
+      class Pricing < Stripe::RequestParams
+        # The ID of the price object.
+        sig { returns(String) }
+        attr_accessor :price
+        sig { params(price: String).void }
+        def initialize(price: nil); end
+      end
       class TaxAmount < Stripe::RequestParams
         class TaxRateData < Stripe::RequestParams
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -153,6 +160,9 @@ module Stripe
           # The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice.
           sig { returns(String) }
           attr_accessor :jurisdiction
+          # The level of the jurisdiction that imposes this tax rate.
+          sig { returns(String) }
+          attr_accessor :jurisdiction_level
           # The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
           sig { returns(Float) }
           attr_accessor :percentage
@@ -163,7 +173,7 @@ module Stripe
           sig { returns(String) }
           attr_accessor :tax_type
           sig {
-            params(country: String, description: String, display_name: String, inclusive: T::Boolean, jurisdiction: String, percentage: Float, state: String, tax_type: String).void
+            params(country: String, description: String, display_name: String, inclusive: T::Boolean, jurisdiction: String, jurisdiction_level: String, percentage: Float, state: String, tax_type: String).void
            }
           def initialize(
             country: nil,
@@ -171,6 +181,7 @@ module Stripe
             display_name: nil,
             inclusive: nil,
             jurisdiction: nil,
+            jurisdiction_level: nil,
             percentage: nil,
             state: nil,
             tax_type: nil
@@ -184,13 +195,21 @@ module Stripe
         # Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item’s `tax_rates`, and cannot be directly added to invoices, payments, or line items.
         sig { returns(::Stripe::InvoiceLineItemService::UpdateParams::TaxAmount::TaxRateData) }
         attr_accessor :tax_rate_data
+        # The reasoning behind this tax, for example, if the product is tax exempt.
+        sig { returns(String) }
+        attr_accessor :taxability_reason
         # The amount on which tax is calculated, in cents (or local equivalent).
         sig { returns(Integer) }
         attr_accessor :taxable_amount
         sig {
-          params(amount: Integer, tax_rate_data: ::Stripe::InvoiceLineItemService::UpdateParams::TaxAmount::TaxRateData, taxable_amount: Integer).void
+          params(amount: Integer, tax_rate_data: ::Stripe::InvoiceLineItemService::UpdateParams::TaxAmount::TaxRateData, taxability_reason: String, taxable_amount: Integer).void
          }
-        def initialize(amount: nil, tax_rate_data: nil, taxable_amount: nil); end
+        def initialize(
+          amount: nil,
+          tax_rate_data: nil,
+          taxability_reason: nil,
+          taxable_amount: nil
+        ); end
       end
       # The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
       sig { returns(Integer) }
@@ -216,12 +235,12 @@ module Stripe
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(::Stripe::InvoiceLineItemService::UpdateParams::Period) }
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
-      sig { returns(String) }
-      attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       sig { returns(::Stripe::InvoiceLineItemService::UpdateParams::PriceData) }
       attr_accessor :price_data
+      # The pricing information for the invoice item.
+      sig { returns(::Stripe::InvoiceLineItemService::UpdateParams::Pricing) }
+      attr_accessor :pricing
       # Non-negative integer. The quantity of units for the line item.
       sig { returns(Integer) }
       attr_accessor :quantity
@@ -234,7 +253,7 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :tax_rates
       sig {
-        params(amount: Integer, description: String, discountable: T::Boolean, discounts: T.nilable(T::Array[::Stripe::InvoiceLineItemService::UpdateParams::Discount]), expand: T::Array[String], margins: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), period: ::Stripe::InvoiceLineItemService::UpdateParams::Period, price: String, price_data: ::Stripe::InvoiceLineItemService::UpdateParams::PriceData, quantity: Integer, tax_amounts: T.nilable(T::Array[::Stripe::InvoiceLineItemService::UpdateParams::TaxAmount]), tax_rates: T.nilable(T::Array[String])).void
+        params(amount: Integer, description: String, discountable: T::Boolean, discounts: T.nilable(T::Array[::Stripe::InvoiceLineItemService::UpdateParams::Discount]), expand: T::Array[String], margins: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), period: ::Stripe::InvoiceLineItemService::UpdateParams::Period, price_data: ::Stripe::InvoiceLineItemService::UpdateParams::PriceData, pricing: ::Stripe::InvoiceLineItemService::UpdateParams::Pricing, quantity: Integer, tax_amounts: T.nilable(T::Array[::Stripe::InvoiceLineItemService::UpdateParams::TaxAmount]), tax_rates: T.nilable(T::Array[String])).void
        }
       def initialize(
         amount: nil,
@@ -245,8 +264,8 @@ module Stripe
         margins: nil,
         metadata: nil,
         period: nil,
-        price: nil,
         price_data: nil,
+        pricing: nil,
         quantity: nil,
         tax_amounts: nil,
         tax_rates: nil

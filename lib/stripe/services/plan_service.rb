@@ -176,8 +176,6 @@ module Stripe
       end
       # Whether the plan is currently available for new subscriptions. Defaults to `true`.
       attr_accessor :active
-      # Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
-      attr_accessor :aggregate_usage
       # A positive integer in cents (or local equivalent) (or 0 for a free plan) representing how much to charge on a recurring basis.
       attr_accessor :amount
       # Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set.
@@ -215,7 +213,6 @@ module Stripe
 
       def initialize(
         active: nil,
-        aggregate_usage: nil,
         amount: nil,
         amount_decimal: nil,
         billing_scheme: nil,
@@ -235,7 +232,6 @@ module Stripe
         usage_type: nil
       )
         @active = active
-        @aggregate_usage = aggregate_usage
         @amount = amount
         @amount_decimal = amount_decimal
         @billing_scheme = billing_scheme

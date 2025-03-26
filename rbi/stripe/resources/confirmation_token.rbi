@@ -88,6 +88,7 @@ module Stripe
         attr_reader :sort_code
       end
       class Bancontact < Stripe::StripeObject; end
+      class Billie < Stripe::StripeObject; end
       class BillingDetails < Stripe::StripeObject
         class Address < Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -704,9 +705,32 @@ module Stripe
       class Mobilepay < Stripe::StripeObject; end
       class Multibanco < Stripe::StripeObject; end
       class NaverPay < Stripe::StripeObject
+        # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+        sig { returns(T.nilable(String)) }
+        attr_reader :buyer_id
         # Whether to fund this transaction with Naver Pay points or a card.
         sig { returns(String) }
         attr_reader :funding
+      end
+      class NzBankAccount < Stripe::StripeObject
+        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+        sig { returns(T.nilable(String)) }
+        attr_reader :account_holder_name
+        # The numeric code for the bank account's bank.
+        sig { returns(String) }
+        attr_reader :bank_code
+        # The name of the bank.
+        sig { returns(String) }
+        attr_reader :bank_name
+        # The numeric code for the bank account's bank branch.
+        sig { returns(String) }
+        attr_reader :branch_code
+        # Last four digits of the bank account number.
+        sig { returns(String) }
+        attr_reader :last4
+        # The suffix of the bank account number.
+        sig { returns(T.nilable(String)) }
+        attr_reader :suffix
       end
       class Oxxo < Stripe::StripeObject; end
       class P24 < Stripe::StripeObject
@@ -768,6 +792,7 @@ module Stripe
       end
       class RevolutPay < Stripe::StripeObject; end
       class SamsungPay < Stripe::StripeObject; end
+      class Satispay < Stripe::StripeObject; end
       class SepaDebit < Stripe::StripeObject
         class GeneratedFrom < Stripe::StripeObject
           # The ID of the Charge that generated this PaymentMethod, if any.
@@ -889,6 +914,9 @@ module Stripe
       # Attribute for field bancontact
       sig { returns(Bancontact) }
       attr_reader :bancontact
+      # Attribute for field billie
+      sig { returns(Billie) }
+      attr_reader :billie
       # Attribute for field billing_details
       sig { returns(BillingDetails) }
       attr_reader :billing_details
@@ -964,6 +992,9 @@ module Stripe
       # Attribute for field naver_pay
       sig { returns(NaverPay) }
       attr_reader :naver_pay
+      # Attribute for field nz_bank_account
+      sig { returns(NzBankAccount) }
+      attr_reader :nz_bank_account
       # Attribute for field oxxo
       sig { returns(Oxxo) }
       attr_reader :oxxo
@@ -1003,6 +1034,9 @@ module Stripe
       # Attribute for field samsung_pay
       sig { returns(SamsungPay) }
       attr_reader :samsung_pay
+      # Attribute for field satispay
+      sig { returns(Satispay) }
+      attr_reader :satispay
       # Attribute for field sepa_debit
       sig { returns(SepaDebit) }
       attr_reader :sepa_debit
@@ -1168,6 +1202,9 @@ module Stripe
         class Bancontact < Stripe::RequestParams
 
         end
+        class Billie < Stripe::RequestParams
+
+        end
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -1328,6 +1365,37 @@ module Stripe
           sig { params(funding: String).void }
           def initialize(funding: nil); end
         end
+        class NzBankAccount < Stripe::RequestParams
+          # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+          sig { returns(String) }
+          attr_accessor :account_holder_name
+          # The account number for the bank account.
+          sig { returns(String) }
+          attr_accessor :account_number
+          # The numeric code for the bank account's bank.
+          sig { returns(String) }
+          attr_accessor :bank_code
+          # The numeric code for the bank account's bank branch.
+          sig { returns(String) }
+          attr_accessor :branch_code
+          # Attribute for param field reference
+          sig { returns(String) }
+          attr_accessor :reference
+          # The suffix of the bank account number.
+          sig { returns(String) }
+          attr_accessor :suffix
+          sig {
+            params(account_holder_name: String, account_number: String, bank_code: String, branch_code: String, reference: String, suffix: String).void
+           }
+          def initialize(
+            account_holder_name: nil,
+            account_number: nil,
+            bank_code: nil,
+            branch_code: nil,
+            reference: nil,
+            suffix: nil
+          ); end
+        end
         class Oxxo < Stripe::RequestParams
 
         end
@@ -1407,6 +1475,9 @@ module Stripe
 
         end
         class SamsungPay < Stripe::RequestParams
+
+        end
+        class Satispay < Stripe::RequestParams
 
         end
         class SepaDebit < Stripe::RequestParams
@@ -1497,6 +1568,9 @@ module Stripe
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Bancontact) }
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Billie) }
+        attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         sig {
           returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails)
@@ -1574,6 +1648,9 @@ module Stripe
         # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NaverPay) }
         attr_accessor :naver_pay
+        # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NzBankAccount) }
+        attr_accessor :nz_bank_account
         # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Oxxo) }
         attr_accessor :oxxo
@@ -1616,6 +1693,9 @@ module Stripe
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SamsungPay) }
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Satispay) }
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SepaDebit) }
         attr_accessor :sepa_debit
@@ -1644,7 +1724,7 @@ module Stripe
         sig { returns(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Zip) }
         attr_accessor :zip
         sig {
-          params(acss_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AcssDebit, affirm: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Affirm, afterpay_clearpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AfterpayClearpay, alipay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alipay, allow_redisplay: String, alma: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alma, amazon_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AmazonPay, au_becs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AuBecsDebit, bacs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BacsDebit, bancontact: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Bancontact, billing_details: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails, blik: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Blik, boleto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Boleto, cashapp: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Cashapp, customer_balance: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::CustomerBalance, eps: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Eps, fpx: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Fpx, giropay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Giropay, gopay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Gopay, grabpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Grabpay, id_bank_transfer: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::IdBankTransfer, ideal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Ideal, interac_present: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::InteracPresent, kakao_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KakaoPay, klarna: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Klarna, konbini: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Konbini, kr_card: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KrCard, link: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Link, mb_way: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::MbWay, metadata: T::Hash[String, String], mobilepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Mobilepay, multibanco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Multibanco, naver_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NaverPay, oxxo: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Oxxo, p24: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::P24, pay_by_bank: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::PayByBank, payco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payco, paynow: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paynow, paypal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paypal, payto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payto, pix: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Pix, promptpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Promptpay, qris: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Qris, radar_options: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RadarOptions, rechnung: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Rechnung, revolut_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RevolutPay, samsung_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SamsungPay, sepa_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SepaDebit, shopeepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Shopeepay, sofort: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Sofort, swish: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Swish, twint: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Twint, type: String, us_bank_account: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::UsBankAccount, wechat_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::WechatPay, zip: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Zip).void
+          params(acss_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AcssDebit, affirm: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Affirm, afterpay_clearpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AfterpayClearpay, alipay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alipay, allow_redisplay: String, alma: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Alma, amazon_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AmazonPay, au_becs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::AuBecsDebit, bacs_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BacsDebit, bancontact: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Bancontact, billie: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Billie, billing_details: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::BillingDetails, blik: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Blik, boleto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Boleto, cashapp: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Cashapp, customer_balance: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::CustomerBalance, eps: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Eps, fpx: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Fpx, giropay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Giropay, gopay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Gopay, grabpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Grabpay, id_bank_transfer: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::IdBankTransfer, ideal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Ideal, interac_present: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::InteracPresent, kakao_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KakaoPay, klarna: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Klarna, konbini: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Konbini, kr_card: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::KrCard, link: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Link, mb_way: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::MbWay, metadata: T::Hash[String, String], mobilepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Mobilepay, multibanco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Multibanco, naver_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NaverPay, nz_bank_account: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::NzBankAccount, oxxo: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Oxxo, p24: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::P24, pay_by_bank: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::PayByBank, payco: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payco, paynow: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paynow, paypal: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Paypal, payto: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Payto, pix: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Pix, promptpay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Promptpay, qris: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Qris, radar_options: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RadarOptions, rechnung: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Rechnung, revolut_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::RevolutPay, samsung_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SamsungPay, satispay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Satispay, sepa_debit: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::SepaDebit, shopeepay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Shopeepay, sofort: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Sofort, swish: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Swish, twint: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Twint, type: String, us_bank_account: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::UsBankAccount, wechat_pay: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::WechatPay, zip: ::Stripe::ConfirmationToken::CreateParams::PaymentMethodData::Zip).void
          }
         def initialize(
           acss_debit: nil,
@@ -1657,6 +1737,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           billing_details: nil,
           blik: nil,
           boleto: nil,
@@ -1680,6 +1761,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -1694,6 +1776,7 @@ module Stripe
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,

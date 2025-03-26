@@ -192,6 +192,12 @@ module Stripe
       class Klarna < Stripe::StripeObject; end
       class KrCard < Stripe::StripeObject; end
       class Link < Stripe::StripeObject; end
+      class NaverPay < Stripe::StripeObject
+        # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+        sig { returns(String) }
+        attr_reader :buyer_id
+      end
+      class NzBankAccount < Stripe::StripeObject; end
       class Paypal < Stripe::StripeObject; end
       class Payto < Stripe::StripeObject; end
       class RevolutPay < Stripe::StripeObject; end
@@ -270,6 +276,12 @@ module Stripe
       # Attribute for field link
       sig { returns(Link) }
       attr_reader :link
+      # Attribute for field naver_pay
+      sig { returns(NaverPay) }
+      attr_reader :naver_pay
+      # Attribute for field nz_bank_account
+      sig { returns(NzBankAccount) }
+      attr_reader :nz_bank_account
       # Attribute for field paypal
       sig { returns(Paypal) }
       attr_reader :paypal

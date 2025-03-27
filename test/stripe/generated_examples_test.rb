@@ -7421,14 +7421,17 @@ module Stripe
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
     end
     should "Test v2 core event get (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events").to_return(
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=object_id"
+      ).to_return(
         body: '{"data":[{"context":null,"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":null,"type":"type"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = StripeClient.new("sk_test_123")
 
-      client.v2.core.events.list
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events"
+      client.v2.core.events.list({ object_id: "object_id" })
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=object_id"
     end
     should "Test v2 core event get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123").to_return(

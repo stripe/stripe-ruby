@@ -160,11 +160,19 @@ module Stripe
   end
 
   def self.add_beta_version(beta_name, version)
-    if api_version.include?("; #{beta_name}=")
-      raise "Stripe version header #{api_version} already contains entry for beta #{beta_name}"
+    unless version.match?(/\Av\d+\z/)
+      raise ArgumentError, "Version must be in the format 'v' followed by a number (e.g., 'v3')"
     end
 
-    self.api_version = "#{api_version}; #{beta_name}=#{version}"
+    if api_version.include?("; #{beta_name}=")
+      current_version = api_version.match(/; #{beta_name}=v(\d+)/)[1].to_i
+      new_version = version[1..-1].to_i
+      return if new_version <= current_version # Keep the higher version, no update needed
+
+      self.api_version = api_version.sub(/; #{beta_name}=v\d+/, "; #{beta_name}=#{version}")
+    else
+      self.api_version = "#{api_version}; #{beta_name}=#{version}"
+    end
   end
 
   class RawRequest

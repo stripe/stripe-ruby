@@ -15,9 +15,9 @@ module Stripe
                 @id = id
               end
             end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type.
+            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             attr_accessor :prices
 
             def initialize(price_type: nil, prices: nil)
@@ -40,13 +40,16 @@ module Stripe
         end
         # The customer for which to fetch credit balance summary.
         attr_accessor :customer
+        # The account for which to fetch credit balance summary.
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # The filter criteria for the credit balance summary.
         attr_accessor :filter
 
-        def initialize(customer: nil, expand: nil, filter: nil)
+        def initialize(customer: nil, customer_account: nil, expand: nil, filter: nil)
           @customer = customer
+          @customer_account = customer_account
           @expand = expand
           @filter = filter
         end

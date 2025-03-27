@@ -22,6 +22,7 @@ module Stripe
         ApplicationFeeRefund.object_name => ApplicationFeeRefund,
         Apps::Secret.object_name => Apps::Secret,
         Balance.object_name => Balance,
+        BalanceSettings.object_name => BalanceSettings,
         BalanceTransaction.object_name => BalanceTransaction,
         BankAccount.object_name => BankAccount,
         Billing::Alert.object_name => Billing::Alert,
@@ -172,8 +173,6 @@ module Stripe
         Treasury::ReceivedDebit.object_name => Treasury::ReceivedDebit,
         Treasury::Transaction.object_name => Treasury::Transaction,
         Treasury::TransactionEntry.object_name => Treasury::TransactionEntry,
-        UsageRecord.object_name => UsageRecord,
-        UsageRecordSummary.object_name => UsageRecordSummary,
         WebhookEndpoint.object_name => WebhookEndpoint,
         # object classes: The end of the section generated from our OpenAPI spec
       }
@@ -187,8 +186,31 @@ module Stripe
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
         V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
+        V2::Core::Account.object_name => V2::Core::Account,
+        V2::Core::AccountLink.object_name => V2::Core::AccountLink,
+        V2::Core::Person.object_name => V2::Core::Person,
+        V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
+        V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
         V2::Event.object_name => V2::Event,
         V2::EventDestination.object_name => V2::EventDestination,
+        V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
+        V2::FinancialAddressGeneratedMicrodeposits.object_name =>
+        V2::FinancialAddressGeneratedMicrodeposits,
+        V2::MoneyManagement::Adjustment.object_name => V2::MoneyManagement::Adjustment,
+        V2::MoneyManagement::FinancialAccount.object_name => V2::MoneyManagement::FinancialAccount,
+        V2::MoneyManagement::FinancialAddress.object_name => V2::MoneyManagement::FinancialAddress,
+        V2::MoneyManagement::InboundTransfer.object_name => V2::MoneyManagement::InboundTransfer,
+        V2::MoneyManagement::OutboundPayment.object_name => V2::MoneyManagement::OutboundPayment,
+        V2::MoneyManagement::OutboundPaymentQuote.object_name => V2::MoneyManagement::OutboundPaymentQuote,
+        V2::MoneyManagement::OutboundSetupIntent.object_name => V2::MoneyManagement::OutboundSetupIntent,
+        V2::MoneyManagement::OutboundTransfer.object_name => V2::MoneyManagement::OutboundTransfer,
+        V2::MoneyManagement::PayoutMethod.object_name => V2::MoneyManagement::PayoutMethod,
+        V2::MoneyManagement::PayoutMethodsBankAccountSpec.object_name =>
+        V2::MoneyManagement::PayoutMethodsBankAccountSpec,
+        V2::MoneyManagement::ReceivedCredit.object_name => V2::MoneyManagement::ReceivedCredit,
+        V2::MoneyManagement::ReceivedDebit.object_name => V2::MoneyManagement::ReceivedDebit,
+        V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
+        V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

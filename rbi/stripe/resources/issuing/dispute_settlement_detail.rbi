@@ -6,6 +6,11 @@ module Stripe
   module Issuing
     # Represents a record from the card network of a money movement or change in state for an Issuing dispute. These records are included in the settlement reports that we receive from networks and expose to users as Settlement objects.
     class DisputeSettlementDetail < APIResource
+      class NetworkData < Stripe::StripeObject
+        # The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
+        sig { returns(T.nilable(String)) }
+        attr_reader :processing_date
+      end
       # Disputed amount in the card’s currency and in the smallest currency unit. Usually the amount of the transaction, but can differ (usually because of currency fluctuation).
       sig { returns(Integer) }
       attr_reader :amount
@@ -33,6 +38,9 @@ module Stripe
       # The card network for this dispute settlement detail. One of ["visa", "mastercard", "maestro"]
       sig { returns(String) }
       attr_reader :network
+      # Details about the transaction, such as processing dates, set by the card network.
+      sig { returns(T.nilable(NetworkData)) }
+      attr_reader :network_data
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object

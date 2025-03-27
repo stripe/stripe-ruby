@@ -164,6 +164,9 @@ module Stripe
         # The ID of an existing customer.
         sig { returns(String) }
         attr_accessor :customer
+        # The ID of an existing account.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
@@ -180,11 +183,12 @@ module Stripe
         sig { returns(String) }
         attr_accessor :return_url
         sig {
-          params(configuration: String, customer: String, expand: T::Array[String], flow_data: ::Stripe::BillingPortal::SessionService::CreateParams::FlowData, locale: String, on_behalf_of: String, return_url: String).void
+          params(configuration: String, customer: String, customer_account: String, expand: T::Array[String], flow_data: ::Stripe::BillingPortal::SessionService::CreateParams::FlowData, locale: String, on_behalf_of: String, return_url: String).void
          }
         def initialize(
           configuration: nil,
           customer: nil,
+          customer_account: nil,
           expand: nil,
           flow_data: nil,
           locale: nil,

@@ -19,6 +19,9 @@ module Stripe
     # The ID of the customer whose cash balance this object represents.
     sig { returns(String) }
     attr_reader :customer
+    # The ID of the account whose cash balance this object represents.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     attr_reader :livemode

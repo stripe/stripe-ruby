@@ -54,6 +54,7 @@ module Stripe
       attr_reader :sort_code
     end
     class Bancontact < Stripe::StripeObject; end
+    class Billie < Stripe::StripeObject; end
     class BillingDetails < Stripe::StripeObject
       class Address < Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -670,9 +671,32 @@ module Stripe
     class Mobilepay < Stripe::StripeObject; end
     class Multibanco < Stripe::StripeObject; end
     class NaverPay < Stripe::StripeObject
+      # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+      sig { returns(T.nilable(String)) }
+      attr_reader :buyer_id
       # Whether to fund this transaction with Naver Pay points or a card.
       sig { returns(String) }
       attr_reader :funding
+    end
+    class NzBankAccount < Stripe::StripeObject
+      # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+      sig { returns(T.nilable(String)) }
+      attr_reader :account_holder_name
+      # The numeric code for the bank account's bank.
+      sig { returns(String) }
+      attr_reader :bank_code
+      # The name of the bank.
+      sig { returns(String) }
+      attr_reader :bank_name
+      # The numeric code for the bank account's bank branch.
+      sig { returns(String) }
+      attr_reader :branch_code
+      # Last four digits of the bank account number.
+      sig { returns(String) }
+      attr_reader :last4
+      # The suffix of the bank account number.
+      sig { returns(T.nilable(String)) }
+      attr_reader :suffix
     end
     class Oxxo < Stripe::StripeObject; end
     class P24 < Stripe::StripeObject
@@ -739,6 +763,7 @@ module Stripe
     end
     class RevolutPay < Stripe::StripeObject; end
     class SamsungPay < Stripe::StripeObject; end
+    class Satispay < Stripe::StripeObject; end
     class SepaDebit < Stripe::StripeObject
       class GeneratedFrom < Stripe::StripeObject
         # The ID of the Charge that generated this PaymentMethod, if any.
@@ -772,6 +797,14 @@ module Stripe
       # Two-letter ISO code representing the country the bank account is located in.
       sig { returns(T.nilable(String)) }
       attr_reader :country
+    end
+    class StripeBalance < Stripe::StripeObject
+      # The connected account ID whose Stripe balance to use as the source of payment
+      sig { returns(T.nilable(String)) }
+      attr_reader :account
+      # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+      sig { returns(String) }
+      attr_reader :source_type
     end
     class Swish < Stripe::StripeObject; end
     class Twint < Stripe::StripeObject; end
@@ -860,6 +893,9 @@ module Stripe
     # Attribute for field bancontact
     sig { returns(Bancontact) }
     attr_reader :bancontact
+    # Attribute for field billie
+    sig { returns(Billie) }
+    attr_reader :billie
     # Attribute for field billing_details
     sig { returns(BillingDetails) }
     attr_reader :billing_details
@@ -884,6 +920,9 @@ module Stripe
     # The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     attr_reader :customer
+    # Attribute for field customer_account
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # Attribute for field customer_balance
     sig { returns(CustomerBalance) }
     attr_reader :customer_balance
@@ -947,6 +986,9 @@ module Stripe
     # Attribute for field naver_pay
     sig { returns(NaverPay) }
     attr_reader :naver_pay
+    # Attribute for field nz_bank_account
+    sig { returns(NzBankAccount) }
+    attr_reader :nz_bank_account
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
@@ -992,6 +1034,9 @@ module Stripe
     # Attribute for field samsung_pay
     sig { returns(SamsungPay) }
     attr_reader :samsung_pay
+    # Attribute for field satispay
+    sig { returns(Satispay) }
+    attr_reader :satispay
     # Attribute for field sepa_debit
     sig { returns(SepaDebit) }
     attr_reader :sepa_debit
@@ -1001,6 +1046,9 @@ module Stripe
     # Attribute for field sofort
     sig { returns(Sofort) }
     attr_reader :sofort
+    # Attribute for field stripe_balance
+    sig { returns(StripeBalance) }
+    attr_reader :stripe_balance
     # Attribute for field swish
     sig { returns(Swish) }
     attr_reader :swish
@@ -1102,6 +1150,9 @@ module Stripe
         def initialize(account_number: nil, sort_code: nil); end
       end
       class Bancontact < Stripe::RequestParams
+
+      end
+      class Billie < Stripe::RequestParams
 
       end
       class BillingDetails < Stripe::RequestParams
@@ -1298,6 +1349,37 @@ module Stripe
         sig { params(funding: String).void }
         def initialize(funding: nil); end
       end
+      class NzBankAccount < Stripe::RequestParams
+        # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+        sig { returns(String) }
+        attr_accessor :account_holder_name
+        # The account number for the bank account.
+        sig { returns(String) }
+        attr_accessor :account_number
+        # The numeric code for the bank account's bank.
+        sig { returns(String) }
+        attr_accessor :bank_code
+        # The numeric code for the bank account's bank branch.
+        sig { returns(String) }
+        attr_accessor :branch_code
+        # Attribute for param field reference
+        sig { returns(String) }
+        attr_accessor :reference
+        # The suffix of the bank account number.
+        sig { returns(String) }
+        attr_accessor :suffix
+        sig {
+          params(account_holder_name: String, account_number: String, bank_code: String, branch_code: String, reference: String, suffix: String).void
+         }
+        def initialize(
+          account_holder_name: nil,
+          account_number: nil,
+          bank_code: nil,
+          branch_code: nil,
+          reference: nil,
+          suffix: nil
+        ); end
+      end
       class Oxxo < Stripe::RequestParams
 
       end
@@ -1375,6 +1457,9 @@ module Stripe
       class SamsungPay < Stripe::RequestParams
 
       end
+      class Satispay < Stripe::RequestParams
+
+      end
       class SepaDebit < Stripe::RequestParams
         # IBAN of the bank account.
         sig { returns(String) }
@@ -1391,6 +1476,16 @@ module Stripe
         attr_accessor :country
         sig { params(country: String).void }
         def initialize(country: nil); end
+      end
+      class StripeBalance < Stripe::RequestParams
+        # The connected account ID whose Stripe balance to use as the source of payment
+        sig { returns(String) }
+        attr_accessor :account
+        # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+        sig { returns(String) }
+        attr_accessor :source_type
+        sig { params(account: String, source_type: String).void }
+        def initialize(account: nil, source_type: nil); end
       end
       class Swish < Stripe::RequestParams
 
@@ -1461,6 +1556,9 @@ module Stripe
       # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
       sig { returns(::Stripe::PaymentMethod::CreateParams::Bancontact) }
       attr_accessor :bancontact
+      # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+      sig { returns(::Stripe::PaymentMethod::CreateParams::Billie) }
+      attr_accessor :billie
       # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
       sig { returns(::Stripe::PaymentMethod::CreateParams::BillingDetails) }
       attr_accessor :billing_details
@@ -1539,6 +1637,9 @@ module Stripe
       # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
       sig { returns(::Stripe::PaymentMethod::CreateParams::NaverPay) }
       attr_accessor :naver_pay
+      # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+      sig { returns(::Stripe::PaymentMethod::CreateParams::NzBankAccount) }
+      attr_accessor :nz_bank_account
       # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
       sig { returns(::Stripe::PaymentMethod::CreateParams::Oxxo) }
       attr_accessor :oxxo
@@ -1584,6 +1685,9 @@ module Stripe
       # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
       sig { returns(::Stripe::PaymentMethod::CreateParams::SamsungPay) }
       attr_accessor :samsung_pay
+      # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+      sig { returns(::Stripe::PaymentMethod::CreateParams::Satispay) }
+      attr_accessor :satispay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       sig { returns(::Stripe::PaymentMethod::CreateParams::SepaDebit) }
       attr_accessor :sepa_debit
@@ -1593,6 +1697,9 @@ module Stripe
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       sig { returns(::Stripe::PaymentMethod::CreateParams::Sofort) }
       attr_accessor :sofort
+      # This hash contains details about the Stripe balance payment method.
+      sig { returns(::Stripe::PaymentMethod::CreateParams::StripeBalance) }
+      attr_accessor :stripe_balance
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       sig { returns(::Stripe::PaymentMethod::CreateParams::Swish) }
       attr_accessor :swish
@@ -1612,7 +1719,7 @@ module Stripe
       sig { returns(::Stripe::PaymentMethod::CreateParams::Zip) }
       attr_accessor :zip
       sig {
-        params(acss_debit: ::Stripe::PaymentMethod::CreateParams::AcssDebit, affirm: ::Stripe::PaymentMethod::CreateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethod::CreateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethod::CreateParams::Alipay, allow_redisplay: String, alma: ::Stripe::PaymentMethod::CreateParams::Alma, amazon_pay: ::Stripe::PaymentMethod::CreateParams::AmazonPay, au_becs_debit: ::Stripe::PaymentMethod::CreateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethod::CreateParams::BacsDebit, bancontact: ::Stripe::PaymentMethod::CreateParams::Bancontact, billing_details: ::Stripe::PaymentMethod::CreateParams::BillingDetails, blik: ::Stripe::PaymentMethod::CreateParams::Blik, boleto: ::Stripe::PaymentMethod::CreateParams::Boleto, card: ::Stripe::PaymentMethod::CreateParams::Card, cashapp: ::Stripe::PaymentMethod::CreateParams::Cashapp, customer: String, customer_balance: ::Stripe::PaymentMethod::CreateParams::CustomerBalance, eps: ::Stripe::PaymentMethod::CreateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethod::CreateParams::Fpx, giropay: ::Stripe::PaymentMethod::CreateParams::Giropay, gopay: ::Stripe::PaymentMethod::CreateParams::Gopay, grabpay: ::Stripe::PaymentMethod::CreateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethod::CreateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethod::CreateParams::Ideal, interac_present: ::Stripe::PaymentMethod::CreateParams::InteracPresent, kakao_pay: ::Stripe::PaymentMethod::CreateParams::KakaoPay, klarna: ::Stripe::PaymentMethod::CreateParams::Klarna, konbini: ::Stripe::PaymentMethod::CreateParams::Konbini, kr_card: ::Stripe::PaymentMethod::CreateParams::KrCard, link: ::Stripe::PaymentMethod::CreateParams::Link, mb_way: ::Stripe::PaymentMethod::CreateParams::MbWay, metadata: T::Hash[String, String], mobilepay: ::Stripe::PaymentMethod::CreateParams::Mobilepay, multibanco: ::Stripe::PaymentMethod::CreateParams::Multibanco, naver_pay: ::Stripe::PaymentMethod::CreateParams::NaverPay, oxxo: ::Stripe::PaymentMethod::CreateParams::Oxxo, p24: ::Stripe::PaymentMethod::CreateParams::P24, pay_by_bank: ::Stripe::PaymentMethod::CreateParams::PayByBank, payco: ::Stripe::PaymentMethod::CreateParams::Payco, payment_method: String, paynow: ::Stripe::PaymentMethod::CreateParams::Paynow, paypal: ::Stripe::PaymentMethod::CreateParams::Paypal, payto: ::Stripe::PaymentMethod::CreateParams::Payto, pix: ::Stripe::PaymentMethod::CreateParams::Pix, promptpay: ::Stripe::PaymentMethod::CreateParams::Promptpay, qris: ::Stripe::PaymentMethod::CreateParams::Qris, radar_options: ::Stripe::PaymentMethod::CreateParams::RadarOptions, rechnung: ::Stripe::PaymentMethod::CreateParams::Rechnung, revolut_pay: ::Stripe::PaymentMethod::CreateParams::RevolutPay, samsung_pay: ::Stripe::PaymentMethod::CreateParams::SamsungPay, sepa_debit: ::Stripe::PaymentMethod::CreateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethod::CreateParams::Shopeepay, sofort: ::Stripe::PaymentMethod::CreateParams::Sofort, swish: ::Stripe::PaymentMethod::CreateParams::Swish, twint: ::Stripe::PaymentMethod::CreateParams::Twint, type: String, us_bank_account: ::Stripe::PaymentMethod::CreateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethod::CreateParams::WechatPay, zip: ::Stripe::PaymentMethod::CreateParams::Zip).void
+        params(acss_debit: ::Stripe::PaymentMethod::CreateParams::AcssDebit, affirm: ::Stripe::PaymentMethod::CreateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethod::CreateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethod::CreateParams::Alipay, allow_redisplay: String, alma: ::Stripe::PaymentMethod::CreateParams::Alma, amazon_pay: ::Stripe::PaymentMethod::CreateParams::AmazonPay, au_becs_debit: ::Stripe::PaymentMethod::CreateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethod::CreateParams::BacsDebit, bancontact: ::Stripe::PaymentMethod::CreateParams::Bancontact, billie: ::Stripe::PaymentMethod::CreateParams::Billie, billing_details: ::Stripe::PaymentMethod::CreateParams::BillingDetails, blik: ::Stripe::PaymentMethod::CreateParams::Blik, boleto: ::Stripe::PaymentMethod::CreateParams::Boleto, card: ::Stripe::PaymentMethod::CreateParams::Card, cashapp: ::Stripe::PaymentMethod::CreateParams::Cashapp, customer: String, customer_balance: ::Stripe::PaymentMethod::CreateParams::CustomerBalance, eps: ::Stripe::PaymentMethod::CreateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethod::CreateParams::Fpx, giropay: ::Stripe::PaymentMethod::CreateParams::Giropay, gopay: ::Stripe::PaymentMethod::CreateParams::Gopay, grabpay: ::Stripe::PaymentMethod::CreateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethod::CreateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethod::CreateParams::Ideal, interac_present: ::Stripe::PaymentMethod::CreateParams::InteracPresent, kakao_pay: ::Stripe::PaymentMethod::CreateParams::KakaoPay, klarna: ::Stripe::PaymentMethod::CreateParams::Klarna, konbini: ::Stripe::PaymentMethod::CreateParams::Konbini, kr_card: ::Stripe::PaymentMethod::CreateParams::KrCard, link: ::Stripe::PaymentMethod::CreateParams::Link, mb_way: ::Stripe::PaymentMethod::CreateParams::MbWay, metadata: T::Hash[String, String], mobilepay: ::Stripe::PaymentMethod::CreateParams::Mobilepay, multibanco: ::Stripe::PaymentMethod::CreateParams::Multibanco, naver_pay: ::Stripe::PaymentMethod::CreateParams::NaverPay, nz_bank_account: ::Stripe::PaymentMethod::CreateParams::NzBankAccount, oxxo: ::Stripe::PaymentMethod::CreateParams::Oxxo, p24: ::Stripe::PaymentMethod::CreateParams::P24, pay_by_bank: ::Stripe::PaymentMethod::CreateParams::PayByBank, payco: ::Stripe::PaymentMethod::CreateParams::Payco, payment_method: String, paynow: ::Stripe::PaymentMethod::CreateParams::Paynow, paypal: ::Stripe::PaymentMethod::CreateParams::Paypal, payto: ::Stripe::PaymentMethod::CreateParams::Payto, pix: ::Stripe::PaymentMethod::CreateParams::Pix, promptpay: ::Stripe::PaymentMethod::CreateParams::Promptpay, qris: ::Stripe::PaymentMethod::CreateParams::Qris, radar_options: ::Stripe::PaymentMethod::CreateParams::RadarOptions, rechnung: ::Stripe::PaymentMethod::CreateParams::Rechnung, revolut_pay: ::Stripe::PaymentMethod::CreateParams::RevolutPay, samsung_pay: ::Stripe::PaymentMethod::CreateParams::SamsungPay, satispay: ::Stripe::PaymentMethod::CreateParams::Satispay, sepa_debit: ::Stripe::PaymentMethod::CreateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethod::CreateParams::Shopeepay, sofort: ::Stripe::PaymentMethod::CreateParams::Sofort, stripe_balance: ::Stripe::PaymentMethod::CreateParams::StripeBalance, swish: ::Stripe::PaymentMethod::CreateParams::Swish, twint: ::Stripe::PaymentMethod::CreateParams::Twint, type: String, us_bank_account: ::Stripe::PaymentMethod::CreateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethod::CreateParams::WechatPay, zip: ::Stripe::PaymentMethod::CreateParams::Zip).void
        }
       def initialize(
         acss_debit: nil,
@@ -1625,6 +1732,7 @@ module Stripe
         au_becs_debit: nil,
         bacs_debit: nil,
         bancontact: nil,
+        billie: nil,
         billing_details: nil,
         blik: nil,
         boleto: nil,
@@ -1651,6 +1759,7 @@ module Stripe
         mobilepay: nil,
         multibanco: nil,
         naver_pay: nil,
+        nz_bank_account: nil,
         oxxo: nil,
         p24: nil,
         pay_by_bank: nil,
@@ -1666,9 +1775,11 @@ module Stripe
         rechnung: nil,
         revolut_pay: nil,
         samsung_pay: nil,
+        satispay: nil,
         sepa_debit: nil,
         shopeepay: nil,
         sofort: nil,
+        stripe_balance: nil,
         swish: nil,
         twint: nil,
         type: nil,
@@ -1759,13 +1870,6 @@ module Stripe
       class Link < Stripe::RequestParams
 
       end
-      class NaverPay < Stripe::RequestParams
-        # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
-        sig { returns(String) }
-        attr_accessor :funding
-        sig { params(funding: String).void }
-        def initialize(funding: nil); end
-      end
       class PayByBank < Stripe::RequestParams
 
       end
@@ -1810,9 +1914,6 @@ module Stripe
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-      # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
-      sig { returns(::Stripe::PaymentMethod::UpdateParams::NaverPay) }
-      attr_accessor :naver_pay
       # If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
       sig { returns(::Stripe::PaymentMethod::UpdateParams::PayByBank) }
       attr_accessor :pay_by_bank
@@ -1823,7 +1924,7 @@ module Stripe
       sig { returns(::Stripe::PaymentMethod::UpdateParams::UsBankAccount) }
       attr_accessor :us_bank_account
       sig {
-        params(allow_redisplay: String, billing_details: ::Stripe::PaymentMethod::UpdateParams::BillingDetails, card: ::Stripe::PaymentMethod::UpdateParams::Card, expand: T::Array[String], link: ::Stripe::PaymentMethod::UpdateParams::Link, metadata: T.nilable(T::Hash[String, String]), naver_pay: ::Stripe::PaymentMethod::UpdateParams::NaverPay, pay_by_bank: ::Stripe::PaymentMethod::UpdateParams::PayByBank, payto: ::Stripe::PaymentMethod::UpdateParams::Payto, us_bank_account: ::Stripe::PaymentMethod::UpdateParams::UsBankAccount).void
+        params(allow_redisplay: String, billing_details: ::Stripe::PaymentMethod::UpdateParams::BillingDetails, card: ::Stripe::PaymentMethod::UpdateParams::Card, expand: T::Array[String], link: ::Stripe::PaymentMethod::UpdateParams::Link, metadata: T.nilable(T::Hash[String, String]), pay_by_bank: ::Stripe::PaymentMethod::UpdateParams::PayByBank, payto: ::Stripe::PaymentMethod::UpdateParams::Payto, us_bank_account: ::Stripe::PaymentMethod::UpdateParams::UsBankAccount).void
        }
       def initialize(
         allow_redisplay: nil,
@@ -1832,7 +1933,6 @@ module Stripe
         expand: nil,
         link: nil,
         metadata: nil,
-        naver_pay: nil,
         pay_by_bank: nil,
         payto: nil,
         us_bank_account: nil
@@ -1842,11 +1942,14 @@ module Stripe
       # The ID of the customer to which to attach the PaymentMethod.
       sig { returns(String) }
       attr_accessor :customer
+      # The ID of the account to which to attach the PaymentMethod.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
-      sig { params(customer: String, expand: T::Array[String]).void }
-      def initialize(customer: nil, expand: nil); end
+      sig { params(customer: String, customer_account: String, expand: T::Array[String]).void }
+      def initialize(customer: nil, customer_account: nil, expand: nil); end
     end
     class DetachParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.

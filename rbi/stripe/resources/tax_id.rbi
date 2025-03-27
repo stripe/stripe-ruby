@@ -18,6 +18,9 @@ module Stripe
       # The customer being referenced when `type` is `customer`.
       sig { returns(T.any(String, Stripe::Customer)) }
       attr_reader :customer
+      # The account being referenced when `type` is `customer`.
+      sig { returns(T.nilable(String)) }
+      attr_reader :customer_account
       # Type of owner referenced.
       sig { returns(String) }
       attr_reader :type
@@ -42,6 +45,9 @@ module Stripe
     # ID of the customer.
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     attr_reader :customer
+    # ID of the account.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # Unique identifier for the object.
     sig { returns(String) }
     attr_reader :id
@@ -84,11 +90,16 @@ module Stripe
         # Customer the tax ID belongs to. Required when `type=customer`
         sig { returns(String) }
         attr_accessor :customer
+        # v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Type of owner referenced.
         sig { returns(String) }
         attr_accessor :type
-        sig { params(account: String, customer: String, type: String).void }
-        def initialize(account: nil, customer: nil, type: nil); end
+        sig {
+          params(account: String, customer: String, customer_account: String, type: String).void
+         }
+        def initialize(account: nil, customer: nil, customer_account: nil, type: nil); end
       end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
@@ -124,11 +135,16 @@ module Stripe
         # Customer the tax ID belongs to. Required when `type=customer`
         sig { returns(String) }
         attr_accessor :customer
+        # v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Type of owner referenced.
         sig { returns(String) }
         attr_accessor :type
-        sig { params(account: String, customer: String, type: String).void }
-        def initialize(account: nil, customer: nil, type: nil); end
+        sig {
+          params(account: String, customer: String, customer_account: String, type: String).void
+         }
+        def initialize(account: nil, customer: nil, customer_account: nil, type: nil); end
       end
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }

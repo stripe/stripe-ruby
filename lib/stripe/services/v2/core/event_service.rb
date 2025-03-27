@@ -10,13 +10,10 @@ module Stripe
           attr_accessor :limit
           # Primary object ID used to retrieve related events.
           attr_accessor :object_id
-          # The requested page.
-          attr_accessor :page
 
-          def initialize(limit: nil, object_id: nil, page: nil)
+          def initialize(limit: nil, object_id: nil)
             @limit = limit
             @object_id = object_id
-            @page = page
           end
         end
 

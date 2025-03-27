@@ -3,14 +3,6 @@
 
 module Stripe
   class SubscriptionItemService < StripeService
-    attr_reader :usage_records, :usage_record_summaries
-
-    def initialize(requestor)
-      super(requestor)
-      @usage_records = Stripe::SubscriptionItemUsageRecordService.new(@requestor)
-      @usage_record_summaries = Stripe::SubscriptionItemUsageRecordSummaryService.new(@requestor)
-    end
-
     class DeleteParams < Stripe::RequestParams
       # Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`.
       attr_accessor :clear_usage
@@ -36,15 +28,6 @@ module Stripe
     end
 
     class UpdateParams < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
-        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        attr_accessor :usage_gte
-
-        def initialize(usage_gte: nil)
-          @usage_gte = usage_gte
-        end
-      end
-
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
           class Duration < Stripe::RequestParams
@@ -102,7 +85,7 @@ module Stripe
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         attr_accessor :product
         # The recurring components of a price such as `interval` and `interval_count`.
         attr_accessor :recurring
@@ -129,8 +112,6 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -163,7 +144,6 @@ module Stripe
       attr_accessor :tax_rates
 
       def initialize(
-        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,
@@ -177,7 +157,6 @@ module Stripe
         quantity: nil,
         tax_rates: nil
       )
-        @billing_thresholds = billing_thresholds
         @discounts = discounts
         @expand = expand
         @metadata = metadata
@@ -221,15 +200,6 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
-        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        attr_accessor :usage_gte
-
-        def initialize(usage_gte: nil)
-          @usage_gte = usage_gte
-        end
-      end
-
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
           class Duration < Stripe::RequestParams
@@ -287,7 +257,7 @@ module Stripe
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         attr_accessor :product
         # The recurring components of a price such as `interval` and `interval_count`.
         attr_accessor :recurring
@@ -326,8 +296,6 @@ module Stripe
           @type = type
         end
       end
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -362,7 +330,6 @@ module Stripe
       attr_accessor :trial
 
       def initialize(
-        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,
@@ -377,7 +344,6 @@ module Stripe
         tax_rates: nil,
         trial: nil
       )
-        @billing_thresholds = billing_thresholds
         @discounts = discounts
         @expand = expand
         @metadata = metadata

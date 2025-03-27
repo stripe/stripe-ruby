@@ -116,6 +116,8 @@ module Stripe
       attr_accessor :metadata
       # The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
       attr_accessor :method
+      # The ID of a v2 FinancialAccount to send funds to.
+      attr_accessor :payout_method
       # The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
       attr_accessor :source_type
       # A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
@@ -129,6 +131,7 @@ module Stripe
         expand: nil,
         metadata: nil,
         method: nil,
+        payout_method: nil,
         source_type: nil,
         statement_descriptor: nil
       )
@@ -139,6 +142,7 @@ module Stripe
         @expand = expand
         @metadata = metadata
         @method = method
+        @payout_method = payout_method
         @source_type = source_type
         @statement_descriptor = statement_descriptor
       end
@@ -223,6 +227,8 @@ module Stripe
     attr_reader :object
     # If the payout reverses another, this is the ID of the original payout.
     attr_reader :original_payout
+    # ID of the v2 FinancialAccount the funds are sent to.
+    attr_reader :payout_method
     # If `completed`, you can use the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
     attr_reader :reconciliation_status
     # If the payout reverses, this is the ID of the payout that reverses this payout.

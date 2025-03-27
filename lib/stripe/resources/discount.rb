@@ -20,6 +20,8 @@ module Stripe
     attr_reader :coupon
     # The ID of the customer associated with this discount.
     attr_reader :customer
+    # The ID of the account associated with this discount.
+    attr_reader :customer_account
     # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
     attr_reader :end
     # The ID of the discount object. Discounts cannot be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.

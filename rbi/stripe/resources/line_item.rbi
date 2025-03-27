@@ -38,6 +38,14 @@ module Stripe
       sig { returns(String) }
       attr_reader :name
     end
+    class TaxCalculationReference < Stripe::StripeObject
+      # The calculation identifier for tax calculation response.
+      sig { returns(T.nilable(String)) }
+      attr_reader :calculation_id
+      # The calculation identifier for tax calculation response line item.
+      sig { returns(T.nilable(String)) }
+      attr_reader :calculation_item_id
+    end
     class Tax < Stripe::StripeObject
       # Amount of tax applied for this rate.
       sig { returns(Integer) }
@@ -101,6 +109,9 @@ module Stripe
     # The quantity of products being purchased.
     sig { returns(T.nilable(Integer)) }
     attr_reader :quantity
+    # The tax calculation identifiers of the line item.
+    sig { returns(T.nilable(TaxCalculationReference)) }
+    attr_reader :tax_calculation_reference
     # The taxes applied to the line item.
     sig { returns(T::Array[Tax]) }
     attr_reader :taxes

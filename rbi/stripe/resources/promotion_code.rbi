@@ -42,6 +42,9 @@ module Stripe
     # The customer that this promotion code can be used by.
     sig { returns(T.nilable(T.any(String, Stripe::Customer))) }
     attr_reader :customer
+    # The account that this promotion code can be used by.
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # Date at which the promotion code can no longer be redeemed.
     sig { returns(T.nilable(Integer)) }
     attr_reader :expires_at
@@ -98,6 +101,9 @@ module Stripe
       # Only return promotion codes that are restricted to this customer.
       sig { returns(String) }
       attr_accessor :customer
+      # Only return promotion codes that are restricted to this account.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(String) }
       attr_accessor :ending_before
@@ -111,7 +117,7 @@ module Stripe
       sig { returns(String) }
       attr_accessor :starting_after
       sig {
-        params(active: T::Boolean, code: String, coupon: String, created: T.any(::Stripe::PromotionCode::ListParams::Created, Integer), customer: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+        params(active: T::Boolean, code: String, coupon: String, created: T.any(::Stripe::PromotionCode::ListParams::Created, Integer), customer: String, customer_account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
        }
       def initialize(
         active: nil,
@@ -119,6 +125,7 @@ module Stripe
         coupon: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -172,6 +179,9 @@ module Stripe
       # The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
       sig { returns(String) }
       attr_accessor :customer
+      # The account that this promotion code can be used by. If not set, the promotion code can be used by all accounts.
+      sig { returns(String) }
+      attr_accessor :customer_account
       # Specifies which fields in the response should be expanded.
       sig { returns(T::Array[String]) }
       attr_accessor :expand
@@ -188,13 +198,14 @@ module Stripe
       sig { returns(::Stripe::PromotionCode::CreateParams::Restrictions) }
       attr_accessor :restrictions
       sig {
-        params(active: T::Boolean, code: String, coupon: String, customer: String, expand: T::Array[String], expires_at: Integer, max_redemptions: Integer, metadata: T::Hash[String, String], restrictions: ::Stripe::PromotionCode::CreateParams::Restrictions).void
+        params(active: T::Boolean, code: String, coupon: String, customer: String, customer_account: String, expand: T::Array[String], expires_at: Integer, max_redemptions: Integer, metadata: T::Hash[String, String], restrictions: ::Stripe::PromotionCode::CreateParams::Restrictions).void
        }
       def initialize(
         active: nil,
         code: nil,
         coupon: nil,
         customer: nil,
+        customer_account: nil,
         expand: nil,
         expires_at: nil,
         max_redemptions: nil,

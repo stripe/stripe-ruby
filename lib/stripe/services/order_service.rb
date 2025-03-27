@@ -138,7 +138,7 @@ module Stripe
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-          # ID of the product this price belongs to.
+          # ID of the [Product](https://docs.stripe.com/api/products) this [Price](https://docs.stripe.com/api/prices) belongs to.
           #
           # Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
           attr_accessor :product
@@ -229,21 +229,21 @@ module Stripe
         attr_accessor :description
         # The discounts applied to this line item.
         attr_accessor :discounts
-        # The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+        # The ID of a [Price](https://docs.stripe.com/api/prices) to add to the Order.
         #
         # The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
         attr_accessor :price
         # Data used to generate a new Price object inline.
         #
-        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create a Product upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define Products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
         #
-        # Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        # Each time you pass `price_data` we create a Price for the Product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         attr_accessor :price_data
-        # The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+        # The ID of a [Product](https://docs.stripe.com/api/products) to add to the Order.
         #
-        # The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        # The Product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
         attr_accessor :product
-        # Defines a Product inline and adds it to the Order.
+        # Defines a [Product](https://docs.stripe.com/api/products) inline and adds it to the Order.
         #
         # `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
         #
@@ -1207,7 +1207,7 @@ module Stripe
         class PriceData < Stripe::RequestParams
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
-          # ID of the product this price belongs to.
+          # ID of the [Product](https://docs.stripe.com/api/products) this [Price](https://docs.stripe.com/api/prices) belongs to.
           #
           # Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
           attr_accessor :product
@@ -1300,21 +1300,21 @@ module Stripe
         attr_accessor :discounts
         # The ID of an existing line item on the order.
         attr_accessor :id
-        # The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+        # The ID of a [Price](https://docs.stripe.com/api/prices) to add to the Order.
         #
         # The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
         attr_accessor :price
         # Data used to generate a new Price object inline.
         #
-        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+        # The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create a Product upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define Products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
         #
-        # Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        # Each time you pass `price_data` we create a Price for the Product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         attr_accessor :price_data
-        # The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+        # The ID of a [Product](https://docs.stripe.com/api/products) to add to the Order.
         #
-        # The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        # The Product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
         attr_accessor :product
-        # Defines a Product inline and adds it to the Order.
+        # Defines a [Product](https://docs.stripe.com/api/products) inline and adds it to the Order.
         #
         # `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
         #

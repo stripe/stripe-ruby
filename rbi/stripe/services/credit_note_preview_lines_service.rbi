@@ -119,9 +119,6 @@ module Stripe
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       sig { returns(String) }
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      sig { returns(String) }
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       sig { returns(Integer) }
       attr_accessor :refund_amount
@@ -135,7 +132,7 @@ module Stripe
       sig { returns(String) }
       attr_accessor :starting_after
       sig {
-        params(amount: Integer, credit_amount: Integer, effective_at: Integer, email_type: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, lines: T::Array[::Stripe::CreditNotePreviewLinesService::ListParams::Line], memo: String, metadata: T::Hash[String, String], out_of_band_amount: Integer, reason: String, refund: String, refund_amount: Integer, refunds: T::Array[::Stripe::CreditNotePreviewLinesService::ListParams::Refund], shipping_cost: ::Stripe::CreditNotePreviewLinesService::ListParams::ShippingCost, starting_after: String).void
+        params(amount: Integer, credit_amount: Integer, effective_at: Integer, email_type: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, lines: T::Array[::Stripe::CreditNotePreviewLinesService::ListParams::Line], memo: String, metadata: T::Hash[String, String], out_of_band_amount: Integer, reason: String, refund_amount: Integer, refunds: T::Array[::Stripe::CreditNotePreviewLinesService::ListParams::Refund], shipping_cost: ::Stripe::CreditNotePreviewLinesService::ListParams::ShippingCost, starting_after: String).void
        }
       def initialize(
         amount: nil,
@@ -151,7 +148,6 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
         refunds: nil,
         shipping_cost: nil,

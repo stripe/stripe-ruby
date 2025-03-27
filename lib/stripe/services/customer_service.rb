@@ -186,8 +186,6 @@ module Stripe
       attr_accessor :balance
       # Balance information and default balance settings for this customer.
       attr_accessor :cash_balance
-      # Attribute for param field coupon
-      attr_accessor :coupon
       # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
       #
       # Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
@@ -214,8 +212,6 @@ module Stripe
       attr_accessor :phone
       # Customer's preferred languages, ordered by preference.
       attr_accessor :preferred_locales
-      # The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
-      attr_accessor :promotion_code
       # The customer's shipping information. Appears on invoices emailed to this customer.
       attr_accessor :shipping
       # Attribute for param field source
@@ -231,7 +227,6 @@ module Stripe
         address: nil,
         balance: nil,
         cash_balance: nil,
-        coupon: nil,
         default_source: nil,
         description: nil,
         email: nil,
@@ -243,7 +238,6 @@ module Stripe
         next_invoice_sequence: nil,
         phone: nil,
         preferred_locales: nil,
-        promotion_code: nil,
         shipping: nil,
         source: nil,
         tax: nil,
@@ -253,7 +247,6 @@ module Stripe
         @address = address
         @balance = balance
         @cash_balance = cash_balance
-        @coupon = coupon
         @default_source = default_source
         @description = description
         @email = email
@@ -265,7 +258,6 @@ module Stripe
         @next_invoice_sequence = next_invoice_sequence
         @phone = phone
         @preferred_locales = preferred_locales
-        @promotion_code = promotion_code
         @shipping = shipping
         @source = source
         @tax = tax
@@ -499,8 +491,6 @@ module Stripe
       attr_accessor :balance
       # Balance information and default balance settings for this customer.
       attr_accessor :cash_balance
-      # Attribute for param field coupon
-      attr_accessor :coupon
       # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
       attr_accessor :description
       # Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
@@ -523,8 +513,6 @@ module Stripe
       attr_accessor :phone
       # Customer's preferred languages, ordered by preference.
       attr_accessor :preferred_locales
-      # The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
-      attr_accessor :promotion_code
       # The customer's shipping information. Appears on invoices emailed to this customer.
       attr_accessor :shipping
       # Attribute for param field source
@@ -544,7 +532,6 @@ module Stripe
         address: nil,
         balance: nil,
         cash_balance: nil,
-        coupon: nil,
         description: nil,
         email: nil,
         expand: nil,
@@ -556,7 +543,6 @@ module Stripe
         payment_method: nil,
         phone: nil,
         preferred_locales: nil,
-        promotion_code: nil,
         shipping: nil,
         source: nil,
         tax: nil,
@@ -568,7 +554,6 @@ module Stripe
         @address = address
         @balance = balance
         @cash_balance = cash_balance
-        @coupon = coupon
         @description = description
         @email = email
         @expand = expand
@@ -580,7 +565,6 @@ module Stripe
         @payment_method = payment_method
         @phone = phone
         @preferred_locales = preferred_locales
-        @promotion_code = promotion_code
         @shipping = shipping
         @source = source
         @tax = tax

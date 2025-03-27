@@ -14,7 +14,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_reader :preferred
     end
-    # The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    # Attribute for field account
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }
     attr_reader :account
     # City/District/Suburb/Town/Village.
@@ -56,7 +56,7 @@ module Stripe
     # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
     sig { returns(T.nilable(String)) }
     attr_reader :country
-    # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available when returned as an [External Account](/api/external_account_cards/object) where [controller.is_controller](/api/accounts/object#account_object-controller-is_controller) is `true`.
     sig { returns(T.nilable(String)) }
     attr_reader :currency
     # The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead.

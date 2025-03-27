@@ -60,6 +60,8 @@ module Stripe
         attr_reader :enabled
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_reader :liability
+        # The tax provider powering automatic tax.
+        attr_reader :provider
         # The status of the most recent automated tax calculation for this session.
         attr_reader :status
       end
@@ -82,14 +84,8 @@ module Stripe
           end
           # Attribute for field address
           attr_reader :address
-          # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-          attr_reader :carrier
-          # Recipient name.
+          # Customer name.
           attr_reader :name
-          # Recipient phone (including extension).
-          attr_reader :phone
-          # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-          attr_reader :tracking_number
         end
 
         class TaxId < Stripe::StripeObject
@@ -319,6 +315,23 @@ module Stripe
         attr_reader :enabled
         # Attribute for field invoice_data
         attr_reader :invoice_data
+      end
+
+      class OptionalItem < Stripe::StripeObject
+        class AdjustableQuantity < Stripe::StripeObject
+          # Set to true if the quantity can be adjusted to any non-negative integer.
+          attr_reader :enabled
+          # The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+          attr_reader :maximum
+          # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+          attr_reader :minimum
+        end
+        # Attribute for field adjustable_quantity
+        attr_reader :adjustable_quantity
+        # Attribute for field price
+        attr_reader :price
+        # Attribute for field quantity
+        attr_reader :quantity
       end
 
       class PaymentMethodConfigurationDetails < Stripe::StripeObject
@@ -961,11 +974,24 @@ module Stripe
         end
         # Permissions for updating the Checkout Session.
         attr_reader :update
+        # Determines which entity is allowed to update the shipping details.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+        #
+        # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        attr_reader :update_shipping_details
       end
 
       class PhoneNumberCollection < Stripe::StripeObject
         # Indicates whether phone number collection is enabled for the session
         attr_reader :enabled
+      end
+
+      class PresentmentDetails < Stripe::StripeObject
+        # Amount intended to be collected by this payment, denominated in presentment_currency.
+        attr_reader :presentment_amount
+        # Currency presented to the customer during payment.
+        attr_reader :presentment_currency
       end
 
       class SavedPaymentMethodOptions < Stripe::StripeObject
@@ -1006,33 +1032,6 @@ module Stripe
         attr_reader :shipping_rate
         # The taxes applied to the shipping rate.
         attr_reader :taxes
-      end
-
-      class ShippingDetails < Stripe::StripeObject
-        class Address < Stripe::StripeObject
-          # City, district, suburb, town, or village.
-          attr_reader :city
-          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
-          attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
-          attr_reader :line2
-          # ZIP or postal code.
-          attr_reader :postal_code
-          # State, county, province, or region.
-          attr_reader :state
-        end
-        # Attribute for field address
-        attr_reader :address
-        # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        attr_reader :carrier
-        # Recipient name.
-        attr_reader :name
-        # Recipient phone (including extension).
-        attr_reader :phone
-        # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        attr_reader :tracking_number
       end
 
       class ShippingOption < Stripe::StripeObject
@@ -1119,6 +1118,8 @@ module Stripe
         attr_accessor :created
         # Only return the Checkout Sessions for the Customer specified.
         attr_accessor :customer
+        # Only return the Checkout Sessions for the Account specified.
+        attr_accessor :customer_account
         # Only return the Checkout Sessions for the Customer details specified.
         attr_accessor :customer_details
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -1141,6 +1142,7 @@ module Stripe
         def initialize(
           created: nil,
           customer: nil,
+          customer_account: nil,
           customer_details: nil,
           ending_before: nil,
           expand: nil,
@@ -1153,6 +1155,7 @@ module Stripe
         )
           @created = created
           @customer = customer
+          @customer_account = customer_account
           @customer_details = customer_details
           @ending_before = ending_before
           @expand = expand
@@ -1568,9 +1571,9 @@ module Stripe
             end
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_accessor :currency
-            # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
             attr_accessor :product
-            # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+            # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
             attr_accessor :product_data
             # The recurring components of a price such as `interval` and `interval_count`.
             attr_accessor :recurring
@@ -1630,6 +1633,35 @@ module Stripe
             @price_data = price_data
             @quantity = quantity
             @tax_rates = tax_rates
+          end
+        end
+
+        class OptionalItem < Stripe::RequestParams
+          class AdjustableQuantity < Stripe::RequestParams
+            # Set to true if the quantity can be adjusted to any non-negative integer.
+            attr_accessor :enabled
+            # The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+            attr_accessor :maximum
+            # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+            attr_accessor :minimum
+
+            def initialize(enabled: nil, maximum: nil, minimum: nil)
+              @enabled = enabled
+              @maximum = maximum
+              @minimum = minimum
+            end
+          end
+          # When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+          attr_accessor :adjustable_quantity
+          # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+          attr_accessor :price
+          # The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+          attr_accessor :quantity
+
+          def initialize(adjustable_quantity: nil, price: nil, quantity: nil)
+            @adjustable_quantity = adjustable_quantity
+            @price = price
+            @quantity = quantity
           end
         end
 
@@ -1699,7 +1731,7 @@ module Stripe
               @destination = destination
             end
           end
-          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
           attr_accessor :application_fee_amount
           # Controls when the funds will be captured from the customer's account.
           attr_accessor :capture_method
@@ -2822,9 +2854,16 @@ module Stripe
           end
           # Permissions for updating the Checkout Session.
           attr_accessor :update
+          # Determines which entity is allowed to update the shipping details.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+          #
+          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          attr_accessor :update_shipping_details
 
-          def initialize(update: nil)
+          def initialize(update: nil, update_shipping_details: nil)
             @update = update
+            @update_shipping_details = update_shipping_details
           end
         end
 
@@ -3139,6 +3178,8 @@ module Stripe
         #
         # You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
         attr_accessor :customer
+        # ID of an existing Account, if one exists. Has the same behavior as `customer`.
+        attr_accessor :customer_account
         # Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
         #
         # When a Customer is not created, you can still retrieve email, address, and other customer data entered in Checkout
@@ -3177,6 +3218,14 @@ module Stripe
         attr_accessor :metadata
         # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         attr_accessor :mode
+        # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        #
+        # There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
+        #
+        # For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
+        #
+        # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+        attr_accessor :optional_items
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
         attr_accessor :payment_intent_data
         # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.
@@ -3227,9 +3276,10 @@ module Stripe
         attr_accessor :shipping_address_collection
         # The shipping rate options to apply to this Session. Up to a maximum of 5.
         attr_accessor :shipping_options
-        # Describes the type of transaction being performed by Checkout in order to customize
-        # relevant text on the page, such as the submit button. `submit_type` can only be
-        # specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        # Describes the type of transaction being performed by Checkout in order
+        # to customize relevant text on the page, such as the submit button.
+        #  `submit_type` can only be specified on Checkout Sessions in
+        # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         attr_accessor :submit_type
         # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
         attr_accessor :subscription_data
@@ -3257,6 +3307,7 @@ module Stripe
           custom_fields: nil,
           custom_text: nil,
           customer: nil,
+          customer_account: nil,
           customer_creation: nil,
           customer_email: nil,
           customer_update: nil,
@@ -3268,6 +3319,7 @@ module Stripe
           locale: nil,
           metadata: nil,
           mode: nil,
+          optional_items: nil,
           payment_intent_data: nil,
           payment_method_collection: nil,
           payment_method_configuration: nil,
@@ -3300,6 +3352,7 @@ module Stripe
           @custom_fields = custom_fields
           @custom_text = custom_text
           @customer = customer
+          @customer_account = customer_account
           @customer_creation = customer_creation
           @customer_email = customer_email
           @customer_update = customer_update
@@ -3311,6 +3364,7 @@ module Stripe
           @locale = locale
           @metadata = metadata
           @mode = mode
+          @optional_items = optional_items
           @payment_intent_data = payment_intent_data
           @payment_method_collection = payment_method_collection
           @payment_method_configuration = payment_method_configuration
@@ -3555,7 +3609,7 @@ module Stripe
         #
         # To update an existing line item, specify its `id` along with the new values of the fields to update.
         #
-        # To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        # To add a new line item, specify a `price` and `quantity`.
         #
         # To remove an existing line item, omit the line item's ID from the retransmitted array.
         #
@@ -3627,7 +3681,8 @@ module Stripe
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
       attr_reader :client_reference_id
-      # The client secret of the Session. Use this with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
+      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
       attr_reader :collected_information
@@ -3651,6 +3706,8 @@ module Stripe
       # during the payment flow unless an existing customer was provided when
       # the Session was created.
       attr_reader :customer
+      # The ID of the account for this Session.
+      attr_reader :customer_account
       # Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
       attr_reader :customer_creation
       # The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode.
@@ -3683,6 +3740,8 @@ module Stripe
       attr_reader :mode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # The optional items presented to the customer at checkout.
+      attr_reader :optional_items
       # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.
@@ -3705,6 +3764,8 @@ module Stripe
       attr_reader :permissions
       # Attribute for field phone_number_collection
       attr_reader :phone_number_collection
+      # Attribute for field presentment_details
+      attr_reader :presentment_details
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       attr_reader :recovered_from
       # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
@@ -3719,8 +3780,6 @@ module Stripe
       attr_reader :shipping_address_collection
       # The details of the customer cost of shipping, including the customer chosen ShippingRate.
       attr_reader :shipping_cost
-      # Shipping information for this Checkout Session.
-      attr_reader :shipping_details
       # The shipping rate options applied to this Session.
       attr_reader :shipping_options
       # The status of the Checkout Session, one of `open`, `complete`, or `expired`.
@@ -3740,11 +3799,11 @@ module Stripe
       attr_reader :total_details
       # The UI mode of the Session. Defaults to `hosted`.
       attr_reader :ui_mode
-      # The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       attr_reader :url
 
-      # Creates a Session object.
+      # Creates a Checkout Session object.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -3754,9 +3813,9 @@ module Stripe
         )
       end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       def expire(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -3766,9 +3825,9 @@ module Stripe
         )
       end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       def self.expire(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -3808,7 +3867,7 @@ module Stripe
         )
       end
 
-      # Updates a Session object.
+      # Updates a Checkout Session object.
       def self.update(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,

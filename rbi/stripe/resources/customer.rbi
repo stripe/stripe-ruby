@@ -95,13 +95,13 @@ module Stripe
     end
     class Tax < Stripe::StripeObject
       class Location < Stripe::StripeObject
-        # The customer's country as identified by Stripe Tax.
+        # The identified tax country of the customer.
         sig { returns(String) }
         attr_reader :country
         # The data source used to infer the customer's location.
         sig { returns(String) }
         attr_reader :source
-        # The customer's state, county, province, or region as identified by Stripe Tax.
+        # The identified tax state, county, province, or region of the customer.
         sig { returns(T.nilable(String)) }
         attr_reader :state
       end
@@ -111,7 +111,7 @@ module Stripe
       # A recent IP address of the customer used for tax reporting and tax location inference.
       sig { returns(T.nilable(String)) }
       attr_reader :ip_address
-      # The customer's location as identified by Stripe Tax.
+      # The identified tax location of the customer.
       sig { returns(T.nilable(Location)) }
       attr_reader :location
     end
@@ -130,6 +130,9 @@ module Stripe
     # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) the customer can be charged in for recurring billing purposes.
     sig { returns(T.nilable(String)) }
     attr_reader :currency
+    # Attribute for field customer_account
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # ID of the default payment source for the customer.
     #
     # If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
@@ -379,9 +382,6 @@ module Stripe
       # Balance information and default balance settings for this customer.
       sig { returns(::Stripe::Customer::UpdateParams::CashBalance) }
       attr_accessor :cash_balance
-      # Attribute for param field coupon
-      sig { returns(String) }
-      attr_accessor :coupon
       # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
       #
       # Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
@@ -419,9 +419,6 @@ module Stripe
       # Customer's preferred languages, ordered by preference.
       sig { returns(T::Array[String]) }
       attr_accessor :preferred_locales
-      # The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
-      sig { returns(String) }
-      attr_accessor :promotion_code
       # The customer's shipping information. Appears on invoices emailed to this customer.
       sig { returns(T.nilable(::Stripe::Customer::UpdateParams::Shipping)) }
       attr_accessor :shipping
@@ -438,13 +435,12 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :validate
       sig {
-        params(address: T.nilable(::Stripe::Customer::UpdateParams::Address), balance: Integer, cash_balance: ::Stripe::Customer::UpdateParams::CashBalance, coupon: String, default_source: String, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::Customer::UpdateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, phone: String, preferred_locales: T::Array[String], promotion_code: String, shipping: T.nilable(::Stripe::Customer::UpdateParams::Shipping), source: String, tax: ::Stripe::Customer::UpdateParams::Tax, tax_exempt: T.nilable(String), validate: T::Boolean).void
+        params(address: T.nilable(::Stripe::Customer::UpdateParams::Address), balance: Integer, cash_balance: ::Stripe::Customer::UpdateParams::CashBalance, default_source: String, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::Customer::UpdateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, phone: String, preferred_locales: T::Array[String], shipping: T.nilable(::Stripe::Customer::UpdateParams::Shipping), source: String, tax: ::Stripe::Customer::UpdateParams::Tax, tax_exempt: T.nilable(String), validate: T::Boolean).void
        }
       def initialize(
         address: nil,
         balance: nil,
         cash_balance: nil,
-        coupon: nil,
         default_source: nil,
         description: nil,
         email: nil,
@@ -456,7 +452,6 @@ module Stripe
         next_invoice_sequence: nil,
         phone: nil,
         preferred_locales: nil,
-        promotion_code: nil,
         shipping: nil,
         source: nil,
         tax: nil,
@@ -687,9 +682,6 @@ module Stripe
       # Balance information and default balance settings for this customer.
       sig { returns(::Stripe::Customer::CreateParams::CashBalance) }
       attr_accessor :cash_balance
-      # Attribute for param field coupon
-      sig { returns(String) }
-      attr_accessor :coupon
       # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
       sig { returns(String) }
       attr_accessor :description
@@ -723,9 +715,6 @@ module Stripe
       # Customer's preferred languages, ordered by preference.
       sig { returns(T::Array[String]) }
       attr_accessor :preferred_locales
-      # The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
-      sig { returns(String) }
-      attr_accessor :promotion_code
       # The customer's shipping information. Appears on invoices emailed to this customer.
       sig { returns(T.nilable(::Stripe::Customer::CreateParams::Shipping)) }
       attr_accessor :shipping
@@ -748,13 +737,12 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_accessor :validate
       sig {
-        params(address: T.nilable(::Stripe::Customer::CreateParams::Address), balance: Integer, cash_balance: ::Stripe::Customer::CreateParams::CashBalance, coupon: String, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::Customer::CreateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, payment_method: String, phone: String, preferred_locales: T::Array[String], promotion_code: String, shipping: T.nilable(::Stripe::Customer::CreateParams::Shipping), source: String, tax: ::Stripe::Customer::CreateParams::Tax, tax_exempt: T.nilable(String), tax_id_data: T::Array[::Stripe::Customer::CreateParams::TaxIdDatum], test_clock: String, validate: T::Boolean).void
+        params(address: T.nilable(::Stripe::Customer::CreateParams::Address), balance: Integer, cash_balance: ::Stripe::Customer::CreateParams::CashBalance, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::Customer::CreateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, payment_method: String, phone: String, preferred_locales: T::Array[String], shipping: T.nilable(::Stripe::Customer::CreateParams::Shipping), source: String, tax: ::Stripe::Customer::CreateParams::Tax, tax_exempt: T.nilable(String), tax_id_data: T::Array[::Stripe::Customer::CreateParams::TaxIdDatum], test_clock: String, validate: T::Boolean).void
        }
       def initialize(
         address: nil,
         balance: nil,
         cash_balance: nil,
-        coupon: nil,
         description: nil,
         email: nil,
         expand: nil,
@@ -766,7 +754,6 @@ module Stripe
         payment_method: nil,
         phone: nil,
         preferred_locales: nil,
-        promotion_code: nil,
         shipping: nil,
         source: nil,
         tax: nil,

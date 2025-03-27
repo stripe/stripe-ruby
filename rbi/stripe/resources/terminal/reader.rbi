@@ -814,7 +814,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
-        # Skip behavior for input collection.
+        # This parameter defines the skip behavior for input collection.
         sig { returns(String) }
         attr_accessor :skip_non_required_inputs
         sig { params(expand: T::Array[String], skip_non_required_inputs: String).void }

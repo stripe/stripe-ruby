@@ -147,6 +147,8 @@ module Stripe
         attr_accessor :configuration
         # The ID of an existing customer.
         attr_accessor :customer
+        # The ID of an existing account.
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
@@ -161,6 +163,7 @@ module Stripe
         def initialize(
           configuration: nil,
           customer: nil,
+          customer_account: nil,
           expand: nil,
           flow_data: nil,
           locale: nil,
@@ -169,6 +172,7 @@ module Stripe
         )
           @configuration = configuration
           @customer = customer
+          @customer_account = customer_account
           @expand = expand
           @flow_data = flow_data
           @locale = locale

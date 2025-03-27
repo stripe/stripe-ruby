@@ -45,7 +45,7 @@ module Stripe
           def initialize(event_payload_key: nil, type: nil); end
         end
         class DefaultAggregation < Stripe::RequestParams
-          # Specifies how events are aggregated. Allowed values are `count` to count the number of events and `sum` to sum each event's value.
+          # Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value and `last` to take the last event's value in the window.
           sig { returns(String) }
           attr_accessor :formula
           sig { params(formula: String).void }

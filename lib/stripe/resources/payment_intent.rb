@@ -1396,6 +1396,27 @@ module Stripe
       class NaverPay < Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+      end
+
+      class NzBankAccount < Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+        # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        attr_reader :target_date
       end
 
       class Oxxo < Stripe::StripeObject
@@ -1614,6 +1635,17 @@ module Stripe
         attr_reader :setup_future_usage
       end
 
+      class StripeBalance < Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+      end
+
       class Swish < Stripe::StripeObject
         # A reference for this payment to be displayed in the Swish app.
         attr_reader :reference
@@ -1776,6 +1808,8 @@ module Stripe
       attr_reader :multibanco
       # Attribute for field naver_pay
       attr_reader :naver_pay
+      # Attribute for field nz_bank_account
+      attr_reader :nz_bank_account
       # Attribute for field oxxo
       attr_reader :oxxo
       # Attribute for field p24
@@ -1808,6 +1842,8 @@ module Stripe
       attr_reader :shopeepay
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint
@@ -1818,6 +1854,13 @@ module Stripe
       attr_reader :wechat_pay
       # Attribute for field zip
       attr_reader :zip
+    end
+
+    class PresentmentDetails < Stripe::StripeObject
+      # Amount intended to be collected by this payment, denominated in presentment_currency.
+      attr_reader :presentment_amount
+      # Currency presented to the customer during payment.
+      attr_reader :presentment_currency
     end
 
     class Processing < Stripe::StripeObject
@@ -1895,6 +1938,8 @@ module Stripe
       attr_accessor :created
       # Only return PaymentIntents for the customer that this customer ID specifies.
       attr_accessor :customer
+      # Only return PaymentIntents for the account that this ID specifies.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -1907,6 +1952,7 @@ module Stripe
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -1914,6 +1960,7 @@ module Stripe
       )
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @limit = limit
@@ -2722,6 +2769,9 @@ module Stripe
         class Bancontact < Stripe::RequestParams
         end
 
+        class Billie < Stripe::RequestParams
+        end
+
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -2892,6 +2942,37 @@ module Stripe
           end
         end
 
+        class NzBankAccount < Stripe::RequestParams
+          # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+          attr_accessor :account_holder_name
+          # The account number for the bank account.
+          attr_accessor :account_number
+          # The numeric code for the bank account's bank.
+          attr_accessor :bank_code
+          # The numeric code for the bank account's bank branch.
+          attr_accessor :branch_code
+          # Attribute for param field reference
+          attr_accessor :reference
+          # The suffix of the bank account number.
+          attr_accessor :suffix
+
+          def initialize(
+            account_holder_name: nil,
+            account_number: nil,
+            bank_code: nil,
+            branch_code: nil,
+            reference: nil,
+            suffix: nil
+          )
+            @account_holder_name = account_holder_name
+            @account_number = account_number
+            @bank_code = bank_code
+            @branch_code = branch_code
+            @reference = reference
+            @suffix = suffix
+          end
+        end
+
         class Oxxo < Stripe::RequestParams
         end
 
@@ -2978,6 +3059,9 @@ module Stripe
         class SamsungPay < Stripe::RequestParams
         end
 
+        class Satispay < Stripe::RequestParams
+        end
+
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
           attr_accessor :iban
@@ -2996,6 +3080,18 @@ module Stripe
 
           def initialize(country: nil)
             @country = country
+          end
+        end
+
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
           end
         end
 
@@ -3057,6 +3153,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
         # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -3103,6 +3201,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         attr_accessor :naver_pay
+        # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        attr_accessor :nz_bank_account
         # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
@@ -3131,12 +3231,16 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
         # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -3161,6 +3265,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           billing_details: nil,
           blik: nil,
           boleto: nil,
@@ -3184,6 +3289,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -3198,9 +3304,11 @@ module Stripe
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -3218,6 +3326,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @billing_details = billing_details
           @blik = blik
           @boleto = boleto
@@ -3241,6 +3350,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -3255,9 +3365,11 @@ module Stripe
           @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -4254,9 +4366,38 @@ module Stripe
           #
           # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
           attr_accessor :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
 
-          def initialize(capture_method: nil)
+          def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class NzBankAccount < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
+
+          def initialize(setup_future_usage: nil, target_date: nil)
+            @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -4642,6 +4783,23 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Swish < Stripe::RequestParams
           # A reference for this payment to be displayed in the Swish app.
           attr_accessor :reference
@@ -4889,6 +5047,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
         attr_accessor :naver_pay
+        # If this is a `nz_bank_account` PaymentMethod, this sub-hash contains details about the NZ BECS Direct Debit payment method options.
+        attr_accessor :nz_bank_account
         # If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
@@ -4921,6 +5081,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
         attr_accessor :sofort
+        # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+        attr_accessor :stripe_balance
         # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         attr_accessor :swish
         # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -4965,6 +5127,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -4981,6 +5144,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           us_bank_account: nil,
@@ -5019,6 +5183,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -5035,6 +5200,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @us_bank_account = us_bank_account
@@ -5125,7 +5291,7 @@ module Stripe
       end
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -5149,6 +5315,12 @@ module Stripe
       #
       # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
       attr_accessor :customer
+      # ID of the Account this PaymentIntent belongs to, if one exists.
+      #
+      # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+      #
+      # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
@@ -5224,6 +5396,7 @@ module Stripe
         confirmation_token: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         error_on_requires_action: nil,
         expand: nil,
@@ -5260,6 +5433,7 @@ module Stripe
         @confirmation_token = confirmation_token
         @currency = currency
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @error_on_requires_action = error_on_requires_action
         @expand = expand
@@ -6078,6 +6252,9 @@ module Stripe
         class Bancontact < Stripe::RequestParams
         end
 
+        class Billie < Stripe::RequestParams
+        end
+
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -6248,6 +6425,37 @@ module Stripe
           end
         end
 
+        class NzBankAccount < Stripe::RequestParams
+          # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+          attr_accessor :account_holder_name
+          # The account number for the bank account.
+          attr_accessor :account_number
+          # The numeric code for the bank account's bank.
+          attr_accessor :bank_code
+          # The numeric code for the bank account's bank branch.
+          attr_accessor :branch_code
+          # Attribute for param field reference
+          attr_accessor :reference
+          # The suffix of the bank account number.
+          attr_accessor :suffix
+
+          def initialize(
+            account_holder_name: nil,
+            account_number: nil,
+            bank_code: nil,
+            branch_code: nil,
+            reference: nil,
+            suffix: nil
+          )
+            @account_holder_name = account_holder_name
+            @account_number = account_number
+            @bank_code = bank_code
+            @branch_code = branch_code
+            @reference = reference
+            @suffix = suffix
+          end
+        end
+
         class Oxxo < Stripe::RequestParams
         end
 
@@ -6334,6 +6542,9 @@ module Stripe
         class SamsungPay < Stripe::RequestParams
         end
 
+        class Satispay < Stripe::RequestParams
+        end
+
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
           attr_accessor :iban
@@ -6352,6 +6563,18 @@ module Stripe
 
           def initialize(country: nil)
             @country = country
+          end
+        end
+
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
           end
         end
 
@@ -6413,6 +6636,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
         # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -6459,6 +6684,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         attr_accessor :naver_pay
+        # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        attr_accessor :nz_bank_account
         # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
@@ -6487,12 +6714,16 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
         # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -6517,6 +6748,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           billing_details: nil,
           blik: nil,
           boleto: nil,
@@ -6540,6 +6772,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -6554,9 +6787,11 @@ module Stripe
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -6574,6 +6809,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @billing_details = billing_details
           @blik = blik
           @boleto = boleto
@@ -6597,6 +6833,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -6611,9 +6848,11 @@ module Stripe
           @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -7610,9 +7849,38 @@ module Stripe
           #
           # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
           attr_accessor :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
 
-          def initialize(capture_method: nil)
+          def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class NzBankAccount < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
+
+          def initialize(setup_future_usage: nil, target_date: nil)
+            @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -7998,6 +8266,23 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Swish < Stripe::RequestParams
           # A reference for this payment to be displayed in the Swish app.
           attr_accessor :reference
@@ -8245,6 +8530,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
         attr_accessor :naver_pay
+        # If this is a `nz_bank_account` PaymentMethod, this sub-hash contains details about the NZ BECS Direct Debit payment method options.
+        attr_accessor :nz_bank_account
         # If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
@@ -8277,6 +8564,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
         attr_accessor :sofort
+        # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+        attr_accessor :stripe_balance
         # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         attr_accessor :swish
         # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -8321,6 +8610,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -8337,6 +8627,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           us_bank_account: nil,
@@ -8375,6 +8666,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -8391,6 +8683,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @us_bank_account = us_bank_account
@@ -8460,7 +8753,7 @@ module Stripe
       end
       # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -8474,6 +8767,12 @@ module Stripe
       #
       # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
       attr_accessor :customer
+      # ID of the Account this PaymentIntent belongs to, if one exists.
+      #
+      # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+      #
+      # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
@@ -8528,6 +8827,7 @@ module Stripe
         capture_method: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         mandate_data: nil,
@@ -8552,6 +8852,7 @@ module Stripe
         @capture_method = capture_method
         @currency = currency
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @expand = expand
         @mandate_data = mandate_data
@@ -9318,9 +9619,9 @@ module Stripe
           @amount = amount
         end
       end
-      # The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount is automatically refunded. Defaults to the full `amount_capturable` if it's not provided.
+      # The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Defaults to the full `amount_capturable` if it's not provided.
       attr_accessor :amount_to_capture
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -10154,6 +10455,9 @@ module Stripe
         class Bancontact < Stripe::RequestParams
         end
 
+        class Billie < Stripe::RequestParams
+        end
+
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -10324,6 +10628,37 @@ module Stripe
           end
         end
 
+        class NzBankAccount < Stripe::RequestParams
+          # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+          attr_accessor :account_holder_name
+          # The account number for the bank account.
+          attr_accessor :account_number
+          # The numeric code for the bank account's bank.
+          attr_accessor :bank_code
+          # The numeric code for the bank account's bank branch.
+          attr_accessor :branch_code
+          # Attribute for param field reference
+          attr_accessor :reference
+          # The suffix of the bank account number.
+          attr_accessor :suffix
+
+          def initialize(
+            account_holder_name: nil,
+            account_number: nil,
+            bank_code: nil,
+            branch_code: nil,
+            reference: nil,
+            suffix: nil
+          )
+            @account_holder_name = account_holder_name
+            @account_number = account_number
+            @bank_code = bank_code
+            @branch_code = branch_code
+            @reference = reference
+            @suffix = suffix
+          end
+        end
+
         class Oxxo < Stripe::RequestParams
         end
 
@@ -10410,6 +10745,9 @@ module Stripe
         class SamsungPay < Stripe::RequestParams
         end
 
+        class Satispay < Stripe::RequestParams
+        end
+
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
           attr_accessor :iban
@@ -10428,6 +10766,18 @@ module Stripe
 
           def initialize(country: nil)
             @country = country
+          end
+        end
+
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
           end
         end
 
@@ -10489,6 +10839,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
         # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -10535,6 +10887,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         attr_accessor :naver_pay
+        # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        attr_accessor :nz_bank_account
         # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
@@ -10563,12 +10917,16 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
         # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -10593,6 +10951,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           billing_details: nil,
           blik: nil,
           boleto: nil,
@@ -10616,6 +10975,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -10630,9 +10990,11 @@ module Stripe
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -10650,6 +11012,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @billing_details = billing_details
           @blik = blik
           @boleto = boleto
@@ -10673,6 +11036,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -10687,9 +11051,11 @@ module Stripe
           @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -11686,9 +12052,38 @@ module Stripe
           #
           # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
           attr_accessor :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
 
-          def initialize(capture_method: nil)
+          def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class NzBankAccount < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
+
+          def initialize(setup_future_usage: nil, target_date: nil)
+            @setup_future_usage = setup_future_usage
+            @target_date = target_date
           end
         end
 
@@ -12074,6 +12469,23 @@ module Stripe
           end
         end
 
+        class StripeBalance < Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          #
+          # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Swish < Stripe::RequestParams
           # A reference for this payment to be displayed in the Swish app.
           attr_accessor :reference
@@ -12321,6 +12733,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
         attr_accessor :naver_pay
+        # If this is a `nz_bank_account` PaymentMethod, this sub-hash contains details about the NZ BECS Direct Debit payment method options.
+        attr_accessor :nz_bank_account
         # If this is a `oxxo` PaymentMethod, this sub-hash contains details about the OXXO payment method options.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
@@ -12353,6 +12767,8 @@ module Stripe
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
         attr_accessor :sofort
+        # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+        attr_accessor :stripe_balance
         # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
         attr_accessor :swish
         # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -12397,6 +12813,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -12413,6 +12830,7 @@ module Stripe
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           us_bank_account: nil,
@@ -12451,6 +12869,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -12467,6 +12886,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @us_bank_account = us_bank_account
@@ -12534,7 +12954,7 @@ module Stripe
           @tracking_number = tracking_number
         end
       end
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -12670,7 +13090,7 @@ module Stripe
       end
       # The updated total amount that you intend to collect from the cardholder. This amount must be smaller than the currently authorized amount and greater than the already captured amount.
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -12756,7 +13176,7 @@ module Stripe
       end
       # The updated total amount that you intend to collect from the cardholder. This amount must be greater than the currently authorized amount.
       attr_accessor :amount
-      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+      # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
       # Automations to be run during the PaymentIntent lifecycle
       attr_accessor :async_workflows
@@ -12844,7 +13264,7 @@ module Stripe
     attr_reader :amount_received
     # ID of the Connect application that created the PaymentIntent.
     attr_reader :application
-    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     attr_reader :application_fee_amount
     # Attribute for field async_workflows
     attr_reader :async_workflows
@@ -12852,7 +13272,7 @@ module Stripe
     attr_reader :automatic_payment_methods
     # Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
     attr_reader :canceled_at
-    # Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`).
+    # Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, `automatic`, or `expired`).
     attr_reader :cancellation_reason
     # Controls when the funds will be captured from the customer's account.
     attr_reader :capture_method
@@ -12874,12 +13294,16 @@ module Stripe
     #
     # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     attr_reader :customer
+    # ID of the Account this PaymentIntent belongs to, if one exists.
+    #
+    # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+    #
+    # If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
     # Unique identifier for the object.
     attr_reader :id
-    # ID of the invoice that created this PaymentIntent, if it exists.
-    attr_reader :invoice
     # The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.
     attr_reader :last_payment_error
     # ID of the latest [Charge object](https://stripe.com/docs/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
@@ -12902,8 +13326,10 @@ module Stripe
     attr_reader :payment_method_configuration_details
     # Payment-method-specific configuration for this PaymentIntent.
     attr_reader :payment_method_options
-    # The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
+    # The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_reader :payment_method_types
+    # Attribute for field presentment_details
+    attr_reader :presentment_details
     # If present, this property tells you about the processing state of the payment.
     attr_reader :processing
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).

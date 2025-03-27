@@ -160,16 +160,18 @@ module Stripe
   end
 
   def self.add_beta_version(beta_name, version)
-    unless version.match?(/\Av\d+\z/)
+    unless version.start_with?("v") && version[1..-1].to_i.to_s == version[1..-1]
       raise ArgumentError, "Version must be in the format 'v' followed by a number (e.g., 'v3')"
     end
 
-    if api_version.include?("; #{beta_name}=")
-      current_version = api_version.match(/; #{beta_name}=v(\d+)/)[1].to_i
+    if (index = api_version.index("; #{beta_name}="))
+      start_index = index + "; #{beta_name}=".length
+      end_index = api_version.index(";", start_index) || api_version.length
+      current_version = api_version[start_index...end_index][1..-1].to_i
       new_version = version[1..-1].to_i
       return if new_version <= current_version # Keep the higher version, no update needed
 
-      self.api_version = api_version.sub(/; #{beta_name}=v\d+/, "; #{beta_name}=#{version}")
+      self.api_version = api_version[0...index] + "; #{beta_name}=#{version}" + api_version[end_index..-1]
     else
       self.api_version = "#{api_version}; #{beta_name}=#{version}"
     end

@@ -19,7 +19,7 @@ module Stripe
       "price"
     end
 
-    # Creates a new price for an existing product. The price can be recurring or one-time.
+    # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/prices", params: params, opts: opts)
     end

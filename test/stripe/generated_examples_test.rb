@@ -3851,20 +3851,6 @@ module Stripe
       client.v1.quotes.update("qt_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx"
     end
-    should "Test quotes preview invoices lines get" do
-      Stripe::Quote.list_preview_invoice_lines("qt_xyz", "in_xyz")
-      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
-    end
-    should "Test quotes preview invoices lines get (service)" do
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
-      ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
-
-      client.v1.quotes.list_preview_invoice_lines("qt_xyz", "in_xyz")
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
-    end
     should "Test radar early fraud warnings get" do
       Stripe::Radar::EarlyFraudWarning.list({ limit: 3 })
       assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings?limit=3"
@@ -4869,22 +4855,6 @@ module Stripe
 
       client.v1.tax_codes.retrieve("txcd_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_codes/txcd_xxxxxxxxxxxxx"
-    end
-    should "Test tax forms pdf get" do
-      block_handler = {}
-      Stripe::Tax::Form.pdf("form_xxxxxxxxxxxxx", &block_handler)
-      assert_requested :get, "#{Stripe.api_base}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
-    end
-    should "Test tax forms pdf get (service)" do
-      block_handler = {}
-      stub_request(
-        :get,
-        "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
-      ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
-
-      client.v1.tax.forms.pdf("form_xxxxxxxxxxxxx", &block_handler)
-      assert_requested :get, "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
     end
     should "Test tax ids delete" do
       Stripe::TaxId.delete("taxid_123")

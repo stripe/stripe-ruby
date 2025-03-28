@@ -7,25 +7,25 @@ module Stripe
     class TransactionService < StripeService
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The gift card to list transactions for.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :gift_card
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :transfer_group
         sig {
-          params(ending_before: String, expand: T::Array[String], gift_card: String, limit: Integer, starting_after: String, transfer_group: String).void
+          params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), gift_card: T.nilable(String), limit: T.nilable(Integer), starting_after: T.nilable(String), transfer_group: T.nilable(String)).void
          }
         def initialize(
           ending_before: nil,
@@ -60,31 +60,31 @@ module Stripe
         sig { returns(Integer) }
         attr_accessor :amount
         # Whether this is a confirmed transaction. A confirmed transaction immediately deducts from/adds to the `amount_available` on the gift card. Otherwise, it creates a held transaction that increments the `amount_held` on the gift card.
-        sig { returns(T::Boolean) }
+        sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :confirm
         # Related objects which created this transaction.
-        sig { returns(::Stripe::GiftCards::TransactionService::CreateParams::CreatedBy) }
+        sig { returns(T.nilable(::Stripe::GiftCards::TransactionService::CreateParams::CreatedBy)) }
         attr_accessor :created_by
         # The currency of the transaction. This must match the currency of the gift card.
         sig { returns(String) }
         attr_accessor :currency
         # An arbitrary string attached to the object. Often useful for displaying to users.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The gift card to create a new transaction on.
         sig { returns(String) }
         attr_accessor :gift_card
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :transfer_group
         sig {
-          params(amount: Integer, confirm: T::Boolean, created_by: ::Stripe::GiftCards::TransactionService::CreateParams::CreatedBy, currency: String, description: String, expand: T::Array[String], gift_card: String, metadata: T::Hash[String, String], transfer_group: String).void
+          params(amount: Integer, confirm: T.nilable(T::Boolean), created_by: T.nilable(::Stripe::GiftCards::TransactionService::CreateParams::CreatedBy), currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), gift_card: String, metadata: T.nilable(T::Hash[String, String]), transfer_group: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -100,38 +100,38 @@ module Stripe
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class UpdateParams < Stripe::RequestParams
         # An arbitrary string attached to the object. Often useful for displaying to users.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T::Hash[String, String])) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
         sig {
-          params(description: String, expand: T::Array[String], metadata: T.nilable(T::Hash[String, String])).void
+          params(description: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
          }
         def initialize(description: nil, expand: nil, metadata: nil); end
       end
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class ConfirmParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Cancel a gift card transaction

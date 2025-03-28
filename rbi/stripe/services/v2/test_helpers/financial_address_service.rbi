@@ -14,10 +14,10 @@ module Stripe
           sig { returns(String) }
           attr_accessor :network
           # String explaining funds flow. Use this field to populate the statement descriptor of the ReceivedCredit created as an eventual result of this simulation.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :statement_descriptor
           sig {
-            params(amount: Stripe::V2::Amount, network: String, statement_descriptor: String).void
+            params(amount: Stripe::V2::Amount, network: String, statement_descriptor: T.nilable(String)).void
            }
           def initialize(amount: nil, network: nil, statement_descriptor: nil); end
         end

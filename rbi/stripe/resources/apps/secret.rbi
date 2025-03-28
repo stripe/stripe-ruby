@@ -55,28 +55,28 @@ module Stripe
           sig { returns(String) }
           attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user
-          sig { params(type: String, user: String).void }
+          sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
         sig { returns(::Stripe::Apps::Secret::ListParams::Scope) }
         attr_accessor :scope
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         sig {
-          params(ending_before: String, expand: T::Array[String], limit: Integer, scope: ::Stripe::Apps::Secret::ListParams::Scope, starting_after: String).void
+          params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), scope: ::Stripe::Apps::Secret::ListParams::Scope, starting_after: T.nilable(String)).void
          }
         def initialize(
           ending_before: nil,
@@ -92,16 +92,16 @@ module Stripe
           sig { returns(String) }
           attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user
-          sig { params(type: String, user: String).void }
+          sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The Unix timestamp for the expiry time of the secret, after which the secret deletes.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :expires_at
         # A name for the secret that's unique within the scope.
         sig { returns(String) }
@@ -113,7 +113,7 @@ module Stripe
         sig { returns(::Stripe::Apps::Secret::CreateParams::Scope) }
         attr_accessor :scope
         sig {
-          params(expand: T::Array[String], expires_at: Integer, name: String, payload: String, scope: ::Stripe::Apps::Secret::CreateParams::Scope).void
+          params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), name: String, payload: String, scope: ::Stripe::Apps::Secret::CreateParams::Scope).void
          }
         def initialize(expand: nil, expires_at: nil, name: nil, payload: nil, scope: nil); end
       end
@@ -123,13 +123,13 @@ module Stripe
           sig { returns(String) }
           attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user
-          sig { params(type: String, user: String).void }
+          sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A name for the secret that's unique within the scope.
         sig { returns(String) }
@@ -138,7 +138,7 @@ module Stripe
         sig { returns(::Stripe::Apps::Secret::FindParams::Scope) }
         attr_accessor :scope
         sig {
-          params(expand: T::Array[String], name: String, scope: ::Stripe::Apps::Secret::FindParams::Scope).void
+          params(expand: T.nilable(T::Array[String]), name: String, scope: ::Stripe::Apps::Secret::FindParams::Scope).void
          }
         def initialize(expand: nil, name: nil, scope: nil); end
       end
@@ -148,13 +148,13 @@ module Stripe
           sig { returns(String) }
           attr_accessor :type
           # The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user
-          sig { params(type: String, user: String).void }
+          sig { params(type: String, user: T.nilable(String)).void }
           def initialize(type: nil, user: nil); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A name for the secret that's unique within the scope.
         sig { returns(String) }
@@ -163,7 +163,7 @@ module Stripe
         sig { returns(::Stripe::Apps::Secret::DeleteWhereParams::Scope) }
         attr_accessor :scope
         sig {
-          params(expand: T::Array[String], name: String, scope: ::Stripe::Apps::Secret::DeleteWhereParams::Scope).void
+          params(expand: T.nilable(T::Array[String]), name: String, scope: ::Stripe::Apps::Secret::DeleteWhereParams::Scope).void
          }
         def initialize(expand: nil, name: nil, scope: nil); end
       end

@@ -10,12 +10,12 @@ module Stripe
           class From < Stripe::RequestParams
             # An optional currency field used to specify which currency is debited from the Payment Method.
             # Since many Payment Methods support only one currency, this field is optional.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :currency
             # ID of the Payment Method using which IBT will be made.
             sig { returns(String) }
             attr_accessor :payment_method
-            sig { params(currency: String, payment_method: String).void }
+            sig { params(currency: T.nilable(String), payment_method: String).void }
             def initialize(currency: nil, payment_method: nil); end
           end
           class To < Stripe::RequestParams
@@ -32,7 +32,7 @@ module Stripe
           sig { returns(Stripe::V2::Amount) }
           attr_accessor :amount
           # An optional, freeform description field intended to store metadata.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # Object containing details about where the funds will originate from.
           sig { returns(::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::From) }
@@ -41,36 +41,36 @@ module Stripe
           sig { returns(::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::To) }
           attr_accessor :to
           sig {
-            params(amount: Stripe::V2::Amount, description: String, from: ::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::From, to: ::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::To).void
+            params(amount: Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::From, to: ::Stripe::V2::MoneyManagement::InboundTransferService::CreateParams::To).void
            }
           def initialize(amount: nil, description: nil, from: nil, to: nil); end
         end
         class ListParams < Stripe::RequestParams
           # Filter for objects created at the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created
           # Filter for objects created after the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gt
           # Filter for objects created on or after the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gte
           # Filter for objects created before the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lt
           # Filter for objects created on or before the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lte
           # The page limit.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
           sig {
-            params(created: String, created_gt: String, created_gte: String, created_lt: String, created_lte: String, limit: Integer).void
+            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer)).void
            }
           def initialize(
             created: nil,

@@ -1778,6 +1778,12 @@ module Stripe
           end
           # Permissions for updating the Checkout Session.
           attr_accessor :update
+          # Determines which entity is allowed to update the line items.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+          #
+          # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+          attr_accessor :update_line_items
           # Determines which entity is allowed to update the shipping details.
           #
           # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -1785,8 +1791,9 @@ module Stripe
           # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
           attr_accessor :update_shipping_details
 
-          def initialize(update: nil, update_shipping_details: nil)
+          def initialize(update: nil, update_line_items: nil, update_shipping_details: nil)
             @update = update
+            @update_line_items = update_line_items
             @update_shipping_details = update_shipping_details
           end
         end

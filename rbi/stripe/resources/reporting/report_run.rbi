@@ -77,37 +77,41 @@ module Stripe
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gt
           # Minimum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gte
           # Maximum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lte
-          sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+          sig {
+            params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+           }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # Only return Report Runs that were created during the given date interval.
-        sig { returns(T.any(::Stripe::Reporting::ReportRun::ListParams::Created, Integer)) }
+        sig {
+          returns(T.nilable(T.any(::Stripe::Reporting::ReportRun::ListParams::Created, Integer)))
+         }
         attr_accessor :created
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         sig {
-          params(created: T.any(::Stripe::Reporting::ReportRun::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+          params(created: T.nilable(T.any(::Stripe::Reporting::ReportRun::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }
         def initialize(
           created: nil,
@@ -120,31 +124,31 @@ module Stripe
       class CreateParams < Stripe::RequestParams
         class Parameters < Stripe::RequestParams
           # The set of report columns to include in the report output. If omitted, the Report Type is run with its default column set.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :columns
           # Connected account ID to filter for in the report run.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :connected_account
           # Currency of objects to be included in the report run.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :currency
           # Ending timestamp of data to be included in the report run (exclusive).
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :interval_end
           # Starting timestamp of data to be included in the report run.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :interval_start
           # Payout ID by which to filter the report run.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :payout
           # Category of balance transactions to be included in the report run.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :reporting_category
           # Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :timezone
           sig {
-            params(columns: T::Array[String], connected_account: String, currency: String, interval_end: Integer, interval_start: Integer, payout: String, reporting_category: String, timezone: String).void
+            params(columns: T.nilable(T::Array[String]), connected_account: T.nilable(String), currency: T.nilable(String), interval_end: T.nilable(Integer), interval_start: T.nilable(Integer), payout: T.nilable(String), reporting_category: T.nilable(String), timezone: T.nilable(String)).void
            }
           def initialize(
             columns: nil,
@@ -158,24 +162,24 @@ module Stripe
           ); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
-        sig { returns(::Stripe::Reporting::ReportRun::CreateParams::Parameters) }
+        sig { returns(T.nilable(::Stripe::Reporting::ReportRun::CreateParams::Parameters)) }
         attr_accessor :parameters
         # The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
         sig { returns(String) }
         attr_accessor :report_type
         sig {
-          params(expand: T::Array[String], parameters: ::Stripe::Reporting::ReportRun::CreateParams::Parameters, report_type: String).void
+          params(expand: T.nilable(T::Array[String]), parameters: T.nilable(::Stripe::Reporting::ReportRun::CreateParams::Parameters), report_type: String).void
          }
         def initialize(expand: nil, parameters: nil, report_type: nil); end
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)

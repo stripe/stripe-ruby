@@ -6,16 +6,15 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundPaymentService < StripeService
-        attr_reader :quotes
         class CancelParams < Stripe::RequestParams
 
         end
         class CreateParams < Stripe::RequestParams
           class DeliveryOptions < Stripe::RequestParams
             # Open Enum. Method for bank account.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :bank_account
-            sig { params(bank_account: String).void }
+            sig { params(bank_account: T.nilable(String)).void }
             def initialize(bank_account: nil); end
           end
           class From < Stripe::RequestParams
@@ -44,15 +43,17 @@ module Stripe
             # - destination supports multiple currencies and one of the currencies matches the FA currency
             # - destination supports multiple currencies and one of the currencies matches the presentment currency
             # Note - when both FA currency and presentment currency are supported, we pick the FA currency to minimize FX.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :currency
             # The payout method which the OutboundPayment uses to send payout.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :payout_method
             # To which account the OutboundPayment is sent.
             sig { returns(String) }
             attr_accessor :recipient
-            sig { params(currency: String, payout_method: String, recipient: String).void }
+            sig {
+              params(currency: T.nilable(String), payout_method: T.nilable(String), recipient: String).void
+             }
             def initialize(currency: nil, payout_method: nil, recipient: nil); end
           end
           # The "presentment amount" to be sent to the recipient.
@@ -60,31 +61,31 @@ module Stripe
           attr_accessor :amount
           # Delivery options to be used to send the OutboundPayment.
           sig {
-            returns(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::DeliveryOptions)
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::DeliveryOptions))
            }
           attr_accessor :delivery_options
           # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # From which FinancialAccount and BalanceType to pull funds from.
           sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::From) }
           attr_accessor :from
           # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-          sig { returns(T::Hash[String, String]) }
+          sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
           # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :outbound_payment_quote
           # Details about the notification settings for the OutboundPayment recipient.
           sig {
-            returns(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification)
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification))
            }
           attr_accessor :recipient_notification
           # To which payout method to send the OutboundPayment.
           sig { returns(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::To) }
           attr_accessor :to
           sig {
-            params(amount: Stripe::V2::Amount, delivery_options: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::DeliveryOptions, description: String, from: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::From, metadata: T::Hash[String, String], outbound_payment_quote: String, recipient_notification: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification, to: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::To).void
+            params(amount: Stripe::V2::Amount, delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::DeliveryOptions), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::From, metadata: T.nilable(T::Hash[String, String]), outbound_payment_quote: T.nilable(String), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::RecipientNotification), to: ::Stripe::V2::MoneyManagement::OutboundPaymentService::CreateParams::To).void
            }
           def initialize(
             amount: nil,
@@ -100,35 +101,35 @@ module Stripe
         class ListParams < Stripe::RequestParams
           # Filter for objects created at the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created
           # Filter for objects created after the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gt
           # Filter for objects created on or after the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gte
           # Filter for objects created before the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lt
           # Filter for objects created on or before the specified timestamp.
           # Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lte
           # The maximum number of results to return.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
           # Only return OutboundPayments sent to this recipient.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :recipient
           # Closed Enum. Only return OutboundPayments with this status.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :status
           sig {
-            params(created: String, created_gt: String, created_gte: String, created_lt: String, created_lte: String, limit: Integer, recipient: String, status: T::Array[String]).void
+            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer), recipient: T.nilable(String), status: T.nilable(T::Array[String])).void
            }
           def initialize(
             created: nil,

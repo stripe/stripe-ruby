@@ -7,12 +7,12 @@ module Stripe
     class AssociationService < StripeService
       class FindParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Valid [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) id
         sig { returns(String) }
         attr_accessor :payment_intent
-        sig { params(expand: T::Array[String], payment_intent: String).void }
+        sig { params(expand: T.nilable(T::Array[String]), payment_intent: String).void }
         def initialize(expand: nil, payment_intent: nil); end
       end
       # Finds a tax association object by PaymentIntent id.

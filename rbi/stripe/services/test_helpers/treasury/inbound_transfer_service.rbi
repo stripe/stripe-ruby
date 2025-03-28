@@ -9,36 +9,36 @@ module Stripe
         class FailParams < Stripe::RequestParams
           class FailureDetails < Stripe::RequestParams
             # Reason for the failure.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :code
-            sig { params(code: String).void }
+            sig { params(code: T.nilable(String)).void }
             def initialize(code: nil); end
           end
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
           # Details about a failed InboundTransfer.
           sig {
-            returns(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails)
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails))
            }
           attr_accessor :failure_details
           sig {
-            params(expand: T::Array[String], failure_details: ::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails).void
+            params(expand: T.nilable(T::Array[String]), failure_details: T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferService::FailParams::FailureDetails)).void
            }
           def initialize(expand: nil, failure_details: nil); end
         end
         class ReturnInboundTransferParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class SucceedParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.

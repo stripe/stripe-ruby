@@ -8,69 +8,73 @@ module Stripe
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gt
           # Minimum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gte
           # Maximum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lte
-          sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+          sig {
+            params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+           }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         class EffectiveAt < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gt
           # Minimum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gte
           # Maximum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lte
-          sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+          sig {
+            params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+           }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         # Only return TransactionEntries that were created during the given date interval.
         sig {
-          returns(T.any(::Stripe::Treasury::TransactionEntryService::ListParams::Created, Integer))
+          returns(T.nilable(T.any(::Stripe::Treasury::TransactionEntryService::ListParams::Created, Integer)))
          }
         attr_accessor :created
         # Attribute for param field effective_at
         sig {
-          returns(T.any(::Stripe::Treasury::TransactionEntryService::ListParams::EffectiveAt, Integer))
+          returns(T.nilable(T.any(::Stripe::Treasury::TransactionEntryService::ListParams::EffectiveAt, Integer)))
          }
         attr_accessor :effective_at
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Returns objects associated with this FinancialAccount.
         sig { returns(String) }
         attr_accessor :financial_account
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # The results are in reverse chronological order by `created` or `effective_at`. The default is `created`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :order_by
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         # Only return TransactionEntries associated with this Transaction.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :transaction
         sig {
-          params(created: T.any(::Stripe::Treasury::TransactionEntryService::ListParams::Created, Integer), effective_at: T.any(::Stripe::Treasury::TransactionEntryService::ListParams::EffectiveAt, Integer), ending_before: String, expand: T::Array[String], financial_account: String, limit: Integer, order_by: String, starting_after: String, transaction: String).void
+          params(created: T.nilable(T.any(::Stripe::Treasury::TransactionEntryService::ListParams::Created, Integer)), effective_at: T.nilable(T.any(::Stripe::Treasury::TransactionEntryService::ListParams::EffectiveAt, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), order_by: T.nilable(String), starting_after: T.nilable(String), transaction: T.nilable(String)).void
          }
         def initialize(
           created: nil,
@@ -86,9 +90,9 @@ module Stripe
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Retrieves a list of TransactionEntry objects.

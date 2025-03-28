@@ -154,9 +154,9 @@ module Stripe
           class AfterCompletion < Stripe::RequestParams
             class HostedConfirmation < Stripe::RequestParams
               # A custom message to display to the customer after the flow is completed.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :custom_message
-              sig { params(custom_message: String).void }
+              sig { params(custom_message: T.nilable(String)).void }
               def initialize(custom_message: nil); end
             end
             class Redirect < Stripe::RequestParams
@@ -168,19 +168,19 @@ module Stripe
             end
             # Configuration when `after_completion.type=hosted_confirmation`.
             sig {
-              returns(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::HostedConfirmation)
+              returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::HostedConfirmation))
              }
             attr_accessor :hosted_confirmation
             # Configuration when `after_completion.type=redirect`.
             sig {
-              returns(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::Redirect)
+              returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::Redirect))
              }
             attr_accessor :redirect
             # The specified behavior after the flow is completed.
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(hosted_confirmation: ::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::HostedConfirmation, redirect: ::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::Redirect, type: String).void
+              params(hosted_confirmation: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::HostedConfirmation), redirect: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion::Redirect), type: String).void
              }
             def initialize(hosted_confirmation: nil, redirect: nil, type: nil); end
           end
@@ -208,14 +208,14 @@ module Stripe
             end
             # Specify a retention strategy to be used in the cancellation flow.
             sig {
-              returns(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel::Retention)
+              returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel::Retention))
              }
             attr_accessor :retention
             # The ID of the subscription to be canceled.
             sig { returns(String) }
             attr_accessor :subscription
             sig {
-              params(retention: ::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel::Retention, subscription: String).void
+              params(retention: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel::Retention), subscription: String).void
              }
             def initialize(retention: nil, subscription: nil); end
           end
@@ -229,12 +229,12 @@ module Stripe
           class SubscriptionUpdateConfirm < Stripe::RequestParams
             class Discount < Stripe::RequestParams
               # The ID of the coupon to apply to this subscription update.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :coupon
               # The ID of a promotion code to apply to this subscription update.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :promotion_code
-              sig { params(coupon: String, promotion_code: String).void }
+              sig { params(coupon: T.nilable(String), promotion_code: T.nilable(String)).void }
               def initialize(coupon: nil, promotion_code: nil); end
             end
             class Item < Stripe::RequestParams
@@ -242,17 +242,19 @@ module Stripe
               sig { returns(String) }
               attr_accessor :id
               # The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :price
               # [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
-              sig { returns(Integer) }
+              sig { returns(T.nilable(Integer)) }
               attr_accessor :quantity
-              sig { params(id: String, price: String, quantity: Integer).void }
+              sig {
+                params(id: String, price: T.nilable(String), quantity: T.nilable(Integer)).void
+               }
               def initialize(id: nil, price: nil, quantity: nil); end
             end
             # The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
             sig {
-              returns(T::Array[::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm::Discount])
+              returns(T.nilable(T::Array[::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm::Discount]))
              }
             attr_accessor :discounts
             # The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
@@ -264,33 +266,35 @@ module Stripe
             sig { returns(String) }
             attr_accessor :subscription
             sig {
-              params(discounts: T::Array[::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm::Discount], items: T::Array[::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm::Item], subscription: String).void
+              params(discounts: T.nilable(T::Array[::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm::Discount]), items: T::Array[::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm::Item], subscription: String).void
              }
             def initialize(discounts: nil, items: nil, subscription: nil); end
           end
           # Behavior after the flow is completed.
-          sig { returns(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion) }
+          sig {
+            returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion))
+           }
           attr_accessor :after_completion
           # Configuration when `flow_data.type=subscription_cancel`.
           sig {
-            returns(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel)
+            returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel))
            }
           attr_accessor :subscription_cancel
           # Configuration when `flow_data.type=subscription_update`.
           sig {
-            returns(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdate)
+            returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdate))
            }
           attr_accessor :subscription_update
           # Configuration when `flow_data.type=subscription_update_confirm`.
           sig {
-            returns(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm)
+            returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm))
            }
           attr_accessor :subscription_update_confirm
           # Type of flow that the customer will go through.
           sig { returns(String) }
           attr_accessor :type
           sig {
-            params(after_completion: ::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion, subscription_cancel: ::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel, subscription_update: ::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdate, subscription_update_confirm: ::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm, type: String).void
+            params(after_completion: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::AfterCompletion), subscription_cancel: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionCancel), subscription_update: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdate), subscription_update_confirm: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData::SubscriptionUpdateConfirm), type: String).void
            }
           def initialize(
             after_completion: nil,
@@ -301,31 +305,31 @@ module Stripe
           ); end
         end
         # The ID of an existing [configuration](https://stripe.com/docs/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :configuration
         # The ID of an existing customer.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer
         # The ID of an existing account.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
-        sig { returns(::Stripe::BillingPortal::Session::CreateParams::FlowData) }
+        sig { returns(T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData)) }
         attr_accessor :flow_data
         # The IETF language tag of the locale customer portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :locale
         # The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :on_behalf_of
         # The default URL to redirect customers to when they click on the portal's link to return to your website.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :return_url
         sig {
-          params(configuration: String, customer: String, customer_account: String, expand: T::Array[String], flow_data: ::Stripe::BillingPortal::Session::CreateParams::FlowData, locale: String, on_behalf_of: String, return_url: String).void
+          params(configuration: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), flow_data: T.nilable(::Stripe::BillingPortal::Session::CreateParams::FlowData), locale: T.nilable(String), on_behalf_of: T.nilable(String), return_url: T.nilable(String)).void
          }
         def initialize(
           configuration: nil,

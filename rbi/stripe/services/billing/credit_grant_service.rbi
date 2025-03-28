@@ -7,25 +7,25 @@ module Stripe
     class CreditGrantService < StripeService
       class ListParams < Stripe::RequestParams
         # Only return credit grants for this customer.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer
         # Only return credit grants for this account.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_account
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         sig {
-          params(customer: String, customer_account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+          params(customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }
         def initialize(
           customer: nil,
@@ -49,13 +49,15 @@ module Stripe
             def initialize(currency: nil, value: nil); end
           end
           # The monetary amount.
-          sig { returns(::Stripe::Billing::CreditGrantService::CreateParams::Amount::Monetary) }
+          sig {
+            returns(T.nilable(::Stripe::Billing::CreditGrantService::CreateParams::Amount::Monetary))
+           }
           attr_accessor :monetary
           # Specify the type of this amount. We currently only support `monetary` billing credits.
           sig { returns(String) }
           attr_accessor :type
           sig {
-            params(monetary: ::Stripe::Billing::CreditGrantService::CreateParams::Amount::Monetary, type: String).void
+            params(monetary: T.nilable(::Stripe::Billing::CreditGrantService::CreateParams::Amount::Monetary), type: String).void
            }
           def initialize(monetary: nil, type: nil); end
         end
@@ -69,15 +71,15 @@ module Stripe
               def initialize(id: nil); end
             end
             # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :price_type
             # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             sig {
-              returns(T::Array[::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig::Scope::Price])
+              returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig::Scope::Price]))
              }
             attr_accessor :prices
             sig {
-              params(price_type: String, prices: T::Array[::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig::Scope::Price]).void
+              params(price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig::Scope::Price])).void
              }
             def initialize(price_type: nil, prices: nil); end
           end
@@ -101,31 +103,31 @@ module Stripe
         sig { returns(String) }
         attr_accessor :category
         # ID of the customer to receive the billing credits.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer
         # ID of the account to receive the billing credits.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_account
         # The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :effective_at
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The time when the billing credits expire. If not specified, the billing credits don't expire.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :expires_at
         # Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # A descriptive name shown in the Dashboard.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :name
         # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :priority
         sig {
-          params(amount: ::Stripe::Billing::CreditGrantService::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig, category: String, customer: String, customer_account: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String, priority: Integer).void
+          params(amount: ::Stripe::Billing::CreditGrantService::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrantService::CreateParams::ApplicabilityConfig, category: String, customer: T.nilable(String), customer_account: T.nilable(String), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), priority: T.nilable(Integer)).void
          }
         def initialize(
           amount: nil,
@@ -143,38 +145,38 @@ module Stripe
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class UpdateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
-        sig { returns(T.nilable(Integer)) }
+        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :expires_at
         # Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         sig {
-          params(expand: T::Array[String], expires_at: T.nilable(Integer), metadata: T::Hash[String, String]).void
+          params(expand: T.nilable(T::Array[String]), expires_at: T.nilable(T.nilable(T.any(String, Integer))), metadata: T.nilable(T::Hash[String, String])).void
          }
         def initialize(expand: nil, expires_at: nil, metadata: nil); end
       end
       class ExpireParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class VoidGrantParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Creates a credit grant.

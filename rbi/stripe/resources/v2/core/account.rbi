@@ -1326,8 +1326,11 @@ module Stripe
               attr_reader :stripe_balance
             end
             class DefaultOutboundDestination < Stripe::StripeObject
+              # The payout method ID of the default outbound destination.
+              sig { returns(String) }
+              attr_reader :id
               # Closed Enum. The payout method type of the default outbound destination.
-              sig { returns(T.nilable(String)) }
+              sig { returns(String) }
               attr_reader :type
             end
             # Capabilities that have been requested on the Recipient Configuration.
@@ -1340,7 +1343,7 @@ module Stripe
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           sig { returns(T.nilable(Customer)) }
           attr_reader :customer
-          # The Merchant Configuration allows the Account to make charges.
+          # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
           sig { returns(T.nilable(Merchant)) }
           attr_reader :merchant
           # The Recipient Configuration allows the Account to receive funds.
@@ -2154,7 +2157,7 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_reader :time
             end
-            # An aggregate soonest point when the account will be impacted by not providing requirements.
+            # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
             sig { returns(T.nilable(MinimumDeadline)) }
             attr_reader :minimum_deadline
           end
@@ -2174,7 +2177,7 @@ module Stripe
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         sig { returns(T.nilable(Configuration)) }
         attr_reader :configuration
-        # The default contact email address for the Account.
+        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         sig { returns(T.nilable(String)) }
         attr_reader :contact_email
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

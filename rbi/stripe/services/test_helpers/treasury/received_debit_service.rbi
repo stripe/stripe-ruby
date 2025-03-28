@@ -10,16 +10,16 @@ module Stripe
           class InitiatingPaymentMethodDetails < Stripe::RequestParams
             class UsBankAccount < Stripe::RequestParams
               # The bank account holder's name.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :account_holder_name
               # The bank account number.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :account_number
               # The bank account's routing number.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :routing_number
               sig {
-                params(account_holder_name: String, account_number: String, routing_number: String).void
+                params(account_holder_name: T.nilable(String), account_number: T.nilable(String), routing_number: T.nilable(String)).void
                }
               def initialize(
                 account_holder_name: nil,
@@ -32,32 +32,32 @@ module Stripe
             attr_accessor :type
             # Optional fields for `us_bank_account`.
             sig {
-              returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount)
+              returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
              }
             attr_accessor :us_bank_account
             sig {
-              params(type: String, us_bank_account: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount).void
+              params(type: String, us_bank_account: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).void
              }
             def initialize(type: nil, us_bank_account: nil); end
           end
           class NetworkDetails < Stripe::RequestParams
             class Ach < Stripe::RequestParams
               # Addenda record data associated with this ReceivedDebit.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :addenda
-              sig { params(addenda: String).void }
+              sig { params(addenda: T.nilable(String)).void }
               def initialize(addenda: nil); end
             end
             # Optional fields for `ach`.
             sig {
-              returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails::Ach)
+              returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails::Ach))
              }
             attr_accessor :ach
             # The type of flow that originated the ReceivedDebit.
             sig { returns(String) }
             attr_accessor :type
             sig {
-              params(ach: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails::Ach, type: String).void
+              params(ach: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails::Ach), type: String).void
              }
             def initialize(ach: nil, type: nil); end
           end
@@ -68,17 +68,17 @@ module Stripe
           sig { returns(String) }
           attr_accessor :currency
           # An arbitrary string attached to the object. Often useful for displaying to users.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
           # The FinancialAccount to pull funds from.
           sig { returns(String) }
           attr_accessor :financial_account
           # Initiating payment method details for the object.
           sig {
-            returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails)
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails))
            }
           attr_accessor :initiating_payment_method_details
           # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
@@ -86,11 +86,11 @@ module Stripe
           attr_accessor :network
           # Details about the network used for the ReceivedDebit.
           sig {
-            returns(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails)
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails))
            }
           attr_accessor :network_details
           sig {
-            params(amount: Integer, currency: String, description: String, expand: T::Array[String], financial_account: String, initiating_payment_method_details: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails, network: String, network_details: ::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails).void
+            params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, initiating_payment_method_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::InitiatingPaymentMethodDetails), network: String, network_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedDebitService::CreateParams::NetworkDetails)).void
            }
           def initialize(
             amount: nil,

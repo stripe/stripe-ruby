@@ -8,37 +8,37 @@ module Stripe
       class CardService < StripeService
         class DeliverCardParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class FailCardParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class ReturnCardParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class ShipCardParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class SubmitCardParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         # Updates the shipping status of the specified Issuing Card object to delivered.

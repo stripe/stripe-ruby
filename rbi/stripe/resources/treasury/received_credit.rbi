@@ -209,28 +209,28 @@ module Stripe
           def initialize(source_flow_type: nil); end
         end
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The FinancialAccount that received the funds.
         sig { returns(String) }
         attr_accessor :financial_account
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # Only return ReceivedCredits described by the flow.
-        sig { returns(::Stripe::Treasury::ReceivedCredit::ListParams::LinkedFlows) }
+        sig { returns(T.nilable(::Stripe::Treasury::ReceivedCredit::ListParams::LinkedFlows)) }
         attr_accessor :linked_flows
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         # Only return ReceivedCredits that have the given status: `succeeded` or `failed`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :status
         sig {
-          params(ending_before: String, expand: T::Array[String], financial_account: String, limit: Integer, linked_flows: ::Stripe::Treasury::ReceivedCredit::ListParams::LinkedFlows, starting_after: String, status: String).void
+          params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), linked_flows: T.nilable(::Stripe::Treasury::ReceivedCredit::ListParams::LinkedFlows), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
         def initialize(
           ending_before: nil,
@@ -244,25 +244,25 @@ module Stripe
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class CreateParams < Stripe::RequestParams
         class InitiatingPaymentMethodDetails < Stripe::RequestParams
           class UsBankAccount < Stripe::RequestParams
             # The bank account holder's name.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :account_holder_name
             # The bank account number.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :account_number
             # The bank account's routing number.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :routing_number
             sig {
-              params(account_holder_name: String, account_number: String, routing_number: String).void
+              params(account_holder_name: T.nilable(String), account_number: T.nilable(String), routing_number: T.nilable(String)).void
              }
             def initialize(account_holder_name: nil, account_number: nil, routing_number: nil); end
           end
@@ -271,30 +271,32 @@ module Stripe
           attr_accessor :type
           # Optional fields for `us_bank_account`.
           sig {
-            returns(::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount)
+            returns(T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount))
            }
           attr_accessor :us_bank_account
           sig {
-            params(type: String, us_bank_account: ::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount).void
+            params(type: String, us_bank_account: T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails::UsBankAccount)).void
            }
           def initialize(type: nil, us_bank_account: nil); end
         end
         class NetworkDetails < Stripe::RequestParams
           class Ach < Stripe::RequestParams
             # ACH Addenda record
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :addenda
-            sig { params(addenda: String).void }
+            sig { params(addenda: T.nilable(String)).void }
             def initialize(addenda: nil); end
           end
           # Optional fields for `ach`.
-          sig { returns(::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails::Ach) }
+          sig {
+            returns(T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails::Ach))
+           }
           attr_accessor :ach
           # The type of flow that originated the ReceivedCredit.
           sig { returns(String) }
           attr_accessor :type
           sig {
-            params(ach: ::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails::Ach, type: String).void
+            params(ach: T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails::Ach), type: String).void
            }
           def initialize(ach: nil, type: nil); end
         end
@@ -305,27 +307,27 @@ module Stripe
         sig { returns(String) }
         attr_accessor :currency
         # An arbitrary string attached to the object. Often useful for displaying to users.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The FinancialAccount to send funds to.
         sig { returns(String) }
         attr_accessor :financial_account
         # Initiating payment method details for the object.
         sig {
-          returns(::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails)
+          returns(T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails))
          }
         attr_accessor :initiating_payment_method_details
         # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         sig { returns(String) }
         attr_accessor :network
         # Details about the network used for the ReceivedCredit.
-        sig { returns(::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails) }
+        sig { returns(T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails)) }
         attr_accessor :network_details
         sig {
-          params(amount: Integer, currency: String, description: String, expand: T::Array[String], financial_account: String, initiating_payment_method_details: ::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails, network: String, network_details: ::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails).void
+          params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, initiating_payment_method_details: T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::InitiatingPaymentMethodDetails), network: String, network_details: T.nilable(::Stripe::Treasury::ReceivedCredit::CreateParams::NetworkDetails)).void
          }
         def initialize(
           amount: nil,

@@ -1356,19 +1356,19 @@ module Stripe
     attr_reader :shipping_details
     class ListParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # The ID of the Payment Record.
       sig { returns(String) }
       attr_accessor :payment_record
-      sig { params(expand: T::Array[String], payment_record: String).void }
+      sig { params(expand: T.nilable(T::Array[String]), payment_record: String).void }
       def initialize(expand: nil, payment_record: nil); end
     end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     # List all the Payment Attempt Records attached to the specified Payment Record.

@@ -9,39 +9,39 @@ module Stripe
         class PresentPaymentMethodParams < Stripe::RequestParams
           class CardPresent < Stripe::RequestParams
             # The card number, as a string without any separators.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :number
-            sig { params(number: String).void }
+            sig { params(number: T.nilable(String)).void }
             def initialize(number: nil); end
           end
           class InteracPresent < Stripe::RequestParams
             # Card Number
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :number
-            sig { params(number: String).void }
+            sig { params(number: T.nilable(String)).void }
             def initialize(number: nil); end
           end
           # Simulated on-reader tip amount.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :amount_tip
           # Simulated data for the card_present payment method.
           sig {
-            returns(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::CardPresent)
+            returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::CardPresent))
            }
           attr_accessor :card_present
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
           # Simulated data for the interac_present payment method.
           sig {
-            returns(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::InteracPresent)
+            returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::InteracPresent))
            }
           attr_accessor :interac_present
           # Simulated payment type.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :type
           sig {
-            params(amount_tip: Integer, card_present: ::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::CardPresent, expand: T::Array[String], interac_present: ::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::InteracPresent, type: String).void
+            params(amount_tip: T.nilable(Integer), card_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::CardPresent), expand: T.nilable(T::Array[String]), interac_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams::InteracPresent), type: T.nilable(String)).void
            }
           def initialize(
             amount_tip: nil,
@@ -53,19 +53,21 @@ module Stripe
         end
         class SucceedInputCollectionParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
           # This parameter defines the skip behavior for input collection.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :skip_non_required_inputs
-          sig { params(expand: T::Array[String], skip_non_required_inputs: String).void }
+          sig {
+            params(expand: T.nilable(T::Array[String]), skip_non_required_inputs: T.nilable(String)).void
+           }
           def initialize(expand: nil, skip_non_required_inputs: nil); end
         end
         class TimeoutInputCollectionParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         # Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.

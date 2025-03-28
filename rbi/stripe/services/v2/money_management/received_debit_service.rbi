@@ -8,9 +8,9 @@ module Stripe
       class ReceivedDebitService < StripeService
         class ListParams < Stripe::RequestParams
           # The page limit.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
-          sig { params(limit: Integer).void }
+          sig { params(limit: T.nilable(Integer)).void }
           def initialize(limit: nil); end
         end
         class RetrieveParams < Stripe::RequestParams

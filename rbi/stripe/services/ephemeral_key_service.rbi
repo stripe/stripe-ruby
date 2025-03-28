@@ -6,29 +6,29 @@ module Stripe
   class EphemeralKeyService < StripeService
     class DeleteParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     class CreateParams < Stripe::RequestParams
       # The ID of the Customer you'd like to modify using the resulting ephemeral key.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :customer
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # The ID of the Issuing Card you'd like to access using the resulting ephemeral key.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :issuing_card
       # A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :nonce
       # The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :verification_session
       sig {
-        params(customer: String, expand: T::Array[String], issuing_card: String, nonce: String, verification_session: String).void
+        params(customer: T.nilable(String), expand: T.nilable(T::Array[String]), issuing_card: T.nilable(String), nonce: T.nilable(String), verification_session: T.nilable(String)).void
        }
       def initialize(
         customer: nil,

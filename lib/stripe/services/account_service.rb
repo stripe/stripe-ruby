@@ -530,6 +530,15 @@ module Stripe
           end
         end
 
+        class NzBankAccountBecsDebitPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class OxxoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -879,6 +888,8 @@ module Stripe
         attr_accessor :mx_bank_transfer_payments
         # The naver_pay_payments capability.
         attr_accessor :naver_pay_payments
+        # The nz_bank_account_becs_debit_payments capability.
+        attr_accessor :nz_bank_account_becs_debit_payments
         # The oxxo_payments capability.
         attr_accessor :oxxo_payments
         # The p24_payments capability.
@@ -981,6 +992,7 @@ module Stripe
           multibanco_payments: nil,
           mx_bank_transfer_payments: nil,
           naver_pay_payments: nil,
+          nz_bank_account_becs_debit_payments: nil,
           oxxo_payments: nil,
           p24_payments: nil,
           pay_by_bank_payments: nil,
@@ -1052,6 +1064,7 @@ module Stripe
           @multibanco_payments = multibanco_payments
           @mx_bank_transfer_payments = mx_bank_transfer_payments
           @naver_pay_payments = naver_pay_payments
+          @nz_bank_account_becs_debit_payments = nz_bank_account_becs_debit_payments
           @oxxo_payments = oxxo_payments
           @p24_payments = p24_payments
           @pay_by_bank_payments = pay_by_bank_payments
@@ -2764,6 +2777,15 @@ module Stripe
           end
         end
 
+        class NzBankAccountBecsDebitPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class OxxoPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3113,6 +3135,8 @@ module Stripe
         attr_accessor :mx_bank_transfer_payments
         # The naver_pay_payments capability.
         attr_accessor :naver_pay_payments
+        # The nz_bank_account_becs_debit_payments capability.
+        attr_accessor :nz_bank_account_becs_debit_payments
         # The oxxo_payments capability.
         attr_accessor :oxxo_payments
         # The p24_payments capability.
@@ -3215,6 +3239,7 @@ module Stripe
           multibanco_payments: nil,
           mx_bank_transfer_payments: nil,
           naver_pay_payments: nil,
+          nz_bank_account_becs_debit_payments: nil,
           oxxo_payments: nil,
           p24_payments: nil,
           pay_by_bank_payments: nil,
@@ -3286,6 +3311,7 @@ module Stripe
           @multibanco_payments = multibanco_payments
           @mx_bank_transfer_payments = mx_bank_transfer_payments
           @naver_pay_payments = naver_pay_payments
+          @nz_bank_account_becs_debit_payments = nz_bank_account_becs_debit_payments
           @oxxo_payments = oxxo_payments
           @p24_payments = p24_payments
           @pay_by_bank_payments = pay_by_bank_payments

@@ -302,7 +302,7 @@ module Stripe
         sig { returns(T.nilable(PauseCollection)) }
         attr_reader :pause_collection
         # The subscription that generated this invoice
-        sig { returns(String) }
+        sig { returns(T.any(String, Stripe::Subscription)) }
         attr_reader :subscription
         # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         sig { returns(Integer) }
@@ -777,7 +777,7 @@ module Stripe
     # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }
     attr_reader :on_behalf_of
-    # Attribute for field parent
+    # The parent that generated this invoice
     sig { returns(T.nilable(Parent)) }
     attr_reader :parent
     # Attribute for field payment_settings

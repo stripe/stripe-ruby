@@ -8,28 +8,28 @@ module Stripe
       class TransactionEntryService < StripeService
         class ListParams < Stripe::RequestParams
           # Filter for Transactions created at an exact time.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created
           # Filter for Transactions created after the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gt
           # Filter for Transactions created at or after the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gte
           # Filter for Transactions created before the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lt
           # Filter for Transactions created at or before the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lte
           # The page limit.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
           # Filter for TransactionEntries belonging to a Transaction.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :transaction
           sig {
-            params(created: String, created_gt: String, created_gte: String, created_lt: String, created_lte: String, limit: Integer, transaction: String).void
+            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer), transaction: T.nilable(String)).void
            }
           def initialize(
             created: nil,

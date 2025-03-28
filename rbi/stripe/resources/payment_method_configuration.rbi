@@ -1144,22 +1144,22 @@ module Stripe
     attr_reader :zip
     class ListParams < Stripe::RequestParams
       # The Connect application to filter by.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(T.nilable(String))) }
       attr_accessor :application
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       sig {
-        params(application: T.nilable(String), ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+        params(application: T.nilable(T.nilable(String)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
       def initialize(
         application: nil,
@@ -1173,1063 +1173,1091 @@ module Stripe
       class AcssDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Affirm < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Affirm::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Affirm::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Affirm::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Affirm::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class AfterpayClearpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Alipay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Alipay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alipay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Alipay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alipay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Alma < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Alma::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alma::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Alma::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alma::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class AmazonPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class ApplePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class ApplePayLater < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class AuBecsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class BacsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Bancontact < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Billie < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Billie::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Billie::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Billie::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Billie::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Blik < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Blik::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Blik::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Blik::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Blik::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Boleto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Boleto::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Boleto::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Boleto::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Boleto::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Card < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Card::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Card::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Card::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Card::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class CartesBancaires < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Cashapp < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class CustomerBalance < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Eps < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Eps::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Eps::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Eps::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Eps::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Fpx < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Fpx::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Fpx::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Fpx::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Fpx::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Giropay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Giropay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Giropay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Giropay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Giropay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class GooglePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Gopay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Gopay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Gopay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Gopay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Gopay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Grabpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class IdBankTransfer < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Ideal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Ideal::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Ideal::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Ideal::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Ideal::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Jcb < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Jcb::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Jcb::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Jcb::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Jcb::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Klarna < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Klarna::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Klarna::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Klarna::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Klarna::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Konbini < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Konbini::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Konbini::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Konbini::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Konbini::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Link < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Link::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Link::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Link::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Link::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Mobilepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Multibanco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class NzBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class P24 < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::P24::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::P24::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::P24::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::P24::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class PayByBank < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Paynow::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paynow::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Paynow::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paynow::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Paypal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Paypal::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paypal::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Paypal::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paypal::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Payto::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Payto::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Payto::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Payto::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Promptpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Qris < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Qris::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Qris::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Qris::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Qris::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class RevolutPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Satispay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Satispay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Satispay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Satispay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Satispay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class SepaDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Shopeepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Sofort < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Sofort::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Sofort::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Sofort::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Sofort::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Swish < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Swish::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Swish::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Swish::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Swish::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Twint < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::Twint::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Twint::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Twint::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Twint::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class UsBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class WechatPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Zip < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Zip::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Zip::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::CreateParams::Zip::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Zip::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       # Canadian pre-authorized debit payments, check this [page](https://stripe.com/docs/payments/acss-debit) for more details like country availability.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit)) }
       attr_accessor :acss_debit
       # [Affirm](https://www.affirm.com/) gives your customers a way to split purchases over a series of payments. Depending on the purchase, they can pay with four interest-free payments (Split Pay) or pay over a longer term (Installments), which might include interest. Check this [page](https://stripe.com/docs/payments/affirm) for more details like country availability.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Affirm) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Affirm)) }
       attr_accessor :affirm
       # Afterpay gives your customers a way to pay for purchases in installments, check this [page](https://stripe.com/docs/payments/afterpay-clearpay) for more details like country availability. Afterpay is particularly popular among businesses selling fashion, beauty, and sports products.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay))
+       }
       attr_accessor :afterpay_clearpay
       # Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Alipay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alipay)) }
       attr_accessor :alipay
       # Alma is a Buy Now, Pay Later payment method that offers customers the ability to pay in 2, 3, or 4 installments.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Alma) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alma)) }
       attr_accessor :alma
       # Amazon Pay is a wallet payment method that lets your customers check out the same way as on Amazon.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay)) }
       attr_accessor :amazon_pay
       # Stripe users can accept [Apple Pay](/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay)) }
       attr_accessor :apple_pay
       # Apple Pay Later, a payment method for customers to buy now and pay later, gives your customers a way to split purchases into four installments across six weeks.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater)) }
       attr_accessor :apple_pay_later
       # Stripe users in Australia can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with an Australian bank account. Check this [page](https://stripe.com/docs/payments/au-becs-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit)) }
       attr_accessor :au_becs_debit
       # Stripe users in the UK can accept Bacs Direct Debit payments from customers with a UK bank account, check this [page](https://stripe.com/docs/payments/payment-methods/bacs-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit)) }
       attr_accessor :bacs_debit
       # Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact)) }
       attr_accessor :bancontact
       # Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Billie) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Billie)) }
       attr_accessor :billie
       # BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Blik) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Blik)) }
       attr_accessor :blik
       # Boleto is an official (regulated by the Central Bank of Brazil) payment method in Brazil. Check this [page](https://stripe.com/docs/payments/boleto) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Boleto) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Boleto)) }
       attr_accessor :boleto
       # Cards are a popular way for consumers and businesses to pay online or in person. Stripe supports global and local card networks.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Card) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Card)) }
       attr_accessor :card
       # Cartes Bancaires is France's local card network. More than 95% of these cards are co-branded with either Visa or Mastercard, meaning you can process these cards over either Cartes Bancaires or the Visa or Mastercard networks. Check this [page](https://stripe.com/docs/payments/cartes-bancaires) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires))
+       }
       attr_accessor :cartes_bancaires
       # Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp)) }
       attr_accessor :cashapp
       # Uses a customer’s [cash balance](https://stripe.com/docs/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://stripe.com/docs/payments/bank-transfers) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance))
+       }
       attr_accessor :customer_balance
       # EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://stripe.com/docs/payments/eps) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Eps) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Eps)) }
       attr_accessor :eps
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Fpx) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Fpx)) }
       attr_accessor :fpx
       # giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Giropay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Giropay)) }
       attr_accessor :giropay
       # Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://stripe.com/docs/google-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay)) }
       attr_accessor :google_pay
       # GoPay is a [single use](https://stripe.com/docs/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Gojek app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Gojek app to confirm payment.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Gopay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Gopay)) }
       attr_accessor :gopay
       # GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay)) }
       attr_accessor :grabpay
       # Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer)) }
       attr_accessor :id_bank_transfer
       # iDEAL is a Netherlands-based payment method that allows customers to complete transactions online using their bank credentials. All major Dutch banks are members of Currence, the scheme that operates iDEAL, making it the most popular online payment method in the Netherlands with a share of online transactions close to 55%. Check this [page](https://stripe.com/docs/payments/ideal) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Ideal) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Ideal)) }
       attr_accessor :ideal
       # JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Jcb) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Jcb)) }
       attr_accessor :jcb
       # Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Klarna) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Klarna)) }
       attr_accessor :klarna
       # Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Konbini) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Konbini)) }
       attr_accessor :konbini
       # [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Link) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Link)) }
       attr_accessor :link
       # MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay)) }
       attr_accessor :mobilepay
       # Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco)) }
       attr_accessor :multibanco
       # Configuration name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :name
       # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount)) }
       attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo)) }
       attr_accessor :oxxo
       # Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::P24) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::P24)) }
       attr_accessor :p24
       # Configuration's parent configuration. Specify to create a child configuration.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :parent
       # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank)) }
       attr_accessor :pay_by_bank
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Paynow) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paynow)) }
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Paypal) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paypal)) }
       attr_accessor :paypal
       # PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Payto) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Payto)) }
       attr_accessor :payto
       # PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay)) }
       attr_accessor :promptpay
       # QRIS is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Indonesia. When paying with QRIS, customers authenticate and approve payments by scanning a QR code in their preferred digital wallet app.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Qris) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Qris)) }
       attr_accessor :qris
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay)) }
       attr_accessor :revolut_pay
       # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Satispay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Satispay)) }
       attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit)) }
       attr_accessor :sepa_debit
       # ShopeePay is a [single use](https://stripe.com/docs/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Shopee app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Shopee app to confirm payment.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay)) }
       attr_accessor :shopeepay
       # Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Sofort) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Sofort)) }
       attr_accessor :sofort
       # Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Swish) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Swish)) }
       attr_accessor :swish
       # Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Twint) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Twint)) }
       attr_accessor :twint
       # Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount)) }
       attr_accessor :us_bank_account
       # WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay)) }
       attr_accessor :wechat_pay
       # Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
-      sig { returns(::Stripe::PaymentMethodConfiguration::CreateParams::Zip) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Zip)) }
       attr_accessor :zip
       sig {
-        params(acss_debit: ::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit, affirm: ::Stripe::PaymentMethodConfiguration::CreateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethodConfiguration::CreateParams::Alipay, alma: ::Stripe::PaymentMethodConfiguration::CreateParams::Alma, amazon_pay: ::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay, apple_pay: ::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay, apple_pay_later: ::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater, au_becs_debit: ::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit, bancontact: ::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact, billie: ::Stripe::PaymentMethodConfiguration::CreateParams::Billie, blik: ::Stripe::PaymentMethodConfiguration::CreateParams::Blik, boleto: ::Stripe::PaymentMethodConfiguration::CreateParams::Boleto, card: ::Stripe::PaymentMethodConfiguration::CreateParams::Card, cartes_bancaires: ::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires, cashapp: ::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp, customer_balance: ::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance, eps: ::Stripe::PaymentMethodConfiguration::CreateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethodConfiguration::CreateParams::Fpx, giropay: ::Stripe::PaymentMethodConfiguration::CreateParams::Giropay, google_pay: ::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay, gopay: ::Stripe::PaymentMethodConfiguration::CreateParams::Gopay, grabpay: ::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethodConfiguration::CreateParams::Ideal, jcb: ::Stripe::PaymentMethodConfiguration::CreateParams::Jcb, klarna: ::Stripe::PaymentMethodConfiguration::CreateParams::Klarna, konbini: ::Stripe::PaymentMethodConfiguration::CreateParams::Konbini, link: ::Stripe::PaymentMethodConfiguration::CreateParams::Link, mobilepay: ::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay, multibanco: ::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco, name: String, nz_bank_account: ::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount, oxxo: ::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo, p24: ::Stripe::PaymentMethodConfiguration::CreateParams::P24, parent: String, pay_by_bank: ::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank, paynow: ::Stripe::PaymentMethodConfiguration::CreateParams::Paynow, paypal: ::Stripe::PaymentMethodConfiguration::CreateParams::Paypal, payto: ::Stripe::PaymentMethodConfiguration::CreateParams::Payto, promptpay: ::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay, qris: ::Stripe::PaymentMethodConfiguration::CreateParams::Qris, revolut_pay: ::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay, satispay: ::Stripe::PaymentMethodConfiguration::CreateParams::Satispay, sepa_debit: ::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay, sofort: ::Stripe::PaymentMethodConfiguration::CreateParams::Sofort, swish: ::Stripe::PaymentMethodConfiguration::CreateParams::Swish, twint: ::Stripe::PaymentMethodConfiguration::CreateParams::Twint, us_bank_account: ::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay, zip: ::Stripe::PaymentMethodConfiguration::CreateParams::Zip).void
+        params(acss_debit: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AcssDebit), affirm: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alipay), alma: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AmazonPay), apple_pay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePay), apple_pay_later: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::ApplePayLater), au_becs_debit: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Bancontact), billie: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Billie), blik: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Boleto), card: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Card), cartes_bancaires: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CartesBancaires), cashapp: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Cashapp), customer_balance: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Giropay), google_pay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::GooglePay), gopay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Gopay), grabpay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Grabpay), id_bank_transfer: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::IdBankTransfer), ideal: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Ideal), jcb: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Jcb), klarna: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Konbini), link: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Link), mobilepay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Multibanco), name: T.nilable(String), nz_bank_account: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::P24), parent: T.nilable(String), pay_by_bank: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::PayByBank), paynow: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Paypal), payto: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Payto), promptpay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Promptpay), qris: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Qris), revolut_pay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::RevolutPay), satispay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Satispay), sepa_debit: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::SepaDebit), shopeepay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Shopeepay), sofort: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Swish), twint: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Twint), us_bank_account: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethodConfiguration::CreateParams::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -2290,1072 +2318,1100 @@ module Stripe
     end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
       class AcssDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Affirm < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class AfterpayClearpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Alipay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Alma < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Alma::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alma::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Alma::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alma::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class AmazonPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class ApplePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class ApplePayLater < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class AuBecsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class BacsDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Bancontact < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Billie < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Billie::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Billie::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Billie::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Billie::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Blik < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Blik::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Blik::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Blik::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Blik::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Boleto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Card < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Card::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Card::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Card::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Card::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class CartesBancaires < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Cashapp < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class CustomerBalance < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Eps < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Eps::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Eps::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Eps::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Eps::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Fpx < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Giropay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class GooglePay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Gopay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Grabpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class IdBankTransfer < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Ideal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Jcb < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Klarna < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Konbini < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Link < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Link::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Link::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Link::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Link::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Mobilepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Multibanco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class NzBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class P24 < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::P24::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::P24::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::P24::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::P24::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class PayByBank < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Paynow < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Paypal < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Payto < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Payto::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Payto::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Payto::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Payto::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Promptpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Qris < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Qris::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Qris::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Qris::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Qris::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class RevolutPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Satispay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class SepaDebit < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Shopeepay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Sofort < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Swish < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Swish::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Swish::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Swish::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Swish::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Twint < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Twint::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Twint::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Twint::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Twint::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class UsBankAccount < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class WechatPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
         sig {
-          returns(::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay::DisplayPreference)
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay::DisplayPreference))
          }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       class Zip < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :preference
-          sig { params(preference: String).void }
+          sig { params(preference: T.nilable(String)).void }
           def initialize(preference: nil); end
         end
         # Whether or not the payment method should be displayed.
-        sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Zip::DisplayPreference) }
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Zip::DisplayPreference))
+         }
         attr_accessor :display_preference
         sig {
-          params(display_preference: ::Stripe::PaymentMethodConfiguration::UpdateParams::Zip::DisplayPreference).void
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Zip::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
       # Canadian pre-authorized debit payments, check this [page](https://stripe.com/docs/payments/acss-debit) for more details like country availability.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit)) }
       attr_accessor :acss_debit
       # Whether the configuration can be used for new payments.
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :active
       # [Affirm](https://www.affirm.com/) gives your customers a way to split purchases over a series of payments. Depending on the purchase, they can pay with four interest-free payments (Split Pay) or pay over a longer term (Installments), which might include interest. Check this [page](https://stripe.com/docs/payments/affirm) for more details like country availability.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm)) }
       attr_accessor :affirm
       # Afterpay gives your customers a way to pay for purchases in installments, check this [page](https://stripe.com/docs/payments/afterpay-clearpay) for more details like country availability. Afterpay is particularly popular among businesses selling fashion, beauty, and sports products.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay))
+       }
       attr_accessor :afterpay_clearpay
       # Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay)) }
       attr_accessor :alipay
       # Alma is a Buy Now, Pay Later payment method that offers customers the ability to pay in 2, 3, or 4 installments.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Alma) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alma)) }
       attr_accessor :alma
       # Amazon Pay is a wallet payment method that lets your customers check out the same way as on Amazon.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay)) }
       attr_accessor :amazon_pay
       # Stripe users can accept [Apple Pay](/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay)) }
       attr_accessor :apple_pay
       # Apple Pay Later, a payment method for customers to buy now and pay later, gives your customers a way to split purchases into four installments across six weeks.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater)) }
       attr_accessor :apple_pay_later
       # Stripe users in Australia can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with an Australian bank account. Check this [page](https://stripe.com/docs/payments/au-becs-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit)) }
       attr_accessor :au_becs_debit
       # Stripe users in the UK can accept Bacs Direct Debit payments from customers with a UK bank account, check this [page](https://stripe.com/docs/payments/payment-methods/bacs-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit)) }
       attr_accessor :bacs_debit
       # Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact)) }
       attr_accessor :bancontact
       # Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Billie) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Billie)) }
       attr_accessor :billie
       # BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Blik) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Blik)) }
       attr_accessor :blik
       # Boleto is an official (regulated by the Central Bank of Brazil) payment method in Brazil. Check this [page](https://stripe.com/docs/payments/boleto) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto)) }
       attr_accessor :boleto
       # Cards are a popular way for consumers and businesses to pay online or in person. Stripe supports global and local card networks.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Card) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Card)) }
       attr_accessor :card
       # Cartes Bancaires is France's local card network. More than 95% of these cards are co-branded with either Visa or Mastercard, meaning you can process these cards over either Cartes Bancaires or the Visa or Mastercard networks. Check this [page](https://stripe.com/docs/payments/cartes-bancaires) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires))
+       }
       attr_accessor :cartes_bancaires
       # Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp)) }
       attr_accessor :cashapp
       # Uses a customer’s [cash balance](https://stripe.com/docs/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://stripe.com/docs/payments/bank-transfers) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance))
+       }
       attr_accessor :customer_balance
       # EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://stripe.com/docs/payments/eps) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Eps) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Eps)) }
       attr_accessor :eps
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx)) }
       attr_accessor :fpx
       # giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay)) }
       attr_accessor :giropay
       # Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://stripe.com/docs/google-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay)) }
       attr_accessor :google_pay
       # GoPay is a [single use](https://stripe.com/docs/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Gojek app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Gojek app to confirm payment.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay)) }
       attr_accessor :gopay
       # GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay)) }
       attr_accessor :grabpay
       # Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer)) }
       attr_accessor :id_bank_transfer
       # iDEAL is a Netherlands-based payment method that allows customers to complete transactions online using their bank credentials. All major Dutch banks are members of Currence, the scheme that operates iDEAL, making it the most popular online payment method in the Netherlands with a share of online transactions close to 55%. Check this [page](https://stripe.com/docs/payments/ideal) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal)) }
       attr_accessor :ideal
       # JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb)) }
       attr_accessor :jcb
       # Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna)) }
       attr_accessor :klarna
       # Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini)) }
       attr_accessor :konbini
       # [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Link) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Link)) }
       attr_accessor :link
       # MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay)) }
       attr_accessor :mobilepay
       # Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco)) }
       attr_accessor :multibanco
       # Configuration name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :name
       # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount)) }
       attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo)) }
       attr_accessor :oxxo
       # Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::P24) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::P24)) }
       attr_accessor :p24
       # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank)) }
       attr_accessor :pay_by_bank
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow)) }
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal)) }
       attr_accessor :paypal
       # PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Payto) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Payto)) }
       attr_accessor :payto
       # PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay)) }
       attr_accessor :promptpay
       # QRIS is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Indonesia. When paying with QRIS, customers authenticate and approve payments by scanning a QR code in their preferred digital wallet app.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Qris) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Qris)) }
       attr_accessor :qris
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay)) }
       attr_accessor :revolut_pay
       # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay)) }
       attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit)) }
       attr_accessor :sepa_debit
       # ShopeePay is a [single use](https://stripe.com/docs/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Shopee app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Shopee app to confirm payment.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay)) }
       attr_accessor :shopeepay
       # Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort)) }
       attr_accessor :sofort
       # Swish is a [real-time](https://stripe.com/docs/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://stripe.com/docs/payments/swish) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Swish) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Swish)) }
       attr_accessor :swish
       # Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Twint) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Twint)) }
       attr_accessor :twint
       # Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount)) }
       attr_accessor :us_bank_account
       # WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay)) }
       attr_accessor :wechat_pay
       # Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://stripe.com/docs/payments/zip) for more details like country availability.
-      sig { returns(::Stripe::PaymentMethodConfiguration::UpdateParams::Zip) }
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Zip)) }
       attr_accessor :zip
       sig {
-        params(acss_debit: ::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit, active: T::Boolean, affirm: ::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm, afterpay_clearpay: ::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay, alipay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay, alma: ::Stripe::PaymentMethodConfiguration::UpdateParams::Alma, amazon_pay: ::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay, apple_pay: ::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay, apple_pay_later: ::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater, au_becs_debit: ::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit, bacs_debit: ::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit, bancontact: ::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact, billie: ::Stripe::PaymentMethodConfiguration::UpdateParams::Billie, blik: ::Stripe::PaymentMethodConfiguration::UpdateParams::Blik, boleto: ::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto, card: ::Stripe::PaymentMethodConfiguration::UpdateParams::Card, cartes_bancaires: ::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires, cashapp: ::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp, customer_balance: ::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance, eps: ::Stripe::PaymentMethodConfiguration::UpdateParams::Eps, expand: T::Array[String], fpx: ::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx, giropay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay, google_pay: ::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay, gopay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay, grabpay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay, id_bank_transfer: ::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer, ideal: ::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal, jcb: ::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb, klarna: ::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna, konbini: ::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini, link: ::Stripe::PaymentMethodConfiguration::UpdateParams::Link, mobilepay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay, multibanco: ::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco, name: String, nz_bank_account: ::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount, oxxo: ::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo, p24: ::Stripe::PaymentMethodConfiguration::UpdateParams::P24, pay_by_bank: ::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank, paynow: ::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow, paypal: ::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal, payto: ::Stripe::PaymentMethodConfiguration::UpdateParams::Payto, promptpay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay, qris: ::Stripe::PaymentMethodConfiguration::UpdateParams::Qris, revolut_pay: ::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay, satispay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay, sepa_debit: ::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit, shopeepay: ::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay, sofort: ::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort, swish: ::Stripe::PaymentMethodConfiguration::UpdateParams::Swish, twint: ::Stripe::PaymentMethodConfiguration::UpdateParams::Twint, us_bank_account: ::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount, wechat_pay: ::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay, zip: ::Stripe::PaymentMethodConfiguration::UpdateParams::Zip).void
+        params(acss_debit: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AcssDebit), active: T.nilable(T::Boolean), affirm: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alipay), alma: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AmazonPay), apple_pay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePay), apple_pay_later: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::ApplePayLater), au_becs_debit: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Bancontact), billie: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Billie), blik: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Boleto), card: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Card), cartes_bancaires: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CartesBancaires), cashapp: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Cashapp), customer_balance: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Giropay), google_pay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::GooglePay), gopay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Gopay), grabpay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Grabpay), id_bank_transfer: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::IdBankTransfer), ideal: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Ideal), jcb: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Jcb), klarna: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Konbini), link: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Link), mobilepay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Multibanco), name: T.nilable(String), nz_bank_account: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::P24), pay_by_bank: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::PayByBank), paynow: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Paypal), payto: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Payto), promptpay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Promptpay), qris: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Qris), revolut_pay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::RevolutPay), satispay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Satispay), sepa_debit: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::SepaDebit), shopeepay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Shopeepay), sofort: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Swish), twint: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Twint), us_bank_account: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethodConfiguration::UpdateParams::Zip)).void
        }
       def initialize(
         acss_debit: nil,

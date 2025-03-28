@@ -13,13 +13,13 @@ module Stripe
         sig { returns(String) }
         attr_accessor :currency
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use this to test how Stripe's [reconciliation algorithm](https://stripe.com/docs/payments/customer-balance/reconciliation) applies to different user inputs.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :reference
         sig {
-          params(amount: Integer, currency: String, expand: T::Array[String], reference: String).void
+          params(amount: Integer, currency: String, expand: T.nilable(T::Array[String]), reference: T.nilable(String)).void
          }
         def initialize(amount: nil, currency: nil, expand: nil, reference: nil); end
       end

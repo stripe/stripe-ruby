@@ -25,7 +25,7 @@ module Stripe
             def initialize(url: nil); end
           end
           # An optional description of what the event destination is used for.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # The list of events to enable for this endpoint.
           sig { returns(T::Array[String]) }
@@ -34,35 +34,35 @@ module Stripe
           sig { returns(String) }
           attr_accessor :event_payload
           # Where events should be routed from.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :events_from
           # Additional fields to include in the response.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :include
           # Metadata.
-          sig { returns(T::Hash[String, String]) }
+          sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
           # Event destination name.
           sig { returns(String) }
           attr_accessor :name
           # If using the snapshot event payload, the API version events are rendered as.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :snapshot_api_version
           # Event destination type.
           sig { returns(String) }
           attr_accessor :type
           # Amazon EventBridge configuration.
           sig {
-            returns(::Stripe::V2::Core::EventDestinationService::CreateParams::AmazonEventbridge)
+            returns(T.nilable(::Stripe::V2::Core::EventDestinationService::CreateParams::AmazonEventbridge))
            }
           attr_accessor :amazon_eventbridge
           # Webhook endpoint configuration.
           sig {
-            returns(::Stripe::V2::Core::EventDestinationService::CreateParams::WebhookEndpoint)
+            returns(T.nilable(::Stripe::V2::Core::EventDestinationService::CreateParams::WebhookEndpoint))
            }
           attr_accessor :webhook_endpoint
           sig {
-            params(description: String, enabled_events: T::Array[String], event_payload: String, events_from: T::Array[String], include: T::Array[String], metadata: T::Hash[String, String], name: String, snapshot_api_version: String, type: String, amazon_eventbridge: ::Stripe::V2::Core::EventDestinationService::CreateParams::AmazonEventbridge, webhook_endpoint: ::Stripe::V2::Core::EventDestinationService::CreateParams::WebhookEndpoint).void
+            params(description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationService::CreateParams::AmazonEventbridge), webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationService::CreateParams::WebhookEndpoint)).void
            }
           def initialize(
             description: nil,
@@ -89,12 +89,12 @@ module Stripe
         end
         class ListParams < Stripe::RequestParams
           # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :include
           # The page size.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
-          sig { params(include: T::Array[String], limit: Integer).void }
+          sig { params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void }
           def initialize(include: nil, limit: nil); end
         end
         class PingParams < Stripe::RequestParams
@@ -102,9 +102,9 @@ module Stripe
         end
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :include
-          sig { params(include: T::Array[String]).void }
+          sig { params(include: T.nilable(T::Array[String])).void }
           def initialize(include: nil); end
         end
         class UpdateParams < Stripe::RequestParams
@@ -116,27 +116,27 @@ module Stripe
             def initialize(url: nil); end
           end
           # An optional description of what the event destination is used for.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # The list of events to enable for this endpoint.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :enabled_events
           # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :include
           # Metadata.
-          sig { returns(T::Hash[String, T.nilable(String)]) }
+          sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
           attr_accessor :metadata
           # Event destination name.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :name
           # Webhook endpoint configuration.
           sig {
-            returns(::Stripe::V2::Core::EventDestinationService::UpdateParams::WebhookEndpoint)
+            returns(T.nilable(::Stripe::V2::Core::EventDestinationService::UpdateParams::WebhookEndpoint))
            }
           attr_accessor :webhook_endpoint
           sig {
-            params(description: String, enabled_events: T::Array[String], include: T::Array[String], metadata: T::Hash[String, T.nilable(String)], name: String, webhook_endpoint: ::Stripe::V2::Core::EventDestinationService::UpdateParams::WebhookEndpoint).void
+            params(description: T.nilable(String), enabled_events: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), name: T.nilable(String), webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationService::UpdateParams::WebhookEndpoint)).void
            }
           def initialize(
             description: nil,

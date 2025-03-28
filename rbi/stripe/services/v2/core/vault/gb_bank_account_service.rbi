@@ -17,35 +17,37 @@ module Stripe
             class ConfirmationOfPayee < Stripe::RequestParams
               # The business type to be checked against. Legal entity information will be used if unspecified.
               # Closed enum.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :business_type
               # User specifies whether Confirmation of Payee is automatically initiated when creating the bank account.
               sig { returns(T::Boolean) }
               attr_accessor :initiate
               # The name to be checked against. Legal entity information will be used if unspecified.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :name
-              sig { params(business_type: String, initiate: T::Boolean, name: String).void }
+              sig {
+                params(business_type: T.nilable(String), initiate: T::Boolean, name: T.nilable(String)).void
+               }
               def initialize(business_type: nil, initiate: nil, name: nil); end
             end
             # The Account Number of the bank account.
             sig { returns(String) }
             attr_accessor :account_number
             # Closed Enum. The type of the bank account (checking or savings).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :bank_account_type
             # Whether or not to automatically perform Confirmation of Payee to verify the users information
             # against what was provided by the bank. Doing so is required for all bank accounts not owned
             # by you before making domestic UK OutboundPayments.
             sig {
-              returns(::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee)
+              returns(T.nilable(::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee))
              }
             attr_accessor :confirmation_of_payee
             # The Sort Code of the bank account.
             sig { returns(String) }
             attr_accessor :sort_code
             sig {
-              params(account_number: String, bank_account_type: String, confirmation_of_payee: ::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee, sort_code: String).void
+              params(account_number: String, bank_account_type: T.nilable(String), confirmation_of_payee: T.nilable(::Stripe::V2::Core::Vault::GbBankAccountService::CreateParams::ConfirmationOfPayee), sort_code: String).void
              }
             def initialize(
               account_number: nil,
@@ -56,12 +58,12 @@ module Stripe
           end
           class InitiateConfirmationOfPayeeParams < Stripe::RequestParams
             # The business type to be checked against. Legal entity information will be used if unspecified.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :business_type
             # The name of the user to be checked against. Legal entity information will be used if unspecified.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :name
-            sig { params(business_type: String, name: String).void }
+            sig { params(business_type: T.nilable(String), name: T.nilable(String)).void }
             def initialize(business_type: nil, name: nil); end
           end
           class RetrieveParams < Stripe::RequestParams

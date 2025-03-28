@@ -128,14 +128,17 @@ module Stripe
 
           class Selection < Stripe::RequestParams
             class Choice < Stripe::RequestParams
+              # The unique identifier for this choice
+              attr_accessor :id
               # The style of the button which will be shown for this choice
               attr_accessor :style
               # The text which will be shown on the button for this choice
-              attr_accessor :value
+              attr_accessor :text
 
-              def initialize(style: nil, value: nil)
+              def initialize(id: nil, style: nil, text: nil)
+                @id = id
                 @style = style
-                @value = value
+                @text = text
               end
             end
             # List of choices for the `selection` input

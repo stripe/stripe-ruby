@@ -1027,7 +1027,7 @@ module Stripe
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Customer))
              }
             attr_accessor :customer
-            # The Merchant Configuration allows the Account to make charges.
+            # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Merchant))
              }
@@ -2112,7 +2112,7 @@ module Stripe
             returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration))
            }
           attr_accessor :configuration
-          # The default contact email address for the Account.
+          # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
           sig { returns(T.nilable(String)) }
           attr_accessor :contact_email
           # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
@@ -3185,7 +3185,7 @@ module Stripe
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Customer))
              }
             attr_accessor :customer
-            # The Merchant Configuration allows the Account to make charges.
+            # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Merchant))
              }
@@ -4282,7 +4282,7 @@ module Stripe
             returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration))
            }
           attr_accessor :configuration
-          # The default contact email address for the Account.
+          # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
           sig { returns(T.nilable(String)) }
           attr_accessor :contact_email
           # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.

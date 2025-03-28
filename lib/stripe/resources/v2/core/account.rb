@@ -1031,6 +1031,8 @@ module Stripe
             end
 
             class DefaultOutboundDestination < Stripe::StripeObject
+              # The payout method ID of the default outbound destination.
+              attr_reader :id
               # Closed Enum. The payout method type of the default outbound destination.
               attr_reader :type
             end
@@ -1041,7 +1043,7 @@ module Stripe
           end
           # The Customer Configuration allows the Account to be used in inbound payment flows.
           attr_reader :customer
-          # The Merchant Configuration allows the Account to make charges.
+          # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
           attr_reader :merchant
           # The Recipient Configuration allows the Account to receive funds.
           attr_reader :recipient
@@ -1673,7 +1675,7 @@ module Stripe
               # The soonest RFC3339 date & time UTC value a requirement can impact the Account.
               attr_reader :time
             end
-            # An aggregate soonest point when the account will be impacted by not providing requirements.
+            # The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
             attr_reader :minimum_deadline
           end
           # A value indicating responsibility for collecting requirements on this account.
@@ -1687,7 +1689,7 @@ module Stripe
         attr_reader :applied_configurations
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         attr_reader :configuration
-        # The default contact email address for the Account.
+        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         attr_reader :contact_email
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created

@@ -15,7 +15,7 @@ module Stripe
     CLIENT_OPTIONS = Set.new(%i[api_key stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
 
     # Initializes a new StripeClient
-    def initialize(api_key, # rubocop:todo Metrics/ParameterLists
+    def initialize(api_key,
                    stripe_account: nil,
                    stripe_context: nil,
                    stripe_version: nil,

@@ -11,6 +11,27 @@ module Stripe
       "ephemeral_key"
     end
 
+    class DeleteParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(expand: nil)
+        @expand = expand
+      end
+    end
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # Time at which the key will expire. Measured in seconds since the Unix epoch.
+    attr_reader :expires
+    # Unique identifier for the object.
+    attr_reader :id
+    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    attr_reader :livemode
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # The key's secret. You can use this value to make authorized requests to the Stripe API.
+    attr_reader :secret
+
     # Invalidates a short-lived API key for a given resource.
     def self.delete(key, params = {}, opts = {})
       request_stripe_object(

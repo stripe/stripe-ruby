@@ -36,6 +36,8 @@ Gem::Specification.new do |s|
     /\Abin/,
     /\Asorbet/,
     /\Atest/,
+    # Ignores the contents of rbi/stripe/** but keeps rbi/stripe.rbi
+    # Only rbi/stripe.rbi is included in the gem
     %r{\Arbi/stripe/}
   )
   s.files = `git ls-files`.split("\n").grep_v(ignored)

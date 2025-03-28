@@ -196,6 +196,7 @@ module Stripe
 
     def execute_request(method, path, base_address,
                         params: {}, opts: {}, usage: [])
+      params = params.to_h if params.is_a?(RequestParams)
       http_resp, req_opts = execute_request_internal(
         method, path, base_address, params, opts, usage
       )

@@ -4,6 +4,24 @@
 module Stripe
   module Reporting
     class ReportTypeService < StripeService
+      class ListParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
+
       # Returns a full list of Report Types.
       def list(params = {}, opts = {})
         request(

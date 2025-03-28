@@ -81,8 +81,17 @@ module Stripe
       attr_reader :enabled
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_reader :liability
+      # The tax provider powering automatic tax.
+      attr_reader :provider
       # The status of the most recent automated tax calculation for this invoice.
       attr_reader :status
+    end
+
+    class ConfirmationSecret < Stripe::StripeObject
+      # The client_secret of the payment that Stripe creates for the invoice after finalization.
+      attr_reader :client_secret
+      # The type of client_secret. Currently this is always payment_intent, referencing the default payment_intent that Stripe creates during invoice finalization
+      attr_reader :type
     end
 
     class CustomField < Stripe::StripeObject
@@ -221,6 +230,37 @@ module Stripe
       # Attribute for field source
       attr_reader :source
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+      attr_reader :type
+    end
+
+    class Parent < Stripe::StripeObject
+      class QuoteDetails < Stripe::StripeObject
+        # The quote that generated this invoice
+        attr_reader :quote
+      end
+
+      class SubscriptionDetails < Stripe::StripeObject
+        class PauseCollection < Stripe::StripeObject
+          # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+          attr_reader :behavior
+          # The time after which the subscription will resume collecting payments.
+          attr_reader :resumes_at
+        end
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+        attr_reader :metadata
+        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+        attr_reader :pause_collection
+        # The subscription that generated this invoice
+        attr_reader :subscription
+        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
+        attr_reader :subscription_proration_date
+      end
+      # Details about the quote that generated this invoice
+      attr_reader :quote_details
+      # Details about the subscription that generated this invoice
+      attr_reader :subscription_details
+      # The type of parent that generated this invoice
       attr_reader :type
     end
 
@@ -397,20 +437,6 @@ module Stripe
       attr_reader :voided_at
     end
 
-    class SubscriptionDetails < Stripe::StripeObject
-      class PauseCollection < Stripe::StripeObject
-        # The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-        attr_reader :behavior
-        # The time after which the subscription will resume collecting payments.
-        attr_reader :resumes_at
-      end
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
-      #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
-      attr_reader :metadata
-      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
-      attr_reader :pause_collection
-    end
-
     class ThresholdReason < Stripe::StripeObject
       class ItemReason < Stripe::StripeObject
         # The IDs of the line items that triggered the threshold invoice.
@@ -451,24 +477,23 @@ module Stripe
       attr_reader :type
     end
 
-    class TotalTaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
+    class TotalTax < Stripe::StripeObject
+      class TaxRateDetails < Stripe::StripeObject
+        # Attribute for field tax_rate
+        attr_reader :tax_rate
+      end
+      # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      attr_reader :tax_rate
+      # Whether this tax is inclusive or exclusive.
+      attr_reader :tax_behavior
+      # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+      attr_reader :tax_rate_details
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       attr_reader :taxable_amount
-    end
-
-    class TransferData < Stripe::StripeObject
-      # The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
-      attr_reader :amount
-      # The account where funds from the payment will be transferred to upon payment success.
-      attr_reader :destination
+      # The type of tax information.
+      attr_reader :type
     end
     # The country of the business associated with this invoice, most often the business creating the invoice.
     attr_reader :account_country
@@ -478,7 +503,7 @@ module Stripe
     attr_reader :account_tax_ids
     # Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
     attr_reader :amount_due
-    # Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
+    # Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     attr_reader :amount_overpaid
     # The amount, in cents (or local equivalent), that was paid.
     attr_reader :amount_paid
@@ -490,8 +515,6 @@ module Stripe
     attr_reader :amounts_due
     # ID of the Connect Application that created the invoice.
     attr_reader :application
-    # The fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account when the invoice is paid.
-    attr_reader :application_fee_amount
     # Attribute for field applies_to
     attr_reader :applies_to
     # Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule. If a failure is returned with a non-retryable return code, the invoice can no longer be retried unless a new payment method is obtained. Retries will continue to be scheduled, and attempt_count will continue to increment, but retries will only be executed if a new payment method is obtained.
@@ -514,12 +537,16 @@ module Stripe
     attr_reader :billing_reason
     # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
     attr_reader :collection_method
+    # The confirmation secret associated with this invoice. Currently, this contains the client_secret of the PaymentIntent that Stripe creates during invoice finalization.
+    attr_reader :confirmation_secret
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
     # Custom fields displayed on the invoice.
     attr_reader :custom_fields
+    # The ID of the account who will be billed.
+    attr_reader :customer_account
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     attr_reader :customer_address
     # The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
@@ -544,8 +571,6 @@ module Stripe
     attr_reader :default_tax_rates
     # An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     attr_reader :description
-    # Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
-    attr_reader :discount
     # The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
@@ -580,12 +605,8 @@ module Stripe
     attr_reader :object
     # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     attr_reader :on_behalf_of
-    # Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance.
-    attr_reader :paid
-    # Returns true if the invoice was manually marked paid, returns false if the invoice hasn't been paid yet or was paid on Stripe.
-    attr_reader :paid_out_of_band
-    # The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
-    attr_reader :payment_intent
+    # Attribute for field parent
+    attr_reader :parent
     # Attribute for field payment_settings
     attr_reader :payment_settings
     # Payments for this invoice
@@ -598,8 +619,6 @@ module Stripe
     attr_reader :post_payment_credit_notes_amount
     # Total amount of all pre-payment credit notes issued for this invoice.
     attr_reader :pre_payment_credit_notes_amount
-    # The quote this invoice was generated from.
-    attr_reader :quote
     # This is the transaction number that appears on email receipts sent for this invoice.
     attr_reader :receipt_number
     # The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
@@ -618,16 +637,10 @@ module Stripe
     attr_reader :status_transitions
     # Attribute for field subscription
     attr_reader :subscription
-    # Details about the subscription that created this invoice.
-    attr_reader :subscription_details
-    # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
-    attr_reader :subscription_proration_date
     # Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
     attr_reader :subtotal
     # The integer amount in cents (or local equivalent) representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated
     attr_reader :subtotal_excluding_tax
-    # The amount of tax on this invoice. This is the sum of all the tax amounts on this invoice.
-    attr_reader :tax
     # ID of the test clock this invoice belongs to.
     attr_reader :test_clock
     # Attribute for field threshold_reason
@@ -642,10 +655,8 @@ module Stripe
     attr_reader :total_margin_amounts
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items.
     attr_reader :total_pretax_credit_amounts
-    # The aggregate amounts calculated per tax rate for all line items.
-    attr_reader :total_tax_amounts
-    # The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice.
-    attr_reader :transfer_data
+    # The aggregate tax information of all line items.
+    attr_reader :total_taxes
     # Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     attr_reader :webhooks_delivered_at
   end

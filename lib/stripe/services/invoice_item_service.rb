@@ -74,7 +74,7 @@ module Stripe
       class PriceData < Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         attr_accessor :product
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         attr_accessor :tax_behavior
@@ -97,6 +97,15 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
+
+      class Pricing < Stripe::RequestParams
+        # The ID of the price object.
+        attr_accessor :price
+
+        def initialize(price: nil)
+          @price = price
+        end
+      end
       # The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
       attr_accessor :amount
       # An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
@@ -113,10 +122,10 @@ module Stripe
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
-      attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       attr_accessor :price_data
+      # The pricing information for the invoice item.
+      attr_accessor :pricing
       # Non-negative integer. The quantity of units for the invoice item.
       attr_accessor :quantity
       # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -125,9 +134,7 @@ module Stripe
       attr_accessor :tax_code
       # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates.
       attr_accessor :tax_rates
-      # The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
-      attr_accessor :unit_amount
-      # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+      # The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
       attr_accessor :unit_amount_decimal
 
       def initialize(
@@ -139,13 +146,12 @@ module Stripe
         margins: nil,
         metadata: nil,
         period: nil,
-        price: nil,
         price_data: nil,
+        pricing: nil,
         quantity: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
-        unit_amount: nil,
         unit_amount_decimal: nil
       )
         @amount = amount
@@ -156,13 +162,12 @@ module Stripe
         @margins = margins
         @metadata = metadata
         @period = period
-        @price = price
         @price_data = price_data
+        @pricing = pricing
         @quantity = quantity
         @tax_behavior = tax_behavior
         @tax_code = tax_code
         @tax_rates = tax_rates
-        @unit_amount = unit_amount
         @unit_amount_decimal = unit_amount_decimal
       end
     end
@@ -189,6 +194,8 @@ module Stripe
       attr_accessor :created
       # The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
       attr_accessor :customer
+      # The identifier of the account whose invoice items to return. If none is provided, all invoice items will be returned.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -205,6 +212,7 @@ module Stripe
       def initialize(
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         invoice: nil,
@@ -214,6 +222,7 @@ module Stripe
       )
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @invoice = invoice
@@ -282,7 +291,7 @@ module Stripe
       class PriceData < Stripe::RequestParams
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         attr_accessor :product
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         attr_accessor :tax_behavior
@@ -305,12 +314,23 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
+
+      class Pricing < Stripe::RequestParams
+        # The ID of the price object.
+        attr_accessor :price
+
+        def initialize(price: nil)
+          @price = price
+        end
+      end
       # The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. Passing in a negative `amount` will reduce the `amount_due` on the invoice.
       attr_accessor :amount
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
       # The ID of the customer who will be billed when this invoice item is billed.
       attr_accessor :customer
+      # The ID of the account who will be billed when this invoice item is billed.
+      attr_accessor :customer_account
       # An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
       attr_accessor :description
       # Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items.
@@ -327,10 +347,10 @@ module Stripe
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
-      attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       attr_accessor :price_data
+      # The pricing information for the invoice item.
+      attr_accessor :pricing
       # Non-negative integer. The quantity of units for the invoice item.
       attr_accessor :quantity
       # The ID of a subscription to add this invoice item to. When left blank, the invoice item is added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription.
@@ -341,15 +361,14 @@ module Stripe
       attr_accessor :tax_code
       # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
       attr_accessor :tax_rates
-      # The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice.
-      attr_accessor :unit_amount
-      # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+      # The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
       attr_accessor :unit_amount_decimal
 
       def initialize(
         amount: nil,
         currency: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         discountable: nil,
         discounts: nil,
@@ -358,19 +377,19 @@ module Stripe
         margins: nil,
         metadata: nil,
         period: nil,
-        price: nil,
         price_data: nil,
+        pricing: nil,
         quantity: nil,
         subscription: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
-        unit_amount: nil,
         unit_amount_decimal: nil
       )
         @amount = amount
         @currency = currency
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @discountable = discountable
         @discounts = discounts
@@ -379,14 +398,13 @@ module Stripe
         @margins = margins
         @metadata = metadata
         @period = period
-        @price = price
         @price_data = price_data
+        @pricing = pricing
         @quantity = quantity
         @subscription = subscription
         @tax_behavior = tax_behavior
         @tax_code = tax_code
         @tax_rates = tax_rates
-        @unit_amount = unit_amount
         @unit_amount_decimal = unit_amount_decimal
       end
     end

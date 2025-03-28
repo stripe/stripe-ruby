@@ -8,22 +8,11 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
-    extend Stripe::APIOperations::NestedResource
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "subscription_item"
     def self.object_name
       "subscription_item"
-    end
-
-    nested_resource_class_methods :usage_record, operations: %i[create]
-    nested_resource_class_methods :usage_record_summary,
-                                  operations: %i[list],
-                                  resource_plural: "usage_record_summaries"
-
-    class BillingThresholds < Stripe::StripeObject
-      # Usage threshold that triggers the subscription to create an invoice
-      attr_reader :usage_gte
     end
 
     class Trial < Stripe::StripeObject
@@ -58,15 +47,6 @@ module Stripe
     end
 
     class UpdateParams < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
-        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        attr_accessor :usage_gte
-
-        def initialize(usage_gte: nil)
-          @usage_gte = usage_gte
-        end
-      end
-
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
           class Duration < Stripe::RequestParams
@@ -124,7 +104,7 @@ module Stripe
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         attr_accessor :product
         # The recurring components of a price such as `interval` and `interval_count`.
         attr_accessor :recurring
@@ -151,8 +131,6 @@ module Stripe
           @unit_amount_decimal = unit_amount_decimal
         end
       end
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -185,7 +163,6 @@ module Stripe
       attr_accessor :tax_rates
 
       def initialize(
-        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,
@@ -199,7 +176,6 @@ module Stripe
         quantity: nil,
         tax_rates: nil
       )
-        @billing_thresholds = billing_thresholds
         @discounts = discounts
         @expand = expand
         @metadata = metadata
@@ -243,15 +219,6 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
-        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        attr_accessor :usage_gte
-
-        def initialize(usage_gte: nil)
-          @usage_gte = usage_gte
-        end
-      end
-
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
           class Duration < Stripe::RequestParams
@@ -309,7 +276,7 @@ module Stripe
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         attr_accessor :product
         # The recurring components of a price such as `interval` and `interval_count`.
         attr_accessor :recurring
@@ -348,8 +315,6 @@ module Stripe
           @type = type
         end
       end
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
@@ -384,7 +349,6 @@ module Stripe
       attr_accessor :trial
 
       def initialize(
-        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,
@@ -399,7 +363,6 @@ module Stripe
         tax_rates: nil,
         trial: nil
       )
-        @billing_thresholds = billing_thresholds
         @discounts = discounts
         @expand = expand
         @metadata = metadata
@@ -415,10 +378,12 @@ module Stripe
         @trial = trial
       end
     end
-    # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-    attr_reader :billing_thresholds
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+    # The end time of this subscription item's current billing period.
+    attr_reader :current_period_end
+    # The start time of this subscription item's current billing period.
+    attr_reader :current_period_start
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
     # Unique identifier for the object.

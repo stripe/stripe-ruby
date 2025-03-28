@@ -232,6 +232,13 @@ module Stripe
           sig { params(requested: T::Boolean).void }
           def initialize(requested: nil); end
         end
+        class BilliePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T::Boolean) }
+          attr_accessor :requested
+          sig { params(requested: T::Boolean).void }
+          def initialize(requested: nil); end
+        end
         class BlikPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T::Boolean) }
@@ -519,6 +526,13 @@ module Stripe
           sig { params(requested: T::Boolean).void }
           def initialize(requested: nil); end
         end
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T::Boolean) }
+          attr_accessor :requested
+          sig { params(requested: T::Boolean).void }
+          def initialize(requested: nil); end
+        end
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T::Boolean) }
@@ -541,6 +555,13 @@ module Stripe
           def initialize(requested: nil); end
         end
         class SofortPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T::Boolean) }
+          attr_accessor :requested
+          sig { params(requested: T::Boolean).void }
+          def initialize(requested: nil); end
+        end
+        class StripeBalancePayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T::Boolean) }
           attr_accessor :requested
@@ -663,6 +684,9 @@ module Stripe
         # The bank_transfer_payments capability.
         sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::BankTransferPayments) }
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::BilliePayments) }
+        attr_accessor :billie_payments
         # The blik_payments capability.
         sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::BlikPayments) }
         attr_accessor :blik_payments
@@ -800,6 +824,9 @@ module Stripe
         # The samsung_pay_payments capability.
         sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::SamsungPayPayments) }
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::SatispayPayments) }
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         sig {
           returns(::Stripe::AccountService::UpdateParams::Capabilities::SepaBankTransferPayments)
@@ -814,6 +841,9 @@ module Stripe
         # The sofort_payments capability.
         sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::SofortPayments) }
         attr_accessor :sofort_payments
+        # The stripe_balance_payments capability.
+        sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::StripeBalancePayments) }
+        attr_accessor :stripe_balance_payments
         # The swish_payments capability.
         sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::SwishPayments) }
         attr_accessor :swish_payments
@@ -857,7 +887,7 @@ module Stripe
         sig { returns(::Stripe::AccountService::UpdateParams::Capabilities::ZipPayments) }
         attr_accessor :zip_payments
         sig {
-          params(acss_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AcssDebitPayments, affirm_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AffirmPayments, afterpay_clearpay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AfterpayClearpayPayments, alma_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AlmaPayments, amazon_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AmazonPayPayments, au_becs_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AuBecsDebitPayments, automatic_indirect_tax: ::Stripe::AccountService::UpdateParams::Capabilities::AutomaticIndirectTax, bacs_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BacsDebitPayments, bancontact_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BancontactPayments, bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BankTransferPayments, blik_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BlikPayments, boleto_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BoletoPayments, card_issuing: ::Stripe::AccountService::UpdateParams::Capabilities::CardIssuing, card_payments: ::Stripe::AccountService::UpdateParams::Capabilities::CardPayments, cartes_bancaires_payments: ::Stripe::AccountService::UpdateParams::Capabilities::CartesBancairesPayments, cashapp_payments: ::Stripe::AccountService::UpdateParams::Capabilities::CashappPayments, eps_payments: ::Stripe::AccountService::UpdateParams::Capabilities::EpsPayments, fpx_payments: ::Stripe::AccountService::UpdateParams::Capabilities::FpxPayments, gb_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GbBankTransferPayments, giropay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GiropayPayments, gopay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GopayPayments, grabpay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GrabpayPayments, id_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::IdBankTransferPayments, id_bank_transfer_payments_bca: ::Stripe::AccountService::UpdateParams::Capabilities::IdBankTransferPaymentsBca, ideal_payments: ::Stripe::AccountService::UpdateParams::Capabilities::IdealPayments, india_international_payments: ::Stripe::AccountService::UpdateParams::Capabilities::IndiaInternationalPayments, jcb_payments: ::Stripe::AccountService::UpdateParams::Capabilities::JcbPayments, jp_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::JpBankTransferPayments, kakao_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KakaoPayPayments, klarna_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KlarnaPayments, konbini_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KonbiniPayments, kr_card_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KrCardPayments, legacy_payments: ::Stripe::AccountService::UpdateParams::Capabilities::LegacyPayments, link_payments: ::Stripe::AccountService::UpdateParams::Capabilities::LinkPayments, mb_way_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MbWayPayments, mobilepay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MobilepayPayments, multibanco_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MultibancoPayments, mx_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MxBankTransferPayments, naver_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::NaverPayPayments, oxxo_payments: ::Stripe::AccountService::UpdateParams::Capabilities::OxxoPayments, p24_payments: ::Stripe::AccountService::UpdateParams::Capabilities::P24Payments, pay_by_bank_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PayByBankPayments, payco_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaycoPayments, paynow_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaynowPayments, paypal_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaypalPayments, payto_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaytoPayments, promptpay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PromptpayPayments, qris_payments: ::Stripe::AccountService::UpdateParams::Capabilities::QrisPayments, rechnung_payments: ::Stripe::AccountService::UpdateParams::Capabilities::RechnungPayments, revolut_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::RevolutPayPayments, samsung_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SamsungPayPayments, sepa_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SepaBankTransferPayments, sepa_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SepaDebitPayments, shopeepay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::ShopeepayPayments, sofort_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SofortPayments, swish_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SwishPayments, tax_reporting_us_1099_k: ::Stripe::AccountService::UpdateParams::Capabilities::TaxReportingUs1099K, tax_reporting_us_1099_misc: ::Stripe::AccountService::UpdateParams::Capabilities::TaxReportingUs1099Misc, transfers: ::Stripe::AccountService::UpdateParams::Capabilities::Transfers, treasury: ::Stripe::AccountService::UpdateParams::Capabilities::Treasury, treasury_evolve: ::Stripe::AccountService::UpdateParams::Capabilities::TreasuryEvolve, treasury_fifth_third: ::Stripe::AccountService::UpdateParams::Capabilities::TreasuryFifthThird, treasury_goldman_sachs: ::Stripe::AccountService::UpdateParams::Capabilities::TreasuryGoldmanSachs, twint_payments: ::Stripe::AccountService::UpdateParams::Capabilities::TwintPayments, us_bank_account_ach_payments: ::Stripe::AccountService::UpdateParams::Capabilities::UsBankAccountAchPayments, us_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::UsBankTransferPayments, zip_payments: ::Stripe::AccountService::UpdateParams::Capabilities::ZipPayments).void
+          params(acss_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AcssDebitPayments, affirm_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AffirmPayments, afterpay_clearpay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AfterpayClearpayPayments, alma_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AlmaPayments, amazon_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AmazonPayPayments, au_becs_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::AuBecsDebitPayments, automatic_indirect_tax: ::Stripe::AccountService::UpdateParams::Capabilities::AutomaticIndirectTax, bacs_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BacsDebitPayments, bancontact_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BancontactPayments, bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BankTransferPayments, billie_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BilliePayments, blik_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BlikPayments, boleto_payments: ::Stripe::AccountService::UpdateParams::Capabilities::BoletoPayments, card_issuing: ::Stripe::AccountService::UpdateParams::Capabilities::CardIssuing, card_payments: ::Stripe::AccountService::UpdateParams::Capabilities::CardPayments, cartes_bancaires_payments: ::Stripe::AccountService::UpdateParams::Capabilities::CartesBancairesPayments, cashapp_payments: ::Stripe::AccountService::UpdateParams::Capabilities::CashappPayments, eps_payments: ::Stripe::AccountService::UpdateParams::Capabilities::EpsPayments, fpx_payments: ::Stripe::AccountService::UpdateParams::Capabilities::FpxPayments, gb_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GbBankTransferPayments, giropay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GiropayPayments, gopay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GopayPayments, grabpay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::GrabpayPayments, id_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::IdBankTransferPayments, id_bank_transfer_payments_bca: ::Stripe::AccountService::UpdateParams::Capabilities::IdBankTransferPaymentsBca, ideal_payments: ::Stripe::AccountService::UpdateParams::Capabilities::IdealPayments, india_international_payments: ::Stripe::AccountService::UpdateParams::Capabilities::IndiaInternationalPayments, jcb_payments: ::Stripe::AccountService::UpdateParams::Capabilities::JcbPayments, jp_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::JpBankTransferPayments, kakao_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KakaoPayPayments, klarna_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KlarnaPayments, konbini_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KonbiniPayments, kr_card_payments: ::Stripe::AccountService::UpdateParams::Capabilities::KrCardPayments, legacy_payments: ::Stripe::AccountService::UpdateParams::Capabilities::LegacyPayments, link_payments: ::Stripe::AccountService::UpdateParams::Capabilities::LinkPayments, mb_way_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MbWayPayments, mobilepay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MobilepayPayments, multibanco_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MultibancoPayments, mx_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::MxBankTransferPayments, naver_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::NaverPayPayments, oxxo_payments: ::Stripe::AccountService::UpdateParams::Capabilities::OxxoPayments, p24_payments: ::Stripe::AccountService::UpdateParams::Capabilities::P24Payments, pay_by_bank_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PayByBankPayments, payco_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaycoPayments, paynow_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaynowPayments, paypal_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaypalPayments, payto_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PaytoPayments, promptpay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::PromptpayPayments, qris_payments: ::Stripe::AccountService::UpdateParams::Capabilities::QrisPayments, rechnung_payments: ::Stripe::AccountService::UpdateParams::Capabilities::RechnungPayments, revolut_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::RevolutPayPayments, samsung_pay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SamsungPayPayments, satispay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SatispayPayments, sepa_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SepaBankTransferPayments, sepa_debit_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SepaDebitPayments, shopeepay_payments: ::Stripe::AccountService::UpdateParams::Capabilities::ShopeepayPayments, sofort_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SofortPayments, stripe_balance_payments: ::Stripe::AccountService::UpdateParams::Capabilities::StripeBalancePayments, swish_payments: ::Stripe::AccountService::UpdateParams::Capabilities::SwishPayments, tax_reporting_us_1099_k: ::Stripe::AccountService::UpdateParams::Capabilities::TaxReportingUs1099K, tax_reporting_us_1099_misc: ::Stripe::AccountService::UpdateParams::Capabilities::TaxReportingUs1099Misc, transfers: ::Stripe::AccountService::UpdateParams::Capabilities::Transfers, treasury: ::Stripe::AccountService::UpdateParams::Capabilities::Treasury, treasury_evolve: ::Stripe::AccountService::UpdateParams::Capabilities::TreasuryEvolve, treasury_fifth_third: ::Stripe::AccountService::UpdateParams::Capabilities::TreasuryFifthThird, treasury_goldman_sachs: ::Stripe::AccountService::UpdateParams::Capabilities::TreasuryGoldmanSachs, twint_payments: ::Stripe::AccountService::UpdateParams::Capabilities::TwintPayments, us_bank_account_ach_payments: ::Stripe::AccountService::UpdateParams::Capabilities::UsBankAccountAchPayments, us_bank_transfer_payments: ::Stripe::AccountService::UpdateParams::Capabilities::UsBankTransferPayments, zip_payments: ::Stripe::AccountService::UpdateParams::Capabilities::ZipPayments).void
          }
         def initialize(
           acss_debit_payments: nil,
@@ -870,6 +900,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -911,10 +942,12 @@ module Stripe
           rechnung_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
           sofort_payments: nil,
+          stripe_balance_payments: nil,
           swish_payments: nil,
           tax_reporting_us_1099_k: nil,
           tax_reporting_us_1099_misc: nil,
@@ -1195,7 +1228,7 @@ module Stripe
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         sig { returns(::Stripe::AccountService::UpdateParams::Company::OwnershipDeclaration) }
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         sig { returns(T.nilable(String)) }
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
@@ -1800,8 +1833,13 @@ module Stripe
           # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :default_account_tax_ids
-          sig { params(default_account_tax_ids: T.nilable(T::Array[String])).void }
-          def initialize(default_account_tax_ids: nil); end
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          sig { returns(String) }
+          attr_accessor :hosted_payment_method_save
+          sig {
+            params(default_account_tax_ids: T.nilable(T::Array[String]), hosted_payment_method_save: String).void
+           }
+          def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil); end
         end
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -2304,6 +2342,13 @@ module Stripe
           sig { params(requested: T::Boolean).void }
           def initialize(requested: nil); end
         end
+        class BilliePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T::Boolean) }
+          attr_accessor :requested
+          sig { params(requested: T::Boolean).void }
+          def initialize(requested: nil); end
+        end
         class BlikPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T::Boolean) }
@@ -2591,6 +2636,13 @@ module Stripe
           sig { params(requested: T::Boolean).void }
           def initialize(requested: nil); end
         end
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T::Boolean) }
+          attr_accessor :requested
+          sig { params(requested: T::Boolean).void }
+          def initialize(requested: nil); end
+        end
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T::Boolean) }
@@ -2613,6 +2665,13 @@ module Stripe
           def initialize(requested: nil); end
         end
         class SofortPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T::Boolean) }
+          attr_accessor :requested
+          sig { params(requested: T::Boolean).void }
+          def initialize(requested: nil); end
+        end
+        class StripeBalancePayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T::Boolean) }
           attr_accessor :requested
@@ -2735,6 +2794,9 @@ module Stripe
         # The bank_transfer_payments capability.
         sig { returns(::Stripe::AccountService::CreateParams::Capabilities::BankTransferPayments) }
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        sig { returns(::Stripe::AccountService::CreateParams::Capabilities::BilliePayments) }
+        attr_accessor :billie_payments
         # The blik_payments capability.
         sig { returns(::Stripe::AccountService::CreateParams::Capabilities::BlikPayments) }
         attr_accessor :blik_payments
@@ -2872,6 +2934,9 @@ module Stripe
         # The samsung_pay_payments capability.
         sig { returns(::Stripe::AccountService::CreateParams::Capabilities::SamsungPayPayments) }
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        sig { returns(::Stripe::AccountService::CreateParams::Capabilities::SatispayPayments) }
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         sig {
           returns(::Stripe::AccountService::CreateParams::Capabilities::SepaBankTransferPayments)
@@ -2886,6 +2951,9 @@ module Stripe
         # The sofort_payments capability.
         sig { returns(::Stripe::AccountService::CreateParams::Capabilities::SofortPayments) }
         attr_accessor :sofort_payments
+        # The stripe_balance_payments capability.
+        sig { returns(::Stripe::AccountService::CreateParams::Capabilities::StripeBalancePayments) }
+        attr_accessor :stripe_balance_payments
         # The swish_payments capability.
         sig { returns(::Stripe::AccountService::CreateParams::Capabilities::SwishPayments) }
         attr_accessor :swish_payments
@@ -2929,7 +2997,7 @@ module Stripe
         sig { returns(::Stripe::AccountService::CreateParams::Capabilities::ZipPayments) }
         attr_accessor :zip_payments
         sig {
-          params(acss_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::AcssDebitPayments, affirm_payments: ::Stripe::AccountService::CreateParams::Capabilities::AffirmPayments, afterpay_clearpay_payments: ::Stripe::AccountService::CreateParams::Capabilities::AfterpayClearpayPayments, alma_payments: ::Stripe::AccountService::CreateParams::Capabilities::AlmaPayments, amazon_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::AmazonPayPayments, au_becs_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::AuBecsDebitPayments, automatic_indirect_tax: ::Stripe::AccountService::CreateParams::Capabilities::AutomaticIndirectTax, bacs_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::BacsDebitPayments, bancontact_payments: ::Stripe::AccountService::CreateParams::Capabilities::BancontactPayments, bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::BankTransferPayments, blik_payments: ::Stripe::AccountService::CreateParams::Capabilities::BlikPayments, boleto_payments: ::Stripe::AccountService::CreateParams::Capabilities::BoletoPayments, card_issuing: ::Stripe::AccountService::CreateParams::Capabilities::CardIssuing, card_payments: ::Stripe::AccountService::CreateParams::Capabilities::CardPayments, cartes_bancaires_payments: ::Stripe::AccountService::CreateParams::Capabilities::CartesBancairesPayments, cashapp_payments: ::Stripe::AccountService::CreateParams::Capabilities::CashappPayments, eps_payments: ::Stripe::AccountService::CreateParams::Capabilities::EpsPayments, fpx_payments: ::Stripe::AccountService::CreateParams::Capabilities::FpxPayments, gb_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::GbBankTransferPayments, giropay_payments: ::Stripe::AccountService::CreateParams::Capabilities::GiropayPayments, gopay_payments: ::Stripe::AccountService::CreateParams::Capabilities::GopayPayments, grabpay_payments: ::Stripe::AccountService::CreateParams::Capabilities::GrabpayPayments, id_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::IdBankTransferPayments, id_bank_transfer_payments_bca: ::Stripe::AccountService::CreateParams::Capabilities::IdBankTransferPaymentsBca, ideal_payments: ::Stripe::AccountService::CreateParams::Capabilities::IdealPayments, india_international_payments: ::Stripe::AccountService::CreateParams::Capabilities::IndiaInternationalPayments, jcb_payments: ::Stripe::AccountService::CreateParams::Capabilities::JcbPayments, jp_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::JpBankTransferPayments, kakao_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::KakaoPayPayments, klarna_payments: ::Stripe::AccountService::CreateParams::Capabilities::KlarnaPayments, konbini_payments: ::Stripe::AccountService::CreateParams::Capabilities::KonbiniPayments, kr_card_payments: ::Stripe::AccountService::CreateParams::Capabilities::KrCardPayments, legacy_payments: ::Stripe::AccountService::CreateParams::Capabilities::LegacyPayments, link_payments: ::Stripe::AccountService::CreateParams::Capabilities::LinkPayments, mb_way_payments: ::Stripe::AccountService::CreateParams::Capabilities::MbWayPayments, mobilepay_payments: ::Stripe::AccountService::CreateParams::Capabilities::MobilepayPayments, multibanco_payments: ::Stripe::AccountService::CreateParams::Capabilities::MultibancoPayments, mx_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::MxBankTransferPayments, naver_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::NaverPayPayments, oxxo_payments: ::Stripe::AccountService::CreateParams::Capabilities::OxxoPayments, p24_payments: ::Stripe::AccountService::CreateParams::Capabilities::P24Payments, pay_by_bank_payments: ::Stripe::AccountService::CreateParams::Capabilities::PayByBankPayments, payco_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaycoPayments, paynow_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaynowPayments, paypal_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaypalPayments, payto_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaytoPayments, promptpay_payments: ::Stripe::AccountService::CreateParams::Capabilities::PromptpayPayments, qris_payments: ::Stripe::AccountService::CreateParams::Capabilities::QrisPayments, rechnung_payments: ::Stripe::AccountService::CreateParams::Capabilities::RechnungPayments, revolut_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::RevolutPayPayments, samsung_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::SamsungPayPayments, sepa_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::SepaBankTransferPayments, sepa_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::SepaDebitPayments, shopeepay_payments: ::Stripe::AccountService::CreateParams::Capabilities::ShopeepayPayments, sofort_payments: ::Stripe::AccountService::CreateParams::Capabilities::SofortPayments, swish_payments: ::Stripe::AccountService::CreateParams::Capabilities::SwishPayments, tax_reporting_us_1099_k: ::Stripe::AccountService::CreateParams::Capabilities::TaxReportingUs1099K, tax_reporting_us_1099_misc: ::Stripe::AccountService::CreateParams::Capabilities::TaxReportingUs1099Misc, transfers: ::Stripe::AccountService::CreateParams::Capabilities::Transfers, treasury: ::Stripe::AccountService::CreateParams::Capabilities::Treasury, treasury_evolve: ::Stripe::AccountService::CreateParams::Capabilities::TreasuryEvolve, treasury_fifth_third: ::Stripe::AccountService::CreateParams::Capabilities::TreasuryFifthThird, treasury_goldman_sachs: ::Stripe::AccountService::CreateParams::Capabilities::TreasuryGoldmanSachs, twint_payments: ::Stripe::AccountService::CreateParams::Capabilities::TwintPayments, us_bank_account_ach_payments: ::Stripe::AccountService::CreateParams::Capabilities::UsBankAccountAchPayments, us_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::UsBankTransferPayments, zip_payments: ::Stripe::AccountService::CreateParams::Capabilities::ZipPayments).void
+          params(acss_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::AcssDebitPayments, affirm_payments: ::Stripe::AccountService::CreateParams::Capabilities::AffirmPayments, afterpay_clearpay_payments: ::Stripe::AccountService::CreateParams::Capabilities::AfterpayClearpayPayments, alma_payments: ::Stripe::AccountService::CreateParams::Capabilities::AlmaPayments, amazon_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::AmazonPayPayments, au_becs_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::AuBecsDebitPayments, automatic_indirect_tax: ::Stripe::AccountService::CreateParams::Capabilities::AutomaticIndirectTax, bacs_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::BacsDebitPayments, bancontact_payments: ::Stripe::AccountService::CreateParams::Capabilities::BancontactPayments, bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::BankTransferPayments, billie_payments: ::Stripe::AccountService::CreateParams::Capabilities::BilliePayments, blik_payments: ::Stripe::AccountService::CreateParams::Capabilities::BlikPayments, boleto_payments: ::Stripe::AccountService::CreateParams::Capabilities::BoletoPayments, card_issuing: ::Stripe::AccountService::CreateParams::Capabilities::CardIssuing, card_payments: ::Stripe::AccountService::CreateParams::Capabilities::CardPayments, cartes_bancaires_payments: ::Stripe::AccountService::CreateParams::Capabilities::CartesBancairesPayments, cashapp_payments: ::Stripe::AccountService::CreateParams::Capabilities::CashappPayments, eps_payments: ::Stripe::AccountService::CreateParams::Capabilities::EpsPayments, fpx_payments: ::Stripe::AccountService::CreateParams::Capabilities::FpxPayments, gb_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::GbBankTransferPayments, giropay_payments: ::Stripe::AccountService::CreateParams::Capabilities::GiropayPayments, gopay_payments: ::Stripe::AccountService::CreateParams::Capabilities::GopayPayments, grabpay_payments: ::Stripe::AccountService::CreateParams::Capabilities::GrabpayPayments, id_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::IdBankTransferPayments, id_bank_transfer_payments_bca: ::Stripe::AccountService::CreateParams::Capabilities::IdBankTransferPaymentsBca, ideal_payments: ::Stripe::AccountService::CreateParams::Capabilities::IdealPayments, india_international_payments: ::Stripe::AccountService::CreateParams::Capabilities::IndiaInternationalPayments, jcb_payments: ::Stripe::AccountService::CreateParams::Capabilities::JcbPayments, jp_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::JpBankTransferPayments, kakao_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::KakaoPayPayments, klarna_payments: ::Stripe::AccountService::CreateParams::Capabilities::KlarnaPayments, konbini_payments: ::Stripe::AccountService::CreateParams::Capabilities::KonbiniPayments, kr_card_payments: ::Stripe::AccountService::CreateParams::Capabilities::KrCardPayments, legacy_payments: ::Stripe::AccountService::CreateParams::Capabilities::LegacyPayments, link_payments: ::Stripe::AccountService::CreateParams::Capabilities::LinkPayments, mb_way_payments: ::Stripe::AccountService::CreateParams::Capabilities::MbWayPayments, mobilepay_payments: ::Stripe::AccountService::CreateParams::Capabilities::MobilepayPayments, multibanco_payments: ::Stripe::AccountService::CreateParams::Capabilities::MultibancoPayments, mx_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::MxBankTransferPayments, naver_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::NaverPayPayments, oxxo_payments: ::Stripe::AccountService::CreateParams::Capabilities::OxxoPayments, p24_payments: ::Stripe::AccountService::CreateParams::Capabilities::P24Payments, pay_by_bank_payments: ::Stripe::AccountService::CreateParams::Capabilities::PayByBankPayments, payco_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaycoPayments, paynow_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaynowPayments, paypal_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaypalPayments, payto_payments: ::Stripe::AccountService::CreateParams::Capabilities::PaytoPayments, promptpay_payments: ::Stripe::AccountService::CreateParams::Capabilities::PromptpayPayments, qris_payments: ::Stripe::AccountService::CreateParams::Capabilities::QrisPayments, rechnung_payments: ::Stripe::AccountService::CreateParams::Capabilities::RechnungPayments, revolut_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::RevolutPayPayments, samsung_pay_payments: ::Stripe::AccountService::CreateParams::Capabilities::SamsungPayPayments, satispay_payments: ::Stripe::AccountService::CreateParams::Capabilities::SatispayPayments, sepa_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::SepaBankTransferPayments, sepa_debit_payments: ::Stripe::AccountService::CreateParams::Capabilities::SepaDebitPayments, shopeepay_payments: ::Stripe::AccountService::CreateParams::Capabilities::ShopeepayPayments, sofort_payments: ::Stripe::AccountService::CreateParams::Capabilities::SofortPayments, stripe_balance_payments: ::Stripe::AccountService::CreateParams::Capabilities::StripeBalancePayments, swish_payments: ::Stripe::AccountService::CreateParams::Capabilities::SwishPayments, tax_reporting_us_1099_k: ::Stripe::AccountService::CreateParams::Capabilities::TaxReportingUs1099K, tax_reporting_us_1099_misc: ::Stripe::AccountService::CreateParams::Capabilities::TaxReportingUs1099Misc, transfers: ::Stripe::AccountService::CreateParams::Capabilities::Transfers, treasury: ::Stripe::AccountService::CreateParams::Capabilities::Treasury, treasury_evolve: ::Stripe::AccountService::CreateParams::Capabilities::TreasuryEvolve, treasury_fifth_third: ::Stripe::AccountService::CreateParams::Capabilities::TreasuryFifthThird, treasury_goldman_sachs: ::Stripe::AccountService::CreateParams::Capabilities::TreasuryGoldmanSachs, twint_payments: ::Stripe::AccountService::CreateParams::Capabilities::TwintPayments, us_bank_account_ach_payments: ::Stripe::AccountService::CreateParams::Capabilities::UsBankAccountAchPayments, us_bank_transfer_payments: ::Stripe::AccountService::CreateParams::Capabilities::UsBankTransferPayments, zip_payments: ::Stripe::AccountService::CreateParams::Capabilities::ZipPayments).void
          }
         def initialize(
           acss_debit_payments: nil,
@@ -2942,6 +3010,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -2983,10 +3052,12 @@ module Stripe
           rechnung_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
           sofort_payments: nil,
+          stripe_balance_payments: nil,
           swish_payments: nil,
           tax_reporting_us_1099_k: nil,
           tax_reporting_us_1099_misc: nil,
@@ -3267,7 +3338,7 @@ module Stripe
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         sig { returns(::Stripe::AccountService::CreateParams::Company::OwnershipDeclaration) }
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         sig { returns(T.nilable(String)) }
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
@@ -3942,6 +4013,13 @@ module Stripe
             statement_descriptor_prefix_kanji: nil
           ); end
         end
+        class Invoices < Stripe::RequestParams
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          sig { returns(String) }
+          attr_accessor :hosted_payment_method_save
+          sig { params(hosted_payment_method_save: String).void }
+          def initialize(hosted_payment_method_save: nil); end
+        end
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
           sig { returns(String) }
@@ -4050,6 +4128,9 @@ module Stripe
         # Settings specific to card charging on the account.
         sig { returns(::Stripe::AccountService::CreateParams::Settings::CardPayments) }
         attr_accessor :card_payments
+        # Settings specific to the account’s use of Invoices.
+        sig { returns(::Stripe::AccountService::CreateParams::Settings::Invoices) }
+        attr_accessor :invoices
         # Settings that apply across payment methods for charging on the account.
         sig { returns(::Stripe::AccountService::CreateParams::Settings::Payments) }
         attr_accessor :payments
@@ -4063,7 +4144,7 @@ module Stripe
         sig { returns(::Stripe::AccountService::CreateParams::Settings::Treasury) }
         attr_accessor :treasury
         sig {
-          params(bacs_debit_payments: ::Stripe::AccountService::CreateParams::Settings::BacsDebitPayments, bank_bca_onboarding: ::Stripe::AccountService::CreateParams::Settings::BankBcaOnboarding, branding: ::Stripe::AccountService::CreateParams::Settings::Branding, capital: ::Stripe::AccountService::CreateParams::Settings::Capital, card_issuing: ::Stripe::AccountService::CreateParams::Settings::CardIssuing, card_payments: ::Stripe::AccountService::CreateParams::Settings::CardPayments, payments: ::Stripe::AccountService::CreateParams::Settings::Payments, payouts: ::Stripe::AccountService::CreateParams::Settings::Payouts, tax_forms: ::Stripe::AccountService::CreateParams::Settings::TaxForms, treasury: ::Stripe::AccountService::CreateParams::Settings::Treasury).void
+          params(bacs_debit_payments: ::Stripe::AccountService::CreateParams::Settings::BacsDebitPayments, bank_bca_onboarding: ::Stripe::AccountService::CreateParams::Settings::BankBcaOnboarding, branding: ::Stripe::AccountService::CreateParams::Settings::Branding, capital: ::Stripe::AccountService::CreateParams::Settings::Capital, card_issuing: ::Stripe::AccountService::CreateParams::Settings::CardIssuing, card_payments: ::Stripe::AccountService::CreateParams::Settings::CardPayments, invoices: ::Stripe::AccountService::CreateParams::Settings::Invoices, payments: ::Stripe::AccountService::CreateParams::Settings::Payments, payouts: ::Stripe::AccountService::CreateParams::Settings::Payouts, tax_forms: ::Stripe::AccountService::CreateParams::Settings::TaxForms, treasury: ::Stripe::AccountService::CreateParams::Settings::Treasury).void
          }
         def initialize(
           bacs_debit_payments: nil,
@@ -4072,6 +4153,7 @@ module Stripe
           capital: nil,
           card_issuing: nil,
           card_payments: nil,
+          invoices: nil,
           payments: nil,
           payouts: nil,
           tax_forms: nil,

@@ -151,6 +151,8 @@ module Stripe
     attr_reader :account
     # The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
     attr_reader :api_version
+    # Attribute for field context
+    attr_reader :context
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # Attribute for field data

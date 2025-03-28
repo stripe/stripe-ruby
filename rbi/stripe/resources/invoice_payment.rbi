@@ -27,9 +27,6 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_reader :paid_at
     end
-    # Excess payment that was received for this invoice and credited to the customer’s `invoice_credit_balance`. This field is null until the payment is `paid`. Overpayment can happen when you attach more than one PaymentIntent to the invoice, and each of them succeeds. To avoid overpayment, cancel any PaymentIntents that you do not need before attaching more.
-    sig { returns(T.nilable(Integer)) }
-    attr_reader :amount_overpaid
     # Amount that was actually paid for this invoice, in cents (or local equivalent). This field is null until the payment is `paid`. This amount can be less than the `amount_requested` if the PaymentIntent’s `amount_received` is not sufficient to pay all of the invoices that it is attached to.
     sig { returns(T.nilable(Integer)) }
     attr_reader :amount_paid
@@ -49,7 +46,7 @@ module Stripe
     sig { returns(T.any(String, Stripe::Invoice)) }
     attr_reader :invoice
     # Stripe automatically creates a default InvoicePayment when the invoice is finalized, and keeps it synchronized with the invoice’s `amount_remaining`. The PaymentIntent associated with the default payment can’t be edited or canceled directly.
-    sig { returns(T.nilable(T::Boolean)) }
+    sig { returns(T::Boolean) }
     attr_reader :is_default
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }

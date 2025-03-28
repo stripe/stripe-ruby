@@ -40,13 +40,6 @@ module Stripe
         attr_reader :liability
       end
 
-      class BillingThresholds < Stripe::StripeObject
-        # Monetary threshold that triggers the subscription to create an invoice
-        attr_reader :amount_gte
-        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
-        attr_reader :reset_billing_cycle_anchor
-      end
-
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
@@ -74,8 +67,6 @@ module Stripe
       attr_reader :automatic_tax
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-      attr_reader :billing_thresholds
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       attr_reader :collection_method
       # ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -148,13 +139,6 @@ module Stripe
         attr_reader :liability
       end
 
-      class BillingThresholds < Stripe::StripeObject
-        # Monetary threshold that triggers the subscription to create an invoice
-        attr_reader :amount_gte
-        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
-        attr_reader :reset_billing_cycle_anchor
-      end
-
       class Discount < Stripe::StripeObject
         class DiscountEnd < Stripe::StripeObject
           # The discount end timestamp.
@@ -188,11 +172,6 @@ module Stripe
       end
 
       class Item < Stripe::StripeObject
-        class BillingThresholds < Stripe::StripeObject
-          # Usage threshold that triggers the subscription to create an invoice
-          attr_reader :usage_gte
-        end
-
         class Discount < Stripe::StripeObject
           class DiscountEnd < Stripe::StripeObject
             # The discount end timestamp.
@@ -216,8 +195,6 @@ module Stripe
           # Determines the type of trial for this item.
           attr_reader :type
         end
-        # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-        attr_reader :billing_thresholds
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         attr_reader :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
@@ -262,12 +239,8 @@ module Stripe
       attr_reader :automatic_tax
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_reader :billing_cycle_anchor
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-      attr_reader :billing_thresholds
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       attr_reader :collection_method
-      # ID of the coupon to use during this phase of the subscription schedule.
-      attr_reader :coupon
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
       # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
@@ -330,6 +303,8 @@ module Stripe
     attr_reader :current_phase
     # ID of the customer who owns the subscription schedule.
     attr_reader :customer
+    # ID of the account who owns the subscription schedule.
+    attr_reader :customer_account
     # Attribute for field default_settings
     attr_reader :default_settings
     # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.

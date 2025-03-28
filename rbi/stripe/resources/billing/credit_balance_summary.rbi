@@ -52,6 +52,9 @@ module Stripe
       # The customer the balance is for.
       sig { returns(T.any(String, Stripe::Customer)) }
       attr_reader :customer
+      # The account the balance is for.
+      sig { returns(T.nilable(String)) }
+      attr_reader :customer_account
       # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
       sig { returns(T::Boolean) }
       attr_reader :livemode
@@ -68,10 +71,10 @@ module Stripe
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type.
+            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             sig { returns(String) }
             attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             sig {
               returns(T::Array[::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter::ApplicabilityScope::Price])
              }
@@ -100,6 +103,9 @@ module Stripe
         # The customer for which to fetch credit balance summary.
         sig { returns(String) }
         attr_accessor :customer
+        # The account for which to fetch credit balance summary.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
@@ -107,9 +113,9 @@ module Stripe
         sig { returns(::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter) }
         attr_accessor :filter
         sig {
-          params(customer: String, expand: T::Array[String], filter: ::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter).void
+          params(customer: String, customer_account: String, expand: T::Array[String], filter: ::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter).void
          }
-        def initialize(customer: nil, expand: nil, filter: nil); end
+        def initialize(customer: nil, customer_account: nil, expand: nil, filter: nil); end
       end
     end
   end

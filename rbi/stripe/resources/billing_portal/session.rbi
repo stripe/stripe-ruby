@@ -122,6 +122,9 @@ module Stripe
       # The ID of the customer for this session.
       sig { returns(String) }
       attr_reader :customer
+      # The ID of the account for this session.
+      sig { returns(T.nilable(String)) }
+      attr_reader :customer_account
       # Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
       sig { returns(T.nilable(Flow)) }
       attr_reader :flow
@@ -303,6 +306,9 @@ module Stripe
         # The ID of an existing customer.
         sig { returns(String) }
         attr_accessor :customer
+        # The ID of an existing account.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # Specifies which fields in the response should be expanded.
         sig { returns(T::Array[String]) }
         attr_accessor :expand
@@ -319,11 +325,12 @@ module Stripe
         sig { returns(String) }
         attr_accessor :return_url
         sig {
-          params(configuration: String, customer: String, expand: T::Array[String], flow_data: ::Stripe::BillingPortal::Session::CreateParams::FlowData, locale: String, on_behalf_of: String, return_url: String).void
+          params(configuration: String, customer: String, customer_account: String, expand: T::Array[String], flow_data: ::Stripe::BillingPortal::Session::CreateParams::FlowData, locale: String, on_behalf_of: String, return_url: String).void
          }
         def initialize(
           configuration: nil,
           customer: nil,
+          customer_account: nil,
           expand: nil,
           flow_data: nil,
           locale: nil,

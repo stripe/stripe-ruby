@@ -13,6 +13,9 @@ module Stripe
     # The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`.
     sig { returns(Integer) }
     attr_reader :amount
+    # The ID of the checkout session (if any) that created the transaction.
+    sig { returns(T.nilable(T.any(String, Stripe::Checkout::Session))) }
+    attr_reader :checkout_session
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created
@@ -25,6 +28,9 @@ module Stripe
     # The ID of the customer the transaction belongs to.
     sig { returns(T.any(String, Stripe::Customer)) }
     attr_reader :customer
+    # Attribute for field customer_account
+    sig { returns(T.nilable(String)) }
+    attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     attr_reader :description
@@ -46,7 +52,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
-    # Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
+    # Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, `unapplied_from_invoice`, `checkout_session_subscription_payment`, or `checkout_session_subscription_payment_canceled`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
     sig { returns(String) }
     attr_reader :type
   end

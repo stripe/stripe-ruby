@@ -12,6 +12,7 @@ module Stripe
     attr_reader :application_fees
     attr_reader :apps
     attr_reader :balance
+    attr_reader :balance_settings
     attr_reader :balance_transactions
     attr_reader :billing
     attr_reader :billing_portal
@@ -79,5 +80,6 @@ module Stripe
     attr_reader :transfers
     attr_reader :treasury
     attr_reader :webhook_endpoints
+    attr_reader :external_accounts
   end
 end

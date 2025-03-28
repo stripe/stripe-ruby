@@ -110,6 +110,8 @@ module Stripe
       attr_reader :bancontact_payments
       # The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
       attr_reader :bank_transfer_payments
+      # The status of the Billie capability of the account, or whether the account can directly process Billie payments.
+      attr_reader :billie_payments
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       attr_reader :blik_payments
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
@@ -192,6 +194,8 @@ module Stripe
       attr_reader :revolut_pay_payments
       # The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
       attr_reader :samsung_pay_payments
+      # The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
+      attr_reader :satispay_payments
       # The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
       attr_reader :sepa_bank_transfer_payments
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
@@ -200,6 +204,8 @@ module Stripe
       attr_reader :shopeepay_payments
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       attr_reader :sofort_payments
+      # The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
+      attr_reader :stripe_balance_payments
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
       attr_reader :swish_payments
       # The status of the tax reporting 1099-K (US) capability of the account.
@@ -324,21 +330,21 @@ module Stripe
       attr_reader :export_license_id
       # The purpose code to use for export transactions (India only).
       attr_reader :export_purpose_code
-      # The company's legal name.
+      # The company's legal name. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       attr_reader :name
-      # The Kana variation of the company's legal name (Japan only).
+      # The Kana variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       attr_reader :name_kana
-      # The Kanji variation of the company's legal name (Japan only).
+      # The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       attr_reader :name_kanji
       # Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
       attr_reader :owners_provided
       # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
       attr_reader :ownership_declaration
-      # Attribute for field ownership_exemption_reason
+      # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
       attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_reader :phone
-      # The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+      # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       attr_reader :structure
       # Whether the company's business ID number was provided.
       attr_reader :tax_id_provided
@@ -561,6 +567,8 @@ module Stripe
       class Invoices < Stripe::StripeObject
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         attr_reader :default_account_tax_ids
+        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+        attr_reader :hosted_payment_method_save
       end
 
       class Payments < Stripe::StripeObject
@@ -895,6 +903,15 @@ module Stripe
         end
 
         class BankTransferPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
+        class BilliePayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
 
@@ -1272,6 +1289,15 @@ module Stripe
           end
         end
 
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -1300,6 +1326,15 @@ module Stripe
         end
 
         class SofortPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
+        class StripeBalancePayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
 
@@ -1435,6 +1470,8 @@ module Stripe
         attr_accessor :bancontact_payments
         # The bank_transfer_payments capability.
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        attr_accessor :billie_payments
         # The blik_payments capability.
         attr_accessor :blik_payments
         # The boleto_payments capability.
@@ -1517,6 +1554,8 @@ module Stripe
         attr_accessor :revolut_pay_payments
         # The samsung_pay_payments capability.
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         attr_accessor :sepa_bank_transfer_payments
         # The sepa_debit_payments capability.
@@ -1525,6 +1564,8 @@ module Stripe
         attr_accessor :shopeepay_payments
         # The sofort_payments capability.
         attr_accessor :sofort_payments
+        # The stripe_balance_payments capability.
+        attr_accessor :stripe_balance_payments
         # The swish_payments capability.
         attr_accessor :swish_payments
         # The tax_reporting_us_1099_k capability.
@@ -1561,6 +1602,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -1602,10 +1644,12 @@ module Stripe
           rechnung_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
           sofort_payments: nil,
+          stripe_balance_payments: nil,
           swish_payments: nil,
           tax_reporting_us_1099_k: nil,
           tax_reporting_us_1099_misc: nil,
@@ -1629,6 +1673,7 @@ module Stripe
           @bacs_debit_payments = bacs_debit_payments
           @bancontact_payments = bancontact_payments
           @bank_transfer_payments = bank_transfer_payments
+          @billie_payments = billie_payments
           @blik_payments = blik_payments
           @boleto_payments = boleto_payments
           @card_issuing = card_issuing
@@ -1670,10 +1715,12 @@ module Stripe
           @rechnung_payments = rechnung_payments
           @revolut_pay_payments = revolut_pay_payments
           @samsung_pay_payments = samsung_pay_payments
+          @satispay_payments = satispay_payments
           @sepa_bank_transfer_payments = sepa_bank_transfer_payments
           @sepa_debit_payments = sepa_debit_payments
           @shopeepay_payments = shopeepay_payments
           @sofort_payments = sofort_payments
+          @stripe_balance_payments = stripe_balance_payments
           @swish_payments = swish_payments
           @tax_reporting_us_1099_k = tax_reporting_us_1099_k
           @tax_reporting_us_1099_misc = tax_reporting_us_1099_misc
@@ -1948,7 +1995,7 @@ module Stripe
         attr_accessor :owners_provided
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
@@ -2581,9 +2628,12 @@ module Stripe
         class Invoices < Stripe::RequestParams
           # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
           attr_accessor :default_account_tax_ids
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          attr_accessor :hosted_payment_method_save
 
-          def initialize(default_account_tax_ids: nil)
+          def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil)
             @default_account_tax_ids = default_account_tax_ids
+            @hosted_payment_method_save = hosted_payment_method_save
           end
         end
 
@@ -3086,6 +3136,15 @@ module Stripe
           end
         end
 
+        class BilliePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class BlikPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3455,6 +3514,15 @@ module Stripe
           end
         end
 
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -3483,6 +3551,15 @@ module Stripe
         end
 
         class SofortPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
+        class StripeBalancePayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
 
@@ -3618,6 +3695,8 @@ module Stripe
         attr_accessor :bancontact_payments
         # The bank_transfer_payments capability.
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        attr_accessor :billie_payments
         # The blik_payments capability.
         attr_accessor :blik_payments
         # The boleto_payments capability.
@@ -3700,6 +3779,8 @@ module Stripe
         attr_accessor :revolut_pay_payments
         # The samsung_pay_payments capability.
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         attr_accessor :sepa_bank_transfer_payments
         # The sepa_debit_payments capability.
@@ -3708,6 +3789,8 @@ module Stripe
         attr_accessor :shopeepay_payments
         # The sofort_payments capability.
         attr_accessor :sofort_payments
+        # The stripe_balance_payments capability.
+        attr_accessor :stripe_balance_payments
         # The swish_payments capability.
         attr_accessor :swish_payments
         # The tax_reporting_us_1099_k capability.
@@ -3744,6 +3827,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -3785,10 +3869,12 @@ module Stripe
           rechnung_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           shopeepay_payments: nil,
           sofort_payments: nil,
+          stripe_balance_payments: nil,
           swish_payments: nil,
           tax_reporting_us_1099_k: nil,
           tax_reporting_us_1099_misc: nil,
@@ -3812,6 +3898,7 @@ module Stripe
           @bacs_debit_payments = bacs_debit_payments
           @bancontact_payments = bancontact_payments
           @bank_transfer_payments = bank_transfer_payments
+          @billie_payments = billie_payments
           @blik_payments = blik_payments
           @boleto_payments = boleto_payments
           @card_issuing = card_issuing
@@ -3853,10 +3940,12 @@ module Stripe
           @rechnung_payments = rechnung_payments
           @revolut_pay_payments = revolut_pay_payments
           @samsung_pay_payments = samsung_pay_payments
+          @satispay_payments = satispay_payments
           @sepa_bank_transfer_payments = sepa_bank_transfer_payments
           @sepa_debit_payments = sepa_debit_payments
           @shopeepay_payments = shopeepay_payments
           @sofort_payments = sofort_payments
+          @stripe_balance_payments = stripe_balance_payments
           @swish_payments = swish_payments
           @tax_reporting_us_1099_k = tax_reporting_us_1099_k
           @tax_reporting_us_1099_misc = tax_reporting_us_1099_misc
@@ -4131,7 +4220,7 @@ module Stripe
         attr_accessor :owners_provided
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
@@ -4842,6 +4931,15 @@ module Stripe
           end
         end
 
+        class Invoices < Stripe::RequestParams
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          attr_accessor :hosted_payment_method_save
+
+          def initialize(hosted_payment_method_save: nil)
+            @hosted_payment_method_save = hosted_payment_method_save
+          end
+        end
+
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
           attr_accessor :statement_descriptor
@@ -4936,6 +5034,8 @@ module Stripe
         attr_accessor :card_issuing
         # Settings specific to card charging on the account.
         attr_accessor :card_payments
+        # Settings specific to the account’s use of Invoices.
+        attr_accessor :invoices
         # Settings that apply across payment methods for charging on the account.
         attr_accessor :payments
         # Settings specific to the account's payouts.
@@ -4952,6 +5052,7 @@ module Stripe
           capital: nil,
           card_issuing: nil,
           card_payments: nil,
+          invoices: nil,
           payments: nil,
           payouts: nil,
           tax_forms: nil,
@@ -4963,6 +5064,7 @@ module Stripe
           @capital = capital
           @card_issuing = card_issuing
           @card_payments = card_payments
+          @invoices = invoices
           @payments = payments
           @payouts = payouts
           @tax_forms = tax_forms
@@ -5146,7 +5248,7 @@ module Stripe
     end
     # Business information about the account.
     attr_reader :business_profile
-    # The business type. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property is only returned for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    # The business type.
     attr_reader :business_type
     # Attribute for field capabilities
     attr_reader :capabilities
@@ -5176,7 +5278,7 @@ module Stripe
     attr_reader :id
     # This is an object representing a person associated with a Stripe account.
     #
-    # A platform cannot access a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
+    # A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
     #
     # See the [Standard onboarding](/connect/standard-accounts) or [Express onboarding](/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](/connect/handling-api-verification#person-information).
     attr_reader :individual

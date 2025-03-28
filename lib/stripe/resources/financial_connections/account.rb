@@ -20,6 +20,8 @@ module Stripe
         attr_reader :account
         # ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
         attr_reader :customer
+        # Attribute for field customer_account
+        attr_reader :customer_account
         # Type of account holder that this account belongs to.
         attr_reader :type
       end
@@ -102,10 +104,13 @@ module Stripe
           attr_accessor :account
           # The ID of the Stripe customer whose accounts will be retrieved.
           attr_accessor :customer
+          # The Account ID of the Stripe customer whose accounts will be retrieved.
+          attr_accessor :customer_account
 
-          def initialize(account: nil, customer: nil)
+          def initialize(account: nil, customer: nil, customer_account: nil)
             @account = account
             @customer = customer
+            @customer_account = customer_account
           end
         end
         # If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.

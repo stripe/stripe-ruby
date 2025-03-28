@@ -31,13 +31,6 @@ module Stripe
       ErrorObject.construct_from(@json_body[:error], {}, nil, :v1)
     end
 
-    # Whether the error was the result of an idempotent replay, meaning that it
-    # originally occurred on a previous request and is being replayed back
-    # because the user sent the same idempotency key for this one.
-    def idempotent_replayed?
-      @idempotent_replayed
-    end
-
     def to_s
       status_string = @http_status.nil? ? "" : "(Status #{@http_status}) "
       id_string = @request_id.nil? ? "" : "(Request #{@request_id}) "
@@ -170,6 +163,60 @@ module Stripe
 
   # class definitions: The beginning of the section generated from our OpenAPI spec
   class TemporarySessionExpiredError < StripeError
+  end
+
+  class FinancialAccountNotOpenError < StripeError
+  end
+
+  class BlockedByStripeError < StripeError
+  end
+
+  class AlreadyCanceledError < StripeError
+  end
+
+  class NotCancelableError < StripeError
+  end
+
+  class InsufficientFundsError < StripeError
+  end
+
+  class QuotaExceededError < StripeError
+  end
+
+  class RecipientNotNotifiableError < StripeError
+  end
+
+  class FeatureNotEnabledError < StripeError
+  end
+
+  class InvalidPayoutMethodError < StripeError
+  end
+
+  class ControlledByDashboardError < StripeError
+  end
+
+  class InvalidPaymentMethodError < StripeError
+    attr_reader :invalid_param
+
+    def initialize(
+      message = nil,
+      http_body: nil,
+      http_status: nil,
+      json_body: nil,
+      http_headers: nil,
+      code: nil,
+      invalid_param: nil
+    )
+      super(
+        message,
+        http_body: http_body,
+        http_status: http_status,
+        json_body: json_body,
+        http_headers: http_headers,
+        code: code,
+      )
+      @invalid_param = invalid_param
+    end
   end
   # class definitions: The end of the section generated from our OpenAPI spec
 end

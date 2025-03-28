@@ -90,13 +90,10 @@ module Stripe
           attr_accessor :include
           # The page size.
           attr_accessor :limit
-          # The requested page.
-          attr_accessor :page
 
-          def initialize(include: nil, limit: nil, page: nil)
+          def initialize(include: nil, limit: nil)
             @include = include
             @limit = limit
-            @page = page
           end
         end
 

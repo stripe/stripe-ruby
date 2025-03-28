@@ -29,6 +29,8 @@ module Stripe
       attr_accessor :created
       # Only return SetupIntents for the customer specified by this customer ID.
       attr_accessor :customer
+      # Only return SetupIntents for the account specified by this customer ID.
+      attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
@@ -44,6 +46,7 @@ module Stripe
         attach_to_self: nil,
         created: nil,
         customer: nil,
+        customer_account: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,
@@ -53,6 +56,7 @@ module Stripe
         @attach_to_self = attach_to_self
         @created = created
         @customer = customer
+        @customer_account = customer_account
         @ending_before = ending_before
         @expand = expand
         @limit = limit
@@ -172,6 +176,9 @@ module Stripe
         end
 
         class Bancontact < Stripe::RequestParams
+        end
+
+        class Billie < Stripe::RequestParams
         end
 
         class BillingDetails < Stripe::RequestParams
@@ -344,6 +351,37 @@ module Stripe
           end
         end
 
+        class NzBankAccount < Stripe::RequestParams
+          # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+          attr_accessor :account_holder_name
+          # The account number for the bank account.
+          attr_accessor :account_number
+          # The numeric code for the bank account's bank.
+          attr_accessor :bank_code
+          # The numeric code for the bank account's bank branch.
+          attr_accessor :branch_code
+          # Attribute for param field reference
+          attr_accessor :reference
+          # The suffix of the bank account number.
+          attr_accessor :suffix
+
+          def initialize(
+            account_holder_name: nil,
+            account_number: nil,
+            bank_code: nil,
+            branch_code: nil,
+            reference: nil,
+            suffix: nil
+          )
+            @account_holder_name = account_holder_name
+            @account_number = account_number
+            @bank_code = bank_code
+            @branch_code = branch_code
+            @reference = reference
+            @suffix = suffix
+          end
+        end
+
         class Oxxo < Stripe::RequestParams
         end
 
@@ -430,6 +468,9 @@ module Stripe
         class SamsungPay < Stripe::RequestParams
         end
 
+        class Satispay < Stripe::RequestParams
+        end
+
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
           attr_accessor :iban
@@ -448,6 +489,18 @@ module Stripe
 
           def initialize(country: nil)
             @country = country
+          end
+        end
+
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
           end
         end
 
@@ -509,6 +562,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
         # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -555,6 +610,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         attr_accessor :naver_pay
+        # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        attr_accessor :nz_bank_account
         # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
@@ -583,12 +640,16 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
         # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -613,6 +674,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           billing_details: nil,
           blik: nil,
           boleto: nil,
@@ -636,6 +698,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -650,9 +713,11 @@ module Stripe
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -670,6 +735,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @billing_details = billing_details
           @blik = blik
           @boleto = boleto
@@ -693,6 +759,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -707,9 +774,11 @@ module Stripe
           @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -1176,6 +1245,10 @@ module Stripe
       #
       # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
       attr_accessor :customer
+      # ID of the Account this SetupIntent belongs to, if one exists.
+      #
+      # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
@@ -1204,6 +1277,8 @@ module Stripe
       # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
       attr_accessor :return_url
       # If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
+      #
+      # Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
       attr_accessor :single_use
       # Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`.
       attr_accessor :usage
@@ -1216,6 +1291,7 @@ module Stripe
         confirm: nil,
         confirmation_token: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         flow_directions: nil,
@@ -1237,6 +1313,7 @@ module Stripe
         @confirm = confirm
         @confirmation_token = confirmation_token
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @expand = expand
         @flow_directions = flow_directions
@@ -1324,6 +1401,9 @@ module Stripe
         end
 
         class Bancontact < Stripe::RequestParams
+        end
+
+        class Billie < Stripe::RequestParams
         end
 
         class BillingDetails < Stripe::RequestParams
@@ -1496,6 +1576,37 @@ module Stripe
           end
         end
 
+        class NzBankAccount < Stripe::RequestParams
+          # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+          attr_accessor :account_holder_name
+          # The account number for the bank account.
+          attr_accessor :account_number
+          # The numeric code for the bank account's bank.
+          attr_accessor :bank_code
+          # The numeric code for the bank account's bank branch.
+          attr_accessor :branch_code
+          # Attribute for param field reference
+          attr_accessor :reference
+          # The suffix of the bank account number.
+          attr_accessor :suffix
+
+          def initialize(
+            account_holder_name: nil,
+            account_number: nil,
+            bank_code: nil,
+            branch_code: nil,
+            reference: nil,
+            suffix: nil
+          )
+            @account_holder_name = account_holder_name
+            @account_number = account_number
+            @bank_code = bank_code
+            @branch_code = branch_code
+            @reference = reference
+            @suffix = suffix
+          end
+        end
+
         class Oxxo < Stripe::RequestParams
         end
 
@@ -1582,6 +1693,9 @@ module Stripe
         class SamsungPay < Stripe::RequestParams
         end
 
+        class Satispay < Stripe::RequestParams
+        end
+
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
           attr_accessor :iban
@@ -1600,6 +1714,18 @@ module Stripe
 
           def initialize(country: nil)
             @country = country
+          end
+        end
+
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
           end
         end
 
@@ -1661,6 +1787,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
         # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -1707,6 +1835,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         attr_accessor :naver_pay
+        # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        attr_accessor :nz_bank_account
         # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
@@ -1735,12 +1865,16 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
         # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -1765,6 +1899,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           billing_details: nil,
           blik: nil,
           boleto: nil,
@@ -1788,6 +1923,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -1802,9 +1938,11 @@ module Stripe
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -1822,6 +1960,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @billing_details = billing_details
           @blik = blik
           @boleto = boleto
@@ -1845,6 +1984,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -1859,9 +1999,11 @@ module Stripe
           @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type
@@ -2308,6 +2450,10 @@ module Stripe
       #
       # If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
       attr_accessor :customer
+      # ID of the Account this SetupIntent belongs to, if one exists.
+      #
+      # If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+      attr_accessor :customer_account
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
@@ -2333,6 +2479,7 @@ module Stripe
       def initialize(
         attach_to_self: nil,
         customer: nil,
+        customer_account: nil,
         description: nil,
         expand: nil,
         flow_directions: nil,
@@ -2345,6 +2492,7 @@ module Stripe
       )
         @attach_to_self = attach_to_self
         @customer = customer
+        @customer_account = customer_account
         @description = description
         @expand = expand
         @flow_directions = flow_directions
@@ -2466,6 +2614,9 @@ module Stripe
         end
 
         class Bancontact < Stripe::RequestParams
+        end
+
+        class Billie < Stripe::RequestParams
         end
 
         class BillingDetails < Stripe::RequestParams
@@ -2638,6 +2789,37 @@ module Stripe
           end
         end
 
+        class NzBankAccount < Stripe::RequestParams
+          # The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+          attr_accessor :account_holder_name
+          # The account number for the bank account.
+          attr_accessor :account_number
+          # The numeric code for the bank account's bank.
+          attr_accessor :bank_code
+          # The numeric code for the bank account's bank branch.
+          attr_accessor :branch_code
+          # Attribute for param field reference
+          attr_accessor :reference
+          # The suffix of the bank account number.
+          attr_accessor :suffix
+
+          def initialize(
+            account_holder_name: nil,
+            account_number: nil,
+            bank_code: nil,
+            branch_code: nil,
+            reference: nil,
+            suffix: nil
+          )
+            @account_holder_name = account_holder_name
+            @account_number = account_number
+            @bank_code = bank_code
+            @branch_code = branch_code
+            @reference = reference
+            @suffix = suffix
+          end
+        end
+
         class Oxxo < Stripe::RequestParams
         end
 
@@ -2724,6 +2906,9 @@ module Stripe
         class SamsungPay < Stripe::RequestParams
         end
 
+        class Satispay < Stripe::RequestParams
+        end
+
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
           attr_accessor :iban
@@ -2742,6 +2927,18 @@ module Stripe
 
           def initialize(country: nil)
             @country = country
+          end
+        end
+
+        class StripeBalance < Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+          # The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+          attr_accessor :source_type
+
+          def initialize(account: nil, source_type: nil)
+            @account = account
+            @source_type = source_type
           end
         end
 
@@ -2803,6 +3000,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
         # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -2849,6 +3048,8 @@ module Stripe
         attr_accessor :multibanco
         # If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         attr_accessor :naver_pay
+        # If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        attr_accessor :nz_bank_account
         # If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
         attr_accessor :oxxo
         # If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
@@ -2877,12 +3078,16 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
         # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
         attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -2907,6 +3112,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           billing_details: nil,
           blik: nil,
           boleto: nil,
@@ -2930,6 +3136,7 @@ module Stripe
           mobilepay: nil,
           multibanco: nil,
           naver_pay: nil,
+          nz_bank_account: nil,
           oxxo: nil,
           p24: nil,
           pay_by_bank: nil,
@@ -2944,9 +3151,11 @@ module Stripe
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           swish: nil,
           twint: nil,
           type: nil,
@@ -2964,6 +3173,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @billing_details = billing_details
           @blik = blik
           @boleto = boleto
@@ -2987,6 +3197,7 @@ module Stripe
           @mobilepay = mobilepay
           @multibanco = multibanco
           @naver_pay = naver_pay
+          @nz_bank_account = nz_bank_account
           @oxxo = oxxo
           @p24 = p24
           @pay_by_bank = pay_by_bank
@@ -3001,9 +3212,11 @@ module Stripe
           @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @swish = swish
           @twint = twint
           @type = type

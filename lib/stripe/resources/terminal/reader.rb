@@ -708,7 +708,7 @@ module Stripe
       class SucceedInputCollectionParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-        # Skip behavior for input collection.
+        # This parameter defines the skip behavior for input collection.
         attr_accessor :skip_non_required_inputs
 
         def initialize(expand: nil, skip_non_required_inputs: nil)
@@ -992,7 +992,7 @@ module Stripe
           )
         end
 
-        # Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+        # Use this endpoint to trigger a successful input collection on a simulated reader.
         def self.succeed_input_collection(reader, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -1002,7 +1002,7 @@ module Stripe
           )
         end
 
-        # Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+        # Use this endpoint to trigger a successful input collection on a simulated reader.
         def succeed_input_collection(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -1012,7 +1012,7 @@ module Stripe
           )
         end
 
-        # Completes an input collection with a timeout error on a simulated reader.
+        # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         def self.timeout_input_collection(reader, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -1022,7 +1022,7 @@ module Stripe
           )
         end
 
-        # Completes an input collection with a timeout error on a simulated reader.
+        # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         def timeout_input_collection(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

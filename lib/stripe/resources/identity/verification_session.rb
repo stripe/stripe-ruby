@@ -148,6 +148,8 @@ module Stripe
         attr_accessor :limit
         # Attribute for param field related_customer
         attr_accessor :related_customer
+        # Attribute for param field related_customer_account
+        attr_accessor :related_customer_account
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         attr_accessor :starting_after
         # Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
@@ -160,6 +162,7 @@ module Stripe
           expand: nil,
           limit: nil,
           related_customer: nil,
+          related_customer_account: nil,
           starting_after: nil,
           status: nil
         )
@@ -169,6 +172,7 @@ module Stripe
           @expand = expand
           @limit = limit
           @related_customer = related_customer
+          @related_customer_account = related_customer_account
           @starting_after = starting_after
           @status = status
         end
@@ -229,6 +233,8 @@ module Stripe
         attr_accessor :provided_details
         # Customer ID
         attr_accessor :related_customer
+        # Token referencing a Customer Account resource.
+        attr_accessor :related_customer_account
         # The URL that the user will be redirected to upon completing the verification flow.
         attr_accessor :return_url
         # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
@@ -243,6 +249,7 @@ module Stripe
           options: nil,
           provided_details: nil,
           related_customer: nil,
+          related_customer_account: nil,
           return_url: nil,
           type: nil,
           verification_flow: nil
@@ -253,6 +260,7 @@ module Stripe
           @options = options
           @provided_details = provided_details
           @related_customer = related_customer
+          @related_customer_account = related_customer_account
           @return_url = return_url
           @type = type
           @verification_flow = verification_flow
@@ -374,6 +382,8 @@ module Stripe
       attr_reader :redaction
       # Customer ID
       attr_reader :related_customer
+      # Token referencing a Customer Account resource.
+      attr_reader :related_customer_account
       # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
       attr_reader :status
       # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.

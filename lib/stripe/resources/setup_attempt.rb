@@ -160,6 +160,13 @@ module Stripe
       class Klarna < Stripe::StripeObject; end
       class KrCard < Stripe::StripeObject; end
       class Link < Stripe::StripeObject; end
+
+      class NaverPay < Stripe::StripeObject
+        # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+        attr_reader :buyer_id
+      end
+
+      class NzBankAccount < Stripe::StripeObject; end
       class Paypal < Stripe::StripeObject; end
       class Payto < Stripe::StripeObject; end
       class RevolutPay < Stripe::StripeObject; end
@@ -186,6 +193,7 @@ module Stripe
         attr_reader :verified_name
       end
 
+      class StripeBalance < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject; end
       # Attribute for field acss_debit
       attr_reader :acss_debit
@@ -217,6 +225,10 @@ module Stripe
       attr_reader :kr_card
       # Attribute for field link
       attr_reader :link
+      # Attribute for field naver_pay
+      attr_reader :naver_pay
+      # Attribute for field nz_bank_account
+      attr_reader :nz_bank_account
       # Attribute for field paypal
       attr_reader :paypal
       # Attribute for field payto
@@ -227,6 +239,8 @@ module Stripe
       attr_reader :sepa_debit
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       attr_reader :type
       # Attribute for field us_bank_account
@@ -362,6 +376,8 @@ module Stripe
     attr_reader :created
     # The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.
     attr_reader :customer
+    # The value of [customer_account](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer_account) on the SetupIntent at the time of this confirmation.
+    attr_reader :customer_account
     # Indicates the directions of money movement for which this payment method is intended to be used.
     #
     # Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.

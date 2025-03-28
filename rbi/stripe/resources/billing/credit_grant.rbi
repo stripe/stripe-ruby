@@ -31,10 +31,10 @@ module Stripe
             sig { returns(T.nilable(String)) }
             attr_reader :id
           end
-          # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+          # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
           sig { returns(String) }
           attr_reader :price_type
-          # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+          # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
           sig { returns(T::Array[Price]) }
           attr_reader :prices
         end
@@ -57,6 +57,9 @@ module Stripe
       # ID of the customer receiving the billing credits.
       sig { returns(T.any(String, Stripe::Customer)) }
       attr_reader :customer
+      # ID of the account receiving the billing credits
+      sig { returns(T.nilable(String)) }
+      attr_reader :customer_account
       # The time when the billing credits become effective-when they're eligible for use.
       sig { returns(T.nilable(Integer)) }
       attr_reader :effective_at
@@ -94,6 +97,9 @@ module Stripe
         # Only return credit grants for this customer.
         sig { returns(String) }
         attr_accessor :customer
+        # Only return credit grants for this account.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         sig { returns(String) }
         attr_accessor :ending_before
@@ -107,10 +113,11 @@ module Stripe
         sig { returns(String) }
         attr_accessor :starting_after
         sig {
-          params(customer: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+          params(customer: String, customer_account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
          }
         def initialize(
           customer: nil,
+          customer_account: nil,
           ending_before: nil,
           expand: nil,
           limit: nil,
@@ -149,10 +156,10 @@ module Stripe
               sig { params(id: String).void }
               def initialize(id: nil); end
             end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type.
+            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             sig { returns(String) }
             attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             sig {
               returns(T::Array[::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig::Scope::Price])
              }
@@ -182,6 +189,9 @@ module Stripe
         # ID of the customer to receive the billing credits.
         sig { returns(String) }
         attr_accessor :customer
+        # ID of the account to receive the billing credits.
+        sig { returns(String) }
+        attr_accessor :customer_account
         # The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
         sig { returns(Integer) }
         attr_accessor :effective_at
@@ -201,13 +211,14 @@ module Stripe
         sig { returns(Integer) }
         attr_accessor :priority
         sig {
-          params(amount: ::Stripe::Billing::CreditGrant::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig, category: String, customer: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String, priority: Integer).void
+          params(amount: ::Stripe::Billing::CreditGrant::CreateParams::Amount, applicability_config: ::Stripe::Billing::CreditGrant::CreateParams::ApplicabilityConfig, category: String, customer: String, customer_account: String, effective_at: Integer, expand: T::Array[String], expires_at: Integer, metadata: T::Hash[String, String], name: String, priority: Integer).void
          }
         def initialize(
           amount: nil,
           applicability_config: nil,
           category: nil,
           customer: nil,
+          customer_account: nil,
           effective_at: nil,
           expand: nil,
           expires_at: nil,

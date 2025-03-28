@@ -35,9 +35,9 @@ module Stripe
             # Unique identifier for the object.
             attr_reader :id
           end
-          # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+          # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
           attr_reader :price_type
-          # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+          # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
           attr_reader :prices
         end
         # Attribute for field scope
@@ -47,6 +47,8 @@ module Stripe
       class ListParams < Stripe::RequestParams
         # Only return credit grants for this customer.
         attr_accessor :customer
+        # Only return credit grants for this account.
+        attr_accessor :customer_account
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
@@ -58,12 +60,14 @@ module Stripe
 
         def initialize(
           customer: nil,
+          customer_account: nil,
           ending_before: nil,
           expand: nil,
           limit: nil,
           starting_after: nil
         )
           @customer = customer
+          @customer_account = customer_account
           @ending_before = ending_before
           @expand = expand
           @limit = limit
@@ -105,9 +109,9 @@ module Stripe
                 @id = id
               end
             end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type.
+            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
             attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
             attr_accessor :prices
 
             def initialize(price_type: nil, prices: nil)
@@ -130,6 +134,8 @@ module Stripe
         attr_accessor :category
         # ID of the customer to receive the billing credits.
         attr_accessor :customer
+        # ID of the account to receive the billing credits.
+        attr_accessor :customer_account
         # The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
         attr_accessor :effective_at
         # Specifies which fields in the response should be expanded.
@@ -148,6 +154,7 @@ module Stripe
           applicability_config: nil,
           category: nil,
           customer: nil,
+          customer_account: nil,
           effective_at: nil,
           expand: nil,
           expires_at: nil,
@@ -159,6 +166,7 @@ module Stripe
           @applicability_config = applicability_config
           @category = category
           @customer = customer
+          @customer_account = customer_account
           @effective_at = effective_at
           @expand = expand
           @expires_at = expires_at
@@ -219,6 +227,8 @@ module Stripe
       attr_reader :created
       # ID of the customer receiving the billing credits.
       attr_reader :customer
+      # ID of the account receiving the billing credits
+      attr_reader :customer_account
       # The time when the billing credits become effective-when they're eligible for use.
       attr_reader :effective_at
       # The time when the billing credits expire. If not present, the billing credits don't expire.

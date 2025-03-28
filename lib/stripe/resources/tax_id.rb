@@ -23,6 +23,8 @@ module Stripe
       attr_reader :application
       # The customer being referenced when `type` is `customer`.
       attr_reader :customer
+      # The account being referenced when `type` is `customer`.
+      attr_reader :customer_account
       # Type of owner referenced.
       attr_reader :type
     end
@@ -54,12 +56,15 @@ module Stripe
         attr_accessor :account
         # Customer the tax ID belongs to. Required when `type=customer`
         attr_accessor :customer
+        # v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+        attr_accessor :customer_account
         # Type of owner referenced.
         attr_accessor :type
 
-        def initialize(account: nil, customer: nil, type: nil)
+        def initialize(account: nil, customer: nil, customer_account: nil, type: nil)
           @account = account
           @customer = customer
+          @customer_account = customer_account
           @type = type
         end
       end
@@ -89,12 +94,15 @@ module Stripe
         attr_accessor :account
         # Customer the tax ID belongs to. Required when `type=customer`
         attr_accessor :customer
+        # v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+        attr_accessor :customer_account
         # Type of owner referenced.
         attr_accessor :type
 
-        def initialize(account: nil, customer: nil, type: nil)
+        def initialize(account: nil, customer: nil, customer_account: nil, type: nil)
           @account = account
           @customer = customer
+          @customer_account = customer_account
           @type = type
         end
       end
@@ -120,6 +128,8 @@ module Stripe
     attr_reader :created
     # ID of the customer.
     attr_reader :customer
+    # ID of the account.
+    attr_reader :customer_account
     # Unique identifier for the object.
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

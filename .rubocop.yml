@@ -92,6 +92,12 @@ Naming/MethodParameterName:
     - "lib/stripe/resources/**/*.rb"
     - "lib/stripe/services/**/*.rb"
 
+Naming/VariableNumber:
+  # We use a variety of variable number syntaxes
+  Exclude:
+    - "lib/stripe/resources/**/*.rb"
+    - "lib/stripe/services/**/*.rb"
+
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline
 

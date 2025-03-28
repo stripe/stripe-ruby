@@ -125,14 +125,17 @@ module Stripe
           end
           class Selection < Stripe::RequestParams
             class Choice < Stripe::RequestParams
+              # The unique identifier for this choice
+              sig { returns(String) }
+              attr_accessor :id
               # The style of the button which will be shown for this choice
               sig { returns(T.nilable(String)) }
               attr_accessor :style
               # The text which will be shown on the button for this choice
               sig { returns(String) }
-              attr_accessor :value
-              sig { params(style: T.nilable(String), value: String).void }
-              def initialize(style: nil, value: nil); end
+              attr_accessor :text
+              sig { params(id: String, style: T.nilable(String), text: String).void }
+              def initialize(id: nil, style: nil, text: nil); end
             end
             # List of choices for the `selection` input
             sig {

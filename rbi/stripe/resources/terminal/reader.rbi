@@ -42,19 +42,25 @@ module Stripe
             end
             class Selection < Stripe::StripeObject
               class Choice < Stripe::StripeObject
+                # The id to be selected
+                sig { returns(T.nilable(String)) }
+                attr_reader :id
                 # The button style for the choice
                 sig { returns(T.nilable(String)) }
                 attr_reader :style
-                # A value to be selected
+                # The text to be selected
                 sig { returns(String) }
-                attr_reader :value
+                attr_reader :text
               end
               # List of possible choices to be selected
               sig { returns(T::Array[Choice]) }
               attr_reader :choices
-              # The value of the selected choice
+              # The id of the selected choice
               sig { returns(T.nilable(String)) }
-              attr_reader :value
+              attr_reader :id
+              # The text of the selected choice
+              sig { returns(T.nilable(String)) }
+              attr_reader :text
             end
             class Signature < Stripe::StripeObject
               # The File ID of a collected signature image
@@ -469,14 +475,17 @@ module Stripe
           end
           class Selection < Stripe::RequestParams
             class Choice < Stripe::RequestParams
+              # The unique identifier for this choice
+              sig { returns(String) }
+              attr_accessor :id
               # The style of the button which will be shown for this choice
               sig { returns(T.nilable(String)) }
               attr_accessor :style
               # The text which will be shown on the button for this choice
               sig { returns(String) }
-              attr_accessor :value
-              sig { params(style: T.nilable(String), value: String).void }
-              def initialize(style: nil, value: nil); end
+              attr_accessor :text
+              sig { params(id: String, style: T.nilable(String), text: String).void }
+              def initialize(id: nil, style: nil, text: nil); end
             end
             # List of choices for the `selection` input
             sig {

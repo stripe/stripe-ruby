@@ -13,7 +13,7 @@ module Stripe
           # A unique identifier for the event. If not provided, one will be generated.
           # We recommend using a globally unique identifier for this. We’ll enforce
           # uniqueness within a rolling 24 hour period.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :identifier
           # The payload of the event. This must contain the fields corresponding to a meter’s
           # `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
@@ -24,10 +24,10 @@ module Stripe
           attr_accessor :payload
           # The time of the event. Must be within the past 35 calendar days or up to
           # 5 minutes in the future. Defaults to current timestamp if not specified.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :timestamp
           sig {
-            params(event_name: String, identifier: String, payload: T::Hash[String, String], timestamp: String).void
+            params(event_name: String, identifier: T.nilable(String), payload: T::Hash[String, String], timestamp: T.nilable(String)).void
            }
           def initialize(event_name: nil, identifier: nil, payload: nil, timestamp: nil); end
         end

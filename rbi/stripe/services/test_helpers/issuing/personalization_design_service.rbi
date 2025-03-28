@@ -8,31 +8,33 @@ module Stripe
       class PersonalizationDesignService < StripeService
         class ActivateParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class DeactivateParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class RejectParams < Stripe::RequestParams
           class RejectionReasons < Stripe::RequestParams
             # The reason(s) the card logo was rejected.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :card_logo
             # The reason(s) the carrier text was rejected.
-            sig { returns(T::Array[String]) }
+            sig { returns(T.nilable(T::Array[String])) }
             attr_accessor :carrier_text
-            sig { params(card_logo: T::Array[String], carrier_text: T::Array[String]).void }
+            sig {
+              params(card_logo: T.nilable(T::Array[String]), carrier_text: T.nilable(T::Array[String])).void
+             }
             def initialize(card_logo: nil, carrier_text: nil); end
           end
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
           # The reason(s) the personalization design was rejected.
           sig {
@@ -40,7 +42,7 @@ module Stripe
            }
           attr_accessor :rejection_reasons
           sig {
-            params(expand: T::Array[String], rejection_reasons: ::Stripe::TestHelpers::Issuing::PersonalizationDesignService::RejectParams::RejectionReasons).void
+            params(expand: T.nilable(T::Array[String]), rejection_reasons: ::Stripe::TestHelpers::Issuing::PersonalizationDesignService::RejectParams::RejectionReasons).void
            }
           def initialize(expand: nil, rejection_reasons: nil); end
         end

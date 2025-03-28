@@ -916,12 +916,12 @@ module Stripe
     attr_reader :wechat
     class RetrieveParams < Stripe::RequestParams
       # The client secret of the source. Required if a publishable key is used to retrieve the source.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :client_secret
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(client_secret: String, expand: T::Array[String]).void }
+      sig { params(client_secret: T.nilable(String), expand: T.nilable(T::Array[String])).void }
       def initialize(client_secret: nil, expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
@@ -936,40 +936,42 @@ module Stripe
           end
           class Online < Stripe::RequestParams
             # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             attr_accessor :date
             # The IP address from which the mandate was accepted or refused by the customer.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :ip
             # The user agent of the browser from which the mandate was accepted or refused by the customer.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :user_agent
-            sig { params(date: Integer, ip: String, user_agent: String).void }
+            sig {
+              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
+             }
             def initialize(date: nil, ip: nil, user_agent: nil); end
           end
           # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :date
           # The IP address from which the mandate was accepted or refused by the customer.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :ip
           # The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
-          sig { returns(::Stripe::Source::UpdateParams::Mandate::Acceptance::Offline) }
+          sig { returns(T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance::Offline)) }
           attr_accessor :offline
           # The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
-          sig { returns(::Stripe::Source::UpdateParams::Mandate::Acceptance::Online) }
+          sig { returns(T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance::Online)) }
           attr_accessor :online
           # The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
           sig { returns(String) }
           attr_accessor :status
           # The type of acceptance information included with the mandate. Either `online` or `offline`
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :type
           # The user agent of the browser from which the mandate was accepted or refused by the customer.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user_agent
           sig {
-            params(date: Integer, ip: String, offline: ::Stripe::Source::UpdateParams::Mandate::Acceptance::Offline, online: ::Stripe::Source::UpdateParams::Mandate::Acceptance::Online, status: String, type: String, user_agent: String).void
+            params(date: T.nilable(Integer), ip: T.nilable(String), offline: T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance::Offline), online: T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance::Online), status: String, type: T.nilable(String), user_agent: T.nilable(String)).void
            }
           def initialize(
             date: nil,
@@ -982,22 +984,22 @@ module Stripe
           ); end
         end
         # The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
-        sig { returns(::Stripe::Source::UpdateParams::Mandate::Acceptance) }
+        sig { returns(T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance)) }
         attr_accessor :acceptance
         # The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-        sig { returns(T.nilable(Integer)) }
+        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :amount
         # The currency specified by the mandate. (Must match `currency` of the source)
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :currency
         # The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :interval
         # The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :notification_method
         sig {
-          params(acceptance: ::Stripe::Source::UpdateParams::Mandate::Acceptance, amount: T.nilable(Integer), currency: String, interval: String, notification_method: String).void
+          params(acceptance: T.nilable(::Stripe::Source::UpdateParams::Mandate::Acceptance), amount: T.nilable(T.nilable(T.any(String, Integer))), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
          }
         def initialize(
           acceptance: nil,
@@ -1010,25 +1012,25 @@ module Stripe
       class Owner < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :country
           # Address line 1 (e.g., street, PO Box, or company name).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line1
           # Address line 2 (e.g., apartment, suite, unit, or building).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line2
           # ZIP or postal code.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :postal_code
           # State, county, province, or region.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :state
           sig {
-            params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
           def initialize(
             city: nil,
@@ -1040,44 +1042,44 @@ module Stripe
           ); end
         end
         # Owner's address.
-        sig { returns(::Stripe::Source::UpdateParams::Owner::Address) }
+        sig { returns(T.nilable(::Stripe::Source::UpdateParams::Owner::Address)) }
         attr_accessor :address
         # Owner's email address.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :email
         # Owner's full name.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :name
         # Owner's phone number.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::Source::UpdateParams::Owner::Address, email: String, name: String, phone: String).void
+          params(address: T.nilable(::Stripe::Source::UpdateParams::Owner::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
       class SourceOrder < Stripe::RequestParams
         class Item < Stripe::RequestParams
           # Attribute for param field amount
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :amount
           # Attribute for param field currency
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :currency
           # Attribute for param field description
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # The ID of the SKU being ordered.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :parent
           # The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :quantity
           # Attribute for param field type
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :type
           sig {
-            params(amount: Integer, currency: String, description: String, parent: String, quantity: Integer, type: String).void
+            params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), parent: T.nilable(String), quantity: T.nilable(Integer), type: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
@@ -1091,25 +1093,25 @@ module Stripe
         class Shipping < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(String) }
             attr_accessor :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :line2
             # ZIP or postal code.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :postal_code
             # State, county, province, or region.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :state
             sig {
-              params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+              params(city: T.nilable(String), country: T.nilable(String), line1: String, line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
             def initialize(
               city: nil,
@@ -1124,19 +1126,19 @@ module Stripe
           sig { returns(::Stripe::Source::UpdateParams::SourceOrder::Shipping::Address) }
           attr_accessor :address
           # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :carrier
           # Recipient name.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :name
           # Recipient phone (including extension).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :phone
           # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :tracking_number
           sig {
-            params(address: ::Stripe::Source::UpdateParams::SourceOrder::Shipping::Address, carrier: String, name: String, phone: String, tracking_number: String).void
+            params(address: ::Stripe::Source::UpdateParams::SourceOrder::Shipping::Address, carrier: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tracking_number: T.nilable(String)).void
            }
           def initialize(
             address: nil,
@@ -1147,36 +1149,36 @@ module Stripe
           ); end
         end
         # List of items constituting the order.
-        sig { returns(T::Array[::Stripe::Source::UpdateParams::SourceOrder::Item]) }
+        sig { returns(T.nilable(T::Array[::Stripe::Source::UpdateParams::SourceOrder::Item])) }
         attr_accessor :items
         # Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-        sig { returns(::Stripe::Source::UpdateParams::SourceOrder::Shipping) }
+        sig { returns(T.nilable(::Stripe::Source::UpdateParams::SourceOrder::Shipping)) }
         attr_accessor :shipping
         sig {
-          params(items: T::Array[::Stripe::Source::UpdateParams::SourceOrder::Item], shipping: ::Stripe::Source::UpdateParams::SourceOrder::Shipping).void
+          params(items: T.nilable(T::Array[::Stripe::Source::UpdateParams::SourceOrder::Item]), shipping: T.nilable(::Stripe::Source::UpdateParams::SourceOrder::Shipping)).void
          }
         def initialize(items: nil, shipping: nil); end
       end
       # Amount associated with the source.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-      sig { returns(::Stripe::Source::UpdateParams::Mandate) }
+      sig { returns(T.nilable(::Stripe::Source::UpdateParams::Mandate)) }
       attr_accessor :mandate
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T::Hash[String, String])) }
+      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
       attr_accessor :metadata
       # Information about the owner of the payment instrument that may be used or required by particular source types.
-      sig { returns(::Stripe::Source::UpdateParams::Owner) }
+      sig { returns(T.nilable(::Stripe::Source::UpdateParams::Owner)) }
       attr_accessor :owner
       # Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-      sig { returns(::Stripe::Source::UpdateParams::SourceOrder) }
+      sig { returns(T.nilable(::Stripe::Source::UpdateParams::SourceOrder)) }
       attr_accessor :source_order
       sig {
-        params(amount: Integer, expand: T::Array[String], mandate: ::Stripe::Source::UpdateParams::Mandate, metadata: T.nilable(T::Hash[String, String]), owner: ::Stripe::Source::UpdateParams::Owner, source_order: ::Stripe::Source::UpdateParams::SourceOrder).void
+        params(amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), mandate: T.nilable(::Stripe::Source::UpdateParams::Mandate), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), owner: T.nilable(::Stripe::Source::UpdateParams::Owner), source_order: T.nilable(::Stripe::Source::UpdateParams::SourceOrder)).void
        }
       def initialize(
         amount: nil,
@@ -1199,40 +1201,42 @@ module Stripe
           end
           class Online < Stripe::RequestParams
             # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             attr_accessor :date
             # The IP address from which the mandate was accepted or refused by the customer.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :ip
             # The user agent of the browser from which the mandate was accepted or refused by the customer.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :user_agent
-            sig { params(date: Integer, ip: String, user_agent: String).void }
+            sig {
+              params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
+             }
             def initialize(date: nil, ip: nil, user_agent: nil); end
           end
           # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :date
           # The IP address from which the mandate was accepted or refused by the customer.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :ip
           # The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
-          sig { returns(::Stripe::Source::CreateParams::Mandate::Acceptance::Offline) }
+          sig { returns(T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance::Offline)) }
           attr_accessor :offline
           # The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
-          sig { returns(::Stripe::Source::CreateParams::Mandate::Acceptance::Online) }
+          sig { returns(T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance::Online)) }
           attr_accessor :online
           # The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
           sig { returns(String) }
           attr_accessor :status
           # The type of acceptance information included with the mandate. Either `online` or `offline`
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :type
           # The user agent of the browser from which the mandate was accepted or refused by the customer.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :user_agent
           sig {
-            params(date: Integer, ip: String, offline: ::Stripe::Source::CreateParams::Mandate::Acceptance::Offline, online: ::Stripe::Source::CreateParams::Mandate::Acceptance::Online, status: String, type: String, user_agent: String).void
+            params(date: T.nilable(Integer), ip: T.nilable(String), offline: T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance::Offline), online: T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance::Online), status: String, type: T.nilable(String), user_agent: T.nilable(String)).void
            }
           def initialize(
             date: nil,
@@ -1245,22 +1249,22 @@ module Stripe
           ); end
         end
         # The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
-        sig { returns(::Stripe::Source::CreateParams::Mandate::Acceptance) }
+        sig { returns(T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance)) }
         attr_accessor :acceptance
         # The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-        sig { returns(T.nilable(Integer)) }
+        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :amount
         # The currency specified by the mandate. (Must match `currency` of the source)
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :currency
         # The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :interval
         # The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :notification_method
         sig {
-          params(acceptance: ::Stripe::Source::CreateParams::Mandate::Acceptance, amount: T.nilable(Integer), currency: String, interval: String, notification_method: String).void
+          params(acceptance: T.nilable(::Stripe::Source::CreateParams::Mandate::Acceptance), amount: T.nilable(T.nilable(T.any(String, Integer))), currency: T.nilable(String), interval: T.nilable(String), notification_method: T.nilable(String)).void
          }
         def initialize(
           acceptance: nil,
@@ -1273,25 +1277,25 @@ module Stripe
       class Owner < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :country
           # Address line 1 (e.g., street, PO Box, or company name).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line1
           # Address line 2 (e.g., apartment, suite, unit, or building).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line2
           # ZIP or postal code.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :postal_code
           # State, county, province, or region.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :state
           sig {
-            params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
           def initialize(
             city: nil,
@@ -1303,27 +1307,27 @@ module Stripe
           ); end
         end
         # Owner's address.
-        sig { returns(::Stripe::Source::CreateParams::Owner::Address) }
+        sig { returns(T.nilable(::Stripe::Source::CreateParams::Owner::Address)) }
         attr_accessor :address
         # Owner's email address.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :email
         # Owner's full name.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :name
         # Owner's phone number.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::Source::CreateParams::Owner::Address, email: String, name: String, phone: String).void
+          params(address: T.nilable(::Stripe::Source::CreateParams::Owner::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
       class Receiver < Stripe::RequestParams
         # The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :refund_attributes_method
-        sig { params(refund_attributes_method: String).void }
+        sig { params(refund_attributes_method: T.nilable(String)).void }
         def initialize(refund_attributes_method: nil); end
       end
       class Redirect < Stripe::RequestParams
@@ -1336,25 +1340,25 @@ module Stripe
       class SourceOrder < Stripe::RequestParams
         class Item < Stripe::RequestParams
           # Attribute for param field amount
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :amount
           # Attribute for param field currency
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :currency
           # Attribute for param field description
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :description
           # The ID of the SKU being ordered.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :parent
           # The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :quantity
           # Attribute for param field type
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :type
           sig {
-            params(amount: Integer, currency: String, description: String, parent: String, quantity: Integer, type: String).void
+            params(amount: T.nilable(Integer), currency: T.nilable(String), description: T.nilable(String), parent: T.nilable(String), quantity: T.nilable(Integer), type: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
@@ -1368,25 +1372,25 @@ module Stripe
         class Shipping < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :country
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(String) }
             attr_accessor :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :line2
             # ZIP or postal code.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :postal_code
             # State, county, province, or region.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :state
             sig {
-              params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+              params(city: T.nilable(String), country: T.nilable(String), line1: String, line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
             def initialize(
               city: nil,
@@ -1401,19 +1405,19 @@ module Stripe
           sig { returns(::Stripe::Source::CreateParams::SourceOrder::Shipping::Address) }
           attr_accessor :address
           # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :carrier
           # Recipient name.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :name
           # Recipient phone (including extension).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :phone
           # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :tracking_number
           sig {
-            params(address: ::Stripe::Source::CreateParams::SourceOrder::Shipping::Address, carrier: String, name: String, phone: String, tracking_number: String).void
+            params(address: ::Stripe::Source::CreateParams::SourceOrder::Shipping::Address, carrier: T.nilable(String), name: T.nilable(String), phone: T.nilable(String), tracking_number: T.nilable(String)).void
            }
           def initialize(
             address: nil,
@@ -1424,66 +1428,66 @@ module Stripe
           ); end
         end
         # List of items constituting the order.
-        sig { returns(T::Array[::Stripe::Source::CreateParams::SourceOrder::Item]) }
+        sig { returns(T.nilable(T::Array[::Stripe::Source::CreateParams::SourceOrder::Item])) }
         attr_accessor :items
         # Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-        sig { returns(::Stripe::Source::CreateParams::SourceOrder::Shipping) }
+        sig { returns(T.nilable(::Stripe::Source::CreateParams::SourceOrder::Shipping)) }
         attr_accessor :shipping
         sig {
-          params(items: T::Array[::Stripe::Source::CreateParams::SourceOrder::Item], shipping: ::Stripe::Source::CreateParams::SourceOrder::Shipping).void
+          params(items: T.nilable(T::Array[::Stripe::Source::CreateParams::SourceOrder::Item]), shipping: T.nilable(::Stripe::Source::CreateParams::SourceOrder::Shipping)).void
          }
         def initialize(items: nil, shipping: nil); end
       end
       # Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :currency
       # The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`).
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :customer
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :flow
       # Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-      sig { returns(::Stripe::Source::CreateParams::Mandate) }
+      sig { returns(T.nilable(::Stripe::Source::CreateParams::Mandate)) }
       attr_accessor :mandate
       # Attribute for param field metadata
-      sig { returns(T::Hash[String, String]) }
+      sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
       # The source to share.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :original_source
       # Information about the owner of the payment instrument that may be used or required by particular source types.
-      sig { returns(::Stripe::Source::CreateParams::Owner) }
+      sig { returns(T.nilable(::Stripe::Source::CreateParams::Owner)) }
       attr_accessor :owner
       # Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
-      sig { returns(::Stripe::Source::CreateParams::Receiver) }
+      sig { returns(T.nilable(::Stripe::Source::CreateParams::Receiver)) }
       attr_accessor :receiver
       # Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
-      sig { returns(::Stripe::Source::CreateParams::Redirect) }
+      sig { returns(T.nilable(::Stripe::Source::CreateParams::Redirect)) }
       attr_accessor :redirect
       # Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-      sig { returns(::Stripe::Source::CreateParams::SourceOrder) }
+      sig { returns(T.nilable(::Stripe::Source::CreateParams::SourceOrder)) }
       attr_accessor :source_order
       # An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :statement_descriptor
       # An optional token used to create the source. When passed, token properties will override source parameters.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :token
       # The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide)
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :type
       # Attribute for param field usage
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :usage
       sig {
-        params(amount: Integer, currency: String, customer: String, expand: T::Array[String], flow: String, mandate: ::Stripe::Source::CreateParams::Mandate, metadata: T::Hash[String, String], original_source: String, owner: ::Stripe::Source::CreateParams::Owner, receiver: ::Stripe::Source::CreateParams::Receiver, redirect: ::Stripe::Source::CreateParams::Redirect, source_order: ::Stripe::Source::CreateParams::SourceOrder, statement_descriptor: String, token: String, type: String, usage: String).void
+        params(amount: T.nilable(Integer), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), flow: T.nilable(String), mandate: T.nilable(::Stripe::Source::CreateParams::Mandate), metadata: T.nilable(T::Hash[String, String]), original_source: T.nilable(String), owner: T.nilable(::Stripe::Source::CreateParams::Owner), receiver: T.nilable(::Stripe::Source::CreateParams::Receiver), redirect: T.nilable(::Stripe::Source::CreateParams::Redirect), source_order: T.nilable(::Stripe::Source::CreateParams::SourceOrder), statement_descriptor: T.nilable(String), token: T.nilable(String), type: T.nilable(String), usage: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -1506,12 +1510,12 @@ module Stripe
     end
     class VerifyParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # The values needed to verify the source.
       sig { returns(T::Array[String]) }
       attr_accessor :values
-      sig { params(expand: T::Array[String], values: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String]), values: T::Array[String]).void }
       def initialize(expand: nil, values: nil); end
     end
     # Creates a new source object.

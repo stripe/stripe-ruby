@@ -17,20 +17,22 @@ module Stripe
             end
             class UsDomesticWire < Stripe::RequestParams
               # CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :chips
               # IMAD for funds sent over the `us_domestic_wire` network.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :imad
               # OMAD for funds sent over the `us_domestic_wire` network.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :omad
-              sig { params(chips: String, imad: String, omad: String).void }
+              sig {
+                params(chips: T.nilable(String), imad: T.nilable(String), omad: T.nilable(String)).void
+               }
               def initialize(chips: nil, imad: nil, omad: nil); end
             end
             # ACH network tracking details.
             sig {
-              returns(::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::Ach)
+              returns(T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::Ach))
              }
             attr_accessor :ach
             # The US bank account network used to send funds.
@@ -38,16 +40,16 @@ module Stripe
             attr_accessor :type
             # US domestic wire network tracking details.
             sig {
-              returns(::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::UsDomesticWire)
+              returns(T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::UsDomesticWire))
              }
             attr_accessor :us_domestic_wire
             sig {
-              params(ach: ::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::Ach, type: String, us_domestic_wire: ::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::UsDomesticWire).void
+              params(ach: T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::Ach), type: String, us_domestic_wire: T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails::UsDomesticWire)).void
              }
             def initialize(ach: nil, type: nil, us_domestic_wire: nil); end
           end
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
           # Details about network-specific tracking information.
           sig {
@@ -55,42 +57,42 @@ module Stripe
            }
           attr_accessor :tracking_details
           sig {
-            params(expand: T::Array[String], tracking_details: ::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails).void
+            params(expand: T.nilable(T::Array[String]), tracking_details: ::Stripe::TestHelpers::Treasury::OutboundPaymentService::UpdateParams::TrackingDetails).void
            }
           def initialize(expand: nil, tracking_details: nil); end
         end
         class FailParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class PostParams < Stripe::RequestParams
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
-          sig { params(expand: T::Array[String]).void }
+          sig { params(expand: T.nilable(T::Array[String])).void }
           def initialize(expand: nil); end
         end
         class ReturnOutboundPaymentParams < Stripe::RequestParams
           class ReturnedDetails < Stripe::RequestParams
             # The return code to be set on the OutboundPayment object.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :code
-            sig { params(code: String).void }
+            sig { params(code: T.nilable(String)).void }
             def initialize(code: nil); end
           end
           # Specifies which fields in the response should be expanded.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :expand
           # Optional hash to set the return code.
           sig {
-            returns(::Stripe::TestHelpers::Treasury::OutboundPaymentService::ReturnOutboundPaymentParams::ReturnedDetails)
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentService::ReturnOutboundPaymentParams::ReturnedDetails))
            }
           attr_accessor :returned_details
           sig {
-            params(expand: T::Array[String], returned_details: ::Stripe::TestHelpers::Treasury::OutboundPaymentService::ReturnOutboundPaymentParams::ReturnedDetails).void
+            params(expand: T.nilable(T::Array[String]), returned_details: T.nilable(::Stripe::TestHelpers::Treasury::OutboundPaymentService::ReturnOutboundPaymentParams::ReturnedDetails)).void
            }
           def initialize(expand: nil, returned_details: nil); end
         end

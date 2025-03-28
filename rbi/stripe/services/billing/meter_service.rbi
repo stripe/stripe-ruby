@@ -8,22 +8,22 @@ module Stripe
       attr_reader :event_summaries
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         # Filter results to only include meters with the given status.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :status
         sig {
-          params(ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, status: String).void
+          params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
         def initialize(
           ending_before: nil,
@@ -59,7 +59,7 @@ module Stripe
           def initialize(event_payload_key: nil); end
         end
         # Fields that specify how to map a meter event to a customer.
-        sig { returns(::Stripe::Billing::MeterService::CreateParams::CustomerMapping) }
+        sig { returns(T.nilable(::Stripe::Billing::MeterService::CreateParams::CustomerMapping)) }
         attr_accessor :customer_mapping
         # The default settings to aggregate a meter's events with.
         sig { returns(::Stripe::Billing::MeterService::CreateParams::DefaultAggregation) }
@@ -71,16 +71,16 @@ module Stripe
         sig { returns(String) }
         attr_accessor :event_name
         # The time window to pre-aggregate meter events for, if any.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :event_time_window
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Fields that specify how to calculate a meter event's value.
-        sig { returns(::Stripe::Billing::MeterService::CreateParams::ValueSettings) }
+        sig { returns(T.nilable(::Stripe::Billing::MeterService::CreateParams::ValueSettings)) }
         attr_accessor :value_settings
         sig {
-          params(customer_mapping: ::Stripe::Billing::MeterService::CreateParams::CustomerMapping, default_aggregation: ::Stripe::Billing::MeterService::CreateParams::DefaultAggregation, display_name: String, event_name: String, event_time_window: String, expand: T::Array[String], value_settings: ::Stripe::Billing::MeterService::CreateParams::ValueSettings).void
+          params(customer_mapping: T.nilable(::Stripe::Billing::MeterService::CreateParams::CustomerMapping), default_aggregation: ::Stripe::Billing::MeterService::CreateParams::DefaultAggregation, display_name: String, event_name: String, event_time_window: T.nilable(String), expand: T.nilable(T::Array[String]), value_settings: T.nilable(::Stripe::Billing::MeterService::CreateParams::ValueSettings)).void
          }
         def initialize(
           customer_mapping: nil,
@@ -94,33 +94,33 @@ module Stripe
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class UpdateParams < Stripe::RequestParams
         # The meter’s name. Not visible to the customer.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :display_name
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(display_name: String, expand: T::Array[String]).void }
+        sig { params(display_name: T.nilable(String), expand: T.nilable(T::Array[String])).void }
         def initialize(display_name: nil, expand: nil); end
       end
       class DeactivateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class ReactivateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Creates a billing meter.

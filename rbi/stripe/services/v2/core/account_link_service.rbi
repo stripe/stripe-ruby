@@ -16,10 +16,10 @@ module Stripe
               sig { returns(String) }
               attr_accessor :refresh_url
               # The URL that the user will be redirected to upon completing the linked flow.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :return_url
               sig {
-                params(configurations: T::Array[String], refresh_url: String, return_url: String).void
+                params(configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
                }
               def initialize(configurations: nil, refresh_url: nil, return_url: nil); end
             end
@@ -31,10 +31,10 @@ module Stripe
               sig { returns(String) }
               attr_accessor :refresh_url
               # The URL that the user will be redirected to upon completing the linked flow.
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :return_url
               sig {
-                params(configurations: T::Array[String], refresh_url: String, return_url: String).void
+                params(configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
                }
               def initialize(configurations: nil, refresh_url: nil, return_url: nil); end
             end
@@ -43,16 +43,16 @@ module Stripe
             attr_accessor :type
             # Indicates that the AccountLink provided should onboard an account.
             sig {
-              returns(::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountOnboarding)
+              returns(T.nilable(::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountOnboarding))
              }
             attr_accessor :account_onboarding
             # Indicates that the AccountLink provided should update a previously onboarded account.
             sig {
-              returns(::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountUpdate)
+              returns(T.nilable(::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountUpdate))
              }
             attr_accessor :account_update
             sig {
-              params(type: String, account_onboarding: ::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountOnboarding, account_update: ::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountUpdate).void
+              params(type: String, account_onboarding: T.nilable(::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountOnboarding), account_update: T.nilable(::Stripe::V2::Core::AccountLinkService::CreateParams::UseCase::AccountUpdate)).void
              }
             def initialize(type: nil, account_onboarding: nil, account_update: nil); end
           end

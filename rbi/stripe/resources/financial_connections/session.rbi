@@ -91,42 +91,42 @@ module Stripe
       attr_reader :status_details
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class CreateParams < Stripe::RequestParams
         class AccountHolder < Stripe::RequestParams
           # The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :account
           # The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :customer
           # The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :customer_account
           # Type of account holder to collect accounts for.
           sig { returns(String) }
           attr_accessor :type
           sig {
-            params(account: String, customer: String, customer_account: String, type: String).void
+            params(account: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), type: String).void
            }
           def initialize(account: nil, customer: nil, customer_account: nil, type: nil); end
         end
         class Filters < Stripe::RequestParams
           # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :account_subcategories
           # List of countries from which to collect accounts.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :countries
           # Stripe ID of the institution with which the customer should be directed to log in.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :institution
           sig {
-            params(account_subcategories: T::Array[String], countries: T::Array[String], institution: String).void
+            params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), institution: T.nilable(String)).void
            }
           def initialize(account_subcategories: nil, countries: nil, institution: nil); end
         end
@@ -139,25 +139,27 @@ module Stripe
         end
         class ManualEntry < Stripe::RequestParams
           # Whether manual entry will be handled by Stripe during the Session.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :mode
-          sig { params(mode: String).void }
+          sig { params(mode: T.nilable(String)).void }
           def initialize(mode: nil); end
         end
         # The account holder to link accounts for.
         sig { returns(::Stripe::FinancialConnections::Session::CreateParams::AccountHolder) }
         attr_accessor :account_holder
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Filters to restrict the kinds of accounts to collect.
-        sig { returns(::Stripe::FinancialConnections::Session::CreateParams::Filters) }
+        sig { returns(T.nilable(::Stripe::FinancialConnections::Session::CreateParams::Filters)) }
         attr_accessor :filters
         # Settings for configuring Session-specific limits.
-        sig { returns(::Stripe::FinancialConnections::Session::CreateParams::Limits) }
+        sig { returns(T.nilable(::Stripe::FinancialConnections::Session::CreateParams::Limits)) }
         attr_accessor :limits
         # Customize manual entry behavior
-        sig { returns(::Stripe::FinancialConnections::Session::CreateParams::ManualEntry) }
+        sig {
+          returns(T.nilable(::Stripe::FinancialConnections::Session::CreateParams::ManualEntry))
+         }
         attr_accessor :manual_entry
         # List of data features that you would like to request access to.
         #
@@ -165,13 +167,13 @@ module Stripe
         sig { returns(T::Array[String]) }
         attr_accessor :permissions
         # List of data features that you would like to retrieve upon account creation.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :prefetch
         # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :return_url
         sig {
-          params(account_holder: ::Stripe::FinancialConnections::Session::CreateParams::AccountHolder, expand: T::Array[String], filters: ::Stripe::FinancialConnections::Session::CreateParams::Filters, limits: ::Stripe::FinancialConnections::Session::CreateParams::Limits, manual_entry: ::Stripe::FinancialConnections::Session::CreateParams::ManualEntry, permissions: T::Array[String], prefetch: T::Array[String], return_url: String).void
+          params(account_holder: ::Stripe::FinancialConnections::Session::CreateParams::AccountHolder, expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::Session::CreateParams::Filters), limits: T.nilable(::Stripe::FinancialConnections::Session::CreateParams::Limits), manual_entry: T.nilable(::Stripe::FinancialConnections::Session::CreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), return_url: T.nilable(String)).void
          }
         def initialize(
           account_holder: nil,

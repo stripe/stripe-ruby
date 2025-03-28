@@ -42,16 +42,16 @@ module Stripe
       attr_reader :version
       class ListParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Returns a full list of Report Types.

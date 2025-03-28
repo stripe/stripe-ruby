@@ -15,16 +15,16 @@ module Stripe
             sig { returns(String) }
             attr_accessor :account_number
             # Closed Enum. The type of the bank account (checking or savings).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :bank_account_type
             # The fedwire routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :fedwire_routing_number
             # The ACH routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :routing_number
             sig {
-              params(account_number: String, bank_account_type: String, fedwire_routing_number: String, routing_number: String).void
+              params(account_number: String, bank_account_type: T.nilable(String), fedwire_routing_number: T.nilable(String), routing_number: T.nilable(String)).void
              }
             def initialize(
               account_number: nil,
@@ -38,12 +38,14 @@ module Stripe
           end
           class UpdateParams < Stripe::RequestParams
             # The bank account's fedwire routing number can be provided for update it was were empty previously.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :fedwire_routing_number
             # The bank account's ACH routing number can be provided for update if it was empty previously.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :routing_number
-            sig { params(fedwire_routing_number: String, routing_number: String).void }
+            sig {
+              params(fedwire_routing_number: T.nilable(String), routing_number: T.nilable(String)).void
+             }
             def initialize(fedwire_routing_number: nil, routing_number: nil); end
           end
           # Archive a UsBankAccount object. UsBankAccount objects will not be automatically archived by Stripe.

@@ -16,33 +16,33 @@ module Stripe
     end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
       class Address < Stripe::RequestParams
         # City, district, suburb, town, or village.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :city
         # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :country
         # Address line 1 (e.g., street, PO Box, or company name).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :line1
         # Address line 2 (e.g., apartment, suite, unit, or building).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :line2
         # ZIP or postal code.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :postal_code
         # State, county, province, or region.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :state
         sig {
-          params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
          }
         def initialize(
           city: nil,
@@ -56,17 +56,17 @@ module Stripe
       class CashBalance < Stripe::RequestParams
         class Settings < Stripe::RequestParams
           # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :reconciliation_mode
-          sig { params(reconciliation_mode: String).void }
+          sig { params(reconciliation_mode: T.nilable(String)).void }
           def initialize(reconciliation_mode: nil); end
         end
         # Settings controlling the behavior of the customer's cash balance,
         # such as reconciliation of funds received.
-        sig { returns(::Stripe::CustomerService::UpdateParams::CashBalance::Settings) }
+        sig { returns(T.nilable(::Stripe::CustomerService::UpdateParams::CashBalance::Settings)) }
         attr_accessor :settings
         sig {
-          params(settings: ::Stripe::CustomerService::UpdateParams::CashBalance::Settings).void
+          params(settings: T.nilable(::Stripe::CustomerService::UpdateParams::CashBalance::Settings)).void
          }
         def initialize(settings: nil); end
       end
@@ -83,32 +83,34 @@ module Stripe
         end
         class RenderingOptions < Stripe::RequestParams
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
           attr_accessor :amount_tax_display
           # ID of the invoice rendering template to use for future invoices.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :template
-          sig { params(amount_tax_display: T.nilable(String), template: String).void }
+          sig {
+            params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), template: T.nilable(String)).void
+           }
           def initialize(amount_tax_display: nil, template: nil); end
         end
         # The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
         sig {
-          returns(T.nilable(T::Array[::Stripe::CustomerService::UpdateParams::InvoiceSettings::CustomField]))
+          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CustomerService::UpdateParams::InvoiceSettings::CustomField]))))
          }
         attr_accessor :custom_fields
         # ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :default_payment_method
         # Default footer to be displayed on invoices for this customer.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :footer
         # Default options for invoice PDF rendering for this customer.
         sig {
-          returns(T.nilable(::Stripe::CustomerService::UpdateParams::InvoiceSettings::RenderingOptions))
+          returns(T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::UpdateParams::InvoiceSettings::RenderingOptions))))
          }
         attr_accessor :rendering_options
         sig {
-          params(custom_fields: T.nilable(T::Array[::Stripe::CustomerService::UpdateParams::InvoiceSettings::CustomField]), default_payment_method: String, footer: String, rendering_options: T.nilable(::Stripe::CustomerService::UpdateParams::InvoiceSettings::RenderingOptions)).void
+          params(custom_fields: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CustomerService::UpdateParams::InvoiceSettings::CustomField]))), default_payment_method: T.nilable(String), footer: T.nilable(String), rendering_options: T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::UpdateParams::InvoiceSettings::RenderingOptions)))).void
          }
         def initialize(
           custom_fields: nil,
@@ -120,25 +122,25 @@ module Stripe
       class Shipping < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :city
           # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :country
           # Address line 1 (e.g., street, PO Box, or company name).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line1
           # Address line 2 (e.g., apartment, suite, unit, or building).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line2
           # ZIP or postal code.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :postal_code
           # State, county, province, or region.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :state
           sig {
-            params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
           def initialize(
             city: nil,
@@ -156,86 +158,92 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         # Customer phone (including extension).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::CustomerService::UpdateParams::Shipping::Address, name: String, phone: String).void
+          params(address: ::Stripe::CustomerService::UpdateParams::Shipping::Address, name: String, phone: T.nilable(String)).void
          }
         def initialize(address: nil, name: nil, phone: nil); end
       end
       class Tax < Stripe::RequestParams
         # A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :ip_address
         # A flag that indicates when Stripe should validate the customer tax location. Defaults to `auto`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :validate_location
-        sig { params(ip_address: T.nilable(String), validate_location: String).void }
+        sig {
+          params(ip_address: T.nilable(T.nilable(String)), validate_location: T.nilable(String)).void
+         }
         def initialize(ip_address: nil, validate_location: nil); end
       end
       # The customer's address.
-      sig { returns(T.nilable(::Stripe::CustomerService::UpdateParams::Address)) }
+      sig {
+        returns(T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::UpdateParams::Address))))
+       }
       attr_accessor :address
       # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :balance
       # Balance information and default balance settings for this customer.
-      sig { returns(::Stripe::CustomerService::UpdateParams::CashBalance) }
+      sig { returns(T.nilable(::Stripe::CustomerService::UpdateParams::CashBalance)) }
       attr_accessor :cash_balance
       # If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
       #
       # Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
       #
       # If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :default_source
       # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
       # Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :email
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :invoice_prefix
       # Default invoice settings for this customer.
-      sig { returns(::Stripe::CustomerService::UpdateParams::InvoiceSettings) }
+      sig { returns(T.nilable(::Stripe::CustomerService::UpdateParams::InvoiceSettings)) }
       attr_accessor :invoice_settings
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T::Hash[String, String])) }
+      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
       attr_accessor :metadata
       # The customer's full name or business name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :name
       # The sequence to be used on the customer's next invoice. Defaults to 1.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :next_invoice_sequence
       # The customer's phone number.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :phone
       # Customer's preferred languages, ordered by preference.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :preferred_locales
       # The customer's shipping information. Appears on invoices emailed to this customer.
-      sig { returns(T.nilable(::Stripe::CustomerService::UpdateParams::Shipping)) }
+      sig {
+        returns(T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::UpdateParams::Shipping))))
+       }
       attr_accessor :shipping
       # Attribute for param field source
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :source
       # Tax details about the customer.
-      sig { returns(::Stripe::CustomerService::UpdateParams::Tax) }
+      sig { returns(T.nilable(::Stripe::CustomerService::UpdateParams::Tax)) }
       attr_accessor :tax
       # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
       attr_accessor :tax_exempt
       # Attribute for param field validate
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :validate
       sig {
-        params(address: T.nilable(::Stripe::CustomerService::UpdateParams::Address), balance: Integer, cash_balance: ::Stripe::CustomerService::UpdateParams::CashBalance, default_source: String, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::CustomerService::UpdateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, phone: String, preferred_locales: T::Array[String], shipping: T.nilable(::Stripe::CustomerService::UpdateParams::Shipping), source: String, tax: ::Stripe::CustomerService::UpdateParams::Tax, tax_exempt: T.nilable(String), validate: T::Boolean).void
+        params(address: T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::UpdateParams::Address))), balance: T.nilable(Integer), cash_balance: T.nilable(::Stripe::CustomerService::UpdateParams::CashBalance), default_source: T.nilable(String), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::CustomerService::UpdateParams::InvoiceSettings), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::UpdateParams::Shipping))), source: T.nilable(String), tax: T.nilable(::Stripe::CustomerService::UpdateParams::Tax), tax_exempt: T.nilable(T.nilable(T.any(String, String))), validate: T.nilable(T::Boolean)).void
        }
       def initialize(
         address: nil,
@@ -265,43 +273,45 @@ module Stripe
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :gt
         # Minimum value to filter by (inclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :gte
         # Maximum value to filter by (exclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :lte
-        sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+        sig {
+          params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+         }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return customers that were created during the given date interval.
-      sig { returns(T.any(::Stripe::CustomerService::ListParams::Created, Integer)) }
+      sig { returns(T.nilable(T.any(::Stripe::CustomerService::ListParams::Created, Integer))) }
       attr_accessor :created
       # A case-sensitive filter on the list based on the customer's `email` field. The value must be a string.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :email
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       # Provides a list of customers that are associated with the specified test clock. The response will not include customers with test clocks if this parameter is not set.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :test_clock
       sig {
-        params(created: T.any(::Stripe::CustomerService::ListParams::Created, Integer), email: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, test_clock: String).void
+        params(created: T.nilable(T.any(::Stripe::CustomerService::ListParams::Created, Integer)), email: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), test_clock: T.nilable(String)).void
        }
       def initialize(
         created: nil,
@@ -316,25 +326,25 @@ module Stripe
     class CreateParams < Stripe::RequestParams
       class Address < Stripe::RequestParams
         # City, district, suburb, town, or village.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :city
         # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :country
         # Address line 1 (e.g., street, PO Box, or company name).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :line1
         # Address line 2 (e.g., apartment, suite, unit, or building).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :line2
         # ZIP or postal code.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :postal_code
         # State, county, province, or region.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :state
         sig {
-          params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
          }
         def initialize(
           city: nil,
@@ -348,17 +358,17 @@ module Stripe
       class CashBalance < Stripe::RequestParams
         class Settings < Stripe::RequestParams
           # Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :reconciliation_mode
-          sig { params(reconciliation_mode: String).void }
+          sig { params(reconciliation_mode: T.nilable(String)).void }
           def initialize(reconciliation_mode: nil); end
         end
         # Settings controlling the behavior of the customer's cash balance,
         # such as reconciliation of funds received.
-        sig { returns(::Stripe::CustomerService::CreateParams::CashBalance::Settings) }
+        sig { returns(T.nilable(::Stripe::CustomerService::CreateParams::CashBalance::Settings)) }
         attr_accessor :settings
         sig {
-          params(settings: ::Stripe::CustomerService::CreateParams::CashBalance::Settings).void
+          params(settings: T.nilable(::Stripe::CustomerService::CreateParams::CashBalance::Settings)).void
          }
         def initialize(settings: nil); end
       end
@@ -375,32 +385,34 @@ module Stripe
         end
         class RenderingOptions < Stripe::RequestParams
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
           attr_accessor :amount_tax_display
           # ID of the invoice rendering template to use for future invoices.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :template
-          sig { params(amount_tax_display: T.nilable(String), template: String).void }
+          sig {
+            params(amount_tax_display: T.nilable(T.nilable(T.any(String, String))), template: T.nilable(String)).void
+           }
           def initialize(amount_tax_display: nil, template: nil); end
         end
         # The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
         sig {
-          returns(T.nilable(T::Array[::Stripe::CustomerService::CreateParams::InvoiceSettings::CustomField]))
+          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CustomerService::CreateParams::InvoiceSettings::CustomField]))))
          }
         attr_accessor :custom_fields
         # ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :default_payment_method
         # Default footer to be displayed on invoices for this customer.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :footer
         # Default options for invoice PDF rendering for this customer.
         sig {
-          returns(T.nilable(::Stripe::CustomerService::CreateParams::InvoiceSettings::RenderingOptions))
+          returns(T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::CreateParams::InvoiceSettings::RenderingOptions))))
          }
         attr_accessor :rendering_options
         sig {
-          params(custom_fields: T.nilable(T::Array[::Stripe::CustomerService::CreateParams::InvoiceSettings::CustomField]), default_payment_method: String, footer: String, rendering_options: T.nilable(::Stripe::CustomerService::CreateParams::InvoiceSettings::RenderingOptions)).void
+          params(custom_fields: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CustomerService::CreateParams::InvoiceSettings::CustomField]))), default_payment_method: T.nilable(String), footer: T.nilable(String), rendering_options: T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::CreateParams::InvoiceSettings::RenderingOptions)))).void
          }
         def initialize(
           custom_fields: nil,
@@ -412,25 +424,25 @@ module Stripe
       class Shipping < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :city
           # A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :country
           # Address line 1 (e.g., street, PO Box, or company name).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line1
           # Address line 2 (e.g., apartment, suite, unit, or building).
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :line2
           # ZIP or postal code.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :postal_code
           # State, county, province, or region.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :state
           sig {
-            params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
            }
           def initialize(
             city: nil,
@@ -448,21 +460,23 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         # Customer phone (including extension).
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :phone
         sig {
-          params(address: ::Stripe::CustomerService::CreateParams::Shipping::Address, name: String, phone: String).void
+          params(address: ::Stripe::CustomerService::CreateParams::Shipping::Address, name: String, phone: T.nilable(String)).void
          }
         def initialize(address: nil, name: nil, phone: nil); end
       end
       class Tax < Stripe::RequestParams
         # A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :ip_address
         # A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :validate_location
-        sig { params(ip_address: T.nilable(String), validate_location: String).void }
+        sig {
+          params(ip_address: T.nilable(T.nilable(String)), validate_location: T.nilable(String)).void
+         }
         def initialize(ip_address: nil, validate_location: nil); end
       end
       class TaxIdDatum < Stripe::RequestParams
@@ -476,70 +490,74 @@ module Stripe
         def initialize(type: nil, value: nil); end
       end
       # The customer's address.
-      sig { returns(T.nilable(::Stripe::CustomerService::CreateParams::Address)) }
+      sig {
+        returns(T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::CreateParams::Address))))
+       }
       attr_accessor :address
       # An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :balance
       # Balance information and default balance settings for this customer.
-      sig { returns(::Stripe::CustomerService::CreateParams::CashBalance) }
+      sig { returns(T.nilable(::Stripe::CustomerService::CreateParams::CashBalance)) }
       attr_accessor :cash_balance
       # An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
       # Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :email
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :invoice_prefix
       # Default invoice settings for this customer.
-      sig { returns(::Stripe::CustomerService::CreateParams::InvoiceSettings) }
+      sig { returns(T.nilable(::Stripe::CustomerService::CreateParams::InvoiceSettings)) }
       attr_accessor :invoice_settings
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T.nilable(T::Hash[String, String])) }
+      sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
       attr_accessor :metadata
       # The customer's full name or business name.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :name
       # The sequence to be used on the customer's next invoice. Defaults to 1.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :next_invoice_sequence
       # Attribute for param field payment_method
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :payment_method
       # The customer's phone number.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :phone
       # Customer's preferred languages, ordered by preference.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :preferred_locales
       # The customer's shipping information. Appears on invoices emailed to this customer.
-      sig { returns(T.nilable(::Stripe::CustomerService::CreateParams::Shipping)) }
+      sig {
+        returns(T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::CreateParams::Shipping))))
+       }
       attr_accessor :shipping
       # Attribute for param field source
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :source
       # Tax details about the customer.
-      sig { returns(::Stripe::CustomerService::CreateParams::Tax) }
+      sig { returns(T.nilable(::Stripe::CustomerService::CreateParams::Tax)) }
       attr_accessor :tax
       # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
       attr_accessor :tax_exempt
       # The customer's tax IDs.
-      sig { returns(T::Array[::Stripe::CustomerService::CreateParams::TaxIdDatum]) }
+      sig { returns(T.nilable(T::Array[::Stripe::CustomerService::CreateParams::TaxIdDatum])) }
       attr_accessor :tax_id_data
       # ID of the test clock to attach to the customer.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :test_clock
       # Attribute for param field validate
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :validate
       sig {
-        params(address: T.nilable(::Stripe::CustomerService::CreateParams::Address), balance: Integer, cash_balance: ::Stripe::CustomerService::CreateParams::CashBalance, description: String, email: String, expand: T::Array[String], invoice_prefix: String, invoice_settings: ::Stripe::CustomerService::CreateParams::InvoiceSettings, metadata: T.nilable(T::Hash[String, String]), name: String, next_invoice_sequence: Integer, payment_method: String, phone: String, preferred_locales: T::Array[String], shipping: T.nilable(::Stripe::CustomerService::CreateParams::Shipping), source: String, tax: ::Stripe::CustomerService::CreateParams::Tax, tax_exempt: T.nilable(String), tax_id_data: T::Array[::Stripe::CustomerService::CreateParams::TaxIdDatum], test_clock: String, validate: T::Boolean).void
+        params(address: T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::CreateParams::Address))), balance: T.nilable(Integer), cash_balance: T.nilable(::Stripe::CustomerService::CreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::CustomerService::CreateParams::InvoiceSettings), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::CustomerService::CreateParams::Shipping))), source: T.nilable(String), tax: T.nilable(::Stripe::CustomerService::CreateParams::Tax), tax_exempt: T.nilable(T.nilable(T.any(String, String))), tax_id_data: T.nilable(T::Array[::Stripe::CustomerService::CreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
        }
       def initialize(
         address: nil,
@@ -567,18 +585,20 @@ module Stripe
     end
     class SearchParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
       # A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :page
       # The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for customers](https://stripe.com/docs/search#query-fields-for-customers).
       sig { returns(String) }
       attr_accessor :query
-      sig { params(expand: T::Array[String], limit: Integer, page: String, query: String).void }
+      sig {
+        params(expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), page: T.nilable(String), query: String).void
+       }
       def initialize(expand: nil, limit: nil, page: nil, query: nil); end
     end
     # Creates a new customer object.

@@ -8,18 +8,20 @@ module Stripe
       class ListParams < Stripe::RequestParams
         class TransactedAt < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gt
           # Minimum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :gte
           # Maximum value to filter by (exclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lt
           # Maximum value to filter by (inclusive)
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :lte
-          sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+          sig {
+            params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+           }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
         class TransactionRefresh < Stripe::RequestParams
@@ -33,29 +35,29 @@ module Stripe
         sig { returns(String) }
         attr_accessor :account
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         # A filter on the list based on the object `transacted_at` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the following options:
         sig {
-          returns(T.any(::Stripe::FinancialConnections::TransactionService::ListParams::TransactedAt, Integer))
+          returns(T.nilable(T.any(::Stripe::FinancialConnections::TransactionService::ListParams::TransactedAt, Integer)))
          }
         attr_accessor :transacted_at
         # A filter on the list based on the object `transaction_refresh` field. The value can be a dictionary with the following options:
         sig {
-          returns(::Stripe::FinancialConnections::TransactionService::ListParams::TransactionRefresh)
+          returns(T.nilable(::Stripe::FinancialConnections::TransactionService::ListParams::TransactionRefresh))
          }
         attr_accessor :transaction_refresh
         sig {
-          params(account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String, transacted_at: T.any(::Stripe::FinancialConnections::TransactionService::ListParams::TransactedAt, Integer), transaction_refresh: ::Stripe::FinancialConnections::TransactionService::ListParams::TransactionRefresh).void
+          params(account: String, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), transacted_at: T.nilable(T.any(::Stripe::FinancialConnections::TransactionService::ListParams::TransactedAt, Integer)), transaction_refresh: T.nilable(::Stripe::FinancialConnections::TransactionService::ListParams::TransactionRefresh)).void
          }
         def initialize(
           account: nil,
@@ -69,9 +71,9 @@ module Stripe
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Returns a list of Financial Connections Transaction objects.

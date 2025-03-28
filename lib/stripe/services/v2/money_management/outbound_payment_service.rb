@@ -5,13 +5,6 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundPaymentService < StripeService
-        attr_reader :quotes
-
-        def initialize(requestor)
-          super(requestor)
-          @quotes = Stripe::V2::MoneyManagement::OutboundPayments::QuoteService.new(@requestor)
-        end
-
         class CancelParams < Stripe::RequestParams
         end
 

@@ -18,22 +18,24 @@ module Stripe
         end
         class ListParams < Stripe::RequestParams
           # The ID of the FinancialAccount for which FinancialAddresses are to be returned.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :financial_account
           # Open Enum. A list of fields to reveal in the FinancialAddresses returned.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :include
           # The page limit.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
-          sig { params(financial_account: String, include: T::Array[String], limit: Integer).void }
+          sig {
+            params(financial_account: T.nilable(String), include: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void
+           }
           def initialize(financial_account: nil, include: nil, limit: nil); end
         end
         class RetrieveParams < Stripe::RequestParams
           # Open Enum. A list of fields to reveal in the FinancialAddresses returned.
-          sig { returns(T::Array[String]) }
+          sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :include
-          sig { params(include: T::Array[String]).void }
+          sig { params(include: T.nilable(T::Array[String])).void }
           def initialize(include: nil); end
         end
         # Create a new FinancialAddress for a FinancialAccount.

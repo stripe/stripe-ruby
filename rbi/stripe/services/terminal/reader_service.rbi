@@ -10,53 +10,53 @@ module Stripe
       end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class UpdateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The new label of the reader.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :label
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T::Hash[String, String])) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
         sig {
-          params(expand: T::Array[String], label: T.nilable(String), metadata: T.nilable(T::Hash[String, String])).void
+          params(expand: T.nilable(T::Array[String]), label: T.nilable(T.nilable(String)), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
          }
         def initialize(expand: nil, label: nil, metadata: nil); end
       end
       class ListParams < Stripe::RequestParams
         # Filters readers by device type
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :device_type
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A location ID to filter the response list to only readers at the specific location
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :location
         # Filters readers by serial number
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :serial_number
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         # A status filter to filter readers to only offline or online readers
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :status
         sig {
-          params(device_type: String, ending_before: String, expand: T::Array[String], limit: Integer, location: String, serial_number: String, starting_after: String, status: String).void
+          params(device_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), location: T.nilable(String), serial_number: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
         def initialize(
           device_type: nil,
@@ -71,22 +71,22 @@ module Stripe
       end
       class CreateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :label
         # The location to assign the reader to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :location
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T::Hash[String, String])) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
         # A code generated by the reader used for registering to an account.
         sig { returns(String) }
         attr_accessor :registration_code
         sig {
-          params(expand: T::Array[String], label: String, location: String, metadata: T.nilable(T::Hash[String, String]), registration_code: String).void
+          params(expand: T.nilable(T::Array[String]), label: T.nilable(String), location: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), registration_code: String).void
          }
         def initialize(
           expand: nil,
@@ -98,40 +98,40 @@ module Stripe
       end
       class CancelActionParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class CollectInputsParams < Stripe::RequestParams
         class Input < Stripe::RequestParams
           class CustomText < Stripe::RequestParams
             # The description which will be displayed when collecting this input
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :description
             # The skip button text
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :skip_button
             # The submit button text
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :submit_button
             # The title which will be displayed when collecting this input
             sig { returns(String) }
             attr_accessor :title
             sig {
-              params(description: String, skip_button: String, submit_button: String, title: String).void
+              params(description: T.nilable(String), skip_button: T.nilable(String), submit_button: T.nilable(String), title: String).void
              }
             def initialize(description: nil, skip_button: nil, submit_button: nil, title: nil); end
           end
           class Selection < Stripe::RequestParams
             class Choice < Stripe::RequestParams
               # The style of the button which will be shown for this choice
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               attr_accessor :style
               # The text which will be shown on the button for this choice
               sig { returns(String) }
               attr_accessor :value
-              sig { params(style: String, value: String).void }
+              sig { params(style: T.nilable(String), value: String).void }
               def initialize(style: nil, value: nil); end
             end
             # List of choices for the `selection` input
@@ -146,36 +146,40 @@ module Stripe
           end
           class Toggle < Stripe::RequestParams
             # The default value of the toggle
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :default_value
             # The description which will be displayed for the toggle
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :description
             # The title which will be displayed for the toggle
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :title
-            sig { params(default_value: String, description: String, title: String).void }
+            sig {
+              params(default_value: T.nilable(String), description: T.nilable(String), title: T.nilable(String)).void
+             }
             def initialize(default_value: nil, description: nil, title: nil); end
           end
           # Customize the text which will be displayed while collecting this input
           sig { returns(::Stripe::Terminal::ReaderService::CollectInputsParams::Input::CustomText) }
           attr_accessor :custom_text
           # Indicate that this input is required, disabling the skip button
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :required
           # Options for the `selection` input
-          sig { returns(::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Selection) }
+          sig {
+            returns(T.nilable(::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Selection))
+           }
           attr_accessor :selection
           # List of toggles to be displayed and customization for the toggles
           sig {
-            returns(T::Array[::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Toggle])
+            returns(T.nilable(T::Array[::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Toggle]))
            }
           attr_accessor :toggles
           # The type of input to collect
           sig { returns(String) }
           attr_accessor :type
           sig {
-            params(custom_text: ::Stripe::Terminal::ReaderService::CollectInputsParams::Input::CustomText, required: T::Boolean, selection: ::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Selection, toggles: T::Array[::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Toggle], type: String).void
+            params(custom_text: ::Stripe::Terminal::ReaderService::CollectInputsParams::Input::CustomText, required: T.nilable(T::Boolean), selection: T.nilable(::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Selection), toggles: T.nilable(T::Array[::Stripe::Terminal::ReaderService::CollectInputsParams::Input::Toggle]), type: String).void
            }
           def initialize(
             custom_text: nil,
@@ -186,16 +190,16 @@ module Stripe
           ); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # List of inputs to be collected using the Reader
         sig { returns(T::Array[::Stripe::Terminal::ReaderService::CollectInputsParams::Input]) }
         attr_accessor :inputs
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         sig {
-          params(expand: T::Array[String], inputs: T::Array[::Stripe::Terminal::ReaderService::CollectInputsParams::Input], metadata: T::Hash[String, String]).void
+          params(expand: T.nilable(T::Array[String]), inputs: T::Array[::Stripe::Terminal::ReaderService::CollectInputsParams::Input], metadata: T.nilable(T::Hash[String, String])).void
          }
         def initialize(expand: nil, inputs: nil, metadata: nil); end
       end
@@ -203,27 +207,27 @@ module Stripe
         class CollectConfig < Stripe::RequestParams
           class Tipping < Stripe::RequestParams
             # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             attr_accessor :amount_eligible
-            sig { params(amount_eligible: Integer).void }
+            sig { params(amount_eligible: T.nilable(Integer)).void }
             def initialize(amount_eligible: nil); end
           end
           # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :allow_redisplay
           # Enables cancel button on transaction screens.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enable_customer_cancellation
           # Override showing a tipping selection screen on this transaction.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :skip_tipping
           # Tipping configuration for this transaction.
           sig {
-            returns(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig::Tipping)
+            returns(T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig::Tipping))
            }
           attr_accessor :tipping
           sig {
-            params(allow_redisplay: String, enable_customer_cancellation: T::Boolean, skip_tipping: T::Boolean, tipping: ::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig::Tipping).void
+            params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig::Tipping)).void
            }
           def initialize(
             allow_redisplay: nil,
@@ -234,55 +238,55 @@ module Stripe
         end
         # Configuration overrides
         sig {
-          returns(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig)
+          returns(T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig))
          }
         attr_accessor :collect_config
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # PaymentIntent ID
         sig { returns(String) }
         attr_accessor :payment_intent
         sig {
-          params(collect_config: ::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig, expand: T::Array[String], payment_intent: String).void
+          params(collect_config: T.nilable(::Stripe::Terminal::ReaderService::CollectPaymentMethodParams::CollectConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
          }
         def initialize(collect_config: nil, expand: nil, payment_intent: nil); end
       end
       class ConfirmPaymentIntentParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # PaymentIntent ID
         sig { returns(String) }
         attr_accessor :payment_intent
-        sig { params(expand: T::Array[String], payment_intent: String).void }
+        sig { params(expand: T.nilable(T::Array[String]), payment_intent: String).void }
         def initialize(expand: nil, payment_intent: nil); end
       end
       class ProcessPaymentIntentParams < Stripe::RequestParams
         class ProcessConfig < Stripe::RequestParams
           class Tipping < Stripe::RequestParams
             # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             attr_accessor :amount_eligible
-            sig { params(amount_eligible: Integer).void }
+            sig { params(amount_eligible: T.nilable(Integer)).void }
             def initialize(amount_eligible: nil); end
           end
           # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :allow_redisplay
           # Enables cancel button on transaction screens.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enable_customer_cancellation
           # Override showing a tipping selection screen on this transaction.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :skip_tipping
           # Tipping configuration for this transaction.
           sig {
-            returns(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig::Tipping)
+            returns(T.nilable(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig::Tipping))
            }
           attr_accessor :tipping
           sig {
-            params(allow_redisplay: String, enable_customer_cancellation: T::Boolean, skip_tipping: T::Boolean, tipping: ::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig::Tipping).void
+            params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig::Tipping)).void
            }
           def initialize(
             allow_redisplay: nil,
@@ -292,43 +296,45 @@ module Stripe
           ); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # PaymentIntent ID
         sig { returns(String) }
         attr_accessor :payment_intent
         # Configuration overrides
         sig {
-          returns(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig)
+          returns(T.nilable(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig))
          }
         attr_accessor :process_config
         sig {
-          params(expand: T::Array[String], payment_intent: String, process_config: ::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig).void
+          params(expand: T.nilable(T::Array[String]), payment_intent: String, process_config: T.nilable(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig)).void
          }
         def initialize(expand: nil, payment_intent: nil, process_config: nil); end
       end
       class ProcessSetupIntentParams < Stripe::RequestParams
         class ProcessConfig < Stripe::RequestParams
           # Enables cancel button on transaction screens.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enable_customer_cancellation
-          sig { params(enable_customer_cancellation: T::Boolean).void }
+          sig { params(enable_customer_cancellation: T.nilable(T::Boolean)).void }
           def initialize(enable_customer_cancellation: nil); end
         end
         # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
         sig { returns(String) }
         attr_accessor :allow_redisplay
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Configuration overrides
-        sig { returns(::Stripe::Terminal::ReaderService::ProcessSetupIntentParams::ProcessConfig) }
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ReaderService::ProcessSetupIntentParams::ProcessConfig))
+         }
         attr_accessor :process_config
         # SetupIntent ID
         sig { returns(String) }
         attr_accessor :setup_intent
         sig {
-          params(allow_redisplay: String, expand: T::Array[String], process_config: ::Stripe::Terminal::ReaderService::ProcessSetupIntentParams::ProcessConfig, setup_intent: String).void
+          params(allow_redisplay: String, expand: T.nilable(T::Array[String]), process_config: T.nilable(::Stripe::Terminal::ReaderService::ProcessSetupIntentParams::ProcessConfig), setup_intent: String).void
          }
         def initialize(
           allow_redisplay: nil,
@@ -340,37 +346,39 @@ module Stripe
       class RefundPaymentParams < Stripe::RequestParams
         class RefundPaymentConfig < Stripe::RequestParams
           # Enables cancel button on transaction screens.
-          sig { returns(T::Boolean) }
+          sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enable_customer_cancellation
-          sig { params(enable_customer_cancellation: T::Boolean).void }
+          sig { params(enable_customer_cancellation: T.nilable(T::Boolean)).void }
           def initialize(enable_customer_cancellation: nil); end
         end
         # A positive integer in __cents__ representing how much of this charge to refund.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount
         # ID of the Charge to refund.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :charge
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # ID of the PaymentIntent to refund.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :payment_intent
         # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
-        sig { returns(T::Boolean) }
+        sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :refund_application_fee
         # Configuration overrides
-        sig { returns(::Stripe::Terminal::ReaderService::RefundPaymentParams::RefundPaymentConfig) }
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ReaderService::RefundPaymentParams::RefundPaymentConfig))
+         }
         attr_accessor :refund_payment_config
         # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
-        sig { returns(T::Boolean) }
+        sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :reverse_transfer
         sig {
-          params(amount: Integer, charge: String, expand: T::Array[String], metadata: T::Hash[String, String], payment_intent: String, refund_application_fee: T::Boolean, refund_payment_config: ::Stripe::Terminal::ReaderService::RefundPaymentParams::RefundPaymentConfig, reverse_transfer: T::Boolean).void
+          params(amount: T.nilable(Integer), charge: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_intent: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), refund_payment_config: T.nilable(::Stripe::Terminal::ReaderService::RefundPaymentParams::RefundPaymentConfig), reverse_transfer: T.nilable(T::Boolean)).void
          }
         def initialize(
           amount: nil,
@@ -407,27 +415,27 @@ module Stripe
            }
           attr_accessor :line_items
           # The amount of tax in cents.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :tax
           # Total balance of cart due in cents.
           sig { returns(Integer) }
           attr_accessor :total
           sig {
-            params(currency: String, line_items: T::Array[::Stripe::Terminal::ReaderService::SetReaderDisplayParams::Cart::LineItem], tax: Integer, total: Integer).void
+            params(currency: String, line_items: T::Array[::Stripe::Terminal::ReaderService::SetReaderDisplayParams::Cart::LineItem], tax: T.nilable(Integer), total: Integer).void
            }
           def initialize(currency: nil, line_items: nil, tax: nil, total: nil); end
         end
         # Cart
-        sig { returns(::Stripe::Terminal::ReaderService::SetReaderDisplayParams::Cart) }
+        sig { returns(T.nilable(::Stripe::Terminal::ReaderService::SetReaderDisplayParams::Cart)) }
         attr_accessor :cart
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Type
         sig { returns(String) }
         attr_accessor :type
         sig {
-          params(cart: ::Stripe::Terminal::ReaderService::SetReaderDisplayParams::Cart, expand: T::Array[String], type: String).void
+          params(cart: T.nilable(::Stripe::Terminal::ReaderService::SetReaderDisplayParams::Cart), expand: T.nilable(T::Array[String]), type: String).void
          }
         def initialize(cart: nil, expand: nil, type: nil); end
       end

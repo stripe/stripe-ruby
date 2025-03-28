@@ -6,9 +6,9 @@ module Stripe
   class AccountLoginLinkService < StripeService
     class CreateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     # Creates a login link for a connected account to access the Express Dashboard.

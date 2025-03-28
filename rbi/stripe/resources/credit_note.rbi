@@ -200,46 +200,48 @@ module Stripe
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :gt
         # Minimum value to filter by (inclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :gte
         # Maximum value to filter by (exclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :lte
-        sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+        sig {
+          params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+         }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return credit notes that were created during the given date interval.
-      sig { returns(T.any(::Stripe::CreditNote::ListParams::Created, Integer)) }
+      sig { returns(T.nilable(T.any(::Stripe::CreditNote::ListParams::Created, Integer))) }
       attr_accessor :created
       # Only return credit notes for the customer specified by this customer ID.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :customer
       # Only return credit notes for the account specified by this account ID.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Only return credit notes for the invoice specified by this invoice ID.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :invoice
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       sig {
-        params(created: T.any(::Stripe::CreditNote::ListParams::Created, Integer), customer: String, customer_account: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, starting_after: String).void
+        params(created: T.nilable(T.any(::Stripe::CreditNote::ListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
        }
       def initialize(
         created: nil,
@@ -268,34 +270,36 @@ module Stripe
           def initialize(amount: nil, tax_rate: nil, taxable_amount: nil); end
         end
         # The line item amount to credit. Only valid when `type` is `invoice_line_item`. If invoice is set up with `automatic_tax[enabled]=true`, this amount is tax exclusive
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount
         # The description of the credit note line item. Only valid when the `type` is `custom_line_item`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
         # The invoice line item to credit. Only valid when the `type` is `invoice_line_item`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :invoice_line_item
         # The line item quantity to credit.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :quantity
         # A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
-        sig { returns(T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Line::TaxAmount])) }
+        sig {
+          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNote::CreateParams::Line::TaxAmount]))))
+         }
         attr_accessor :tax_amounts
         # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
-        sig { returns(T.nilable(T::Array[String])) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
         attr_accessor :tax_rates
         # Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         sig { returns(String) }
         attr_accessor :type
         # The integer unit amount in cents (or local equivalent) of the credit note line item. This `unit_amount` will be multiplied by the quantity to get the full amount to credit for this line item. Only valid when `type` is `custom_line_item`.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(amount: Integer, description: String, invoice_line_item: String, quantity: Integer, tax_amounts: T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Line::TaxAmount]), tax_rates: T.nilable(T::Array[String]), type: String, unit_amount: Integer, unit_amount_decimal: String).void
+          params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNote::CreateParams::Line::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -311,65 +315,65 @@ module Stripe
       end
       class Refund < Stripe::RequestParams
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount_refunded
         # ID of an existing refund to link this credit note to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :refund
-        sig { params(amount_refunded: Integer, refund: String).void }
+        sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
         def initialize(amount_refunded: nil, refund: nil); end
       end
       class ShippingCost < Stripe::RequestParams
         # The ID of the shipping rate to use for this order.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :shipping_rate
-        sig { params(shipping_rate: String).void }
+        sig { params(shipping_rate: T.nilable(String)).void }
         def initialize(shipping_rate: nil); end
       end
       # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :credit_amount
       # The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :effective_at
       # Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :email_type
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # ID of the invoice.
       sig { returns(String) }
       attr_accessor :invoice
       # Line items that make up the credit note.
-      sig { returns(T::Array[::Stripe::CreditNote::CreateParams::Line]) }
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Line])) }
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :memo
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T::Hash[String, String]) }
+      sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
       # The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :reason
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
-      sig { returns(T::Array[::Stripe::CreditNote::CreateParams::Refund]) }
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Refund])) }
       attr_accessor :refunds
       # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
-      sig { returns(::Stripe::CreditNote::CreateParams::ShippingCost) }
+      sig { returns(T.nilable(::Stripe::CreditNote::CreateParams::ShippingCost)) }
       attr_accessor :shipping_cost
       sig {
-        params(amount: Integer, credit_amount: Integer, effective_at: Integer, email_type: String, expand: T::Array[String], invoice: String, lines: T::Array[::Stripe::CreditNote::CreateParams::Line], memo: String, metadata: T::Hash[String, String], out_of_band_amount: Integer, reason: String, refund_amount: Integer, refunds: T::Array[::Stripe::CreditNote::CreateParams::Refund], shipping_cost: ::Stripe::CreditNote::CreateParams::ShippingCost).void
+        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, lines: T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Refund]), shipping_cost: T.nilable(::Stripe::CreditNote::CreateParams::ShippingCost)).void
        }
       def initialize(
         amount: nil,
@@ -390,22 +394,24 @@ module Stripe
     end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Credit note memo.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :memo
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T::Hash[String, String]) }
+      sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
-      sig { params(expand: T::Array[String], memo: String, metadata: T::Hash[String, String]).void }
+      sig {
+        params(expand: T.nilable(T::Array[String]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String])).void
+       }
       def initialize(expand: nil, memo: nil, metadata: nil); end
     end
     class PreviewParams < Stripe::RequestParams
@@ -424,34 +430,36 @@ module Stripe
           def initialize(amount: nil, tax_rate: nil, taxable_amount: nil); end
         end
         # The line item amount to credit. Only valid when `type` is `invoice_line_item`. If invoice is set up with `automatic_tax[enabled]=true`, this amount is tax exclusive
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount
         # The description of the credit note line item. Only valid when the `type` is `custom_line_item`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
         # The invoice line item to credit. Only valid when the `type` is `invoice_line_item`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :invoice_line_item
         # The line item quantity to credit.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :quantity
         # A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
-        sig { returns(T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Line::TaxAmount])) }
+        sig {
+          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNote::PreviewParams::Line::TaxAmount]))))
+         }
         attr_accessor :tax_amounts
         # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
-        sig { returns(T.nilable(T::Array[String])) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
         attr_accessor :tax_rates
         # Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         sig { returns(String) }
         attr_accessor :type
         # The integer unit amount in cents (or local equivalent) of the credit note line item. This `unit_amount` will be multiplied by the quantity to get the full amount to credit for this line item. Only valid when `type` is `custom_line_item`.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(amount: Integer, description: String, invoice_line_item: String, quantity: Integer, tax_amounts: T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Line::TaxAmount]), tax_rates: T.nilable(T::Array[String]), type: String, unit_amount: Integer, unit_amount_decimal: String).void
+          params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNote::PreviewParams::Line::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -467,65 +475,65 @@ module Stripe
       end
       class Refund < Stripe::RequestParams
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount_refunded
         # ID of an existing refund to link this credit note to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :refund
-        sig { params(amount_refunded: Integer, refund: String).void }
+        sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
         def initialize(amount_refunded: nil, refund: nil); end
       end
       class ShippingCost < Stripe::RequestParams
         # The ID of the shipping rate to use for this order.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :shipping_rate
-        sig { params(shipping_rate: String).void }
+        sig { params(shipping_rate: T.nilable(String)).void }
         def initialize(shipping_rate: nil); end
       end
       # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :credit_amount
       # The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :effective_at
       # Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :email_type
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # ID of the invoice.
       sig { returns(String) }
       attr_accessor :invoice
       # Line items that make up the credit note.
-      sig { returns(T::Array[::Stripe::CreditNote::PreviewParams::Line]) }
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Line])) }
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :memo
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T::Hash[String, String]) }
+      sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
       # The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :reason
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
-      sig { returns(T::Array[::Stripe::CreditNote::PreviewParams::Refund]) }
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Refund])) }
       attr_accessor :refunds
       # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
-      sig { returns(::Stripe::CreditNote::PreviewParams::ShippingCost) }
+      sig { returns(T.nilable(::Stripe::CreditNote::PreviewParams::ShippingCost)) }
       attr_accessor :shipping_cost
       sig {
-        params(amount: Integer, credit_amount: Integer, effective_at: Integer, email_type: String, expand: T::Array[String], invoice: String, lines: T::Array[::Stripe::CreditNote::PreviewParams::Line], memo: String, metadata: T::Hash[String, String], out_of_band_amount: Integer, reason: String, refund_amount: Integer, refunds: T::Array[::Stripe::CreditNote::PreviewParams::Refund], shipping_cost: ::Stripe::CreditNote::PreviewParams::ShippingCost).void
+        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, lines: T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Refund]), shipping_cost: T.nilable(::Stripe::CreditNote::PreviewParams::ShippingCost)).void
        }
       def initialize(
         amount: nil,
@@ -560,36 +568,36 @@ module Stripe
           def initialize(amount: nil, tax_rate: nil, taxable_amount: nil); end
         end
         # The line item amount to credit. Only valid when `type` is `invoice_line_item`. If invoice is set up with `automatic_tax[enabled]=true`, this amount is tax exclusive
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount
         # The description of the credit note line item. Only valid when the `type` is `custom_line_item`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
         # The invoice line item to credit. Only valid when the `type` is `invoice_line_item`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :invoice_line_item
         # The line item quantity to credit.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :quantity
         # A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
         sig {
-          returns(T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line::TaxAmount]))
+          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line::TaxAmount]))))
          }
         attr_accessor :tax_amounts
         # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
-        sig { returns(T.nilable(T::Array[String])) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
         attr_accessor :tax_rates
         # Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`
         sig { returns(String) }
         attr_accessor :type
         # The integer unit amount in cents (or local equivalent) of the credit note line item. This `unit_amount` will be multiplied by the quantity to get the full amount to credit for this line item. Only valid when `type` is `custom_line_item`.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :unit_amount
         # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :unit_amount_decimal
         sig {
-          params(amount: Integer, description: String, invoice_line_item: String, quantity: Integer, tax_amounts: T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line::TaxAmount]), tax_rates: T.nilable(T::Array[String]), type: String, unit_amount: Integer, unit_amount_decimal: String).void
+          params(amount: T.nilable(Integer), description: T.nilable(String), invoice_line_item: T.nilable(String), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), type: String, unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -605,74 +613,74 @@ module Stripe
       end
       class Refund < Stripe::RequestParams
         # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount_refunded
         # ID of an existing refund to link this credit note to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :refund
-        sig { params(amount_refunded: Integer, refund: String).void }
+        sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
         def initialize(amount_refunded: nil, refund: nil); end
       end
       class ShippingCost < Stripe::RequestParams
         # The ID of the shipping rate to use for this order.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :shipping_rate
-        sig { params(shipping_rate: String).void }
+        sig { params(shipping_rate: T.nilable(String)).void }
         def initialize(shipping_rate: nil); end
       end
       # The integer amount in cents (or local equivalent) representing the total amount of the credit note.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :credit_amount
       # The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :effective_at
       # Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :email_type
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # ID of the invoice.
       sig { returns(String) }
       attr_accessor :invoice
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
       # Line items that make up the credit note.
-      sig { returns(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line]) }
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line])) }
       attr_accessor :lines
       # The credit note's memo appears on the credit note PDF.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :memo
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T::Hash[String, String]) }
+      sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
       # The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :reason
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :refund_amount
       # Refunds to link to this credit note.
-      sig { returns(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Refund]) }
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Refund])) }
       attr_accessor :refunds
       # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
-      sig { returns(::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost) }
+      sig { returns(T.nilable(::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost)) }
       attr_accessor :shipping_cost
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       sig {
-        params(amount: Integer, credit_amount: Integer, effective_at: Integer, email_type: String, ending_before: String, expand: T::Array[String], invoice: String, limit: Integer, lines: T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line], memo: String, metadata: T::Hash[String, String], out_of_band_amount: Integer, reason: String, refund_amount: Integer, refunds: T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Refund], shipping_cost: ::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost, starting_after: String).void
+        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, limit: T.nilable(Integer), lines: T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Refund]), shipping_cost: T.nilable(::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost), starting_after: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -696,9 +704,9 @@ module Stripe
     end
     class VoidCreditNoteParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     # Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces

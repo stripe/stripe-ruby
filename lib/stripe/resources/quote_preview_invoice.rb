@@ -605,7 +605,7 @@ module Stripe
     attr_reader :object
     # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     attr_reader :on_behalf_of
-    # Attribute for field parent
+    # The parent that generated this invoice
     attr_reader :parent
     # Attribute for field payment_settings
     attr_reader :payment_settings

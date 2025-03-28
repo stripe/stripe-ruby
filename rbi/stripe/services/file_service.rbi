@@ -7,40 +7,42 @@ module Stripe
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :gt
         # Minimum value to filter by (inclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :gte
         # Maximum value to filter by (exclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :lt
         # Maximum value to filter by (inclusive)
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :lte
-        sig { params(gt: Integer, gte: Integer, lt: Integer, lte: Integer).void }
+        sig {
+          params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+         }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
       # Only return files that were created during the given date interval.
-      sig { returns(T.any(::Stripe::FileService::ListParams::Created, Integer)) }
+      sig { returns(T.nilable(T.any(::Stripe::FileService::ListParams::Created, Integer))) }
       attr_accessor :created
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
       # Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :purpose
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       sig {
-        params(created: T.any(::Stripe::FileService::ListParams::Created, Integer), ending_before: String, expand: T::Array[String], limit: Integer, purpose: String, starting_after: String).void
+        params(created: T.nilable(T.any(::Stripe::FileService::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), purpose: T.nilable(String), starting_after: T.nilable(String)).void
        }
       def initialize(
         created: nil,
@@ -57,38 +59,38 @@ module Stripe
         sig { returns(T::Boolean) }
         attr_accessor :create
         # The link isn't available after this future timestamp.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :expires_at
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T::Hash[String, String])) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
         sig {
-          params(create: T::Boolean, expires_at: Integer, metadata: T.nilable(T::Hash[String, String])).void
+          params(create: T::Boolean, expires_at: T.nilable(Integer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
          }
         def initialize(create: nil, expires_at: nil, metadata: nil); end
       end
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the `multipart/form-data` protocol.
       sig { returns(T.untyped) }
       attr_accessor :file
       # Optional parameters that automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
-      sig { returns(::Stripe::FileService::CreateParams::FileLinkData) }
+      sig { returns(T.nilable(::Stripe::FileService::CreateParams::FileLinkData)) }
       attr_accessor :file_link_data
       # The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
       sig { returns(String) }
       attr_accessor :purpose
       sig {
-        params(expand: T::Array[String], file: T.untyped, file_link_data: ::Stripe::FileService::CreateParams::FileLinkData, purpose: String).void
+        params(expand: T.nilable(T::Array[String]), file: T.untyped, file_link_data: T.nilable(::Stripe::FileService::CreateParams::FileLinkData), purpose: String).void
        }
       def initialize(expand: nil, file: nil, file_link_data: nil, purpose: nil); end
     end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     # To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.

@@ -8,18 +8,12 @@ module Stripe
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
-    extend Stripe::APIOperations::NestedResource
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "subscription_item"
     def self.object_name
       "subscription_item"
     end
-
-    nested_resource_class_methods :usage_record, operations: %i[create]
-    nested_resource_class_methods :usage_record_summary,
-                                  operations: %i[list],
-                                  resource_plural: "usage_record_summaries"
 
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     def self.create(params = {}, opts = {})

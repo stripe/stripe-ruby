@@ -27,7 +27,7 @@ module Stripe
         "checkout.session"
       end
 
-      # Creates a Session object.
+      # Creates a Checkout Session object.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -37,9 +37,9 @@ module Stripe
         )
       end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       def expire(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -49,9 +49,9 @@ module Stripe
         )
       end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       def self.expire(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -91,7 +91,7 @@ module Stripe
         )
       end
 
-      # Updates a Session object.
+      # Updates a Checkout Session object.
       def self.update(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,

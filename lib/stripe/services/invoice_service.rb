@@ -3,12 +3,11 @@
 
 module Stripe
   class InvoiceService < StripeService
-    attr_reader :line_items, :upcoming_lines
+    attr_reader :line_items
 
     def initialize(requestor)
       super(requestor)
       @line_items = Stripe::InvoiceLineItemService.new(@requestor)
-      @upcoming_lines = Stripe::InvoiceUpcomingLinesService.new(@requestor)
     end
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -136,23 +135,6 @@ module Stripe
       request(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(invoice) }),
-        params: params,
-        opts: opts,
-        base_address: :api
-      )
-    end
-
-    # At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
-    #
-    # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
-    #
-    # You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
-    #
-    # Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
-    def upcoming(params = {}, opts = {})
-      request(
-        method: :get,
-        path: "/v1/invoices/upcoming",
         params: params,
         opts: opts,
         base_address: :api

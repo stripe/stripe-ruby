@@ -114,19 +114,19 @@ module Stripe
       attr_reader :status
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         sig {
-          params(ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+          params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil); end
       end
@@ -139,28 +139,28 @@ module Stripe
           def initialize(public_name: nil); end
         end
         # Requested amount of carbon removal units. Either this or `metric_tons` must be specified.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :amount
         # Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set.
-        sig { returns(::Stripe::Climate::Order::CreateParams::Beneficiary) }
+        sig { returns(T.nilable(::Stripe::Climate::Order::CreateParams::Beneficiary)) }
         attr_accessor :beneficiary
         # Request currency for the order as a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a supported [settlement currency for your account](https://stripe.com/docs/currencies). If omitted, the account's default currency will be used.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :currency
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # Requested number of tons for the order. Either this or `amount` must be specified.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :metric_tons
         # Unique identifier of the Climate product.
         sig { returns(String) }
         attr_accessor :product
         sig {
-          params(amount: Integer, beneficiary: ::Stripe::Climate::Order::CreateParams::Beneficiary, currency: String, expand: T::Array[String], metadata: T::Hash[String, String], metric_tons: String, product: String).void
+          params(amount: T.nilable(Integer), beneficiary: T.nilable(::Stripe::Climate::Order::CreateParams::Beneficiary), currency: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), metric_tons: T.nilable(String), product: String).void
          }
         def initialize(
           amount: nil,
@@ -172,13 +172,6 @@ module Stripe
           product: nil
         ); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
-        def initialize(expand: nil); end
-      end
       class UpdateParams < Stripe::RequestParams
         class Beneficiary < Stripe::RequestParams
           # Publicly displayable name for the end beneficiary of carbon removal.
@@ -188,24 +181,26 @@ module Stripe
           def initialize(public_name: nil); end
         end
         # Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set.
-        sig { returns(T.nilable(::Stripe::Climate::Order::UpdateParams::Beneficiary)) }
+        sig {
+          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Climate::Order::UpdateParams::Beneficiary))))
+         }
         attr_accessor :beneficiary
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         sig {
-          params(beneficiary: T.nilable(::Stripe::Climate::Order::UpdateParams::Beneficiary), expand: T::Array[String], metadata: T::Hash[String, String]).void
+          params(beneficiary: T.nilable(T.nilable(T.any(String, ::Stripe::Climate::Order::UpdateParams::Beneficiary))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String])).void
          }
         def initialize(beneficiary: nil, expand: nil, metadata: nil); end
       end
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the

@@ -135,15 +135,6 @@ module Stripe
           @report_type = report_type
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
       # If something should go wrong during the run, a message about the failure (populated when

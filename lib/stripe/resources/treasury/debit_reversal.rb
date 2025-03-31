@@ -76,15 +76,6 @@ module Stripe
           @received_debit = received_debit
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # Amount (in cents) transferred.
       attr_reader :amount
       # Time at which the object was created. Measured in seconds since the Unix epoch.

@@ -250,15 +250,6 @@ module Stripe
           @verification_session = verification_session
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       attr_reader :client_reference_id
       # Time at which the object was created. Measured in seconds since the Unix epoch.

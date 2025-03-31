@@ -126,15 +126,6 @@ module Stripe
       # Attribute for field source_types
       attr_reader :source_types
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     attr_reader :available
     # Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.

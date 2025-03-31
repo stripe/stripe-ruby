@@ -108,28 +108,28 @@ module Stripe
       attr_reader :type
       class ListParams < Stripe::RequestParams
         # The credit grant for which to fetch credit balance transactions.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :credit_grant
         # The customer for which to fetch credit balance transactions.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer
         # The account for which to fetch credit balance transactions.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :customer_account
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         sig {
-          params(credit_grant: String, customer: String, customer_account: String, ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+          params(credit_grant: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }
         def initialize(
           credit_grant: nil,
@@ -140,13 +140,6 @@ module Stripe
           limit: nil,
           starting_after: nil
         ); end
-      end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
-        def initialize(expand: nil); end
       end
       # Retrieve a list of credit balance transactions.
       sig {

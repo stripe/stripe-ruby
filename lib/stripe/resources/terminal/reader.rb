@@ -48,15 +48,19 @@ module Stripe
 
             class Selection < Stripe::StripeObject
               class Choice < Stripe::StripeObject
+                # The id to be selected
+                attr_reader :id
                 # The button style for the choice
                 attr_reader :style
-                # A value to be selected
-                attr_reader :value
+                # The text to be selected
+                attr_reader :text
               end
               # List of possible choices to be selected
               attr_reader :choices
-              # The value of the selected choice
-              attr_reader :value
+              # The id of the selected choice
+              attr_reader :id
+              # The text of the selected choice
+              attr_reader :text
             end
 
             class Signature < Stripe::StripeObject
@@ -254,15 +258,6 @@ module Stripe
       class DeleteParams < Stripe::RequestParams
       end
 
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
       class UpdateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
@@ -375,14 +370,17 @@ module Stripe
 
           class Selection < Stripe::RequestParams
             class Choice < Stripe::RequestParams
+              # The unique identifier for this choice
+              attr_accessor :id
               # The style of the button which will be shown for this choice
               attr_accessor :style
               # The text which will be shown on the button for this choice
-              attr_accessor :value
+              attr_accessor :text
 
-              def initialize(style: nil, value: nil)
+              def initialize(id: nil, style: nil, text: nil)
+                @id = id
                 @style = style
-                @value = value
+                @text = text
               end
             end
             # List of choices for the `selection` input

@@ -974,6 +974,12 @@ module Stripe
         end
         # Permissions for updating the Checkout Session.
         attr_reader :update
+        # Determines which entity is allowed to update the line items.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+        #
+        # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        attr_reader :update_line_items
         # Determines which entity is allowed to update the shipping details.
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -2854,6 +2860,12 @@ module Stripe
           end
           # Permissions for updating the Checkout Session.
           attr_accessor :update
+          # Determines which entity is allowed to update the line items.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+          #
+          # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+          attr_accessor :update_line_items
           # Determines which entity is allowed to update the shipping details.
           #
           # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -2861,8 +2873,9 @@ module Stripe
           # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
           attr_accessor :update_shipping_details
 
-          def initialize(update: nil, update_shipping_details: nil)
+          def initialize(update: nil, update_line_items: nil, update_shipping_details: nil)
             @update = update
+            @update_line_items = update_line_items
             @update_shipping_details = update_shipping_details
           end
         end
@@ -3387,15 +3400,6 @@ module Stripe
         end
       end
 
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
       class UpdateParams < Stripe::RequestParams
         class CollectedInformation < Stripe::RequestParams
           class ShippingDetails < Stripe::RequestParams
@@ -3694,7 +3698,7 @@ module Stripe
       attr_reader :created
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions
+      # Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions created before 2025-03-31.
       attr_reader :currency_conversion
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
       attr_reader :custom_fields

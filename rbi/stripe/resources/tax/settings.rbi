@@ -73,46 +73,39 @@ module Stripe
       # Attribute for field status_details
       sig { returns(StatusDetails) }
       attr_reader :status_details
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
-        def initialize(expand: nil); end
-      end
       class UpdateParams < Stripe::RequestParams
         class Defaults < Stripe::RequestParams
           # Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :tax_behavior
           # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :tax_code
-          sig { params(tax_behavior: String, tax_code: String).void }
+          sig { params(tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void }
           def initialize(tax_behavior: nil, tax_code: nil); end
         end
         class HeadOffice < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :country
             # Address line 1 (e.g., street, PO Box, or company name).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :line1
             # Address line 2 (e.g., apartment, suite, unit, or building).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :line2
             # ZIP or postal code.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :postal_code
             # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             attr_accessor :state
             sig {
-              params(city: String, country: String, line1: String, line2: String, postal_code: String, state: String).void
+              params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
              }
             def initialize(
               city: nil,
@@ -130,16 +123,16 @@ module Stripe
           def initialize(address: nil); end
         end
         # Default configuration to be used on Stripe Tax calculations.
-        sig { returns(::Stripe::Tax::Settings::UpdateParams::Defaults) }
+        sig { returns(T.nilable(::Stripe::Tax::Settings::UpdateParams::Defaults)) }
         attr_accessor :defaults
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The place where your business is located.
-        sig { returns(::Stripe::Tax::Settings::UpdateParams::HeadOffice) }
+        sig { returns(T.nilable(::Stripe::Tax::Settings::UpdateParams::HeadOffice)) }
         attr_accessor :head_office
         sig {
-          params(defaults: ::Stripe::Tax::Settings::UpdateParams::Defaults, expand: T::Array[String], head_office: ::Stripe::Tax::Settings::UpdateParams::HeadOffice).void
+          params(defaults: T.nilable(::Stripe::Tax::Settings::UpdateParams::Defaults), expand: T.nilable(T::Array[String]), head_office: T.nilable(::Stripe::Tax::Settings::UpdateParams::HeadOffice)).void
          }
         def initialize(defaults: nil, expand: nil, head_office: nil); end
       end

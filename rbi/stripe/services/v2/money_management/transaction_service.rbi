@@ -8,31 +8,31 @@ module Stripe
       class TransactionService < StripeService
         class ListParams < Stripe::RequestParams
           # Filter for Transactions created at an exact time.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created
           # Filter for Transactions created after the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gt
           # Filter for Transactions created at or after the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_gte
           # Filter for Transactions created before the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lt
           # Filter for Transactions created at or before the specified timestamp.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :created_lte
           # Filter for Transactions belonging to a FinancialAccount.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :financial_account
           # Filter for Transactions corresponding to a Flow.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :flow
           # The page limit.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
           sig {
-            params(created: String, created_gt: String, created_gte: String, created_lt: String, created_lte: String, financial_account: String, flow: String, limit: Integer).void
+            params(created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), financial_account: T.nilable(String), flow: T.nilable(String), limit: T.nilable(Integer)).void
            }
           def initialize(
             created: nil,

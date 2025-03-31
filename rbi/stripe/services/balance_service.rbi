@@ -6,9 +6,9 @@ module Stripe
   class BalanceService < StripeService
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
+      sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
     # Retrieves the current account balance, based on the authentication that was used to make the request.

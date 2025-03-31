@@ -61,22 +61,22 @@ module Stripe
     attr_reader :sent_at
     class ListParams < Stripe::RequestParams
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(Integer) }
+      sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
       # Set to false to only return unsent AccountNotices.
-      sig { returns(T::Boolean) }
+      sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :sent
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       sig {
-        params(ending_before: String, expand: T::Array[String], limit: Integer, sent: T::Boolean, starting_after: String).void
+        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), sent: T.nilable(T::Boolean), starting_after: T.nilable(String)).void
        }
       def initialize(
         ending_before: nil,
@@ -85,13 +85,6 @@ module Stripe
         sent: nil,
         starting_after: nil
       ); end
-    end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
-      attr_accessor :expand
-      sig { params(expand: T::Array[String]).void }
-      def initialize(expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
       class Email < Stripe::RequestParams
@@ -111,16 +104,16 @@ module Stripe
       sig { returns(::Stripe::AccountNotice::UpdateParams::Email) }
       attr_accessor :email
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      sig { returns(T::Hash[String, String]) }
+      sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
       # Date when you sent the notice.
       sig { returns(Integer) }
       attr_accessor :sent_at
       sig {
-        params(email: ::Stripe::AccountNotice::UpdateParams::Email, expand: T::Array[String], metadata: T::Hash[String, String], sent_at: Integer).void
+        params(email: ::Stripe::AccountNotice::UpdateParams::Email, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), sent_at: Integer).void
        }
       def initialize(email: nil, expand: nil, metadata: nil, sent_at: nil); end
     end

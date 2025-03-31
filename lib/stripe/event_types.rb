@@ -7,7 +7,26 @@ module Stripe
         # The beginning of the section generated from our OpenAPI spec
         V1BillingMeterErrorReportTriggeredEvent.lookup_type => V1BillingMeterErrorReportTriggeredEvent,
         V1BillingMeterNoMeterFoundEvent.lookup_type => V1BillingMeterNoMeterFoundEvent,
+        V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
+        V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
+        V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
+        V2CoreAccountIncludingConfigurationMerchantUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
+        V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
+        V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
+        V2CoreAccountIncludingIdentityUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingIdentityUpdatedEvent,
+        V2CoreAccountIncludingRequirementsUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingRequirementsUpdatedEvent,
         V2CoreAccountLinkCompletedEvent.lookup_type => V2CoreAccountLinkCompletedEvent,
+        V2CoreAccountPersonCreatedEvent.lookup_type => V2CoreAccountPersonCreatedEvent,
+        V2CoreAccountPersonDeletedEvent.lookup_type => V2CoreAccountPersonDeletedEvent,
+        V2CoreAccountPersonUpdatedEvent.lookup_type => V2CoreAccountPersonUpdatedEvent,
         V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
         V2MoneyManagementFinancialAccountCreatedEvent,
         V2MoneyManagementFinancialAddressActivatedEvent.lookup_type =>

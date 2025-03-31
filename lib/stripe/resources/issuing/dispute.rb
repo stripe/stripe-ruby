@@ -490,15 +490,6 @@ module Stripe
         end
       end
 
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
       class UpdateParams < Stripe::RequestParams
         class Evidence < Stripe::RequestParams
           class Canceled < Stripe::RequestParams

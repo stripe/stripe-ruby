@@ -3851,6 +3851,20 @@ module Stripe
       client.v1.quotes.update("qt_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx"
     end
+    should "Test quotes preview invoices lines get" do
+      Stripe::Quote.list_preview_invoice_lines("qt_xyz", "in_xyz")
+      assert_requested :get, "#{Stripe.api_base}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
+    end
+    should "Test quotes preview invoices lines get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
+      ).to_return(body: "{}")
+      client = StripeClient.new("sk_test_123")
+
+      client.v1.quotes.list_preview_invoice_lines("qt_xyz", "in_xyz")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
+    end
     should "Test radar early fraud warnings get" do
       Stripe::Radar::EarlyFraudWarning.list({ limit: 3 })
       assert_requested :get, "#{Stripe.api_base}/v1/radar/early_fraud_warnings?limit=3"
@@ -4855,6 +4869,22 @@ module Stripe
 
       client.v1.tax_codes.retrieve("txcd_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_codes/txcd_xxxxxxxxxxxxx"
+    end
+    should "Test tax forms pdf get" do
+      block_handler = {}
+      Stripe::Tax::Form.pdf("form_xxxxxxxxxxxxx", &block_handler)
+      assert_requested :get, "#{Stripe.api_base}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
+    end
+    should "Test tax forms pdf get (service)" do
+      block_handler = {}
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
+      ).to_return(body: "{}")
+      client = StripeClient.new("sk_test_123")
+
+      client.v1.tax.forms.pdf("form_xxxxxxxxxxxxx", &block_handler)
+      assert_requested :get, "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
     end
     should "Test tax ids delete" do
       Stripe::TaxId.delete("taxid_123")
@@ -7847,17 +7877,17 @@ module Stripe
       client.v2.money_management.outbound_payments.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123"
     end
-    should "Test v2 money management outbound payments quote post (service)" do
+    should "Test v2 money management outbound payment quote post (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/quotes"
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
       ).to_return(
         body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"to_currency"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"}}',
         status: 200
       )
       client = StripeClient.new("sk_test_123")
 
-      client.v2.money_management.outbound_payments.quotes.create({
+      client.v2.money_management.outbound_payment_quotes.create({
         amount: {
           currency: "USD",
           value: 96,
@@ -7872,7 +7902,7 @@ module Stripe
           recipient: "recipient",
         },
       })
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/quotes"
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payment_quotes"
     end
     should "Test v2 money management outbound transfer post (service)" do
       stub_request(

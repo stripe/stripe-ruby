@@ -381,13 +381,13 @@ module Stripe
         class AccountManagement < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             sig {
-              params(disable_stripe_user_authentication: T::Boolean, external_account_collection: T::Boolean).void
+              params(disable_stripe_user_authentication: T.nilable(T::Boolean), external_account_collection: T.nilable(T::Boolean)).void
              }
             def initialize(
               disable_stripe_user_authentication: nil,
@@ -399,24 +399,24 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::AccountManagement::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::AccountManagement::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class AccountOnboarding < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             sig {
-              params(disable_stripe_user_authentication: T::Boolean, external_account_collection: T::Boolean).void
+              params(disable_stripe_user_authentication: T.nilable(T::Boolean), external_account_collection: T.nilable(T::Boolean)).void
              }
             def initialize(
               disable_stripe_user_authentication: nil,
@@ -428,71 +428,75 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::AccountOnboarding::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class AppInstall < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # List of apps allowed to be enabled for this account session.
-            sig { returns(T.nilable(T::Array[String])) }
+            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
             attr_accessor :allowed_apps
-            sig { params(allowed_apps: T.nilable(T::Array[String])).void }
+            sig { params(allowed_apps: T.nilable(T.nilable(T.any(String, T::Array[String])))).void }
             def initialize(allowed_apps: nil); end
           end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::AppInstall::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AppInstall::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::AppInstall::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppInstall::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class AppViewport < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # List of apps allowed to be enabled for this account session.
-            sig { returns(T.nilable(T::Array[String])) }
+            sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
             attr_accessor :allowed_apps
-            sig { params(allowed_apps: T.nilable(T::Array[String])).void }
+            sig { params(allowed_apps: T.nilable(T.nilable(T.any(String, T::Array[String])))).void }
             def initialize(allowed_apps: nil); end
           end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::AppViewport::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AppViewport::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::AppViewport::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppViewport::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class Balances < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :edit_payout_schedule
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :instant_payouts
             # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :standard_payouts
             sig {
-              params(disable_stripe_user_authentication: T::Boolean, edit_payout_schedule: T::Boolean, external_account_collection: T::Boolean, instant_payouts: T::Boolean, standard_payouts: T::Boolean).void
+              params(disable_stripe_user_authentication: T.nilable(T::Boolean), edit_payout_schedule: T.nilable(T::Boolean), external_account_collection: T.nilable(T::Boolean), instant_payouts: T.nilable(T::Boolean), standard_payouts: T.nilable(T::Boolean)).void
              }
             def initialize(
               disable_stripe_user_authentication: nil,
@@ -506,10 +510,12 @@ module Stripe
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::Balances::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::Balances::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -522,11 +528,11 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancing::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -539,11 +545,11 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -556,11 +562,11 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -573,11 +579,11 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::CapitalOverview::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalOverview::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::CapitalOverview::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalOverview::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -589,29 +595,31 @@ module Stripe
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::Documents::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::Documents::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class FinancialAccount < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow external accounts to be linked for money transfer.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             # Whether to allow sending money.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :send_money
             # Whether to allow transferring balance.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :transfer_balance
             sig {
-              params(disable_stripe_user_authentication: T::Boolean, external_account_collection: T::Boolean, send_money: T::Boolean, transfer_balance: T::Boolean).void
+              params(disable_stripe_user_authentication: T.nilable(T::Boolean), external_account_collection: T.nilable(T::Boolean), send_money: T.nilable(T::Boolean), transfer_balance: T.nilable(T::Boolean)).void
              }
             def initialize(
               disable_stripe_user_authentication: nil,
@@ -625,20 +633,20 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::FinancialAccount::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::FinancialAccount::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class FinancialAccountTransactions < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow card spend dispute management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :card_spend_dispute_management
-            sig { params(card_spend_dispute_management: T::Boolean).void }
+            sig { params(card_spend_dispute_management: T.nilable(T::Boolean)).void }
             def initialize(card_spend_dispute_management: nil); end
           end
           # Whether the embedded component is enabled.
@@ -646,30 +654,30 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class IssuingCard < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow card management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :card_management
             # Whether to allow card spend dispute management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :card_spend_dispute_management
             # Whether to allow cardholder management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :cardholder_management
             # Whether to allow spend control management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :spend_control_management
             sig {
-              params(card_management: T::Boolean, card_spend_dispute_management: T::Boolean, cardholder_management: T::Boolean, spend_control_management: T::Boolean).void
+              params(card_management: T.nilable(T::Boolean), card_spend_dispute_management: T.nilable(T::Boolean), cardholder_management: T.nilable(T::Boolean), spend_control_management: T.nilable(T::Boolean)).void
              }
             def initialize(
               card_management: nil,
@@ -682,32 +690,34 @@ module Stripe
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::IssuingCard::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::IssuingCard::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class IssuingCardsList < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow card management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :card_management
             # Whether to allow card spend dispute management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :card_spend_dispute_management
             # Whether to allow cardholder management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :cardholder_management
             # Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow spend control management features.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :spend_control_management
             sig {
-              params(card_management: T::Boolean, card_spend_dispute_management: T::Boolean, cardholder_management: T::Boolean, disable_stripe_user_authentication: T::Boolean, spend_control_management: T::Boolean).void
+              params(card_management: T.nilable(T::Boolean), card_spend_dispute_management: T.nilable(T::Boolean), cardholder_management: T.nilable(T::Boolean), disable_stripe_user_authentication: T.nilable(T::Boolean), spend_control_management: T.nilable(T::Boolean)).void
              }
             def initialize(
               card_management: nil,
@@ -722,24 +732,24 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::IssuingCardsList::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class NotificationBanner < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             sig {
-              params(disable_stripe_user_authentication: T::Boolean, external_account_collection: T::Boolean).void
+              params(disable_stripe_user_authentication: T.nilable(T::Boolean), external_account_collection: T.nilable(T::Boolean)).void
              }
             def initialize(
               disable_stripe_user_authentication: nil,
@@ -751,30 +761,30 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::NotificationBanner::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::NotificationBanner::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class PaymentDetails < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :capture_payments
             # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :destination_on_behalf_of_charge_management
             # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :dispute_management
             # Whether to allow sending refunds. This is `true` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :refund_management
             sig {
-              params(capture_payments: T::Boolean, destination_on_behalf_of_charge_management: T::Boolean, dispute_management: T::Boolean, refund_management: T::Boolean).void
+              params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
              }
             def initialize(
               capture_payments: nil,
@@ -788,11 +798,11 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::PaymentDetails::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::PaymentDetails::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -805,30 +815,30 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class Payments < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :capture_payments
             # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :destination_on_behalf_of_charge_management
             # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :dispute_management
             # Whether to allow sending refunds. This is `true` by default.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :refund_management
             sig {
-              params(capture_payments: T::Boolean, destination_on_behalf_of_charge_management: T::Boolean, dispute_management: T::Boolean, refund_management: T::Boolean).void
+              params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
              }
             def initialize(
               capture_payments: nil,
@@ -841,32 +851,34 @@ module Stripe
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::Payments::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::Payments::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class Payouts < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :disable_stripe_user_authentication
             # Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :edit_payout_schedule
             # Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :external_account_collection
             # Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :instant_payouts
             # Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :standard_payouts
             sig {
-              params(disable_stripe_user_authentication: T::Boolean, edit_payout_schedule: T::Boolean, external_account_collection: T::Boolean, instant_payouts: T::Boolean, standard_payouts: T::Boolean).void
+              params(disable_stripe_user_authentication: T.nilable(T::Boolean), edit_payout_schedule: T.nilable(T::Boolean), external_account_collection: T.nilable(T::Boolean), instant_payouts: T.nilable(T::Boolean), standard_payouts: T.nilable(T::Boolean)).void
              }
             def initialize(
               disable_stripe_user_authentication: nil,
@@ -880,10 +892,12 @@ module Stripe
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::Payouts::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::Payouts::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -895,10 +909,12 @@ module Stripe
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::PayoutsList::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::PayoutsList::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -911,30 +927,32 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         class Recipients < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow sending money.
-            sig { returns(T::Boolean) }
+            sig { returns(T.nilable(T::Boolean)) }
             attr_accessor :send_money
-            sig { params(send_money: T::Boolean).void }
+            sig { params(send_money: T.nilable(T::Boolean)).void }
             def initialize(send_money: nil); end
           end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # Attribute for param field features
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::Recipients::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Recipients::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::Recipients::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::Recipients::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -947,11 +965,11 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::ReportingChart::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::ReportingChart::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::ReportingChart::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::ReportingChart::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -964,11 +982,11 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::TaxRegistrations::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -980,10 +998,12 @@ module Stripe
           sig { returns(T::Boolean) }
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
-          sig { returns(::Stripe::AccountSession::CreateParams::Components::TaxSettings::Features) }
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings::Features))
+           }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::TaxSettings::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -996,100 +1016,126 @@ module Stripe
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
           sig {
-            returns(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring::Features)
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring::Features))
            }
           attr_accessor :features
           sig {
-            params(enabled: T::Boolean, features: ::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring::Features).void
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
         # Configuration for the account management embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::AccountManagement) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement))
+         }
         attr_accessor :account_management
         # Configuration for the account onboarding embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding))
+         }
         attr_accessor :account_onboarding
         # Configuration for the app install component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::AppInstall) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AppInstall)) }
         attr_accessor :app_install
         # Configuration for the app viewport component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::AppViewport) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::AppViewport)) }
         attr_accessor :app_viewport
         # Configuration for the balances embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::Balances) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances)) }
         attr_accessor :balances
         # Configuration for the capital financing embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing))
+         }
         attr_accessor :capital_financing
         # Configuration for the capital financing application embedded component.
         sig {
-          returns(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication)
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication))
          }
         attr_accessor :capital_financing_application
         # Configuration for the capital financing promotion embedded component.
         sig {
-          returns(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion)
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion))
          }
         attr_accessor :capital_financing_promotion
         # Configuration for the capital overview embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::CapitalOverview) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalOverview))
+         }
         attr_accessor :capital_overview
         # Configuration for the documents embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::Documents) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents)) }
         attr_accessor :documents
         # Configuration for the financial account embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::FinancialAccount) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount))
+         }
         attr_accessor :financial_account
         # Configuration for the financial account transactions embedded component.
         sig {
-          returns(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions)
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions))
          }
         attr_accessor :financial_account_transactions
         # Configuration for the issuing card embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::IssuingCard) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard)) }
         attr_accessor :issuing_card
         # Configuration for the issuing cards list embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList))
+         }
         attr_accessor :issuing_cards_list
         # Configuration for the notification banner embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::NotificationBanner) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner))
+         }
         attr_accessor :notification_banner
         # Configuration for the payment details embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::PaymentDetails) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails))
+         }
         attr_accessor :payment_details
         # Configuration for the payment method settings embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings))
+         }
         attr_accessor :payment_method_settings
         # Configuration for the payments embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::Payments) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments)) }
         attr_accessor :payments
         # Configuration for the payouts embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::Payouts) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts)) }
         attr_accessor :payouts
         # Configuration for the payouts list embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::PayoutsList) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList)) }
         attr_accessor :payouts_list
         # Configuration for the product tax code selector embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector))
+         }
         attr_accessor :product_tax_code_selector
         # Configuration for the recipients component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::Recipients) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Recipients)) }
         attr_accessor :recipients
         # Configuration for the reporting chart embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::ReportingChart) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::ReportingChart))
+         }
         attr_accessor :reporting_chart
         # Configuration for the tax registrations embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations))
+         }
         attr_accessor :tax_registrations
         # Configuration for the tax settings embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::TaxSettings) }
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings)) }
         attr_accessor :tax_settings
         # Configuration for the tax threshold monitoring embedded component.
-        sig { returns(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring) }
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring))
+         }
         attr_accessor :tax_threshold_monitoring
         sig {
-          params(account_management: ::Stripe::AccountSession::CreateParams::Components::AccountManagement, account_onboarding: ::Stripe::AccountSession::CreateParams::Components::AccountOnboarding, app_install: ::Stripe::AccountSession::CreateParams::Components::AppInstall, app_viewport: ::Stripe::AccountSession::CreateParams::Components::AppViewport, balances: ::Stripe::AccountSession::CreateParams::Components::Balances, capital_financing: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancing, capital_financing_application: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication, capital_financing_promotion: ::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion, capital_overview: ::Stripe::AccountSession::CreateParams::Components::CapitalOverview, documents: ::Stripe::AccountSession::CreateParams::Components::Documents, financial_account: ::Stripe::AccountSession::CreateParams::Components::FinancialAccount, financial_account_transactions: ::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions, issuing_card: ::Stripe::AccountSession::CreateParams::Components::IssuingCard, issuing_cards_list: ::Stripe::AccountSession::CreateParams::Components::IssuingCardsList, notification_banner: ::Stripe::AccountSession::CreateParams::Components::NotificationBanner, payment_details: ::Stripe::AccountSession::CreateParams::Components::PaymentDetails, payment_method_settings: ::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings, payments: ::Stripe::AccountSession::CreateParams::Components::Payments, payouts: ::Stripe::AccountSession::CreateParams::Components::Payouts, payouts_list: ::Stripe::AccountSession::CreateParams::Components::PayoutsList, product_tax_code_selector: ::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector, recipients: ::Stripe::AccountSession::CreateParams::Components::Recipients, reporting_chart: ::Stripe::AccountSession::CreateParams::Components::ReportingChart, tax_registrations: ::Stripe::AccountSession::CreateParams::Components::TaxRegistrations, tax_settings: ::Stripe::AccountSession::CreateParams::Components::TaxSettings, tax_threshold_monitoring: ::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring).void
+          params(account_management: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding), app_install: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppInstall), app_viewport: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppViewport), balances: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances), capital_financing: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalOverview), documents: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents), financial_account: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions), issuing_card: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails), payment_method_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings), payments: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments), payouts: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(::Stripe::AccountSession::CreateParams::Components::Recipients), reporting_chart: T.nilable(::Stripe::AccountSession::CreateParams::Components::ReportingChart), tax_registrations: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring)).void
          }
         def initialize(
           account_management: nil,
@@ -1127,10 +1173,10 @@ module Stripe
       sig { returns(::Stripe::AccountSession::CreateParams::Components) }
       attr_accessor :components
       # Specifies which fields in the response should be expanded.
-      sig { returns(T::Array[String]) }
+      sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       sig {
-        params(account: String, components: ::Stripe::AccountSession::CreateParams::Components, expand: T::Array[String]).void
+        params(account: String, components: ::Stripe::AccountSession::CreateParams::Components, expand: T.nilable(T::Array[String])).void
        }
       def initialize(account: nil, components: nil, expand: nil); end
     end

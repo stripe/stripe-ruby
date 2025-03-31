@@ -62,15 +62,6 @@ module Stripe
     class DeleteParams < Stripe::RequestParams
     end
 
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
     class UpdateParams < Stripe::RequestParams
       class Discount < Stripe::RequestParams
         class DiscountEnd < Stripe::RequestParams
@@ -492,7 +483,7 @@ module Stripe
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # Attribute for field parent
+    # The parent that generated this invoice
     attr_reader :parent
     # Attribute for field period
     attr_reader :period

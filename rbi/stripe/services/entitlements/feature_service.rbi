@@ -7,25 +7,25 @@ module Stripe
     class FeatureService < StripeService
       class ListParams < Stripe::RequestParams
         # If set, filter results to only include features with the given archive status.
-        sig { returns(T::Boolean) }
+        sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :archived
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # If set, filter results to only include features with the given lookup_key.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :lookup_key
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         sig {
-          params(archived: T::Boolean, ending_before: String, expand: T::Array[String], limit: Integer, lookup_key: String, starting_after: String).void
+          params(archived: T.nilable(T::Boolean), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), lookup_key: T.nilable(String), starting_after: T.nilable(String)).void
          }
         def initialize(
           archived: nil,
@@ -38,36 +38,11 @@ module Stripe
       end
       class CreateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A unique key you provide as your own system identifier. This may be up to 80 characters.
         sig { returns(String) }
         attr_accessor :lookup_key
-        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        sig { returns(T::Hash[String, String]) }
-        attr_accessor :metadata
-        # The feature's name, for your own purpose, not meant to be displayable to the customer.
-        sig { returns(String) }
-        attr_accessor :name
-        sig {
-          params(expand: T::Array[String], lookup_key: String, metadata: T::Hash[String, String], name: String).void
-         }
-        def initialize(expand: nil, lookup_key: nil, metadata: nil, name: nil); end
-      end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
-        def initialize(expand: nil); end
-      end
-      class UpdateParams < Stripe::RequestParams
-        # Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
-        sig { returns(T::Boolean) }
-        attr_accessor :active
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
@@ -75,7 +50,32 @@ module Stripe
         sig { returns(String) }
         attr_accessor :name
         sig {
-          params(active: T::Boolean, expand: T::Array[String], metadata: T.nilable(T::Hash[String, String]), name: String).void
+          params(expand: T.nilable(T::Array[String]), lookup_key: String, metadata: T.nilable(T::Hash[String, String]), name: String).void
+         }
+        def initialize(expand: nil, lookup_key: nil, metadata: nil, name: nil); end
+      end
+      class RetrieveParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        sig { params(expand: T.nilable(T::Array[String])).void }
+        def initialize(expand: nil); end
+      end
+      class UpdateParams < Stripe::RequestParams
+        # Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
+        sig { returns(T.nilable(T::Boolean)) }
+        attr_accessor :active
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
+        attr_accessor :metadata
+        # The feature's name, for your own purpose, not meant to be displayable to the customer.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :name
+        sig {
+          params(active: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String)).void
          }
         def initialize(active: nil, expand: nil, metadata: nil, name: nil); end
       end

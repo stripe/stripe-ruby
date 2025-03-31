@@ -28,15 +28,6 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # A detailed description of which types of products the tax code represents.
     attr_reader :description
     # Unique identifier for the object.

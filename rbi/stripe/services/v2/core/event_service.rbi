@@ -8,12 +8,12 @@ module Stripe
       class EventService < StripeService
         class ListParams < Stripe::RequestParams
           # The page size.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :limit
           # Primary object ID used to retrieve related events.
           sig { returns(String) }
           attr_accessor :object_id
-          sig { params(limit: Integer, object_id: String).void }
+          sig { params(limit: T.nilable(Integer), object_id: String).void }
           def initialize(limit: nil, object_id: nil); end
         end
         class RetrieveParams < Stripe::RequestParams

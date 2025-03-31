@@ -985,7 +985,7 @@ module Stripe
             end
             # The Customer Configuration allows the Account to be used in inbound payment flows.
             attr_accessor :customer
-            # The Merchant Configuration allows the Account to make charges.
+            # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
             attr_accessor :merchant
             # The Recipient Configuration allows the Account to receive funds.
             attr_accessor :recipient
@@ -1996,7 +1996,7 @@ module Stripe
           end
           # An Account Configuration which allows the Account to take on a key persona across Stripe products.
           attr_accessor :configuration
-          # The default contact email address for the Account.
+          # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
           attr_accessor :contact_email
           # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
           attr_accessor :dashboard
@@ -3023,7 +3023,7 @@ module Stripe
             end
             # The Customer Configuration allows the Account to be charged.
             attr_accessor :customer
-            # The Merchant Configuration allows the Account to make charges.
+            # The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you’ve completed onboarding as a Connect platform.
             attr_accessor :merchant
             # The Recipient Configuration allows the Account to receive funds.
             attr_accessor :recipient
@@ -4034,7 +4034,7 @@ module Stripe
           end
           # An Account Configuration which allows the Account to take on a key persona across Stripe products.
           attr_accessor :configuration
-          # The default contact email address for the Account.
+          # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
           attr_accessor :contact_email
           # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
           attr_accessor :dashboard

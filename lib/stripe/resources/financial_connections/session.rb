@@ -48,15 +48,6 @@ module Stripe
         attr_reader :cancelled
       end
 
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
       class CreateParams < Stripe::RequestParams
         class AccountHolder < Stripe::RequestParams
           # The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.

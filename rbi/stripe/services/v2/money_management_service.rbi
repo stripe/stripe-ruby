@@ -10,6 +10,7 @@ module Stripe
       attr_reader :financial_addresses
       attr_reader :inbound_transfers
       attr_reader :outbound_payments
+      attr_reader :outbound_payment_quotes
       attr_reader :outbound_transfers
       attr_reader :outbound_setup_intents
       attr_reader :payout_methods

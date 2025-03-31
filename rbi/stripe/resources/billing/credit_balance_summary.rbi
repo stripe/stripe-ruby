@@ -61,62 +61,6 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
-      class RetrieveParams < Stripe::RequestParams
-        class Filter < Stripe::RequestParams
-          class ApplicabilityScope < Stripe::RequestParams
-            class Price < Stripe::RequestParams
-              # The price ID this credit grant should apply to.
-              sig { returns(String) }
-              attr_accessor :id
-              sig { params(id: String).void }
-              def initialize(id: nil); end
-            end
-            # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
-            sig { returns(String) }
-            attr_accessor :price_type
-            # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
-            sig {
-              returns(T::Array[::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter::ApplicabilityScope::Price])
-             }
-            attr_accessor :prices
-            sig {
-              params(price_type: String, prices: T::Array[::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter::ApplicabilityScope::Price]).void
-             }
-            def initialize(price_type: nil, prices: nil); end
-          end
-          # The billing credit applicability scope for which to fetch credit balance summary.
-          sig {
-            returns(::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter::ApplicabilityScope)
-           }
-          attr_accessor :applicability_scope
-          # The credit grant for which to fetch credit balance summary.
-          sig { returns(String) }
-          attr_accessor :credit_grant
-          # Specify the type of this filter.
-          sig { returns(String) }
-          attr_accessor :type
-          sig {
-            params(applicability_scope: ::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter::ApplicabilityScope, credit_grant: String, type: String).void
-           }
-          def initialize(applicability_scope: nil, credit_grant: nil, type: nil); end
-        end
-        # The customer for which to fetch credit balance summary.
-        sig { returns(String) }
-        attr_accessor :customer
-        # The account for which to fetch credit balance summary.
-        sig { returns(String) }
-        attr_accessor :customer_account
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
-        # The filter criteria for the credit balance summary.
-        sig { returns(::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter) }
-        attr_accessor :filter
-        sig {
-          params(customer: String, customer_account: String, expand: T::Array[String], filter: ::Stripe::Billing::CreditBalanceSummary::RetrieveParams::Filter).void
-         }
-        def initialize(customer: nil, customer_account: nil, expand: nil, filter: nil); end
-      end
     end
   end
 end

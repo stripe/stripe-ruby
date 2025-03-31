@@ -133,15 +133,6 @@ module Stripe
           @transaction = transaction
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # Change to a FinancialAccount's balance
       attr_reader :balance_impact
       # Time at which the object was created. Measured in seconds since the Unix epoch.

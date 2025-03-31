@@ -196,28 +196,21 @@ module Stripe
       # If `reversal`, this transaction reverses an earlier transaction.
       sig { returns(String) }
       attr_reader :type
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
-        def initialize(expand: nil); end
-      end
       class ListLineItemsParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         sig {
-          params(ending_before: String, expand: T::Array[String], limit: Integer, starting_after: String).void
+          params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
          }
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil); end
       end
@@ -226,19 +219,19 @@ module Stripe
         sig { returns(String) }
         attr_accessor :calculation
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # The Unix timestamp representing when the tax liability is assumed or reduced, which determines the liability posting period and handling in tax liability reports. The timestamp must fall within the `tax_date` and the current time, unless the `tax_date` is scheduled in advance. Defaults to the current time.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :posted_at
         # A custom order or sale identifier, such as 'myOrder_123'. Must be unique across all transactions, including reversals.
         sig { returns(String) }
         attr_accessor :reference
         sig {
-          params(calculation: String, expand: T::Array[String], metadata: T::Hash[String, String], posted_at: Integer, reference: String).void
+          params(calculation: String, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), posted_at: T.nilable(Integer), reference: String).void
          }
         def initialize(
           calculation: nil,
@@ -257,19 +250,19 @@ module Stripe
           sig { returns(Integer) }
           attr_accessor :amount_tax
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-          sig { returns(T::Hash[String, String]) }
+          sig { returns(T.nilable(T::Hash[String, String])) }
           attr_accessor :metadata
           # The `id` of the line item to reverse in the original transaction.
           sig { returns(String) }
           attr_accessor :original_line_item
           # The quantity reversed. Appears in [tax exports](https://stripe.com/docs/tax/reports), but does not affect the amount of tax reversed.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :quantity
           # A custom identifier for this line item in the reversal transaction, such as 'L1-refund'.
           sig { returns(String) }
           attr_accessor :reference
           sig {
-            params(amount: Integer, amount_tax: Integer, metadata: T::Hash[String, String], original_line_item: String, quantity: Integer, reference: String).void
+            params(amount: Integer, amount_tax: Integer, metadata: T.nilable(T::Hash[String, String]), original_line_item: String, quantity: T.nilable(Integer), reference: String).void
            }
           def initialize(
             amount: nil,
@@ -291,16 +284,18 @@ module Stripe
           def initialize(amount: nil, amount_tax: nil); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :flat_amount
         # The line item amounts to reverse.
-        sig { returns(T::Array[::Stripe::Tax::Transaction::CreateReversalParams::LineItem]) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Tax::Transaction::CreateReversalParams::LineItem]))
+         }
         attr_accessor :line_items
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.
         sig { returns(String) }
@@ -312,10 +307,10 @@ module Stripe
         sig { returns(String) }
         attr_accessor :reference
         # The shipping cost to reverse.
-        sig { returns(::Stripe::Tax::Transaction::CreateReversalParams::ShippingCost) }
+        sig { returns(T.nilable(::Stripe::Tax::Transaction::CreateReversalParams::ShippingCost)) }
         attr_accessor :shipping_cost
         sig {
-          params(expand: T::Array[String], flat_amount: Integer, line_items: T::Array[::Stripe::Tax::Transaction::CreateReversalParams::LineItem], metadata: T::Hash[String, String], mode: String, original_transaction: String, reference: String, shipping_cost: ::Stripe::Tax::Transaction::CreateReversalParams::ShippingCost).void
+          params(expand: T.nilable(T::Array[String]), flat_amount: T.nilable(Integer), line_items: T.nilable(T::Array[::Stripe::Tax::Transaction::CreateReversalParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), mode: String, original_transaction: String, reference: String, shipping_cost: T.nilable(::Stripe::Tax::Transaction::CreateReversalParams::ShippingCost)).void
          }
         def initialize(
           expand: nil,

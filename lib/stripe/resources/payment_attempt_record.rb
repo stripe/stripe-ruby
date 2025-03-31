@@ -1030,15 +1030,6 @@ module Stripe
         @payment_record = payment_record
       end
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # A representation of an amount of money, consisting of an amount and a currency.
     attr_reader :amount_canceled
     # A representation of an amount of money, consisting of an amount and a currency.

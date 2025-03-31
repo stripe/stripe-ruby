@@ -41,15 +41,6 @@ module Stripe
     class DeleteParams < Stripe::RequestParams
     end
 
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
     class ListParams < Stripe::RequestParams
       class Owner < Stripe::RequestParams
         # Account the tax ID belongs to. Required when `type=account`

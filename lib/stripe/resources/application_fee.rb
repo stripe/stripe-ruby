@@ -69,15 +69,6 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # ID of the Stripe account this fee was taken from.
     attr_reader :account
     # Amount earned, in cents (or local equivalent).

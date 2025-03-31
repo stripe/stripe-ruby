@@ -159,25 +159,25 @@ module Stripe
       attr_reader :transaction
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :ending_before
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Returns objects associated with this FinancialAccount.
         sig { returns(String) }
         attr_accessor :financial_account
         # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         attr_accessor :limit
         # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :starting_after
         # Only return InboundTransfers that have the given status: `processing`, `succeeded`, `failed` or `canceled`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :status
         sig {
-          params(ending_before: String, expand: T::Array[String], financial_account: String, limit: Integer, starting_after: String, status: String).void
+          params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String)).void
          }
         def initialize(
           ending_before: nil,
@@ -196,25 +196,25 @@ module Stripe
         sig { returns(String) }
         attr_accessor :currency
         # An arbitrary string attached to the object. Often useful for displaying to users.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # The FinancialAccount to send funds to.
         sig { returns(String) }
         attr_accessor :financial_account
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         attr_accessor :metadata
         # The origin payment method to be debited for the InboundTransfer.
         sig { returns(String) }
         attr_accessor :origin_payment_method
         # The complete description that appears on your customers' statements. Maximum 10 characters.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :statement_descriptor
         sig {
-          params(amount: Integer, currency: String, description: String, expand: T::Array[String], financial_account: String, metadata: T::Hash[String, String], origin_payment_method: String, statement_descriptor: String).void
+          params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), origin_payment_method: String, statement_descriptor: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -227,51 +227,44 @@ module Stripe
           statement_descriptor: nil
         ); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
-        attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
-        def initialize(expand: nil); end
-      end
       class CancelParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class FailParams < Stripe::RequestParams
         class FailureDetails < Stripe::RequestParams
           # Reason for the failure.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           attr_accessor :code
-          sig { params(code: String).void }
+          sig { params(code: T.nilable(String)).void }
           def initialize(code: nil); end
         end
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # Details about a failed InboundTransfer.
-        sig { returns(::Stripe::Treasury::InboundTransfer::FailParams::FailureDetails) }
+        sig { returns(T.nilable(::Stripe::Treasury::InboundTransfer::FailParams::FailureDetails)) }
         attr_accessor :failure_details
         sig {
-          params(expand: T::Array[String], failure_details: ::Stripe::Treasury::InboundTransfer::FailParams::FailureDetails).void
+          params(expand: T.nilable(T::Array[String]), failure_details: T.nilable(::Stripe::Treasury::InboundTransfer::FailParams::FailureDetails)).void
          }
         def initialize(expand: nil, failure_details: nil); end
       end
       class ReturnInboundTransferParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       class SucceedParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
-        sig { returns(T::Array[String]) }
+        sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        sig { params(expand: T::Array[String]).void }
+        sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
       # Cancels an InboundTransfer.

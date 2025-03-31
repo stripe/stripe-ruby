@@ -1017,15 +1017,6 @@ module Stripe
       attr_reader :phone
     end
 
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
     class ReportPaymentAttemptParams < Stripe::RequestParams
       class Failed < Stripe::RequestParams
         # When the reported payment failed. Measured in seconds since the Unix epoch.

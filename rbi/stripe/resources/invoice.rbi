@@ -753,9 +753,6 @@ module Stripe
     # Attribute for field status_transitions
     sig { returns(StatusTransitions) }
     attr_reader :status_transitions
-    # Attribute for field subscription
-    sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
-    attr_reader :subscription
     # Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
     sig { returns(Integer) }
     attr_reader :subtotal

@@ -3230,8 +3230,6 @@ module Stripe
     attr_reader :status
     # Attribute for field status_transitions
     attr_reader :status_transitions
-    # Attribute for field subscription
-    attr_reader :subscription
     # Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
     attr_reader :subtotal
     # The integer amount in cents (or local equivalent) representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated

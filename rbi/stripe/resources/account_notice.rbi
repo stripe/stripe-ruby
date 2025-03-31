@@ -86,13 +86,6 @@ module Stripe
         starting_after: nil
       ); end
     end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     class UpdateParams < Stripe::RequestParams
       class Email < Stripe::RequestParams
         # Content of the email in plain text. The copy must match exactly the language that Stripe Compliance has approved for use.

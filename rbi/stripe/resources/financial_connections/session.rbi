@@ -89,13 +89,6 @@ module Stripe
       # Attribute for field status_details
       sig { returns(StatusDetails) }
       attr_reader :status_details
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       class CreateParams < Stripe::RequestParams
         class AccountHolder < Stripe::RequestParams
           # The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.

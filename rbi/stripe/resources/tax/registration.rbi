@@ -2446,13 +2446,6 @@ module Stripe
           expires_at: nil
         ); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       class UpdateParams < Stripe::RequestParams
         # Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
         sig { returns(T.nilable(T.any(String, Integer))) }

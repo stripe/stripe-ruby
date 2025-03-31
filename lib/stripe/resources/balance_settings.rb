@@ -33,15 +33,6 @@ module Stripe
       attr_reader :delay_days
     end
 
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
     class UpdateParams < Stripe::RequestParams
       class Payouts < Stripe::RequestParams
         class Schedule < Stripe::RequestParams

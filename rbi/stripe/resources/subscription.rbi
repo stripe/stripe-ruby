@@ -462,13 +462,6 @@ module Stripe
        }
       def initialize(cancellation_details: nil, expand: nil, invoice_now: nil, prorate: nil); end
     end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     class UpdateParams < Stripe::RequestParams
       class AddInvoiceItem < Stripe::RequestParams
         class Discount < Stripe::RequestParams

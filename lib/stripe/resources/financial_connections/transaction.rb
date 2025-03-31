@@ -79,15 +79,6 @@ module Stripe
           @transaction_refresh = transaction_refresh
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # The ID of the Financial Connections Account this transaction belongs to.
       attr_reader :account
       # The amount of this transaction, in cents (or local equivalent).

@@ -53,13 +53,6 @@ module Stripe
     class DeleteParams < Stripe::RequestParams
 
     end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     class UpdateParams < Stripe::RequestParams
       # An optional description of what the webhook is used for.
       sig { returns(T.nilable(T.nilable(String))) }

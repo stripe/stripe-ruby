@@ -99,15 +99,6 @@ module Stripe
         end
       end
 
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
       class CorrectParams < Stripe::RequestParams
         class Application < Stripe::RequestParams
           # The channel through which the applicant has submitted their application. Defaults to `online`.

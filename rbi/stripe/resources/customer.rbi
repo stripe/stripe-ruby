@@ -216,13 +216,6 @@ module Stripe
     class DeleteParams < Stripe::RequestParams
 
     end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     class UpdateParams < Stripe::RequestParams
       class Address < Stripe::RequestParams
         # City, district, suburb, town, or village.
@@ -884,6 +877,13 @@ module Stripe
         params(bank_transfer: ::Stripe::Customer::CreateFundingInstructionsParams::BankTransfer, currency: String, expand: T.nilable(T::Array[String]), funding_type: String).void
        }
       def initialize(bank_transfer: nil, currency: nil, expand: nil, funding_type: nil); end
+    end
+    class RetrieveParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_accessor :expand
+      sig { params(expand: T.nilable(T::Array[String])).void }
+      def initialize(expand: nil); end
     end
     class FundCashBalanceParams < Stripe::RequestParams
       # Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency).

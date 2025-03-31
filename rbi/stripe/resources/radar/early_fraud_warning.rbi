@@ -88,13 +88,6 @@ module Stripe
           starting_after: nil
         ); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       # Returns a list of early fraud warnings.
       sig {
         params(params: T.any(::Stripe::Radar::EarlyFraudWarning::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)

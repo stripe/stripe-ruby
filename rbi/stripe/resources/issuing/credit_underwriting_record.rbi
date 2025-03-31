@@ -147,13 +147,6 @@ module Stripe
          }
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       class CorrectParams < Stripe::RequestParams
         class Application < Stripe::RequestParams
           # The channel through which the applicant has submitted their application. Defaults to `online`.

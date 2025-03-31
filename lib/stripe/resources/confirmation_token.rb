@@ -862,15 +862,6 @@ module Stripe
       attr_reader :phone
     end
 
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
     class CreateParams < Stripe::RequestParams
       class PaymentMethodData < Stripe::RequestParams
         class AcssDebit < Stripe::RequestParams

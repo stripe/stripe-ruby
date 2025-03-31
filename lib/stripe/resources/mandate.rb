@@ -152,15 +152,6 @@ module Stripe
       # The currency of the payment on a single use mandate.
       attr_reader :currency
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # Attribute for field customer_acceptance
     attr_reader :customer_acceptance
     # Unique identifier for the object.

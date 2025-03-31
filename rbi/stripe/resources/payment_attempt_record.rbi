@@ -1364,13 +1364,6 @@ module Stripe
       sig { params(expand: T.nilable(T::Array[String]), payment_record: String).void }
       def initialize(expand: nil, payment_record: nil); end
     end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     # List all the Payment Attempt Records attached to the specified Payment Record.
     sig {
       params(params: T.any(::Stripe::PaymentAttemptRecord::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)

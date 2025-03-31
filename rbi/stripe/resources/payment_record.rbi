@@ -1351,13 +1351,6 @@ module Stripe
     # Shipping information for this payment.
     sig { returns(T.nilable(ShippingDetails)) }
     attr_reader :shipping_details
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     class ReportPaymentAttemptParams < Stripe::RequestParams
       class Failed < Stripe::RequestParams
         # When the reported payment failed. Measured in seconds since the Unix epoch.

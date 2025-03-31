@@ -65,13 +65,6 @@ module Stripe
          }
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       # Lists all available Climate product objects.
       sig {
         params(params: T.any(::Stripe::Climate::Product::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)

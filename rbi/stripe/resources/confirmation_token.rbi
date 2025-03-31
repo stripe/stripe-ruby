@@ -1154,13 +1154,6 @@ module Stripe
     # Indicates whether the Stripe SDK is used to handle confirmation flow. Defaults to `true` on ConfirmationToken.
     sig { returns(T::Boolean) }
     attr_reader :use_stripe_sdk
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     class CreateParams < Stripe::RequestParams
       class PaymentMethodData < Stripe::RequestParams
         class AcssDebit < Stripe::RequestParams

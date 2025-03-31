@@ -40,15 +40,6 @@ module Stripe
         # Per-transaction rate at which Stripe will withhold funds to repay the financing.
         attr_reader :withhold_rate
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # Additional information about the financing summary. Describes currency, advance amount,
       # fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
       # repayment start date, and advance payout date.

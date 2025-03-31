@@ -112,13 +112,6 @@ module Stripe
           treasury_transaction: nil
         ); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       # Returns a list of financing transactions. The transactions are returned in sorted order,
       # with the most recent transactions appearing first.
       sig {

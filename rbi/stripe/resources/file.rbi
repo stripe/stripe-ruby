@@ -126,13 +126,6 @@ module Stripe
        }
       def initialize(expand: nil, file: nil, file_link_data: nil, purpose: nil); end
     end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     # To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.
     #
     # All of Stripe's officially supported Client libraries support sending multipart/form-data.

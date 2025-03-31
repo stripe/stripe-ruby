@@ -76,15 +76,6 @@ module Stripe
           @treasury_transaction = treasury_transaction
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # The ID of the merchant associated with this financing transaction.
       attr_reader :account
       # Time at which the financing transaction was created. Given in seconds since unix epoch.

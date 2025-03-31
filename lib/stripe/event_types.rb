@@ -9,10 +9,16 @@ module Stripe
         V1BillingMeterNoMeterFoundEvent.lookup_type => V1BillingMeterNoMeterFoundEvent,
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
+        V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
         V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
+        V2CoreAccountIncludingConfigurationMerchantUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
         V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
+        V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
         V2CoreAccountIncludingIdentityUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingIdentityUpdatedEvent,
         V2CoreAccountIncludingRequirementsUpdatedEvent.lookup_type =>

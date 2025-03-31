@@ -174,6 +174,9 @@ module Stripe
       # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
       sig { returns(T.nilable(String)) }
       attr_accessor :duration
+      # Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
+      sig { returns(T.nilable(Integer)) }
+      attr_accessor :duration_in_months
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
@@ -196,7 +199,7 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_accessor :redeem_by
       sig {
-        params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::Coupon::CreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::Coupon::CreateParams::CurrencyOptions]), duration: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer)).void
+        params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::Coupon::CreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::Coupon::CreateParams::CurrencyOptions]), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer)).void
        }
       def initialize(
         amount_off: nil,
@@ -204,6 +207,7 @@ module Stripe
         currency: nil,
         currency_options: nil,
         duration: nil,
+        duration_in_months: nil,
         expand: nil,
         id: nil,
         max_redemptions: nil,

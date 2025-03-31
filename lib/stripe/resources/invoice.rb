@@ -214,23 +214,24 @@ module Stripe
 
     class Parent < Stripe::StripeObject
       class QuoteDetails < Stripe::StripeObject
-        # Attribute for field quote
+        # The quote that generated this invoice
         attr_reader :quote
       end
 
       class SubscriptionDetails < Stripe::StripeObject
-        # Attribute for field metadata
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
         attr_reader :metadata
-        # Attribute for field subscription
+        # The subscription that generated this invoice
         attr_reader :subscription
-        # Attribute for field subscription_proration_date
+        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         attr_reader :subscription_proration_date
       end
-      # Attribute for field quote_details
+      # Details about the quote that generated this invoice
       attr_reader :quote_details
-      # Attribute for field subscription_details
+      # Details about the subscription that generated this invoice
       attr_reader :subscription_details
-      # Attribute for field type
+      # The type of parent that generated this invoice
       attr_reader :type
     end
 
@@ -3199,7 +3200,7 @@ module Stripe
     attr_reader :object
     # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     attr_reader :on_behalf_of
-    # Attribute for field parent
+    # The parent that generated this invoice
     attr_reader :parent
     # Attribute for field payment_settings
     attr_reader :payment_settings

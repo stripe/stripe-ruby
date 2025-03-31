@@ -222,6 +222,7 @@ module Stripe
                                         params: {}, opts: {}, usage: [])
       opts = RequestOptions.combine_opts(object.instance_variable_get(:@opts), opts)
       opts = Util.normalize_opts(opts)
+      params = params.to_h if params.is_a?(RequestParams)
       http_resp, req_opts = execute_request_internal(
         method, path, base_address, params, opts, usage
       )
@@ -271,6 +272,7 @@ module Stripe
               "execute_request_stream requires a read_body_chunk_block"
       end
 
+      params = params.to_h if params.is_a?(RequestParams)
       http_resp, api_key = execute_request_internal(
         method, path, base_address, params, opts, usage, &read_body_chunk_block
       )

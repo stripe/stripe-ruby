@@ -15,6 +15,74 @@ module Stripe
       sig { returns(T.any(String, Stripe::Discount)) }
       attr_reader :discount
     end
+    class Parent < Stripe::StripeObject
+      class InvoiceItemDetails < Stripe::StripeObject
+        class ProrationDetails < Stripe::StripeObject
+          class CreditedItems < Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            sig { returns(String) }
+            attr_reader :invoice
+            # Credited invoice line items
+            sig { returns(T::Array[String]) }
+            attr_reader :invoice_line_items
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          sig { returns(T.nilable(CreditedItems)) }
+          attr_reader :credited_items
+        end
+        # Attribute for field invoice_item
+        sig { returns(String) }
+        attr_reader :invoice_item
+        # Whether this is a proration.
+        sig { returns(T::Boolean) }
+        attr_reader :proration
+        # Additional details for proration line items
+        sig { returns(T.nilable(ProrationDetails)) }
+        attr_reader :proration_details
+        # Attribute for field subscription
+        sig { returns(T.nilable(String)) }
+        attr_reader :subscription
+      end
+      class SubscriptionItemDetails < Stripe::StripeObject
+        class ProrationDetails < Stripe::StripeObject
+          class CreditedItems < Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            sig { returns(String) }
+            attr_reader :invoice
+            # Credited invoice line items
+            sig { returns(T::Array[String]) }
+            attr_reader :invoice_line_items
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          sig { returns(T.nilable(CreditedItems)) }
+          attr_reader :credited_items
+        end
+        # Attribute for field invoice_item
+        sig { returns(T.nilable(String)) }
+        attr_reader :invoice_item
+        # Whether this is a proration.
+        sig { returns(T::Boolean) }
+        attr_reader :proration
+        # Additional details for proration line items
+        sig { returns(T.nilable(ProrationDetails)) }
+        attr_reader :proration_details
+        # Attribute for field subscription
+        sig { returns(String) }
+        attr_reader :subscription
+        # Attribute for field subscription_item
+        sig { returns(String) }
+        attr_reader :subscription_item
+      end
+      # Attribute for field invoice_item_details
+      sig { returns(T.nilable(InvoiceItemDetails)) }
+      attr_reader :invoice_item_details
+      # Attribute for field subscription_item_details
+      sig { returns(T.nilable(SubscriptionItemDetails)) }
+      attr_reader :subscription_item_details
+      # Attribute for field type
+      sig { returns(String) }
+      attr_reader :type
+    end
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       sig { returns(Integer) }
@@ -37,42 +105,53 @@ module Stripe
       sig { returns(String) }
       attr_reader :type
     end
-    class ProrationDetails < Stripe::StripeObject
-      class CreditedItems < Stripe::StripeObject
-        # Invoice containing the credited invoice line items
+    class Pricing < Stripe::StripeObject
+      class PriceDetails < Stripe::StripeObject
+        # The ID of the price this item is associated with.
         sig { returns(String) }
-        attr_reader :invoice
-        # Credited invoice line items
-        sig { returns(T::Array[String]) }
-        attr_reader :invoice_line_items
+        attr_reader :price
+        # The ID of the product this item is associated with.
+        sig { returns(String) }
+        attr_reader :product
       end
-      # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
-      sig { returns(T.nilable(CreditedItems)) }
-      attr_reader :credited_items
+      # Attribute for field price_details
+      sig { returns(PriceDetails) }
+      attr_reader :price_details
+      # The type of the pricing details.
+      sig { returns(String) }
+      attr_reader :type
+      # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
+      sig { returns(T.nilable(String)) }
+      attr_reader :unit_amount_decimal
     end
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
+    class Tax < Stripe::StripeObject
+      class TaxRateDetails < Stripe::StripeObject
+        # Attribute for field tax_rate
+        sig { returns(String) }
+        attr_reader :tax_rate
+      end
+      # The amount of the tax, in cents (or local equivalent).
       sig { returns(Integer) }
       attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      sig { returns(T::Boolean) }
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      sig { returns(T.any(String, Stripe::TaxRate)) }
-      attr_reader :tax_rate
+      # Whether this tax is inclusive or exclusive.
+      sig { returns(String) }
+      attr_reader :tax_behavior
+      # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+      sig { returns(T.nilable(TaxRateDetails)) }
+      attr_reader :tax_rate_details
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       sig { returns(T.nilable(Integer)) }
       attr_reader :taxable_amount
+      # The type of tax information.
+      sig { returns(String) }
+      attr_reader :type
     end
     # The amount, in cents (or local equivalent).
     sig { returns(Integer) }
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(Integer)) }
-    attr_reader :amount_excluding_tax
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     attr_reader :currency
@@ -94,9 +173,6 @@ module Stripe
     # The ID of the invoice that contains this line item.
     sig { returns(T.nilable(String)) }
     attr_reader :invoice
-    # The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any.
-    sig { returns(T.any(String, Stripe::InvoiceItem)) }
-    attr_reader :invoice_item
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     sig { returns(T::Boolean) }
     attr_reader :livemode
@@ -106,45 +182,27 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
+    # Attribute for field parent
+    sig { returns(T.nilable(Parent)) }
+    attr_reader :parent
     # Attribute for field period
     sig { returns(Period) }
     attr_reader :period
-    # The plan of the subscription, if the line item is a subscription or a proration.
-    sig { returns(T.nilable(Stripe::Plan)) }
-    attr_reader :plan
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
     sig { returns(T.nilable(T::Array[PretaxCreditAmount])) }
     attr_reader :pretax_credit_amounts
-    # The price of the line item.
-    sig { returns(T.nilable(Stripe::Price)) }
-    attr_reader :price
-    # Whether this is a proration.
-    sig { returns(T::Boolean) }
-    attr_reader :proration
-    # Additional details for proration line items
-    sig { returns(T.nilable(ProrationDetails)) }
-    attr_reader :proration_details
+    # The pricing information of the line item.
+    sig { returns(T.nilable(Pricing)) }
+    attr_reader :pricing
     # The quantity of the subscription, if the line item is a subscription or a proration.
     sig { returns(T.nilable(Integer)) }
     attr_reader :quantity
-    # The subscription that the invoice item pertains to, if any.
+    # Attribute for field subscription
     sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
     attr_reader :subscription
-    # The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
-    sig { returns(T.any(String, Stripe::SubscriptionItem)) }
-    attr_reader :subscription_item
-    # The amount of tax calculated per tax rate for this line item
-    sig { returns(T::Array[TaxAmount]) }
-    attr_reader :tax_amounts
-    # The tax rates which apply to the line item.
-    sig { returns(T::Array[Stripe::TaxRate]) }
-    attr_reader :tax_rates
-    # A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
-    sig { returns(String) }
-    attr_reader :type
-    # The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
-    sig { returns(T.nilable(String)) }
-    attr_reader :unit_amount_excluding_tax
+    # The tax information of the line item.
+    sig { returns(T.nilable(T::Array[Tax])) }
+    attr_reader :taxes
     class UpdateParams < Stripe::RequestParams
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
@@ -202,10 +260,10 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         sig { returns(T.nilable(String)) }
         attr_accessor :product
-        # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         sig { returns(T.nilable(::Stripe::InvoiceLineItem::UpdateParams::PriceData::ProductData)) }
         attr_accessor :product_data
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -229,6 +287,13 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
+      class Pricing < Stripe::RequestParams
+        # The ID of the price object.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :price
+        sig { params(price: T.nilable(String)).void }
+        def initialize(price: nil); end
+      end
       class TaxAmount < Stripe::RequestParams
         class TaxRateData < Stripe::RequestParams
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -246,6 +311,9 @@ module Stripe
           # The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice.
           sig { returns(T.nilable(String)) }
           attr_accessor :jurisdiction
+          # The level of the jurisdiction that imposes this tax rate.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :jurisdiction_level
           # The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
           sig { returns(Float) }
           attr_accessor :percentage
@@ -256,7 +324,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :tax_type
           sig {
-            params(country: T.nilable(String), description: T.nilable(String), display_name: String, inclusive: T::Boolean, jurisdiction: T.nilable(String), percentage: Float, state: T.nilable(String), tax_type: T.nilable(String)).void
+            params(country: T.nilable(String), description: T.nilable(String), display_name: String, inclusive: T::Boolean, jurisdiction: T.nilable(String), jurisdiction_level: T.nilable(String), percentage: Float, state: T.nilable(String), tax_type: T.nilable(String)).void
            }
           def initialize(
             country: nil,
@@ -264,6 +332,7 @@ module Stripe
             display_name: nil,
             inclusive: nil,
             jurisdiction: nil,
+            jurisdiction_level: nil,
             percentage: nil,
             state: nil,
             tax_type: nil
@@ -277,13 +346,21 @@ module Stripe
         # Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item’s `tax_rates`, and cannot be directly added to invoices, payments, or line items.
         sig { returns(::Stripe::InvoiceLineItem::UpdateParams::TaxAmount::TaxRateData) }
         attr_accessor :tax_rate_data
+        # The reasoning behind this tax, for example, if the product is tax exempt.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :taxability_reason
         # The amount on which tax is calculated, in cents (or local equivalent).
         sig { returns(Integer) }
         attr_accessor :taxable_amount
         sig {
-          params(amount: Integer, tax_rate_data: ::Stripe::InvoiceLineItem::UpdateParams::TaxAmount::TaxRateData, taxable_amount: Integer).void
+          params(amount: Integer, tax_rate_data: ::Stripe::InvoiceLineItem::UpdateParams::TaxAmount::TaxRateData, taxability_reason: T.nilable(String), taxable_amount: Integer).void
          }
-        def initialize(amount: nil, tax_rate_data: nil, taxable_amount: nil); end
+        def initialize(
+          amount: nil,
+          tax_rate_data: nil,
+          taxability_reason: nil,
+          taxable_amount: nil
+        ); end
       end
       # The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
       sig { returns(T.nilable(Integer)) }
@@ -308,12 +385,12 @@ module Stripe
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Period)) }
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       sig { returns(T.nilable(::Stripe::InvoiceLineItem::UpdateParams::PriceData)) }
       attr_accessor :price_data
+      # The pricing information for the invoice item.
+      sig { returns(T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Pricing)) }
+      attr_accessor :pricing
       # Non-negative integer. The quantity of units for the line item.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :quantity
@@ -326,7 +403,7 @@ module Stripe
       sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
       attr_accessor :tax_rates
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::PriceData), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItem::UpdateParams::Pricing), quantity: T.nilable(Integer), tax_amounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItem::UpdateParams::TaxAmount]))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
        }
       def initialize(
         amount: nil,
@@ -336,8 +413,8 @@ module Stripe
         expand: nil,
         metadata: nil,
         period: nil,
-        price: nil,
         price_data: nil,
+        pricing: nil,
         quantity: nil,
         tax_amounts: nil,
         tax_rates: nil

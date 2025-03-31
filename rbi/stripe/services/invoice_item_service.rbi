@@ -44,7 +44,7 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         sig { returns(String) }
         attr_accessor :product
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -66,6 +66,13 @@ module Stripe
           unit_amount: nil,
           unit_amount_decimal: nil
         ); end
+      end
+      class Pricing < Stripe::RequestParams
+        # The ID of the price object.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :price
+        sig { params(price: T.nilable(String)).void }
+        def initialize(price: nil); end
       end
       # The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
       sig { returns(T.nilable(Integer)) }
@@ -90,12 +97,12 @@ module Stripe
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(T.nilable(::Stripe::InvoiceItemService::UpdateParams::Period)) }
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       sig { returns(T.nilable(::Stripe::InvoiceItemService::UpdateParams::PriceData)) }
       attr_accessor :price_data
+      # The pricing information for the invoice item.
+      sig { returns(T.nilable(::Stripe::InvoiceItemService::UpdateParams::Pricing)) }
+      attr_accessor :pricing
       # Non-negative integer. The quantity of units for the invoice item.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :quantity
@@ -108,14 +115,11 @@ module Stripe
       # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates.
       sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
       attr_accessor :tax_rates
-      # The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
-      sig { returns(T.nilable(Integer)) }
-      attr_accessor :unit_amount
-      # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+      # The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       attr_accessor :unit_amount_decimal
       sig {
-        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceItemService::UpdateParams::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceItemService::UpdateParams::PriceData), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(T.nilable(String)), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceItemService::UpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemService::UpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemService::UpdateParams::Pricing), quantity: T.nilable(Integer), tax_behavior: T.nilable(String), tax_code: T.nilable(T.nilable(String)), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -125,13 +129,12 @@ module Stripe
         expand: nil,
         metadata: nil,
         period: nil,
-        price: nil,
         price_data: nil,
+        pricing: nil,
         quantity: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
-        unit_amount: nil,
         unit_amount_decimal: nil
       ); end
     end
@@ -222,7 +225,7 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         sig { returns(String) }
         attr_accessor :product
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -244,6 +247,13 @@ module Stripe
           unit_amount: nil,
           unit_amount_decimal: nil
         ); end
+      end
+      class Pricing < Stripe::RequestParams
+        # The ID of the price object.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :price
+        sig { params(price: T.nilable(String)).void }
+        def initialize(price: nil); end
       end
       # The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. Passing in a negative `amount` will reduce the `amount_due` on the invoice.
       sig { returns(T.nilable(Integer)) }
@@ -277,12 +287,12 @@ module Stripe
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       sig { returns(T.nilable(::Stripe::InvoiceItemService::CreateParams::Period)) }
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       sig { returns(T.nilable(::Stripe::InvoiceItemService::CreateParams::PriceData)) }
       attr_accessor :price_data
+      # The pricing information for the invoice item.
+      sig { returns(T.nilable(::Stripe::InvoiceItemService::CreateParams::Pricing)) }
+      attr_accessor :pricing
       # Non-negative integer. The quantity of units for the invoice item.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :quantity
@@ -298,14 +308,11 @@ module Stripe
       # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :tax_rates
-      # The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice.
-      sig { returns(T.nilable(Integer)) }
-      attr_accessor :unit_amount
-      # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+      # The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
       sig { returns(T.nilable(String)) }
       attr_accessor :unit_amount_decimal
       sig {
-        params(amount: T.nilable(Integer), currency: T.nilable(String), customer: String, description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceItemService::CreateParams::Period), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceItemService::CreateParams::PriceData), quantity: T.nilable(Integer), subscription: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(T.nilable(String)), tax_rates: T.nilable(T::Array[String]), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(amount: T.nilable(Integer), currency: T.nilable(String), customer: String, description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), period: T.nilable(::Stripe::InvoiceItemService::CreateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemService::CreateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemService::CreateParams::Pricing), quantity: T.nilable(Integer), subscription: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(T.nilable(String)), tax_rates: T.nilable(T::Array[String]), unit_amount_decimal: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -318,14 +325,13 @@ module Stripe
         invoice: nil,
         metadata: nil,
         period: nil,
-        price: nil,
         price_data: nil,
+        pricing: nil,
         quantity: nil,
         subscription: nil,
         tax_behavior: nil,
         tax_code: nil,
         tax_rates: nil,
-        unit_amount: nil,
         unit_amount_decimal: nil
       ); end
     end

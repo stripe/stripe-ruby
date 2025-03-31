@@ -6,17 +6,15 @@ module Stripe
   # Subscription items allow you to create customer subscriptions with more than
   # one plan, making it easy to represent complex billing relationships.
   class SubscriptionItem < APIResource
-    class BillingThresholds < Stripe::StripeObject
-      # Usage threshold that triggers the subscription to create an invoice
-      sig { returns(T.nilable(Integer)) }
-      attr_reader :usage_gte
-    end
-    # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-    sig { returns(T.nilable(BillingThresholds)) }
-    attr_reader :billing_thresholds
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created
+    # The end time of this subscription item's current billing period.
+    sig { returns(Integer) }
+    attr_reader :current_period_end
+    # The start time of this subscription item's current billing period.
+    sig { returns(Integer) }
+    attr_reader :current_period_start
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T::Array[T.any(String, Stripe::Discount)]) }
     attr_reader :discounts
@@ -75,13 +73,6 @@ module Stripe
       def initialize(clear_usage: nil, proration_behavior: nil, proration_date: nil); end
     end
     class UpdateParams < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
-        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        sig { returns(Integer) }
-        attr_accessor :usage_gte
-        sig { params(usage_gte: Integer).void }
-        def initialize(usage_gte: nil); end
-      end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
@@ -111,7 +102,7 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         sig { returns(String) }
         attr_accessor :product
         # The recurring components of a price such as `interval` and `interval_count`.
@@ -138,11 +129,6 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::UpdateParams::BillingThresholds))))
-       }
-      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       sig {
         returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::UpdateParams::Discount]))))
@@ -188,10 +174,9 @@ module Stripe
       sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
       attr_accessor :tax_rates
       sig {
-        params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::UpdateParams::BillingThresholds))), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::UpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+        params(discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::UpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
        }
       def initialize(
-        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,
@@ -234,13 +219,6 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
-      class BillingThresholds < Stripe::RequestParams
-        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        sig { returns(Integer) }
-        attr_accessor :usage_gte
-        sig { params(usage_gte: Integer).void }
-        def initialize(usage_gte: nil); end
-      end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
@@ -270,7 +248,7 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         attr_accessor :currency
-        # The ID of the product that this price will belong to.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         sig { returns(String) }
         attr_accessor :product
         # The recurring components of a price such as `interval` and `interval_count`.
@@ -297,11 +275,6 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::CreateParams::BillingThresholds))))
-       }
-      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       sig {
         returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::CreateParams::Discount]))))
@@ -347,10 +320,9 @@ module Stripe
       sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
       attr_accessor :tax_rates
       sig {
-        params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::CreateParams::BillingThresholds))), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::CreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+        params(discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::CreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
        }
       def initialize(
-        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,

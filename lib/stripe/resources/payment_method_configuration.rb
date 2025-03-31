@@ -176,6 +176,21 @@ module Stripe
       attr_reader :display_preference
     end
 
+    class Billie < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
     class Blik < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -446,6 +461,21 @@ module Stripe
       attr_reader :display_preference
     end
 
+    class NzBankAccount < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
     class Oxxo < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -537,6 +567,21 @@ module Stripe
     end
 
     class RevolutPay < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
+    class Satispay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -871,6 +916,23 @@ module Stripe
         end
       end
 
+      class Billie < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Blik < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1177,6 +1239,23 @@ module Stripe
         end
       end
 
+      class NzBankAccount < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1280,6 +1359,23 @@ module Stripe
       end
 
       class RevolutPay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class Satispay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -1436,6 +1532,8 @@ module Stripe
       attr_accessor :bacs_debit
       # Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
       attr_accessor :bancontact
+      # Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      attr_accessor :billie
       # BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
       attr_accessor :blik
       # Boleto is an official (regulated by the Central Bank of Brazil) payment method in Brazil. Check this [page](https://stripe.com/docs/payments/boleto) for more details.
@@ -1476,6 +1574,8 @@ module Stripe
       attr_accessor :multibanco
       # Configuration name.
       attr_accessor :name
+      # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+      attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
       attr_accessor :oxxo
       # Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
@@ -1492,6 +1592,8 @@ module Stripe
       attr_accessor :promptpay
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
       attr_accessor :revolut_pay
+      # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
       attr_accessor :sepa_debit
       # Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
@@ -1519,6 +1621,7 @@ module Stripe
         au_becs_debit: nil,
         bacs_debit: nil,
         bancontact: nil,
+        billie: nil,
         blik: nil,
         boleto: nil,
         card: nil,
@@ -1539,6 +1642,7 @@ module Stripe
         mobilepay: nil,
         multibanco: nil,
         name: nil,
+        nz_bank_account: nil,
         oxxo: nil,
         p24: nil,
         parent: nil,
@@ -1547,6 +1651,7 @@ module Stripe
         paypal: nil,
         promptpay: nil,
         revolut_pay: nil,
+        satispay: nil,
         sepa_debit: nil,
         sofort: nil,
         swish: nil,
@@ -1566,6 +1671,7 @@ module Stripe
         @au_becs_debit = au_becs_debit
         @bacs_debit = bacs_debit
         @bancontact = bancontact
+        @billie = billie
         @blik = blik
         @boleto = boleto
         @card = card
@@ -1586,6 +1692,7 @@ module Stripe
         @mobilepay = mobilepay
         @multibanco = multibanco
         @name = name
+        @nz_bank_account = nz_bank_account
         @oxxo = oxxo
         @p24 = p24
         @parent = parent
@@ -1594,6 +1701,7 @@ module Stripe
         @paypal = paypal
         @promptpay = promptpay
         @revolut_pay = revolut_pay
+        @satispay = satispay
         @sepa_debit = sepa_debit
         @sofort = sofort
         @swish = swish
@@ -1792,6 +1900,23 @@ module Stripe
         end
       end
 
+      class Billie < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Blik < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -2098,6 +2223,23 @@ module Stripe
         end
       end
 
+      class NzBankAccount < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -2201,6 +2343,23 @@ module Stripe
       end
 
       class RevolutPay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class Satispay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -2359,6 +2518,8 @@ module Stripe
       attr_accessor :bacs_debit
       # Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
       attr_accessor :bancontact
+      # Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      attr_accessor :billie
       # BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
       attr_accessor :blik
       # Boleto is an official (regulated by the Central Bank of Brazil) payment method in Brazil. Check this [page](https://stripe.com/docs/payments/boleto) for more details.
@@ -2399,6 +2560,8 @@ module Stripe
       attr_accessor :multibanco
       # Configuration name.
       attr_accessor :name
+      # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+      attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
       attr_accessor :oxxo
       # Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
@@ -2413,6 +2576,8 @@ module Stripe
       attr_accessor :promptpay
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
       attr_accessor :revolut_pay
+      # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
       attr_accessor :sepa_debit
       # Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
@@ -2441,6 +2606,7 @@ module Stripe
         au_becs_debit: nil,
         bacs_debit: nil,
         bancontact: nil,
+        billie: nil,
         blik: nil,
         boleto: nil,
         card: nil,
@@ -2461,6 +2627,7 @@ module Stripe
         mobilepay: nil,
         multibanco: nil,
         name: nil,
+        nz_bank_account: nil,
         oxxo: nil,
         p24: nil,
         pay_by_bank: nil,
@@ -2468,6 +2635,7 @@ module Stripe
         paypal: nil,
         promptpay: nil,
         revolut_pay: nil,
+        satispay: nil,
         sepa_debit: nil,
         sofort: nil,
         swish: nil,
@@ -2488,6 +2656,7 @@ module Stripe
         @au_becs_debit = au_becs_debit
         @bacs_debit = bacs_debit
         @bancontact = bancontact
+        @billie = billie
         @blik = blik
         @boleto = boleto
         @card = card
@@ -2508,6 +2677,7 @@ module Stripe
         @mobilepay = mobilepay
         @multibanco = multibanco
         @name = name
+        @nz_bank_account = nz_bank_account
         @oxxo = oxxo
         @p24 = p24
         @pay_by_bank = pay_by_bank
@@ -2515,6 +2685,7 @@ module Stripe
         @paypal = paypal
         @promptpay = promptpay
         @revolut_pay = revolut_pay
+        @satispay = satispay
         @sepa_debit = sepa_debit
         @sofort = sofort
         @swish = swish
@@ -2548,6 +2719,8 @@ module Stripe
     attr_reader :bacs_debit
     # Attribute for field bancontact
     attr_reader :bancontact
+    # Attribute for field billie
+    attr_reader :billie
     # Attribute for field blik
     attr_reader :blik
     # Attribute for field boleto
@@ -2592,6 +2765,8 @@ module Stripe
     attr_reader :multibanco
     # The configuration's name.
     attr_reader :name
+    # Attribute for field nz_bank_account
+    attr_reader :nz_bank_account
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # Attribute for field oxxo
@@ -2610,6 +2785,8 @@ module Stripe
     attr_reader :promptpay
     # Attribute for field revolut_pay
     attr_reader :revolut_pay
+    # Attribute for field satispay
+    attr_reader :satispay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
     # Attribute for field sofort

@@ -511,7 +511,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # The recurring components of a price such as `interval` and `interval_count`.
@@ -784,7 +784,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # The recurring components of a price such as `interval` and `interval_count`.

@@ -20,6 +20,58 @@ module Stripe
       attr_reader :discount
     end
 
+    class Parent < Stripe::StripeObject
+      class InvoiceItemDetails < Stripe::StripeObject
+        class ProrationDetails < Stripe::StripeObject
+          class CreditedItems < Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            attr_reader :invoice
+            # Credited invoice line items
+            attr_reader :invoice_line_items
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          attr_reader :credited_items
+        end
+        # Attribute for field invoice_item
+        attr_reader :invoice_item
+        # Whether this is a proration.
+        attr_reader :proration
+        # Additional details for proration line items
+        attr_reader :proration_details
+        # Attribute for field subscription
+        attr_reader :subscription
+      end
+
+      class SubscriptionItemDetails < Stripe::StripeObject
+        class ProrationDetails < Stripe::StripeObject
+          class CreditedItems < Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            attr_reader :invoice
+            # Credited invoice line items
+            attr_reader :invoice_line_items
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          attr_reader :credited_items
+        end
+        # Attribute for field invoice_item
+        attr_reader :invoice_item
+        # Whether this is a proration.
+        attr_reader :proration
+        # Additional details for proration line items
+        attr_reader :proration_details
+        # Attribute for field subscription
+        attr_reader :subscription
+        # Attribute for field subscription_item
+        attr_reader :subscription_item
+      end
+      # Attribute for field invoice_item_details
+      attr_reader :invoice_item_details
+      # Attribute for field subscription_item_details
+      attr_reader :subscription_item_details
+      # Attribute for field type
+      attr_reader :type
+    end
+
     class Period < Stripe::StripeObject
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       attr_reader :end
@@ -38,28 +90,38 @@ module Stripe
       attr_reader :type
     end
 
-    class ProrationDetails < Stripe::StripeObject
-      class CreditedItems < Stripe::StripeObject
-        # Invoice containing the credited invoice line items
-        attr_reader :invoice
-        # Credited invoice line items
-        attr_reader :invoice_line_items
+    class Pricing < Stripe::StripeObject
+      class PriceDetails < Stripe::StripeObject
+        # The ID of the price this item is associated with.
+        attr_reader :price
+        # The ID of the product this item is associated with.
+        attr_reader :product
       end
-      # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
-      attr_reader :credited_items
+      # Attribute for field price_details
+      attr_reader :price_details
+      # The type of the pricing details.
+      attr_reader :type
+      # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
+      attr_reader :unit_amount_decimal
     end
 
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
+    class Tax < Stripe::StripeObject
+      class TaxRateDetails < Stripe::StripeObject
+        # Attribute for field tax_rate
+        attr_reader :tax_rate
+      end
+      # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      attr_reader :tax_rate
+      # Whether this tax is inclusive or exclusive.
+      attr_reader :tax_behavior
+      # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+      attr_reader :tax_rate_details
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       attr_reader :taxable_amount
+      # The type of tax information.
+      attr_reader :type
     end
 
     class UpdateParams < Stripe::RequestParams
@@ -113,9 +175,9 @@ module Stripe
         end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
-        # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         attr_accessor :product
-        # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         attr_accessor :product_data
         # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
         attr_accessor :tax_behavior
@@ -141,6 +203,15 @@ module Stripe
         end
       end
 
+      class Pricing < Stripe::RequestParams
+        # The ID of the price object.
+        attr_accessor :price
+
+        def initialize(price: nil)
+          @price = price
+        end
+      end
+
       class TaxAmount < Stripe::RequestParams
         class TaxRateData < Stripe::RequestParams
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -153,6 +224,8 @@ module Stripe
           attr_accessor :inclusive
           # The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice.
           attr_accessor :jurisdiction
+          # The level of the jurisdiction that imposes this tax rate.
+          attr_accessor :jurisdiction_level
           # The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
           attr_accessor :percentage
           # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
@@ -166,6 +239,7 @@ module Stripe
             display_name: nil,
             inclusive: nil,
             jurisdiction: nil,
+            jurisdiction_level: nil,
             percentage: nil,
             state: nil,
             tax_type: nil
@@ -175,6 +249,7 @@ module Stripe
             @display_name = display_name
             @inclusive = inclusive
             @jurisdiction = jurisdiction
+            @jurisdiction_level = jurisdiction_level
             @percentage = percentage
             @state = state
             @tax_type = tax_type
@@ -186,12 +261,15 @@ module Stripe
         #
         # Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item’s `tax_rates`, and cannot be directly added to invoices, payments, or line items.
         attr_accessor :tax_rate_data
+        # The reasoning behind this tax, for example, if the product is tax exempt.
+        attr_accessor :taxability_reason
         # The amount on which tax is calculated, in cents (or local equivalent).
         attr_accessor :taxable_amount
 
-        def initialize(amount: nil, tax_rate_data: nil, taxable_amount: nil)
+        def initialize(amount: nil, tax_rate_data: nil, taxability_reason: nil, taxable_amount: nil)
           @amount = amount
           @tax_rate_data = tax_rate_data
+          @taxability_reason = taxability_reason
           @taxable_amount = taxable_amount
         end
       end
@@ -209,10 +287,10 @@ module Stripe
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
-      attr_accessor :price
-      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
       attr_accessor :price_data
+      # The pricing information for the invoice item.
+      attr_accessor :pricing
       # Non-negative integer. The quantity of units for the line item.
       attr_accessor :quantity
       # A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
@@ -228,8 +306,8 @@ module Stripe
         expand: nil,
         metadata: nil,
         period: nil,
-        price: nil,
         price_data: nil,
+        pricing: nil,
         quantity: nil,
         tax_amounts: nil,
         tax_rates: nil
@@ -241,8 +319,8 @@ module Stripe
         @expand = expand
         @metadata = metadata
         @period = period
-        @price = price
         @price_data = price_data
+        @pricing = pricing
         @quantity = quantity
         @tax_amounts = tax_amounts
         @tax_rates = tax_rates
@@ -250,8 +328,6 @@ module Stripe
     end
     # The amount, in cents (or local equivalent).
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    attr_reader :amount_excluding_tax
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
     # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -266,40 +342,26 @@ module Stripe
     attr_reader :id
     # The ID of the invoice that contains this line item.
     attr_reader :invoice
-    # The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any.
-    attr_reader :invoice_item
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     attr_reader :livemode
     # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription`, `metadata` reflects the current metadata from the subscription associated with the line item, unless the invoice line was directly updated with different metadata after creation.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # Attribute for field parent
+    attr_reader :parent
     # Attribute for field period
     attr_reader :period
-    # The plan of the subscription, if the line item is a subscription or a proration.
-    attr_reader :plan
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
     attr_reader :pretax_credit_amounts
-    # The price of the line item.
-    attr_reader :price
-    # Whether this is a proration.
-    attr_reader :proration
-    # Additional details for proration line items
-    attr_reader :proration_details
+    # The pricing information of the line item.
+    attr_reader :pricing
     # The quantity of the subscription, if the line item is a subscription or a proration.
     attr_reader :quantity
-    # The subscription that the invoice item pertains to, if any.
+    # Attribute for field subscription
     attr_reader :subscription
-    # The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
-    attr_reader :subscription_item
-    # The amount of tax calculated per tax rate for this line item
-    attr_reader :tax_amounts
-    # The tax rates which apply to the line item.
-    attr_reader :tax_rates
-    # A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
-    attr_reader :type
-    # The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
-    attr_reader :unit_amount_excluding_tax
+    # The tax information of the line item.
+    attr_reader :taxes
 
     # Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
     # so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice

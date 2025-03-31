@@ -819,7 +819,7 @@ module Stripe
        }
       def self.close(financial_account, params = {}, opts = {}); end
 
-      # Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+      # Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
       sig {
         params(params: T.any(::Stripe::Treasury::FinancialAccount::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::FinancialAccount)
        }

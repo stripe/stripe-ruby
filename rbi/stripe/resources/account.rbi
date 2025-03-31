@@ -118,6 +118,9 @@ module Stripe
       # The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
       sig { returns(String) }
       attr_reader :bank_transfer_payments
+      # The status of the Billie capability of the account, or whether the account can directly process Billie payments.
+      sig { returns(String) }
+      attr_reader :billie_payments
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       sig { returns(String) }
       attr_reader :blik_payments
@@ -217,6 +220,9 @@ module Stripe
       # The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
       sig { returns(String) }
       attr_reader :samsung_pay_payments
+      # The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
+      sig { returns(String) }
+      attr_reader :satispay_payments
       # The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
       sig { returns(String) }
       attr_reader :sepa_bank_transfer_payments
@@ -386,13 +392,13 @@ module Stripe
       # The purpose code to use for export transactions (India only).
       sig { returns(String) }
       attr_reader :export_purpose_code
-      # The company's legal name.
+      # The company's legal name. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       sig { returns(T.nilable(String)) }
       attr_reader :name
-      # The Kana variation of the company's legal name (Japan only).
+      # The Kana variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       sig { returns(T.nilable(String)) }
       attr_reader :name_kana
-      # The Kanji variation of the company's legal name (Japan only).
+      # The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
       sig { returns(T.nilable(String)) }
       attr_reader :name_kanji
       # Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
@@ -401,13 +407,13 @@ module Stripe
       # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
       sig { returns(T.nilable(OwnershipDeclaration)) }
       attr_reader :ownership_declaration
-      # Attribute for field ownership_exemption_reason
+      # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
       sig { returns(String) }
       attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
       attr_reader :phone
-      # The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+      # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       sig { returns(String) }
       attr_reader :structure
       # Whether the company's business ID number was provided.
@@ -626,6 +632,9 @@ module Stripe
         # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
         sig { returns(T.nilable(T::Array[T.any(String, Stripe::TaxId)])) }
         attr_reader :default_account_tax_ids
+        # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+        sig { returns(T.nilable(String)) }
+        attr_reader :hosted_payment_method_save
       end
       class Payments < Stripe::StripeObject
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
@@ -738,7 +747,7 @@ module Stripe
     # Business information about the account.
     sig { returns(T.nilable(BusinessProfile)) }
     attr_reader :business_profile
-    # The business type. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property is only returned for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    # The business type.
     sig { returns(T.nilable(String)) }
     attr_reader :business_type
     # Attribute for field capabilities
@@ -782,7 +791,7 @@ module Stripe
     attr_reader :id
     # This is an object representing a person associated with a Stripe account.
     #
-    # A platform cannot access a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
+    # A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
     #
     # See the [Standard onboarding](/connect/standard-accounts) or [Express onboarding](/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](/connect/handling-api-verification#person-information).
     sig { returns(Stripe::Person) }
@@ -1021,6 +1030,13 @@ module Stripe
           sig { params(requested: T.nilable(T::Boolean)).void }
           def initialize(requested: nil); end
         end
+        class BilliePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T.nilable(T::Boolean)) }
+          attr_accessor :requested
+          sig { params(requested: T.nilable(T::Boolean)).void }
+          def initialize(requested: nil); end
+        end
         class BlikPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T.nilable(T::Boolean)) }
@@ -1252,6 +1268,13 @@ module Stripe
           sig { params(requested: T.nilable(T::Boolean)).void }
           def initialize(requested: nil); end
         end
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T.nilable(T::Boolean)) }
+          attr_accessor :requested
+          sig { params(requested: T.nilable(T::Boolean)).void }
+          def initialize(requested: nil); end
+        end
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T.nilable(T::Boolean)) }
@@ -1371,6 +1394,9 @@ module Stripe
           returns(T.nilable(::Stripe::Account::UpdateParams::Capabilities::BankTransferPayments))
          }
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        sig { returns(T.nilable(::Stripe::Account::UpdateParams::Capabilities::BilliePayments)) }
+        attr_accessor :billie_payments
         # The blik_payments capability.
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Capabilities::BlikPayments)) }
         attr_accessor :blik_payments
@@ -1486,6 +1512,9 @@ module Stripe
           returns(T.nilable(::Stripe::Account::UpdateParams::Capabilities::SamsungPayPayments))
          }
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        sig { returns(T.nilable(::Stripe::Account::UpdateParams::Capabilities::SatispayPayments)) }
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         sig {
           returns(T.nilable(::Stripe::Account::UpdateParams::Capabilities::SepaBankTransferPayments))
@@ -1533,7 +1562,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Capabilities::ZipPayments)) }
         attr_accessor :zip_payments
         sig {
-          params(acss_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BankTransferPayments), blik_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SamsungPayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SepaDebitPayments), sofort_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SofortPayments), swish_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::Account::UpdateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::Account::UpdateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::Account::UpdateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::Account::UpdateParams::Capabilities::Treasury), twint_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::TwintPayments), us_bank_account_ach_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::ZipPayments)).void
+          params(acss_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BilliePayments), blik_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SatispayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SepaDebitPayments), sofort_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SofortPayments), swish_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::Account::UpdateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::Account::UpdateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::Account::UpdateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::Account::UpdateParams::Capabilities::Treasury), twint_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::TwintPayments), us_bank_account_ach_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::Account::UpdateParams::Capabilities::ZipPayments)).void
          }
         def initialize(
           acss_debit_payments: nil,
@@ -1545,6 +1574,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -1578,6 +1608,7 @@ module Stripe
           promptpay_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           sofort_payments: nil,
@@ -1866,7 +1897,7 @@ module Stripe
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Company::OwnershipDeclaration)) }
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
@@ -2433,10 +2464,13 @@ module Stripe
           # The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
           attr_accessor :default_account_tax_ids
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :hosted_payment_method_save
           sig {
-            params(default_account_tax_ids: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+            params(default_account_tax_ids: T.nilable(T.nilable(T.any(String, T::Array[String]))), hosted_payment_method_save: T.nilable(String)).void
            }
-          def initialize(default_account_tax_ids: nil); end
+          def initialize(default_account_tax_ids: nil, hosted_payment_method_save: nil); end
         end
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -2908,6 +2942,13 @@ module Stripe
           sig { params(requested: T.nilable(T::Boolean)).void }
           def initialize(requested: nil); end
         end
+        class BilliePayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T.nilable(T::Boolean)) }
+          attr_accessor :requested
+          sig { params(requested: T.nilable(T::Boolean)).void }
+          def initialize(requested: nil); end
+        end
         class BlikPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T.nilable(T::Boolean)) }
@@ -3139,6 +3180,13 @@ module Stripe
           sig { params(requested: T.nilable(T::Boolean)).void }
           def initialize(requested: nil); end
         end
+        class SatispayPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          sig { returns(T.nilable(T::Boolean)) }
+          attr_accessor :requested
+          sig { params(requested: T.nilable(T::Boolean)).void }
+          def initialize(requested: nil); end
+        end
         class SepaBankTransferPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           sig { returns(T.nilable(T::Boolean)) }
@@ -3258,6 +3306,9 @@ module Stripe
           returns(T.nilable(::Stripe::Account::CreateParams::Capabilities::BankTransferPayments))
          }
         attr_accessor :bank_transfer_payments
+        # The billie_payments capability.
+        sig { returns(T.nilable(::Stripe::Account::CreateParams::Capabilities::BilliePayments)) }
+        attr_accessor :billie_payments
         # The blik_payments capability.
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Capabilities::BlikPayments)) }
         attr_accessor :blik_payments
@@ -3373,6 +3424,9 @@ module Stripe
           returns(T.nilable(::Stripe::Account::CreateParams::Capabilities::SamsungPayPayments))
          }
         attr_accessor :samsung_pay_payments
+        # The satispay_payments capability.
+        sig { returns(T.nilable(::Stripe::Account::CreateParams::Capabilities::SatispayPayments)) }
+        attr_accessor :satispay_payments
         # The sepa_bank_transfer_payments capability.
         sig {
           returns(T.nilable(::Stripe::Account::CreateParams::Capabilities::SepaBankTransferPayments))
@@ -3420,7 +3474,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Capabilities::ZipPayments)) }
         attr_accessor :zip_payments
         sig {
-          params(acss_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BankTransferPayments), blik_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::Account::CreateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SamsungPayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SepaDebitPayments), sofort_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SofortPayments), swish_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::Account::CreateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::Account::CreateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::Account::CreateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::Account::CreateParams::Capabilities::Treasury), twint_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::TwintPayments), us_bank_account_ach_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::ZipPayments)).void
+          params(acss_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BilliePayments), blik_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::Account::CreateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SatispayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SepaDebitPayments), sofort_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SofortPayments), swish_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::Account::CreateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::Account::CreateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::Account::CreateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::Account::CreateParams::Capabilities::Treasury), twint_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::TwintPayments), us_bank_account_ach_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::Account::CreateParams::Capabilities::ZipPayments)).void
          }
         def initialize(
           acss_debit_payments: nil,
@@ -3432,6 +3486,7 @@ module Stripe
           bacs_debit_payments: nil,
           bancontact_payments: nil,
           bank_transfer_payments: nil,
+          billie_payments: nil,
           blik_payments: nil,
           boleto_payments: nil,
           card_issuing: nil,
@@ -3465,6 +3520,7 @@ module Stripe
           promptpay_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
+          satispay_payments: nil,
           sepa_bank_transfer_payments: nil,
           sepa_debit_payments: nil,
           sofort_payments: nil,
@@ -3753,7 +3809,7 @@ module Stripe
         # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Company::OwnershipDeclaration)) }
         attr_accessor :ownership_declaration
-        # Attribute for param field ownership_exemption_reason
+        # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         sig { returns(T.nilable(T.nilable(T.any(String, String)))) }
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
@@ -4360,6 +4416,13 @@ module Stripe
             statement_descriptor_prefix_kanji: nil
           ); end
         end
+        class Invoices < Stripe::RequestParams
+          # Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :hosted_payment_method_save
+          sig { params(hosted_payment_method_save: T.nilable(String)).void }
+          def initialize(hosted_payment_method_save: nil); end
+        end
         class Payments < Stripe::RequestParams
           # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
           sig { returns(T.nilable(String)) }
@@ -4459,6 +4522,9 @@ module Stripe
         # Settings specific to card charging on the account.
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Settings::CardPayments)) }
         attr_accessor :card_payments
+        # Settings specific to the account’s use of Invoices.
+        sig { returns(T.nilable(::Stripe::Account::CreateParams::Settings::Invoices)) }
+        attr_accessor :invoices
         # Settings that apply across payment methods for charging on the account.
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Settings::Payments)) }
         attr_accessor :payments
@@ -4469,13 +4535,14 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Settings::Treasury)) }
         attr_accessor :treasury
         sig {
-          params(bacs_debit_payments: T.nilable(::Stripe::Account::CreateParams::Settings::BacsDebitPayments), branding: T.nilable(::Stripe::Account::CreateParams::Settings::Branding), card_issuing: T.nilable(::Stripe::Account::CreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::Account::CreateParams::Settings::CardPayments), payments: T.nilable(::Stripe::Account::CreateParams::Settings::Payments), payouts: T.nilable(::Stripe::Account::CreateParams::Settings::Payouts), treasury: T.nilable(::Stripe::Account::CreateParams::Settings::Treasury)).void
+          params(bacs_debit_payments: T.nilable(::Stripe::Account::CreateParams::Settings::BacsDebitPayments), branding: T.nilable(::Stripe::Account::CreateParams::Settings::Branding), card_issuing: T.nilable(::Stripe::Account::CreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::Account::CreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::Account::CreateParams::Settings::Invoices), payments: T.nilable(::Stripe::Account::CreateParams::Settings::Payments), payouts: T.nilable(::Stripe::Account::CreateParams::Settings::Payouts), treasury: T.nilable(::Stripe::Account::CreateParams::Settings::Treasury)).void
          }
         def initialize(
           bacs_debit_payments: nil,
           branding: nil,
           card_issuing: nil,
           card_payments: nil,
+          invoices: nil,
           payments: nil,
           payouts: nil,
           treasury: nil

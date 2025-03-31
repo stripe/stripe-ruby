@@ -61,6 +61,18 @@ module Stripe
         end
       end
 
+      class Refund < Stripe::RequestParams
+        # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        attr_accessor :amount_refunded
+        # ID of an existing refund to link this credit note to.
+        attr_accessor :refund
+
+        def initialize(amount_refunded: nil, refund: nil)
+          @amount_refunded = amount_refunded
+          @refund = refund
+        end
+      end
+
       class ShippingCost < Stripe::RequestParams
         # The ID of the shipping rate to use for this order.
         attr_accessor :shipping_rate
@@ -95,10 +107,10 @@ module Stripe
       attr_accessor :out_of_band_amount
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       attr_accessor :refund_amount
+      # Refunds to link to this credit note.
+      attr_accessor :refunds
       # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
       attr_accessor :shipping_cost
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
@@ -118,8 +130,8 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
+        refunds: nil,
         shipping_cost: nil,
         starting_after: nil
       )
@@ -136,8 +148,8 @@ module Stripe
         @metadata = metadata
         @out_of_band_amount = out_of_band_amount
         @reason = reason
-        @refund = refund
         @refund_amount = refund_amount
+        @refunds = refunds
         @shipping_cost = shipping_cost
         @starting_after = starting_after
       end

@@ -121,8 +121,6 @@ module Stripe
       attr_accessor :currency_options
       # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
       attr_accessor :duration
-      # Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
-      attr_accessor :duration_in_months
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Unique string of your choice that will be used to identify this coupon when applying it to a customer. If you don't want to specify a particular code, you can leave the ID blank and we'll generate a random code for you.
@@ -144,7 +142,6 @@ module Stripe
         currency: nil,
         currency_options: nil,
         duration: nil,
-        duration_in_months: nil,
         expand: nil,
         id: nil,
         max_redemptions: nil,
@@ -158,7 +155,6 @@ module Stripe
         @currency = currency
         @currency_options = currency_options
         @duration = duration
-        @duration_in_months = duration_in_months
         @expand = expand
         @id = id
         @max_redemptions = max_redemptions

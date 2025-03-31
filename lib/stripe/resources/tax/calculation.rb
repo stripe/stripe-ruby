@@ -129,7 +129,7 @@ module Stripe
           attr_reader :flat_amount
           # The tax rate percentage as a string. For example, 8.5% is represented as `"8.5"`.
           attr_reader :percentage_decimal
-          # Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
+          # Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location. This field is only present for TaxRates created by Stripe Tax.
           attr_reader :rate_type
           # State, county, province, or region.
           attr_reader :state

@@ -27,22 +27,26 @@ module Stripe
       attr_reader :type
     end
 
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
+    class Tax < Stripe::StripeObject
+      class TaxRateDetails < Stripe::StripeObject
+        # Attribute for field tax_rate
+        attr_reader :tax_rate
+      end
+      # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      attr_reader :tax_rate
+      # Whether this tax is inclusive or exclusive.
+      attr_reader :tax_behavior
+      # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+      attr_reader :tax_rate_details
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       attr_reader :taxable_amount
+      # The type of tax information.
+      attr_reader :type
     end
     # The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     attr_reader :amount
-    # The integer amount in cents (or local equivalent) representing the amount being credited for this line item, excluding all tax and discounts.
-    attr_reader :amount_excluding_tax
     # Description of the item being credited.
     attr_reader :description
     # The integer amount in cents (or local equivalent) representing the discount being credited for this line item.
@@ -61,17 +65,15 @@ module Stripe
     attr_reader :pretax_credit_amounts
     # The number of units of product being credited.
     attr_reader :quantity
-    # The amount of tax calculated per tax rate for this line item
-    attr_reader :tax_amounts
     # The tax rates which apply to the line item.
     attr_reader :tax_rates
+    # The tax information of the line item.
+    attr_reader :taxes
     # The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
     attr_reader :type
     # The cost of each unit of product being credited.
     attr_reader :unit_amount
     # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     attr_reader :unit_amount_decimal
-    # The amount in cents (or local equivalent) representing the unit amount being credited for this line item, excluding all tax and discounts.
-    attr_reader :unit_amount_excluding_tax
   end
 end

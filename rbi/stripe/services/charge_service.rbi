@@ -356,7 +356,7 @@ module Stripe
         sig { params(amount: T.nilable(Integer)).void }
         def initialize(amount: nil); end
       end
-      # The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
+      # The amount to capture, which must be less than or equal to the original amount.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # An application fee to add on to this charge.

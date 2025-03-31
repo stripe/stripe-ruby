@@ -199,7 +199,7 @@ module Stripe
     attr_reader :object
     # Tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions.
     attr_reader :percentage
-    # Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
+    # Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location. This field is only present for TaxRates created by Stripe Tax.
     attr_reader :rate_type
     # [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
     attr_reader :state

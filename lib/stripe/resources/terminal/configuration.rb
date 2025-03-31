@@ -16,7 +16,7 @@ module Stripe
       end
 
       class BbposWiseposE < Stripe::StripeObject
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image to display on the reader
         attr_reader :splashscreen
       end
 
@@ -33,7 +33,7 @@ module Stripe
       end
 
       class StripeS700 < Stripe::StripeObject
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image to display on the reader
         attr_reader :splashscreen
       end
 
@@ -216,8 +216,49 @@ module Stripe
       end
 
       class VerifoneP400 < Stripe::StripeObject
-        # A File ID representing an image you would like displayed on the reader.
+        # A File ID representing an image to display on the reader
         attr_reader :splashscreen
+      end
+
+      class Wifi < Stripe::StripeObject
+        class EnterpriseEapPeap < Stripe::StripeObject
+          # A File ID representing a PEM file containing the server certificate
+          attr_reader :ca_certificate_file
+          # Password for connecting to the WiFi network
+          attr_reader :password
+          # Name of the WiFi network
+          attr_reader :ssid
+          # Username for connecting to the WiFi network
+          attr_reader :username
+        end
+
+        class EnterpriseEapTls < Stripe::StripeObject
+          # A File ID representing a PEM file containing the server certificate
+          attr_reader :ca_certificate_file
+          # A File ID representing a PEM file containing the client certificate
+          attr_reader :client_certificate_file
+          # A File ID representing a PEM file containing the client RSA private key
+          attr_reader :private_key_file
+          # Password for the private key file
+          attr_reader :private_key_file_password
+          # Name of the WiFi network
+          attr_reader :ssid
+        end
+
+        class PersonalPsk < Stripe::StripeObject
+          # Password for connecting to the WiFi network
+          attr_reader :password
+          # Name of the WiFi network
+          attr_reader :ssid
+        end
+        # Attribute for field enterprise_eap_peap
+        attr_reader :enterprise_eap_peap
+        # Attribute for field enterprise_eap_tls
+        attr_reader :enterprise_eap_tls
+        # Attribute for field personal_psk
+        attr_reader :personal_psk
+        # Security type of the WiFi network. The hash with the corresponding name contains the credentials for this security type.
+        attr_reader :type
       end
 
       class DeleteParams < Stripe::RequestParams
@@ -225,7 +266,7 @@ module Stripe
 
       class UpdateParams < Stripe::RequestParams
         class BbposWiseposE < Stripe::RequestParams
-          # A File ID representing an image you would like displayed on the reader.
+          # A File ID representing an image to display on the reader
           attr_accessor :splashscreen
 
           def initialize(splashscreen: nil)
@@ -581,6 +622,85 @@ module Stripe
             @splashscreen = splashscreen
           end
         end
+
+        class Wifi < Stripe::RequestParams
+          class EnterpriseEapPeap < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            attr_accessor :ca_certificate_file
+            # Password for connecting to the WiFi network
+            attr_accessor :password
+            # Name of the WiFi network
+            attr_accessor :ssid
+            # Username for connecting to the WiFi network
+            attr_accessor :username
+
+            def initialize(ca_certificate_file: nil, password: nil, ssid: nil, username: nil)
+              @ca_certificate_file = ca_certificate_file
+              @password = password
+              @ssid = ssid
+              @username = username
+            end
+          end
+
+          class EnterpriseEapTls < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            attr_accessor :ca_certificate_file
+            # A File ID representing a PEM file containing the client certificate
+            attr_accessor :client_certificate_file
+            # A File ID representing a PEM file containing the client RSA private key
+            attr_accessor :private_key_file
+            # Password for the private key file
+            attr_accessor :private_key_file_password
+            # Name of the WiFi network
+            attr_accessor :ssid
+
+            def initialize(
+              ca_certificate_file: nil,
+              client_certificate_file: nil,
+              private_key_file: nil,
+              private_key_file_password: nil,
+              ssid: nil
+            )
+              @ca_certificate_file = ca_certificate_file
+              @client_certificate_file = client_certificate_file
+              @private_key_file = private_key_file
+              @private_key_file_password = private_key_file_password
+              @ssid = ssid
+            end
+          end
+
+          class PersonalPsk < Stripe::RequestParams
+            # Password for connecting to the WiFi network
+            attr_accessor :password
+            # Name of the WiFi network
+            attr_accessor :ssid
+
+            def initialize(password: nil, ssid: nil)
+              @password = password
+              @ssid = ssid
+            end
+          end
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+          attr_accessor :enterprise_eap_peap
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+          attr_accessor :enterprise_eap_tls
+          # Credentials for a WPA-Personal WiFi network.
+          attr_accessor :personal_psk
+          # Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+          attr_accessor :type
+
+          def initialize(
+            enterprise_eap_peap: nil,
+            enterprise_eap_tls: nil,
+            personal_psk: nil,
+            type: nil
+          )
+            @enterprise_eap_peap = enterprise_eap_peap
+            @enterprise_eap_tls = enterprise_eap_tls
+            @personal_psk = personal_psk
+            @type = type
+          end
+        end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         attr_accessor :bbpos_wisepos_e
         # Specifies which fields in the response should be expanded.
@@ -597,6 +717,8 @@ module Stripe
         attr_accessor :tipping
         # An object containing device type specific settings for Verifone P400 readers
         attr_accessor :verifone_p400
+        # Configurations for connecting to a WiFi network.
+        attr_accessor :wifi
 
         def initialize(
           bbpos_wisepos_e: nil,
@@ -606,7 +728,8 @@ module Stripe
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,
-          verifone_p400: nil
+          verifone_p400: nil,
+          wifi: nil
         )
           @bbpos_wisepos_e = bbpos_wisepos_e
           @expand = expand
@@ -616,6 +739,7 @@ module Stripe
           @stripe_s700 = stripe_s700
           @tipping = tipping
           @verifone_p400 = verifone_p400
+          @wifi = wifi
         end
       end
 
@@ -648,7 +772,7 @@ module Stripe
 
       class CreateParams < Stripe::RequestParams
         class BbposWiseposE < Stripe::RequestParams
-          # A File ID representing an image you would like displayed on the reader.
+          # A File ID representing an image to display on the reader
           attr_accessor :splashscreen
 
           def initialize(splashscreen: nil)
@@ -1004,6 +1128,85 @@ module Stripe
             @splashscreen = splashscreen
           end
         end
+
+        class Wifi < Stripe::RequestParams
+          class EnterpriseEapPeap < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            attr_accessor :ca_certificate_file
+            # Password for connecting to the WiFi network
+            attr_accessor :password
+            # Name of the WiFi network
+            attr_accessor :ssid
+            # Username for connecting to the WiFi network
+            attr_accessor :username
+
+            def initialize(ca_certificate_file: nil, password: nil, ssid: nil, username: nil)
+              @ca_certificate_file = ca_certificate_file
+              @password = password
+              @ssid = ssid
+              @username = username
+            end
+          end
+
+          class EnterpriseEapTls < Stripe::RequestParams
+            # A File ID representing a PEM file containing the server certificate
+            attr_accessor :ca_certificate_file
+            # A File ID representing a PEM file containing the client certificate
+            attr_accessor :client_certificate_file
+            # A File ID representing a PEM file containing the client RSA private key
+            attr_accessor :private_key_file
+            # Password for the private key file
+            attr_accessor :private_key_file_password
+            # Name of the WiFi network
+            attr_accessor :ssid
+
+            def initialize(
+              ca_certificate_file: nil,
+              client_certificate_file: nil,
+              private_key_file: nil,
+              private_key_file_password: nil,
+              ssid: nil
+            )
+              @ca_certificate_file = ca_certificate_file
+              @client_certificate_file = client_certificate_file
+              @private_key_file = private_key_file
+              @private_key_file_password = private_key_file_password
+              @ssid = ssid
+            end
+          end
+
+          class PersonalPsk < Stripe::RequestParams
+            # Password for connecting to the WiFi network
+            attr_accessor :password
+            # Name of the WiFi network
+            attr_accessor :ssid
+
+            def initialize(password: nil, ssid: nil)
+              @password = password
+              @ssid = ssid
+            end
+          end
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+          attr_accessor :enterprise_eap_peap
+          # Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+          attr_accessor :enterprise_eap_tls
+          # Credentials for a WPA-Personal WiFi network.
+          attr_accessor :personal_psk
+          # Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+          attr_accessor :type
+
+          def initialize(
+            enterprise_eap_peap: nil,
+            enterprise_eap_tls: nil,
+            personal_psk: nil,
+            type: nil
+          )
+            @enterprise_eap_peap = enterprise_eap_peap
+            @enterprise_eap_tls = enterprise_eap_tls
+            @personal_psk = personal_psk
+            @type = type
+          end
+        end
         # An object containing device type specific settings for BBPOS WisePOS E readers
         attr_accessor :bbpos_wisepos_e
         # Specifies which fields in the response should be expanded.
@@ -1020,6 +1223,8 @@ module Stripe
         attr_accessor :tipping
         # An object containing device type specific settings for Verifone P400 readers
         attr_accessor :verifone_p400
+        # Configurations for connecting to a WiFi network.
+        attr_accessor :wifi
 
         def initialize(
           bbpos_wisepos_e: nil,
@@ -1029,7 +1234,8 @@ module Stripe
           reboot_window: nil,
           stripe_s700: nil,
           tipping: nil,
-          verifone_p400: nil
+          verifone_p400: nil,
+          wifi: nil
         )
           @bbpos_wisepos_e = bbpos_wisepos_e
           @expand = expand
@@ -1039,6 +1245,7 @@ module Stripe
           @stripe_s700 = stripe_s700
           @tipping = tipping
           @verifone_p400 = verifone_p400
+          @wifi = wifi
         end
       end
       # Attribute for field bbpos_wisepos_e
@@ -1063,6 +1270,8 @@ module Stripe
       attr_reader :tipping
       # Attribute for field verifone_p400
       attr_reader :verifone_p400
+      # Attribute for field wifi
+      attr_reader :wifi
       # Always true for a deleted object
       attr_reader :deleted
 

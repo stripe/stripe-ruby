@@ -71,6 +71,8 @@ module Stripe
           # The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
           attr_reader :value
         end
+        # The value that will pre-fill on the payment page.
+        attr_reader :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         attr_reader :options
       end
@@ -83,6 +85,8 @@ module Stripe
       end
 
       class Numeric < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
         # The minimum character length requirement for the customer's input.
@@ -90,6 +94,8 @@ module Stripe
       end
 
       class Text < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         attr_reader :maximum_length
         # The minimum character length requirement for the customer's input.
@@ -180,6 +186,23 @@ module Stripe
       attr_reader :enabled
       # Configuration for the invoice. Default invoice values will be used if unspecified.
       attr_reader :invoice_data
+    end
+
+    class OptionalItem < Stripe::StripeObject
+      class AdjustableQuantity < Stripe::StripeObject
+        # Set to true if the quantity can be adjusted to any non-negative integer.
+        attr_reader :enabled
+        # The maximum quantity of this item the customer can purchase. By default this value is 99.
+        attr_reader :maximum
+        # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+        attr_reader :minimum
+      end
+      # Attribute for field adjustable_quantity
+      attr_reader :adjustable_quantity
+      # Attribute for field price
+      attr_reader :price
+      # Attribute for field quantity
+      attr_reader :quantity
     end
 
     class PaymentIntentData < Stripe::StripeObject
@@ -392,10 +415,13 @@ module Stripe
               @value = value
             end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
 
-          def initialize(options: nil)
+          def initialize(default_value: nil, options: nil)
+            @default_value = default_value
             @options = options
           end
         end
@@ -413,24 +439,30 @@ module Stripe
         end
 
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
 
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
@@ -625,6 +657,35 @@ module Stripe
         # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
         attr_accessor :price
         # The quantity of the line item being purchased.
+        attr_accessor :quantity
+
+        def initialize(adjustable_quantity: nil, price: nil, quantity: nil)
+          @adjustable_quantity = adjustable_quantity
+          @price = price
+          @quantity = quantity
+        end
+      end
+
+      class OptionalItem < Stripe::RequestParams
+        class AdjustableQuantity < Stripe::RequestParams
+          # Set to true if the quantity can be adjusted to any non-negative integer.
+          attr_accessor :enabled
+          # The maximum quantity of this item the customer can purchase. By default this value is 99.
+          attr_accessor :maximum
+          # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+          attr_accessor :minimum
+
+          def initialize(enabled: nil, maximum: nil, minimum: nil)
+            @enabled = enabled
+            @maximum = maximum
+            @minimum = minimum
+          end
+        end
+        # When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+        attr_accessor :adjustable_quantity
+        # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        attr_accessor :price
+        # The initial quantity of the line item created when a customer chooses to add this optional item to their order.
         attr_accessor :quantity
 
         def initialize(adjustable_quantity: nil, price: nil, quantity: nil)
@@ -849,6 +910,10 @@ module Stripe
       attr_accessor :metadata
       # The account on behalf of which to charge.
       attr_accessor :on_behalf_of
+      # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+      # There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
+      # There is a maximum of 20 combined line items and optional items.
+      attr_accessor :optional_items
       # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
       attr_accessor :payment_intent_data
       # Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -896,6 +961,7 @@ module Stripe
         line_items: nil,
         metadata: nil,
         on_behalf_of: nil,
+        optional_items: nil,
         payment_intent_data: nil,
         payment_method_collection: nil,
         payment_method_types: nil,
@@ -925,6 +991,7 @@ module Stripe
         @line_items = line_items
         @metadata = metadata
         @on_behalf_of = on_behalf_of
+        @optional_items = optional_items
         @payment_intent_data = payment_intent_data
         @payment_method_collection = payment_method_collection
         @payment_method_types = payment_method_types
@@ -1010,10 +1077,13 @@ module Stripe
               @value = value
             end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
 
-          def initialize(options: nil)
+          def initialize(default_value: nil, options: nil)
+            @default_value = default_value
             @options = options
           end
         end
@@ -1031,24 +1101,30 @@ module Stripe
         end
 
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
         end
 
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           attr_accessor :maximum_length
           # The minimum character length requirement for the customer's input.
           attr_accessor :minimum_length
 
-          def initialize(maximum_length: nil, minimum_length: nil)
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil)
+            @default_value = default_value
             @maximum_length = maximum_length
             @minimum_length = minimum_length
           end
@@ -1546,6 +1622,8 @@ module Stripe
     attr_reader :object
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     attr_reader :on_behalf_of
+    # The optional items presented to the customer at checkout.
+    attr_reader :optional_items
     # Indicates the parameters to be passed to PaymentIntent creation during checkout.
     attr_reader :payment_intent_data
     # Configuration for collecting a payment method during checkout. Defaults to `always`.

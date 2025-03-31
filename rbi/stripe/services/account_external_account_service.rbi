@@ -248,7 +248,7 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      # Please refer to full [documentation](https://stripe.com/docs/api) instead.
+      # A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js) or a dictionary containing a user's external account details (with the options shown below). Please refer to full [documentation](https://stripe.com/docs/api/external_accounts) instead.
       sig {
         returns(T.any(String, ::Stripe::AccountExternalAccountService::CreateParams::Card, ::Stripe::AccountExternalAccountService::CreateParams::BankAccount, ::Stripe::AccountExternalAccountService::CreateParams::CardToken))
        }

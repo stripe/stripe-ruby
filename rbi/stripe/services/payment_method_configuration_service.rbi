@@ -230,6 +230,24 @@ module Stripe
          }
         def initialize(display_preference: nil); end
       end
+      class Billie < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preference
+          sig { params(preference: T.nilable(String)).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Billie::DisplayPreference))
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Billie::DisplayPreference)).void
+         }
+        def initialize(display_preference: nil); end
+      end
       class Blik < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -554,6 +572,24 @@ module Stripe
          }
         def initialize(display_preference: nil); end
       end
+      class NzBankAccount < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preference
+          sig { params(preference: T.nilable(String)).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::NzBankAccount::DisplayPreference))
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::NzBankAccount::DisplayPreference)).void
+         }
+        def initialize(display_preference: nil); end
+      end
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -677,6 +713,24 @@ module Stripe
         attr_accessor :display_preference
         sig {
           params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::RevolutPay::DisplayPreference)).void
+         }
+        def initialize(display_preference: nil); end
+      end
+      class Satispay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preference
+          sig { params(preference: T.nilable(String)).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Satispay::DisplayPreference))
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Satispay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
@@ -855,6 +909,9 @@ module Stripe
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Bancontact))
        }
       attr_accessor :bancontact
+      # Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Billie)) }
+      attr_accessor :billie
       # BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
       sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Blik)) }
       attr_accessor :blik
@@ -925,6 +982,11 @@ module Stripe
       # Configuration name.
       sig { returns(T.nilable(String)) }
       attr_accessor :name
+      # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::NzBankAccount))
+       }
+      attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
       sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Oxxo)) }
       attr_accessor :oxxo
@@ -955,6 +1017,11 @@ module Stripe
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::RevolutPay))
        }
       attr_accessor :revolut_pay
+      # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Satispay))
+       }
+      attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
       sig {
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::SepaDebit))
@@ -983,7 +1050,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Zip)) }
       attr_accessor :zip
       sig {
-        params(acss_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AcssDebit), affirm: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Alipay), alma: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AmazonPay), apple_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePay), apple_pay_later: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePayLater), au_becs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Bancontact), blik: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Boleto), card: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Card), cartes_bancaires: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::CartesBancaires), cashapp: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Cashapp), customer_balance: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Giropay), google_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::GooglePay), grabpay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Grabpay), ideal: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Ideal), jcb: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Jcb), klarna: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Konbini), link: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Link), mobilepay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Multibanco), name: T.nilable(String), oxxo: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::P24), parent: T.nilable(String), pay_by_bank: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::PayByBank), paynow: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Paypal), promptpay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Promptpay), revolut_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::RevolutPay), sepa_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::SepaDebit), sofort: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Swish), twint: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Twint), us_bank_account: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Zip)).void
+        params(acss_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AcssDebit), affirm: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Alipay), alma: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AmazonPay), apple_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePay), apple_pay_later: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePayLater), au_becs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Bancontact), billie: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Billie), blik: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Boleto), card: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Card), cartes_bancaires: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::CartesBancaires), cashapp: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Cashapp), customer_balance: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Giropay), google_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::GooglePay), grabpay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Grabpay), ideal: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Ideal), jcb: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Jcb), klarna: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Konbini), link: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Link), mobilepay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Multibanco), name: T.nilable(String), nz_bank_account: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::P24), parent: T.nilable(String), pay_by_bank: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::PayByBank), paynow: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Paypal), promptpay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Promptpay), revolut_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::RevolutPay), satispay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Satispay), sepa_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::SepaDebit), sofort: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Swish), twint: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Twint), us_bank_account: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -997,6 +1064,7 @@ module Stripe
         au_becs_debit: nil,
         bacs_debit: nil,
         bancontact: nil,
+        billie: nil,
         blik: nil,
         boleto: nil,
         card: nil,
@@ -1017,6 +1085,7 @@ module Stripe
         mobilepay: nil,
         multibanco: nil,
         name: nil,
+        nz_bank_account: nil,
         oxxo: nil,
         p24: nil,
         parent: nil,
@@ -1025,6 +1094,7 @@ module Stripe
         paypal: nil,
         promptpay: nil,
         revolut_pay: nil,
+        satispay: nil,
         sepa_debit: nil,
         sofort: nil,
         swish: nil,
@@ -1237,6 +1307,24 @@ module Stripe
         attr_accessor :display_preference
         sig {
           params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Bancontact::DisplayPreference)).void
+         }
+        def initialize(display_preference: nil); end
+      end
+      class Billie < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preference
+          sig { params(preference: T.nilable(String)).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Billie::DisplayPreference))
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Billie::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
@@ -1564,6 +1652,24 @@ module Stripe
          }
         def initialize(display_preference: nil); end
       end
+      class NzBankAccount < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preference
+          sig { params(preference: T.nilable(String)).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::NzBankAccount::DisplayPreference))
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::NzBankAccount::DisplayPreference)).void
+         }
+        def initialize(display_preference: nil); end
+      end
       class Oxxo < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1687,6 +1793,24 @@ module Stripe
         attr_accessor :display_preference
         sig {
           params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::RevolutPay::DisplayPreference)).void
+         }
+        def initialize(display_preference: nil); end
+      end
+      class Satispay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :preference
+          sig { params(preference: T.nilable(String)).void }
+          def initialize(preference: nil); end
+        end
+        # Whether or not the payment method should be displayed.
+        sig {
+          returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Satispay::DisplayPreference))
+         }
+        attr_accessor :display_preference
+        sig {
+          params(display_preference: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Satispay::DisplayPreference)).void
          }
         def initialize(display_preference: nil); end
       end
@@ -1868,6 +1992,9 @@ module Stripe
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Bancontact))
        }
       attr_accessor :bancontact
+      # Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Billie)) }
+      attr_accessor :billie
       # BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
       sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Blik)) }
       attr_accessor :blik
@@ -1938,6 +2065,11 @@ module Stripe
       # Configuration name.
       sig { returns(T.nilable(String)) }
       attr_accessor :name
+      # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::NzBankAccount))
+       }
+      attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
       sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Oxxo)) }
       attr_accessor :oxxo
@@ -1965,6 +2097,11 @@ module Stripe
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::RevolutPay))
        }
       attr_accessor :revolut_pay
+      # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+      sig {
+        returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Satispay))
+       }
+      attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
       sig {
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::SepaDebit))
@@ -1993,7 +2130,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Zip)) }
       attr_accessor :zip
       sig {
-        params(acss_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AcssDebit), active: T.nilable(T::Boolean), affirm: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Alipay), alma: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AmazonPay), apple_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePay), apple_pay_later: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePayLater), au_becs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Bancontact), blik: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Boleto), card: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Card), cartes_bancaires: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::CartesBancaires), cashapp: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Cashapp), customer_balance: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Giropay), google_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::GooglePay), grabpay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Grabpay), ideal: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Ideal), jcb: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Jcb), klarna: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Konbini), link: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Link), mobilepay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Multibanco), name: T.nilable(String), oxxo: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::P24), pay_by_bank: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::PayByBank), paynow: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Paypal), promptpay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Promptpay), revolut_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::RevolutPay), sepa_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::SepaDebit), sofort: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Swish), twint: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Twint), us_bank_account: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Zip)).void
+        params(acss_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AcssDebit), active: T.nilable(T::Boolean), affirm: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Alipay), alma: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Alma), amazon_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AmazonPay), apple_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePay), apple_pay_later: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePayLater), au_becs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::BacsDebit), bancontact: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Bancontact), billie: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Billie), blik: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Blik), boleto: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Boleto), card: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Card), cartes_bancaires: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::CartesBancaires), cashapp: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Cashapp), customer_balance: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::CustomerBalance), eps: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Eps), expand: T.nilable(T::Array[String]), fpx: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Fpx), giropay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Giropay), google_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::GooglePay), grabpay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Grabpay), ideal: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Ideal), jcb: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Jcb), klarna: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Klarna), konbini: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Konbini), link: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Link), mobilepay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Mobilepay), multibanco: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Multibanco), name: T.nilable(String), nz_bank_account: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Oxxo), p24: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::P24), pay_by_bank: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::PayByBank), paynow: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Paynow), paypal: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Paypal), promptpay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Promptpay), revolut_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::RevolutPay), satispay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Satispay), sepa_debit: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::SepaDebit), sofort: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Sofort), swish: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Swish), twint: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Twint), us_bank_account: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::WechatPay), zip: T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -2008,6 +2145,7 @@ module Stripe
         au_becs_debit: nil,
         bacs_debit: nil,
         bancontact: nil,
+        billie: nil,
         blik: nil,
         boleto: nil,
         card: nil,
@@ -2028,6 +2166,7 @@ module Stripe
         mobilepay: nil,
         multibanco: nil,
         name: nil,
+        nz_bank_account: nil,
         oxxo: nil,
         p24: nil,
         pay_by_bank: nil,
@@ -2035,6 +2174,7 @@ module Stripe
         paypal: nil,
         promptpay: nil,
         revolut_pay: nil,
+        satispay: nil,
         sepa_debit: nil,
         sofort: nil,
         swish: nil,

@@ -74,6 +74,9 @@ module Stripe
           sig { returns(String) }
           attr_reader :value
         end
+        # The value that will pre-fill on the payment page.
+        sig { returns(T.nilable(String)) }
+        attr_reader :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         sig { returns(T::Array[Option]) }
         attr_reader :options
@@ -87,6 +90,9 @@ module Stripe
         attr_reader :type
       end
       class Numeric < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        sig { returns(T.nilable(String)) }
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         sig { returns(T.nilable(Integer)) }
         attr_reader :maximum_length
@@ -95,6 +101,9 @@ module Stripe
         attr_reader :minimum_length
       end
       class Text < Stripe::StripeObject
+        # The value that will pre-fill the field on the payment page.
+        sig { returns(T.nilable(String)) }
+        attr_reader :default_value
         # The maximum character length constraint for the customer's input.
         sig { returns(T.nilable(Integer)) }
         attr_reader :maximum_length
@@ -209,6 +218,28 @@ module Stripe
       # Configuration for the invoice. Default invoice values will be used if unspecified.
       sig { returns(T.nilable(InvoiceData)) }
       attr_reader :invoice_data
+    end
+    class OptionalItem < Stripe::StripeObject
+      class AdjustableQuantity < Stripe::StripeObject
+        # Set to true if the quantity can be adjusted to any non-negative integer.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # The maximum quantity of this item the customer can purchase. By default this value is 99.
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :maximum
+        # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :minimum
+      end
+      # Attribute for field adjustable_quantity
+      sig { returns(T.nilable(AdjustableQuantity)) }
+      attr_reader :adjustable_quantity
+      # Attribute for field price
+      sig { returns(String) }
+      attr_reader :price
+      # Attribute for field quantity
+      sig { returns(Integer) }
+      attr_reader :quantity
     end
     class PaymentIntentData < Stripe::StripeObject
       # Indicates when the funds will be captured from the customer's account.
@@ -383,6 +414,9 @@ module Stripe
     # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }
     attr_reader :on_behalf_of
+    # The optional items presented to the customer at checkout.
+    sig { returns(T.nilable(T::Array[OptionalItem])) }
+    attr_reader :optional_items
     # Indicates the parameters to be passed to PaymentIntent creation during checkout.
     sig { returns(T.nilable(PaymentIntentData)) }
     attr_reader :payment_intent_data
@@ -546,15 +580,18 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           sig {
             returns(T::Array[::Stripe::PaymentLink::CreateParams::CustomField::Dropdown::Option])
            }
           attr_accessor :options
           sig {
-            params(options: T::Array[::Stripe::PaymentLink::CreateParams::CustomField::Dropdown::Option]).void
+            params(default_value: T.nilable(String), options: T::Array[::Stripe::PaymentLink::CreateParams::CustomField::Dropdown::Option]).void
            }
-          def initialize(options: nil); end
+          def initialize(default_value: nil, options: nil); end
         end
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
@@ -567,6 +604,9 @@ module Stripe
           def initialize(custom: nil, type: nil); end
         end
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum_length
@@ -574,11 +614,14 @@ module Stripe
           sig { returns(T.nilable(Integer)) }
           attr_accessor :minimum_length
           sig {
-            params(maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
+            params(default_value: T.nilable(String), maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
            }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum_length
@@ -586,9 +629,9 @@ module Stripe
           sig { returns(T.nilable(Integer)) }
           attr_accessor :minimum_length
           sig {
-            params(maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
+            params(default_value: T.nilable(String), maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
            }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         # Configuration for `type=dropdown` fields.
         sig { returns(T.nilable(::Stripe::PaymentLink::CreateParams::CustomField::Dropdown)) }
@@ -794,6 +837,38 @@ module Stripe
         attr_accessor :quantity
         sig {
           params(adjustable_quantity: T.nilable(::Stripe::PaymentLink::CreateParams::LineItem::AdjustableQuantity), price: String, quantity: Integer).void
+         }
+        def initialize(adjustable_quantity: nil, price: nil, quantity: nil); end
+      end
+      class OptionalItem < Stripe::RequestParams
+        class AdjustableQuantity < Stripe::RequestParams
+          # Set to true if the quantity can be adjusted to any non-negative integer.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # The maximum quantity of this item the customer can purchase. By default this value is 99.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :maximum
+          # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :minimum
+          sig {
+            params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+           }
+          def initialize(enabled: nil, maximum: nil, minimum: nil); end
+        end
+        # When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+        sig {
+          returns(T.nilable(::Stripe::PaymentLink::CreateParams::OptionalItem::AdjustableQuantity))
+         }
+        attr_accessor :adjustable_quantity
+        # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        sig { returns(String) }
+        attr_accessor :price
+        # The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+        sig { returns(Integer) }
+        attr_accessor :quantity
+        sig {
+          params(adjustable_quantity: T.nilable(::Stripe::PaymentLink::CreateParams::OptionalItem::AdjustableQuantity), price: String, quantity: Integer).void
          }
         def initialize(adjustable_quantity: nil, price: nil, quantity: nil); end
       end
@@ -1026,6 +1101,11 @@ module Stripe
       # The account on behalf of which to charge.
       sig { returns(T.nilable(String)) }
       attr_accessor :on_behalf_of
+      # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+      # There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
+      # There is a maximum of 20 combined line items and optional items.
+      sig { returns(T.nilable(T::Array[::Stripe::PaymentLink::CreateParams::OptionalItem])) }
+      attr_accessor :optional_items
       # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
       sig { returns(T.nilable(::Stripe::PaymentLink::CreateParams::PaymentIntentData)) }
       attr_accessor :payment_intent_data
@@ -1066,7 +1146,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::PaymentLink::CreateParams::TransferData)) }
       attr_accessor :transfer_data
       sig {
-        params(after_completion: T.nilable(::Stripe::PaymentLink::CreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::PaymentLink::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLink::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLink::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLink::CreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLink::CreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLink::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_intent_data: T.nilable(::Stripe::PaymentLink::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLink::CreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLink::CreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLink::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLink::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLink::CreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLink::CreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLink::CreateParams::TransferData)).void
+        params(after_completion: T.nilable(::Stripe::PaymentLink::CreateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(Integer), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::PaymentLink::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLink::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::PaymentLink::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::PaymentLink::CreateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLink::CreateParams::InvoiceCreation), line_items: T::Array[::Stripe::PaymentLink::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::PaymentLink::CreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::PaymentLink::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::PaymentLink::CreateParams::PhoneNumberCollection), restrictions: T.nilable(::Stripe::PaymentLink::CreateParams::Restrictions), shipping_address_collection: T.nilable(::Stripe::PaymentLink::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::PaymentLink::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLink::CreateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLink::CreateParams::TaxIdCollection), transfer_data: T.nilable(::Stripe::PaymentLink::CreateParams::TransferData)).void
        }
       def initialize(
         after_completion: nil,
@@ -1086,6 +1166,7 @@ module Stripe
         line_items: nil,
         metadata: nil,
         on_behalf_of: nil,
+        optional_items: nil,
         payment_intent_data: nil,
         payment_method_collection: nil,
         payment_method_types: nil,
@@ -1167,15 +1248,18 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
+          # The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           sig {
             returns(T::Array[::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown::Option])
            }
           attr_accessor :options
           sig {
-            params(options: T::Array[::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown::Option]).void
+            params(default_value: T.nilable(String), options: T::Array[::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown::Option]).void
            }
-          def initialize(options: nil); end
+          def initialize(default_value: nil, options: nil); end
         end
         class Label < Stripe::RequestParams
           # Custom text for the label, displayed to the customer. Up to 50 characters.
@@ -1188,6 +1272,9 @@ module Stripe
           def initialize(custom: nil, type: nil); end
         end
         class Numeric < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum_length
@@ -1195,11 +1282,14 @@ module Stripe
           sig { returns(T.nilable(Integer)) }
           attr_accessor :minimum_length
           sig {
-            params(maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
+            params(default_value: T.nilable(String), maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
            }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         class Text < Stripe::RequestParams
+          # The value that will pre-fill the field on the payment page.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :default_value
           # The maximum character length constraint for the customer's input.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :maximum_length
@@ -1207,9 +1297,9 @@ module Stripe
           sig { returns(T.nilable(Integer)) }
           attr_accessor :minimum_length
           sig {
-            params(maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
+            params(default_value: T.nilable(String), maximum_length: T.nilable(Integer), minimum_length: T.nilable(Integer)).void
            }
-          def initialize(maximum_length: nil, minimum_length: nil); end
+          def initialize(default_value: nil, maximum_length: nil, minimum_length: nil); end
         end
         # Configuration for `type=dropdown` fields.
         sig { returns(T.nilable(::Stripe::PaymentLink::UpdateParams::CustomField::Dropdown)) }

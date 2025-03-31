@@ -89,18 +89,9 @@ module Stripe
           # Attribute for field address
           sig { returns(Address) }
           attr_reader :address
-          # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-          sig { returns(T.nilable(String)) }
-          attr_reader :carrier
-          # Recipient name.
+          # Customer name.
           sig { returns(String) }
           attr_reader :name
-          # Recipient phone (including extension).
-          sig { returns(T.nilable(String)) }
-          attr_reader :phone
-          # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-          sig { returns(T.nilable(String)) }
-          attr_reader :tracking_number
         end
         # Shipping information for this Checkout Session.
         sig { returns(T.nilable(ShippingDetails)) }
@@ -369,6 +360,28 @@ module Stripe
         # Attribute for field invoice_data
         sig { returns(InvoiceData) }
         attr_reader :invoice_data
+      end
+      class OptionalItem < Stripe::StripeObject
+        class AdjustableQuantity < Stripe::StripeObject
+          # Set to true if the quantity can be adjusted to any non-negative integer.
+          sig { returns(T::Boolean) }
+          attr_reader :enabled
+          # The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+          sig { returns(T.nilable(Integer)) }
+          attr_reader :maximum
+          # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+          sig { returns(T.nilable(Integer)) }
+          attr_reader :minimum
+        end
+        # Attribute for field adjustable_quantity
+        sig { returns(T.nilable(AdjustableQuantity)) }
+        attr_reader :adjustable_quantity
+        # Attribute for field price
+        sig { returns(String) }
+        attr_reader :price
+        # Attribute for field quantity
+        sig { returns(Integer) }
+        attr_reader :quantity
       end
       class PaymentMethodConfigurationDetails < Stripe::StripeObject
         # ID of the payment method configuration used.
@@ -1035,10 +1048,27 @@ module Stripe
         sig { returns(UsBankAccount) }
         attr_reader :us_bank_account
       end
+      class Permissions < Stripe::StripeObject
+        # Determines which entity is allowed to update the shipping details.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+        #
+        # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        sig { returns(T.nilable(String)) }
+        attr_reader :update_shipping_details
+      end
       class PhoneNumberCollection < Stripe::StripeObject
         # Indicates whether phone number collection is enabled for the session
         sig { returns(T::Boolean) }
         attr_reader :enabled
+      end
+      class PresentmentDetails < Stripe::StripeObject
+        # Amount intended to be collected by this payment, denominated in presentment_currency.
+        sig { returns(Integer) }
+        attr_reader :presentment_amount
+        # Currency presented to the customer during payment.
+        sig { returns(String) }
+        attr_reader :presentment_currency
       end
       class SavedPaymentMethodOptions < Stripe::StripeObject
         # Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with ’allow_redisplay: ‘always’ are shown in Checkout.
@@ -1089,43 +1119,6 @@ module Stripe
         # The taxes applied to the shipping rate.
         sig { returns(T::Array[Tax]) }
         attr_reader :taxes
-      end
-      class ShippingDetails < Stripe::StripeObject
-        class Address < Stripe::StripeObject
-          # City, district, suburb, town, or village.
-          sig { returns(T.nilable(String)) }
-          attr_reader :city
-          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          sig { returns(T.nilable(String)) }
-          attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
-          sig { returns(T.nilable(String)) }
-          attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
-          sig { returns(T.nilable(String)) }
-          attr_reader :line2
-          # ZIP or postal code.
-          sig { returns(T.nilable(String)) }
-          attr_reader :postal_code
-          # State, county, province, or region.
-          sig { returns(T.nilable(String)) }
-          attr_reader :state
-        end
-        # Attribute for field address
-        sig { returns(Address) }
-        attr_reader :address
-        # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        sig { returns(T.nilable(String)) }
-        attr_reader :carrier
-        # Recipient name.
-        sig { returns(String) }
-        attr_reader :name
-        # Recipient phone (including extension).
-        sig { returns(T.nilable(String)) }
-        attr_reader :phone
-        # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        sig { returns(T.nilable(String)) }
-        attr_reader :tracking_number
       end
       class ShippingOption < Stripe::StripeObject
         # A non-negative integer in cents representing how much to charge.
@@ -1221,7 +1214,7 @@ module Stripe
       # Session with your internal systems.
       sig { returns(T.nilable(String)) }
       attr_reader :client_reference_id
-      # Client secret to be used when initializing Stripe.js embedded checkout.
+      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded`. Client secret to be used when initializing Stripe.js embedded checkout.
       sig { returns(T.nilable(String)) }
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
@@ -1301,6 +1294,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
+      # The optional items presented to the customer at checkout.
+      sig { returns(T.nilable(T::Array[OptionalItem])) }
+      attr_reader :optional_items
       # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
       sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
       attr_reader :payment_intent
@@ -1324,9 +1320,17 @@ module Stripe
       # You can use this value to decide when to fulfill your customer's order.
       sig { returns(String) }
       attr_reader :payment_status
+      # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+      #
+      # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+      sig { returns(T.nilable(Permissions)) }
+      attr_reader :permissions
       # Attribute for field phone_number_collection
       sig { returns(PhoneNumberCollection) }
       attr_reader :phone_number_collection
+      # Attribute for field presentment_details
+      sig { returns(PresentmentDetails) }
+      attr_reader :presentment_details
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       sig { returns(T.nilable(String)) }
       attr_reader :recovered_from
@@ -1348,9 +1352,6 @@ module Stripe
       # The details of the customer cost of shipping, including the customer chosen ShippingRate.
       sig { returns(T.nilable(ShippingCost)) }
       attr_reader :shipping_cost
-      # Shipping information for this Checkout Session.
-      sig { returns(T.nilable(ShippingDetails)) }
-      attr_reader :shipping_details
       # The shipping rate options applied to this Session.
       sig { returns(T::Array[ShippingOption]) }
       attr_reader :shipping_options
@@ -1378,7 +1379,7 @@ module Stripe
       # The UI mode of the Session. Defaults to `hosted`.
       sig { returns(T.nilable(String)) }
       attr_reader :ui_mode
-      # The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       sig { returns(T.nilable(String)) }
       attr_reader :url
@@ -1875,10 +1876,10 @@ module Stripe
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             sig { returns(String) }
             attr_accessor :currency
-            # The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
             sig { returns(T.nilable(String)) }
             attr_accessor :product
-            # Data used to generate a new product object inline. One of `product` or `product_data` is required.
+            # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
             sig {
               returns(T.nilable(::Stripe::Checkout::Session::CreateParams::LineItem::PriceData::ProductData))
              }
@@ -1941,6 +1942,38 @@ module Stripe
             quantity: nil,
             tax_rates: nil
           ); end
+        end
+        class OptionalItem < Stripe::RequestParams
+          class AdjustableQuantity < Stripe::RequestParams
+            # Set to true if the quantity can be adjusted to any non-negative integer.
+            sig { returns(T::Boolean) }
+            attr_accessor :enabled
+            # The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :maximum
+            # The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :minimum
+            sig {
+              params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+             }
+            def initialize(enabled: nil, maximum: nil, minimum: nil); end
+          end
+          # When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::OptionalItem::AdjustableQuantity))
+           }
+          attr_accessor :adjustable_quantity
+          # The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+          sig { returns(String) }
+          attr_accessor :price
+          # The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+          sig { returns(Integer) }
+          attr_accessor :quantity
+          sig {
+            params(adjustable_quantity: T.nilable(::Stripe::Checkout::Session::CreateParams::OptionalItem::AdjustableQuantity), price: String, quantity: Integer).void
+           }
+          def initialize(adjustable_quantity: nil, price: nil, quantity: nil); end
         end
         class PaymentIntentData < Stripe::RequestParams
           class Shipping < Stripe::RequestParams
@@ -2016,7 +2049,7 @@ module Stripe
             sig { params(amount: T.nilable(Integer), destination: String).void }
             def initialize(amount: nil, destination: nil); end
           end
-          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+          # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
           sig { returns(T.nilable(Integer)) }
           attr_accessor :application_fee_amount
           # Controls when the funds will be captured from the customer's account.
@@ -3099,6 +3132,17 @@ module Stripe
             wechat_pay: nil
           ); end
         end
+        class Permissions < Stripe::RequestParams
+          # Determines which entity is allowed to update the shipping details.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+          #
+          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :update_shipping_details
+          sig { params(update_shipping_details: T.nilable(String)).void }
+          def initialize(update_shipping_details: nil); end
+        end
         class PhoneNumberCollection < Stripe::RequestParams
           # Set to `true` to enable phone number collection.
           #
@@ -3401,7 +3445,7 @@ module Stripe
         # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         sig { returns(T.nilable(String)) }
         attr_accessor :billing_address_collection
-        # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded`.
+        # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
         sig { returns(T.nilable(String)) }
         attr_accessor :cancel_url
         # A unique string to reference the Checkout Session. This can be a
@@ -3483,6 +3527,17 @@ module Stripe
         # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         sig { returns(T.nilable(String)) }
         attr_accessor :mode
+        # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        #
+        # There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
+        #
+        # For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
+        #
+        # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+        sig {
+          returns(T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]))
+         }
+        attr_accessor :optional_items
         # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
         sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData)) }
         attr_accessor :payment_intent_data
@@ -3516,6 +3571,11 @@ module Stripe
         # other characteristics.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :payment_method_types
+        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        #
+        # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions)) }
+        attr_accessor :permissions
         # Controls phone number collection settings for the session.
         #
         # We recommend that you review your privacy policy and check with your legal contacts
@@ -3526,7 +3586,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :redirect_on_completion
         # The URL to redirect your customer back to after they authenticate or cancel their payment on the
-        # payment method's app or site. This parameter is required if ui_mode is `embedded`
+        # payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
         # and redirect-based payment methods are enabled on the session.
         sig { returns(T.nilable(String)) }
         attr_accessor :return_url
@@ -3548,9 +3608,10 @@ module Stripe
           returns(T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]))
          }
         attr_accessor :shipping_options
-        # Describes the type of transaction being performed by Checkout in order to customize
-        # relevant text on the page, such as the submit button. `submit_type` can only be
-        # specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        # Describes the type of transaction being performed by Checkout in order
+        # to customize relevant text on the page, such as the submit button.
+        #  `submit_type` can only be specified on Checkout Sessions in
+        # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         sig { returns(T.nilable(String)) }
         attr_accessor :submit_type
         # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
@@ -3558,7 +3619,7 @@ module Stripe
         attr_accessor :subscription_data
         # The URL to which Stripe should send customers when payment or setup
         # is complete.
-        # This parameter is not allowed if ui_mode is `embedded`. If you’d like to use
+        # This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
         # information from the successful Checkout Session on your page, read the
         # guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
         sig { returns(T.nilable(String)) }
@@ -3570,7 +3631,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :ui_mode
         sig {
-          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String)).void
+          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String)).void
          }
         def initialize(
           adaptive_pricing: nil,
@@ -3596,12 +3657,14 @@ module Stripe
           locale: nil,
           metadata: nil,
           mode: nil,
+          optional_items: nil,
           payment_intent_data: nil,
           payment_method_collection: nil,
           payment_method_configuration: nil,
           payment_method_data: nil,
           payment_method_options: nil,
           payment_method_types: nil,
+          permissions: nil,
           phone_number_collection: nil,
           redirect_on_completion: nil,
           return_url: nil,
@@ -3673,6 +3736,122 @@ module Stripe
            }
           def initialize(shipping_details: nil); end
         end
+        class ShippingOption < Stripe::RequestParams
+          class ShippingRateData < Stripe::RequestParams
+            class DeliveryEstimate < Stripe::RequestParams
+              class Maximum < Stripe::RequestParams
+                # A unit of time.
+                sig { returns(String) }
+                attr_accessor :unit
+                # Must be greater than 0.
+                sig { returns(Integer) }
+                attr_accessor :value
+                sig { params(unit: String, value: Integer).void }
+                def initialize(unit: nil, value: nil); end
+              end
+              class Minimum < Stripe::RequestParams
+                # A unit of time.
+                sig { returns(String) }
+                attr_accessor :unit
+                # Must be greater than 0.
+                sig { returns(Integer) }
+                attr_accessor :value
+                sig { params(unit: String, value: Integer).void }
+                def initialize(unit: nil, value: nil); end
+              end
+              # The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
+              sig {
+                returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum))
+               }
+              attr_accessor :maximum
+              # The lower bound of the estimated range. If empty, represents no lower bound.
+              sig {
+                returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum))
+               }
+              attr_accessor :minimum
+              sig {
+                params(maximum: T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Maximum), minimum: T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate::Minimum)).void
+               }
+              def initialize(maximum: nil, minimum: nil); end
+            end
+            class FixedAmount < Stripe::RequestParams
+              class CurrencyOptions < Stripe::RequestParams
+                # A non-negative integer in cents representing how much to charge.
+                sig { returns(Integer) }
+                attr_accessor :amount
+                # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+                sig { returns(T.nilable(String)) }
+                attr_accessor :tax_behavior
+                sig { params(amount: Integer, tax_behavior: T.nilable(String)).void }
+                def initialize(amount: nil, tax_behavior: nil); end
+              end
+              # A non-negative integer in cents representing how much to charge.
+              sig { returns(Integer) }
+              attr_accessor :amount
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              sig { returns(String) }
+              attr_accessor :currency
+              # Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+              sig {
+                returns(T.nilable(T::Hash[String, ::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions]))
+               }
+              attr_accessor :currency_options
+              sig {
+                params(amount: Integer, currency: String, currency_options: T.nilable(T::Hash[String, ::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::FixedAmount::CurrencyOptions])).void
+               }
+              def initialize(amount: nil, currency: nil, currency_options: nil); end
+            end
+            # The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate))
+             }
+            attr_accessor :delivery_estimate
+            # The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
+            sig { returns(String) }
+            attr_accessor :display_name
+            # Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::FixedAmount))
+             }
+            attr_accessor :fixed_amount
+            # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            attr_accessor :metadata
+            # Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :tax_behavior
+            # A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :tax_code
+            # The type of calculation to use on the shipping rate.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :type
+            sig {
+              params(delivery_estimate: T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::DeliveryEstimate), display_name: String, fixed_amount: T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData::FixedAmount), metadata: T.nilable(T::Hash[String, String]), tax_behavior: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String)).void
+             }
+            def initialize(
+              delivery_estimate: nil,
+              display_name: nil,
+              fixed_amount: nil,
+              metadata: nil,
+              tax_behavior: nil,
+              tax_code: nil,
+              type: nil
+            ); end
+          end
+          # The ID of the Shipping Rate to use for this shipping option.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :shipping_rate
+          # Parameters to be passed to Shipping Rate creation for this shipping option.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData))
+           }
+          attr_accessor :shipping_rate_data
+          sig {
+            params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::Session::UpdateParams::ShippingOption::ShippingRateData)).void
+           }
+          def initialize(shipping_rate: nil, shipping_rate_data: nil); end
+        end
         # Information about the customer collected within the Checkout Session.
         sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation)) }
         attr_accessor :collected_information
@@ -3682,10 +3861,20 @@ module Stripe
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
         attr_accessor :metadata
+        # The shipping rate options to apply to this Session. Up to a maximum of 5.
         sig {
-          params(collected_information: T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String])))).void
+          returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::UpdateParams::ShippingOption]))))
          }
-        def initialize(collected_information: nil, expand: nil, metadata: nil); end
+        attr_accessor :shipping_options
+        sig {
+          params(collected_information: T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), shipping_options: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::Session::UpdateParams::ShippingOption])))).void
+         }
+        def initialize(
+          collected_information: nil,
+          expand: nil,
+          metadata: nil,
+          shipping_options: nil
+        ); end
       end
       class ListLineItemsParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -3712,23 +3901,23 @@ module Stripe
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
-      # Creates a Session object.
+      # Creates a Checkout Session object.
       sig {
         params(params: T.any(::Stripe::Checkout::Session::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
       def self.create(params = {}, opts = {}); end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
         params(params: T.any(::Stripe::Checkout::Session::ExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
       def expire(params = {}, opts = {}); end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::Session::ExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }
@@ -3752,7 +3941,7 @@ module Stripe
        }
       def self.list_line_items(session, params = {}, opts = {}); end
 
-      # Updates a Session object.
+      # Updates a Checkout Session object.
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::Session::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }

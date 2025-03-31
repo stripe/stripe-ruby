@@ -302,6 +302,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :verified_name
       end
+      class Billie < Stripe::StripeObject; end
       class Blik < Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         sig { returns(T.nilable(String)) }
@@ -998,6 +999,26 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
       end
+      class NzBankAccount < Stripe::StripeObject
+        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+        sig { returns(T.nilable(String)) }
+        attr_reader :account_holder_name
+        # The numeric code for the bank account's bank.
+        sig { returns(String) }
+        attr_reader :bank_code
+        # The name of the bank.
+        sig { returns(String) }
+        attr_reader :bank_name
+        # The numeric code for the bank account's bank branch.
+        sig { returns(String) }
+        attr_reader :branch_code
+        # Last four digits of the bank account number.
+        sig { returns(String) }
+        attr_reader :last4
+        # The suffix of the bank account number.
+        sig { returns(T.nilable(String)) }
+        attr_reader :suffix
+      end
       class Oxxo < Stripe::StripeObject
         # OXXO reference number
         sig { returns(T.nilable(String)) }
@@ -1105,6 +1126,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :buyer_id
       end
+      class Satispay < Stripe::StripeObject; end
       class SepaCreditTransfer < Stripe::StripeObject
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
@@ -1249,6 +1271,9 @@ module Stripe
       # Attribute for field bancontact
       sig { returns(Bancontact) }
       attr_reader :bancontact
+      # Attribute for field billie
+      sig { returns(Billie) }
+      attr_reader :billie
       # Attribute for field blik
       sig { returns(Blik) }
       attr_reader :blik
@@ -1309,6 +1334,9 @@ module Stripe
       # Attribute for field naver_pay
       sig { returns(NaverPay) }
       attr_reader :naver_pay
+      # Attribute for field nz_bank_account
+      sig { returns(NzBankAccount) }
+      attr_reader :nz_bank_account
       # Attribute for field oxxo
       sig { returns(Oxxo) }
       attr_reader :oxxo
@@ -1339,6 +1367,9 @@ module Stripe
       # Attribute for field samsung_pay
       sig { returns(SamsungPay) }
       attr_reader :samsung_pay
+      # Attribute for field satispay
+      sig { returns(Satispay) }
+      attr_reader :satispay
       # Attribute for field sepa_credit_transfer
       sig { returns(SepaCreditTransfer) }
       attr_reader :sepa_credit_transfer
@@ -1374,6 +1405,14 @@ module Stripe
       # Attribute for field zip
       sig { returns(Zip) }
       attr_reader :zip
+    end
+    class PresentmentDetails < Stripe::StripeObject
+      # Amount intended to be collected by this payment, denominated in presentment_currency.
+      sig { returns(Integer) }
+      attr_reader :presentment_amount
+      # Currency presented to the customer during payment.
+      sig { returns(String) }
+      attr_reader :presentment_currency
     end
     class RadarOptions < Stripe::StripeObject
       # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -1488,9 +1527,6 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     attr_reader :id
-    # ID of the invoice this charge is for if one exists.
-    sig { returns(T.nilable(T.any(String, Stripe::Invoice))) }
-    attr_reader :invoice
     # Attribute for field level3
     sig { returns(Level3) }
     attr_reader :level3
@@ -1521,6 +1557,9 @@ module Stripe
     # Details about the payment method at the time of the transaction.
     sig { returns(T.nilable(PaymentMethodDetails)) }
     attr_reader :payment_method_details
+    # Attribute for field presentment_details
+    sig { returns(PresentmentDetails) }
+    attr_reader :presentment_details
     # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
     sig { returns(RadarOptions) }
     attr_reader :radar_options
@@ -1918,7 +1957,7 @@ module Stripe
         sig { params(amount: T.nilable(Integer)).void }
         def initialize(amount: nil); end
       end
-      # The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
+      # The amount to capture, which must be less than or equal to the original amount.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount
       # An application fee to add on to this charge.

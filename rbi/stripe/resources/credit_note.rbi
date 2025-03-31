@@ -29,6 +29,14 @@ module Stripe
       sig { returns(String) }
       attr_reader :type
     end
+    class Refund < Stripe::StripeObject
+      # Amount of the refund that applies to this credit note, in cents (or local equivalent).
+      sig { returns(Integer) }
+      attr_reader :amount_refunded
+      # ID of the refund.
+      sig { returns(T.any(String, Stripe::Refund)) }
+      attr_reader :refund
+    end
     class ShippingCost < Stripe::StripeObject
       class Tax < Stripe::StripeObject
         # Amount of tax applied for this rate.
@@ -62,22 +70,30 @@ module Stripe
       sig { returns(T::Array[Tax]) }
       attr_reader :taxes
     end
-    class TaxAmount < Stripe::StripeObject
-      # The amount, in cents (or local equivalent), of the tax.
+    class TotalTax < Stripe::StripeObject
+      class TaxRateDetails < Stripe::StripeObject
+        # Attribute for field tax_rate
+        sig { returns(String) }
+        attr_reader :tax_rate
+      end
+      # The amount of the tax, in cents (or local equivalent).
       sig { returns(Integer) }
       attr_reader :amount
-      # Whether this tax amount is inclusive or exclusive.
-      sig { returns(T::Boolean) }
-      attr_reader :inclusive
-      # The tax rate that was applied to get this tax amount.
-      sig { returns(T.any(String, Stripe::TaxRate)) }
-      attr_reader :tax_rate
+      # Whether this tax is inclusive or exclusive.
+      sig { returns(String) }
+      attr_reader :tax_behavior
+      # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+      sig { returns(T.nilable(TaxRateDetails)) }
+      attr_reader :tax_rate_details
       # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       sig { returns(T.nilable(Integer)) }
       attr_reader :taxable_amount
+      # The type of tax information.
+      sig { returns(String) }
+      attr_reader :type
     end
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax.
     sig { returns(Integer) }
@@ -142,9 +158,9 @@ module Stripe
     # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
     sig { returns(T.nilable(String)) }
     attr_reader :reason
-    # Refund related to this credit note.
-    sig { returns(T.nilable(T.any(String, Stripe::Refund))) }
-    attr_reader :refund
+    # Refunds related to this credit note.
+    sig { returns(T::Array[Refund]) }
+    attr_reader :refunds
     # The details of the cost of shipping, including the ShippingRate applied to the invoice.
     sig { returns(T.nilable(ShippingCost)) }
     attr_reader :shipping_cost
@@ -157,15 +173,15 @@ module Stripe
     # The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     sig { returns(T.nilable(Integer)) }
     attr_reader :subtotal_excluding_tax
-    # The aggregate amounts calculated per tax rate for all line items.
-    sig { returns(T::Array[TaxAmount]) }
-    attr_reader :tax_amounts
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
     sig { returns(Integer) }
     attr_reader :total
     # The integer amount in cents (or local equivalent) representing the total amount of the credit note, excluding tax, but including discounts.
     sig { returns(T.nilable(Integer)) }
     attr_reader :total_excluding_tax
+    # The aggregate tax information for all line items.
+    sig { returns(T.nilable(T::Array[TotalTax])) }
+    attr_reader :total_taxes
     # Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
     sig { returns(String) }
     attr_reader :type
@@ -284,6 +300,16 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
+      class Refund < Stripe::RequestParams
+        # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        sig { returns(T.nilable(Integer)) }
+        attr_accessor :amount_refunded
+        # ID of an existing refund to link this credit note to.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :refund
+        sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
+        def initialize(amount_refunded: nil, refund: nil); end
+      end
       class ShippingCost < Stripe::RequestParams
         # The ID of the shipping rate to use for this order.
         sig { returns(T.nilable(String)) }
@@ -324,17 +350,17 @@ module Stripe
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       sig { returns(T.nilable(String)) }
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :refund_amount
+      # Refunds to link to this credit note.
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Refund])) }
+      attr_accessor :refunds
       # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
       sig { returns(T.nilable(::Stripe::CreditNote::CreateParams::ShippingCost)) }
       attr_accessor :shipping_cost
       sig {
-        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, lines: T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund: T.nilable(String), refund_amount: T.nilable(Integer), shipping_cost: T.nilable(::Stripe::CreditNote::CreateParams::ShippingCost)).void
+        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, lines: T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[::Stripe::CreditNote::CreateParams::Refund]), shipping_cost: T.nilable(::Stripe::CreditNote::CreateParams::ShippingCost)).void
        }
       def initialize(
         amount: nil,
@@ -348,8 +374,8 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
+        refunds: nil,
         shipping_cost: nil
       ); end
     end
@@ -427,6 +453,16 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
+      class Refund < Stripe::RequestParams
+        # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        sig { returns(T.nilable(Integer)) }
+        attr_accessor :amount_refunded
+        # ID of an existing refund to link this credit note to.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :refund
+        sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
+        def initialize(amount_refunded: nil, refund: nil); end
+      end
       class ShippingCost < Stripe::RequestParams
         # The ID of the shipping rate to use for this order.
         sig { returns(T.nilable(String)) }
@@ -467,17 +503,17 @@ module Stripe
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       sig { returns(T.nilable(String)) }
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :refund_amount
+      # Refunds to link to this credit note.
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Refund])) }
+      attr_accessor :refunds
       # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
       sig { returns(T.nilable(::Stripe::CreditNote::PreviewParams::ShippingCost)) }
       attr_accessor :shipping_cost
       sig {
-        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, lines: T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund: T.nilable(String), refund_amount: T.nilable(Integer), shipping_cost: T.nilable(::Stripe::CreditNote::PreviewParams::ShippingCost)).void
+        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, lines: T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[::Stripe::CreditNote::PreviewParams::Refund]), shipping_cost: T.nilable(::Stripe::CreditNote::PreviewParams::ShippingCost)).void
        }
       def initialize(
         amount: nil,
@@ -491,8 +527,8 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
+        refunds: nil,
         shipping_cost: nil
       ); end
     end
@@ -555,6 +591,16 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
+      class Refund < Stripe::RequestParams
+        # Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        sig { returns(T.nilable(Integer)) }
+        attr_accessor :amount_refunded
+        # ID of an existing refund to link this credit note to.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :refund
+        sig { params(amount_refunded: T.nilable(Integer), refund: T.nilable(String)).void }
+        def initialize(amount_refunded: nil, refund: nil); end
+      end
       class ShippingCost < Stripe::RequestParams
         # The ID of the shipping rate to use for this order.
         sig { returns(T.nilable(String)) }
@@ -601,12 +647,12 @@ module Stripe
       # Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
       sig { returns(T.nilable(String)) }
       attr_accessor :reason
-      # ID of an existing refund to link this credit note to.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :refund
       # The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :refund_amount
+      # Refunds to link to this credit note.
+      sig { returns(T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Refund])) }
+      attr_accessor :refunds
       # When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
       sig { returns(T.nilable(::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost)) }
       attr_accessor :shipping_cost
@@ -614,7 +660,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
       sig {
-        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, limit: T.nilable(Integer), lines: T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund: T.nilable(String), refund_amount: T.nilable(Integer), shipping_cost: T.nilable(::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost), starting_after: T.nilable(String)).void
+        params(amount: T.nilable(Integer), credit_amount: T.nilable(Integer), effective_at: T.nilable(Integer), email_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), invoice: String, limit: T.nilable(Integer), lines: T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Line]), memo: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), out_of_band_amount: T.nilable(Integer), reason: T.nilable(String), refund_amount: T.nilable(Integer), refunds: T.nilable(T::Array[::Stripe::CreditNote::ListPreviewLineItemsParams::Refund]), shipping_cost: T.nilable(::Stripe::CreditNote::ListPreviewLineItemsParams::ShippingCost), starting_after: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -630,8 +676,8 @@ module Stripe
         metadata: nil,
         out_of_band_amount: nil,
         reason: nil,
-        refund: nil,
         refund_amount: nil,
+        refunds: nil,
         shipping_cost: nil,
         starting_after: nil
       ); end

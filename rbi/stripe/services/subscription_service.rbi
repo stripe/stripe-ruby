@@ -62,7 +62,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -139,18 +139,6 @@ module Stripe
          }
         def initialize(enabled: nil, liability: nil); end
       end
-      class BillingThresholds < Stripe::RequestParams
-        # Monetary threshold that triggers the subscription to advance to a new billing period
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :amount_gte
-        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        sig { returns(T.nilable(T::Boolean)) }
-        attr_accessor :reset_billing_cycle_anchor
-        sig {
-          params(amount_gte: T.nilable(Integer), reset_billing_cycle_anchor: T.nilable(T::Boolean)).void
-         }
-        def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
-      end
       class CancellationDetails < Stripe::RequestParams
         # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
         sig { returns(T.nilable(T.nilable(String))) }
@@ -203,13 +191,6 @@ module Stripe
         def initialize(account_tax_ids: nil, issuer: nil); end
       end
       class Item < Stripe::RequestParams
-        class BillingThresholds < Stripe::RequestParams
-          # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-          sig { returns(Integer) }
-          attr_accessor :usage_gte
-          sig { params(usage_gte: Integer).void }
-          def initialize(usage_gte: nil); end
-        end
         class Discount < Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
@@ -239,7 +220,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # The recurring components of a price such as `interval` and `interval_count`.
@@ -266,11 +247,6 @@ module Stripe
             unit_amount_decimal: nil
           ); end
         end
-        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::Item::BillingThresholds))))
-         }
-        attr_accessor :billing_thresholds
         # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :clear_usage
@@ -304,10 +280,9 @@ module Stripe
         sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
         attr_accessor :tax_rates
         sig {
-          params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::Item::BillingThresholds))), clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::UpdateParams::Item::Discount]))), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionService::UpdateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::UpdateParams::Item::Discount]))), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionService::UpdateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
          }
         def initialize(
-          billing_thresholds: nil,
           clear_usage: nil,
           deleted: nil,
           discounts: nil,
@@ -589,13 +564,8 @@ module Stripe
       # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
       attr_accessor :billing_cycle_anchor
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::BillingThresholds))))
-       }
-      attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-      sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+      sig { returns(T.nilable(T.nilable(T.any(String, T.any(Integer, String))))) }
       attr_accessor :cancel_at
       # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       sig { returns(T.nilable(T::Boolean)) }
@@ -606,9 +576,6 @@ module Stripe
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
       sig { returns(T.nilable(String)) }
       attr_accessor :collection_method
-      # The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :coupon
       # Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :days_until_due
@@ -669,9 +636,6 @@ module Stripe
         returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::PendingInvoiceItemInterval))))
        }
       attr_accessor :pending_invoice_item_interval
-      # The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :promotion_code
       # Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
       sig { returns(T.nilable(String)) }
       attr_accessor :proration_behavior
@@ -693,19 +657,17 @@ module Stripe
       sig { returns(T.nilable(::Stripe::SubscriptionService::UpdateParams::TrialSettings)) }
       attr_accessor :trial_settings
       sig {
-        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::UpdateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::UpdateParams::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::BillingThresholds))), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancellation_details: T.nilable(::Stripe::SubscriptionService::UpdateParams::CancellationDetails), collection_method: T.nilable(String), coupon: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(T.nilable(String)), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::UpdateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::UpdateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), pause_collection: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::PauseCollection))), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::UpdateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::PendingInvoiceItemInterval))), promotion_code: T.nilable(String), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), transfer_data: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::TransferData))), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_settings: T.nilable(::Stripe::SubscriptionService::UpdateParams::TrialSettings)).void
+        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::UpdateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::UpdateParams::AutomaticTax), billing_cycle_anchor: T.nilable(String), cancel_at: T.nilable(T.nilable(T.any(String, T.any(Integer, String)))), cancel_at_period_end: T.nilable(T::Boolean), cancellation_details: T.nilable(::Stripe::SubscriptionService::UpdateParams::CancellationDetails), collection_method: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(T.nilable(String)), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::UpdateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::UpdateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), pause_collection: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::PauseCollection))), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::UpdateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::PendingInvoiceItemInterval))), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), transfer_data: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::UpdateParams::TransferData))), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_settings: T.nilable(::Stripe::SubscriptionService::UpdateParams::TrialSettings)).void
        }
       def initialize(
         add_invoice_items: nil,
         application_fee_percent: nil,
         automatic_tax: nil,
         billing_cycle_anchor: nil,
-        billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         cancellation_details: nil,
         collection_method: nil,
-        coupon: nil,
         days_until_due: nil,
         default_payment_method: nil,
         default_source: nil,
@@ -722,7 +684,6 @@ module Stripe
         payment_behavior: nil,
         payment_settings: nil,
         pending_invoice_item_interval: nil,
-        promotion_code: nil,
         proration_behavior: nil,
         proration_date: nil,
         transfer_data: nil,
@@ -883,7 +844,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -981,18 +942,6 @@ module Stripe
          }
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
       end
-      class BillingThresholds < Stripe::RequestParams
-        # Monetary threshold that triggers the subscription to advance to a new billing period
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :amount_gte
-        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        sig { returns(T.nilable(T::Boolean)) }
-        attr_accessor :reset_billing_cycle_anchor
-        sig {
-          params(amount_gte: T.nilable(Integer), reset_billing_cycle_anchor: T.nilable(T::Boolean)).void
-         }
-        def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
-      end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
@@ -1033,13 +982,6 @@ module Stripe
         def initialize(account_tax_ids: nil, issuer: nil); end
       end
       class Item < Stripe::RequestParams
-        class BillingThresholds < Stripe::RequestParams
-          # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-          sig { returns(Integer) }
-          attr_accessor :usage_gte
-          sig { params(usage_gte: Integer).void }
-          def initialize(usage_gte: nil); end
-        end
         class Discount < Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
@@ -1069,7 +1011,7 @@ module Stripe
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           attr_accessor :currency
-          # The ID of the product that this price will belong to.
+          # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
           sig { returns(String) }
           attr_accessor :product
           # The recurring components of a price such as `interval` and `interval_count`.
@@ -1096,11 +1038,6 @@ module Stripe
             unit_amount_decimal: nil
           ); end
         end
-        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        sig {
-          returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::Item::BillingThresholds))))
-         }
-        attr_accessor :billing_thresholds
         # The coupons to redeem into discounts for the subscription item.
         sig {
           returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Item::Discount]))))
@@ -1125,10 +1062,9 @@ module Stripe
         sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
         attr_accessor :tax_rates
         sig {
-          params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::Item::BillingThresholds))), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Item::Discount]))), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionService::CreateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+          params(discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Item::Discount]))), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionService::CreateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
          }
         def initialize(
-          billing_thresholds: nil,
           discounts: nil,
           metadata: nil,
           plan: nil,
@@ -1405,13 +1341,8 @@ module Stripe
         returns(T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig))
        }
       attr_accessor :billing_cycle_anchor_config
-      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::BillingThresholds))))
-       }
-      attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-      sig { returns(T.nilable(Integer)) }
+      sig { returns(T.nilable(T.any(Integer, String))) }
       attr_accessor :cancel_at
       # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       sig { returns(T.nilable(T::Boolean)) }
@@ -1419,9 +1350,6 @@ module Stripe
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
       sig { returns(T.nilable(String)) }
       attr_accessor :collection_method
-      # The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :coupon
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(T.nilable(String)) }
       attr_accessor :currency
@@ -1487,9 +1415,6 @@ module Stripe
         returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::PendingInvoiceItemInterval))))
        }
       attr_accessor :pending_invoice_item_interval
-      # The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :promotion_code
       # Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
       sig { returns(T.nilable(String)) }
       attr_accessor :proration_behavior
@@ -1509,7 +1434,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)) }
       attr_accessor :trial_settings
       sig {
-        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::BillingThresholds))), cancel_at: T.nilable(Integer), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), coupon: T.nilable(String), currency: T.nilable(String), customer: String, days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::PendingInvoiceItemInterval))), promotion_code: T.nilable(String), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionService::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)).void
+        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig), cancel_at: T.nilable(T.any(Integer, String)), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), currency: T.nilable(String), customer: String, days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::PendingInvoiceItemInterval))), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionService::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)).void
        }
       def initialize(
         add_invoice_items: nil,
@@ -1518,11 +1443,9 @@ module Stripe
         backdate_start_date: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
-        billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         collection_method: nil,
-        coupon: nil,
         currency: nil,
         customer: nil,
         days_until_due: nil,
@@ -1540,7 +1463,6 @@ module Stripe
         payment_behavior: nil,
         payment_settings: nil,
         pending_invoice_item_interval: nil,
-        promotion_code: nil,
         proration_behavior: nil,
         transfer_data: nil,
         trial_end: nil,

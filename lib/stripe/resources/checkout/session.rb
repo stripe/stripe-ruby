@@ -3444,7 +3444,7 @@ module Stripe
       attr_reader :created
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
-      # Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions
+      # Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions created before 2025-03-31.
       attr_reader :currency_conversion
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported.
       attr_reader :custom_fields

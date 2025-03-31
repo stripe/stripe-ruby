@@ -241,28 +241,29 @@ module Stripe
     end
     class Parent < Stripe::StripeObject
       class QuoteDetails < Stripe::StripeObject
-        # Attribute for field quote
+        # The quote that generated this invoice
         sig { returns(String) }
         attr_reader :quote
       end
       class SubscriptionDetails < Stripe::StripeObject
-        # Attribute for field metadata
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
         sig { returns(T.nilable(T::Hash[String, String])) }
         attr_reader :metadata
-        # Attribute for field subscription
-        sig { returns(String) }
+        # The subscription that generated this invoice
+        sig { returns(T.any(String, Stripe::Subscription)) }
         attr_reader :subscription
-        # Attribute for field subscription_proration_date
+        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
         sig { returns(Integer) }
         attr_reader :subscription_proration_date
       end
-      # Attribute for field quote_details
+      # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
       attr_reader :quote_details
-      # Attribute for field subscription_details
+      # Details about the subscription that generated this invoice
       sig { returns(T.nilable(SubscriptionDetails)) }
       attr_reader :subscription_details
-      # Attribute for field type
+      # The type of parent that generated this invoice
       sig { returns(String) }
       attr_reader :type
     end
@@ -707,7 +708,7 @@ module Stripe
     # The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     sig { returns(T.nilable(T.any(String, Stripe::Account))) }
     attr_reader :on_behalf_of
-    # Attribute for field parent
+    # The parent that generated this invoice
     sig { returns(T.nilable(Parent)) }
     attr_reader :parent
     # Attribute for field payment_settings
@@ -752,9 +753,6 @@ module Stripe
     # Attribute for field status_transitions
     sig { returns(StatusTransitions) }
     attr_reader :status_transitions
-    # Attribute for field subscription
-    sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
-    attr_reader :subscription
     # Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
     sig { returns(Integer) }
     attr_reader :subtotal
@@ -3459,7 +3457,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :billing_cycle_anchor
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-        sig { returns(T.nilable(T.nilable(T.any(String, T.any(Integer, String))))) }
+        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :cancel_at
         # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         sig { returns(T.nilable(T::Boolean)) }
@@ -3491,7 +3489,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), cancel_at: T.nilable(T.nilable(T.any(String, T.any(Integer, String)))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
          }
         def initialize(
           billing_cycle_anchor: nil,

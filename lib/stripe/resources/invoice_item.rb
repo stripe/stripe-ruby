@@ -26,14 +26,14 @@ module Stripe
 
     class Parent < Stripe::StripeObject
       class SubscriptionDetails < Stripe::StripeObject
-        # Attribute for field subscription
+        # The subscription that generated this invoice item
         attr_reader :subscription
-        # Attribute for field subscription_item
+        # The subscription item that generated this invoice item
         attr_reader :subscription_item
       end
-      # Attribute for field subscription_details
+      # Details about the subscription that generated this invoice item
       attr_reader :subscription_details
-      # Attribute for field type
+      # The type of parent that generated this invoice item
       attr_reader :type
     end
 
@@ -407,7 +407,7 @@ module Stripe
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # Attribute for field parent
+    # The parent that generated this invoice
     attr_reader :parent
     # Attribute for field period
     attr_reader :period

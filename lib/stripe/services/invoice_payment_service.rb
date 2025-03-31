@@ -5,9 +5,9 @@ module Stripe
   class InvoicePaymentService < StripeService
     class ListParams < Stripe::RequestParams
       class Payment < Stripe::RequestParams
-        # Attribute for param field payment_intent
+        # Only return invoice payments associated by this payment intent ID.
         attr_accessor :payment_intent
-        # Attribute for param field type
+        # Only return invoice payments associated by this payment type.
         attr_accessor :type
 
         def initialize(payment_intent: nil, type: nil)
@@ -19,15 +19,15 @@ module Stripe
       attr_accessor :ending_before
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # Attribute for param field invoice
+      # The identifier of the invoice whose payments to return.
       attr_accessor :invoice
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-      # Attribute for param field payment
+      # The payment details of the invoice payments to return.
       attr_accessor :payment
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-      # Attribute for param field status
+      # The status of the invoice payments to return.
       attr_accessor :status
 
       def initialize(

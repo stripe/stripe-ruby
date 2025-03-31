@@ -6,10 +6,10 @@ module Stripe
   class InvoicePaymentService < StripeService
     class ListParams < Stripe::RequestParams
       class Payment < Stripe::RequestParams
-        # Attribute for param field payment_intent
+        # Only return invoice payments associated by this payment intent ID.
         sig { returns(T.nilable(String)) }
         attr_accessor :payment_intent
-        # Attribute for param field type
+        # Only return invoice payments associated by this payment type.
         sig { returns(String) }
         attr_accessor :type
         sig { params(payment_intent: T.nilable(String), type: String).void }
@@ -21,19 +21,19 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      # Attribute for param field invoice
+      # The identifier of the invoice whose payments to return.
       sig { returns(T.nilable(String)) }
       attr_accessor :invoice
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :limit
-      # Attribute for param field payment
+      # The payment details of the invoice payments to return.
       sig { returns(T.nilable(::Stripe::InvoicePaymentService::ListParams::Payment)) }
       attr_accessor :payment
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
       attr_accessor :starting_after
-      # Attribute for param field status
+      # The status of the invoice payments to return.
       sig { returns(T.nilable(String)) }
       attr_accessor :status
       sig {

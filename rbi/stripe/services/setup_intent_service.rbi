@@ -665,7 +665,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntentService::CreateParams::PaymentMethodData::SamsungPay))
          }
         attr_accessor :samsung_pay
-        # If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
         sig {
           returns(T.nilable(::Stripe::SetupIntentService::CreateParams::PaymentMethodData::Satispay))
          }
@@ -1824,7 +1824,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntentService::UpdateParams::PaymentMethodData::SamsungPay))
          }
         attr_accessor :samsung_pay
-        # If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
         sig {
           returns(T.nilable(::Stripe::SetupIntentService::UpdateParams::PaymentMethodData::Satispay))
          }
@@ -2977,7 +2977,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntentService::ConfirmParams::PaymentMethodData::SamsungPay))
          }
         attr_accessor :samsung_pay
-        # If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
         sig {
           returns(T.nilable(::Stripe::SetupIntentService::ConfirmParams::PaymentMethodData::Satispay))
          }

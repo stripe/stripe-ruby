@@ -2695,7 +2695,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :billing_cycle_anchor
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-        sig { returns(T.nilable(T.nilable(T.any(String, T.any(Integer, String))))) }
+        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :cancel_at
         # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         sig { returns(T.nilable(T::Boolean)) }
@@ -2727,7 +2727,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), cancel_at: T.nilable(T.nilable(T.any(String, T.any(Integer, String)))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
          }
         def initialize(
           billing_cycle_anchor: nil,

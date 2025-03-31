@@ -53,15 +53,6 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
     attr_reader :id
     # String representing the object's type. Objects of the same type share the same value.

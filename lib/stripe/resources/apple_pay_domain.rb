@@ -16,15 +16,6 @@ module Stripe
     class DeleteParams < Stripe::RequestParams
     end
 
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
     class ListParams < Stripe::RequestParams
       # Attribute for param field domain_name
       attr_accessor :domain_name

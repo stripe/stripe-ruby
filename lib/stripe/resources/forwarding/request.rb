@@ -161,15 +161,6 @@ module Stripe
           @url = url
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
       # Unique identifier for the object.

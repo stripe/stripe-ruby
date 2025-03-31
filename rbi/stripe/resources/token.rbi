@@ -61,13 +61,6 @@ module Stripe
     # Determines if you have already used this token (you can only use tokens once).
     sig { returns(T::Boolean) }
     attr_reader :used
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
     class CreateParams < Stripe::RequestParams
       class Account < Stripe::RequestParams
         class Company < Stripe::RequestParams

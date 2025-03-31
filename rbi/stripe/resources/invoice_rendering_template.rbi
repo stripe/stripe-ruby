@@ -57,16 +57,6 @@ module Stripe
         status: nil
       ); end
     end
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      # Attribute for param field version
-      sig { returns(T.nilable(Integer)) }
-      attr_accessor :version
-      sig { params(expand: T.nilable(T::Array[String]), version: T.nilable(Integer)).void }
-      def initialize(expand: nil, version: nil); end
-    end
     class ArchiveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }

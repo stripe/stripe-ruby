@@ -4441,16 +4441,6 @@ module Stripe
         use_stripe_sdk: nil
       ); end
     end
-    class RetrieveParams < Stripe::RequestParams
-      # The client secret of the PaymentIntent. We require it if you use a publishable key to retrieve the source.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :client_secret
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(client_secret: T.nilable(String), expand: T.nilable(T::Array[String])).void }
-      def initialize(client_secret: nil, expand: nil); end
-    end
     class UpdateParams < Stripe::RequestParams
       class PaymentMethodData < Stripe::RequestParams
         class AcssDebit < Stripe::RequestParams

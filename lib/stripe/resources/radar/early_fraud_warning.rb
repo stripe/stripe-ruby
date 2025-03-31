@@ -66,15 +66,6 @@ module Stripe
           @starting_after = starting_after
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later.
       attr_reader :actionable
       # ID of the charge this early fraud warning is for, optionally expanded.

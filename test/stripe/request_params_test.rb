@@ -79,7 +79,7 @@ module Stripe
         assert_equal "bar", customer.name
       end
 
-      # Note: Resource-based retrieve expand is a special case...
+      # NOTE: Resource-based retrieve expand is a special case...
       should "retrieve a customer with params class" do
         stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123?expand[]=foo")
           .to_return(body: JSON.generate(object: "customer", id: "cus_123", name: "foo"))
@@ -119,18 +119,18 @@ module Stripe
       end
 
       should "request params work in raw request" do
-          expected_body = JSON.generate(id: "cus_123", name: "foo")
-          req = nil
+        expected_body = JSON.generate(id: "cus_123", name: "foo")
+        req = nil
 
-          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
-            .with(body: "name=foo")
-            .with { |request| req = request }
-            .to_return(body: expected_body)
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
+          .with(body: "name=foo")
+          .with { |request| req = request }
+          .to_return(body: expected_body)
 
-          @client = Stripe::StripeClient.new("sk_test_123")
-          resp = @client.raw_request(:post, "/v1/customers", params: Customer::CreateParams.new(name: "foo"))
+        @client = Stripe::StripeClient.new("sk_test_123")
+        resp = @client.raw_request(:post, "/v1/customers", params: Customer::CreateParams.new(name: "foo"))
 
-          assert_equal expected_body, resp.http_body
+        assert_equal expected_body, resp.http_body
       end
     end
   end

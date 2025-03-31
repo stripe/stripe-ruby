@@ -86,15 +86,6 @@ module Stripe
         @type = type
       end
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # Gross amount of this transaction (in cents (or local equivalent)). A positive value represents funds charged to another party, and a negative value represents funds sent to another party.
     attr_reader :amount
     # The date that the transaction's net funds become available in the Stripe balance.

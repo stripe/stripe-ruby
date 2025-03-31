@@ -69,13 +69,6 @@ module Stripe
           type: nil
         ); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       # Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
       sig {
         params(params: T.any(::Stripe::Issuing::PhysicalBundle::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)

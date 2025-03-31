@@ -115,13 +115,6 @@ module Stripe
          }
         def initialize(expand: nil, metadata: nil, received_debit: nil); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       # Reverses a ReceivedDebit and creates a DebitReversal object.
       sig {
         params(params: T.any(::Stripe::Treasury::DebitReversal::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Treasury::DebitReversal)

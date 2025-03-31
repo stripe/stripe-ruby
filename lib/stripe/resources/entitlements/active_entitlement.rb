@@ -38,15 +38,6 @@ module Stripe
           @starting_after = starting_after
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.
       attr_reader :feature
       # Unique identifier for the object.

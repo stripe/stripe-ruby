@@ -53,15 +53,6 @@ module Stripe
         @starting_after = starting_after
       end
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # The default currency for this country. This applies to both payment methods and bank accounts.
     attr_reader :default_currency
     # Unique identifier for the object. Represented as the ISO country code for this country.

@@ -176,12 +176,5 @@ module Stripe
     # Funds that aren't available in the balance yet. You can find the pending balance for each currency and each payment type in the `source_types` property.
     sig { returns(T::Array[Pending]) }
     attr_reader :pending
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
   end
 end

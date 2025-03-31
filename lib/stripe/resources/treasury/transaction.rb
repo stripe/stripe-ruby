@@ -148,15 +148,6 @@ module Stripe
           @status_transitions = status_transitions
         end
       end
-
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
       # Amount (in cents) transferred.
       attr_reader :amount
       # Change to a FinancialAccount's balance

@@ -109,15 +109,6 @@ module Stripe
         @types = types
       end
     end
-
-    class RetrieveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # The connected account that originates the event.
     attr_reader :account
     # The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.

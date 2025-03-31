@@ -873,16 +873,6 @@ module Stripe
     # Attribute for field wechat
     sig { returns(Wechat) }
     attr_reader :wechat
-    class RetrieveParams < Stripe::RequestParams
-      # The client secret of the source. Required if a publishable key is used to retrieve the source.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :client_secret
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(client_secret: T.nilable(String), expand: T.nilable(T::Array[String])).void }
-      def initialize(client_secret: nil, expand: nil); end
-    end
     class UpdateParams < Stripe::RequestParams
       class Mandate < Stripe::RequestParams
         class Acceptance < Stripe::RequestParams

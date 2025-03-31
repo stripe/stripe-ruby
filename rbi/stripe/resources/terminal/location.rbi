@@ -55,13 +55,6 @@ module Stripe
       class DeleteParams < Stripe::RequestParams
 
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       class UpdateParams < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.

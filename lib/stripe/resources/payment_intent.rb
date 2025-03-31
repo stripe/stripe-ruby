@@ -1009,6 +1009,8 @@ module Stripe
         attr_reader :setup_future_usage
       end
 
+      class Billie < Stripe::StripeObject; end
+
       class Blik < Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -1762,6 +1764,8 @@ module Stripe
       attr_reader :bacs_debit
       # Attribute for field bancontact
       attr_reader :bancontact
+      # Attribute for field billie
+      attr_reader :billie
       # Attribute for field blik
       attr_reader :blik
       # Attribute for field boleto
@@ -3613,6 +3617,19 @@ module Stripe
           end
         end
 
+        class Billie < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Blik < Stripe::RequestParams
           # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
           attr_accessor :code
@@ -5001,6 +5018,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        attr_accessor :billie
         # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
         attr_accessor :blik
         # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -5104,6 +5123,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           boleto: nil,
           card: nil,
@@ -5160,6 +5180,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @blik = blik
           @boleto = boleto
           @card = card
@@ -7084,6 +7105,19 @@ module Stripe
           end
         end
 
+        class Billie < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Blik < Stripe::RequestParams
           # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
           attr_accessor :code
@@ -8472,6 +8506,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        attr_accessor :billie
         # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
         attr_accessor :blik
         # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -8575,6 +8611,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           boleto: nil,
           card: nil,
@@ -8631,6 +8668,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @blik = blik
           @boleto = boleto
           @card = card
@@ -11287,6 +11325,19 @@ module Stripe
           end
         end
 
+        class Billie < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Blik < Stripe::RequestParams
           # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
           attr_accessor :code
@@ -12675,6 +12726,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        attr_accessor :billie
         # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
         attr_accessor :blik
         # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -12778,6 +12831,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           boleto: nil,
           card: nil,
@@ -12834,6 +12888,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @blik = blik
           @boleto = boleto
           @card = card

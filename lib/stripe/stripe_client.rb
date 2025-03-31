@@ -15,7 +15,7 @@ module Stripe
     CLIENT_OPTIONS = Set.new(%i[api_key stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
 
     # Initializes a new StripeClient
-    def initialize(api_key, # rubocop:todo Metrics/ParameterLists
+    def initialize(api_key,
                    stripe_account: nil,
                    stripe_context: nil,
                    stripe_version: nil,
@@ -74,6 +74,7 @@ module Stripe
       opts = Util.normalize_opts(opts)
       req_opts = RequestOptions.extract_opts_from_hash(opts)
 
+      params = params.to_h if params.is_a?(Stripe::RequestParams)
       resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: ["raw_request"])
 
       @requestor.interpret_response(resp)

@@ -317,6 +317,35 @@ You can disable this behavior if you prefer:
 Stripe.enable_telemetry = false
 ```
 
+### Types
+
+In [v14.0.0](https://github.com/stripe/stripe-python/releases/tag/v7.1.0) and newer, the library provides RBI
+static type annotations. See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations)
+for an detailed guide.
+
+Please note that these types are available only for static analysis and we only support RBIs at the moment.
+Please [report an issue](https://github.com/stripe/stripe-ruby/issues/new/choose)
+if you find discrepancies or have issues using types.
+
+The RBIs can be found in the `rbi/stripe/` directory, and to decrease `Tapioca` loading time we pack the gem with the
+combined RBI at `rbi/stripe.rbi`.
+
+#### Types and the Versioning Policy
+
+We release type changes in minor releases. While stripe-ruby follows semantic versioning, our semantic
+versions describe the runtime behavior of the library alone. Our type annotations are not reflected in the
+semantic version. That is, upgrading to a new minor version of `stripe-ruby` might result in your type checker
+producing a type error that it didn't before. You can use `~> x.x` or `x.x.x` constrain the version
+of `stripe-ruby` in your Gemfile to a certain version or range of `stripe-ruby`.
+
+#### Types and API Versions
+
+The types describe the [Stripe API version](https://stripe.com/docs/api/versioning)
+that was the latest at the time of release. This is the version that your library sends
+by default. If you are overriding `Stripe.api_version` / `stripe_version` on the StripeClient,
+or using a webhook endpoint tied to an older version, be aware that the data
+you see at runtime may not match the types.
+
 ### Beta SDKs
 
 Stripe has features in the beta phase that can be accessed via the beta version of this package.

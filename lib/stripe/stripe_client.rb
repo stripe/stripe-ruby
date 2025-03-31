@@ -74,6 +74,7 @@ module Stripe
       opts = Util.normalize_opts(opts)
       req_opts = RequestOptions.extract_opts_from_hash(opts)
 
+      params = params.to_h if params.is_a?(Stripe::RequestParams)
       resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: ["raw_request"])
 
       @requestor.interpret_response(resp)

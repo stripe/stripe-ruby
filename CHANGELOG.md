@@ -1,4 +1,34 @@
 # Changelog
+## 14.0.0 - 2025-04-01
+* [#1559](https://github.com/stripe/stripe-ruby/pull/1559) Add RBI annotations for fields and params
+  * Adds explicit field types for resources and parameters for methods, and add RBI static annotations for all resources and services
+  ![image](https://github.com/user-attachments/assets/1b6cd994-d3ea-4f47-8487-f5c7b9ebf885)
+  * See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations) for more details
+  
+* [#1543](https://github.com/stripe/stripe-ruby/pull/1543) Support for APIs in the new API version 2025-03-31.basil
+
+  This release changes the pinned API version to `2025-03-31.basil`.
+  
+  ### ⚠️ Breaking changes  due to changes in the Stripe API
+
+  Please review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/basil) before upgrading.
+  
+  * Remove support for resources `SubscriptionItemUsageRecordSummary` and `SubscriptionItemUsageRecord`
+  * Remove support for `create` method on resource `SubscriptionItemUsageRecord`
+  * Remove support for `list` method on resource `SubscriptionItemUsageRecordSummary`
+  * Remove support for `upcomingLines` and `upcoming` methods on resource `Invoice`
+
+  ### ⚠️ Other breaking changes in the SDK
+  * [#1553](https://github.com/stripe/stripe-ruby/pull/1553) Remove public idempotent_replayed? method
+    * ⚠️ Remove the `idempotent_replayed?` method on `StripeError`
+      * The information is accessible indirectly via the raw response headers, `StripeResponse.http_headers`. For example, use `resource.last_response.http_headers['Idempotent-Replayed']`
+  
+  ### Additions to the Stripe API
+  
+  * Add support for new resource `InvoicePayment`
+  * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
+  
+
 ## 13.5.0 - 2025-02-24
 * [#1534](https://github.com/stripe/stripe-ruby/pull/1534) Update generated code
   * Fixed `Stripe::InvoiceLineItem.update` method. 

@@ -34,8 +34,23 @@ module Stripe
 
     class PaymentMethodOptions < Stripe::StripeObject
       class Card < Stripe::StripeObject
+        class Installments < Stripe::StripeObject
+          class Plan < Stripe::StripeObject
+            # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+            attr_reader :count
+            # For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+            # One of `month`.
+            attr_reader :interval
+            # Type of installment plan, one of `fixed_count`.
+            attr_reader :type
+          end
+          # Attribute for field plan
+          attr_reader :plan
+        end
         # The `cvc_update` Token collected from the Payment Element.
         attr_reader :cvc_token
+        # Installment configuration for payments.
+        attr_reader :installments
       end
       # This hash contains the card payment method options.
       attr_reader :card
@@ -1531,6 +1546,47 @@ module Stripe
         end
       end
 
+      class PaymentMethodOptions < Stripe::RequestParams
+        class Card < Stripe::RequestParams
+          class Installments < Stripe::RequestParams
+            class Plan < Stripe::RequestParams
+              # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
+              attr_accessor :count
+              # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
+              # One of `month`.
+              attr_accessor :interval
+              # Type of installment plan, one of `fixed_count`.
+              attr_accessor :type
+
+              def initialize(count: nil, interval: nil, type: nil)
+                @count = count
+                @interval = interval
+                @type = type
+              end
+            end
+            # The selected installment plan to use for this payment attempt.
+            # This parameter can only be provided during confirmation.
+            attr_accessor :plan
+
+            def initialize(plan: nil)
+              @plan = plan
+            end
+          end
+          # Installment configuration for payments attempted on this PaymentIntent.
+          attr_accessor :installments
+
+          def initialize(installments: nil)
+            @installments = installments
+          end
+        end
+        # Attribute for param field card
+        attr_accessor :card
+
+        def initialize(card: nil)
+          @card = card
+        end
+      end
+
       class Shipping < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -1581,6 +1637,8 @@ module Stripe
       attr_accessor :payment_method
       # If provided, this hash will be used to create a PaymentMethod.
       attr_accessor :payment_method_data
+      # Attribute for param field payment_method_options
+      attr_accessor :payment_method_options
       # Return URL used to confirm the Intent.
       attr_accessor :return_url
       # Indicates that you intend to make future payments with this ConfirmationToken's payment method.
@@ -1594,6 +1652,7 @@ module Stripe
         expand: nil,
         payment_method: nil,
         payment_method_data: nil,
+        payment_method_options: nil,
         return_url: nil,
         setup_future_usage: nil,
         shipping: nil
@@ -1601,6 +1660,7 @@ module Stripe
         @expand = expand
         @payment_method = payment_method
         @payment_method_data = payment_method_data
+        @payment_method_options = payment_method_options
         @return_url = return_url
         @setup_future_usage = setup_future_usage
         @shipping = shipping

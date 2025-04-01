@@ -768,6 +768,56 @@ module Stripe
             zip: nil
           ); end
         end
+        class PaymentMethodOptions < Stripe::RequestParams
+          class Card < Stripe::RequestParams
+            class Installments < Stripe::RequestParams
+              class Plan < Stripe::RequestParams
+                # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
+                sig { returns(T.nilable(Integer)) }
+                attr_accessor :count
+                # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
+                # One of `month`.
+                sig { returns(T.nilable(String)) }
+                attr_accessor :interval
+                # Type of installment plan, one of `fixed_count`.
+                sig { returns(String) }
+                attr_accessor :type
+                sig {
+                  params(count: T.nilable(Integer), interval: T.nilable(String), type: String).void
+                 }
+                def initialize(count: nil, interval: nil, type: nil); end
+              end
+              # The selected installment plan to use for this payment attempt.
+              # This parameter can only be provided during confirmation.
+              sig {
+                returns(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card::Installments::Plan)
+               }
+              attr_accessor :plan
+              sig {
+                params(plan: ::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card::Installments::Plan).void
+               }
+              def initialize(plan: nil); end
+            end
+            # Installment configuration for payments attempted on this PaymentIntent.
+            sig {
+              returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card::Installments))
+             }
+            attr_accessor :installments
+            sig {
+              params(installments: T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card::Installments)).void
+             }
+            def initialize(installments: nil); end
+          end
+          # Attribute for param field card
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card))
+           }
+          attr_accessor :card
+          sig {
+            params(card: T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card)).void
+           }
+          def initialize(card: nil); end
+        end
         class Shipping < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -827,6 +877,11 @@ module Stripe
           returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodData))
          }
         attr_accessor :payment_method_data
+        # Attribute for param field payment_method_options
+        sig {
+          returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions))
+         }
+        attr_accessor :payment_method_options
         # Return URL used to confirm the Intent.
         sig { returns(T.nilable(String)) }
         attr_accessor :return_url
@@ -841,12 +896,13 @@ module Stripe
          }
         attr_accessor :shipping
         sig {
-          params(expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodData), return_url: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::Shipping)).void
+          params(expand: T.nilable(T::Array[String]), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions), return_url: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::Shipping)).void
          }
         def initialize(
           expand: nil,
           payment_method: nil,
           payment_method_data: nil,
+          payment_method_options: nil,
           return_url: nil,
           setup_future_usage: nil,
           shipping: nil

@@ -32,7 +32,7 @@ module Stripe
     # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(T::Hash[String, CurrencyOptions]) }
     attr_reader :currency_options
-    # One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
+    # One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
     sig { returns(String) }
     attr_reader :duration
     # If `duration` is `repeating`, the number of months the coupon applies. Null if coupon `duration` is `forever` or `once`.

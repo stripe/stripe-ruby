@@ -372,7 +372,8 @@ module Stripe
       end
 
       keys.each do |k|
-        instance_variable_set(:"@#{k}", values[k])
+        key = Util.normalize_variable_name(k)
+        instance_variable_set(:"@#{key}", values[k])
       end
     end
 

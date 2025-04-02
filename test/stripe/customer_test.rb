@@ -4,6 +4,14 @@ require File.expand_path("../test_helper", __dir__)
 
 module Stripe
   class CustomerTest < Test::Unit::TestCase
+    should "deserialize non-standard ruby symbols" do
+      c = Stripe::Customer.create({email: 'test@example.com', metadata: { 'this-is-a-test' => true } })
+
+      assert_requested :post, "#{Stripe.api_base}/v1/customers"
+      puts(c.metadata)
+      flunk
+    end
+
     should "be listable" do
       customers = Stripe::Customer.list
       assert_requested :get, "#{Stripe.api_base}/v1/customers"
@@ -269,5 +277,6 @@ module Stripe
         end
       end
     end
+
   end
 end

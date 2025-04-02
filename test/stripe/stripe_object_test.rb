@@ -238,6 +238,13 @@ module Stripe
       assert_equal true, obj.send(:metaclass).method_defined?(:foo)
     end
 
+    should "allow nonstandard keys in response hashes" do
+      stub_request(:post, "#{Stripe.api_base}/v1/customers")
+        .to_return(body: JSON.generate(object: "customer", email: "test@example.com", metadata: { 'this-is?a.test' => "foo"}))
+      c = Stripe::Customer.create({email: 'test@example.com', metadata: { 'this-is?a.test' => "foo"} })
+      assert_equal "foo", c.metadata["this-is?a.test"]
+    end
+
     should "pass opts down to children when initializing" do
       opts = { custom: "opts" }
 

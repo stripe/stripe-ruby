@@ -1093,6 +1093,15 @@ module Stripe
         attr_reader :breakdown
       end
 
+      class WalletOptions < Stripe::StripeObject
+        class Link < Stripe::StripeObject
+          # Describes whether Checkout should display Link. Defaults to `auto`.
+          attr_reader :display
+        end
+        # Attribute for field link
+        attr_reader :link
+      end
+
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
@@ -3155,6 +3164,23 @@ module Stripe
             @required = required
           end
         end
+
+        class WalletOptions < Stripe::RequestParams
+          class Link < Stripe::RequestParams
+            # Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
+            attr_accessor :display
+
+            def initialize(display: nil)
+              @display = display
+            end
+          end
+          # contains details about the Link wallet options.
+          attr_accessor :link
+
+          def initialize(link: nil)
+            @link = link
+          end
+        end
         # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
         attr_accessor :adaptive_pricing
         # Configure actions after a Checkout Session has expired.
@@ -3268,7 +3294,7 @@ module Stripe
         attr_accessor :payment_method_types
         # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
         #
-        # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         attr_accessor :permissions
         # Controls phone number collection settings for the session.
         #
@@ -3306,6 +3332,8 @@ module Stripe
         attr_accessor :tax_id_collection
         # The UI mode of the Session. Defaults to `hosted`.
         attr_accessor :ui_mode
+        # Wallet-specific configuration.
+        attr_accessor :wallet_options
 
         def initialize(
           adaptive_pricing: nil,
@@ -3351,7 +3379,8 @@ module Stripe
           subscription_data: nil,
           success_url: nil,
           tax_id_collection: nil,
-          ui_mode: nil
+          ui_mode: nil,
+          wallet_options: nil
         )
           @adaptive_pricing = adaptive_pricing
           @after_expiration = after_expiration
@@ -3397,6 +3426,7 @@ module Stripe
           @success_url = success_url
           @tax_id_collection = tax_id_collection
           @ui_mode = ui_mode
+          @wallet_options = wallet_options
         end
       end
 
@@ -3764,7 +3794,7 @@ module Stripe
       attr_reader :payment_status
       # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
       #
-      # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+      # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
       attr_reader :permissions
       # Attribute for field phone_number_collection
       attr_reader :phone_number_collection
@@ -3806,6 +3836,8 @@ module Stripe
       # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       attr_reader :url
+      # Wallet-specific configuration for this Checkout Session.
+      attr_reader :wallet_options
 
       # Creates a Checkout Session object.
       def self.create(params = {}, opts = {})

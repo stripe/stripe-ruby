@@ -15,7 +15,7 @@ module Stripe
     end
     should "Test account links post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account_links").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.account_links.create({
         account: "acct_xxxxxxxxxxxxx",
@@ -34,7 +34,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.capabilities.list("acct_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities"
@@ -48,7 +48,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.capabilities.retrieve("acct_xxxxxxxxxxxxx", "card_payments")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments"
@@ -62,7 +62,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.capabilities.update(
         "acct_xxxxxxxxxxxxx",
@@ -79,7 +79,7 @@ module Stripe
       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.delete("acct_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx"
@@ -93,7 +93,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.delete("acct_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx"
@@ -107,7 +107,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.delete("acct_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx"
@@ -121,7 +121,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.list("acct_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?limit=3"
@@ -141,7 +141,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?object=bank_account&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.list(
         "acct_xxxxxxxxxxxxx",
@@ -167,7 +167,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts?object=card&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.list(
         "acct_xxxxxxxxxxxxx",
@@ -190,7 +190,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.create(
         "acct_xxxxxxxxxxxxx",
@@ -210,7 +210,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.create(
         "acct_xxxxxxxxxxxxx",
@@ -231,7 +231,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.update(
         "acct_xxxxxxxxxxxxx",
@@ -253,7 +253,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.external_accounts.update(
         "acct_xxxxxxxxxxxxx",
@@ -268,7 +268,7 @@ module Stripe
     end
     should "Test accounts get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?limit=3"
@@ -281,7 +281,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.retrieve("acct_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx"
@@ -295,7 +295,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/persons?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.persons.list("acct_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/persons?limit=3"
@@ -309,7 +309,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.persons.retrieve("acct_xxxxxxxxxxxxx", "person_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx"
@@ -327,7 +327,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.persons.update(
         "acct_xxxxxxxxxxxxx",
@@ -350,7 +350,7 @@ module Stripe
     end
     should "Test accounts post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/accounts").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.create({
         type: "custom",
@@ -371,7 +371,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.update("acct_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx"
@@ -385,7 +385,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/reject"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.accounts.reject("acct_xxxxxxxxxxxxx", { reason: "fraud" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/reject"
@@ -398,7 +398,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/application_fees?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.application_fees.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/application_fees?limit=3"
@@ -412,7 +412,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/application_fees/fee_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.application_fees.retrieve("fee_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/application_fees/fee_xxxxxxxxxxxxx"
@@ -426,7 +426,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.application_fees.refunds.list("fee_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds?limit=3"
@@ -440,7 +440,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.application_fees.refunds.retrieve("fee_xxxxxxxxxxxxx", "fr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx"
@@ -458,7 +458,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.application_fees.refunds.update(
         "fee_xxxxxxxxxxxxx",
@@ -478,7 +478,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/apps/secrets/delete").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.apps.secrets.delete_where({
         name: "my-api-key",
@@ -498,7 +498,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/apps/secrets/find?name=sec_123&scope[type]=account"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.apps.secrets.find({
         name: "sec_123",
@@ -518,7 +518,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/apps/secrets?scope[type]=account&limit=2"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.apps.secrets.list({
         scope: { type: "account" },
@@ -538,7 +538,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/apps/secrets?scope[type]=account&limit=2"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.apps.secrets.list({
         scope: { type: "account" },
@@ -556,7 +556,7 @@ module Stripe
     end
     should "Test apps secrets post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/apps/secrets").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.apps.secrets.create({
         name: "sec_123",
@@ -575,7 +575,7 @@ module Stripe
     end
     should "Test apps secrets post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/apps/secrets").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.apps.secrets.create({
         name: "my-api-key",
@@ -592,7 +592,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/balance_transactions?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.balance_transactions.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/balance_transactions?limit=3"
@@ -606,7 +606,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/balance_transactions/txn_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.balance_transactions.retrieve("txn_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/balance_transactions/txn_xxxxxxxxxxxxx"
@@ -620,7 +620,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/billing_portal/configurations?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.billing_portal.configurations.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/billing_portal/configurations?limit=3"
@@ -634,7 +634,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.billing_portal.configurations.retrieve("bpc_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx"
@@ -659,7 +659,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/billing_portal/configurations").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.billing_portal.configurations.create({
         features: {
@@ -693,7 +693,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.billing_portal.configurations.update(
         "bpc_xxxxxxxxxxxxx",
@@ -717,7 +717,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/billing_portal/sessions").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.billing_portal.sessions.create({
         customer: "cus_xxxxxxxxxxxxx",
@@ -734,7 +734,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/charges/ch_xxxxxxxxxxxxx/capture"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.charges.capture("ch_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/charges/ch_xxxxxxxxxxxxx/capture"
@@ -745,7 +745,7 @@ module Stripe
     end
     should "Test charges get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/charges?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.charges.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/charges?limit=3"
@@ -758,7 +758,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/charges/ch_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.charges.retrieve("ch_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/charges/ch_xxxxxxxxxxxxx"
@@ -774,7 +774,7 @@ module Stripe
     end
     should "Test charges post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.charges.create({
         amount: 2000,
@@ -792,7 +792,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges/ch_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.charges.update("ch_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/charges/ch_xxxxxxxxxxxxx"
@@ -806,7 +806,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/charges/search?query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.charges.search({ query: "amount>999 AND metadata['order_id']:'6735'" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/charges/search?query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
@@ -820,7 +820,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/sess_xyz/expire"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.checkout.sessions.expire("sess_xyz")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/sess_xyz/expire"
@@ -834,7 +834,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.checkout.sessions.expire("cs_test_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire"
@@ -847,7 +847,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.checkout.sessions.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions?limit=3"
@@ -861,7 +861,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.checkout.sessions.retrieve("cs_test_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx"
@@ -875,7 +875,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/sess_xyz/line_items"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.checkout.sessions.line_items.list("sess_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions/sess_xyz/line_items"
@@ -908,7 +908,7 @@ module Stripe
     end
     should "Test checkout sessions post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.checkout.sessions.create({
         success_url: "https://example.com/success",
@@ -950,7 +950,7 @@ module Stripe
     end
     should "Test checkout sessions post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/checkout/sessions").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.checkout.sessions.create({
         success_url: "https://example.com/success",
@@ -968,7 +968,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/ll_123").to_return(
         body: '{"context":"context","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":{"type":"request","request":{"id":"obj_123","idempotency_key":"idempotency_key"}},"type":"type"}'
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.events.retrieve("ll_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/ll_123"
@@ -981,7 +981,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/country_specs?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.country_specs.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/country_specs?limit=3"
@@ -992,7 +992,7 @@ module Stripe
     end
     should "Test country specs get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/country_specs/US").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.country_specs.retrieve("US")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/country_specs/US"
@@ -1003,7 +1003,7 @@ module Stripe
     end
     should "Test coupons delete (service)" do
       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/coupons/Z4OV52SU").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.coupons.delete("Z4OV52SU")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/coupons/Z4OV52SU"
@@ -1014,7 +1014,7 @@ module Stripe
     end
     should "Test coupons get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/coupons?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.coupons.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/coupons?limit=3"
@@ -1025,7 +1025,7 @@ module Stripe
     end
     should "Test coupons get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/coupons/Z4OV52SU").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.coupons.retrieve("Z4OV52SU")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/coupons/Z4OV52SU"
@@ -1039,7 +1039,7 @@ module Stripe
     end
     should "Test coupons post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/coupons").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.coupons.create({
         percent_off: 25.5,
@@ -1053,7 +1053,7 @@ module Stripe
     end
     should "Test coupons post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/coupons/Z4OV52SU").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.coupons.update("Z4OV52SU", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/coupons/Z4OV52SU"
@@ -1066,7 +1066,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/credit_notes?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.credit_notes.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/credit_notes?limit=3"
@@ -1086,7 +1086,7 @@ module Stripe
     end
     should "Test credit notes post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/credit_notes").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.credit_notes.create({
         invoice: "in_xxxxxxxxxxxxx",
@@ -1109,7 +1109,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/credit_notes/cn_xxxxxxxxxxxxx/void"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.credit_notes.void_credit_note("cn_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/credit_notes/cn_xxxxxxxxxxxxx/void"
@@ -1123,7 +1123,7 @@ module Stripe
     end
     should "Test customer sessions post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customer_sessions").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customer_sessions.create({
         customer: "cus_123",
@@ -1140,7 +1140,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.balance_transactions.list("cus_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions?limit=3"
@@ -1154,7 +1154,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.balance_transactions.retrieve("cus_xxxxxxxxxxxxx", "cbtxn_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx"
@@ -1172,7 +1172,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.balance_transactions.update(
         "cus_xxxxxxxxxxxxx",
@@ -1189,7 +1189,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/cash_balance").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.cash_balance.retrieve("cus_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/cash_balance"
@@ -1203,7 +1203,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/cash_balance"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.cash_balance.update(
         "cus_123",
@@ -1220,7 +1220,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/cash_balance_transactions?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.cash_balance_transactions.list("cus_123", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/cash_balance_transactions?limit=3"
@@ -1233,7 +1233,7 @@ module Stripe
       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.delete("cus_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx"
@@ -1257,7 +1257,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/funding_instructions"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.funding_instructions.create(
         "cus_123",
@@ -1278,7 +1278,7 @@ module Stripe
     end
     should "Test customers get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers?limit=3"
@@ -1289,7 +1289,7 @@ module Stripe
     end
     should "Test customers get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers?limit=3"
@@ -1302,7 +1302,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.retrieve("cus_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx"
@@ -1316,7 +1316,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xyz/payment_methods?type=card"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_methods.list("cus_xyz", { type: "card" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xyz/payment_methods?type=card"
@@ -1330,7 +1330,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/payment_methods?type=card"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_methods.list("cus_xxxxxxxxxxxxx", { type: "card" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/payment_methods?type=card"
@@ -1343,7 +1343,7 @@ module Stripe
     end
     should "Test customers post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customers").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.create({
         description: "My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
@@ -1358,7 +1358,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.update("cus_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx"
@@ -1372,7 +1372,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/search?query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.search({ query: "name:'fakename' AND metadata['foo']:'bar'" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/search?query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27"
@@ -1386,7 +1386,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/search?query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.search({ query: "name:'fakename' AND metadata['foo']:'bar'" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/search?query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27"
@@ -1400,7 +1400,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.sources.detach("cus_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
@@ -1414,7 +1414,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.sources.detach("cus_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
@@ -1434,7 +1434,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources?object=bank_account&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.list(
         "cus_xxxxxxxxxxxxx",
@@ -1460,7 +1460,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources?object=card&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.list(
         "cus_xxxxxxxxxxxxx",
@@ -1480,7 +1480,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.retrieve("cus_xxxxxxxxxxxxx", "ba_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
@@ -1494,7 +1494,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.retrieve("cus_xxxxxxxxxxxxx", "card_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
@@ -1508,7 +1508,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123/sources/card_123"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.update(
         "cus_123",
@@ -1526,7 +1526,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.create(
         "cus_xxxxxxxxxxxxx",
@@ -1543,7 +1543,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.create("cus_xxxxxxxxxxxxx", { source: "tok_xxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources"
@@ -1561,7 +1561,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.update(
         "cus_xxxxxxxxxxxxx",
@@ -1583,7 +1583,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.payment_sources.update(
         "cus_xxxxxxxxxxxxx",
@@ -1601,7 +1601,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.tax_ids.delete("cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx"
@@ -1615,7 +1615,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.tax_ids.list("cus_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids?limit=3"
@@ -1629,7 +1629,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.customers.tax_ids.retrieve("cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx"
@@ -1643,7 +1643,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/disputes/dp_xxxxxxxxxxxxx/close"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.disputes.close("dp_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/disputes/dp_xxxxxxxxxxxxx/close"
@@ -1654,7 +1654,7 @@ module Stripe
     end
     should "Test disputes get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/disputes?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.disputes.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/disputes?limit=3"
@@ -1667,7 +1667,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/disputes/dp_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.disputes.retrieve("dp_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/disputes/dp_xxxxxxxxxxxxx"
@@ -1680,7 +1680,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/disputes/dp_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.disputes.update("dp_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/disputes/dp_xxxxxxxxxxxxx"
@@ -1691,7 +1691,7 @@ module Stripe
     end
     should "Test events get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/events?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.events.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/events?limit=3"
@@ -1704,7 +1704,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/events/evt_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.events.retrieve("evt_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/events/evt_xxxxxxxxxxxxx"
@@ -1715,7 +1715,7 @@ module Stripe
     end
     should "Test file links get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/file_links?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.file_links.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/file_links?limit=3"
@@ -1728,7 +1728,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/file_links/link_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.file_links.retrieve("link_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/file_links/link_xxxxxxxxxxxxx"
@@ -1739,7 +1739,7 @@ module Stripe
     end
     should "Test file links post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/file_links").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.file_links.create({ file: "file_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/file_links"
@@ -1752,7 +1752,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/file_links/link_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.file_links.update("link_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/file_links/link_xxxxxxxxxxxxx"
@@ -1763,7 +1763,7 @@ module Stripe
     end
     should "Test files get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/files?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.files.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/files?limit=3"
@@ -1776,7 +1776,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/files/file_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.files.retrieve("file_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/files/file_xxxxxxxxxxxxx"
@@ -1790,7 +1790,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz/disconnect"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.disconnect("fca_xyz")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz/disconnect"
@@ -1804,7 +1804,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.disconnect("fca_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect"
@@ -1817,7 +1817,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts"
@@ -1831,7 +1831,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.retrieve("fca_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz"
@@ -1845,7 +1845,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts?account_holder[customer]=cus_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.list({
         account_holder: { customer: "cus_xxxxxxxxxxxxx" },
@@ -1861,7 +1861,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.retrieve("fca_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx"
@@ -1875,7 +1875,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz/owners?ownership=fcaowns_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.owners.list("fca_xyz", { ownership: "fcaowns_xyz" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz/owners?ownership=fcaowns_xyz"
@@ -1895,7 +1895,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners?limit=3&ownership=fcaowns_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.owners.list(
         "fca_xxxxxxxxxxxxx",
@@ -1915,7 +1915,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz/refresh"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.refresh("fca_xyz", { features: ["balance"] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fca_xyz/refresh"
@@ -1929,7 +1929,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fa_123/subscribe"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.subscribe("fa_123", { features: ["transactions"] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fa_123/subscribe"
@@ -1943,7 +1943,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fa_123/unsubscribe"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.accounts.unsubscribe("fa_123", { features: ["transactions"] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/accounts/fa_123/unsubscribe"
@@ -1957,7 +1957,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions/fcsess_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.sessions.retrieve("fcsess_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions/fcsess_xyz"
@@ -1971,7 +1971,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.sessions.retrieve("fcsess_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx"
@@ -1991,7 +1991,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.sessions.create({
         account_holder: {
@@ -2018,7 +2018,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.sessions.create({
         account_holder: {
@@ -2039,7 +2039,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/transactions/tr_123"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.transactions.retrieve("tr_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/transactions/tr_123"
@@ -2053,7 +2053,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/transactions?account=fca_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.financial_connections.transactions.list({ account: "fca_xyz" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/transactions?account=fca_xyz"
@@ -2067,7 +2067,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_reports?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_reports.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_reports?limit=3"
@@ -2081,7 +2081,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_reports/vr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_reports.retrieve("vr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_reports/vr_xxxxxxxxxxxxx"
@@ -2095,7 +2095,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_sessions.cancel("vs_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel"
@@ -2109,7 +2109,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_sessions.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions?limit=3"
@@ -2123,7 +2123,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_sessions.retrieve("vs_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx"
@@ -2137,7 +2137,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_sessions.create({ type: "document" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions"
@@ -2151,7 +2151,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_sessions.update("vs_xxxxxxxxxxxxx", { type: "id_number" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx"
@@ -2165,7 +2165,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.identity.verification_sessions.redact("vs_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact"
@@ -2179,7 +2179,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoice_items.delete("ii_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
@@ -2192,7 +2192,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoice_items.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems?limit=3"
@@ -2205,7 +2205,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoice_items.retrieve("ii_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
@@ -2216,7 +2216,7 @@ module Stripe
     end
     should "Test invoiceitems post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoice_items.create({ customer: "cus_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems"
@@ -2229,7 +2229,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoice_items.update("ii_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoiceitems/ii_xxxxxxxxxxxxx"
@@ -2242,7 +2242,7 @@ module Stripe
       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.delete("in_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx"
@@ -2256,7 +2256,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/finalize"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.finalize_invoice("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/finalize"
@@ -2267,7 +2267,7 @@ module Stripe
     end
     should "Test invoices get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices?limit=3"
@@ -2280,7 +2280,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.retrieve("in_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx"
@@ -2297,7 +2297,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx?expand[]=customer"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.retrieve("in_xxxxxxxxxxxxx", { expand: ["customer"] })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx?expand[]=customer"
@@ -2311,7 +2311,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.mark_uncollectible("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible"
@@ -2324,7 +2324,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/pay").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.pay("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/pay"
@@ -2335,7 +2335,7 @@ module Stripe
     end
     should "Test invoices post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.create({ customer: "cus_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices"
@@ -2348,7 +2348,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.update("in_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx"
@@ -2362,7 +2362,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/invoices/search?query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.search({ query: "total>999 AND metadata['order_id']:'6735'" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/search?query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
@@ -2376,7 +2376,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/send"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.send_invoice("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/send"
@@ -2390,7 +2390,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/void"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.invoices.void_invoice("in_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/in_xxxxxxxxxxxxx/void"
@@ -2404,7 +2404,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.authorizations.approve("iauth_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve"
@@ -2418,7 +2418,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.authorizations.decline("iauth_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline"
@@ -2431,7 +2431,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.authorizations.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations?limit=3"
@@ -2445,7 +2445,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.authorizations.retrieve("iauth_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx"
@@ -2459,7 +2459,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.authorizations.update("iauth_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx"
@@ -2472,7 +2472,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cardholders?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cardholders.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cardholders?limit=3"
@@ -2486,7 +2486,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cardholders.retrieve("ich_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx"
@@ -2513,7 +2513,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cardholders").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cardholders.create({
         type: "individual",
@@ -2541,7 +2541,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cardholders.update("ich_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cardholders/ich_xxxxxxxxxxxxx"
@@ -2554,7 +2554,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cards?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cards.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cards?limit=3"
@@ -2567,7 +2567,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cards/ic_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cards.retrieve("ic_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cards/ic_xxxxxxxxxxxxx"
@@ -2582,7 +2582,7 @@ module Stripe
     end
     should "Test issuing cards post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cards").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cards.create({
         cardholder: "ich_xxxxxxxxxxxxx",
@@ -2600,7 +2600,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cards/ic_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.cards.update("ic_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/cards/ic_xxxxxxxxxxxxx"
@@ -2613,7 +2613,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/disputes?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.disputes.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/disputes?limit=3"
@@ -2627,7 +2627,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/disputes/idp_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.disputes.retrieve("idp_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/disputes/idp_xxxxxxxxxxxxx"
@@ -2644,7 +2644,7 @@ module Stripe
     end
     should "Test issuing disputes post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/disputes").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.disputes.create({
         transaction: "ipi_xxxxxxxxxxxxx",
@@ -2664,7 +2664,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.disputes.submit("idp_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit"
@@ -2678,7 +2678,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.personalization_designs.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs"
@@ -2692,7 +2692,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs/pd_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.personalization_designs.retrieve("pd_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs/pd_xyz"
@@ -2706,7 +2706,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.personalization_designs.create({ physical_bundle: "pb_xyz" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs"
@@ -2720,7 +2720,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs/pd_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.personalization_designs.update("pd_xyz")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/personalization_designs/pd_xyz"
@@ -2733,7 +2733,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/physical_bundles").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.physical_bundles.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/physical_bundles"
@@ -2747,7 +2747,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/physical_bundles/pb_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.physical_bundles.retrieve("pb_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/physical_bundles/pb_xyz"
@@ -2760,7 +2760,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/transactions?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.transactions.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/transactions?limit=3"
@@ -2774,7 +2774,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.transactions.retrieve("ipi_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx"
@@ -2788,7 +2788,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.issuing.transactions.update("ipi_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/issuing/transactions/ipi_xxxxxxxxxxxxx"
@@ -2801,7 +2801,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/mandates/mandate_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.mandates.retrieve("mandate_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/mandates/mandate_xxxxxxxxxxxxx"
@@ -2815,7 +2815,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.apply_customer_balance("pi_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance"
@@ -2829,7 +2829,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.cancel("pi_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel"
@@ -2843,7 +2843,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/capture"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.capture("pi_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/capture"
@@ -2857,7 +2857,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.confirm("pi_xxxxxxxxxxxxx", { payment_method: "pm_card_visa" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm"
@@ -2870,7 +2870,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents?limit=3"
@@ -2884,7 +2884,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.retrieve("pi_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx"
@@ -2898,7 +2898,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.increment_authorization("pi_xxxxxxxxxxxxx", { amount: 2099 })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization"
@@ -2913,7 +2913,7 @@ module Stripe
     end
     should "Test payment intents post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.create({
         amount: 1099,
@@ -2932,7 +2932,7 @@ module Stripe
     end
     should "Test payment intents post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.create({
         amount: 2000,
@@ -2950,7 +2950,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.update("pi_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx"
@@ -2968,7 +2968,7 @@ module Stripe
     end
     should "Test payment intents post 4 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.create({
         amount: 200,
@@ -2991,7 +2991,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/search?query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.search({
         query: "status:'succeeded' AND metadata['order_id']:'6735'",
@@ -3007,7 +3007,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.verify_microdeposits("pi_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits"
@@ -3021,7 +3021,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_intents.verify_microdeposits("pi_xxxxxxxxxxxxx", { amounts: [32, 45] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits"
@@ -3034,7 +3034,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/pl_xyz").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_links.retrieve("pl_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/pl_xyz"
@@ -3047,7 +3047,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_links.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links?limit=3"
@@ -3061,7 +3061,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/plink_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_links.retrieve("plink_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/plink_xxxxxxxxxxxxx"
@@ -3075,7 +3075,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/pl_xyz/line_items"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_links.line_items.list("pl_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/pl_xyz/line_items"
@@ -3093,7 +3093,7 @@ module Stripe
     end
     should "Test payment links post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_links.create({
         line_items: [
@@ -3118,7 +3118,7 @@ module Stripe
     end
     should "Test payment links post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_links.create({
         line_items: [
@@ -3139,7 +3139,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/plink_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_links.update("plink_xxxxxxxxxxxxx", { active: false })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_links/plink_xxxxxxxxxxxxx"
@@ -3153,7 +3153,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_method_configurations?application=foo"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_method_configurations.list({ application: "foo" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_method_configurations?application=foo"
@@ -3167,7 +3167,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_method_configurations/foo"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_method_configurations.retrieve("foo")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_method_configurations/foo"
@@ -3183,7 +3183,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_method_configurations").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_method_configurations.create({
         acss_debit: { display_preference: { preference: "none" } },
@@ -3203,7 +3203,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_method_configurations/foo"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_method_configurations.update(
         "foo",
@@ -3220,7 +3220,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx/attach"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_methods.attach("pm_xxxxxxxxxxxxx", { customer: "cus_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx/attach"
@@ -3234,7 +3234,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx/detach"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_methods.detach("pm_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx/detach"
@@ -3251,7 +3251,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods?customer=cus_xxxxxxxxxxxxx&type=card"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_methods.list({
         customer: "cus_xxxxxxxxxxxxx",
@@ -3268,7 +3268,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_methods.retrieve("pm_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx"
@@ -3287,7 +3287,7 @@ module Stripe
     end
     should "Test payment methods post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_methods.create({
         type: "card",
@@ -3309,7 +3309,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payment_methods.update("pm_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payment_methods/pm_xxxxxxxxxxxxx"
@@ -3323,7 +3323,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payouts.cancel("po_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx/cancel"
@@ -3334,7 +3334,7 @@ module Stripe
     end
     should "Test payouts get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/payouts?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payouts.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payouts?limit=3"
@@ -3347,7 +3347,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payouts.retrieve("po_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx"
@@ -3361,7 +3361,7 @@ module Stripe
     end
     should "Test payouts post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payouts").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payouts.create({
         amount: 1100,
@@ -3377,7 +3377,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payouts.update("po_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx"
@@ -3391,7 +3391,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx/reverse"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.payouts.reverse("po_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/payouts/po_xxxxxxxxxxxxx/reverse"
@@ -3404,7 +3404,7 @@ module Stripe
       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/plans/price_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.plans.delete("price_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/plans/price_xxxxxxxxxxxxx"
@@ -3415,7 +3415,7 @@ module Stripe
     end
     should "Test plans get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/plans?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.plans.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/plans?limit=3"
@@ -3428,7 +3428,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/plans/price_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.plans.retrieve("price_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/plans/price_xxxxxxxxxxxxx"
@@ -3444,7 +3444,7 @@ module Stripe
     end
     should "Test plans post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/plans").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.plans.create({
         amount: 2000,
@@ -3465,7 +3465,7 @@ module Stripe
     end
     should "Test plans post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/plans").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.plans.create({
         amount: 2000,
@@ -3483,7 +3483,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/plans/price_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.plans.update("price_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/plans/price_xxxxxxxxxxxxx"
@@ -3494,7 +3494,7 @@ module Stripe
     end
     should "Test prices get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/prices?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.prices.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/prices?limit=3"
@@ -3507,7 +3507,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/prices/price_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.prices.retrieve("price_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/prices/price_xxxxxxxxxxxxx"
@@ -3527,7 +3527,7 @@ module Stripe
     end
     should "Test prices post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/prices").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.prices.create({
         unit_amount: 2000,
@@ -3552,7 +3552,7 @@ module Stripe
     end
     should "Test prices post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/prices").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.prices.create({
         unit_amount: 2000,
@@ -3570,7 +3570,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/prices/price_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.prices.update("price_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/prices/price_xxxxxxxxxxxxx"
@@ -3584,7 +3584,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/prices/search?query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.prices.search({ query: "active:'true' AND metadata['order_id']:'6735'" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/prices/search?query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
@@ -3597,7 +3597,7 @@ module Stripe
       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.products.delete("prod_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_xxxxxxxxxxxxx"
@@ -3608,7 +3608,7 @@ module Stripe
     end
     should "Test products get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.products.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/products?limit=3"
@@ -3621,7 +3621,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.products.retrieve("prod_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_xxxxxxxxxxxxx"
@@ -3632,7 +3632,7 @@ module Stripe
     end
     should "Test products post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/products").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.products.create({ name: "Gold Special" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/products"
@@ -3645,7 +3645,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.products.update("prod_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_xxxxxxxxxxxxx"
@@ -3659,7 +3659,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/products/search?query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.products.search({ query: "active:'true' AND metadata['order_id']:'6735'" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/products/search?query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
@@ -3672,7 +3672,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.promotion_codes.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes?limit=3"
@@ -3686,7 +3686,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.promotion_codes.retrieve("promo_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
@@ -3697,7 +3697,7 @@ module Stripe
     end
     should "Test promotion codes post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.promotion_codes.create({ coupon: "Z4OV52SU" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes"
@@ -3711,7 +3711,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.promotion_codes.update("promo_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/promotion_codes/promo_xxxxxxxxxxxxx"
@@ -3725,7 +3725,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/accept"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.accept("qt_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/accept"
@@ -3739,7 +3739,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.cancel("qt_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/cancel"
@@ -3753,7 +3753,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/finalize"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.finalize_quote("qt_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/finalize"
@@ -3764,7 +3764,7 @@ module Stripe
     end
     should "Test quotes get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes?limit=3"
@@ -3777,7 +3777,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.retrieve("qt_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx"
@@ -3791,7 +3791,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/line_items"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.line_items.list("qt_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/line_items"
@@ -3806,7 +3806,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/pdf").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.pdf("qt_xxxxxxxxxxxxx", &block_handler)
       assert_requested :get, "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/quotes/qt_xxxxxxxxxxxxx/pdf"
@@ -3825,7 +3825,7 @@ module Stripe
     end
     should "Test quotes post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.create({
         customer: "cus_xxxxxxxxxxxxx",
@@ -3846,7 +3846,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.update("qt_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xxxxxxxxxxxxx"
@@ -3860,7 +3860,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.quotes.list_preview_invoice_lines("qt_xyz", "in_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines"
@@ -3874,7 +3874,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/early_fraud_warnings?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.early_fraud_warnings.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/radar/early_fraud_warnings?limit=3"
@@ -3888,7 +3888,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.early_fraud_warnings.retrieve("issfr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx"
@@ -3902,7 +3902,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_list_items.delete("rsli_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx"
@@ -3919,7 +3919,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_list_items?limit=3&value_list=rsl_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_list_items.list({
         limit: 3,
@@ -3936,7 +3936,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_list_items.retrieve("rsli_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx"
@@ -3952,7 +3952,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_list_items").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_list_items.create({
         value_list: "rsl_xxxxxxxxxxxxx",
@@ -3969,7 +3969,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_lists.delete("rsl_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
@@ -3982,7 +3982,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_lists.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists?limit=3"
@@ -3996,7 +3996,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_lists.retrieve("rsl_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
@@ -4011,7 +4011,7 @@ module Stripe
     end
     should "Test radar value lists post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_lists.create({
         alias: "custom_ip_xxxxxxxxxxxxx",
@@ -4029,7 +4029,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.radar.value_lists.update("rsl_xxxxxxxxxxxxx", { name: "Updated IP Block List" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/radar/value_lists/rsl_xxxxxxxxxxxxx"
@@ -4043,7 +4043,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/refunds/re_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.refunds.cancel("re_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/refunds/re_xxxxxxxxxxxxx/cancel"
@@ -4054,7 +4054,7 @@ module Stripe
     end
     should "Test refunds get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/refunds?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.refunds.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/refunds?limit=3"
@@ -4067,7 +4067,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/refunds/re_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.refunds.retrieve("re_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/refunds/re_xxxxxxxxxxxxx"
@@ -4078,7 +4078,7 @@ module Stripe
     end
     should "Test refunds post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/refunds").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.refunds.create({ charge: "ch_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/refunds"
@@ -4091,7 +4091,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/refunds/re_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.refunds.update("re_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/refunds/re_xxxxxxxxxxxxx"
@@ -4104,7 +4104,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_runs?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reporting.report_runs.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_runs?limit=3"
@@ -4118,7 +4118,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_runs/frr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reporting.report_runs.retrieve("frr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_runs/frr_xxxxxxxxxxxxx"
@@ -4137,7 +4137,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_runs").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reporting.report_runs.create({
         report_type: "balance.summary.1",
@@ -4156,7 +4156,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_types").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reporting.report_types.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_types"
@@ -4170,7 +4170,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_types/balance.summary.1"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reporting.report_types.retrieve("balance.summary.1")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/reporting/report_types/balance.summary.1"
@@ -4184,7 +4184,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/reviews/prv_xxxxxxxxxxxxx/approve"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reviews.approve("prv_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/reviews/prv_xxxxxxxxxxxxx/approve"
@@ -4195,7 +4195,7 @@ module Stripe
     end
     should "Test reviews get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/reviews?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reviews.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/reviews?limit=3"
@@ -4208,7 +4208,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/reviews/prv_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.reviews.retrieve("prv_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/reviews/prv_xxxxxxxxxxxxx"
@@ -4225,7 +4225,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/setup_attempts?limit=3&setup_intent=si_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_attempts.list({
         limit: 3,
@@ -4242,7 +4242,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.cancel("seti_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel"
@@ -4256,7 +4256,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.confirm("seti_xxxxxxxxxxxxx", { payment_method: "pm_card_visa" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm"
@@ -4269,7 +4269,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents?limit=3"
@@ -4283,7 +4283,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.retrieve("seti_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx"
@@ -4294,7 +4294,7 @@ module Stripe
     end
     should "Test setup intents post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.create({ payment_method_types: ["card"] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents"
@@ -4308,7 +4308,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.update("seti_xxxxxxxxxxxxx", { metadata: { user_id: "3435453" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx"
@@ -4322,7 +4322,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.verify_microdeposits("seti_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits"
@@ -4336,7 +4336,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.setup_intents.verify_microdeposits("seti_xxxxxxxxxxxxx", { amounts: [32, 45] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits"
@@ -4347,7 +4347,7 @@ module Stripe
     end
     should "Test shipping rates get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.shipping_rates.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates"
@@ -4360,7 +4360,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.shipping_rates.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates?limit=3"
@@ -4374,7 +4374,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates/shr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.shipping_rates.retrieve("shr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates/shr_xxxxxxxxxxxxx"
@@ -4392,7 +4392,7 @@ module Stripe
     end
     should "Test shipping rates post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.shipping_rates.create({
         display_name: "Sample Shipper",
@@ -4417,7 +4417,7 @@ module Stripe
     end
     should "Test shipping rates post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.shipping_rates.create({
         display_name: "Ground shipping",
@@ -4438,7 +4438,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates/shr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.shipping_rates.update("shr_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/shipping_rates/shr_xxxxxxxxxxxxx"
@@ -4452,7 +4452,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/sigma/scheduled_query_runs?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.sigma.scheduled_query_runs.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/sigma/scheduled_query_runs?limit=3"
@@ -4466,7 +4466,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.sigma.scheduled_query_runs.retrieve("sqr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx"
@@ -4479,7 +4479,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/sources/src_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.sources.retrieve("src_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/sources/src_xxxxxxxxxxxxx"
@@ -4492,7 +4492,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/sources/src_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.sources.retrieve("src_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/sources/src_xxxxxxxxxxxxx"
@@ -4505,7 +4505,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/sources/src_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.sources.update("src_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/sources/src_xxxxxxxxxxxxx"
@@ -4519,7 +4519,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items/si_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_items.delete("si_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items/si_xxxxxxxxxxxxx"
@@ -4533,7 +4533,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items?subscription=sub_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_items.list({ subscription: "sub_xxxxxxxxxxxxx" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items?subscription=sub_xxxxxxxxxxxxx"
@@ -4547,7 +4547,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items/si_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_items.retrieve("si_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items/si_xxxxxxxxxxxxx"
@@ -4562,7 +4562,7 @@ module Stripe
     end
     should "Test subscription items post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_items.create({
         subscription: "sub_xxxxxxxxxxxxx",
@@ -4580,7 +4580,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items/si_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_items.update("si_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_items/si_xxxxxxxxxxxxx"
@@ -4594,7 +4594,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_schedules.cancel("sub_sched_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel"
@@ -4607,7 +4607,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_schedules.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules?limit=3"
@@ -4621,7 +4621,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_schedules.retrieve("sub_sched_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
@@ -4649,7 +4649,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_schedules.create({
         customer: "cus_xxxxxxxxxxxxx",
@@ -4678,7 +4678,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_schedules.update("sub_sched_xxxxxxxxxxxxx", { end_behavior: "release" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx"
@@ -4692,7 +4692,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscription_schedules.release("sub_sched_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release"
@@ -4706,7 +4706,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions/sub_xyz/discount"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscriptions.delete_discount("sub_xyz")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions/sub_xyz/discount"
@@ -4719,7 +4719,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscriptions.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions?limit=3"
@@ -4733,7 +4733,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions/sub_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscriptions.retrieve("sub_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions/sub_xxxxxxxxxxxxx"
@@ -4747,7 +4747,7 @@ module Stripe
     end
     should "Test subscriptions post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscriptions.create({
         customer: "cus_xxxxxxxxxxxxx",
@@ -4764,7 +4764,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions/sub_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscriptions.update("sub_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions/sub_xxxxxxxxxxxxx"
@@ -4778,7 +4778,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/subscriptions/search?query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.subscriptions.search({
         query: "status:'active' AND metadata['order_id']:'6735'",
@@ -4794,7 +4794,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/tax/calculations/xxx/line_items"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.calculations.line_items.list("xxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax/calculations/xxx/line_items"
@@ -4823,7 +4823,7 @@ module Stripe
     end
     should "Test tax calculations post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tax/calculations").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.calculations.create({
         currency: "usd",
@@ -4852,7 +4852,7 @@ module Stripe
     end
     should "Test tax codes get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_codes?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_codes.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_codes?limit=3"
@@ -4865,7 +4865,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_codes/txcd_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_codes.retrieve("txcd_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_codes/txcd_xxxxxxxxxxxxx"
@@ -4881,7 +4881,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.forms.pdf("form_xxxxxxxxxxxxx", &block_handler)
       assert_requested :get, "#{Stripe::DEFAULT_UPLOAD_BASE}/v1/tax/forms/form_xxxxxxxxxxxxx/pdf"
@@ -4894,7 +4894,7 @@ module Stripe
       stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/tax_ids/taxid_123").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_ids.delete("taxid_123")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/tax_ids/taxid_123"
@@ -4905,7 +4905,7 @@ module Stripe
     end
     should "Test tax ids get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_ids").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_ids.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_ids"
@@ -4916,7 +4916,7 @@ module Stripe
     end
     should "Test tax ids get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_ids/taxid_123").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_ids.retrieve("taxid_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_ids/taxid_123"
@@ -4930,7 +4930,7 @@ module Stripe
     end
     should "Test tax ids post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tax_ids").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_ids.create({
         type: "eu_vat",
@@ -4944,7 +4944,7 @@ module Stripe
     end
     should "Test tax rates get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_rates?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_rates.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_rates?limit=3"
@@ -4957,7 +4957,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_rates/txr_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_rates.retrieve("txr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax_rates/txr_xxxxxxxxxxxxx"
@@ -4974,7 +4974,7 @@ module Stripe
     end
     should "Test tax rates post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tax_rates").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_rates.create({
         display_name: "VAT",
@@ -4993,7 +4993,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tax_rates/txr_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax_rates.update("txr_xxxxxxxxxxxxx", { active: false })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/tax_rates/txr_xxxxxxxxxxxxx"
@@ -5006,7 +5006,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax/registrations?status=all").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.registrations.list({ status: "all" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax/registrations?status=all"
@@ -5021,7 +5021,7 @@ module Stripe
     end
     should "Test tax registrations post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tax/registrations").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.registrations.create({
         country: "IE",
@@ -5039,7 +5039,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/tax/registrations/taxreg_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.registrations.update("taxreg_xxxxxxxxxxxxx", { expires_at: "now" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/tax/registrations/taxreg_xxxxxxxxxxxxx"
@@ -5050,7 +5050,7 @@ module Stripe
     end
     should "Test tax settings get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tax/settings").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.settings.retrieve
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tax/settings"
@@ -5061,7 +5061,7 @@ module Stripe
     end
     should "Test tax settings post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tax/settings").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.settings.update({ defaults: { tax_code: "txcd_10000000" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/tax/settings"
@@ -5078,7 +5078,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/tax/transactions/create_from_calculation"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tax.transactions.create_from_calculation({
         calculation: "xxx",
@@ -5095,7 +5095,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/uc_123"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.delete("uc_123")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/uc_123"
@@ -5109,7 +5109,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.delete("tmc_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx"
@@ -5122,7 +5122,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations"
@@ -5135,7 +5135,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/uc_123").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.retrieve("uc_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/uc_123"
@@ -5149,7 +5149,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations?limit=3"
@@ -5163,7 +5163,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.retrieve("tmc_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx"
@@ -5176,7 +5176,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations"
@@ -5190,7 +5190,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/uc_123"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.update("uc_123", { tipping: { usd: { fixed_amounts: [10] } } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/uc_123"
@@ -5205,7 +5205,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.create({
         bbpos_wisepos_e: { splashscreen: "file_xxxxxxxxxxxxx" },
@@ -5224,7 +5224,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/configurations/tmc_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.configurations.update(
         "tmc_xxxxxxxxxxxxx",
@@ -5240,7 +5240,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/connection_tokens").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.connection_tokens.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/connection_tokens"
@@ -5254,7 +5254,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.locations.delete("tml_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
@@ -5267,7 +5267,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.locations.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations?limit=3"
@@ -5281,7 +5281,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.locations.retrieve("tml_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
@@ -5301,7 +5301,7 @@ module Stripe
     end
     should "Test terminal locations post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.locations.create({
         display_name: "My First Store",
@@ -5324,7 +5324,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.locations.update("tml_xxxxxxxxxxxxx", { display_name: "My First Store" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/locations/tml_xxxxxxxxxxxxx"
@@ -5338,7 +5338,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.cancel_action("tmr_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action"
@@ -5352,7 +5352,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.delete("tmr_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
@@ -5365,7 +5365,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers?limit=3"
@@ -5379,7 +5379,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.retrieve("tmr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
@@ -5394,7 +5394,7 @@ module Stripe
     end
     should "Test terminal readers post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.create({
         registration_code: "puppies-plug-could",
@@ -5412,7 +5412,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.update("tmr_xxxxxxxxxxxxx", { label: "Blue Rabbit" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx"
@@ -5429,7 +5429,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.process_payment_intent(
         "tmr_xxxxxxxxxxxxx",
@@ -5452,7 +5452,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.terminal.readers.process_setup_intent(
         "tmr_xxxxxxxxxxxxx",
@@ -5478,7 +5478,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/customers/cus_123/fund_cash_balance"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.customers.fund_cash_balance(
         "cus_123",
@@ -5541,7 +5541,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/authorizations/example_authorization/capture"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.authorizations.capture(
         "example_authorization",
@@ -5598,7 +5598,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/authorizations/example_authorization/expire"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.authorizations.expire("example_authorization")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/authorizations/example_authorization/expire"
@@ -5618,7 +5618,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/authorizations/example_authorization/increment"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.authorizations.increment(
         "example_authorization",
@@ -5666,7 +5666,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/authorizations"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.authorizations.create({
         amount: 100,
@@ -5711,7 +5711,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/authorizations/example_authorization/reverse"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.authorizations.reverse(
         "example_authorization",
@@ -5728,7 +5728,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/deliver"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.cards.deliver_card("card_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/deliver"
@@ -5742,7 +5742,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/fail"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.cards.fail_card("card_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/fail"
@@ -5756,7 +5756,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/return"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.cards.return_card("card_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/return"
@@ -5770,7 +5770,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/ship"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.cards.ship_card("card_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/cards/card_123/shipping/ship"
@@ -5784,7 +5784,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.personalization_designs.activate("pd_xyz")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate"
@@ -5798,7 +5798,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.personalization_designs.deactivate("pd_xyz")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate"
@@ -5815,7 +5815,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.personalization_designs.reject(
         "pd_xyz",
@@ -5883,7 +5883,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/transactions/create_force_capture"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.transactions.create_force_capture({
         amount: 100,
@@ -5999,7 +5999,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/transactions/create_unlinked_refund"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.transactions.create_unlinked_refund({
         amount: 100,
@@ -6064,7 +6064,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/transactions/example_transaction/refund"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.issuing.transactions.refund("example_transaction", { refund_amount: 50 })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/issuing/transactions/example_transaction/refund"
@@ -6078,7 +6078,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/refunds/re_123/expire"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.refunds.expire("re_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/refunds/re_123/expire"
@@ -6092,7 +6092,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xyz/advance"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.advance("clock_xyz", { frozen_time: 142 })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xyz/advance"
@@ -6106,7 +6106,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.advance("clock_xxxxxxxxxxxxx", { frozen_time: 1_675_552_261 })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance"
@@ -6120,7 +6120,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.delete("clock_xyz")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xyz"
@@ -6134,7 +6134,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.delete("clock_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx"
@@ -6147,7 +6147,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks"
@@ -6161,7 +6161,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xyz"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.retrieve("clock_xyz")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xyz"
@@ -6175,7 +6175,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks?limit=3"
@@ -6189,7 +6189,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.retrieve("clock_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx"
@@ -6205,7 +6205,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.create({
         frozen_time: 123,
@@ -6221,7 +6221,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.test_clocks.create({ frozen_time: 1_577_836_800 })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/test_clocks"
@@ -6238,7 +6238,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.inbound_transfers.fail(
         "ibt_123",
@@ -6255,7 +6255,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/inbound_transfers/ibt_123/return"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.inbound_transfers.return_inbound_transfer("ibt_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/inbound_transfers/ibt_123/return"
@@ -6269,7 +6269,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.inbound_transfers.succeed("ibt_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed"
@@ -6283,7 +6283,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/outbound_transfers/obt_123/fail"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.outbound_transfers.fail("obt_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/outbound_transfers/obt_123/fail"
@@ -6297,7 +6297,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/outbound_transfers/obt_123/post"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.outbound_transfers.post("obt_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/outbound_transfers/obt_123/post"
@@ -6314,7 +6314,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/outbound_transfers/obt_123/return"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.outbound_transfers.return_outbound_transfer(
         "obt_123",
@@ -6336,7 +6336,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/received_credits"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.received_credits.create({
         financial_account: "fa_123",
@@ -6360,7 +6360,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/test_helpers/treasury/received_debits"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.test_helpers.treasury.received_debits.create({
         financial_account: "fa_123",
@@ -6376,7 +6376,7 @@ module Stripe
     end
     should "Test tokens get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/tokens/tok_xxxx").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tokens.retrieve("tok_xxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/tokens/tok_xxxx"
@@ -6394,7 +6394,7 @@ module Stripe
     end
     should "Test tokens post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tokens.create({
         card: {
@@ -6421,7 +6421,7 @@ module Stripe
     end
     should "Test tokens post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tokens.create({
         bank_account: {
@@ -6441,7 +6441,7 @@ module Stripe
     end
     should "Test tokens post 3 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tokens.create({ pii: { id_number: "000000000" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens"
@@ -6460,7 +6460,7 @@ module Stripe
     end
     should "Test tokens post 4 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tokens.create({
         account: {
@@ -6485,7 +6485,7 @@ module Stripe
     end
     should "Test tokens post 5 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tokens.create({
         person: {
@@ -6502,7 +6502,7 @@ module Stripe
     end
     should "Test tokens post 6 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.tokens.create({ cvc_update: { cvc: "123" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/tokens"
@@ -6516,7 +6516,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/topups/tu_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.topups.cancel("tu_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/topups/tu_xxxxxxxxxxxxx/cancel"
@@ -6527,7 +6527,7 @@ module Stripe
     end
     should "Test topups get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/topups?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.topups.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/topups?limit=3"
@@ -6540,7 +6540,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/topups/tu_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.topups.retrieve("tu_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/topups/tu_xxxxxxxxxxxxx"
@@ -6556,7 +6556,7 @@ module Stripe
     end
     should "Test topups post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/topups").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.topups.create({
         amount: 2000,
@@ -6574,7 +6574,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/topups/tu_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.topups.update("tu_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/topups/tu_xxxxxxxxxxxxx"
@@ -6585,7 +6585,7 @@ module Stripe
     end
     should "Test transfers get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers?limit=3").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.transfers.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers?limit=3"
@@ -6598,7 +6598,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.transfers.retrieve("tr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx"
@@ -6614,7 +6614,7 @@ module Stripe
     end
     should "Test transfers post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/transfers").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.transfers.create({
         amount: 400,
@@ -6632,7 +6632,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.transfers.update("tr_xxxxxxxxxxxxx", { metadata: { order_id: "6735" } })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx"
@@ -6646,7 +6646,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.transfers.reversals.list("tr_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals?limit=3"
@@ -6660,7 +6660,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.transfers.reversals.retrieve("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
@@ -6678,7 +6678,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.transfers.reversals.update(
         "tr_xxxxxxxxxxxxx",
@@ -6699,7 +6699,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/credit_reversals?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.credit_reversals.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -6716,7 +6716,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.credit_reversals.retrieve("credrev_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx"
@@ -6729,7 +6729,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/credit_reversals").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.credit_reversals.create({ received_credit: "rc_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/credit_reversals"
@@ -6746,7 +6746,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/debit_reversals?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.debit_reversals.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -6763,7 +6763,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.debit_reversals.retrieve("debrev_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx"
@@ -6776,7 +6776,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/debit_reversals").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.debit_reversals.create({ received_debit: "rd_xxxxxxxxxxxxx" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/debit_reversals"
@@ -6790,7 +6790,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.financial_accounts.features.retrieve("fa_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features"
@@ -6804,7 +6804,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts?limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.financial_accounts.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts?limit=3"
@@ -6818,7 +6818,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.financial_accounts.retrieve("fa_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx"
@@ -6834,7 +6834,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.financial_accounts.create({
         supported_currencies: ["usd"],
@@ -6851,7 +6851,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.financial_accounts.update(
         "fa_xxxxxxxxxxxxx",
@@ -6868,7 +6868,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.inbound_transfers.cancel("ibt_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel"
@@ -6885,7 +6885,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/inbound_transfers?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.inbound_transfers.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -6902,7 +6902,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.inbound_transfers.retrieve("ibt_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx"
@@ -6921,7 +6921,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/inbound_transfers").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.inbound_transfers.create({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -6941,7 +6941,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_payments.cancel("bot_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel"
@@ -6958,7 +6958,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_payments?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_payments.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -6975,7 +6975,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_payments.retrieve("bot_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx"
@@ -6995,7 +6995,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_payments").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_payments.create({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -7016,7 +7016,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_transfers.cancel("obt_xxxxxxxxxxxxx")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel"
@@ -7033,7 +7033,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_transfers?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_transfers.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -7050,7 +7050,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_transfers.retrieve("obt_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx"
@@ -7069,7 +7069,7 @@ module Stripe
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/outbound_transfers").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.outbound_transfers.create({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -7092,7 +7092,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/received_credits?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.received_credits.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -7109,7 +7109,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/received_credits/rc_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.received_credits.retrieve("rc_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/received_credits/rc_xxxxxxxxxxxxx"
@@ -7126,7 +7126,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/received_debits?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.received_debits.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -7143,7 +7143,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/received_debits/rd_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.received_debits.retrieve("rd_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/received_debits/rd_xxxxxxxxxxxxx"
@@ -7160,7 +7160,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/transaction_entries?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.transaction_entries.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -7177,7 +7177,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.transaction_entries.retrieve("trxne_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx"
@@ -7194,7 +7194,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/transactions?financial_account=fa_xxxxxxxxxxxxx&limit=3"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.transactions.list({
         financial_account: "fa_xxxxxxxxxxxxx",
@@ -7211,7 +7211,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/treasury/transactions/trxn_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.treasury.transactions.retrieve("trxn_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/treasury/transactions/trxn_xxxxxxxxxxxxx"
@@ -7225,7 +7225,7 @@ module Stripe
         :delete,
         "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.webhook_endpoints.delete("we_xxxxxxxxxxxxx")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
@@ -7238,7 +7238,7 @@ module Stripe
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints?limit=3").to_return(
         body: "{}"
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.webhook_endpoints.list({ limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints?limit=3"
@@ -7252,7 +7252,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.webhook_endpoints.retrieve("we_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
@@ -7266,7 +7266,7 @@ module Stripe
     end
     should "Test webhook endpoints post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints").to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.webhook_endpoints.create({
         url: "https://example.com/my/webhook/endpoint",
@@ -7283,7 +7283,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v1/webhook_endpoints/we_xxxxxxxxxxxxx"
       ).to_return(body: "{}")
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v1.webhook_endpoints.update(
         "we_xxxxxxxxxxxxx",
@@ -7296,7 +7296,7 @@ module Stripe
         body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.close("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123/close"
@@ -7306,7 +7306,7 @@ module Stripe
         body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
@@ -7316,7 +7316,7 @@ module Stripe
         body: '{"data":[{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts"
@@ -7326,7 +7326,7 @@ module Stripe
         body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123"
@@ -7336,7 +7336,7 @@ module Stripe
         body: '{"applied_configurations":["recipient"],"configuration":null,"contact_email":null,"created":"1970-01-12T21:42:34.472Z","dashboard":null,"defaults":null,"display_name":null,"id":"obj_123","identity":null,"metadata":null,"object":"v2.core.account","requirements":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.update("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123"
@@ -7349,7 +7349,7 @@ module Stripe
         body: '{"account":"account","additional_addresses":null,"additional_names":null,"additional_terms_of_service":null,"address":null,"created":"1970-01-12T21:42:34.472Z","date_of_birth":null,"documents":null,"email":null,"given_name":null,"id":"obj_123","id_numbers":null,"legal_gender":null,"metadata":null,"nationalities":null,"object":"v2.core.account_person","phone":null,"political_exposure":null,"relationship":null,"script_addresses":null,"script_names":null,"surname":null,"updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.persons.create("account_id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
@@ -7362,7 +7362,7 @@ module Stripe
         body: '{"account":"account","additional_addresses":null,"additional_names":null,"additional_terms_of_service":null,"address":null,"created":"1970-01-12T21:42:34.472Z","date_of_birth":null,"documents":null,"email":null,"given_name":null,"id":"obj_123","id_numbers":null,"legal_gender":null,"metadata":null,"nationalities":null,"object":"v2.core.account_person","phone":null,"political_exposure":null,"relationship":null,"script_addresses":null,"script_names":null,"surname":null,"updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.persons.delete("account_id_123", "id_123")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
@@ -7375,7 +7375,7 @@ module Stripe
         body: '{"data":[{"account":"account","additional_addresses":null,"additional_names":null,"additional_terms_of_service":null,"address":null,"created":"1970-01-12T21:42:34.472Z","date_of_birth":null,"documents":null,"email":null,"given_name":null,"id":"obj_123","id_numbers":null,"legal_gender":null,"metadata":null,"nationalities":null,"object":"v2.core.account_person","phone":null,"political_exposure":null,"relationship":null,"script_addresses":null,"script_names":null,"surname":null,"updated":"1970-01-03T17:07:10.277Z"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.persons.list("account_id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons"
@@ -7388,7 +7388,7 @@ module Stripe
         body: '{"account":"account","additional_addresses":null,"additional_names":null,"additional_terms_of_service":null,"address":null,"created":"1970-01-12T21:42:34.472Z","date_of_birth":null,"documents":null,"email":null,"given_name":null,"id":"obj_123","id_numbers":null,"legal_gender":null,"metadata":null,"nationalities":null,"object":"v2.core.account_person","phone":null,"political_exposure":null,"relationship":null,"script_addresses":null,"script_names":null,"surname":null,"updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.persons.retrieve("account_id_123", "id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
@@ -7401,7 +7401,7 @@ module Stripe
         body: '{"account":"account","additional_addresses":null,"additional_names":null,"additional_terms_of_service":null,"address":null,"created":"1970-01-12T21:42:34.472Z","date_of_birth":null,"documents":null,"email":null,"given_name":null,"id":"obj_123","id_numbers":null,"legal_gender":null,"metadata":null,"nationalities":null,"object":"v2.core.account_person","phone":null,"political_exposure":null,"relationship":null,"script_addresses":null,"script_names":null,"surname":null,"updated":"1970-01-03T17:07:10.277Z"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.accounts.persons.update("account_id_123", "id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/account_id_123/persons/id_123"
@@ -7411,7 +7411,7 @@ module Stripe
         body: '{"account":"account","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","object":"v2.core.account_link","url":"url","use_case":{"type":"account_onboarding","account_onboarding":null,"account_update":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.account_links.create({
         account: "account",
@@ -7436,7 +7436,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.create({
         enabled_events: ["enabled_events"],
@@ -7454,7 +7454,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.delete("id_123")
       assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
@@ -7467,7 +7467,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.disable("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/disable"
@@ -7480,7 +7480,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.enable("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/enable"
@@ -7490,7 +7490,7 @@ module Stripe
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations"
@@ -7503,7 +7503,7 @@ module Stripe
         body: '{"context":null,"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":null,"type":"type"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.ping("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123/ping"
@@ -7513,7 +7513,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
@@ -7526,7 +7526,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","description":"description","enabled_events":["enabled_events"],"event_payload":"thin","events_from":null,"id":"obj_123","livemode":true,"metadata":null,"name":"name","object":"v2.core.event_destination","snapshot_api_version":null,"status":"disabled","status_details":null,"type":"amazon_eventbridge","updated":"1970-01-03T17:07:10.277Z","amazon_eventbridge":null,"webhook_endpoint":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.event_destinations.update("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/event_destinations/id_123"
@@ -7539,7 +7539,7 @@ module Stripe
         body: '{"data":[{"context":null,"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":null,"type":"type"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.events.list({ object_id: "object_id" })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events?object_id=object_id"
@@ -7549,7 +7549,7 @@ module Stripe
         body: '{"context":null,"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"object":"v2.core.event","reason":null,"type":"type"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.events.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/id_123"
@@ -7562,7 +7562,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.gb_bank_accounts.acknowledge_confirmation_of_payee("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
@@ -7575,7 +7575,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.gb_bank_accounts.archive("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
@@ -7585,7 +7585,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.gb_bank_accounts.create({
         account_number: "account_number",
@@ -7601,7 +7601,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.gb_bank_accounts.initiate_confirmation_of_payee("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
@@ -7614,7 +7614,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{"business_type":null,"name":null},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","object":"v2.core.vault.gb_bank_account","sort_code":"sort_code"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.gb_bank_accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123"
@@ -7627,7 +7627,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","fedwire_routing_number":null,"id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","routing_number":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.us_bank_accounts.archive("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
@@ -7637,7 +7637,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","fedwire_routing_number":null,"id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","routing_number":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.us_bank_accounts.create({ account_number: "account_number" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts"
@@ -7650,7 +7650,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","fedwire_routing_number":null,"id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","routing_number":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.us_bank_accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
@@ -7663,7 +7663,7 @@ module Stripe
         body: '{"archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","fedwire_routing_number":null,"id":"obj_123","last4":"last4","object":"v2.core.vault.us_bank_account","routing_number":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.core.vault.us_bank_accounts.update("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
@@ -7673,7 +7673,7 @@ module Stripe
         body: '{"data":[{"adjusted_flow":null,"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":null,"financial_account":"financial_account","id":"obj_123","object":"v2.money_management.adjustment","receipt_url":"receipt_url"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.adjustments.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments"
@@ -7686,7 +7686,7 @@ module Stripe
         body: '{"adjusted_flow":null,"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":null,"financial_account":"financial_account","id":"obj_123","object":"v2.money_management.adjustment","receipt_url":"receipt_url"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.adjustments.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/adjustments/id_123"
@@ -7699,7 +7699,7 @@ module Stripe
         body: '{"data":[{"balance":{"available":{"undefined":{"currency":"USD","value":35}},"inbound_pending":{"undefined":{"currency":"USD","value":11}},"outbound_pending":{"undefined":{"currency":"USD","value":60}}},"country":"ec","created":"1970-01-12T21:42:34.472Z","description":null,"id":"obj_123","object":"v2.money_management.financial_account","other":null,"status":"closed","storage":null,"type":"other"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.financial_accounts.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts"
@@ -7712,7 +7712,7 @@ module Stripe
         body: '{"balance":{"available":{"undefined":{"currency":"USD","value":35}},"inbound_pending":{"undefined":{"currency":"USD","value":11}},"outbound_pending":{"undefined":{"currency":"USD","value":60}}},"country":"ec","created":"1970-01-12T21:42:34.472Z","description":null,"id":"obj_123","object":"v2.money_management.financial_account","other":null,"status":"closed","storage":null,"type":"other"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.financial_accounts.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_accounts/id_123"
@@ -7725,7 +7725,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","credentials":null,"currency":"gip","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.financial_address","status":"failed"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.financial_addresses.create({
         currency: "gip",
@@ -7741,7 +7741,7 @@ module Stripe
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","credentials":null,"currency":"gip","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.financial_address","status":"failed"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.financial_addresses.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses"
@@ -7754,7 +7754,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","credentials":null,"currency":"gip","financial_account":"financial_account","id":"obj_123","object":"v2.money_management.financial_address","status":"failed"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.financial_addresses.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses/id_123"
@@ -7767,7 +7767,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type","us_bank_account":null}},"id":"obj_123","object":"v2.money_management.inbound_transfer","receipt_url":"receipt_url","to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed","bank_debit_failed":null,"bank_debit_processing":null,"bank_debit_queued":null,"bank_debit_returned":null,"bank_debit_succeeded":null}]}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.inbound_transfers.create({
         amount: {
@@ -7793,7 +7793,7 @@ module Stripe
         body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type","us_bank_account":null}},"id":"obj_123","object":"v2.money_management.inbound_transfer","receipt_url":"receipt_url","to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed","bank_debit_failed":null,"bank_debit_processing":null,"bank_debit_queued":null,"bank_debit_returned":null,"bank_debit_succeeded":null}]}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.inbound_transfers.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers"
@@ -7806,7 +7806,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":"description","from":{"debited":{"currency":"USD","value":55},"payment_method":{"type":"type","us_bank_account":null}},"id":"obj_123","object":"v2.money_management.inbound_transfer","receipt_url":"receipt_url","to":{"credited":{"currency":"USD","value":68},"financial_account":"financial_account"},"transfer_history":[{"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","level":"canonical","type":"bank_debit_failed","bank_debit_failed":null,"bank_debit_processing":null,"bank_debit_queued":null,"bank_debit_returned":null,"bank_debit_succeeded":null}]}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.inbound_transfers.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers/id_123"
@@ -7819,7 +7819,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":"receipt_url","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_payments.cancel("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123/cancel"
@@ -7832,7 +7832,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":"receipt_url","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_payments.create({
         amount: {
@@ -7859,7 +7859,7 @@ module Stripe
         body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":"receipt_url","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_payments.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments"
@@ -7872,7 +7872,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_payment","outbound_payment_quote":null,"receipt_url":"receipt_url","recipient_notification":{"setting":"configured"},"statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"},"trace_id":{"status":"pending","value":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_payments.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_payments/id_123"
@@ -7885,7 +7885,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"estimated_fees":[{"amount":{"currency":"USD","value":96},"type":"cross_border_fee"}],"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"fx_quote":{"rates":{"undefined":{"exchange_rate":"exchange_rate"}},"to_currency":"to_currency"},"id":"obj_123","object":"v2.money_management.outbound_payment_quote","to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method","recipient":"recipient"}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_payment_quotes.create({
         amount: {
@@ -7912,7 +7912,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":"receipt_url","statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_transfers.cancel("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123/cancel"
@@ -7925,7 +7925,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":"receipt_url","statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_transfers.create({
         amount: {
@@ -7951,7 +7951,7 @@ module Stripe
         body: '{"data":[{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":"receipt_url","statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_transfers.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers"
@@ -7964,7 +7964,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"cancelable":true,"created":"1970-01-12T21:42:34.472Z","delivery_options":null,"description":null,"expected_arrival_date":null,"from":{"debited":{"currency":"USD","value":55},"financial_account":"financial_account"},"id":"obj_123","metadata":null,"object":"v2.money_management.outbound_transfer","receipt_url":"receipt_url","statement_descriptor":"statement_descriptor","status":"canceled","status_details":null,"status_transitions":null,"to":{"credited":{"currency":"USD","value":68},"payout_method":"payout_method"},"trace_id":{"status":"pending","value":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_transfers.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_transfers/id_123"
@@ -7977,7 +7977,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_setup_intents.cancel("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123/cancel"
@@ -7990,7 +7990,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_setup_intents.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
@@ -8003,7 +8003,7 @@ module Stripe
         body: '{"data":[{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_setup_intents.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
@@ -8016,7 +8016,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_setup_intents.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
@@ -8029,7 +8029,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","id":"obj_123","next_action":null,"object":"v2.money_management.outbound_setup_intent","payout_method":{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.outbound_setup_intents.update("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
@@ -8042,7 +8042,7 @@ module Stripe
         body: '{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.payout_methods.archive("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
@@ -8055,7 +8055,7 @@ module Stripe
         body: '{"data":[{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.payout_methods.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods"
@@ -8068,7 +8068,7 @@ module Stripe
         body: '{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.payout_methods.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123"
@@ -8081,7 +8081,7 @@ module Stripe
         body: '{"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","latest_outbound_setup_intent":null,"object":"v2.money_management.payout_method","type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"},"bank_account":null,"card":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.payout_methods.unarchive("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/unarchive"
@@ -8094,7 +8094,7 @@ module Stripe
         body: '{"countries":{"undefined":{"fields":[{"local_name":"local_name","local_name_human":{"content":"content","localization_key":"localization_key"},"max_length":1111390753,"min_length":711577229,"placeholder":"placeholder","stripe_name":"stripe_name","validation_regex":"validation_regex"}]}},"object":"v2.money_management.payout_methods_bank_account_spec"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.payout_methods_bank_account_spec.retrieve
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods_bank_account_spec"
@@ -8107,7 +8107,7 @@ module Stripe
         body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":null,"financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_credit","receipt_url":null,"status":"returned","status_details":null,"status_transitions":null,"type":"card_spend","balance_transfer":null,"bank_transfer":null,"card_spend":null}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.received_credits.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_credits"
@@ -8120,7 +8120,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":null,"financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_credit","receipt_url":null,"status":"returned","status_details":null,"status_transitions":null,"type":"card_spend","balance_transfer":null,"bank_transfer":null,"card_spend":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.received_credits.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_credits/id_123"
@@ -8133,7 +8133,7 @@ module Stripe
         body: '{"data":[{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":null,"financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_debit","receipt_url":null,"status":"canceled","status_details":null,"status_transitions":{"canceled_at":null,"failed_at":null,"succeeded_at":null},"type":"bank_transfer","bank_transfer":null,"card_spend":null}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.received_debits.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debits"
@@ -8146,7 +8146,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"created":"1970-01-12T21:42:34.472Z","description":null,"financial_account":"financial_account","id":"obj_123","object":"v2.money_management.received_debit","receipt_url":null,"status":"canceled","status_details":null,"status_transitions":{"canceled_at":null,"failed_at":null,"succeeded_at":null},"type":"bank_transfer","bank_transfer":null,"card_spend":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.received_debits.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debits/id_123"
@@ -8156,7 +8156,7 @@ module Stripe
         body: '{"data":[{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"return","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"fee_transaction","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{"posted_at":null,"void_at":null}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.transactions.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions"
@@ -8169,7 +8169,7 @@ module Stripe
         body: '{"amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"return","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","flow":{"type":"fee_transaction","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null},"id":"obj_123","object":"v2.money_management.transaction","status":"pending","status_transitions":{"posted_at":null,"void_at":null}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.transactions.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
@@ -8182,7 +8182,7 @@ module Stripe
         body: '{"data":[{"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"return","financial_account":"financial_account","flow":{"type":"fee_transaction","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null}}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.transaction_entries.list
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries"
@@ -8195,7 +8195,7 @@ module Stripe
         body: '{"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"created":"1970-01-12T21:42:34.472Z","effective_at":"1970-01-03T20:38:28.043Z","id":"obj_123","object":"v2.money_management.transaction_entry","transaction":"transaction","transaction_details":{"category":"return","financial_account":"financial_account","flow":{"type":"fee_transaction","adjustment":null,"fee_transaction":null,"inbound_transfer":null,"outbound_payment":null,"outbound_transfer":null,"received_credit":null,"received_debit":null}}}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.money_management.transaction_entries.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transaction_entries/id_123"
@@ -8205,7 +8205,7 @@ module Stripe
         body: '{"authentication_token":"authentication_token","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"object":"v2.billing.meter_event_session"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.billing.meter_event_session.create
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/meter_event_session"
@@ -8218,7 +8218,7 @@ module Stripe
         body: '{"cancel":{"identifier":"identifier"},"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","id":"obj_123","livemode":true,"object":"v2.billing.meter_event_adjustment","status":"complete","type":"cancel"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.billing.meter_event_adjustments.create({
         cancel: { identifier: "identifier" },
@@ -8232,7 +8232,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_METER_EVENTS_BASE}/v2/billing/meter_event_stream"
       ).to_return(body: "{}", status: 200)
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.billing.meter_event_stream.create({
         events: [
@@ -8251,7 +8251,7 @@ module Stripe
         body: '{"created":"1970-01-12T21:42:34.472Z","event_name":"event_name","identifier":"identifier","livemode":true,"object":"v2.billing.meter_event","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.billing.meter_events.create({
         event_name: "event_name",
@@ -8267,7 +8267,7 @@ module Stripe
         body: '{"object":"financial_address_credit_simulation","status":"status"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.test_helpers.financial_addresses.credit(
         "id_123",
@@ -8289,7 +8289,7 @@ module Stripe
         body: '{"amounts":[{"currency":"USD","value":1}],"object":"financial_address_generated_microdeposits","status":"accepted"}',
         status: 200
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       client.v2.test_helpers.financial_addresses.generate_microdeposits("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/test_helpers/financial_addresses/id_123/generate_microdeposits"
@@ -8302,7 +8302,7 @@ module Stripe
         body: '{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::TemporarySessionExpiredError do
         client.v2.billing.meter_event_stream.create({
@@ -8324,7 +8324,7 @@ module Stripe
         body: '{"error":{"type":"financial_account_not_open","code":"financial_account_not_in_open_status"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::FinancialAccountNotOpenError do
         client.v2.money_management.financial_addresses.create({
@@ -8339,7 +8339,7 @@ module Stripe
         body: '{"error":{"type":"blocked_by_stripe","code":"inbound_transfer_not_allowed"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::BlockedByStripeError do
         client.v2.core.vault.us_bank_accounts.create({ account_number: "account_number" })
@@ -8354,7 +8354,7 @@ module Stripe
         body: '{"error":{"type":"already_canceled","code":"outbound_payment_already_canceled"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::AlreadyCanceledError do
         client.v2.money_management.outbound_payments.cancel("id_123")
@@ -8369,7 +8369,7 @@ module Stripe
         body: '{"error":{"type":"not_cancelable","code":"outbound_payment_not_cancelable"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::NotCancelableError do
         client.v2.money_management.outbound_payments.cancel("id_123")
@@ -8384,7 +8384,7 @@ module Stripe
         body: '{"error":{"type":"insufficient_funds","code":"outbound_payment_insufficient_funds"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::InsufficientFundsError do
         client.v2.money_management.outbound_payments.create({
@@ -8406,7 +8406,7 @@ module Stripe
         body: '{"error":{"type":"quota_exceeded","code":"outbound_payment_recipient_amount_limit_exceeded"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::QuotaExceededError do
         client.v2.core.vault.us_bank_accounts.create({ account_number: "account_number" })
@@ -8421,7 +8421,7 @@ module Stripe
         body: '{"error":{"type":"recipient_not_notifiable","code":"outbound_payment_recipient_email_does_not_exist"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::RecipientNotNotifiableError do
         client.v2.money_management.outbound_payments.create({
@@ -8446,7 +8446,7 @@ module Stripe
         body: '{"error":{"type":"feature_not_enabled","code":"outbound_payment_recipient_feature_not_active"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::FeatureNotEnabledError do
         client.v2.money_management.outbound_payments.create({
@@ -8471,7 +8471,7 @@ module Stripe
         body: '{"error":{"type":"invalid_payout_method","code":"invalid_payout_method"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::InvalidPayoutMethodError do
         client.v2.money_management.outbound_setup_intents.create
@@ -8486,7 +8486,7 @@ module Stripe
         body: '{"error":{"type":"controlled_by_dashboard","code":"bank_account_cannot_be_archived"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::ControlledByDashboardError do
         client.v2.core.vault.us_bank_accounts.archive("id_123")
@@ -8498,7 +8498,7 @@ module Stripe
         body: '{"error":{"type":"invalid_payment_method","code":"invalid_us_bank_account"}}',
         status: 400
       )
-      client = StripeClient.new("sk_test_123")
+      client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::InvalidPaymentMethodError do
         client.v2.core.vault.us_bank_accounts.create({ account_number: "account_number" })

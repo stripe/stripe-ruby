@@ -49,6 +49,17 @@ module Stripe
       attr_reader :status_details
     end
 
+    class Klarna < Stripe::StripeObject
+      class StatusDetails < Stripe::StripeObject
+        # The error message associated with the status of the payment method on the domain.
+        attr_reader :error_message
+      end
+      # The status of the payment method on the domain.
+      attr_reader :status
+      # Contains additional details about the status of a payment method for a specific payment method domain.
+      attr_reader :status_details
+    end
+
     class Link < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
@@ -151,6 +162,8 @@ module Stripe
     attr_reader :google_pay
     # Unique identifier for the object.
     attr_reader :id
+    # Indicates the status of a specific payment method on a payment method domain.
+    attr_reader :klarna
     # Indicates the status of a specific payment method on a payment method domain.
     attr_reader :link
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

@@ -1580,7 +1580,7 @@ module Stripe
       # Only return invoices for the customer specified by this customer ID.
       sig { returns(T.nilable(String)) }
       attr_accessor :customer
-      # Attribute for param field customer_account
+      # Only return invoices for the account specified by this account ID.
       sig { returns(T.nilable(String)) }
       attr_accessor :customer_account
       # Attribute for param field due_date

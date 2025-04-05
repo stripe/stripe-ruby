@@ -205,6 +205,20 @@ module Stripe
           end
         end
 
+        class ExportTaxTransactions < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class FinancialAccount < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
@@ -600,6 +614,8 @@ module Stripe
         attr_accessor :capital_overview
         # Configuration for the documents embedded component.
         attr_accessor :documents
+        # Configuration for the export tax transactions embedded component.
+        attr_accessor :export_tax_transactions
         # Configuration for the financial account embedded component.
         attr_accessor :financial_account
         # Configuration for the financial account transactions embedded component.
@@ -644,6 +660,7 @@ module Stripe
           capital_financing_promotion: nil,
           capital_overview: nil,
           documents: nil,
+          export_tax_transactions: nil,
           financial_account: nil,
           financial_account_transactions: nil,
           issuing_card: nil,
@@ -671,6 +688,7 @@ module Stripe
           @capital_financing_promotion = capital_financing_promotion
           @capital_overview = capital_overview
           @documents = documents
+          @export_tax_transactions = export_tax_transactions
           @financial_account = financial_account
           @financial_account_transactions = financial_account_transactions
           @issuing_card = issuing_card

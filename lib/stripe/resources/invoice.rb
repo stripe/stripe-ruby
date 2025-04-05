@@ -1162,7 +1162,7 @@ module Stripe
       attr_accessor :created
       # Only return invoices for the customer specified by this customer ID.
       attr_accessor :customer
-      # Attribute for param field customer_account
+      # Only return invoices for the account specified by this account ID.
       attr_accessor :customer_account
       # Attribute for param field due_date
       attr_accessor :due_date

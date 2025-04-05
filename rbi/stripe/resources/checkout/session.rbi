@@ -1291,6 +1291,16 @@ module Stripe
         sig { returns(Breakdown) }
         attr_reader :breakdown
       end
+      class WalletOptions < Stripe::StripeObject
+        class Link < Stripe::StripeObject
+          # Describes whether Checkout should display Link. Defaults to `auto`.
+          sig { returns(String) }
+          attr_reader :display
+        end
+        # Attribute for field link
+        sig { returns(Link) }
+        attr_reader :link
+      end
       # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
       sig { returns(T.nilable(AdaptivePricing)) }
       attr_reader :adaptive_pricing
@@ -1432,7 +1442,7 @@ module Stripe
       attr_reader :payment_status
       # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
       #
-      # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+      # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
       sig { returns(T.nilable(Permissions)) }
       attr_reader :permissions
       # Attribute for field phone_number_collection
@@ -1493,6 +1503,9 @@ module Stripe
       # This value is only present when the session is active.
       sig { returns(T.nilable(String)) }
       attr_reader :url
+      # Wallet-specific configuration for this Checkout Session.
+      sig { returns(T.nilable(WalletOptions)) }
+      attr_reader :wallet_options
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams
           # Minimum value to filter by (exclusive)
@@ -3651,6 +3664,22 @@ module Stripe
           sig { params(enabled: T::Boolean, required: T.nilable(String)).void }
           def initialize(enabled: nil, required: nil); end
         end
+        class WalletOptions < Stripe::RequestParams
+          class Link < Stripe::RequestParams
+            # Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :display
+            sig { params(display: T.nilable(String)).void }
+            def initialize(display: nil); end
+          end
+          # contains details about the Link wallet options.
+          sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions::Link)) }
+          attr_accessor :link
+          sig {
+            params(link: T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions::Link)).void
+           }
+          def initialize(link: nil); end
+        end
         # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
         sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing)) }
         attr_accessor :adaptive_pricing
@@ -3797,7 +3826,7 @@ module Stripe
         attr_accessor :payment_method_types
         # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
         #
-        # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions)) }
         attr_accessor :permissions
         # Controls phone number collection settings for the session.
@@ -3854,8 +3883,11 @@ module Stripe
         # The UI mode of the Session. Defaults to `hosted`.
         sig { returns(T.nilable(String)) }
         attr_accessor :ui_mode
+        # Wallet-specific configuration.
+        sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions)) }
+        attr_accessor :wallet_options
         sig {
-          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String)).void
+          params(adaptive_pricing: T.nilable(::Stripe::Checkout::Session::CreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::Session::CreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::Session::CreateParams::AutomaticTax), billing_address_collection: T.nilable(String), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::Session::CreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::Discount]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), invoice_creation: T.nilable(::Stripe::Checkout::Session::CreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::LineItem]), locale: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::OptionalItem]), payment_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::Session::CreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::Session::CreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::Session::CreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::Session::CreateParams::WalletOptions)).void
          }
         def initialize(
           adaptive_pricing: nil,
@@ -3901,7 +3933,8 @@ module Stripe
           subscription_data: nil,
           success_url: nil,
           tax_id_collection: nil,
-          ui_mode: nil
+          ui_mode: nil,
+          wallet_options: nil
         ); end
       end
       class UpdateParams < Stripe::RequestParams

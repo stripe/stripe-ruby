@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # "Options for customizing account balances within Stripe."
+  # Options for customizing account balances within Stripe.
   class BalanceSettings < SingletonAPIResource
     include Stripe::APIOperations::SingletonSave
 

@@ -72,7 +72,7 @@ module Stripe
       sig { returns(Integer) }
       attr_reader :quantity
       # A custom identifier for this line item.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       attr_reader :reference
       # Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
       sig { returns(String) }

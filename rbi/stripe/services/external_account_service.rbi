@@ -131,6 +131,117 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
+      class BankAccount < Stripe::RequestParams
+        # Attribute for param field object
+        sig { returns(String) }
+        attr_accessor :object
+        # The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :account_holder_name
+        # The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :account_holder_type
+        # The account number for the bank account, in string form. Must be a checking account.
+        sig { returns(String) }
+        attr_accessor :account_number
+        # The country in which the bank account is located.
+        sig { returns(String) }
+        attr_accessor :country
+        # The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
+        sig { returns(T.nilable(String)) }
+        attr_accessor :currency
+        # The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :routing_number
+        sig {
+          params(object: String, account_holder_name: T.nilable(String), account_holder_type: T.nilable(String), account_number: String, country: String, currency: T.nilable(String), routing_number: T.nilable(String)).void
+         }
+        def initialize(
+          object: nil,
+          account_holder_name: nil,
+          account_holder_type: nil,
+          account_number: nil,
+          country: nil,
+          currency: nil,
+          routing_number: nil
+        ); end
+      end
+      class Card < Stripe::RequestParams
+        # Attribute for param field object
+        sig { returns(String) }
+        attr_accessor :object
+        # Attribute for param field address_city
+        sig { returns(T.nilable(String)) }
+        attr_accessor :address_city
+        # Attribute for param field address_country
+        sig { returns(T.nilable(String)) }
+        attr_accessor :address_country
+        # Attribute for param field address_line1
+        sig { returns(T.nilable(String)) }
+        attr_accessor :address_line1
+        # Attribute for param field address_line2
+        sig { returns(T.nilable(String)) }
+        attr_accessor :address_line2
+        # Attribute for param field address_state
+        sig { returns(T.nilable(String)) }
+        attr_accessor :address_state
+        # Attribute for param field address_zip
+        sig { returns(T.nilable(String)) }
+        attr_accessor :address_zip
+        # Attribute for param field currency
+        sig { returns(T.nilable(String)) }
+        attr_accessor :currency
+        # Attribute for param field cvc
+        sig { returns(T.nilable(String)) }
+        attr_accessor :cvc
+        # Attribute for param field exp_month
+        sig { returns(Integer) }
+        attr_accessor :exp_month
+        # Attribute for param field exp_year
+        sig { returns(Integer) }
+        attr_accessor :exp_year
+        # Attribute for param field name
+        sig { returns(T.nilable(String)) }
+        attr_accessor :name
+        # Attribute for param field number
+        sig { returns(String) }
+        attr_accessor :number
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_accessor :metadata
+        sig {
+          params(object: String, address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), currency: T.nilable(String), cvc: T.nilable(String), exp_month: Integer, exp_year: Integer, name: T.nilable(String), number: String, metadata: T.nilable(T::Hash[String, String])).void
+         }
+        def initialize(
+          object: nil,
+          address_city: nil,
+          address_country: nil,
+          address_line1: nil,
+          address_line2: nil,
+          address_state: nil,
+          address_zip: nil,
+          currency: nil,
+          cvc: nil,
+          exp_month: nil,
+          exp_year: nil,
+          name: nil,
+          number: nil,
+          metadata: nil
+        ); end
+      end
+      class CardToken < Stripe::RequestParams
+        # Attribute for param field object
+        sig { returns(String) }
+        attr_accessor :object
+        # Attribute for param field currency
+        sig { returns(T.nilable(String)) }
+        attr_accessor :currency
+        # Attribute for param field token
+        sig { returns(String) }
+        attr_accessor :token
+        sig { params(object: String, currency: T.nilable(String), token: String).void }
+        def initialize(object: nil, currency: nil, token: nil); end
+      end
       # When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :default_for_currency
@@ -138,13 +249,15 @@ module Stripe
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user’s external account details (with the options shown below).
-      sig { returns(String) }
+      sig {
+        returns(T.any(String, ::Stripe::ExternalAccountService::CreateParams::Card, ::Stripe::ExternalAccountService::CreateParams::BankAccount, ::Stripe::ExternalAccountService::CreateParams::CardToken))
+       }
       attr_accessor :external_account
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
       sig {
-        params(default_for_currency: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), external_account: String, metadata: T.nilable(T::Hash[String, String])).void
+        params(default_for_currency: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), external_account: T.any(String, ::Stripe::ExternalAccountService::CreateParams::Card, ::Stripe::ExternalAccountService::CreateParams::BankAccount, ::Stripe::ExternalAccountService::CreateParams::CardToken), metadata: T.nilable(T::Hash[String, String])).void
        }
       def initialize(
         default_for_currency: nil,

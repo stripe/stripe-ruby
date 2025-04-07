@@ -325,27 +325,18 @@ module Stripe
       end
     end
 
-    context ".normalize_variable_name" do
-      should "downcase the variable name" do
-        assert_equal "foo", Util.normalize_variable_name("FOO")
-      end
-
-      should "prepend an underscore if first char is numeric" do
-        assert_equal "_1foo1", Util.normalize_variable_name("1foo1")
-      end
-
-      should "replace non-alphanumeric characters with underscores" do
-        assert_equal "foo_bar", Util.normalize_variable_name("foo-bar")
-        assert_equal "foo_bar", Util.normalize_variable_name("foo?bar")
-        assert_equal "foo_bar", Util.normalize_variable_name("foo!bar")
-      end
-
-      should "replace multiple non-alphanumeric characters with a single underscore" do
-        assert_equal "foo_bar", Util.normalize_variable_name("foo-?!_bar")
-      end
-
-      should "normalize the entire variable name" do
-        assert_equal "_1foo_bar_", Util.normalize_variable_name("1FOO-.><bar?")
+    context ".valid_variable_name?" do
+      should "reject invalid variable name" do
+        assert Util.valid_variable_name?("FOOfoo")
+        assert Util.valid_variable_name?("foo123")
+        assert Util.valid_variable_name?("foo_123_")
+        assert Util.valid_variable_name?("_123_foo")
+        refute Util.valid_variable_name?("123foo")
+        refute Util.valid_variable_name?("foo-bar")
+        refute Util.valid_variable_name?("foo?bar")
+        refute Util.valid_variable_name?("foo!bar")
+        refute Util.valid_variable_name?("foo-?!_bar")
+        refute Util.valid_variable_name?("1FOO-.><bar?")
       end
     end
 

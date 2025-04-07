@@ -309,14 +309,12 @@ module Stripe
       end
     end
 
-    # This will normalize variable names the following way:
-    #   * Downcase the variable name
-    #   * Prepend _ if first character is a number (identifiers cannot begin with an integer)
-    #   * Replace all invalid characters with _, and condense multiple _ to single
-    def self.normalize_variable_name(key)
-      key = key.to_s.downcase
-      key = '_' + key if key.match?(/^\d/)
-      key.gsub(/[^a-z0-9_]/, '_').gsub(/_+/, '_')
+    # Return false for strings that are invalid variable names
+    # Does NOT expect there to be a preceding '@' for instance variables
+    def self.valid_variable_name?(key)
+      return false if key.empty? || key[0] !~ /[a-zA-Z_]/
+
+      key[1..-1].chars.all? { |char| char =~ /[a-zA-Z0-9_]/ }
     end
 
     def self.check_string_argument!(key)

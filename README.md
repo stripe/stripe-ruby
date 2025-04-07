@@ -158,6 +158,9 @@ print(customer.last_response.http_status) # to retrieve status code
 print(customer.last_response.http_headers) # to retrieve headers
 ```
 
+If you are accessing a response field with custom hashes provided by you, such as `Customer.metadata`,
+please access your fields with the `[]` accessor.
+
 ### Configuring a proxy
 
 A proxy can be configured with `Stripe.proxy`:

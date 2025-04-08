@@ -336,7 +336,7 @@ module Stripe
       end
     end
 
-    protected def add_accessors(keys, values)
+    protected def add_accessors(keys, values) # rubocop:todo Metrics/PerceivedComplexity
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
 
@@ -372,10 +372,15 @@ module Stripe
       end
 
       keys.each do |k|
-        if !Util.valid_variable_name?(k)
-          Util.log_info(`INFO: The variable name '#{k}' is not a valid Ruby variable name. Use ["#{k}"] to access this field, skipping instance variable instantiation...`)
-        else
+        if Util.valid_variable_name?(k)
           instance_variable_set(:"@#{k}", values[k])
+        else
+          Util.log_info(<<~LOG
+            The variable name '#{k}' is not a valid Ruby variable name.
+            Use ["#{k}"] to access this field, skipping instance variable instantiation...
+          LOG
+                       )
+
         end
       end
     end

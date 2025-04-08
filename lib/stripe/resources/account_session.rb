@@ -688,6 +688,36 @@ module Stripe
           end
         end
 
+        class PaymentDisputes < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            attr_accessor :refund_management
+
+            def initialize(
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            )
+              @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
+              @dispute_management = dispute_management
+              @refund_management = refund_management
+            end
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class PaymentMethodSettings < Stripe::RequestParams
           class Features < Stripe::RequestParams
           end
@@ -911,6 +941,8 @@ module Stripe
         attr_accessor :notification_banner
         # Configuration for the payment details embedded component.
         attr_accessor :payment_details
+        # Configuration for the payment disputes embedded component.
+        attr_accessor :payment_disputes
         # Configuration for the payment method settings embedded component.
         attr_accessor :payment_method_settings
         # Configuration for the payments embedded component.
@@ -950,6 +982,7 @@ module Stripe
           issuing_cards_list: nil,
           notification_banner: nil,
           payment_details: nil,
+          payment_disputes: nil,
           payment_method_settings: nil,
           payments: nil,
           payouts: nil,
@@ -978,6 +1011,7 @@ module Stripe
           @issuing_cards_list = issuing_cards_list
           @notification_banner = notification_banner
           @payment_details = payment_details
+          @payment_disputes = payment_disputes
           @payment_method_settings = payment_method_settings
           @payments = payments
           @payouts = payouts

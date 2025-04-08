@@ -20,8 +20,6 @@ The library also provides other features. For example:
 
 See the [Ruby API docs](https://stripe.com/docs/api?lang=ruby).
 
-See [video demonstrations][youtube-playlist] covering how to use the library.
-
 ## Installation
 
 You don't need this source code unless you want to modify the gem. If you just
@@ -157,6 +155,9 @@ customer = Stripe::Customer.retrieve('cus_123456789')
 print(customer.last_response.http_status) # to retrieve status code
 print(customer.last_response.http_headers) # to retrieve headers
 ```
+
+If you are accessing a response field with custom hashes provided by you, such as `Customer.metadata`,
+please access your fields with the `[]` accessor.
 
 ### Configuring a proxy
 

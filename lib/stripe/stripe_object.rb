@@ -372,7 +372,16 @@ module Stripe
       end
 
       keys.each do |k|
-        instance_variable_set(:"@#{k}", values[k])
+        if Util.valid_variable_name?(k)
+          instance_variable_set(:"@#{k}", values[k])
+        else
+          Util.log_info(<<~LOG
+            The variable name '#{k}' is not a valid Ruby variable name.
+            Use ["#{k}"] to access this field, skipping instance variable instantiation...
+          LOG
+                       )
+
+        end
       end
     end
 

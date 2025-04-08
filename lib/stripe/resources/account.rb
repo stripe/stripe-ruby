@@ -71,6 +71,8 @@ module Stripe
       attr_reader :estimated_worker_count
       # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
       attr_reader :mcc
+      # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+      attr_reader :minority_owned_business_designation
       # Attribute for field monthly_estimated_revenue
       attr_reader :monthly_estimated_revenue
       # The customer-facing business name.
@@ -769,6 +771,8 @@ module Stripe
         attr_accessor :estimated_worker_count
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         attr_accessor :monthly_estimated_revenue
         # The customer-facing business name.
@@ -790,6 +794,7 @@ module Stripe
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,
@@ -802,6 +807,7 @@ module Stripe
           @annual_revenue = annual_revenue
           @estimated_worker_count = estimated_worker_count
           @mcc = mcc
+          @minority_owned_business_designation = minority_owned_business_designation
           @monthly_estimated_revenue = monthly_estimated_revenue
           @name = name
           @product_description = product_description
@@ -3007,6 +3013,8 @@ module Stripe
         attr_accessor :estimated_worker_count
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         attr_accessor :monthly_estimated_revenue
         # The customer-facing business name.
@@ -3028,6 +3036,7 @@ module Stripe
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,
@@ -3040,6 +3049,7 @@ module Stripe
           @annual_revenue = annual_revenue
           @estimated_worker_count = estimated_worker_count
           @mcc = mcc
+          @minority_owned_business_designation = minority_owned_business_designation
           @monthly_estimated_revenue = monthly_estimated_revenue
           @name = name
           @product_description = product_description

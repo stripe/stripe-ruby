@@ -120,6 +120,9 @@ module Stripe
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         sig { returns(T.nilable(String)) }
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         sig {
           returns(T.nilable(::Stripe::AccountService::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue))
@@ -149,12 +152,13 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :url
         sig {
-          params(annual_revenue: T.nilable(::Stripe::AccountService::UpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), monthly_estimated_revenue: T.nilable(::Stripe::AccountService::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::AccountService::UpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
+          params(annual_revenue: T.nilable(::Stripe::AccountService::UpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::AccountService::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::AccountService::UpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
          }
         def initialize(
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,
@@ -2401,6 +2405,9 @@ module Stripe
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         sig { returns(T.nilable(String)) }
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         sig {
           returns(T.nilable(::Stripe::AccountService::CreateParams::BusinessProfile::MonthlyEstimatedRevenue))
@@ -2430,12 +2437,13 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :url
         sig {
-          params(annual_revenue: T.nilable(::Stripe::AccountService::CreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), monthly_estimated_revenue: T.nilable(::Stripe::AccountService::CreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::AccountService::CreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
+          params(annual_revenue: T.nilable(::Stripe::AccountService::CreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::AccountService::CreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::AccountService::CreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
          }
         def initialize(
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,

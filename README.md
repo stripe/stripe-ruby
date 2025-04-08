@@ -445,7 +445,6 @@ Update the bundled [stripe-mock] by editing the version number found in
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=ruby
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [versioning]: https://stripe.com/docs/api/versioning?lang=ruby
-[youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M50RmP6ie-gdcSnfOuQCRYk
 
 <!--
 # vim: set tw=79:

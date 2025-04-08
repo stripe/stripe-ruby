@@ -20,8 +20,6 @@ The library also provides other features. For example:
 
 See the [Ruby API docs](https://stripe.com/docs/api?lang=ruby).
 
-See [video demonstrations][youtube-playlist] covering how to use the library.
-
 ## Installation
 
 You don't need this source code unless you want to modify the gem. If you just

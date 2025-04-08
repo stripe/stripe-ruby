@@ -78,6 +78,7 @@ module Stripe
         FinancialConnections::Transaction.object_name => FinancialConnections::Transaction,
         Forwarding::Request.object_name => Forwarding::Request,
         FundingInstructions.object_name => FundingInstructions,
+        FxQuote.object_name => FxQuote,
         GiftCards::Card.object_name => GiftCards::Card,
         GiftCards::Transaction.object_name => GiftCards::Transaction,
         Identity::VerificationReport.object_name => Identity::VerificationReport,

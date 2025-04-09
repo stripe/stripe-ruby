@@ -423,6 +423,23 @@ module Stripe
         c.save
       end
 
+      should "pass custom headers to execute_request_initialize_from and don't carry through" do
+        req1 = nil
+        req2 = nil
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with { |request| req1 = request }
+          .to_return(body: JSON.generate(customer_fixture))
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with { |request| req2 = request }
+          .to_return(body: JSON.generate(object: "customer"))
+
+        c = Stripe::Customer.retrieve("cus_123", { "A-Header": "foo" })
+        assert_equal "foo", req1.headers["A-Header"]
+
+        c.delete
+        assert_nil req2.headers["A-Header"]
+      end
+
       should "add key to nested objects on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {

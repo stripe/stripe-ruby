@@ -1,4 +1,24 @@
 # Changelog
+## 15.0.0 - 2025-04-09
+
+### Breaking change
+* [#1574](https://github.com/stripe/stripe-ruby/pull/1574) Rename `object_id` in V2::Core::EventService::ListParams to `object_id_`
+  * ⚠️ Change name of parameter from `object_id` to `object_id_` on `Stripe::V2::Core::EventService::ListParams` to avoid conflict with Ruby native attribute, as found in https://github.com/stripe/stripe-ruby/issues/1567
+  * This is a no-op unless you are using this specific parameter that was introduced in `v14.0.0`
+
+* [#1576](https://github.com/stripe/stripe-ruby/pull/1576) Explicitly pass through custom headers in retrieve
+  * Fix custom options passing for resource-based retrieve
+* [#1571](https://github.com/stripe/stripe-ruby/pull/1571) Validate all instance variable keys returned from the API
+  * Validate all keys returned from the API, including custom response fields, to make sure they can be set in an instance variable, as brought up in https://github.com/stripe/stripe-ruby/issues/1564
+    * We do not set instance variables for invalid field names (as defined by the [Ruby spec](https://ruby-doc.org/docs/ruby-doc-bundle/Manual/man-1.4/syntax.html#ident)). We recommend for custom hash map response fields, use the `[]` accessor.
+       ```ruby
+       c = client.v1.customers.retrieve("cus_123")
+       c.metadata["invalid-variable-name!"]
+       c.metadata["valid_key_name_works_too"]
+      ```
+* [#1575](https://github.com/stripe/stripe-ruby/pull/1575) Remove unused youtube playlist link
+* [#1573](https://github.com/stripe/stripe-ruby/pull/1573) Remove link for stale youtube video playlist
+
 ## 14.0.0 - 2025-04-01
 * [#1559](https://github.com/stripe/stripe-ruby/pull/1559) Add RBI annotations for fields and params
   * Adds explicit field types for resources and parameters for methods, and add RBI static annotations for all resources and services

@@ -220,9 +220,11 @@ module Stripe
     # with future non-major changes.
     def execute_request_initialize_from(method, path, base_address, object,
                                         params: {}, opts: {}, usage: [])
-      opts = RequestOptions.combine_opts(object.instance_variable_get(:@opts), opts)
+      opts = RequestOptions.combine_opts(object.instance_variable_get(:@opts) || {}, opts)
       opts = Util.normalize_opts(opts)
+
       params = params.to_h if params.is_a?(RequestParams)
+
       http_resp, req_opts = execute_request_internal(
         method, path, base_address, params, opts, usage
       )

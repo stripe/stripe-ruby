@@ -248,7 +248,7 @@ module Stripe
         assert_equal "idemp_123", req.headers["Idempotency-Key"]
       end
 
-      should "allow a request with custom headers but not carry through" do
+      should "allow a request with custom headers but not persist to subsequent requests" do
         req1 = nil
         req2 = nil
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customers")

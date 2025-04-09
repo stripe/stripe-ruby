@@ -119,7 +119,9 @@ module Stripe
 
       instance = new(id)
       # Explicitly send options for the retrieve call, to preserve custom headers
-      # This is ugly, we should clean this up with the rest of the RequestOptions
+      # This is so we can pass custom headers from this static function
+      # to the instance variable method call
+      # The custom headers will be cleaned up with the rest of the RequestOptions
       instance.instance_variable_set(:@retrieve_opts, Util.normalize_opts(opts))
       instance.refresh
     end

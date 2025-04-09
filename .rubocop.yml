@@ -50,6 +50,7 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Exclude:
     - "lib/stripe/api_requestor.rb"
+    - "lib/stripe/stripe_object.rb"
     - "lib/stripe/util.rb"
 
 Metrics/MethodLength:

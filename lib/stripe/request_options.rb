@@ -64,6 +64,9 @@ module Stripe
         stripe_account: req_opts[:stripe_account] || object_opts[:stripe_account],
         stripe_context: req_opts[:stripe_context] || object_opts[:stripe_context],
         stripe_version: req_opts[:stripe_version] || object_opts[:stripe_version],
+        # We want this to be explicitly filtered out if it's not passed in per-request
+        # TODO: More details?
+        headers: req_opts[:headers] || nil,
       }
 
       # Remove nil values from headers
@@ -73,7 +76,7 @@ module Stripe
     end
 
     # Extracts options from a user-provided hash, returning a new request options hash
-    # containing the recognized request options and a `headers` entry for the remaining options.
+    # containing the recognized request options and a `headers` entry.
     def self.extract_opts_from_hash(opts)
       req_opts = {}
       normalized_opts = Util.normalize_opts(opts.clone)

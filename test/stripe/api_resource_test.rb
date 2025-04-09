@@ -423,6 +423,16 @@ module Stripe
         c.save
       end
 
+      should "pass custom headers to the call on calls that use initialize_from" do
+        req = nil
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with { |request| req = request }
+          .to_return(body: JSON.generate(customer_fixture))
+
+        Stripe::Customer.retrieve("cus_123", { "A-Header": "foo" })
+        assert_equal "foo", req.headers["A-Header"]
+      end
+
       should "add key to nested objects on save" do
         acct = Stripe::Account.construct_from(id: "myid",
                                               legal_entity: {

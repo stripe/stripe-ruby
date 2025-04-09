@@ -65,7 +65,9 @@ module Stripe
         stripe_context: req_opts[:stripe_context] || object_opts[:stripe_context],
         stripe_version: req_opts[:stripe_version] || object_opts[:stripe_version],
         # We want this to be explicitly filtered out if it's not passed in per-request
-        # TODO: More details?
+        # otherwise we end up calling extract_opts_from_hash on what is returned here
+        # in a few resource-based calls which causes it to pass a nested map to the API.
+        # NET::HTTP does not permit this.
         headers: req_opts[:headers] || nil,
       }
 
@@ -76,7 +78,7 @@ module Stripe
     end
 
     # Extracts options from a user-provided hash, returning a new request options hash
-    # containing the recognized request options and a `headers` entry.
+    # containing the recognized request options and a `headers` entry for the remaining options.
     def self.extract_opts_from_hash(opts)
       req_opts = {}
       normalized_opts = Util.normalize_opts(opts.clone)

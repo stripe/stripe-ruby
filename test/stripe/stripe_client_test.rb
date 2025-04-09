@@ -254,16 +254,16 @@ module Stripe
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
           .with { |request| req1 = request }
           .to_return(body: JSON.generate(object: "customer", id: "cus_123"))
-        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
           .with { |request| req2 = request }
-          .to_return(body: "{}")
+          .to_return(body: JSON.generate(object: "customer", id: "cus_123"))
 
         client = StripeClient.new("sk_test_123")
         Stripe.api_key = "sk_test_123"
 
         cus = client.v1.customers.create({}, { "A-Header": "foo" })
         assert_equal "foo", req1.headers["A-Header"]
-        cus.delete
+        cus.refresh
         assert_nil req2.headers["A-Header"]
       end
 

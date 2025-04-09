@@ -480,7 +480,7 @@ module Stripe
         path,
         base_address,
         params: params,
-        opts: RequestOptions.extract_opts_from_hash(req_opts)
+        opts: req_opts
       )
     end
 

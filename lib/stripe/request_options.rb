@@ -64,11 +64,7 @@ module Stripe
         stripe_account: req_opts[:stripe_account] || object_opts[:stripe_account],
         stripe_context: req_opts[:stripe_context] || object_opts[:stripe_context],
         stripe_version: req_opts[:stripe_version] || object_opts[:stripe_version],
-        # We want this to be explicitly filtered out if it's not passed in per-request
-        # otherwise we end up calling extract_opts_from_hash on what is returned here
-        # in a few resource-based calls which causes it to pass a nested map to the API.
-        # NET::HTTP does not permit this.
-        headers: req_opts[:headers] || nil,
+        headers: req_opts[:headers] || {},
       }
 
       # Remove nil values from headers

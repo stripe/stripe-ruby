@@ -87,6 +87,17 @@ module Stripe
         assert_equal(combined[:api_key], "sk_456")
         assert_equal(combined[:stripe_account], "acct_123")
       end
+
+      should "correctly only retain per-request custom keys" do
+        object_opts = { api_key: "sk_123", stripe_version: "2022-11-15" , headers: {"Test-Header": "foo"}}
+        request_opts = { api_key: "sk_456", stripe_account: "acct_123" , headers: {"Cool-Header": "bar"}}
+        combined = RequestOptions.combine_opts(object_opts, request_opts)
+        assert_equal("2022-11-15", combined[:stripe_version])
+        assert_equal("sk_456", combined[:api_key])
+        assert_equal( "acct_123", combined[:stripe_account])
+        assert !combined.key?(:test_header)
+        assert_equal({ :"Cool-Header" => "bar" }, combined[:headers])
+      end
     end
   end
 end

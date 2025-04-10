@@ -1,5 +1,24 @@
 # Changelog
 
+## 15.1.0-beta.1 - 2025-04-10
+* [#1569](https://github.com/stripe/stripe-ruby/pull/1569) Update generated code for beta
+  
+  ### Breaking changes
+  * Change type of `V2MoneyManagementReceivedDebit.status_transitions` from `an object` to `nullable(an object)`
+  
+  ### Additions
+  * Add support for new resources `Privacy::RedactionJobRootObjects`, `Privacy::RedactionJobValidationError`, and `Privacy::RedactionJob`
+  * Add support for `cancel`, `create`, `list`, `retrieve`, `run`, `update`, and `validate` methods on resource `RedactionJob`
+  * Add support for `list` and `retrieve` methods on resource `RedactionJobValidationError`
+  * Add support for `minority_owned_business_designation` on `Account::BusinessProfile`, `Account::CreateParams::BusinessProfile`, and `Account::UpdateParams::BusinessProfile`
+  * Add support for `export_tax_transactions` and `payment_disputes` on `AccountSession::CreateParams::Component`
+  * Add support for `wallet_options` on `CheckoutSession::CreateParams` and `CheckoutSession`
+  * Add support for `klarna` on `PaymentMethodDomain`
+  * Change type of `TaxCalculationLineItem.reference` from `nullable(string)` to `string`
+  * Add support for `in` on `TaxRegistration::CountryOption` and `TaxRegistration::CreateParams::CountryOption`
+* [#1572](https://github.com/stripe/stripe-ruby/pull/1572) Handle external_account field
+  - Changes `external_account` field in `external_accounts.create` from a `string` to a union type.
+
 ## 15.0.0 - 2025-04-09
 
 ### Breaking change

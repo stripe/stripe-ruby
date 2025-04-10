@@ -113,7 +113,7 @@ module Stripe
         sig { returns(T.nilable(StatusDetails)) }
         attr_reader :status_details
         # The time at which the ReceivedDebit transitioned to a particular status.
-        sig { returns(StatusTransitions) }
+        sig { returns(T.nilable(StatusTransitions)) }
         attr_reader :status_transitions
         # Open Enum. The type of the ReceivedDebit.
         sig { returns(String) }

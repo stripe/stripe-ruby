@@ -372,7 +372,16 @@ module Stripe
       end
 
       keys.each do |k|
-        instance_variable_set(:"@#{k}", values[k])
+        if Util.valid_variable_name?(k)
+          instance_variable_set(:"@#{k}", values[k])
+        else
+          Util.log_info(<<~LOG
+            The variable name '#{k}' is not a valid Ruby variable name.
+            Use ["#{k}"] to access this field, skipping instance variable instantiation...
+          LOG
+                       )
+
+        end
       end
     end
 
@@ -473,13 +482,14 @@ module Stripe
 
     # Should only be for v2 events and lists, for now.
     protected def _request(method:, path:, base_address:, params: {}, opts: {})
-      req_opts = RequestOptions.combine_opts(@opts, opts)
+      req_opts = RequestOptions.extract_opts_from_hash(opts)
+      req_opts = RequestOptions.combine_opts(@opts, req_opts)
       @requestor.execute_request(
         method,
         path,
         base_address,
         params: params,
-        opts: RequestOptions.extract_opts_from_hash(req_opts)
+        opts: req_opts
       )
     end
 

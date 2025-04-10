@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  # "Options for customizing account balances within Stripe."
+  # Options for customizing account balances within Stripe.
   class BalanceSettings < SingletonAPIResource
     class Payouts < Stripe::StripeObject
       class Schedule < Stripe::StripeObject

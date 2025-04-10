@@ -488,6 +488,20 @@ module Stripe
           end
         end
 
+        class ExportTaxTransactions < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class FinancialAccount < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
@@ -658,6 +672,36 @@ module Stripe
               refund_management: nil
             )
               @capture_payments = capture_payments
+              @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
+              @dispute_management = dispute_management
+              @refund_management = refund_management
+            end
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
+        class PaymentDisputes < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            attr_accessor :refund_management
+
+            def initialize(
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            )
               @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
               @dispute_management = dispute_management
               @refund_management = refund_management
@@ -883,6 +927,8 @@ module Stripe
         attr_accessor :capital_overview
         # Configuration for the documents embedded component.
         attr_accessor :documents
+        # Configuration for the export tax transactions embedded component.
+        attr_accessor :export_tax_transactions
         # Configuration for the financial account embedded component.
         attr_accessor :financial_account
         # Configuration for the financial account transactions embedded component.
@@ -895,6 +941,8 @@ module Stripe
         attr_accessor :notification_banner
         # Configuration for the payment details embedded component.
         attr_accessor :payment_details
+        # Configuration for the payment disputes embedded component.
+        attr_accessor :payment_disputes
         # Configuration for the payment method settings embedded component.
         attr_accessor :payment_method_settings
         # Configuration for the payments embedded component.
@@ -927,12 +975,14 @@ module Stripe
           capital_financing_promotion: nil,
           capital_overview: nil,
           documents: nil,
+          export_tax_transactions: nil,
           financial_account: nil,
           financial_account_transactions: nil,
           issuing_card: nil,
           issuing_cards_list: nil,
           notification_banner: nil,
           payment_details: nil,
+          payment_disputes: nil,
           payment_method_settings: nil,
           payments: nil,
           payouts: nil,
@@ -954,12 +1004,14 @@ module Stripe
           @capital_financing_promotion = capital_financing_promotion
           @capital_overview = capital_overview
           @documents = documents
+          @export_tax_transactions = export_tax_transactions
           @financial_account = financial_account
           @financial_account_transactions = financial_account_transactions
           @issuing_card = issuing_card
           @issuing_cards_list = issuing_cards_list
           @notification_banner = notification_banner
           @payment_details = payment_details
+          @payment_disputes = payment_disputes
           @payment_method_settings = payment_method_settings
           @payments = payments
           @payouts = payouts

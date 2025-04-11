@@ -326,6 +326,9 @@ module Stripe
     # ID of the PaymentIntent that's refunded.
     sig { returns(T.nilable(T.any(String, Stripe::PaymentIntent))) }
     attr_reader :payment_intent
+    # Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
+    sig { returns(String) }
+    attr_reader :pending_reason
     # Attribute for field presentment_details
     sig { returns(PresentmentDetails) }
     attr_reader :presentment_details

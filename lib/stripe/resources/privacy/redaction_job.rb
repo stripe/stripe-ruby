@@ -8,12 +8,15 @@ module Stripe
     class RedactionJob < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
+      extend Stripe::APIOperations::NestedResource
       include Stripe::APIOperations::Save
 
       OBJECT_NAME = "privacy.redaction_job"
       def self.object_name
         "privacy.redaction_job"
       end
+
+      nested_resource_class_methods :validation_error, operations: %i[retrieve list]
 
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

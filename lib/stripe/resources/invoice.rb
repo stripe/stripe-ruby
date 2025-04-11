@@ -47,8 +47,8 @@ module Stripe
       "invoice"
     end
 
-    nested_resource_class_methods :line, operations: %i[list]
     nested_resource_class_methods :payment, operations: %i[retrieve list]
+    nested_resource_class_methods :line, operations: %i[list]
 
     class AmountsDue < Stripe::StripeObject
       # Incremental amount due for this payment in cents (or local equivalent).

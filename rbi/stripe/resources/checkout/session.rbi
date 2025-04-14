@@ -3824,7 +3824,7 @@ module Stripe
         # other characteristics.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :payment_method_types
-        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
         #
         # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions)) }
@@ -4158,7 +4158,7 @@ module Stripe
            }
           def initialize(shipping_rate: nil, shipping_rate_data: nil); end
         end
-        # Information about the customer collected within the Checkout Session.
+        # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation)) }
         attr_accessor :collected_information
         # Specifies which fields in the response should be expanded.

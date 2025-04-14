@@ -2201,7 +2201,7 @@ module Stripe
         # prioritize the most relevant payment methods based on the customer's location and
         # other characteristics.
         attr_accessor :payment_method_types
-        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
         #
         # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         attr_accessor :permissions
@@ -2549,7 +2549,7 @@ module Stripe
             @shipping_rate_data = shipping_rate_data
           end
         end
-        # Information about the customer collected within the Checkout Session.
+        # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         attr_accessor :collected_information
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand

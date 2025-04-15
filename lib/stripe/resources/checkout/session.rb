@@ -3496,14 +3496,83 @@ module Stripe
               @minimum = minimum
             end
           end
+
+          class PriceData < Stripe::RequestParams
+            class ProductData < Stripe::RequestParams
+              # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+              attr_accessor :description
+              # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+              attr_accessor :images
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+              attr_accessor :metadata
+              # The product's name, meant to be displayable to the customer.
+              attr_accessor :name
+              # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+              attr_accessor :tax_code
+
+              def initialize(description: nil, images: nil, metadata: nil, name: nil, tax_code: nil)
+                @description = description
+                @images = images
+                @metadata = metadata
+                @name = name
+                @tax_code = tax_code
+              end
+            end
+
+            class Recurring < Stripe::RequestParams
+              # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+              attr_accessor :interval
+              # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+              attr_accessor :interval_count
+
+              def initialize(interval: nil, interval_count: nil)
+                @interval = interval
+                @interval_count = interval_count
+              end
+            end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_accessor :currency
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+            attr_accessor :product
+            # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+            attr_accessor :product_data
+            # The recurring components of a price such as `interval` and `interval_count`.
+            attr_accessor :recurring
+            # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+            attr_accessor :tax_behavior
+            # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+            attr_accessor :unit_amount
+            # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+            attr_accessor :unit_amount_decimal
+
+            def initialize(
+              currency: nil,
+              product: nil,
+              product_data: nil,
+              recurring: nil,
+              tax_behavior: nil,
+              unit_amount: nil,
+              unit_amount_decimal: nil
+            )
+              @currency = currency
+              @product = product
+              @product_data = product_data
+              @recurring = recurring
+              @tax_behavior = tax_behavior
+              @unit_amount = unit_amount
+              @unit_amount_decimal = unit_amount_decimal
+            end
+          end
           # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
           attr_accessor :adjustable_quantity
           # ID of an existing line item.
           attr_accessor :id
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           attr_accessor :metadata
-          # The ID of the [Price](https://stripe.com/docs/api/prices).
+          # The ID of the [Price](https://stripe.com/docs/api/prices). One of `price` or `price_data` is required when creating a new line item.
           attr_accessor :price
+          # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+          attr_accessor :price_data
           # The quantity of the line item being purchased.
           attr_accessor :quantity
           # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
@@ -3514,6 +3583,7 @@ module Stripe
             id: nil,
             metadata: nil,
             price: nil,
+            price_data: nil,
             quantity: nil,
             tax_rates: nil
           )
@@ -3521,6 +3591,7 @@ module Stripe
             @id = id
             @metadata = metadata
             @price = price
+            @price_data = price_data
             @quantity = quantity
             @tax_rates = tax_rates
           end

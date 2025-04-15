@@ -4025,13 +4025,13 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :price
           # The quantity of the line item being purchased.
-          sig { returns(T.nilable(Integer)) }
+          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
           attr_accessor :quantity
           # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
           attr_accessor :tax_rates
           sig {
-            params(adjustable_quantity: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+            params(adjustable_quantity: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), quantity: T.nilable(T.nilable(T.any(String, Integer))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
            }
           def initialize(
             adjustable_quantity: nil,

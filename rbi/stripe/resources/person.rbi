@@ -226,6 +226,33 @@ module Stripe
       sig { returns(T::Array[String]) }
       attr_reader :pending_verification
     end
+    class UsCfpbData < Stripe::StripeObject
+      class EthnicityDetails < Stripe::StripeObject
+        # The persons ethnicity
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :ethnicity
+        # Please specify your origin, when other is selected.
+        sig { returns(T.nilable(String)) }
+        attr_reader :ethnicity_other
+      end
+      class RaceDetails < Stripe::StripeObject
+        # The persons race.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :race
+        # Please specify your race, when other is selected.
+        sig { returns(T.nilable(String)) }
+        attr_reader :race_other
+      end
+      # The persons ethnicity details
+      sig { returns(T.nilable(EthnicityDetails)) }
+      attr_reader :ethnicity_details
+      # The persons race details
+      sig { returns(T.nilable(RaceDetails)) }
+      attr_reader :race_details
+      # The persons self-identified gender
+      sig { returns(T.nilable(String)) }
+      attr_reader :self_identified_gender
+    end
     class Verification < Stripe::StripeObject
       class AdditionalDocument < Stripe::StripeObject
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
@@ -361,6 +388,9 @@ module Stripe
     # Whether the last four digits of the person's Social Security number have been provided (U.S. only).
     sig { returns(T::Boolean) }
     attr_reader :ssn_last_4_provided
+    # Demographic data related to the person.
+    sig { returns(T.nilable(UsCfpbData)) }
+    attr_reader :us_cfpb_data
     # Attribute for field verification
     sig { returns(Verification) }
     attr_reader :verification

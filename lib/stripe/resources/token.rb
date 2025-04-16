@@ -971,6 +971,44 @@ module Stripe
           end
         end
 
+        class UsCfpbData < Stripe::RequestParams
+          class EthnicityDetails < Stripe::RequestParams
+            # The persons ethnicity
+            attr_accessor :ethnicity
+            # Please specify your origin, when other is selected.
+            attr_accessor :ethnicity_other
+
+            def initialize(ethnicity: nil, ethnicity_other: nil)
+              @ethnicity = ethnicity
+              @ethnicity_other = ethnicity_other
+            end
+          end
+
+          class RaceDetails < Stripe::RequestParams
+            # The persons race.
+            attr_accessor :race
+            # Please specify your race, when other is selected.
+            attr_accessor :race_other
+
+            def initialize(race: nil, race_other: nil)
+              @race = race
+              @race_other = race_other
+            end
+          end
+          # The persons ethnicity details
+          attr_accessor :ethnicity_details
+          # The persons race details
+          attr_accessor :race_details
+          # The persons self-identified gender
+          attr_accessor :self_identified_gender
+
+          def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil)
+            @ethnicity_details = ethnicity_details
+            @race_details = race_details
+            @self_identified_gender = self_identified_gender
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class AdditionalDocument < Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1055,6 +1093,8 @@ module Stripe
         attr_accessor :relationship
         # The last four digits of the person's Social Security number (U.S. only).
         attr_accessor :ssn_last_4
+        # Demographic data related to the person.
+        attr_accessor :us_cfpb_data
         # The person's verification status.
         attr_accessor :verification
 
@@ -1084,6 +1124,7 @@ module Stripe
           registered_address: nil,
           relationship: nil,
           ssn_last_4: nil,
+          us_cfpb_data: nil,
           verification: nil
         )
           @additional_tos_acceptances = additional_tos_acceptances
@@ -1111,6 +1152,7 @@ module Stripe
           @registered_address = registered_address
           @relationship = relationship
           @ssn_last_4 = ssn_last_4
+          @us_cfpb_data = us_cfpb_data
           @verification = verification
         end
       end

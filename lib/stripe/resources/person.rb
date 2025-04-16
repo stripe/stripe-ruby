@@ -180,6 +180,28 @@ module Stripe
       attr_reader :pending_verification
     end
 
+    class UsCfpbData < Stripe::StripeObject
+      class EthnicityDetails < Stripe::StripeObject
+        # The persons ethnicity
+        attr_reader :ethnicity
+        # Please specify your origin, when other is selected.
+        attr_reader :ethnicity_other
+      end
+
+      class RaceDetails < Stripe::StripeObject
+        # The persons race.
+        attr_reader :race
+        # Please specify your race, when other is selected.
+        attr_reader :race_other
+      end
+      # The persons ethnicity details
+      attr_reader :ethnicity_details
+      # The persons race details
+      attr_reader :race_details
+      # The persons self-identified gender
+      attr_reader :self_identified_gender
+    end
+
     class Verification < Stripe::StripeObject
       class AdditionalDocument < Stripe::StripeObject
         # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
@@ -273,6 +295,8 @@ module Stripe
     attr_reader :requirements
     # Whether the last four digits of the person's Social Security number have been provided (U.S. only).
     attr_reader :ssn_last_4_provided
+    # Demographic data related to the person.
+    attr_reader :us_cfpb_data
     # Attribute for field verification
     attr_reader :verification
     # Always true for a deleted object

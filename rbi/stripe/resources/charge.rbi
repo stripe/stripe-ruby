@@ -41,6 +41,9 @@ module Stripe
       # Billing phone number (including extension).
       sig { returns(T.nilable(String)) }
       attr_reader :phone
+      # Taxpayer identification number
+      sig { returns(T.nilable(String)) }
+      attr_reader :tax_id
     end
     class FraudDetails < Stripe::StripeObject
       # Assessments from Stripe. If set, the value is `fraudulent`.

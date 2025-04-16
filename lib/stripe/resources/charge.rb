@@ -43,6 +43,8 @@ module Stripe
       attr_reader :name
       # Billing phone number (including extension).
       attr_reader :phone
+      # Taxpayer identification number
+      attr_reader :tax_id
     end
 
     class FraudDetails < Stripe::StripeObject

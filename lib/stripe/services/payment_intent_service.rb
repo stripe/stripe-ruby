@@ -898,12 +898,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -4402,12 +4405,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -8626,12 +8632,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 

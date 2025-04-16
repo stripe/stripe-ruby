@@ -56,7 +56,7 @@ module Stripe
     # Merges requestor options hash on a StripeObject
     # with a per-request options hash, giving precedence
     # to the per-request options. Returns the merged request options.
-    # Expects two hashes.
+    # Expects two hashes, expects extract_opts_from_hash to be called first!!!
     def self.combine_opts(object_opts, req_opts)
       merged_opts = {
         api_key: req_opts[:api_key] || object_opts[:api_key],
@@ -64,6 +64,7 @@ module Stripe
         stripe_account: req_opts[:stripe_account] || object_opts[:stripe_account],
         stripe_context: req_opts[:stripe_context] || object_opts[:stripe_context],
         stripe_version: req_opts[:stripe_version] || object_opts[:stripe_version],
+        headers: req_opts[:headers] || {},
       }
 
       # Remove nil values from headers

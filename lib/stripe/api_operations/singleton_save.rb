@@ -64,7 +64,8 @@ module Stripe
         opts = Util.normalize_opts(opts)
 
         APIRequestor.active_requestor.execute_request_initialize_from(:post, resource_url, :api, self,
-                                                                      params: values, opts: opts,
+                                                                      params: values,
+                                                                      opts: RequestOptions.extract_opts_from_hash(opts),
                                                                       usage: ["save"])
       end
       extend Gem::Deprecate

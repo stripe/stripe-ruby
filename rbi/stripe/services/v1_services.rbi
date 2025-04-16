@@ -55,6 +55,7 @@ module Stripe
     attr_reader :payouts
     attr_reader :plans
     attr_reader :prices
+    attr_reader :privacy
     attr_reader :products
     attr_reader :promotion_codes
     attr_reader :quotes

@@ -325,6 +325,21 @@ module Stripe
       end
     end
 
+    context ".valid_variable_name?" do
+      should "reject invalid variable name" do
+        assert Util.valid_variable_name?("FOOfoo")
+        assert Util.valid_variable_name?("foo123")
+        assert Util.valid_variable_name?("foo_123_")
+        assert Util.valid_variable_name?("_123_foo")
+        refute Util.valid_variable_name?("123foo")
+        refute Util.valid_variable_name?("foo-bar")
+        refute Util.valid_variable_name?("foo?bar")
+        refute Util.valid_variable_name?("foo!bar")
+        refute Util.valid_variable_name?("foo-?!_bar")
+        refute Util.valid_variable_name?("1FOO-.><bar?")
+      end
+    end
+
     #
     # private
     #

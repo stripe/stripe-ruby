@@ -300,6 +300,11 @@ module Stripe
           attr_reader :type
         end
 
+        class In < Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+        end
+
         class Is < Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
@@ -718,6 +723,8 @@ module Stripe
         attr_reader :id
         # Attribute for field ie
         attr_reader :ie
+        # Attribute for field in
+        attr_reader :in
         # Attribute for field is
         attr_reader :is
         # Attribute for field it
@@ -1352,6 +1359,15 @@ module Stripe
 
             def initialize(standard: nil, type: nil)
               @standard = standard
+              @type = type
+            end
+          end
+
+          class In < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
               @type = type
             end
           end
@@ -2057,6 +2073,8 @@ module Stripe
           attr_accessor :id
           # Options for the registration in IE.
           attr_accessor :ie
+          # Options for the registration in IN.
+          attr_accessor :in
           # Options for the registration in IS.
           attr_accessor :is
           # Options for the registration in IT.
@@ -2194,6 +2212,7 @@ module Stripe
             hu: nil,
             id: nil,
             ie: nil,
+            in_: nil,
             is: nil,
             it: nil,
             jp: nil,
@@ -2281,6 +2300,7 @@ module Stripe
             @hu = hu
             @id = id
             @ie = ie
+            @in = in_
             @is = is
             @it = it
             @jp = jp

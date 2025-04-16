@@ -6,7 +6,7 @@ module Stripe
     attr_reader :configurations, :sessions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @configurations = Stripe::BillingPortal::ConfigurationService.new(@requestor)
       @sessions = Stripe::BillingPortal::SessionService.new(@requestor)
     end

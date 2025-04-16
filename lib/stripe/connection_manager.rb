@@ -36,9 +36,7 @@ module Stripe
     # clears them from internal tracking.
     def clear
       @mutex.synchronize do
-        @active_connections.each do |_, connection|
-          connection.finish
-        end
+        @active_connections.each_value(&:finish)
         @active_connections = {}
       end
     end

@@ -7,7 +7,7 @@ module Stripe
       attr_reader :event_destinations, :events
 
       def initialize(requestor)
-        super(requestor)
+        super
         @event_destinations = Stripe::V2::Core::EventDestinationService.new(@requestor)
         @events = Stripe::V2::Core::EventService.new(@requestor)
       end

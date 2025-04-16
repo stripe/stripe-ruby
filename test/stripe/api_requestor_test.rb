@@ -492,7 +492,7 @@ module Stripe
                 data[:thread_object_id] == Thread.current.object_id &&
                 (data[:connection_manager_object_id].is_a? Numeric) &&
                 (data[:connection_object_id].is_a? Numeric) &&
-                data[:log_timestamp] == 0.0 # rubocop:todo Lint/FloatComparison
+                data[:log_timestamp] == 0.0
             end
 
             response_object_id = nil
@@ -506,7 +506,7 @@ module Stripe
                  data[:connection_manager_object_id] == connection_manager_data[:connection_manager_object_id] &&
                  data[:connection_object_id] == connection_manager_data[:connection_object_id] &&
                  (data[:response_object_id].is_a? Numeric) &&
-                 data[:log_timestamp] == 0.0 # rubocop:todo Lint/FloatComparison
+                 data[:log_timestamp] == 0.0
                 response_object_id = data[:response_object_id]
               end
             end
@@ -547,7 +547,7 @@ module Stripe
                  data[:process_id] == Process.pid &&
                  data[:thread_object_id] == Thread.current.object_id &&
                  data[:response_object_id] == response_object_id &&
-                 data[:log_timestamp] == 0.0 # rubocop:todo Lint/FloatComparison
+                 data[:log_timestamp] == 0.0
                 # Streaming requests have a different body.
                 if request_method == "execute_request_stream"
                   data[:body].is_a? Net::ReadAdapter

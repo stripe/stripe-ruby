@@ -1270,7 +1270,7 @@ module Stripe
             "/#{CGI.escape(id)}"
       opts = Util.normalize_opts(opts)
       APIRequestor.active_requestor.execute_request_initialize_from(:delete, url, :api, self,
-                                                                    params: params, opts: RequestOptions.extract_opts_from_hash(opts))
+                                                                    params: params, opts: opts)
     end
 
     def source_transactions(params = {}, opts = {})

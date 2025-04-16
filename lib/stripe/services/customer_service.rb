@@ -6,7 +6,7 @@ module Stripe
     attr_reader :cash_balance, :balance_transactions, :cash_balance_transactions, :payment_sources, :tax_ids, :payment_methods, :funding_instructions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @cash_balance = Stripe::CustomerCashBalanceService.new(@requestor)
       @balance_transactions = Stripe::CustomerBalanceTransactionService.new(@requestor)
       @cash_balance_transactions = Stripe::CustomerCashBalanceTransactionService.new(@requestor)

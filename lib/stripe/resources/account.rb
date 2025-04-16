@@ -4804,7 +4804,7 @@ module Stripe
         opts = id
         id = nil
       end
-      super(id, opts)
+      super
     end
 
     # We are not adding a helper for capabilities here as the Account object
@@ -4844,7 +4844,7 @@ module Stripe
         entity_update[:additional_owners] =
           serialize_additional_owners(entity, owners)
       end
-      if (individual = @values[:individual]) && (individual.is_a?(Person) && !update_hash.key?(:individual))
+      if (individual = @values[:individual]) && individual.is_a?(Person) && !update_hash.key?(:individual)
         update_hash[:individual] = individual.serialize_params(options)
       end
       update_hash

@@ -6,7 +6,7 @@ module Stripe
     attr_reader :alerts, :credit_balance_summary, :credit_balance_transactions, :credit_grants, :meters, :meter_events, :meter_event_adjustments
 
     def initialize(requestor)
-      super(requestor)
+      super
       @alerts = Stripe::Billing::AlertService.new(@requestor)
       @credit_balance_summary = Stripe::Billing::CreditBalanceSummaryService.new(@requestor)
       @credit_balance_transactions = Stripe::Billing::CreditBalanceTransactionService

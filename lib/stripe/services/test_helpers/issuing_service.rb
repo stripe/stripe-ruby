@@ -7,7 +7,7 @@ module Stripe
       attr_reader :authorizations, :cards, :personalization_designs, :transactions
 
       def initialize(requestor)
-        super(requestor)
+        super
         @authorizations = Stripe::TestHelpers::Issuing::AuthorizationService.new(@requestor)
         @cards = Stripe::TestHelpers::Issuing::CardService.new(@requestor)
         @personalization_designs = Stripe::TestHelpers::Issuing::PersonalizationDesignService

@@ -6,7 +6,7 @@ module Stripe
     attr_reader :line_items, :computed_upfront_line_items
 
     def initialize(requestor)
-      super(requestor)
+      super
       @line_items = Stripe::QuoteLineItemService.new(@requestor)
       @computed_upfront_line_items = Stripe::QuoteComputedUpfrontLineItemsService.new(@requestor)
     end

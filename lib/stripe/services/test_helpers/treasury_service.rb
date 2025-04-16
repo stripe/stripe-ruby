@@ -7,7 +7,7 @@ module Stripe
       attr_reader :inbound_transfers, :outbound_payments, :outbound_transfers, :received_credits, :received_debits
 
       def initialize(requestor)
-        super(requestor)
+        super
         @inbound_transfers = Stripe::TestHelpers::Treasury::InboundTransferService.new(@requestor)
         @outbound_payments = Stripe::TestHelpers::Treasury::OutboundPaymentService.new(@requestor)
         @outbound_transfers = Stripe::TestHelpers::Treasury::OutboundTransferService.new(@requestor)

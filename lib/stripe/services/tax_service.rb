@@ -6,7 +6,7 @@ module Stripe
     attr_reader :calculations, :registrations, :settings, :transactions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @calculations = Stripe::Tax::CalculationService.new(@requestor)
       @registrations = Stripe::Tax::RegistrationService.new(@requestor)
       @settings = Stripe::Tax::SettingsService.new(@requestor)

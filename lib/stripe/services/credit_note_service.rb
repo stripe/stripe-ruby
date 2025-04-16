@@ -6,7 +6,7 @@ module Stripe
     attr_reader :line_items, :preview_lines
 
     def initialize(requestor)
-      super(requestor)
+      super
       @line_items = Stripe::CreditNoteLineItemService.new(@requestor)
       @preview_lines = Stripe::CreditNotePreviewLinesService.new(@requestor)
     end

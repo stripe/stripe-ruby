@@ -8,7 +8,7 @@ module Stripe
       def self.execute_resource_request(method, url, base_address, params, opts)
         opts = Util.normalize_opts(opts)
 
-        super(method, url, base_address, params, opts)
+        super
       end
     end
 

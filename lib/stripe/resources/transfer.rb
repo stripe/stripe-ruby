@@ -88,6 +88,8 @@ module Stripe
       attr_accessor :destination
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The FX rate in the quote is validated and used to convert the transfer amount to the destination currency.
+      attr_accessor :fx_quote
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details.
@@ -103,6 +105,7 @@ module Stripe
         description: nil,
         destination: nil,
         expand: nil,
+        fx_quote: nil,
         metadata: nil,
         source_transaction: nil,
         source_type: nil,
@@ -113,6 +116,7 @@ module Stripe
         @description = description
         @destination = destination
         @expand = expand
+        @fx_quote = fx_quote
         @metadata = metadata
         @source_transaction = source_transaction
         @source_type = source_type
@@ -150,6 +154,8 @@ module Stripe
     attr_reader :destination
     # If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
     attr_reader :destination_payment
+    # The FX Quote used for the transfer.
+    attr_reader :fx_quote
     # Unique identifier for the object.
     attr_reader :id
     # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

@@ -6,7 +6,7 @@ module Stripe
     attr_reader :reversals
 
     def initialize(requestor)
-      super(requestor)
+      super
       @reversals = Stripe::TransferReversalService.new(@requestor)
     end
 

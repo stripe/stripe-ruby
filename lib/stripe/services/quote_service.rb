@@ -6,7 +6,7 @@ module Stripe
     attr_reader :preview_invoices, :preview_subscription_schedules, :lines, :line_items, :computed_upfront_line_items
 
     def initialize(requestor)
-      super(requestor)
+      super
       @preview_invoices = Stripe::QuotePreviewInvoiceService.new(@requestor)
       @preview_subscription_schedules = Stripe::QuotePreviewSubscriptionScheduleService
                                         .new(@requestor)

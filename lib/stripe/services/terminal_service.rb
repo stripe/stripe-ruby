@@ -6,7 +6,7 @@ module Stripe
     attr_reader :configurations, :connection_tokens, :locations, :readers, :reader_collected_data
 
     def initialize(requestor)
-      super(requestor)
+      super
       @configurations = Stripe::Terminal::ConfigurationService.new(@requestor)
       @connection_tokens = Stripe::Terminal::ConnectionTokenService.new(@requestor)
       @locations = Stripe::Terminal::LocationService.new(@requestor)

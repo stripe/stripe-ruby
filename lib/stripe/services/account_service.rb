@@ -6,7 +6,7 @@ module Stripe
     attr_reader :capabilities, :external_accounts, :login_links, :persons
 
     def initialize(requestor)
-      super(requestor)
+      super
       @capabilities = Stripe::AccountCapabilityService.new(@requestor)
       @external_accounts = Stripe::AccountExternalAccountService.new(@requestor)
       @login_links = Stripe::AccountLoginLinkService.new(@requestor)

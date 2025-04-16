@@ -6,7 +6,7 @@ module Stripe
     attr_reader :payments, :line_items
 
     def initialize(requestor)
-      super(requestor)
+      super
       @payments = Stripe::InvoicePaymentService.new(@requestor)
       @line_items = Stripe::InvoiceLineItemService.new(@requestor)
     end

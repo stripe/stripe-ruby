@@ -11,7 +11,7 @@ module Stripe
     attr_reader :oauth
 
     def initialize(requestor)
-      super(requestor)
+      super
       # v1 services: The beginning of the section generated from our OpenAPI spec
       @accounts = Stripe::AccountService.new(@requestor)
       @account_links = Stripe::AccountLinkService.new(@requestor)

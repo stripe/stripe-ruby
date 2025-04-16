@@ -7,7 +7,7 @@ module Stripe
       attr_reader :adjustments, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_transfers, :outbound_setup_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :transactions, :transaction_entries
 
       def initialize(requestor)
-        super(requestor)
+        super
         @adjustments = Stripe::V2::MoneyManagement::AdjustmentService.new(@requestor)
         @financial_accounts = Stripe::V2::MoneyManagement::FinancialAccountService.new(@requestor)
         @financial_addresses = Stripe::V2::MoneyManagement::FinancialAddressService.new(@requestor)

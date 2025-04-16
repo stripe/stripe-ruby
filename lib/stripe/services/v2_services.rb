@@ -6,7 +6,7 @@ module Stripe
     attr_reader :core, :money_management, :billing, :test_helpers
 
     def initialize(requestor)
-      super(requestor)
+      super
       @core = Stripe::V2::CoreService.new(@requestor)
       @money_management = Stripe::V2::MoneyManagementService.new(@requestor)
       @billing = Stripe::V2::BillingService.new(@requestor)

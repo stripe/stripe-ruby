@@ -36,7 +36,7 @@ module Stripe
         signature_bases = []
         sign = lambda { |signature_base|
           signature_bases.push(signature_base)
-          return [1, 2, 3, 4, 5].pack("C*")
+          [1, 2, 3, 4, 5].pack("C*")
         }
 
         authenticator = RequestSigningAuthenticator.new(TEST_AUTH_TOKEN, sign)
@@ -62,7 +62,7 @@ module Stripe
         signature_bases = []
         sign = lambda { |signature_base|
           signature_bases.push(signature_base)
-          return [1, 2, 3, 4, 5].pack("C*")
+          [1, 2, 3, 4, 5].pack("C*")
         }
 
         authenticator = RequestSigningAuthenticator.new(TEST_AUTH_TOKEN, sign)
@@ -88,7 +88,7 @@ module Stripe
         signature_bases = []
         sign = lambda { |signature_base|
           signature_bases.push(signature_base)
-          return [1, 2, 3, 4, 5].pack("C*")
+          [1, 2, 3, 4, 5].pack("C*")
         }
 
         authenticator = RequestSigningAuthenticator.new(TEST_AUTH_TOKEN, sign)

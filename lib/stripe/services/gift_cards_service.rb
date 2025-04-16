@@ -6,7 +6,7 @@ module Stripe
     attr_reader :cards, :transactions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @cards = Stripe::GiftCards::CardService.new(@requestor)
       @transactions = Stripe::GiftCards::TransactionService.new(@requestor)
     end

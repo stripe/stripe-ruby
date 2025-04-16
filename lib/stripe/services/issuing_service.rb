@@ -6,7 +6,7 @@ module Stripe
     attr_reader :authorizations, :cards, :cardholders, :credit_underwriting_records, :disputes, :dispute_settlement_details, :fraud_liability_debits, :personalization_designs, :physical_bundles, :tokens, :transactions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @authorizations = Stripe::Issuing::AuthorizationService.new(@requestor)
       @cards = Stripe::Issuing::CardService.new(@requestor)
       @cardholders = Stripe::Issuing::CardholderService.new(@requestor)

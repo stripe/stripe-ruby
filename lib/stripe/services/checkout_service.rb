@@ -6,7 +6,7 @@ module Stripe
     attr_reader :sessions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @sessions = Stripe::Checkout::SessionService.new(@requestor)
     end
   end

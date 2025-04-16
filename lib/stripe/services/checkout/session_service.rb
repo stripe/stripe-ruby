@@ -7,7 +7,7 @@ module Stripe
       attr_reader :line_items
 
       def initialize(requestor)
-        super(requestor)
+        super
         @line_items = Stripe::Checkout::SessionLineItemService.new(@requestor)
       end
 

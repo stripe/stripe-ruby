@@ -6,7 +6,7 @@ module Stripe
     attr_reader :requests
 
     def initialize(requestor)
-      super(requestor)
+      super
       @requests = Stripe::Forwarding::RequestService.new(@requestor)
     end
   end

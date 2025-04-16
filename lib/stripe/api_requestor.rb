@@ -941,7 +941,7 @@ module Stripe
                   "with Stripe. Please let us know at support@stripe.com."
       end
 
-      message = message % base_url
+      message %= base_url
 
       message += " Request was retried #{num_retries} times." if num_retries > 0
 

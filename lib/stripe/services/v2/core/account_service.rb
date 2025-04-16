@@ -8,7 +8,7 @@ module Stripe
         attr_reader :persons
 
         def initialize(requestor)
-          super(requestor)
+          super
           @persons = Stripe::V2::Core::Accounts::PersonService.new(@requestor)
         end
 

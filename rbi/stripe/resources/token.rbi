@@ -195,6 +195,19 @@ module Stripe
              }
             def initialize(date: nil, ip: nil, user_agent: nil); end
           end
+          class RegistrationDate < Stripe::RequestParams
+            # The day of registration, between 1 and 31.
+            sig { returns(Integer) }
+            attr_accessor :day
+            # The month of registration, between 1 and 12.
+            sig { returns(Integer) }
+            attr_accessor :month
+            # The four-digit year of registration.
+            sig { returns(Integer) }
+            attr_accessor :year
+            sig { params(day: Integer, month: Integer, year: Integer).void }
+            def initialize(day: nil, month: nil, year: nil); end
+          end
           class Verification < Stripe::RequestParams
             class Document < Stripe::RequestParams
               # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -268,6 +281,11 @@ module Stripe
           # The company's phone number (used for verification).
           sig { returns(T.nilable(String)) }
           attr_accessor :phone
+          # Attribute for param field registration_date
+          sig {
+            returns(T.nilable(T.nilable(T.any(String, ::Stripe::Token::CreateParams::Account::Company::RegistrationDate))))
+           }
+          attr_accessor :registration_date
           # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
           sig { returns(T.nilable(String)) }
           attr_accessor :registration_number
@@ -287,7 +305,7 @@ module Stripe
           sig { returns(T.nilable(::Stripe::Token::CreateParams::Account::Company::Verification)) }
           attr_accessor :verification
           sig {
-            params(address: T.nilable(::Stripe::Token::CreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::Token::CreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::Token::CreateParams::Account::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Token::CreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Token::CreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Token::CreateParams::Account::Company::Verification)).void
+            params(address: T.nilable(::Stripe::Token::CreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::Token::CreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::Token::CreateParams::Account::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Token::CreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Token::CreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_date: T.nilable(T.nilable(T.any(String, ::Stripe::Token::CreateParams::Account::Company::RegistrationDate))), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Token::CreateParams::Account::Company::Verification)).void
            }
           def initialize(
             address: nil,
@@ -306,6 +324,7 @@ module Stripe
             ownership_declaration_shown_and_signed: nil,
             ownership_exemption_reason: nil,
             phone: nil,
+            registration_date: nil,
             registration_number: nil,
             structure: nil,
             tax_id: nil,

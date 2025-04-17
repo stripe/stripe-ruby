@@ -88,7 +88,7 @@ module Stripe
       # Billing phone number (including extension).
       sig { returns(T.nilable(String)) }
       attr_reader :phone
-      # Taxpayer identification number
+      # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
       sig { returns(T.nilable(String)) }
       attr_reader :tax_id
     end
@@ -1204,7 +1204,7 @@ module Stripe
         # Billing phone number (including extension).
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :phone
-        # Taxpayer identification number.
+        # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         sig { returns(T.nilable(String)) }
         attr_accessor :tax_id
         sig {
@@ -1845,7 +1845,7 @@ module Stripe
         # Billing phone number (including extension).
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :phone
-        # Taxpayer identification number.
+        # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         sig { returns(T.nilable(String)) }
         attr_accessor :tax_id
         sig {

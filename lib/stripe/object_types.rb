@@ -107,6 +107,7 @@ module Stripe
         Order.object_name => Order,
         PaymentAttemptRecord.object_name => PaymentAttemptRecord,
         PaymentIntent.object_name => PaymentIntent,
+        PaymentIntentAmountDetailsLineItem.object_name => PaymentIntentAmountDetailsLineItem,
         PaymentLink.object_name => PaymentLink,
         PaymentMethod.object_name => PaymentMethod,
         PaymentMethodConfiguration.object_name => PaymentMethodConfiguration,

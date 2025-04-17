@@ -3,6 +3,13 @@
 
 module Stripe
   class PaymentIntentService < StripeService
+    attr_reader :amount_details_line_items
+
+    def initialize(requestor)
+      super
+      @amount_details_line_items = Stripe::PaymentIntentAmountDetailsLineItemService.new(@requestor)
+    end
+
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
@@ -774,26 +781,34 @@ module Stripe
         end
         # Car rental details for this PaymentIntent.
         attr_accessor :car_rental
+        # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        attr_accessor :customer_reference
         # Event details for this PaymentIntent
         attr_accessor :event_details
         # Flight reservation details for this PaymentIntent
         attr_accessor :flight
         # Lodging reservation details for this PaymentIntent
         attr_accessor :lodging
+        # A unique value assigned by the business to identify the transaction.
+        attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         attr_accessor :subscription
 
         def initialize(
           car_rental: nil,
+          customer_reference: nil,
           event_details: nil,
           flight: nil,
           lodging: nil,
+          order_reference: nil,
           subscription: nil
         )
           @car_rental = car_rental
+          @customer_reference = customer_reference
           @event_details = event_details
           @flight = flight
           @lodging = lodging
+          @order_reference = order_reference
           @subscription = subscription
         end
       end
@@ -4281,26 +4296,34 @@ module Stripe
         end
         # Car rental details for this PaymentIntent.
         attr_accessor :car_rental
+        # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        attr_accessor :customer_reference
         # Event details for this PaymentIntent
         attr_accessor :event_details
         # Flight reservation details for this PaymentIntent
         attr_accessor :flight
         # Lodging reservation details for this PaymentIntent
         attr_accessor :lodging
+        # A unique value assigned by the business to identify the transaction.
+        attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         attr_accessor :subscription
 
         def initialize(
           car_rental: nil,
+          customer_reference: nil,
           event_details: nil,
           flight: nil,
           lodging: nil,
+          order_reference: nil,
           subscription: nil
         )
           @car_rental = car_rental
+          @customer_reference = customer_reference
           @event_details = event_details
           @flight = flight
           @lodging = lodging
+          @order_reference = order_reference
           @subscription = subscription
         end
       end
@@ -7722,26 +7745,34 @@ module Stripe
         end
         # Car rental details for this PaymentIntent.
         attr_accessor :car_rental
+        # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        attr_accessor :customer_reference
         # Event details for this PaymentIntent
         attr_accessor :event_details
         # Flight reservation details for this PaymentIntent
         attr_accessor :flight
         # Lodging reservation details for this PaymentIntent
         attr_accessor :lodging
+        # A unique value assigned by the business to identify the transaction.
+        attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         attr_accessor :subscription
 
         def initialize(
           car_rental: nil,
+          customer_reference: nil,
           event_details: nil,
           flight: nil,
           lodging: nil,
+          order_reference: nil,
           subscription: nil
         )
           @car_rental = car_rental
+          @customer_reference = customer_reference
           @event_details = event_details
           @flight = flight
           @lodging = lodging
+          @order_reference = order_reference
           @subscription = subscription
         end
       end
@@ -8508,26 +8539,34 @@ module Stripe
         end
         # Car rental details for this PaymentIntent.
         attr_accessor :car_rental
+        # Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        attr_accessor :customer_reference
         # Event details for this PaymentIntent
         attr_accessor :event_details
         # Flight reservation details for this PaymentIntent
         attr_accessor :flight
         # Lodging reservation details for this PaymentIntent
         attr_accessor :lodging
+        # A unique value assigned by the business to identify the transaction.
+        attr_accessor :order_reference
         # Subscription details for this PaymentIntent
         attr_accessor :subscription
 
         def initialize(
           car_rental: nil,
+          customer_reference: nil,
           event_details: nil,
           flight: nil,
           lodging: nil,
+          order_reference: nil,
           subscription: nil
         )
           @car_rental = car_rental
+          @customer_reference = customer_reference
           @event_details = event_details
           @flight = flight
           @lodging = lodging
+          @order_reference = order_reference
           @subscription = subscription
         end
       end

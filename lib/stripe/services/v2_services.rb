@@ -6,7 +6,7 @@ module Stripe
     attr_reader :billing, :core
 
     def initialize(requestor)
-      super(requestor)
+      super
       @billing = Stripe::V2::BillingService.new(@requestor)
       @core = Stripe::V2::CoreService.new(@requestor)
     end

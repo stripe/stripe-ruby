@@ -24,7 +24,7 @@ group :development do
   # up-to-date, but it's not the end of the world if it's not.
   #
   # The latest version of rubocop is only compatible with Ruby 2.7+
-  gem "rubocop", "1.57.2" if RUBY_VERSION >= "2.7"
+  gem "rubocop", "1.75.2" if RUBY_VERSION >= "2.7"
 
   gem "sorbet"
   gem "tapioca"

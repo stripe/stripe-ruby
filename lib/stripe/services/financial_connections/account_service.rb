@@ -7,7 +7,7 @@ module Stripe
       attr_reader :owners
 
       def initialize(requestor)
-        super(requestor)
+        super
         @owners = Stripe::FinancialConnections::AccountOwnerService.new(@requestor)
       end
 

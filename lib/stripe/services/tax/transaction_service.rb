@@ -7,7 +7,7 @@ module Stripe
       attr_reader :line_items
 
       def initialize(requestor)
-        super(requestor)
+        super
         @line_items = Stripe::Tax::TransactionLineItemService.new(@requestor)
       end
 

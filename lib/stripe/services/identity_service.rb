@@ -6,7 +6,7 @@ module Stripe
     attr_reader :verification_reports, :verification_sessions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @verification_reports = Stripe::Identity::VerificationReportService.new(@requestor)
       @verification_sessions = Stripe::Identity::VerificationSessionService.new(@requestor)
     end

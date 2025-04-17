@@ -47,7 +47,6 @@ module Stripe
       "invoice"
     end
 
-    nested_resource_class_methods :payment, operations: %i[retrieve list]
     nested_resource_class_methods :line, operations: %i[list]
 
     class AmountsDue < Stripe::StripeObject
@@ -2188,21 +2187,6 @@ module Stripe
         @payment_intent = payment_intent
         @payment_record = payment_record
         @payment_record_data = payment_record_data
-      end
-    end
-
-    class AttachPaymentIntentParams < Stripe::RequestParams
-      # The portion of the PaymentIntent’s `amount` that should be applied to thisinvoice. Defaults to the entire amount.
-      attr_accessor :amount_requested
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # The ID of the PaymentIntent to attach to the invoice.
-      attr_accessor :payment_intent
-
-      def initialize(amount_requested: nil, expand: nil, payment_intent: nil)
-        @amount_requested = amount_requested
-        @expand = expand
-        @payment_intent = payment_intent
       end
     end
 
@@ -4392,42 +4376,6 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(invoice) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-    # When the PaymentIntent's status changes to succeeded, the payment is credited
-    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-    # invoice's status becomes paid.
-    #
-    # If the PaymentIntent's status is already succeeded when it is attached, it is
-    # credited to the invoice immediately.
-    #
-    # Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-    def attach_payment_intent(params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/invoices/%<invoice>s/attach_payment_intent", { invoice: CGI.escape(self["id"]) }),
-        params: params,
-        opts: opts
-      )
-    end
-
-    # Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-    # When the PaymentIntent's status changes to succeeded, the payment is credited
-    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-    # invoice's status becomes paid.
-    #
-    # If the PaymentIntent's status is already succeeded when it is attached, it is
-    # credited to the invoice immediately.
-    #
-    # Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-    def self.attach_payment_intent(invoice, params = {}, opts = {})
-      request_stripe_object(
-        method: :post,
-        path: format("/v1/invoices/%<invoice>s/attach_payment_intent", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )

@@ -2668,21 +2668,6 @@ module Stripe
         payment_record_data: nil
       ); end
     end
-    class AttachPaymentIntentParams < Stripe::RequestParams
-      # The portion of the PaymentIntent’s `amount` that should be applied to thisinvoice. Defaults to the entire amount.
-      sig { returns(T.nilable(Integer)) }
-      attr_accessor :amount_requested
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      # The ID of the PaymentIntent to attach to the invoice.
-      sig { returns(String) }
-      attr_accessor :payment_intent
-      sig {
-        params(amount_requested: T.nilable(Integer), expand: T.nilable(T::Array[String]), payment_intent: String).void
-       }
-      def initialize(amount_requested: nil, expand: nil, payment_intent: nil); end
-    end
     class FinalizeInvoiceParams < Stripe::RequestParams
       # Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
       sig { returns(T.nilable(T::Boolean)) }
@@ -4836,34 +4821,6 @@ module Stripe
       params(invoice: String, params: T.any(::Stripe::Invoice::AttachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
     def self.attach_payment(invoice, params = {}, opts = {}); end
-
-    # Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-    # When the PaymentIntent's status changes to succeeded, the payment is credited
-    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-    # invoice's status becomes paid.
-    #
-    # If the PaymentIntent's status is already succeeded when it is attached, it is
-    # credited to the invoice immediately.
-    #
-    # Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-    sig {
-      params(params: T.any(::Stripe::Invoice::AttachPaymentIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
-     }
-    def attach_payment_intent(params = {}, opts = {}); end
-
-    # Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-    # When the PaymentIntent's status changes to succeeded, the payment is credited
-    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-    # invoice's status becomes paid.
-    #
-    # If the PaymentIntent's status is already succeeded when it is attached, it is
-    # credited to the invoice immediately.
-    #
-    # Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-    sig {
-      params(invoice: String, params: T.any(::Stripe::Invoice::AttachPaymentIntentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
-     }
-    def self.attach_payment_intent(invoice, params = {}, opts = {}); end
 
     # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
     sig {

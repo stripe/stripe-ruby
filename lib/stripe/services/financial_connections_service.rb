@@ -6,7 +6,7 @@ module Stripe
     attr_reader :accounts, :institutions, :sessions, :transactions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @accounts = Stripe::FinancialConnections::AccountService.new(@requestor)
       @institutions = Stripe::FinancialConnections::InstitutionService.new(@requestor)
       @sessions = Stripe::FinancialConnections::SessionService.new(@requestor)

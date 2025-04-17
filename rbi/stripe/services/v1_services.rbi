@@ -36,6 +36,7 @@ module Stripe
     attr_reader :file_links
     attr_reader :financial_connections
     attr_reader :forwarding
+    attr_reader :fx_quotes
     attr_reader :gift_cards
     attr_reader :identity
     attr_reader :invoices

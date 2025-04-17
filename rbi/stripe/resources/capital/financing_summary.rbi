@@ -13,14 +13,14 @@ module Stripe
           # Given in seconds since unix epoch.
           sig { returns(Float) }
           attr_reader :due_at
-          # The amount that has already been paid in the current repayment interval.
+          # The amount that has already been paid in the current repayment interval, in minor units. For example, $100 USD will be represented as 10000.
           sig { returns(T.nilable(Integer)) }
           attr_reader :paid_amount
-          # The amount that is yet to be paid in the current repayment interval.
+          # The amount that is yet to be paid in the current repayment interval, in minor units. For example, $100 USD will be represented as 10000.
           sig { returns(Integer) }
           attr_reader :remaining_amount
         end
-        # Amount of financing offered, in minor units.
+        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         sig { returns(Integer) }
         attr_reader :advance_amount
         # The time at which the funds were paid out to the connected account's Stripe balance. Given in milliseconds since unix epoch.
@@ -32,13 +32,13 @@ module Stripe
         # The chronologically current repayment interval for the financing offer.
         sig { returns(T.nilable(CurrentRepaymentInterval)) }
         attr_reader :current_repayment_interval
-        # Fixed fee amount, in minor units.
+        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
         sig { returns(Integer) }
         attr_reader :fee_amount
-        # The amount the Connected account has paid toward the financing debt so far.
+        # The amount the Connected account has paid toward the financing debt so far, in minor units. For example, $1,000 USD will be represented as 100000.
         sig { returns(Integer) }
         attr_reader :paid_amount
-        # The balance remaining to be paid on the financing, in minor units.
+        # The balance remaining to be paid on the financing, in minor units. For example, $1,000 USD will be represented as 100000.
         sig { returns(Integer) }
         attr_reader :remaining_amount
         # The time at which Capital will begin withholding from payments. Given in seconds since unix epoch.

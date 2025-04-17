@@ -26,6 +26,15 @@ module Stripe
       attr_reader :amount_off
     end
 
+    class Script < Stripe::StripeObject
+      # The configuration values of the script. The keys and values are specific to the script implementation.
+      attr_reader :configuration
+      # The name of the script used to calculate the discount.
+      attr_reader :display_name
+      # The script implementation ID for this coupon.
+      attr_reader :id
+    end
+
     class DeleteParams < Stripe::RequestParams
     end
 
@@ -111,6 +120,18 @@ module Stripe
           @amount_off = amount_off
         end
       end
+
+      class Script < Stripe::RequestParams
+        # The configuration values of the script. The keys and values are specific to the script implementation.
+        attr_accessor :configuration
+        # The script implementation ID for this coupon.
+        attr_accessor :id
+
+        def initialize(configuration: nil, id: nil)
+          @configuration = configuration
+          @id = id
+        end
+      end
       # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
       attr_accessor :amount_off
       # A hash containing directions for what this Coupon will apply discounts to.
@@ -137,6 +158,8 @@ module Stripe
       attr_accessor :percent_off
       # Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
       attr_accessor :redeem_by
+      # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+      attr_accessor :script
 
       def initialize(
         amount_off: nil,
@@ -151,7 +174,8 @@ module Stripe
         metadata: nil,
         name: nil,
         percent_off: nil,
-        redeem_by: nil
+        redeem_by: nil,
+        script: nil
       )
         @amount_off = amount_off
         @applies_to = applies_to
@@ -166,6 +190,7 @@ module Stripe
         @name = name
         @percent_off = percent_off
         @redeem_by = redeem_by
+        @script = script
       end
     end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
@@ -198,8 +223,12 @@ module Stripe
     attr_reader :percent_off
     # Date after which the coupon can no longer be redeemed.
     attr_reader :redeem_by
+    # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+    attr_reader :script
     # Number of times this coupon has been applied to a customer.
     attr_reader :times_redeemed
+    # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
+    attr_reader :type
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     attr_reader :valid
     # Always true for a deleted object

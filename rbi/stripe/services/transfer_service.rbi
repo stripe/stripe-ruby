@@ -74,6 +74,9 @@ module Stripe
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
+      # The FX rate in the quote is validated and used to convert the transfer amount to the destination currency.
+      sig { returns(T.nilable(String)) }
+      attr_accessor :fx_quote
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
@@ -87,7 +90,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(amount: T.nilable(Integer), currency: String, description: T.nilable(String), destination: String, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), source_transaction: T.nilable(String), source_type: T.nilable(String), transfer_group: T.nilable(String)).void
+        params(amount: T.nilable(Integer), currency: String, description: T.nilable(String), destination: String, expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), source_transaction: T.nilable(String), source_type: T.nilable(String), transfer_group: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -95,6 +98,7 @@ module Stripe
         description: nil,
         destination: nil,
         expand: nil,
+        fx_quote: nil,
         metadata: nil,
         source_transaction: nil,
         source_type: nil,

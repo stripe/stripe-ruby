@@ -8,13 +8,13 @@ module Stripe
     # Stripe Capital to a Connect subaccount.
     class FinancingOffer < APIResource
       class AcceptedTerms < Stripe::StripeObject
-        # Amount of financing offered, in minor units.
+        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         sig { returns(Integer) }
         attr_reader :advance_amount
         # Currency that the financing offer is transacted in. For example, `usd`.
         sig { returns(String) }
         attr_reader :currency
-        # Fixed fee amount, in minor units.
+        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
         sig { returns(Integer) }
         attr_reader :fee_amount
         # Populated when the `product_type` of the `financingoffer` is `refill`.
@@ -26,7 +26,7 @@ module Stripe
         attr_reader :withhold_rate
       end
       class OfferedTerms < Stripe::StripeObject
-        # Amount of financing offered, in minor units.
+        # Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         sig { returns(Integer) }
         attr_reader :advance_amount
         # Describes the type of user the offer is being extended to.
@@ -35,7 +35,7 @@ module Stripe
         # Currency that the financing offer is transacted in. For example, `usd`.
         sig { returns(String) }
         attr_reader :currency
-        # Fixed fee amount, in minor units.
+        # Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
         sig { returns(Integer) }
         attr_reader :fee_amount
         # Populated when the `product_type` of the `financingoffer` is `refill`.

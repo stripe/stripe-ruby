@@ -6,7 +6,7 @@ module Stripe
     attr_reader :confirmation_tokens, :customers, :issuing, :refunds, :terminal, :test_clocks, :treasury
 
     def initialize(requestor)
-      super(requestor)
+      super
       @confirmation_tokens = Stripe::TestHelpers::ConfirmationTokenService.new(@requestor)
       @customers = Stripe::TestHelpers::CustomerService.new(@requestor)
       @issuing = Stripe::TestHelpers::IssuingService.new(@requestor)

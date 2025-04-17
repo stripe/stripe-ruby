@@ -3824,7 +3824,7 @@ module Stripe
         # other characteristics.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :payment_method_types
-        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
         #
         # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         sig { returns(T.nilable(::Stripe::Checkout::Session::CreateParams::Permissions)) }
@@ -4010,6 +4010,82 @@ module Stripe
              }
             def initialize(enabled: nil, maximum: nil, minimum: nil); end
           end
+          class PriceData < Stripe::RequestParams
+            class ProductData < Stripe::RequestParams
+              # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :description
+              # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+              sig { returns(T.nilable(T::Array[String])) }
+              attr_accessor :images
+              # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              attr_accessor :metadata
+              # The product's name, meant to be displayable to the customer.
+              sig { returns(String) }
+              attr_accessor :name
+              # A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+              sig { returns(T.nilable(String)) }
+              attr_accessor :tax_code
+              sig {
+                params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String)).void
+               }
+              def initialize(
+                description: nil,
+                images: nil,
+                metadata: nil,
+                name: nil,
+                tax_code: nil
+              ); end
+            end
+            class Recurring < Stripe::RequestParams
+              # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+              sig { returns(String) }
+              attr_accessor :interval
+              # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+              sig { returns(T.nilable(Integer)) }
+              attr_accessor :interval_count
+              sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+              def initialize(interval: nil, interval_count: nil); end
+            end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(String) }
+            attr_accessor :currency
+            # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :product
+            # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData::ProductData))
+             }
+            attr_accessor :product_data
+            # The recurring components of a price such as `interval` and `interval_count`.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData::Recurring))
+             }
+            attr_accessor :recurring
+            # Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :tax_behavior
+            # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :unit_amount
+            # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :unit_amount_decimal
+            sig {
+              params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData::ProductData), recurring: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+             }
+            def initialize(
+              currency: nil,
+              product: nil,
+              product_data: nil,
+              recurring: nil,
+              tax_behavior: nil,
+              unit_amount: nil,
+              unit_amount_decimal: nil
+            ); end
+          end
           # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
           sig {
             returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::AdjustableQuantity))
@@ -4021,23 +4097,27 @@ module Stripe
           # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
           attr_accessor :metadata
-          # The ID of the [Price](https://stripe.com/docs/api/prices).
+          # The ID of the [Price](https://stripe.com/docs/api/prices). One of `price` or `price_data` is required when creating a new line item.
           sig { returns(T.nilable(String)) }
           attr_accessor :price
+          # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+          sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData)) }
+          attr_accessor :price_data
           # The quantity of the line item being purchased.
-          sig { returns(T.nilable(Integer)) }
+          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
           attr_accessor :quantity
           # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
           attr_accessor :tax_rates
           sig {
-            params(adjustable_quantity: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+            params(adjustable_quantity: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData), quantity: T.nilable(T.nilable(T.any(String, Integer))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
            }
           def initialize(
             adjustable_quantity: nil,
             id: nil,
             metadata: nil,
             price: nil,
+            price_data: nil,
             quantity: nil,
             tax_rates: nil
           ); end
@@ -4158,7 +4238,7 @@ module Stripe
            }
           def initialize(shipping_rate: nil, shipping_rate_data: nil); end
         end
-        # Information about the customer collected within the Checkout Session.
+        # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::CollectedInformation)) }
         attr_accessor :collected_information
         # Specifies which fields in the response should be expanded.

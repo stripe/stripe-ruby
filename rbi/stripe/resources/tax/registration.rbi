@@ -49,12 +49,27 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Aw < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Az < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Ba < Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
         end
         class Bb < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Bd < Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -86,6 +101,11 @@ module Stripe
           attr_reader :type
         end
         class Bh < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Bj < Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -226,6 +246,11 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Et < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Fi < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
@@ -357,6 +382,11 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class Kg < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
         class Kh < Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
@@ -368,6 +398,11 @@ module Stripe
           attr_reader :type
         end
         class Kz < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class La < Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -498,6 +533,11 @@ module Stripe
           attr_reader :type
         end
         class Pe < Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          attr_reader :type
+        end
+        class Ph < Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           attr_reader :type
@@ -723,12 +763,21 @@ module Stripe
         # Attribute for field au
         sig { returns(Au) }
         attr_reader :au
+        # Attribute for field aw
+        sig { returns(Aw) }
+        attr_reader :aw
+        # Attribute for field az
+        sig { returns(Az) }
+        attr_reader :az
         # Attribute for field ba
         sig { returns(Ba) }
         attr_reader :ba
         # Attribute for field bb
         sig { returns(Bb) }
         attr_reader :bb
+        # Attribute for field bd
+        sig { returns(Bd) }
+        attr_reader :bd
         # Attribute for field be
         sig { returns(Be) }
         attr_reader :be
@@ -738,6 +787,9 @@ module Stripe
         # Attribute for field bh
         sig { returns(Bh) }
         attr_reader :bh
+        # Attribute for field bj
+        sig { returns(Bj) }
+        attr_reader :bj
         # Attribute for field bs
         sig { returns(Bs) }
         attr_reader :bs
@@ -786,6 +838,9 @@ module Stripe
         # Attribute for field es
         sig { returns(Es) }
         attr_reader :es
+        # Attribute for field et
+        sig { returns(Et) }
+        attr_reader :et
         # Attribute for field fi
         sig { returns(Fi) }
         attr_reader :fi
@@ -831,6 +886,9 @@ module Stripe
         # Attribute for field ke
         sig { returns(Ke) }
         attr_reader :ke
+        # Attribute for field kg
+        sig { returns(Kg) }
+        attr_reader :kg
         # Attribute for field kh
         sig { returns(Kh) }
         attr_reader :kh
@@ -840,6 +898,9 @@ module Stripe
         # Attribute for field kz
         sig { returns(Kz) }
         attr_reader :kz
+        # Attribute for field la
+        sig { returns(La) }
+        attr_reader :la
         # Attribute for field lt
         sig { returns(Lt) }
         attr_reader :lt
@@ -894,6 +955,9 @@ module Stripe
         # Attribute for field pe
         sig { returns(Pe) }
         attr_reader :pe
+        # Attribute for field ph
+        sig { returns(Ph) }
+        attr_reader :ph
         # Attribute for field pl
         sig { returns(Pl) }
         attr_reader :pl
@@ -1079,6 +1143,20 @@ module Stripe
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
+          class Aw < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
+          class Az < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
           class Ba < Stripe::RequestParams
             # Type of registration to be created in `country`.
             sig { returns(String) }
@@ -1087,6 +1165,13 @@ module Stripe
             def initialize(type: nil); end
           end
           class Bb < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
+          class Bd < Stripe::RequestParams
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
@@ -1136,6 +1221,13 @@ module Stripe
             def initialize(standard: nil, type: nil); end
           end
           class Bh < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
+          class Bj < Stripe::RequestParams
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
@@ -1352,6 +1444,13 @@ module Stripe
              }
             def initialize(standard: nil, type: nil); end
           end
+          class Et < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
           class Fi < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
@@ -1555,6 +1654,13 @@ module Stripe
             sig { params(type: String).void }
             def initialize(type: nil); end
           end
+          class Kg < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
           class Kh < Stripe::RequestParams
             # Type of registration to be created in `country`.
             sig { returns(String) }
@@ -1570,6 +1676,13 @@ module Stripe
             def initialize(type: nil); end
           end
           class Kz < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
+          class La < Stripe::RequestParams
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
@@ -1766,6 +1879,13 @@ module Stripe
             def initialize(type: nil); end
           end
           class Pe < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
+          class Ph < Stripe::RequestParams
             # Type of registration to be created in `country`.
             sig { returns(String) }
             attr_accessor :type
@@ -2103,12 +2223,21 @@ module Stripe
           # Options for the registration in AU.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Au)) }
           attr_accessor :au
+          # Options for the registration in AW.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Aw)) }
+          attr_accessor :aw
+          # Options for the registration in AZ.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Az)) }
+          attr_accessor :az
           # Options for the registration in BA.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ba)) }
           attr_accessor :ba
           # Options for the registration in BB.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bb)) }
           attr_accessor :bb
+          # Options for the registration in BD.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bd)) }
+          attr_accessor :bd
           # Options for the registration in BE.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Be)) }
           attr_accessor :be
@@ -2118,6 +2247,9 @@ module Stripe
           # Options for the registration in BH.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bh)) }
           attr_accessor :bh
+          # Options for the registration in BJ.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bj)) }
+          attr_accessor :bj
           # Options for the registration in BS.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bs)) }
           attr_accessor :bs
@@ -2166,6 +2298,9 @@ module Stripe
           # Options for the registration in ES.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Es)) }
           attr_accessor :es
+          # Options for the registration in ET.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Et)) }
+          attr_accessor :et
           # Options for the registration in FI.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Fi)) }
           attr_accessor :fi
@@ -2211,6 +2346,9 @@ module Stripe
           # Options for the registration in KE.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ke)) }
           attr_accessor :ke
+          # Options for the registration in KG.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kg)) }
+          attr_accessor :kg
           # Options for the registration in KH.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kh)) }
           attr_accessor :kh
@@ -2220,6 +2358,9 @@ module Stripe
           # Options for the registration in KZ.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kz)) }
           attr_accessor :kz
+          # Options for the registration in LA.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::La)) }
+          attr_accessor :la
           # Options for the registration in LT.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Lt)) }
           attr_accessor :lt
@@ -2274,6 +2415,9 @@ module Stripe
           # Options for the registration in PE.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pe)) }
           attr_accessor :pe
+          # Options for the registration in PH.
+          sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ph)) }
+          attr_accessor :ph
           # Options for the registration in PL.
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pl)) }
           attr_accessor :pl
@@ -2347,7 +2491,7 @@ module Stripe
           sig { returns(T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Zw)) }
           attr_accessor :zw
           sig {
-            params(ae: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ae), al: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Al), am: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Am), ao: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ao), at: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::At), au: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Au), ba: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ba), bb: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bb), be: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Be), bg: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bg), bh: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bh), bs: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bs), by: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::By), ca: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ca), cd: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cd), ch: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ch), cl: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cl), co: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Co), cr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cr), cy: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cy), cz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cz), de: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::De), dk: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Dk), ec: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ec), ee: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ee), eg: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Eg), es: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Es), fi: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Fi), fr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Fr), gb: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gb), ge: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ge), gn: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gn), gr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gr), hr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Hr), hu: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Hu), id: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Id), ie: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ie), in_: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::In), is: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Is), it: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::It), jp: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Jp), ke: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ke), kh: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kh), kr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kr), kz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kz), lt: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Lt), lu: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Lu), lv: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Lv), ma: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ma), md: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Md), me: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Me), mk: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mk), mr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mr), mt: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mt), mx: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mx), my: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::My), ng: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ng), nl: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Nl), no: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::No), np: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Np), nz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Nz), om: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Om), pe: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pe), pl: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pl), pt: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pt), ro: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ro), rs: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Rs), ru: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ru), sa: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sa), se: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Se), sg: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sg), si: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Si), sk: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sk), sn: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sn), sr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sr), th: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Th), tj: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Tj), tr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Tr), tz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Tz), ug: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ug), us: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Us), uy: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Uy), uz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Uz), vn: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Vn), za: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Za), zm: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Zm), zw: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Zw)).void
+            params(ae: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ae), al: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Al), am: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Am), ao: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ao), at: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::At), au: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Au), aw: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Aw), az: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Az), ba: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ba), bb: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bb), bd: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bd), be: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Be), bg: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bg), bh: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bh), bj: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bj), bs: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Bs), by: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::By), ca: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ca), cd: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cd), ch: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ch), cl: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cl), co: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Co), cr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cr), cy: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cy), cz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Cz), de: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::De), dk: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Dk), ec: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ec), ee: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ee), eg: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Eg), es: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Es), et: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Et), fi: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Fi), fr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Fr), gb: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gb), ge: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ge), gn: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gn), gr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Gr), hr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Hr), hu: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Hu), id: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Id), ie: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ie), in_: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::In), is: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Is), it: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::It), jp: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Jp), ke: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ke), kg: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kg), kh: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kh), kr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kr), kz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Kz), la: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::La), lt: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Lt), lu: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Lu), lv: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Lv), ma: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ma), md: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Md), me: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Me), mk: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mk), mr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mr), mt: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mt), mx: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Mx), my: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::My), ng: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ng), nl: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Nl), no: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::No), np: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Np), nz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Nz), om: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Om), pe: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pe), ph: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ph), pl: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pl), pt: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Pt), ro: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ro), rs: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Rs), ru: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ru), sa: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sa), se: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Se), sg: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sg), si: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Si), sk: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sk), sn: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sn), sr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Sr), th: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Th), tj: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Tj), tr: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Tr), tz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Tz), ug: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Ug), us: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Us), uy: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Uy), uz: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Uz), vn: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Vn), za: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Za), zm: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Zm), zw: T.nilable(::Stripe::Tax::Registration::CreateParams::CountryOptions::Zw)).void
            }
           def initialize(
             ae: nil,
@@ -2356,11 +2500,15 @@ module Stripe
             ao: nil,
             at: nil,
             au: nil,
+            aw: nil,
+            az: nil,
             ba: nil,
             bb: nil,
+            bd: nil,
             be: nil,
             bg: nil,
             bh: nil,
+            bj: nil,
             bs: nil,
             by: nil,
             ca: nil,
@@ -2377,6 +2525,7 @@ module Stripe
             ee: nil,
             eg: nil,
             es: nil,
+            et: nil,
             fi: nil,
             fr: nil,
             gb: nil,
@@ -2392,9 +2541,11 @@ module Stripe
             it: nil,
             jp: nil,
             ke: nil,
+            kg: nil,
             kh: nil,
             kr: nil,
             kz: nil,
+            la: nil,
             lt: nil,
             lu: nil,
             lv: nil,
@@ -2413,6 +2564,7 @@ module Stripe
             nz: nil,
             om: nil,
             pe: nil,
+            ph: nil,
             pl: nil,
             pt: nil,
             ro: nil,

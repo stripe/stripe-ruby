@@ -8,7 +8,7 @@ module Stripe
         attr_reader :gb_bank_accounts, :us_bank_accounts
 
         def initialize(requestor)
-          super(requestor)
+          super
           @gb_bank_accounts = Stripe::V2::Core::Vault::GbBankAccountService.new(@requestor)
           @us_bank_accounts = Stripe::V2::Core::Vault::UsBankAccountService.new(@requestor)
         end

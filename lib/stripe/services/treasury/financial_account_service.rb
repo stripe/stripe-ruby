@@ -7,7 +7,7 @@ module Stripe
       attr_reader :features
 
       def initialize(requestor)
-        super(requestor)
+        super
         @features = Stripe::Treasury::FinancialAccountFeaturesService.new(@requestor)
       end
 

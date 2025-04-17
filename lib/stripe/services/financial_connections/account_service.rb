@@ -7,7 +7,7 @@ module Stripe
       attr_reader :inferred_balances, :owners
 
       def initialize(requestor)
-        super(requestor)
+        super
         @inferred_balances = Stripe::FinancialConnections::AccountInferredBalanceService
                              .new(@requestor)
         @owners = Stripe::FinancialConnections::AccountOwnerService.new(@requestor)

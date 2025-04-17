@@ -6,7 +6,7 @@ module Stripe
     attr_reader :capabilities, :external_accounts, :login_links, :persons
 
     def initialize(requestor)
-      super(requestor)
+      super
       @capabilities = Stripe::AccountCapabilityService.new(@requestor)
       @external_accounts = Stripe::AccountExternalAccountService.new(@requestor)
       @login_links = Stripe::AccountLoginLinkService.new(@requestor)
@@ -1316,6 +1316,21 @@ module Stripe
           end
         end
 
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of registration.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1365,6 +1380,8 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
+        # Attribute for param field registration_date
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -1394,6 +1411,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,
@@ -1416,6 +1434,7 @@ module Stripe
           @ownership_declaration = ownership_declaration
           @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
+          @registration_date = registration_date
           @registration_number = registration_number
           @structure = structure
           @tax_id = tax_id
@@ -3567,6 +3586,21 @@ module Stripe
           end
         end
 
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of registration.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -3616,6 +3650,8 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
+        # Attribute for param field registration_date
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -3645,6 +3681,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,
@@ -3667,6 +3704,7 @@ module Stripe
           @ownership_declaration = ownership_declaration
           @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
+          @registration_date = registration_date
           @registration_number = registration_number
           @structure = structure
           @tax_id = tax_id

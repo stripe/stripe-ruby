@@ -7,7 +7,7 @@ module Stripe
       attr_reader :validation_errors
 
       def initialize(requestor)
-        super(requestor)
+        super
         @validation_errors = Stripe::Privacy::RedactionJobValidationErrorService.new(@requestor)
       end
 

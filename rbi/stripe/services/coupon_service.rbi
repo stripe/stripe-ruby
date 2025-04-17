@@ -101,6 +101,16 @@ module Stripe
         sig { params(amount_off: Integer).void }
         def initialize(amount_off: nil); end
       end
+      class Script < Stripe::RequestParams
+        # The configuration values of the script. The keys and values are specific to the script implementation.
+        sig { returns(T::Hash[String, T.untyped]) }
+        attr_accessor :configuration
+        # The script implementation ID for this coupon.
+        sig { returns(String) }
+        attr_accessor :id
+        sig { params(configuration: T::Hash[String, T.untyped], id: String).void }
+        def initialize(configuration: nil, id: nil); end
+      end
       # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :amount_off
@@ -142,8 +152,11 @@ module Stripe
       # Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :redeem_by
+      # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+      sig { returns(T.nilable(::Stripe::CouponService::CreateParams::Script)) }
+      attr_accessor :script
       sig {
-        params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::CouponService::CreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions]), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer)).void
+        params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::CouponService::CreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::CouponService::CreateParams::CurrencyOptions]), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer), script: T.nilable(::Stripe::CouponService::CreateParams::Script)).void
        }
       def initialize(
         amount_off: nil,
@@ -158,7 +171,8 @@ module Stripe
         metadata: nil,
         name: nil,
         percent_off: nil,
-        redeem_by: nil
+        redeem_by: nil,
+        script: nil
       ); end
     end
     # You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.

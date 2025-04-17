@@ -304,6 +304,15 @@ module Stripe
         attr_reader :user_agent
       end
 
+      class RegistrationDate < Stripe::StripeObject
+        # The day of registration, between 1 and 31.
+        attr_reader :day
+        # The month of registration, between 1 and 12.
+        attr_reader :month
+        # The four-digit year of registration.
+        attr_reader :year
+      end
+
       class Verification < Stripe::StripeObject
         class Document < Stripe::StripeObject
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
@@ -348,6 +357,8 @@ module Stripe
       attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_reader :phone
+      # Attribute for field registration_date
+      attr_reader :registration_date
       # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       attr_reader :structure
       # Whether the company's business ID number was provided.
@@ -1962,6 +1973,21 @@ module Stripe
           end
         end
 
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of registration.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -2011,6 +2037,8 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
+        # Attribute for param field registration_date
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -2040,6 +2068,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,
@@ -2062,6 +2091,7 @@ module Stripe
           @ownership_declaration = ownership_declaration
           @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
+          @registration_date = registration_date
           @registration_number = registration_number
           @structure = structure
           @tax_id = tax_id
@@ -4204,6 +4234,21 @@ module Stripe
           end
         end
 
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of registration.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -4253,6 +4298,8 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
+        # Attribute for param field registration_date
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -4282,6 +4329,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,
@@ -4304,6 +4352,7 @@ module Stripe
           @ownership_declaration = ownership_declaration
           @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
+          @registration_date = registration_date
           @registration_number = registration_number
           @structure = structure
           @tax_id = tax_id
@@ -5466,7 +5515,7 @@ module Stripe
         opts = id
         id = nil
       end
-      super(id, opts)
+      super
     end
 
     # We are not adding a helper for capabilities here as the Account object
@@ -5506,7 +5555,7 @@ module Stripe
         entity_update[:additional_owners] =
           serialize_additional_owners(entity, owners)
       end
-      if (individual = @values[:individual]) && (individual.is_a?(Person) && !update_hash.key?(:individual))
+      if (individual = @values[:individual]) && individual.is_a?(Person) && !update_hash.key?(:individual)
         update_hash[:individual] = individual.serialize_params(options)
       end
       update_hash

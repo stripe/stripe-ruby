@@ -6,7 +6,7 @@ module Stripe
     attr_reader :redaction_jobs
 
     def initialize(requestor)
-      super(requestor)
+      super
       @redaction_jobs = Stripe::Privacy::RedactionJobService.new(@requestor)
     end
   end

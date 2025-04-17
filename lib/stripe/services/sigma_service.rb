@@ -6,7 +6,7 @@ module Stripe
     attr_reader :scheduled_query_runs
 
     def initialize(requestor)
-      super(requestor)
+      super
       @scheduled_query_runs = Stripe::Sigma::ScheduledQueryRunService.new(@requestor)
     end
   end

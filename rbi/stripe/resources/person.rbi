@@ -294,7 +294,7 @@ module Stripe
       # Attribute for field document
       sig { returns(Document) }
       attr_reader :document
-      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`.
+      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
       sig { returns(String) }
       attr_reader :status
     end

@@ -232,7 +232,7 @@ module Stripe
       attr_reader :details_code
       # Attribute for field document
       attr_reader :document
-      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`.
+      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
       attr_reader :status
     end
     # The account the person is associated with.

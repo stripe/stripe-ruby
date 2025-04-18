@@ -58,6 +58,8 @@ module Stripe
 
     class PaymentMethodPreview < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
+        # Account number of the bank account.
+        attr_reader :account_number
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -1577,14 +1579,14 @@ module Stripe
               @plan = plan
             end
           end
-          # Installment configuration for payments attempted on this PaymentIntent.
+          # Installment configuration for payments confirmed using this ConfirmationToken.
           attr_accessor :installments
 
           def initialize(installments: nil)
             @installments = installments
           end
         end
-        # Attribute for param field card
+        # Configuration for any card payments confirmed using this ConfirmationToken.
         attr_accessor :card
 
         def initialize(card: nil)
@@ -1642,7 +1644,7 @@ module Stripe
       attr_accessor :payment_method
       # If provided, this hash will be used to create a PaymentMethod.
       attr_accessor :payment_method_data
-      # Attribute for param field payment_method_options
+      # Payment-method-specific configuration for this ConfirmationToken.
       attr_accessor :payment_method_options
       # Return URL used to confirm the Intent.
       attr_accessor :return_url

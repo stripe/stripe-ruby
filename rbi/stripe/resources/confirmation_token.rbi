@@ -64,6 +64,9 @@ module Stripe
     end
     class PaymentMethodPreview < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
+        # Account number of the bank account.
+        sig { returns(T.nilable(String)) }
+        attr_reader :account_number
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         attr_reader :bank_name
@@ -1973,7 +1976,7 @@ module Stripe
              }
             def initialize(plan: nil); end
           end
-          # Installment configuration for payments attempted on this PaymentIntent.
+          # Installment configuration for payments confirmed using this ConfirmationToken.
           sig {
             returns(T.nilable(::Stripe::ConfirmationToken::CreateParams::PaymentMethodOptions::Card::Installments))
            }
@@ -1983,7 +1986,7 @@ module Stripe
            }
           def initialize(installments: nil); end
         end
-        # Attribute for param field card
+        # Configuration for any card payments confirmed using this ConfirmationToken.
         sig {
           returns(T.nilable(::Stripe::ConfirmationToken::CreateParams::PaymentMethodOptions::Card))
          }
@@ -2048,7 +2051,7 @@ module Stripe
       # If provided, this hash will be used to create a PaymentMethod.
       sig { returns(T.nilable(::Stripe::ConfirmationToken::CreateParams::PaymentMethodData)) }
       attr_accessor :payment_method_data
-      # Attribute for param field payment_method_options
+      # Payment-method-specific configuration for this ConfirmationToken.
       sig { returns(T.nilable(::Stripe::ConfirmationToken::CreateParams::PaymentMethodOptions)) }
       attr_accessor :payment_method_options
       # Return URL used to confirm the Intent.

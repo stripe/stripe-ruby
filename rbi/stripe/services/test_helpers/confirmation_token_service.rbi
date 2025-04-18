@@ -801,7 +801,7 @@ module Stripe
                }
               def initialize(plan: nil); end
             end
-            # Installment configuration for payments attempted on this PaymentIntent.
+            # Installment configuration for payments confirmed using this ConfirmationToken.
             sig {
               returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card::Installments))
              }
@@ -811,7 +811,7 @@ module Stripe
              }
             def initialize(installments: nil); end
           end
-          # Attribute for param field card
+          # Configuration for any card payments confirmed using this ConfirmationToken.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions::Card))
            }
@@ -880,7 +880,7 @@ module Stripe
           returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodData))
          }
         attr_accessor :payment_method_data
-        # Attribute for param field payment_method_options
+        # Payment-method-specific configuration for this ConfirmationToken.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenService::CreateParams::PaymentMethodOptions))
          }

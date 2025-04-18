@@ -64,6 +64,9 @@ module Stripe
     end
     class PaymentMethodPreview < Stripe::StripeObject
       class AcssDebit < Stripe::StripeObject
+        # Account number of the bank account.
+        sig { returns(T.nilable(String)) }
+        attr_reader :account_number
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         attr_reader :bank_name

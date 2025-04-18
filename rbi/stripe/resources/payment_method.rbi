@@ -10,6 +10,9 @@ module Stripe
   # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
   class PaymentMethod < APIResource
     class AcssDebit < Stripe::StripeObject
+      # Account number of the bank account.
+      sig { returns(T.nilable(String)) }
+      attr_reader :account_number
       # Name of the bank associated with the bank account.
       sig { returns(T.nilable(String)) }
       attr_reader :bank_name

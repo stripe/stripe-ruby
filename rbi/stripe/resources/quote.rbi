@@ -1548,6 +1548,9 @@ module Stripe
         # When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :billing_cycle_anchor
+        # The billing mode to create the quote with. Once a quote that creates a subscription or subscription schedule is accepted,all future operations on the subscription or subscription schedule will be processed based on this billing_mode.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :billing_mode
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         sig { returns(T.nilable(String)) }
         attr_accessor :description
@@ -1581,12 +1584,13 @@ module Stripe
         sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :trial_period_days
         sig {
-          params(bill_on_acceptance: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(T.nilable(String)), description: T.nilable(String), effective_date: T.nilable(T.nilable(T.any(String, T.any(String, Integer)))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), prebilling: T.nilable(T.nilable(T.any(String, ::Stripe::Quote::CreateParams::SubscriptionData::Prebilling))), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.nilable(T.any(String, Integer)))).void
+          params(bill_on_acceptance: T.nilable(::Stripe::Quote::CreateParams::SubscriptionData::BillOnAcceptance), billing_behavior: T.nilable(String), billing_cycle_anchor: T.nilable(T.nilable(String)), billing_mode: T.nilable(String), description: T.nilable(String), effective_date: T.nilable(T.nilable(T.any(String, T.any(String, Integer)))), end_behavior: T.nilable(String), from_subscription: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), prebilling: T.nilable(T.nilable(T.any(String, ::Stripe::Quote::CreateParams::SubscriptionData::Prebilling))), proration_behavior: T.nilable(String), trial_period_days: T.nilable(T.nilable(T.any(String, Integer)))).void
          }
         def initialize(
           bill_on_acceptance: nil,
           billing_behavior: nil,
           billing_cycle_anchor: nil,
+          billing_mode: nil,
           description: nil,
           effective_date: nil,
           end_behavior: nil,

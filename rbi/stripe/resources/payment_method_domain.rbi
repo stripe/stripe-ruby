@@ -47,6 +47,19 @@ module Stripe
       sig { returns(StatusDetails) }
       attr_reader :status_details
     end
+    class Klarna < Stripe::StripeObject
+      class StatusDetails < Stripe::StripeObject
+        # The error message associated with the status of the payment method on the domain.
+        sig { returns(String) }
+        attr_reader :error_message
+      end
+      # The status of the payment method on the domain.
+      sig { returns(String) }
+      attr_reader :status
+      # Contains additional details about the status of a payment method for a specific payment method domain.
+      sig { returns(StatusDetails) }
+      attr_reader :status_details
+    end
     class Link < Stripe::StripeObject
       class StatusDetails < Stripe::StripeObject
         # The error message associated with the status of the payment method on the domain.
@@ -94,6 +107,9 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     attr_reader :id
+    # Indicates the status of a specific payment method on a payment method domain.
+    sig { returns(Klarna) }
+    attr_reader :klarna
     # Indicates the status of a specific payment method on a payment method domain.
     sig { returns(Link) }
     attr_reader :link

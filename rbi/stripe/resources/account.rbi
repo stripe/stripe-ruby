@@ -65,6 +65,9 @@ module Stripe
       # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
       sig { returns(T.nilable(String)) }
       attr_reader :mcc
+      # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_reader :minority_owned_business_designation
       # Attribute for field monthly_estimated_revenue
       sig { returns(MonthlyEstimatedRevenue) }
       attr_reader :monthly_estimated_revenue
@@ -352,6 +355,17 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :user_agent
       end
+      class RegistrationDate < Stripe::StripeObject
+        # The day of registration, between 1 and 31.
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :day
+        # The month of registration, between 1 and 12.
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :month
+        # The four-digit year of registration.
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :year
+      end
       class Verification < Stripe::StripeObject
         class Document < Stripe::StripeObject
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
@@ -416,6 +430,9 @@ module Stripe
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
       attr_reader :phone
+      # Attribute for field registration_date
+      sig { returns(RegistrationDate) }
+      attr_reader :registration_date
       # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       sig { returns(String) }
       attr_reader :structure
@@ -926,6 +943,9 @@ module Stripe
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         sig { returns(T.nilable(String)) }
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         sig {
           returns(T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue))
@@ -953,12 +973,13 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :url
         sig {
-          params(annual_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), monthly_estimated_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
+          params(annual_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::UpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
          }
         def initialize(
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,
@@ -1851,6 +1872,19 @@ module Stripe
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
         end
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          sig { returns(Integer) }
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          sig { returns(Integer) }
+          attr_accessor :month
+          # The four-digit year of registration.
+          sig { returns(Integer) }
+          attr_accessor :year
+          sig { params(day: Integer, month: Integer, year: Integer).void }
+          def initialize(day: nil, month: nil, year: nil); end
+        end
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1919,6 +1953,11 @@ module Stripe
         # The company's phone number (used for verification).
         sig { returns(T.nilable(String)) }
         attr_accessor :phone
+        # Attribute for param field registration_date
+        sig {
+          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Company::RegistrationDate))))
+         }
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         sig { returns(T.nilable(String)) }
         attr_accessor :registration_number
@@ -1938,7 +1977,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Company::Verification)) }
         attr_accessor :verification
         sig {
-          params(address: T.nilable(::Stripe::Account::UpdateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::UpdateParams::Company::Verification)).void
+          params(address: T.nilable(::Stripe::Account::UpdateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::UpdateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::UpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_date: T.nilable(T.nilable(T.any(String, ::Stripe::Account::UpdateParams::Company::RegistrationDate))), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::UpdateParams::Company::Verification)).void
          }
         def initialize(
           address: nil,
@@ -1956,6 +1995,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,
@@ -2851,6 +2891,9 @@ module Stripe
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         sig { returns(T.nilable(String)) }
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         sig {
           returns(T.nilable(::Stripe::Account::CreateParams::BusinessProfile::MonthlyEstimatedRevenue))
@@ -2878,12 +2921,13 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :url
         sig {
-          params(annual_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), monthly_estimated_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
+          params(annual_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::Account::CreateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(T.nilable(String)), url: T.nilable(String)).void
          }
         def initialize(
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,
@@ -3776,6 +3820,19 @@ module Stripe
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
         end
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          sig { returns(Integer) }
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          sig { returns(Integer) }
+          attr_accessor :month
+          # The four-digit year of registration.
+          sig { returns(Integer) }
+          attr_accessor :year
+          sig { params(day: Integer, month: Integer, year: Integer).void }
+          def initialize(day: nil, month: nil, year: nil); end
+        end
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -3844,6 +3901,11 @@ module Stripe
         # The company's phone number (used for verification).
         sig { returns(T.nilable(String)) }
         attr_accessor :phone
+        # Attribute for param field registration_date
+        sig {
+          returns(T.nilable(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Company::RegistrationDate))))
+         }
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         sig { returns(T.nilable(String)) }
         attr_accessor :registration_number
@@ -3863,7 +3925,7 @@ module Stripe
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Company::Verification)) }
         attr_accessor :verification
         sig {
-          params(address: T.nilable(::Stripe::Account::CreateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::CreateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::CreateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::CreateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::CreateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::CreateParams::Company::Verification)).void
+          params(address: T.nilable(::Stripe::Account::CreateParams::Company::Address), address_kana: T.nilable(::Stripe::Account::CreateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::Account::CreateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::Account::CreateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::Account::CreateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.nilable(T.any(String, String))), phone: T.nilable(String), registration_date: T.nilable(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Company::RegistrationDate))), registration_number: T.nilable(String), structure: T.nilable(T.nilable(T.any(String, String))), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::Account::CreateParams::Company::Verification)).void
          }
         def initialize(
           address: nil,
@@ -3881,6 +3943,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,

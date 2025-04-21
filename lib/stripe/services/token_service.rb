@@ -146,6 +146,21 @@ module Stripe
             end
           end
 
+          class RegistrationDate < Stripe::RequestParams
+            # The day of registration, between 1 and 31.
+            attr_accessor :day
+            # The month of registration, between 1 and 12.
+            attr_accessor :month
+            # The four-digit year of registration.
+            attr_accessor :year
+
+            def initialize(day: nil, month: nil, year: nil)
+              @day = day
+              @month = month
+              @year = year
+            end
+          end
+
           class Verification < Stripe::RequestParams
             class Document < Stripe::RequestParams
               # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -197,6 +212,8 @@ module Stripe
           attr_accessor :ownership_exemption_reason
           # The company's phone number (used for verification).
           attr_accessor :phone
+          # Attribute for param field registration_date
+          attr_accessor :registration_date
           # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
           attr_accessor :registration_number
           # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -227,6 +244,7 @@ module Stripe
             ownership_declaration_shown_and_signed: nil,
             ownership_exemption_reason: nil,
             phone: nil,
+            registration_date: nil,
             registration_number: nil,
             structure: nil,
             tax_id: nil,
@@ -250,6 +268,7 @@ module Stripe
             @ownership_declaration_shown_and_signed = ownership_declaration_shown_and_signed
             @ownership_exemption_reason = ownership_exemption_reason
             @phone = phone
+            @registration_date = registration_date
             @registration_number = registration_number
             @structure = structure
             @tax_id = tax_id
@@ -953,6 +972,44 @@ module Stripe
           end
         end
 
+        class UsCfpbData < Stripe::RequestParams
+          class EthnicityDetails < Stripe::RequestParams
+            # The persons ethnicity
+            attr_accessor :ethnicity
+            # Please specify your origin, when other is selected.
+            attr_accessor :ethnicity_other
+
+            def initialize(ethnicity: nil, ethnicity_other: nil)
+              @ethnicity = ethnicity
+              @ethnicity_other = ethnicity_other
+            end
+          end
+
+          class RaceDetails < Stripe::RequestParams
+            # The persons race.
+            attr_accessor :race
+            # Please specify your race, when other is selected.
+            attr_accessor :race_other
+
+            def initialize(race: nil, race_other: nil)
+              @race = race
+              @race_other = race_other
+            end
+          end
+          # The persons ethnicity details
+          attr_accessor :ethnicity_details
+          # The persons race details
+          attr_accessor :race_details
+          # The persons self-identified gender
+          attr_accessor :self_identified_gender
+
+          def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil)
+            @ethnicity_details = ethnicity_details
+            @race_details = race_details
+            @self_identified_gender = self_identified_gender
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class AdditionalDocument < Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1037,6 +1094,8 @@ module Stripe
         attr_accessor :relationship
         # The last four digits of the person's Social Security number (U.S. only).
         attr_accessor :ssn_last_4
+        # Demographic data related to the person.
+        attr_accessor :us_cfpb_data
         # The person's verification status.
         attr_accessor :verification
 
@@ -1066,6 +1125,7 @@ module Stripe
           registered_address: nil,
           relationship: nil,
           ssn_last_4: nil,
+          us_cfpb_data: nil,
           verification: nil
         )
           @additional_tos_acceptances = additional_tos_acceptances
@@ -1093,6 +1153,7 @@ module Stripe
           @registered_address = registered_address
           @relationship = relationship
           @ssn_last_4 = ssn_last_4
+          @us_cfpb_data = us_cfpb_data
           @verification = verification
         end
       end

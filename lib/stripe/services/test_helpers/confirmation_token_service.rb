@@ -105,12 +105,15 @@ module Stripe
             attr_accessor :name
             # Billing phone number (including extension).
             attr_accessor :phone
+            # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+            attr_accessor :tax_id
 
-            def initialize(address: nil, email: nil, name: nil, phone: nil)
+            def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
               @address = address
               @email = email
               @name = name
               @phone = phone
+              @tax_id = tax_id
             end
           end
 
@@ -376,7 +379,7 @@ module Stripe
           attr_accessor :bacs_debit
           # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
           attr_accessor :bancontact
-          # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+          # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
           attr_accessor :billie
           # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
           attr_accessor :billing_details
@@ -438,11 +441,11 @@ module Stripe
           attr_accessor :promptpay
           # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
           attr_accessor :radar_options
-          # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+          # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
           attr_accessor :revolut_pay
           # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
           attr_accessor :samsung_pay
-          # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+          # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
           attr_accessor :satispay
           # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
           attr_accessor :sepa_debit
@@ -570,6 +573,47 @@ module Stripe
           end
         end
 
+        class PaymentMethodOptions < Stripe::RequestParams
+          class Card < Stripe::RequestParams
+            class Installments < Stripe::RequestParams
+              class Plan < Stripe::RequestParams
+                # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
+                attr_accessor :count
+                # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
+                # One of `month`.
+                attr_accessor :interval
+                # Type of installment plan, one of `fixed_count`.
+                attr_accessor :type
+
+                def initialize(count: nil, interval: nil, type: nil)
+                  @count = count
+                  @interval = interval
+                  @type = type
+                end
+              end
+              # The selected installment plan to use for this payment attempt.
+              # This parameter can only be provided during confirmation.
+              attr_accessor :plan
+
+              def initialize(plan: nil)
+                @plan = plan
+              end
+            end
+            # Installment configuration for payments confirmed using this ConfirmationToken.
+            attr_accessor :installments
+
+            def initialize(installments: nil)
+              @installments = installments
+            end
+          end
+          # Configuration for any card payments confirmed using this ConfirmationToken.
+          attr_accessor :card
+
+          def initialize(card: nil)
+            @card = card
+          end
+        end
+
         class Shipping < Stripe::RequestParams
           class Address < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -620,6 +664,8 @@ module Stripe
         attr_accessor :payment_method
         # If provided, this hash will be used to create a PaymentMethod.
         attr_accessor :payment_method_data
+        # Payment-method-specific configuration for this ConfirmationToken.
+        attr_accessor :payment_method_options
         # Return URL used to confirm the Intent.
         attr_accessor :return_url
         # Indicates that you intend to make future payments with this ConfirmationToken's payment method.
@@ -633,6 +679,7 @@ module Stripe
           expand: nil,
           payment_method: nil,
           payment_method_data: nil,
+          payment_method_options: nil,
           return_url: nil,
           setup_future_usage: nil,
           shipping: nil
@@ -640,6 +687,7 @@ module Stripe
           @expand = expand
           @payment_method = payment_method
           @payment_method_data = payment_method_data
+          @payment_method_options = payment_method_options
           @return_url = return_url
           @setup_future_usage = setup_future_usage
           @shipping = shipping

@@ -206,12 +206,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -477,7 +480,7 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
@@ -539,11 +542,11 @@ module Stripe
         attr_accessor :promptpay
         # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
@@ -902,6 +905,19 @@ module Stripe
           def initialize(preferred_language: nil, setup_future_usage: nil)
             @preferred_language = preferred_language
             @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Billie < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
           end
         end
 
@@ -1996,6 +2012,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        attr_accessor :billie
         # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
         attr_accessor :blik
         # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -2083,6 +2101,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           boleto: nil,
           card: nil,
@@ -2131,6 +2150,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @blik = blik
           @boleto = boleto
           @card = card
@@ -2518,12 +2538,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -2789,7 +2812,7 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
@@ -2851,11 +2874,11 @@ module Stripe
         attr_accessor :promptpay
         # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
@@ -3214,6 +3237,19 @@ module Stripe
           def initialize(preferred_language: nil, setup_future_usage: nil)
             @preferred_language = preferred_language
             @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Billie < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
           end
         end
 
@@ -4308,6 +4344,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        attr_accessor :billie
         # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
         attr_accessor :blik
         # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -4395,6 +4433,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           boleto: nil,
           card: nil,
@@ -4443,6 +4482,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @blik = blik
           @boleto = boleto
           @card = card
@@ -4885,12 +4925,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -5156,7 +5199,7 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
@@ -5218,11 +5261,11 @@ module Stripe
         attr_accessor :promptpay
         # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
@@ -5581,6 +5624,19 @@ module Stripe
           def initialize(preferred_language: nil, setup_future_usage: nil)
             @preferred_language = preferred_language
             @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Billie < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
           end
         end
 
@@ -6675,6 +6731,8 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         attr_accessor :bancontact
+        # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        attr_accessor :billie
         # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
         attr_accessor :blik
         # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -6762,6 +6820,7 @@ module Stripe
           au_becs_debit: nil,
           bacs_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           boleto: nil,
           card: nil,
@@ -6810,6 +6869,7 @@ module Stripe
           @au_becs_debit = au_becs_debit
           @bacs_debit = bacs_debit
           @bancontact = bancontact
+          @billie = billie
           @blik = blik
           @boleto = boleto
           @card = card

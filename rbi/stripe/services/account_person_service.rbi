@@ -265,6 +265,47 @@ module Stripe
           title: nil
         ); end
       end
+      class UsCfpbData < Stripe::RequestParams
+        class EthnicityDetails < Stripe::RequestParams
+          # The persons ethnicity
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :ethnicity
+          # Please specify your origin, when other is selected.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :ethnicity_other
+          sig {
+            params(ethnicity: T.nilable(T::Array[String]), ethnicity_other: T.nilable(String)).void
+           }
+          def initialize(ethnicity: nil, ethnicity_other: nil); end
+        end
+        class RaceDetails < Stripe::RequestParams
+          # The persons race.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :race
+          # Please specify your race, when other is selected.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :race_other
+          sig { params(race: T.nilable(T::Array[String]), race_other: T.nilable(String)).void }
+          def initialize(race: nil, race_other: nil); end
+        end
+        # The persons ethnicity details
+        sig {
+          returns(T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData::EthnicityDetails))
+         }
+        attr_accessor :ethnicity_details
+        # The persons race details
+        sig {
+          returns(T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData::RaceDetails))
+         }
+        attr_accessor :race_details
+        # The persons self-identified gender
+        sig { returns(T.nilable(String)) }
+        attr_accessor :self_identified_gender
+        sig {
+          params(ethnicity_details: T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData::EthnicityDetails), race_details: T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData::RaceDetails), self_identified_gender: T.nilable(String)).void
+         }
+        def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil); end
+      end
       class Verification < Stripe::RequestParams
         class AdditionalDocument < Stripe::RequestParams
           # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -386,11 +427,14 @@ module Stripe
       # The last four digits of the person's Social Security number (U.S. only).
       sig { returns(T.nilable(String)) }
       attr_accessor :ssn_last_4
+      # Demographic data related to the person.
+      sig { returns(T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData)) }
+      attr_accessor :us_cfpb_data
       # The person's verification status.
       sig { returns(T.nilable(::Stripe::AccountPersonService::UpdateParams::Verification)) }
       attr_accessor :verification
       sig {
-        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::UpdateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::UpdateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::UpdateParams::Dob))), documents: T.nilable(::Stripe::AccountPersonService::UpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::UpdateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::UpdateParams::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::AccountPersonService::UpdateParams::Verification)).void
+        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::UpdateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::UpdateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::UpdateParams::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::UpdateParams::Dob))), documents: T.nilable(::Stripe::AccountPersonService::UpdateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::UpdateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::UpdateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonService::UpdateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonService::UpdateParams::Verification)).void
        }
       def initialize(
         additional_tos_acceptances: nil,
@@ -420,6 +464,7 @@ module Stripe
         registered_address: nil,
         relationship: nil,
         ssn_last_4: nil,
+        us_cfpb_data: nil,
         verification: nil
       ); end
     end
@@ -732,6 +777,47 @@ module Stripe
           title: nil
         ); end
       end
+      class UsCfpbData < Stripe::RequestParams
+        class EthnicityDetails < Stripe::RequestParams
+          # The persons ethnicity
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :ethnicity
+          # Please specify your origin, when other is selected.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :ethnicity_other
+          sig {
+            params(ethnicity: T.nilable(T::Array[String]), ethnicity_other: T.nilable(String)).void
+           }
+          def initialize(ethnicity: nil, ethnicity_other: nil); end
+        end
+        class RaceDetails < Stripe::RequestParams
+          # The persons race.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :race
+          # Please specify your race, when other is selected.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :race_other
+          sig { params(race: T.nilable(T::Array[String]), race_other: T.nilable(String)).void }
+          def initialize(race: nil, race_other: nil); end
+        end
+        # The persons ethnicity details
+        sig {
+          returns(T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData::EthnicityDetails))
+         }
+        attr_accessor :ethnicity_details
+        # The persons race details
+        sig {
+          returns(T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData::RaceDetails))
+         }
+        attr_accessor :race_details
+        # The persons self-identified gender
+        sig { returns(T.nilable(String)) }
+        attr_accessor :self_identified_gender
+        sig {
+          params(ethnicity_details: T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData::EthnicityDetails), race_details: T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData::RaceDetails), self_identified_gender: T.nilable(String)).void
+         }
+        def initialize(ethnicity_details: nil, race_details: nil, self_identified_gender: nil); end
+      end
       class Verification < Stripe::RequestParams
         class AdditionalDocument < Stripe::RequestParams
           # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -853,11 +939,14 @@ module Stripe
       # The last four digits of the person's Social Security number (U.S. only).
       sig { returns(T.nilable(String)) }
       attr_accessor :ssn_last_4
+      # Demographic data related to the person.
+      sig { returns(T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData)) }
+      attr_accessor :us_cfpb_data
       # The person's verification status.
       sig { returns(T.nilable(::Stripe::AccountPersonService::CreateParams::Verification)) }
       attr_accessor :verification
       sig {
-        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::CreateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::CreateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::CreateParams::Dob))), documents: T.nilable(::Stripe::AccountPersonService::CreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::CreateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::CreateParams::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::AccountPersonService::CreateParams::Verification)).void
+        params(additional_tos_acceptances: T.nilable(::Stripe::AccountPersonService::CreateParams::AdditionalTosAcceptances), address: T.nilable(::Stripe::AccountPersonService::CreateParams::Address), address_kana: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKana), address_kanji: T.nilable(::Stripe::AccountPersonService::CreateParams::AddressKanji), dob: T.nilable(T.nilable(T.any(String, ::Stripe::AccountPersonService::CreateParams::Dob))), documents: T.nilable(::Stripe::AccountPersonService::CreateParams::Documents), email: T.nilable(String), expand: T.nilable(T::Array[String]), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.nilable(T.any(String, T::Array[String]))), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), nationality: T.nilable(String), person_token: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::AccountPersonService::CreateParams::RegisteredAddress), relationship: T.nilable(::Stripe::AccountPersonService::CreateParams::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::AccountPersonService::CreateParams::UsCfpbData), verification: T.nilable(::Stripe::AccountPersonService::CreateParams::Verification)).void
        }
       def initialize(
         additional_tos_acceptances: nil,
@@ -887,6 +976,7 @@ module Stripe
         registered_address: nil,
         relationship: nil,
         ssn_last_4: nil,
+        us_cfpb_data: nil,
         verification: nil
       ); end
     end

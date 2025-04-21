@@ -377,6 +377,9 @@ module Stripe
       # Whether the subscription will always start a new billing period when the quote is accepted.
       sig { returns(T.nilable(String)) }
       attr_reader :billing_cycle_anchor
+      # The [billing mode](/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
+      sig { returns(String) }
+      attr_reader :billing_mode
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }
       attr_reader :description

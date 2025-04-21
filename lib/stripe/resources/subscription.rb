@@ -1898,6 +1898,8 @@ module Stripe
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.
     attr_reader :billing_cycle_anchor_config
+    # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+    attr_reader :billing_mode
     # A date in the future at which the subscription will automatically get canceled
     attr_reader :cancel_at
     # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.

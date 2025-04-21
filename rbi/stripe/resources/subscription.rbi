@@ -300,6 +300,9 @@ module Stripe
     # The fixed values used to calculate the `billing_cycle_anchor`.
     sig { returns(T.nilable(BillingCycleAnchorConfig)) }
     attr_reader :billing_cycle_anchor_config
+    # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+    sig { returns(String) }
+    attr_reader :billing_mode
     # A date in the future at which the subscription will automatically get canceled
     sig { returns(T.nilable(Integer)) }
     attr_reader :cancel_at

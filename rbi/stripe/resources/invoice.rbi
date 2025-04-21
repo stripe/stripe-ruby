@@ -4471,6 +4471,9 @@ module Stripe
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         sig { returns(T.nilable(String)) }
         attr_accessor :billing_behavior
+        # The billing mode that will be used to create the subscription schedule. When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :billing_mode
         # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
         sig { returns(T.nilable(String)) }
         attr_accessor :end_behavior
@@ -4488,11 +4491,12 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :proration_behavior
         sig {
-          params(amendments: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Prebilling]))), proration_behavior: T.nilable(String)).void
+          params(amendments: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(String), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Prebilling]))), proration_behavior: T.nilable(String)).void
          }
         def initialize(
           amendments: nil,
           billing_behavior: nil,
+          billing_mode: nil,
           end_behavior: nil,
           phases: nil,
           prebilling: nil,
@@ -4651,6 +4655,9 @@ module Stripe
         # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :billing_cycle_anchor
+        # The billing mode to create the subscription with. Once a subscription has been created with a billing_mode, all future operations on the subscription will be processed based on the billing_mode.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :cancel_at
@@ -4689,10 +4696,11 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(String), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
          }
         def initialize(
           billing_cycle_anchor: nil,
+          billing_mode: nil,
           cancel_at: nil,
           cancel_at_period_end: nil,
           cancel_now: nil,

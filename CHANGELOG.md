@@ -1,4 +1,7 @@
 # Changelog
+## 13.5.1 - 2025-04-21
+* [#1576](https://github.com/stripe/stripe-ruby/pull/1576) Explicitly pass through custom headers in retrieve
+
 ## 13.5.0 - 2025-02-24
 * [#1534](https://github.com/stripe/stripe-ruby/pull/1534) Update generated code
   * Fixed `Stripe::InvoiceLineItem.update` method. 

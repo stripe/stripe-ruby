@@ -1483,7 +1483,7 @@ module Stripe
       # specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
       sig { returns(T.nilable(String)) }
       attr_reader :submit_type
-      # The ID of the subscription for Checkout Sessions in `subscription` mode.
+      # The ID of the [Subscription](https://stripe.com/docs/api/subscriptions) for Checkout Sessions in `subscription` mode.
       sig { returns(T.nilable(T.any(String, Stripe::Subscription))) }
       attr_reader :subscription
       # The URL the customer will be directed to after the payment or

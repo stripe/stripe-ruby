@@ -782,7 +782,7 @@ module Stripe
           # The lodging category
           sig { returns(T.nilable(String)) }
           attr_accessor :category
-          # Loding check-in time. Measured in seconds since the Unix epoch.
+          # Lodging check-in time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :checkin_at
           # Lodging check-out time. Measured in seconds since the Unix epoch.
@@ -1606,7 +1606,7 @@ module Stripe
           # The lodging category
           sig { returns(T.nilable(String)) }
           attr_accessor :category
-          # Loding check-in time. Measured in seconds since the Unix epoch.
+          # Lodging check-in time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :checkin_at
           # Lodging check-out time. Measured in seconds since the Unix epoch.

@@ -2004,7 +2004,7 @@ module Stripe
           attr_accessor :booking_number
           # The lodging category
           attr_accessor :category
-          # Loding check-in time. Measured in seconds since the Unix epoch.
+          # Lodging check-in time. Measured in seconds since the Unix epoch.
           attr_accessor :checkin_at
           # Lodging check-out time. Measured in seconds since the Unix epoch.
           attr_accessor :checkout_at
@@ -2786,7 +2786,7 @@ module Stripe
           attr_accessor :booking_number
           # The lodging category
           attr_accessor :category
-          # Loding check-in time. Measured in seconds since the Unix epoch.
+          # Lodging check-in time. Measured in seconds since the Unix epoch.
           attr_accessor :checkin_at
           # Lodging check-out time. Measured in seconds since the Unix epoch.
           attr_accessor :checkout_at

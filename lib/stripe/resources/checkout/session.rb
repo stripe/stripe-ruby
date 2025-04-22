@@ -3096,7 +3096,7 @@ module Stripe
           attr_accessor :application_fee_percent
           # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
           attr_accessor :billing_cycle_anchor
-          # The billing mode to create the subscription with. Once a subscription has been created with a billing_mode, all future operations on the subscription will be processed based on the billing_mode.
+          # Configure billing_mode in each subscription to opt in improved credit proration behavior.
           attr_accessor :billing_mode
           # The tax rates that will apply to any subscription item that does not have
           # `tax_rates` set. Invoices created will have their `default_tax_rates` populated

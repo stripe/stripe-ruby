@@ -30,6 +30,8 @@ module Stripe
           attr_reader :object
           # The ACH routing number of the bank account.
           attr_reader :routing_number
+          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+          attr_reader :livemode
         end
       end
     end

@@ -8,10 +8,10 @@ module Stripe
       # Use the PayoutMethods API to list and interact with PayoutMethod objects.
       class PayoutMethod < APIResource
         class UsageStatus < Stripe::StripeObject
-          # Payments status.
+          # Payments status - used when sending OutboundPayments (sending funds to recipients).
           sig { returns(String) }
           attr_reader :payments
-          # Transfers status.
+          # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
           sig { returns(String) }
           attr_reader :transfers
         end
@@ -77,6 +77,9 @@ module Stripe
         # Indicates whether the payout method has met the necessary requirements for outbound money movement.
         sig { returns(UsageStatus) }
         attr_reader :usage_status
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
         # The PayoutMethodBankAccount object details.
         sig { returns(T.nilable(BankAccount)) }
         attr_reader :bank_account

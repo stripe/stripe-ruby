@@ -48,6 +48,8 @@ module Stripe
         attr_reader :url
         # The use case of AccountLink the user is requesting.
         attr_reader :use_case
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

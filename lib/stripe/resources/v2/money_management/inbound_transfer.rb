@@ -86,6 +86,8 @@ module Stripe
         attr_reader :to
         # A list of history objects, representing changes in the state of the InboundTransfer.
         attr_reader :transfer_history
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

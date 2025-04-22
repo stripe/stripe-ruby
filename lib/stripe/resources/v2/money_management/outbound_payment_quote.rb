@@ -35,6 +35,12 @@ module Stripe
             # The exchange rate going from_currency -> to_currency.
             attr_reader :exchange_rate
           end
+          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
+          attr_reader :lock_duration
+          # Time at which the rate lock will expire, measured in seconds since the Unix epoch.
+          attr_reader :lock_expires_at
+          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
+          attr_reader :lock_status
           # Key pair: from currency Value: exchange rate going from_currency -> to_currency.
           attr_reader :rates
           # The currency that the transaction is exchanging to.
@@ -68,6 +74,8 @@ module Stripe
         attr_reader :object
         # Details about the recipient of an OutboundPaymentQuote.
         attr_reader :to
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

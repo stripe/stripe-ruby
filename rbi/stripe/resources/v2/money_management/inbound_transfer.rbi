@@ -96,7 +96,7 @@ module Stripe
         sig { returns(String) }
         attr_reader :object
         # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe’s money transmission licenses.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_reader :receipt_url
         # A nested object containing information about the destination of the InboundTransfer.
         sig { returns(To) }
@@ -104,6 +104,9 @@ module Stripe
         # A list of history objects, representing changes in the state of the InboundTransfer.
         sig { returns(T::Array[TransferHistory]) }
         attr_reader :transfer_history
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

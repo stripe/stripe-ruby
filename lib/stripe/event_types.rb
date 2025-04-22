@@ -7,6 +7,8 @@ module Stripe
         # The beginning of the section generated from our OpenAPI spec
         V1BillingMeterErrorReportTriggeredEvent.lookup_type => V1BillingMeterErrorReportTriggeredEvent,
         V1BillingMeterNoMeterFoundEvent.lookup_type => V1BillingMeterNoMeterFoundEvent,
+        V2CoreAccountClosedEvent.lookup_type => V2CoreAccountClosedEvent,
+        V2CoreAccountCreatedEvent.lookup_type => V2CoreAccountCreatedEvent,
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
         V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.lookup_type =>
@@ -19,6 +21,8 @@ module Stripe
         V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
         V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
+        V2CoreAccountIncludingDefaultsUpdatedEvent.lookup_type =>
+        V2CoreAccountIncludingDefaultsUpdatedEvent,
         V2CoreAccountIncludingIdentityUpdatedEvent.lookup_type =>
         V2CoreAccountIncludingIdentityUpdatedEvent,
         V2CoreAccountIncludingRequirementsUpdatedEvent.lookup_type =>
@@ -27,8 +31,13 @@ module Stripe
         V2CoreAccountPersonCreatedEvent.lookup_type => V2CoreAccountPersonCreatedEvent,
         V2CoreAccountPersonDeletedEvent.lookup_type => V2CoreAccountPersonDeletedEvent,
         V2CoreAccountPersonUpdatedEvent.lookup_type => V2CoreAccountPersonUpdatedEvent,
+        V2CoreAccountUpdatedEvent.lookup_type => V2CoreAccountUpdatedEvent,
+        V2CoreEventDestinationPingEvent.lookup_type => V2CoreEventDestinationPingEvent,
+        V2MoneyManagementAdjustmentCreatedEvent.lookup_type => V2MoneyManagementAdjustmentCreatedEvent,
         V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
         V2MoneyManagementFinancialAccountCreatedEvent,
+        V2MoneyManagementFinancialAccountUpdatedEvent.lookup_type =>
+        V2MoneyManagementFinancialAccountUpdatedEvent,
         V2MoneyManagementFinancialAddressActivatedEvent.lookup_type =>
         V2MoneyManagementFinancialAddressActivatedEvent,
         V2MoneyManagementFinancialAddressFailedEvent.lookup_type =>
@@ -55,6 +64,8 @@ module Stripe
         V2MoneyManagementOutboundPaymentPostedEvent,
         V2MoneyManagementOutboundPaymentReturnedEvent.lookup_type =>
         V2MoneyManagementOutboundPaymentReturnedEvent,
+        V2MoneyManagementOutboundPaymentUpdatedEvent.lookup_type =>
+        V2MoneyManagementOutboundPaymentUpdatedEvent,
         V2MoneyManagementOutboundTransferCanceledEvent.lookup_type =>
         V2MoneyManagementOutboundTransferCanceledEvent,
         V2MoneyManagementOutboundTransferCreatedEvent.lookup_type =>
@@ -65,6 +76,8 @@ module Stripe
         V2MoneyManagementOutboundTransferPostedEvent,
         V2MoneyManagementOutboundTransferReturnedEvent.lookup_type =>
         V2MoneyManagementOutboundTransferReturnedEvent,
+        V2MoneyManagementOutboundTransferUpdatedEvent.lookup_type =>
+        V2MoneyManagementOutboundTransferUpdatedEvent,
         V2MoneyManagementReceivedCreditAvailableEvent.lookup_type =>
         V2MoneyManagementReceivedCreditAvailableEvent,
         V2MoneyManagementReceivedCreditFailedEvent.lookup_type =>
@@ -82,6 +95,8 @@ module Stripe
         V2MoneyManagementReceivedDebitSucceededEvent,
         V2MoneyManagementReceivedDebitUpdatedEvent.lookup_type =>
         V2MoneyManagementReceivedDebitUpdatedEvent,
+        V2MoneyManagementTransactionCreatedEvent.lookup_type => V2MoneyManagementTransactionCreatedEvent,
+        V2MoneyManagementTransactionUpdatedEvent.lookup_type => V2MoneyManagementTransactionUpdatedEvent,
         # The end of the section generated from our OpenAPI spec
       }
     end

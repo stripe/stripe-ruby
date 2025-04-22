@@ -44,6 +44,9 @@ module Stripe
         # The intended money movement flow this payout method should be set up for, specified in params.
         sig { returns(String) }
         attr_reader :usage_intent
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

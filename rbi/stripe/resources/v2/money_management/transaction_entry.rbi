@@ -76,6 +76,9 @@ module Stripe
         # Details copied from the transaction that this TransactionEntry belongs to.
         sig { returns(TransactionDetails) }
         attr_reader :transaction_details
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

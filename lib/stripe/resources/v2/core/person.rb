@@ -145,6 +145,8 @@ module Stripe
         end
 
         class Relationship < Stripe::StripeObject
+          # Whether the individual is an authorizer of the Account’s legal entity.
+          attr_reader :authorizer
           # Whether the individual is a director of the Account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
           attr_reader :director
           # Whether the individual has significant responsibility to control, manage, or direct the organization.
@@ -266,6 +268,8 @@ module Stripe
         attr_reader :surname
         # Time at which the object was last updated. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :updated
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

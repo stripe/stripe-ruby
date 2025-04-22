@@ -58,6 +58,9 @@ module Stripe
         # The use case of AccountLink the user is requesting.
         sig { returns(UseCase) }
         attr_reader :use_case
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

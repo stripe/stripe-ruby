@@ -6,12 +6,23 @@ module Stripe
     module MoneyManagement
       class FinancialAddressService < StripeService
         class CreateParams < Stripe::RequestParams
+          class CryptoProperties < Stripe::RequestParams
+            # The blockchain network of the crypto wallet.
+            attr_accessor :network
+
+            def initialize(network: nil)
+              @network = network
+            end
+          end
+          # Properties needed to create a FinancialAddress for an FA with USDC currency.
+          attr_accessor :crypto_properties
           # Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
           attr_accessor :currency
           # The ID of the FinancialAccount the new FinancialAddress should be associated with.
           attr_accessor :financial_account
 
-          def initialize(currency: nil, financial_account: nil)
+          def initialize(crypto_properties: nil, currency: nil, financial_account: nil)
+            @crypto_properties = crypto_properties
             @currency = currency
             @financial_account = financial_account
           end

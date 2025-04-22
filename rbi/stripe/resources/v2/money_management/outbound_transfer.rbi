@@ -107,8 +107,8 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         attr_reader :object
-        # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
-        sig { returns(String) }
+        # A link to the Stripe-hosted receipt for this OutboundTransfer. The receipt link remains active for 60 days from the OutboundTransfer creation date. After this period, the link will expire and the receipt url value will be null.
+        sig { returns(T.nilable(String)) }
         attr_reader :receipt_url
         # The description that appears on the receiving end for an OutboundTransfer (for example, bank statement for external bank transfer).
         sig { returns(String) }
@@ -131,6 +131,9 @@ module Stripe
         # A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a “reference number” or something similar.
         sig { returns(TraceId) }
         attr_reader :trace_id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

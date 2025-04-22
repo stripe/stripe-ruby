@@ -43,13 +43,15 @@ module Stripe
         attr_reader :object
         # If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
         attr_reader :other
-        # An enum value that specifies which state the FinancialAccount is in.
+        # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         attr_reader :status
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
         attr_reader :storage
         # Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
         # It contains additional information specific to the FinancialAccount type.
         attr_reader :type
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

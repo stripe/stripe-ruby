@@ -60,6 +60,8 @@ module Stripe
         attr_reader :transaction
         # Details copied from the transaction that this TransactionEntry belongs to.
         attr_reader :transaction_details
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

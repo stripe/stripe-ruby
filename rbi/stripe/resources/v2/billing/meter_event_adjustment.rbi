@@ -23,9 +23,6 @@ module Stripe
         # The unique id of this meter event adjustment.
         sig { returns(String) }
         attr_reader :id
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         attr_reader :object
@@ -35,6 +32,9 @@ module Stripe
         # Open Enum. Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
         sig { returns(String) }
         attr_reader :type
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

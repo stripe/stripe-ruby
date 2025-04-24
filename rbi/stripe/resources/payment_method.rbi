@@ -88,6 +88,9 @@ module Stripe
       # Billing phone number (including extension).
       sig { returns(T.nilable(String)) }
       attr_reader :phone
+      # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+      sig { returns(T.nilable(String)) }
+      attr_reader :tax_id
     end
     class Blik < Stripe::StripeObject; end
     class Boleto < Stripe::StripeObject
@@ -1111,10 +1114,13 @@ module Stripe
         # Billing phone number (including extension).
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :phone
+        # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :tax_id
         sig {
-          params(address: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethod::CreateParams::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String))).void
+          params(address: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethod::CreateParams::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
          }
-        def initialize(address: nil, email: nil, name: nil, phone: nil); end
+        def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
       end
       class Blik < Stripe::RequestParams
 
@@ -1406,7 +1412,7 @@ module Stripe
       # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Bancontact)) }
       attr_accessor :bancontact
-      # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+      # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Billie)) }
       attr_accessor :billie
       # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
@@ -1511,13 +1517,13 @@ module Stripe
       # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
       sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::RadarOptions)) }
       attr_accessor :radar_options
-      # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+      # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::RevolutPay)) }
       attr_accessor :revolut_pay
       # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::SamsungPay)) }
       attr_accessor :samsung_pay
-      # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+      # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
       sig { returns(T.nilable(::Stripe::PaymentMethod::CreateParams::Satispay)) }
       attr_accessor :satispay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -1653,10 +1659,13 @@ module Stripe
         # Billing phone number (including extension).
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :phone
+        # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :tax_id
         sig {
-          params(address: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethod::UpdateParams::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String))).void
+          params(address: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentMethod::UpdateParams::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
          }
-        def initialize(address: nil, email: nil, name: nil, phone: nil); end
+        def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
       end
       class Card < Stripe::RequestParams
         class Networks < Stripe::RequestParams

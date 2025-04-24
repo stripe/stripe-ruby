@@ -551,6 +551,21 @@ module Stripe
       attr_reader :display_preference
     end
 
+    class Pix < Stripe::StripeObject
+      class DisplayPreference < Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+    end
+
     class Promptpay < Stripe::StripeObject
       class DisplayPreference < Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1341,6 +1356,23 @@ module Stripe
         end
       end
 
+      class Pix < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Promptpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1588,6 +1620,8 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
+      # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
+      attr_accessor :pix
       # PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
       attr_accessor :promptpay
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
@@ -1649,6 +1683,7 @@ module Stripe
         pay_by_bank: nil,
         paynow: nil,
         paypal: nil,
+        pix: nil,
         promptpay: nil,
         revolut_pay: nil,
         satispay: nil,
@@ -1699,6 +1734,7 @@ module Stripe
         @pay_by_bank = pay_by_bank
         @paynow = paynow
         @paypal = paypal
+        @pix = pix
         @promptpay = promptpay
         @revolut_pay = revolut_pay
         @satispay = satispay
@@ -2325,6 +2361,23 @@ module Stripe
         end
       end
 
+      class Pix < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Promptpay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -2572,6 +2625,8 @@ module Stripe
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
       attr_accessor :paypal
+      # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
+      attr_accessor :pix
       # PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
       attr_accessor :promptpay
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
@@ -2633,6 +2688,7 @@ module Stripe
         pay_by_bank: nil,
         paynow: nil,
         paypal: nil,
+        pix: nil,
         promptpay: nil,
         revolut_pay: nil,
         satispay: nil,
@@ -2683,6 +2739,7 @@ module Stripe
         @pay_by_bank = pay_by_bank
         @paynow = paynow
         @paypal = paypal
+        @pix = pix
         @promptpay = promptpay
         @revolut_pay = revolut_pay
         @satispay = satispay
@@ -2781,6 +2838,8 @@ module Stripe
     attr_reader :paynow
     # Attribute for field paypal
     attr_reader :paypal
+    # Attribute for field pix
+    attr_reader :pix
     # Attribute for field promptpay
     attr_reader :promptpay
     # Attribute for field revolut_pay

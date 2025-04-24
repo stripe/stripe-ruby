@@ -216,12 +216,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -487,7 +490,7 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
@@ -549,11 +552,11 @@ module Stripe
         attr_accessor :promptpay
         # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
@@ -1258,12 +1261,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -1529,7 +1535,7 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
@@ -1591,11 +1597,11 @@ module Stripe
         attr_accessor :promptpay
         # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
@@ -2288,12 +2294,15 @@ module Stripe
           attr_accessor :name
           # Billing phone number (including extension).
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          attr_accessor :tax_id
 
-          def initialize(address: nil, email: nil, name: nil, phone: nil)
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil)
             @address = address
             @email = email
             @name = name
             @phone = phone
+            @tax_id = tax_id
           end
         end
 
@@ -2559,7 +2568,7 @@ module Stripe
         attr_accessor :bacs_debit
         # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         attr_accessor :billing_details
@@ -2621,11 +2630,11 @@ module Stripe
         attr_accessor :promptpay
         # Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit

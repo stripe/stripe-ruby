@@ -60,6 +60,8 @@ module Stripe
         attr_reader :enabled
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_reader :liability
+        # The tax provider powering automatic tax.
+        attr_reader :provider
         # The status of the most recent automated tax calculation for this session.
         attr_reader :status
       end
@@ -232,7 +234,7 @@ module Stripe
         end
 
         class TaxId < Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
           attr_reader :type
           # The value of the tax ID.
           attr_reader :value
@@ -1008,6 +1010,15 @@ module Stripe
         attr_reader :amount_tax
         # Attribute for field breakdown
         attr_reader :breakdown
+      end
+
+      class WalletOptions < Stripe::StripeObject
+        class Link < Stripe::StripeObject
+          # Describes whether Checkout should display Link. Defaults to `auto`.
+          attr_reader :display
+        end
+        # Attribute for field link
+        attr_reader :link
       end
 
       class ListParams < Stripe::RequestParams
@@ -2967,6 +2978,23 @@ module Stripe
             @required = required
           end
         end
+
+        class WalletOptions < Stripe::RequestParams
+          class Link < Stripe::RequestParams
+            # Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
+            attr_accessor :display
+
+            def initialize(display: nil)
+              @display = display
+            end
+          end
+          # contains details about the Link wallet options.
+          attr_accessor :link
+
+          def initialize(link: nil)
+            @link = link
+          end
+        end
         # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
         attr_accessor :adaptive_pricing
         # Configure actions after a Checkout Session has expired.
@@ -3076,9 +3104,9 @@ module Stripe
         # prioritize the most relevant payment methods based on the customer's location and
         # other characteristics.
         attr_accessor :payment_method_types
-        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
         #
-        # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         attr_accessor :permissions
         # Controls phone number collection settings for the session.
         #
@@ -3116,6 +3144,8 @@ module Stripe
         attr_accessor :tax_id_collection
         # The UI mode of the Session. Defaults to `hosted`.
         attr_accessor :ui_mode
+        # Wallet-specific configuration.
+        attr_accessor :wallet_options
 
         def initialize(
           adaptive_pricing: nil,
@@ -3160,7 +3190,8 @@ module Stripe
           subscription_data: nil,
           success_url: nil,
           tax_id_collection: nil,
-          ui_mode: nil
+          ui_mode: nil,
+          wallet_options: nil
         )
           @adaptive_pricing = adaptive_pricing
           @after_expiration = after_expiration
@@ -3205,6 +3236,7 @@ module Stripe
           @success_url = success_url
           @tax_id_collection = tax_id_collection
           @ui_mode = ui_mode
+          @wallet_options = wallet_options
         end
       end
 
@@ -3364,7 +3396,7 @@ module Stripe
             @shipping_rate_data = shipping_rate_data
           end
         end
-        # Information about the customer collected within the Checkout Session.
+        # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         attr_accessor :collected_information
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
@@ -3432,7 +3464,8 @@ module Stripe
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
       attr_reader :client_reference_id
-      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded`. Client secret to be used when initializing Stripe.js embedded checkout.
+      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
+      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
       attr_reader :collected_information
@@ -3508,7 +3541,7 @@ module Stripe
       attr_reader :payment_status
       # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
       #
-      # For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+      # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
       attr_reader :permissions
       # Attribute for field phone_number_collection
       attr_reader :phone_number_collection
@@ -3518,7 +3551,7 @@ module Stripe
       attr_reader :recovered_from
       # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_reader :redirect_on_completion
-      # Applies to Checkout Sessions with `ui_mode: embedded`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+      # Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
       attr_reader :return_url
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
       attr_reader :saved_payment_method_options
@@ -3550,6 +3583,8 @@ module Stripe
       # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       attr_reader :url
+      # Wallet-specific configuration for this Checkout Session.
+      attr_reader :wallet_options
 
       # Creates a Checkout Session object.
       def self.create(params = {}, opts = {})

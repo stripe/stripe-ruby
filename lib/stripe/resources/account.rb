@@ -71,6 +71,8 @@ module Stripe
       attr_reader :estimated_worker_count
       # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
       attr_reader :mcc
+      # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+      attr_reader :minority_owned_business_designation
       # Attribute for field monthly_estimated_revenue
       attr_reader :monthly_estimated_revenue
       # The customer-facing business name.
@@ -274,6 +276,15 @@ module Stripe
         attr_reader :user_agent
       end
 
+      class RegistrationDate < Stripe::StripeObject
+        # The day of registration, between 1 and 31.
+        attr_reader :day
+        # The month of registration, between 1 and 12.
+        attr_reader :month
+        # The four-digit year of registration.
+        attr_reader :year
+      end
+
       class Verification < Stripe::StripeObject
         class Document < Stripe::StripeObject
           # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
@@ -318,6 +329,8 @@ module Stripe
       attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_reader :phone
+      # Attribute for field registration_date
+      attr_reader :registration_date
       # The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
       attr_reader :structure
       # Whether the company's business ID number was provided.
@@ -680,6 +693,8 @@ module Stripe
         attr_accessor :estimated_worker_count
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         attr_accessor :monthly_estimated_revenue
         # The customer-facing business name.
@@ -701,6 +716,7 @@ module Stripe
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,
@@ -713,6 +729,7 @@ module Stripe
           @annual_revenue = annual_revenue
           @estimated_worker_count = estimated_worker_count
           @mcc = mcc
+          @minority_owned_business_designation = minority_owned_business_designation
           @monthly_estimated_revenue = monthly_estimated_revenue
           @name = name
           @product_description = product_description
@@ -1685,6 +1702,21 @@ module Stripe
           end
         end
 
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of registration.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1734,6 +1766,8 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
+        # Attribute for param field registration_date
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -1763,6 +1797,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,
@@ -1785,6 +1820,7 @@ module Stripe
           @ownership_declaration = ownership_declaration
           @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
+          @registration_date = registration_date
           @registration_number = registration_number
           @structure = structure
           @tax_id = tax_id
@@ -2656,6 +2692,8 @@ module Stripe
         attr_accessor :estimated_worker_count
         # [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         attr_accessor :mcc
+        # Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        attr_accessor :minority_owned_business_designation
         # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
         attr_accessor :monthly_estimated_revenue
         # The customer-facing business name.
@@ -2677,6 +2715,7 @@ module Stripe
           annual_revenue: nil,
           estimated_worker_count: nil,
           mcc: nil,
+          minority_owned_business_designation: nil,
           monthly_estimated_revenue: nil,
           name: nil,
           product_description: nil,
@@ -2689,6 +2728,7 @@ module Stripe
           @annual_revenue = annual_revenue
           @estimated_worker_count = estimated_worker_count
           @mcc = mcc
+          @minority_owned_business_designation = minority_owned_business_designation
           @monthly_estimated_revenue = monthly_estimated_revenue
           @name = name
           @product_description = product_description
@@ -3661,6 +3701,21 @@ module Stripe
           end
         end
 
+        class RegistrationDate < Stripe::RequestParams
+          # The day of registration, between 1 and 31.
+          attr_accessor :day
+          # The month of registration, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of registration.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+
         class Verification < Stripe::RequestParams
           class Document < Stripe::RequestParams
             # The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -3710,6 +3765,8 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
+        # Attribute for param field registration_date
+        attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -3739,6 +3796,7 @@ module Stripe
           ownership_declaration: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          registration_date: nil,
           registration_number: nil,
           structure: nil,
           tax_id: nil,
@@ -3761,6 +3819,7 @@ module Stripe
           @ownership_declaration = ownership_declaration
           @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
+          @registration_date = registration_date
           @registration_number = registration_number
           @structure = structure
           @tax_id = tax_id

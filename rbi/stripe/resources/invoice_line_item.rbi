@@ -67,7 +67,7 @@ module Stripe
         sig { returns(T.nilable(ProrationDetails)) }
         attr_reader :proration_details
         # The subscription that the subscription item belongs to
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_reader :subscription
         # The subscription item that generated this line item
         sig { returns(String) }

@@ -46,8 +46,6 @@ module Stripe
       attr_reader :events_from
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-      attr_reader :livemode
       # Metadata.
       attr_reader :metadata
       # Event destination name.
@@ -64,6 +62,8 @@ module Stripe
       attr_reader :type
       # Time at which the object was last updated.
       attr_reader :updated
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
       # Amazon EventBridge configuration.
       attr_reader :amazon_eventbridge
       # Webhook endpoint configuration.

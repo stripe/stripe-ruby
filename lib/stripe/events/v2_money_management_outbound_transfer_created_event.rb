@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A new OutboundTransfer has been created.
+  # Occurs when an OutboundTransfer is created.
   class V2MoneyManagementOutboundTransferCreatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.outbound_transfer.created"

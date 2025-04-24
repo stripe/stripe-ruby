@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The funds related to the received credit are available in your balance.
+  # Occurs when a ReceivedCredit's funds are received and are available in your balance.
   class V2MoneyManagementReceivedCreditAvailableEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.received_credit.available"

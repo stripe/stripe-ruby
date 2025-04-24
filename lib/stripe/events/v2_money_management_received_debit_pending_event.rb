@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event is sent when a ReceivedDebit is set to pending.
+  # Occurs when a ReceivedDebit is set to pending.
   class V2MoneyManagementReceivedDebitPendingEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.received_debit.pending"

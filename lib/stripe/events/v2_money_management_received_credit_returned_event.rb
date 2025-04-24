@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The previously received credit has been reversed, returned to the originator and deducted from your balance.
+  # Occurs when a ReceivedCredit is reversed, returned to the originator, and deducted from your balance.
   class V2MoneyManagementReceivedCreditReturnedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.received_credit.returned"

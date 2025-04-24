@@ -2179,10 +2179,18 @@ module Stripe
                 # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 sig { returns(T.nilable(String)) }
                 attr_accessor :location_source
+                # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to 'auto'.
+                sig { returns(T.nilable(String)) }
+                attr_accessor :validate_location
                 sig {
-                  params(exempt: T.nilable(String), ip_address: T.nilable(String), location_source: T.nilable(String)).void
+                  params(exempt: T.nilable(String), ip_address: T.nilable(String), location_source: T.nilable(String), validate_location: T.nilable(String)).void
                  }
-                def initialize(exempt: nil, ip_address: nil, location_source: nil); end
+                def initialize(
+                  exempt: nil,
+                  ip_address: nil,
+                  location_source: nil,
+                  validate_location: nil
+                ); end
               end
               class Billing < Stripe::RequestParams
                 class Invoice < Stripe::RequestParams

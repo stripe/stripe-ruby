@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Funds from an InboundTransfer were just made available.
+  # Occurs when an InboundTransfer's funds are made available.
   class V2MoneyManagementInboundTransferAvailableEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.inbound_transfer.available"

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # An OutboundTransfer has transitioned into the returned state.
+  # Occurs when an OutboundTransfer transitions into the returned state.
   class V2MoneyManagementOutboundTransferReturnedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.outbound_transfer.returned"

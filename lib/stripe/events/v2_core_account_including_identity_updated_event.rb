@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event occurs when identity is updated.
+  # Occurs when an Identity is updated.
   class V2CoreAccountIncludingIdentityUpdatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account[identity].updated"

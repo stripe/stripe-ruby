@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event is sent when a received debit fails.
+  # Occurs when a ReceivedDebit fails.
   class V2MoneyManagementReceivedDebitFailedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.received_debit.failed"

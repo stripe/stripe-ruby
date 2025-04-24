@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The FinancialAddress could not be activated and can not receive funds.
+  # Occurs when a FinancialAddress fails to activate and can not receive funds.
   class V2MoneyManagementFinancialAddressFailedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.financial_address.failed"

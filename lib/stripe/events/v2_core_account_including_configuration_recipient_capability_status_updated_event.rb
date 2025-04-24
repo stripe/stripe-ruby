@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The status of a recipient config capability was updated.
+  # Occurs when the status of an Account's recipient configuration capability is updated.
   class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account[configuration.recipient].capability_status_updated"

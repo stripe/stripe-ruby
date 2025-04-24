@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event occurs when a person is deleted.
+  # Occurs when a Person is deleted.
   class V2CoreAccountPersonDeletedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account_person.deleted"

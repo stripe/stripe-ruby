@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A customer config was updated.
+  # Occurs when an Account's customer configuration is updated.
   class V2CoreAccountIncludingConfigurationCustomerUpdatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account[configuration.customer].updated"

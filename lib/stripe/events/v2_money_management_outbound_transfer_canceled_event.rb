@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # An OutboundTransfer has transitioned into the canceled state.
+  # Occurs when an OutboundTransfer transitions into the canceled state.
   class V2MoneyManagementOutboundTransferCanceledEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.outbound_transfer.canceled"

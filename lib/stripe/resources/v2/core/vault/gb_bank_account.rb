@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       module Vault
-        # Use the GbBankAccounts API to create and manage GB bank account objects
+        # Use the GBBankAccounts API to create and manage GB bank account objects
         class GbBankAccount < APIResource
           OBJECT_NAME = "v2.core.vault.gb_bank_account"
           def self.object_name
@@ -57,7 +57,7 @@ module Stripe
           attr_reader :confirmation_of_payee
           # Creation time.
           attr_reader :created
-          # The ID of the GbBankAccount object.
+          # The ID of the GBBankAccount object.
           attr_reader :id
           # The last 4 digits of the account number or IBAN.
           attr_reader :last4

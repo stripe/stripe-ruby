@@ -64,7 +64,7 @@ module Stripe
           attr_accessor :amount
           # Delivery options to be used to send the OutboundPayment.
           attr_accessor :delivery_options
-          # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users. The description can not be longer than 100 characters and can only contain basic Latin characters and spaces. The following special characters are not allowed: <>\'"* .
+          # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users.
           attr_accessor :description
           # From which FinancialAccount and BalanceType to pull funds from.
           attr_accessor :from

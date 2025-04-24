@@ -127,6 +127,12 @@ Keep in mind that there are different method signatures depending on the action:
   `retrieve(id, opts)`. In addition, it will accept a Hash for the `id` param but will extract the
   `id` key out and use the others as options.
 
+### StripeClient vs legacy pattern
+
+We introduced the `StripeClient` class in v13 of the Ruby SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v13) to move from the legacy pattern.
+
+Once the legacy pattern is deprecated, new API endpoints will only be accessible in the StripeClient. While there are no current plans to remove the legacy pattern for existing API endpoints, this may change in the future.
+
 ### Accessing resource properties
 
 Both indexer and accessors can be used to retrieve values of resource properties.

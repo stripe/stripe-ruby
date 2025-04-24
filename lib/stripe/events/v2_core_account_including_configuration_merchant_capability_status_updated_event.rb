@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The status of a merchant config capability was updated.
+  # Occurs when the status of an Account's merchant configuration capability is updated.
   class V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account[configuration.merchant].capability_status_updated"

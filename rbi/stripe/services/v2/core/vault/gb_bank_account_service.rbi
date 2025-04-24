@@ -78,7 +78,7 @@ module Stripe
            }
           def acknowledge_confirmation_of_payee(id, params = {}, opts = {}); end
 
-          # Archive a GbBankAccount object. Archived GbBankAccount objects cannot be used as outbound destinations
+          # Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
           # and will not appear in the outbound destination list.
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::GbBankAccountService::ArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Vault::GbBankAccount)

@@ -1197,16 +1197,15 @@ module Stripe
 
         context "params serialization" do
           should "allows empty strings in params" do
-            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/upcoming?customer=cus_123&coupon=").to_return(body: "{}")
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?customer=cus_123&coupon=").to_return(body: "{}")
             requestor = APIRequestor.new("sk_test_123")
-            requestor.config.api_base = "http://localhost:#{MOCK_PORT}"
-            requestor.send(request_method, :get, "/v1/invoices/upcoming", :api,
+            requestor.send(request_method, :get, "/v1/accounts", :api,
                            params: { customer: "cus_123", coupon: "" },
                            &@read_body_chunk_block)
 
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
               query: {
                 customer: "cus_123",
                 coupon: "",
@@ -1215,15 +1214,15 @@ module Stripe
           end
 
           should "filter nils in params" do
-            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/upcoming?customer=cus_123").to_return(body: "{}")
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?customer=cus_123")
+              .to_return(body: JSON.generate(object: "account"))
             requestor = APIRequestor.new("sk_test_123")
-            requestor.config.api_base = "http://localhost:#{MOCK_PORT}"
-            requestor.send(request_method, :get, "/v1/invoices/upcoming", :api,
+            requestor.send(request_method, :get, "/v1/accounts", :api,
                            params: { customer: "cus_123", coupon: nil },
                            &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
               query: {
                 customer: "cus_123",
               }
@@ -1231,17 +1230,16 @@ module Stripe
           end
 
           should "merge query parameters in URL and params" do
-            stub_request(:get, "#{Stripe.api_base}/v1/invoices/upcoming?coupon=25OFF&customer=cus_123")
-              .to_return(body: JSON.generate(object: "invoice"))
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?coupon=25OFF&customer=cus_123")
+              .to_return(body: JSON.generate(object: "account"))
 
             requestor = APIRequestor.new("sk_test_123")
-            requestor.config.api_base = "http://localhost:#{MOCK_PORT}"
-            requestor.send(request_method, :get, "/v1/invoices/upcoming?coupon=25OFF", :api,
+            requestor.send(request_method, :get, "/v1/accounts?coupon=25OFF", :api,
                            params: { customer: "cus_123" },
                            &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
               query: {
                 coupon: "25OFF",
                 customer: "cus_123",
@@ -1250,17 +1248,16 @@ module Stripe
           end
 
           should "prefer query parameters in params when specified in URL as well" do
-            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/invoices/upcoming?customer=cus_param")
-              .to_return(body: JSON.generate(object: "invoice"))
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?customer=cus_param")
+              .to_return(body: JSON.generate(object: "account"))
 
             requestor = APIRequestor.new("sk_test_123")
-            requestor.instance_variable_get(:@config).api_base = "http://localhost:#{MOCK_PORT}"
-            requestor.send(request_method, :get, "/v1/invoices/upcoming?customer=cus_query", :api,
+            requestor.send(request_method, :get, "/v1/accounts?customer=cus_query", :api,
                            params: { customer: "cus_param" },
                            &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe.api_base}/v1/invoices/upcoming?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
               query: {
                 customer: "cus_param",
               }

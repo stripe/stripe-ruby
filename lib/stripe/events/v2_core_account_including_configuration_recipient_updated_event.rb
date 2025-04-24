@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A recipient config was updated.
+  # Occurs when a Recipient's configuration is updated.
   class V2CoreAccountIncludingConfigurationRecipientUpdatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account[configuration.recipient].updated"

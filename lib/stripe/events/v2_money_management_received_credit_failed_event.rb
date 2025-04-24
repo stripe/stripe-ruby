@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A credit was attempted to your balance and was not successful. See the status_details for more information.
+  # Occurs when a ReceivedCredit is attempted to your balance and fails. See the status_details for more information.
   class V2MoneyManagementReceivedCreditFailedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.received_credit.failed"

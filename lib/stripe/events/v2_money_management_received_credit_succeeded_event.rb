@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A credit was received successfully and processed by Stripe.
+  # Occurs when a ReceivedCredit succeeds.
   class V2MoneyManagementReceivedCreditSucceededEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.received_credit.succeeded"

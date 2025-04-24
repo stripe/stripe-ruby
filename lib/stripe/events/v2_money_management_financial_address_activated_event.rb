@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The FinancialAddress is now active and ready to receive funds using the credentials provided.
+  # Occurs when a FinancialAddress is activated and is ready to receive funds.
   class V2MoneyManagementFinancialAddressActivatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.financial_address.activated"

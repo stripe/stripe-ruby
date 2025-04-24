@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event is sent when a received debit is canceled.
+  # Occurs when a ReceivedDebit is canceled.
   class V2MoneyManagementReceivedDebitCanceledEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.received_debit.canceled"

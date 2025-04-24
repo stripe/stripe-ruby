@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A new OutboundPayment has been created.
+  # Occurs when an OutboundPayment is created.
   class V2MoneyManagementOutboundPaymentCreatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.outbound_payment.created"

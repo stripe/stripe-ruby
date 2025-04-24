@@ -40,40 +40,14 @@ module Stripe
           attr_reader :succeeded_at
         end
         class BalanceTransfer < Stripe::StripeObject
-          # The ID of the account that owns the source object originated the ReceivedCredit.
-          sig { returns(T.nilable(String)) }
-          attr_reader :from_account
+          # The ID of the Stripe Money Movement that originated the ReceivedCredit.
+          sig { returns(String) }
+          attr_reader :payout_v1
           # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
           sig { returns(String) }
           attr_reader :type
-          # The ID of the outbound payment object that originated the ReceivedCredit.
-          sig { returns(T.nilable(String)) }
-          attr_reader :outbound_payment
-          # The ID of the outbound transfer object that originated the ReceivedCredit.
-          sig { returns(T.nilable(String)) }
-          attr_reader :outbound_transfer
-          # The ID of the payout object that originated the ReceivedCredit.
-          sig { returns(T.nilable(String)) }
-          attr_reader :payout_v1
         end
         class BankTransfer < Stripe::StripeObject
-          class EuBankAccount < Stripe::StripeObject
-            # The account holder name of the bank account the transfer was received from.
-            sig { returns(T.nilable(String)) }
-            attr_reader :account_holder_name
-            # The bank name the transfer was received from.
-            sig { returns(T.nilable(String)) }
-            attr_reader :bank_name
-            # The bic of the account that originated the transfer.
-            sig { returns(T.nilable(String)) }
-            attr_reader :bic
-            # The last 4 digits of the account number that originated the transfer.
-            sig { returns(T.nilable(String)) }
-            attr_reader :last4
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            sig { returns(String) }
-            attr_reader :network
-          end
           class GbBankAccount < Stripe::StripeObject
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
@@ -114,9 +88,6 @@ module Stripe
           # Freeform string set by originator of the external ReceivedCredit.
           sig { returns(T.nilable(String)) }
           attr_reader :statement_descriptor
-          # Hash containing the transaction bank details. Present if `payment_method_type` field value is `eu_bank_account`.
-          sig { returns(T.nilable(EuBankAccount)) }
-          attr_reader :eu_bank_account
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `gb_bank_account`.
           sig { returns(T.nilable(GbBankAccount)) }
           attr_reader :gb_bank_account
@@ -124,30 +95,26 @@ module Stripe
           sig { returns(T.nilable(UsBankAccount)) }
           attr_reader :us_bank_account
         end
-        class CryptoWalletTransfer < Stripe::StripeObject
-          class CryptoWallet < Stripe::StripeObject
-            # The address of the wallet the crypto was received from.
+        class CardSpend < Stripe::StripeObject
+          class Dispute < Stripe::StripeObject
+            # The reference to the v1 issuing dispute ID.
             sig { returns(String) }
-            attr_reader :address
-            # A memo also for identifying the recipient for memo-based blockchains (e.g., Stellar),.
-            sig { returns(String) }
-            attr_reader :memo
-            # The network the crypto was received from.
-            sig { returns(String) }
-            attr_reader :network
+            attr_reader :issuing_dispute_v1
           end
-          # Hash containing the transaction crypto wallet details.
-          sig { returns(CryptoWallet) }
-          attr_reader :crypto_wallet
-          # Financial Address on which funds for ReceivedCredit were received.
+          class Refund < Stripe::StripeObject
+            # The reference to the v1 issuing transaction ID.
+            sig { returns(String) }
+            attr_reader :issuing_transaction_v1
+          end
+          # The reference to the issuing card object.
           sig { returns(String) }
-          attr_reader :financial_address
-          # Open Enum. Indicates the type of source via from which external funds originated.
-          sig { returns(String) }
-          attr_reader :payment_method_type
-          # Freeform string set by originator of the external ReceivedCredit.
-          sig { returns(T.nilable(String)) }
-          attr_reader :statement_descriptor
+          attr_reader :card_v1_id
+          # Hash containing information about the Dispute that triggered this credit.
+          sig { returns(T.nilable(Dispute)) }
+          attr_reader :dispute
+          # Hash containing information about the Refund that triggered this credit.
+          sig { returns(T.nilable(Refund)) }
+          attr_reader :refund
         end
         # The amount and currency of the ReceivedCredit.
         sig { returns(Stripe::V2::Amount) }
@@ -192,9 +159,9 @@ module Stripe
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
         sig { returns(T.nilable(BankTransfer)) }
         attr_reader :bank_transfer
-        # This object stores details about the originating crypto transaction that resulted in the ReceivedCredit. Present if `type` field value is `crypto_wallet_transfer`.
-        sig { returns(T.nilable(CryptoWalletTransfer)) }
-        attr_reader :crypto_wallet_transfer
+        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
+        sig { returns(T.nilable(CardSpend)) }
+        attr_reader :card_spend
       end
     end
   end

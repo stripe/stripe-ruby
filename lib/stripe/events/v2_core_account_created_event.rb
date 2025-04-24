@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # This event occurs when an account is created.
+  # Occurs when an Account is created.
   class V2CoreAccountCreatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account.created"

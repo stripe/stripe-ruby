@@ -15,18 +15,18 @@ module Stripe
           class Customer < Stripe::StripeObject
             class AutomaticIndirectTax < Stripe::StripeObject
               class Location < Stripe::StripeObject
-                # The identified tax country of the customer.
+                # The customer's country as identified by Stripe Tax.
                 attr_reader :country
-                # The identified tax state, county, province, or region of the customer.
+                # The customer's state, county, province, or region as identified by Stripe Tax.
                 attr_reader :state
               end
               # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
               attr_reader :exempt
               # A recent IP address of the customer used for tax reporting and tax location inference.
               attr_reader :ip_address
-              # The customer’s identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+              # The customer’s location as identified by Stripe Tax - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
               attr_reader :location
-              # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               attr_reader :location_source
             end
 

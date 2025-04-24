@@ -5,14 +5,14 @@ module Stripe
   module V2
     module Core
       module Vault
-        # Use the UsBankAccounts API to create and manage US bank accounts objects that you can use to receive funds. Note that these are not interchangeable with v1 Tokens.
+        # Use the USBankAccounts API to create and manage US bank accounts objects that you can use to receive funds. Note that these are not interchangeable with v1 Tokens.
         class UsBankAccount < APIResource
           OBJECT_NAME = "v2.core.vault.us_bank_account"
           def self.object_name
             "v2.core.vault.us_bank_account"
           end
 
-          # Whether this UsBankAccount object was archived.
+          # Whether this USBankAccount object was archived.
           attr_reader :archived
           # Closed Enum. The type of bank account (checking or savings).
           attr_reader :bank_account_type
@@ -22,7 +22,7 @@ module Stripe
           attr_reader :created
           # The fedwire routing number of the bank account.
           attr_reader :fedwire_routing_number
-          # The ID of the UsBankAccount object.
+          # The ID of the USBankAccount object.
           attr_reader :id
           # The last 4 digits of the account number.
           attr_reader :last4

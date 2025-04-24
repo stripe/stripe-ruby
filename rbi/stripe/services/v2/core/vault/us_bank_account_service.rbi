@@ -48,8 +48,8 @@ module Stripe
              }
             def initialize(fedwire_routing_number: nil, routing_number: nil); end
           end
-          # Archive a UsBankAccount object. UsBankAccount objects will not be automatically archived by Stripe.
-          # Archived UsBankAccount objects cannot be used as outbound destinations
+          # Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
+          # Archived USBankAccount objects cannot be used as outbound destinations
           # and will not appear in the outbound destination list.
           #
           # ** raises ControlledByDashboardError
@@ -58,7 +58,7 @@ module Stripe
            }
           def archive(id, params = {}, opts = {}); end
 
-          # Create a UsBankAccount object.
+          # Create a USBankAccount object.
           #
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError
@@ -68,13 +68,13 @@ module Stripe
            }
           def create(params = {}, opts = {}); end
 
-          # Retrieve a UsBankAccount object.
+          # Retrieve a USBankAccount object.
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::Core::Vault::UsBankAccount)
            }
           def retrieve(id, params = {}, opts = {}); end
 
-          # Update a UsBankAccount object. This is limited to supplying a previously empty routing_number field.
+          # Update a USBankAccount object. This is limited to supplying a previously empty routing_number field.
           #
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError

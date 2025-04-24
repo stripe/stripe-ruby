@@ -2063,11 +2063,19 @@ module Stripe
                 attr_accessor :ip_address
                 # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 attr_accessor :location_source
+                # A per-request flag that indicates when Stripe should validate the customer tax location - defaults to 'auto'.
+                attr_accessor :validate_location
 
-                def initialize(exempt: nil, ip_address: nil, location_source: nil)
+                def initialize(
+                  exempt: nil,
+                  ip_address: nil,
+                  location_source: nil,
+                  validate_location: nil
+                )
                   @exempt = exempt
                   @ip_address = ip_address
                   @location_source = location_source
+                  @validate_location = validate_location
                 end
               end
 

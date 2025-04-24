@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Core
-      # AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted application, such as Recipient Onboarding.
+      # AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted applications, such as Recipient Onboarding. This API is only available for users enrolled in the public preview for Global Payouts.
       class AccountLink < APIResource
         OBJECT_NAME = "v2.core.account_link"
         def self.object_name

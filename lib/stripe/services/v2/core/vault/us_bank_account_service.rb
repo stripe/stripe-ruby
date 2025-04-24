@@ -47,8 +47,8 @@ module Stripe
             end
           end
 
-          # Archive a UsBankAccount object. UsBankAccount objects will not be automatically archived by Stripe.
-          # Archived UsBankAccount objects cannot be used as outbound destinations
+          # Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
+          # Archived USBankAccount objects cannot be used as outbound destinations
           # and will not appear in the outbound destination list.
           #
           # ** raises ControlledByDashboardError
@@ -62,7 +62,7 @@ module Stripe
             )
           end
 
-          # Create a UsBankAccount object.
+          # Create a USBankAccount object.
           #
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError
@@ -77,7 +77,7 @@ module Stripe
             )
           end
 
-          # Retrieve a UsBankAccount object.
+          # Retrieve a USBankAccount object.
           def retrieve(id, params = {}, opts = {})
             request(
               method: :get,
@@ -88,7 +88,7 @@ module Stripe
             )
           end
 
-          # Update a UsBankAccount object. This is limited to supplying a previously empty routing_number field.
+          # Update a USBankAccount object. This is limited to supplying a previously empty routing_number field.
           #
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError

@@ -51,7 +51,7 @@ module Stripe
             returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferService::CreateParams::DeliveryOptions))
            }
           attr_accessor :delivery_options
-          # An arbitrary string attached to the OutboundTransfer. Often useful for displaying to users. The description can not be longer than 100 characters and can only contain basic Latin characters and spaces. The following special characters are not allowed: <>\'"* .
+          # An arbitrary string attached to the OutboundTransfer. Often useful for displaying to users.
           sig { returns(T.nilable(String)) }
           attr_accessor :description
           # The FinancialAccount to pull funds from.

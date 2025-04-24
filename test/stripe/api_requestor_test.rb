@@ -1197,15 +1197,15 @@ module Stripe
 
         context "params serialization" do
           should "allows empty strings in params" do
-            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?customer=cus_123&coupon=").to_return(body: "{}")
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?customer=cus_123&coupon=").to_return(body: JSON.generate(object: "test_resource"))
             requestor = APIRequestor.new("sk_test_123")
-            requestor.send(request_method, :get, "/v1/accounts", :api,
+            requestor.send(request_method, :get, "/v1/test_resource", :api,
                            params: { customer: "cus_123", coupon: "" },
                            &@read_body_chunk_block)
 
             assert_requested(
               :get,
-              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?",
               query: {
                 customer: "cus_123",
                 coupon: "",
@@ -1214,15 +1214,15 @@ module Stripe
           end
 
           should "filter nils in params" do
-            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?customer=cus_123")
-              .to_return(body: JSON.generate(object: "account"))
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?customer=cus_123")
+              .to_return(body: JSON.generate(object: "test_resource"))
             requestor = APIRequestor.new("sk_test_123")
-            requestor.send(request_method, :get, "/v1/accounts", :api,
+            requestor.send(request_method, :get, "/v1/test_resource", :api,
                            params: { customer: "cus_123", coupon: nil },
                            &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?",
               query: {
                 customer: "cus_123",
               }
@@ -1230,16 +1230,16 @@ module Stripe
           end
 
           should "merge query parameters in URL and params" do
-            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?coupon=25OFF&customer=cus_123")
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?coupon=25OFF&customer=cus_123")
               .to_return(body: JSON.generate(object: "account"))
 
             requestor = APIRequestor.new("sk_test_123")
-            requestor.send(request_method, :get, "/v1/accounts?coupon=25OFF", :api,
+            requestor.send(request_method, :get, "/v1/test_resource?coupon=25OFF", :api,
                            params: { customer: "cus_123" },
                            &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?",
               query: {
                 coupon: "25OFF",
                 customer: "cus_123",
@@ -1248,16 +1248,16 @@ module Stripe
           end
 
           should "prefer query parameters in params when specified in URL as well" do
-            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/accounts?customer=cus_param")
+            stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?customer=cus_param")
               .to_return(body: JSON.generate(object: "account"))
 
             requestor = APIRequestor.new("sk_test_123")
-            requestor.send(request_method, :get, "/v1/accounts?customer=cus_query", :api,
+            requestor.send(request_method, :get, "/v1/test_resource?customer=cus_query", :api,
                            params: { customer: "cus_param" },
                            &@read_body_chunk_block)
             assert_requested(
               :get,
-              "#{Stripe::DEFAULT_API_BASE}/v1/accounts?",
+              "#{Stripe::DEFAULT_API_BASE}/v1/test_resource?",
               query: {
                 customer: "cus_param",
               }

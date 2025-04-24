@@ -37,6 +37,8 @@ module Stripe
         attr_reader :status
         # The intended money movement flow this payout method should be set up for, specified in params.
         attr_reader :usage_intent
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

@@ -92,7 +92,7 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+        # A link to the Stripe-hosted receipt for this OutboundTransfer. The receipt link remains active for 60 days from the OutboundTransfer creation date. After this period, the link will expire and the receipt url value will be null.
         attr_reader :receipt_url
         # The description that appears on the receiving end for an OutboundTransfer (for example, bank statement for external bank transfer).
         attr_reader :statement_descriptor
@@ -109,6 +109,8 @@ module Stripe
         attr_reader :to
         # A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a “reference number” or something similar.
         attr_reader :trace_id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
       end
     end
   end

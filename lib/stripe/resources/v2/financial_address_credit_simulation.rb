@@ -13,6 +13,8 @@ module Stripe
       attr_reader :object
       # The status of the request, signifying whether a simulated credit was initiated.
       attr_reader :status
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
     end
   end
 end

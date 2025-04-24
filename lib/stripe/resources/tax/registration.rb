@@ -91,6 +91,11 @@ module Stripe
           attr_reader :type
         end
 
+        class Bf < Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+        end
+
         class Bg < Stripe::StripeObject
           class Standard < Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
@@ -148,12 +153,22 @@ module Stripe
           attr_reader :type
         end
 
+        class Cm < Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+        end
+
         class Co < Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
         end
 
         class Cr < Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+        end
+
+        class Cv < Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
         end
@@ -713,6 +728,8 @@ module Stripe
         attr_reader :bd
         # Attribute for field be
         attr_reader :be
+        # Attribute for field bf
+        attr_reader :bf
         # Attribute for field bg
         attr_reader :bg
         # Attribute for field bh
@@ -731,10 +748,14 @@ module Stripe
         attr_reader :ch
         # Attribute for field cl
         attr_reader :cl
+        # Attribute for field cm
+        attr_reader :cm
         # Attribute for field co
         attr_reader :co
         # Attribute for field cr
         attr_reader :cr
+        # Attribute for field cv
+        attr_reader :cv
         # Attribute for field cy
         attr_reader :cy
         # Attribute for field cz
@@ -1040,6 +1061,15 @@ module Stripe
             end
           end
 
+          class Bf < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Bg < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
@@ -1143,6 +1173,15 @@ module Stripe
             end
           end
 
+          class Cm < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Co < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
@@ -1153,6 +1192,15 @@ module Stripe
           end
 
           class Cr < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class Cv < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
 
@@ -2151,6 +2199,8 @@ module Stripe
           attr_accessor :bd
           # Options for the registration in BE.
           attr_accessor :be
+          # Options for the registration in BF.
+          attr_accessor :bf
           # Options for the registration in BG.
           attr_accessor :bg
           # Options for the registration in BH.
@@ -2169,10 +2219,14 @@ module Stripe
           attr_accessor :ch
           # Options for the registration in CL.
           attr_accessor :cl
+          # Options for the registration in CM.
+          attr_accessor :cm
           # Options for the registration in CO.
           attr_accessor :co
           # Options for the registration in CR.
           attr_accessor :cr
+          # Options for the registration in CV.
+          attr_accessor :cv
           # Options for the registration in CY.
           attr_accessor :cy
           # Options for the registration in CZ.
@@ -2331,6 +2385,7 @@ module Stripe
             bb: nil,
             bd: nil,
             be: nil,
+            bf: nil,
             bg: nil,
             bh: nil,
             bj: nil,
@@ -2340,8 +2395,10 @@ module Stripe
             cd: nil,
             ch: nil,
             cl: nil,
+            cm: nil,
             co: nil,
             cr: nil,
+            cv: nil,
             cy: nil,
             cz: nil,
             de: nil,
@@ -2427,6 +2484,7 @@ module Stripe
             @bb = bb
             @bd = bd
             @be = be
+            @bf = bf
             @bg = bg
             @bh = bh
             @bj = bj
@@ -2436,8 +2494,10 @@ module Stripe
             @cd = cd
             @ch = ch
             @cl = cl
+            @cm = cm
             @co = co
             @cr = cr
+            @cv = cv
             @cy = cy
             @cz = cz
             @de = de

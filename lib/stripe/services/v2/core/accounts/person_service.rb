@@ -258,6 +258,8 @@ module Stripe
             end
 
             class Relationship < Stripe::RequestParams
+              # Whether the individual is an authorizer of the Account’s legal entity.
+              attr_accessor :authorizer
               # Indicates whether the person is a director of the associated legal entity.
               attr_accessor :director
               # Indicates whether the person is an executive of the associated legal entity.
@@ -274,6 +276,7 @@ module Stripe
               attr_accessor :title
 
               def initialize(
+                authorizer: nil,
                 director: nil,
                 executive: nil,
                 legal_guardian: nil,
@@ -282,6 +285,7 @@ module Stripe
                 representative: nil,
                 title: nil
               )
+                @authorizer = authorizer
                 @director = director
                 @executive = executive
                 @legal_guardian = legal_guardian
@@ -752,6 +756,8 @@ module Stripe
             end
 
             class Relationship < Stripe::RequestParams
+              # Whether the individual is an authorizer of the Account’s legal entity.
+              attr_accessor :authorizer
               # Indicates whether the person is a director of the associated legal entity.
               attr_accessor :director
               # Indicates whether the person is an executive of the associated legal entity.
@@ -768,6 +774,7 @@ module Stripe
               attr_accessor :title
 
               def initialize(
+                authorizer: nil,
                 director: nil,
                 executive: nil,
                 legal_guardian: nil,
@@ -776,6 +783,7 @@ module Stripe
                 representative: nil,
                 title: nil
               )
+                @authorizer = authorizer
                 @director = director
                 @executive = executive
                 @legal_guardian = legal_guardian

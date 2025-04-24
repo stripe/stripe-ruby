@@ -1603,6 +1603,9 @@ module Stripe
         returns(T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig))
        }
       attr_accessor :billing_cycle_anchor_config
+      # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+      sig { returns(T.nilable(String)) }
+      attr_accessor :billing_mode
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :cancel_at
@@ -1702,7 +1705,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)) }
       attr_accessor :trial_settings
       sig {
-        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig), cancel_at: T.nilable(Integer), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::PendingInvoiceItemInterval))), prebilling: T.nilable(::Stripe::SubscriptionService::CreateParams::Prebilling), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionService::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)).void
+        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig), billing_mode: T.nilable(String), cancel_at: T.nilable(Integer), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::PendingInvoiceItemInterval))), prebilling: T.nilable(::Stripe::SubscriptionService::CreateParams::Prebilling), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionService::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)).void
        }
       def initialize(
         add_invoice_items: nil,
@@ -1711,6 +1714,7 @@ module Stripe
         backdate_start_date: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
+        billing_mode: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         collection_method: nil,
@@ -1784,7 +1788,7 @@ module Stripe
     end
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://stripe.com/metadata).
     #
-    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed.
+    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
     sig {

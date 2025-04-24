@@ -2306,7 +2306,7 @@ module Stripe
           def initialize(ip_address: nil); end
         end
         class TaxId < Stripe::RequestParams
-          # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+          # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
           sig { returns(String) }
           attr_accessor :type
           # Value of the tax ID.
@@ -3643,6 +3643,9 @@ module Stripe
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         sig { returns(T.nilable(String)) }
         attr_accessor :billing_behavior
+        # Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :billing_mode
         # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
         sig { returns(T.nilable(String)) }
         attr_accessor :end_behavior
@@ -3660,11 +3663,12 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_accessor :proration_behavior
         sig {
-          params(amendments: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Prebilling]))), proration_behavior: T.nilable(String)).void
+          params(amendments: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(String), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::InvoiceService::CreatePreviewParams::ScheduleDetails::Prebilling]))), proration_behavior: T.nilable(String)).void
          }
         def initialize(
           amendments: nil,
           billing_behavior: nil,
+          billing_mode: nil,
           end_behavior: nil,
           phases: nil,
           prebilling: nil,
@@ -3823,6 +3827,9 @@ module Stripe
         # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :billing_cycle_anchor
+        # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
         attr_accessor :cancel_at
@@ -3861,10 +3868,11 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(String), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::InvoiceService::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
          }
         def initialize(
           billing_cycle_anchor: nil,
+          billing_mode: nil,
           cancel_at: nil,
           cancel_at_period_end: nil,
           cancel_now: nil,

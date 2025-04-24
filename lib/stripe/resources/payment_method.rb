@@ -18,6 +18,8 @@ module Stripe
     end
 
     class AcssDebit < Stripe::StripeObject
+      # Account number of the bank account.
+      attr_reader :account_number
       # Name of the bank associated with the bank account.
       attr_reader :bank_name
       # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.

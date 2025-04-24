@@ -695,6 +695,8 @@ module Stripe
       end
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       attr_accessor :billing_behavior
+      # Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+      attr_accessor :billing_mode
       # The identifier of the customer to create the subscription schedule for.
       attr_accessor :customer
       # The identifier of the account to create the subscription schedule for.
@@ -718,6 +720,7 @@ module Stripe
 
       def initialize(
         billing_behavior: nil,
+        billing_mode: nil,
         customer: nil,
         customer_account: nil,
         default_settings: nil,
@@ -730,6 +733,7 @@ module Stripe
         start_date: nil
       )
         @billing_behavior = billing_behavior
+        @billing_mode = billing_mode
         @customer = customer
         @customer_account = customer_account
         @default_settings = default_settings

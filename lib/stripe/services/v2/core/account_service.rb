@@ -29,7 +29,7 @@ module Stripe
                 attr_accessor :exempt
                 # A recent IP address of the customer used for tax reporting and tax location inference.
                 attr_accessor :ip_address
-                # The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 attr_accessor :location_source
 
                 def initialize(exempt: nil, ip_address: nil, location_source: nil)
@@ -956,7 +956,7 @@ module Stripe
                       @requested = requested
                     end
                   end
-                  # Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                  # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                   attr_accessor :stripe_transfers
 
                   def initialize(stripe_transfers: nil)
@@ -967,7 +967,7 @@ module Stripe
                 attr_accessor :bank_accounts
                 # Capabilities that enable OutboundPayments to a card linked to this Account.
                 attr_accessor :cards
-                # Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+                # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 attr_accessor :stripe_balance
 
                 def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil)
@@ -2061,7 +2061,7 @@ module Stripe
                 attr_accessor :exempt
                 # A recent IP address of the customer used for tax reporting and tax location inference.
                 attr_accessor :ip_address
-                # The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 attr_accessor :location_source
 
                 def initialize(exempt: nil, ip_address: nil, location_source: nil)
@@ -2991,7 +2991,7 @@ module Stripe
                       @requested = requested
                     end
                   end
-                  # Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                  # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                   attr_accessor :stripe_transfers
 
                   def initialize(stripe_transfers: nil)
@@ -3002,7 +3002,7 @@ module Stripe
                 attr_accessor :bank_accounts
                 # Capability that enable OutboundPayments to a debit card linked to this Account.
                 attr_accessor :cards
-                # Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+                # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 attr_accessor :stripe_balance
 
                 def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil)

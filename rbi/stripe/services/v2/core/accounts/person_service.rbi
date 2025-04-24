@@ -263,6 +263,9 @@ module Stripe
               def initialize(type: nil, value: nil); end
             end
             class Relationship < Stripe::RequestParams
+              # Whether the individual is an authorizer of the Account’s legal entity.
+              sig { returns(T.nilable(T::Boolean)) }
+              attr_accessor :authorizer
               # Indicates whether the person is a director of the associated legal entity.
               sig { returns(T.nilable(T::Boolean)) }
               attr_accessor :director
@@ -285,9 +288,10 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :title
               sig {
-                params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(String), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
+                params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(String), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
                }
               def initialize(
+                authorizer: nil,
                 director: nil,
                 executive: nil,
                 legal_guardian: nil,
@@ -788,6 +792,9 @@ module Stripe
               def initialize(type: nil, value: nil); end
             end
             class Relationship < Stripe::RequestParams
+              # Whether the individual is an authorizer of the Account’s legal entity.
+              sig { returns(T.nilable(T::Boolean)) }
+              attr_accessor :authorizer
               # Indicates whether the person is a director of the associated legal entity.
               sig { returns(T.nilable(T::Boolean)) }
               attr_accessor :director
@@ -810,9 +817,10 @@ module Stripe
               sig { returns(T.nilable(String)) }
               attr_accessor :title
               sig {
-                params(director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(String), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
+                params(authorizer: T.nilable(T::Boolean), director: T.nilable(T::Boolean), executive: T.nilable(T::Boolean), legal_guardian: T.nilable(T::Boolean), owner: T.nilable(T::Boolean), percent_ownership: T.nilable(String), representative: T.nilable(T::Boolean), title: T.nilable(String)).void
                }
               def initialize(
+                authorizer: nil,
                 director: nil,
                 executive: nil,
                 legal_guardian: nil,

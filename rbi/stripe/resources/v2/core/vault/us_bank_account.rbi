@@ -35,6 +35,9 @@ module Stripe
           # The ACH routing number of the bank account.
           sig { returns(T.nilable(String)) }
           attr_reader :routing_number
+          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+          sig { returns(T::Boolean) }
+          attr_reader :livemode
         end
       end
     end

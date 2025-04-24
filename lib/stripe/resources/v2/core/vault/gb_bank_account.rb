@@ -65,6 +65,8 @@ module Stripe
           attr_reader :object
           # The Sort Code of the bank account.
           attr_reader :sort_code
+          # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+          attr_reader :livemode
         end
       end
     end

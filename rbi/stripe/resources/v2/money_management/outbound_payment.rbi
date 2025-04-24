@@ -119,8 +119,8 @@ module Stripe
         # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         sig { returns(T.nilable(String)) }
         attr_reader :outbound_payment_quote
-        # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
-        sig { returns(String) }
+        # A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
+        sig { returns(T.nilable(String)) }
         attr_reader :receipt_url
         # Details about the OutboundPayment notification settings for recipient.
         sig { returns(RecipientNotification) }
@@ -146,6 +146,9 @@ module Stripe
         # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a “reference number” or something similar.
         sig { returns(TraceId) }
         attr_reader :trace_id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

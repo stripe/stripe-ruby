@@ -11,10 +11,10 @@ module Stripe
           class Customer < Stripe::StripeObject
             class AutomaticIndirectTax < Stripe::StripeObject
               class Location < Stripe::StripeObject
-                # The customer's country as identified by Stripe Tax.
+                # The identified tax country of the customer.
                 sig { returns(T.nilable(String)) }
                 attr_reader :country
-                # The customer's state, county, province, or region as identified by Stripe Tax.
+                # The identified tax state, county, province, or region of the customer.
                 sig { returns(T.nilable(String)) }
                 attr_reader :state
               end
@@ -24,10 +24,10 @@ module Stripe
               # A recent IP address of the customer used for tax reporting and tax location inference.
               sig { returns(T.nilable(String)) }
               attr_reader :ip_address
-              # The customer’s location as identified by Stripe Tax - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+              # The customer’s identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
               sig { returns(T.nilable(Location)) }
               attr_reader :location
-              # The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+              # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
               sig { returns(T.nilable(String)) }
               attr_reader :location_source
             end
@@ -927,6 +927,30 @@ module Stripe
                 sig { returns(T::Array[StatusDetail]) }
                 attr_reader :status_details
               end
+              class StripeBalance < Stripe::StripeObject
+                class Payouts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
+                # Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                sig { returns(T.nilable(Payouts)) }
+                attr_reader :payouts
+              end
               class SwishPayments < Stripe::StripeObject
                 class StatusDetail < Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1123,6 +1147,9 @@ module Stripe
               # Allow the merchant to process SEPA Direct Debit payments.
               sig { returns(T.nilable(SepaDebitPayments)) }
               attr_reader :sepa_debit_payments
+              # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
+              sig { returns(T.nilable(StripeBalance)) }
+              attr_reader :stripe_balance
               # Allow the merchant to process Swish payments.
               sig { returns(T.nilable(SwishPayments)) }
               attr_reader :swish_payments
@@ -1292,6 +1319,25 @@ module Stripe
                 attr_reader :status_details
               end
               class StripeBalance < Stripe::StripeObject
+                class Payouts < Stripe::StripeObject
+                  class StatusDetail < Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    attr_reader :resolution
+                  end
+                  # Whether the Capability has been requested.
+                  sig { returns(T::Boolean) }
+                  attr_reader :requested
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  attr_reader :status
+                  # Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  attr_reader :status_details
+                end
                 class StripeTransfers < Stripe::StripeObject
                   class StatusDetail < Stripe::StripeObject
                     # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1311,7 +1357,10 @@ module Stripe
                   sig { returns(T::Array[StatusDetail]) }
                   attr_reader :status_details
                 end
-                # Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                sig { returns(T.nilable(Payouts)) }
+                attr_reader :payouts
+                # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(StripeTransfers)) }
                 attr_reader :stripe_transfers
               end
@@ -1321,7 +1370,7 @@ module Stripe
               # Capability that enable OutboundPayments to a debit card linked to this Account.
               sig { returns(T.nilable(Cards)) }
               attr_reader :cards
-              # Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+              # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               attr_reader :stripe_balance
             end
@@ -1875,6 +1924,9 @@ module Stripe
               attr_reader :type
             end
             class Relationship < Stripe::StripeObject
+              # Whether the individual is an authorizer of the Account’s legal entity.
+              sig { returns(T.nilable(T::Boolean)) }
+              attr_reader :authorizer
               # Whether the individual is a director of the Account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
               sig { returns(T.nilable(T::Boolean)) }
               attr_reader :director
@@ -2088,22 +2140,9 @@ module Stripe
                 sig { returns(Deadline) }
                 attr_reader :deadline
               end
-              class RestrictsPayouts < Stripe::StripeObject
-                class Deadline < Stripe::StripeObject
-                  # The current status of the requirement's impact.
-                  sig { returns(String) }
-                  attr_reader :status
-                end
-                # Details about when in the Account's lifecycle the requirement must be collected by the avoid the earliest specified impact.
-                sig { returns(Deadline) }
-                attr_reader :deadline
-              end
               # The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
               sig { returns(T.nilable(T::Array[RestrictsCapability])) }
               attr_reader :restricts_capabilities
-              # Details about payouts restrictions that will be enforced if the requirement is not collected and satisfactory to Stripe.
-              sig { returns(T.nilable(RestrictsPayouts)) }
-              attr_reader :restricts_payouts
             end
             class MinimumDeadline < Stripe::StripeObject
               # The current status of the requirement's impact.
@@ -2207,6 +2246,9 @@ module Stripe
         # Information about the requirements for the Account, including what information needs to be collected, and by when.
         sig { returns(T.nilable(Requirements)) }
         attr_reader :requirements
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

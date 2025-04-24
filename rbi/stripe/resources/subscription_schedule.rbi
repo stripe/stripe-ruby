@@ -369,6 +369,9 @@ module Stripe
     # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     sig { returns(String) }
     attr_reader :billing_behavior
+    # The [billing mode](/api/subscriptions/create#create_subscription-billing_mode) that will be used to process all future operations for the subscription schedule.
+    sig { returns(String) }
+    attr_reader :billing_mode
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
     attr_reader :canceled_at
@@ -1180,6 +1183,9 @@ module Stripe
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       sig { returns(T.nilable(String)) }
       attr_accessor :billing_behavior
+      # Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+      sig { returns(T.nilable(String)) }
+      attr_accessor :billing_mode
       # The identifier of the customer to create the subscription schedule for.
       sig { returns(T.nilable(String)) }
       attr_accessor :customer
@@ -1211,10 +1217,11 @@ module Stripe
       sig { returns(T.nilable(T.any(Integer, String))) }
       attr_accessor :start_date
       sig {
-        params(billing_behavior: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phases: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
+        params(billing_behavior: T.nilable(String), billing_mode: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phases: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
        }
       def initialize(
         billing_behavior: nil,
+        billing_mode: nil,
         customer: nil,
         customer_account: nil,
         default_settings: nil,

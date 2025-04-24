@@ -34,6 +34,15 @@ module Stripe
             sig { returns(String) }
             attr_reader :exchange_rate
           end
+          # The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
+          sig { returns(String) }
+          attr_reader :lock_duration
+          # Time at which the rate lock will expire, measured in seconds since the Unix epoch.
+          sig { returns(String) }
+          attr_reader :lock_expires_at
+          # Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
+          sig { returns(String) }
+          attr_reader :lock_status
           # Key pair: from currency Value: exchange rate going from_currency -> to_currency.
           sig { returns(T::Hash[String, Rates]) }
           attr_reader :rates
@@ -80,6 +89,9 @@ module Stripe
         # Details about the recipient of an OutboundPaymentQuote.
         sig { returns(To) }
         attr_reader :to
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        attr_reader :livemode
       end
     end
   end

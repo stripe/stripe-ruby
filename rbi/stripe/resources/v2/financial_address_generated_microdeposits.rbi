@@ -14,6 +14,9 @@ module Stripe
       # Closed Enum. The status of the request.
       sig { returns(String) }
       attr_reader :status
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      sig { returns(T::Boolean) }
+      attr_reader :livemode
     end
   end
 end

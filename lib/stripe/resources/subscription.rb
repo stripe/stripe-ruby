@@ -1704,6 +1704,8 @@ module Stripe
       attr_accessor :billing_cycle_anchor
       # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
       attr_accessor :billing_cycle_anchor_config
+      # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+      attr_accessor :billing_mode
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
       # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
@@ -1778,6 +1780,7 @@ module Stripe
         backdate_start_date: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
+        billing_mode: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         collection_method: nil,
@@ -1813,6 +1816,7 @@ module Stripe
         @backdate_start_date = backdate_start_date
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_cycle_anchor_config = billing_cycle_anchor_config
+        @billing_mode = billing_mode
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
         @collection_method = collection_method
@@ -1894,6 +1898,8 @@ module Stripe
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.
     attr_reader :billing_cycle_anchor_config
+    # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+    attr_reader :billing_mode
     # A date in the future at which the subscription will automatically get canceled
     attr_reader :cancel_at
     # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
@@ -1987,7 +1993,7 @@ module Stripe
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://stripe.com/metadata).
     #
-    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed.
+    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
     def cancel(params = {}, opts = {})
@@ -2001,7 +2007,7 @@ module Stripe
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://stripe.com/metadata).
     #
-    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed.
+    # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
     def self.cancel(subscription_exposed_id, params = {}, opts = {})

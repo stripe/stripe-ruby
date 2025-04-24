@@ -40,13 +40,32 @@ module Stripe
         end
 
         class BalanceTransfer < Stripe::StripeObject
-          # The ID of the Stripe Money Movement that originated the ReceivedCredit.
-          attr_reader :payout_v1
+          # The ID of the account that owns the source object originated the ReceivedCredit.
+          attr_reader :from_account
           # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
           attr_reader :type
+          # The ID of the outbound payment object that originated the ReceivedCredit.
+          attr_reader :outbound_payment
+          # The ID of the outbound transfer object that originated the ReceivedCredit.
+          attr_reader :outbound_transfer
+          # The ID of the payout object that originated the ReceivedCredit.
+          attr_reader :payout_v1
         end
 
         class BankTransfer < Stripe::StripeObject
+          class EuBankAccount < Stripe::StripeObject
+            # The account holder name of the bank account the transfer was received from.
+            attr_reader :account_holder_name
+            # The bank name the transfer was received from.
+            attr_reader :bank_name
+            # The bic of the account that originated the transfer.
+            attr_reader :bic
+            # The last 4 digits of the account number that originated the transfer.
+            attr_reader :last4
+            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+            attr_reader :network
+          end
+
           class GbBankAccount < Stripe::StripeObject
             # The bank name the transfer was received from.
             attr_reader :account_holder_name
@@ -76,28 +95,31 @@ module Stripe
           attr_reader :payment_method_type
           # Freeform string set by originator of the external ReceivedCredit.
           attr_reader :statement_descriptor
+          # Hash containing the transaction bank details. Present if `payment_method_type` field value is `eu_bank_account`.
+          attr_reader :eu_bank_account
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `gb_bank_account`.
           attr_reader :gb_bank_account
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
           attr_reader :us_bank_account
         end
 
-        class CardSpend < Stripe::StripeObject
-          class Dispute < Stripe::StripeObject
-            # The reference to the v1 issuing dispute ID.
-            attr_reader :issuing_dispute_v1
+        class CryptoWalletTransfer < Stripe::StripeObject
+          class CryptoWallet < Stripe::StripeObject
+            # The address of the wallet the crypto was received from.
+            attr_reader :address
+            # A memo also for identifying the recipient for memo-based blockchains (e.g., Stellar),.
+            attr_reader :memo
+            # The network the crypto was received from.
+            attr_reader :network
           end
-
-          class Refund < Stripe::StripeObject
-            # The reference to the v1 issuing transaction ID.
-            attr_reader :issuing_transaction_v1
-          end
-          # The reference to the issuing card object.
-          attr_reader :card_v1_id
-          # Hash containing information about the Dispute that triggered this credit.
-          attr_reader :dispute
-          # Hash containing information about the Refund that triggered this credit.
-          attr_reader :refund
+          # Hash containing the transaction crypto wallet details.
+          attr_reader :crypto_wallet
+          # Financial Address on which funds for ReceivedCredit were received.
+          attr_reader :financial_address
+          # Open Enum. Indicates the type of source via from which external funds originated.
+          attr_reader :payment_method_type
+          # Freeform string set by originator of the external ReceivedCredit.
+          attr_reader :statement_descriptor
         end
         # The amount and currency of the ReceivedCredit.
         attr_reader :amount
@@ -122,12 +144,14 @@ module Stripe
         attr_reader :status_transitions
         # Open Enum. The type of flow that caused the ReceivedCredit.
         attr_reader :type
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
         attr_reader :balance_transfer
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
         attr_reader :bank_transfer
-        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
-        attr_reader :card_spend
+        # This object stores details about the originating crypto transaction that resulted in the ReceivedCredit. Present if `type` field value is `crypto_wallet_transfer`.
+        attr_reader :crypto_wallet_transfer
       end
     end
   end

@@ -68,11 +68,22 @@ module Stripe
            }
           def initialize(amount: nil, delivery_options: nil, from: nil, to: nil); end
         end
+        class RetrieveParams < Stripe::RequestParams
+
+        end
         # Creates an OutboundPaymentQuote usable in an OutboundPayment.
+        #
+        # ** raises FeatureNotEnabledError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundPaymentQuote)
          }
         def create(params = {}, opts = {}); end
+
+        # Retrieves the details of an existing OutboundPaymentQuote by passing the unique OutboundPaymentQuote ID.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::MoneyManagement::OutboundPaymentQuote)
+         }
+        def retrieve(id, params = {}, opts = {}); end
       end
     end
   end

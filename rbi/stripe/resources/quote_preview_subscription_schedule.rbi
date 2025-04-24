@@ -380,6 +380,9 @@ module Stripe
     # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     sig { returns(String) }
     attr_reader :billing_behavior
+    # The [billing mode](/api/subscriptions/create#create_subscription-billing_mode) that will be used to process all future operations for the subscription schedule.
+    sig { returns(String) }
+    attr_reader :billing_mode
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
     attr_reader :canceled_at

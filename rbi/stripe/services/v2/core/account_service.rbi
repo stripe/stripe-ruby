@@ -24,7 +24,7 @@ module Stripe
                 # A recent IP address of the customer used for tax reporting and tax location inference.
                 sig { returns(T.nilable(String)) }
                 attr_accessor :ip_address
-                # The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 sig { returns(T.nilable(String)) }
                 attr_accessor :location_source
                 sig {
@@ -982,7 +982,7 @@ module Stripe
                     sig { params(requested: T::Boolean).void }
                     def initialize(requested: nil); end
                   end
-                  # Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                  # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                    }
@@ -1002,7 +1002,7 @@ module Stripe
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::Cards))
                  }
                 attr_accessor :cards
-                # Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+                # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::CreateParams::Configuration::Recipient::Capabilities::StripeBalance))
                  }
@@ -2176,7 +2176,7 @@ module Stripe
                 # A recent IP address of the customer used for tax reporting and tax location inference.
                 sig { returns(T.nilable(String)) }
                 attr_accessor :ip_address
-                # The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                # The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 sig { returns(T.nilable(String)) }
                 attr_accessor :location_source
                 sig {
@@ -3137,7 +3137,7 @@ module Stripe
                     sig { params(requested: T.nilable(T::Boolean)).void }
                     def initialize(requested: nil); end
                   end
-                  # Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                  # Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                    }
@@ -3157,7 +3157,7 @@ module Stripe
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::Cards))
                  }
                 attr_accessor :cards
-                # Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+                # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountService::UpdateParams::Configuration::Recipient::Capabilities::StripeBalance))
                  }

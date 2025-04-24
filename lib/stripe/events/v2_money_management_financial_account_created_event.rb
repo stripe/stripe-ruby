@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Occurs when a financial account is created.
+  # Occurs when a FinancialAccount is created.
   class V2MoneyManagementFinancialAccountCreatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.financial_account.created"

@@ -38,7 +38,7 @@ module Stripe
         # The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
         sig { returns(T.nilable(String)) }
         attr_accessor :currency
-        # The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        # The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         sig { returns(T.nilable(String)) }
         attr_accessor :routing_number
         sig {
@@ -2342,7 +2342,7 @@ module Stripe
         # The currency the bank account is in. This must be a country/currency pairing that [Stripe supports.](docs/payouts)
         sig { returns(T.nilable(String)) }
         attr_accessor :currency
-        # The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        # The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         sig { returns(T.nilable(String)) }
         attr_accessor :routing_number
         sig {

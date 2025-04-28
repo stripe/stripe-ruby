@@ -112,13 +112,10 @@ module Stripe
             # Billing phone number (including extension).
             sig { returns(T.nilable(T.nilable(String))) }
             attr_accessor :phone
-            # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :tax_id
             sig {
-              params(address: T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
+              params(address: T.nilable(T.nilable(T.any(String, ::Stripe::Treasury::OutboundPaymentService::CreateParams::DestinationPaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String))).void
              }
-            def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
+            def initialize(address: nil, email: nil, name: nil, phone: nil); end
           end
           class UsBankAccount < Stripe::RequestParams
             # Account holder type: individual or company.

@@ -53,9 +53,6 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-      sig { returns(T::Boolean) }
-      attr_reader :livemode
       # Metadata.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_reader :metadata
@@ -80,6 +77,9 @@ module Stripe
       # Time at which the object was last updated.
       sig { returns(String) }
       attr_reader :updated
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      sig { returns(T::Boolean) }
+      attr_reader :livemode
       # Amazon EventBridge configuration.
       sig { returns(T.nilable(AmazonEventbridge)) }
       attr_reader :amazon_eventbridge

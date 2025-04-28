@@ -98,6 +98,24 @@ module Stripe
             end
           end
 
+          class Aw < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class Az < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Ba < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
@@ -108,6 +126,15 @@ module Stripe
           end
 
           class Bb < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class Bd < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
 
@@ -136,6 +163,15 @@ module Stripe
             end
           end
 
+          class Bf < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Bg < Stripe::RequestParams
             class Standard < Stripe::RequestParams
               # Place of supply scheme used in an EU standard registration.
@@ -157,6 +193,15 @@ module Stripe
           end
 
           class Bh < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class Bj < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
 
@@ -230,6 +275,15 @@ module Stripe
             end
           end
 
+          class Cm < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Co < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
@@ -240,6 +294,15 @@ module Stripe
           end
 
           class Cr < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class Cv < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
 
@@ -382,6 +445,15 @@ module Stripe
 
             def initialize(standard: nil, type: nil)
               @standard = standard
+              @type = type
+            end
+          end
+
+          class Et < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
               @type = type
             end
           end
@@ -542,6 +614,15 @@ module Stripe
             end
           end
 
+          class In < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Is < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
@@ -589,6 +670,15 @@ module Stripe
             end
           end
 
+          class Kg < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class Kh < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
@@ -608,6 +698,15 @@ module Stripe
           end
 
           class Kz < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class La < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
 
@@ -825,6 +924,15 @@ module Stripe
           end
 
           class Pe < Stripe::RequestParams
+            # Type of registration to be created in `country`.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class Ph < Stripe::RequestParams
             # Type of registration to be created in `country`.
             attr_accessor :type
 
@@ -1181,16 +1289,26 @@ module Stripe
           attr_accessor :at
           # Options for the registration in AU.
           attr_accessor :au
+          # Options for the registration in AW.
+          attr_accessor :aw
+          # Options for the registration in AZ.
+          attr_accessor :az
           # Options for the registration in BA.
           attr_accessor :ba
           # Options for the registration in BB.
           attr_accessor :bb
+          # Options for the registration in BD.
+          attr_accessor :bd
           # Options for the registration in BE.
           attr_accessor :be
+          # Options for the registration in BF.
+          attr_accessor :bf
           # Options for the registration in BG.
           attr_accessor :bg
           # Options for the registration in BH.
           attr_accessor :bh
+          # Options for the registration in BJ.
+          attr_accessor :bj
           # Options for the registration in BS.
           attr_accessor :bs
           # Options for the registration in BY.
@@ -1203,10 +1321,14 @@ module Stripe
           attr_accessor :ch
           # Options for the registration in CL.
           attr_accessor :cl
+          # Options for the registration in CM.
+          attr_accessor :cm
           # Options for the registration in CO.
           attr_accessor :co
           # Options for the registration in CR.
           attr_accessor :cr
+          # Options for the registration in CV.
+          attr_accessor :cv
           # Options for the registration in CY.
           attr_accessor :cy
           # Options for the registration in CZ.
@@ -1223,6 +1345,8 @@ module Stripe
           attr_accessor :eg
           # Options for the registration in ES.
           attr_accessor :es
+          # Options for the registration in ET.
+          attr_accessor :et
           # Options for the registration in FI.
           attr_accessor :fi
           # Options for the registration in FR.
@@ -1243,6 +1367,8 @@ module Stripe
           attr_accessor :id
           # Options for the registration in IE.
           attr_accessor :ie
+          # Options for the registration in IN.
+          attr_accessor :in
           # Options for the registration in IS.
           attr_accessor :is
           # Options for the registration in IT.
@@ -1251,12 +1377,16 @@ module Stripe
           attr_accessor :jp
           # Options for the registration in KE.
           attr_accessor :ke
+          # Options for the registration in KG.
+          attr_accessor :kg
           # Options for the registration in KH.
           attr_accessor :kh
           # Options for the registration in KR.
           attr_accessor :kr
           # Options for the registration in KZ.
           attr_accessor :kz
+          # Options for the registration in LA.
+          attr_accessor :la
           # Options for the registration in LT.
           attr_accessor :lt
           # Options for the registration in LU.
@@ -1293,6 +1423,8 @@ module Stripe
           attr_accessor :om
           # Options for the registration in PE.
           attr_accessor :pe
+          # Options for the registration in PH.
+          attr_accessor :ph
           # Options for the registration in PL.
           attr_accessor :pl
           # Options for the registration in PT.
@@ -1349,19 +1481,26 @@ module Stripe
             ao: nil,
             at: nil,
             au: nil,
+            aw: nil,
+            az: nil,
             ba: nil,
             bb: nil,
+            bd: nil,
             be: nil,
+            bf: nil,
             bg: nil,
             bh: nil,
+            bj: nil,
             bs: nil,
             by: nil,
             ca: nil,
             cd: nil,
             ch: nil,
             cl: nil,
+            cm: nil,
             co: nil,
             cr: nil,
+            cv: nil,
             cy: nil,
             cz: nil,
             de: nil,
@@ -1370,6 +1509,7 @@ module Stripe
             ee: nil,
             eg: nil,
             es: nil,
+            et: nil,
             fi: nil,
             fr: nil,
             gb: nil,
@@ -1380,13 +1520,16 @@ module Stripe
             hu: nil,
             id: nil,
             ie: nil,
+            in_: nil,
             is: nil,
             it: nil,
             jp: nil,
             ke: nil,
+            kg: nil,
             kh: nil,
             kr: nil,
             kz: nil,
+            la: nil,
             lt: nil,
             lu: nil,
             lv: nil,
@@ -1405,6 +1548,7 @@ module Stripe
             nz: nil,
             om: nil,
             pe: nil,
+            ph: nil,
             pl: nil,
             pt: nil,
             ro: nil,
@@ -1436,19 +1580,26 @@ module Stripe
             @ao = ao
             @at = at
             @au = au
+            @aw = aw
+            @az = az
             @ba = ba
             @bb = bb
+            @bd = bd
             @be = be
+            @bf = bf
             @bg = bg
             @bh = bh
+            @bj = bj
             @bs = bs
             @by = by
             @ca = ca
             @cd = cd
             @ch = ch
             @cl = cl
+            @cm = cm
             @co = co
             @cr = cr
+            @cv = cv
             @cy = cy
             @cz = cz
             @de = de
@@ -1457,6 +1608,7 @@ module Stripe
             @ee = ee
             @eg = eg
             @es = es
+            @et = et
             @fi = fi
             @fr = fr
             @gb = gb
@@ -1467,13 +1619,16 @@ module Stripe
             @hu = hu
             @id = id
             @ie = ie
+            @in = in_
             @is = is
             @it = it
             @jp = jp
             @ke = ke
+            @kg = kg
             @kh = kh
             @kr = kr
             @kz = kz
+            @la = la
             @lt = lt
             @lu = lu
             @lv = lv
@@ -1492,6 +1647,7 @@ module Stripe
             @nz = nz
             @om = om
             @pe = pe
+            @ph = ph
             @pl = pl
             @pt = pt
             @ro = ro

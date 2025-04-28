@@ -656,10 +656,13 @@ module Stripe
           # Billing phone number (including extension).
           sig { returns(T.nilable(T.nilable(String))) }
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :tax_id
           sig {
-            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String))).void
+            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::CreateParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
            }
-          def initialize(address: nil, email: nil, name: nil, phone: nil); end
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
         end
         class Blik < Stripe::RequestParams
 
@@ -929,7 +932,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData::Bancontact))
          }
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         sig { returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData::Billie)) }
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
@@ -1040,7 +1043,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData::RadarOptions))
          }
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         sig {
           returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData::RevolutPay))
          }
@@ -1050,7 +1053,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData::SamsungPay))
          }
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         sig { returns(T.nilable(::Stripe::SetupIntent::CreateParams::PaymentMethodData::Satispay)) }
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -1741,10 +1744,13 @@ module Stripe
           # Billing phone number (including extension).
           sig { returns(T.nilable(T.nilable(String))) }
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :tax_id
           sig {
-            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::UpdateParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String))).void
+            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::UpdateParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
            }
-          def initialize(address: nil, email: nil, name: nil, phone: nil); end
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
         end
         class Blik < Stripe::RequestParams
 
@@ -2014,7 +2020,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData::Bancontact))
          }
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         sig { returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData::Billie)) }
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
@@ -2125,7 +2131,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData::RadarOptions))
          }
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         sig {
           returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData::RevolutPay))
          }
@@ -2135,7 +2141,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData::SamsungPay))
          }
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         sig { returns(T.nilable(::Stripe::SetupIntent::UpdateParams::PaymentMethodData::Satispay)) }
         attr_accessor :satispay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -2832,10 +2838,13 @@ module Stripe
           # Billing phone number (including extension).
           sig { returns(T.nilable(T.nilable(String))) }
           attr_accessor :phone
+          # Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :tax_id
           sig {
-            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String))).void
+            params(address: T.nilable(T.nilable(T.any(String, ::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::BillingDetails::Address))), email: T.nilable(T.nilable(String)), name: T.nilable(T.nilable(String)), phone: T.nilable(T.nilable(String)), tax_id: T.nilable(String)).void
            }
-          def initialize(address: nil, email: nil, name: nil, phone: nil); end
+          def initialize(address: nil, email: nil, name: nil, phone: nil, tax_id: nil); end
         end
         class Blik < Stripe::RequestParams
 
@@ -3105,7 +3114,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::Bancontact))
          }
         attr_accessor :bancontact
-        # If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        # If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         sig { returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::Billie)) }
         attr_accessor :billie
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
@@ -3220,7 +3229,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::RadarOptions))
          }
         attr_accessor :radar_options
-        # If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         sig {
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::RevolutPay))
          }
@@ -3230,7 +3239,7 @@ module Stripe
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::SamsungPay))
          }
         attr_accessor :samsung_pay
-        # If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         sig {
           returns(T.nilable(::Stripe::SetupIntent::ConfirmParams::PaymentMethodData::Satispay))
          }

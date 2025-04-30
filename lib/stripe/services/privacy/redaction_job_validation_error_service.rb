@@ -22,31 +22,11 @@ module Stripe
         end
       end
 
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
       # List validation errors method
       def list(job, params = {}, opts = {})
         request(
           method: :get,
           path: format("/v1/privacy/redaction_jobs/%<job>s/validation_errors", { job: CGI.escape(job) }),
-          params: params,
-          opts: opts,
-          base_address: :api
-        )
-      end
-
-      # Retrieve validation error method
-      def retrieve(job, error, params = {}, opts = {})
-        request(
-          method: :get,
-          path: format("/v1/privacy/redaction_jobs/%<job>s/validation_errors/%<error>s", { job: CGI.escape(job), error: CGI.escape(error) }),
           params: params,
           opts: opts,
           base_address: :api

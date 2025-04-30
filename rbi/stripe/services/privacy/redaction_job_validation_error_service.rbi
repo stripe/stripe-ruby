@@ -23,24 +23,11 @@ module Stripe
          }
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil); end
       end
-      class RetrieveParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
       # List validation errors method
       sig {
         params(job: String, params: T.any(::Stripe::Privacy::RedactionJobValidationErrorService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
        }
       def list(job, params = {}, opts = {}); end
-
-      # Retrieve validation error method
-      sig {
-        params(job: String, error: String, params: T.any(::Stripe::Privacy::RedactionJobValidationErrorService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJobValidationError)
-       }
-      def retrieve(job, error, params = {}, opts = {}); end
     end
   end
 end

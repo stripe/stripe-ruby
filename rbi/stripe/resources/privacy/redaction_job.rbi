@@ -7,6 +7,35 @@ module Stripe
     # Redaction Jobs store the status of a redaction request. They are created
     # when a redaction request is made and track the redaction validation and execution.
     class RedactionJob < APIResource
+      class Objects < Stripe::StripeObject
+        # Attribute for field charges
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :charges
+        # Attribute for field checkout_sessions
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :checkout_sessions
+        # Attribute for field customers
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :customers
+        # Attribute for field identity_verification_sessions
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :identity_verification_sessions
+        # Attribute for field invoices
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :invoices
+        # Attribute for field issuing_cardholders
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :issuing_cardholders
+        # Attribute for field payment_intents
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :payment_intents
+        # Attribute for field radar_value_list_items
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :radar_value_list_items
+        # Attribute for field setup_intents
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :setup_intents
+      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       attr_reader :created
@@ -17,7 +46,7 @@ module Stripe
       sig { returns(String) }
       attr_reader :object
       # The objects at the root level that are subject to redaction.
-      sig { returns(T.nilable(Stripe::Privacy::RedactionJobRootObjects)) }
+      sig { returns(T.nilable(Objects)) }
       attr_reader :objects
       # The status field represents the current state of the redaction job. It can take on any of the following values: VALIDATING, READY, REDACTING, SUCCEEDED, CANCELED, FAILED.
       sig { returns(String) }

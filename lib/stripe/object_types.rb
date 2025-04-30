@@ -118,7 +118,6 @@ module Stripe
         Plan.object_name => Plan,
         Price.object_name => Price,
         Privacy::RedactionJob.object_name => Privacy::RedactionJob,
-        Privacy::RedactionJobRootObjects.object_name => Privacy::RedactionJobRootObjects,
         Privacy::RedactionJobValidationError.object_name => Privacy::RedactionJobValidationError,
         Product.object_name => Product,
         ProductFeature.object_name => ProductFeature,

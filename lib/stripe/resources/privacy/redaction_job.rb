@@ -16,7 +16,28 @@ module Stripe
         "privacy.redaction_job"
       end
 
-      nested_resource_class_methods :validation_error, operations: %i[retrieve list]
+      nested_resource_class_methods :validation_error, operations: %i[list]
+
+      class Objects < Stripe::StripeObject
+        # Attribute for field charges
+        attr_reader :charges
+        # Attribute for field checkout_sessions
+        attr_reader :checkout_sessions
+        # Attribute for field customers
+        attr_reader :customers
+        # Attribute for field identity_verification_sessions
+        attr_reader :identity_verification_sessions
+        # Attribute for field invoices
+        attr_reader :invoices
+        # Attribute for field issuing_cardholders
+        attr_reader :issuing_cardholders
+        # Attribute for field payment_intents
+        attr_reader :payment_intents
+        # Attribute for field radar_value_list_items
+        attr_reader :radar_value_list_items
+        # Attribute for field setup_intents
+        attr_reader :setup_intents
+      end
 
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

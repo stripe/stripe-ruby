@@ -3593,7 +3593,7 @@ module Stripe
           # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :billing_cycle_anchor
-          # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+          # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
           sig { returns(T.nilable(String)) }
           attr_accessor :billing_mode
           # The tax rates that will apply to any subscription item that does not have
@@ -4107,7 +4107,7 @@ module Stripe
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
           sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData)) }
           attr_accessor :price_data
-          # The quantity of the line item being purchased.
+          # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
           sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
           attr_accessor :quantity
           # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
@@ -4256,7 +4256,7 @@ module Stripe
         #
         # To update an existing line item, specify its `id` along with the new values of the fields to update.
         #
-        # To add a new line item, specify a `price` and `quantity`.
+        # To add a new line item, specify one of `price` or `price_data` and `quantity`.
         #
         # To remove an existing line item, omit the line item's ID from the retransmitted array.
         #
@@ -4348,6 +4348,8 @@ module Stripe
       def self.list_line_items(session, params = {}, opts = {}); end
 
       # Updates a Checkout Session object.
+      #
+      # Related guide: [Dynamically update Checkout](https://stripe.com/payments/checkout/dynamic-updates)
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::Session::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }

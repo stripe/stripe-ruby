@@ -344,40 +344,6 @@ module Stripe
           @width = width
         end
       end
-
-      class Provisioning < Stripe::RequestParams
-        class GiftCard < Stripe::RequestParams
-          class FixedAmount < Stripe::RequestParams
-            # The initial amount with which the provisioned gift card will be created.
-            attr_accessor :amount
-            # Attribute for param field currency
-            attr_accessor :currency
-
-            def initialize(amount: nil, currency: nil)
-              @amount = amount
-              @currency = currency
-            end
-          end
-          # Attribute for param field fixed_amount
-          attr_accessor :fixed_amount
-          # The specific type of gift_card provisioning, only `fixed_amount` currently supported.
-          attr_accessor :type
-
-          def initialize(fixed_amount: nil, type: nil)
-            @fixed_amount = fixed_amount
-            @type = type
-          end
-        end
-        # Attribute for param field gift_card
-        attr_accessor :gift_card
-        # The type of provisioning, only `gift_card` currently supported.
-        attr_accessor :type
-
-        def initialize(gift_card: nil, type: nil)
-          @gift_card = gift_card
-          @type = type
-        end
-      end
       # Whether the product is currently available for purchase. Defaults to `true`.
       attr_accessor :active
       # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object. This Price will be set as the default price for this product.
@@ -398,8 +364,6 @@ module Stripe
       attr_accessor :name
       # The dimensions of this product for shipping purposes.
       attr_accessor :package_dimensions
-      # Provisioning configuration for this product.
-      attr_accessor :provisioning
       # Whether this product is shipped (i.e., physical goods).
       attr_accessor :shippable
       # An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
@@ -427,7 +391,6 @@ module Stripe
         metadata: nil,
         name: nil,
         package_dimensions: nil,
-        provisioning: nil,
         shippable: nil,
         statement_descriptor: nil,
         tax_code: nil,
@@ -445,7 +408,6 @@ module Stripe
         @metadata = metadata
         @name = name
         @package_dimensions = package_dimensions
-        @provisioning = provisioning
         @shippable = shippable
         @statement_descriptor = statement_descriptor
         @tax_code = tax_code

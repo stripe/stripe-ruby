@@ -346,42 +346,6 @@ module Stripe
         sig { params(height: Float, length: Float, weight: Float, width: Float).void }
         def initialize(height: nil, length: nil, weight: nil, width: nil); end
       end
-      class Provisioning < Stripe::RequestParams
-        class GiftCard < Stripe::RequestParams
-          class FixedAmount < Stripe::RequestParams
-            # The initial amount with which the provisioned gift card will be created.
-            sig { returns(Integer) }
-            attr_accessor :amount
-            # Attribute for param field currency
-            sig { returns(String) }
-            attr_accessor :currency
-            sig { params(amount: Integer, currency: String).void }
-            def initialize(amount: nil, currency: nil); end
-          end
-          # Attribute for param field fixed_amount
-          sig {
-            returns(T.nilable(::Stripe::ProductService::CreateParams::Provisioning::GiftCard::FixedAmount))
-           }
-          attr_accessor :fixed_amount
-          # The specific type of gift_card provisioning, only `fixed_amount` currently supported.
-          sig { returns(String) }
-          attr_accessor :type
-          sig {
-            params(fixed_amount: T.nilable(::Stripe::ProductService::CreateParams::Provisioning::GiftCard::FixedAmount), type: String).void
-           }
-          def initialize(fixed_amount: nil, type: nil); end
-        end
-        # Attribute for param field gift_card
-        sig { returns(T.nilable(::Stripe::ProductService::CreateParams::Provisioning::GiftCard)) }
-        attr_accessor :gift_card
-        # The type of provisioning, only `gift_card` currently supported.
-        sig { returns(String) }
-        attr_accessor :type
-        sig {
-          params(gift_card: T.nilable(::Stripe::ProductService::CreateParams::Provisioning::GiftCard), type: String).void
-         }
-        def initialize(gift_card: nil, type: nil); end
-      end
       # Whether the product is currently available for purchase. Defaults to `true`.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :active
@@ -412,9 +376,6 @@ module Stripe
       # The dimensions of this product for shipping purposes.
       sig { returns(T.nilable(::Stripe::ProductService::CreateParams::PackageDimensions)) }
       attr_accessor :package_dimensions
-      # Provisioning configuration for this product.
-      sig { returns(T.nilable(::Stripe::ProductService::CreateParams::Provisioning)) }
-      attr_accessor :provisioning
       # Whether this product is shipped (i.e., physical goods).
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :shippable
@@ -437,7 +398,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :url
       sig {
-        params(active: T.nilable(T::Boolean), default_price_data: T.nilable(::Stripe::ProductService::CreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[::Stripe::ProductService::CreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(::Stripe::ProductService::CreateParams::PackageDimensions), provisioning: T.nilable(::Stripe::ProductService::CreateParams::Provisioning), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
+        params(active: T.nilable(T::Boolean), default_price_data: T.nilable(::Stripe::ProductService::CreateParams::DefaultPriceData), description: T.nilable(String), expand: T.nilable(T::Array[String]), id: T.nilable(String), images: T.nilable(T::Array[String]), marketing_features: T.nilable(T::Array[::Stripe::ProductService::CreateParams::MarketingFeature]), metadata: T.nilable(T::Hash[String, String]), name: String, package_dimensions: T.nilable(::Stripe::ProductService::CreateParams::PackageDimensions), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), type: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
        }
       def initialize(
         active: nil,
@@ -450,7 +411,6 @@ module Stripe
         metadata: nil,
         name: nil,
         package_dimensions: nil,
-        provisioning: nil,
         shippable: nil,
         statement_descriptor: nil,
         tax_code: nil,

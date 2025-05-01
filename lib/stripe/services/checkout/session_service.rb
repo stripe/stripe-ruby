@@ -2005,7 +2005,7 @@ module Stripe
           attr_accessor :application_fee_percent
           # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
           attr_accessor :billing_cycle_anchor
-          # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+          # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
           attr_accessor :billing_mode
           # The tax rates that will apply to any subscription item that does not have
           # `tax_rates` set. Invoices created will have their `default_tax_rates` populated
@@ -2495,7 +2495,7 @@ module Stripe
           attr_accessor :price
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
           attr_accessor :price_data
-          # The quantity of the line item being purchased.
+          # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
           attr_accessor :quantity
           # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
           attr_accessor :tax_rates
@@ -2636,7 +2636,7 @@ module Stripe
         #
         # To update an existing line item, specify its `id` along with the new values of the fields to update.
         #
-        # To add a new line item, specify a `price` and `quantity`.
+        # To add a new line item, specify one of `price` or `price_data` and `quantity`.
         #
         # To remove an existing line item, omit the line item's ID from the retransmitted array.
         #
@@ -2718,6 +2718,8 @@ module Stripe
       end
 
       # Updates a Checkout Session object.
+      #
+      # Related guide: [Dynamically update Checkout](https://stripe.com/payments/checkout/dynamic-updates)
       def update(session, params = {}, opts = {})
         request(
           method: :post,

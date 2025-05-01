@@ -694,7 +694,7 @@ module Stripe
       attr_reader :redirect_to_url
       # Attribute for field swish_handle_redirect_or_display_qr_code
       attr_reader :swish_handle_redirect_or_display_qr_code
-      # Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+      # Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
       attr_reader :type
       # When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
       attr_reader :use_stripe_sdk
@@ -5078,7 +5078,7 @@ module Stripe
         attr_accessor :fpx
         # If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         attr_accessor :giropay
-        # If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        # If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         attr_accessor :gopay
         # If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
         attr_accessor :grabpay
@@ -5405,6 +5405,8 @@ module Stripe
       # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
       #
       # If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
+      # If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://stripe.com/docs/api#create_payment_intent-customer) parameter of this PaymentIntent.
+      # end
       attr_accessor :payment_method
       # The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
       attr_accessor :payment_method_configuration
@@ -8581,7 +8583,7 @@ module Stripe
         attr_accessor :fpx
         # If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         attr_accessor :giropay
-        # If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        # If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         attr_accessor :gopay
         # If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
         attr_accessor :grabpay
@@ -12824,7 +12826,7 @@ module Stripe
         attr_accessor :fpx
         # If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         attr_accessor :giropay
-        # If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        # If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         attr_accessor :gopay
         # If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
         attr_accessor :grabpay
@@ -13100,6 +13102,7 @@ module Stripe
       # Provides industry-specific information about the charge.
       attr_accessor :payment_details
       # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+      # If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
       attr_accessor :payment_method
       # If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
       # in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)

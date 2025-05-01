@@ -42,6 +42,9 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      sig { returns(T::Boolean) }
+      attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object

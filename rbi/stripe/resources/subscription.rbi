@@ -300,7 +300,7 @@ module Stripe
     # The fixed values used to calculate the `billing_cycle_anchor`.
     sig { returns(T.nilable(BillingCycleAnchorConfig)) }
     attr_reader :billing_cycle_anchor_config
-    # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+    # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     sig { returns(String) }
     attr_reader :billing_mode
     # A date in the future at which the subscription will automatically get canceled
@@ -2005,7 +2005,7 @@ module Stripe
       # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
       sig { returns(T.nilable(::Stripe::Subscription::CreateParams::BillingCycleAnchorConfig)) }
       attr_accessor :billing_cycle_anchor_config
-      # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(T.nilable(String)) }
       attr_accessor :billing_mode
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.

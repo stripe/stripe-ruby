@@ -10,6 +10,11 @@ module Stripe
         sig { returns(T.nilable(String)) }
         attr_reader :commodity_code
       end
+      class CardPresent < Stripe::StripeObject
+        # Attribute for field commodity_code
+        sig { returns(T.nilable(String)) }
+        attr_reader :commodity_code
+      end
       class Klarna < Stripe::StripeObject
         # Attribute for field image_url
         sig { returns(T.nilable(String)) }
@@ -32,6 +37,9 @@ module Stripe
       # Attribute for field card
       sig { returns(Card) }
       attr_reader :card
+      # Attribute for field card_present
+      sig { returns(CardPresent) }
+      attr_reader :card_present
       # Attribute for field klarna
       sig { returns(Klarna) }
       attr_reader :klarna

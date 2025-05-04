@@ -1038,7 +1038,10 @@ module Stripe
         attr_reader :setup_future_usage
       end
 
-      class Billie < Stripe::StripeObject; end
+      class Billie < Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+      end
 
       class Blik < Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.

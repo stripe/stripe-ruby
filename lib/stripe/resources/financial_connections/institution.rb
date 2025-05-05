@@ -59,6 +59,8 @@ module Stripe
           @starting_after = starting_after
         end
       end
+      # The list of countries supported by this institution, formatted as ISO country codes.
+      attr_reader :countries
       # Attribute for field features
       attr_reader :features
       # Unique identifier for the object.

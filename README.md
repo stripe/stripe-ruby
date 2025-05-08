@@ -357,10 +357,11 @@ you see at runtime may not match the types.
 
 Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via the beta version of this package.
 We would love for you to try these as we incrementally release new features and improve them based on your feedback.
-To install the public preview SDK use `gem install` with the exact version you'd like to use:
+
+The public preview SDKs are just a different version of the same package and are appended with `-beta.X` such as `7.0.0-beta.1`. To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-ruby/releases/) and use it in the `gem install` command:
 
 ```sh
-gem install stripe -v 7.1.0.pre.beta.2
+gem install stripe -v <replace-with-the-version-of-your-choice>
 ```
 
 You can find the latest version to use in this command from the [releases page](https://github.com/stripe/stripe-ruby/releases/)

@@ -353,22 +353,25 @@ by default. If you are overriding `Stripe.api_version` / `stripe_version` on the
 or using a webhook endpoint tied to an older version, be aware that the data
 you see at runtime may not match the types.
 
-### Beta SDKs
+### Public Preview SDKs
 
-Stripe has features in the beta phase that can be accessed via the beta version of this package.
-We would love for you to try these and share feedback with us before these features reach the stable phase.
-To install a beta version use `gem install` with the exact version you'd like to use:
+Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via the beta version of this package.
+We would love for you to try these as we incrementally release new features and improve them based on your feedback.
+
+The public preview SDKs are a different version of the same package as the stable SDKs. These versions are appended with `-beta.X` such as `7.0.0-beta.1`. To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-ruby/releases/) and use it in the `gem install` command:
 
 ```sh
-gem install stripe -v 7.1.0.pre.beta.2
+gem install stripe -v <replace-with-the-version-of-your-choice>
 ```
 
+You can find the latest version to use in this command from the [releases page](https://github.com/stripe/stripe-ruby/releases/)
+
 > **Note**
-> There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
+> There can be breaking changes between two versions of the public preview SDKs without a bump in the major version. Therefore we recommend pinning the package version to a specific version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest version of the public preview SDK.
 
 We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
 
-If your beta feature requires a `Stripe-Version` header to be sent, set the `Stripe.api_version` field using `Stripe.add_beta_version`:
+If your beta feature requires a `Stripe-Version` header to be sent, set the `Stripe.api_version` field using `Stripe.add_beta_version` (available only in the public preview SDKs):
 
 ```python
 Stripe.add_beta_version("feature_beta", "v3")

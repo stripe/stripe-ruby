@@ -355,10 +355,10 @@ you see at runtime may not match the types.
 
 ### Public Preview SDKs
 
-Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via the beta version of this package.
+Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-beta.X` suffix like `11.2.0-beta.2`.
 We would love for you to try these as we incrementally release new features and improve them based on your feedback.
 
-The public preview SDKs are a different version of the same package as the stable SDKs. These versions are appended with `-beta.X` such as `7.0.0-beta.1`. To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-ruby/releases/) and use it in the `gem install` command:
+To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-ruby/releases/) and use it in the `gem install` command:
 
 ```sh
 gem install stripe -v <replace-with-the-version-of-your-choice>
@@ -371,7 +371,7 @@ You can find the latest version to use in this command from the [releases page](
 
 We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
 
-If your beta feature requires a `Stripe-Version` header to be sent, set the `Stripe.api_version` field using `Stripe.add_beta_version` (available only in the public preview SDKs):
+Some preview features require a name and version to be set in the `Stripe-Version` header like `feature_beta=v3`. If your preview feature has this requirement, use the `Stripe.add_beta_version` function (available only in the public preview SDKs):
 
 ```python
 Stripe.add_beta_version("feature_beta", "v3")

@@ -1812,11 +1812,18 @@ module Stripe
         class SavedPaymentMethodOptions < Stripe::RequestParams
           # Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with ’allow_redisplay: ‘always’ are shown in Checkout.
           attr_accessor :allow_redisplay_filters
+          # Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
+          attr_accessor :payment_method_remove
           # Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
           attr_accessor :payment_method_save
 
-          def initialize(allow_redisplay_filters: nil, payment_method_save: nil)
+          def initialize(
+            allow_redisplay_filters: nil,
+            payment_method_remove: nil,
+            payment_method_save: nil
+          )
             @allow_redisplay_filters = allow_redisplay_filters
+            @payment_method_remove = payment_method_remove
             @payment_method_save = payment_method_save
           end
         end

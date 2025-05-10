@@ -186,34 +186,12 @@ module Stripe
              }
             def initialize(mode: nil, recipient: nil); end
           end
-          class Distance < Stripe::RequestParams
-            # Distance traveled.
-            sig { returns(T.nilable(Integer)) }
-            attr_accessor :amount
-            # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :unit
-            sig { params(amount: T.nilable(Integer), unit: T.nilable(String)).void }
-            def initialize(amount: nil, unit: nil); end
-          end
           class Driver < Stripe::RequestParams
-            # Driver's identification number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_identification_number
-            # Driver's tax number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_tax_number
             # Full name of the person or entity on the car reservation.
             sig { returns(String) }
             attr_accessor :name
-            sig {
-              params(driver_identification_number: T.nilable(String), driver_tax_number: T.nilable(String), name: String).void
-             }
-            def initialize(
-              driver_identification_number: nil,
-              driver_tax_number: nil,
-              name: nil
-            ); end
+            sig { params(name: String).void }
+            def initialize(name: nil); end
           end
           class PickupAddress < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -308,11 +286,6 @@ module Stripe
             returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Delivery))
            }
           attr_accessor :delivery
-          # The details of the distance traveled during the rental period.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Distance))
-           }
-          attr_accessor :distance
           # The details of the passengers in the travel reservation
           sig {
             returns(T.nilable(T::Array[::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Driver]))
@@ -332,9 +305,6 @@ module Stripe
           # Car pick-up time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :pickup_at
-          # Name of the pickup location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :pickup_location_name
           # Rental rate.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :rate_amount
@@ -352,17 +322,11 @@ module Stripe
           # Car return time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :return_at
-          # Name of the return location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :return_location_name
           # Indicates whether the goods or services are tax-exempt or tax is not collected.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :tax_exempt
-          # The vehicle identification number.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :vehicle_identification_number
           sig {
-            params(affiliate: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Delivery), distance: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Distance), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, pickup_location_name: T.nilable(String), rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, return_location_name: T.nilable(String), tax_exempt: T.nilable(T::Boolean), vehicle_identification_number: T.nilable(String)).void
+            params(affiliate: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Delivery), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, tax_exempt: T.nilable(T::Boolean)).void
            }
           def initialize(
             affiliate: nil,
@@ -374,21 +338,17 @@ module Stripe
             customer_service_phone_number: nil,
             days_rented: nil,
             delivery: nil,
-            distance: nil,
             drivers: nil,
             extra_charges: nil,
             no_show: nil,
             pickup_address: nil,
             pickup_at: nil,
-            pickup_location_name: nil,
             rate_amount: nil,
             rate_interval: nil,
             renter_name: nil,
             return_address: nil,
             return_at: nil,
-            return_location_name: nil,
-            tax_exempt: nil,
-            vehicle_identification_number: nil
+            tax_exempt: nil
           ); end
         end
         class EventDetails < Stripe::RequestParams
@@ -4025,34 +3985,12 @@ module Stripe
              }
             def initialize(mode: nil, recipient: nil); end
           end
-          class Distance < Stripe::RequestParams
-            # Distance traveled.
-            sig { returns(T.nilable(Integer)) }
-            attr_accessor :amount
-            # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :unit
-            sig { params(amount: T.nilable(Integer), unit: T.nilable(String)).void }
-            def initialize(amount: nil, unit: nil); end
-          end
           class Driver < Stripe::RequestParams
-            # Driver's identification number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_identification_number
-            # Driver's tax number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_tax_number
             # Full name of the person or entity on the car reservation.
             sig { returns(String) }
             attr_accessor :name
-            sig {
-              params(driver_identification_number: T.nilable(String), driver_tax_number: T.nilable(String), name: String).void
-             }
-            def initialize(
-              driver_identification_number: nil,
-              driver_tax_number: nil,
-              name: nil
-            ); end
+            sig { params(name: String).void }
+            def initialize(name: nil); end
           end
           class PickupAddress < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -4147,11 +4085,6 @@ module Stripe
             returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Delivery))
            }
           attr_accessor :delivery
-          # The details of the distance traveled during the rental period.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Distance))
-           }
-          attr_accessor :distance
           # The details of the passengers in the travel reservation
           sig {
             returns(T.nilable(T::Array[::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Driver]))
@@ -4171,9 +4104,6 @@ module Stripe
           # Car pick-up time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :pickup_at
-          # Name of the pickup location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :pickup_location_name
           # Rental rate.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :rate_amount
@@ -4191,17 +4121,11 @@ module Stripe
           # Car return time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :return_at
-          # Name of the return location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :return_location_name
           # Indicates whether the goods or services are tax-exempt or tax is not collected.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :tax_exempt
-          # The vehicle identification number.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :vehicle_identification_number
           sig {
-            params(affiliate: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Delivery), distance: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Distance), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, pickup_location_name: T.nilable(String), rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, return_location_name: T.nilable(String), tax_exempt: T.nilable(T::Boolean), vehicle_identification_number: T.nilable(String)).void
+            params(affiliate: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Delivery), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, tax_exempt: T.nilable(T::Boolean)).void
            }
           def initialize(
             affiliate: nil,
@@ -4213,21 +4137,17 @@ module Stripe
             customer_service_phone_number: nil,
             days_rented: nil,
             delivery: nil,
-            distance: nil,
             drivers: nil,
             extra_charges: nil,
             no_show: nil,
             pickup_address: nil,
             pickup_at: nil,
-            pickup_location_name: nil,
             rate_amount: nil,
             rate_interval: nil,
             renter_name: nil,
             return_address: nil,
             return_at: nil,
-            return_location_name: nil,
-            tax_exempt: nil,
-            vehicle_identification_number: nil
+            tax_exempt: nil
           ); end
         end
         class EventDetails < Stripe::RequestParams
@@ -7796,34 +7716,12 @@ module Stripe
              }
             def initialize(mode: nil, recipient: nil); end
           end
-          class Distance < Stripe::RequestParams
-            # Distance traveled.
-            sig { returns(T.nilable(Integer)) }
-            attr_accessor :amount
-            # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :unit
-            sig { params(amount: T.nilable(Integer), unit: T.nilable(String)).void }
-            def initialize(amount: nil, unit: nil); end
-          end
           class Driver < Stripe::RequestParams
-            # Driver's identification number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_identification_number
-            # Driver's tax number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_tax_number
             # Full name of the person or entity on the car reservation.
             sig { returns(String) }
             attr_accessor :name
-            sig {
-              params(driver_identification_number: T.nilable(String), driver_tax_number: T.nilable(String), name: String).void
-             }
-            def initialize(
-              driver_identification_number: nil,
-              driver_tax_number: nil,
-              name: nil
-            ); end
+            sig { params(name: String).void }
+            def initialize(name: nil); end
           end
           class PickupAddress < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -7918,11 +7816,6 @@ module Stripe
             returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Delivery))
            }
           attr_accessor :delivery
-          # The details of the distance traveled during the rental period.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Distance))
-           }
-          attr_accessor :distance
           # The details of the passengers in the travel reservation
           sig {
             returns(T.nilable(T::Array[::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Driver]))
@@ -7942,9 +7835,6 @@ module Stripe
           # Car pick-up time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :pickup_at
-          # Name of the pickup location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :pickup_location_name
           # Rental rate.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :rate_amount
@@ -7962,17 +7852,11 @@ module Stripe
           # Car return time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :return_at
-          # Name of the return location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :return_location_name
           # Indicates whether the goods or services are tax-exempt or tax is not collected.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :tax_exempt
-          # The vehicle identification number.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :vehicle_identification_number
           sig {
-            params(affiliate: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Delivery), distance: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Distance), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, pickup_location_name: T.nilable(String), rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, return_location_name: T.nilable(String), tax_exempt: T.nilable(T::Boolean), vehicle_identification_number: T.nilable(String)).void
+            params(affiliate: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Delivery), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::CaptureParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, tax_exempt: T.nilable(T::Boolean)).void
            }
           def initialize(
             affiliate: nil,
@@ -7984,21 +7868,17 @@ module Stripe
             customer_service_phone_number: nil,
             days_rented: nil,
             delivery: nil,
-            distance: nil,
             drivers: nil,
             extra_charges: nil,
             no_show: nil,
             pickup_address: nil,
             pickup_at: nil,
-            pickup_location_name: nil,
             rate_amount: nil,
             rate_interval: nil,
             renter_name: nil,
             return_address: nil,
             return_at: nil,
-            return_location_name: nil,
-            tax_exempt: nil,
-            vehicle_identification_number: nil
+            tax_exempt: nil
           ); end
         end
         class EventDetails < Stripe::RequestParams
@@ -8687,34 +8567,12 @@ module Stripe
              }
             def initialize(mode: nil, recipient: nil); end
           end
-          class Distance < Stripe::RequestParams
-            # Distance traveled.
-            sig { returns(T.nilable(Integer)) }
-            attr_accessor :amount
-            # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :unit
-            sig { params(amount: T.nilable(Integer), unit: T.nilable(String)).void }
-            def initialize(amount: nil, unit: nil); end
-          end
           class Driver < Stripe::RequestParams
-            # Driver's identification number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_identification_number
-            # Driver's tax number.
-            sig { returns(T.nilable(String)) }
-            attr_accessor :driver_tax_number
             # Full name of the person or entity on the car reservation.
             sig { returns(String) }
             attr_accessor :name
-            sig {
-              params(driver_identification_number: T.nilable(String), driver_tax_number: T.nilable(String), name: String).void
-             }
-            def initialize(
-              driver_identification_number: nil,
-              driver_tax_number: nil,
-              name: nil
-            ); end
+            sig { params(name: String).void }
+            def initialize(name: nil); end
           end
           class PickupAddress < Stripe::RequestParams
             # City, district, suburb, town, or village.
@@ -8809,11 +8667,6 @@ module Stripe
             returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Delivery))
            }
           attr_accessor :delivery
-          # The details of the distance traveled during the rental period.
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Distance))
-           }
-          attr_accessor :distance
           # The details of the passengers in the travel reservation
           sig {
             returns(T.nilable(T::Array[::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Driver]))
@@ -8833,9 +8686,6 @@ module Stripe
           # Car pick-up time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :pickup_at
-          # Name of the pickup location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :pickup_location_name
           # Rental rate.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :rate_amount
@@ -8853,17 +8703,11 @@ module Stripe
           # Car return time. Measured in seconds since the Unix epoch.
           sig { returns(Integer) }
           attr_accessor :return_at
-          # Name of the return location.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :return_location_name
           # Indicates whether the goods or services are tax-exempt or tax is not collected.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :tax_exempt
-          # The vehicle identification number.
-          sig { returns(T.nilable(String)) }
-          attr_accessor :vehicle_identification_number
           sig {
-            params(affiliate: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Delivery), distance: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Distance), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, pickup_location_name: T.nilable(String), rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, return_location_name: T.nilable(String), tax_exempt: T.nilable(T::Boolean), vehicle_identification_number: T.nilable(String)).void
+            params(affiliate: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Affiliate), booking_number: String, car_class_code: T.nilable(String), car_make: T.nilable(String), car_model: T.nilable(String), company: T.nilable(String), customer_service_phone_number: T.nilable(String), days_rented: Integer, delivery: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Delivery), drivers: T.nilable(T::Array[::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::Driver]), extra_charges: T.nilable(T::Array[String]), no_show: T.nilable(T::Boolean), pickup_address: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::PickupAddress), pickup_at: Integer, rate_amount: T.nilable(Integer), rate_interval: T.nilable(String), renter_name: T.nilable(String), return_address: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails::CarRental::ReturnAddress), return_at: Integer, tax_exempt: T.nilable(T::Boolean)).void
            }
           def initialize(
             affiliate: nil,
@@ -8875,21 +8719,17 @@ module Stripe
             customer_service_phone_number: nil,
             days_rented: nil,
             delivery: nil,
-            distance: nil,
             drivers: nil,
             extra_charges: nil,
             no_show: nil,
             pickup_address: nil,
             pickup_at: nil,
-            pickup_location_name: nil,
             rate_amount: nil,
             rate_interval: nil,
             renter_name: nil,
             return_address: nil,
             return_at: nil,
-            return_location_name: nil,
-            tax_exempt: nil,
-            vehicle_identification_number: nil
+            tax_exempt: nil
           ); end
         end
         class EventDetails < Stripe::RequestParams

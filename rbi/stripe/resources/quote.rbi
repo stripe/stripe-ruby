@@ -1551,7 +1551,7 @@ module Stripe
         # When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         sig { returns(T.nilable(T.nilable(String))) }
         attr_accessor :billing_cycle_anchor
-        # Configure billing_mode to opt in improved credit proration behavior.Once a quote that creates a subscription or subscription schedule is accepted,all future operations on the subscription or subscription schedule will be processed based on this billing_mode.
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(T.nilable(String)) }
         attr_accessor :billing_mode
         # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.

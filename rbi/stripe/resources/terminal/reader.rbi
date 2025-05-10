@@ -322,7 +322,7 @@ module Stripe
       # The current software version of the reader.
       sig { returns(T.nilable(String)) }
       attr_reader :device_sw_version
-      # Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `stripe_s700`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
+      # Device type of the reader.
       sig { returns(String) }
       attr_reader :device_type
       # Unique identifier for the object.

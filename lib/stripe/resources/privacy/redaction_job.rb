@@ -172,6 +172,8 @@ module Stripe
       attr_reader :created
       # Unique identifier for the object.
       attr_reader :id
+      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The objects at the root level that are subject to redaction.

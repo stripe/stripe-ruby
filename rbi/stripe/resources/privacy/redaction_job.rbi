@@ -4,35 +4,37 @@
 # typed: true
 module Stripe
   module Privacy
-    # Redaction Jobs store the status of a redaction request. They are created
-    # when a redaction request is made and track the redaction validation and execution.
+    # The Redaction Job object is used to redact Stripe objects. It is used
+    # to coordinate the removal of personal information from selected
+    # objects, making them permanently inaccessible in the Stripe Dashboard
+    # and API.
     class RedactionJob < APIResource
       class Objects < Stripe::StripeObject
-        # Attribute for field charges
+        # Charge object identifiers usually starting with `ch_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :charges
-        # Attribute for field checkout_sessions
+        # CheckoutSession object identifiers starting with `cs_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :checkout_sessions
-        # Attribute for field customers
+        # Customer object identifiers starting with `cus_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :customers
-        # Attribute for field identity_verification_sessions
+        # Identity VerificationSessions object identifiers starting with `vs_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :identity_verification_sessions
-        # Attribute for field invoices
+        # Invoice object identifiers starting with `in_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :invoices
-        # Attribute for field issuing_cardholders
+        # Issuing Cardholder object identifiers starting with `ich_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :issuing_cardholders
-        # Attribute for field payment_intents
+        # PaymentIntent object identifiers starting with `pi_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :payment_intents
-        # Attribute for field radar_value_list_items
+        # Fraud ValueListItem object identifiers starting with `rsli_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :radar_value_list_items
-        # Attribute for field setup_intents
+        # SetupIntent object identifiers starting with `seti_`
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :setup_intents
       end
@@ -48,13 +50,13 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       attr_reader :object
-      # The objects at the root level that are subject to redaction.
+      # The objects to redact in this job.
       sig { returns(T.nilable(Objects)) }
       attr_reader :objects
-      # The status field represents the current state of the redaction job. It can take on any of the following values: VALIDATING, READY, REDACTING, SUCCEEDED, CANCELED, FAILED.
+      # The status of the job.
       sig { returns(String) }
       attr_reader :status
-      # Default is "error". If "error", we will make sure all objects in the graph are redactable in the 1st traversal, otherwise error. If "fix", where possible, we will auto-fix any validation errors (e.g. by auto-transitioning objects to a terminal state, etc.) in the 2nd traversal before redacting
+      # Validation behavior determines how a job validates objects for redaction eligibility. Default is `error`.
       sig { returns(T.nilable(String)) }
       attr_reader :validation_behavior
       class ListParams < Stripe::RequestParams
@@ -135,13 +137,10 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        # The objects at the root level that are subject to redaction.
+        # The objects to redact. These root objects and their related ones will be validated for redaction.
         sig { returns(::Stripe::Privacy::RedactionJob::CreateParams::Objects) }
         attr_accessor :objects
-        # Default is "error". If "error", we will make sure all objects in the graph are
-        # redactable in the 1st traversal, otherwise error. If "fix", where possible, we will
-        # auto-fix any validation errors (e.g. by auto-transitioning objects to a terminal
-        # state, etc.) in the 2nd traversal before redacting
+        # Determines the validation behavior of the job. Default is `error`.
         sig { returns(T.nilable(String)) }
         attr_accessor :validation_behavior
         sig {
@@ -153,7 +152,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        # Attribute for param field validation_behavior
+        # Determines the validation behavior of the job. Default is `error`.
         sig { returns(T.nilable(String)) }
         attr_accessor :validation_behavior
         sig {
@@ -182,55 +181,77 @@ module Stripe
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
-      # Cancel redaction job method
+      # You can cancel a redaction job when it's in one of these statuses: ready, failed.
+      #
+      # Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
       sig {
         params(params: T.any(::Stripe::Privacy::RedactionJob::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }
       def cancel(params = {}, opts = {}); end
 
-      # Cancel redaction job method
+      # You can cancel a redaction job when it's in one of these statuses: ready, failed.
+      #
+      # Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
       sig {
         params(job: String, params: T.any(::Stripe::Privacy::RedactionJob::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }
       def self.cancel(job, params = {}, opts = {}); end
 
-      # Create redaction job method
+      # Creates a redaction job. When a job is created, it will start to validate.
       sig {
         params(params: T.any(::Stripe::Privacy::RedactionJob::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }
       def self.create(params = {}, opts = {}); end
 
-      # List redaction jobs method...
+      # Returns a list of redaction jobs.
       sig {
         params(params: T.any(::Stripe::Privacy::RedactionJob::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
-      # Run redaction job method
+      # Run a redaction job in a ready status.
+      #
+      # When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+      #
+      # The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
       sig {
         params(params: T.any(::Stripe::Privacy::RedactionJob::RunParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }
       def run(params = {}, opts = {}); end
 
-      # Run redaction job method
+      # Run a redaction job in a ready status.
+      #
+      # When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+      #
+      # The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
       sig {
         params(job: String, params: T.any(::Stripe::Privacy::RedactionJob::RunParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }
       def self.run(job, params = {}, opts = {}); end
 
-      # Update redaction job method
+      # Updates the properties of a redaction job without running or canceling the job.
+      #
+      # If the job to update is in a failed status, it will not automatically start to validate. Once you applied all of the changes, use the validate API to start validation again.
       sig {
         params(job: String, params: T.any(::Stripe::Privacy::RedactionJob::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }
       def self.update(job, params = {}, opts = {}); end
 
-      # Validate redaction job method
+      # Validate a redaction job when it is in a failed status.
+      #
+      # When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+      #
+      # The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
       sig {
         params(params: T.any(::Stripe::Privacy::RedactionJob::ValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }
       def validate(params = {}, opts = {}); end
 
-      # Validate redaction job method
+      # Validate a redaction job when it is in a failed status.
+      #
+      # When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+      #
+      # The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
       sig {
         params(job: String, params: T.any(::Stripe::Privacy::RedactionJob::ValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Privacy::RedactionJob)
        }

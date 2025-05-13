@@ -2662,13 +2662,13 @@ module Stripe
            }
           attr_accessor :price_data
           # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :quantity
           # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
           attr_accessor :tax_rates
           sig {
-            params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::LineItem::PriceData), quantity: T.nilable(T.nilable(T.any(String, Integer))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+            params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
            }
           def initialize(
             adjustable_quantity: nil,

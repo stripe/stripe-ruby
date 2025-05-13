@@ -3561,7 +3561,7 @@ module Stripe
         attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
         attr_accessor :cancel_now

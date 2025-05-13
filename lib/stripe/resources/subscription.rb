@@ -855,7 +855,7 @@ module Stripe
       attr_accessor :billing_cycle_anchor
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
       attr_accessor :cancel_at_period_end
       # Details about why this subscription was cancelled
       attr_accessor :cancellation_details
@@ -1708,7 +1708,7 @@ module Stripe
       attr_accessor :billing_mode
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
       attr_accessor :cancel_at_period_end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
       attr_accessor :collection_method
@@ -1902,7 +1902,7 @@ module Stripe
     attr_reader :billing_mode
     # A date in the future at which the subscription will automatically get canceled
     attr_reader :cancel_at
-    # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
+    # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field will be removed in a future API version. Please use `cancel_at` instead.
     attr_reader :cancel_at_period_end
     # If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
     attr_reader :canceled_at

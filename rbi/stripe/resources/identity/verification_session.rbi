@@ -132,6 +132,15 @@ module Stripe
         # The user's verified phone number
         sig { returns(T.nilable(String)) }
         attr_reader :phone
+        # The user's verified sex.
+        sig { returns(T.nilable(String)) }
+        attr_reader :sex
+        # The user's verified place of birth as it appears in the document.
+        sig { returns(T.nilable(String)) }
+        attr_reader :unparsed_place_of_birth
+        # The user's verified sex as it appears in the document.
+        sig { returns(T.nilable(String)) }
+        attr_reader :unparsed_sex
       end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }

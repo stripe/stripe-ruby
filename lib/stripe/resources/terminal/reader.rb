@@ -140,8 +140,14 @@ module Stripe
         end
 
         class ConfirmPaymentIntent < Stripe::StripeObject
+          class ConfirmConfig < Stripe::StripeObject
+            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            attr_reader :return_url
+          end
           # Account the payment intent belongs to.
           attr_reader :account
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :confirm_config
           # Most recent PaymentIntent processed by the reader.
           attr_reader :payment_intent
         end
@@ -154,6 +160,8 @@ module Stripe
             end
             # Enable customer initiated cancellation when processing this payment.
             attr_reader :enable_customer_cancellation
+            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            attr_reader :return_url
             # Override showing a tipping selection screen on this transaction.
             attr_reader :skip_tipping
             # Represents a per-transaction tipping configuration
@@ -483,12 +491,23 @@ module Stripe
       end
 
       class ConfirmPaymentIntentParams < Stripe::RequestParams
+        class ConfirmConfig < Stripe::RequestParams
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          attr_accessor :return_url
+
+          def initialize(return_url: nil)
+            @return_url = return_url
+          end
+        end
+        # Configuration overrides
+        attr_accessor :confirm_config
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
         # PaymentIntent ID
         attr_accessor :payment_intent
 
-        def initialize(expand: nil, payment_intent: nil)
+        def initialize(confirm_config: nil, expand: nil, payment_intent: nil)
+          @confirm_config = confirm_config
           @expand = expand
           @payment_intent = payment_intent
         end
@@ -508,6 +527,8 @@ module Stripe
           attr_accessor :allow_redisplay
           # Enables cancel button on transaction screens.
           attr_accessor :enable_customer_cancellation
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          attr_accessor :return_url
           # Override showing a tipping selection screen on this transaction.
           attr_accessor :skip_tipping
           # Tipping configuration for this transaction.
@@ -516,11 +537,13 @@ module Stripe
           def initialize(
             allow_redisplay: nil,
             enable_customer_cancellation: nil,
+            return_url: nil,
             skip_tipping: nil,
             tipping: nil
           )
             @allow_redisplay = allow_redisplay
             @enable_customer_cancellation = enable_customer_cancellation
+            @return_url = return_url
             @skip_tipping = skip_tipping
             @tipping = tipping
           end

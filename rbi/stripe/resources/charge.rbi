@@ -192,6 +192,12 @@ module Stripe
         attr_reader :transit_number
       end
       class Affirm < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(String) }
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        sig { returns(String) }
+        attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         attr_reader :transaction_id
@@ -1363,6 +1369,12 @@ module Stripe
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         sig { returns(T.nilable(String)) }
         attr_reader :fingerprint
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(String) }
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        sig { returns(String) }
+        attr_reader :reader
         # Transaction ID of this particular WeChat Pay transaction.
         sig { returns(T.nilable(String)) }
         attr_reader :transaction_id

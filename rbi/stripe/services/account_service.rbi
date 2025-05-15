@@ -8,9 +8,7 @@ module Stripe
     attr_reader :external_accounts
     attr_reader :login_links
     attr_reader :persons
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }

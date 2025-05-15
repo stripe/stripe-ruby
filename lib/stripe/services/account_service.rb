@@ -13,8 +13,7 @@ module Stripe
       @persons = Stripe::AccountPersonService.new(@requestor)
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.

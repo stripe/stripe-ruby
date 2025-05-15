@@ -64,8 +64,7 @@ module Stripe
           end
         end
 
-        class RetrieveParams < Stripe::RequestParams
-        end
+        class RetrieveParams < Stripe::RequestParams; end
 
         # Creates an OutboundPaymentQuote usable in an OutboundPayment.
         #

@@ -10,8 +10,7 @@ module Stripe
       @line_items = Stripe::InvoiceLineItemService.new(@requestor)
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
@@ -234,14 +233,9 @@ module Stripe
             end
           end
 
-          class IdBankTransfer < Stripe::RequestParams
-          end
-
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class IdBankTransfer < Stripe::RequestParams; end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
@@ -952,14 +946,9 @@ module Stripe
             end
           end
 
-          class IdBankTransfer < Stripe::RequestParams
-          end
-
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class IdBankTransfer < Stripe::RequestParams; end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams

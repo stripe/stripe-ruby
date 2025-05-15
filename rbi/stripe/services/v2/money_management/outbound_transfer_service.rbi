@@ -6,9 +6,7 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundTransferService < StripeService
-        class CancelParams < Stripe::RequestParams
-
-        end
+        class CancelParams < Stripe::RequestParams; end
         class CreateParams < Stripe::RequestParams
           class DeliveryOptions < Stripe::RequestParams
             # Open Enum. Method for bank account.
@@ -117,9 +115,7 @@ module Stripe
             status: nil
           ); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.
         #
         # ** raises AlreadyCanceledError

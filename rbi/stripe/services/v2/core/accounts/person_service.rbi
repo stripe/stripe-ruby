@@ -521,9 +521,7 @@ module Stripe
               surname: nil
             ); end
           end
-          class DeleteParams < Stripe::RequestParams
-
-          end
+          class DeleteParams < Stripe::RequestParams; end
           class ListParams < Stripe::RequestParams
             # The upper limit on the number of accounts returned by the List Account request.
             sig { returns(T.nilable(Integer)) }
@@ -531,9 +529,7 @@ module Stripe
             sig { params(limit: T.nilable(Integer)).void }
             def initialize(limit: nil); end
           end
-          class RetrieveParams < Stripe::RequestParams
-
-          end
+          class RetrieveParams < Stripe::RequestParams; end
           class UpdateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams
               # City, district, suburb, town, or village.

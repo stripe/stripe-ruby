@@ -693,14 +693,9 @@ module Stripe
             end
           end
 
-          class IdBankTransfer < Stripe::RequestParams
-          end
-
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class IdBankTransfer < Stripe::RequestParams; end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
@@ -981,8 +976,7 @@ module Stripe
       end
     end
 
-    class DeleteDiscountParams < Stripe::RequestParams
-    end
+    class DeleteDiscountParams < Stripe::RequestParams; end
 
     class ListParams < Stripe::RequestParams
       class AutomaticTax < Stripe::RequestParams
@@ -1540,14 +1534,9 @@ module Stripe
             end
           end
 
-          class IdBankTransfer < Stripe::RequestParams
-          end
-
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class IdBankTransfer < Stripe::RequestParams; end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams

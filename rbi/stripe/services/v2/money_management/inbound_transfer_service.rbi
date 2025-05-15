@@ -81,9 +81,7 @@ module Stripe
             limit: nil
           ); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
         #
         # ** raises BlockedByStripeError

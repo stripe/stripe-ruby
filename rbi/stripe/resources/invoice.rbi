@@ -789,9 +789,7 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       class AutomaticTax < Stripe::RequestParams
         class Liability < Stripe::RequestParams
@@ -962,12 +960,8 @@ module Stripe
              }
             def initialize(bank_transfer: nil, funding_type: nil); end
           end
-          class Konbini < Stripe::RequestParams
-
-          end
-          class SepaDebit < Stripe::RequestParams
-
-          end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
               class Filters < Stripe::RequestParams
@@ -1658,12 +1652,8 @@ module Stripe
              }
             def initialize(bank_transfer: nil, funding_type: nil); end
           end
-          class Konbini < Stripe::RequestParams
-
-          end
-          class SepaDebit < Stripe::RequestParams
-
-          end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
               class Filters < Stripe::RequestParams

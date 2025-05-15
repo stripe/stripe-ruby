@@ -16,8 +16,7 @@ module Stripe
       @funding_instructions = Stripe::CustomerFundingInstructionsService.new(@requestor)
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
@@ -266,8 +265,7 @@ module Stripe
       end
     end
 
-    class DeleteDiscountParams < Stripe::RequestParams
-    end
+    class DeleteDiscountParams < Stripe::RequestParams; end
 
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams

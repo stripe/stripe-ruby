@@ -2710,9 +2710,7 @@ module Stripe
              }
             def initialize(setup_future_usage: nil, tos_shown_and_accepted: nil); end
           end
-          class PayByBank < Stripe::RequestParams
-
-          end
+          class PayByBank < Stripe::RequestParams; end
           class Payco < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             sig { returns(T.nilable(String)) }

@@ -590,8 +590,7 @@ module Stripe
       attr_reader :user_agent
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class BankAccount < Stripe::RequestParams

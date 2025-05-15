@@ -96,8 +96,7 @@ module Stripe
         end
 
         class Documents < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
@@ -368,8 +367,7 @@ module Stripe
         end
 
         class PayoutsList < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
@@ -382,8 +380,7 @@ module Stripe
         end
 
         class TaxRegistrations < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
@@ -396,8 +393,7 @@ module Stripe
         end
 
         class TaxSettings < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.

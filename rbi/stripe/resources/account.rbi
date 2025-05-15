@@ -840,9 +840,7 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       class BankAccount < Stripe::RequestParams
         # Attribute for param field object

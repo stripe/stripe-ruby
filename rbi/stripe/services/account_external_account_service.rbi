@@ -4,9 +4,7 @@
 # typed: true
 module Stripe
   class AccountExternalAccountService < StripeService
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }

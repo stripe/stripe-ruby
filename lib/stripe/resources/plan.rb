@@ -41,8 +41,7 @@ module Stripe
       attr_reader :round
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       # Whether the plan is currently available for new subscriptions.

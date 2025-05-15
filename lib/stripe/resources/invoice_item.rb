@@ -59,8 +59,7 @@ module Stripe
       attr_reader :unit_amount_decimal
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class Discount < Stripe::RequestParams

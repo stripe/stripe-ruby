@@ -455,8 +455,7 @@ module Stripe
       attr_reader :type
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class AutomaticTax < Stripe::RequestParams
@@ -624,11 +623,8 @@ module Stripe
             end
           end
 
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
@@ -1274,11 +1270,8 @@ module Stripe
             end
           end
 
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams

@@ -117,8 +117,7 @@ module Stripe
         attr_reader :type
       end
 
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class UpdateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.

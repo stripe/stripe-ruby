@@ -2320,8 +2320,7 @@ module Stripe
             end
           end
 
-          class PayByBank < Stripe::RequestParams
-          end
+          class PayByBank < Stripe::RequestParams; end
 
           class Payco < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.

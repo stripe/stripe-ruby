@@ -11,9 +11,7 @@ module Stripe
     attr_reader :tax_ids
     attr_reader :payment_methods
     attr_reader :funding_instructions
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
@@ -267,9 +265,7 @@ module Stripe
         validate: nil
       ); end
     end
-    class DeleteDiscountParams < Stripe::RequestParams
-
-    end
+    class DeleteDiscountParams < Stripe::RequestParams; end
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)

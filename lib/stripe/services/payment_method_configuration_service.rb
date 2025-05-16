@@ -456,6 +456,23 @@ module Stripe
         end
       end
 
+      class KakaoPay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Klarna < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -474,6 +491,23 @@ module Stripe
       end
 
       class Konbini < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class KrCard < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -525,6 +559,23 @@ module Stripe
       end
 
       class Multibanco < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class NaverPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -593,6 +644,23 @@ module Stripe
       end
 
       class PayByBank < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class Payco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -678,6 +746,23 @@ module Stripe
       end
 
       class RevolutPay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class SamsungPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -881,10 +966,14 @@ module Stripe
       attr_accessor :ideal
       # JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
       attr_accessor :jcb
+      # Kakao Pay is a popular local wallet available in South Korea.
+      attr_accessor :kakao_pay
       # Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
       attr_accessor :klarna
       # Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
       attr_accessor :konbini
+      # Korean cards let users pay using locally issued cards from South Korea.
+      attr_accessor :kr_card
       # [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
       attr_accessor :link
       # MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
@@ -893,6 +982,8 @@ module Stripe
       attr_accessor :multibanco
       # Configuration name.
       attr_accessor :name
+      # Naver Pay is a popular local wallet available in South Korea.
+      attr_accessor :naver_pay
       # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
       attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
@@ -903,6 +994,8 @@ module Stripe
       attr_accessor :parent
       # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
       attr_accessor :pay_by_bank
+      # PAYCO is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+      attr_accessor :payco
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
@@ -913,6 +1006,8 @@ module Stripe
       attr_accessor :promptpay
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
       attr_accessor :revolut_pay
+      # Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+      attr_accessor :samsung_pay
       # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
       attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
@@ -957,22 +1052,27 @@ module Stripe
         grabpay: nil,
         ideal: nil,
         jcb: nil,
+        kakao_pay: nil,
         klarna: nil,
         konbini: nil,
+        kr_card: nil,
         link: nil,
         mobilepay: nil,
         multibanco: nil,
         name: nil,
+        naver_pay: nil,
         nz_bank_account: nil,
         oxxo: nil,
         p24: nil,
         parent: nil,
         pay_by_bank: nil,
+        payco: nil,
         paynow: nil,
         paypal: nil,
         pix: nil,
         promptpay: nil,
         revolut_pay: nil,
+        samsung_pay: nil,
         satispay: nil,
         sepa_debit: nil,
         sofort: nil,
@@ -1008,22 +1108,27 @@ module Stripe
         @grabpay = grabpay
         @ideal = ideal
         @jcb = jcb
+        @kakao_pay = kakao_pay
         @klarna = klarna
         @konbini = konbini
+        @kr_card = kr_card
         @link = link
         @mobilepay = mobilepay
         @multibanco = multibanco
         @name = name
+        @naver_pay = naver_pay
         @nz_bank_account = nz_bank_account
         @oxxo = oxxo
         @p24 = p24
         @parent = parent
         @pay_by_bank = pay_by_bank
+        @payco = payco
         @paynow = paynow
         @paypal = paypal
         @pix = pix
         @promptpay = promptpay
         @revolut_pay = revolut_pay
+        @samsung_pay = samsung_pay
         @satispay = satispay
         @sepa_debit = sepa_debit
         @sofort = sofort
@@ -1470,6 +1575,23 @@ module Stripe
         end
       end
 
+      class KakaoPay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
       class Klarna < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
@@ -1488,6 +1610,23 @@ module Stripe
       end
 
       class Konbini < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class KrCard < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -1539,6 +1678,23 @@ module Stripe
       end
 
       class Multibanco < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class NaverPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -1607,6 +1763,23 @@ module Stripe
       end
 
       class PayByBank < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class Payco < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -1692,6 +1865,23 @@ module Stripe
       end
 
       class RevolutPay < Stripe::RequestParams
+        class DisplayPreference < Stripe::RequestParams
+          # The account's preference for whether or not to display this payment method.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Whether or not the payment method should be displayed.
+        attr_accessor :display_preference
+
+        def initialize(display_preference: nil)
+          @display_preference = display_preference
+        end
+      end
+
+      class SamsungPay < Stripe::RequestParams
         class DisplayPreference < Stripe::RequestParams
           # The account's preference for whether or not to display this payment method.
           attr_accessor :preference
@@ -1897,10 +2087,14 @@ module Stripe
       attr_accessor :ideal
       # JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
       attr_accessor :jcb
+      # Kakao Pay is a popular local wallet available in South Korea.
+      attr_accessor :kakao_pay
       # Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
       attr_accessor :klarna
       # Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
       attr_accessor :konbini
+      # Korean cards let users pay using locally issued cards from South Korea.
+      attr_accessor :kr_card
       # [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
       attr_accessor :link
       # MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
@@ -1909,6 +2103,8 @@ module Stripe
       attr_accessor :multibanco
       # Configuration name.
       attr_accessor :name
+      # Naver Pay is a popular local wallet available in South Korea.
+      attr_accessor :naver_pay
       # Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
       attr_accessor :nz_bank_account
       # OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
@@ -1917,6 +2113,8 @@ module Stripe
       attr_accessor :p24
       # Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
       attr_accessor :pay_by_bank
+      # PAYCO is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+      attr_accessor :payco
       # PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
       attr_accessor :paynow
       # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
@@ -1927,6 +2125,8 @@ module Stripe
       attr_accessor :promptpay
       # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
       attr_accessor :revolut_pay
+      # Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+      attr_accessor :samsung_pay
       # Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
       attr_accessor :satispay
       # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
@@ -1972,21 +2172,26 @@ module Stripe
         grabpay: nil,
         ideal: nil,
         jcb: nil,
+        kakao_pay: nil,
         klarna: nil,
         konbini: nil,
+        kr_card: nil,
         link: nil,
         mobilepay: nil,
         multibanco: nil,
         name: nil,
+        naver_pay: nil,
         nz_bank_account: nil,
         oxxo: nil,
         p24: nil,
         pay_by_bank: nil,
+        payco: nil,
         paynow: nil,
         paypal: nil,
         pix: nil,
         promptpay: nil,
         revolut_pay: nil,
+        samsung_pay: nil,
         satispay: nil,
         sepa_debit: nil,
         sofort: nil,
@@ -2023,21 +2228,26 @@ module Stripe
         @grabpay = grabpay
         @ideal = ideal
         @jcb = jcb
+        @kakao_pay = kakao_pay
         @klarna = klarna
         @konbini = konbini
+        @kr_card = kr_card
         @link = link
         @mobilepay = mobilepay
         @multibanco = multibanco
         @name = name
+        @naver_pay = naver_pay
         @nz_bank_account = nz_bank_account
         @oxxo = oxxo
         @p24 = p24
         @pay_by_bank = pay_by_bank
+        @payco = payco
         @paynow = paynow
         @paypal = paypal
         @pix = pix
         @promptpay = promptpay
         @revolut_pay = revolut_pay
+        @samsung_pay = samsung_pay
         @satispay = satispay
         @sepa_debit = sepa_debit
         @sofort = sofort

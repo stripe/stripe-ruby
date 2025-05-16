@@ -105,6 +105,96 @@ module Stripe
         end
       end
 
+      class CollectInputsParams < Stripe::RequestParams
+        class Input < Stripe::RequestParams
+          class CustomText < Stripe::RequestParams
+            # The description which will be displayed when collecting this input
+            attr_accessor :description
+            # The skip button text
+            attr_accessor :skip_button
+            # The submit button text
+            attr_accessor :submit_button
+            # The title which will be displayed when collecting this input
+            attr_accessor :title
+
+            def initialize(description: nil, skip_button: nil, submit_button: nil, title: nil)
+              @description = description
+              @skip_button = skip_button
+              @submit_button = submit_button
+              @title = title
+            end
+          end
+
+          class Selection < Stripe::RequestParams
+            class Choice < Stripe::RequestParams
+              # The unique identifier for this choice
+              attr_accessor :id
+              # The style of the button which will be shown for this choice
+              attr_accessor :style
+              # The text which will be shown on the button for this choice
+              attr_accessor :text
+
+              def initialize(id: nil, style: nil, text: nil)
+                @id = id
+                @style = style
+                @text = text
+              end
+            end
+            # List of choices for the `selection` input
+            attr_accessor :choices
+
+            def initialize(choices: nil)
+              @choices = choices
+            end
+          end
+
+          class Toggle < Stripe::RequestParams
+            # The default value of the toggle
+            attr_accessor :default_value
+            # The description which will be displayed for the toggle
+            attr_accessor :description
+            # The title which will be displayed for the toggle
+            attr_accessor :title
+
+            def initialize(default_value: nil, description: nil, title: nil)
+              @default_value = default_value
+              @description = description
+              @title = title
+            end
+          end
+          # Customize the text which will be displayed while collecting this input
+          attr_accessor :custom_text
+          # Indicate that this input is required, disabling the skip button
+          attr_accessor :required
+          # Options for the `selection` input
+          attr_accessor :selection
+          # List of toggles to be displayed and customization for the toggles
+          attr_accessor :toggles
+          # The type of input to collect
+          attr_accessor :type
+
+          def initialize(custom_text: nil, required: nil, selection: nil, toggles: nil, type: nil)
+            @custom_text = custom_text
+            @required = required
+            @selection = selection
+            @toggles = toggles
+            @type = type
+          end
+        end
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # List of inputs to be collected using the Reader
+        attr_accessor :inputs
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+
+        def initialize(expand: nil, inputs: nil, metadata: nil)
+          @expand = expand
+          @inputs = inputs
+          @metadata = metadata
+        end
+      end
+
       class ProcessPaymentIntentParams < Stripe::RequestParams
         class ProcessConfig < Stripe::RequestParams
           class Tipping < Stripe::RequestParams
@@ -119,6 +209,8 @@ module Stripe
           attr_accessor :allow_redisplay
           # Enables cancel button on transaction screens.
           attr_accessor :enable_customer_cancellation
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          attr_accessor :return_url
           # Override showing a tipping selection screen on this transaction.
           attr_accessor :skip_tipping
           # Tipping configuration for this transaction.
@@ -127,11 +219,13 @@ module Stripe
           def initialize(
             allow_redisplay: nil,
             enable_customer_cancellation: nil,
+            return_url: nil,
             skip_tipping: nil,
             tipping: nil
           )
             @allow_redisplay = allow_redisplay
             @enable_customer_cancellation = enable_customer_cancellation
+            @return_url = return_url
             @skip_tipping = skip_tipping
             @tipping = tipping
           end
@@ -274,6 +368,17 @@ module Stripe
         request(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
+      # Initiates an input collection flow on a Reader.
+      def collect_inputs(reader, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts,
           base_address: :api

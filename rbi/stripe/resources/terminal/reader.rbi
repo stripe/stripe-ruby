@@ -9,6 +9,124 @@ module Stripe
     # Related guide: [Connecting to a reader](https://stripe.com/docs/terminal/payments/connect-reader)
     class Reader < APIResource
       class Action < Stripe::StripeObject
+        class CollectInputs < Stripe::StripeObject
+          class Input < Stripe::StripeObject
+            class CustomText < Stripe::StripeObject
+              # Customize the default description for this input
+              sig { returns(T.nilable(String)) }
+              attr_reader :description
+              # Customize the default label for this input's skip button
+              sig { returns(T.nilable(String)) }
+              attr_reader :skip_button
+              # Customize the default label for this input's submit button
+              sig { returns(T.nilable(String)) }
+              attr_reader :submit_button
+              # Customize the default title for this input
+              sig { returns(T.nilable(String)) }
+              attr_reader :title
+            end
+            class Email < Stripe::StripeObject
+              # The collected email address
+              sig { returns(T.nilable(String)) }
+              attr_reader :value
+            end
+            class Numeric < Stripe::StripeObject
+              # The collected number
+              sig { returns(T.nilable(String)) }
+              attr_reader :value
+            end
+            class Phone < Stripe::StripeObject
+              # The collected phone number
+              sig { returns(T.nilable(String)) }
+              attr_reader :value
+            end
+            class Selection < Stripe::StripeObject
+              class Choice < Stripe::StripeObject
+                # The id to be selected
+                sig { returns(T.nilable(String)) }
+                attr_reader :id
+                # The button style for the choice
+                sig { returns(T.nilable(String)) }
+                attr_reader :style
+                # The text to be selected
+                sig { returns(String) }
+                attr_reader :text
+              end
+              # List of possible choices to be selected
+              sig { returns(T::Array[Choice]) }
+              attr_reader :choices
+              # The id of the selected choice
+              sig { returns(T.nilable(String)) }
+              attr_reader :id
+              # The text of the selected choice
+              sig { returns(T.nilable(String)) }
+              attr_reader :text
+            end
+            class Signature < Stripe::StripeObject
+              # The File ID of a collected signature image
+              sig { returns(T.nilable(String)) }
+              attr_reader :value
+            end
+            class Text < Stripe::StripeObject
+              # The collected text value
+              sig { returns(T.nilable(String)) }
+              attr_reader :value
+            end
+            class Toggle < Stripe::StripeObject
+              # The toggle's default value
+              sig { returns(T.nilable(String)) }
+              attr_reader :default_value
+              # The toggle's description text
+              sig { returns(T.nilable(String)) }
+              attr_reader :description
+              # The toggle's title text
+              sig { returns(T.nilable(String)) }
+              attr_reader :title
+              # The toggle's collected value
+              sig { returns(T.nilable(String)) }
+              attr_reader :value
+            end
+            # Default text of input being collected.
+            sig { returns(T.nilable(CustomText)) }
+            attr_reader :custom_text
+            # Information about a email being collected using a reader
+            sig { returns(Email) }
+            attr_reader :email
+            # Information about a number being collected using a reader
+            sig { returns(Numeric) }
+            attr_reader :numeric
+            # Information about a phone number being collected using a reader
+            sig { returns(Phone) }
+            attr_reader :phone
+            # Indicate that this input is required, disabling the skip button.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_reader :required
+            # Information about a selection being collected using a reader
+            sig { returns(Selection) }
+            attr_reader :selection
+            # Information about a signature being collected using a reader
+            sig { returns(Signature) }
+            attr_reader :signature
+            # Indicate that this input was skipped by the user.
+            sig { returns(T::Boolean) }
+            attr_reader :skipped
+            # Information about text being collected using a reader
+            sig { returns(Text) }
+            attr_reader :text
+            # List of toggles being collected. Values are present if collection is complete.
+            sig { returns(T.nilable(T::Array[Toggle])) }
+            attr_reader :toggles
+            # Type of input being collected.
+            sig { returns(String) }
+            attr_reader :type
+          end
+          # List of inputs to be collected.
+          sig { returns(T::Array[Input]) }
+          attr_reader :inputs
+          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          attr_reader :metadata
+        end
         class ProcessPaymentIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
             class Tipping < Stripe::StripeObject
@@ -19,6 +137,9 @@ module Stripe
             # Enable customer initiated cancellation when processing this payment.
             sig { returns(T::Boolean) }
             attr_reader :enable_customer_cancellation
+            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            sig { returns(String) }
+            attr_reader :return_url
             # Override showing a tipping selection screen on this transaction.
             sig { returns(T::Boolean) }
             attr_reader :skip_tipping
@@ -116,6 +237,9 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        # Represents a reader action to collect customer inputs
+        sig { returns(CollectInputs) }
+        attr_reader :collect_inputs
         # Failure code, only set if status is `failed`.
         sig { returns(T.nilable(String)) }
         attr_reader :failure_code
@@ -147,7 +271,7 @@ module Stripe
       # The current software version of the reader.
       sig { returns(T.nilable(String)) }
       attr_reader :device_sw_version
-      # Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `stripe_s700`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
+      # Device type of the reader.
       sig { returns(String) }
       attr_reader :device_type
       # Unique identifier for the object.
@@ -269,6 +393,109 @@ module Stripe
         sig { params(expand: T.nilable(T::Array[String])).void }
         def initialize(expand: nil); end
       end
+      class CollectInputsParams < Stripe::RequestParams
+        class Input < Stripe::RequestParams
+          class CustomText < Stripe::RequestParams
+            # The description which will be displayed when collecting this input
+            sig { returns(T.nilable(String)) }
+            attr_accessor :description
+            # The skip button text
+            sig { returns(T.nilable(String)) }
+            attr_accessor :skip_button
+            # The submit button text
+            sig { returns(T.nilable(String)) }
+            attr_accessor :submit_button
+            # The title which will be displayed when collecting this input
+            sig { returns(String) }
+            attr_accessor :title
+            sig {
+              params(description: T.nilable(String), skip_button: T.nilable(String), submit_button: T.nilable(String), title: String).void
+             }
+            def initialize(description: nil, skip_button: nil, submit_button: nil, title: nil); end
+          end
+          class Selection < Stripe::RequestParams
+            class Choice < Stripe::RequestParams
+              # The unique identifier for this choice
+              sig { returns(String) }
+              attr_accessor :id
+              # The style of the button which will be shown for this choice
+              sig { returns(T.nilable(String)) }
+              attr_accessor :style
+              # The text which will be shown on the button for this choice
+              sig { returns(String) }
+              attr_accessor :text
+              sig { params(id: String, style: T.nilable(String), text: String).void }
+              def initialize(id: nil, style: nil, text: nil); end
+            end
+            # List of choices for the `selection` input
+            sig {
+              returns(T::Array[::Stripe::Terminal::Reader::CollectInputsParams::Input::Selection::Choice])
+             }
+            attr_accessor :choices
+            sig {
+              params(choices: T::Array[::Stripe::Terminal::Reader::CollectInputsParams::Input::Selection::Choice]).void
+             }
+            def initialize(choices: nil); end
+          end
+          class Toggle < Stripe::RequestParams
+            # The default value of the toggle
+            sig { returns(T.nilable(String)) }
+            attr_accessor :default_value
+            # The description which will be displayed for the toggle
+            sig { returns(T.nilable(String)) }
+            attr_accessor :description
+            # The title which will be displayed for the toggle
+            sig { returns(T.nilable(String)) }
+            attr_accessor :title
+            sig {
+              params(default_value: T.nilable(String), description: T.nilable(String), title: T.nilable(String)).void
+             }
+            def initialize(default_value: nil, description: nil, title: nil); end
+          end
+          # Customize the text which will be displayed while collecting this input
+          sig { returns(::Stripe::Terminal::Reader::CollectInputsParams::Input::CustomText) }
+          attr_accessor :custom_text
+          # Indicate that this input is required, disabling the skip button
+          sig { returns(T.nilable(T::Boolean)) }
+          attr_accessor :required
+          # Options for the `selection` input
+          sig {
+            returns(T.nilable(::Stripe::Terminal::Reader::CollectInputsParams::Input::Selection))
+           }
+          attr_accessor :selection
+          # List of toggles to be displayed and customization for the toggles
+          sig {
+            returns(T.nilable(T::Array[::Stripe::Terminal::Reader::CollectInputsParams::Input::Toggle]))
+           }
+          attr_accessor :toggles
+          # The type of input to collect
+          sig { returns(String) }
+          attr_accessor :type
+          sig {
+            params(custom_text: ::Stripe::Terminal::Reader::CollectInputsParams::Input::CustomText, required: T.nilable(T::Boolean), selection: T.nilable(::Stripe::Terminal::Reader::CollectInputsParams::Input::Selection), toggles: T.nilable(T::Array[::Stripe::Terminal::Reader::CollectInputsParams::Input::Toggle]), type: String).void
+           }
+          def initialize(
+            custom_text: nil,
+            required: nil,
+            selection: nil,
+            toggles: nil,
+            type: nil
+          ); end
+        end
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        # List of inputs to be collected using the Reader
+        sig { returns(T::Array[::Stripe::Terminal::Reader::CollectInputsParams::Input]) }
+        attr_accessor :inputs
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_accessor :metadata
+        sig {
+          params(expand: T.nilable(T::Array[String]), inputs: T::Array[::Stripe::Terminal::Reader::CollectInputsParams::Input], metadata: T.nilable(T::Hash[String, String])).void
+         }
+        def initialize(expand: nil, inputs: nil, metadata: nil); end
+      end
       class ProcessPaymentIntentParams < Stripe::RequestParams
         class ProcessConfig < Stripe::RequestParams
           class Tipping < Stripe::RequestParams
@@ -284,6 +511,9 @@ module Stripe
           # Enables cancel button on transaction screens.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enable_customer_cancellation
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :return_url
           # Override showing a tipping selection screen on this transaction.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :skip_tipping
@@ -293,11 +523,12 @@ module Stripe
            }
           attr_accessor :tipping
           sig {
-            params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::Reader::ProcessPaymentIntentParams::ProcessConfig::Tipping)).void
+            params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), return_url: T.nilable(String), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::Reader::ProcessPaymentIntentParams::ProcessConfig::Tipping)).void
            }
           def initialize(
             allow_redisplay: nil,
             enable_customer_cancellation: nil,
+            return_url: nil,
             skip_tipping: nil,
             tipping: nil
           ); end
@@ -491,6 +722,25 @@ module Stripe
           type: nil
         ); end
       end
+      class SucceedInputCollectionParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        # This parameter defines the skip behavior for input collection.
+        sig { returns(T.nilable(String)) }
+        attr_accessor :skip_non_required_inputs
+        sig {
+          params(expand: T.nilable(T::Array[String]), skip_non_required_inputs: T.nilable(String)).void
+         }
+        def initialize(expand: nil, skip_non_required_inputs: nil); end
+      end
+      class TimeoutInputCollectionParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_accessor :expand
+        sig { params(expand: T.nilable(T::Array[String])).void }
+        def initialize(expand: nil); end
+      end
       # Cancels the current reader action.
       sig {
         params(params: T.any(::Stripe::Terminal::Reader::CancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
@@ -502,6 +752,18 @@ module Stripe
         params(reader: String, params: T.any(::Stripe::Terminal::Reader::CancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
        }
       def self.cancel_action(reader, params = {}, opts = {}); end
+
+      # Initiates an input collection flow on a Reader.
+      sig {
+        params(params: T.any(::Stripe::Terminal::Reader::CollectInputsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+       }
+      def collect_inputs(params = {}, opts = {}); end
+
+      # Initiates an input collection flow on a Reader.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::Reader::CollectInputsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+       }
+      def self.collect_inputs(reader, params = {}, opts = {}); end
 
       # Creates a new Reader object.
       sig {

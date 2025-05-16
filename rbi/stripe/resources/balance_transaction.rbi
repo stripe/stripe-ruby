@@ -31,6 +31,9 @@ module Stripe
     # The date that the transaction's net funds become available in the Stripe balance.
     sig { returns(Integer) }
     attr_reader :available_on
+    # The balance that this transaction impacts.
+    sig { returns(String) }
+    attr_reader :balance_type
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created

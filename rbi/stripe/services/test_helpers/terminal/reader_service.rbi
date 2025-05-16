@@ -51,11 +51,42 @@ module Stripe
             type: nil
           ); end
         end
+        class SucceedInputCollectionParams < Stripe::RequestParams
+          # Specifies which fields in the response should be expanded.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :expand
+          # This parameter defines the skip behavior for input collection.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :skip_non_required_inputs
+          sig {
+            params(expand: T.nilable(T::Array[String]), skip_non_required_inputs: T.nilable(String)).void
+           }
+          def initialize(expand: nil, skip_non_required_inputs: nil); end
+        end
+        class TimeoutInputCollectionParams < Stripe::RequestParams
+          # Specifies which fields in the response should be expanded.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :expand
+          sig { params(expand: T.nilable(T::Array[String])).void }
+          def initialize(expand: nil); end
+        end
         # Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         sig {
           params(reader: String, params: T.any(::Stripe::TestHelpers::Terminal::ReaderService::PresentPaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
          }
         def present_payment_method(reader, params = {}, opts = {}); end
+
+        # Use this endpoint to trigger a successful input collection on a simulated reader.
+        sig {
+          params(reader: String, params: T.any(::Stripe::TestHelpers::Terminal::ReaderService::SucceedInputCollectionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+         }
+        def succeed_input_collection(reader, params = {}, opts = {}); end
+
+        # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+        sig {
+          params(reader: String, params: T.any(::Stripe::TestHelpers::Terminal::ReaderService::TimeoutInputCollectionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Reader)
+         }
+        def timeout_input_collection(reader, params = {}, opts = {}); end
       end
     end
   end

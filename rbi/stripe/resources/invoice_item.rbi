@@ -94,7 +94,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
-    # The parent that generated this invoice
+    # The parent that generated this invoice item.
     sig { returns(T.nilable(Parent)) }
     attr_reader :parent
     # Attribute for field period

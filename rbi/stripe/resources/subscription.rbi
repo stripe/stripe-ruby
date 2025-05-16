@@ -43,6 +43,11 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_reader :second
     end
+    class BillingModeDetails < Stripe::StripeObject
+      # Details on when the current billing_mode was adopted.
+      sig { returns(Integer) }
+      attr_reader :updated_at
+    end
     class CancellationDetails < Stripe::StripeObject
       # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
       sig { returns(T.nilable(String)) }
@@ -303,6 +308,9 @@ module Stripe
     # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     sig { returns(String) }
     attr_reader :billing_mode
+    # Details about when the current billing_mode was updated.
+    sig { returns(T.nilable(BillingModeDetails)) }
+    attr_reader :billing_mode_details
     # A date in the future at which the subscription will automatically get canceled
     sig { returns(T.nilable(Integer)) }
     attr_reader :cancel_at
@@ -2234,13 +2242,13 @@ module Stripe
      }
     def self.list(params = {}, opts = {}); end
 
-    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    # Upgrade the billing_mode of an existing subscription.
     sig {
       params(params: T.any(::Stripe::Subscription::MigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
      }
     def migrate(params = {}, opts = {}); end
 
-    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    # Upgrade the billing_mode of an existing subscription.
     sig {
       params(subscription: String, params: T.any(::Stripe::Subscription::MigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
      }

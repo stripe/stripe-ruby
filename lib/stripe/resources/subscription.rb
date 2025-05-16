@@ -44,6 +44,11 @@ module Stripe
       attr_reader :second
     end
 
+    class BillingModeDetails < Stripe::StripeObject
+      # Details on when the current billing_mode was adopted.
+      attr_reader :updated_at
+    end
+
     class CancellationDetails < Stripe::StripeObject
       # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
       attr_reader :comment
@@ -1901,6 +1906,8 @@ module Stripe
     attr_reader :billing_cycle_anchor_config
     # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     attr_reader :billing_mode
+    # Details about when the current billing_mode was updated.
+    attr_reader :billing_mode_details
     # A date in the future at which the subscription will automatically get canceled
     attr_reader :cancel_at
     # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field will be removed in a future API version. Please use `cancel_at` instead.
@@ -2056,7 +2063,7 @@ module Stripe
       request_stripe_object(method: :get, path: "/v1/subscriptions", params: params, opts: opts)
     end
 
-    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    # Upgrade the billing_mode of an existing subscription.
     def migrate(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -2066,7 +2073,7 @@ module Stripe
       )
     end
 
-    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    # Upgrade the billing_mode of an existing subscription.
     def self.migrate(subscription, params = {}, opts = {})
       request_stripe_object(
         method: :post,

@@ -1816,7 +1816,7 @@ module Stripe
      }
     def list(params = {}, opts = {}); end
 
-    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    # Upgrade the billing_mode of an existing subscription.
     sig {
       params(subscription: String, params: T.any(::Stripe::SubscriptionService::MigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
      }

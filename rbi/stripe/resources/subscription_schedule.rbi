@@ -249,7 +249,7 @@ module Stripe
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       sig { returns(T.nilable(T.any(String, Stripe::Account))) }
       attr_reader :on_behalf_of
-      # If the subscription schedule will prorate when transitioning to this phase. Possible values are `create_prorations` and `none`.
+      # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
       sig { returns(String) }
       attr_reader :proration_behavior
       # The start of this phase of the subscription schedule.
@@ -857,7 +857,7 @@ module Stripe
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
         sig { returns(T.nilable(String)) }
         attr_accessor :on_behalf_of
-        # Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         sig { returns(T.nilable(String)) }
         attr_accessor :proration_behavior
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
@@ -1349,7 +1349,7 @@ module Stripe
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
         sig { returns(T.nilable(String)) }
         attr_accessor :on_behalf_of
-        # Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         sig { returns(T.nilable(String)) }
         attr_accessor :proration_behavior
         # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
@@ -1408,7 +1408,7 @@ module Stripe
       # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
       sig { returns(T.nilable(T::Array[::Stripe::SubscriptionSchedule::UpdateParams::Phase])) }
       attr_accessor :phases
-      # If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
+      # If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
       sig { returns(T.nilable(String)) }
       attr_accessor :proration_behavior
       sig {

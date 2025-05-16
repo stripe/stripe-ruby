@@ -13,8 +13,7 @@ module Stripe
       @persons = Stripe::AccountPersonService.new(@requestor)
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
@@ -543,6 +542,15 @@ module Stripe
           end
         end
 
+        class PixPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PromptpayPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -768,6 +776,8 @@ module Stripe
         attr_accessor :payco_payments
         # The paynow_payments capability.
         attr_accessor :paynow_payments
+        # The pix_payments capability.
+        attr_accessor :pix_payments
         # The promptpay_payments capability.
         attr_accessor :promptpay_payments
         # The revolut_pay_payments capability.
@@ -843,6 +853,7 @@ module Stripe
           pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
+          pix_payments: nil,
           promptpay_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
@@ -901,6 +912,7 @@ module Stripe
           @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
+          @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
           @revolut_pay_payments = revolut_pay_payments
           @samsung_pay_payments = samsung_pay_payments
@@ -2551,6 +2563,15 @@ module Stripe
           end
         end
 
+        class PixPayments < Stripe::RequestParams
+          # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+          attr_accessor :requested
+
+          def initialize(requested: nil)
+            @requested = requested
+          end
+        end
+
         class PromptpayPayments < Stripe::RequestParams
           # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
           attr_accessor :requested
@@ -2776,6 +2797,8 @@ module Stripe
         attr_accessor :payco_payments
         # The paynow_payments capability.
         attr_accessor :paynow_payments
+        # The pix_payments capability.
+        attr_accessor :pix_payments
         # The promptpay_payments capability.
         attr_accessor :promptpay_payments
         # The revolut_pay_payments capability.
@@ -2851,6 +2874,7 @@ module Stripe
           pay_by_bank_payments: nil,
           payco_payments: nil,
           paynow_payments: nil,
+          pix_payments: nil,
           promptpay_payments: nil,
           revolut_pay_payments: nil,
           samsung_pay_payments: nil,
@@ -2909,6 +2933,7 @@ module Stripe
           @pay_by_bank_payments = pay_by_bank_payments
           @payco_payments = payco_payments
           @paynow_payments = paynow_payments
+          @pix_payments = pix_payments
           @promptpay_payments = promptpay_payments
           @revolut_pay_payments = revolut_pay_payments
           @samsung_pay_payments = samsung_pay_payments

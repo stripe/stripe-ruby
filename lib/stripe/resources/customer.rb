@@ -105,8 +105,7 @@ module Stripe
       attr_reader :location
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class Address < Stripe::RequestParams
@@ -346,8 +345,7 @@ module Stripe
       end
     end
 
-    class DeleteDiscountParams < Stripe::RequestParams
-    end
+    class DeleteDiscountParams < Stripe::RequestParams; end
 
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams

@@ -656,7 +656,7 @@ module Stripe
       attr_reader :redirect_to_url
       # Attribute for field swish_handle_redirect_or_display_qr_code
       attr_reader :swish_handle_redirect_or_display_qr_code
-      # Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+      # Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
       attr_reader :type
       # When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
       attr_reader :use_stripe_sdk
@@ -810,7 +810,10 @@ module Stripe
         attr_reader :setup_future_usage
       end
 
-      class Billie < Stripe::StripeObject; end
+      class Billie < Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+      end
 
       class Blik < Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1261,6 +1264,11 @@ module Stripe
         attr_reader :capture_method
       end
 
+      class Satispay < Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+      end
+
       class SepaDebit < Stripe::StripeObject
         class MandateOptions < Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
@@ -1464,6 +1472,8 @@ module Stripe
       attr_reader :revolut_pay
       # Attribute for field samsung_pay
       attr_reader :samsung_pay
+      # Attribute for field satispay
+      attr_reader :satispay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
       # Attribute for field sofort
@@ -1605,8 +1615,7 @@ module Stripe
 
       class MandateData < Stripe::RequestParams
         class CustomerAcceptance < Stripe::RequestParams
-          class Offline < Stripe::RequestParams
-          end
+          class Offline < Stripe::RequestParams; end
 
           class Online < Stripe::RequestParams
             # The IP address from which the Mandate was accepted by the customer.
@@ -1659,20 +1668,11 @@ module Stripe
           end
         end
 
-        class Affirm < Stripe::RequestParams
-        end
-
-        class AfterpayClearpay < Stripe::RequestParams
-        end
-
-        class Alipay < Stripe::RequestParams
-        end
-
-        class Alma < Stripe::RequestParams
-        end
-
-        class AmazonPay < Stripe::RequestParams
-        end
+        class Affirm < Stripe::RequestParams; end
+        class AfterpayClearpay < Stripe::RequestParams; end
+        class Alipay < Stripe::RequestParams; end
+        class Alma < Stripe::RequestParams; end
+        class AmazonPay < Stripe::RequestParams; end
 
         class AuBecsDebit < Stripe::RequestParams
           # The account number for the bank account.
@@ -1698,11 +1698,8 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::RequestParams
-        end
-
-        class Billie < Stripe::RequestParams
-        end
+        class Bancontact < Stripe::RequestParams; end
+        class Billie < Stripe::RequestParams; end
 
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
@@ -1755,8 +1752,7 @@ module Stripe
           end
         end
 
-        class Blik < Stripe::RequestParams
-        end
+        class Blik < Stripe::RequestParams; end
 
         class Boleto < Stripe::RequestParams
           # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
@@ -1767,11 +1763,8 @@ module Stripe
           end
         end
 
-        class Cashapp < Stripe::RequestParams
-        end
-
-        class CustomerBalance < Stripe::RequestParams
-        end
+        class Cashapp < Stripe::RequestParams; end
+        class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
           # The customer's bank.
@@ -1794,11 +1787,8 @@ module Stripe
           end
         end
 
-        class Giropay < Stripe::RequestParams
-        end
-
-        class Grabpay < Stripe::RequestParams
-        end
+        class Giropay < Stripe::RequestParams; end
+        class Grabpay < Stripe::RequestParams; end
 
         class Ideal < Stripe::RequestParams
           # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -1809,11 +1799,8 @@ module Stripe
           end
         end
 
-        class InteracPresent < Stripe::RequestParams
-        end
-
-        class KakaoPay < Stripe::RequestParams
-        end
+        class InteracPresent < Stripe::RequestParams; end
+        class KakaoPay < Stripe::RequestParams; end
 
         class Klarna < Stripe::RequestParams
           class Dob < Stripe::RequestParams
@@ -1838,20 +1825,11 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::RequestParams
-        end
-
-        class KrCard < Stripe::RequestParams
-        end
-
-        class Link < Stripe::RequestParams
-        end
-
-        class Mobilepay < Stripe::RequestParams
-        end
-
-        class Multibanco < Stripe::RequestParams
-        end
+        class Konbini < Stripe::RequestParams; end
+        class KrCard < Stripe::RequestParams; end
+        class Link < Stripe::RequestParams; end
+        class Mobilepay < Stripe::RequestParams; end
+        class Multibanco < Stripe::RequestParams; end
 
         class NaverPay < Stripe::RequestParams
           # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
@@ -1893,8 +1871,7 @@ module Stripe
           end
         end
 
-        class Oxxo < Stripe::RequestParams
-        end
+        class Oxxo < Stripe::RequestParams; end
 
         class P24 < Stripe::RequestParams
           # The customer's bank.
@@ -1905,23 +1882,12 @@ module Stripe
           end
         end
 
-        class PayByBank < Stripe::RequestParams
-        end
-
-        class Payco < Stripe::RequestParams
-        end
-
-        class Paynow < Stripe::RequestParams
-        end
-
-        class Paypal < Stripe::RequestParams
-        end
-
-        class Pix < Stripe::RequestParams
-        end
-
-        class Promptpay < Stripe::RequestParams
-        end
+        class PayByBank < Stripe::RequestParams; end
+        class Payco < Stripe::RequestParams; end
+        class Paynow < Stripe::RequestParams; end
+        class Paypal < Stripe::RequestParams; end
+        class Pix < Stripe::RequestParams; end
+        class Promptpay < Stripe::RequestParams; end
 
         class RadarOptions < Stripe::RequestParams
           # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -1932,14 +1898,9 @@ module Stripe
           end
         end
 
-        class RevolutPay < Stripe::RequestParams
-        end
-
-        class SamsungPay < Stripe::RequestParams
-        end
-
-        class Satispay < Stripe::RequestParams
-        end
+        class RevolutPay < Stripe::RequestParams; end
+        class SamsungPay < Stripe::RequestParams; end
+        class Satispay < Stripe::RequestParams; end
 
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
@@ -1959,11 +1920,8 @@ module Stripe
           end
         end
 
-        class Swish < Stripe::RequestParams
-        end
-
-        class Twint < Stripe::RequestParams
-        end
+        class Swish < Stripe::RequestParams; end
+        class Twint < Stripe::RequestParams; end
 
         class UsBankAccount < Stripe::RequestParams
           # Account holder type: individual or company.
@@ -1992,11 +1950,8 @@ module Stripe
           end
         end
 
-        class WechatPay < Stripe::RequestParams
-        end
-
-        class Zip < Stripe::RequestParams
-        end
+        class WechatPay < Stripe::RequestParams; end
+        class Zip < Stripe::RequestParams; end
         # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
         attr_accessor :acss_debit
         # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -2916,8 +2871,7 @@ module Stripe
           end
         end
 
-        class InteracPresent < Stripe::RequestParams
-        end
+        class InteracPresent < Stripe::RequestParams; end
 
         class KakaoPay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
@@ -3175,8 +3129,7 @@ module Stripe
           end
         end
 
-        class PayByBank < Stripe::RequestParams
-        end
+        class PayByBank < Stripe::RequestParams; end
 
         class Payco < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
@@ -3306,6 +3259,19 @@ module Stripe
         end
 
         class SamsungPay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
+        class Satispay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
           # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -3613,6 +3579,8 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
         attr_accessor :sepa_debit
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
@@ -3670,6 +3638,7 @@ module Stripe
           promptpay: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           sofort: nil,
           swish: nil,
@@ -3719,6 +3688,7 @@ module Stripe
           @promptpay = promptpay
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @sofort = sofort
           @swish = swish
@@ -3852,6 +3822,8 @@ module Stripe
       # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
       #
       # If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
+      # If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://stripe.com/docs/api#create_payment_intent-customer) parameter of this PaymentIntent.
+      # end
       attr_accessor :payment_method
       # The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
       attr_accessor :payment_method_configuration
@@ -3979,20 +3951,11 @@ module Stripe
           end
         end
 
-        class Affirm < Stripe::RequestParams
-        end
-
-        class AfterpayClearpay < Stripe::RequestParams
-        end
-
-        class Alipay < Stripe::RequestParams
-        end
-
-        class Alma < Stripe::RequestParams
-        end
-
-        class AmazonPay < Stripe::RequestParams
-        end
+        class Affirm < Stripe::RequestParams; end
+        class AfterpayClearpay < Stripe::RequestParams; end
+        class Alipay < Stripe::RequestParams; end
+        class Alma < Stripe::RequestParams; end
+        class AmazonPay < Stripe::RequestParams; end
 
         class AuBecsDebit < Stripe::RequestParams
           # The account number for the bank account.
@@ -4018,11 +3981,8 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::RequestParams
-        end
-
-        class Billie < Stripe::RequestParams
-        end
+        class Bancontact < Stripe::RequestParams; end
+        class Billie < Stripe::RequestParams; end
 
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
@@ -4075,8 +4035,7 @@ module Stripe
           end
         end
 
-        class Blik < Stripe::RequestParams
-        end
+        class Blik < Stripe::RequestParams; end
 
         class Boleto < Stripe::RequestParams
           # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
@@ -4087,11 +4046,8 @@ module Stripe
           end
         end
 
-        class Cashapp < Stripe::RequestParams
-        end
-
-        class CustomerBalance < Stripe::RequestParams
-        end
+        class Cashapp < Stripe::RequestParams; end
+        class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
           # The customer's bank.
@@ -4114,11 +4070,8 @@ module Stripe
           end
         end
 
-        class Giropay < Stripe::RequestParams
-        end
-
-        class Grabpay < Stripe::RequestParams
-        end
+        class Giropay < Stripe::RequestParams; end
+        class Grabpay < Stripe::RequestParams; end
 
         class Ideal < Stripe::RequestParams
           # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -4129,11 +4082,8 @@ module Stripe
           end
         end
 
-        class InteracPresent < Stripe::RequestParams
-        end
-
-        class KakaoPay < Stripe::RequestParams
-        end
+        class InteracPresent < Stripe::RequestParams; end
+        class KakaoPay < Stripe::RequestParams; end
 
         class Klarna < Stripe::RequestParams
           class Dob < Stripe::RequestParams
@@ -4158,20 +4108,11 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::RequestParams
-        end
-
-        class KrCard < Stripe::RequestParams
-        end
-
-        class Link < Stripe::RequestParams
-        end
-
-        class Mobilepay < Stripe::RequestParams
-        end
-
-        class Multibanco < Stripe::RequestParams
-        end
+        class Konbini < Stripe::RequestParams; end
+        class KrCard < Stripe::RequestParams; end
+        class Link < Stripe::RequestParams; end
+        class Mobilepay < Stripe::RequestParams; end
+        class Multibanco < Stripe::RequestParams; end
 
         class NaverPay < Stripe::RequestParams
           # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
@@ -4213,8 +4154,7 @@ module Stripe
           end
         end
 
-        class Oxxo < Stripe::RequestParams
-        end
+        class Oxxo < Stripe::RequestParams; end
 
         class P24 < Stripe::RequestParams
           # The customer's bank.
@@ -4225,23 +4165,12 @@ module Stripe
           end
         end
 
-        class PayByBank < Stripe::RequestParams
-        end
-
-        class Payco < Stripe::RequestParams
-        end
-
-        class Paynow < Stripe::RequestParams
-        end
-
-        class Paypal < Stripe::RequestParams
-        end
-
-        class Pix < Stripe::RequestParams
-        end
-
-        class Promptpay < Stripe::RequestParams
-        end
+        class PayByBank < Stripe::RequestParams; end
+        class Payco < Stripe::RequestParams; end
+        class Paynow < Stripe::RequestParams; end
+        class Paypal < Stripe::RequestParams; end
+        class Pix < Stripe::RequestParams; end
+        class Promptpay < Stripe::RequestParams; end
 
         class RadarOptions < Stripe::RequestParams
           # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -4252,14 +4181,9 @@ module Stripe
           end
         end
 
-        class RevolutPay < Stripe::RequestParams
-        end
-
-        class SamsungPay < Stripe::RequestParams
-        end
-
-        class Satispay < Stripe::RequestParams
-        end
+        class RevolutPay < Stripe::RequestParams; end
+        class SamsungPay < Stripe::RequestParams; end
+        class Satispay < Stripe::RequestParams; end
 
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
@@ -4279,11 +4203,8 @@ module Stripe
           end
         end
 
-        class Swish < Stripe::RequestParams
-        end
-
-        class Twint < Stripe::RequestParams
-        end
+        class Swish < Stripe::RequestParams; end
+        class Twint < Stripe::RequestParams; end
 
         class UsBankAccount < Stripe::RequestParams
           # Account holder type: individual or company.
@@ -4312,11 +4233,8 @@ module Stripe
           end
         end
 
-        class WechatPay < Stripe::RequestParams
-        end
-
-        class Zip < Stripe::RequestParams
-        end
+        class WechatPay < Stripe::RequestParams; end
+        class Zip < Stripe::RequestParams; end
         # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
         attr_accessor :acss_debit
         # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -5236,8 +5154,7 @@ module Stripe
           end
         end
 
-        class InteracPresent < Stripe::RequestParams
-        end
+        class InteracPresent < Stripe::RequestParams; end
 
         class KakaoPay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
@@ -5495,8 +5412,7 @@ module Stripe
           end
         end
 
-        class PayByBank < Stripe::RequestParams
-        end
+        class PayByBank < Stripe::RequestParams; end
 
         class Payco < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
@@ -5626,6 +5542,19 @@ module Stripe
         end
 
         class SamsungPay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
+        class Satispay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
           # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -5933,6 +5862,8 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
         attr_accessor :sepa_debit
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
@@ -5990,6 +5921,7 @@ module Stripe
           promptpay: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           sofort: nil,
           swish: nil,
@@ -6039,6 +5971,7 @@ module Stripe
           @promptpay = promptpay
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @sofort = sofort
           @swish = swish
@@ -6312,8 +6245,7 @@ module Stripe
     class ConfirmParams < Stripe::RequestParams
       class MandateData < Stripe::RequestParams
         class CustomerAcceptance < Stripe::RequestParams
-          class Offline < Stripe::RequestParams
-          end
+          class Offline < Stripe::RequestParams; end
 
           class Online < Stripe::RequestParams
             # The IP address from which the Mandate was accepted by the customer.
@@ -6366,20 +6298,11 @@ module Stripe
           end
         end
 
-        class Affirm < Stripe::RequestParams
-        end
-
-        class AfterpayClearpay < Stripe::RequestParams
-        end
-
-        class Alipay < Stripe::RequestParams
-        end
-
-        class Alma < Stripe::RequestParams
-        end
-
-        class AmazonPay < Stripe::RequestParams
-        end
+        class Affirm < Stripe::RequestParams; end
+        class AfterpayClearpay < Stripe::RequestParams; end
+        class Alipay < Stripe::RequestParams; end
+        class Alma < Stripe::RequestParams; end
+        class AmazonPay < Stripe::RequestParams; end
 
         class AuBecsDebit < Stripe::RequestParams
           # The account number for the bank account.
@@ -6405,11 +6328,8 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::RequestParams
-        end
-
-        class Billie < Stripe::RequestParams
-        end
+        class Bancontact < Stripe::RequestParams; end
+        class Billie < Stripe::RequestParams; end
 
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
@@ -6462,8 +6382,7 @@ module Stripe
           end
         end
 
-        class Blik < Stripe::RequestParams
-        end
+        class Blik < Stripe::RequestParams; end
 
         class Boleto < Stripe::RequestParams
           # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
@@ -6474,11 +6393,8 @@ module Stripe
           end
         end
 
-        class Cashapp < Stripe::RequestParams
-        end
-
-        class CustomerBalance < Stripe::RequestParams
-        end
+        class Cashapp < Stripe::RequestParams; end
+        class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
           # The customer's bank.
@@ -6501,11 +6417,8 @@ module Stripe
           end
         end
 
-        class Giropay < Stripe::RequestParams
-        end
-
-        class Grabpay < Stripe::RequestParams
-        end
+        class Giropay < Stripe::RequestParams; end
+        class Grabpay < Stripe::RequestParams; end
 
         class Ideal < Stripe::RequestParams
           # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -6516,11 +6429,8 @@ module Stripe
           end
         end
 
-        class InteracPresent < Stripe::RequestParams
-        end
-
-        class KakaoPay < Stripe::RequestParams
-        end
+        class InteracPresent < Stripe::RequestParams; end
+        class KakaoPay < Stripe::RequestParams; end
 
         class Klarna < Stripe::RequestParams
           class Dob < Stripe::RequestParams
@@ -6545,20 +6455,11 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::RequestParams
-        end
-
-        class KrCard < Stripe::RequestParams
-        end
-
-        class Link < Stripe::RequestParams
-        end
-
-        class Mobilepay < Stripe::RequestParams
-        end
-
-        class Multibanco < Stripe::RequestParams
-        end
+        class Konbini < Stripe::RequestParams; end
+        class KrCard < Stripe::RequestParams; end
+        class Link < Stripe::RequestParams; end
+        class Mobilepay < Stripe::RequestParams; end
+        class Multibanco < Stripe::RequestParams; end
 
         class NaverPay < Stripe::RequestParams
           # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
@@ -6600,8 +6501,7 @@ module Stripe
           end
         end
 
-        class Oxxo < Stripe::RequestParams
-        end
+        class Oxxo < Stripe::RequestParams; end
 
         class P24 < Stripe::RequestParams
           # The customer's bank.
@@ -6612,23 +6512,12 @@ module Stripe
           end
         end
 
-        class PayByBank < Stripe::RequestParams
-        end
-
-        class Payco < Stripe::RequestParams
-        end
-
-        class Paynow < Stripe::RequestParams
-        end
-
-        class Paypal < Stripe::RequestParams
-        end
-
-        class Pix < Stripe::RequestParams
-        end
-
-        class Promptpay < Stripe::RequestParams
-        end
+        class PayByBank < Stripe::RequestParams; end
+        class Payco < Stripe::RequestParams; end
+        class Paynow < Stripe::RequestParams; end
+        class Paypal < Stripe::RequestParams; end
+        class Pix < Stripe::RequestParams; end
+        class Promptpay < Stripe::RequestParams; end
 
         class RadarOptions < Stripe::RequestParams
           # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -6639,14 +6528,9 @@ module Stripe
           end
         end
 
-        class RevolutPay < Stripe::RequestParams
-        end
-
-        class SamsungPay < Stripe::RequestParams
-        end
-
-        class Satispay < Stripe::RequestParams
-        end
+        class RevolutPay < Stripe::RequestParams; end
+        class SamsungPay < Stripe::RequestParams; end
+        class Satispay < Stripe::RequestParams; end
 
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
@@ -6666,11 +6550,8 @@ module Stripe
           end
         end
 
-        class Swish < Stripe::RequestParams
-        end
-
-        class Twint < Stripe::RequestParams
-        end
+        class Swish < Stripe::RequestParams; end
+        class Twint < Stripe::RequestParams; end
 
         class UsBankAccount < Stripe::RequestParams
           # Account holder type: individual or company.
@@ -6699,11 +6580,8 @@ module Stripe
           end
         end
 
-        class WechatPay < Stripe::RequestParams
-        end
-
-        class Zip < Stripe::RequestParams
-        end
+        class WechatPay < Stripe::RequestParams; end
+        class Zip < Stripe::RequestParams; end
         # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
         attr_accessor :acss_debit
         # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -7623,8 +7501,7 @@ module Stripe
           end
         end
 
-        class InteracPresent < Stripe::RequestParams
-        end
+        class InteracPresent < Stripe::RequestParams; end
 
         class KakaoPay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
@@ -7882,8 +7759,7 @@ module Stripe
           end
         end
 
-        class PayByBank < Stripe::RequestParams
-        end
+        class PayByBank < Stripe::RequestParams; end
 
         class Payco < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
@@ -8013,6 +7889,19 @@ module Stripe
         end
 
         class SamsungPay < Stripe::RequestParams
+          # Controls when the funds are captured from the customer's account.
+          #
+          # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+          #
+          # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
+        class Satispay < Stripe::RequestParams
           # Controls when the funds are captured from the customer's account.
           #
           # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -8320,6 +8209,8 @@ module Stripe
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
         attr_accessor :samsung_pay
+        # If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
+        attr_accessor :satispay
         # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
         attr_accessor :sepa_debit
         # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
@@ -8377,6 +8268,7 @@ module Stripe
           promptpay: nil,
           revolut_pay: nil,
           samsung_pay: nil,
+          satispay: nil,
           sepa_debit: nil,
           sofort: nil,
           swish: nil,
@@ -8426,6 +8318,7 @@ module Stripe
           @promptpay = promptpay
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
+          @satispay = satispay
           @sepa_debit = sepa_debit
           @sofort = sofort
           @swish = swish
@@ -8512,6 +8405,7 @@ module Stripe
       # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
       attr_accessor :off_session
       # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+      # If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
       attr_accessor :payment_method
       # If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
       # in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)

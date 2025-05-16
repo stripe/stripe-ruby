@@ -19,8 +19,7 @@ module Stripe
           end
         end
 
-        class RetrieveParams < Stripe::RequestParams
-        end
+        class RetrieveParams < Stripe::RequestParams; end
 
         # List events, going back up to 30 days.
         def list(params = {}, opts = {})

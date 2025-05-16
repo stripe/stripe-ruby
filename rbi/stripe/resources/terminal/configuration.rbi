@@ -352,9 +352,7 @@ module Stripe
       # Always true for a deleted object
       sig { returns(T::Boolean) }
       attr_reader :deleted
-      class DeleteParams < Stripe::RequestParams
-
-      end
+      class DeleteParams < Stripe::RequestParams; end
       class UpdateParams < Stripe::RequestParams
         class BbposWiseposE < Stripe::RequestParams
           # A File ID representing an image to display on the reader

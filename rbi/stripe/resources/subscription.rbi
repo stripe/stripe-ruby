@@ -2151,6 +2151,16 @@ module Stripe
        }
       def initialize(expand: nil, limit: nil, page: nil, query: nil); end
     end
+    class MigrateParams < Stripe::RequestParams
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      sig { returns(String) }
+      attr_accessor :billing_mode
+      # Specifies which fields in the response should be expanded.
+      sig { returns(T.nilable(T::Array[String])) }
+      attr_accessor :expand
+      sig { params(billing_mode: String, expand: T.nilable(T::Array[String])).void }
+      def initialize(billing_mode: nil, expand: nil); end
+    end
     class ResumeParams < Stripe::RequestParams
       # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
@@ -2223,6 +2233,18 @@ module Stripe
       params(params: T.any(::Stripe::Subscription::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
+
+    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    sig {
+      params(params: T.any(::Stripe::Subscription::MigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+     }
+    def migrate(params = {}, opts = {}); end
+
+    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    sig {
+      params(subscription: String, params: T.any(::Stripe::Subscription::MigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Subscription)
+     }
+    def self.migrate(subscription, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
     sig {

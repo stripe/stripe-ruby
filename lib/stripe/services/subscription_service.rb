@@ -1629,6 +1629,18 @@ module Stripe
       end
     end
 
+    class MigrateParams < Stripe::RequestParams
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_accessor :billing_mode
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(billing_mode: nil, expand: nil)
+        @billing_mode = billing_mode
+        @expand = expand
+      end
+    end
+
     class ResumeParams < Stripe::RequestParams
       # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_accessor :billing_cycle_anchor
@@ -1700,6 +1712,17 @@ module Stripe
       request(
         method: :get,
         path: "/v1/subscriptions",
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    def migrate(subscription, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(subscription) }),
         params: params,
         opts: opts,
         base_address: :api

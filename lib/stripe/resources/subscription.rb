@@ -1855,6 +1855,18 @@ module Stripe
       end
     end
 
+    class MigrateParams < Stripe::RequestParams
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_accessor :billing_mode
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+
+      def initialize(billing_mode: nil, expand: nil)
+        @billing_mode = billing_mode
+        @expand = expand
+      end
+    end
+
     class ResumeParams < Stripe::RequestParams
       # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_accessor :billing_cycle_anchor
@@ -2042,6 +2054,26 @@ module Stripe
     # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/subscriptions", params: params, opts: opts)
+    end
+
+    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    def migrate(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+    def self.migrate(subscription, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts
+      )
     end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.

@@ -61,35 +61,6 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
-        class Inputs < Stripe::RequestParams
-          class Tax < Stripe::RequestParams
-            # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
-            sig { returns(T.nilable(String)) }
-            attr_accessor :calculation
-            sig { params(calculation: T.nilable(String)).void }
-            def initialize(calculation: nil); end
-          end
-          # Tax arguments for automations
-          sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows::Inputs::Tax))
-           }
-          attr_accessor :tax
-          sig {
-            params(tax: T.nilable(::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows::Inputs::Tax)).void
-           }
-          def initialize(tax: nil); end
-        end
-        # Arguments passed in automations
-        sig {
-          returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows::Inputs))
-         }
-        attr_accessor :inputs
-        sig {
-          params(inputs: T.nilable(::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows::Inputs)).void
-         }
-        def initialize(inputs: nil); end
-      end
       class AutomaticPaymentMethods < Stripe::RequestParams
         # Controls whether this PaymentIntent will accept redirect-based payment methods.
         #
@@ -101,6 +72,33 @@ module Stripe
         attr_accessor :enabled
         sig { params(allow_redirects: T.nilable(String), enabled: T::Boolean).void }
         def initialize(allow_redirects: nil, enabled: nil); end
+      end
+      class Hooks < Stripe::RequestParams
+        class Inputs < Stripe::RequestParams
+          class Tax < Stripe::RequestParams
+            # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+            sig { returns(T.nilable(String)) }
+            attr_accessor :calculation
+            sig { params(calculation: T.nilable(String)).void }
+            def initialize(calculation: nil); end
+          end
+          # Tax arguments for automations
+          sig {
+            returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks::Inputs::Tax))
+           }
+          attr_accessor :tax
+          sig {
+            params(tax: T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks::Inputs::Tax)).void
+           }
+          def initialize(tax: nil); end
+        end
+        # Arguments passed in automations
+        sig { returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks::Inputs)) }
+        attr_accessor :inputs
+        sig {
+          params(inputs: T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks::Inputs)).void
+         }
+        def initialize(inputs: nil); end
       end
       class MandateData < Stripe::RequestParams
         class CustomerAcceptance < Stripe::RequestParams
@@ -3653,9 +3651,6 @@ module Stripe
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      sig { returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows)) }
-      attr_accessor :async_workflows
       # When you enable this parameter, this PaymentIntent accepts payment methods that you enable in the Dashboard and that are compatible with this PaymentIntent's other parameters.
       sig {
         returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods))
@@ -3704,6 +3699,9 @@ module Stripe
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
       sig { returns(T.nilable(String)) }
       attr_accessor :fx_quote
+      # Automations to be run during the PaymentIntent lifecycle
+      sig { returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks)) }
+      attr_accessor :hooks
       # ID of the mandate that's used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       sig { returns(T.nilable(String)) }
       attr_accessor :mandate
@@ -3788,12 +3786,11 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(amount: Integer, application_fee_amount: T.nilable(Integer), async_workflows: T.nilable(::Stripe::PaymentIntentService::CreateParams::AsyncWorkflows), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::MandateData))), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(amount: Integer, application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentService::CreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::CreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CreateParams::MandateData))), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::CreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentService::CreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         automatic_payment_methods: nil,
         capture_method: nil,
         confirm: nil,
@@ -3806,6 +3803,7 @@ module Stripe
         error_on_requires_action: nil,
         expand: nil,
         fx_quote: nil,
+        hooks: nil,
         mandate: nil,
         mandate_data: nil,
         metadata: nil,
@@ -3841,7 +3839,7 @@ module Stripe
       def initialize(client_secret: nil, expand: nil); end
     end
     class UpdateParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -3852,21 +3850,19 @@ module Stripe
           end
           # Tax arguments for automations
           sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows::Inputs::Tax))
+            returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks::Inputs::Tax))
            }
           attr_accessor :tax
           sig {
-            params(tax: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows::Inputs::Tax)).void
+            params(tax: T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks::Inputs::Tax)).void
            }
           def initialize(tax: nil); end
         end
         # Arguments passed in automations
-        sig {
-          returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows::Inputs))
-         }
+        sig { returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks::Inputs)) }
         attr_accessor :inputs
         sig {
-          params(inputs: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows::Inputs)).void
+          params(inputs: T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks::Inputs)).void
          }
         def initialize(inputs: nil); end
       end
@@ -7393,9 +7389,6 @@ module Stripe
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      sig { returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows)) }
-      attr_accessor :async_workflows
       # Controls when the funds will be captured from the customer's account.
       sig { returns(T.nilable(String)) }
       attr_accessor :capture_method
@@ -7425,6 +7418,9 @@ module Stripe
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
       sig { returns(T.nilable(String)) }
       attr_accessor :fx_quote
+      # Automations to be run during the PaymentIntent lifecycle
+      sig { returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks)) }
+      attr_accessor :hooks
       # This hash contains details about the Mandate to create.
       sig { returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::MandateData)) }
       attr_accessor :mandate_data
@@ -7487,12 +7483,11 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :transfer_group
       sig {
-        params(amount: T.nilable(Integer), application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), async_workflows: T.nilable(::Stripe::PaymentIntentService::UpdateParams::AsyncWorkflows), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), mandate_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::MandateData), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(T.nilable(String)), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::Shipping))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::TransferData), transfer_group: T.nilable(String)).void
+        params(amount: T.nilable(Integer), application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::UpdateParams::Hooks), mandate_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::MandateData), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(T.nilable(String)), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::UpdateParams::Shipping))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::UpdateParams::TransferData), transfer_group: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         capture_method: nil,
         currency: nil,
         customer: nil,
@@ -7500,6 +7495,7 @@ module Stripe
         description: nil,
         expand: nil,
         fx_quote: nil,
+        hooks: nil,
         mandate_data: nil,
         metadata: nil,
         payment_details: nil,
@@ -7567,7 +7563,7 @@ module Stripe
       def initialize(cancellation_reason: nil, expand: nil); end
     end
     class CaptureParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -7578,21 +7574,19 @@ module Stripe
           end
           # Tax arguments for automations
           sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AsyncWorkflows::Inputs::Tax))
+            returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks::Inputs::Tax))
            }
           attr_accessor :tax
           sig {
-            params(tax: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AsyncWorkflows::Inputs::Tax)).void
+            params(tax: T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks::Inputs::Tax)).void
            }
           def initialize(tax: nil); end
         end
         # Arguments passed in automations
-        sig {
-          returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AsyncWorkflows::Inputs))
-         }
+        sig { returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks::Inputs)) }
         attr_accessor :inputs
         sig {
-          params(inputs: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AsyncWorkflows::Inputs)).void
+          params(inputs: T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks::Inputs)).void
          }
         def initialize(inputs: nil); end
       end
@@ -8366,15 +8360,15 @@ module Stripe
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      sig { returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::AsyncWorkflows)) }
-      attr_accessor :async_workflows
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
       # Defaults to `true`. When capturing a PaymentIntent, setting `final_capture` to `false` notifies Stripe to not release the remaining uncaptured funds to make sure that they're captured in future requests. You can only use this setting when [multicapture](https://stripe.com/docs/payments/multicapture) is available for PaymentIntents.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :final_capture
+      # Automations to be run during the PaymentIntent lifecycle
+      sig { returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks)) }
+      attr_accessor :hooks
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.nilable(T.any(String, T::Hash[String, String])))) }
       attr_accessor :metadata
@@ -8396,14 +8390,14 @@ module Stripe
       sig { returns(T.nilable(::Stripe::PaymentIntentService::CaptureParams::TransferData)) }
       attr_accessor :transfer_data
       sig {
-        params(amount_to_capture: T.nilable(Integer), application_fee_amount: T.nilable(Integer), async_workflows: T.nilable(::Stripe::PaymentIntentService::CaptureParams::AsyncWorkflows), expand: T.nilable(T::Array[String]), final_capture: T.nilable(T::Boolean), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::PaymentDetails))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CaptureParams::TransferData)).void
+        params(amount_to_capture: T.nilable(Integer), application_fee_amount: T.nilable(Integer), expand: T.nilable(T::Array[String]), final_capture: T.nilable(T::Boolean), hooks: T.nilable(::Stripe::PaymentIntentService::CaptureParams::Hooks), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::CaptureParams::PaymentDetails))), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::CaptureParams::TransferData)).void
        }
       def initialize(
         amount_to_capture: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         expand: nil,
         final_capture: nil,
+        hooks: nil,
         metadata: nil,
         payment_details: nil,
         statement_descriptor: nil,
@@ -8412,7 +8406,7 @@ module Stripe
       ); end
     end
     class ConfirmParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -8423,21 +8417,19 @@ module Stripe
           end
           # Tax arguments for automations
           sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AsyncWorkflows::Inputs::Tax))
+            returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks::Inputs::Tax))
            }
           attr_accessor :tax
           sig {
-            params(tax: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AsyncWorkflows::Inputs::Tax)).void
+            params(tax: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks::Inputs::Tax)).void
            }
           def initialize(tax: nil); end
         end
         # Arguments passed in automations
-        sig {
-          returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AsyncWorkflows::Inputs))
-         }
+        sig { returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks::Inputs)) }
         attr_accessor :inputs
         sig {
-          params(inputs: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AsyncWorkflows::Inputs)).void
+          params(inputs: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks::Inputs)).void
          }
         def initialize(inputs: nil); end
       end
@@ -11970,9 +11962,6 @@ module Stripe
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      sig { returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AsyncWorkflows)) }
-      attr_accessor :async_workflows
       # Controls when the funds will be captured from the customer's account.
       sig { returns(T.nilable(String)) }
       attr_accessor :capture_method
@@ -11990,6 +11979,9 @@ module Stripe
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
       sig { returns(T.nilable(String)) }
       attr_accessor :fx_quote
+      # Automations to be run during the PaymentIntent lifecycle
+      sig { returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks)) }
+      attr_accessor :hooks
       # ID of the mandate that's used for this payment.
       sig { returns(T.nilable(String)) }
       attr_accessor :mandate
@@ -12054,16 +12046,16 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :use_stripe_sdk
       sig {
-        params(application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), async_workflows: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::AsyncWorkflows), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::MandateData))), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::RadarOptions), receipt_email: T.nilable(T.nilable(String)), return_url: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::Shipping))), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(application_fee_amount: T.nilable(T.nilable(T.any(String, Integer))), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::MandateData))), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::PaymentDetails))), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentService::ConfirmParams::RadarOptions), receipt_email: T.nilable(T.nilable(String)), return_url: T.nilable(String), setup_future_usage: T.nilable(T.nilable(T.any(String, String))), shipping: T.nilable(T.nilable(T.any(String, ::Stripe::PaymentIntentService::ConfirmParams::Shipping))), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         application_fee_amount: nil,
-        async_workflows: nil,
         capture_method: nil,
         confirmation_token: nil,
         error_on_requires_action: nil,
         expand: nil,
         fx_quote: nil,
+        hooks: nil,
         mandate: nil,
         mandate_data: nil,
         off_session: nil,
@@ -12081,7 +12073,7 @@ module Stripe
       ); end
     end
     class DecrementAuthorizationParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -12092,21 +12084,21 @@ module Stripe
           end
           # Tax arguments for automations
           sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::AsyncWorkflows::Inputs::Tax))
+            returns(T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::Hooks::Inputs::Tax))
            }
           attr_accessor :tax
           sig {
-            params(tax: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::AsyncWorkflows::Inputs::Tax)).void
+            params(tax: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::Hooks::Inputs::Tax)).void
            }
           def initialize(tax: nil); end
         end
         # Arguments passed in automations
         sig {
-          returns(T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::AsyncWorkflows::Inputs))
+          returns(T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::Hooks::Inputs))
          }
         attr_accessor :inputs
         sig {
-          params(inputs: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::AsyncWorkflows::Inputs)).void
+          params(inputs: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::Hooks::Inputs)).void
          }
         def initialize(inputs: nil); end
       end
@@ -12123,17 +12115,17 @@ module Stripe
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      sig {
-        returns(T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::AsyncWorkflows))
-       }
-      attr_accessor :async_workflows
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
+      # Automations to be run during the PaymentIntent lifecycle
+      sig {
+        returns(T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::Hooks))
+       }
+      attr_accessor :hooks
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
@@ -12144,20 +12136,20 @@ module Stripe
        }
       attr_accessor :transfer_data
       sig {
-        params(amount: Integer, application_fee_amount: T.nilable(Integer), async_workflows: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::AsyncWorkflows), description: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), transfer_data: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::TransferData)).void
+        params(amount: Integer, application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), transfer_data: T.nilable(::Stripe::PaymentIntentService::DecrementAuthorizationParams::TransferData)).void
        }
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         description: nil,
         expand: nil,
+        hooks: nil,
         metadata: nil,
         transfer_data: nil
       ); end
     end
     class IncrementAuthorizationParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -12168,21 +12160,21 @@ module Stripe
           end
           # Tax arguments for automations
           sig {
-            returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AsyncWorkflows::Inputs::Tax))
+            returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks::Inputs::Tax))
            }
           attr_accessor :tax
           sig {
-            params(tax: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AsyncWorkflows::Inputs::Tax)).void
+            params(tax: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks::Inputs::Tax)).void
            }
           def initialize(tax: nil); end
         end
         # Arguments passed in automations
         sig {
-          returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AsyncWorkflows::Inputs))
+          returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks::Inputs))
          }
         attr_accessor :inputs
         sig {
-          params(inputs: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AsyncWorkflows::Inputs)).void
+          params(inputs: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks::Inputs)).void
          }
         def initialize(inputs: nil); end
       end
@@ -12217,17 +12209,17 @@ module Stripe
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       sig { returns(T.nilable(Integer)) }
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      sig {
-        returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AsyncWorkflows))
-       }
-      attr_accessor :async_workflows
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
+      # Automations to be run during the PaymentIntent lifecycle
+      sig {
+        returns(T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks))
+       }
+      attr_accessor :hooks
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       attr_accessor :metadata
@@ -12246,14 +12238,14 @@ module Stripe
        }
       attr_accessor :transfer_data
       sig {
-        params(amount: Integer, application_fee_amount: T.nilable(Integer), async_workflows: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::AsyncWorkflows), description: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_method_options: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::PaymentMethodOptions), statement_descriptor: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::TransferData)).void
+        params(amount: Integer, application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), payment_method_options: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::PaymentMethodOptions), statement_descriptor: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentService::IncrementAuthorizationParams::TransferData)).void
        }
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         description: nil,
         expand: nil,
+        hooks: nil,
         metadata: nil,
         payment_method_options: nil,
         statement_descriptor: nil,

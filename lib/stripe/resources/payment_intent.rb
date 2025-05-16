@@ -58,7 +58,16 @@ module Stripe
       attr_reader :tip
     end
 
-    class AsyncWorkflows < Stripe::StripeObject
+    class AutomaticPaymentMethods < Stripe::StripeObject
+      # Controls whether this PaymentIntent will accept redirect-based payment methods.
+      #
+      # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
+      attr_reader :allow_redirects
+      # Automatically calculates compatible payment methods
+      attr_reader :enabled
+    end
+
+    class Hooks < Stripe::StripeObject
       class Inputs < Stripe::StripeObject
         class Tax < Stripe::StripeObject
           # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -69,15 +78,6 @@ module Stripe
       end
       # Attribute for field inputs
       attr_reader :inputs
-    end
-
-    class AutomaticPaymentMethods < Stripe::StripeObject
-      # Controls whether this PaymentIntent will accept redirect-based payment methods.
-      #
-      # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
-      attr_reader :allow_redirects
-      # Automatically calculates compatible payment methods
-      attr_reader :enabled
     end
 
     class LastPaymentError < Stripe::StripeObject
@@ -2031,7 +2031,21 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class AutomaticPaymentMethods < Stripe::RequestParams
+        # Controls whether this PaymentIntent will accept redirect-based payment methods.
+        #
+        # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
+        attr_accessor :allow_redirects
+        # Whether this feature is enabled.
+        attr_accessor :enabled
+
+        def initialize(allow_redirects: nil, enabled: nil)
+          @allow_redirects = allow_redirects
+          @enabled = enabled
+        end
+      end
+
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -2053,20 +2067,6 @@ module Stripe
 
         def initialize(inputs: nil)
           @inputs = inputs
-        end
-      end
-
-      class AutomaticPaymentMethods < Stripe::RequestParams
-        # Controls whether this PaymentIntent will accept redirect-based payment methods.
-        #
-        # Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
-        attr_accessor :allow_redirects
-        # Whether this feature is enabled.
-        attr_accessor :enabled
-
-        def initialize(allow_redirects: nil, enabled: nil)
-          @allow_redirects = allow_redirects
-          @enabled = enabled
         end
       end
 
@@ -5370,8 +5370,6 @@ module Stripe
       attr_accessor :amount
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      attr_accessor :async_workflows
       # When you enable this parameter, this PaymentIntent accepts payment methods that you enable in the Dashboard and that are compatible with this PaymentIntent's other parameters.
       attr_accessor :automatic_payment_methods
       # Controls when the funds will be captured from the customer's account.
@@ -5406,6 +5404,8 @@ module Stripe
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
       attr_accessor :fx_quote
+      # Automations to be run during the PaymentIntent lifecycle
+      attr_accessor :hooks
       # ID of the mandate that's used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
       attr_accessor :mandate
       # This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
@@ -5469,7 +5469,6 @@ module Stripe
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         automatic_payment_methods: nil,
         capture_method: nil,
         confirm: nil,
@@ -5482,6 +5481,7 @@ module Stripe
         error_on_requires_action: nil,
         expand: nil,
         fx_quote: nil,
+        hooks: nil,
         mandate: nil,
         mandate_data: nil,
         metadata: nil,
@@ -5507,7 +5507,6 @@ module Stripe
       )
         @amount = amount
         @application_fee_amount = application_fee_amount
-        @async_workflows = async_workflows
         @automatic_payment_methods = automatic_payment_methods
         @capture_method = capture_method
         @confirm = confirm
@@ -5520,6 +5519,7 @@ module Stripe
         @error_on_requires_action = error_on_requires_action
         @expand = expand
         @fx_quote = fx_quote
+        @hooks = hooks
         @mandate = mandate
         @mandate_data = mandate_data
         @metadata = metadata
@@ -5546,7 +5546,7 @@ module Stripe
     end
 
     class UpdateParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -8842,8 +8842,6 @@ module Stripe
       attr_accessor :amount
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      attr_accessor :async_workflows
       # Controls when the funds will be captured from the customer's account.
       attr_accessor :capture_method
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -8866,6 +8864,8 @@ module Stripe
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
       attr_accessor :fx_quote
+      # Automations to be run during the PaymentIntent lifecycle
+      attr_accessor :hooks
       # This hash contains details about the Mandate to create.
       attr_accessor :mandate_data
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -8912,7 +8912,6 @@ module Stripe
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         capture_method: nil,
         currency: nil,
         customer: nil,
@@ -8920,6 +8919,7 @@ module Stripe
         description: nil,
         expand: nil,
         fx_quote: nil,
+        hooks: nil,
         mandate_data: nil,
         metadata: nil,
         payment_details: nil,
@@ -8938,7 +8938,6 @@ module Stripe
       )
         @amount = amount
         @application_fee_amount = application_fee_amount
-        @async_workflows = async_workflows
         @capture_method = capture_method
         @currency = currency
         @customer = customer
@@ -8946,6 +8945,7 @@ module Stripe
         @description = description
         @expand = expand
         @fx_quote = fx_quote
+        @hooks = hooks
         @mandate_data = mandate_data
         @metadata = metadata
         @payment_details = payment_details
@@ -9014,7 +9014,7 @@ module Stripe
     end
 
     class CaptureParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -9756,12 +9756,12 @@ module Stripe
       attr_accessor :amount_to_capture
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      attr_accessor :async_workflows
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Defaults to `true`. When capturing a PaymentIntent, setting `final_capture` to `false` notifies Stripe to not release the remaining uncaptured funds to make sure that they're captured in future requests. You can only use this setting when [multicapture](https://stripe.com/docs/payments/multicapture) is available for PaymentIntents.
       attr_accessor :final_capture
+      # Automations to be run during the PaymentIntent lifecycle
+      attr_accessor :hooks
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # Provides industry-specific information about the charge.
@@ -9779,9 +9779,9 @@ module Stripe
       def initialize(
         amount_to_capture: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         expand: nil,
         final_capture: nil,
+        hooks: nil,
         metadata: nil,
         payment_details: nil,
         statement_descriptor: nil,
@@ -9790,9 +9790,9 @@ module Stripe
       )
         @amount_to_capture = amount_to_capture
         @application_fee_amount = application_fee_amount
-        @async_workflows = async_workflows
         @expand = expand
         @final_capture = final_capture
+        @hooks = hooks
         @metadata = metadata
         @payment_details = payment_details
         @statement_descriptor = statement_descriptor
@@ -9802,7 +9802,7 @@ module Stripe
     end
 
     class ConfirmParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -13104,8 +13104,6 @@ module Stripe
       end
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      attr_accessor :async_workflows
       # Controls when the funds will be captured from the customer's account.
       attr_accessor :capture_method
       # ID of the ConfirmationToken used to confirm this PaymentIntent.
@@ -13118,6 +13116,8 @@ module Stripe
       attr_accessor :expand
       # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
       attr_accessor :fx_quote
+      # Automations to be run during the PaymentIntent lifecycle
+      attr_accessor :hooks
       # ID of the mandate that's used for this payment.
       attr_accessor :mandate
       # Attribute for param field mandate_data
@@ -13162,12 +13162,12 @@ module Stripe
 
       def initialize(
         application_fee_amount: nil,
-        async_workflows: nil,
         capture_method: nil,
         confirmation_token: nil,
         error_on_requires_action: nil,
         expand: nil,
         fx_quote: nil,
+        hooks: nil,
         mandate: nil,
         mandate_data: nil,
         off_session: nil,
@@ -13184,12 +13184,12 @@ module Stripe
         use_stripe_sdk: nil
       )
         @application_fee_amount = application_fee_amount
-        @async_workflows = async_workflows
         @capture_method = capture_method
         @confirmation_token = confirmation_token
         @error_on_requires_action = error_on_requires_action
         @expand = expand
         @fx_quote = fx_quote
+        @hooks = hooks
         @mandate = mandate
         @mandate_data = mandate_data
         @off_session = off_session
@@ -13208,7 +13208,7 @@ module Stripe
     end
 
     class DecrementAuthorizationParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -13245,12 +13245,12 @@ module Stripe
       attr_accessor :amount
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      attr_accessor :async_workflows
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # Automations to be run during the PaymentIntent lifecycle
+      attr_accessor :hooks
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The parameters used to automatically create a transfer after the payment is captured.
@@ -13260,24 +13260,24 @@ module Stripe
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         description: nil,
         expand: nil,
+        hooks: nil,
         metadata: nil,
         transfer_data: nil
       )
         @amount = amount
         @application_fee_amount = application_fee_amount
-        @async_workflows = async_workflows
         @description = description
         @expand = expand
+        @hooks = hooks
         @metadata = metadata
         @transfer_data = transfer_data
       end
     end
 
     class IncrementAuthorizationParams < Stripe::RequestParams
-      class AsyncWorkflows < Stripe::RequestParams
+      class Hooks < Stripe::RequestParams
         class Inputs < Stripe::RequestParams
           class Tax < Stripe::RequestParams
             # The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
@@ -13331,12 +13331,12 @@ module Stripe
       attr_accessor :amount
       # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
       attr_accessor :application_fee_amount
-      # Automations to be run during the PaymentIntent lifecycle
-      attr_accessor :async_workflows
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # Automations to be run during the PaymentIntent lifecycle
+      attr_accessor :hooks
       # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # Payment method-specific configuration for this PaymentIntent.
@@ -13350,9 +13350,9 @@ module Stripe
       def initialize(
         amount: nil,
         application_fee_amount: nil,
-        async_workflows: nil,
         description: nil,
         expand: nil,
+        hooks: nil,
         metadata: nil,
         payment_method_options: nil,
         statement_descriptor: nil,
@@ -13360,9 +13360,9 @@ module Stripe
       )
         @amount = amount
         @application_fee_amount = application_fee_amount
-        @async_workflows = async_workflows
         @description = description
         @expand = expand
+        @hooks = hooks
         @metadata = metadata
         @payment_method_options = payment_method_options
         @statement_descriptor = statement_descriptor
@@ -13419,8 +13419,6 @@ module Stripe
     attr_reader :application
     # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     attr_reader :application_fee_amount
-    # Attribute for field async_workflows
-    attr_reader :async_workflows
     # Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods)
     attr_reader :automatic_payment_methods
     # Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
@@ -13457,6 +13455,8 @@ module Stripe
     attr_reader :description
     # The FX Quote used for the PaymentIntent.
     attr_reader :fx_quote
+    # Attribute for field hooks
+    attr_reader :hooks
     # Unique identifier for the object.
     attr_reader :id
     # The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.

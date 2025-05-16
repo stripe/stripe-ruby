@@ -90,6 +90,8 @@ module Stripe
     attr_reader :amount
     # The date that the transaction's net funds become available in the Stripe balance.
     attr_reader :available_on
+    # The balance that this transaction impacts.
+    attr_reader :balance_type
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).

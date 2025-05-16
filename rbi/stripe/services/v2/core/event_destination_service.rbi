@@ -78,15 +78,9 @@ module Stripe
             webhook_endpoint: nil
           ); end
         end
-        class DeleteParams < Stripe::RequestParams
-
-        end
-        class DisableParams < Stripe::RequestParams
-
-        end
-        class EnableParams < Stripe::RequestParams
-
-        end
+        class DeleteParams < Stripe::RequestParams; end
+        class DisableParams < Stripe::RequestParams; end
+        class EnableParams < Stripe::RequestParams; end
         class ListParams < Stripe::RequestParams
           # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
           sig { returns(T.nilable(T::Array[String])) }
@@ -97,9 +91,7 @@ module Stripe
           sig { params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer)).void }
           def initialize(include: nil, limit: nil); end
         end
-        class PingParams < Stripe::RequestParams
-
-        end
+        class PingParams < Stripe::RequestParams; end
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.
           sig { returns(T.nilable(T::Array[String])) }

@@ -51,25 +51,6 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_reader :phone
     end
-    class Credit < Stripe::StripeObject
-      class GiftCard < Stripe::StripeObject
-        # The token of the gift card applied to the order
-        sig { returns(String) }
-        attr_reader :card
-      end
-      # The amount of this credit to apply to the order.
-      sig { returns(Integer) }
-      attr_reader :amount
-      # Details for a gift card.
-      sig { returns(T.nilable(GiftCard)) }
-      attr_reader :gift_card
-      # Line items on this order that are ineligible for this credit
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_reader :ineligible_line_items
-      # The type of credit to apply to the order, only `gift_card` currently supported.
-      sig { returns(String) }
-      attr_reader :type
-    end
     class Payment < Stripe::StripeObject
       class Settings < Stripe::StripeObject
         class AutomaticPaymentMethods < Stripe::StripeObject
@@ -594,9 +575,6 @@ module Stripe
         sig { returns(T::Array[Tax]) }
         attr_reader :taxes
       end
-      # Attribute for field amount_credit
-      sig { returns(Integer) }
-      attr_reader :amount_credit
       # This is the sum of all the discounts.
       sig { returns(Integer) }
       attr_reader :amount_discount
@@ -610,9 +588,6 @@ module Stripe
       sig { returns(Breakdown) }
       attr_reader :breakdown
     end
-    # Attribute for field amount_remaining
-    sig { returns(Integer) }
-    attr_reader :amount_remaining
     # Order cost before any discounts or taxes are applied. A positive integer representing the subtotal of the order in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
     sig { returns(Integer) }
     attr_reader :amount_subtotal
@@ -638,9 +613,6 @@ module Stripe
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created
-    # The credits applied to the Order. At most 10 credits can be applied to an Order.
-    sig { returns(T::Array[Credit]) }
-    attr_reader :credits
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     attr_reader :currency
@@ -772,16 +744,6 @@ module Stripe
           params(address: T.nilable(::Stripe::Order::CreateParams::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
-      end
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        sig { returns(String) }
-        attr_accessor :type
-        sig { params(gift_card: T.nilable(String), type: String).void }
-        def initialize(gift_card: nil, type: nil); end
       end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
@@ -1773,11 +1735,6 @@ module Stripe
         returns(T.nilable(T.nilable(T.any(String, ::Stripe::Order::CreateParams::BillingDetails))))
        }
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::CreateParams::Credit]))))
-       }
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_accessor :currency
@@ -1821,12 +1778,11 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Order::CreateParams::TaxDetails)) }
       attr_accessor :tax_details
       sig {
-        params(automatic_tax: T.nilable(::Stripe::Order::CreateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::CreateParams::BillingDetails))), credits: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::CreateParams::Credit]))), currency: String, customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T::Array[::Stripe::Order::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), payment: T.nilable(::Stripe::Order::CreateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::Order::CreateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::CreateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::Order::CreateParams::TaxDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::Order::CreateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::CreateParams::BillingDetails))), currency: String, customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T::Array[::Stripe::Order::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), payment: T.nilable(::Stripe::Order::CreateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::Order::CreateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::CreateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::Order::CreateParams::TaxDetails)).void
        }
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,
@@ -1897,16 +1853,6 @@ module Stripe
           params(address: T.nilable(::Stripe::Order::UpdateParams::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
-      end
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        sig { returns(String) }
-        attr_accessor :type
-        sig { params(gift_card: T.nilable(String), type: String).void }
-        def initialize(gift_card: nil, type: nil); end
       end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
@@ -2904,11 +2850,6 @@ module Stripe
         returns(T.nilable(T.nilable(T.any(String, ::Stripe::Order::UpdateParams::BillingDetails))))
        }
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::UpdateParams::Credit]))))
-       }
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(T.nilable(String)) }
       attr_accessor :currency
@@ -2952,12 +2893,11 @@ module Stripe
       sig { returns(T.nilable(::Stripe::Order::UpdateParams::TaxDetails)) }
       attr_accessor :tax_details
       sig {
-        params(automatic_tax: T.nilable(::Stripe::Order::UpdateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::UpdateParams::BillingDetails))), credits: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::UpdateParams::Credit]))), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::Order::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment: T.nilable(::Stripe::Order::UpdateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::Order::UpdateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::UpdateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::Order::UpdateParams::TaxDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::Order::UpdateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::UpdateParams::BillingDetails))), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Order::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::Order::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment: T.nilable(::Stripe::Order::UpdateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::Order::UpdateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::Order::UpdateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::Order::UpdateParams::TaxDetails)).void
        }
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,

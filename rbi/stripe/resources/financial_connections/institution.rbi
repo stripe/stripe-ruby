@@ -40,6 +40,9 @@ module Stripe
         sig { returns(Transactions) }
         attr_reader :transactions
       end
+      # The list of countries supported by this institution, formatted as ISO country codes.
+      sig { returns(T::Array[String]) }
+      attr_reader :countries
       # Attribute for field features
       sig { returns(Features) }
       attr_reader :features

@@ -22,7 +22,7 @@ module Stripe
         end
       end
 
-      # List validation errors method
+      # Returns a list of validation errors for the specified redaction job.
       def list(job, params = {}, opts = {})
         request(
           method: :get,

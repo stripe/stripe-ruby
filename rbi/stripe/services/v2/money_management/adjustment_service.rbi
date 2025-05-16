@@ -46,9 +46,7 @@ module Stripe
             limit: nil
           ); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # Returns a list of Adjustments that match the provided filters.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::AdjustmentService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)

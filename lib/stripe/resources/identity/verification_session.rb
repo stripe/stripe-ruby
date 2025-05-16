@@ -116,6 +116,12 @@ module Stripe
         attr_reader :last_name
         # The user's verified phone number
         attr_reader :phone
+        # The user's verified sex.
+        attr_reader :sex
+        # The user's verified place of birth as it appears in the document.
+        attr_reader :unparsed_place_of_birth
+        # The user's verified sex as it appears in the document.
+        attr_reader :unparsed_sex
       end
 
       class ListParams < Stripe::RequestParams

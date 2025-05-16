@@ -32,8 +32,7 @@ module Stripe
         attr_reader :state
       end
 
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class UpdateParams < Stripe::RequestParams
         class Address < Stripe::RequestParams

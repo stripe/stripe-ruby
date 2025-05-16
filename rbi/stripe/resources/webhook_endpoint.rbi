@@ -50,9 +50,7 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       # An optional description of what the webhook is used for.
       sig { returns(T.nilable(T.nilable(String))) }

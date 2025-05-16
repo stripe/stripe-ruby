@@ -691,7 +691,7 @@ module Stripe
           returns(T.nilable(::Stripe::SubscriptionScheduleService::CreateParams::Phase::PauseCollection))
          }
         attr_accessor :pause_collection
-        # Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         sig { returns(T.nilable(String)) }
         attr_accessor :proration_behavior
         # The data with which to automatically create a Transfer for each of the associated subscription's invoices.
@@ -755,7 +755,7 @@ module Stripe
       # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
       sig { returns(T.nilable(String)) }
       attr_accessor :billing_behavior
-      # Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(T.nilable(String)) }
       attr_accessor :billing_mode
       # The identifier of the customer to create the subscription schedule for.
@@ -1373,7 +1373,7 @@ module Stripe
           returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Phase::PauseCollection))
          }
         attr_accessor :pause_collection
-        # Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         sig { returns(T.nilable(String)) }
         attr_accessor :proration_behavior
         # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
@@ -1463,7 +1463,7 @@ module Stripe
       # If specified, the invoicing for the given billing cycle iterations will be processed now.
       sig { returns(T.nilable(::Stripe::SubscriptionScheduleService::UpdateParams::Prebilling)) }
       attr_accessor :prebilling
-      # If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
+      # If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
       sig { returns(T.nilable(String)) }
       attr_accessor :proration_behavior
       sig {

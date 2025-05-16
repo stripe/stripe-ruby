@@ -744,7 +744,7 @@ module Stripe
     # Details of the invoice that was cloned. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
     sig { returns(T.nilable(FromInvoice)) }
     attr_reader :from_invoice
-    # Unique identifier for the object. This property is always present unless the invoice is an upcoming invoice. See [Retrieve an upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) for more details.
+    # Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
     sig { returns(String) }
     attr_reader :id
     # Attribute for field issuer

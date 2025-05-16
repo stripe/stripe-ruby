@@ -94,6 +94,10 @@ module Stripe
       end
 
       class Affirm < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         attr_reader :transaction_id
       end
@@ -851,6 +855,10 @@ module Stripe
       class WechatPay < Stripe::StripeObject
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         attr_reader :fingerprint
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # Transaction ID of this particular WeChat Pay transaction.
         attr_reader :transaction_id
       end

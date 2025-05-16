@@ -263,7 +263,7 @@ module Stripe
       attr_reader :on_behalf_of
       # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
       attr_reader :pause_collection
-      # If the subscription schedule will prorate when transitioning to this phase. Possible values are `create_prorations` and `none`.
+      # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
       attr_reader :proration_behavior
       # The start of this phase of the subscription schedule.
       attr_reader :start_date

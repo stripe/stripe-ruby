@@ -489,8 +489,7 @@ module Stripe
             end
           end
 
-          class DeleteParams < Stripe::RequestParams
-          end
+          class DeleteParams < Stripe::RequestParams; end
 
           class ListParams < Stripe::RequestParams
             # The upper limit on the number of accounts returned by the List Account request.
@@ -501,8 +500,7 @@ module Stripe
             end
           end
 
-          class RetrieveParams < Stripe::RequestParams
-          end
+          class RetrieveParams < Stripe::RequestParams; end
 
           class UpdateParams < Stripe::RequestParams
             class AdditionalAddress < Stripe::RequestParams

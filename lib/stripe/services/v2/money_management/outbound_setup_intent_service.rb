@@ -5,8 +5,7 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundSetupIntentService < StripeService
-        class CancelParams < Stripe::RequestParams
-        end
+        class CancelParams < Stripe::RequestParams; end
 
         class CreateParams < Stripe::RequestParams
           class PayoutMethodData < Stripe::RequestParams
@@ -94,8 +93,7 @@ module Stripe
           end
         end
 
-        class RetrieveParams < Stripe::RequestParams
-        end
+        class RetrieveParams < Stripe::RequestParams; end
 
         class UpdateParams < Stripe::RequestParams
           class PayoutMethodData < Stripe::RequestParams

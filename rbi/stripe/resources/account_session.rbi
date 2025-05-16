@@ -520,9 +520,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalFinancing < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -537,9 +535,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalFinancingApplication < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -554,9 +550,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalFinancingPromotion < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -571,9 +565,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalOverview < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -588,9 +580,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class Documents < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -605,9 +595,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class ExportTaxTransactions < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -857,9 +845,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class PaymentMethodSettings < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -952,9 +938,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class PayoutsList < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -969,9 +953,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class ProductTaxCodeSelector < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1007,9 +989,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class ReportingChart < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1024,9 +1004,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class TaxRegistrations < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1041,9 +1019,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class TaxSettings < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1058,9 +1034,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class TaxThresholdMonitoring < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled

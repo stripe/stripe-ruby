@@ -739,7 +739,7 @@ module Stripe
     # The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been finalized yet, this will be null.
     sig { returns(T.nilable(String)) }
     attr_reader :hosted_invoice_url
-    # Unique identifier for the object. This property is always present unless the invoice is an upcoming invoice. See [Retrieve an upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) for more details.
+    # Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
     sig { returns(String) }
     attr_reader :id
     # The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
@@ -856,9 +856,7 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       class AmountsDue < Stripe::RequestParams
         # The amount in cents (or local equivalent).
@@ -1077,15 +1075,9 @@ module Stripe
              }
             def initialize(bank_transfer: nil, funding_type: nil); end
           end
-          class IdBankTransfer < Stripe::RequestParams
-
-          end
-          class Konbini < Stripe::RequestParams
-
-          end
-          class SepaDebit < Stripe::RequestParams
-
-          end
+          class IdBankTransfer < Stripe::RequestParams; end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
               class Filters < Stripe::RequestParams
@@ -1849,15 +1841,9 @@ module Stripe
              }
             def initialize(bank_transfer: nil, funding_type: nil); end
           end
-          class IdBankTransfer < Stripe::RequestParams
-
-          end
-          class Konbini < Stripe::RequestParams
-
-          end
-          class SepaDebit < Stripe::RequestParams
-
-          end
+          class IdBankTransfer < Stripe::RequestParams; end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
               class Filters < Stripe::RequestParams
@@ -4355,7 +4341,7 @@ module Stripe
             returns(T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::PauseCollection))
            }
           attr_accessor :pause_collection
-          # Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+          # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
           sig { returns(T.nilable(String)) }
           attr_accessor :proration_behavior
           # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
@@ -4471,7 +4457,7 @@ module Stripe
         # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         sig { returns(T.nilable(String)) }
         attr_accessor :billing_behavior
-        # Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(T.nilable(String)) }
         attr_accessor :billing_mode
         # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -4655,13 +4641,13 @@ module Stripe
         # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :billing_cycle_anchor
-        # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         sig { returns(T.nilable(String)) }
         attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-        sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+        sig { returns(T.nilable(T.nilable(T.any(String, T.any(Integer, String))))) }
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         sig { returns(T.nilable(T::Boolean)) }
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
@@ -4696,7 +4682,7 @@ module Stripe
         sig { returns(T.nilable(T.any(String, Integer))) }
         attr_accessor :trial_end
         sig {
-          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(String), cancel_at: T.nilable(T.nilable(T.any(String, Integer))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+          params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(String), cancel_at: T.nilable(T.nilable(T.any(String, T.any(Integer, String)))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
          }
         def initialize(
           billing_cycle_anchor: nil,
@@ -4796,9 +4782,6 @@ module Stripe
 
     # Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
     #
-    # For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-    # of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-    #
     # For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
     # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
     # invoice's status becomes paid.
@@ -4806,7 +4789,7 @@ module Stripe
     # If the PaymentIntent's status is already succeeded when it's attached, it's
     # credited to the invoice immediately.
     #
-    # See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+    # See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
     sig {
       params(params: T.any(::Stripe::Invoice::AttachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
@@ -4814,9 +4797,6 @@ module Stripe
 
     # Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
     #
-    # For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-    # of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-    #
     # For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
     # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
     # invoice's status becomes paid.
@@ -4824,7 +4804,7 @@ module Stripe
     # If the PaymentIntent's status is already succeeded when it's attached, it's
     # credited to the invoice immediately.
     #
-    # See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+    # See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
     sig {
       params(invoice: String, params: T.any(::Stripe::Invoice::AttachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
@@ -4838,9 +4818,9 @@ module Stripe
 
     # At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
     #
-    # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+    # You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
     #
-    # You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+    # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
     #
     # Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
     sig {

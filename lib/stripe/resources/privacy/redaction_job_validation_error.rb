@@ -12,9 +12,15 @@ module Stripe
         "privacy.redaction_job_validation_error"
       end
 
+      class ErroringObject < Stripe::StripeObject
+        # Unique identifier for the object.
+        attr_reader :id
+        # Erroring object type
+        attr_reader :object_type
+      end
       # A code indicating the reason for the error.
       attr_reader :code
-      # If the error is related to a specific object, this field will include the object's identifier in `id` and object type in `object`.
+      # If the error is related to a specific object, this field includes the object's identifier and object type.
       attr_reader :erroring_object
       # Unique identifier for the object.
       attr_reader :id

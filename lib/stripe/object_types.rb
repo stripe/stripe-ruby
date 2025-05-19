@@ -212,6 +212,7 @@ module Stripe
         V2::MoneyManagement::ReceivedDebit.object_name => V2::MoneyManagement::ReceivedDebit,
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
+        V2::Payments::OffSessionPayment.object_name => V2::Payments::OffSessionPayment,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

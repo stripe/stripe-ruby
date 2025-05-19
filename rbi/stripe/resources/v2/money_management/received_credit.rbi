@@ -95,27 +95,6 @@ module Stripe
           sig { returns(T.nilable(UsBankAccount)) }
           attr_reader :us_bank_account
         end
-        class CardSpend < Stripe::StripeObject
-          class Dispute < Stripe::StripeObject
-            # The reference to the v1 issuing dispute ID.
-            sig { returns(String) }
-            attr_reader :issuing_dispute_v1
-          end
-          class Refund < Stripe::StripeObject
-            # The reference to the v1 issuing transaction ID.
-            sig { returns(String) }
-            attr_reader :issuing_transaction_v1
-          end
-          # The reference to the issuing card object.
-          sig { returns(String) }
-          attr_reader :card_v1_id
-          # Hash containing information about the Dispute that triggered this credit.
-          sig { returns(T.nilable(Dispute)) }
-          attr_reader :dispute
-          # Hash containing information about the Refund that triggered this credit.
-          sig { returns(T.nilable(Refund)) }
-          attr_reader :refund
-        end
         # The amount and currency of the ReceivedCredit.
         sig { returns(Stripe::V2::Amount) }
         attr_reader :amount
@@ -159,9 +138,6 @@ module Stripe
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
         sig { returns(T.nilable(BankTransfer)) }
         attr_reader :bank_transfer
-        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
-        sig { returns(T.nilable(CardSpend)) }
-        attr_reader :card_spend
       end
     end
   end

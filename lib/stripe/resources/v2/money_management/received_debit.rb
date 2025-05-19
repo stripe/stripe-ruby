@@ -51,28 +51,6 @@ module Stripe
           # The payment method used to originate the debit.
           attr_reader :us_bank_account
         end
-
-        class CardSpend < Stripe::StripeObject
-          class Authorization < Stripe::StripeObject
-            # Amount associated with this issuing authorization.
-            attr_reader :amount
-            # The reference to the v1 issuing authorization ID.
-            attr_reader :issuing_authorization_v1
-          end
-
-          class CardTransaction < Stripe::StripeObject
-            # Amount associated with this issuing transaction.
-            attr_reader :amount
-            # The reference to the v1 issuing transaction ID.
-            attr_reader :issuing_transaction_v1
-          end
-          # The Issuing Authorization for this card_spend. Contains the reference id and the amount.
-          attr_reader :authorization
-          # The list of card spend transactions. These contain the transaction reference ID and the amount.
-          attr_reader :card_transactions
-          # The reference to the card object that resulted in the debit.
-          attr_reader :card_v1_id
-        end
         # Amount and currency of the ReceivedDebit.
         attr_reader :amount
         # The time at which the ReceivedDebit was created.
@@ -100,8 +78,6 @@ module Stripe
         attr_reader :livemode
         # This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
         attr_reader :bank_transfer
-        # This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
-        attr_reader :card_spend
       end
     end
   end

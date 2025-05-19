@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # An InboundTransfer failed.
+  # Occurs when an InboundTransfer fails.
   class V2MoneyManagementInboundTransferBankDebitFailedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.inbound_transfer.bank_debit_failed"

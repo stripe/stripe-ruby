@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # The generated account link has been completed.
+  # Occurs when the generated AccountLink is completed.
   class V2CoreAccountLinkCompletedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.core.account_link.completed"

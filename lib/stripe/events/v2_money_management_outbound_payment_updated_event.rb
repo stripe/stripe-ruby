@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Event that is emitted every time an Outbound Payment is updated.
+  # Occurs when an OutboundPayment is updated.
   class V2MoneyManagementOutboundPaymentUpdatedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.outbound_payment.updated"

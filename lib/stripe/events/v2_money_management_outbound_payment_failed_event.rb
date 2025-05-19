@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # An OutboundPayment has transitioned into the failed state.
+  # Occurs when an OutboundPayment transitions into the failed state.
   class V2MoneyManagementOutboundPaymentFailedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.outbound_payment.failed"

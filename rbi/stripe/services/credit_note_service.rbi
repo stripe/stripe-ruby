@@ -406,7 +406,7 @@ module Stripe
      }
     def update(id, params = {}, opts = {}); end
 
-    # Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     sig {
       params(id: String, params: T.any(::Stripe::CreditNoteService::VoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
      }

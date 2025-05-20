@@ -3994,7 +3994,7 @@ module Stripe
 
       # Updates a Checkout Session object.
       #
-      # Related guide: [Dynamically update Checkout](https://stripe.com/payments/checkout/dynamic-updates)
+      # Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::Session::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }

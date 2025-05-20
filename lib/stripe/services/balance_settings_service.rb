@@ -70,7 +70,7 @@ module Stripe
     end
 
     # Retrieves balance settings for a given connected account.
-    #  Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+    #  Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
     def retrieve(params = {}, opts = {})
       request(
         method: :get,
@@ -82,7 +82,7 @@ module Stripe
     end
 
     # Updates balance settings for a given connected account.
-    #  Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+    #  Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
     def update(params = {}, opts = {})
       request(
         method: :post,

@@ -27,7 +27,7 @@ module Stripe
   # Stripe applies any customer credit on the account before determining the
   # amount due for the invoice (i.e., the amount that will be actually
   # charged). If the amount due for the invoice is less than Stripe's [minimum allowed charge
-  # per currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
+  # per currency](https://docs.stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
   # invoice is automatically marked paid, and we add the amount due to the
   # customer's credit balance which is applied to the next invoice.
   #
@@ -4789,7 +4789,7 @@ module Stripe
     # If the PaymentIntent's status is already succeeded when it's attached, it's
     # credited to the invoice immediately.
     #
-    # See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+    # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
     sig {
       params(params: T.any(::Stripe::Invoice::AttachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
@@ -4804,13 +4804,13 @@ module Stripe
     # If the PaymentIntent's status is already succeeded when it's attached, it's
     # credited to the invoice immediately.
     #
-    # See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+    # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
     sig {
       params(invoice: String, params: T.any(::Stripe::Invoice::AttachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
     def self.attach_payment(invoice, params = {}, opts = {}); end
 
-    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
     sig {
       params(params: T.any(::Stripe::Invoice::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
@@ -4828,13 +4828,13 @@ module Stripe
      }
     def self.create_preview(params = {}, opts = {}); end
 
-    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
     sig {
       params(invoice: String, params: T.any(::Stripe::Invoice::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
     def self.delete(invoice, params = {}, opts = {}); end
 
-    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
     sig {
       params(params: T.any(::Stripe::Invoice::DeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
@@ -4920,11 +4920,11 @@ module Stripe
      }
     def self.send_invoice(invoice, params = {}, opts = {}); end
 
-    # Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+    # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
     # monetary values, as well as collection_method, become uneditable.
     #
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
-    # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+    # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
     sig {
       params(invoice: String, params: T.any(::Stripe::Invoice::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
@@ -4943,17 +4943,17 @@ module Stripe
      }
     def self.update_lines(invoice, params = {}, opts = {}); end
 
-    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
-    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     sig {
       params(params: T.any(::Stripe::Invoice::VoidInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }
     def void_invoice(params = {}, opts = {}); end
 
-    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
-    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     sig {
       params(invoice: String, params: T.any(::Stripe::Invoice::VoidInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Invoice)
      }

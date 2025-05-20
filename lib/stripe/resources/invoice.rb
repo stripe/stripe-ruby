@@ -26,7 +26,7 @@ module Stripe
   # Stripe applies any customer credit on the account before determining the
   # amount due for the invoice (i.e., the amount that will be actually
   # charged). If the amount due for the invoice is less than Stripe's [minimum allowed charge
-  # per currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
+  # per currency](https://docs.stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
   # invoice is automatically marked paid, and we add the amount due to the
   # customer's credit balance which is applied to the next invoice.
   #
@@ -4343,7 +4343,7 @@ module Stripe
     # If the PaymentIntent's status is already succeeded when it's attached, it's
     # credited to the invoice immediately.
     #
-    # See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+    # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
     def attach_payment(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -4362,7 +4362,7 @@ module Stripe
     # If the PaymentIntent's status is already succeeded when it's attached, it's
     # credited to the invoice immediately.
     #
-    # See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+    # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
     def self.attach_payment(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -4372,7 +4372,7 @@ module Stripe
       )
     end
 
-    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/invoices", params: params, opts: opts)
     end
@@ -4393,7 +4393,7 @@ module Stripe
       )
     end
 
-    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
     def self.delete(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
@@ -4403,7 +4403,7 @@ module Stripe
       )
     end
 
-    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
@@ -4530,11 +4530,11 @@ module Stripe
       )
     end
 
-    # Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+    # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
     # monetary values, as well as collection_method, become uneditable.
     #
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
-    # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+    # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
     def self.update(invoice, params = {}, opts = {})
       request_stripe_object(
@@ -4565,9 +4565,9 @@ module Stripe
       )
     end
 
-    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
-    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     def void_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -4577,9 +4577,9 @@ module Stripe
       )
     end
 
-    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
-    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     def self.void_invoice(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,

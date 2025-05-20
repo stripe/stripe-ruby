@@ -322,7 +322,7 @@ module Stripe
     # Always true for a deleted object
     attr_reader :deleted
 
-    # You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/plans", params: params, opts: opts)
     end

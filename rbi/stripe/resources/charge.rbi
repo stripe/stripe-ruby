@@ -3669,9 +3669,9 @@ module Stripe
     end
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #
-    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
     #
-    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
     sig {
       params(params: T.any(::Stripe::Charge::CaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
      }
@@ -3679,15 +3679,15 @@ module Stripe
 
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #
-    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
     #
-    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
     sig {
       params(charge: String, params: T.any(::Stripe::Charge::CaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Charge)
      }
     def self.capture(charge, params = {}, opts = {}); end
 
-    # This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+    # This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
     # to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
     # object used to request payment.
     sig {

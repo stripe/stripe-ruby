@@ -71,14 +71,14 @@ module Stripe
       ); end
     end
     # Retrieves balance settings for a given connected account.
-    #  Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+    #  Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
     sig {
       params(params: T.any(::Stripe::BalanceSettingsService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BalanceSettings)
      }
     def retrieve(params = {}, opts = {}); end
 
     # Updates balance settings for a given connected account.
-    #  Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+    #  Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
     sig {
       params(params: T.any(::Stripe::BalanceSettingsService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::BalanceSettings)
      }

@@ -447,7 +447,7 @@ module Stripe
       )
     end
 
-    # Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     def void_credit_note(id, params = {}, opts = {})
       request(
         method: :post,

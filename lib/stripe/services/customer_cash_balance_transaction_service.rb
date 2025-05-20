@@ -30,7 +30,7 @@ module Stripe
       end
     end
 
-    # Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+    # Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
     def list(customer, params = {}, opts = {})
       request(
         method: :get,
@@ -41,7 +41,7 @@ module Stripe
       )
     end
 
-    # Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+    # Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
     def retrieve(customer, transaction, params = {}, opts = {})
       request(
         method: :get,

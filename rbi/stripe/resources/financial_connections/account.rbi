@@ -130,6 +130,9 @@ module Stripe
       # The state of the most recent attempt to refresh the account's inferred balance history.
       sig { returns(T.nilable(InferredBalancesRefresh)) }
       attr_reader :inferred_balances_refresh
+      # The ID of the Financial Connections Institution this account belongs to. Note that this relationship may sometimes change in rare circumstances (e.g. institution mergers).
+      sig { returns(T.nilable(T.any(String, Stripe::FinancialConnections::Institution))) }
+      attr_reader :institution
       # The name of the institution that holds this account.
       sig { returns(String) }
       attr_reader :institution_name

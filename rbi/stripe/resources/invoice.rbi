@@ -4019,6 +4019,18 @@ module Stripe
              }
             def initialize(enabled: nil, liability: nil); end
           end
+          class BillingThresholds < Stripe::RequestParams
+            # Monetary threshold that triggers the subscription to advance to a new billing period
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :amount_gte
+            # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :reset_billing_cycle_anchor
+            sig {
+              params(amount_gte: T.nilable(Integer), reset_billing_cycle_anchor: T.nilable(T::Boolean)).void
+             }
+            def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
+          end
           class Discount < Stripe::RequestParams
             class DiscountEnd < Stripe::RequestParams
               class Duration < Stripe::RequestParams
@@ -4094,6 +4106,13 @@ module Stripe
             def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
           end
           class Item < Stripe::RequestParams
+            class BillingThresholds < Stripe::RequestParams
+              # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+              sig { returns(Integer) }
+              attr_accessor :usage_gte
+              sig { params(usage_gte: Integer).void }
+              def initialize(usage_gte: nil); end
+            end
             class Discount < Stripe::RequestParams
               class DiscountEnd < Stripe::RequestParams
                 class Duration < Stripe::RequestParams
@@ -4199,6 +4218,11 @@ module Stripe
               sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
               def initialize(converts_to: nil, type: nil); end
             end
+            # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+            sig {
+              returns(T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds))))
+             }
+            attr_accessor :billing_thresholds
             # The coupons to redeem into discounts for the subscription item.
             sig {
               returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::Discount]))))
@@ -4230,9 +4254,10 @@ module Stripe
              }
             attr_accessor :trial
             sig {
-              params(discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::Discount]))), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), trial: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::Trial)).void
+              params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds))), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::Discount]))), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), trial: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item::Trial)).void
              }
             def initialize(
+              billing_thresholds: nil,
               discounts: nil,
               metadata: nil,
               plan: nil,
@@ -4294,6 +4319,11 @@ module Stripe
           # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
           sig { returns(T.nilable(String)) }
           attr_accessor :billing_cycle_anchor
+          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+          sig {
+            returns(T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds))))
+           }
+          attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           sig { returns(T.nilable(String)) }
           attr_accessor :collection_method
@@ -4367,13 +4397,14 @@ module Stripe
            }
           attr_accessor :trial_settings
           sig {
-            params(add_invoice_items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Discount]))), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TrialSettings)).void
+            params(add_invoice_items: T.nilable(T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::BillingThresholds))), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Discount]))), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::Item], iterations: T.nilable(Integer), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::Invoice::CreatePreviewParams::ScheduleDetails::Phase::TrialSettings)).void
            }
           def initialize(
             add_invoice_items: nil,
             application_fee_percent: nil,
             automatic_tax: nil,
             billing_cycle_anchor: nil,
+            billing_thresholds: nil,
             collection_method: nil,
             currency: nil,
             default_payment_method: nil,
@@ -4491,6 +4522,13 @@ module Stripe
       end
       class SubscriptionDetails < Stripe::RequestParams
         class Item < Stripe::RequestParams
+          class BillingThresholds < Stripe::RequestParams
+            # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+            sig { returns(Integer) }
+            attr_accessor :usage_gte
+            sig { params(usage_gte: Integer).void }
+            def initialize(usage_gte: nil); end
+          end
           class Discount < Stripe::RequestParams
             class DiscountEnd < Stripe::RequestParams
               class Duration < Stripe::RequestParams
@@ -4581,6 +4619,11 @@ module Stripe
               unit_amount_decimal: nil
             ); end
           end
+          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+          sig {
+            returns(T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item::BillingThresholds))))
+           }
+          attr_accessor :billing_thresholds
           # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :clear_usage
@@ -4616,9 +4659,10 @@ module Stripe
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
           attr_accessor :tax_rates
           sig {
-            params(clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item::Discount]))), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+            params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item::BillingThresholds))), clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item::Discount]))), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::Invoice::CreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
            }
           def initialize(
+            billing_thresholds: nil,
             clear_usage: nil,
             deleted: nil,
             discounts: nil,
@@ -4818,7 +4862,9 @@ module Stripe
 
     # At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
     #
-    # You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+    # You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update.
+    #
+    # The recommended way to get only the prorations being previewed on the invoice is to consider line items where parent.subscription_item_details.proration is true.
     #
     # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
     #

@@ -187,6 +187,40 @@ module Stripe
           end
         end
 
+        class DisputesList < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+            attr_accessor :capture_payments
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            attr_accessor :refund_management
+
+            def initialize(
+              capture_payments: nil,
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            )
+              @capture_payments = capture_payments
+              @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
+              @dispute_management = dispute_management
+              @refund_management = refund_management
+            end
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class Documents < Stripe::RequestParams
           class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
@@ -629,6 +663,8 @@ module Stripe
         attr_accessor :capital_financing_promotion
         # Configuration for the capital overview embedded component.
         attr_accessor :capital_overview
+        # Configuration for the disputes list embedded component.
+        attr_accessor :disputes_list
         # Configuration for the documents embedded component.
         attr_accessor :documents
         # Configuration for the export tax transactions embedded component.
@@ -678,6 +714,7 @@ module Stripe
           capital_financing_application: nil,
           capital_financing_promotion: nil,
           capital_overview: nil,
+          disputes_list: nil,
           documents: nil,
           export_tax_transactions: nil,
           financial_account: nil,
@@ -707,6 +744,7 @@ module Stripe
           @capital_financing_application = capital_financing_application
           @capital_financing_promotion = capital_financing_promotion
           @capital_overview = capital_overview
+          @disputes_list = disputes_list
           @documents = documents
           @export_tax_transactions = export_tax_transactions
           @financial_account = financial_account

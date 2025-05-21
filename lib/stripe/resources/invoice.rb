@@ -2638,6 +2638,18 @@ module Stripe
             end
           end
 
+          class BillingThresholds < Stripe::RequestParams
+            # Monetary threshold that triggers the subscription to advance to a new billing period
+            attr_accessor :amount_gte
+            # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+            attr_accessor :reset_billing_cycle_anchor
+
+            def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
+              @amount_gte = amount_gte
+              @reset_billing_cycle_anchor = reset_billing_cycle_anchor
+            end
+          end
+
           class Discount < Stripe::RequestParams
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
@@ -2680,6 +2692,15 @@ module Stripe
           end
 
           class Item < Stripe::RequestParams
+            class BillingThresholds < Stripe::RequestParams
+              # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+              attr_accessor :usage_gte
+
+              def initialize(usage_gte: nil)
+                @usage_gte = usage_gte
+              end
+            end
+
             class Discount < Stripe::RequestParams
               # ID of the coupon to create a new discount for.
               attr_accessor :coupon
@@ -2736,6 +2757,8 @@ module Stripe
                 @unit_amount_decimal = unit_amount_decimal
               end
             end
+            # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+            attr_accessor :billing_thresholds
             # The coupons to redeem into discounts for the subscription item.
             attr_accessor :discounts
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -2752,6 +2775,7 @@ module Stripe
             attr_accessor :tax_rates
 
             def initialize(
+              billing_thresholds: nil,
               discounts: nil,
               metadata: nil,
               plan: nil,
@@ -2760,6 +2784,7 @@ module Stripe
               quantity: nil,
               tax_rates: nil
             )
+              @billing_thresholds = billing_thresholds
               @discounts = discounts
               @metadata = metadata
               @plan = plan
@@ -2789,6 +2814,8 @@ module Stripe
           attr_accessor :automatic_tax
           # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
           attr_accessor :billing_cycle_anchor
+          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+          attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           attr_accessor :collection_method
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2829,6 +2856,7 @@ module Stripe
             application_fee_percent: nil,
             automatic_tax: nil,
             billing_cycle_anchor: nil,
+            billing_thresholds: nil,
             collection_method: nil,
             currency: nil,
             default_payment_method: nil,
@@ -2851,6 +2879,7 @@ module Stripe
             @application_fee_percent = application_fee_percent
             @automatic_tax = automatic_tax
             @billing_cycle_anchor = billing_cycle_anchor
+            @billing_thresholds = billing_thresholds
             @collection_method = collection_method
             @currency = currency
             @default_payment_method = default_payment_method
@@ -2886,6 +2915,15 @@ module Stripe
 
       class SubscriptionDetails < Stripe::RequestParams
         class Item < Stripe::RequestParams
+          class BillingThresholds < Stripe::RequestParams
+            # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+            attr_accessor :usage_gte
+
+            def initialize(usage_gte: nil)
+              @usage_gte = usage_gte
+            end
+          end
+
           class Discount < Stripe::RequestParams
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
@@ -2942,6 +2980,8 @@ module Stripe
               @unit_amount_decimal = unit_amount_decimal
             end
           end
+          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+          attr_accessor :billing_thresholds
           # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
           attr_accessor :clear_usage
           # A flag that, if set to `true`, will delete the specified item.
@@ -2964,6 +3004,7 @@ module Stripe
           attr_accessor :tax_rates
 
           def initialize(
+            billing_thresholds: nil,
             clear_usage: nil,
             deleted: nil,
             discounts: nil,
@@ -2975,6 +3016,7 @@ module Stripe
             quantity: nil,
             tax_rates: nil
           )
+            @billing_thresholds = billing_thresholds
             @clear_usage = clear_usage
             @deleted = deleted
             @discounts = discounts
@@ -3325,7 +3367,9 @@ module Stripe
 
     # At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
     #
-    # You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+    # You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update.
+    #
+    # The recommended way to get only the prorations being previewed on the invoice is to consider line items where parent.subscription_item_details.proration is true.
     #
     # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
     #

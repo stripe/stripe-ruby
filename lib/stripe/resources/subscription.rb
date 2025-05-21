@@ -44,6 +44,13 @@ module Stripe
       attr_reader :second
     end
 
+    class BillingThresholds < Stripe::StripeObject
+      # Monetary threshold that triggers the subscription to create an invoice
+      attr_reader :amount_gte
+      # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+      attr_reader :reset_billing_cycle_anchor
+    end
+
     class CancellationDetails < Stripe::StripeObject
       # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
       attr_reader :comment
@@ -320,6 +327,18 @@ module Stripe
         end
       end
 
+      class BillingThresholds < Stripe::RequestParams
+        # Monetary threshold that triggers the subscription to advance to a new billing period
+        attr_accessor :amount_gte
+        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        attr_accessor :reset_billing_cycle_anchor
+
+        def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
+          @amount_gte = amount_gte
+          @reset_billing_cycle_anchor = reset_billing_cycle_anchor
+        end
+      end
+
       class CancellationDetails < Stripe::RequestParams
         # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
         attr_accessor :comment
@@ -371,6 +390,15 @@ module Stripe
       end
 
       class Item < Stripe::RequestParams
+        class BillingThresholds < Stripe::RequestParams
+          # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+          attr_accessor :usage_gte
+
+          def initialize(usage_gte: nil)
+            @usage_gte = usage_gte
+          end
+        end
+
         class Discount < Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
@@ -427,6 +455,8 @@ module Stripe
             @unit_amount_decimal = unit_amount_decimal
           end
         end
+        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        attr_accessor :billing_thresholds
         # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         attr_accessor :clear_usage
         # A flag that, if set to `true`, will delete the specified item.
@@ -449,6 +479,7 @@ module Stripe
         attr_accessor :tax_rates
 
         def initialize(
+          billing_thresholds: nil,
           clear_usage: nil,
           deleted: nil,
           discounts: nil,
@@ -460,6 +491,7 @@ module Stripe
           quantity: nil,
           tax_rates: nil
         )
+          @billing_thresholds = billing_thresholds
           @clear_usage = clear_usage
           @deleted = deleted
           @discounts = discounts
@@ -711,6 +743,8 @@ module Stripe
       attr_accessor :automatic_tax
       # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       attr_accessor :billing_cycle_anchor
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+      attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
       # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
@@ -763,7 +797,7 @@ module Stripe
       attr_accessor :proration_date
       # If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value.
       attr_accessor :transfer_data
-      # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+      # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, `trial_end` will override the default trial period of the plan the customer is being subscribed to. The `billing_cycle_anchor` will be updated to the `trial_end` value. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
       attr_accessor :trial_end
       # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
       attr_accessor :trial_from_plan
@@ -775,6 +809,7 @@ module Stripe
         application_fee_percent: nil,
         automatic_tax: nil,
         billing_cycle_anchor: nil,
+        billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         cancellation_details: nil,
@@ -806,6 +841,7 @@ module Stripe
         @application_fee_percent = application_fee_percent
         @automatic_tax = automatic_tax
         @billing_cycle_anchor = billing_cycle_anchor
+        @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
         @cancellation_details = cancellation_details
@@ -1069,6 +1105,18 @@ module Stripe
         end
       end
 
+      class BillingThresholds < Stripe::RequestParams
+        # Monetary threshold that triggers the subscription to advance to a new billing period
+        attr_accessor :amount_gte
+        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        attr_accessor :reset_billing_cycle_anchor
+
+        def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
+          @amount_gte = amount_gte
+          @reset_billing_cycle_anchor = reset_billing_cycle_anchor
+        end
+      end
+
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
@@ -1108,6 +1156,15 @@ module Stripe
       end
 
       class Item < Stripe::RequestParams
+        class BillingThresholds < Stripe::RequestParams
+          # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+          attr_accessor :usage_gte
+
+          def initialize(usage_gte: nil)
+            @usage_gte = usage_gte
+          end
+        end
+
         class Discount < Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
@@ -1164,6 +1221,8 @@ module Stripe
             @unit_amount_decimal = unit_amount_decimal
           end
         end
+        # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        attr_accessor :billing_thresholds
         # The coupons to redeem into discounts for the subscription item.
         attr_accessor :discounts
         # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1180,6 +1239,7 @@ module Stripe
         attr_accessor :tax_rates
 
         def initialize(
+          billing_thresholds: nil,
           discounts: nil,
           metadata: nil,
           plan: nil,
@@ -1188,6 +1248,7 @@ module Stripe
           quantity: nil,
           tax_rates: nil
         )
+          @billing_thresholds = billing_thresholds
           @discounts = discounts
           @metadata = metadata
           @plan = plan
@@ -1428,6 +1489,8 @@ module Stripe
       attr_accessor :billing_cycle_anchor
       # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
       attr_accessor :billing_cycle_anchor_config
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+      attr_accessor :billing_thresholds
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       attr_accessor :cancel_at
       # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
@@ -1498,6 +1561,7 @@ module Stripe
         backdate_start_date: nil,
         billing_cycle_anchor: nil,
         billing_cycle_anchor_config: nil,
+        billing_thresholds: nil,
         cancel_at: nil,
         cancel_at_period_end: nil,
         collection_method: nil,
@@ -1531,6 +1595,7 @@ module Stripe
         @backdate_start_date = backdate_start_date
         @billing_cycle_anchor = billing_cycle_anchor
         @billing_cycle_anchor_config = billing_cycle_anchor_config
+        @billing_thresholds = billing_thresholds
         @cancel_at = cancel_at
         @cancel_at_period_end = cancel_at_period_end
         @collection_method = collection_method
@@ -1610,6 +1675,8 @@ module Stripe
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.
     attr_reader :billing_cycle_anchor_config
+    # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+    attr_reader :billing_thresholds
     # A date in the future at which the subscription will automatically get canceled
     attr_reader :cancel_at
     # Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field will be removed in a future API version. Please use `cancel_at` instead.
@@ -1692,7 +1759,7 @@ module Stripe
     attr_reader :trial_end
     # Settings related to subscription trials.
     attr_reader :trial_settings
-    # If the subscription has a trial, the beginning of that trial.
+    # If the subscription has a trial, the beginning of that trial. For subsequent trials, this date remains as the start of the first ever trial on the subscription.
     attr_reader :trial_start
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).

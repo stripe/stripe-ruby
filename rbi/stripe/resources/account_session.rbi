@@ -69,6 +69,28 @@ module Stripe
         sig { returns(Features) }
         attr_reader :features
       end
+      class DisputesList < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :capture_payments
+          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :destination_on_behalf_of_charge_management
+          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :dispute_management
+          # Whether to allow sending refunds. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :refund_management
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
       class Documents < Stripe::StripeObject
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
@@ -198,6 +220,25 @@ module Stripe
         sig { returns(Features) }
         attr_reader :features
       end
+      class PaymentDisputes < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :destination_on_behalf_of_charge_management
+          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :dispute_management
+          # Whether to allow sending refunds. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :refund_management
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
       class Payments < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -281,6 +322,9 @@ module Stripe
       # Attribute for field balances
       sig { returns(Balances) }
       attr_reader :balances
+      # Attribute for field disputes_list
+      sig { returns(DisputesList) }
+      attr_reader :disputes_list
       # Attribute for field documents
       sig { returns(Documents) }
       attr_reader :documents
@@ -302,6 +346,9 @@ module Stripe
       # Attribute for field payment_details
       sig { returns(PaymentDetails) }
       attr_reader :payment_details
+      # Attribute for field payment_disputes
+      sig { returns(PaymentDisputes) }
+      attr_reader :payment_disputes
       # Attribute for field payments
       sig { returns(Payments) }
       attr_reader :payments
@@ -438,6 +485,43 @@ module Stripe
           attr_accessor :features
           sig {
             params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances::Features)).void
+           }
+          def initialize(enabled: nil, features: nil); end
+        end
+        class DisputesList < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :capture_payments
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :refund_management
+            sig {
+              params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+             }
+            def initialize(
+              capture_payments: nil,
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            ); end
+          end
+          # Whether the embedded component is enabled.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList::Features))
+           }
+          attr_accessor :features
+          sig {
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList::Features)).void
            }
           def initialize(enabled: nil, features: nil); end
         end
@@ -658,6 +742,39 @@ module Stripe
            }
           def initialize(enabled: nil, features: nil); end
         end
+        class PaymentDisputes < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :refund_management
+            sig {
+              params(destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+             }
+            def initialize(
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            ); end
+          end
+          # Whether the embedded component is enabled.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes::Features))
+           }
+          attr_accessor :features
+          sig {
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes::Features)).void
+           }
+          def initialize(enabled: nil, features: nil); end
+        end
         class Payments < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -794,6 +911,9 @@ module Stripe
         # Configuration for the balances embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances)) }
         attr_accessor :balances
+        # Configuration for the disputes list embedded component.
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList)) }
+        attr_accessor :disputes_list
         # Configuration for the documents embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents)) }
         attr_accessor :documents
@@ -825,6 +945,11 @@ module Stripe
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails))
          }
         attr_accessor :payment_details
+        # Configuration for the payment disputes embedded component.
+        sig {
+          returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes))
+         }
+        attr_accessor :payment_disputes
         # Configuration for the payments embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments)) }
         attr_accessor :payments
@@ -843,12 +968,13 @@ module Stripe
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings)) }
         attr_accessor :tax_settings
         sig {
-          params(account_management: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding), balances: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances), documents: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents), financial_account: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions), issuing_card: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails), payments: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments), payouts: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList), tax_registrations: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings)).void
+          params(account_management: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding), balances: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances), disputes_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents), financial_account: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions), issuing_card: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes), payments: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments), payouts: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList), tax_registrations: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings)).void
          }
         def initialize(
           account_management: nil,
           account_onboarding: nil,
           balances: nil,
+          disputes_list: nil,
           documents: nil,
           financial_account: nil,
           financial_account_transactions: nil,
@@ -856,6 +982,7 @@ module Stripe
           issuing_cards_list: nil,
           notification_banner: nil,
           payment_details: nil,
+          payment_disputes: nil,
           payments: nil,
           payouts: nil,
           payouts_list: nil,

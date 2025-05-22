@@ -992,7 +992,7 @@ module Stripe
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::AmazonPay))
        }
       attr_accessor :amazon_pay
-      # Stripe users can accept [Apple Pay](/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
+      # Stripe users can accept [Apple Pay](https://stripe.com/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](https://stripe.com/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
       sig {
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::CreateParams::ApplePay))
        }
@@ -2213,7 +2213,7 @@ module Stripe
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::AmazonPay))
        }
       attr_accessor :amazon_pay
-      # Stripe users can accept [Apple Pay](/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
+      # Stripe users can accept [Apple Pay](https://stripe.com/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](https://stripe.com/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
       sig {
         returns(T.nilable(::Stripe::PaymentMethodConfigurationService::UpdateParams::ApplePay))
        }

@@ -129,7 +129,7 @@ module Stripe
       end
     end
 
-    # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
+    # To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
     def create(params = {}, opts = {})
       request(method: :post, path: "/v1/transfers", params: params, opts: opts, base_address: :api)
     end

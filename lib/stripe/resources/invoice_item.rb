@@ -59,8 +59,7 @@ module Stripe
       attr_reader :unit_amount_decimal
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class Discount < Stripe::RequestParams
@@ -407,7 +406,7 @@ module Stripe
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # The parent that generated this invoice
+    # The parent that generated this invoice item.
     attr_reader :parent
     # Attribute for field period
     attr_reader :period

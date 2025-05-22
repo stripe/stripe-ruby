@@ -6,6 +6,14 @@ module Stripe
   # Subscription items allow you to create customer subscriptions with more than
   # one plan, making it easy to represent complex billing relationships.
   class SubscriptionItem < APIResource
+    class BillingThresholds < Stripe::StripeObject
+      # Usage threshold that triggers the subscription to create an invoice
+      sig { returns(T.nilable(Integer)) }
+      attr_reader :usage_gte
+    end
+    # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+    sig { returns(T.nilable(BillingThresholds)) }
+    attr_reader :billing_thresholds
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     attr_reader :created
@@ -73,6 +81,13 @@ module Stripe
       def initialize(clear_usage: nil, proration_behavior: nil, proration_date: nil); end
     end
     class UpdateParams < Stripe::RequestParams
+      class BillingThresholds < Stripe::RequestParams
+        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        sig { returns(Integer) }
+        attr_accessor :usage_gte
+        sig { params(usage_gte: Integer).void }
+        def initialize(usage_gte: nil); end
+      end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
@@ -129,6 +144,11 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+      sig {
+        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::UpdateParams::BillingThresholds))))
+       }
+      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       sig {
         returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::UpdateParams::Discount]))))
@@ -174,9 +194,10 @@ module Stripe
       sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
       attr_accessor :tax_rates
       sig {
-        params(discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::UpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+        params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::UpdateParams::BillingThresholds))), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::UpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
        }
       def initialize(
+        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,
@@ -219,6 +240,13 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
+      class BillingThresholds < Stripe::RequestParams
+        # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        sig { returns(Integer) }
+        attr_accessor :usage_gte
+        sig { params(usage_gte: Integer).void }
+        def initialize(usage_gte: nil); end
+      end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
@@ -275,6 +303,11 @@ module Stripe
           unit_amount_decimal: nil
         ); end
       end
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+      sig {
+        returns(T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::CreateParams::BillingThresholds))))
+       }
+      attr_accessor :billing_thresholds
       # The coupons to redeem into discounts for the subscription item.
       sig {
         returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::CreateParams::Discount]))))
@@ -320,9 +353,10 @@ module Stripe
       sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
       attr_accessor :tax_rates
       sig {
-        params(discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::CreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+        params(billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionItem::CreateParams::BillingThresholds))), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItem::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItem::CreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
        }
       def initialize(
+        billing_thresholds: nil,
         discounts: nil,
         expand: nil,
         metadata: nil,

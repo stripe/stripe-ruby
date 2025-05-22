@@ -65,19 +65,19 @@ module Stripe
        }
       def initialize(description: nil, expand: nil, metadata: nil); end
     end
-    # Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+    # Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
     sig {
       params(customer: String, params: T.any(::Stripe::CustomerBalanceTransactionService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CustomerBalanceTransaction)
      }
     def create(customer, params = {}, opts = {}); end
 
-    # Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+    # Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
     sig {
       params(customer: String, params: T.any(::Stripe::CustomerBalanceTransactionService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
      }
     def list(customer, params = {}, opts = {}); end
 
-    # Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+    # Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
     sig {
       params(customer: String, transaction: String, params: T.any(::Stripe::CustomerBalanceTransactionService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CustomerBalanceTransaction)
      }

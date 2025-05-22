@@ -41,8 +41,7 @@ module Stripe
       attr_reader :width
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class MarketingFeature < Stripe::RequestParams

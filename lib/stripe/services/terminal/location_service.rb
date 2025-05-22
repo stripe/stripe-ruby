@@ -4,8 +4,7 @@
 module Stripe
   module Terminal
     class LocationService < StripeService
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
@@ -149,7 +148,7 @@ module Stripe
       end
 
       # Creates a new Location object.
-      # For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+      # For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
       def create(params = {}, opts = {})
         request(
           method: :post,

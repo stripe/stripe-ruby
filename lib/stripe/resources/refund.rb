@@ -106,7 +106,12 @@ module Stripe
       end
 
       class Paynow < Stripe::StripeObject; end
-      class Paypal < Stripe::StripeObject; end
+
+      class Paypal < Stripe::StripeObject
+        # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+        attr_reader :network_decline_code
+      end
+
       class Pix < Stripe::StripeObject; end
       class Revolut < Stripe::StripeObject; end
       class Sofort < Stripe::StripeObject; end

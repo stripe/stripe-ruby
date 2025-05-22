@@ -96,6 +96,28 @@ module Stripe
         sig { returns(Features) }
         attr_reader :features
       end
+      class DisputesList < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :capture_payments
+          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :destination_on_behalf_of_charge_management
+          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :dispute_management
+          # Whether to allow sending refunds. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :refund_management
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
       class Documents < Stripe::StripeObject
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
@@ -225,6 +247,25 @@ module Stripe
         sig { returns(Features) }
         attr_reader :features
       end
+      class PaymentDisputes < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :destination_on_behalf_of_charge_management
+          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :dispute_management
+          # Whether to allow sending refunds. This is `true` by default.
+          sig { returns(T::Boolean) }
+          attr_reader :refund_management
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        attr_reader :enabled
+        # Attribute for field features
+        sig { returns(Features) }
+        attr_reader :features
+      end
       class Payments < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -317,6 +358,9 @@ module Stripe
       # Attribute for field capital_financing_promotion
       sig { returns(T.nilable(CapitalFinancingPromotion)) }
       attr_reader :capital_financing_promotion
+      # Attribute for field disputes_list
+      sig { returns(DisputesList) }
+      attr_reader :disputes_list
       # Attribute for field documents
       sig { returns(Documents) }
       attr_reader :documents
@@ -338,6 +382,9 @@ module Stripe
       # Attribute for field payment_details
       sig { returns(PaymentDetails) }
       attr_reader :payment_details
+      # Attribute for field payment_disputes
+      sig { returns(PaymentDisputes) }
+      attr_reader :payment_disputes
       # Attribute for field payments
       sig { returns(Payments) }
       attr_reader :payments
@@ -520,9 +567,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalFinancing < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -537,9 +582,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalFinancingApplication < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -554,9 +597,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalFinancingPromotion < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -571,9 +612,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class CapitalOverview < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -587,10 +626,45 @@ module Stripe
            }
           def initialize(enabled: nil, features: nil); end
         end
-        class Documents < Stripe::RequestParams
+        class DisputesList < Stripe::RequestParams
           class Features < Stripe::RequestParams
-
+            # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :capture_payments
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_accessor :refund_management
+            sig {
+              params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+             }
+            def initialize(
+              capture_payments: nil,
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            ); end
           end
+          # Whether the embedded component is enabled.
+          sig { returns(T::Boolean) }
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          sig {
+            returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList::Features))
+           }
+          attr_accessor :features
+          sig {
+            params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList::Features)).void
+           }
+          def initialize(enabled: nil, features: nil); end
+        end
+        class Documents < Stripe::RequestParams
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -605,9 +679,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class ExportTaxTransactions < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -857,9 +929,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class PaymentMethodSettings < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -952,9 +1022,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class PayoutsList < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -969,9 +1037,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class ProductTaxCodeSelector < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1007,9 +1073,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class ReportingChart < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1024,9 +1088,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class TaxRegistrations < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1041,9 +1103,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class TaxSettings < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1058,9 +1118,7 @@ module Stripe
           def initialize(enabled: nil, features: nil); end
         end
         class TaxThresholdMonitoring < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           sig { returns(T::Boolean) }
           attr_accessor :enabled
@@ -1113,6 +1171,9 @@ module Stripe
           returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalOverview))
          }
         attr_accessor :capital_overview
+        # Configuration for the disputes list embedded component.
+        sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList)) }
+        attr_accessor :disputes_list
         # Configuration for the documents embedded component.
         sig { returns(T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents)) }
         attr_accessor :documents
@@ -1195,7 +1256,7 @@ module Stripe
          }
         attr_accessor :tax_threshold_monitoring
         sig {
-          params(account_management: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding), app_install: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppInstall), app_viewport: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppViewport), balances: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances), capital_financing: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalOverview), documents: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents), export_tax_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::ExportTaxTransactions), financial_account: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions), issuing_card: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes), payment_method_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings), payments: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments), payouts: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(::Stripe::AccountSession::CreateParams::Components::Recipients), reporting_chart: T.nilable(::Stripe::AccountSession::CreateParams::Components::ReportingChart), tax_registrations: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring)).void
+          params(account_management: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSession::CreateParams::Components::AccountOnboarding), app_install: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppInstall), app_viewport: T.nilable(::Stripe::AccountSession::CreateParams::Components::AppViewport), balances: T.nilable(::Stripe::AccountSession::CreateParams::Components::Balances), capital_financing: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(::Stripe::AccountSession::CreateParams::Components::CapitalOverview), disputes_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSession::CreateParams::Components::Documents), export_tax_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::ExportTaxTransactions), financial_account: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSession::CreateParams::Components::FinancialAccountTransactions), issuing_card: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSession::CreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentDisputes), payment_method_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::PaymentMethodSettings), payments: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payments), payouts: T.nilable(::Stripe::AccountSession::CreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSession::CreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(::Stripe::AccountSession::CreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(::Stripe::AccountSession::CreateParams::Components::Recipients), reporting_chart: T.nilable(::Stripe::AccountSession::CreateParams::Components::ReportingChart), tax_registrations: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(::Stripe::AccountSession::CreateParams::Components::TaxThresholdMonitoring)).void
          }
         def initialize(
           account_management: nil,
@@ -1207,6 +1268,7 @@ module Stripe
           capital_financing_application: nil,
           capital_financing_promotion: nil,
           capital_overview: nil,
+          disputes_list: nil,
           documents: nil,
           export_tax_transactions: nil,
           financial_account: nil,

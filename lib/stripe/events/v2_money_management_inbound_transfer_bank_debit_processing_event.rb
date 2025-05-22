@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # An InboundTransfer is now processing.
+  # Occurs when an InboundTransfer starts processing.
   class V2MoneyManagementInboundTransferBankDebitProcessingEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.inbound_transfer.bank_debit_processing"

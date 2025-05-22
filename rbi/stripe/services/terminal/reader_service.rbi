@@ -5,9 +5,7 @@
 module Stripe
   module Terminal
     class ReaderService < StripeService
-      class DeleteParams < Stripe::RequestParams
-
-      end
+      class DeleteParams < Stripe::RequestParams; end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
@@ -256,14 +254,28 @@ module Stripe
         def initialize(collect_config: nil, expand: nil, payment_intent: nil); end
       end
       class ConfirmPaymentIntentParams < Stripe::RequestParams
+        class ConfirmConfig < Stripe::RequestParams
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :return_url
+          sig { params(return_url: T.nilable(String)).void }
+          def initialize(return_url: nil); end
+        end
+        # Configuration overrides
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ReaderService::ConfirmPaymentIntentParams::ConfirmConfig))
+         }
+        attr_accessor :confirm_config
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
         # PaymentIntent ID
         sig { returns(String) }
         attr_accessor :payment_intent
-        sig { params(expand: T.nilable(T::Array[String]), payment_intent: String).void }
-        def initialize(expand: nil, payment_intent: nil); end
+        sig {
+          params(confirm_config: T.nilable(::Stripe::Terminal::ReaderService::ConfirmPaymentIntentParams::ConfirmConfig), expand: T.nilable(T::Array[String]), payment_intent: String).void
+         }
+        def initialize(confirm_config: nil, expand: nil, payment_intent: nil); end
       end
       class ProcessPaymentIntentParams < Stripe::RequestParams
         class ProcessConfig < Stripe::RequestParams
@@ -280,6 +292,9 @@ module Stripe
           # Enables cancel button on transaction screens.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :enable_customer_cancellation
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :return_url
           # Override showing a tipping selection screen on this transaction.
           sig { returns(T.nilable(T::Boolean)) }
           attr_accessor :skip_tipping
@@ -289,11 +304,12 @@ module Stripe
            }
           attr_accessor :tipping
           sig {
-            params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig::Tipping)).void
+            params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), return_url: T.nilable(String), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderService::ProcessPaymentIntentParams::ProcessConfig::Tipping)).void
            }
           def initialize(
             allow_redisplay: nil,
             enable_customer_cancellation: nil,
+            return_url: nil,
             skip_tipping: nil,
             tipping: nil
           ); end

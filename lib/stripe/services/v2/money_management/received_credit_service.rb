@@ -41,8 +41,7 @@ module Stripe
           end
         end
 
-        class RetrieveParams < Stripe::RequestParams
-        end
+        class RetrieveParams < Stripe::RequestParams; end
 
         # Retrieves a list of ReceivedCredits.
         def list(params = {}, opts = {})

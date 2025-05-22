@@ -91,10 +91,16 @@ module Stripe
         attr_reader :last_name
         # Document ID number.
         attr_reader :number
+        # Sex of the person in the document.
+        attr_reader :sex
         # Status of this `document` check.
         attr_reader :status
         # Type of the document.
         attr_reader :type
+        # Place of birth as it appears in the document.
+        attr_reader :unparsed_place_of_birth
+        # Sex as it appears in the document.
+        attr_reader :unparsed_sex
       end
 
       class Email < Stripe::StripeObject

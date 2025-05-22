@@ -45,8 +45,7 @@ module Stripe
           end
         end
 
-        class RetrieveParams < Stripe::RequestParams
-        end
+        class RetrieveParams < Stripe::RequestParams; end
 
         # Returns a list of Adjustments that match the provided filters.
         def list(params = {}, opts = {})

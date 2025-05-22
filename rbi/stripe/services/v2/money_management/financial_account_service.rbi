@@ -13,9 +13,7 @@ module Stripe
           sig { params(limit: T.nilable(Integer)).void }
           def initialize(limit: nil); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # Lists FinancialAccounts in this compartment.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)

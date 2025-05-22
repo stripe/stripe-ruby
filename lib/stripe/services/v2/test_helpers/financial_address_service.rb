@@ -20,8 +20,7 @@ module Stripe
           end
         end
 
-        class GenerateMicrodepositsParams < Stripe::RequestParams
-        end
+        class GenerateMicrodepositsParams < Stripe::RequestParams; end
 
         # Simulate crediting a FinancialAddress in a Sandbox environment. This can be used to add virtual funds and increase your balance for testing.
         def credit(id, params = {}, opts = {})

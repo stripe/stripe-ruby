@@ -898,20 +898,11 @@ module Stripe
           end
         end
 
-        class Affirm < Stripe::RequestParams
-        end
-
-        class AfterpayClearpay < Stripe::RequestParams
-        end
-
-        class Alipay < Stripe::RequestParams
-        end
-
-        class Alma < Stripe::RequestParams
-        end
-
-        class AmazonPay < Stripe::RequestParams
-        end
+        class Affirm < Stripe::RequestParams; end
+        class AfterpayClearpay < Stripe::RequestParams; end
+        class Alipay < Stripe::RequestParams; end
+        class Alma < Stripe::RequestParams; end
+        class AmazonPay < Stripe::RequestParams; end
 
         class AuBecsDebit < Stripe::RequestParams
           # The account number for the bank account.
@@ -937,11 +928,8 @@ module Stripe
           end
         end
 
-        class Bancontact < Stripe::RequestParams
-        end
-
-        class Billie < Stripe::RequestParams
-        end
+        class Bancontact < Stripe::RequestParams; end
+        class Billie < Stripe::RequestParams; end
 
         class BillingDetails < Stripe::RequestParams
           class Address < Stripe::RequestParams
@@ -994,8 +982,7 @@ module Stripe
           end
         end
 
-        class Blik < Stripe::RequestParams
-        end
+        class Blik < Stripe::RequestParams; end
 
         class Boleto < Stripe::RequestParams
           # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
@@ -1006,11 +993,8 @@ module Stripe
           end
         end
 
-        class Cashapp < Stripe::RequestParams
-        end
-
-        class CustomerBalance < Stripe::RequestParams
-        end
+        class Cashapp < Stripe::RequestParams; end
+        class CustomerBalance < Stripe::RequestParams; end
 
         class Eps < Stripe::RequestParams
           # The customer's bank.
@@ -1033,14 +1017,9 @@ module Stripe
           end
         end
 
-        class Giropay < Stripe::RequestParams
-        end
-
-        class Gopay < Stripe::RequestParams
-        end
-
-        class Grabpay < Stripe::RequestParams
-        end
+        class Giropay < Stripe::RequestParams; end
+        class Gopay < Stripe::RequestParams; end
+        class Grabpay < Stripe::RequestParams; end
 
         class IdBankTransfer < Stripe::RequestParams
           # Bank where the account is held.
@@ -1060,11 +1039,8 @@ module Stripe
           end
         end
 
-        class InteracPresent < Stripe::RequestParams
-        end
-
-        class KakaoPay < Stripe::RequestParams
-        end
+        class InteracPresent < Stripe::RequestParams; end
+        class KakaoPay < Stripe::RequestParams; end
 
         class Klarna < Stripe::RequestParams
           class Dob < Stripe::RequestParams
@@ -1089,23 +1065,12 @@ module Stripe
           end
         end
 
-        class Konbini < Stripe::RequestParams
-        end
-
-        class KrCard < Stripe::RequestParams
-        end
-
-        class Link < Stripe::RequestParams
-        end
-
-        class MbWay < Stripe::RequestParams
-        end
-
-        class Mobilepay < Stripe::RequestParams
-        end
-
-        class Multibanco < Stripe::RequestParams
-        end
+        class Konbini < Stripe::RequestParams; end
+        class KrCard < Stripe::RequestParams; end
+        class Link < Stripe::RequestParams; end
+        class MbWay < Stripe::RequestParams; end
+        class Mobilepay < Stripe::RequestParams; end
+        class Multibanco < Stripe::RequestParams; end
 
         class NaverPay < Stripe::RequestParams
           # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
@@ -1147,8 +1112,7 @@ module Stripe
           end
         end
 
-        class Oxxo < Stripe::RequestParams
-        end
+        class Oxxo < Stripe::RequestParams; end
 
         class P24 < Stripe::RequestParams
           # The customer's bank.
@@ -1159,17 +1123,10 @@ module Stripe
           end
         end
 
-        class PayByBank < Stripe::RequestParams
-        end
-
-        class Payco < Stripe::RequestParams
-        end
-
-        class Paynow < Stripe::RequestParams
-        end
-
-        class Paypal < Stripe::RequestParams
-        end
+        class PayByBank < Stripe::RequestParams; end
+        class Payco < Stripe::RequestParams; end
+        class Paynow < Stripe::RequestParams; end
+        class Paypal < Stripe::RequestParams; end
 
         class Payto < Stripe::RequestParams
           # The account number for the bank account.
@@ -1186,14 +1143,9 @@ module Stripe
           end
         end
 
-        class Pix < Stripe::RequestParams
-        end
-
-        class Promptpay < Stripe::RequestParams
-        end
-
-        class Qris < Stripe::RequestParams
-        end
+        class Pix < Stripe::RequestParams; end
+        class Promptpay < Stripe::RequestParams; end
+        class Qris < Stripe::RequestParams; end
 
         class RadarOptions < Stripe::RequestParams
           # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -1227,14 +1179,9 @@ module Stripe
           end
         end
 
-        class RevolutPay < Stripe::RequestParams
-        end
-
-        class SamsungPay < Stripe::RequestParams
-        end
-
-        class Satispay < Stripe::RequestParams
-        end
+        class RevolutPay < Stripe::RequestParams; end
+        class SamsungPay < Stripe::RequestParams; end
+        class Satispay < Stripe::RequestParams; end
 
         class SepaDebit < Stripe::RequestParams
           # IBAN of the bank account.
@@ -1245,8 +1192,7 @@ module Stripe
           end
         end
 
-        class Shopeepay < Stripe::RequestParams
-        end
+        class Shopeepay < Stripe::RequestParams; end
 
         class Sofort < Stripe::RequestParams
           # Two-letter ISO code representing the country the bank account is located in.
@@ -1269,11 +1215,8 @@ module Stripe
           end
         end
 
-        class Swish < Stripe::RequestParams
-        end
-
-        class Twint < Stripe::RequestParams
-        end
+        class Swish < Stripe::RequestParams; end
+        class Twint < Stripe::RequestParams; end
 
         class UsBankAccount < Stripe::RequestParams
           # Account holder type: individual or company.
@@ -1302,11 +1245,8 @@ module Stripe
           end
         end
 
-        class WechatPay < Stripe::RequestParams
-        end
-
-        class Zip < Stripe::RequestParams
-        end
+        class WechatPay < Stripe::RequestParams; end
+        class Zip < Stripe::RequestParams; end
         # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
         attr_accessor :acss_debit
         # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.

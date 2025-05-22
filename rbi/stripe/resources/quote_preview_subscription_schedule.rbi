@@ -43,6 +43,14 @@ module Stripe
         sig { returns(T.nilable(Liability)) }
         attr_reader :liability
       end
+      class BillingThresholds < Stripe::StripeObject
+        # Monetary threshold that triggers the subscription to create an invoice
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :amount_gte
+        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+        sig { returns(T.nilable(T::Boolean)) }
+        attr_reader :reset_billing_cycle_anchor
+      end
       class InvoiceSettings < Stripe::StripeObject
         class Issuer < Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
@@ -79,6 +87,9 @@ module Stripe
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(String) }
       attr_reader :billing_cycle_anchor
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+      sig { returns(T.nilable(BillingThresholds)) }
+      attr_reader :billing_thresholds
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       sig { returns(T.nilable(String)) }
       attr_reader :collection_method
@@ -173,6 +184,14 @@ module Stripe
         sig { returns(T.nilable(Liability)) }
         attr_reader :liability
       end
+      class BillingThresholds < Stripe::StripeObject
+        # Monetary threshold that triggers the subscription to create an invoice
+        sig { returns(T.nilable(Integer)) }
+        attr_reader :amount_gte
+        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+        sig { returns(T.nilable(T::Boolean)) }
+        attr_reader :reset_billing_cycle_anchor
+      end
       class Discount < Stripe::StripeObject
         class DiscountEnd < Stripe::StripeObject
           # The discount end timestamp.
@@ -215,6 +234,11 @@ module Stripe
         attr_reader :issuer
       end
       class Item < Stripe::StripeObject
+        class BillingThresholds < Stripe::StripeObject
+          # Usage threshold that triggers the subscription to create an invoice
+          sig { returns(T.nilable(Integer)) }
+          attr_reader :usage_gte
+        end
         class Discount < Stripe::StripeObject
           class DiscountEnd < Stripe::StripeObject
             # The discount end timestamp.
@@ -245,6 +269,9 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+        sig { returns(T.nilable(BillingThresholds)) }
+        attr_reader :billing_thresholds
         # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
         sig { returns(T::Array[Discount]) }
         attr_reader :discounts
@@ -302,6 +329,9 @@ module Stripe
       # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
       sig { returns(T.nilable(String)) }
       attr_reader :billing_cycle_anchor
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+      sig { returns(T.nilable(BillingThresholds)) }
+      attr_reader :billing_thresholds
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
       sig { returns(T.nilable(String)) }
       attr_reader :collection_method
@@ -338,7 +368,7 @@ module Stripe
       # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
       sig { returns(T.nilable(PauseCollection)) }
       attr_reader :pause_collection
-      # If the subscription schedule will prorate when transitioning to this phase. Possible values are `create_prorations` and `none`.
+      # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
       sig { returns(String) }
       attr_reader :proration_behavior
       # The start of this phase of the subscription schedule.

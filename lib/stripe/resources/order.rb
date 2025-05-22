@@ -49,21 +49,6 @@ module Stripe
       attr_reader :phone
     end
 
-    class Credit < Stripe::StripeObject
-      class GiftCard < Stripe::StripeObject
-        # The token of the gift card applied to the order
-        attr_reader :card
-      end
-      # The amount of this credit to apply to the order.
-      attr_reader :amount
-      # Details for a gift card.
-      attr_reader :gift_card
-      # Line items on this order that are ineligible for this credit
-      attr_reader :ineligible_line_items
-      # The type of credit to apply to the order, only `gift_card` currently supported.
-      attr_reader :type
-    end
-
     class Payment < Stripe::StripeObject
       class Settings < Stripe::StripeObject
         class AutomaticPaymentMethods < Stripe::StripeObject
@@ -491,8 +476,6 @@ module Stripe
         # The aggregated tax amounts by rate.
         attr_reader :taxes
       end
-      # Attribute for field amount_credit
-      attr_reader :amount_credit
       # This is the sum of all the discounts.
       attr_reader :amount_discount
       # This is the sum of all the shipping amounts.
@@ -585,18 +568,6 @@ module Stripe
           @email = email
           @name = name
           @phone = phone
-        end
-      end
-
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        attr_accessor :type
-
-        def initialize(gift_card: nil, type: nil)
-          @gift_card = gift_card
-          @type = type
         end
       end
 
@@ -1528,8 +1499,6 @@ module Stripe
       attr_accessor :automatic_tax
       # Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported.
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
       # The customer associated with this order.
@@ -1558,7 +1527,6 @@ module Stripe
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,
@@ -1574,7 +1542,6 @@ module Stripe
       )
         @automatic_tax = automatic_tax
         @billing_details = billing_details
-        @credits = credits
         @currency = currency
         @customer = customer
         @description = description
@@ -1645,18 +1612,6 @@ module Stripe
           @email = email
           @name = name
           @phone = phone
-        end
-      end
-
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        attr_accessor :type
-
-        def initialize(gift_card: nil, type: nil)
-          @gift_card = gift_card
-          @type = type
         end
       end
 
@@ -2592,8 +2547,6 @@ module Stripe
       attr_accessor :automatic_tax
       # Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
       # The customer associated with this order.
@@ -2622,7 +2575,6 @@ module Stripe
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,
@@ -2638,7 +2590,6 @@ module Stripe
       )
         @automatic_tax = automatic_tax
         @billing_details = billing_details
-        @credits = credits
         @currency = currency
         @customer = customer
         @description = description
@@ -2701,8 +2652,6 @@ module Stripe
         @expected_total = expected_total
       end
     end
-    # Attribute for field amount_remaining
-    attr_reader :amount_remaining
     # Order cost before any discounts or taxes are applied. A positive integer representing the subtotal of the order in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
     attr_reader :amount_subtotal
     # Total order cost after discounts and taxes are applied. A positive integer representing the cost of the order in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). To submit an order, the total must be either 0 or at least $0.50 USD or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts).
@@ -2721,8 +2670,6 @@ module Stripe
     attr_reader :client_secret
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
-    # The credits applied to the Order. At most 10 credits can be applied to an Order.
-    attr_reader :credits
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
     # The customer which this orders belongs to.
@@ -2826,7 +2773,7 @@ module Stripe
       )
     end
 
-    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
     def submit(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -2836,7 +2783,7 @@ module Stripe
       )
     end
 
-    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
     def self.submit(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,

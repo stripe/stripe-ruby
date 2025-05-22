@@ -13,9 +13,7 @@ module Stripe
           sig { params(limit: T.nilable(Integer)).void }
           def initialize(limit: nil); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # Retrieves a list of ReceivedDebits, given the selected filters.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::ReceivedDebitService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)

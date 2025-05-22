@@ -29,13 +29,13 @@ module Stripe
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
-    # Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+    # Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
     sig {
       params(customer: String, params: T.any(::Stripe::CustomerCashBalanceTransactionService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
      }
     def list(customer, params = {}, opts = {}); end
 
-    # Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+    # Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
     sig {
       params(customer: String, transaction: String, params: T.any(::Stripe::CustomerCashBalanceTransactionService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CustomerCashBalanceTransaction)
      }

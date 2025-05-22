@@ -45,9 +45,7 @@ module Stripe
             limit: nil
           ); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # Returns a list of Transactions that match the provided filters.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::TransactionService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)

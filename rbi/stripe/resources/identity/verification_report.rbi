@@ -108,12 +108,21 @@ module Stripe
         # Document ID number.
         sig { returns(T.nilable(String)) }
         attr_reader :number
+        # Sex of the person in the document.
+        sig { returns(T.nilable(String)) }
+        attr_reader :sex
         # Status of this `document` check.
         sig { returns(String) }
         attr_reader :status
         # Type of the document.
         sig { returns(T.nilable(String)) }
         attr_reader :type
+        # Place of birth as it appears in the document.
+        sig { returns(T.nilable(String)) }
+        attr_reader :unparsed_place_of_birth
+        # Sex as it appears in the document.
+        sig { returns(T.nilable(String)) }
+        attr_reader :unparsed_sex
       end
       class Email < Stripe::StripeObject
         class Error < Stripe::StripeObject

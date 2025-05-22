@@ -25,8 +25,7 @@ module Stripe
         attr_reader :advancing
       end
 
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class ListParams < Stripe::RequestParams
         # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

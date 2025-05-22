@@ -10,45 +10,24 @@ module Stripe
         "tax.association"
       end
 
-      class StatusDetails < Stripe::StripeObject
+      class TaxTransactionAttempt < Stripe::StripeObject
         class Committed < Stripe::StripeObject
-          class Reversal < Stripe::StripeObject
-            class StatusDetails < Stripe::StripeObject
-              class Committed < Stripe::StripeObject
-                # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
-                attr_reader :transaction
-              end
-
-              class Errored < Stripe::StripeObject
-                # Details on why we could not commit the reversal Tax Transaction
-                attr_reader :reason
-                # The [Refund](https://stripe.com/docs/api/refunds/object) ID that should have created a tax reversal.
-                attr_reader :refund_id
-              end
-              # Attribute for field committed
-              attr_reader :committed
-              # Attribute for field errored
-              attr_reader :errored
-            end
-            # Status of the attempted Tax Transaction reversal.
-            attr_reader :status
-            # Attribute for field status_details
-            attr_reader :status_details
-          end
-          # Attempts to create Tax Transaction reversals
-          attr_reader :reversals
           # The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
           attr_reader :transaction
         end
 
         class Errored < Stripe::StripeObject
-          # Details on why we could not commit the Tax Transaction
+          # Details on why we couldn't commit the tax transaction.
           attr_reader :reason
         end
         # Attribute for field committed
         attr_reader :committed
         # Attribute for field errored
         attr_reader :errored
+        # The source of the tax transaction attempt. This is either a refund or a payment intent.
+        attr_reader :source
+        # The status of the transaction attempt. This can be `errored` or `committed`.
+        attr_reader :status
       end
 
       class FindParams < Stripe::RequestParams
@@ -70,10 +49,8 @@ module Stripe
       attr_reader :object
       # The [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) that this Tax Association is tracking.
       attr_reader :payment_intent
-      # Status of the Tax Association.
-      attr_reader :status
-      # Attribute for field status_details
-      attr_reader :status_details
+      # Information about the tax transactions linked to this payment intent
+      attr_reader :tax_transaction_attempts
 
       # Finds a tax association object by PaymentIntent id.
       def self.find(params = {}, opts = {})

@@ -32,8 +32,7 @@ module Stripe
         attr_reader :state
       end
 
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class UpdateParams < Stripe::RequestParams
         class Address < Stripe::RequestParams
@@ -184,7 +183,7 @@ module Stripe
       attr_reader :deleted
 
       # Creates a new Location object.
-      # For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+      # For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,

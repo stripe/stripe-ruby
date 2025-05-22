@@ -81,24 +81,6 @@ module Stripe
           # Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
           attr_reader :us_bank_account
         end
-
-        class CardSpend < Stripe::StripeObject
-          class Dispute < Stripe::StripeObject
-            # The reference to the v1 issuing dispute ID.
-            attr_reader :issuing_dispute_v1
-          end
-
-          class Refund < Stripe::StripeObject
-            # The reference to the v1 issuing transaction ID.
-            attr_reader :issuing_transaction_v1
-          end
-          # The reference to the issuing card object.
-          attr_reader :card_v1_id
-          # Hash containing information about the Dispute that triggered this credit.
-          attr_reader :dispute
-          # Hash containing information about the Refund that triggered this credit.
-          attr_reader :refund
-        end
         # The amount and currency of the ReceivedCredit.
         attr_reader :amount
         # Time at which the ReceivedCredit was created.
@@ -128,8 +110,6 @@ module Stripe
         attr_reader :balance_transfer
         # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
         attr_reader :bank_transfer
-        # This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
-        attr_reader :card_spend
       end
     end
   end

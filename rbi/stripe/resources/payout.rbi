@@ -5,9 +5,9 @@
 module Stripe
   # A `Payout` object is created when you receive funds from Stripe, or when you
   # initiate a payout to either a bank account or debit card of a [connected
-  # Stripe account](https://stripe.com/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
+  # Stripe account](https://docs.stripe.com/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
   # and list all payouts. Payouts are made on [varying
-  # schedules](https://stripe.com/docs/connect/manage-payout-schedule), depending on your country and
+  # schedules](https://docs.stripe.com/docs/connect/manage-payout-schedule), depending on your country and
   # industry.
   #
   # Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
@@ -266,11 +266,11 @@ module Stripe
      }
     def self.cancel(payout, params = {}, opts = {}); end
 
-    # To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
+    # To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
     #
     # If your API key is in test mode, money won't actually be sent, though every other action occurs as if you're in live mode.
     #
-    # If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://stripe.com/docs/api#balance_object) details available and pending amounts by source type.
+    # If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
     sig {
       params(params: T.any(::Stripe::Payout::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Payout)
      }

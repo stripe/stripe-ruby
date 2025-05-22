@@ -802,6 +802,15 @@ module Stripe
           # Controls when the funds will be captured from the customer's account.
           sig { returns(String) }
           attr_reader :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(String) }
+          attr_reader :setup_future_usage
         end
         class Oxxo < Stripe::StripeObject
           # The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
@@ -2828,9 +2837,7 @@ module Stripe
              }
             def initialize(setup_future_usage: nil, tos_shown_and_accepted: nil); end
           end
-          class PayByBank < Stripe::RequestParams
-
-          end
+          class PayByBank < Stripe::RequestParams; end
           class Payco < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             sig { returns(T.nilable(String)) }
@@ -3390,13 +3397,20 @@ module Stripe
           # Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with ’allow_redisplay: ‘always’ are shown in Checkout.
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :allow_redisplay_filters
+          # Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :payment_method_remove
           # Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
           sig { returns(T.nilable(String)) }
           attr_accessor :payment_method_save
           sig {
-            params(allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_save: T.nilable(String)).void
+            params(allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_remove: T.nilable(String), payment_method_save: T.nilable(String)).void
            }
-          def initialize(allow_redisplay_filters: nil, payment_method_save: nil); end
+          def initialize(
+            allow_redisplay_filters: nil,
+            payment_method_remove: nil,
+            payment_method_save: nil
+          ); end
         end
         class SetupIntentData < Stripe::RequestParams
           # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -3593,7 +3607,7 @@ module Stripe
           # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :billing_cycle_anchor
-          # Configure billing_mode in each subscription to opt in improved credit proration behavior.
+          # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
           sig { returns(T.nilable(String)) }
           attr_accessor :billing_mode
           # The tax rates that will apply to any subscription item that does not have
@@ -4107,14 +4121,14 @@ module Stripe
           # Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
           sig { returns(T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData)) }
           attr_accessor :price_data
-          # The quantity of the line item being purchased.
-          sig { returns(T.nilable(T.nilable(T.any(String, Integer)))) }
+          # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
+          sig { returns(T.nilable(Integer)) }
           attr_accessor :quantity
           # The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
           sig { returns(T.nilable(T.nilable(T.any(String, T::Array[String])))) }
           attr_accessor :tax_rates
           sig {
-            params(adjustable_quantity: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData), quantity: T.nilable(T.nilable(T.any(String, Integer))), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
+            params(adjustable_quantity: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::AdjustableQuantity), id: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::Session::UpdateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String])))).void
            }
           def initialize(
             adjustable_quantity: nil,
@@ -4256,7 +4270,7 @@ module Stripe
         #
         # To update an existing line item, specify its `id` along with the new values of the fields to update.
         #
-        # To add a new line item, specify a `price` and `quantity`.
+        # To add a new line item, specify one of `price` or `price_data` and `quantity`.
         #
         # To remove an existing line item, omit the line item's ID from the retransmitted array.
         #
@@ -4348,6 +4362,8 @@ module Stripe
       def self.list_line_items(session, params = {}, opts = {}); end
 
       # Updates a Checkout Session object.
+      #
+      # Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::Session::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }

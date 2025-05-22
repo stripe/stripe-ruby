@@ -128,7 +128,7 @@ module Stripe
     #
     # To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
     #
-    # Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+    # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
     def validate(payment_method_domain, params = {}, opts = {})
       request(
         method: :post,

@@ -101,13 +101,13 @@ module Stripe
           sig { returns(Integer) }
           attr_accessor :gte
           # The [Billing Meter](/api/billing/meter) ID whose usage is monitored.
-          sig { returns(T.nilable(String)) }
+          sig { returns(String) }
           attr_accessor :meter
           # Whether the alert should only fire only once, or once per billing cycle.
           sig { returns(String) }
           attr_accessor :recurrence
           sig {
-            params(filters: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::UsageThreshold::Filter]), gte: Integer, meter: T.nilable(String), recurrence: String).void
+            params(filters: T.nilable(T::Array[::Stripe::Billing::Alert::CreateParams::UsageThreshold::Filter]), gte: Integer, meter: String, recurrence: String).void
            }
           def initialize(filters: nil, gte: nil, meter: nil, recurrence: nil); end
         end

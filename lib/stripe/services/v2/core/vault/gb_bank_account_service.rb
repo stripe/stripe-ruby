@@ -6,11 +6,8 @@ module Stripe
     module Core
       module Vault
         class GbBankAccountService < StripeService
-          class AcknowledgeConfirmationOfPayeeParams < Stripe::RequestParams
-          end
-
-          class ArchiveParams < Stripe::RequestParams
-          end
+          class AcknowledgeConfirmationOfPayeeParams < Stripe::RequestParams; end
+          class ArchiveParams < Stripe::RequestParams; end
 
           class CreateParams < Stripe::RequestParams
             class ConfirmationOfPayee < Stripe::RequestParams
@@ -64,8 +61,7 @@ module Stripe
             end
           end
 
-          class RetrieveParams < Stripe::RequestParams
-          end
+          class RetrieveParams < Stripe::RequestParams; end
 
           # Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
           # proceeding to pay out to this bank account despite the account not matching, partially matching, or the service

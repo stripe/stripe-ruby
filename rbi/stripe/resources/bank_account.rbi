@@ -5,11 +5,11 @@
 module Stripe
   # These bank accounts are payment methods on `Customer` objects.
   #
-  # On the other hand [External Accounts](https://stripe.com/api#external_accounts) are transfer
+  # On the other hand [External Accounts](https://docs.stripe.com/api#external_accounts) are transfer
   # destinations on `Account` objects for connected accounts.
   # They can be bank accounts or debit cards as well, and are documented in the links above.
   #
-  # Related guide: [Bank debits and transfers](https://stripe.com/payments/bank-debits-transfers)
+  # Related guide: [Bank debits and transfers](https://docs.stripe.com/payments/bank-debits-transfers)
   class BankAccount < APIResource
     class FutureRequirements < Stripe::StripeObject
       class Error < Stripe::StripeObject

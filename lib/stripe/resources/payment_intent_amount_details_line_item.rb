@@ -14,6 +14,11 @@ module Stripe
         attr_reader :commodity_code
       end
 
+      class CardPresent < Stripe::StripeObject
+        # Attribute for field commodity_code
+        attr_reader :commodity_code
+      end
+
       class Klarna < Stripe::StripeObject
         # Attribute for field image_url
         attr_reader :image_url
@@ -31,6 +36,8 @@ module Stripe
       end
       # Attribute for field card
       attr_reader :card
+      # Attribute for field card_present
+      attr_reader :card_present
       # Attribute for field klarna
       attr_reader :klarna
       # Attribute for field paypal

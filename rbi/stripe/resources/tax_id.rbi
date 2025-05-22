@@ -72,9 +72,7 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class ListParams < Stripe::RequestParams
       class Owner < Stripe::RequestParams
         # Account the tax ID belongs to. Required when `type=account`

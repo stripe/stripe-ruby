@@ -17,8 +17,7 @@ module Stripe
         "radar.value_list"
       end
 
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class UpdateParams < Stripe::RequestParams
         # The name of the value list for use in rules.

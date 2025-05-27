@@ -89,16 +89,6 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        sig { returns(String) }
-        attr_accessor :type
-        sig { params(gift_card: T.nilable(String), type: String).void }
-        def initialize(gift_card: nil, type: nil); end
-      end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
@@ -1095,11 +1085,6 @@ module Stripe
         returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::BillingDetails))))
        }
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Credit]))))
-       }
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       attr_accessor :currency
@@ -1143,12 +1128,11 @@ module Stripe
       sig { returns(T.nilable(::Stripe::OrderService::CreateParams::TaxDetails)) }
       attr_accessor :tax_details
       sig {
-        params(automatic_tax: T.nilable(::Stripe::OrderService::CreateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::BillingDetails))), credits: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Credit]))), currency: String, customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T::Array[::Stripe::OrderService::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), payment: T.nilable(::Stripe::OrderService::CreateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::OrderService::CreateParams::TaxDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::OrderService::CreateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::BillingDetails))), currency: String, customer: T.nilable(String), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T::Array[::Stripe::OrderService::CreateParams::LineItem], metadata: T.nilable(T::Hash[String, String]), payment: T.nilable(::Stripe::OrderService::CreateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::CreateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::OrderService::CreateParams::TaxDetails)).void
        }
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,
@@ -1226,16 +1210,6 @@ module Stripe
           params(address: T.nilable(::Stripe::OrderService::UpdateParams::BillingDetails::Address), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
-      end
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        sig { returns(String) }
-        attr_accessor :type
-        sig { params(gift_card: T.nilable(String), type: String).void }
-        def initialize(gift_card: nil, type: nil); end
       end
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
@@ -2237,11 +2211,6 @@ module Stripe
         returns(T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::BillingDetails))))
        }
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
-      sig {
-        returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Credit]))))
-       }
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(T.nilable(String)) }
       attr_accessor :currency
@@ -2285,12 +2254,11 @@ module Stripe
       sig { returns(T.nilable(::Stripe::OrderService::UpdateParams::TaxDetails)) }
       attr_accessor :tax_details
       sig {
-        params(automatic_tax: T.nilable(::Stripe::OrderService::UpdateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::BillingDetails))), credits: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Credit]))), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment: T.nilable(::Stripe::OrderService::UpdateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::OrderService::UpdateParams::TaxDetails)).void
+        params(automatic_tax: T.nilable(::Stripe::OrderService::UpdateParams::AutomaticTax), billing_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::BillingDetails))), currency: T.nilable(String), customer: T.nilable(String), description: T.nilable(T.nilable(String)), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::OrderService::UpdateParams::Discount]))), expand: T.nilable(T::Array[String]), ip_address: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderService::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), payment: T.nilable(::Stripe::OrderService::UpdateParams::Payment), shipping_cost: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingCost))), shipping_details: T.nilable(T.nilable(T.any(String, ::Stripe::OrderService::UpdateParams::ShippingDetails))), tax_details: T.nilable(::Stripe::OrderService::UpdateParams::TaxDetails)).void
        }
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,
@@ -2359,7 +2327,7 @@ module Stripe
      }
     def retrieve(id, params = {}, opts = {}); end
 
-    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
     sig {
       params(id: String, params: T.any(::Stripe::OrderService::SubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Order)
      }

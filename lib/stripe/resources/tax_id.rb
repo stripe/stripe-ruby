@@ -38,8 +38,7 @@ module Stripe
       attr_reader :verified_name
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class ListParams < Stripe::RequestParams
       class Owner < Stripe::RequestParams

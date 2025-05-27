@@ -3,8 +3,7 @@
 
 module Stripe
   class PlanService < StripeService
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
@@ -252,7 +251,7 @@ module Stripe
       end
     end
 
-    # You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     def create(params = {}, opts = {})
       request(method: :post, path: "/v1/plans", params: params, opts: opts, base_address: :api)
     end

@@ -23,7 +23,7 @@ module Stripe
          }
         def initialize(ending_before: nil, expand: nil, limit: nil, starting_after: nil); end
       end
-      # List validation errors method
+      # Returns a list of validation errors for the specified redaction job.
       sig {
         params(job: String, params: T.any(::Stripe::Privacy::RedactionJobValidationErrorService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
        }

@@ -157,6 +157,10 @@ module Stripe
       end
 
       class Affirm < Stripe::StripeObject
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # The Affirm transaction ID associated with this payment.
         attr_reader :transaction_id
       end
@@ -1082,6 +1086,10 @@ module Stripe
       class WechatPay < Stripe::StripeObject
         # Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
         attr_reader :fingerprint
+        # ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # Transaction ID of this particular WeChat Pay transaction.
         attr_reader :transaction_id
       end
@@ -1534,11 +1542,29 @@ module Stripe
             end
           end
 
+          class Distance < Stripe::RequestParams
+            # Distance traveled.
+            attr_accessor :amount
+            # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+            attr_accessor :unit
+
+            def initialize(amount: nil, unit: nil)
+              @amount = amount
+              @unit = unit
+            end
+          end
+
           class Driver < Stripe::RequestParams
+            # Driver's identification number.
+            attr_accessor :driver_identification_number
+            # Driver's tax number.
+            attr_accessor :driver_tax_number
             # Full name of the person or entity on the car reservation.
             attr_accessor :name
 
-            def initialize(name: nil)
+            def initialize(driver_identification_number: nil, driver_tax_number: nil, name: nil)
+              @driver_identification_number = driver_identification_number
+              @driver_tax_number = driver_tax_number
               @name = name
             end
           end
@@ -1622,6 +1648,8 @@ module Stripe
           attr_accessor :days_rented
           # Delivery details for this purchase.
           attr_accessor :delivery
+          # The details of the distance traveled during the rental period.
+          attr_accessor :distance
           # The details of the passengers in the travel reservation
           attr_accessor :drivers
           # List of additional charges being billed.
@@ -1632,6 +1660,8 @@ module Stripe
           attr_accessor :pickup_address
           # Car pick-up time. Measured in seconds since the Unix epoch.
           attr_accessor :pickup_at
+          # Name of the pickup location.
+          attr_accessor :pickup_location_name
           # Rental rate.
           attr_accessor :rate_amount
           # The frequency at which the rate amount is applied. One of `day`, `week` or `month`
@@ -1642,8 +1672,12 @@ module Stripe
           attr_accessor :return_address
           # Car return time. Measured in seconds since the Unix epoch.
           attr_accessor :return_at
+          # Name of the return location.
+          attr_accessor :return_location_name
           # Indicates whether the goods or services are tax-exempt or tax is not collected.
           attr_accessor :tax_exempt
+          # The vehicle identification number.
+          attr_accessor :vehicle_identification_number
 
           def initialize(
             affiliate: nil,
@@ -1655,17 +1689,21 @@ module Stripe
             customer_service_phone_number: nil,
             days_rented: nil,
             delivery: nil,
+            distance: nil,
             drivers: nil,
             extra_charges: nil,
             no_show: nil,
             pickup_address: nil,
             pickup_at: nil,
+            pickup_location_name: nil,
             rate_amount: nil,
             rate_interval: nil,
             renter_name: nil,
             return_address: nil,
             return_at: nil,
-            tax_exempt: nil
+            return_location_name: nil,
+            tax_exempt: nil,
+            vehicle_identification_number: nil
           )
             @affiliate = affiliate
             @booking_number = booking_number
@@ -1676,17 +1714,21 @@ module Stripe
             @customer_service_phone_number = customer_service_phone_number
             @days_rented = days_rented
             @delivery = delivery
+            @distance = distance
             @drivers = drivers
             @extra_charges = extra_charges
             @no_show = no_show
             @pickup_address = pickup_address
             @pickup_at = pickup_at
+            @pickup_location_name = pickup_location_name
             @rate_amount = rate_amount
             @rate_interval = rate_interval
             @renter_name = renter_name
             @return_address = return_address
             @return_at = return_at
+            @return_location_name = return_location_name
             @tax_exempt = tax_exempt
+            @vehicle_identification_number = vehicle_identification_number
           end
         end
 
@@ -2316,11 +2358,29 @@ module Stripe
             end
           end
 
+          class Distance < Stripe::RequestParams
+            # Distance traveled.
+            attr_accessor :amount
+            # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+            attr_accessor :unit
+
+            def initialize(amount: nil, unit: nil)
+              @amount = amount
+              @unit = unit
+            end
+          end
+
           class Driver < Stripe::RequestParams
+            # Driver's identification number.
+            attr_accessor :driver_identification_number
+            # Driver's tax number.
+            attr_accessor :driver_tax_number
             # Full name of the person or entity on the car reservation.
             attr_accessor :name
 
-            def initialize(name: nil)
+            def initialize(driver_identification_number: nil, driver_tax_number: nil, name: nil)
+              @driver_identification_number = driver_identification_number
+              @driver_tax_number = driver_tax_number
               @name = name
             end
           end
@@ -2404,6 +2464,8 @@ module Stripe
           attr_accessor :days_rented
           # Delivery details for this purchase.
           attr_accessor :delivery
+          # The details of the distance traveled during the rental period.
+          attr_accessor :distance
           # The details of the passengers in the travel reservation
           attr_accessor :drivers
           # List of additional charges being billed.
@@ -2414,6 +2476,8 @@ module Stripe
           attr_accessor :pickup_address
           # Car pick-up time. Measured in seconds since the Unix epoch.
           attr_accessor :pickup_at
+          # Name of the pickup location.
+          attr_accessor :pickup_location_name
           # Rental rate.
           attr_accessor :rate_amount
           # The frequency at which the rate amount is applied. One of `day`, `week` or `month`
@@ -2424,8 +2488,12 @@ module Stripe
           attr_accessor :return_address
           # Car return time. Measured in seconds since the Unix epoch.
           attr_accessor :return_at
+          # Name of the return location.
+          attr_accessor :return_location_name
           # Indicates whether the goods or services are tax-exempt or tax is not collected.
           attr_accessor :tax_exempt
+          # The vehicle identification number.
+          attr_accessor :vehicle_identification_number
 
           def initialize(
             affiliate: nil,
@@ -2437,17 +2505,21 @@ module Stripe
             customer_service_phone_number: nil,
             days_rented: nil,
             delivery: nil,
+            distance: nil,
             drivers: nil,
             extra_charges: nil,
             no_show: nil,
             pickup_address: nil,
             pickup_at: nil,
+            pickup_location_name: nil,
             rate_amount: nil,
             rate_interval: nil,
             renter_name: nil,
             return_address: nil,
             return_at: nil,
-            tax_exempt: nil
+            return_location_name: nil,
+            tax_exempt: nil,
+            vehicle_identification_number: nil
           )
             @affiliate = affiliate
             @booking_number = booking_number
@@ -2458,17 +2530,21 @@ module Stripe
             @customer_service_phone_number = customer_service_phone_number
             @days_rented = days_rented
             @delivery = delivery
+            @distance = distance
             @drivers = drivers
             @extra_charges = extra_charges
             @no_show = no_show
             @pickup_address = pickup_address
             @pickup_at = pickup_at
+            @pickup_location_name = pickup_location_name
             @rate_amount = rate_amount
             @rate_interval = rate_interval
             @renter_name = renter_name
             @return_address = return_address
             @return_at = return_at
+            @return_location_name = return_location_name
             @tax_exempt = tax_exempt
+            @vehicle_identification_number = vehicle_identification_number
           end
         end
 
@@ -3106,9 +3182,9 @@ module Stripe
 
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #
-    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
     #
-    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
     def capture(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -3120,9 +3196,9 @@ module Stripe
 
     # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
     #
-    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
     #
-    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
     def self.capture(charge, params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -3132,7 +3208,7 @@ module Stripe
       )
     end
 
-    # This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+    # This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
     # to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
     # object used to request payment.
     def self.create(params = {}, opts = {})

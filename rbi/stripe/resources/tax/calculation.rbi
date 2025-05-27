@@ -329,6 +329,9 @@ module Stripe
           # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
           sig { returns(Integer) }
           attr_accessor :amount
+          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          attr_accessor :metadata
           # If provided, the product's `tax_code` will be used as the line item's `tax_code`.
           sig { returns(T.nilable(String)) }
           attr_accessor :product
@@ -345,10 +348,11 @@ module Stripe
           sig { returns(T.nilable(String)) }
           attr_accessor :tax_code
           sig {
-            params(amount: Integer, product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void
+            params(amount: Integer, metadata: T.nilable(T::Hash[String, String]), product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
+            metadata: nil,
             product: nil,
             quantity: nil,
             reference: nil,

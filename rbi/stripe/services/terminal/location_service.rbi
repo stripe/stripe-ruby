@@ -5,9 +5,7 @@
 module Stripe
   module Terminal
     class LocationService < StripeService
-      class DeleteParams < Stripe::RequestParams
-
-      end
+      class DeleteParams < Stripe::RequestParams; end
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
@@ -150,7 +148,7 @@ module Stripe
         ); end
       end
       # Creates a new Location object.
-      # For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+      # For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
       sig {
         params(params: T.any(::Stripe::Terminal::LocationService::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Location)
        }

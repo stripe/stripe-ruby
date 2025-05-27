@@ -95,18 +95,6 @@ module Stripe
         end
       end
 
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        attr_accessor :type
-
-        def initialize(gift_card: nil, type: nil)
-          @gift_card = gift_card
-          @type = type
-        end
-      end
-
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
@@ -1035,8 +1023,6 @@ module Stripe
       attr_accessor :automatic_tax
       # Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported.
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
       # The customer associated with this order.
@@ -1065,7 +1051,6 @@ module Stripe
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,
@@ -1081,7 +1066,6 @@ module Stripe
       )
         @automatic_tax = automatic_tax
         @billing_details = billing_details
-        @credits = credits
         @currency = currency
         @customer = customer
         @description = description
@@ -1161,18 +1145,6 @@ module Stripe
           @email = email
           @name = name
           @phone = phone
-        end
-      end
-
-      class Credit < Stripe::RequestParams
-        # The gift card to apply to the order.
-        attr_accessor :gift_card
-        # The type of credit to apply to the order, only `gift_card` currently supported.
-        attr_accessor :type
-
-        def initialize(gift_card: nil, type: nil)
-          @gift_card = gift_card
-          @type = type
         end
       end
 
@@ -2108,8 +2080,6 @@ module Stripe
       attr_accessor :automatic_tax
       # Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
       attr_accessor :billing_details
-      # The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
-      attr_accessor :credits
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :currency
       # The customer associated with this order.
@@ -2138,7 +2108,6 @@ module Stripe
       def initialize(
         automatic_tax: nil,
         billing_details: nil,
-        credits: nil,
         currency: nil,
         customer: nil,
         description: nil,
@@ -2154,7 +2123,6 @@ module Stripe
       )
         @automatic_tax = automatic_tax
         @billing_details = billing_details
-        @credits = credits
         @currency = currency
         @customer = customer
         @description = description
@@ -2243,7 +2211,7 @@ module Stripe
       )
     end
 
-    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+    # Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
     def submit(id, params = {}, opts = {})
       request(
         method: :post,

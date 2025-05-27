@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # An InboundTransfer was returned.
+  # Occurs when an InboundTransfer is returned.
   class V2MoneyManagementInboundTransferBankDebitReturnedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.inbound_transfer.bank_debit_returned"

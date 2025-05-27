@@ -14,8 +14,7 @@ module Stripe
           end
         end
 
-        class RetrieveParams < Stripe::RequestParams
-        end
+        class RetrieveParams < Stripe::RequestParams; end
 
         # Lists FinancialAccounts in this compartment.
         def list(params = {}, opts = {})

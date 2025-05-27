@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Stripe
-  # An OutboundPayment has transitioned into the posted state.
+  # Occurs when an OutboundPayment transitions into the posted state.
   class V2MoneyManagementOutboundPaymentPostedEvent < Stripe::V2::Event
     def self.lookup_type
       "v2.money_management.outbound_payment.posted"

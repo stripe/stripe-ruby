@@ -68,9 +68,7 @@ module Stripe
            }
           def initialize(amount: nil, delivery_options: nil, from: nil, to: nil); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # Creates an OutboundPaymentQuote usable in an OutboundPayment.
         #
         # ** raises FeatureNotEnabledError

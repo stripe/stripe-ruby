@@ -42,9 +42,7 @@ module Stripe
             limit: nil
           ); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # Retrieves a list of ReceivedCredits.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::ReceivedCreditService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)

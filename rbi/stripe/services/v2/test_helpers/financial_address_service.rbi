@@ -21,9 +21,7 @@ module Stripe
            }
           def initialize(amount: nil, network: nil, statement_descriptor: nil); end
         end
-        class GenerateMicrodepositsParams < Stripe::RequestParams
-
-        end
+        class GenerateMicrodepositsParams < Stripe::RequestParams; end
         # Simulate crediting a FinancialAddress in a Sandbox environment. This can be used to add virtual funds and increase your balance for testing.
         sig {
           params(id: String, params: T.any(::Stripe::V2::TestHelpers::FinancialAddressService::CreditParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::FinancialAddressCreditSimulation)

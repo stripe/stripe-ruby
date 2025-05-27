@@ -97,6 +97,15 @@ module Stripe
         V2MoneyManagementReceivedDebitUpdatedEvent,
         V2MoneyManagementTransactionCreatedEvent.lookup_type => V2MoneyManagementTransactionCreatedEvent,
         V2MoneyManagementTransactionUpdatedEvent.lookup_type => V2MoneyManagementTransactionUpdatedEvent,
+        V2OffSessionPaymentRequiresCaptureEvent.lookup_type => V2OffSessionPaymentRequiresCaptureEvent,
+        V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.lookup_type =>
+        V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
+        V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent.lookup_type =>
+        V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
+        V2PaymentsOffSessionPaymentCanceledEvent.lookup_type => V2PaymentsOffSessionPaymentCanceledEvent,
+        V2PaymentsOffSessionPaymentCreatedEvent.lookup_type => V2PaymentsOffSessionPaymentCreatedEvent,
+        V2PaymentsOffSessionPaymentFailedEvent.lookup_type => V2PaymentsOffSessionPaymentFailedEvent,
+        V2PaymentsOffSessionPaymentSucceededEvent.lookup_type => V2PaymentsOffSessionPaymentSucceededEvent,
         # The end of the section generated from our OpenAPI spec
       }
     end

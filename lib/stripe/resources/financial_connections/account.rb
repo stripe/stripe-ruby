@@ -230,6 +230,8 @@ module Stripe
       attr_reader :id
       # The state of the most recent attempt to refresh the account's inferred balance history.
       attr_reader :inferred_balances_refresh
+      # The ID of the Financial Connections Institution this account belongs to. Note that this relationship may sometimes change in rare circumstances (e.g. institution mergers).
+      attr_reader :institution
       # The name of the institution that holds this account.
       attr_reader :institution_name
       # The last 4 digits of the account number. If present, this will be 4 numeric characters.

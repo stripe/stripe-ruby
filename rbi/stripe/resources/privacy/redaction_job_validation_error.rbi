@@ -4,18 +4,28 @@
 # typed: true
 module Stripe
   module Privacy
-    # Validation errors
+    # The Redaction Job validation error object contains information about
+    # errors that affect the ability to redact a specific object in a
+    # redaction job.
     class RedactionJobValidationError < APIResource
-      # Attribute for field code
+      class ErroringObject < Stripe::StripeObject
+        # Unique identifier for the object.
+        sig { returns(String) }
+        attr_reader :id
+        # Erroring object type
+        sig { returns(String) }
+        attr_reader :object_type
+      end
+      # A code indicating the reason for the error.
       sig { returns(String) }
       attr_reader :code
-      # Attribute for field erroring_object
-      sig { returns(T.nilable(T::Hash[String, String])) }
+      # If the error is related to a specific object, this field includes the object's identifier and object type.
+      sig { returns(T.nilable(ErroringObject)) }
       attr_reader :erroring_object
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
-      # Attribute for field message
+      # A human-readable message providing more details about the error.
       sig { returns(String) }
       attr_reader :message
       # String representing the object's type. Objects of the same type share the same value.

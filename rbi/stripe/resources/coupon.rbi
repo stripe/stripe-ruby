@@ -88,9 +88,7 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       class CurrencyOptions < Stripe::RequestParams
         # A positive integer representing the amount to subtract from an invoice total.

@@ -7,9 +7,7 @@ module Stripe
     module Core
       module Vault
         class UsBankAccountService < StripeService
-          class ArchiveParams < Stripe::RequestParams
-
-          end
+          class ArchiveParams < Stripe::RequestParams; end
           class CreateParams < Stripe::RequestParams
             # The account number of the bank account.
             sig { returns(String) }
@@ -33,9 +31,7 @@ module Stripe
               routing_number: nil
             ); end
           end
-          class RetrieveParams < Stripe::RequestParams
-
-          end
+          class RetrieveParams < Stripe::RequestParams; end
           class UpdateParams < Stripe::RequestParams
             # The bank account's fedwire routing number can be provided for update it was were empty previously.
             sig { returns(T.nilable(String)) }

@@ -3,8 +3,9 @@
 
 # typed: true
 module Stripe
-  class GiftCardsService < StripeService
-    attr_reader :cards
-    attr_reader :transactions
+  module V2
+    class PaymentService < StripeService
+      attr_reader :off_session_payments
+    end
   end
 end

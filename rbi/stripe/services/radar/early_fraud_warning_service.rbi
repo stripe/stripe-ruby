@@ -75,7 +75,7 @@ module Stripe
 
       # Retrieves the details of an early fraud warning that has previously been created.
       #
-      # Please refer to the [early fraud warning](https://stripe.com/docs/api#early_fraud_warning_object) object reference for more details.
+      # Please refer to the [early fraud warning](https://docs.stripe.com/api#early_fraud_warning_object) object reference for more details.
       sig {
         params(early_fraud_warning: String, params: T.any(::Stripe::Radar::EarlyFraudWarningService::RetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Radar::EarlyFraudWarning)
        }

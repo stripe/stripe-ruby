@@ -35,8 +35,7 @@ module Stripe
       attr_reader :id
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class CurrencyOptions < Stripe::RequestParams

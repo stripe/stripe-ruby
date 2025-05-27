@@ -16,8 +16,7 @@ module Stripe
         "radar.value_list_item"
       end
 
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class ListParams < Stripe::RequestParams
         class Created < Stripe::RequestParams

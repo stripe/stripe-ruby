@@ -1322,9 +1322,7 @@ module Stripe
              }
             def initialize(setup_future_usage: nil, tos_shown_and_accepted: nil); end
           end
-          class PayByBank < Stripe::RequestParams
-
-          end
+          class PayByBank < Stripe::RequestParams; end
           class Payco < Stripe::RequestParams
             # Controls when the funds will be captured from the customer's account.
             sig { returns(T.nilable(String)) }
@@ -1785,13 +1783,20 @@ module Stripe
           # Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with ’allow_redisplay: ‘always’ are shown in Checkout.
           sig { returns(T.nilable(T::Array[String])) }
           attr_accessor :allow_redisplay_filters
+          # Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
+          sig { returns(T.nilable(String)) }
+          attr_accessor :payment_method_remove
           # Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
           sig { returns(T.nilable(String)) }
           attr_accessor :payment_method_save
           sig {
-            params(allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_save: T.nilable(String)).void
+            params(allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_remove: T.nilable(String), payment_method_save: T.nilable(String)).void
            }
-          def initialize(allow_redisplay_filters: nil, payment_method_save: nil); end
+          def initialize(
+            allow_redisplay_filters: nil,
+            payment_method_remove: nil,
+            payment_method_save: nil
+          ); end
         end
         class SetupIntentData < Stripe::RequestParams
           # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -2598,6 +2603,8 @@ module Stripe
       def retrieve(session, params = {}, opts = {}); end
 
       # Updates a Checkout Session object.
+      #
+      # Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
       sig {
         params(session: String, params: T.any(::Stripe::Checkout::SessionService::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Checkout::Session)
        }

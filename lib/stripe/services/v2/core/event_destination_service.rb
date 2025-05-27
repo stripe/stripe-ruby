@@ -76,14 +76,9 @@ module Stripe
           end
         end
 
-        class DeleteParams < Stripe::RequestParams
-        end
-
-        class DisableParams < Stripe::RequestParams
-        end
-
-        class EnableParams < Stripe::RequestParams
-        end
+        class DeleteParams < Stripe::RequestParams; end
+        class DisableParams < Stripe::RequestParams; end
+        class EnableParams < Stripe::RequestParams; end
 
         class ListParams < Stripe::RequestParams
           # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
@@ -97,8 +92,7 @@ module Stripe
           end
         end
 
-        class PingParams < Stripe::RequestParams
-        end
+        class PingParams < Stripe::RequestParams; end
 
         class RetrieveParams < Stripe::RequestParams
           # Additional fields to include in the response.

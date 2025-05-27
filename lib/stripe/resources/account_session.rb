@@ -63,6 +63,23 @@ module Stripe
         attr_reader :features
       end
 
+      class DisputesList < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+          attr_reader :capture_payments
+          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          attr_reader :destination_on_behalf_of_charge_management
+          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          attr_reader :dispute_management
+          # Whether to allow sending refunds. This is `true` by default.
+          attr_reader :refund_management
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
       class Documents < Stripe::StripeObject
         class Features < Stripe::StripeObject; end
         # Whether the embedded component is enabled.
@@ -165,6 +182,21 @@ module Stripe
         attr_reader :features
       end
 
+      class PaymentDisputes < Stripe::StripeObject
+        class Features < Stripe::StripeObject
+          # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+          attr_reader :destination_on_behalf_of_charge_management
+          # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+          attr_reader :dispute_management
+          # Whether to allow sending refunds. This is `true` by default.
+          attr_reader :refund_management
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+      end
+
       class Payments < Stripe::StripeObject
         class Features < Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -230,6 +262,8 @@ module Stripe
       attr_reader :account_onboarding
       # Attribute for field balances
       attr_reader :balances
+      # Attribute for field disputes_list
+      attr_reader :disputes_list
       # Attribute for field documents
       attr_reader :documents
       # Attribute for field financial_account
@@ -244,6 +278,8 @@ module Stripe
       attr_reader :notification_banner
       # Attribute for field payment_details
       attr_reader :payment_details
+      # Attribute for field payment_disputes
+      attr_reader :payment_disputes
       # Attribute for field payments
       attr_reader :payments
       # Attribute for field payouts
@@ -348,9 +384,42 @@ module Stripe
           end
         end
 
-        class Documents < Stripe::RequestParams
+        class DisputesList < Stripe::RequestParams
           class Features < Stripe::RequestParams
+            # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+            attr_accessor :capture_payments
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            attr_accessor :refund_management
+
+            def initialize(
+              capture_payments: nil,
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            )
+              @capture_payments = capture_payments
+              @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
+              @dispute_management = dispute_management
+              @refund_management = refund_management
+            end
           end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
+        class Documents < Stripe::RequestParams
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
@@ -548,6 +617,36 @@ module Stripe
           end
         end
 
+        class PaymentDisputes < Stripe::RequestParams
+          class Features < Stripe::RequestParams
+            # Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+            attr_accessor :destination_on_behalf_of_charge_management
+            # Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+            attr_accessor :dispute_management
+            # Whether to allow sending refunds. This is `true` by default.
+            attr_accessor :refund_management
+
+            def initialize(
+              destination_on_behalf_of_charge_management: nil,
+              dispute_management: nil,
+              refund_management: nil
+            )
+              @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
+              @dispute_management = dispute_management
+              @refund_management = refund_management
+            end
+          end
+          # Whether the embedded component is enabled.
+          attr_accessor :enabled
+          # The list of features enabled in the embedded component.
+          attr_accessor :features
+
+          def initialize(enabled: nil, features: nil)
+            @enabled = enabled
+            @features = features
+          end
+        end
+
         class Payments < Stripe::RequestParams
           class Features < Stripe::RequestParams
             # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -621,8 +720,7 @@ module Stripe
         end
 
         class PayoutsList < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
@@ -635,8 +733,7 @@ module Stripe
         end
 
         class TaxRegistrations < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
@@ -649,8 +746,7 @@ module Stripe
         end
 
         class TaxSettings < Stripe::RequestParams
-          class Features < Stripe::RequestParams
-          end
+          class Features < Stripe::RequestParams; end
           # Whether the embedded component is enabled.
           attr_accessor :enabled
           # The list of features enabled in the embedded component.
@@ -667,6 +763,8 @@ module Stripe
         attr_accessor :account_onboarding
         # Configuration for the balances embedded component.
         attr_accessor :balances
+        # Configuration for the disputes list embedded component.
+        attr_accessor :disputes_list
         # Configuration for the documents embedded component.
         attr_accessor :documents
         # Configuration for the financial account embedded component.
@@ -681,6 +779,8 @@ module Stripe
         attr_accessor :notification_banner
         # Configuration for the payment details embedded component.
         attr_accessor :payment_details
+        # Configuration for the payment disputes embedded component.
+        attr_accessor :payment_disputes
         # Configuration for the payments embedded component.
         attr_accessor :payments
         # Configuration for the payouts embedded component.
@@ -696,6 +796,7 @@ module Stripe
           account_management: nil,
           account_onboarding: nil,
           balances: nil,
+          disputes_list: nil,
           documents: nil,
           financial_account: nil,
           financial_account_transactions: nil,
@@ -703,6 +804,7 @@ module Stripe
           issuing_cards_list: nil,
           notification_banner: nil,
           payment_details: nil,
+          payment_disputes: nil,
           payments: nil,
           payouts: nil,
           payouts_list: nil,
@@ -712,6 +814,7 @@ module Stripe
           @account_management = account_management
           @account_onboarding = account_onboarding
           @balances = balances
+          @disputes_list = disputes_list
           @documents = documents
           @financial_account = financial_account
           @financial_account_transactions = financial_account_transactions
@@ -719,6 +822,7 @@ module Stripe
           @issuing_cards_list = issuing_cards_list
           @notification_banner = notification_banner
           @payment_details = payment_details
+          @payment_disputes = payment_disputes
           @payments = payments
           @payouts = payouts
           @payouts_list = payouts_list

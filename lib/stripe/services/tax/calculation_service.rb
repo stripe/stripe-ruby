@@ -94,6 +94,8 @@ module Stripe
           # A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
           attr_accessor :amount
+          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          attr_accessor :metadata
           # If provided, the product's `tax_code` will be used as the line item's `tax_code`.
           attr_accessor :product
           # The number of units of the item being purchased. Used to calculate the per-unit price from the total `amount` for the line. For example, if `amount=100` and `quantity=4`, the calculated unit price is 25.
@@ -107,6 +109,7 @@ module Stripe
 
           def initialize(
             amount: nil,
+            metadata: nil,
             product: nil,
             quantity: nil,
             reference: nil,
@@ -114,6 +117,7 @@ module Stripe
             tax_code: nil
           )
             @amount = amount
+            @metadata = metadata
             @product = product
             @quantity = quantity
             @reference = reference

@@ -16,8 +16,7 @@ module Stripe
       @funding_instructions = Stripe::CustomerFundingInstructionsService.new(@requestor)
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
@@ -266,8 +265,7 @@ module Stripe
       end
     end
 
-    class DeleteDiscountParams < Stripe::RequestParams
-    end
+    class DeleteDiscountParams < Stripe::RequestParams; end
 
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
@@ -636,7 +634,7 @@ module Stripe
       )
     end
 
-    # Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+    # Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.

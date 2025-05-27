@@ -4,8 +4,7 @@
 module Stripe
   module Radar
     class ValueListItemService < StripeService
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class RetrieveParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.

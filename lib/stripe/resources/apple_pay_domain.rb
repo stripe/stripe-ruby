@@ -13,8 +13,7 @@ module Stripe
       "apple_pay_domain"
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class ListParams < Stripe::RequestParams
       # Attribute for param field domain_name

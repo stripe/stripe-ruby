@@ -105,7 +105,7 @@ module Stripe
                 @quantity = quantity
               end
             end
-            # The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+            # The coupon or promotion code to apply to this subscription update.
             attr_accessor :discounts
             # The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
             attr_accessor :items

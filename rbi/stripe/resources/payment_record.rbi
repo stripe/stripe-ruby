@@ -1040,12 +1040,23 @@ module Stripe
       end
       class Twint < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject
-        # Account holder type: individual or company.
+        class AchReturnAmount < Stripe::StripeObject
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          attr_reader :currency
+          # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+          sig { returns(Integer) }
+          attr_reader :value
+        end
+        # Attribute for field account_holder_type
         sig { returns(T.nilable(String)) }
         attr_reader :account_holder_type
-        # Account type: checkings or savings. Defaults to checking if omitted.
+        # Attribute for field account_type
         sig { returns(T.nilable(String)) }
         attr_reader :account_type
+        # Amount of the ACH return to the bank account.
+        sig { returns(T.nilable(AchReturnAmount)) }
+        attr_reader :ach_return_amount
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         attr_reader :bank_name
@@ -1058,7 +1069,7 @@ module Stripe
         # ID of the mandate used to make this payment.
         sig { returns(T.any(String, Stripe::Mandate)) }
         attr_reader :mandate
-        # Reference number to locate ACH payments with customer's bank.
+        # Reference number to locate ACH payments with customer’s bank.
         sig { returns(T.nilable(String)) }
         attr_reader :payment_reference
         # Routing number of the bank account.
@@ -1271,7 +1282,7 @@ module Stripe
       # It contains information specific to the payment method.
       sig { returns(String) }
       attr_reader :type
-      # Attribute for field us_bank_account
+      # Details of the US Bank Account used for this payment attempt.
       sig { returns(UsBankAccount) }
       attr_reader :us_bank_account
       # Attribute for field wechat

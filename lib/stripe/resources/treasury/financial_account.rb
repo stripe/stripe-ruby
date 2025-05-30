@@ -89,19 +89,23 @@ module Stripe
         attr_accessor :limit
         # An object ID cursor for use in pagination.
         attr_accessor :starting_after
+        # Only return FinancialAccounts that have the given status: `open` or `closed`
+        attr_accessor :status
 
         def initialize(
           created: nil,
           ending_before: nil,
           expand: nil,
           limit: nil,
-          starting_after: nil
+          starting_after: nil,
+          status: nil
         )
           @created = created
           @ending_before = ending_before
           @expand = expand
           @limit = limit
           @starting_after = starting_after
+          @status = status
         end
       end
 

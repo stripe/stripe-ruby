@@ -711,7 +711,7 @@ module Stripe
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       sig { returns(T.nilable(T.nilable(T.any(String, T.any(Integer, String))))) }
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :cancel_at_period_end
       # Details about why this subscription was cancelled
@@ -1631,7 +1631,7 @@ module Stripe
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
       sig { returns(T.nilable(T.nilable(T.any(String, Float)))) }
       attr_accessor :application_fee_percent
-      # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
+      # Automatic tax settings for this subscription.
       sig { returns(T.nilable(::Stripe::SubscriptionService::CreateParams::AutomaticTax)) }
       attr_accessor :automatic_tax
       # For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
@@ -1656,7 +1656,7 @@ module Stripe
       # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
       sig { returns(T.nilable(T.any(Integer, String))) }
       attr_accessor :cancel_at
-      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+      # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
       sig { returns(T.nilable(T::Boolean)) }
       attr_accessor :cancel_at_period_end
       # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.

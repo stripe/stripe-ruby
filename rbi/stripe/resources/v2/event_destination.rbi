@@ -13,7 +13,7 @@ module Stripe
           attr_reader :reason
         end
         # Details about why the event destination has been disabled.
-        sig { returns(T.nilable(Disabled)) }
+        sig { returns(Disabled) }
         attr_reader :disabled
       end
       class AmazonEventbridge < Stripe::StripeObject
@@ -29,10 +29,10 @@ module Stripe
       end
       class WebhookEndpoint < Stripe::StripeObject
         # The signing secret of the webhook endpoint, only includable on creation.
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         attr_reader :signing_secret
         # The URL of the webhook endpoint, includable.
-        sig { returns(T.nilable(String)) }
+        sig { returns(String) }
         attr_reader :url
       end
       # Time at which the object was created.
@@ -48,13 +48,13 @@ module Stripe
       sig { returns(String) }
       attr_reader :event_payload
       # Where events should be routed from.
-      sig { returns(T.nilable(T::Array[String])) }
+      sig { returns(T::Array[String]) }
       attr_reader :events_from
       # Unique identifier for the object.
       sig { returns(String) }
       attr_reader :id
       # Metadata.
-      sig { returns(T.nilable(T::Hash[String, String])) }
+      sig { returns(T::Hash[String, String]) }
       attr_reader :metadata
       # Event destination name.
       sig { returns(String) }
@@ -63,13 +63,13 @@ module Stripe
       sig { returns(String) }
       attr_reader :object
       # If using the snapshot event payload, the API version events are rendered as.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       attr_reader :snapshot_api_version
       # Status. It can be set to either enabled or disabled.
       sig { returns(String) }
       attr_reader :status
       # Additional information about event destination status.
-      sig { returns(T.nilable(StatusDetails)) }
+      sig { returns(StatusDetails) }
       attr_reader :status_details
       # Event destination type.
       sig { returns(String) }
@@ -81,10 +81,10 @@ module Stripe
       sig { returns(T::Boolean) }
       attr_reader :livemode
       # Amazon EventBridge configuration.
-      sig { returns(T.nilable(AmazonEventbridge)) }
+      sig { returns(AmazonEventbridge) }
       attr_reader :amazon_eventbridge
       # Webhook endpoint configuration.
-      sig { returns(T.nilable(WebhookEndpoint)) }
+      sig { returns(WebhookEndpoint) }
       attr_reader :webhook_endpoint
     end
   end

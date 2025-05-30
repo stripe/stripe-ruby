@@ -19,11 +19,11 @@ module Stripe
         sig { returns(String) }
         attr_reader :type
         # Information on the API request that instigated the event.
-        sig { returns(T.nilable(Request)) }
+        sig { returns(Request) }
         attr_reader :request
       end
       # Authentication context needed to fetch the event or related object.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       attr_reader :context
       # Time at which the object was created.
       sig { returns(String) }
@@ -35,7 +35,7 @@ module Stripe
       sig { returns(String) }
       attr_reader :object
       # Reason for the event.
-      sig { returns(T.nilable(Reason)) }
+      sig { returns(Reason) }
       attr_reader :reason
       # The type of the event.
       sig { returns(String) }

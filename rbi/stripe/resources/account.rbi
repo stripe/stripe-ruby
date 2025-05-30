@@ -4449,7 +4449,7 @@ module Stripe
         # The company's phone number (used for verification).
         sig { returns(T.nilable(String)) }
         attr_accessor :phone
-        # Attribute for param field registration_date
+        # When the business was incorporated or registered.
         sig {
           returns(T.nilable(T.nilable(T.any(String, ::Stripe::Account::CreateParams::Company::RegistrationDate))))
          }

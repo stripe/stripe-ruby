@@ -18,6 +18,100 @@ module Stripe
       end
 
       class Action < Stripe::StripeObject
+        class CollectInputs < Stripe::StripeObject
+          class Input < Stripe::StripeObject
+            class CustomText < Stripe::StripeObject
+              # Customize the default description for this input
+              attr_reader :description
+              # Customize the default label for this input's skip button
+              attr_reader :skip_button
+              # Customize the default label for this input's submit button
+              attr_reader :submit_button
+              # Customize the default title for this input
+              attr_reader :title
+            end
+
+            class Email < Stripe::StripeObject
+              # The collected email address
+              attr_reader :value
+            end
+
+            class Numeric < Stripe::StripeObject
+              # The collected number
+              attr_reader :value
+            end
+
+            class Phone < Stripe::StripeObject
+              # The collected phone number
+              attr_reader :value
+            end
+
+            class Selection < Stripe::StripeObject
+              class Choice < Stripe::StripeObject
+                # The id to be selected
+                attr_reader :id
+                # The button style for the choice
+                attr_reader :style
+                # The text to be selected
+                attr_reader :text
+              end
+              # List of possible choices to be selected
+              attr_reader :choices
+              # The id of the selected choice
+              attr_reader :id
+              # The text of the selected choice
+              attr_reader :text
+            end
+
+            class Signature < Stripe::StripeObject
+              # The File ID of a collected signature image
+              attr_reader :value
+            end
+
+            class Text < Stripe::StripeObject
+              # The collected text value
+              attr_reader :value
+            end
+
+            class Toggle < Stripe::StripeObject
+              # The toggle's default value
+              attr_reader :default_value
+              # The toggle's description text
+              attr_reader :description
+              # The toggle's title text
+              attr_reader :title
+              # The toggle's collected value
+              attr_reader :value
+            end
+            # Default text of input being collected.
+            attr_reader :custom_text
+            # Information about a email being collected using a reader
+            attr_reader :email
+            # Information about a number being collected using a reader
+            attr_reader :numeric
+            # Information about a phone number being collected using a reader
+            attr_reader :phone
+            # Indicate that this input is required, disabling the skip button.
+            attr_reader :required
+            # Information about a selection being collected using a reader
+            attr_reader :selection
+            # Information about a signature being collected using a reader
+            attr_reader :signature
+            # Indicate that this input was skipped by the user.
+            attr_reader :skipped
+            # Information about text being collected using a reader
+            attr_reader :text
+            # List of toggles being collected. Values are present if collection is complete.
+            attr_reader :toggles
+            # Type of input being collected.
+            attr_reader :type
+          end
+          # List of inputs to be collected.
+          attr_reader :inputs
+          # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          attr_reader :metadata
+        end
+
         class ProcessPaymentIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
             class Tipping < Stripe::StripeObject
@@ -26,6 +120,8 @@ module Stripe
             end
             # Enable customer initiated cancellation when processing this payment.
             attr_reader :enable_customer_cancellation
+            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            attr_reader :return_url
             # Override showing a tipping selection screen on this transaction.
             attr_reader :skip_tipping
             # Represents a per-transaction tipping configuration
@@ -99,6 +195,8 @@ module Stripe
           # Type of information to be displayed by the reader.
           attr_reader :type
         end
+        # Represents a reader action to collect customer inputs
+        attr_reader :collect_inputs
         # Failure code, only set if status is `failed`.
         attr_reader :failure_code
         # Detailed failure message, only set if status is `failed`.
@@ -117,8 +215,7 @@ module Stripe
         attr_reader :type
       end
 
-      class DeleteParams < Stripe::RequestParams
-      end
+      class DeleteParams < Stripe::RequestParams; end
 
       class UpdateParams < Stripe::RequestParams
         # Specifies which fields in the response should be expanded.
@@ -210,6 +307,96 @@ module Stripe
         end
       end
 
+      class CollectInputsParams < Stripe::RequestParams
+        class Input < Stripe::RequestParams
+          class CustomText < Stripe::RequestParams
+            # The description which will be displayed when collecting this input
+            attr_accessor :description
+            # The skip button text
+            attr_accessor :skip_button
+            # The submit button text
+            attr_accessor :submit_button
+            # The title which will be displayed when collecting this input
+            attr_accessor :title
+
+            def initialize(description: nil, skip_button: nil, submit_button: nil, title: nil)
+              @description = description
+              @skip_button = skip_button
+              @submit_button = submit_button
+              @title = title
+            end
+          end
+
+          class Selection < Stripe::RequestParams
+            class Choice < Stripe::RequestParams
+              # The unique identifier for this choice
+              attr_accessor :id
+              # The style of the button which will be shown for this choice
+              attr_accessor :style
+              # The text which will be shown on the button for this choice
+              attr_accessor :text
+
+              def initialize(id: nil, style: nil, text: nil)
+                @id = id
+                @style = style
+                @text = text
+              end
+            end
+            # List of choices for the `selection` input
+            attr_accessor :choices
+
+            def initialize(choices: nil)
+              @choices = choices
+            end
+          end
+
+          class Toggle < Stripe::RequestParams
+            # The default value of the toggle
+            attr_accessor :default_value
+            # The description which will be displayed for the toggle
+            attr_accessor :description
+            # The title which will be displayed for the toggle
+            attr_accessor :title
+
+            def initialize(default_value: nil, description: nil, title: nil)
+              @default_value = default_value
+              @description = description
+              @title = title
+            end
+          end
+          # Customize the text which will be displayed while collecting this input
+          attr_accessor :custom_text
+          # Indicate that this input is required, disabling the skip button
+          attr_accessor :required
+          # Options for the `selection` input
+          attr_accessor :selection
+          # List of toggles to be displayed and customization for the toggles
+          attr_accessor :toggles
+          # The type of input to collect
+          attr_accessor :type
+
+          def initialize(custom_text: nil, required: nil, selection: nil, toggles: nil, type: nil)
+            @custom_text = custom_text
+            @required = required
+            @selection = selection
+            @toggles = toggles
+            @type = type
+          end
+        end
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # List of inputs to be collected using the Reader
+        attr_accessor :inputs
+        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+
+        def initialize(expand: nil, inputs: nil, metadata: nil)
+          @expand = expand
+          @inputs = inputs
+          @metadata = metadata
+        end
+      end
+
       class ProcessPaymentIntentParams < Stripe::RequestParams
         class ProcessConfig < Stripe::RequestParams
           class Tipping < Stripe::RequestParams
@@ -224,6 +411,8 @@ module Stripe
           attr_accessor :allow_redisplay
           # Enables cancel button on transaction screens.
           attr_accessor :enable_customer_cancellation
+          # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+          attr_accessor :return_url
           # Override showing a tipping selection screen on this transaction.
           attr_accessor :skip_tipping
           # Tipping configuration for this transaction.
@@ -232,11 +421,13 @@ module Stripe
           def initialize(
             allow_redisplay: nil,
             enable_customer_cancellation: nil,
+            return_url: nil,
             skip_tipping: nil,
             tipping: nil
           )
             @allow_redisplay = allow_redisplay
             @enable_customer_cancellation = enable_customer_cancellation
+            @return_url = return_url
             @skip_tipping = skip_tipping
             @tipping = tipping
           end
@@ -417,11 +608,32 @@ module Stripe
           @type = type
         end
       end
+
+      class SucceedInputCollectionParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+        # This parameter defines the skip behavior for input collection.
+        attr_accessor :skip_non_required_inputs
+
+        def initialize(expand: nil, skip_non_required_inputs: nil)
+          @expand = expand
+          @skip_non_required_inputs = skip_non_required_inputs
+        end
+      end
+
+      class TimeoutInputCollectionParams < Stripe::RequestParams
+        # Specifies which fields in the response should be expanded.
+        attr_accessor :expand
+
+        def initialize(expand: nil)
+          @expand = expand
+        end
+      end
       # The most recent action performed by the reader.
       attr_reader :action
       # The current software version of the reader.
       attr_reader :device_sw_version
-      # Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `stripe_s700`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
+      # Device type of the reader.
       attr_reader :device_type
       # Unique identifier for the object.
       attr_reader :id
@@ -459,6 +671,26 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates an input collection flow on a Reader.
+      def collect_inputs(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates an input collection flow on a Reader.
+      def self.collect_inputs(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )
@@ -619,6 +851,46 @@ module Stripe
           @resource.request_stripe_object(
             method: :post,
             path: format("/v1/test_helpers/terminal/readers/%<reader>s/present_payment_method", { reader: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Use this endpoint to trigger a successful input collection on a simulated reader.
+        def self.succeed_input_collection(reader, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/succeed_input_collection", { reader: CGI.escape(reader) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Use this endpoint to trigger a successful input collection on a simulated reader.
+        def succeed_input_collection(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/succeed_input_collection", { reader: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+        def self.timeout_input_collection(reader, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(reader) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+        def timeout_input_collection(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

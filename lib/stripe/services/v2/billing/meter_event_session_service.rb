@@ -5,8 +5,7 @@ module Stripe
   module V2
     module Billing
       class MeterEventSessionService < StripeService
-        class CreateParams < Stripe::RequestParams
-        end
+        class CreateParams < Stripe::RequestParams; end
 
         # Creates a meter event session to send usage on the high-throughput meter event stream. Authentication tokens are only valid for 15 minutes, so you will need to create a new meter event session when your token expires.
         def create(params = {}, opts = {})

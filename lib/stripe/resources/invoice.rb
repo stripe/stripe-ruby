@@ -26,7 +26,7 @@ module Stripe
   # Stripe applies any customer credit on the account before determining the
   # amount due for the invoice (i.e., the amount that will be actually
   # charged). If the amount due for the invoice is less than Stripe's [minimum allowed charge
-  # per currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
+  # per currency](https://docs.stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
   # invoice is automatically marked paid, and we add the amount due to the
   # customer's credit balance which is applied to the next invoice.
   #
@@ -455,8 +455,7 @@ module Stripe
       attr_reader :type
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class AutomaticTax < Stripe::RequestParams
@@ -624,11 +623,8 @@ module Stripe
             end
           end
 
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
@@ -1274,11 +1270,8 @@ module Stripe
             end
           end
 
-          class Konbini < Stripe::RequestParams
-          end
-
-          class SepaDebit < Stripe::RequestParams
-          end
+          class Konbini < Stripe::RequestParams; end
+          class SepaDebit < Stripe::RequestParams; end
 
           class UsBankAccount < Stripe::RequestParams
             class FinancialConnections < Stripe::RequestParams
@@ -1921,6 +1914,18 @@ module Stripe
         @expand = expand
         @invoice_metadata = invoice_metadata
         @lines = lines
+      end
+    end
+
+    class AttachPaymentParams < Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # The ID of the PaymentIntent to attach to the invoice.
+      attr_accessor :payment_intent
+
+      def initialize(expand: nil, payment_intent: nil)
+        @expand = expand
+        @payment_intent = payment_intent
       end
     end
 
@@ -2633,6 +2638,18 @@ module Stripe
             end
           end
 
+          class BillingThresholds < Stripe::RequestParams
+            # Monetary threshold that triggers the subscription to advance to a new billing period
+            attr_accessor :amount_gte
+            # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+            attr_accessor :reset_billing_cycle_anchor
+
+            def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil)
+              @amount_gte = amount_gte
+              @reset_billing_cycle_anchor = reset_billing_cycle_anchor
+            end
+          end
+
           class Discount < Stripe::RequestParams
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
@@ -2675,6 +2692,15 @@ module Stripe
           end
 
           class Item < Stripe::RequestParams
+            class BillingThresholds < Stripe::RequestParams
+              # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+              attr_accessor :usage_gte
+
+              def initialize(usage_gte: nil)
+                @usage_gte = usage_gte
+              end
+            end
+
             class Discount < Stripe::RequestParams
               # ID of the coupon to create a new discount for.
               attr_accessor :coupon
@@ -2731,6 +2757,8 @@ module Stripe
                 @unit_amount_decimal = unit_amount_decimal
               end
             end
+            # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+            attr_accessor :billing_thresholds
             # The coupons to redeem into discounts for the subscription item.
             attr_accessor :discounts
             # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
@@ -2747,6 +2775,7 @@ module Stripe
             attr_accessor :tax_rates
 
             def initialize(
+              billing_thresholds: nil,
               discounts: nil,
               metadata: nil,
               plan: nil,
@@ -2755,6 +2784,7 @@ module Stripe
               quantity: nil,
               tax_rates: nil
             )
+              @billing_thresholds = billing_thresholds
               @discounts = discounts
               @metadata = metadata
               @plan = plan
@@ -2784,6 +2814,8 @@ module Stripe
           attr_accessor :automatic_tax
           # Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
           attr_accessor :billing_cycle_anchor
+          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+          attr_accessor :billing_thresholds
           # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
           attr_accessor :collection_method
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2808,7 +2840,7 @@ module Stripe
           attr_accessor :metadata
           # The account on behalf of which to charge, for each of the associated subscription's invoices.
           attr_accessor :on_behalf_of
-          # Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+          # Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
           attr_accessor :proration_behavior
           # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
           attr_accessor :start_date
@@ -2824,6 +2856,7 @@ module Stripe
             application_fee_percent: nil,
             automatic_tax: nil,
             billing_cycle_anchor: nil,
+            billing_thresholds: nil,
             collection_method: nil,
             currency: nil,
             default_payment_method: nil,
@@ -2846,6 +2879,7 @@ module Stripe
             @application_fee_percent = application_fee_percent
             @automatic_tax = automatic_tax
             @billing_cycle_anchor = billing_cycle_anchor
+            @billing_thresholds = billing_thresholds
             @collection_method = collection_method
             @currency = currency
             @default_payment_method = default_payment_method
@@ -2881,6 +2915,15 @@ module Stripe
 
       class SubscriptionDetails < Stripe::RequestParams
         class Item < Stripe::RequestParams
+          class BillingThresholds < Stripe::RequestParams
+            # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+            attr_accessor :usage_gte
+
+            def initialize(usage_gte: nil)
+              @usage_gte = usage_gte
+            end
+          end
+
           class Discount < Stripe::RequestParams
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
@@ -2937,6 +2980,8 @@ module Stripe
               @unit_amount_decimal = unit_amount_decimal
             end
           end
+          # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+          attr_accessor :billing_thresholds
           # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
           attr_accessor :clear_usage
           # A flag that, if set to `true`, will delete the specified item.
@@ -2959,6 +3004,7 @@ module Stripe
           attr_accessor :tax_rates
 
           def initialize(
+            billing_thresholds: nil,
             clear_usage: nil,
             deleted: nil,
             discounts: nil,
@@ -2970,6 +3016,7 @@ module Stripe
             quantity: nil,
             tax_rates: nil
           )
+            @billing_thresholds = billing_thresholds
             @clear_usage = clear_usage
             @deleted = deleted
             @discounts = discounts
@@ -2986,7 +3033,7 @@ module Stripe
         attr_accessor :billing_cycle_anchor
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
         attr_accessor :cancel_now
@@ -3178,7 +3225,7 @@ module Stripe
     attr_reader :from_invoice
     # The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been finalized yet, this will be null.
     attr_reader :hosted_invoice_url
-    # Unique identifier for the object. This property is always present unless the invoice is an upcoming invoice. See [Retrieve an upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) for more details.
+    # Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
     attr_reader :id
     # The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
     attr_reader :invoice_pdf
@@ -3275,16 +3322,56 @@ module Stripe
       )
     end
 
-    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+    # Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+    #
+    # For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+    # invoice's status becomes paid.
+    #
+    # If the PaymentIntent's status is already succeeded when it's attached, it's
+    # credited to the invoice immediately.
+    #
+    # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
+    def attach_payment(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+    #
+    # For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+    # to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+    # invoice's status becomes paid.
+    #
+    # If the PaymentIntent's status is already succeeded when it's attached, it's
+    # credited to the invoice immediately.
+    #
+    # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
+    def self.attach_payment(invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(invoice) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/invoices", params: params, opts: opts)
     end
 
     # At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
     #
-    # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+    # You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update.
     #
-    # You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+    # The recommended way to get only the prorations being previewed on the invoice is to consider line items where parent.subscription_item_details.proration is true.
+    #
+    # Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
     #
     # Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
     def self.create_preview(params = {}, opts = {})
@@ -3296,7 +3383,7 @@ module Stripe
       )
     end
 
-    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
     def self.delete(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
@@ -3306,7 +3393,7 @@ module Stripe
       )
     end
 
-    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
@@ -3433,11 +3520,11 @@ module Stripe
       )
     end
 
-    # Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+    # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
     # monetary values, as well as collection_method, become uneditable.
     #
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
-    # sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+    # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
     def self.update(invoice, params = {}, opts = {})
       request_stripe_object(
@@ -3468,9 +3555,9 @@ module Stripe
       )
     end
 
-    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
-    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     def void_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -3480,9 +3567,9 @@ module Stripe
       )
     end
 
-    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
-    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     def self.void_invoice(invoice, params = {}, opts = {})
       request_stripe_object(
         method: :post,

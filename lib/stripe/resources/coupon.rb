@@ -26,8 +26,7 @@ module Stripe
       attr_reader :amount_off
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       class CurrencyOptions < Stripe::RequestParams

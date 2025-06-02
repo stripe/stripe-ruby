@@ -52,9 +52,7 @@ module Stripe
       # Always true for a deleted object
       sig { returns(T::Boolean) }
       attr_reader :deleted
-      class DeleteParams < Stripe::RequestParams
-
-      end
+      class DeleteParams < Stripe::RequestParams; end
       class UpdateParams < Stripe::RequestParams
         class Address < Stripe::RequestParams
           # City, district, suburb, town, or village.
@@ -190,7 +188,7 @@ module Stripe
         ); end
       end
       # Creates a new Location object.
-      # For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+      # For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
       sig {
         params(params: T.any(::Stripe::Terminal::Location::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Terminal::Location)
        }

@@ -20,8 +20,7 @@ module Stripe
       "webhook_endpoint"
     end
 
-    class DeleteParams < Stripe::RequestParams
-    end
+    class DeleteParams < Stripe::RequestParams; end
 
     class UpdateParams < Stripe::RequestParams
       # An optional description of what the webhook is used for.

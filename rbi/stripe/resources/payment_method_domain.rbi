@@ -208,7 +208,7 @@ module Stripe
     #
     # To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
     #
-    # Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+    # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
     sig {
       params(params: T.any(::Stripe::PaymentMethodDomain::ValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
      }
@@ -219,7 +219,7 @@ module Stripe
     #
     # To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
     #
-    # Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+    # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
     sig {
       params(payment_method_domain: String, params: T.any(::Stripe::PaymentMethodDomain::ValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::PaymentMethodDomain)
      }

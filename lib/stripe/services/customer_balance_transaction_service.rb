@@ -66,7 +66,7 @@ module Stripe
       end
     end
 
-    # Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+    # Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
     def create(customer, params = {}, opts = {})
       request(
         method: :post,
@@ -77,7 +77,7 @@ module Stripe
       )
     end
 
-    # Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+    # Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
     def list(customer, params = {}, opts = {})
       request(
         method: :get,
@@ -88,7 +88,7 @@ module Stripe
       )
     end
 
-    # Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+    # Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
     def retrieve(customer, transaction, params = {}, opts = {})
       request(
         method: :get,

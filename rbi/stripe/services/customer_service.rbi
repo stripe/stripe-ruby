@@ -11,9 +11,7 @@ module Stripe
     attr_reader :tax_ids
     attr_reader :payment_methods
     attr_reader :funding_instructions
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class RetrieveParams < Stripe::RequestParams
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
@@ -267,9 +265,7 @@ module Stripe
         validate: nil
       ); end
     end
-    class DeleteDiscountParams < Stripe::RequestParams
-
-    end
+    class DeleteDiscountParams < Stripe::RequestParams; end
     class ListParams < Stripe::RequestParams
       class Created < Stripe::RequestParams
         # Minimum value to filter by (exclusive)
@@ -631,7 +627,7 @@ module Stripe
      }
     def retrieve(customer, params = {}, opts = {}); end
 
-    # Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+    # Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.

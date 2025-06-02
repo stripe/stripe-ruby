@@ -94,7 +94,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     attr_reader :object
-    # The parent that generated this invoice
+    # The parent that generated this invoice item.
     sig { returns(T.nilable(Parent)) }
     attr_reader :parent
     # Attribute for field period
@@ -118,9 +118,7 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T::Boolean) }
     attr_reader :deleted
-    class DeleteParams < Stripe::RequestParams
-
-    end
+    class DeleteParams < Stripe::RequestParams; end
     class UpdateParams < Stripe::RequestParams
       class Discount < Stripe::RequestParams
         # ID of the coupon to create a new discount for.

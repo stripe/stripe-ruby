@@ -18,9 +18,7 @@ module Stripe
           sig { params(limit: T.nilable(Integer), object_id_: String).void }
           def initialize(limit: nil, object_id_: nil); end
         end
-        class RetrieveParams < Stripe::RequestParams
-
-        end
+        class RetrieveParams < Stripe::RequestParams; end
         # List events, going back up to 30 days.
         sig {
           params(params: T.any(::Stripe::V2::Core::EventService::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::V2::ListObject)

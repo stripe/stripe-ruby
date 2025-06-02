@@ -152,6 +152,12 @@ module Stripe
     # The link to download the PDF of the credit note.
     sig { returns(String) }
     attr_reader :pdf
+    # The amount of the credit note that was refunded to the customer, credited to the customer's balance, credited outside of Stripe, or any combination thereof.
+    sig { returns(Integer) }
+    attr_reader :post_payment_amount
+    # The amount of the credit note by which the invoice's `amount_remaining` and `amount_due` were reduced.
+    sig { returns(Integer) }
+    attr_reader :pre_payment_amount
     # The pretax credit amounts (ex: discount, credit grants, etc) for all line items.
     sig { returns(T::Array[PretaxCreditAmount]) }
     attr_reader :pretax_credit_amounts
@@ -689,20 +695,19 @@ module Stripe
       sig { params(expand: T.nilable(T::Array[String])).void }
       def initialize(expand: nil); end
     end
-    # Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-    # its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-    # in any combination of the following:
+    # Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+    # This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
     #
     #
-    # Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+    # Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
     # Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
     # Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
     #
     #
-    # For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+    # The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
     #
-    # You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-    # or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+    # You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+    # post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
     sig {
       params(params: T.any(::Stripe::CreditNote::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
      }
@@ -732,13 +737,13 @@ module Stripe
      }
     def self.update(id, params = {}, opts = {}); end
 
-    # Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     sig {
       params(params: T.any(::Stripe::CreditNote::VoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
      }
     def void_credit_note(params = {}, opts = {}); end
 
-    # Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     sig {
       params(id: String, params: T.any(::Stripe::CreditNote::VoidCreditNoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::CreditNote)
      }

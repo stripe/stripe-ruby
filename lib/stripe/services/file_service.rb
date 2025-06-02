@@ -110,7 +110,7 @@ module Stripe
       request(method: :get, path: "/v1/files", params: params, opts: opts, base_address: :api)
     end
 
-    # Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://stripe.com/docs/file-upload#download-file-contents).
+    # Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
     def retrieve(file, params = {}, opts = {})
       request(
         method: :get,

@@ -50,20 +50,11 @@ module Stripe
         end
       end
 
-      class Affirm < Stripe::RequestParams
-      end
-
-      class AfterpayClearpay < Stripe::RequestParams
-      end
-
-      class Alipay < Stripe::RequestParams
-      end
-
-      class Alma < Stripe::RequestParams
-      end
-
-      class AmazonPay < Stripe::RequestParams
-      end
+      class Affirm < Stripe::RequestParams; end
+      class AfterpayClearpay < Stripe::RequestParams; end
+      class Alipay < Stripe::RequestParams; end
+      class Alma < Stripe::RequestParams; end
+      class AmazonPay < Stripe::RequestParams; end
 
       class AuBecsDebit < Stripe::RequestParams
         # The account number for the bank account.
@@ -89,11 +80,8 @@ module Stripe
         end
       end
 
-      class Bancontact < Stripe::RequestParams
-      end
-
-      class Billie < Stripe::RequestParams
-      end
+      class Bancontact < Stripe::RequestParams; end
+      class Billie < Stripe::RequestParams; end
 
       class BillingDetails < Stripe::RequestParams
         class Address < Stripe::RequestParams
@@ -146,8 +134,7 @@ module Stripe
         end
       end
 
-      class Blik < Stripe::RequestParams
-      end
+      class Blik < Stripe::RequestParams; end
 
       class Boleto < Stripe::RequestParams
         # The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
@@ -197,11 +184,8 @@ module Stripe
         end
       end
 
-      class Cashapp < Stripe::RequestParams
-      end
-
-      class CustomerBalance < Stripe::RequestParams
-      end
+      class Cashapp < Stripe::RequestParams; end
+      class CustomerBalance < Stripe::RequestParams; end
 
       class Eps < Stripe::RequestParams
         # The customer's bank.
@@ -224,11 +208,8 @@ module Stripe
         end
       end
 
-      class Giropay < Stripe::RequestParams
-      end
-
-      class Grabpay < Stripe::RequestParams
-      end
+      class Giropay < Stripe::RequestParams; end
+      class Grabpay < Stripe::RequestParams; end
 
       class Ideal < Stripe::RequestParams
         # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -239,11 +220,8 @@ module Stripe
         end
       end
 
-      class InteracPresent < Stripe::RequestParams
-      end
-
-      class KakaoPay < Stripe::RequestParams
-      end
+      class InteracPresent < Stripe::RequestParams; end
+      class KakaoPay < Stripe::RequestParams; end
 
       class Klarna < Stripe::RequestParams
         class Dob < Stripe::RequestParams
@@ -268,20 +246,11 @@ module Stripe
         end
       end
 
-      class Konbini < Stripe::RequestParams
-      end
-
-      class KrCard < Stripe::RequestParams
-      end
-
-      class Link < Stripe::RequestParams
-      end
-
-      class Mobilepay < Stripe::RequestParams
-      end
-
-      class Multibanco < Stripe::RequestParams
-      end
+      class Konbini < Stripe::RequestParams; end
+      class KrCard < Stripe::RequestParams; end
+      class Link < Stripe::RequestParams; end
+      class Mobilepay < Stripe::RequestParams; end
+      class Multibanco < Stripe::RequestParams; end
 
       class NaverPay < Stripe::RequestParams
         # Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
@@ -323,8 +292,7 @@ module Stripe
         end
       end
 
-      class Oxxo < Stripe::RequestParams
-      end
+      class Oxxo < Stripe::RequestParams; end
 
       class P24 < Stripe::RequestParams
         # The customer's bank.
@@ -335,23 +303,12 @@ module Stripe
         end
       end
 
-      class PayByBank < Stripe::RequestParams
-      end
-
-      class Payco < Stripe::RequestParams
-      end
-
-      class Paynow < Stripe::RequestParams
-      end
-
-      class Paypal < Stripe::RequestParams
-      end
-
-      class Pix < Stripe::RequestParams
-      end
-
-      class Promptpay < Stripe::RequestParams
-      end
+      class PayByBank < Stripe::RequestParams; end
+      class Payco < Stripe::RequestParams; end
+      class Paynow < Stripe::RequestParams; end
+      class Paypal < Stripe::RequestParams; end
+      class Pix < Stripe::RequestParams; end
+      class Promptpay < Stripe::RequestParams; end
 
       class RadarOptions < Stripe::RequestParams
         # A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -362,14 +319,9 @@ module Stripe
         end
       end
 
-      class RevolutPay < Stripe::RequestParams
-      end
-
-      class SamsungPay < Stripe::RequestParams
-      end
-
-      class Satispay < Stripe::RequestParams
-      end
+      class RevolutPay < Stripe::RequestParams; end
+      class SamsungPay < Stripe::RequestParams; end
+      class Satispay < Stripe::RequestParams; end
 
       class SepaDebit < Stripe::RequestParams
         # IBAN of the bank account.
@@ -389,11 +341,8 @@ module Stripe
         end
       end
 
-      class Swish < Stripe::RequestParams
-      end
-
-      class Twint < Stripe::RequestParams
-      end
+      class Swish < Stripe::RequestParams; end
+      class Twint < Stripe::RequestParams; end
 
       class UsBankAccount < Stripe::RequestParams
         # Account holder type: individual or company.
@@ -422,11 +371,8 @@ module Stripe
         end
       end
 
-      class WechatPay < Stripe::RequestParams
-      end
-
-      class Zip < Stripe::RequestParams
-      end
+      class WechatPay < Stripe::RequestParams; end
+      class Zip < Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
       attr_accessor :acss_debit
       # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -741,11 +687,8 @@ module Stripe
         end
       end
 
-      class Link < Stripe::RequestParams
-      end
-
-      class PayByBank < Stripe::RequestParams
-      end
+      class Link < Stripe::RequestParams; end
+      class PayByBank < Stripe::RequestParams; end
 
       class UsBankAccount < Stripe::RequestParams
         # Bank account holder type.
@@ -819,16 +762,16 @@ module Stripe
 
     # Attaches a PaymentMethod object to a Customer.
     #
-    # To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
-    # or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+    # To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://docs.stripe.com/docs/api/setup_intents)
+    # or a PaymentIntent with [setup_future_usage](https://docs.stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
     # These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
     # endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
     # future use, which makes later declines and payment friction more likely.
-    # See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+    # See [Optimizing cards for future payments](https://docs.stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
     # future payments.
     #
     # To use this PaymentMethod as the default for invoice or subscription payments,
-    # set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+    # set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
     # on the Customer to the PaymentMethod's ID.
     def attach(payment_method, params = {}, opts = {})
       request(
@@ -840,9 +783,9 @@ module Stripe
       )
     end
 
-    # Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
+    # Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
     #
-    # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
+    # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
     def create(params = {}, opts = {})
       request(
         method: :post,
@@ -864,7 +807,7 @@ module Stripe
       )
     end
 
-    # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
+    # Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
     def list(params = {}, opts = {})
       request(
         method: :get,
@@ -875,7 +818,7 @@ module Stripe
       )
     end
 
-    # Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer)
+    # Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
     def retrieve(payment_method, params = {}, opts = {})
       request(
         method: :get,

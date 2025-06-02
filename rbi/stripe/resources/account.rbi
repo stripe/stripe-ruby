@@ -2343,6 +2343,13 @@ module Stripe
           sig { params(files: T.nilable(T::Array[String])).void }
           def initialize(files: nil); end
         end
+        class ProofOfAddress < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :files
+          sig { params(files: T.nilable(T::Array[String])).void }
+          def initialize(files: nil); end
+        end
         class ProofOfRegistration < Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
@@ -2385,6 +2392,9 @@ module Stripe
           returns(T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyTaxIdVerification))
          }
         attr_accessor :company_tax_id_verification
+        # One or more documents that demonstrate proof of address.
+        sig { returns(T.nilable(::Stripe::Account::UpdateParams::Documents::ProofOfAddress)) }
+        attr_accessor :proof_of_address
         # One or more documents showing the company’s proof of registration with the national business registry.
         sig { returns(T.nilable(::Stripe::Account::UpdateParams::Documents::ProofOfRegistration)) }
         attr_accessor :proof_of_registration
@@ -2394,7 +2404,7 @@ module Stripe
          }
         attr_accessor :proof_of_ultimate_beneficial_ownership
         sig {
-          params(bank_account_ownership_verification: T.nilable(::Stripe::Account::UpdateParams::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyTaxIdVerification), proof_of_registration: T.nilable(::Stripe::Account::UpdateParams::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::Account::UpdateParams::Documents::ProofOfUltimateBeneficialOwnership)).void
+          params(bank_account_ownership_verification: T.nilable(::Stripe::Account::UpdateParams::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::Account::UpdateParams::Documents::CompanyTaxIdVerification), proof_of_address: T.nilable(::Stripe::Account::UpdateParams::Documents::ProofOfAddress), proof_of_registration: T.nilable(::Stripe::Account::UpdateParams::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::Account::UpdateParams::Documents::ProofOfUltimateBeneficialOwnership)).void
          }
         def initialize(
           bank_account_ownership_verification: nil,
@@ -2403,6 +2413,7 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
+          proof_of_address: nil,
           proof_of_registration: nil,
           proof_of_ultimate_beneficial_ownership: nil
         ); end
@@ -4617,6 +4628,13 @@ module Stripe
           sig { params(files: T.nilable(T::Array[String])).void }
           def initialize(files: nil); end
         end
+        class ProofOfAddress < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          sig { returns(T.nilable(T::Array[String])) }
+          attr_accessor :files
+          sig { params(files: T.nilable(T::Array[String])).void }
+          def initialize(files: nil); end
+        end
         class ProofOfRegistration < Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
@@ -4659,6 +4677,9 @@ module Stripe
           returns(T.nilable(::Stripe::Account::CreateParams::Documents::CompanyTaxIdVerification))
          }
         attr_accessor :company_tax_id_verification
+        # One or more documents that demonstrate proof of address.
+        sig { returns(T.nilable(::Stripe::Account::CreateParams::Documents::ProofOfAddress)) }
+        attr_accessor :proof_of_address
         # One or more documents showing the company’s proof of registration with the national business registry.
         sig { returns(T.nilable(::Stripe::Account::CreateParams::Documents::ProofOfRegistration)) }
         attr_accessor :proof_of_registration
@@ -4668,7 +4689,7 @@ module Stripe
          }
         attr_accessor :proof_of_ultimate_beneficial_ownership
         sig {
-          params(bank_account_ownership_verification: T.nilable(::Stripe::Account::CreateParams::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyTaxIdVerification), proof_of_registration: T.nilable(::Stripe::Account::CreateParams::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::Account::CreateParams::Documents::ProofOfUltimateBeneficialOwnership)).void
+          params(bank_account_ownership_verification: T.nilable(::Stripe::Account::CreateParams::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::Account::CreateParams::Documents::CompanyTaxIdVerification), proof_of_address: T.nilable(::Stripe::Account::CreateParams::Documents::ProofOfAddress), proof_of_registration: T.nilable(::Stripe::Account::CreateParams::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::Account::CreateParams::Documents::ProofOfUltimateBeneficialOwnership)).void
          }
         def initialize(
           bank_account_ownership_verification: nil,
@@ -4677,6 +4698,7 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
+          proof_of_address: nil,
           proof_of_registration: nil,
           proof_of_ultimate_beneficial_ownership: nil
         ); end

@@ -2138,13 +2138,10 @@ module Stripe
             returns(T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::TransferData))
            }
           attr_accessor :transfer_data
-          # Unix timestamp representing the end of the trial period the customer
-          # will get before being charged for the first time. Has to be at least
-          # 48 hours in the future.
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :trial_end
-          # Integer representing the number of trial period days before the
-          # customer is charged for the first time. Has to be at least 1.
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :trial_period_days
           # Settings related to subscription trials.

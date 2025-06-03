@@ -3130,12 +3130,9 @@ module Stripe
           attr_accessor :proration_behavior
           # If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
           attr_accessor :transfer_data
-          # Unix timestamp representing the end of the trial period the customer
-          # will get before being charged for the first time. Has to be at least
-          # 48 hours in the future.
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
           attr_accessor :trial_end
-          # Integer representing the number of trial period days before the
-          # customer is charged for the first time. Has to be at least 1.
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
           attr_accessor :trial_period_days
           # Settings related to subscription trials.
           attr_accessor :trial_settings

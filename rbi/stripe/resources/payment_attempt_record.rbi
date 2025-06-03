@@ -1040,23 +1040,12 @@ module Stripe
       end
       class Twint < Stripe::StripeObject; end
       class UsBankAccount < Stripe::StripeObject
-        class AchReturnAmount < Stripe::StripeObject
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          attr_reader :currency
-          # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
-          sig { returns(Integer) }
-          attr_reader :value
-        end
         # Attribute for field account_holder_type
         sig { returns(T.nilable(String)) }
         attr_reader :account_holder_type
         # Attribute for field account_type
         sig { returns(T.nilable(String)) }
         attr_reader :account_type
-        # Amount of the ACH return to the bank account.
-        sig { returns(T.nilable(AchReturnAmount)) }
-        attr_reader :ach_return_amount
         # Name of the bank associated with the bank account.
         sig { returns(T.nilable(String)) }
         attr_reader :bank_name

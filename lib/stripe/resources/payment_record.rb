@@ -832,18 +832,10 @@ module Stripe
       class Twint < Stripe::StripeObject; end
 
       class UsBankAccount < Stripe::StripeObject
-        class AchReturnAmount < Stripe::StripeObject
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_reader :currency
-          # A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
-          attr_reader :value
-        end
         # Attribute for field account_holder_type
         attr_reader :account_holder_type
         # Attribute for field account_type
         attr_reader :account_type
-        # Amount of the ACH return to the bank account.
-        attr_reader :ach_return_amount
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
         # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.

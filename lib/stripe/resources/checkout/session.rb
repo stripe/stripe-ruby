@@ -3717,6 +3717,18 @@ module Stripe
             @shipping_rate_data = shipping_rate_data
           end
         end
+
+        class SubscriptionData < Stripe::RequestParams
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+          attr_accessor :trial_end
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+          attr_accessor :trial_period_days
+
+          def initialize(trial_end: nil, trial_period_days: nil)
+            @trial_end = trial_end
+            @trial_period_days = trial_period_days
+          end
+        end
         # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         attr_accessor :collected_information
         # Specifies which fields in the response should be expanded.
@@ -3739,19 +3751,23 @@ module Stripe
         attr_accessor :metadata
         # The shipping rate options to apply to this Session. Up to a maximum of 5.
         attr_accessor :shipping_options
+        # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
+        attr_accessor :subscription_data
 
         def initialize(
           collected_information: nil,
           expand: nil,
           line_items: nil,
           metadata: nil,
-          shipping_options: nil
+          shipping_options: nil,
+          subscription_data: nil
         )
           @collected_information = collected_information
           @expand = expand
           @line_items = line_items
           @metadata = metadata
           @shipping_options = shipping_options
+          @subscription_data = subscription_data
         end
       end
 

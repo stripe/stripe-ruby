@@ -3740,7 +3740,7 @@ module Stripe
       # Payment method-specific configuration for this PaymentIntent.
       sig { returns(T.nilable(::Stripe::PaymentIntentService::CreateParams::PaymentMethodOptions)) }
       attr_accessor :payment_method_options
-      # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
+      # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
       # Options to configure Radar. Learn more about [Radar Sessions](https://stripe.com/docs/radar/radar-session).
@@ -7446,7 +7446,7 @@ module Stripe
       # Payment-method-specific configuration for this PaymentIntent.
       sig { returns(T.nilable(::Stripe::PaymentIntentService::UpdateParams::PaymentMethodOptions)) }
       attr_accessor :payment_method_options
-      # The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+      # The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
       # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
@@ -12012,7 +12012,7 @@ module Stripe
         returns(T.nilable(::Stripe::PaymentIntentService::ConfirmParams::PaymentMethodOptions))
        }
       attr_accessor :payment_method_options
-      # The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+      # The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
       # Options to configure Radar. Learn more about [Radar Sessions](https://stripe.com/docs/radar/radar-session).

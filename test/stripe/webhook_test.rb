@@ -66,14 +66,14 @@ module Stripe
 
       should "can call refresh on Event data object" do
         payload = {
-          "id": "evt_123",
-          "object": "event",
-          "data": {
-            "object": {
-              "id": "cus_123",
-              "object": "customer",
-            }
-          }
+          id: "evt_123",
+          object: "event",
+          data: {
+            object: {
+              id: "cus_123",
+              object: "customer",
+            },
+          },
         }.to_json
 
         header = Test::WebhookHelpers.generate_header(payload: payload)

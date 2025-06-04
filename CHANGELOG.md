@@ -1,4 +1,9 @@
 # Changelog
+## 15.2.1 - 2025-06-04
+* [#1617](https://github.com/stripe/stripe-ruby/pull/1617) Fix `nil` requestor in `Webhook.construct_event` to allow for event data refresh
+  * Fix bug where `Event` constructed from `Webhook.construct_event` could not be refreshed due to a `nil` APIRequestor
+    * Raised in https://github.com/stripe/stripe-ruby/issues/1616
+
 ## 15.2.0 - 2025-05-29
  This release changes the pinned API version to `2025-05-28.basil`.
 

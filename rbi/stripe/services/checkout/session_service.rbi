@@ -2791,16 +2791,6 @@ module Stripe
            }
           def initialize(shipping_rate: nil, shipping_rate_data: nil); end
         end
-        class SubscriptionData < Stripe::RequestParams
-          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :trial_end
-          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :trial_period_days
-          sig { params(trial_end: T.nilable(Integer), trial_period_days: T.nilable(Integer)).void }
-          def initialize(trial_end: nil, trial_period_days: nil); end
-        end
         # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         sig {
           returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::CollectedInformation))
@@ -2834,21 +2824,15 @@ module Stripe
           returns(T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::UpdateParams::ShippingOption]))))
          }
         attr_accessor :shipping_options
-        # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
         sig {
-          returns(T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData))
-         }
-        attr_accessor :subscription_data
-        sig {
-          params(collected_information: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::CollectedInformation), expand: T.nilable(T::Array[String]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionService::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), shipping_options: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::UpdateParams::ShippingOption]))), subscription_data: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::SubscriptionData)).void
+          params(collected_information: T.nilable(::Stripe::Checkout::SessionService::UpdateParams::CollectedInformation), expand: T.nilable(T::Array[String]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionService::UpdateParams::LineItem]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), shipping_options: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionService::UpdateParams::ShippingOption])))).void
          }
         def initialize(
           collected_information: nil,
           expand: nil,
           line_items: nil,
           metadata: nil,
-          shipping_options: nil,
-          subscription_data: nil
+          shipping_options: nil
         ); end
       end
       class ExpireParams < Stripe::RequestParams

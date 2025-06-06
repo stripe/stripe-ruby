@@ -1511,6 +1511,15 @@ module Stripe
           end
         end
 
+        class ProofOfAddress < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
+
         class ProofOfRegistration < Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           attr_accessor :files
@@ -1540,6 +1549,8 @@ module Stripe
         attr_accessor :company_registration_verification
         # One or more documents that demonstrate proof of a company's tax ID.
         attr_accessor :company_tax_id_verification
+        # One or more documents that demonstrate proof of address.
+        attr_accessor :proof_of_address
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
         # One or more documents that demonstrate proof of ultimate beneficial ownership.
@@ -1552,6 +1563,7 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
+          proof_of_address: nil,
           proof_of_registration: nil,
           proof_of_ultimate_beneficial_ownership: nil
         )
@@ -1561,6 +1573,7 @@ module Stripe
           @company_ministerial_decree = company_ministerial_decree
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
+          @proof_of_address = proof_of_address
           @proof_of_registration = proof_of_registration
           @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end
@@ -3675,7 +3688,7 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
-        # Attribute for param field registration_date
+        # When the business was incorporated or registered.
         attr_accessor :registration_date
         # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
         attr_accessor :registration_number
@@ -3875,6 +3888,15 @@ module Stripe
           end
         end
 
+        class ProofOfAddress < Stripe::RequestParams
+          # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+          attr_accessor :files
+
+          def initialize(files: nil)
+            @files = files
+          end
+        end
+
         class ProofOfRegistration < Stripe::RequestParams
           # One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
           attr_accessor :files
@@ -3904,6 +3926,8 @@ module Stripe
         attr_accessor :company_registration_verification
         # One or more documents that demonstrate proof of a company's tax ID.
         attr_accessor :company_tax_id_verification
+        # One or more documents that demonstrate proof of address.
+        attr_accessor :proof_of_address
         # One or more documents showing the company’s proof of registration with the national business registry.
         attr_accessor :proof_of_registration
         # One or more documents that demonstrate proof of ultimate beneficial ownership.
@@ -3916,6 +3940,7 @@ module Stripe
           company_ministerial_decree: nil,
           company_registration_verification: nil,
           company_tax_id_verification: nil,
+          proof_of_address: nil,
           proof_of_registration: nil,
           proof_of_ultimate_beneficial_ownership: nil
         )
@@ -3925,6 +3950,7 @@ module Stripe
           @company_ministerial_decree = company_ministerial_decree
           @company_registration_verification = company_registration_verification
           @company_tax_id_verification = company_tax_id_verification
+          @proof_of_address = proof_of_address
           @proof_of_registration = proof_of_registration
           @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
         end

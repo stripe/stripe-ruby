@@ -832,9 +832,9 @@ module Stripe
       class Twint < Stripe::StripeObject; end
 
       class UsBankAccount < Stripe::StripeObject
-        # Account holder type: individual or company.
+        # Attribute for field account_holder_type
         attr_reader :account_holder_type
-        # Account type: checkings or savings. Defaults to checking if omitted.
+        # Attribute for field account_type
         attr_reader :account_type
         # Name of the bank associated with the bank account.
         attr_reader :bank_name
@@ -844,7 +844,7 @@ module Stripe
         attr_reader :last4
         # ID of the mandate used to make this payment.
         attr_reader :mandate
-        # Reference number to locate ACH payments with customer's bank.
+        # Reference number to locate ACH payments with customer’s bank.
         attr_reader :payment_reference
         # Routing number of the bank account.
         attr_reader :routing_number
@@ -992,7 +992,7 @@ module Stripe
       # An additional hash is included on `payment_method_details` with a name matching this value.
       # It contains information specific to the payment method.
       attr_reader :type
-      # Attribute for field us_bank_account
+      # Details of the US Bank Account used for this payment attempt.
       attr_reader :us_bank_account
       # Attribute for field wechat
       attr_reader :wechat

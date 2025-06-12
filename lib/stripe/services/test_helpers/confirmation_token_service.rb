@@ -625,7 +625,7 @@ module Stripe
                 # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
                 # One of `month`.
                 attr_accessor :interval
-                # Type of installment plan, one of `fixed_count`.
+                # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                 attr_accessor :type
 
                 def initialize(count: nil, interval: nil, type: nil)

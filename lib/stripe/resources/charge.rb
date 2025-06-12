@@ -297,7 +297,7 @@ module Stripe
             # For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
             # One of `month`.
             attr_reader :interval
-            # Type of installment plan, one of `fixed_count`.
+            # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
             attr_reader :type
           end
           # Installment plan selected for the payment.
@@ -490,7 +490,7 @@ module Stripe
         attr_reader :iin
         # Attribute for field incremental_authorization
         attr_reader :incremental_authorization
-        # Installment details for this payment (Mexico only).
+        # Installment details for this payment.
         #
         # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         attr_reader :installments

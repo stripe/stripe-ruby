@@ -1388,7 +1388,7 @@ module Stripe
             # One of `month`.
             sig { returns(T.nilable(String)) }
             attr_reader :interval
-            # Type of installment plan, one of `fixed_count`.
+            # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
             sig { returns(String) }
             attr_reader :type
           end
@@ -1400,7 +1400,7 @@ module Stripe
             # One of `month`.
             sig { returns(T.nilable(String)) }
             attr_reader :interval
-            # Type of installment plan, one of `fixed_count`.
+            # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
             sig { returns(String) }
             attr_reader :type
           end
@@ -1474,7 +1474,7 @@ module Stripe
         # Controls when the funds will be captured from the customer's account.
         sig { returns(String) }
         attr_reader :capture_method
-        # Installment details for this payment (Mexico only).
+        # Installment details for this payment.
         #
         # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         sig { returns(T.nilable(Installments)) }
@@ -4420,7 +4420,7 @@ module Stripe
               # One of `month`.
               sig { returns(T.nilable(String)) }
               attr_accessor :interval
-              # Type of installment plan, one of `fixed_count`.
+              # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
               sig { returns(String) }
               attr_accessor :type
               sig {
@@ -8099,7 +8099,7 @@ module Stripe
               # One of `month`.
               sig { returns(T.nilable(String)) }
               attr_accessor :interval
-              # Type of installment plan, one of `fixed_count`.
+              # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
               sig { returns(String) }
               attr_accessor :type
               sig {
@@ -12627,7 +12627,7 @@ module Stripe
               # One of `month`.
               sig { returns(T.nilable(String)) }
               attr_accessor :interval
-              # Type of installment plan, one of `fixed_count`.
+              # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
               sig { returns(String) }
               attr_accessor :type
               sig {

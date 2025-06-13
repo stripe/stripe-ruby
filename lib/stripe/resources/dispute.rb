@@ -185,6 +185,8 @@ module Stripe
       attr_reader :past_due
       # The number of times evidence has been submitted. Typically, you may only submit evidence once.
       attr_reader :submission_count
+      # Attribute for field submission_method
+      attr_reader :submission_method
     end
 
     class PaymentMethodDetails < Stripe::StripeObject

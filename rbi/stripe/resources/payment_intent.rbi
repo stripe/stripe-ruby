@@ -1388,7 +1388,7 @@ module Stripe
             # One of `month`.
             sig { returns(T.nilable(String)) }
             attr_reader :interval
-            # Type of installment plan, one of `fixed_count`.
+            # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
             sig { returns(String) }
             attr_reader :type
           end
@@ -1400,7 +1400,7 @@ module Stripe
             # One of `month`.
             sig { returns(T.nilable(String)) }
             attr_reader :interval
-            # Type of installment plan, one of `fixed_count`.
+            # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
             sig { returns(String) }
             attr_reader :type
           end
@@ -1474,7 +1474,7 @@ module Stripe
         # Controls when the funds will be captured from the customer's account.
         sig { returns(String) }
         attr_reader :capture_method
-        # Installment details for this payment (Mexico only).
+        # Installment details for this payment.
         #
         # For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         sig { returns(T.nilable(Installments)) }
@@ -4420,7 +4420,7 @@ module Stripe
               # One of `month`.
               sig { returns(T.nilable(String)) }
               attr_accessor :interval
-              # Type of installment plan, one of `fixed_count`.
+              # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
               sig { returns(String) }
               attr_accessor :type
               sig {
@@ -6271,7 +6271,7 @@ module Stripe
       # Payment method-specific configuration for this PaymentIntent.
       sig { returns(T.nilable(::Stripe::PaymentIntent::CreateParams::PaymentMethodOptions)) }
       attr_accessor :payment_method_options
-      # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
+      # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
       # Options to configure Radar. Learn more about [Radar Sessions](https://stripe.com/docs/radar/radar-session).
@@ -8099,7 +8099,7 @@ module Stripe
               # One of `month`.
               sig { returns(T.nilable(String)) }
               attr_accessor :interval
-              # Type of installment plan, one of `fixed_count`.
+              # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
               sig { returns(String) }
               attr_accessor :type
               sig {
@@ -9901,7 +9901,7 @@ module Stripe
       # Payment-method-specific configuration for this PaymentIntent.
       sig { returns(T.nilable(::Stripe::PaymentIntent::UpdateParams::PaymentMethodOptions)) }
       attr_accessor :payment_method_options
-      # The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+      # The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
       # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
@@ -12627,7 +12627,7 @@ module Stripe
               # One of `month`.
               sig { returns(T.nilable(String)) }
               attr_accessor :interval
-              # Type of installment plan, one of `fixed_count`.
+              # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
               sig { returns(String) }
               attr_accessor :type
               sig {
@@ -14417,7 +14417,7 @@ module Stripe
       # Payment method-specific configuration for this PaymentIntent.
       sig { returns(T.nilable(::Stripe::PaymentIntent::ConfirmParams::PaymentMethodOptions)) }
       attr_accessor :payment_method_options
-      # The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+      # The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :payment_method_types
       # Options to configure Radar. Learn more about [Radar Sessions](https://stripe.com/docs/radar/radar-session).

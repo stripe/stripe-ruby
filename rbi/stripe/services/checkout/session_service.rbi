@@ -2138,13 +2138,10 @@ module Stripe
             returns(T.nilable(::Stripe::Checkout::SessionService::CreateParams::SubscriptionData::TransferData))
            }
           attr_accessor :transfer_data
-          # Unix timestamp representing the end of the trial period the customer
-          # will get before being charged for the first time. Has to be at least
-          # 48 hours in the future.
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :trial_end
-          # Integer representing the number of trial period days before the
-          # customer is charged for the first time. Has to be at least 1.
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
           sig { returns(T.nilable(Integer)) }
           attr_accessor :trial_period_days
           # Settings related to subscription trials.
@@ -2295,7 +2292,7 @@ module Stripe
           returns(T.nilable(::Stripe::Checkout::SessionService::CreateParams::InvoiceCreation))
          }
         attr_accessor :invoice_creation
-        # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
         #
         # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
         #

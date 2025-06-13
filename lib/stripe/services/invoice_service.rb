@@ -169,7 +169,7 @@ module Stripe
                 # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
                 # One of `month`.
                 attr_accessor :interval
-                # Type of installment plan, one of `fixed_count`.
+                # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                 attr_accessor :type
 
                 def initialize(count: nil, interval: nil, type: nil)
@@ -882,7 +882,7 @@ module Stripe
                 # For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
                 # One of `month`.
                 attr_accessor :interval
-                # Type of installment plan, one of `fixed_count`.
+                # Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                 attr_accessor :type
 
                 def initialize(count: nil, interval: nil, type: nil)
@@ -3592,7 +3592,7 @@ module Stripe
         attr_accessor :billing_mode
         # A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         attr_accessor :cancel_at
-        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+        # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         attr_accessor :cancel_at_period_end
         # This simulates the subscription being canceled or expired immediately.
         attr_accessor :cancel_now

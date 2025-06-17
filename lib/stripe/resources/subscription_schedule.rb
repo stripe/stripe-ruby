@@ -434,6 +434,15 @@ module Stripe
     end
 
     class CreateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams

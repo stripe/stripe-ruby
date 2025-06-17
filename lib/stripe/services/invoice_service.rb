@@ -2859,6 +2859,15 @@ module Stripe
           end
         end
 
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class Phase < Stripe::RequestParams
           class AddInvoiceItem < Stripe::RequestParams
             class Discount < Stripe::RequestParams
@@ -3434,6 +3443,15 @@ module Stripe
       end
 
       class SubscriptionDetails < Stripe::RequestParams
+        class BillingMode < Stripe::RequestParams
+          # Attribute for param field type
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class Item < Stripe::RequestParams
           class BillingThresholds < Stripe::RequestParams
             # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))

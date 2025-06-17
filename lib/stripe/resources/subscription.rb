@@ -1283,6 +1283,15 @@ module Stripe
         end
       end
 
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+
       class BillingThresholds < Stripe::RequestParams
         # Monetary threshold that triggers the subscription to advance to a new billing period
         attr_accessor :amount_gte
@@ -1926,6 +1935,14 @@ module Stripe
     end
 
     class MigrateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
       # Specifies which fields in the response should be expanded.

@@ -594,6 +594,13 @@ module Stripe
       ); end
     end
     class CreateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        sig { returns(String) }
+        attr_accessor :type
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
       class DefaultSettings < Stripe::RequestParams
         class AutomaticTax < Stripe::RequestParams
           class Liability < Stripe::RequestParams
@@ -1263,7 +1270,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       attr_accessor :billing_behavior
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode)) }
       attr_accessor :billing_mode
       # The identifier of the customer to create the subscription schedule for.
       sig { returns(T.nilable(String)) }
@@ -1296,7 +1303,7 @@ module Stripe
       sig { returns(T.nilable(T.any(Integer, String))) }
       attr_accessor :start_date
       sig {
-        params(billing_behavior: T.nilable(String), billing_mode: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phases: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
+        params(billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::BillingMode), customer: T.nilable(String), customer_account: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), phases: T.nilable(T::Array[::Stripe::SubscriptionSchedule::CreateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionSchedule::CreateParams::Prebilling), start_date: T.nilable(T.any(Integer, String))).void
        }
       def initialize(
         billing_behavior: nil,

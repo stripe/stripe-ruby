@@ -1959,6 +1959,15 @@ module Stripe
         end
 
         class SubscriptionData < Stripe::RequestParams
+          class BillingMode < Stripe::RequestParams
+            # Attribute for param field type
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
           class InvoiceSettings < Stripe::RequestParams
             class Issuer < Stripe::RequestParams
               # The connected account being referenced when `type` is `account`.

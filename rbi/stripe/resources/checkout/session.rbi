@@ -3552,6 +3552,13 @@ module Stripe
           def initialize(shipping_rate: nil, shipping_rate_data: nil); end
         end
         class SubscriptionData < Stripe::RequestParams
+          class BillingMode < Stripe::RequestParams
+            # Attribute for param field type
+            sig { returns(String) }
+            attr_accessor :type
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
           class InvoiceSettings < Stripe::RequestParams
             class Issuer < Stripe::RequestParams
               # The connected account being referenced when `type` is `account`.
@@ -3608,7 +3615,9 @@ module Stripe
           sig { returns(T.nilable(Integer)) }
           attr_accessor :billing_cycle_anchor
           # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-          sig { returns(T.nilable(String)) }
+          sig {
+            returns(T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::BillingMode))
+           }
           attr_accessor :billing_mode
           # The tax rates that will apply to any subscription item that does not have
           # `tax_rates` set. Invoices created will have their `default_tax_rates` populated
@@ -3651,7 +3660,7 @@ module Stripe
            }
           attr_accessor :trial_settings
           sig {
-            params(application_fee_percent: T.nilable(Float), billing_cycle_anchor: T.nilable(Integer), billing_mode: T.nilable(String), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), invoice_settings: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::InvoiceSettings), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::TransferData), trial_end: T.nilable(Integer), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::TrialSettings)).void
+            params(application_fee_percent: T.nilable(Float), billing_cycle_anchor: T.nilable(Integer), billing_mode: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::BillingMode), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), invoice_settings: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::InvoiceSettings), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::TransferData), trial_end: T.nilable(Integer), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::Checkout::Session::CreateParams::SubscriptionData::TrialSettings)).void
            }
           def initialize(
             application_fee_percent: nil,

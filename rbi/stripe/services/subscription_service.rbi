@@ -1125,6 +1125,13 @@ module Stripe
          }
         def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
       end
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        sig { returns(String) }
+        attr_accessor :type
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
       class BillingThresholds < Stripe::RequestParams
         # Monetary threshold that triggers the subscription to advance to a new billing period
         sig { returns(T.nilable(Integer)) }
@@ -1646,7 +1653,7 @@ module Stripe
        }
       attr_accessor :billing_cycle_anchor_config
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(::Stripe::SubscriptionService::CreateParams::BillingMode)) }
       attr_accessor :billing_mode
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
       sig {
@@ -1752,7 +1759,7 @@ module Stripe
       sig { returns(T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)) }
       attr_accessor :trial_settings
       sig {
-        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig), billing_mode: T.nilable(String), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::BillingThresholds))), cancel_at: T.nilable(T.any(Integer, String)), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::PendingInvoiceItemInterval))), prebilling: T.nilable(::Stripe::SubscriptionService::CreateParams::Prebilling), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionService::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)).void
+        params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.nilable(T.any(String, Float))), automatic_tax: T.nilable(::Stripe::SubscriptionService::CreateParams::AutomaticTax), backdate_start_date: T.nilable(Integer), billing_cycle_anchor: T.nilable(Integer), billing_cycle_anchor_config: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingCycleAnchorConfig), billing_mode: T.nilable(::Stripe::SubscriptionService::CreateParams::BillingMode), billing_thresholds: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::BillingThresholds))), cancel_at: T.nilable(T.any(Integer, String)), cancel_at_period_end: T.nilable(T::Boolean), collection_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.nilable(T.any(String, T::Array[String]))), description: T.nilable(String), discounts: T.nilable(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionService::CreateParams::Discount]))), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionService::CreateParams::Item]), metadata: T.nilable(T.nilable(T.any(String, T::Hash[String, String]))), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(T.nilable(String)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.nilable(T.any(String, ::Stripe::SubscriptionService::CreateParams::PendingInvoiceItemInterval))), prebilling: T.nilable(::Stripe::SubscriptionService::CreateParams::Prebilling), proration_behavior: T.nilable(String), transfer_data: T.nilable(::Stripe::SubscriptionService::CreateParams::TransferData), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::SubscriptionService::CreateParams::TrialSettings)).void
        }
       def initialize(
         add_invoice_items: nil,
@@ -1812,13 +1819,22 @@ module Stripe
       def initialize(expand: nil, limit: nil, page: nil, query: nil); end
     end
     class MigrateParams < Stripe::RequestParams
+      class BillingMode < Stripe::RequestParams
+        # Attribute for param field type
+        sig { returns(String) }
+        attr_accessor :type
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-      sig { returns(String) }
+      sig { returns(::Stripe::SubscriptionService::MigrateParams::BillingMode) }
       attr_accessor :billing_mode
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       attr_accessor :expand
-      sig { params(billing_mode: String, expand: T.nilable(T::Array[String])).void }
+      sig {
+        params(billing_mode: ::Stripe::SubscriptionService::MigrateParams::BillingMode, expand: T.nilable(T::Array[String])).void
+       }
       def initialize(billing_mode: nil, expand: nil); end
     end
     class ResumeParams < Stripe::RequestParams

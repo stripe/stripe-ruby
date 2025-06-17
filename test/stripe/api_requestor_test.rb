@@ -1530,7 +1530,7 @@ module Stripe
         assert(trace_payload["last_request_metrics"]["usage"].nil?)
       end
 
-      # TODO: This test fails intermittently in jruby/truffle
+      # TODO (http://go/j/DEVSDK-2318): This test fails intermittently in jruby/truffle
       # so we have thread safety issues. Commenting out until we can
       # fix it.
       # should "check for thread safety" do

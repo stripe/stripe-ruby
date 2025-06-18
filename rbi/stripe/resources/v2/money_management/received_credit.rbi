@@ -40,12 +40,21 @@ module Stripe
           attr_reader :succeeded_at
         end
         class BalanceTransfer < Stripe::StripeObject
-          # The ID of the Stripe Money Movement that originated the ReceivedCredit.
-          sig { returns(String) }
-          attr_reader :payout_v1
+          # The ID of the account that owns the source object originated the ReceivedCredit.
+          sig { returns(T.nilable(String)) }
+          attr_reader :from_account
           # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
           sig { returns(String) }
           attr_reader :type
+          # The ID of the outbound payment object that originated the ReceivedCredit.
+          sig { returns(T.nilable(String)) }
+          attr_reader :outbound_payment
+          # The ID of the outbound transfer object that originated the ReceivedCredit.
+          sig { returns(T.nilable(String)) }
+          attr_reader :outbound_transfer
+          # The ID of the payout object that originated the ReceivedCredit.
+          sig { returns(T.nilable(String)) }
+          attr_reader :payout_v1
         end
         class BankTransfer < Stripe::StripeObject
           class GbBankAccount < Stripe::StripeObject

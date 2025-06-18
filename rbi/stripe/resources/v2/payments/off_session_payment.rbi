@@ -17,7 +17,7 @@ module Stripe
         end
         class TransferData < Stripe::StripeObject
           # Amount in minor units that you want to transfer.
-          sig { returns(Integer) }
+          sig { returns(T.nilable(Integer)) }
           attr_reader :amount
           # ID of the connected account where you want money to go.
           sig { returns(String) }
@@ -26,9 +26,6 @@ module Stripe
         # The amount you requested to be collected on the OSP upon creation.
         sig { returns(Stripe::V2::Amount) }
         attr_reader :amount_requested
-        # Number of authorization attempts.
-        sig { returns(Integer) }
-        attr_reader :attempts
         # The frequency of the underlying payment that this OSP represents.
         sig { returns(String) }
         attr_reader :cadence

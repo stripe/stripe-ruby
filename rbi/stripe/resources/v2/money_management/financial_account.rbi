@@ -23,6 +23,16 @@ module Stripe
           sig { returns(String) }
           attr_reader :type
         end
+        class StatusDetails < Stripe::StripeObject
+          class Closed < Stripe::StripeObject
+            # Attribute for field reason
+            sig { returns(String) }
+            attr_reader :reason
+          end
+          # Attribute for field closed
+          sig { returns(T.nilable(Closed)) }
+          attr_reader :closed
+        end
         class Storage < Stripe::StripeObject
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
@@ -37,12 +47,12 @@ module Stripe
         # Time at which the object was created.
         sig { returns(String) }
         attr_reader :created
-        # Attribute for field description
-        sig { returns(T.nilable(String)) }
-        attr_reader :description
         # Unique identifier for the object.
         sig { returns(String) }
         attr_reader :id
+        # Metadata associated with the FinancialAccount
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         attr_reader :object
@@ -52,6 +62,9 @@ module Stripe
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         sig { returns(String) }
         attr_reader :status
+        # Attribute for field status_details
+        sig { returns(T.nilable(StatusDetails)) }
+        attr_reader :status_details
         # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
         sig { returns(T.nilable(Storage)) }
         attr_reader :storage

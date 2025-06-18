@@ -44,7 +44,9 @@ module Stripe
       attr_reader :second
     end
 
-    class BillingModeDetails < Stripe::StripeObject
+    class BillingMode < Stripe::StripeObject
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_reader :type
       # Details on when the current billing_mode was adopted.
       attr_reader :updated_at
     end
@@ -1762,7 +1764,7 @@ module Stripe
       attr_accessor :application_fee_percent
       # Automatic tax settings for this subscription.
       attr_accessor :automatic_tax
-      # For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+      # A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
       attr_accessor :backdate_start_date
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
       attr_accessor :billing_cycle_anchor
@@ -1986,10 +1988,8 @@ module Stripe
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.
     attr_reader :billing_cycle_anchor_config
-    # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+    # The billing mode of the subscription.
     attr_reader :billing_mode
-    # Details about when the current billing_mode was updated.
-    attr_reader :billing_mode_details
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
     attr_reader :billing_thresholds
     # A date in the future at which the subscription will automatically get canceled

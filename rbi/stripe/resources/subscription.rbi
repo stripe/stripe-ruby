@@ -43,7 +43,10 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       attr_reader :second
     end
-    class BillingModeDetails < Stripe::StripeObject
+    class BillingMode < Stripe::StripeObject
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      sig { returns(String) }
+      attr_reader :type
       # Details on when the current billing_mode was adopted.
       sig { returns(Integer) }
       attr_reader :updated_at
@@ -313,12 +316,9 @@ module Stripe
     # The fixed values used to calculate the `billing_cycle_anchor`.
     sig { returns(T.nilable(BillingCycleAnchorConfig)) }
     attr_reader :billing_cycle_anchor_config
-    # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-    sig { returns(String) }
+    # The billing mode of the subscription.
+    sig { returns(BillingMode) }
     attr_reader :billing_mode
-    # Details about when the current billing_mode was updated.
-    sig { returns(T.nilable(BillingModeDetails)) }
-    attr_reader :billing_mode_details
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
     sig { returns(T.nilable(BillingThresholds)) }
     attr_reader :billing_thresholds
@@ -2064,7 +2064,7 @@ module Stripe
       # Automatic tax settings for this subscription.
       sig { returns(T.nilable(::Stripe::Subscription::CreateParams::AutomaticTax)) }
       attr_accessor :automatic_tax
-      # For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+      # A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
       sig { returns(T.nilable(Integer)) }
       attr_accessor :backdate_start_date
       # A future timestamp in UTC format to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.

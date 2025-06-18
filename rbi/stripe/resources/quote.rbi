@@ -363,6 +363,11 @@ module Stripe
         sig { returns(T.nilable(BillUntil)) }
         attr_reader :bill_until
       end
+      class BillingMode < Stripe::StripeObject
+        # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        sig { returns(String) }
+        attr_reader :type
+      end
       class Prebilling < Stripe::StripeObject
         # Attribute for field iterations
         sig { returns(Integer) }
@@ -377,8 +382,8 @@ module Stripe
       # Whether the subscription will always start a new billing period when the quote is accepted.
       sig { returns(T.nilable(String)) }
       attr_reader :billing_cycle_anchor
-      # The [billing mode](/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
-      sig { returns(String) }
+      # The billing mode of the quote.
+      sig { returns(BillingMode) }
       attr_reader :billing_mode
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       sig { returns(T.nilable(String)) }

@@ -788,9 +788,15 @@ module Stripe
           # The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
           sig { returns(Integer) }
           attr_reader :monthly_anchor
+          # The days of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
+          sig { returns(T::Array[Integer]) }
+          attr_reader :monthly_payout_days
           # The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
           sig { returns(String) }
           attr_reader :weekly_anchor
+          # The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
+          sig { returns(T::Array[String]) }
+          attr_reader :weekly_payout_days
         end
         # A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
         sig { returns(T::Boolean) }
@@ -2917,17 +2923,25 @@ module Stripe
             # The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :monthly_anchor
+            # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :monthly_payout_days
             # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
             sig { returns(T.nilable(String)) }
             attr_accessor :weekly_anchor
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            sig { returns(T.nilable(T::Array[String])) }
+            attr_accessor :weekly_payout_days
             sig {
-              params(delay_days: T.nilable(T.any(String, Integer)), interval: T.nilable(String), monthly_anchor: T.nilable(Integer), weekly_anchor: T.nilable(String)).void
+              params(delay_days: T.nilable(T.any(String, Integer)), interval: T.nilable(String), monthly_anchor: T.nilable(Integer), monthly_payout_days: T.nilable(T::Array[Integer]), weekly_anchor: T.nilable(String), weekly_payout_days: T.nilable(T::Array[String])).void
              }
             def initialize(
               delay_days: nil,
               interval: nil,
               monthly_anchor: nil,
-              weekly_anchor: nil
+              monthly_payout_days: nil,
+              weekly_anchor: nil,
+              weekly_payout_days: nil
             ); end
           end
           # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).
@@ -5197,17 +5211,25 @@ module Stripe
             # The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
             sig { returns(T.nilable(Integer)) }
             attr_accessor :monthly_anchor
+            # The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
+            sig { returns(T.nilable(T::Array[Integer])) }
+            attr_accessor :monthly_payout_days
             # The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
             sig { returns(T.nilable(String)) }
             attr_accessor :weekly_anchor
+            # The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+            sig { returns(T.nilable(T::Array[String])) }
+            attr_accessor :weekly_payout_days
             sig {
-              params(delay_days: T.nilable(T.any(String, Integer)), interval: T.nilable(String), monthly_anchor: T.nilable(Integer), weekly_anchor: T.nilable(String)).void
+              params(delay_days: T.nilable(T.any(String, Integer)), interval: T.nilable(String), monthly_anchor: T.nilable(Integer), monthly_payout_days: T.nilable(T::Array[Integer]), weekly_anchor: T.nilable(String), weekly_payout_days: T.nilable(T::Array[String])).void
              }
             def initialize(
               delay_days: nil,
               interval: nil,
               monthly_anchor: nil,
-              weekly_anchor: nil
+              monthly_payout_days: nil,
+              weekly_anchor: nil,
+              weekly_payout_days: nil
             ); end
           end
           # A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](/connect/account-balances).

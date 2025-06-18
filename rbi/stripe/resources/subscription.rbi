@@ -451,7 +451,7 @@ module Stripe
     # Settings related to subscription trials.
     sig { returns(T.nilable(TrialSettings)) }
     attr_reader :trial_settings
-    # If the subscription has a trial, the beginning of that trial. For subsequent trials, this date remains as the start of the first ever trial on the subscription.
+    # If the subscription has a trial, the beginning of that trial.
     sig { returns(T.nilable(Integer)) }
     attr_reader :trial_start
     class CancelParams < Stripe::RequestParams

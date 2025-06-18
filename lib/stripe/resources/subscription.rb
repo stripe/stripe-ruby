@@ -2080,7 +2080,7 @@ module Stripe
     attr_reader :trial_end
     # Settings related to subscription trials.
     attr_reader :trial_settings
-    # If the subscription has a trial, the beginning of that trial. For subsequent trials, this date remains as the start of the first ever trial on the subscription.
+    # If the subscription has a trial, the beginning of that trial.
     attr_reader :trial_start
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).

@@ -134,7 +134,7 @@ module Stripe
               sig { returns(Integer) }
               attr_reader :amount_eligible
             end
-            # Enable customer initiated cancellation when processing this payment.
+            # Enable customer-initiated cancellation when processing this payment.
             sig { returns(T::Boolean) }
             attr_reader :enable_customer_cancellation
             # Override showing a tipping selection screen on this transaction.
@@ -163,7 +163,7 @@ module Stripe
         end
         class ConfirmPaymentIntent < Stripe::StripeObject
           class ConfirmConfig < Stripe::StripeObject
-            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             sig { returns(String) }
             attr_reader :return_url
           end
@@ -184,10 +184,10 @@ module Stripe
               sig { returns(Integer) }
               attr_reader :amount_eligible
             end
-            # Enable customer initiated cancellation when processing this payment.
+            # Enable customer-initiated cancellation when processing this payment.
             sig { returns(T::Boolean) }
             attr_reader :enable_customer_cancellation
-            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             sig { returns(String) }
             attr_reader :return_url
             # Override showing a tipping selection screen on this transaction.
@@ -209,7 +209,7 @@ module Stripe
         end
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
-            # Enable customer initiated cancellation when processing this SetupIntent.
+            # Enable customer-initiated cancellation when processing this SetupIntent.
             sig { returns(T::Boolean) }
             attr_reader :enable_customer_cancellation
           end
@@ -225,7 +225,7 @@ module Stripe
         end
         class RefundPayment < Stripe::StripeObject
           class RefundPaymentConfig < Stripe::StripeObject
-            # Enable customer initiated cancellation when refunding this payment.
+            # Enable customer-initiated cancellation when refunding this payment.
             sig { returns(T::Boolean) }
             attr_reader :enable_customer_cancellation
           end
@@ -591,7 +591,7 @@ module Stripe
             tipping: nil
           ); end
         end
-        # Configuration overrides
+        # Configuration overrides.
         sig {
           returns(T.nilable(::Stripe::Terminal::Reader::CollectPaymentMethodParams::CollectConfig))
          }
@@ -599,7 +599,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         sig { returns(String) }
         attr_accessor :payment_intent
         sig {
@@ -615,7 +615,7 @@ module Stripe
           sig { params(return_url: T.nilable(String)).void }
           def initialize(return_url: nil); end
         end
-        # Configuration overrides
+        # Configuration overrides.
         sig {
           returns(T.nilable(::Stripe::Terminal::Reader::ConfirmPaymentIntentParams::ConfirmConfig))
          }
@@ -623,7 +623,7 @@ module Stripe
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         sig { returns(String) }
         attr_accessor :payment_intent
         sig {

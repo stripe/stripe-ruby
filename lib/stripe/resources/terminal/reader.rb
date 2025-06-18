@@ -118,7 +118,7 @@ module Stripe
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
             end
-            # Enable customer initiated cancellation when processing this payment.
+            # Enable customer-initiated cancellation when processing this payment.
             attr_reader :enable_customer_cancellation
             # Override showing a tipping selection screen on this transaction.
             attr_reader :skip_tipping
@@ -141,7 +141,7 @@ module Stripe
 
         class ConfirmPaymentIntent < Stripe::StripeObject
           class ConfirmConfig < Stripe::StripeObject
-            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             attr_reader :return_url
           end
           # Account the payment intent belongs to.
@@ -158,9 +158,9 @@ module Stripe
               # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
               attr_reader :amount_eligible
             end
-            # Enable customer initiated cancellation when processing this payment.
+            # Enable customer-initiated cancellation when processing this payment.
             attr_reader :enable_customer_cancellation
-            # If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
             attr_reader :return_url
             # Override showing a tipping selection screen on this transaction.
             attr_reader :skip_tipping
@@ -177,7 +177,7 @@ module Stripe
 
         class ProcessSetupIntent < Stripe::StripeObject
           class ProcessConfig < Stripe::StripeObject
-            # Enable customer initiated cancellation when processing this SetupIntent.
+            # Enable customer-initiated cancellation when processing this SetupIntent.
             attr_reader :enable_customer_cancellation
           end
           # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
@@ -190,7 +190,7 @@ module Stripe
 
         class RefundPayment < Stripe::StripeObject
           class RefundPaymentConfig < Stripe::StripeObject
-            # Enable customer initiated cancellation when refunding this payment.
+            # Enable customer-initiated cancellation when refunding this payment.
             attr_reader :enable_customer_cancellation
           end
           # Account the payment intent belongs to.
@@ -476,11 +476,11 @@ module Stripe
             @tipping = tipping
           end
         end
-        # Configuration overrides
+        # Configuration overrides.
         attr_accessor :collect_config
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         attr_accessor :payment_intent
 
         def initialize(collect_config: nil, expand: nil, payment_intent: nil)
@@ -499,11 +499,11 @@ module Stripe
             @return_url = return_url
           end
         end
-        # Configuration overrides
+        # Configuration overrides.
         attr_accessor :confirm_config
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
-        # PaymentIntent ID
+        # PaymentIntent ID.
         attr_accessor :payment_intent
 
         def initialize(confirm_config: nil, expand: nil, payment_intent: nil)
